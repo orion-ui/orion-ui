@@ -1,0 +1,95 @@
+@import '../../Shared/styles/variables.less';
+@import '../../Shared/styles/mixins.less';
+
+.orion-nav-main {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 16rem;
+	top: calc(175rem / 16);
+	z-index: 11;
+
+	@media @desktop {
+		top: 16rem;
+	}
+
+	hr {
+		border-image: linear-gradient(
+				to right,
+				rgba(var(--rgb-grey), 0.4),
+				rgba(var(--rgb-grey), 0)
+			)
+			1;
+		margin: 0;
+		padding-left: var(--fluid-45px);
+		font-size: 1.125rem;
+		line-height: 1.4;
+		font-weight: 300;
+		color: rgba(var(--rgb-grey-dark), 0.7);
+
+		[data-orion-theme='dark'] & {
+			border-image: linear-gradient(
+					to right,
+					rgba(var(--rgb-grey), 0.6),
+					rgba(var(--rgb-grey-lighter), 0)
+				)
+				1;
+		}
+
+		@media @phone {
+			font-size: 1rem;
+			line-height: 1.25;
+			margin: 1.25rem auto;
+		}
+	}
+
+	&__wrapper,
+	&__children {
+		position: absolute;
+		width: 100%;
+		top: 0;
+		bottom: 0;
+		overflow-y: auto;
+		overflow-x: hidden;
+	}
+
+	&__wrapper {
+		bottom: calc(80rem / 16);
+	}
+
+	&__children {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+
+	&__logo {
+		position: absolute;
+		bottom: 1rem;
+		left: 20%;
+		display: block;
+		width: 60%;
+		max-height: 4rem;
+		object-fit: contain;
+	}
+
+	&--aside {
+		position: relative;
+		top: unset;
+		bottom: unset;
+		right: unset;
+		left: unset;
+		width: auto;
+		margin-top: var(--fluid-15px);
+		margin-left: calc(var(--fluid-20px) * -1);
+
+		.orion-nav-main__wrapper,
+		.orion-nav-main__children {
+			position: relative;
+			top: unset;
+			bottom: unset;
+			right: unset;
+			left: unset;
+		}
+	}
+}

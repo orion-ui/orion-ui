@@ -1,0 +1,112 @@
+@import '../../Shared/styles/variables.less';
+@import '../../Shared/styles/mixins.less';
+
+.orion-tab-nav {
+	transition: color 0.3s, border-color 0.3s;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex: 1 0 0%;
+	padding: var(--fluid-20px) var(--fluid-10px);
+	border-bottom: 0.125rem solid var(--grey-light);
+	font-size: 0.8rem;
+	font-weight: bold;
+	line-height: 1.2;
+	text-align: center;
+	text-transform: uppercase;
+	color: var(--grey-dark);
+	cursor: pointer;
+
+	&-wrap {
+		display: flex;
+		align-items: stretch;
+		flex-wrap: wrap;
+	}
+
+	&__icon {
+		font-size: 1rem;
+		pointer-events: none;
+
+		+ .orion-tab-nav__label {
+			margin-left: 0.5rem;
+		}
+	}
+
+	&__content {
+		position: relative;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	&__marker {
+		.marker();
+		top: 0;
+		right: 0;
+		transform: translate(100%, -75%);
+
+		&--number {
+			.markerNumber();
+		}
+	}
+
+	&:hover:not(.orion-tab-nav--active) {
+		color: var(--grey-darker);
+		border-color: var(--grey);
+	}
+
+	&--active {
+		border-right: none !important;
+		border-left: none !important;
+		border-color: var(--info);
+		color: var(--info);
+	}
+
+	&--disabled {
+		cursor: not-allowed;
+
+		.orion-tab-nav__label,
+		.orion-tab-nav__marker,
+		.orion-tab-nav__icon {
+			opacity: 0.5;
+		}
+	}
+
+	@media @phone {
+		align-items: flex-start;
+		padding: var(--fluid-8px) 0.1875rem;
+
+		&-content {
+			flex-direction: column;
+			justify-content: flex-start;
+		}
+
+		&-label {
+			font-size: 0.5rem;
+			line-height: 1.5;
+		}
+
+		&-icon {
+			+ .orion-tab-nav__label {
+				margin-left: 0;
+				margin-top: 0.25rem;
+				font-size: 0.5rem;
+				line-height: 0.5rem;
+			}
+		}
+
+		&-marker {
+			transform: translate(100%, -50%);
+		}
+	}
+
+	@media @tabletOnly {
+		font-size: 0.75rem;
+		line-height: 1.25;
+		padding: var(--fluid-15px) var(--fluid-10px);
+	}
+
+	@media @desktopOnly {
+		padding: var(--fluid-15px);
+	}
+}

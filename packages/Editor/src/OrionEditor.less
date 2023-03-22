@@ -1,0 +1,67 @@
+@import '../../Shared/styles/variables.less';
+@import '../../Shared/styles/mixins.less';
+
+.orion-editor {
+	transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+	margin: 0.5rem 0;
+	background: white;
+	border-radius: 0.25rem;
+	border: 0.0625rem solid var(--grey-light);
+	padding: var(--fluid-10px);
+
+	&__toolbar {
+		display: flex;
+		flex-wrap: wrap;
+		margin-bottom: 0.5rem;
+
+		> * {
+			margin: 0.125rem;
+		}
+
+		.orion-button {
+			padding: var(--fluid-5px) var(--fluid-12px);
+			box-shadow: none;
+			border: 0.0625rem solid rgba(var(--grey-light), 0.7);
+
+			&.active {
+				border-color: var(--info);
+			}
+		}
+
+		img {
+			display: block;
+			width: 0.8rem;
+		}
+	}
+
+	&__content {
+		padding: var(--fluid-5px);
+
+		.ProseMirror {
+			&-focused {
+				border: none;
+				outline: none;
+			}
+
+			> p:last-child {
+				margin-bottom: 0;
+			}
+
+			img {
+				max-width: 100%;
+			}
+		}
+	}
+
+	&--error {
+		border-color: var(--danger);
+	}
+
+	&--success {
+		border-color: var(--success);
+	}
+
+	&--focused {
+		border-color: var(--info);
+	}
+}

@@ -1,0 +1,16 @@
+@import '../../Shared/styles/variables.less';
+@import '../../Shared/styles/mixins.less';
+
+.orion-tab-pane {
+	padding: var(--fluid-30px);
+
+	@media @phone {
+		padding: var(--fluid-10px) var(--fluid-15px);
+		font-size: 0.75rem;
+	}
+
+	@media @tabletOnly {
+		padding: var(--fluid-15px) var(--fluid-18px);
+		font-size: 0.8rem;
+	}
+}

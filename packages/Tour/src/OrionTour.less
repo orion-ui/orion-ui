@@ -1,0 +1,126 @@
+@import '../../Shared/styles/variables.less';
+@import '../../Shared/styles/mixins.less';
+
+.orion-tour-overlay {
+	position: fixed;
+	z-index: 300;
+	background: rgba(var(--rgb-grey-darker), 0.7);
+}
+
+.orion-tour-step-highlighter {
+	position: absolute;
+	border-radius: 0.25rem;
+	z-index: 90000;
+	border: 0.125rem solid var(--grey-darker);
+	pointer-events: none;
+}
+
+.orion-tour-tooltip {
+	position: fixed;
+	z-index: 99999;
+	background: white;
+	border-radius: 0.25rem;
+	padding: var(--fluid-15px);
+
+	[data-orion-theme='dark'] & {
+		background: var(--grey-light);
+	}
+
+	&__arrow {
+		content: '';
+		display: block;
+		width: 0;
+		height: 0;
+		border-style: solid;
+		border-width: 0 0.25rem 0.25rem 0.25rem;
+		border-color: transparent transparent white transparent;
+		position: absolute;
+
+		[data-orion-theme='dark'] & {
+			border-color: transparent transparent var(--grey-light) transparent;
+		}
+	}
+
+	&__close {
+		position: absolute;
+		right: 0.5rem;
+		top: 0.5rem;
+		.close(1.125rem);
+	}
+
+	&__title {
+		color: var(--grey-darker);
+		font-weight: 600;
+		padding-right: var(--fluid-15px);
+		font-size: 1rem;
+
+		+ .orion-tour-tooltip__body {
+			margin-top: 0.5rem;
+		}
+	}
+
+	&--sm {
+		min-width: 260px;
+		max-width: 260px;
+	}
+
+	&--md {
+		min-width: 260px;
+		max-width: 320px;
+	}
+
+	&--lg {
+		min-width: 320px;
+		max-width: 500px;
+	}
+
+	&__body {
+		overflow-y: auto;
+		max-height: 250px;
+
+		&--sm {
+			max-height: 200px;
+		}
+
+		&--lg {
+			max-height: 500px;
+		}
+
+		@media @phone {
+			max-height: 200px;
+		}
+	}
+
+	&__counter {
+		color: var(--grey);
+		font-weight: 800;
+		margin-right: 0.5rem;
+		min-width: 2.5rem;
+	}
+
+	&__footer {
+		.flex-align(center, space-between);
+		margin-top: 1rem;
+		border-top: 0.0625rem solid;
+		border-image: linear-gradient(
+				to right,
+				rgba(var(--rgb-grey-light), 0),
+				var(--grey-light)
+			)
+			1;
+		padding-top: var(--fluid-15px);
+		justify-content: space-between;
+
+		&--sm {
+			flex-wrap: wrap;
+			justify-content: space-between;
+			gap: 0.25rem;
+		}
+	}
+
+	&__actions {
+		display: flex;
+		align-items: center;
+		gap: 0.25rem;
+	}
+}

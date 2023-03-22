@@ -1,0 +1,214 @@
+@import '../../Shared/styles/variables.less';
+@import '../../Shared/styles/mixins.less';
+
+.orion-toggle {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	flex-direction: row-reverse;
+	margin: 0;
+	cursor: pointer;
+
+	&__label {
+		-webkit-user-select: none;
+		user-select: none;
+		cursor: pointer;
+		text-transform: uppercase;
+		font-weight: 600;
+		font-size: 0.75rem;
+
+		.orion-toggle--required & {
+			padding-right: 0.375rem;
+			&::after {
+				content: '*';
+				position: absolute;
+				top: 0;
+				z-index: 1;
+				color: var(--danger);
+			}
+		}
+
+		.orion-toggle--xs & {
+			padding-left: var(--fluid-5px);
+			font-size: 0.7rem;
+		}
+
+		.orion-toggle--sm & {
+			padding-left: var(--fluid-8px);
+		}
+
+		.orion-toggle--lg & {
+			font-size: 0.85rem;
+		}
+
+		.orion-toggle--xl & {
+			font-size: 0.85rem;
+		}
+
+		.orion-toggle--reverse & {
+			padding-left: 0;
+			padding-right: var(--fluid-10px);
+		}
+
+		.orion-toggle--disabled & {
+			color: var(--grey);
+			cursor: not-allowed;
+		}
+	}
+
+	&__input {
+		display: none;
+	}
+
+	&__core {
+		transition: border-color 0.3s, background-color 0.3s;
+		display: block;
+		position: relative;
+		box-sizing: border-box;
+		outline: 0;
+		margin: 0;
+		margin-right: 0.5rem;
+		background-color: var(--grey-light);
+		user-select: none;
+
+		.orion-toggle--xs & {
+			margin-right: 0.25rem;
+		}
+
+		.orion-toggle--sm & {
+			margin-right: 0.5rem;
+		}
+
+		[class*='--reverse'] > & {
+			margin-right: 0;
+			margin-left: 0.5rem;
+		}
+
+		[data-orion-theme='dark'] & {
+			background: var(--grey);
+		}
+
+		&-button {
+			transition: transform 0.5s;
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 2;
+			overflow: hidden;
+			border-radius: 100%;
+			background: white;
+
+			[data-orion-theme='dark'] & {
+				background: var(--grey-lighter);
+			}
+
+			&::before,
+			&::after {
+				transition: transform 0.5s;
+				transform-origin: center center;
+				content: '';
+				display: block;
+				position: absolute;
+				background: var(--grey);
+				top: calc(50% - 0.0625rem);
+				left: calc(50% - 0.375rem);
+				width: 0.75rem;
+				height: 0.125rem;
+				border-radius: 0.125rem;
+
+				.orion-toggle--xs & {
+					width: 0.5rem;
+					height: 0.0625rem;
+					top: calc(50% - 0.03125rem);
+					left: calc(50% - 0.25rem);
+				}
+
+				.orion-toggle--sm & {
+					width: 0.5rem;
+					height: 0.09375rem;
+					top: calc(50% - 0.046875rem);
+					left: calc(50% - 0.3125rem);
+				}
+			}
+
+			&::before {
+				transform: rotate(45deg);
+			}
+
+			&::after {
+				transform: rotate(-45deg);
+			}
+
+			.orion-toggle--checked & {
+				&::before {
+					transform: rotate(130deg) scale3d(1.1, 1, 1)
+						translate3d(-0.0625rem, -0.125rem, 0);
+				}
+
+				&::after {
+					transform: rotate(-135deg) scale3d(0.65, 1, 1)
+						translate3d(0.0625rem, -0.25rem, 0);
+				}
+			}
+
+			.orion-toggle--xs.orion-toggle--checked & {
+				&::before {
+					transform: rotate(130deg) scale3d(1.1, 1, 1)
+						translate3d(-0.0625rem, -0.0625rem, 0);
+				}
+
+				&::after {
+					transform: rotate(-135deg) scale3d(0.65, 1, 1)
+						translate3d(0.0625rem, -0.1875rem, 0);
+				}
+			}
+		}
+
+		.orion-toggle--disabled & {
+			opacity: 0.5;
+		}
+	}
+
+	&--reverse {
+		flex-direction: row;
+	}
+
+	&--inline {
+		display: inline-flex;
+	}
+
+	&--checked {
+		each(@colors, {
+			@color: ~"--@{value}";
+      &.orion-toggle--@{value} {
+        > .orion-toggle__core,
+        > .orion-toggle__core > .orion-toggle__core-button::before,
+        > .orion-toggle__core > .orion-toggle__core-button::after {
+          background: var(@color);
+        }
+      }
+    });
+
+		&.orion-toggle--default {
+			> .orion-toggle__core,
+			> .orion-toggle__core > .orion-toggle__core-button::before,
+			> .orion-toggle__core > .orion-toggle__core-button::after {
+				background: var(--info);
+			}
+		}
+
+		&.orion-toggle--inverse {
+			> .orion-toggle__core,
+			> .orion-toggle__core > .orion-toggle__core-button::before,
+			> .orion-toggle__core > .orion-toggle__core-button::after {
+				background: var(--inverse);
+			}
+		}
+	}
+
+	&--disabled {
+		cursor: not-allowed;
+	}
+}

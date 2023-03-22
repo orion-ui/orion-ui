@@ -1,0 +1,167 @@
+[data-orion-theme='light'],
+[data-orion-theme='dark'] {
+	// #region Font
+	--font-family: 'Source Sans Pro', sans-serif;
+	--font-title: 'Source Sans Pro', sans-serif;
+	--font-paragraph: 'Source Sans Pro', sans-serif;
+
+	--size-default: 0.875rem;
+
+	--font-weight-default: 400;
+	--font-weight-title: 700;
+	--font-weight-page-title: 700;
+	--font-weight-page-subtitle: 300;
+	--font-weight-section-title: 600;
+	--font-weight-section-subtitle: 300;
+	// #endregion
+
+	// #region Border-radius
+	--radius-card: 0.5rem;
+	--radius-sticker: 0.5rem;
+	--radius-popover: 0.5rem;
+
+	--radius-btn: 0.25rem;
+	--radius-label: 0.25rem;
+	--radius-alert: 0.25rem;
+	--radius-notif: 0.25rem;
+	--radius-aside: 1.25rem;
+	--radius-modal: 1.25rem;
+	--radius-input-range: 0.5rem;
+	--radius-input: 0.25rem;
+	--radius-upload: 0.25rem;
+	// #endregion
+
+	// #region Color
+	--rgb-grey-darker: 56, 61, 71;
+	--rgb-grey-dark: 113, 122, 142;
+	--rgb-grey: 183, 188, 198;
+	--rgb-grey-light: 220, 223, 230;
+	--rgb-grey-lighter: 246, 247, 249;
+
+	--rgb-brand: 112, 39, 250;
+	--rgb-brand-light: 242, 233, 255;
+	--rgb-brand-dark: 83, 5, 228;
+	--rgb-brand-alt: 163, 64, 205;
+
+	--rgb-success: 0, 214, 118;
+	--rgb-success-light: 225, 255, 242;
+	--rgb-success-dark: 4, 170, 94;
+	--rgb-success-alt: 185, 213, 4;
+
+	--rgb-info: 0, 120, 255;
+	--rgb-info-light: 229, 241, 255;
+	--rgb-info-dark: 1, 94, 204;
+	--rgb-info-alt: 0, 230, 244;
+
+	--rgb-warning: 253, 151, 73;
+	--rgb-warning-light: 255, 233, 219;
+	--rgb-warning-dark: 252, 114, 11;
+	--rgb-warning-alt: 254, 203, 3;
+
+	--rgb-danger: 247, 53, 104;
+	--rgb-danger-light: 253, 215, 225;
+	--rgb-danger-dark: 230, 10, 69;
+	--rgb-danger-alt: 240, 25, 72;
+
+	--rgb-pink: 247, 149, 237;
+	--rgb-pink-light: 253, 234, 251;
+	--rgb-pink-dark: 242, 77, 225;
+	--rgb-pink-alt: 255, 0, 128;
+
+	--grey-darker: rgb(var(--rgb-grey-darker));
+	--grey-dark: rgb(var(--rgb-grey-dark));
+	--grey: rgb(var(--rgb-grey));
+	--grey-light: rgb(var(--rgb-grey-light));
+	--grey-lighter: rgb(var(--rgb-grey-lighter));
+
+	--inverse: var(--grey-darker);
+
+	--brand: rgb(var(--rgb-brand));
+	--brand-light: rgb(var(--rgb-brand-light));
+	--brand-dark: rgb(var(--rgb-brand-dark));
+	--brand-alt: rgb(var(--rgb-brand-alt));
+
+	--info: rgb(var(--rgb-info));
+	--info-light: rgb(var(--rgb-info-light));
+	--info-dark: rgb(var(--rgb-info-dark));
+	--info-alt: rgb(var(--rgb-info-alt));
+
+	--success: rgb(var(--rgb-success));
+	--success-light: rgb(var(--rgb-success-light));
+	--success-dark: rgb(var(--rgb-success-dark));
+	--success-alt: rgb(var(--rgb-success-alt));
+
+	--warning: rgb(var(--rgb-warning));
+	--warning-light: rgb(var(--rgb-warning-light));
+	--warning-dark: rgb(var(--rgb-warning-dark));
+	--warning-alt: rgb(var(--rgb-warning-alt));
+
+	--danger: rgb(var(--rgb-danger));
+	--danger-light: rgb(var(--rgb-danger-light));
+	--danger-dark: rgb(var(--rgb-danger-dark));
+	--danger-alt: rgb(var(--rgb-danger-alt));
+
+	--pink: rgb(var(--rgb-pink));
+	--pink-light: rgb(var(--rgb-pink-light));
+	--pink-dark: rgb(var(--rgb-pink-dark));
+	--pink-alt: rgb(var(--rgb-pink-alt));
+	// #endregion
+
+	// #region Fluid sizes
+	--fluid-5px: calc(3px + 0.125rem);
+	--fluid-8px: calc(5px + 0.1875rem);
+	--fluid-10px: calc(5px + 0.3125rem);
+	--fluid-12px: calc(8px + 0.25rem);
+	--fluid-15px: calc(10px + 0.3rem);
+	--fluid-18px: calc(10px + 0.5rem);
+	--fluid-20px: calc(12px + 0.5rem);
+	--fluid-25px: calc(13px + 0.75rem);
+	--fluid-30px: calc(14px + 1rem);
+	--fluid-35px: calc(19px + 1rem);
+	--fluid-40px: calc(24px + 1rem);
+	--fluid-45px: calc(25px + 1.25rem);
+	--fluid-60px: calc(36px + 1.5rem);
+	// #endregion
+
+	// #region Spaces
+	--space-xs: 0.75rem; // 12px
+	--space-sm: 1.25rem; // 20px
+	--space-md: 2rem; // 32px
+	--space-lg: 3rem; // 48px
+	--space-xl: 4rem; // 64px
+	// #endregion
+}
+
+[data-orion-theme='dark'] {
+	--rgb-grey-darker: 235, 235, 235; // become the most lighter
+	--rgb-grey-dark: 173, 173, 175;
+	--rgb-grey: 71, 71, 77;
+	--rgb-grey-light: 42, 44, 47;
+	--rgb-grey-lighter: 26, 28, 32; // become the most darker
+
+	--inverse: white;
+
+	--rgb-brand: 156, 105, 252;
+	--rgb-brand-light: 199, 169, 253;
+	--rgb-brand-dark: 21, 1, 57;
+
+	--rgb-success: 49, 253, 162;
+	--rgb-success-light: 137, 254, 201;
+	--rgb-success-dark: 0, 42, 23;
+
+	--rgb-info: 76, 160, 255;
+	--rgb-info-light: 153, 201, 255;
+	--rgb-info-dark: 0, 24, 51;
+
+	--rgb-warning: 254, 182, 128;
+	--rgb-warning-light: 254, 213, 182;
+	--rgb-warning-dark: 64, 28, 1;
+
+	--rgb-danger: 247, 94, 135;
+	--rgb-danger-light: 250, 135, 165;
+	--rgb-danger-dark: 58, 2, 17;
+
+	--rgb-pink: 250, 182, 243;
+	--rgb-pink-light: 252, 213, 248;
+	--rgb-pink-dark: 74, 6, 67;
+}

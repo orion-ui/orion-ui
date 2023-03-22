@@ -1,0 +1,18 @@
+/**
+ * Auto generated file using cli command
+ * _> node cli.cjs
+ * Then select 'routes' option
+ * Manual changes will be overwritten
+ */
+
+const packagesRoutes = [
+	{
+		path: '/packages',
+		component: () => import('sandbox/views/LayoutPackages.vue'),
+		children: [
+			{routes}
+		],
+	},
+];
+
+export default packagesRoutes;

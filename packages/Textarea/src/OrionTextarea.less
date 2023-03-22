@@ -1,0 +1,38 @@
+@import '../../Shared/styles/variables.less';
+@import '../../Shared/styles/mixins.less';
+@import '../../Input/src/OrionInput';
+
+.orion-textarea {
+	height: auto;
+
+	.orion-input__input {
+		height: auto;
+		min-height: 4rem;
+		line-height: 1.25rem;
+		padding-top: var(--fluid-10px);
+		padding-bottom: var(--fluid-10px);
+	}
+
+	&-max-length {
+		.orion-input__input {
+			padding-bottom: var(--fluid-15px);
+		}
+	}
+
+	.orion-input__pictos {
+		bottom: auto;
+		top: 0.7rem;
+	}
+
+	.orion-input__textarea-counter {
+		position: absolute;
+		bottom: 0.4rem;
+		right: 0.4rem;
+		color: var(--grey);
+		font-size: 0.75rem;
+
+		[data-orion-theme='dark'] & {
+			color: rgba(var(--rgb-grey-dark), 0.5);
+		}
+	}
+}

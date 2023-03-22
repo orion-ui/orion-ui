@@ -1,0 +1,24 @@
+/**
+ * Auto generated file using cli command
+ * _> node cli.cjs
+ * Then select 'packages' option
+ * Manual changes will be overwritten
+ */
+
+import { App, Plugin } from 'vue';
+
+{imports}
+
+
+const OrionComponentsPlugin: Plugin = {
+	install (app: App, prefix: string) {
+		{plugins}
+	},
+};
+
+
+export default OrionComponentsPlugin;
+
+export { OrionComponentsPlugin };
+
+{exports}

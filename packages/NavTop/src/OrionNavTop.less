@@ -1,0 +1,117 @@
+@import '../../Shared/styles/variables.less';
+@import '../../Shared/styles/mixins.less';
+
+.orion-nav-top {
+	transition: background 0.3s, backdrop-filter 0.3s, height 0.3s;
+	// background: rgba(var(--rgb-grey-lighter), 0.20);
+	// backdrop-filter: blur(2px);
+	// background: var(--grey-lighter);
+	position: fixed;
+	z-index: 11;
+	top: 0;
+	left: 0;
+	right: 0;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: var(--fluid-10px);
+
+	@media @tablet {
+		height: calc(90rem / 16);
+		padding: var(--fluid-15px) var(--fluid-30px) var(--fluid-15px)
+			var(--fluid-15px);
+	}
+
+	@media @desktop {
+		height: 10rem;
+		padding: var(--fluid-45px) var(--fluid-45px) var(--fluid-15px)
+			var(--fluid-45px);
+	}
+
+	> nav {
+		display: flex;
+		align-items: center;
+	}
+
+	&__slot-left {
+		font-size: 1rem;
+		font-weight: bold;
+
+		@media @tablet {
+			font-size: 1.5rem;
+		}
+
+		@media @desktop {
+			font-size: 2rem;
+		}
+	}
+
+	&__item {
+		transition: color 0.3s;
+		display: inline-flex;
+		align-items: center;
+		font-weight: bold;
+		text-transform: uppercase;
+		text-decoration: none;
+		color: var(--grey-darker);
+		cursor: pointer;
+
+		&-label {
+			display: none;
+
+			@media @tabletLandscape {
+				display: block;
+			}
+		}
+
+		&:hover {
+			color: var(--grey-dark);
+		}
+
+		+ .orion-nav-top__item {
+			margin-left: 2rem;
+		}
+
+		&.router-link-exact-active,
+		&.router-link-active:not(.orion-nav-top__item--root) {
+			color: var(--info);
+		}
+
+		.icon {
+			font-size: 1.25rem;
+			pointer-events: none;
+		}
+
+		@media @tablet {
+			+ .orion-nav-top__item {
+				margin-left: 2rem;
+			}
+		}
+
+		@media @tabletLandscape {
+			font-size: 0.75rem;
+
+			.icon {
+				margin-left: 0.5rem;
+			}
+		}
+
+		@media @desktop {
+			font-size: 0.8rem;
+
+			+ .orion-nav-top__item {
+				margin-left: 2.5rem;
+			}
+		}
+	}
+
+	&--overlay {
+		background: rgba(var(--rgb-grey-lighter), 0.9);
+		backdrop-filter: blur(2px);
+		height: 3rem;
+
+		@media @desktop {
+			padding: var(--fluid-15px) var(--fluid-45px);
+		}
+	}
+}

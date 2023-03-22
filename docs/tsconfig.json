@@ -1,0 +1,20 @@
+{
+  "extends": "../tsconfig",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["../*"],
+      "@utils/*": [".vuepress/utils/*"],
+      "@theme/*": [
+        "../node_modules/@vuepress/theme-default/lib/client/components/*"
+      ]
+    }
+  },
+  "exclude": ["node_modules"],
+  "include": [
+    ".vuepress/**/*",
+    "shims-doc.d.ts",
+    "shims-dep.d.ts",
+    "components/**/*"
+  ]
+}

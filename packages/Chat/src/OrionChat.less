@@ -1,0 +1,224 @@
+@import '../../Shared/styles/variables.less';
+@import '../../Shared/styles/mixins.less';
+
+.orion-chat {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	background: white;
+	height: 100%;
+
+	[data-orion-theme='dark'] & {
+		background: var(--grey-light);
+	}
+
+	&__header {
+		position: sticky;
+		top: 0;
+		z-index: 2;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		height: 4rem;
+		padding: var(--fluid-10px);
+		background: white;
+		border-bottom: 0.0625rem solid var(--grey-light);
+
+		[data-orion-theme='dark'] & {
+			background: var(--grey-light);
+			border-bottom: 0.0625rem solid var(--grey-light);
+		}
+	}
+
+	&__title {
+		display: flex;
+		align-items: center;
+		font-size: 1rem;
+		font-weight: 600;
+		overflow: hidden;
+	}
+
+	&__avatars {
+		display: flex;
+		margin-right: 0.5rem;
+
+		> .orion-avatar {
+			.circle(2.8125rem);
+			border: 0.125rem solid white;
+
+			[data-orion-theme='dark'] & {
+				background: var(--grey-light);
+			}
+
+			+ .orion-avatar {
+				margin-left: -1.25rem;
+			}
+		}
+	}
+
+	&__interlocutors {
+		.ellipsis();
+	}
+
+	&__actions {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+
+		.orion-icon {
+			font-size: 1.25rem;
+		}
+
+		.orion-input {
+			margin: 0;
+		}
+	}
+
+	&__content {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		overflow: auto;
+		padding: 0 0.3rem;
+
+		&-empty {
+			flex: 1 0 100%;
+			margin: auto;
+			text-align: center;
+
+			svg {
+				display: block;
+				margin: 2rem auto;
+			}
+		}
+	}
+
+	&__unread-top,
+	&__unread-bottom {
+		position: sticky;
+		z-index: 3;
+		left: 0;
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.3rem;
+		text-align: center;
+		background: white;
+		color: var(--info);
+		text-transform: uppercase;
+		font-weight: 600;
+		font-size: 0.75rem;
+
+		[data-orion-theme='dark'] & {
+			background: var(--grey-light);
+		}
+	}
+
+	&__unread-top {
+		top: 0;
+
+		.arrow {
+			.flex-align();
+			width: 1rem;
+			height: 1rem;
+			transform: rotate(-90deg);
+		}
+	}
+
+	&__unread-bottom {
+		bottom: 0;
+
+		.arrow {
+			.flex-align();
+			width: 1rem;
+			height: 1rem;
+			transform: rotate(90deg);
+		}
+	}
+
+	&__lazy-loader {
+		position: relative;
+		flex: 2.5rem 0 0;
+		margin-top: 0.5rem;
+	}
+
+	&__sections-wrapper {
+		flex: 1 0 100%;
+	}
+
+	&__section {
+		margin-top: 1.25rem;
+
+		& + & {
+			margin-top: 2.5rem;
+		}
+	}
+
+	&__section-title {
+		position: relative;
+		text-align: center;
+		font-size: 0.8rem;
+		font-weight: normal;
+		color: var(--grey-dark);
+		margin: 0 0 2.5rem;
+
+		> span {
+			position: relative;
+			display: inline-block;
+			padding: 0 var(--fluid-20px);
+			background: white;
+
+			[data-orion-theme='dark'] & {
+				background: var(--grey-light);
+			}
+		}
+
+		&::before {
+			content: '';
+			display: block;
+			position: absolute;
+			top: 50%;
+			width: 100%;
+			height: 0.0625rem;
+			background: linear-gradient(
+				to right,
+				rgba(var(--rgb-grey-light), 0),
+				var(--grey-light) 30%,
+				var(--grey-light) 70%,
+				rgba(var(--rgb-grey-light), 0)
+			);
+		}
+	}
+
+	&__footer {
+		background: white;
+		position: sticky;
+		bottom: 0;
+		padding: var(--fluid-10px);
+
+		[data-orion-theme='dark'] & {
+			background: var(--grey-light);
+		}
+	}
+
+	&__textarea.orion-textarea {
+		margin: 0;
+
+		textarea {
+			padding-right: var(--fluid-40px);
+		}
+
+		.orion-input__input {
+			min-height: 2.5rem;
+		}
+	}
+
+	&__send {
+		position: absolute;
+		top: calc(33rem / 16);
+		right: calc(23rem / 16);
+		color: var(--info);
+		font-size: 1.25rem;
+	}
+}

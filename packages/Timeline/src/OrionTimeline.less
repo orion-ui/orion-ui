@@ -1,0 +1,19 @@
+@import '../../Shared/styles/variables.less';
+@import '../../Shared/styles/mixins.less';
+
+.orion-timeline {
+	display: flex;
+
+	&__content {
+		position: relative;
+	}
+
+	&--horizontal {
+		flex-direction: column;
+		gap: 2rem;
+	}
+
+	&--vertical {
+		gap: 2rem;
+	}
+}

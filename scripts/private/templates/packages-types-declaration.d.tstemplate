@@ -1,0 +1,12 @@
+/**
+ * Auto generated file using cli command
+ * _> node cli.cjs
+ * Then select 'types' option
+ * Manual changes will be overwritten
+ */
+
+{imports}
+
+declare global {
+	{types}
+}

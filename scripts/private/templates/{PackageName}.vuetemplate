@@ -1,0 +1,9 @@
+<template>
+	<o-page title="{PackageName}">
+		<pre>{PackageName}</pre>
+	</o-page>
+</template>
+
+<script setup lang="ts">
+// {PackageName}
+</script>

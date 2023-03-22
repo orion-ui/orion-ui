@@ -1,0 +1,155 @@
+// @import (css) url('https://fonts.bunny.net/css?family=source-sans-pro:200,200i,300,300i,400,400i,600,600i,700,700i');
+@import (css)
+	url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;1,200;1,300;1,400;1,600;1,700&display=swap');
+
+@import './animations';
+@import './css-vars';
+@import './dependencies';
+@import './grid';
+@import './helpers';
+@import './reset';
+@import './tooltip';
+@import './transitions';
+
+:root {
+	color-scheme: light dark;
+}
+
+* {
+	box-sizing: border-box;
+	scrollbar-width: thin;
+	scrollbar-color: var(--grey) transparent;
+}
+
+*::-webkit-scrollbar {
+	width: 7px;
+	height: 7px;
+}
+
+*::-webkit-scrollbar-corner,
+*::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+	background-color: var(--grey);
+	border-radius: 20px;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+	background: var(--grey-lighter);
+}
+
+body {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-family: var(--font-family);
+	font-size: var(--size-default);
+	line-height: 1.5;
+	font-weight: var(--font-weight-default);
+	color: var(--grey-darker);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: var(--font-weight-title);
+	color: var(--grey-darker);
+	line-height: 1.2;
+	margin: 0 0 max(0.6em, 10px);
+}
+
+h1 {
+	font-size: 1.5rem;
+	@media @tablet {
+		font-size: 2rem;
+	}
+	@media @desktop {
+		font-size: 2.5rem;
+	}
+}
+
+h2 {
+	font-size: 1.25rem;
+	@media @tablet {
+		font-size: 1.5rem;
+	}
+	@media @desktop {
+		font-size: 2rem;
+	}
+}
+
+h3 {
+	font-size: 1rem;
+	@media @tablet {
+		font-size: 1.25rem;
+	}
+	@media @desktop {
+		font-size: 1.5rem;
+	}
+}
+
+h4 {
+	font-size: 0.85rem;
+	@media @tablet {
+		font-size: 1rem;
+	}
+	@media @desktop {
+		font-size: 1rem;
+	}
+}
+
+h5 {
+	font-size: 0.75rem;
+	@media @tablet {
+		font-size: 0.8rem;
+	}
+	@media @desktop {
+		font-size: 0.85rem;
+	}
+}
+
+h6 {
+	font-size: 0.5rem;
+	@media @tablet {
+		font-size: 0.7rem;
+	}
+	@media @desktop {
+		font-size: 0.75rem;
+	}
+}
+
+p {
+	margin: 0 0 0.5rem;
+}
+
+hr {
+	margin: 1rem auto;
+	border: 0;
+	border-bottom: 0.0625rem solid;
+	border-image: linear-gradient(
+			to right,
+			rgba(var(--rgb-grey-light), 0),
+			var(--grey-light)
+		)
+		1;
+
+	[data-orion-theme='dark'] & {
+		border-image: linear-gradient(
+				to right,
+				rgba(var(--rgb-grey-light), 0),
+				rgba(var(--rgb-grey-dark), 0.5)
+			)
+			1;
+	}
+
+	@media @desktop {
+		margin: 2rem auto;
+	}
+}

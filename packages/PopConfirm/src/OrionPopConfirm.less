@@ -1,0 +1,28 @@
+@import '../../Shared/styles/variables.less';
+@import '../../Shared/styles/mixins.less';
+
+.orion-pop-confirm {
+	position: relative;
+	display: inline-flex;
+	flex-direction: column;
+	align-items: center;
+
+	&__title {
+		display: flex;
+		align-items: center;
+		margin-bottom: 1.25rem;
+
+		.orion-icon {
+			color: var(--warning);
+			margin-right: 0.5rem;
+			font-size: 1.5rem;
+		}
+	}
+
+	&__actions {
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+		gap: 0.5rem;
+	}
+}

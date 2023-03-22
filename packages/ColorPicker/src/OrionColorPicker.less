@@ -1,0 +1,60 @@
+@import '../../Shared/styles/variables.less';
+@import '../../Shared/styles/mixins.less';
+
+@import (css) 'vue-color-kit/dist/vue-color-kit.css';
+
+.orion-color-picker {
+	&.hu-color-picker {
+		width: 220px !important;
+		box-shadow: none;
+		border: 0.0625rem solid var(--grey-light);
+
+		&.light {
+			background: white;
+
+			[data-orion-theme='dark'] & {
+				background: var(--grey);
+			}
+		}
+
+		.v-popper--theme-orion-editor-toolbar & {
+			border: none;
+		}
+
+		&.orion-color-picker--hide-hex {
+			> div:nth-child(3) {
+				display: none;
+			}
+		}
+
+		&.orion-color-picker--hide-rgba {
+			> div:nth-child(4) {
+				display: none;
+			}
+		}
+
+		.value {
+			[data-orion-theme='dark'] & {
+				background: var(--grey-light);
+			}
+		}
+
+		.name {
+			[data-orion-theme='dark'] & {
+				background: var(--grey-lighter);
+			}
+		}
+	}
+
+	ul.colors {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		margin-top: 0.5rem;
+
+		li.item {
+			margin: 0;
+			box-shadow: 0 0 0.0625rem fade(black, 50);
+		}
+	}
+}

@@ -1,0 +1,446 @@
+@import '../../Shared/styles/variables.less';
+@import '../../Shared/styles/mixins.less';
+
+.orion-card {
+	transition: box-shadow 0.3s, transform 0.3s;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	background: white;
+	border-radius: var(--radius-card);
+	box-shadow: 0 0.0625rem 0.1875rem fade(black, 10);
+	color: var(--grey-dark);
+
+	[data-orion-theme='dark'] & {
+		background: var(--grey-light);
+	}
+
+	img {
+		max-width: 100%;
+	}
+
+	&__poster {
+		border-radius: var(--radius-card) var(--radius-card) 0 0;
+		overflow: hidden;
+
+		> img {
+			display: block;
+			width: 100%;
+			object-fit: cover;
+		}
+	}
+
+	&__header {
+		.orion-card--xs & {
+			padding: var(--fluid-10px) var(--fluid-10px) 0;
+		}
+
+		.orion-card--sm & {
+			padding: var(--fluid-15px) var(--fluid-15px) 0;
+		}
+
+		.orion-card--md & {
+			padding: var(--fluid-20px) var(--fluid-20px) 0;
+		}
+
+		.orion-card--lg & {
+			padding: var(--fluid-30px) var(--fluid-30px) 0;
+		}
+
+		.orion-card--xl & {
+			padding: var(--fluid-45px) var(--fluid-45px) 0;
+		}
+
+		&--lined {
+			border: 0;
+			border-bottom: 0.0625rem solid;
+			border-image: linear-gradient(
+					to right,
+					rgba(var(--rgb-grey-light), 0),
+					var(--grey-light)
+				)
+				1;
+			[data-orion-theme='dark'] & {
+				border-image: linear-gradient(
+						to right,
+						rgba(var(--rgb-grey-light), 0),
+						rgba(var(--rgb-grey-dark), 0.3)
+					)
+					1;
+			}
+
+			.orion-card--xs & {
+				padding: var(--fluid-10px);
+			}
+
+			.orion-card--sm & {
+				padding: var(--fluid-15px);
+			}
+
+			.orion-card--md & {
+				padding: var(--fluid-20px);
+			}
+
+			.orion-card--lg & {
+				padding: var(--fluid-30px);
+			}
+
+			.orion-card--xl & {
+				padding: var(--fluid-45px);
+			}
+		}
+	}
+
+	&__body {
+		flex: 1 0 0%;
+
+		.orion-card--xs & {
+			padding: var(--fluid-10px);
+		}
+
+		.orion-card--sm & {
+			padding: var(--fluid-15px);
+		}
+
+		.orion-card--md & {
+			padding: var(--fluid-20px);
+		}
+
+		.orion-card--lg & {
+			padding: var(--fluid-30px);
+		}
+
+		.orion-card--xl & {
+			padding: var(--fluid-45px);
+		}
+
+		&:empty {
+			padding-top: 0;
+		}
+
+		> .orion-loader,
+		> .orion-overlay {
+			border-radius: var(--radius-card);
+		}
+	}
+
+	&__actions {
+		.flex-align();
+		position: relative;
+		flex-wrap: wrap-reverse;
+		color: var(--grey-dark);
+
+		&--right {
+			justify-content: flex-end;
+		}
+
+		.icon {
+			position: relative;
+			transition: color 0.3s;
+			margin: 0 0.5rem;
+			font-size: 1.25rem;
+
+			@media @phone {
+				margin: 0.5rem;
+				font-size: 1.5rem;
+			}
+
+			&__indicator {
+				.circle(0.5rem);
+				position: absolute;
+				bottom: 0;
+				background: var(--grey-dark);
+
+				&--info {
+					background: var(--info);
+				}
+
+				&--mobile {
+					.circle(1rem);
+					.flex-align();
+					left: -0.3rem;
+					bottom: -0.5rem;
+
+					&::after {
+						font-family: var(--font-family);
+						content: attr(data-count);
+						color: white;
+						font-size: 0.5rem;
+						font-weight: bold;
+					}
+				}
+			}
+
+			&:hover:not(.orion-icon--ripple) {
+				color: var(--info);
+			}
+		}
+
+		.orion-button {
+			margin: 0.5rem;
+		}
+
+		.orion-card--xs & {
+			padding: 0 var(--fluid-10px) var(--fluid-10px);
+		}
+
+		.orion-card--sm & {
+			padding: var(--fluid-5px) var(--fluid-10px) var(--fluid-20px);
+		}
+
+		.orion-card--md & {
+			padding: var(--fluid-10px) var(--fluid-15px) var(--fluid-30px);
+		}
+
+		.orion-card--lg & {
+			padding: var(--fluid-15px) var(--fluid-20px) var(--fluid-35px);
+		}
+
+		.orion-card--xl & {
+			padding: var(--fluid-20px) var(--fluid-25px) var(--fluid-45px);
+		}
+
+		&--lined {
+			border: 0;
+			border-top: 0.0625rem solid;
+			border-image: linear-gradient(
+					to right,
+					rgba(var(--rgb-grey-light), 0),
+					var(--grey-light)
+				)
+				1;
+
+			.orion-card--xl & {
+				padding: var(--fluid-10px);
+			}
+
+			.orion-card--xl & {
+				padding: var(--fluid-15px);
+			}
+
+			.orion-card--md & {
+				padding: var(--fluid-20px);
+			}
+
+			.orion-card--lg & {
+				padding: var(--fluid-20px) var(--fluid-30px);
+			}
+
+			.orion-card--xl & {
+				padding: var(--fluid-20px) var(--fluid-45px);
+			}
+		}
+	}
+
+	&__title {
+		margin: 0;
+		color: var(--grey-darker);
+		font-weight: 600;
+	}
+
+	&__selected {
+		transition: transform 0.3s;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		display: flex;
+		align-items: flex-end;
+		justify-content: flex-end;
+		pointer-events: none;
+		border-bottom-right-radius: var(--radius-card);
+		overflow: hidden;
+		transform-origin: bottom right;
+		transform: scale(0);
+
+		.orion-card--selected & {
+			transform: scale(1);
+		}
+
+		svg {
+			position: absolute;
+			bottom: 0;
+			right: 0;
+		}
+
+		svg.marker {
+			.square(5.625rem);
+
+			each(@colors, {
+				@color: ~"--@{value}";
+				.orion-card--selected-@{value} & {
+					fill: var(@color);
+				}
+			});
+
+			.orion-card--selected-default & {
+				fill: var(--grey);
+			}
+
+			.orion-card--selected-inverse & {
+				fill: var(--grey-darker);
+			}
+		}
+
+		svg.check {
+			transition: all 0.3s ease;
+			bottom: 0.3rem;
+			right: 0.3rem;
+			width: 0.75rem;
+			height: 0.5rem;
+			fill: none;
+			stroke: white;
+			stroke-width: 2;
+			stroke-linecap: round;
+			stroke-linejoin: round;
+			stroke-dasharray: 1rem;
+			stroke-dashoffset: 1rem;
+
+			.orion-card--selected & {
+				transition-delay: 0.3s;
+				stroke-dashoffset: 0;
+			}
+		}
+
+		&::after,
+		&::before {
+			content: '';
+			display: block;
+			position: absolute;
+			bottom: 0;
+			right: 0;
+		}
+
+		&::before {
+			top: 0.5rem;
+			width: 0.0625rem;
+
+			each(@colors, {
+				@rgbColor: ~"--rgb-@{value}";
+				.orion-card--selected-@{value} & {
+					background: linear-gradient(to bottom, rgba(var(@rgbColor), 0), rgb(var(@rgbColor)));
+				}
+			});
+
+			.orion-card--selected-default & {
+				background: linear-gradient(
+					to bottom,
+					rgba(var(--rgb-grey), 0),
+					rgb(var(--rgb-grey))
+				);
+			}
+
+			.orion-card--selected-inverse & {
+				background: linear-gradient(
+					to bottom,
+					rgba(var(--rgb-grey-darker), 0),
+					rgb(var(--rgb-grey-darker))
+				);
+			}
+		}
+
+		&::after {
+			left: 0.5rem;
+			height: 0.0625rem;
+
+			each(@colors, {
+				@rgbColor: ~"--rgb-@{value}";
+				.orion-card--selected-@{value} & {
+					background: linear-gradient(to right, rgba(var(@rgbColor), 0), rgb(var(@rgbColor)));
+				}
+			});
+
+			.orion-card--selected-default & {
+				background: linear-gradient(
+					to right,
+					rgba(var(--rgb-grey), 0),
+					rgb(var(--rgb-grey))
+				);
+			}
+
+			.orion-card--selected-inverse & {
+				background: linear-gradient(
+					to right,
+					rgba(var(--rgb-grey-darker), 0),
+					rgb(var(--rgb-grey-darker))
+				);
+			}
+		}
+
+		.icon {
+			position: absolute;
+			bottom: 0.3rem;
+			right: 0.3rem;
+			font-size: 0.5rem;
+			color: white !important;
+			margin: 0 !important;
+		}
+	}
+
+	body:not(.istouch) & {
+		&:not(.orion-card--no-elevation):hover {
+			z-index: 1;
+			transform: translate3d(0, -0.125rem, 0);
+			box-shadow: 0 0.125rem 0.125rem fade(black, 3),
+				0 0.25rem 0.25rem fade(black, 3), 0 0.5rem 0.5rem fade(black, 3),
+				0 1rem 1rem fade(black, 3), 0 2rem 2rem fade(black, 3);
+		}
+	}
+
+	&--clickable {
+		cursor: pointer;
+	}
+
+	&[class*='--gradient-'] {
+		color: white;
+		.orion-card__title {
+			color: white;
+		}
+	}
+
+	each(@colors, {
+		&--gradient-@{value} {
+			[data-orion-theme="light"] &,
+			[data-orion-theme="dark"] & {
+				@color: ~"--@{value}";
+				@colorAlt: ~"--@{value}-alt";
+				background: linear-gradient(
+					to bottom right,
+					var(@color),
+					var(@colorAlt)
+				);
+			}
+		}
+	});
+
+	&--gradient-default.orion-card {
+		color: var(--grey-darker);
+
+		.orion-card__title {
+			color: var(--grey-darker);
+		}
+
+		[data-orion-theme='light'] & {
+			background: linear-gradient(to bottom right, var(--grey-light), white);
+		}
+		[data-orion-theme='dark'] & {
+			background: linear-gradient(to bottom right, var(--grey-light), black);
+		}
+	}
+
+	&--gradient-inverse.orion-card {
+		color: var(--grey-lighter);
+
+		.orion-card__title {
+			color: var(--grey-lighter);
+		}
+
+		[data-orion-theme='light'] & {
+			background: linear-gradient(to bottom right, var(--grey-darker), black);
+		}
+		[data-orion-theme='dark'] & {
+			background: linear-gradient(to bottom right, var(--grey-darker), white);
+		}
+	}
+}

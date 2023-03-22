@@ -1,0 +1,331 @@
+@import '../../Shared/styles/variables.less';
+@import '../../Shared/styles/mixins.less';
+
+.icon-size(@size) {
+	.square(@size);
+	.flex-align();
+	font-size: @size;
+}
+
+.orion-button {
+	transition: box-shadow 0.3s, background 0.3s, opacity 0.3s, transform 0.3s,
+		border-color 0.2s;
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	vertical-align: middle;
+	border-radius: var(--radius-btn);
+	border: none;
+	appearance: none;
+	outline: none;
+	font-family: var(--font-family);
+	font-weight: 600;
+	text-transform: uppercase;
+	cursor: pointer;
+	overflow: hidden;
+	border-width: 0.0625rem;
+	border-style: solid;
+	border-color: transparent;
+	line-height: 1.4;
+
+	[data-orion-theme='dark'] & {
+		box-shadow: none;
+	}
+
+	&__ripple {
+		position: absolute;
+		background: fade(white, 20);
+		height: 1.25rem;
+		width: 1.25rem;
+		border-radius: 100%;
+		z-index: 5;
+		pointer-events: none;
+		opacity: 1;
+		transform: scale(1);
+		animation: click 0.7s ease-in-out 0s 1 normal none running;
+
+		.orion-button--default & {
+			background: fade(black, 5);
+			[data-orion-theme='dark'] & {
+				background: fade(white, 10);
+			}
+		}
+	}
+
+	&__text,
+	&__icon {
+		.orion-button--disabled &,
+		.orion-button--loading & {
+			opacity: 0.7;
+		}
+	}
+
+	&__text {
+		text-align: center;
+
+		.orion-button--prefix-icon & {
+			&:not(:first-child) {
+				text-align: left;
+			}
+		}
+	}
+
+	&__icon {
+		.icon-size(1.25rem);
+		pointer-events: none;
+
+		> .orion-icon__loading {
+			stroke: inherit;
+		}
+	}
+
+	&--xs {
+		gap: 0.5rem;
+		padding: var(--fluid-5px) var(--fluid-15px);
+		font-size: 0.65rem;
+		min-height: 2rem;
+
+		.orion-button__icon {
+			.icon-size(0.875rem);
+		}
+
+		&.orion-button--prefix-icon,
+		&.orion-button--loading {
+			padding-left: var(--fluid-10px);
+		}
+
+		&.orion-button--suffix-icon {
+			padding-right: var(--fluid-10px);
+		}
+	}
+
+	&--sm {
+		gap: 0.65rem;
+		padding: var(--fluid-5px) var(--fluid-20px);
+		font-size: 0.75rem;
+		min-height: 2.25rem;
+
+		.orion-button__icon {
+			.icon-size(1rem);
+		}
+
+		&.orion-button--prefix-icon,
+		&.orion-button--loading {
+			padding-left: var(--fluid-12px);
+		}
+
+		&.orion-button--suffix-icon {
+			padding-right: var(--fluid-12px);
+		}
+	}
+
+	&--md {
+		gap: 0.7rem;
+		padding: var(--fluid-8px) var(--fluid-25px);
+		font-size: 0.8rem;
+		min-height: 2.5rem;
+
+		&.orion-button--prefix-icon,
+		&.orion-button--loading {
+			padding-left: var(--fluid-15px);
+		}
+
+		&.orion-button--suffix-icon {
+			padding-right: var(--fluid-15px);
+		}
+	}
+
+	&--lg {
+		gap: 1rem;
+		padding: var(--fluid-10px) var(--fluid-30px);
+		font-size: 0.9rem;
+		min-height: 2.75rem;
+
+		&.orion-button--prefix-icon,
+		&.orion-button--loading {
+			padding-left: var(--fluid-18px);
+		}
+
+		&.orion-button--suffix-icon {
+			padding-right: var(--fluid-18px);
+		}
+	}
+
+	&--xl {
+		gap: 1.1rem;
+		padding: var(--fluid-10px) var(--fluid-35px);
+		font-size: 1rem;
+		min-height: 3rem;
+
+		&.orion-button--prefix-icon,
+		&.orion-button--loading {
+			padding-left: var(--fluid-20px);
+		}
+
+		&.orion-button--suffix-icon {
+			padding-right: var(--fluid-20px);
+		}
+	}
+
+	&--icon-only {
+		padding: 0 !important;
+		border-radius: 100%;
+		aspect-ratio: 1;
+	}
+
+	each(@colors, {
+		&--@{value} {
+			@color: ~"--@{value}";
+			@rgbColor: ~"--rgb-@{value}";
+			@colorLight: ~"--@{value}-light";
+			@rgbColorLight: ~"--rgb-@{value}-light";
+			@colorDark: ~"--@{value}-dark";
+			@rgbColorDark: ~"--rgb-@{value}-dark";
+			
+			color: white;
+			stroke: white;
+			background: var(@color);
+			box-shadow: 0 0.3rem 1rem -0.3rem rgba(var(@rgbColor), 0.8);
+
+			[data-orion-theme="dark"] & {
+				color: black;
+				stroke: black;
+			}
+
+			&.orion-button--outline, &.orion-button--nude {
+				color: var(@colorDark);
+				stroke: var(@colorDark);
+				background: var(@colorLight);
+
+				[data-orion-theme="dark"] & {
+					color: var(@colorLight);
+					stroke: var(@colorLight);
+					background: var(@colorDark);
+				}
+			}
+			
+			&.orion-button--outline&:hover,
+			&.orion-button--outline&:focus {
+				border-color: rgba(var(@rgbColor), 0.5);
+			}
+
+			&.orion-button--nude&:hover,
+			&.orion-button--nude&:focus {
+				background: var(@colorLight);
+
+				[data-orion-theme="dark"] & {
+					background: var(@colorDark);
+				}
+			}
+		}
+	});
+
+	&--default {
+		background: white;
+		color: var(--grey-darker);
+		stroke: var(--grey-darker);
+		box-shadow: 0 0.3rem 1rem -0.3rem fade(black, 20);
+
+		&.orion-button--outline,
+		&.orion-button--nude {
+			background: var(--grey-lighter);
+
+			[data-orion-theme='dark'] & {
+				background: rgba(0, 0, 0, 0.7);
+			}
+
+			&:hover,
+			&:focus {
+				background: rgba(var(--rgb-grey-lighter), 0.6);
+				border-color: rgba(var(--rgb-grey), 0.6);
+
+				[data-orion-theme='dark'] & {
+					border-color: rgba(var(--rgb-grey-dark), 0.5);
+					background: rgba(0, 0, 0, 0.7);
+				}
+			}
+		}
+
+		[data-orion-theme='dark'] & {
+			background: rgba(var(--rgb-grey-darker), 0.1);
+		}
+	}
+
+	&--inverse {
+		color: var(--grey-lighter);
+		stroke: var(--grey-lighter);
+		background: var(--inverse);
+		box-shadow: 0 0.3rem 1rem -0.3rem fade(black, 20);
+
+		[data-orion-theme='dark'] & {
+			color: black;
+			stroke: black;
+		}
+
+		&.orion-button--nude {
+			color: var(--inverse);
+			stroke: var(--inverse);
+		}
+
+		&.orion-button--outline&:hover,
+		&.orion-button--outline&:focus {
+			border-color: var(--inverse);
+		}
+
+		&.orion-button--nude&:hover,
+		&.orion-button--nude&:focus {
+			background: var(--grey-lighter);
+		}
+	}
+
+	&--outline:not(&--inverse):not(&--default),
+	&--nude:not(&--inverse):not(&--default) {
+		.orion-button__text,
+		.orion-button__icon {
+			.color-contrast();
+		}
+	}
+
+	&:hover,
+	&:focus,
+	&--outline,
+	&--nude {
+		box-shadow: none;
+	}
+
+	&--nude {
+		border-color: transparent !important;
+	}
+
+	&--nude:not(:hover):not(:focus) {
+		background: none;
+
+		[data-orion-theme='dark'] & {
+			background: none;
+		}
+	}
+
+	&--block {
+		width: 100%;
+	}
+
+	&--disabled {
+		cursor: not-allowed;
+	}
+
+	&--loading {
+		cursor: progress;
+	}
+}
+
+@keyframes click {
+	from {
+		transform: scale(1);
+		opacity: 1;
+	}
+	to {
+		transform: scale(30);
+		opacity: 0;
+	}
+}

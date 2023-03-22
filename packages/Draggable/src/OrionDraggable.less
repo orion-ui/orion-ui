@@ -1,0 +1,37 @@
+@import '../../Shared/styles/variables.less';
+@import '../../Shared/styles/mixins.less';
+
+.orion-draggable {
+	box-shadow: none;
+	cursor: grab;
+	user-select: none;
+	-webkit-user-select: none;
+
+	&--disabled {
+		cursor: not-allowed;
+	}
+
+	&.orion-draggable-clone {
+		transition: none;
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 1000;
+		margin: 0 !important;
+		opacity: 0.8;
+		pointer-events: none;
+		box-shadow: 0 0.125rem 0.125rem fade(black, 3),
+			0 0.25rem 0.25rem fade(black, 3), 0 0.5rem 0.5rem fade(black, 3),
+			0 1rem 1rem fade(black, 3), 0 2rem 2rem fade(black, 3);
+	}
+}
+
+.orion-dragging {
+	opacity: 0.4;
+	cursor: grabbing;
+}
+
+.body--orion-dragging {
+	user-select: none !important;
+	cursor: grabbing !important;
+}

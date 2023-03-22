@@ -1,0 +1,12 @@
+import SharedSetupService from '../../Shared/SharedSetupService';
+import SharedProps from '../../Shared/SharedProps';
+
+type Props = SetupProps<typeof {ComponentName}SetupService.props>
+
+export default class {ComponentName}SetupService extends SharedSetupService<Props> {
+	static props = {};
+
+	constructor (props: Props) {
+		super(props);
+	}
+}

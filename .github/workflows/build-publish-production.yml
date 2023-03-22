@@ -1,0 +1,36 @@
+name: Build & Publish for production
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build-publish-production:
+    name: Build & Publish to NPM
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: https://registry.npmjs.org
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Bump version
+        run: npm version ${{ github.event.release.tag_name }} --no-git-tag-version
+
+      - name: Build lib
+        run: npm run build
+
+      - name: Run post build script
+        run: node scripts/ci-build-lib.cjs
+
+      - name: Publish to NPM for production
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}

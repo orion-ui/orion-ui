@@ -1,0 +1,115 @@
+@import '../../Shared/styles/variables.less';
+@import '../../Shared/styles/mixins.less';
+
+.orion-nav-main__item {
+	transition: color 0.3s;
+	position: relative;
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	min-height: 2rem;
+	padding-left: var(--fluid-45px);
+	font-weight: bold;
+	text-transform: uppercase;
+	text-decoration: none;
+	color: var(--grey-darker);
+	font-size: 0.75rem;
+	line-height: 1.25;
+	cursor: pointer;
+
+	&::before {
+		transition: transform 0.3s;
+		content: '';
+		display: block;
+		position: absolute;
+		left: 0;
+		top: calc(50% - 0.0625rem);
+		height: 0.125rem;
+		width: 2rem;
+		background: var(--info);
+		transform: scale3d(0, 1, 1);
+		transform-origin: left;
+	}
+
+	&.router-link-exact-active,
+	&.router-link-active:not(.orion-nav-main__item--root) {
+		color: var(--info);
+
+		&::before {
+			transform: scale3d(1, 1, 1);
+		}
+	}
+
+	.icon {
+		font-size: 1.25rem;
+
+		&.orion-nav-main__item-main-icon {
+			pointer-events: none;
+		}
+
+		&--children-indicator {
+			transition: opacity 0.3s, transform 0.3s;
+			font-size: 0.8rem;
+			opacity: 0;
+			transform: translate3d(-3rem, 0, 0);
+		}
+
+		&--collapse {
+			margin-left: auto;
+		}
+	}
+
+	body:not(.istouch) & {
+		&:hover:not(.router-link-active) {
+			color: var(--grey-dark);
+		}
+
+		&:hover .icon--children-indicator {
+			opacity: 1;
+			transform: translate3d(0, 0, 0);
+		}
+	}
+
+	&--section-title {
+		color: var(--grey);
+		cursor: default;
+		pointer-events: none;
+		font-size: 1.5rem;
+		line-height: 1.66;
+		font-weight: 200;
+		text-transform: none;
+
+		[data-orion-theme='dark'] & {
+			color: var(--grey-dark);
+		}
+
+		.icon {
+			font-size: calc(26rem / 16);
+
+			.orion-nav-main & {
+				display: none;
+			}
+		}
+	}
+
+	@media @desktop {
+		font-size: 0.8rem;
+
+		&--section-title {
+			font-size: 2rem;
+		}
+	}
+
+	.orion-nav-main-item__children & {
+		font-size: 0.7rem;
+	}
+}
+
+.orion-nav-main-item {
+	&__children {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		padding: 1rem;
+	}
+}

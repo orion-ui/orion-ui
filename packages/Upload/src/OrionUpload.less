@@ -1,0 +1,253 @@
+@import '../../Shared/styles/variables.less';
+@import '../../Shared/styles/mixins.less';
+
+.orion-upload {
+	transition: border 0.5s, background 0.5s;
+	position: relative;
+	padding: var(--fluid-5px);
+	margin: 0.5rem 0;
+	background: white;
+	border: 0.0625rem solid var(--grey-light);
+	border-radius: var(--radius-upload);
+	text-align: center;
+
+	[data-orion-theme='dark'] & {
+		background-color: var(--grey-light);
+		border-color: var(--grey);
+	}
+
+	@media @phone {
+		padding: var(--fluid-10px);
+	}
+
+	&__input {
+		display: none;
+	}
+
+	&__wrapper {
+		text-align: center;
+		color: var(--grey-dark);
+	}
+
+	&__or {
+		transition: all 0.6s cubic-bezier(0, 0, 0.3, 1) 0.1s;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin: 1rem 0;
+		text-transform: uppercase;
+		font-weight: 400;
+		font-size: 0.75rem;
+
+		&::before,
+		&::after {
+			content: ' ';
+			display: block;
+			width: 50%;
+			height: 0.125rem;
+			background: var(--grey-light);
+			margin: 0 1.25rem;
+
+			[data-orion-theme='dark'] & {
+				background-color: var(--grey);
+			}
+		}
+	}
+
+	&__files-list {
+		&-item {
+			transition: background 0.3s;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			text-align: left;
+
+			&-preview {
+				.square(5rem);
+				margin: 0.25rem 0.5rem;
+				background-position: center;
+				background-repeat: no-repeat;
+				background-size: contain;
+
+				@media @phone {
+					.square(4rem);
+				}
+			}
+
+			&-infos {
+				overflow: hidden;
+				flex: 1 1 auto;
+				text-align: left;
+				padding: var(--fluid-5px);
+
+				> span {
+					display: inline-block;
+				}
+			}
+
+			&-name {
+				.ellipsis();
+				max-width: 100%;
+				font-weight: bold;
+			}
+
+			&-type,
+			&-size {
+				font-size: 0.75rem;
+				color: var(--grey-dark);
+			}
+
+			&:hover {
+				background: var(--grey-lighter);
+
+				.orion-upload__delete-file {
+					color: var(--danger);
+				}
+			}
+		}
+	}
+
+	&__delete-file {
+		margin: 0.25rem 1.25rem 0.25rem 0.25rem;
+		font-size: 1.25rem;
+	}
+
+	&__illustration {
+		display: block;
+		width: 12.5rem;
+		max-width: 80%;
+		margin: 1rem auto;
+
+		#file {
+			transition: transform 0.3s;
+		}
+
+		#plus {
+			transition: transform 0.6s, opacity 0.6s;
+			opacity: 0;
+		}
+	}
+
+	&__content {
+		flex: 1;
+		padding: var(--fluid-10px);
+	}
+
+	&__bubble {
+		.circle(3rem);
+		pointer-events: none;
+		transition: opacity 0.3s;
+		position: absolute;
+		top: -1.5rem;
+		left: -1.5rem;
+		opacity: 0;
+		background: rgba(var(--rgb-info), 0.3);
+
+		&::before,
+		&::after {
+			.circle(4rem);
+			content: ' ';
+			position: absolute;
+			top: calc(50% - 2rem);
+			left: calc(50% - 2rem);
+			background: rgba(var(--rgb-info), 0.3);
+			animation: bloop 2s linear infinite;
+		}
+
+		&::after {
+			animation-delay: 0.5s;
+		}
+
+		@keyframes bloop {
+			0% {
+				opacity: 0;
+				transform: scale(0);
+			}
+			50% {
+				opacity: 1;
+				transform: scale(1);
+			}
+			100% {
+				opacity: 0;
+				transform: scale(1.5);
+			}
+		}
+	}
+
+	&__pending {
+		position: relative;
+		min-height: 5rem;
+	}
+
+	&__drag-over-indicator {
+		.circle(4rem);
+		transition: transform 0.6s;
+		position: absolute;
+		bottom: 2rem;
+		left: calc(50% - 2rem);
+		padding: var(--fluid-10px);
+		background: var(--info);
+		color: white;
+		font-size: 2rem;
+		transform: scale(0);
+
+		.icon {
+			display: block;
+			transition-property: transform, opacity;
+			transition-duration: 0.5s;
+			transition-delay: 0.1s;
+			transform: translate3d(0, 6rem, 0) scale(0);
+		}
+	}
+
+	&--drag-over {
+		background: rgba(var(--rgb-info), 0.1);
+		border: 0.0625rem solid var(--rgb-info);
+
+		* {
+			pointer-events: none;
+		}
+
+		.orion-upload {
+			&__bubble {
+				opacity: 1;
+			}
+
+			&__button {
+				transition: all 0.6s cubic-bezier(0, 0, 0.3, 1);
+			}
+
+			&__button,
+			&__or {
+				transform: translate3d(0, -6rem, 0);
+				opacity: 0;
+			}
+
+			&__drag-over-indicator {
+				transform: scale(1);
+
+				.icon {
+					transform: translate3d(0, 0.25rem, 0) scale(1);
+				}
+			}
+		}
+
+		#file {
+			transform: translate(7.5rem, 5rem);
+		}
+
+		#plus {
+			transform: translate(15rem, 34rem);
+			opacity: 1;
+		}
+	}
+
+	&:hover {
+		border-color: var(--info);
+
+		#file {
+			transition: transform 1s ease-out;
+			transform: translate(8rem, 5rem);
+		}
+	}
+}

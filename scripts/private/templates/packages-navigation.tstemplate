@@ -1,0 +1,12 @@
+/**
+ * Auto generated file using cli command
+ * _> node cli.cjs
+ * Then select 'routes' option
+ * Manual changes will be overwritten
+ */
+
+const packagesNavigation: Orion.NavItem[] = [
+	{navigations}
+];
+
+export default packagesNavigation;

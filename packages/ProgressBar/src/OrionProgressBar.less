@@ -1,0 +1,67 @@
+@import '../../Shared/styles/variables.less';
+@import '../../Shared/styles/mixins.less';
+
+.orion-progress-bar {
+	&__path {
+		position: relative;
+		background: var(--grey-light);
+
+		[data-orion-theme='dark'] & {
+			background: var(--grey);
+		}
+	}
+
+	&__value {
+		transition: width 0.3s ease-out;
+		will-change: width;
+		position: absolute;
+		top: 0.125rem;
+		left: 0.125rem;
+		bottom: 0.125rem;
+		max-width: calc(100% - 0.25rem);
+
+		each(@colors, {
+			@color: ~"--@{value}";
+      .orion-progress-bar--@{value} & {
+        background: var(@color);
+      }
+    });
+	}
+
+	&__label {
+		position: absolute;
+		top: 0;
+		right: 0;
+		color: white;
+		line-height: 1;
+		padding: var(--fluid-5px);
+		border-radius: 0.25rem;
+		font-weight: bold;
+		font-size: 0.75rem;
+
+		[data-orion-theme='dark'] & {
+			color: black;
+		}
+
+		each(@colors, {
+			@color: ~"--@{value}";
+      .orion-progress-bar--@{value} & {
+        background: var(@color);
+      }
+    });
+	}
+
+	&--default {
+		.orion-progress-bar__value,
+		.orion-progress-bar__label {
+			background: var(--grey-dark);
+		}
+	}
+
+	&--inverse {
+		.orion-progress-bar__value,
+		.orion-progress-bar__label {
+			background: var(--inverse);
+		}
+	}
+}

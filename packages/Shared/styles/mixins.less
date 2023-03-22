@@ -1,0 +1,77 @@
+.ellipsis() {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.square(@size) {
+	width: @size;
+	height: @size;
+	flex-basis: @size;
+	flex-shrink: 0;
+	flex: none;
+}
+
+.circle(@size) {
+	.square(@size);
+	border-radius: 100%;
+}
+
+.flex-align(@vertical: center, @horizontal: center) {
+	display: flex;
+	align-items: @vertical;
+	justify-content: @horizontal;
+}
+
+.close(@size) {
+	.circle(@size);
+	.flex-align();
+	-webkit-tap-highlight-color: transparent;
+	transition: all 0.3s;
+	font-size: @size;
+	border: calc(1rem / 16) solid transparent;
+	opacity: 0.7;
+	cursor: pointer;
+
+	&::before {
+		content: '\00D7';
+		font-weight: 600;
+		transform: translateY(-0.0625rem);
+	}
+
+	&:hover {
+		opacity: 1;
+		color: var(--danger);
+		border-color: var(--danger);
+		transform: rotate(90deg);
+	}
+}
+
+.marker(@size: 0.5rem) {
+	.circle(@size);
+	position: absolute;
+
+	each(@colors, {
+		@color: ~"--@{value}";
+    &--@{value} {
+      background: var(@color);
+    }
+  });
+}
+
+.markerNumber(@size: 1rem) {
+	.circle(@size);
+	.flex-align();
+	font-family: var(--font-family);
+	font-size: calc(@size * 0.75);
+	font-weight: bold;
+	color: white;
+}
+
+.color-contrast() {
+	filter: saturate(150%);
+
+	[data-orion-theme='dark'] & {
+		filter: saturate(300%);
+	}
+}

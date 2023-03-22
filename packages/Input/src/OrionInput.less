@@ -1,0 +1,274 @@
+@import '../../Shared/styles/variables.less';
+@import '../../Shared/styles/mixins.less';
+
+.orion-input {
+	position: relative;
+	height: 2.5rem;
+	margin: 0.5rem 0;
+	font-size: 0.85rem;
+
+	&__label {
+		.ellipsis();
+		transition: all 0.3s;
+		position: absolute;
+		top: 0.65rem;
+		left: 1rem;
+		z-index: 1;
+		max-width: calc(100% - 2rem);
+		pointer-events: none;
+		color: var(--grey);
+
+		[data-orion-theme='dark'] & {
+			color: rgba(var(--rgb-grey-dark), 0.5);
+		}
+
+		&::before {
+			content: '';
+			position: absolute;
+			background: white;
+			height: 0.125rem;
+			width: 100%;
+			left: 0;
+			z-index: -1;
+			top: 50%;
+
+			[data-orion-theme='dark'] & {
+				background: var(--grey-lighter);
+			}
+
+			.orion-input--disabled & {
+				background: var(--grey-lighter);
+			}
+		}
+
+		.orion-input--required & {
+			padding-right: calc(6rem / 16);
+
+			&::after {
+				content: '*';
+				position: absolute;
+				top: 0;
+				right: 0;
+				z-index: 1;
+				color: var(--danger);
+			}
+		}
+
+		.orion-input--prefix-icon & {
+			left: 2.5rem;
+		}
+
+		.orion-input--xs & {
+			top: calc(6rem / 16);
+			left: 0.5rem;
+			font-size: 0.75rem;
+		}
+
+		&--floating {
+			left: 0.5rem;
+			padding: 0 var(--fluid-5px);
+			font-size: 0.75rem;
+			transform: translate(0, -1.25rem);
+
+			.orion-input--prefix-icon & {
+				left: calc(36rem / 16);
+			}
+
+			.orion-input--xs & {
+				left: calc(6rem / 16);
+				transform: translate(0, -1rem);
+			}
+
+			.orion-input--focused & {
+				color: var(--info);
+			}
+
+			.orion-input--error & {
+				color: var(--danger);
+			}
+
+			.orion-input--warning & {
+				color: var(--warning);
+			}
+
+			.orion-input--success & {
+				color: var(--success);
+			}
+
+			.orion-input--disabled & {
+				color: var(--grey);
+			}
+		}
+	}
+
+	&__input {
+		appearance: none;
+		-webkit-appearance: none;
+		transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+		margin: 0;
+		width: 100%;
+		height: 2.5rem;
+		padding: var(--fluid-10px) var(--fluid-15px);
+		background-color: white;
+		background-image: none;
+		border-radius: var(--radius-input);
+		border: 0.0625rem solid var(--grey-light);
+		display: inline-block;
+		font-family: inherit;
+		font-size: inherit;
+		line-height: 1.35;
+		color: var(--grey-darker);
+		outline: none;
+
+		[data-orion-theme='dark'] & {
+			background-color: var(--grey-lighter);
+			border-color: var(--grey);
+		}
+
+		&:hover {
+			border-color: var(--grey);
+			[data-orion-theme='dark'] & {
+				border-color: rgba(var(--rgb-grey-dark), 0.5);
+			}
+		}
+
+		&:focus,
+		.orion-input--focused & {
+			outline: none;
+			border-color: var(--info);
+			[data-orion-theme='dark'] & {
+				border-color: var(--info);
+			}
+		}
+
+		.orion-input--prefix-icon & {
+			padding-left: 2.5rem !important;
+		}
+
+		.orion-select &,
+		.orion-datepicker &,
+		.orion-timepicker & {
+			min-width: calc(150rem / 16);
+
+			&:hover {
+				cursor: pointer;
+			}
+		}
+
+		.orion-input--error & {
+			border-color: var(--danger);
+		}
+
+		.orion-input--warning & {
+			border-color: var(--warning);
+		}
+
+		.orion-input--success & {
+			border-color: var(--success);
+		}
+
+		.orion-input--disabled & {
+			background: var(--grey-lighter);
+			border-color: var(--grey-light);
+			cursor: not-allowed;
+		}
+
+		.orion-input--xs & {
+			height: 2rem;
+			padding: var(--fluid-5px);
+			font-size: 0.75rem;
+		}
+	}
+
+	&__errorMessage {
+		color: var(--danger);
+		font-size: 0.75rem;
+	}
+
+	&__pictos {
+		position: absolute;
+		top: calc(1rem / 16);
+		bottom: calc(1rem / 16);
+		right: calc(1rem / 16);
+		border-radius: 0.25rem;
+		display: flex;
+		align-items: center;
+		padding: 0 var(--fluid-10px) 0 var(--fluid-5px);
+		background: white;
+		pointer-events: none;
+
+		[data-orion-theme='dark'] & {
+			background: var(--grey-lighter);
+		}
+
+		.orion-input--disabled & {
+			background: var(--grey-lighter);
+		}
+
+		&:empty {
+			background: none;
+		}
+
+		.orion-input--xs & {
+			padding: 0 var(--fluid-5px);
+		}
+
+		> .orion-icon--clickable {
+			pointer-events: all;
+		}
+	}
+
+	&__validation {
+		.square(1.25rem);
+		.flex-align();
+		font-size: 1rem;
+
+		&--error {
+			color: var(--danger);
+		}
+
+		&--success {
+			color: var(--success);
+		}
+	}
+
+	&__clearable {
+		.close(1rem);
+		margin: 0.125rem;
+		pointer-events: all;
+
+		.orion-input--disabled & {
+			display: none;
+		}
+	}
+
+	&__reveal {
+		margin-left: 0.3rem;
+	}
+
+	&__icon {
+		.square(1.25rem);
+		.flex-align();
+
+		&--prefix {
+			position: absolute;
+			top: 0.7rem;
+			left: 0.5rem;
+
+			.orion-input--xs & {
+				top: 0.25rem;
+			}
+		}
+	}
+
+	&--disabled {
+		.icon {
+			color: var(--grey);
+		}
+	}
+
+	&--xs {
+		height: 2rem;
+		font-size: 0.75rem;
+	}
+}

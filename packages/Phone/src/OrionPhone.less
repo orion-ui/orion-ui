@@ -1,0 +1,36 @@
+@import '../../Shared/styles/variables.less';
+@import '../../Shared/styles/mixins.less';
+
+.orion-input-group {
+	display: flex;
+	margin: 0.5rem 0;
+
+	.orion-input {
+		flex: 1 0 0%;
+		margin: 0;
+	}
+
+	> :not(:first-child):not(:last-child) .orion-input__input {
+		border-right: none;
+		border-radius: 0;
+	}
+
+	> :first-child .orion-input__input {
+		border-right: none;
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
+		min-width: 0;
+	}
+
+	> :last-child .orion-input__input {
+		border-top-left-radius: 0;
+		border-bottom-left-radius: 0;
+	}
+
+	&--phone {
+		> .v-popper {
+			width: calc(75rem / 16);
+			flex: 0 1 calc(75rem / 16);
+		}
+	}
+}

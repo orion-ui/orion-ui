@@ -1,0 +1,150 @@
+@import '../../Shared/styles/variables.less';
+@import '../../Shared/styles/mixins.less';
+
+.orion-horizontal-scroll {
+	position: relative;
+	display: flex;
+	align-items: flex-start;
+	overflow-x: hidden;
+
+	&::before,
+	&::after {
+		content: '';
+		position: absolute;
+		width: calc(80rem / 16);
+		visibility: hidden;
+		height: 100%;
+		z-index: 2;
+		transition: opacity 0.1s;
+	}
+
+	&--show-left-shadow {
+		&::before {
+			visibility: visible;
+		}
+	}
+
+	&--show-right-shadow {
+		&::after {
+			visibility: visible;
+		}
+	}
+
+	&__slider {
+		position: relative;
+		display: flex;
+		gap: 0.5rem;
+		overflow-x: scroll;
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+
+		&::-webkit-scrollbar {
+			display: none;
+		}
+
+		> * {
+			flex-shrink: 0;
+		}
+	}
+
+	&__preview {
+		display: flex;
+		justify-content: space-between;
+		margin-top: 2rem;
+
+		&-legend {
+			cursor: pointer;
+
+			&:hover {
+				color: var(--info);
+			}
+		}
+
+		> span {
+			display: flex;
+			align-items: flex-start;
+		}
+
+		&-container {
+			display: flex;
+			gap: 0.5rem;
+			border-radius: 1rem;
+			width: 100%;
+		}
+
+		&-path {
+			background: var(--grey);
+			border-radius: 1rem;
+			height: 0.25rem;
+			position: relative;
+			cursor: pointer;
+		}
+
+		&-visible {
+			display: flex;
+			align-items: center;
+			flex-direction: column;
+			overflow: hidden;
+			margin: 0 2rem;
+			gap: 0.5rem;
+			width: 40%;
+		}
+	}
+
+	&__button {
+		position: absolute;
+		top: calc(50% - 0.625rem);
+		cursor: pointer;
+		z-index: 3;
+
+		&--left {
+			left: 1.25rem;
+		}
+
+		&--right {
+			right: 1.25rem;
+		}
+	}
+
+	each(@colorsAndGreys, {
+		@color: ~"--@{value}";
+		@rgbColor: ~"--rgb-@{value}";
+
+    &--@{value} {
+      &::before {
+        left: 0;
+        background: linear-gradient(to right, var(@color) 60%, rgba(var(@rgbColor), 0)) !important;
+      }
+      &::after {
+        right: 0;
+        background: linear-gradient(to left, var(@color) 60%, rgba(var(@rgbColor), 0)) !important;
+      }
+    }
+  });
+
+	&--white {
+		&::before {
+			left: 0;
+			background: linear-gradient(to right, white 60%, fade(white, 0));
+		}
+		&::after {
+			right: 0;
+			background: linear-gradient(to left, white 60%, fade(white, 0));
+		}
+	}
+
+	&--drop-shadow {
+		&::after,
+		&::before {
+			background: #717a8e !important;
+			filter: blur(20px);
+			width: 0.5rem;
+			height: calc(100% - 3.75rem);
+			top: calc(30rem / 16);
+		}
+
+		&::after {
+			right: -0.3125rem;
+		}
+	}
+}

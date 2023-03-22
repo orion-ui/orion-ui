@@ -1,0 +1,99 @@
+{
+	"Component template": {
+		"prefix": "oo_template",
+		"scope": "vue",
+		"body": [
+			"<template>",
+			"\t$1",
+			"</template>",
+			"",
+			"<script setup lang=\"ts\">",
+			"",
+			"</script>",
+			"",
+			"<style scoped lang=\"less\">",
+			"",
+			"</style>",
+			""
+		]
+	},
+	"Add component setup": {
+		"prefix": "oo_setup",
+		"scope": "vue",
+		"body": ["<script setup lang=\"ts\">", "$1", "</script>"]
+	},
+	"Add component styles": {
+		"prefix": "oo_styles",
+		"scope": "vue",
+		"body": ["<style scoped lang=\"less\">", "$1", "</style>"]
+	},
+	"Add code highlight for doc": {
+		"prefix": "oo_hl",
+		"scope": "vue",
+		"body": "@hl {$1}"
+	},
+	"Add code hmr file for doc": {
+		"prefix": "oo_hmr",
+		"scope": "vue",
+		"body": "@hmr $1"
+	},
+	"Add code lang for doc": {
+		"prefix": "oo_lang",
+		"scope": "vue",
+		"body": ["@lang:$1", "@lang"]
+	},
+	"Add code prop for doc": {
+		"prefix": "oo_doc_props",
+		"scope": "typescript",
+		"body": [
+			"// @doc props/${1:propName} ${2:doc english}",
+			"// @doc/fr props/${1:propName} ${3:doc french}"
+		]
+	},
+	"Add CSS dark theme rules": {
+		"prefix": "oo_dk",
+		"scope": "less, css, scss",
+		"body": ["[data-orion-theme=\"dark\"] & {", "\t$1", "}"]
+	},
+	"Calc px in rem": {
+		"prefix": "oo_rem",
+		"scope": "less, css, scss",
+		"body": "calc($1rem / 16)"
+	},
+	"Insert doc colors reminder EN": {
+		"prefix": "oo_doc_color_reminder_en",
+		"scope": "vue, md",
+		"body": [
+			":::tip Reminder",
+			"All colors are defined with CSS variables, so you can easily override them.",
+			":::"
+		]
+	},
+	"Insert doc colors reminder FR": {
+		"prefix": "oo_doc_color_reminder_fr",
+		"scope": "vue, md",
+		"body": [
+			":::tip Rappel",
+			"Toutes les couleurs sont définies via des CSS variables, vous pouvez donc les redéfinir facilement.",
+			":::"
+		]
+	},
+	"Insert doc fontIcon reminder EN": {
+		"prefix": "oo_doc_fonticon_reminder_en",
+		"scope": "vue, md",
+		"body": [
+			":::tip Reminder",
+			"You can also use `prefixFontIcon` and `suffixFontIcon` props if you use your own icon font.",
+			":::"
+		]
+	},
+	"Insert doc fontIcon reminder FR": {
+		"prefix": "oo_doc_fonticon_reminder_fr",
+		"scope": "vue, md",
+		"body": [
+			":::tip Rappel",
+			"Vous pouvez également utiliser les props `prefixFontIcon` et `suffixFontIcon` si vous utilisez votre propre police d'icônes.",
+			":::"
+		]
+	}
+}

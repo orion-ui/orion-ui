@@ -1,0 +1,54 @@
+name: Build & Publish for pre-release
+
+on:
+  push:
+    branches:
+      - develop
+      - 'feature/**'
+      - 'hotfix/**'
+      - 'release/**'
+      - '!main'
+    paths:
+      - 'assets/**'
+      - 'devtool/**'
+      - 'lang/**'
+      - 'lib/**'
+      - 'packages/*/src/**'
+      - 'packages/*/index.ts'
+      - 'scripts/**'
+      - 'services/**'
+      - 'utils/**'
+      - 'cli.cjs'
+      - 'vite.config.ts'
+      - 'build-lib-prerelease.yml'
+
+jobs:
+  build-publish-prerelease:
+    name: Build Develop
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: https://registry.npmjs.org
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Bump version
+        run: npm version "$(BRANCH=${GITHUB_REF_NAME} node scripts/npm-version.cjs)" --no-git-tag-version
+
+      - name: Build lib
+        run: npm run build
+
+      - name: Run post build script
+        run: node scripts/ci-build-lib.cjs
+
+      - name: Publish to NPM for pre-release
+        run: npm publish --tag ${GITHUB_REF_NAME} --access public
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}

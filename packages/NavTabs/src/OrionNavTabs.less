@@ -1,0 +1,53 @@
+@import '../../Shared/styles/variables.less';
+@import '../../Shared/styles/mixins.less';
+
+.orion-nav-tabs {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 9;
+	height: 4rem;
+	display: flex;
+	justify-content: stretch;
+	background: white;
+	box-shadow: 0 -0.25rem 0.5rem fade(black, 5);
+
+	[data-orion-theme='dark'] & {
+		background: black;
+	}
+
+	@media @tabletLandscape {
+		display: none;
+	}
+
+	&__item {
+		position: relative;
+		flex: 1 0 0%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		margin: 0.25rem;
+		font-size: 0.5rem;
+		line-height: 1;
+		text-align: center;
+		text-decoration: none;
+		color: var(--grey-dark);
+		cursor: pointer;
+
+		&.router-link-exact-active {
+			color: var(--info);
+
+			&::before {
+				transform: scale3d(1, 1, 1);
+			}
+		}
+
+		.icon {
+			font-size: 1.25rem;
+			margin: 0.25rem;
+			pointer-events: none;
+		}
+	}
+}

@@ -1,0 +1,14 @@
+/* eslint-disable max-len */
+
+/**
+ * Auto generated file using cli command
+ * _> node cli.cjs
+ * Then select 'doc' option
+ * Manual changes will be overwritten
+ */
+
+const packagesDocData = new Map([
+	{data}
+]);
+
+export default packagesDocData;

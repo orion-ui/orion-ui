@@ -1,0 +1,14 @@
+/**
+ * Auto generated file using cli command
+ * _> node cli.cjs
+ * Then select 'packages' option
+ * Manual changes will be overwritten
+ */
+
+import { ExtractPropTypes } from 'vue';
+
+{imports}
+
+declare global {
+	{declarations}
+}

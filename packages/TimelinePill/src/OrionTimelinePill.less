@@ -1,0 +1,155 @@
+@import '../../Shared/styles/variables.less';
+@import '../../Shared/styles/mixins.less';
+
+.orion-timeline-pill {
+	display: flex;
+
+	.orion-timeline--vertical & {
+		flex-direction: column;
+	}
+
+	.orion-timeline--horizontal & {
+		align-items: center;
+	}
+
+	&-wrapper {
+		display: flex;
+
+		.orion-timeline--vertical & {
+			width: 100%;
+		}
+
+		.orion-timeline--horizontal & {
+			flex-direction: column;
+			flex: 1 0 0%;
+		}
+
+		&:last-child {
+			.orion-timeline-pill__separator {
+				display: none;
+			}
+
+			.orion-timeline--horizontal & {
+				flex: 0 0 0%;
+			}
+		}
+	}
+
+	&__core {
+		.circle(4rem);
+		.flex-align();
+		position: relative;
+		border: 0.125rem solid var(--brand);
+		opacity: 0.3;
+		color: var(--brand);
+		font-size: 2rem;
+
+		> .orion-timeline-pill__core-text {
+			display: block;
+			line-height: 1;
+			text-transform: uppercase;
+			transform: translateY(-0.0625rem);
+		}
+
+		> .orion-icon {
+			.flex-align();
+			pointer-events: none;
+		}
+
+		&--active {
+			opacity: 1;
+		}
+
+		&--filled {
+			opacity: 1;
+			background: var(--brand);
+			border: none;
+			color: white;
+
+			> .orion-icon,
+			> .orion-timeline-pill__core-text {
+				opacity: 0.6;
+				[data-orion-theme='dark'] & {
+					color: var(--grey-lighter);
+				}
+			}
+
+			&.orion-timeline-pill__core--active {
+				> .orion-icon,
+				> .orion-timeline-pill__core-text {
+					opacity: 1;
+				}
+			}
+		}
+
+		&--clickable {
+			transition: opacity 0.3s;
+			cursor: pointer;
+
+			&:hover {
+				opacity: 0.75;
+			}
+		}
+
+		&--disabled {
+			cursor: not-allowed;
+			opacity: 0.3;
+		}
+	}
+
+	&__marker {
+		.marker();
+		top: 0.5rem;
+		right: 0;
+		transform: translate(-50%, -50%);
+
+		&--number {
+			.markerNumber();
+			right: -0.5rem;
+		}
+	}
+
+	&__separator {
+		width: 0.25rem;
+		height: 2rem;
+		border-radius: 0.25rem;
+		background: var(--brand);
+		margin: 0.5rem auto;
+		flex: 1 0 2rem;
+		opacity: 0.3;
+
+		.orion-timeline-pill__core--filled + & {
+			opacity: 1;
+		}
+
+		.orion-timeline--horizontal & {
+			height: 0.25rem;
+			width: 2rem;
+			margin: auto 0.5rem;
+		}
+	}
+
+	&__before,
+	&__after {
+		padding: var(--fluid-10px) var(--fluid-15px);
+	}
+
+	&__after {
+		flex: 1;
+	}
+}
+
+.orion-timeline__pills {
+	display: flex;
+
+	.orion-timeline--vertical & {
+		flex-direction: column;
+		align-items: center;
+		// flex: 1;
+	}
+
+	.orion-timeline--horizontal & {
+		align-items: stretch;
+		justify-content: center;
+	}
+}

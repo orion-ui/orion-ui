@@ -1,0 +1,196 @@
+@import (css) url('assets/fonts/coolicons/coolicons.css');
+
+@import '../../Shared/styles/variables.less';
+@import '../../Shared/styles/mixins.less';
+
+@markerSize: 0.5rem;
+@markerNumberSize: 1rem;
+
+.markerPosition(@size) {
+	&.orion-icon__marker {
+		&--top,
+		&--bottom {
+			&.orion-icon__marker--right {
+				left: unset;
+				right: calc(0px - @size / 2);
+			}
+			&.orion-icon__marker--left {
+				left: calc(0px - @size / 2);
+			}
+		}
+
+		&--top {
+			top: calc(0px - @size / 2);
+			left: calc(50% - @size / 2);
+		}
+
+		&--bottom {
+			bottom: calc(0px - @size / 2);
+			left: calc(50% - @size / 2);
+		}
+
+		&--right:not(.orion-icon__marker--top):not(.orion-icon__marker--bottom) {
+			right: calc(0px - @size / 2);
+			top: calc(50% - @size / 2);
+		}
+
+		&--left:not(.orion-icon__marker--top):not(.orion-icon__marker--bottom) {
+			left: calc(0px - @size / 2);
+			top: calc(50% - @size / 2);
+		}
+	}
+}
+
+.orion-icon {
+	position: relative;
+	aspect-ratio: 1;
+
+	&[class*=' ci-'] {
+		font-family: 'coolicons' !important;
+	}
+
+	&::before {
+		position: relative;
+		z-index: 1;
+	}
+
+	&__loading {
+		display: block;
+		stroke: var(--grey-dark);
+		animation: rotate 1.7s linear 0s infinite;
+
+		&-inner {
+			animation: rotate 1s linear 0s infinite reverse;
+			transform-origin: center;
+		}
+	}
+
+	&__marker {
+		.marker();
+		.markerPosition(@markerSize);
+		z-index: 2;
+
+		&--number {
+			.markerNumber();
+			.markerPosition(@markerNumberSize);
+		}
+
+		&--clickable {
+			transition: transform 0.3s;
+			cursor: pointer;
+
+			&:hover {
+				transform: scale(1.2);
+			}
+		}
+	}
+
+	&--ripple {
+		.orion-icon__ripple,
+		.orion-icon__ripple > .ripple__wave {
+			display: block;
+			position: absolute;
+			z-index: 0;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			border-radius: 100%;
+		}
+		.orion-icon__ripple {
+			transition: background 0.3s;
+			transform: scale(1.8);
+		}
+		.orion-icon__ripple > .ripple__wave {
+			opacity: 0;
+			pointer-events: none;
+		}
+
+		&-default {
+			&:hover {
+				color: var(--grey-darker);
+			}
+			&:hover .orion-icon__ripple,
+			.orion-icon__ripple > .ripple__wave {
+				background: rgba(var(--rgb-grey-dark), 0.2);
+			}
+		}
+
+		each(@colors, {
+			@color: ~"--@{value}";
+			@rgbColor: ~"--rgb-@{value}";
+      &-@{value} {
+        &:hover {
+          color: var(@color);
+        }
+        &:hover .orion-icon__ripple, .orion-icon__ripple > .ripple__wave {
+          background: rgba(var(@rgbColor), 0.15);
+        }
+      }
+    });
+	}
+
+	&--button {
+		.orion-icon__button {
+			.circle(1em);
+			transition: box-shadow 0.3s, background 0.3s;
+			position: absolute;
+			z-index: 0;
+			top: 0;
+			left: 0;
+			display: block;
+			transform: scale(1.8);
+		}
+
+		&-default {
+			color: var(--grey-darker);
+			> .orion-icon__button {
+				background: white;
+				box-shadow: 0 0.3rem 1rem -0.3rem fade(black, 20);
+			}
+		}
+
+		each(@colors, {
+			@color: ~"--@{value}";
+			@rgbColor: ~"--rgb-@{value}";
+      &-@{value} {
+        color: white;
+        > .orion-icon__button {
+          background: var(@color);
+          box-shadow: 0 0.125rem 0.3rem -0.125rem rgba(var(@rgbColor), 0.8);
+        }
+      }
+    });
+
+		&:hover > .orion-icon__button {
+			box-shadow: none;
+		}
+	}
+
+	&--clickable {
+		cursor: pointer;
+	}
+}
+
+@keyframes OrionIconCircle {
+	0% {
+		transform: scale(1.8);
+	}
+	50% {
+		transform: scale(2);
+	}
+	100% {
+		transform: scale(1.8);
+	}
+}
+
+@keyframes OrionIconCircleAfter {
+	0% {
+		opacity: 1;
+		transform: scale(0.2);
+	}
+	100% {
+		opacity: 0;
+		transform: scale(1);
+	}
+}

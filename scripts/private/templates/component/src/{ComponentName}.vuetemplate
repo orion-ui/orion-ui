@@ -1,0 +1,11 @@
+<template>
+	<pre>{ComponentName}</pre>
+</template>
+
+<script setup lang="ts">
+import './{ComponentName}.less';
+import {ComponentName}SetupService from './{ComponentName}SetupService';
+const props = defineProps({ComponentName}SetupService.props);
+const setup = new {ComponentName}SetupService(props);
+defineExpose(setup.publicInstance);
+</script>

@@ -1,0 +1,35 @@
+.oriondoc-demos {
+	> p:last-child {
+		display: none;
+	}
+}
+
+.oriondoc-demo {
+	> h3 {
+		padding-top: calc(1.5rem + 46px);
+	}
+
+	& + & {
+		margin-top: 4rem;
+	}
+
+	&__component {
+		font-size: var(--size-default);
+		background: var(--grey-lighter);
+		padding: var(--fluid-30px);
+		border-radius: 0.5rem;
+		margin-top: 1.25rem;
+	}
+
+	&__actions {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 1rem;
+		margin: 0.5rem auto;
+	}
+
+	&__source {
+		position: relative;
+	}
+}

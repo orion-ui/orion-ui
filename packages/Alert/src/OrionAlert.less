@@ -1,0 +1,81 @@
+@import '../../Shared/styles/variables.less';
+@import '../../Shared/styles/mixins.less';
+
+.orion-alert {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	border-radius: var(--radius-alert);
+	padding: var(--fluid-10px) var(--fluid-15px);
+
+	&__close {
+		.close(calc(22rem / 16));
+		position: absolute;
+		z-index: 1;
+		top: var(--fluid-10px);
+		right: var(--fluid-10px);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		&:hover {
+			color: inherit;
+			border-color: inherit;
+		}
+	}
+
+	&__title {
+		margin: 0;
+		text-decoration: underline;
+	}
+
+	&--center {
+		text-align: center;
+	}
+
+	each(@colors, {
+		@color: ~"--@{value}";
+		@rgbColor: ~"--rgb-@{value}";
+		@colorLight: ~"--@{value}-light";
+		@colorDark: ~"--@{value}-dark";
+		
+    &--@{value} {
+			color: var(@colorDark);
+      background: var(@colorLight);
+
+      .orion-alert__title {
+        color: var(@colorDark);
+      }
+
+			&:not(.orion-alert--inverse):not(.orion-alert--default) > {
+				.orion-alert__title, .orion-alert__contrast {
+					.color-contrast();
+				}
+			}
+
+			[data-orion-theme="dark"] & {
+				color: var(@colorLight);
+				background: var(@colorDark);
+
+				.orion-alert__title {
+					color: var(@colorLight);
+				}
+			}
+    }
+  });
+
+	&--default {
+		color: var(--grey-darker);
+		background: var(--grey-light);
+	}
+
+	&--inverse {
+		color: var(--grey-lighter);
+		background: var(--inverse);
+
+		.orion-alert__title  {
+			color: var(--grey-lighter);
+		}
+	}
+}

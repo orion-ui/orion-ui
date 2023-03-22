@@ -1,0 +1,4 @@
+@import '../../Shared/styles/variables.less';
+@import '../../Shared/styles/mixins.less';
+
+.{component-name} {}

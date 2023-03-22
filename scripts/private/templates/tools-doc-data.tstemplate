@@ -1,0 +1,11 @@
+/* eslint-disable max-len */
+
+/**
+ * Auto generated file using cli command
+ * _> node cli.cjs doc
+ * Manual changes will be overwritten
+ */
+
+const toolsDocData = {data};
+
+export default toolsDocData;

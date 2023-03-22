@@ -1,0 +1,119 @@
+@import '../../Shared/styles/variables.less';
+@import '../../Shared/styles/mixins.less';
+
+@sizeXS: 1rem;
+@sizeSM: 1.5rem;
+@sizeMD: 2.5rem;
+@sizeLG: 4rem;
+@sizeXL: 5rem;
+
+.spinner(@size) {
+	.circle(@size);
+}
+
+.orion-loader {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	// background: radial-gradient(circle, fade(white, 95) 40%, fade(white, 30));
+	// backdrop-filter: blur(2px);
+	background: fade(white, 85);
+	z-index: @zIndexOrionLoader;
+
+	[data-orion-theme='dark'] & {
+		background: rgba(var(--rgb-grey-light), 0.9);
+	}
+
+	.orion-modal & {
+		border-radius: 0.5rem;
+	}
+
+	&__spinner {
+		.orion-loader--xs & {
+			.spinner(@sizeXS);
+		}
+		.orion-loader--sm & {
+			.spinner(@sizeSM);
+		}
+		.orion-loader--md & {
+			.spinner(@sizeMD);
+		}
+		.orion-loader--lg & {
+			.spinner(@sizeLG);
+		}
+		.orion-loader--xl & {
+			.spinner(@sizeXL);
+		}
+	}
+
+	&__text {
+		padding: var(--fluid-15px) var(--fluid-10px) 0;
+		color: white;
+		font-size: 1rem;
+		text-align: center;
+
+		.orion-loader--xs & {
+			padding: var(--fluid-10px) var(--fluid-5px) 0;
+			font-size: 0.8rem;
+		}
+
+		.orion-loader--sm & {
+			padding: var(--fluid-10px) var(--fluid-5px) 0;
+			font-size: 0.85rem;
+		}
+
+		.orion-loader--lg & {
+			padding: var(--fluid-20px) var(--fluid-10px) 0;
+		}
+	}
+
+	&--main {
+		position: fixed;
+		z-index: calc(@zIndexOrionLoader + 1);
+	}
+
+	each(@colors, {
+		@color: ~"--@{value}";
+		&--@{value} {
+			.orion-icon__loading {
+				stroke: var(@color);
+			}
+
+			.orion-loader__text {
+				color: var(@color);
+			}
+		}
+	});
+
+	&--default {
+		.orion-icon__loading {
+			stroke: var(--grey-darker);
+		}
+
+		.orion-loader__text {
+			color: var(--grey-darker);
+		}
+	}
+
+	&--inverse {
+		background: rgba(var(--rgb-grey-darker), 0.9);
+
+		[data-orion-theme='dark'] & {
+			background: rgba(var(--rgb-grey-darker), 0.9);
+		}
+
+		.orion-icon__loading {
+			stroke: var(--grey-lighter);
+		}
+
+		.orion-loader__text {
+			color: var(--grey-lighter);
+		}
+	}
+}

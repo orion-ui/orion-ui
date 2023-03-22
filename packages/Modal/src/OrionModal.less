@@ -1,0 +1,215 @@
+@import '../../Shared/styles/variables.less';
+@import '../../Shared/styles/mixins.less';
+
+@positionTop: 4rem;
+@positionBottom: 4rem;
+@maxWidth: calc(100vw - 2.5rem);
+@widthXL: calc(1300rem / 16);
+@widthLG: calc(964rem / 16);
+@widthMD: calc(708rem / 16);
+@widthSM: calc(480rem / 16);
+@widthXS: calc(340rem / 16);
+@heightXL: calc(100vh - 8rem);
+
+#o-modal-wrapper {
+	display: flex;
+	justify-content: center;
+}
+
+.orion-modal {
+	position: fixed;
+	z-index: @zIndexOrionModal;
+	top: @positionTop;
+	display: flex;
+	flex-direction: column;
+	max-height: calc(100vh - @positionTop - @positionBottom);
+	background: white;
+	padding: 0;
+	margin: 0;
+	border: none;
+	border-radius: var(--radius-modal);
+	box-shadow: 0 2.5rem 7.5rem fade(black, 50);
+	overscroll-behavior: contain;
+	backface-visibility: hidden;
+
+	[data-orion-theme='dark'] & {
+		background-color: var(--grey-lighter);
+	}
+
+	&:focus {
+		outline: none;
+	}
+
+	&__close {
+		.close(1.5rem);
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
+	}
+
+	&__title {
+		flex: 1 0 0%;
+		margin: 0;
+		padding: var(--fluid-15px) var(--fluid-60px) var(--fluid-15px)
+			var(--fluid-20px);
+		font-weight: 600;
+	}
+
+	&__body,
+	&__footer {
+		overflow: auto;
+		overscroll-behavior: contain;
+	}
+
+	&__body {
+		order: 1;
+		flex: 1 1 auto;
+		border-radius: var(--radius-modal);
+		padding: var(--fluid-30px);
+
+		.orion-modal__footer:not(:empty) + & {
+			padding-bottom: var(--fluid-10px);
+		}
+
+		// #region Pure CSS scroll shadow
+		background: linear-gradient(white 30%, rgba(255, 255, 255, 0)),
+			linear-gradient(rgba(255, 255, 255, 0), white 70%) 0 100%,
+			radial-gradient(
+				farthest-side at 50% 0,
+				rgba(0, 0, 0, 0),
+				rgba(0, 0, 0, 0)
+			),
+			radial-gradient(
+					farthest-side at 50% 100%,
+					rgba(0, 0, 0, 0.2),
+					rgba(0, 0, 0, 0)
+				)
+				0 100%;
+		background-repeat: no-repeat;
+		background-color: white;
+		background-size: 100% 2.5rem, 100% 2.5rem, 100% 0, 100% 0.5rem;
+		background-attachment: local, local, scroll, scroll;
+
+		[data-orion-theme='dark'] & {
+			background: linear-gradient(
+					var(--grey-lighter) 30%,
+					rgba(255, 255, 255, 0)
+				),
+				linear-gradient(rgba(255, 255, 255, 0), var(--grey-lighter) 70%) 0 100%,
+				radial-gradient(
+					farthest-side at 50% 0,
+					rgba(0, 0, 0, 0),
+					rgba(0, 0, 0, 0)
+				),
+				radial-gradient(
+						farthest-side at 50% 100%,
+						rgba(0, 0, 0, 0.5),
+						rgba(0, 0, 0, 0)
+					)
+					0 100%;
+			background-repeat: no-repeat;
+			background-size: 100% 2.5rem, 100% 2.5rem, 100% 0, 100% 0.5rem;
+			background-attachment: local, local, scroll, scroll;
+			background-color: var(--grey-lighter);
+		}
+		// #endregion
+
+		@media @tablet {
+			padding: var(--fluid-60px);
+
+			.orion-modal__footer:not(:empty) + & {
+				padding-bottom: var(--fluid-40px);
+
+				.orion-modal--xs & {
+					padding-bottom: var(--fluid-10px);
+				}
+			}
+		}
+
+		.orion-modal--sm & {
+			padding: var(--fluid-45px);
+		}
+		.orion-modal--xs & {
+			padding: var(--fluid-20px);
+		}
+	}
+
+	&__footer {
+		order: 2;
+		flex: 0 0 auto;
+		padding: var(--fluid-20px) var(--fluid-30px);
+
+		@media @tablet {
+			padding: var(--fluid-20px) var(--fluid-60px);
+		}
+
+		.orion-modal--sm & {
+			padding: var(--fluid-20px) var(--fluid-45px);
+		}
+		.orion-modal--xs & {
+			padding: var(--fluid-20px);
+		}
+
+		&:empty {
+			display: none;
+		}
+	}
+
+	&__actions {
+		flex: 1 0 0%;
+		display: flex;
+		flex-direction: row-reverse;
+		gap: 1rem;
+	}
+
+	&--fullscreen {
+		top: 0;
+		left: 0;
+		width: 100vw;
+		max-width: 100vw;
+		height: 100vh; // dvh support fallback
+		max-height: 100vh; // dvh support fallback
+		height: 100dvh;
+		max-height: 100dvh;
+		border-radius: 0;
+
+		.orion-modal__body {
+			height: calc(100vh - 4rem - 5rem);
+		}
+	}
+
+	&--xl {
+		width: min(@widthXL, @maxWidth);
+		left: max(calc(50% - @widthXL / 2), calc(50% - @maxWidth / 2));
+	}
+
+	&--lg {
+		width: min(@widthLG, @maxWidth);
+		left: max(calc(50% - @widthLG / 2), calc(50% - @maxWidth / 2));
+	}
+
+	&--md {
+		width: min(@widthMD, @maxWidth);
+		left: max(calc(50% - @widthMD / 2), calc(50% - @maxWidth / 2));
+	}
+
+	&--sm {
+		width: min(@widthSM, @maxWidth);
+		left: max(calc(50% - @widthSM / 2), calc(50% - @maxWidth / 2));
+	}
+
+	&--xs {
+		width: min(@widthXS, @maxWidth);
+		left: max(calc(50% - @widthXS / 2), calc(50% - @maxWidth / 2));
+	}
+
+	&--prompt {
+		.orion-upload__illustration {
+			display: none;
+		}
+
+		.orion-modal__body {
+			padding-bottom: 0;
+		}
+	}
+}

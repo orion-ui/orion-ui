@@ -1,0 +1,117 @@
+@import '../../Shared/styles/variables.less';
+@import '../../Shared/styles/mixins.less';
+
+.orion-label {
+	.ellipsis();
+	display: inline-block;
+	max-width: 100%;
+	font-weight: 600;
+	line-height: 1.4;
+	border-radius: var(--radius-label);
+	white-space: nowrap;
+
+	each(@colors, {
+		@color: ~"--@{value}";
+		@colorLight: ~"--@{value}-light";
+		@colorDark: ~"--@{value}-dark";
+		@colorAlt: ~"--@{value}-alt";
+		@colorAltRgb: ~"--rgb-@{value}-alt";
+		
+		&--@{value} {
+			color: white;
+			background: var(@color);
+
+			[data-orion-theme="dark"] & {
+				color: black;
+			}
+			
+			&.orion-label--outline {
+				color: var(@colorDark);
+				background: var(@colorLight);
+
+				[data-orion-theme="dark"] & {
+					color: var(@colorLight);
+					background: var(@colorDark);
+				}
+			}
+		}
+		
+		&--@{value}-alt {
+			color: white;
+			background: var(@colorAlt);
+
+			[data-orion-theme="dark"] & {
+				color: black;
+			}
+			
+			&.orion-label--outline {
+				color: var(@colorAlt);
+				background: rgba(var(@colorAltRgb), 0.15);
+
+				&:not(.orion-label--inverse):not(.orion-label--default) > {
+					.orion-label__content {
+						filter: saturate(90%);
+					}
+				}
+
+				[data-orion-theme="dark"] & {
+					color: var(@colorAlt);
+					background: rgba(var(@colorAltRgb), 0.15);
+				}
+			}
+		}
+	});
+
+	&--default {
+		color: var(--grey-darker);
+		background: var(--grey-light);
+
+		&.orion-label--outline {
+			background: var(--grey-lighter);
+
+			[data-orion-theme='dark'] & {
+				background: rgba(0, 0, 0, 0.7);
+			}
+		}
+
+		[data-orion-theme='dark'] & {
+			background: var(--grey);
+		}
+	}
+
+	&--inverse {
+		color: var(--grey-lighter);
+		background: var(--inverse);
+	}
+
+	&--outline:not(&--inverse):not(&--default) {
+		.orion-label__content {
+			.color-contrast();
+		}
+	}
+
+	&--xs {
+		padding: calc(1rem / 16) var(--fluid-5px);
+		font-size: calc(9rem / 16);
+	}
+
+	&--sm {
+		padding: calc(1rem / 16) calc(5px + 0.125rem);
+		font-size: 0.7rem;
+	}
+
+	&--md {
+		padding: calc(2rem / 16) var(--fluid-10px);
+		font-size: 0.75rem;
+	}
+
+	&--lg {
+		padding: calc(1px + 0.125rem) var(--fluid-15px);
+		font-size: 0.85rem;
+	}
+
+	&--xl {
+		padding: var(--fluid-5px) var(--fluid-18px);
+		font-size: 0.85rem;
+	}
+}

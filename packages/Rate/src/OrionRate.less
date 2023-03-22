@@ -1,0 +1,120 @@
+@import '../../Shared/styles/variables.less';
+@import '../../Shared/styles/mixins.less';
+
+.orion-rate {
+	display: flex;
+	align-items: center;
+	gap: 0.125rem;
+
+	&__wrapper {
+		display: flex;
+		align-items: center;
+		flex-direction: row-reverse;
+		justify-content: flex-end;
+		line-height: 1;
+
+		.orion-rate--disabled & {
+			flex-direction: row;
+			justify-content: flex-start;
+		}
+	}
+
+	&__star {
+		.square(1.125rem);
+		font-size: 1rem;
+		color: var(--grey-light);
+		cursor: pointer;
+
+		.orion-rate--disabled & {
+			cursor: not-allowed;
+		}
+
+		&.half {
+			each(@colors, {
+				&--@{value} {
+					@color: ~"--@{value}";
+					&::before{
+						color: transparent;
+						background: linear-gradient(to right, var(@color), var(@color) 50%, var(--grey-light) 50%, var(--grey-light) );
+						background-clip: text;
+						-webkit-background-clip: text;
+						-webkit-text-fill-color: transparent;
+					}
+				}
+				
+				&--default {
+					&::before{
+						color: transparent;
+						background: linear-gradient(to right, var(--grey-dark), var(--grey-dark) 50%, var(--grey-light) 50%, var(--grey-light) );
+						background-clip: text;
+						-webkit-background-clip: text;
+						-webkit-text-fill-color: transparent;
+					}
+				}
+			});
+		}
+	}
+
+	&__number {
+		color: var(--grey-dark);
+		transform: translateY(-0.0625rem);
+	}
+
+	input {
+		display: none;
+	}
+
+	each(@colors, {
+		&--@{value} {
+			@color: ~"--@{value}";
+
+			input:checked ~ label {
+				color: var(@color);
+			}
+			.orion-rate__wrapper:hover {
+				input ~ label {
+					background: unset;
+					color: var(--grey-light);
+				}
+				input ~ label:hover,
+				input ~ label:hover ~ label {
+					background: unset;
+					color: var(@color) !important;
+				}
+			}
+		}
+
+		&--default {
+			input:checked ~ label {
+				color: var(--grey-dark);
+			}
+			.orion-rate__wrapper:hover {
+				input ~ label {
+					background: unset;
+					color: var(--grey-light);
+				}
+				input ~ label:hover,
+				input ~ label:hover ~ label {
+					background: unset;
+					color: var(--grey-dark) !important;
+				}
+			}
+		}
+		&--inverse {
+			input:checked ~ label {
+				color: white;
+			}
+			.orion-rate__wrapper:hover {
+				input ~ label {
+					background: unset;
+					color: var(--grey-light);
+				}
+				input ~ label:hover,
+				input ~ label:hover ~ label {
+					background: unset;
+					color: white !important;
+				}
+			}
+		}
+	});
+}

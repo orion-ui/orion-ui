@@ -1,0 +1,60 @@
+@import '../../Shared/styles/variables.less';
+@import '../../Shared/styles/mixins.less';
+
+.orion-progress-circle {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+
+	&__path,
+	&__value {
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+
+	&__path > circle {
+		fill: none;
+		stroke: var(--grey-light);
+		[data-orion-theme='dark'] & {
+			stroke: var(--grey);
+		}
+	}
+
+	&__value {
+		transform: rotate(-90deg);
+
+		> circle {
+			fill: none;
+			stroke-linecap: round;
+			transition: stroke-dashoffset 0.5s ease;
+
+			each(@colors, {
+				@color: ~"--@{value}";
+        .orion-progress-circle--@{value} & {
+          stroke: var(@color);
+        }
+      });
+		}
+	}
+
+	&__label {
+		font-size: 0.3em;
+		line-height: 1;
+		font-weight: 600;
+	}
+
+	&--default {
+		.orion-progress-circle__value > circle {
+			stroke: var(--grey-dark);
+		}
+	}
+
+	&--inverse {
+		.orion-progress-circle__value > circle {
+			stroke: var(--inverse);
+		}
+	}
+}

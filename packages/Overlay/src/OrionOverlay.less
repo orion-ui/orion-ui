@@ -1,0 +1,45 @@
+@import '../../Shared/styles/variables.less';
+@import '../../Shared/styles/mixins.less';
+
+.orion-overlay {
+	transition: opacity 0.3s ease-out;
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	opacity: 0;
+	pointer-events: none;
+	background: rgba(var(--rgb-grey-darker), 0.7);
+	overscroll-behavior: contain;
+	overflow: auto;
+
+	/* hide scrollbar */
+	-ms-overflow-style: none; /* IE and Edge */
+	scrollbar-width: none; /* Firefox */
+	&::-webkit-scrollbar {
+		display: none; /* Chrome, Safari and Opera */
+	}
+
+	[data-orion-theme='dark'] & {
+		background: fade(black, 60);
+	}
+
+	&__overscroll-behavior {
+		top: 0;
+		left: 0;
+		width: calc(100% + 0.0625rem);
+		height: calc(100% + 0.0625rem);
+	}
+
+	&--global {
+		position: fixed;
+		z-index: @zIndexOrionOverlay;
+	}
+
+	&--visible {
+		opacity: 1;
+		pointer-events: all;
+	}
+}

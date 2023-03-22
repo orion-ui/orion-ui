@@ -1,0 +1,29 @@
+@BP-tablet: 48rem; // 768px
+@BP-tabletLandscape: 64rem; // 1024px
+@BP-desktop: 80rem; // 1280px
+@BP-desktopXL: 96rem; // 1536px
+
+@phone: ~'screen and (max-width: calc(@{BP-tablet} - 0.0625rem))';
+@tablet: ~'screen and (min-width: @{BP-tablet})';
+@tabletOnly: ~'screen and (min-width: @{BP-tablet}) and (max-width: calc(@{BP-desktop} - 0.0625rem))';
+@tabletPortrait: ~'screen and (min-width: @{BP-tablet})';
+@tabletPortraitOnly: ~'screen and (min-width: @{BP-tablet}) and (max-width: calc(@{BP-tabletLandscape} - 0.0625rem))';
+@tabletLandscape: ~'screen and (min-width: @{BP-tabletLandscape})';
+@tabletLandscapeOnly: ~'screen and (min-width: @{BP-tabletLandscape}) and (max-width: calc(@{BP-desktop} - 0.0625rem))';
+@desktop: ~'screen and (min-width: @{BP-desktop})';
+@desktopOnly: ~'screen and (min-width: @{BP-desktop}) and (max-width: calc(@{BP-desktopXL} - 0.0625rem))';
+@desktopXL: ~'screen and (min-width: @{BP-desktopXL})';
+
+@greys: grey-darker, grey-dark, grey, grey-light, grey-lighter;
+@colors: brand, info, success, warning, danger, pink;
+@colorsAndGreys: grey-darker, grey-dark, grey, grey-light, grey-lighter, brand,
+	info, success, warning, danger, pink;
+
+@sizes: 0, xs, sm, md, lg, xl;
+
+@zIndexOrionOverlay: 100;
+@zIndexOrionAside: @zIndexOrionOverlay + 100;
+@zIndexOrionModal: @zIndexOrionAside + 100;
+@zIndexOrionLoader: @zIndexOrionModal + 100;
+@zIndexOrionNotif: @zIndexOrionLoader + 100;
+// #endregion

@@ -1,0 +1,130 @@
+@import '../../Shared/styles/variables.less';
+@import '../../Shared/styles/mixins.less';
+
+.orion-input-range {
+	position: relative;
+	width: 100%;
+	margin: 0.5rem 0;
+	min-height: 0.5rem;
+
+	.runnable-track {
+		position: absolute;
+		width: 100%;
+		height: 0.5rem;
+		border-radius: var(--radius-input-range);
+		background: #dcdfe6;
+
+		[data-orion-theme='dark'] & {
+			background: var(--grey);
+		}
+	}
+
+	&__input {
+		-webkit-appearance: none;
+		appearance: none;
+		background: transparent;
+		width: 100%;
+		padding: 0;
+		font: inherit;
+		transition: opacity 0.2s;
+		cursor: pointer;
+		height: 0;
+		margin: unset;
+		position: absolute;
+		top: 0.25rem;
+
+		.orion-input-range--readonly &,
+		.orion-input-range--disabled & {
+			pointer-events: none;
+		}
+
+		//MOZILLA
+		&::-moz-range-track {
+			position: relative;
+			height: 100%;
+			border: none;
+			border-radius: var(--radius-input-range);
+			background: transparent;
+		}
+
+		&::-moz-range-thumb {
+			display: block;
+			position: relative;
+			width: 1.25rem;
+			height: 1.25rem;
+			background: white;
+			border-radius: 100%;
+			z-index: 100;
+
+			[data-orion-theme='dark'] & {
+				background: var(--grey);
+			}
+		}
+
+		each(@colors, {
+        @color: ~"--@{value}";
+        &--@{value} {
+          &::-moz-range-thumb {
+            border: 0.125rem solid var(@color);
+          }
+        }
+      });
+
+		&::-moz-range-progress {
+			height: 0;
+			background: transparent;
+		}
+
+		// CHROME
+		&::-webkit-slider-runnable-track {
+			height: 100%;
+			border: none;
+			border-radius: var(--radius-input-range);
+			background: transparent;
+		}
+
+		&::-webkit-slider-thumb {
+			display: block;
+			position: relative;
+			-webkit-appearance: none;
+			width: 1.25rem;
+			height: 1.25rem;
+			background: white;
+			border: 0.125rem solid var(--brand);
+			border-radius: 100%;
+			z-index: 3;
+			top: -0.625rem;
+
+			[data-orion-theme='dark'] & {
+				background: var(--grey);
+			}
+		}
+
+		each(@colors, {
+      @color: ~"--@{value}";
+      &--@{value} {
+        &::-webkit-slider-thumb {
+          border-color: var(@color);
+        }
+      }
+    });
+	}
+
+	&__progress-bar {
+		position: absolute;
+		height: 0.5rem;
+		width: 100%;
+		border-radius: var(--radius-input-range);
+		pointer-events: none;
+
+		each(@colors, {
+      &--@{value} {
+        @color: ~"--@{value}";
+        background: var(@color);
+        [data-orion-theme="dark"] & {
+          color: black;
+        }
+      }
+    });
+	}
+}

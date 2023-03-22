@@ -1,0 +1,348 @@
+@import '../../Shared/styles/variables.less';
+@import '../../Shared/styles/mixins.less';
+
+.orion-chips {
+	.ellipsis();
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	max-width: 100%;
+	font-weight: 600;
+	border-radius: 1.25rem;
+	white-space: nowrap;
+	border-width: 0.125rem;
+	border-style: solid;
+
+	&__close {
+		position: absolute;
+		right: calc(3rem / 16);
+
+		&:hover {
+			opacity: 1;
+			color: white !important;
+			border-color: white !important;
+
+			[data-orion-theme='dark'] & {
+				color: var(--grey-lighter) !important;
+				border-color: var(--grey-lighter) !important;
+			}
+		}
+	}
+
+	&__main,
+	&__dual {
+		display: flex;
+		align-items: center;
+		height: 100%;
+	}
+
+	&__dual {
+		background: white;
+		[data-orion-theme='dark'] & {
+			background: var(--grey-lighter);
+		}
+	}
+
+	each(@colors, {
+		@color: ~"--@{value}";
+		@colorLight: ~"--@{value}-light";
+		@colorDark: ~"--@{value}-dark";
+		@colorAlt: ~"--@{value}-alt";
+		@colorAltRgb: ~"--rgb-@{value}-alt";
+		
+		&--@{value} {
+			color: white;
+			background: var(@color);
+			border-color: var(@color);
+
+			[data-orion-theme="dark"] & {
+				color: black;
+			}
+
+			.orion-chips__dual {
+				color: var(@color);
+			}
+
+			&.orion-chips--outline,
+			&.orion-chips--dual {
+				.orion-chips__close {
+					color: var(@colorDark) !important;
+					&:hover {
+						border-color: var(@color) !important;
+					}
+
+					[data-orion-theme="dark"] & {
+						color: var(@colorLight) !important;
+					}
+				}
+			}
+			
+			&.orion-chips--outline {
+				color: var(@colorDark);
+				background: var(@colorLight);
+				border-color: var(@colorLight);
+
+				.orion-chips__dual {
+					color: var(@colorDark);
+				}
+				
+				[data-orion-theme="dark"] & {
+					color: var(@colorLight);
+					background: var(@colorDark);
+					border-color: var(@colorDark);
+					
+					.orion-chips__dual {
+						color: var(@colorLight);
+					}
+				}
+			}
+		}
+
+		&--@{value}-alt {
+			color: white;
+			background: var(@colorAlt);
+			border-color: var(@colorAlt);
+
+			[data-orion-theme="dark"] & {
+				color: black;
+			}
+
+			.orion-chips__dual {
+				color: var(@colorAlt);
+			}
+
+			&.orion-chips--outline,
+			&.orion-chips--dual {
+				.orion-chips__close {
+					color: var(@colorAlt) !important;
+					&:hover {
+						border-color: var(@colorAlt) !important;
+					}
+
+					[data-orion-theme="dark"] & {
+						color: var(@colorAlt) !important;
+					}
+				}
+			}
+			
+			&.orion-chips--outline {
+				color: var(@colorAlt);
+				background: rgba(var(@colorAltRgb), 0.15);
+				border-color: rgba(var(@colorAltRgb), 0.15);
+
+				&:not(.orion-chips--inverse):not(.orion-chips--default) > {
+					.orion-chips__main, .orion-chips__dual-content {
+						filter: saturate(90%);
+					}
+				}
+
+				.orion-chips__dual {
+					color: var(@colorAlt);
+				}
+			}
+		}
+	});
+
+	&--default {
+		color: var(--grey-darker);
+		background: var(--grey-light);
+		border-color: var(--grey-light);
+
+		.orion-chips__close {
+			[data-orion-theme='light'] &,
+			[data-orion-theme='dark'] & {
+				color: var(--grey-darker) !important;
+				&:hover {
+					border-color: var(--grey-darker) !important;
+				}
+			}
+		}
+
+		&.orion-chips--outline {
+			background: var(--grey-lighter);
+			border-color: var(--grey-lighter);
+
+			[data-orion-theme='dark'] & {
+				background: rgba(0, 0, 0, 0.7);
+				border-color: rgba(0, 0, 0, 0.7);
+			}
+		}
+
+		[data-orion-theme='dark'] & {
+			background: var(--grey);
+			border-color: var(--grey);
+		}
+	}
+
+	&--inverse {
+		color: var(--grey-lighter);
+		background: var(--inverse);
+		border-color: var(--inverse);
+
+		.orion-chips__dual {
+			color: var(--inverse);
+		}
+
+		&.orion-chips--dual {
+			.orion-chips__close {
+				color: var(--inverse) !important;
+				&:hover {
+					border-color: var(--inverse) !important;
+				}
+			}
+		}
+	}
+
+	&--outline:not(&--inverse):not(&--default) {
+		.orion-chips__main,
+		.orion-chips__dual-content {
+			.color-contrast();
+		}
+	}
+
+	&--xs {
+		@paddingClose: 1.25rem;
+		height: 1rem;
+		border-width: 0.0625rem;
+		font-size: 0.75rem;
+
+		.orion-chips {
+			&__main,
+			&__dual {
+				padding: 0 calc(6rem / 16) calc(1rem / 16);
+			}
+			&__close {
+				.close(0.875rem);
+			}
+		}
+
+		&.orion-chips--closable {
+			&:not(.orion-chips--dual) {
+				.orion-chips__main {
+					padding-right: @paddingClose;
+				}
+			}
+			&.orion-chips--dual {
+				.orion-chips__dual {
+					padding-right: @paddingClose;
+				}
+			}
+		}
+	}
+
+	&--sm {
+		@paddingClose: calc(22rem / 16);
+		height: 1.25rem;
+		font-size: 0.8rem;
+
+		.orion-chips {
+			&__main,
+			&__dual {
+				padding: 0 calc(7rem / 16) calc(1rem / 16);
+			}
+			&__close {
+				.close(calc(14rem / 16));
+			}
+		}
+
+		&.orion-chips--closable {
+			&:not(.orion-chips--dual) {
+				.orion-chips__main {
+					padding-right: @paddingClose;
+				}
+			}
+			&.orion-chips--dual {
+				.orion-chips__dual {
+					padding-right: @paddingClose;
+				}
+			}
+		}
+	}
+
+	&--md {
+		@paddingClose: calc(24rem / 16);
+		height: 1.5rem;
+		font-size: 0.85rem;
+
+		.orion-chips {
+			&__main,
+			&__dual {
+				padding: 0 calc(8rem / 16) calc(1rem / 16);
+			}
+			&__close {
+				.close(1rem);
+			}
+		}
+
+		&.orion-chips--closable {
+			&:not(.orion-chips--dual) {
+				.orion-chips__main {
+					padding-right: @paddingClose;
+				}
+			}
+			&.orion-chips--dual {
+				.orion-chips__dual {
+					padding-right: @paddingClose;
+				}
+			}
+		}
+	}
+
+	&--lg {
+		@paddingClose: calc(25rem / 16);
+		height: calc(28rem / 16);
+		font-size: 0.85rem;
+
+		.orion-chips {
+			&__main,
+			&__dual {
+				padding: 0 0.5rem calc(1rem / 16);
+			}
+			&__close {
+				.close(1rem);
+			}
+		}
+
+		&.orion-chips--closable {
+			&:not(.orion-chips--dual) {
+				.orion-chips__main {
+					padding-right: @paddingClose;
+				}
+			}
+			&.orion-chips--dual {
+				.orion-chips__dual {
+					padding-right: @paddingClose;
+				}
+			}
+		}
+	}
+
+	&--xl {
+		@paddingClose: calc(26rem / 16);
+		height: 2rem;
+		font-size: 0.85rem;
+
+		.orion-chips {
+			&__main,
+			&__dual {
+				padding: 0 0.75rem calc(1rem / 16);
+			}
+			&__close {
+				.close(1.125rem);
+			}
+		}
+
+		&.orion-chips--closable {
+			&:not(.orion-chips--dual) {
+				.orion-chips__main {
+					padding-right: @paddingClose;
+				}
+			}
+			&.orion-chips--dual {
+				.orion-chips__dual {
+					padding-right: @paddingClose;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,92 @@
+@import '../../Shared/styles/variables.less';
+@import '../../Shared/styles/mixins.less';
+
+#layout {
+	min-height: 100vh; // svh support fallback
+	min-height: 100svh;
+	display: flex;
+	flex-direction: column;
+
+	@media @phone, @tabletPortraitOnly {
+		> .orion-nav-main {
+			display: none;
+		}
+	}
+}
+
+#main {
+	@media @phone, @tabletPortraitOnly {
+		padding-bottom: 4rem; // NavTabs height
+	}
+}
+
+#main,
+#nav-fullpage .orion-nav-fullpage__wrapper > div {
+	flex: 1 0 0%;
+	margin-top: 4rem;
+
+	@media @tablet {
+		margin-top: calc(90rem / 16);
+	}
+
+	@media @tabletLandscape {
+		margin: calc(90rem / 16) 0 0 16rem;
+	}
+
+	@media @desktop {
+		margin: 10rem 0 0 16rem;
+	}
+}
+
+#footer {
+	flex: 0 1 auto;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	padding: var(--fluid-15px);
+	margin: 0 auto 4rem;
+	color: var(--grey);
+
+	span {
+		color: var(--info);
+		font-size: 0.75rem;
+		text-transform: uppercase;
+		text-decoration: none;
+		margin: 0 0.5rem;
+		cursor: pointer;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+
+	@media @tabletPortrait {
+		max-width: calc(@BP-tablet - 4rem);
+	}
+
+	@media @tabletLandscape {
+		max-width: calc(@BP-tabletLandscape - 4rem);
+		padding-left: calc(16rem + 10px + 0.3rem);
+		margin-bottom: 1rem;
+	}
+
+	@media @desktop {
+		max-width: calc(@BP-desktop - 4rem);
+	}
+
+	@media @desktopXL {
+		max-width: calc(@BP-desktopXL - 4rem);
+	}
+
+	@media @phone {
+		flex-direction: column;
+
+		#footer__links {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			margin: 0.5rem auto;
+		}
+	}
+}
