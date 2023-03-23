@@ -55,7 +55,7 @@
 </template>
 
 <script setup lang="ts">
-import { useLoader } from 'services';
+import { useLoader } from 'lib';
 import { reactive } from 'vue';
 
 const state = reactive({

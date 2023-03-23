@@ -58,8 +58,7 @@
 </template>
 
 <script setup lang="ts">
-import { useNotif } from 'lib';
-import { coolicons } from 'lib';
+import { useNotif, coolicons } from 'lib';
 import { reactive, computed } from 'vue';
 
 const state = reactive({

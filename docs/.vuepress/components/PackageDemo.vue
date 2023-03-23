@@ -15,10 +15,23 @@
 				@click="handleShowSourceClick">
 				{{ showSource ? `Hide source` : `Show source` }}
 			</o-button>
+			<o-button
+				v-if="!hasNested"
+				nude
+				size="sm"
+				color="info"
+				suffix-icon="external_link"
+				@click="tryOnStackblitz()">
+				Try on Stackblitz
+			</o-button>
 		</div>
 
 		<div v-show="showSource" class="oriondoc-demo__source" :id="demo.__name">
 				<slot name="source"/>
+		</div>
+
+		<div ref="_rawSource" v-if="!hasNested" v-show="false">
+			<slot name="rawSource"/>
 		</div>
 	</ClientOnly>
 </template>
@@ -27,12 +40,15 @@
 import { addCopyFeatureToCode } from '@utils/tools'
 import { useSiteLocaleData } from '@vuepress/client';
 import { ref } from 'vue';
+import * as sb from '../utils/stackblitz'
+import sdk from '@stackblitz/sdk';
 
+const _rawSource = ref<HTMLElement>();
 const siteLocale = useSiteLocaleData()
-
 const props = defineProps<{
 	demo: object & {__name: string}
 	source: string
+	hasNested: boolean
 }>()
 
 const showSource = ref(false);
@@ -40,5 +56,22 @@ const showSource = ref(false);
 function handleShowSourceClick () {
 	showSource.value = !showSource.value
 	addCopyFeatureToCode()
+}
+
+function tryOnStackblitz () {
+	const sourceCode = _rawSource.value?.getElementsByTagName('code')[0]?.innerText ?? '';
+
+	sdk.openProject({
+		title: `Orion demo - ${props.demo.__name}`,
+		description: `Try Orion's components`,
+		template: 'node',
+		files: {
+			...sb.files,
+      'src/Demo.vue': sourceCode,
+    },
+	}, {
+		openFile: 'src/Demo.vue',
+		showSidebar: false,
+	});
 }
 </script>

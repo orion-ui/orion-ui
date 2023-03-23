@@ -64,6 +64,7 @@
 		"vue-color-kit": "^1.0.5"
 	},
 	"devDependencies": {
+		"@stackblitz/sdk": "^1.8.2",
 		"@types/cleave.js": "^1.4.7",
 		"@types/cli-progress": "^3.11.0",
 		"@types/fs-extra": "^9.0.13",

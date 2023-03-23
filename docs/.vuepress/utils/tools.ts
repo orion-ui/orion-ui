@@ -33,7 +33,7 @@ export function useServiceData(targetService?: string) {
 export function addCopyFeatureToCode() {
 	document.querySelectorAll('div[class^="language-"]')?.forEach((el) => {
 
-		var copyButton = document.createElement('i' as OrionIcon);
+		var copyButton = document.createElement('i');
 		copyButton.className = 'orion-icon icon ci-copy orion-icon--ripple orion-icon--ripple-brand orion-icon--clickable oriondoc-demo__copy-icon v-popper--has-tooltip copy-icon';
 		el.appendChild(copyButton);
 		

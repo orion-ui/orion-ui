@@ -53,7 +53,7 @@ export const mdDemoPlugin = (md: MardownIt, App: App, supportedLanguages: string
 
 						const parser = /(?<source>(.|\n)*<\/(template|script|style)>)((.|\n)*@hl (?<highlight>{[\d,-]+}))?((.|\n)*@hmr (?<hmr>[\w\/]+.md))?((?<doc>(.|\n)*))?/.exec(demoSource)?.groups;
 
-						const source = parser?.source;
+						const source = parser?.source?.replace(/from 'lib'/gm, `from '@orion.ui/orion'`) ?? '';
 						const highlight = parser?.highlight ?? '';
 						const doc = parser?.doc?.trim() ?? '';
 
@@ -71,7 +71,7 @@ export const mdDemoPlugin = (md: MardownIt, App: App, supportedLanguages: string
 						}
 						return `
 <div class="oriondoc-demo">
-<PackageDemo :demo="${demo}">
+<PackageDemo :demo="${demo}" :hasNested="${/import.*Nested.*/.test(source)}">
 <template #default="{lang}">
 ${
 	typeof result === 'string'
@@ -87,7 +87,13 @@ ${(result as any).en ?? 'Missing documentation'}
 
 <template #source>
 ${App.markdown.render(`\`\`\`vue${highlight}
-${source?.replace(/from 'lib'/gm, `from '@orion.ui/orion'`)}
+${source}
+\`\`\``)}
+</template>
+
+<template #rawSource>
+${App.markdown.render(`\`\`\`
+${source}
 \`\`\``)}
 </template>
 </PackageDemo>
