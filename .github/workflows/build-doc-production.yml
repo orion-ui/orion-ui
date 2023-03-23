@@ -1,6 +1,7 @@
 name: Build documentation for production
 
 on:
+  workflow_dispatch:
   release:
     types: [published]
 
