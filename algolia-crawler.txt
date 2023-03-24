@@ -1,0 +1,19 @@
+lvl0
+.doc-content > div > h1
+
+lvl1
+.doc-content > div h2
+
+lvl2
+.doc-content > div h3
+
+lvl3
+.doc-content > div .prop-description__name
+.doc-content > div .data-type-table .data__name-only
+
+content
+.doc-content > div > p
+.doc-content > div .prop-description__description > div:first-child:not(.function-parameters)
+.doc-content > div .oriondoc-demo > div > p
+.doc-content > div .data-type-table .data__description
+

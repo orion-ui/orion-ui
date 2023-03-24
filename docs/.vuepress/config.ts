@@ -1,6 +1,5 @@
 import { defineUserConfig, viteBundler } from 'vuepress';
 import { registerComponentsPlugin } from '@vuepress/plugin-register-components';
-import { searchPlugin } from '@vuepress/plugin-search'
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import path from 'path';
 
@@ -54,22 +53,6 @@ export default defineUserConfig({
   },
 
 	plugins: [
-		searchPlugin({
-			locales: {
-				'/': {
-					placeholder: `Search`
-				},
-				'/fr/': {
-					placeholder: 'Rechercher'
-				}
-			},
-			hotKeys: [
-				{
-					key: 'k',
-					ctrl: true,
-				}
-			]
-		}),
 		registerComponentsPlugin({
 			componentsDir: path.resolve(__dirname, './components'),
 		}),

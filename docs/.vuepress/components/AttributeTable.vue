@@ -31,7 +31,7 @@
 					<div :class="dataType === 'props' ? `col-sm-12` : `col-sm-6`">
 						<div class="data">
 							<div class="data__name data__name--typed">
-								{{ item.name }}
+								<span class="data__name-only">{{ item.name }}</span>
 								<code v-if="dataType === 'props'">
 									<template v-if="itemHas(item, 'type')">
 										{{ item.type }}
