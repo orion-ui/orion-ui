@@ -63,6 +63,8 @@ jobs:
         run: npm run docs:build
         env:
           NODE_OPTIONS: --max-old-space-size=4096
+          VITE_ALGOLIA_APP_ID: ${{secrets.VITE_ALGOLIA_APP_ID}}
+          VITE_ALGOLIA_API_KEY: ${{secrets.VITE_ALGOLIA_API_KEY}}
 
       - name: Upload Doc artifact
         uses: actions/upload-pages-artifact@v1

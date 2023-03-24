@@ -10,14 +10,7 @@
 			]">
 			<Sidebar v-if="shouldShowSidebar"/>
 			
-			<Navbar v-if="shouldShowNavbar" @toggle-sidebar="toggleSidebar()">
-				<template #after>
-					<div class="navbar-search-buttons" @click="toggleSearch()">
-						<kbd class="navbar-search-buttonKey">Ctrl</kbd>
-						<kbd class="navbar-search-buttonKey">K</kbd>
-					</div>
-				</template>
-			</Navbar>
+			<Navbar v-if="shouldShowNavbar" @toggle-sidebar="toggleSidebar()"/>
 			
 			<main class="doc-content">
 				<Home v-if="frontmatter.home"/>
