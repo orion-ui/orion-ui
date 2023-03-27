@@ -32,32 +32,6 @@ const router = createRouter({
 				},
 			],
 		},
-		{
-			path: '/sandbox/jb',
-			component: () => import('sandbox/views/LayoutApp.vue'),
-			children: [
-				{
-					name: 'DocNodeScript',
-					path: 'doc-node-script',
-					component: () => import('sandbox/views/sandbox-jb/DocNodeScript.vue'),
-				},
-				{
-					name: 'NestedInNotif',
-					path: 'nested-in-notif',
-					component: () => import('sandbox/views/sandbox-jb/NestedInNotif.vue'),
-				},
-				{
-					name: 'Palette',
-					path: 'palette',
-					component: () => import('sandbox/views/sandbox-jb/ColorPalette.vue'),
-				},
-				{
-					name: 'Bus',
-					path: 'bus',
-					component: () => import('sandbox/views/sandbox-jb/CustomBus.vue'),
-				},
-			],
-		},
 	],
 });
 

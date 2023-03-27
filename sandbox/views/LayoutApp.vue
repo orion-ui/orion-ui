@@ -52,37 +52,6 @@ const navMain: OrionNavMain.Props = {
 			sectionTitle: true,
 		},
 		{
-			label: `Sandbox JB`,
-			icon: 'app_store',
-			expand: false,
-			children: [
-				{
-					label: `DocNodeScript`,
-					to: { name: 'DocNodeScript' },
-					icon: 'Sketch',
-					wrapperClass: 'sandbox-jb',
-				},
-				{
-					label: `NestedInNotif`,
-					to: { name: 'NestedInNotif' },
-					icon: 'Sketch',
-					wrapperClass: 'sandbox-jb',
-				},
-				{
-					label: `Palette`,
-					to: { name: 'Palette' },
-					icon: 'Sketch',
-					wrapperClass: 'sandbox-jb',
-				},
-				{
-					label: `Bus`,
-					to: { name: 'Bus' },
-					icon: 'Sketch',
-					wrapperClass: 'sandbox-jb',
-				},
-			],
-		},
-		{
 			label: `Services`,
 			icon: 'note',
 			replace: true,
