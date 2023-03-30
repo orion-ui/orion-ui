@@ -11,10 +11,10 @@
 			class="orion-input__input"
 			:maxlength="setup.props.maxLength"
 			v-bind="{
-				name: setup.props.name,
+				...$attrs,
 				disabled: setup.props.disabled,
 				readonly: setup.props.readonly,
-				...$attrs }"
+			}"
 			@keydown.enter.meta="$emit('submit', setup.vModel)"
 			@keydown.enter.ctrl="$emit('submit', setup.vModel)"
 			@focus="setup.handleFocus($event)"

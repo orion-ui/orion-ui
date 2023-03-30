@@ -18,7 +18,7 @@
 			type="radio"
 			:value="setup.props.inputValue"
 			:checked="setup.isChecked"
-			v-bind="{ name: setup.props.name, disabled: setup.props.disabled }">
+			v-bind="{ ...$attrs, disabled: setup.props.disabled }">
 
 		<span class="orion-radio__check-container">
 			<orion-icon

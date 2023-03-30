@@ -19,7 +19,7 @@
 			class="orion-toggle__input"
 			type="checkbox"
 			:checked="setup.vModel"
-			v-bind="{ name: setup.props.name, disabled: setup.props.disabled }">
+			v-bind="{ ...$attrs, disabled: setup.props.disabled }">
 
 		<div
 			class="orion-toggle__core"

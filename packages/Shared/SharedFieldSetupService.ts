@@ -3,6 +3,7 @@ import { debounce, isNil } from 'lodash-es';
 import SharedProps from './SharedProps';
 import SharedSetupService from './SharedSetupService';
 import useValidation from 'services/ValidationService';
+import useWindow from 'services/WindowService';
 
 type Props = SetupProps<typeof SharedFieldSetupService.props>
 export type FieldEmit<T = any | null | undefined> = {
@@ -59,12 +60,6 @@ export default abstract class SharedFieldSetupService<P, T, E extends FieldEmit 
 			type: String as PropType<string | Orion.DatepickerType>,
 			default: 'text',
 		},
-		// @doc props/name name of the field
-		// @doc/fr props/name nom du champ
-		name: {
-			type: String,
-			default: undefined as string | undefined,
-		},
 		// @doc props/donetyping define the debounce duration before updating the value (useful for search field)
 		// @doc/fr props/donetyping défini la durée du debounce avant de mettre à jour la valeur (utile pour les champs de recherche)
 		donetyping: {
@@ -100,6 +95,7 @@ export default abstract class SharedFieldSetupService<P, T, E extends FieldEmit 
 	protected sharedState = {
 		hasBeenFocus: false,
 		isFocus: false,
+		isAutoFilled: false,
 	};
 
 	protected state = reactive({ ...this.sharedState });
@@ -150,7 +146,7 @@ export default abstract class SharedFieldSetupService<P, T, E extends FieldEmit 
 	}
 
 	protected get labelIsFloating () {
-		return this.state.isFocus || this.hasValue || this.props.forceLabelFloating;
+		return this.state.isFocus || this.hasValue || this.props.forceLabelFloating || this.state.isAutoFilled;
 	}
 
 	get showError () {
@@ -239,6 +235,15 @@ export default abstract class SharedFieldSetupService<P, T, E extends FieldEmit 
 
 	protected onMounted () {
 		if (this.props.autofocus) this.handleAutoFocus();
+
+		// Detect Chrome autofill
+		if (!!(useWindow() as Undef<any>)?.chrome) {
+			setTimeout(() => {
+				if (this._input.value?.parentElement?.querySelector('input:-webkit-autofill') === this._input.value) {
+					this.state.isAutoFilled = true;
+				}
+			}, 400);
+		}
 	}
 
 

@@ -20,7 +20,7 @@
 				class="orion-input__input"
 				:value="setup.displayDateSelected"
 				:maxlength="setup.maxInput"
-				:name="setup.props.name"
+				v-bind="$attrs"
 				@keydown="setup.handleKeydownGuard($event)"
 				@focus="setup.handleFocusCustom($event)"
 				@mouseup="setup.handleMouseup($event)"
