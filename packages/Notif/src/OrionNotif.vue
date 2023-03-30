@@ -31,19 +31,25 @@
 				v-html="setup.options.message"/>
 		</div>
 
-		<span
-			v-if="setup.timer"
-			class="orion-notif__timer"
-			@click="setup.close({ keepInQueue: false } )"
-			@touchend.prevent.stop="setup.close({ keepInQueue: false } )">
-			<span class="orion-notif__timer-circle"/>
-			{{ setup.timer }}
-		</span>
-		<span
-			v-else-if="!setup.options.hideClose"
-			class="orion-notif__close"
-			@click="setup.close({ keepInQueue: false } )"
-			@touchend.prevent.stop="setup.close({ keepInQueue: false } )"/>
+		<template v-if="setup.showTimer()">
+			<span
+				class="orion-notif__timer"
+				@click="setup.close({ keepInQueue: false } )"
+				@touchend.prevent.stop="setup.close({ keepInQueue: false } )">
+				<span class="orion-notif__timer-circle"/>
+				{{ setup.timer }}
+			</span>
+			<span
+				:ref="setup._timerProgress"
+				class="orion-notif__timer-progress orion-notif__timer-progress--animated"
+				:style="{ animationDuration: options.duration + 's' }"/>
+		</template>
+		<template v-else-if="!setup.options.hideClose">
+			<span
+				class="orion-notif__close"
+				@click="setup.close({ keepInQueue: false } )"
+				@touchend.prevent.stop="setup.close({ keepInQueue: false } )"/>
+		</template>
 
 		<orion-loader :ref="setup._loader"/>
 	</div>

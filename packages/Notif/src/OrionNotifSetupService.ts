@@ -1,4 +1,5 @@
 import { PropType, reactive, ref } from 'vue';
+import { isNil } from 'lodash-es';
 import anime from 'animejs';
 import SharedPopableSetupService, { PopableEmit } from '../../Shared/SharedPopableSetupService';
 import orionAppService from 'utils/Orion';
@@ -18,6 +19,7 @@ export default class OrionNotifSetupService extends SharedPopableSetupService<Pr
 	protected name = 'OrionNotif' as const;
 	protected emit: PopableEmit;
 
+	_timerProgress = ref<HTMLElement>();
 	options = reactive<Orion.Notif.Options>({
 		...this.baseOptions,
 		overlay: false,
@@ -29,6 +31,13 @@ export default class OrionNotifSetupService extends SharedPopableSetupService<Pr
 
 	get timer () {
 		return this.timerValue.value;
+	}
+
+	get publicInstance () {
+		return {
+			...super.publicInstance,
+			resetTimer: this.resetTimer.bind(this),
+		};
 	}
 
 
@@ -116,5 +125,23 @@ export default class OrionNotifSetupService extends SharedPopableSetupService<Pr
 		if (this.props.options.duration) {
 			this.timerValue.value = this.props.options.duration;
 		}
+	}
+
+	showTimer (): this is { timer: number } {
+		return !isNil(this.timer);
+	}
+
+	resetTimer () {
+		if (this._timerProgress.value) {
+			this._timerProgress.value.style.animationName = 'none';
+		}
+
+		this.timerValue.value = this.props.options.duration;
+
+		setTimeout(() => {
+			if (this._timerProgress.value) {
+				this._timerProgress.value.style.animationName = 'scaleXtoZero';
+			}
+		}, 0);
 	}
 }
