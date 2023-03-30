@@ -85,6 +85,38 @@
 			}
 		}
 
+		&-progress {
+			position: absolute;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			width: 100%;
+			pointer-events: none;
+
+			&--animated {
+				animation-name: scaleXtoZero;
+				animation-timing-function: linear;
+				animation-fill-mode: forwards;
+				transform-origin: left;
+			}
+
+			.orion-notif--info & {
+				background-color: rgba(var(--rgb-info), 0.05);
+			}
+
+			.orion-notif--success & {
+				background-color: rgba(var(--rgb-success), 0.05);
+			}
+
+			.orion-notif--warning & {
+				background-color: rgba(var(--rgb-warning), 0.075);
+			}
+
+			.orion-notif--danger & {
+				background-color: rgba(var(--rgb-danger), 0.075);
+			}
+		}
+
 		.orion-notif--info & {
 			border-color: var(--info);
 			color: var(--info);

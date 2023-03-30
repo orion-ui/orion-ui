@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 const https = require('https');
 
-let branch = process.env.BRANCH ?? '';
-branch = branch.replace(/\//g, '-');
+const branch = process.env.BRANCH ?? process.argv.find(x => /^--branch/.test(x))?.split('=')?.[1] ?? '';
+const sanitizedBranch = branch.replace(/\//g, '-');
 
 function findNextVersion () {
 	if (!branch.length) throw `Missing branch name`;
@@ -20,12 +20,12 @@ function findNextVersion () {
 					const latest = result['dist-tags']?.latest ?? '0.0.0';
 					const currentBranch = result['dist-tags']?.[branch] ?? branch;
 
-					if (currentBranch?.includes(`${latest}-${branch}`)) {
+					if (currentBranch?.includes(`${latest}-${sanitizedBranch}`)) {
 						const currentVersion = (/\d+$/.exec(currentBranch))?.[0];
 						const nextVersion = currentBranch?.replace(/\d+$/, (+(currentVersion ?? 0) + 1).toString());
 						console.log(nextVersion);
 					} else {
-						const nextVersion = `${latest}-${branch}.1`;
+						const nextVersion = `${latest}-${sanitizedBranch}.1`;
 						console.log(nextVersion);
 					}
 				})

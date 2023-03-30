@@ -10,10 +10,15 @@ textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
-	box-shadow: 0 0 0 calc(30rem / 16) white inset !important; // TODO:
+	box-shadow: 0 0 0 calc(30rem / 16) white inset !important;
+	-webkit-text-fill-color: var(--grey-darker) !important;
 
 	+ .orion-input__pictos {
 		background: none;
+	}
+
+	[data-orion-theme='dark'] & {
+		box-shadow: 0 0 0 calc(30rem / 16) var(--grey-lighter) inset !important;
 	}
 }
 

@@ -23,6 +23,7 @@
 			:class="`orion-input-range__input--${setup.props.color}`"
 			type="range"
 			v-bind="{
+				...$attrs,
 				step: setup.props.step,
 				readonly: setup.props.readonly,
 				disabled: setup.props.disabled,
@@ -37,8 +38,8 @@
 			class="orion-input-range__input"
 			:class="`orion-input-range__input--${setup.props.color}`"
 			type="range"
-			:name="setup.props.name"
 			v-bind="{
+				...$attrs,
 				step: setup.props.step,
 				readonly: setup.props.readonly,
 				disabled: setup.props.disabled,

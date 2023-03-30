@@ -101,6 +101,10 @@ export class ChatService {
 		return this.registry.get(discussionId);
 	}
 
+	deleteDiscussion (discussionId: number) {
+		this.state.registry.delete(discussionId);
+	}
+
 	getActiveDiscussion () {
 		if (this.state.activeDiscussionId)
 			return this.getDiscussion(this.state.activeDiscussionId);

@@ -23,6 +23,12 @@
 				@click="simulateIncomingMessage()">
 				Simul incoming message
 			</o-button>
+			<o-button
+				color="info"
+				outline
+				@click="deleteDiscussion()">
+				Delete discussion
+			</o-button>
 			<o-input
 				v-model.number="targetDiscussionId"
 				label="DiscussionId"/>
@@ -287,6 +293,11 @@ function simulateIncomingDiscussion () {
 	if (!newDiscussion) return;
 
 	chat.addDiscussion(newDiscussion);
+}
+
+function deleteDiscussion () {
+	if (!targetDiscussionId.value) return;
+	chat.deleteDiscussion(targetDiscussionId.value);
 }
 </script>
 
