@@ -29,8 +29,8 @@
 			:validation="setup.isValid"
 			:inherit-validation-state="setup.showState"
 			v-bind="{
+				...$attrs,
 				label: setup.props.label,
-				name: setup.props.name,
 				disabled: setup.props.disabled,
 				clearable: setup.props.clearable,
 				required: setup.isRequired,

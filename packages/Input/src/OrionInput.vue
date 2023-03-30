@@ -7,10 +7,9 @@
 			v-model="setup.vModel"
 			v-cleave="setup.props.cleave"
 			class="orion-input__input"
-			autocomplete="off"
 			:maxlength="setup.props.maxLength"
 			v-bind="{
-				name: setup.props.name,
+				...$attrs,
 				type: setup.props.type,
 				disabled: setup.props.disabled,
 				readonly: setup.props.readonly,
