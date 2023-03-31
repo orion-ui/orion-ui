@@ -1,9 +1,7 @@
-/* eslint-disable no-console */
-const pico = require('picocolors');
 const path = require('path');
+const { text, log, note } = require('@clack/prompts');
 const { readFileSync, readdirSync, writeFileSync } = require('fs');
 const { capitalize } = require('radash');
-const { prompt } = require('enquirer');
 
 
 /**
@@ -16,25 +14,16 @@ const { prompt } = require('enquirer');
  */
 
 module.exports = async (/** @type {Options} */ options) => {
-	/** @type {{prefix: string}} */
-	const res = await prompt({
-		type: 'input',
-		name: 'prefix',
-		required: true,
-		message: `Enter the prefix for Orion components`,
-		initial: 'o',
-		validate: (value) => {
-			if (!value.trim().length)
-				return `You need to specify a prefix`;
-
-			if (!/^[a-z]+$/.test(value))
-				return `Only lower case letters (/^[a-z]+$)`;
-
-			return true;
+	const promptedPrefix = await text({
+		message: 'Enter the prefix for Orion components?',
+		placeholder: 'Need 1 letter min.',
+		initialValue: 'o',
+		validate (value) {
+			if (value.length === 0) return `Value is required!`;
 		},
 	});
 
-	const prefix = capitalize(res.prefix);
+	const prefix = capitalize(promptedPrefix.toString());
 
 	const outputPath = path.resolve(
 		process.cwd(),
@@ -60,11 +49,10 @@ module.exports = async (/** @type {Options} */ options) => {
 	}).join('\n\t\t'));
 
 	if (options.dryRun) {
-		console.log(pico.yellow(`🥨 --> Orion would write following content in ${relativePath}`));
-		console.log();
-		console.log(content);
+		note(`🥨 --> Orion would write following content in ${relativePath}`);
+		log.message(content);
 	} else {
 		writeFileSync(outputPath, content, { encoding: 'utf-8' });
-		console.log(pico.yellow(`🥨 --> Successfully created ${relativePath}`));
+		log.success(`🥨 --> Orion created ${relativePath}`);
 	}
 };

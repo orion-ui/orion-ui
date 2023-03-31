@@ -1,9 +1,8 @@
-/* eslint-disable no-console */
-const pico = require('picocolors');
 const fs = require('fs-extra');
 const path = require('path');
-const { prompt } = require('enquirer');
 const { sanitizePackageName } = require('../scripts-utils.cjs');
+const { text, log, note } = require('@clack/prompts');
+
 
 /**
  * @typedef {object} Options
@@ -13,12 +12,9 @@ const { sanitizePackageName } = require('../scripts-utils.cjs');
  */
 
 module.exports = async (/** @type {Options} */ options) => {
-	/** @type {{name: string}} */
-	const res = await prompt({
-		type: 'input',
-		name: 'name',
-		required: true,
-		message: `What's the name of your package ?`,
+	const name = await text({
+		message: `What's the name of your package?`,
+		placeholder: `Package name`,
 		validate: (value) => {
 			if (!value.trim().length) {
 				return `You need to specify the a name for your package`;
@@ -33,12 +29,10 @@ module.exports = async (/** @type {Options} */ options) => {
 			if (existingPackages.includes(cleanPascalCase)) {
 				return `This package already exists`;
 			}
-
-			return true;
 		},
 	});
 
-	const factory = new ComponentFactory(res.name, options);
+	const factory = new ComponentFactory(name.toString(), options);
 	factory.createFolderTree();
 	factory.createFiles();
 	factory.createDocFiles();
@@ -77,16 +71,17 @@ class ComponentFactory {
 			'src/{ComponentName}SetupService.ts',
 		];
 
+		if (this.options.dryRun) note(`🥨 --> Orion would write following files in /packages`);
+
 		filesToWrite.forEach((f) => {
 			const targetFileName = f.replace(/{ComponentName}/g, this.namePascalCase);
 			const relativePath = path.resolve(this.packagePath, targetFileName).replace(this.rootPath, '');
 
 			if (this.options.dryRun) {
-				console.log(pico.cyan(`Would write file`));
-				console.log(path.resolve(this.packagePath, targetFileName));
+				log.message(path.resolve(this.packagePath, targetFileName));
 			} else {
 				fs.writeFileSync(path.resolve(this.packagePath, targetFileName), this.readTemplate(`component/${f}`), { encoding: 'utf-8' });
-				console.log(pico.yellow(`🥨 --> Successfully created ${relativePath}`));
+				log.success(`🥨 --> Orion created ${relativePath}`);
 			}
 		});
 	}
@@ -96,16 +91,17 @@ class ComponentFactory {
 			'components/{ComponentName}.md',
 		];
 
+		if (this.options.dryRun) note(`🥨 --> Orion would write following files in /docs`);
+
 		filesToWrite.forEach((f) => {
 			const targetFileName = f.replace(/{ComponentName}/g, this.namePascalCase);
 			const relativePath = path.resolve(this.docPath, targetFileName).replace(this.rootPath, '');
 
 			if (this.options.dryRun) {
-				console.log(pico.cyan(`Would write file`));
-				console.log(path.resolve(this.docPath, targetFileName));
+				log.message(path.resolve(this.docPath, targetFileName));
 			} else {
 				fs.writeFileSync(path.resolve(this.docPath, targetFileName), this.readTemplate(`docs/${f}`), { encoding: 'utf-8' });
-				console.log(pico.yellow(`🥨 --> Successfully created ${relativePath}`));
+				log.success(`🥨 --> Orion created ${relativePath}`);
 			}
 		});
 	}
