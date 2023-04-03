@@ -216,6 +216,7 @@ export default abstract class SharedFieldSetupService<P, T, E extends FieldEmit 
 		return {
 			...super.publicInstance,
 			hasBeenFocus: this.state.hasBeenFocus,
+			isFocus: this.state.isFocus,
 			focus: this.focus.bind(this),
 			blur: this.blur.bind(this),
 			clear: this.clear.bind(this),
