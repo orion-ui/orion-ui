@@ -59,14 +59,6 @@ function sanitizePackageName (/** @type {string} */ name) {
 	};
 }
 
-async function during (time = 2000) {
-	return new Promise((resolve) => {
-		setTimeout(() => {
-			resolve(true);
-		}, time);
-	});
-}
-
 
 module.exports = {
 	PrivatePackagesFolder,
@@ -74,5 +66,4 @@ module.exports = {
 	PackagesFolderToNotIndex,
 	NoRoutePackagesFolder,
 	sanitizePackageName,
-	during,
 };

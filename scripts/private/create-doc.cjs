@@ -1,14 +1,11 @@
 // @ts-nocheck
-/* eslint-disable no-console */
-const pico = require('picocolors');
 const path = require('path');
-const cliProgress = require('cli-progress');
-const cliLoading = require('loading-cli');
 const { readFile, readdir, writeFile, mkdir } = require('fs-extra');
 const { Project, SyntaxKind, ScriptKind } = require('ts-morph');
-const { PrivatePackagesFolder, during } = require('../scripts-utils.cjs');
+const { spinner, log, note } = require('@clack/prompts');
 const { exec } = require('child_process');
-const { unique } = require('radash');
+const { unique, sleep } = require('radash');
+const { PrivatePackagesFolder } = require('../scripts-utils.cjs');
 
 /**
  * Change or comment the content or this array
@@ -47,7 +44,6 @@ module.exports = async (/** @type {Options} */ options) => {
 	const factory = new DocFactory(options);
 	await factory.scanPackages();
 	await factory.writeFilePackagesDataDocFile();
-	await during(1000);
 	const serviceFactory = new ServiceFileScanner(options);
 	await serviceFactory.scanServices();
 	await serviceFactory.writeFileServicesDataDocFile();
@@ -131,7 +127,7 @@ class DocUtility {
 	}
 
 	getDoc (/** @type {string} */ regexPattern, flags = 'gm') {
-		if (this.docFlags === undefined) console.log(pico.red(`Forgot to extract doc flags`));
+		if (this.docFlags === undefined) log.error(`Forgot to extract doc flags`);
 		return {
 			en: new RegExp(regexPattern, flags).exec(this.docFlags.en)?.[1] ?? this.missingDoc,
 			fr: new RegExp(regexPattern, flags).exec(this.docFlags.fr)?.[1] ?? this.missingDoc,
@@ -158,8 +154,6 @@ class DocScanner extends DocUtility {
 class DocFactory extends DocUtility {
 	/** @type {Array<{ package: string, data: PackageData }>} */
 	packagesDataDocFile = [];
-	/** @type {cliProgress.Bar | undefined} */
-	progressBar;
 
 	constructor (/** @type {Options} */ options) {
 		super();
@@ -194,20 +188,15 @@ class DocFactory extends DocUtility {
 
 		await this.setPackagesList();
 
-		if (this.options.verbose) console.log(this.packages);
+		if (this.options.verbose) note(this.packages.join('\n'));
 
 		await this.scanSharedProps();
 
-		this.progressBar = new cliProgress.SingleBar({
-			format: `Scanning packages | ${pico.cyan('{bar}')} | {percentage}% | {value}/{total} files`,
-			hideCursor: true,
-		}, cliProgress.Presets.shades_classic);
-
-		this.progressBar.start(this.packages.length, 0);
+		const scanSpinner = spinner();
+		scanSpinner.start(`Scanning ${this.packages.length} packages`);
+		await sleep(1000);
 
 		for await (const pack of this.packages) {
-			this.progressBar.increment();
-
 			const vueFileScanner = new VueFileScanner(this.options, this.project, pack);
 			const vueFileData = await vueFileScanner.scan();
 
@@ -227,7 +216,7 @@ class DocFactory extends DocUtility {
 			});
 		}
 
-		this.progressBar.stop();
+		scanSpinner.stop(`${this.packages.length} packages scanned`);
 	}
 
 	async writeFilePackagesDataDocFile () {
@@ -241,15 +230,14 @@ class DocFactory extends DocUtility {
 		}).join('\n\t'));
 
 		if (this.options.verbose) {
-			console.log(pico.yellow(`🥨 --> Orion would write following content in ${this.docFolderRelativePath}`));
-			console.log();
-			console.log(content);
+			note(`🥨 --> Orion would write following content in ${this.docFolderRelativePath}`);
+			log.message(content);
 		}
 
 		if (!this.options.dryRun) {
 			await mkdir(this.docFolderPath, { recursive: true });
 			await writeFile(filePath, content, 'utf8');
-			console.log(pico.yellow(`🥨 --> Lint output file for packages`));
+			log.step(`🥨 --> Lint output file for packages`);
 			exec(`npx eslint --fix ${filePath}`);
 		}
 	}
@@ -349,9 +337,9 @@ class VueFileScanner extends DocScanner {
 
 		if (this.options.verbose) {
 			if (Object.keys(this.localTypes).length) {
-				console.log(this.localTypes);
+				note(this.localTypes);
 			} else {
-				console.log(pico.magenta('No Types has been declared in vue file'));
+				log.warn('No Types has been declared in vue file');
 			}
 		}
 
@@ -367,9 +355,9 @@ class VueFileScanner extends DocScanner {
 
 		if (this.options.verbose) {
 			if (Object.keys(events).length) {
-				console.log(events);
+				note(events.join('\n'));
 			} else {
-				console.log(pico.magenta('No defineEmits has been found in vue file'));
+				log.warn('No defineEmits has been found in vue file');
 			}
 		}
 
@@ -390,9 +378,9 @@ class VueFileScanner extends DocScanner {
 
 		if (this.options.verbose) {
 			if (Object.keys(provide).length) {
-				console.log(provide);
+				note(provide.join('\n'));
 			} else {
-				console.log(pico.magenta('No Types has been declared in vue file'));
+				log.warn('No Types has been declared in vue file');
 			}
 		}
 
@@ -406,7 +394,7 @@ class VueFileScanner extends DocScanner {
 		vueTemplate.match(/<slot(?:.|\s)*?(?:(\/>)|(<\/slot>))/g)?.map((x) => {
 			return x.replace(/\t{2,}/g, '').replace(/\n/g, ' ');
 		}).forEach((x) => {
-			if (this.options.verbose) console.log(pico.yellow(x));
+			if (this.options.verbose) log.message(x);
 
 			const slotOpeningTag = x.match(/<slot[^>]*>/)[0];
 			const name = /name="([^"]*)"/g.exec(slotOpeningTag)?.[1] ?? 'default';
@@ -723,8 +711,6 @@ class SetupServiceFileScanner extends DocScanner {
 
 class ServiceFileScanner extends DocUtility {
 	servicesDataDocFile = [];
-	/** @type {cliProgress.Bar | undefined} */
-	progressBar;
 	toolsDataDocFile = [];
 
 	constructor (/** @type {Options} */ options) {
@@ -815,15 +801,14 @@ class ServiceFileScanner extends DocUtility {
 		}).join('\n\t'));
 
 		if (this.options.verbose) {
-			console.log(pico.yellow(`🥨 --> Orion would write following content in ${this.docFolderRelativePath}`));
-			console.log();
-			console.log(content);
+			note(`🥨 --> Orion would write following content in ${this.docFolderRelativePath}`);
+			log.message(content);
 		}
 
 		if (!this.options.dryRun) {
 			await mkdir(this.docFolderPath, { recursive: true });
 			await writeFile(filePath, content, 'utf8');
-			console.log(pico.yellow(`🥨 --> Lint output file for Services`));
+			log.step(`🥨 --> Lint output file for Services`);
 			exec(`npx eslint --fix ${filePath}`);
 		}
 	}
@@ -835,15 +820,14 @@ class ServiceFileScanner extends DocUtility {
 		content = content.replace(/{data}/gm, this.formatToolsDataForWriteFile(this.toolsDataDocFile[0].data));
 
 		if (this.options.verbose) {
-			console.log(pico.yellow(`🥨 --> Orion would write following content in ${this.docFolderRelativePath}`));
-			console.log();
-			console.log(content);
+			note(`🥨 --> Orion would write following content in ${this.docFolderRelativePath}`);
+			log.message(content);
 		}
 
 		if (!this.options.dryRun) {
 			await mkdir(this.docFolderPath, { recursive: true });
 			await writeFile(filePath, content, 'utf8');
-			console.log(pico.yellow(`🥨 --> Lint output file for Tools`));
+			log.step(`🥨 --> Lint output file for Tools`);
 			exec(`npx eslint --fix ${filePath}`);
 		}
 	}
@@ -892,16 +876,11 @@ class ServiceFileScanner extends DocUtility {
 	async scanServices () {
 		await this.setServicesList();
 
-		this.progressBar = new cliProgress.SingleBar({
-			format: `Scanning services | ${pico.cyan('{bar}')} | {percentage}% | {value}/{total} files`,
-			hideCursor: true,
-		}, cliProgress.Presets.shades_classic);
-
-		this.progressBar.start(this.services.length, 0);
+		const scanSpinner = spinner();
+		scanSpinner.start(`Scanning ${this.services.length} services`);
+		await sleep(1000);
 
 		for await (const service of this.services) {
-			this.progressBar.increment();
-
 			const serviceFile = await readFile(path.resolve(
 				this.servicesFolderPath,
 				service,
@@ -915,10 +894,11 @@ class ServiceFileScanner extends DocUtility {
 			});
 		}
 
-		this.progressBar.stop();
+		scanSpinner.stop(`${this.services.length} services scanned`);
 
-		const scanLoader = cliLoading(`Scanning tools`).start();
-		await during(1000);
+		const toolsSpinner = spinner();
+		toolsSpinner.start(`Scanning tools`);
+		await sleep(1000);
 
 		const toolsFile = await readFile(path.resolve(
 			this.toolsFolderPath,
@@ -928,15 +908,13 @@ class ServiceFileScanner extends DocUtility {
 		const toolsData = this.extractJSDocTags(toolsFile, true);
 		this.toolsDataDocFile.push({ data: toolsData });
 
-		scanLoader.stop();
+		toolsSpinner.stop(`Tools scanned`);
 	}
 }
 
 
 class globalTypeFileScanner extends DocUtility {
 	globalTypesDataDocFile = [];
-	/** @type {cliProgress.Bar | undefined} */
-	progressBar;
 
 	constructor (/** @type {Options} */ options) {
 		super();
@@ -950,11 +928,12 @@ class globalTypeFileScanner extends DocUtility {
 	async scanGlobalTypes () {
 		const globalData = await this.extractNamespace();
 
-		const scanTypes = cliLoading(`Scanning types`).start();
-		await during(1000);
+		const typesSpinner = spinner();
+		typesSpinner.start(`Scanning types`);
+		await sleep(1000);
 
 		this.globalTypesDataDocFile.push({ data: globalData });
-		scanTypes.stop();
+		typesSpinner.stop(`Types scanned`);
 	}
 
 	async extractNamespace () {
@@ -1015,15 +994,14 @@ class globalTypeFileScanner extends DocUtility {
 		content = content.replace(/{data}/gm, this.formatTypesDataForWriteFile(this.globalTypesDataDocFile[0].data));
 
 		if (this.options.verbose) {
-			console.log(pico.yellow(`🥨 --> Orion would write following content in ${this.docFolderRelativePath}`));
-			console.log();
-			console.log(content);
+			note(`🥨 --> Orion would write following content in ${this.docFolderRelativePath}`);
+			log.message(content);
 		}
 
 		if (!this.options.dryRun) {
 			await mkdir(this.docFolderPath, { recursive: true });
 			await writeFile(filePath, content, 'utf8');
-			console.log(pico.yellow(`🥨 --> Lint output file for global types`));
+			log.warn(`🥨 --> Lint output file for global types`);
 			exec(`npx eslint --fix ${filePath}`);
 		}
 	}

@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 
-/* eslint-disable no-console */
-const { prompt } = require('enquirer');
 const path = require('path');
+const { intro, outro, select, cancel, isCancel, log, note } = require('@clack/prompts');
 
 
 const optionsAccronym = {
@@ -22,35 +21,42 @@ const privateScripts = [
 
 const publicChoices = [
 	{
-		name: 'volar',
-		message: 'volar     - Create .dts file for Volar',
+		value: 'volar',
+		label: `Volar Intellisense`,
+		hint: `Create .dts file for Volar`,
 	},
 ];
 
 const privateChoices = [
 	{
-		name: 'package',
-		message: 'package   - Scaffold a new package',
+		value: 'package',
+		label: `New package`,
+		hint: `Scaffold a new package`,
 	},
 	{
-		name: 'packages',
-		message: 'packages  - Create index files for packages export',
+		value: 'packages-index',
+		label: `Create packages index`,
+		hint: `Create index files for packages export`,
 	},
 	{
-		name: 'services',
-		message: 'services  - Create index files for services export',
+		value: 'services-index',
+		label: `Create services index`,
+		hint: `Create index files for services export`,
 	},
 	{
-		name: 'routes',
-		message: 'routes    - Create routes file for the sandbox',
+		value: 'routes',
+		label: `Create sandbox routes`,
+		hint: `Create routes file for the sandbox`,
 	},
 	{
-		name: 'doc',
-		message: 'doc       - Create data files for the documentation',
+		value: 'lib',
+		label: `Build lib`,
+		hint: `Build the lib in local`,
 	},
 	{
-		name: 'lib',
-		message: 'lib       - Build the lib',
+		value: 'doc',
+		label: `Create doc's data files`,
+		hint: `Create data files for the documentation`,
 	},
 ];
 
@@ -78,7 +84,7 @@ const privateChoices = [
 				if (Object.keys(optionsAccronym).includes(argName)) {
 					argName = optionsAccronym[argName];
 				} else {
-					console.log(`🚨 Unknown option ${rawArgName}`);
+					log.error(`🚨 Unknown option ${rawArgName}`);
 				}
 			}
 
@@ -90,25 +96,27 @@ const privateChoices = [
 	options.inOrion = inOrion();
 
 	if (options.verbose) {
-		console.log(options);
-		console.log();
+		// eslint-disable-next-line no-console
+		console.log(options, '\n');
 	}
 
 	try {
-		/** @type {{ targetScript: TargetScript }} */
-		const res = await prompt({
-			type: 'select',
-			name: 'targetScript',
+		intro(`\n🥨 --> Welcome to Orion CLI`);
+
+		const targetScript = await select({
 			message: 'Select what you want to do',
-			choices: options.inOrion
+			options: options.inOrion
 				? [...publicChoices, ...privateChoices]
 				: [...publicChoices],
 		});
 
-		const { targetScript } = res;
+		if (isCancel(targetScript)) {
+			cancel(`Operation cancelled. The choice can be hard...`);
+			process.exit(0);
+		}
 
 		if (options.verbose) {
-			console.log({ targetScript });
+			log.message(`targetScript: ${targetScript}`);
 		}
 
 		if (privateScripts.includes(targetScript)) {
@@ -116,38 +124,43 @@ const privateChoices = [
 		}
 
 		switch (targetScript) {
-		case 'doc':
-			await require('./scripts/private/create-doc.cjs')(options);
-			break;
-		case 'lib':
-			await require('./scripts/ci-build-lib.cjs');
+		case 'volar':
+			await require('./scripts/public/create-volar.cjs')(options);
 			break;
 		case 'package':
 			await require('./scripts/private/create-package.cjs')(options);
 			await require('./scripts/private/create-packages-index.cjs')(options);
 			await require('./scripts/public/create-volar.cjs')(options);
 			break;
-		case 'packages':
+		case 'packages-index':
 			await require('./scripts/private/create-packages-index.cjs')(options);
 			break;
-		case 'services':
+		case 'services-index':
 			await require('./scripts/private/create-services-index.cjs')(options);
 			break;
 		case 'routes':
 			await require('./scripts/private/create-routes.cjs')(options);
 			break;
-		case 'volar':
-			await require('./scripts/public/create-volar.cjs')(options);
+		case 'lib':
+			await require('./scripts/private/create-lib.cjs')(options);
+			break;
+		case 'doc':
+			await require('./scripts/private/create-doc.cjs')(options);
 			break;
 		}
 
 	} catch (e) {
 		if (e === '__private-guard__') {
-			console.log(`🚨 This command can only be executed inside Orion project`);
+			log.error(`🚨 This command can only be executed inside Orion project`);
 		} else {
-			console.log('Aborted');
-			console.log(e);
+			log.error('Aborted');
+			// eslint-disable-next-line no-console
+			console.error(e);
+			process.exit(0);
 		}
+	} finally {
+		note(`Thank you for using Orion CLI`);
+		outro(`🥨 --> See you!`);
 	}
 })();
 
@@ -161,8 +174,7 @@ function inOrion () {
 		const { name: projectName } = require(path.join(process.cwd(), 'package.json'));
 		return projectName === '@orion.ui/orion';
 	} catch (e) {
-		console.log(`🚨 ${e}`);
-		console.log(`🚨 Are you in your project root folder ?`);
-		console.log();
+		log.error(`🚨 ${e}`);
+		log.error(`🚨 Are you in your project root folder ?`);
 	}
 }

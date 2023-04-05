@@ -1,8 +1,7 @@
-/* eslint-disable no-console */
-const pico = require('picocolors');
 const path = require('path');
-const { PrivateServices } = require('../scripts-utils.cjs');
 const { readFile, readdir, writeFile } = require('fs-extra');
+const { log, note } = require('@clack/prompts');
+const { PrivateServices } = require('../scripts-utils.cjs');
 
 /**
  * @typedef {object} Options
@@ -28,12 +27,11 @@ module.exports = async (/** @type {Options} */ options) => {
 	}).join('\n'));
 
 	if (options.dryRun) {
-		console.log(pico.yellow(`🥨 --> Orion would write following content in ${servicesFolderRelativePath}/index.ts`));
-		console.log();
-		console.log(content);
+		note(`🥨 --> Orion would write following content in ${servicesFolderRelativePath}/index.ts`);
+		log.message(content);
 	} else {
 		await writeFile(path.resolve(servicesFolderPath, 'index.ts'), content, { encoding: 'utf-8' });
-		console.log(pico.yellow(`🥨 --> Successfully created ${servicesFolderRelativePath}/index.ts`));
+		log.success(`🥨 --> Orion created ${servicesFolderRelativePath}/index.ts`);
 	}
 };
 

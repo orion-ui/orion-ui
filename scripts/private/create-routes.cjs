@@ -1,9 +1,8 @@
-/* eslint-disable no-console */
-const pico = require('picocolors');
 const path = require('path');
 const { dash } = require('radash');
-const { NoRoutePackagesFolder } = require('../scripts-utils.cjs');
 const { readFile, writeFile, existsSync, readdirSync } = require('fs-extra');
+const { log, note } = require('@clack/prompts');
+const { NoRoutePackagesFolder } = require('../scripts-utils.cjs');
 
 /**
  * @typedef {object} Options
@@ -47,12 +46,11 @@ class RouteFactory {
 		}).join('\n\t\t\t'));
 
 		if (this.options.dryRun) {
-			console.log(pico.yellow(`🥨 --> Orion would write following content in ${routerFolderRelativePath}`));
-			console.log();
-			console.log(content);
+			note(`🥨 --> Orion would write following content in ${routerFolderRelativePath}`);
+			log.message(content);
 		} else {
 			await writeFile(routerFolderPath, content, { encoding: 'utf-8' });
-			console.log(pico.yellow(`🥨 --> Successfully created ${routerFolderRelativePath}`));
+			log.success(`🥨 --> Orion created ${routerFolderRelativePath}`);
 		}
 	}
 
@@ -71,12 +69,11 @@ class RouteFactory {
 		}).join('\n\t'));
 
 		if (this.options.dryRun) {
-			console.log(pico.yellow(`🥨 --> Orion would write following content in ${utilsFolderRelativePath}`));
-			console.log();
-			console.log(content);
+			note(`🥨 --> Orion would write following content in ${utilsFolderRelativePath}`);
+			log.message(content);
 		} else {
 			await writeFile(utilsFolderPath, content, { encoding: 'utf-8' });
-			console.log(pico.yellow(`🥨 --> Successfully created ${utilsFolderRelativePath}`));
+			log.success(`🥨 --> Orion created ${utilsFolderRelativePath}`);
 		}
 	}
 
@@ -92,12 +89,11 @@ class RouteFactory {
 				const content = viewTemplateContent.replace(/{PackageName}/gm, x);
 
 				if (this.options.dryRun) {
-					console.log(pico.yellow(`🥨 --> Orion would write following content in ${viewsFolderRelativePath}/${viewFileName}`));
-					console.log();
-					console.log(content);
+					note(`🥨 --> Orion would write following content in ${viewsFolderRelativePath}/${viewFileName}`);
+					log.message(content);
 				} else {
 					await writeFile(path.resolve(viewsFolderPath, viewFileName), content, { encoding: 'utf-8' });
-					console.log(pico.yellow(`🥨 --> Successfully created ${viewsFolderRelativePath}/${viewFileName}`));
+					log.success(`🥨 --> Orion created ${viewsFolderRelativePath}/${viewFileName}`);
 				}
 			}
 		});

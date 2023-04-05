@@ -1,8 +1,7 @@
-/* eslint-disable no-console */
-const pico = require('picocolors');
 const path = require('path');
-const { PackagesFolderToNotIndex } = require('../scripts-utils.cjs');
 const { readFile, readdir, writeFile } = require('fs-extra');
+const { log, note } = require('@clack/prompts');
+const { PackagesFolderToNotIndex } = require('../scripts-utils.cjs');
 
 /**
  * @typedef {object} Options
@@ -54,12 +53,11 @@ class PackagesIndexFactory {
 		}).join('\n'));
 
 		if (this.options.dryRun) {
-			console.log(pico.yellow(`🥨 --> Orion would write following content in ${this.packagesFolderRelativePath}/index.ts`));
-			console.log();
-			console.log(content);
+			note(`🥨 --> Orion would write following content in ${this.packagesFolderRelativePath}/index.ts`);
+			log.message(content);
 		} else {
 			await writeFile(path.resolve(this.packagesFolderPath, 'index.ts'), content, { encoding: 'utf-8' });
-			console.log(pico.yellow(`🥨 --> Successfully created ${this.packagesFolderRelativePath}/index.ts`));
+			log.success(`🥨 --> Orion created ${this.packagesFolderRelativePath}/index.ts`);
 		}
 	}
 
@@ -81,12 +79,11 @@ class PackagesIndexFactory {
 		}).join('\n\n\t'));
 
 		if (this.options.dryRun) {
-			console.log(pico.yellow(`🥨 --> Orion would write following content in ${this.packagesFolderRelativePath}/index.ts`));
-			console.log();
-			console.log(content);
+			note(`🥨 --> Orion would write following content in ${this.libFolderRelativePath}/packages.d.ts`);
+			log.message(content);
 		} else {
 			await writeFile(path.resolve(this.libFolderPath, 'packages.d.ts'), content, { encoding: 'utf-8' });
-			console.log(pico.yellow(`🥨 --> Successfully created ${this.libFolderRelativePath}/packages.d.ts`));
+			log.success(`🥨 --> Orion created ${this.libFolderRelativePath}/packages.d.ts`);
 		}
 	}
 }
