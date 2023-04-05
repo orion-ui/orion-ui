@@ -9,6 +9,9 @@
 			title="The section"
 			subtitle="The subtitle"
 			collapsible>
+			<template #actions>
+				<o-button>sdflkj</o-button>
+			</template>
 			Lorem ipsum dolor sit amet consectetur, adipisicing elit.
 			Lorem ipsum dolor sit amet consectetur, adipisicing elit.
 			Lorem ipsum dolor sit amet consectetur, adipisicing elit.
@@ -86,8 +89,7 @@
 		<o-card>
 			<o-section
 				collapsible
-				title="The section"
-				subtitle="The subtitle">
+				title="The section">
 				Lorem ipsum dolor sit amet consectetur, adipisicing elit.
 				Lorem ipsum dolor sit amet consectetur, adipisicing elit.
 			</o-section>
