@@ -13,7 +13,7 @@
 			:has-value="setup.hasValue"
 			:label-is-floating="setup.hasValue || (setup.props.type === 'date' && setup.isFocus)"
 			:class="{ 'orion-datepicker--range' : setup.props.type === 'range' }"
-			@clear="setup.handleClearCustom()">
+			@clear="setup.handleClear()">
 			<input
 				v-if="setup.props.type === 'date'"
 				:ref="setup._input"
@@ -22,10 +22,10 @@
 				:maxlength="setup.maxInput"
 				v-bind="$attrs"
 				@keydown="setup.handleKeydownGuard($event)"
-				@focus="setup.handleFocusCustom($event)"
+				@focus="setup.handleFocus($event)"
 				@mouseup="setup.handleMouseup($event)"
 				@mousedown="setup.handleMousedown()"
-				@blur="setup.handleBlurCustom($event)">
+				@blur="setup.handleBlur($event)">
 			<div
 				v-else
 				:ref="setup._input"
@@ -59,21 +59,21 @@
 				v-model="setup.vModel"
 				:min-date="setup.minDate"
 				:max-date="setup.maxDate"
-				@update:model-value="setup.handleBlurCustom()"/>
+				@update:model-value="setup.handleBlur()"/>
 			<orion-date-range
 				v-else-if="setup.props.type === 'range'"
 				:ref="setup._options"
 				v-model="setup.range"
 				:min-date="setup.minDate"
 				:max-date="setup.maxDate"
-				@select-range="setup.handleBlurCustom()"/>
+				@select-range="setup.handleBlur()"/>
 			<orion-date-week
 				v-else-if="setup.props.type === 'week'"
 				:ref="setup._options"
 				v-model="setup.range"
 				:min-date="setup.minDate"
 				:max-date="setup.maxDate"
-				@update:model-value="setup.handleBlurCustom()"/>
+				@update:model-value="setup.handleBlur()"/>
 		</template>
 	</v-dropdown>
 </template>

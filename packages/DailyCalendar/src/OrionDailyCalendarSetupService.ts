@@ -149,8 +149,8 @@ export default class OrionDailyCalendarSetupService extends SharedSetupService<P
 
 
 	taskTooltip (task : Orion.DailyCalendarTask): object {
-		const taskStartHour = useMonkey(task.start).toReadable('$hh:$mm');
-		const taskEndHour = useMonkey(task.end).toReadable('$hh:$mm');
+		const taskStartHour = useMonkey(task.start).toReadable('$hh:$mm $a');
+		const taskEndHour = useMonkey(task.end).toReadable('$hh:$mm $a');
 		const taskHourLabel = useLang().HOUR_FROM_TO
 			.replace('$start', taskStartHour)
 			.replace('$end', taskEndHour);
