@@ -13,7 +13,7 @@ const Orion: Plugin = {
 		orionAppService.init(app, {
 			prefix: 'o',
 			use: ['components', 'monkeyPatching'],
-			lang: navigator?.language.split('-')[0],
+			lang: typeof navigator !== 'undefined' ? navigator.language.split('-')[0] : 'en',
 			...config,
 		} as Orion.AppServiceConfig);
 
