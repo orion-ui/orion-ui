@@ -466,8 +466,7 @@ class DateMonkeyPatching extends Date {
 	 * @return string
 	 */
 	toReadable (pattern?: string) {
-		if (!pattern)
-			pattern = useLang().DATE_PATTERN;
+		if (!pattern) pattern = useLang().DATE_PATTERN;
 
 		let readableDay = '';
 		switch (this.getDay()) {
@@ -555,16 +554,41 @@ class DateMonkeyPatching extends Date {
 
 		const result = pattern
 			.replace('$DD', this.getDate().toString().padStart(2, '0'))
+			.replace('$D', this.getDate().toString())
 			.replace('$dddd', readableDay)
 			.replace('$ddd', readableDayShort)
-			.replace('$MMMM', pattern.indexOf('$MMMM') > 0 ? readableMonth.toLowerCase() : readableMonth)
-			.replace('$MMM', pattern.indexOf('$MMM') > 0 ? readableMonthShort.toLowerCase() : readableMonthShort)
+			.replace('$MMMM', pattern.indexOf('$MMMM') > 0
+				? readableMonth.toLowerCase()
+				: readableMonth,
+			)
+			.replace('$MMM', pattern.indexOf('$MMM') > 0
+				? readableMonthShort.toLowerCase()
+				: readableMonthShort,
+			)
 			.replace('$MM', monthNum.toString().padStart(2, '0'))
+			.replace('$M', monthNum.toString())
 			.replace('$YYYY', this.getFullYear().toString())
 			.replace('$YY', this.getFullYear().toString().slice(-2))
-			.replace('$hh', this.getHours().toString().padStart(2, '0'))
+			.replace('$hh', getAppLang() === 'en'
+				? this.toLocaleTimeString('en').split(':')[0].toString().padStart(2, '0')
+				: this.getHours().toString().padStart(2, '0'),
+			)
+			.replace('$h', getAppLang() === 'en'
+				? this.toLocaleTimeString('en').split(':')[0].toString()
+				: this.getHours().toString(),
+			)
 			.replace('$mm', this.getMinutes().toString().padStart(2, '0'))
-			.replace('$ss', this.getSeconds().toString().padStart(2, '0'));
+			.replace('$m', this.getMinutes().toString())
+			.replace('$ss', this.getSeconds().toString().padStart(2, '0'))
+			.replace('$s', this.getSeconds().toString())
+			.replace('$A', getAppLang() === 'en'
+				? this.getHours() >= 12 ? 'PM' : 'AM'
+				: '',
+			)
+			.replace('$a', getAppLang() === 'en'
+				? this.getHours() >= 12 ? 'pm' : 'am'
+				: '',
+			);
 
 		return result;
 	}

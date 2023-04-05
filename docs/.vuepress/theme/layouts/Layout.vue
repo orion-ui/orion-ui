@@ -18,8 +18,10 @@
 				<PageNav v-if="!frontmatter.home"/>
 				<PageMeta v-if="!frontmatter.home"/>
 				<div class="footer">
-					<span><a href="https://choosealicense.com/licenses/mit/" target="_blank">MIT Licensed</a> 
-						| Copyright © 2023-present Orion UI</span>
+					<span>
+						<a href="https://choosealicense.com/licenses/mit/" target="_blank">MIT Licensed</a> 
+						| Copyright © 2023-present Orion UI
+					</span>
 				</div>
 			</main>
 			
@@ -33,9 +35,8 @@ import '../../styles/index.less';
 
 import { nextTick, onMounted, ref, watch, computed } from 'vue';
 import { useRouter } from 'vue-router';
-import { DefaultThemePageFrontmatter } from 'vuepress-vite';
-import { usePageFrontmatter } from '@vuepress/client';
-import { setThemeMode } from '@/lib';
+import { usePageFrontmatter, usePageLang } from '@vuepress/client';
+import { setThemeMode, setAppLang } from '@/lib';
 import { addCopyFeatureToCode } from '@utils/tools';
 import Sidebar from '@theme/Sidebar.vue';
 import Navbar from '@theme/Navbar.vue';
@@ -44,7 +45,7 @@ import PageMeta from '@theme/PageMeta.vue';
 import TableOfContent from './components/TableOfContents.vue';
 import Home from './components/Home.vue';
 
-const frontmatter = usePageFrontmatter<DefaultThemePageFrontmatter>()
+const frontmatter = usePageFrontmatter<any>()
 
 const sidebarOpened = ref(false);
 // navbar
@@ -53,7 +54,9 @@ const shouldShowSidebar = computed(() => frontmatter.value.home !== true)
 const shouldShowToc = computed(() => frontmatter.value.home !== true && !frontmatter.value.pageClass?.includes('no-toc'))
 
 const router = useRouter();
+const currentLang = usePageLang();
 
+watch(() => currentLang.value, (val) => setAppLang(val.split('-')[0].toLowerCase()))
 watch(() => router.currentRoute.value, () => {
 	nextTick(() => {
 		toggleSidebar();
@@ -63,6 +66,7 @@ watch(() => router.currentRoute.value, () => {
 	});
 })
 
+
 onMounted(() => {
 	if (typeof MutationObserver !== 'undefined') {
 		const darkModeObserver = new MutationObserver(setTheme);
@@ -70,6 +74,7 @@ onMounted(() => {
 	}
 
 	setTheme();
+	setAppLang(currentLang.value.split('-')[0].toLowerCase());
 	addCopyFeatureToCode();
 	setTimeout(addGlobalTypesLink, 200);
 });

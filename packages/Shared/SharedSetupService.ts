@@ -14,7 +14,6 @@ export default abstract class SharedSetupService<P> {
 	props = {} as P;
 
 	private defaultRouter = useRouter();
-	lang = useLang();
 	responsive = useResponsive();
 	window = useWindow();
 	document = useDocument();
@@ -25,13 +24,9 @@ export default abstract class SharedSetupService<P> {
 
 	_el = ref<HTMLElement>();
 
-	get router () {
-		return orionAppService.appRouter ?? this.defaultRouter;
-	}
-
-	get publicInstance () {
-		return { _el: () => this._el.value };
-	}
+	get router () { return orionAppService.appRouter ?? this.defaultRouter; }
+	get publicInstance () { return { _el: () => this._el.value }; }
+	get lang () { return useLang(); }
 
 
 	constructor (props?: P) {

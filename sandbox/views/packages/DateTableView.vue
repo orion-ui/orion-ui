@@ -13,18 +13,20 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
+const currentYear = new Date().getFullYear();
+const currentMonth = new Date().getMonth();
 const date = ref(new Date());
 const periods = ref<OrionDateTable.Props['periods']>([
 	{
-		start: new Date(2022, 4, 13),
-		end: new Date(2022, 4, 20),
+		start: new Date(currentYear, currentMonth, 3),
+		end: new Date(currentYear, currentMonth, 17),
 		color: 'success',
 		label: 'turlutu',
 		callback: () => console.log('sfldk'),
 	},
 	{
-		start: new Date(2022, 7, 13),
-		end: new Date(2022, 7, 20),
+		start: new Date(currentYear, currentMonth, 13),
+		end: new Date(currentYear, currentMonth, 20),
 		color: 'pink',
 		label: 'tototo',
 		callback: () => console.log('sfldk'),
