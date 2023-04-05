@@ -89,6 +89,7 @@ class ComponentFactory {
 	createDocFiles () {
 		const filesToWrite = [
 			'components/{ComponentName}.md',
+			'fr/components/{ComponentName}.md',
 		];
 
 		if (this.options.dryRun) note(`🥨 --> Orion would write following files in /docs`);
