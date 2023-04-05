@@ -1,7 +1,6 @@
-/* eslint-disable no-console */
-const pico = require('picocolors');
 const fs = require('fs-extra');
 const path = require('path');
+const { log } = require('@clack/prompts');
 
 /**
  * @typedef {object} Options
@@ -29,11 +28,11 @@ class CopyFilesService {
 	}
 
 	async copyLessFiles () {
-		console.log(pico.yellow('🥨 --> Copy Shared .less files'));
+		log.step('🥨 --> Copy Shared .less files');
 		await fs.remove(this.stylesPath);
 		await fs.copy(path.resolve(this.rootPath, 'packages/Shared/styles'), this.stylesPath);
 
-		console.log(pico.yellow('🥨 --> Copy Packages .less files'));
+		log.step('🥨 --> Copy Packages .less files');
 		const packages = (await fs.readdir(path.resolve(this.rootPath, 'packages'), { withFileTypes: true }))
 			.filter(x => x.isDirectory() && x.name !== 'Shared')
 			.map(x => x.name);
@@ -69,13 +68,13 @@ class CopyFilesService {
 	}
 
 	async copyCliFiles () {
-		console.log(pico.yellow('🥨 --> Copy cli files'));
+		log.step('🥨 --> Copy cli files');
 		await fs.copy(path.resolve(this.rootPath, 'scripts/public'), this.cliPath);
 		await fs.copy(path.resolve(this.rootPath, 'cli.cjs'), path.resolve(this.rootPath, 'dist/cli.cjs'));
 	}
 
 	async copyDtsFiles () {
-		console.log(pico.yellow('🥨 --> Copy .dts files'));
+		log.step('🥨 --> Copy .dts files');
 		await fs.copy(
 			path.resolve(this.rootPath, 'lib/monkey-patching.d.ts'),
 			path.resolve(this.rootPath, 'dist/monkey-patching.d.ts'),

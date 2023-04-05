@@ -17,18 +17,19 @@
 				@click="setThemeMode('auto')">
 				auto theme
 			</o-button>
+
+			<div class="language">
+				LANGUAGE:
+				<o-radio
+					v-model="lang"
+					label="EN"
+					input-value="en"/>
+				<o-radio
+					v-model="lang"
+					label="FR"
+					input-value="fr"/>
+			</div>
 		</template>
-
-		<!-- <template #nav-main-append="{ item }">
-			<o-icon
-				v-if="!item.children?.length"
-				class="test-append-icon"
-				icon="snapchat"
-				@click.prevent="logIt()"/>
-		</template> -->
-
-		<!-- <the-julie-tour ref="_tour"/>
-		<tour-aside/> -->
 
 		<router-view/>
 	</o-layout>
@@ -37,7 +38,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import packagesNavigation from 'sandbox/utils/packages-navigation';
-import { setThemeMode } from 'lib';
+import { setThemeMode, getAppLang, setAppLang } from 'lib';
 
 const navMain: OrionNavMain.Props = {
 	items: [
@@ -80,6 +81,7 @@ const navMain: OrionNavMain.Props = {
 		...packagesNavigation,
 	],
 };
+
 const LayoutConfig = computed<Orion.LayoutConfig>(() => ({
 	navMain,
 	navTop: { items: [ ...packagesNavigation.slice(0, 3) ] },
@@ -89,9 +91,10 @@ const LayoutConfig = computed<Orion.LayoutConfig>(() => ({
 	},
 }));
 
-function logIt () {
-	console.log('logged');
-}
+const lang = computed({
+	get: () => getAppLang(),
+	set: val => setAppLang(val),
+});
 </script>
 
 <style lang="less">
@@ -116,6 +119,15 @@ function logIt () {
 			color: var(--warning-alt);
 		}
 	}
+}
+
+.language {
+	display: flex;
+	align-items: center;
+	font-size: 0.85rem;
+	font-weight: normal;
+	gap: 0.5rem;
+	margin-left: 0.5rem;
 }
 
 .test-append-icon {

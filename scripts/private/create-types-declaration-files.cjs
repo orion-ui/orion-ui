@@ -1,14 +1,11 @@
-/* eslint-disable no-console */
-const pico = require('picocolors');
 const fs = require('fs-extra');
 const path = require('path');
 const glob = require('fast-glob');
-const cliProgress = require('cli-progress');
-const cliLoading = require('loading-cli');
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const { Project, SourceFile } = require('ts-morph');
 const { parse, compileScript } = require('@vue/compiler-sfc');
-const { during } = require('../scripts-utils.cjs');
+const { sleep } = require('radash');
+const { log, note, spinner } = require('@clack/prompts');
 
 // const setupServiceImportRegex = /^import (\w+SetupService) from .+\n/gm;
 const lessImportRegex = /^import .+.less.+\n/gm;
@@ -23,7 +20,7 @@ const lessImportRegex = /^import .+.less.+\n/gm;
 
 module.exports = async (/** @type {Options} */ options) => {
 	const factory = new TypesDeclarationFilesFactory(options);
-	return await factory.buildTypesAsync();
+	await factory.buildTypesAsync();
 };
 
 class TypesDeclarationFilesFactory {
@@ -31,8 +28,6 @@ class TypesDeclarationFilesFactory {
 	packagesNames = [];
 	/** @type {Project | undefined} */
 	project;
-	/** @type {cliProgress.Bar | undefined} */
-	progressBar;
 	/** @type {SourceFile[]} */
 	sourceFiles = [];
 
@@ -79,7 +74,7 @@ class TypesDeclarationFilesFactory {
 	}
 
 	async buildTypesAsync () {
-		console.log(pico.yellow(`🥨 --> Generate types declaration files`));
+		log.step(`🥨 --> Generate types declaration files`);
 
 		if (!this.options.dryRun) {
 			await fs.remove(this.typesPath);
@@ -112,7 +107,8 @@ class TypesDeclarationFilesFactory {
 			: [dtsFilesNeededForBuild, input];
 
 		for await (const bundle of filesToScan) {
-			if (this.options.verbose) console.log(bundle);
+			log.info(`Working on following bundle:`);
+			note(bundle.join('\n'));
 			const files = await glob(bundle);
 			await this.computeFiles(files);
 		}
@@ -121,8 +117,9 @@ class TypesDeclarationFilesFactory {
 	async scanFiles (/** @type {string[]} */ files) {
 		this.sourceFiles.length = 0;
 
-		const scanLoader = cliLoading(`Scanning ${files.length} files`).start();
-		await during(1000);
+		const scanSpinner = spinner();
+		scanSpinner.start(`Scanning ${files.length} files`);
+		await sleep(1000);
 
 		for await (const file of files) {
 			if (/\.vue$/.test(file)) {
@@ -166,7 +163,7 @@ class TypesDeclarationFilesFactory {
 			}
 		}
 
-		scanLoader.stop();
+		scanSpinner.stop(`${files.length} files scanned`);
 	}
 
 	async computeFiles (/** @type {string[]} */ files) {
@@ -175,22 +172,16 @@ class TypesDeclarationFilesFactory {
 		await this.scanFiles(files);
 
 		/* const diagnostics = this.project.getPreEmitDiagnostics();
-		console.log(this.project.formatDiagnosticsWithColorAndContext(diagnostics)); */
+		log.message(this.project.formatDiagnosticsWithColorAndContext(diagnostics)); */
 
 		const successFiles = [];
 		const errorFiles = [];
 		const { dtsFilesNeededForBuild } = this.config;
 
-		this.progressBar = new cliProgress.SingleBar({
-			format: `Building types | ${pico.cyan('{bar}')} | {percentage}% | {value}/{total} files`,
-			hideCursor: true,
-		}, cliProgress.Presets.shades_classic);
-
-		this.progressBar.start(this.sourceFiles.length, 0);
+		const computeSpinner = spinner();
+		computeSpinner.start(`Building types for ${this.sourceFiles.length} files`);
 
 		for (const sourceFile of this.sourceFiles) {
-			this.progressBar.increment();
-
 			const emitOutput = sourceFile.getEmitOutput();
 			const fileRelativePath = sourceFile.getFilePath().split(this.rootPath)[1].slice(1);
 			const isLibIndex = fileRelativePath === 'lib/index.ts';
@@ -208,7 +199,7 @@ class TypesDeclarationFilesFactory {
 					.replace('.vue.d.ts', '.d.ts');
 
 				/* if (this.options.verbose) {
-					console.log(`🤖 --> build types for`, pico.yellow(fileRelativePath.replace('.vue.ts', '.vue')));
+					log.message(`🤖 --> build types for`, pico.yellow(fileRelativePath.replace('.vue.ts', '.vue')));
 				} */
 
 				let fileContent = outputFile
@@ -226,10 +217,9 @@ class TypesDeclarationFilesFactory {
 					fileContent = fileContent.replace('<reference types="lib/global" />', '<reference types="./global" />');
 				}
 
-				if (this.options.dryRun) {
-					console.log(pico.yellow(`🥨 --> Orion would write following content in ${fileRelativePath}`));
-					console.log();
-					console.log(fileContent);
+				if (this.options.dryRun && this.options.verbose) {
+					note(`🥨 --> Orion would write following content in ${fileRelativePath}`);
+					log.message(fileContent);
 				} else {
 					await fs.mkdir(path.resolve(this.typesPath, path.dirname(filePath)), { recursive: true });
 					await fs.writeFile(filePath, fileContent, 'utf8');
@@ -239,11 +229,12 @@ class TypesDeclarationFilesFactory {
 			}
 		}
 
-		this.progressBar.stop();
+		computeSpinner.stop(`Types built for ${this.sourceFiles.length} files`);
 
 
 		if (errorFiles.length) {
-			console.log('🤮 Error for files', errorFiles);
+			log.error('🤮 Error for files');
+			note(errorFiles.join('\n'));
 		}
 
 		return {

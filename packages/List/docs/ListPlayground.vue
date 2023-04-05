@@ -88,8 +88,6 @@ const state = reactive({
 	usePaginationBottom: true,
 	usePaginationTop: true,
 	useFooterSelected: true,
-	itemAdjective: 'selected',
-	itemType: 'item',
 });
 
 function seedList (qty = 50) {

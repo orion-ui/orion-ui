@@ -13,7 +13,7 @@ const Orion: Plugin = {
 		orionAppService.init(app, {
 			prefix: 'o',
 			use: ['components', 'monkeyPatching'],
-			lang: 'en',
+			lang: navigator?.language.split('-')[0],
 			...config,
 		} as Orion.AppServiceConfig);
 
@@ -34,6 +34,7 @@ export { orionAppService, OrionPlugin };
 
 // For export, use relative path
 export { coolicons } from '../assets/fonts/coolicons';
+export { getAppLang, setAppLang } from '../services/LangService';
 export * from '../utils/Bus';
 export * from '../utils/Log';
 export * from '../utils/tools';

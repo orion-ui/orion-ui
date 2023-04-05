@@ -17,7 +17,7 @@
 					v-if="setup.props.title"
 					class="orion-section__title">
 					{{ setup.props.title }}
-					<o-icon
+					<orion-icon
 						v-if="collapsible"
 						:icon="setup.isCollapsed ? 'chevron_down' : 'chevron_up'"
 						class="orion-section__title-chevron"/>
@@ -51,6 +51,7 @@
 <script setup lang="ts">
 import './OrionSection.less';
 import OrionSectionSetupService from './OrionSectionSetupService';
+import OrionIcon from 'packages/Icon/src/OrionIcon.vue';
 const emits = defineEmits<{(e: 'update:collapsed', val: boolean): void}>();
 const props = defineProps(OrionSectionSetupService.props);
 const setup = new OrionSectionSetupService(props, emits);

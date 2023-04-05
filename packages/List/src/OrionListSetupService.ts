@@ -2,7 +2,7 @@ import { PropType } from 'vue';
 import { isNil } from 'lodash-es';
 import SharedSetupService from '../../Shared/SharedSetupService';
 import usePluralize from 'services/PluralizeService';
-
+import { getAppLang } from 'services/LangService';
 
 type Props = SetupProps<typeof OrionListSetupService.props>
 type Emit = {
@@ -128,7 +128,9 @@ export default class OrionListSetupService extends SharedSetupService<Props> {
 	}
 
 	get computedItemAdjective () {
-		return usePluralize(this.itemAdjective, this.selected.length, false);
+		return getAppLang() === 'fr'
+			? usePluralize(this.itemAdjective, this.selected.length, false)
+			: this.itemAdjective;
 	}
 
 	get page () {

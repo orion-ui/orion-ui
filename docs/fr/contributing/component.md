@@ -64,15 +64,18 @@ node cli.cjs
 Choisissez l'option `package`.
 
 ```:no-line-numbers{3}
-? Select what you want to do …
-  volar     - Create .dts file for Volar
-❯ package   - Scaffold a new package
-  packages  - Create index files for packages export
-  types     - Create .dts files for the packages
-  services  - Create .dts files for the services
-  routes    - Create routes file for the sandbox
-  doc       - Create data files for the documentation
-  lib       - Build the lib
+┌  
+🥨 --> Welcome to Orion CLI
+│
+◆  Select what you want to do
+│  ○ Volar Intellisense
+│  ● New package (Scaffold a new package)
+│  ○ Create packages index
+│  ○ Create services index
+│  ○ Create sandbox routes
+│  ○ Build lib
+│  ○ Create doc's data files
+└
 ```
 
 <br>
@@ -80,8 +83,15 @@ Choisissez l'option `package`.
 Entrez ensuite le nom de votre paquet.
 
 ```:no-line-numbers{2}
-✔ Select what you want to do · package
-? What's the name of your package ? ›
+┌  
+🥨 --> Welcome to Orion CLI
+│
+◇  Select what you want to do
+│  New package
+│
+◆  What's the name of your package?
+│  Package name
+└
 ```
 
 ::: tip
@@ -90,16 +100,32 @@ Il sera automatiquement converti en **PascalCase** et préfixé avec _Orion_.
 :::
 
 ```:no-line-numbers{2}
-✔ Select what you want to do · package
-✔ What's the name of your package ? · draft
-🥨 --> Successfully created /packages/Draft/index.ts
-🥨 --> Successfully created /packages/Draft/src/OrionDraft.vue
-🥨 --> Successfully created /packages/Draft/src/OrionDraft.less
-🥨 --> Successfully created /packages/Draft/src/OrionDraftSetupService.ts
-🥨 --> Successfully created /docs/components/OrionDraft.md
-🥨 --> Successfully created /packages/index.ts
-🥨 --> Successfully created /lib/packages.d.ts
-? Enter the prefix for Orion components · o
+┌  
+🥨 --> Welcome to Orion CLI
+│
+◇  Select what you want to do
+│  New package
+│
+◇  What's the name of your package?
+│  draft
+│
+◆  🥨 --> Orion created /packages/Draft/index.ts
+│
+◆  🥨 --> Orion created /packages/Draft/src/OrionDraft.vue
+│
+◆  🥨 --> Orion created /packages/Draft/src/OrionDraft.less
+│
+◆  🥨 --> Orion created /packages/Draft/src/OrionDraftSetupService.ts
+│
+◆  🥨 --> Orion created /docs/components/OrionDraft.md
+│
+◆  🥨 --> Orion created /packages/index.ts
+│
+◆  🥨 --> Orion created /lib/packages.d.ts
+│
+◆  Enter the prefix for Orion components?
+│  o_
+└
 ```
 
 La commande `volar` est exécutée automatiquement pour récréer le fichier `orion-volar.d.ts` avec votre nouveau composant ([plus d'info sur la commande `volar`](/fr/guide/volar.md)).

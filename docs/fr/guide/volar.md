@@ -20,8 +20,12 @@ npx orion
 Sélectionner ensuite l'option **volar**...
 
 ```:no-line-numbers{2}
-? Select what you want to do …
-❯ volar     - Create .dts file for Volar
+┌  
+🥨 --> Welcome to Orion CLI
+│
+◆  Select what you want to do
+│  ● Volar Intellisense (Create .dts file for Volar)
+└
 ```
 
 ... et entrer le préfix des composants d'Orion (appuyez sur **Enter** pour utiliser le préfix 'o' par défaut).\
@@ -29,8 +33,15 @@ Ce préfix doit bien sûr être le même que celui présent dans la [configurati
 Vous pouvez voir un exemple de préfix personnalisé [ci-dessous](#prefix-personnalise).
 
 ```:no-line-numbers{2}
-✔ Select what you want to do · volar
-? Enter the prefix for Orion components › o
+┌
+🥨 --> Welcome to Orion CLI
+│
+◇  Select what you want to do
+│  Volar Intellisense
+│
+◆  Enter the prefix for Orion components?
+│  o_
+└
 ```
 
 Cette commande va créer un fichier `orion-volar.d.ts` avec le contenu correspondant.
@@ -79,13 +90,24 @@ npx orion
 ```
 
 ```:no-line-numbers{2}
-? Select what you want to do …
-❯ volar     - Create .dts file for Volar
+┌  
+🥨 --> Welcome to Orion CLI
+│
+◆  Select what you want to do
+│  ● Volar Intellisense (Create .dts file for Volar)
+└
 ```
 
 ```:no-line-numbers{2}
-✔ Select what you want to do · volar
-? Enter the prefix for Orion components › abc
+┌
+🥨 --> Welcome to Orion CLI
+│
+◇  Select what you want to do
+│  Volar Intellisense
+│
+◆  Enter the prefix for Orion components?
+│  o_
+└
 ```
 
 :::: code-group
