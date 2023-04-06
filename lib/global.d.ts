@@ -216,7 +216,7 @@ declare global {
 		type NavItem = Partial<{
 			always: boolean;
 			backLabel: string;
-			callback: () => any;
+			callback: (item: NavItem, ev: MouseEvent | TouchEvent) => any;
 			children: NavItem[];
 			class: string;
 			expand: boolean;

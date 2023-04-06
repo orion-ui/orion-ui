@@ -82,14 +82,14 @@ export default class OrionNavMainSetupService extends SharedNavSetupService<Prop
 		}
 	}
 
-	handleClick (item: Orion.NavItem) {
+	handleClick (item: Orion.NavItem, ev: MouseEvent | TouchEvent) {
 		if (item.children) {
 			if (item.replace) this.state.menuHistory.push(item.children);
 			else item.expand = !item.expand;
 		}
 
 		if (item.root) this.state.menuHistory.splice(1);
-		super.handleClick(item);
+		super.handleClick(item, ev);
 	}
 
 	itemIsActive (item: Orion.NavItem) {

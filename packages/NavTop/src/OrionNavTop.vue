@@ -19,8 +19,8 @@
 					v-for="(item, i) in setup.itemsToDisplay"
 					:key="i"
 					v-bind="setup.itemData(item)"
-					@click.prevent="setup.handleClick(item)"
-					@touchstart.prevent="setup.handleClick(item)">
+					@click.prevent="setup.handleClick(item, $event)"
+					@touchstart.prevent="setup.handleClick(item, $event)">
 					<span class="orion-nav-top__item-label">
 						{{ item.label }}
 					</span>

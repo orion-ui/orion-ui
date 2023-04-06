@@ -31,6 +31,11 @@
 			</div>
 		</template>
 
+		<template #nav-main-item-append>
+			<o-icon
+				icon="google"
+				@click="simpleCallback()"/>
+		</template>
 		<router-view/>
 	</o-layout>
 </template>
@@ -40,6 +45,9 @@ import { computed } from 'vue';
 import packagesNavigation from 'sandbox/utils/packages-navigation';
 import { setThemeMode, getAppLang, setAppLang } from 'lib';
 
+// eslint-disable-next-line no-console
+const simpleCallback = () => console.log('ok');
+
 const navMain: OrionNavMain.Props = {
 	items: [
 		{
@@ -47,6 +55,12 @@ const navMain: OrionNavMain.Props = {
 			root: true,
 			to: '/',
 			icon: 'home_alt_fill',
+		},
+		{
+			label: `test callback`,
+			icon: 'alarm',
+			// eslint-disable-next-line no-console
+			callback: (item, ev) => console.log(item, ev),
 		},
 		{
 			label: `Sandbox`,
@@ -84,10 +98,27 @@ const navMain: OrionNavMain.Props = {
 
 const LayoutConfig = computed<Orion.LayoutConfig>(() => ({
 	navMain,
-	navTop: { items: [ ...packagesNavigation.slice(0, 3) ] },
+	navTop: {
+		items: [
+			{
+				label: `test callback`,
+				icon: 'alarm',
+				// eslint-disable-next-line no-console
+				callback: (item, ev) => console.log(item, ev),
+			},
+			...packagesNavigation.slice(0, 3) ],
+	},
 	navTabs: {
 		navAside: { navMain },
-		items: [ ...packagesNavigation.slice(0, 4) ],
+		items: [
+			{
+				label: `test callback`,
+				icon: 'alarm',
+				// eslint-disable-next-line no-console
+				callback: (item, ev) => console.log(item, ev),
+			},
+			...packagesNavigation.slice(0, 4),
+		],
 	},
 }));
 

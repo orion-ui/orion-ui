@@ -2,7 +2,6 @@ import { reactive, ref } from 'vue';
 import { throttle } from 'lodash-es';
 import SharedNavSetupService from '../../Shared/SharedNavSetupService';
 import SharedProps from '../../Shared/SharedProps';
-import anime from 'animejs';
 
 type Props = SetupProps<typeof OrionNavTopSetupService.props>
 

@@ -49,6 +49,6 @@ jobs:
         run: node scripts/ci-build-lib.cjs
 
       - name: Publish to NPM for pre-release
-        run: npm publish --tag ${GITHUB_REF_NAME} --access public
+        run: npm publish --tag "$(BRANCH=${GITHUB_REF_NAME} node scripts/npm-sanitize-tag.cjs)" --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}

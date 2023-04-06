@@ -4,7 +4,7 @@
 			:is="setup.itemIs(item)"
 			v-if="item"
 			v-bind="setup.itemData(item)"
-			@click.prevent="$emit('click-label', item)">
+			@click.prevent="$emit('click-label', [item, $event])">
 			<orion-icon
 				v-if="item.icon || item.fontIcon"
 				class="orion-nav-main__item-main-icon"
@@ -40,8 +40,8 @@
 				:key="`main_${i}_${setup.getUid()}`"
 				:data-index="i"
 				:item="subitem"
-				@click.prevent="setup.handleClick(subitem)"
-				@touchstart.prevent="setup.handleClick(subitem)">
+				@click-label="setup.handleClick(...$event)"
+				@touchstart.prevent="setup.handleClick(...$event)">
 				<template #prepend>
 					<slot
 						name="prepend"
@@ -64,7 +64,7 @@
 import './OrionNavMainItem.less';
 import { OrionIcon } from 'packages/Icon';
 import OrionNavMainItemSetupService from './OrionNavMainItemSetupService';
-defineEmits<{(e: 'click-label', val: Orion.NavItem): void}>();
+defineEmits<{(e: 'click-label', val: [Orion.NavItem, MouseEvent]): void}>();
 const props = defineProps(OrionNavMainItemSetupService.props);
 const setup = new OrionNavMainItemSetupService(props);
 defineExpose(setup.publicInstance);

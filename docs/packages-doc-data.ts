@@ -3632,14 +3632,14 @@ const packagesDocData = new Map([
 			events: [],
 			provide: [],
 			slots: [{
-				'name': 'nav-main-prepend',
+				'name': 'nav-main-item-prepend',
 				'desc': {
 					'en': 'displays content before the main navigation',
 					'fr': 'affiche du contenu avant la navigation principale',
 				},
 				'bindings': [],
 			}, {
-				'name': 'nav-main-append',
+				'name': 'nav-main-item-append',
 				'desc': {
 					'en': 'displays content after the main navigation',
 					'fr': 'affiche du contenu après la navigation principale',

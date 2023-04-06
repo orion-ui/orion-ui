@@ -15,8 +15,8 @@
 					:key="`main_${i}_${setup.getUid()}`"
 					:data-index="i"
 					:item="navItem"
-					@click-label="setup.handleClick(navItem)"
-					@touchstart.prevent="setup.handleClick(navItem)">
+					@click-label="setup.handleClick(...$event)"
+					@touchstart.prevent="setup.handleClick(navItem, $event)">
 					<template #prepend="{ item }">
 						<slot
 							name="prepend"
@@ -38,7 +38,7 @@
 						v-for="(item, i) in setup.itemsToDisplayTop"
 						:key="'top' + i"
 						v-bind="{ item }"
-						@click.prevent="setup.handleClick(item)"/>
+						@click.prevent="setup.handleClick(item, $event)"/>
 				</template>
 			</div>
 		</div>
