@@ -68,6 +68,8 @@ declare global {
 
 		type Icon = typeof coolicons[number];
 
+		type Theme = 'dark' | 'light' | 'auto';
+
 		type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 		type Color = 'brand' | 'default' | 'info' | 'success' | 'warning' | 'danger' | 'inverse' | 'pink';
