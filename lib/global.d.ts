@@ -235,6 +235,7 @@ declare global {
 			tag: string;
 			to: RouteLocationRaw;
 			wrapperClass: string;
+			activeWhenExact: boolean;
 		}>
 
 		type NavSection = {

@@ -66,6 +66,10 @@ export default abstract class SharedNavSetupService<P> extends SharedSetupServic
 				itemData.class.push(`${this.baseClass}__item--section-title`);
 			}
 
+			if (item.activeWhenExact) {
+				itemData.class.push('active-when-exact');
+			}
+
 			return itemData;
 		}
 	}

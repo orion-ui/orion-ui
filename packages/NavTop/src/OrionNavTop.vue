@@ -7,10 +7,11 @@
 			{ 'orion-nav-top--overlay': setup.isSticky },
 		]">
 		<div
-			v-if="$slots.navTopLeft"
+			v-if="$slots['nav-top-left']"
 			class="orion-nav-top__slot-left">
-			<slot name="navTopLeft"/>
+			<slot name="nav-top-left"/>
 		</div>
+
 		<nav>
 			<template v-if="setup.itemsToDisplay.length">
 				<component
@@ -31,17 +32,17 @@
 			</template>
 
 			<div
-				v-if="$slots.navTopAdditional"
+				v-if="$slots['nav-top-additional']"
 				class="orion-nav-top__slot-additional">
-				<slot name="navTopAdditional"/>
+				<slot name="nav-top-additional"/>
 			</div>
 		</nav>
 
 		<div
-			v-if="$slots.navTopRight"
+			v-if="$slots['nav-top-right']"
 			class="orion-nav-top__slot-right">
 			<slot
-				name="navTopRight"
+				name="nav-top-right"
 				class="orion-nav-top__slot-right"/>
 		</div>
 	</header>

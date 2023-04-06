@@ -32,9 +32,6 @@
 			<orion-nav-aside v-bind="navAside"/>
 			<template #footer="{ close }">
 				<div class="orion-nav-aside__footer">
-					<img
-						v-if="logo"
-						:src="logo">
 					<orion-button
 						suffix-icon="chevron_big_right"
 						outline

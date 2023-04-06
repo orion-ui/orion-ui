@@ -42,11 +42,6 @@
 				</template>
 			</div>
 		</div>
-
-		<img
-			v-if="logo && setup.responsive.onTabletLandscape"
-			class="orion-nav-main__logo"
-			:src="logo">
 	</nav>
 </template>
 

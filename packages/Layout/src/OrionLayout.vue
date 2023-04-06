@@ -24,19 +24,19 @@
 
 		<orion-nav-top v-bind="setup.props.navTop">
 			<template
-				v-if="$slots.navTopLeft"
-				#navTopLeft>
-				<slot name="navTopLeft"/>
+				v-if="$slots['nav-top-left']"
+				#nav-top-left>
+				<slot name="nav-top-left"/>
 			</template>
 			<template
-				v-if="$slots.navTopAdditional"
-				#navTopAdditional>
-				<slot name="navTopAdditional"/>
+				v-if="$slots['nav-top-additional']"
+				#nav-top-additional>
+				<slot name="nav-top-additional"/>
 			</template>
 			<template
-				v-if="$slots.navTopRight"
-				#navTopRight>
-				<slot name="navTopRight"/>
+				v-if="$slots['nav-top-right']"
+				#nav-top-right>
+				<slot name="nav-top-right"/>
 			</template>
 		</orion-nav-top>
 
@@ -77,13 +77,13 @@ defineExpose(setup.publicInstance);
  * @doc slot/nav-main-append displays content after the main navigation
  * @doc/fr slot/nav-main-append affiche du contenu après la navigation principale
  *
- * @doc slot/navTopLeft displays content on the left part of the top navigation
- * @doc/fr slot/navTopLeft affiche du contenu à gauche de la navitation du haut
+ * @doc slot/nav-top-left displays content on the left part of the top navigation
+ * @doc/fr slot/nav-top-left affiche du contenu à gauche de la navitation du haut
  *
- * @doc slot/navTopAdditional displays additional content in the top navigation
- * @doc/fr slot/navTopAdditional affiche du contenu additionnel dans la navitation du haut
+ * @doc slot/nav-top-additional displays additional content in the top navigation
+ * @doc/fr slot/nav-top-additional affiche du contenu additionnel dans la navitation du haut
  *
- * @doc slot/navTopRight displays content on the right part of the top navigation
- * @doc/fr slot/navTopRight affiche du contenu à droite de la navitation du haut
+ * @doc slot/nav-top-right displays content on the right part of the top navigation
+ * @doc/fr slot/nav-top-right affiche du contenu à droite de la navitation du haut
  */
 </script>

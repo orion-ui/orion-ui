@@ -2,7 +2,7 @@
 	<o-layout
 		v-bind="LayoutConfig"
 		class="main-layout">
-		<template #navTopLeft>
+		<template #nav-top-left>
 			Orion v1
 
 			<o-button @click="setThemeMode('light')">

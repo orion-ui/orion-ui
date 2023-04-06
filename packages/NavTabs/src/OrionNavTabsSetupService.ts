@@ -13,10 +13,6 @@ export default class OrionNavTabsSetupService extends SharedNavSetupService<Prop
 			type: Object as PropType<OrionNavAside.Props>,
 			default: undefined,
 		},
-		logo: {
-			type: String,
-			default: undefined,
-		},
 	};
 
 	_el = ref<RefDom>();
