@@ -203,7 +203,15 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 
 	get showPopover () {
 		return (!this.props.autocomplete && this.state.isFocus)
-			|| (this.props.autocomplete && this.state.isFocus && (!!this.optionsDisplay.length || this.state.isFetching));
+			|| (this.props.autocomplete && this.state.isFocus && (!!this.optionsDisplay.length || this.state.isFetching))
+			|| (this.props.autocomplete && this.responsive.onPhone && this.state.isFocus);
+	}
+
+	get showPopoverSearch () {
+		return (this.props.autocomplete && this.responsive.onPhone)
+		|| this.props.fetchUrl
+		|| this.props.customFetch
+		|| (this.props.searchable && this.props.options.length > 1);
 	}
 
 	get publicInstance () {
@@ -456,7 +464,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 		}
 
 		nextTick(() => {
-			if (this.props.searchable || this.props.fetchUrl) {
+			if (this.props.searchable || this.props.fetchUrl || (this.props.autocomplete && this.responsive.onPhone)) {
 				this._optionssearchinput.value?.focus();
 			}
 
