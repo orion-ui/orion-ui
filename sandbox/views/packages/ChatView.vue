@@ -67,7 +67,7 @@
 </template>
 
 <script setup lang="ts">
-import { useChat, getUid, useMonkey, useNotif, during } from 'lib';
+import { useChat, getUid, useMonkey, useNotif, sleep } from 'lib';
 import { computed, reactive, ref, watch } from 'vue';
 import { OrionIcon } from 'packages/Icon';
 import { faker } from '@faker-js/faker';
@@ -102,7 +102,7 @@ watch(() => chat.activeDiscussionId, (val) => {
 function initChat () {
 	chat.config.messageFetcher = async ({ discussionId, oldestMessageId }) => {
 
-		await during(400);
+		await sleep(400);
 		const oldestMessageIndex = oldestMessageId
 			? discussionsMessages[discussionId].findIndex(x => x.id < oldestMessageId)
 			: 0;

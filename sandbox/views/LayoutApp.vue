@@ -30,12 +30,6 @@
 					input-value="fr"/>
 			</div>
 		</template>
-
-		<template #nav-main-item-append>
-			<o-icon
-				icon="google"
-				@click="simpleCallback()"/>
-		</template>
 		<router-view/>
 	</o-layout>
 </template>
@@ -44,9 +38,6 @@
 import { computed } from 'vue';
 import packagesNavigation from 'sandbox/utils/packages-navigation';
 import { setThemeMode, getAppLang, setAppLang } from 'lib';
-
-// eslint-disable-next-line no-console
-const simpleCallback = () => console.log('ok');
 
 const navMain: OrionNavMain.Props = {
 	items: [

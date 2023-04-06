@@ -45,7 +45,7 @@ export default [
 		description: 'Converts an hour to a decimal format.',
 	},
 	{
-		name: 'during',
+		name: 'sleep',
 		return: 'Promise',
 		params: { milliseconds: `number` },
 		description: 'Sets a timeout.',

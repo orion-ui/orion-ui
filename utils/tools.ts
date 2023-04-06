@@ -52,7 +52,7 @@ export function hoursToNumber (value: string, delimiter = ':') {
  * @param {number} milliseconds time to wait
  * @return Promise
  */
-export async function during (milliseconds: number) {
+export async function sleep (milliseconds: number) {
 	return new Promise(resolve => setTimeout(resolve, milliseconds));
 }
 
