@@ -83,8 +83,7 @@
 				class="orion-select__popover"
 				:class="{ 'orion-select-multiple__popover': setup.props.multiple }">
 				<orion-input
-					v-if="!setup.props.autocomplete &&
-						(setup.props.fetchUrl || setup.props.customFetch || (setup.props.searchable && setup.props.options.length > 1))"
+					v-if="setup.showPopoverSearch"
 					:ref="setup._optionssearchinput"
 					v-model="setup.valueToSearch"
 					:label="setup.lang.SEARCH"
