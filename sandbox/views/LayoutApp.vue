@@ -2,7 +2,7 @@
 	<o-layout
 		v-bind="LayoutConfig"
 		class="main-layout">
-		<template #navTopLeft>
+		<template #nav-top-left>
 			Orion v1
 
 			<o-button @click="setThemeMode('light')">
@@ -30,7 +30,6 @@
 					input-value="fr"/>
 			</div>
 		</template>
-
 		<router-view/>
 	</o-layout>
 </template>
@@ -47,6 +46,12 @@ const navMain: OrionNavMain.Props = {
 			root: true,
 			to: '/',
 			icon: 'home_alt_fill',
+		},
+		{
+			label: `test callback`,
+			icon: 'alarm',
+			// eslint-disable-next-line no-console
+			callback: (item, ev) => console.log(item, ev),
 		},
 		{
 			label: `Sandbox`,
@@ -84,10 +89,27 @@ const navMain: OrionNavMain.Props = {
 
 const LayoutConfig = computed<Orion.LayoutConfig>(() => ({
 	navMain,
-	navTop: { items: [ ...packagesNavigation.slice(0, 3) ] },
+	navTop: {
+		items: [
+			{
+				label: `test callback`,
+				icon: 'alarm',
+				// eslint-disable-next-line no-console
+				callback: (item, ev) => console.log(item, ev),
+			},
+			...packagesNavigation.slice(0, 3) ],
+	},
 	navTabs: {
 		navAside: { navMain },
-		items: [ ...packagesNavigation.slice(0, 4) ],
+		items: [
+			{
+				label: `test callback`,
+				icon: 'alarm',
+				// eslint-disable-next-line no-console
+				callback: (item, ev) => console.log(item, ev),
+			},
+			...packagesNavigation.slice(0, 4),
+		],
 	},
 }));
 

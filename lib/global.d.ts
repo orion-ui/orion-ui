@@ -68,6 +68,8 @@ declare global {
 
 		type Icon = typeof coolicons[number];
 
+		type Theme = 'dark' | 'light' | 'auto';
+
 		type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 		type Color = 'brand' | 'default' | 'info' | 'success' | 'warning' | 'danger' | 'inverse' | 'pink';
@@ -216,7 +218,7 @@ declare global {
 		type NavItem = Partial<{
 			always: boolean;
 			backLabel: string;
-			callback: () => any;
+			callback: (item: NavItem, ev: MouseEvent | TouchEvent) => any;
 			children: NavItem[];
 			class: string;
 			expand: boolean;
@@ -235,6 +237,7 @@ declare global {
 			tag: string;
 			to: RouteLocationRaw;
 			wrapperClass: string;
+			activeWhenExact: boolean;
 		}>
 
 		type NavSection = {

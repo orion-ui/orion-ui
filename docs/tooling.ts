@@ -11,18 +11,18 @@ export default [
 	{
 		name: 'setThemeMode',
 		return: 'void',
-		params: { mode: 'Theme' },
+		params: { mode: 'Orion.Theme' },
 		description: 'Applies the theme defined in the parameter.',
 	},
 	{
 		name: 'getThemeMode',
-		return: 'Theme',
+		return: 'Orion.Theme',
 		params: '',
 		description: 'Gets the theme in the localStorage.',
 	},
 	{
 		name: 'initThemeMode',
-		return: 'Theme',
+		return: 'Orion.Theme',
 		params: '',
 		description: 'Initialize the theme mode from the local storage.',
 	},
@@ -45,7 +45,7 @@ export default [
 		description: 'Converts an hour to a decimal format.',
 	},
 	{
-		name: 'during',
+		name: 'sleep',
 		return: 'Promise',
 		params: { milliseconds: `number` },
 		description: 'Sets a timeout.',
@@ -91,7 +91,7 @@ export default [
 		params: {
 			start: 'Date',
 			end: 'Date',
-			pattern: '= De $start à $end',
+			pattern: '= From $start to $end',
 			hourSeparator: '= h',
 		},
 		description: 'Description',
@@ -127,7 +127,7 @@ export default [
 		params: {
 			startOrWeekNumber: 'Date | number',
 			endOrYear: 'Date | number',
-			pattern: '= Du $start au $end',
+			pattern: '= From $start to $end',
 			readableParams: '= short',
 		},
 		description: 'Returns a string which contains a interval of dates.',

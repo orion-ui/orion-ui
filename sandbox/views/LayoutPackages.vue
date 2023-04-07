@@ -1,5 +1,5 @@
 <template>
-	<pre>LayoutPackages</pre>
+	<pre style="margin:0 0.5rem;">LayoutPackages</pre>
 
 	<router-view/>
 </template>
