@@ -52,7 +52,7 @@ export function hoursToNumber (value: string, delimiter = ':') {
  * @param {number} milliseconds time to wait
  * @return Promise
  */
-export async function during (milliseconds: number) {
+export async function sleep (milliseconds: number) {
 	return new Promise(resolve => setTimeout(resolve, milliseconds));
 }
 
@@ -289,12 +289,11 @@ const themeMediaQueryListEventHandler = (e: MediaQueryListEvent) => {
 	useDocument()?.documentElement.setAttribute('data-orion-theme', targetTheme);
 };
 
-type Theme = 'dark' | 'light' | 'auto';
 export function getThemeMode () {
-	return useLocalStorage()?.getItem('orion-theme') as Theme ?? 'auto';
+	return useLocalStorage()?.getItem('orion-theme') as Orion.Theme ?? 'auto';
 }
 
-export function setThemeMode (mode: Theme) {
+export function setThemeMode (mode: Orion.Theme) {
 	if (mode === 'dark' || mode === 'light') {
 		useLocalStorage()?.setItem('orion-theme', mode);
 		useDocument()?.documentElement.setAttribute('data-orion-theme', mode);

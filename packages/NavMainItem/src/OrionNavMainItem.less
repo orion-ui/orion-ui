@@ -32,7 +32,9 @@
 	}
 
 	&.router-link-exact-active,
-	&.router-link-active:not(.orion-nav-main__item--root) {
+	&.router-link-active:not(.orion-nav-main__item--root):not(
+			.active-when-exact
+		) {
 		color: var(--info);
 
 		&::before {

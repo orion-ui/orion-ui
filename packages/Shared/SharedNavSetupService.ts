@@ -66,12 +66,16 @@ export default abstract class SharedNavSetupService<P> extends SharedSetupServic
 				itemData.class.push(`${this.baseClass}__item--section-title`);
 			}
 
+			if (item.activeWhenExact) {
+				itemData.class.push('active-when-exact');
+			}
+
 			return itemData;
 		}
 	}
 
-	handleClick (item: Orion.NavItem) {
-		if (item.callback) item.callback();
+	handleClick (item: Orion.NavItem, ev: MouseEvent | TouchEvent) {
+		if (item.callback) item.callback(item, ev);
 		if (item.to) this.router.push(item.to);
 	}
 

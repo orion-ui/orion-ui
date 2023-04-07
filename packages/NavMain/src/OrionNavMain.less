@@ -6,12 +6,8 @@
 	bottom: 0;
 	left: 0;
 	width: 16rem;
-	top: calc(175rem / 16);
+	top: 8rem;
 	z-index: 11;
-
-	@media @desktop {
-		top: 16rem;
-	}
 
 	hr {
 		border-image: linear-gradient(
@@ -53,14 +49,11 @@
 		overflow-x: hidden;
 	}
 
-	&__wrapper {
-		bottom: calc(80rem / 16);
-	}
-
 	&__children {
 		display: flex;
 		flex-direction: column;
 		gap: 1.5rem;
+		padding-bottom: 2rem;
 	}
 
 	&__logo {
