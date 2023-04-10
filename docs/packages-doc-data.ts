@@ -868,15 +868,6 @@ const packagesDocData = new Map([
 					'fr': 'focus automatiquement le champ lorsqu\'il est monté.',
 				},
 			}, {
-				'name': 'clearToNull',
-				'defaultValue': false,
-				'type': 'boolean',
-				'required': false,
-				'desc': {
-					'en': 'sets the value to null when the field is cleared',
-					'fr': 'lorsque que le champ est vidé, sa valeur vaut `null`',
-				},
-			}, {
 				'name': 'clearable',
 				'defaultValue': false,
 				'type': 'boolean',
@@ -884,6 +875,15 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'defines if the field can be cleared.',
 					'fr': 'définit si le champ peut être vidé.',
+				},
+			}, {
+				'name': 'clearToNull',
+				'defaultValue': false,
+				'type': 'boolean',
+				'required': false,
+				'desc': {
+					'en': 'sets the value to null when the field is cleared',
+					'fr': 'lorsque que le champ est vidé, sa valeur vaut `null`',
 				},
 			}, {
 				'name': 'color',
@@ -983,15 +983,6 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'allows to select multiples checkbox values, related to v-model array',
 					'fr': 'permet de selectionner plusieurs cases à cocher, dans le cas où le v-model est un tableau',
-				},
-			}, {
-				'name': 'name',
-				'defaultValue': 'undefined',
-				'type': 'string',
-				'required': false,
-				'desc': {
-					'en': 'name of the field',
-					'fr': 'nom du champ',
 				},
 			}, {
 				'name': 'prefixFontIcon',
@@ -1101,6 +1092,9 @@ const packagesDocData = new Map([
 			}],
 			publicInstance: [{
 				'name': 'hasBeenFocus',
+				'type': 'boolean',
+			}, {
+				'name': 'isFocus',
 				'type': 'boolean',
 			}, {
 				'name': 'focus',
@@ -1271,15 +1265,6 @@ const packagesDocData = new Map([
 					'fr': 'focus automatiquement le champ lorsqu\'il est monté.',
 				},
 			}, {
-				'name': 'clearToNull',
-				'defaultValue': false,
-				'type': 'boolean',
-				'required': false,
-				'desc': {
-					'en': 'sets the value to null when the field is cleared',
-					'fr': 'lorsque que le champ est vidé, sa valeur vaut `null`',
-				},
-			}, {
 				'name': 'clearable',
 				'defaultValue': false,
 				'type': 'boolean',
@@ -1287,6 +1272,15 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'defines if the field can be cleared.',
 					'fr': 'définit si le champ peut être vidé.',
+				},
+			}, {
+				'name': 'clearToNull',
+				'defaultValue': false,
+				'type': 'boolean',
+				'required': false,
+				'desc': {
+					'en': 'sets the value to null when the field is cleared',
+					'fr': 'lorsque que le champ est vidé, sa valeur vaut `null`',
 				},
 			}, {
 				'name': 'debounce',
@@ -1376,15 +1370,6 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'modelValue of the component',
 					'fr': 'modelValue du composant',
-				},
-			}, {
-				'name': 'name',
-				'defaultValue': 'undefined',
-				'type': 'string',
-				'required': false,
-				'desc': {
-					'en': 'name of the field',
-					'fr': 'nom du champ',
 				},
 			}, {
 				'name': 'prefixFontIcon',
@@ -1494,6 +1479,9 @@ const packagesDocData = new Map([
 			}],
 			publicInstance: [{
 				'name': 'hasBeenFocus',
+				'type': 'boolean',
+			}, {
+				'name': 'isFocus',
 				'type': 'boolean',
 			}, {
 				'name': 'focus',
@@ -1837,8 +1825,20 @@ const packagesDocData = new Map([
 				},
 			}],
 			publicInstance: [{
-				'name': 'currentDate',
-				'type': 'Date',
+				'name': 'getCurrentDate',
+				'type': '() => Date',
+			}, {
+				'name': 'getCurrentMonth',
+				'type': '() => number',
+			}, {
+				'name': 'getCurrentYear',
+				'type': '() => number',
+			}, {
+				'name': 'selectMonth',
+				'type': '(month: number) => void',
+			}, {
+				'name': 'selectYear',
+				'type': '(year: number) => void',
 			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
@@ -1921,15 +1921,6 @@ const packagesDocData = new Map([
 					'fr': 'focus automatiquement le champ lorsqu\'il est monté.',
 				},
 			}, {
-				'name': 'clearToNull',
-				'defaultValue': false,
-				'type': 'boolean',
-				'required': false,
-				'desc': {
-					'en': 'sets the value to null when the field is cleared',
-					'fr': 'lorsque que le champ est vidé, sa valeur vaut `null`',
-				},
-			}, {
 				'name': 'clearable',
 				'defaultValue': false,
 				'type': 'boolean',
@@ -1937,6 +1928,15 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'defines if the field can be cleared.',
 					'fr': 'définit si le champ peut être vidé.',
+				},
+			}, {
+				'name': 'clearToNull',
+				'defaultValue': false,
+				'type': 'boolean',
+				'required': false,
+				'desc': {
+					'en': 'sets the value to null when the field is cleared',
+					'fr': 'lorsque que le champ est vidé, sa valeur vaut `null`',
 				},
 			}, {
 				'name': 'disabled',
@@ -2008,15 +2008,6 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'modelValue of the component',
 					'fr': 'modelValue du composant',
-				},
-			}, {
-				'name': 'name',
-				'defaultValue': 'undefined',
-				'type': 'string',
-				'required': false,
-				'desc': {
-					'en': 'name of the field',
-					'fr': 'nom du champ',
 				},
 			}, {
 				'name': 'prefixFontIcon',
@@ -2153,6 +2144,9 @@ const packagesDocData = new Map([
 			}],
 			publicInstance: [{
 				'name': 'hasBeenFocus',
+				'type': 'boolean',
+			}, {
+				'name': 'isFocus',
 				'type': 'boolean',
 			}, {
 				'name': 'focus',
@@ -2406,15 +2400,6 @@ const packagesDocData = new Map([
 					'fr': 'focus automatiquement le champ lorsqu\'il est monté.',
 				},
 			}, {
-				'name': 'clearToNull',
-				'defaultValue': false,
-				'type': 'boolean',
-				'required': false,
-				'desc': {
-					'en': 'sets the value to null when the field is cleared',
-					'fr': 'lorsque que le champ est vidé, sa valeur vaut `null`',
-				},
-			}, {
 				'name': 'clearable',
 				'defaultValue': false,
 				'type': 'boolean',
@@ -2422,6 +2407,15 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'defines if the field can be cleared.',
 					'fr': 'définit si le champ peut être vidé.',
+				},
+			}, {
+				'name': 'clearToNull',
+				'defaultValue': false,
+				'type': 'boolean',
+				'required': false,
+				'desc': {
+					'en': 'sets the value to null when the field is cleared',
+					'fr': 'lorsque que le champ est vidé, sa valeur vaut `null`',
 				},
 			}, {
 				'name': 'config',
@@ -2511,15 +2505,6 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'modelValue of the component',
 					'fr': 'modelValue du composant',
-				},
-			}, {
-				'name': 'name',
-				'defaultValue': 'undefined',
-				'type': 'string',
-				'required': false,
-				'desc': {
-					'en': 'name of the field',
-					'fr': 'nom du champ',
 				},
 			}, {
 				'name': 'placeholder',
@@ -2629,6 +2614,9 @@ const packagesDocData = new Map([
 			}],
 			publicInstance: [{
 				'name': 'hasBeenFocus',
+				'type': 'boolean',
+			}, {
+				'name': 'isFocus',
 				'type': 'boolean',
 			}, {
 				'name': 'focus',
@@ -2995,15 +2983,6 @@ const packagesDocData = new Map([
 					'fr': 'focus automatiquement le champ lorsqu\'il est monté.',
 				},
 			}, {
-				'name': 'clearToNull',
-				'defaultValue': false,
-				'type': 'boolean',
-				'required': false,
-				'desc': {
-					'en': 'sets the value to null when the field is cleared',
-					'fr': 'lorsque que le champ est vidé, sa valeur vaut `null`',
-				},
-			}, {
 				'name': 'clearable',
 				'defaultValue': false,
 				'type': 'boolean',
@@ -3011,6 +2990,15 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'defines if the field can be cleared.',
 					'fr': 'définit si le champ peut être vidé.',
+				},
+			}, {
+				'name': 'clearToNull',
+				'defaultValue': false,
+				'type': 'boolean',
+				'required': false,
+				'desc': {
+					'en': 'sets the value to null when the field is cleared',
+					'fr': 'lorsque que le champ est vidé, sa valeur vaut `null`',
 				},
 			}, {
 				'name': 'cleave',
@@ -3138,15 +3126,6 @@ const packagesDocData = new Map([
 					'fr': 'modelValue du composant',
 				},
 			}, {
-				'name': 'name',
-				'defaultValue': 'undefined',
-				'type': 'string',
-				'required': false,
-				'desc': {
-					'en': 'name of the field',
-					'fr': 'nom du champ',
-				},
-			}, {
 				'name': 'prefixFontIcon',
 				'type': 'string',
 				'required': false,
@@ -3256,6 +3235,9 @@ const packagesDocData = new Map([
 				'name': 'hasBeenFocus',
 				'type': 'boolean',
 			}, {
+				'name': 'isFocus',
+				'type': 'boolean',
+			}, {
 				'name': 'focus',
 				'type': '() => void',
 			}, {
@@ -3341,15 +3323,6 @@ const packagesDocData = new Map([
 					'fr': 'focus automatiquement le champ lorsqu\'il est monté.',
 				},
 			}, {
-				'name': 'clearToNull',
-				'defaultValue': false,
-				'type': 'boolean',
-				'required': false,
-				'desc': {
-					'en': 'sets the value to null when the field is cleared',
-					'fr': 'lorsque que le champ est vidé, sa valeur vaut `null`',
-				},
-			}, {
 				'name': 'clearable',
 				'defaultValue': false,
 				'type': 'boolean',
@@ -3357,6 +3330,15 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'defines if the field can be cleared.',
 					'fr': 'définit si le champ peut être vidé.',
+				},
+			}, {
+				'name': 'clearToNull',
+				'defaultValue': false,
+				'type': 'boolean',
+				'required': false,
+				'desc': {
+					'en': 'sets the value to null when the field is cleared',
+					'fr': 'lorsque que le champ est vidé, sa valeur vaut `null`',
 				},
 			}, {
 				'name': 'color',
@@ -3438,15 +3420,6 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'modelValue of the component',
 					'fr': 'modelValue du composant',
-				},
-			}, {
-				'name': 'name',
-				'defaultValue': 'undefined',
-				'type': 'string',
-				'required': false,
-				'desc': {
-					'en': 'name of the field',
-					'fr': 'nom du champ',
 				},
 			}, {
 				'name': 'prefixFontIcon',
@@ -3558,6 +3531,9 @@ const packagesDocData = new Map([
 				'name': 'hasBeenFocus',
 				'type': 'boolean',
 			}, {
+				'name': 'isFocus',
+				'type': 'boolean',
+			}, {
 				'name': 'focus',
 				'type': '() => void',
 			}, {
@@ -3646,21 +3622,21 @@ const packagesDocData = new Map([
 				},
 				'bindings': [],
 			}, {
-				'name': 'navTopLeft',
+				'name': 'nav-top-left',
 				'desc': {
 					'en': 'displays content on the left part of the top navigation',
 					'fr': 'affiche du contenu à gauche de la navitation du haut',
 				},
 				'bindings': [],
 			}, {
-				'name': 'navTopAdditional',
+				'name': 'nav-top-additional',
 				'desc': {
 					'en': 'displays additional content in the top navigation',
 					'fr': 'affiche du contenu additionnel dans la navitation du haut',
 				},
 				'bindings': [],
 			}, {
-				'name': 'navTopRight',
+				'name': 'nav-top-right',
 				'desc': {
 					'en': 'displays content on the right part of the top navigation',
 					'fr': 'affiche du contenu à droite de la navitation du haut',
@@ -4178,6 +4154,9 @@ const packagesDocData = new Map([
 				},
 			}],
 			publicInstance: [{
+				'name': 'resetTimer',
+				'type': '() => void',
+			}, {
 				'name': '_loader',
 				'type': '() => OrionLoader',
 			}, {
@@ -4453,15 +4432,6 @@ const packagesDocData = new Map([
 					'fr': 'focus automatiquement le champ lorsqu\'il est monté.',
 				},
 			}, {
-				'name': 'clearToNull',
-				'defaultValue': false,
-				'type': 'boolean',
-				'required': false,
-				'desc': {
-					'en': 'sets the value to null when the field is cleared',
-					'fr': 'lorsque que le champ est vidé, sa valeur vaut `null`',
-				},
-			}, {
 				'name': 'clearable',
 				'defaultValue': false,
 				'type': 'boolean',
@@ -4469,6 +4439,15 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'defines if the field can be cleared.',
 					'fr': 'définit si le champ peut être vidé.',
+				},
+			}, {
+				'name': 'clearToNull',
+				'defaultValue': false,
+				'type': 'boolean',
+				'required': false,
+				'desc': {
+					'en': 'sets the value to null when the field is cleared',
+					'fr': 'lorsque que le champ est vidé, sa valeur vaut `null`',
 				},
 			}, {
 				'name': 'disabled',
@@ -4522,15 +4501,6 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'modelValue of the component',
 					'fr': 'modelValue du composant',
-				},
-			}, {
-				'name': 'name',
-				'defaultValue': 'undefined',
-				'type': 'string',
-				'required': false,
-				'desc': {
-					'en': 'name of the field',
-					'fr': 'nom du champ',
 				},
 			}, {
 				'name': 'passwordToConfirm',
@@ -4651,6 +4621,9 @@ const packagesDocData = new Map([
 				'name': 'hasBeenFocus',
 				'type': 'boolean',
 			}, {
+				'name': 'isFocus',
+				'type': 'boolean',
+			}, {
 				'name': 'focus',
 				'type': '() => void',
 			}, {
@@ -4736,15 +4709,6 @@ const packagesDocData = new Map([
 					'fr': 'focus automatiquement le champ lorsqu\'il est monté.',
 				},
 			}, {
-				'name': 'clearToNull',
-				'defaultValue': false,
-				'type': 'boolean',
-				'required': false,
-				'desc': {
-					'en': 'sets the value to null when the field is cleared',
-					'fr': 'lorsque que le champ est vidé, sa valeur vaut `null`',
-				},
-			}, {
 				'name': 'clearable',
 				'defaultValue': false,
 				'type': 'boolean',
@@ -4752,6 +4716,15 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'defines if the field can be cleared.',
 					'fr': 'définit si le champ peut être vidé.',
+				},
+			}, {
+				'name': 'clearToNull',
+				'defaultValue': false,
+				'type': 'boolean',
+				'required': false,
+				'desc': {
+					'en': 'sets the value to null when the field is cleared',
+					'fr': 'lorsque que le champ est vidé, sa valeur vaut `null`',
 				},
 			}, {
 				'name': 'disabled',
@@ -4814,15 +4787,6 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'modelValue of the component',
 					'fr': 'modelValue du composant',
-				},
-			}, {
-				'name': 'name',
-				'defaultValue': 'undefined',
-				'type': 'string',
-				'required': false,
-				'desc': {
-					'en': 'name of the field',
-					'fr': 'nom du champ',
 				},
 			}, {
 				'name': 'prefixFontIcon',
@@ -4923,6 +4887,9 @@ const packagesDocData = new Map([
 			}],
 			publicInstance: [{
 				'name': 'hasBeenFocus',
+				'type': 'boolean',
+			}, {
+				'name': 'isFocus',
 				'type': 'boolean',
 			}, {
 				'name': 'focus',
@@ -5232,15 +5199,6 @@ const packagesDocData = new Map([
 					'fr': 'focus automatiquement le champ lorsqu\'il est monté.',
 				},
 			}, {
-				'name': 'clearToNull',
-				'defaultValue': false,
-				'type': 'boolean',
-				'required': false,
-				'desc': {
-					'en': 'sets the value to null when the field is cleared',
-					'fr': 'lorsque que le champ est vidé, sa valeur vaut `null`',
-				},
-			}, {
 				'name': 'clearable',
 				'defaultValue': false,
 				'type': 'boolean',
@@ -5248,6 +5206,15 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'defines if the field can be cleared.',
 					'fr': 'définit si le champ peut être vidé.',
+				},
+			}, {
+				'name': 'clearToNull',
+				'defaultValue': false,
+				'type': 'boolean',
+				'required': false,
+				'desc': {
+					'en': 'sets the value to null when the field is cleared',
+					'fr': 'lorsque que le champ est vidé, sa valeur vaut `null`',
 				},
 			}, {
 				'name': 'color',
@@ -5338,15 +5305,6 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'modelValue of the component',
 					'fr': 'modelValue du composant',
-				},
-			}, {
-				'name': 'name',
-				'defaultValue': 'undefined',
-				'type': 'string',
-				'required': false,
-				'desc': {
-					'en': 'name of the field',
-					'fr': 'nom du champ',
 				},
 			}, {
 				'name': 'prefixFontIcon',
@@ -5456,6 +5414,9 @@ const packagesDocData = new Map([
 			}],
 			publicInstance: [{
 				'name': 'hasBeenFocus',
+				'type': 'boolean',
+			}, {
+				'name': 'isFocus',
 				'type': 'boolean',
 			}, {
 				'name': 'focus',
@@ -5879,15 +5840,6 @@ const packagesDocData = new Map([
 					'fr': 'focus automatiquement le champ lorsqu\'il est monté.',
 				},
 			}, {
-				'name': 'clearToNull',
-				'defaultValue': false,
-				'type': 'boolean',
-				'required': false,
-				'desc': {
-					'en': 'sets the value to null when the field is cleared',
-					'fr': 'lorsque que le champ est vidé, sa valeur vaut `null`',
-				},
-			}, {
 				'name': 'clearable',
 				'defaultValue': false,
 				'type': 'boolean',
@@ -5895,6 +5847,15 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'defines if the field can be cleared.',
 					'fr': 'définit si le champ peut être vidé.',
+				},
+			}, {
+				'name': 'clearToNull',
+				'defaultValue': false,
+				'type': 'boolean',
+				'required': false,
+				'desc': {
+					'en': 'sets the value to null when the field is cleared',
+					'fr': 'lorsque que le champ est vidé, sa valeur vaut `null`',
 				},
 			}, {
 				'name': 'customFetch',
@@ -6040,15 +6001,6 @@ const packagesDocData = new Map([
 					'fr': 'définit si plusieurs valeurs peuvent être sélectionnées',
 				},
 			}, {
-				'name': 'name',
-				'defaultValue': 'undefined',
-				'type': 'string',
-				'required': false,
-				'desc': {
-					'en': 'name of the field',
-					'fr': 'nom du champ',
-				},
-			}, {
 				'name': 'options',
 				'defaultValue': '() => []',
 				'type': 'BaseVModelType[]',
@@ -6186,6 +6138,9 @@ const packagesDocData = new Map([
 				'type': '() => string | undefined',
 			}, {
 				'name': 'hasBeenFocus',
+				'type': 'boolean',
+			}, {
+				'name': 'isFocus',
 				'type': 'boolean',
 			}, {
 				'name': 'focus',
@@ -6580,15 +6535,6 @@ const packagesDocData = new Map([
 					'fr': 'focus automatiquement le champ lorsqu\'il est monté.',
 				},
 			}, {
-				'name': 'clearToNull',
-				'defaultValue': false,
-				'type': 'boolean',
-				'required': false,
-				'desc': {
-					'en': 'sets the value to null when the field is cleared',
-					'fr': 'lorsque que le champ est vidé, sa valeur vaut `null`',
-				},
-			}, {
 				'name': 'clearable',
 				'defaultValue': false,
 				'type': 'boolean',
@@ -6596,6 +6542,15 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'defines if the field can be cleared.',
 					'fr': 'définit si le champ peut être vidé.',
+				},
+			}, {
+				'name': 'clearToNull',
+				'defaultValue': false,
+				'type': 'boolean',
+				'required': false,
+				'desc': {
+					'en': 'sets the value to null when the field is cleared',
+					'fr': 'lorsque que le champ est vidé, sa valeur vaut `null`',
 				},
 			}, {
 				'name': 'disabled',
@@ -6658,15 +6613,6 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'modelValue of the component',
 					'fr': 'modelValue du composant',
-				},
-			}, {
-				'name': 'name',
-				'defaultValue': 'undefined',
-				'type': 'string',
-				'required': false,
-				'desc': {
-					'en': 'name of the field',
-					'fr': 'nom du champ',
 				},
 			}, {
 				'name': 'prefixFontIcon',
@@ -6767,6 +6713,9 @@ const packagesDocData = new Map([
 			}],
 			publicInstance: [{
 				'name': 'hasBeenFocus',
+				'type': 'boolean',
+			}, {
+				'name': 'isFocus',
 				'type': 'boolean',
 			}, {
 				'name': 'focus',
@@ -7055,15 +7004,6 @@ const packagesDocData = new Map([
 					'fr': 'focus automatiquement le champ lorsqu\'il est monté.',
 				},
 			}, {
-				'name': 'clearToNull',
-				'defaultValue': false,
-				'type': 'boolean',
-				'required': false,
-				'desc': {
-					'en': 'sets the value to null when the field is cleared',
-					'fr': 'lorsque que le champ est vidé, sa valeur vaut `null`',
-				},
-			}, {
 				'name': 'clearable',
 				'defaultValue': false,
 				'type': 'boolean',
@@ -7071,6 +7011,15 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'defines if the field can be cleared.',
 					'fr': 'définit si le champ peut être vidé.',
+				},
+			}, {
+				'name': 'clearToNull',
+				'defaultValue': false,
+				'type': 'boolean',
+				'required': false,
+				'desc': {
+					'en': 'sets the value to null when the field is cleared',
+					'fr': 'lorsque que le champ est vidé, sa valeur vaut `null`',
 				},
 			}, {
 				'name': 'color',
@@ -7143,15 +7092,6 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'modelValue of the component',
 					'fr': 'modelValue du composant',
-				},
-			}, {
-				'name': 'name',
-				'defaultValue': 'undefined',
-				'type': 'string',
-				'required': false,
-				'desc': {
-					'en': 'name of the field',
-					'fr': 'nom du champ',
 				},
 			}, {
 				'name': 'prefixFontIcon',
@@ -7270,6 +7210,9 @@ const packagesDocData = new Map([
 			}],
 			publicInstance: [{
 				'name': 'hasBeenFocus',
+				'type': 'boolean',
+			}, {
+				'name': 'isFocus',
 				'type': 'boolean',
 			}, {
 				'name': 'focus',
@@ -7546,15 +7489,6 @@ const packagesDocData = new Map([
 					'fr': 'focus automatiquement le champ lorsqu\'il est monté.',
 				},
 			}, {
-				'name': 'clearToNull',
-				'defaultValue': false,
-				'type': 'boolean',
-				'required': false,
-				'desc': {
-					'en': 'sets the value to null when the field is cleared',
-					'fr': 'lorsque que le champ est vidé, sa valeur vaut `null`',
-				},
-			}, {
 				'name': 'clearable',
 				'defaultValue': false,
 				'type': 'boolean',
@@ -7562,6 +7496,15 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'defines if the field can be cleared.',
 					'fr': 'définit si le champ peut être vidé.',
+				},
+			}, {
+				'name': 'clearToNull',
+				'defaultValue': false,
+				'type': 'boolean',
+				'required': false,
+				'desc': {
+					'en': 'sets the value to null when the field is cleared',
+					'fr': 'lorsque que le champ est vidé, sa valeur vaut `null`',
 				},
 			}, {
 				'name': 'disabled',
@@ -7642,15 +7585,6 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'allows multiple files upload.',
 					'fr': 'permet le chargement de plusieurs fichiers.',
-				},
-			}, {
-				'name': 'name',
-				'defaultValue': 'undefined',
-				'type': 'string',
-				'required': false,
-				'desc': {
-					'en': 'name of the field',
-					'fr': 'nom du champ',
 				},
 			}, {
 				'name': 'prefixFontIcon',
@@ -7760,6 +7694,9 @@ const packagesDocData = new Map([
 			}],
 			publicInstance: [{
 				'name': 'hasBeenFocus',
+				'type': 'boolean',
+			}, {
+				'name': 'isFocus',
 				'type': 'boolean',
 			}, {
 				'name': 'focus',

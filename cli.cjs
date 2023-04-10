@@ -152,12 +152,17 @@ const privateChoices = [
 	} catch (e) {
 		if (e === '__private-guard__') {
 			log.error(`🚨 This command can only be executed inside Orion project`);
+		}
+		if (typeof e === 'string') {
+			log.error(e);
+			// eslint-disable-next-line no-console
+			console.log();
 		} else {
 			log.error('Aborted');
 			// eslint-disable-next-line no-console
-			console.error(e);
-			process.exit(0);
+			console.error('\n', e, '\n');
 		}
+		process.exit(0);
 	} finally {
 		note(`Thank you for using Orion CLI`);
 		outro(`🥨 --> See you!`);
