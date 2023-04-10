@@ -35,14 +35,19 @@ const toolsDocData = {
 			'description': 'delimiter between hours and minutes',
 		}],
 	},
-	isDefineOrTrue: {
+	sleep: {
 		'description': 'resolves a promise after the number of milliseconds given in parameters',
 		'return': 'Promise',
 		'param': [{
 			'name': 'milliseconds',
 			'type': 'number',
 			'description': 'time to wait',
-		}, {
+		}],
+	},
+	isDefineOrTrue: {
+		'description': 'checks if the value is different from undefined, null or false',
+		'return': 'boolean',
+		'param': [{
 			'name': 'val',
 			'type': 'any',
 			'description': 'value to check',

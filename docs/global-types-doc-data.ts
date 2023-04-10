@@ -42,14 +42,14 @@ const globalTypesDocData = {
 		'ns': 'global',
 		'type': 'OrionValidatorMessages',
 		'generic': '',
-		'description': 'Partial<{ \n\t\t[key in keyof ReturnType<typeof useValidation>[\'rulesRegistry\']]: string; \n\t}> \n \n',
+		'description': 'Partial<{ \n\t\t[key in keyof ReturnType<typeof useValidation>[\'rulesRegistry\']]: string; \n\t}> \n \n\ttype AsideAnimationHookType = \n\t| \'asideEnterBefore\' \n\t| \'asideEnterStart\' \n\t| \'asideEnterEnd\' \n\t| \'asideLeaveBefore\' \n\t| \'asideLeaveStart\' \n\t| \'asideLeaveEnd\' \n\t; \n \n\ttype ModalAnimationHookType = \n\t| \'modalEnterBefore\' \n\t| \'modalEnterStart\' \n\t| \'modalEnterEnd\' \n\t| \'modalLeaveBefore\' \n\t| \'modalLeaveStart\' \n\t| \'modalLeaveEnd\' \n\t; \n \n\ttype NotifAnimationHookType = \n\t| \'notifEnterBefore\' \n\t| \'notifEnterStart\' \n\t| \'notifEnterEnd\' \n\t| \'notifLeaveBefore\' \n\t| \'notifLeaveStart\' \n\t| \'notifLeaveEnd\' \n\t; \n',
 	}],
 
 	'Orion': [{
 		'ns': 'Orion',
 		'type': 'AppServiceConfig',
 		'generic': '',
-		'description': '{ \n\t\t\tprefix: string; \n\t\t\tuse: (\'components\' | \'monkeyPatching\')[]; \n\t\t\tlang: keyof typeof import(\'../lang\')[\'default\']; \n\t\t\trouter: Router; \n\t\t} \n',
+		'description': '{ \n\t\t\tprefix: string; \n\t\t\tuse: (\'components\' | \'monkeyPatching\')[]; \n\t\t\tlang: keyof typeof import(\'../lang\')[\'default\']; \n\t\t\trouter: Router; \n\t\t\tpopableAnimationHooks: \n\t\t\t\t& Record<AsideAnimationHookType, (instance?: OrionAside) => Promise<void>> \n\t\t\t\t& Record<ModalAnimationHookType, (instance?: OrionModal) => Promise<void>> \n\t\t\t\t& Record<NotifAnimationHookType, (instance?: OrionNotif) => Promise<void>> \n\t\t} \n',
 	}, {
 		'ns': 'Orion',
 		'type': 'Config',
@@ -60,6 +60,11 @@ const globalTypesDocData = {
 		'type': 'Icon',
 		'generic': '',
 		'description': 'typeof coolicons[number]; \n',
+	}, {
+		'ns': 'Orion',
+		'type': 'Theme',
+		'generic': '',
+		'description': '\'dark\' | \'light\' | \'auto\'; \n',
 	}, {
 		'ns': 'Orion',
 		'type': 'Size',
@@ -184,7 +189,7 @@ const globalTypesDocData = {
 		'ns': 'Orion',
 		'type': 'NavItem',
 		'generic': '',
-		'description': 'Partial<{ \n\t\t\talways: boolean; \n\t\t\tbackLabel: string; \n\t\t\tcallback: () => any; \n\t\t\tchildren: NavItem[]; \n\t\t\tclass: string; \n\t\t\texpand: boolean; \n\t\t\tfontIcon: string; \n\t\t\ticon: Orion.Icon; \n\t\t\tid: string; \n\t\t\tif: boolean | (() => boolean); \n\t\t\tlabel: string; \n\t\t\tline: boolean; \n\t\t\tparent: NavItem; \n\t\t\treload: boolean; \n\t\t\treplace: boolean; \n\t\t\troot: boolean; \n\t\t\tsectionTitle: boolean; \n\t\t\tshowCarret: boolean; \n\t\t\ttag: string; \n\t\t\tto: RouteLocationRaw; \n\t\t\twrapperClass: string; \n\t\t}> \n',
+		'description': 'Partial<{ \n\t\t\talways: boolean; \n\t\t\tbackLabel: string; \n\t\t\tcallback: (item: NavItem, ev: MouseEvent | TouchEvent) => any; \n\t\t\tchildren: NavItem[]; \n\t\t\tclass: string; \n\t\t\texpand: boolean; \n\t\t\tfontIcon: string; \n\t\t\ticon: Orion.Icon; \n\t\t\tid: string; \n\t\t\tif: boolean | (() => boolean); \n\t\t\tlabel: string; \n\t\t\tline: boolean; \n\t\t\tparent: NavItem; \n\t\t\treload: boolean; \n\t\t\treplace: boolean; \n\t\t\troot: boolean; \n\t\t\tsectionTitle: boolean; \n\t\t\tshowCarret: boolean; \n\t\t\ttag: string; \n\t\t\tto: RouteLocationRaw; \n\t\t\twrapperClass: string; \n\t\t\tactiveWhenExact: boolean; \n\t\t}> \n',
 	}, {
 		'ns': 'Orion',
 		'type': 'NavSection',
@@ -201,7 +206,7 @@ const globalTypesDocData = {
 		'ns': 'Orion.Popable',
 		'type': 'Options',
 		'generic': '',
-		'description': '{ \n\t\t\t\tuid: number; \n\t\t\t\tNested: Component | null; \n\t\t\t\tNestedProps: Record<string, any>; \n\t\t\t\tcustomClass: string; \n\t\t\t\tprogrammatic: boolean; \n\t\t\t\topenauto: boolean; \n\t\t\t\tsize: string; \n\t\t\t\thideClose: boolean; \n\t\t\t\thideOnOverlayClick: boolean; \n\t\t\t\toverlay: boolean; \n\t\t\t\tzIndex: number; \n\t\t\t\tevents?: Record<string, (popable: OrionAside | OrionModal | OrionNotif, params: any) => void>; \n\t\t\t}; \n',
+		'description': '{ \n\t\t\t\tuid: number; \n\t\t\t\tNested: Component | null; \n\t\t\t\tNestedProps: Record<string, any>; \n\t\t\t\tcustomClass: string; \n\t\t\t\tprogrammatic: boolean; \n\t\t\t\topenauto: boolean; \n\t\t\t\tsize: string; \n\t\t\t\thideClose: boolean; \n\t\t\t\thideOnOverlayClick: boolean; \n\t\t\t\thideOnEsc: boolean; \n\t\t\t\toverlay: boolean; \n\t\t\t\tzIndex: number; \n\t\t\t\tevents?: Record<string, (popable: OrionAside | OrionModal | OrionNotif, params: any) => void>; \n\t\t\t}; \n',
 	}, {
 		'ns': 'Orion.Popable',
 		'type': 'CloseOptions',
