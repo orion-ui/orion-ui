@@ -62,7 +62,7 @@ class TypesDeclarationFilesFactory {
 	constructor (/** @type {Options} */ options) {
 		this.options = options;
 		this.rootPath = path.resolve(__dirname, '../..');
-		this.typesPath = path.resolve(this.rootPath, this.options.dist ? 'dist/types' : 'types');
+		this.typesPath = path.resolve(this.rootPath, 'dist/types');
 	}
 
 	get tsConfigFilePath () {
@@ -78,10 +78,7 @@ class TypesDeclarationFilesFactory {
 
 		if (!this.options.dryRun) {
 			await fs.remove(this.typesPath);
-
-			if (this.options.dist) {
-				await this.copyRequiredFiles();
-			}
+			await this.copyRequiredFiles();
 		}
 
 		const { input, inputDist, dtsFilesNeededForBuild } = this.config;
@@ -102,9 +99,7 @@ class TypesDeclarationFilesFactory {
 			skipAddingFilesFromTsConfig: true,
 		});
 
-		const filesToScan = this.options.dist
-			? [dtsFilesNeededForBuild, input, inputDist]
-			: [dtsFilesNeededForBuild, input];
+		const filesToScan = [dtsFilesNeededForBuild, input, inputDist];
 
 		for await (const bundle of filesToScan) {
 			log.info(`Working on following bundle:`);

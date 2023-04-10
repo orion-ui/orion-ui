@@ -1,6 +1,6 @@
 // @ts-nocheck
 const path = require('path');
-const { readFile, readdir, writeFile, mkdir } = require('fs-extra');
+const { readFile, readdir, writeFile, mkdir, existsSync } = require('fs-extra');
 const { Project, SyntaxKind, ScriptKind } = require('ts-morph');
 const { spinner, log, note } = require('@clack/prompts');
 const { exec } = require('child_process');
@@ -41,6 +41,10 @@ const cleanString = /^'|'$/g;
  */
 
 module.exports = async (/** @type {Options} */ options) => {
+	if (!existsSync(path.resolve(process.cwd(), 'dist'))) {
+		throw `./dist folder missing. You should first build the lib locally`;
+	}
+
 	const factory = new DocFactory(options);
 	await factory.scanPackages();
 	await factory.writeFilePackagesDataDocFile();
@@ -742,7 +746,7 @@ class ServiceFileScanner extends DocUtility {
 	extractJSDocTags (/** @type {string} */ text, tools = false) {
 		const result = new Map();
 		const regex = /(\/\*{2})(?<comment>(.|\s)*?)(\*\/)\s*(?<function>\w+)/g;
-		const regexTools = /(\/\*{2})(?<comment>(.|\s)*?)(\*\/)\s*export function (?<function>\w+)/g;
+		const regexTools = /(\/\*{2})(?<comment>(.|\s)*?)(\*\/)\s*export( async)? function (?<function>\w+)/g;
 
 		var match;
 		while (match = tools ? regexTools.exec(text)?.groups : regex.exec(text)?.groups) {
