@@ -14,6 +14,9 @@ type Emit = {
 
 export default class OrionListSetupService extends SharedSetupService<Props> {
 	static props = {
+		// @doc props/useAutoPagination use OrionList's pagination system. Useful if you pass the full list in props
+		// @doc/fr props/useAutoPagination utilise le système de pagination d'OrionList. Utile si vous pasez la liste compl!te en props
+		useAutoPagination: Boolean,
 		// @doc props/usePaginationTop displays pagination at the top of the list
 		// @doc/fr props/usePaginationTop affiche une pagination en haut de la liste
 		usePaginationTop: {
@@ -111,21 +114,10 @@ export default class OrionListSetupService extends SharedSetupService<Props> {
 
 	private emit: Emit;
 
-	get computedLayout () {
-		return this.responsive.onPhone ? 'grid' : this.props.layout;
-	}
-
-	get itemType () {
-		return this.props.itemType ?? this.lang.ORION_LIST__ITEM_TYPE;
-	}
-
-	get itemAdjective () {
-		return this.props.itemAdjective ?? this.lang.ORION_LIST__ITEM_ADJECTIVE;
-	}
-
-	get computedItemType () {
-		return usePluralize(this.itemType, this.selected.length, false);
-	}
+	get computedLayout () { return this.responsive.onPhone ? 'grid' : this.props.layout; }
+	get itemType () { return this.props.itemType ?? this.lang.ORION_LIST__ITEM_TYPE; }
+	get itemAdjective () { return this.props.itemAdjective ?? this.lang.ORION_LIST__ITEM_ADJECTIVE; }
+	get computedItemType () { return usePluralize(this.itemType, this.selected.length, false); }
 
 	get computedItemAdjective () {
 		return getAppLang() === 'fr'
@@ -133,21 +125,20 @@ export default class OrionListSetupService extends SharedSetupService<Props> {
 			: this.itemAdjective;
 	}
 
-	get page () {
-		return this.props.page;
+	get listToDisplay () {
+		return this.props.useAutoPagination
+			? this.props.list.slice(
+				this.page.size * (this.page.index - 1),
+				this.page.size * this.page.index,
+			)
+			: this.props.list;
 	}
 
-	set page (val) {
-		this.emit('update:page', val);
-	}
+	get page () { return this.props.page; }
+	set page (val) { this.emit('update:page', val); }
 
-	get selected () {
-		return this.props.selected;
-	}
-
-	set selected (val) {
-		this.emit('update:selected', val);
-	}
+	get selected () { return this.props.selected; }
+	set selected (val) { this.emit('update:selected', val); }
 
 
 	constructor (props: Props, emit: Emit) {

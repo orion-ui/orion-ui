@@ -225,7 +225,7 @@ const passwordValidationMessages: OrionValidatorMessages = {
 const validator = useValidation(user, tab);
 
 function checkForm () : void {
-	result = validator.validate(); ;
+	result = validator.validate();
 	if (result) {
 		resultColor.value = 'brand';
 		validator.showValidationState();
