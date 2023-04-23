@@ -116,6 +116,13 @@ const packagesDocData = new Map([
 				'data': 'publicInstance',
 			}],
 			slots: [{
+				'name': 'poster',
+				'desc': {
+					'en': 'useful to display a poster image on aside\'s top',
+					'fr': 'utile pour afficher une image de couverture en haut de l\'aside',
+				},
+				'bindings': [],
+			}, {
 				'name': 'header',
 				'desc': {
 					'en': 'the header of the aside',
@@ -3851,6 +3858,15 @@ const packagesDocData = new Map([
 					'fr': 'détermine la `key` utilisée pour le v-for dans la boucle de la liste',
 				},
 			}, {
+				'name': 'useAutoPagination',
+				'defaultValue': false,
+				'type': 'boolean',
+				'required': false,
+				'desc': {
+					'en': 'use OrionList\'s pagination system. Useful if you pass the full list in props',
+					'fr': 'utilise le système de pagination d\'OrionList. Utile si vous pasez la liste compl!te en props',
+				},
+			}, {
 				'name': 'useFooterSelected',
 				'defaultValue': 'true',
 				'type': 'boolean',
@@ -6656,6 +6672,15 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'select the field content when focused.',
 					'fr': 'sélectionne le contenu du champ lorsqu\'il est focus.',
+				},
+			}, {
+				'name': 'showLength',
+				'defaultValue': false,
+				'type': 'boolean',
+				'required': false,
+				'desc': {
+					'en': 'show input\'s value length',
+					'fr': 'affiche le nombre de caractères',
 				},
 			}, {
 				'name': 'size',
