@@ -37,6 +37,11 @@
 		outline: none;
 	}
 
+	&__poster {
+		border-radius: var(--radius-aside) var(--radius-aside) 0 0;
+		overflow: hidden;
+	}
+
 	&__header {
 		order: 1;
 		position: absolute;
@@ -177,6 +182,7 @@
 		position: fixed;
 		top: var(--fluid-8px);
 		right: var(--fluid-8px);
+		background: white;
 
 		@media @tablet {
 			top: var(--fluid-15px);

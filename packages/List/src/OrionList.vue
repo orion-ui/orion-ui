@@ -12,7 +12,7 @@
 			v-if="setup.computedLayout === 'grid'"
 			:class="gridClass">
 			<div
-				v-for="(item, index) in list"
+				v-for="(item, index) in setup.listToDisplay"
 				:key="item[trackKey]"
 				:class="cellClass">
 				<div class="orion-list__cell">
@@ -23,7 +23,7 @@
 
 		<template v-else-if="setup.computedLayout === 'row'">
 			<div
-				v-for="(item, index) in list"
+				v-for="(item, index) in setup.listToDisplay"
 				:key="item[trackKey]"
 				class="orion-list__row">
 				<slot v-bind="{ item, index, selected: setup.listItemIsSelected(item) }"/>

@@ -3,7 +3,8 @@
 		<pre>Textarea</pre>
 		<o-textarea
 			v-model="value"
-			label="My label trop cool"/>
+			label="My label trop cool"
+			show-length/>
 	</o-page>
 </template>
 

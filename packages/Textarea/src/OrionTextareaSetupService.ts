@@ -6,6 +6,9 @@ type Props = SetupProps<typeof OrionTextareaSetupService.props>
 export default class OrionTextareaSetupService extends SharedFieldSetupService<Props, string | null | undefined> {
 	static props = {
 		...SharedFieldSetupService.props,
+		// @doc props/showLength show input's value length
+		// @doc/fr props/showLength affiche le nombre de caractères
+		showLength: Boolean,
 		// @doc props/maxLength maximal length of the input
 		// @doc/fr props/maxLength taille maximale de l'entrée
 		maxLength: {

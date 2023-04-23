@@ -2,7 +2,8 @@
 	<o-page title="List">
 		<o-list
 			v-model:selected="selectedItems"
-			:list="list"
+			use-auto-pagination
+			:list="fullList"
 			:page="page"
 			:total="fullList.length">
 			<template #default="{ item, selected }">

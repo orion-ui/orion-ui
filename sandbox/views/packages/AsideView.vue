@@ -19,7 +19,7 @@
 			</o-button>
 		</o-section>
 
-		<o-section title="Modal size">
+		<o-section title="Aside size">
 			<o-radio
 				v-model="asideSize"
 				input-value="xs"
@@ -54,6 +54,9 @@
 			:display="displayPopable"
 			:options="{ overlay: false }"
 			@leave-start="displayPopable = false">
+			<template #poster>
+				<img src="https://picsum.photos/680/300">
+			</template>
 			<sections-generator :qty="2"/>
 		</o-aside>
 	</o-page>

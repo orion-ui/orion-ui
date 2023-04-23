@@ -21,9 +21,14 @@
 			@blur="setup.handleBlur($event)"/>
 
 		<span
-			v-if="setup.props.maxLength"
+			v-if="maxLength"
 			class="orion-input__textarea-counter">
-			{{ setup.vModel ? setup.vModel.length : 0 }}/{{ setup.props.maxLength }}
+			{{ setup.vModel?.length ?? 0 }}/{{ maxLength }}
+		</span>
+		<span
+			v-else-if="setup.props.showLength"
+			class="orion-input__textarea-counter">
+			{{ setup.vModel?.length ?? 0 }}
 		</span>
 	</orion-field>
 </template>

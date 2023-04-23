@@ -12,6 +12,16 @@
 				`orion-aside--${setup.options.size}`,
 				{ 'orion-aside--visible': setup.visible },
 			]">
+			<div class="orion-aside__poster">
+				<div
+					v-if="$slots.poster">
+					<slot name="poster"/>
+				</div>
+				<div
+					v-else
+					:id="`OrionAside-${setup.uid}__poster`"/>
+			</div>
+
 			<div class="orion-aside__header">
 				<div
 					v-if="$slots.header"
@@ -74,6 +84,9 @@ provide('_aside', setup.publicInstance);
 defineExpose(setup.publicInstance);
 
 /** Doc
+ * @doc slot/poster useful to display a poster image on aside's top
+ * @doc/fr slot/poster utile pour afficher une image de couverture en haut de l'aside
+ *
  * @doc slot/header the header of the aside
  * @doc/fr slot/header en-tête de l'aside
  *
