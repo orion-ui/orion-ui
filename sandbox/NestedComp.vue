@@ -120,6 +120,12 @@
 				close from teleport
 			</o-button>
 		</teleport>
+
+		<teleport
+			v-if="_aside"
+			:to="`#OrionAside-${_aside.uid}__poster`">
+			<img src="https://picsum.photos/1000/500">
+		</teleport>
 	</div>
 
 	<o-loader ref="_loader"/>
