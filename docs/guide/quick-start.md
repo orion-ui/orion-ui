@@ -6,9 +6,13 @@ pageClass: 'no-toc'
 
 # Quick Start
 
-::: tip
-If you're not familiar with **npm** you can refer to the [Installation page](installation.md).
-:::
+## Create a new project
+If you want a fresh start you can use **Orion CLI** to scafflod a **new clean project**.\
+Go to the [Creating a new project section](installation.md#creating-a-new-project) of the [installation page](installation.md).
+
+## Installation in an existing project
+If you're not familiar with **npm** you can refer to the [installation page](installation.md).\
+If you want to install **Orion** in an **existing project**, follow below steps.
 
 ``` sh:no-line-numbers
 npm install --save @orion.ui/orion
@@ -51,8 +55,7 @@ createApp(App)
 
 ## Configuration options
 
-**Orion** provides some configuration options when using it in your application.
-
+**Orion** provides some configuration options when using it in your application.\
 These options are of type `Orion.Config`, described below.
 
 <type-description>
@@ -60,9 +63,10 @@ These options are of type `Orion.Config`, described below.
 ```ts:no-line-numbers
 // Type definition
 type Orion.Config = {
-	prefix?: string;
-	use?: ("components" | "monkeyPatching")[];
-	lang?: LangAvailable;
+	prefix?: string
+	use?: ("components" | "monkeyPatching")[]
+	lang?: LangAvailable
+	router?: Router
 }
 ```
 
@@ -82,6 +86,12 @@ Basically you can use only the components, or only the Monkey Patching ([more in
 <prop-description name="lang" type="'en' | 'fr'" value="'en'">
 
 At the moment **english** and **french** translation are available.
+
+</prop-description>
+
+<prop-description name="router" type="Router" value="undefined">
+
+Your application's **VueRouter** instance, if you use **OrionLayout** or navigation components (**OrionNavMain**, **OrionNavTop**, **OrionNavTab**)
 
 </prop-description>
 

@@ -6,9 +6,21 @@ pageClass: 'no-toc'
 
 # Installation
 
-Il s'agit d'une installation classique, via **l'interface de ligne de commande**.
+## Créer un nouveau projet
 
-La façon recommandée est d'utiliser le gestionnaire de paquets **NPM** afin que vous puissiez utiliser un bundle comme Vite ou Webpack par exemple.
+La façon la plus simple de démarrer un projet basé sur **Orion**, **Vue 3** et **Vite** et d'installer et utiliser **Orion CLI**.\
+Suviez ces étapes ou visitez le repo officiel [**Orion CLI**](https://github.com/orion-ui/orion-cli)
+
+``` sh:no-line-numbers
+# Installez Orion CLI en global
+npm i -g @orion.ui/orion-cli
+
+# Exécuter la commande
+orion
+```
+
+![Orion CLI](../../guide/orion-cli-root.png)
+## Installation via NPM
 
 ```sh:no-line-numbers
 # Allez à la racine de votre projet
@@ -21,6 +33,5 @@ npm init
 npm install --save @orion.ui/orion
 ```
 
-C'est tout ! **Orion** fait maintenant parti de vos dépendances et peut être utilisé dans votre projet.
-
+C'est tout ! **Orion** fait maintenant parti de vos dépendances et peut être utilisé dans votre projet.\
 Consultez notre [guide de démarrage](quick-start.md) pour en savoir plus.

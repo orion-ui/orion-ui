@@ -6,9 +6,13 @@ pageClass: 'no-toc'
 
 # Bien débuter
 
-::: tip
-Si vous n'êtes pas familier avec **npm** vous pouvez vous référer à la [page d'installation](installation.md)
-:::
+## Créer un nouveau projet
+Si vous souhaitez démarrer un nouveau projet de zéro vous pouvez utiliser **Orion CLI** pour amorcer un **nouveau projet propre**.\
+Rendez-vous dans la [section Créer un nouveau projet](installation.md#créer-un-nouveau-projet) de la [page d'installation](installation.md).
+
+## Installation dans un projet existant
+Si n'êtes pas familier avec **npm** vous pouvez vous référer à la [page d'installation](installation.md).\
+Si vous souhaitez installer **Orion** dans un **projet existant**, suivi le guide ci-dessous.
 
 ```sh:no-line-numbers
 npm install --save @orion.ui/orion
@@ -25,7 +29,9 @@ import Orion from '@orion.ui/orion'; // Import de la librairie
 import '@orion.ui/orion/dist/style.css'; // Import des styles
 import '@orion.ui/orion/dist/monkey-patching'; // Import du fichier de définition du Monkey Patching
 
-createApp(App).use(Orion).mount('#app');
+createApp(App)
+	.use(Orion)
+	.mount('#app');
 ```
 
 :::
@@ -53,18 +59,18 @@ createApp(App)
 
 ## Options de configuration
 
-**Orion** fournit des options de configuration lorsqu'il est utilisé dans votre application.-
-
-Ces options ce de type `Orion.Config`, décrit ci-dessous :
+**Orion** fournit des options de configuration lorsqu'il est utilisé dans votre application.\
+Ces options sont du type `Orion.Config`, décrit ci-dessous :
 
 <type-description>
 
 ```ts:no-line-numbers
 // Type definition
 type Orion.Config = {
-	prefix?: string;
-	use?: ("components" | "monkeyPatching")[];
-	lang?: LangAvailable;
+	prefix?: string
+	use?: ("components" | "monkeyPatching")[]
+	lang?: LangAvailable
+	router?: Router
 }
 ```
 
@@ -83,7 +89,14 @@ Il est possible d'utiliser uniquement les composants, ou juste le Monkey patchin
 
 <prop-description name="lang" type="'en' | 'fr'" value="'en'">
 
-Pour le moment des traductions en **anglais** et en **français** sont disponibles.
+Pour le moment des traductions en **anglais** et en **français** sont disponibles
+
+</prop-description>
+
+<prop-description name="router" type="Router" value="undefined">
+
+L'instance de **VueRouter** de votre application, si vous utilisé les composant **OrionLayout** ou de navigation (**OrionNavMain**, **OrionNavTop**, **OrionNavTab**)
+
 </prop-description>
 
 </type-description>

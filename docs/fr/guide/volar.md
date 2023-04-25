@@ -11,38 +11,15 @@ Il peut ajouter l'auto-complétion et la vérification de type au niveau des pro
 
 Il est possible de bénéficier de ces fonctionnalités avec les composants d'Orion en ajoutant un fichier de définition des types dans le dossier `src` de votre projet.
 
-Cette étape est facile en utilisant la commande **Orion CLI** suivante :
+Cette étape est facile en utilisant [**Orion CLI**](https://github.com/orion-ui/orion-cli) :
 
-```sh:no-line-numbers
-npx orion
-```
-
-Sélectionner ensuite l'option **volar**...
-
-```:no-line-numbers{2}
-┌  
-🥨 --> Welcome to Orion CLI
-│
-◆  Select what you want to do
-│  ● Volar Intellisense (Create .dts file for Volar)
-└
-```
+![Orion CLI](../../guide/orion-cli-project-volar.png)
 
 ... et entrer le préfix des composants d'Orion (appuyez sur **Enter** pour utiliser le préfix 'o' par défaut).\
 Ce préfix doit bien sûr être le même que celui présent dans la [configuration d'Orion](quick-start.md#configuration-options).\
 Vous pouvez voir un exemple de préfix personnalisé [ci-dessous](#prefix-personnalise).
 
-```:no-line-numbers{2}
-┌
-🥨 --> Welcome to Orion CLI
-│
-◇  Select what you want to do
-│  Volar Intellisense
-│
-◆  Enter the prefix for Orion components?
-│  o_
-└
-```
+![Orion CLI](../../guide/orion-cli-project-volar-default.png)
 
 Cette commande va créer un fichier `orion-volar.d.ts` avec le contenu correspondant.
 
@@ -85,30 +62,9 @@ createApp(App)
 :::
 ::::
 
-```sh:no-line-numbers
-npx orion
-```
+![Orion CLI](../../guide/orion-cli-project-volar.png)
 
-```:no-line-numbers{2}
-┌  
-🥨 --> Welcome to Orion CLI
-│
-◆  Select what you want to do
-│  ● Volar Intellisense (Create .dts file for Volar)
-└
-```
-
-```:no-line-numbers{2}
-┌
-🥨 --> Welcome to Orion CLI
-│
-◇  Select what you want to do
-│  Volar Intellisense
-│
-◆  Enter the prefix for Orion components?
-│  o_
-└
-```
+![Orion CLI](../../guide/orion-cli-project-volar-prompt.png)
 
 :::: code-group
 ::: code-group-item orion-volar.d.ts

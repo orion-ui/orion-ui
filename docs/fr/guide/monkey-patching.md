@@ -24,11 +24,12 @@ Pour que tout le monde puisse profiter des avantages de notre Monkey Patching, n
 :::: code-group
 ::: code-group-item With MonkeyPatching
 
-```ts {7,11}
+```ts {5,8,12}
 import { createApp } from 'vue';
 import App from './App.vue';
 import Orion from '@orion.ui/orion'; // Import de la librairie
 import '@orion.ui/orion/dist/style.css'; // Import des styles
+import '@orion.ui/orion/dist/monkey-patching'; // Import du fichier de définition du Monkey Patching
 
 createApp(App)
 	.use(Orion) // librairie complète

@@ -7,6 +7,10 @@ export const fr: SidebarConfig = [
 		text: 'Guide',
 		collapsible: true,
 		children: [
+			{
+				text: 'Orion CLI',
+				link: 'https://github.com/orion-ui/orion-cli',
+			},
 			`/fr/guide/installation.md`,
 			`/fr/guide/quick-start.md`,
 			`/fr/guide/monkey-patching.md`,

@@ -65,7 +65,10 @@ defineProps({
 	
 	&__description {
 		color: var(--grey-dark);
-		font-size: var(--size-default);
+
+		:deep(p) {
+			font-size: var(--size-default);
+		}
 		
 		:deep(strong) {
 			color: var(--grey-darker);

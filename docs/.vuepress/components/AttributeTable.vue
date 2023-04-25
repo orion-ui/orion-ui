@@ -177,10 +177,10 @@ onUnmounted(() => {
 			&__description {
 				line-height: 1.25rem;
 				color: var(--grey-dark);
-
-				:deep(p) {
+				
+				p {
 					line-height: 1.5rem;
-					font-size: 1rem;
+					font-size: var(--size-default);
 
 					&::first-letter {
 						text-transform: uppercase;
@@ -191,7 +191,7 @@ onUnmounted(() => {
 					}
 				}
 
-				:deep(a) {
+				a {
 					color: var(--brand);
 				}
 
