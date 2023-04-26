@@ -5,6 +5,9 @@ import anime from 'animejs';
 import SharedSetupService from './SharedSetupService';
 import useOverlay from 'services/OverlayService';
 import { toggleGlobalListener } from 'utils/tools';
+import type { OrionAsideSetupService } from 'packages/Aside';
+import type { OrionModalSetupService } from 'packages/Modal';
+import type { OrionNotifSetupService } from 'packages/Notif';
 
 type Props = SetupProps<typeof SharedPopableSetupService.props>
 
@@ -17,9 +20,10 @@ export type PopableEmit = {
 
 export const _popables: Record<number, OrionAside | OrionNotif | OrionModal> = {};
 export const _queue = reactive({
-	OrionAside: [] as OrionAside[],
-	OrionModal: [] as OrionModal[],
-	OrionNotif: [] as OrionNotif[],
+	OrionAside: [] as OrionAsideSetupService['publicInstance'][],
+	OrionModal: [] as OrionModalSetupService['publicInstance'][],
+	OrionNotif: [] as OrionNotifSetupService['publicInstance'][],
+	ids: [] as number[],
 });
 
 export default abstract class SharedPopableSetupService<P extends Props> extends SharedSetupService<P> {
@@ -65,11 +69,20 @@ export default abstract class SharedPopableSetupService<P extends Props> extends
 
 	options = reactive<Orion.Popable.Options>({ ...this.baseOptions });
 
-	protected get pendingQueue () { return _queue[this.name]; }
+	protected get pendingQueue () { return _queue[this.name] as (typeof this.publicInstance)[]; }
 
 	get uid () { return this.options.uid; }
 	get visible () { return this.state.visible; }
 	get isMounted () { return this.state.isMounted; }
+	get isLastOpenedPopable () { return _queue.ids.slice(-1)[0] === this.uid; }
+
+	get zIndexBumper (): number {
+		return _queue.ids.findIndex(x => x === this.uid);
+	}
+
+	get domStyle (): Record<string, any> {
+		return { zIndex: 100 + 1 + this.zIndexBumper + this.options.zIndex };
+	}
 
 	get publicInstance () {
 		return {
@@ -142,6 +155,7 @@ export default abstract class SharedPopableSetupService<P extends Props> extends
 	}
 
 	protected onUnmounted () {
+		this.close();
 		toggleGlobalListener(this.uid);
 	}
 
@@ -150,7 +164,7 @@ export default abstract class SharedPopableSetupService<P extends Props> extends
 
 	private setGlobalEventListener () {
 		toggleGlobalListener('keydown', (e: Event) => {
-			if ((e as KeyboardEvent).key === 'Escape' && this.visible) {
+			if ((e as KeyboardEvent).key === 'Escape' && this.visible && this.isLastOpenedPopable) {
 				this.close();
 			};
 		}, { uid: this.uid });
@@ -188,11 +202,14 @@ export default abstract class SharedPopableSetupService<P extends Props> extends
 		this.state.isClosing = true;
 
 		const { flush } = options;
-		// On cache le popable courante
+
+		// Hide current popable
 		await this.animateAsync(false);
-		// Si on ne veut pas la conserver dans la queue,
+
+		// If we don't want to keep it in the queue
 		if (!options.keepInQueue || flush) this.unqueue();
-		// Si il faut nettoyer la queue
+
+		// If we want to clean the queue
 		if (typeof flush === 'number' && isFinite(flush)) {
 			const toRemove = this.pendingQueue.splice(0, flush);
 			toRemove.forEach(x => x.removeProgrammatic());
@@ -219,12 +236,14 @@ export default abstract class SharedPopableSetupService<P extends Props> extends
 
 		// On ajout le popable en premier dans la queue
 		this.pendingQueue.unshift(this.publicInstance);
+		if (this.name !== 'OrionNotif') _queue.ids.push(this.uid);
 	}
 
 	private unqueue () {
 		// On sort le popable de la queue
 		const index = this.pendingQueue.findIndex(x => x.uid === this.uid);
 		this.pendingQueue.splice(index, 1);
+		this.removeFromQueueIds(this.uid);
 
 		if (this.options.programmatic) {
 			setTimeout(() => {
@@ -278,12 +297,19 @@ export default abstract class SharedPopableSetupService<P extends Props> extends
 	removeProgrammatic () {
 		if (!this.document) return;
 
-		const targetDom = this.document.getElementById(`${this.name}-${this.uid}`);
-		const parentNode = targetDom?.parentNode;
+		const targetWrapper = this.document.getElementById(`${this.name}-wrapper-${this.options.uid}`);
+
 		// Render null to parentNode to trigger "unmounted" event
-		render(null, parentNode as Element);
-		this.document.body.removeChild(parentNode as Node);
+		if (targetWrapper) render(null, targetWrapper);
+
+		targetWrapper?.remove();
 		delete _popables[this.uid];
+		this.removeFromQueueIds(this.uid);
+	}
+
+	private removeFromQueueIds (id: number) {
+		const idIndex = _queue.ids.findIndex(x => x === id);
+		if (idIndex > -1) _queue.ids.splice(idIndex, 1);
 	}
 
 	trigger (eventName: string, params?: any) {

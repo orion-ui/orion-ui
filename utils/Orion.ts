@@ -59,6 +59,7 @@ export class OrionAppService {
 			});
 			// this.app.use(directives);
 
+			this.createPopableWrapper();
 			this.createMainOverlay();
 			this.createMainLoader();
 			this.registerGlobalComponents();
@@ -84,6 +85,14 @@ export class OrionAppService {
 		if (!this.appPrefix) throw `key "prefix" is missing in config`;
 
 		OrionComponentsPlugin.install?.(this.app, this.appPrefix);
+	}
+
+	private createPopableWrapper () {
+		const container = useDocument()?.createElement('div');
+		if (container) {
+			container.id = 'orion-popable-wrapper';
+			useDocument()?.body.appendChild(container);
+		}
 	}
 
 	private createMainOverlay (): void {

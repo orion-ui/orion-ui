@@ -19,8 +19,15 @@ class NotifService extends PopableService<OrionNotif> {
 
 		const container = useDocument()?.createElement('div');
 		if (container) {
-			container.id = 'orion-notif-wrapper';
-			useDocument()?.body.appendChild(container);
+			container.id = `OrionNotif-wrapper-${this.options.uid}`;
+
+			const popableWrapper = useDocument()?.getElementById('orion-popable-wrapper');
+			if (popableWrapper) {
+				popableWrapper.appendChild(container);
+			} else {
+				useDocument()?.body.appendChild(container);
+			}
+
 			render(vnode, container);
 		}
 

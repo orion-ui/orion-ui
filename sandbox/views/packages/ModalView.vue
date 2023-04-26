@@ -52,7 +52,7 @@
 		<o-modal
 			ref="_modal"
 			:display="displayPopable"
-			:options="{ overlay: false }"
+			:options="{ overlay: true }"
 			@leave-start="displayPopable = false">
 			<sections-generator :qty="5"/>
 
