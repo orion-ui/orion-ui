@@ -31,6 +31,13 @@ export default class OrionOverlaySetupService extends SharedSetupService<Props> 
 		return this.state.visible;
 	}
 
+	get zIndex () {
+		const queueLength = _queue.ids.length;
+		return this.props.global && queueLength
+			? 100 - 1 + queueLength
+			: 100;
+	}
+
 	get publicInstance () {
 		return {
 			...super.publicInstance,
@@ -60,12 +67,10 @@ export default class OrionOverlaySetupService extends SharedSetupService<Props> 
 	handleClick () {
 		if (this.props.global) {
 			this.hide();
-			forEach(_queue, (q) => {
-				q.forEach((x) => {
-					if (x.state.visible && x.options.hideOnOverlayClick) {
-						x.close();
-					}
-				});
+			forEach([..._queue.OrionAside, ..._queue.OrionModal], (x) => {
+				if (x.state.visible && x.options.hideOnOverlayClick) {
+					x.close();
+				}
 			});
 		}
 	}

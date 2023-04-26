@@ -93,6 +93,8 @@
 				@click="$emit('toto', { hoho: 'huhu' })">
 				Emit toto event in component
 			</o-button>
+			<o-button @click="openBlankModal()">blank modal</o-button>
+			<o-button @click="openBlankAside()">blank aside</o-button>
 		</o-section>
 
 		<teleport
@@ -175,7 +177,7 @@ function showLoader (): void {
 function openNested (): void {
 	if (_aside) {
 		useAside({
-			// Nested: NestedComp,
+			Nested: NestedCompVue,
 			overlay: false,
 		});
 	} else if (_modal) {
@@ -188,6 +190,14 @@ function openNested (): void {
 
 function startTour () {
 	// useTour('_tourAside').start();
+}
+
+function openBlankModal () {
+	useModal({ title: `This is just a blank modal` });
+}
+
+function openBlankAside () {
+	useAside({});
 }
 
 onMounted(() => {

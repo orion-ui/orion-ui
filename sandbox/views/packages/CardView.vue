@@ -28,7 +28,6 @@
 					class="col-sm-6 col-lg-3">
 					<o-card
 						:gradient="color"
-						selected
 						:selected-color="color"
 						:title="color"
 						v-bind="state">
@@ -55,6 +54,9 @@
 					<o-icon
 						icon="Sketch"
 						:loading="state.selected"/>
+					<o-icon
+						icon="Sketch"
+						@click="triggerConfirm()"/>
 				</template>
 			</o-card>
 		</o-section>
@@ -63,6 +65,7 @@
 
 <script setup lang="ts">
 import { colors, sizes, useNotif } from 'lib';
+import { useConfirm } from 'services';
 import { reactive, ref } from 'vue';
 
 const theOne = ref<OrionCard>();
@@ -79,5 +82,9 @@ function notify () {
 	console.log(theOne.value?._el());
 
 	useNotif.info('dsmldkj');
+}
+
+function triggerConfirm () {
+	useConfirm(`Confirm this?`);
 }
 </script>

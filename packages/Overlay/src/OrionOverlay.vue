@@ -1,6 +1,7 @@
 <template>
 	<div
 		:ref="setup._el"
+		:style="{ zIndex: setup.zIndex }"
 		class="orion-overlay"
 		:class="{
 			'orion-overlay--global': setup.props.global,

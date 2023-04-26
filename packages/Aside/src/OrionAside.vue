@@ -1,11 +1,12 @@
 <template>
 	<teleport
-		to="body"
+		to="#orion-popable-wrapper"
 		:disabled="setup.options.programmatic">
 		<aside
 			v-show="setup.visible"
 			:id="`OrionAside-${setup.uid}`"
 			:ref="setup._el"
+			:style="setup.domStyle"
 			class="orion-aside"
 			:class="[
 				setup.options.customClass,

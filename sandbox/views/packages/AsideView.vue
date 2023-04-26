@@ -52,7 +52,7 @@
 		<o-aside
 			ref="_aside"
 			:display="displayPopable"
-			:options="{ overlay: false }"
+			:options="{ overlay: true }"
 			@leave-start="displayPopable = false">
 			<template #poster>
 				<img src="https://picsum.photos/680/300">
