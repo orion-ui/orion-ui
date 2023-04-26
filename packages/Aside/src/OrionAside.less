@@ -9,7 +9,7 @@
 .orion-aside {
 	// will-change: opacity, transform; // rendering flou sous Chrome
 	transition: box-shadow 0.3s;
-	z-index: @zIndexOrionAside;
+	// z-index: @zIndexOrionPopable;
 	position: fixed;
 	top: var(--fluid-20px);
 	right: var(--fluid-20px);
@@ -38,8 +38,8 @@
 	}
 
 	&__poster {
+		flex: none;
 		border-radius: var(--radius-aside) var(--radius-aside) 0 0;
-		overflow: hidden;
 	}
 
 	&__header {

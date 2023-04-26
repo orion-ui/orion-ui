@@ -36,6 +36,7 @@ function triggerNotif () {
 	notifToReset = useNotif[notifColor.value]({
 		title: `Condimentum Pharetra`,
 		message: `Integer posuere erat a ante venenatis dapibus posuere velit aliquet.`,
+		hideOnEsc: true,
 	});
 }
 

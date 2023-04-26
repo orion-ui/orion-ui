@@ -29,7 +29,9 @@
 					<label
 						:for="`rate-${setup._uid}-${i}`"
 						class="orion-rate__star">
-						<orion-icon :icon="setup.icon"/>
+						<orion-icon
+							:icon="setup.fontIcon ? undefined : setup.icon"
+							:font-icon="setup.fontIcon"/>
 					</label>
 				</template>
 			</template>
