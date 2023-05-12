@@ -110,6 +110,12 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 			type: Number,
 			default: 600,
 		},
+		// @doc props/prefillSearch prefill the search field
+		// @doc/fr props/prefillSearch pré-rempli le champ de recherche
+		prefillSearch: {
+			type: String,
+			default: undefined,
+		},
 	};
 
 	private bus = mitt<{
@@ -142,7 +148,14 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 	isArray = isArray;
 	get = get;
 
-	get autocompleteValue () { return this.state.isFocus ? this.state.valueToSearch : this.valueDisplay(this.vModel).display; }
+	get autocompleteValue () {
+		return (this.state.isFocus || this.props.prefillSearch?.length) && !this.props.modelValue
+			? this.state.isFocus
+				? this.state.valueToSearch ?? this.props.prefillSearch
+				: this.props.prefillSearch
+			: this.state.isFocus ? this.state.valueToSearch : this.valueDisplay(this.vModel).display;
+	}
+
 	set autocompleteValue (value) { this.state.valueToSearch = value; }
 
 	get valueToSearch () { return this.state.valueToSearch; }
@@ -191,7 +204,8 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 	get labelIsFloating () {
 		return this.hasValue
 			|| this.props.forceLabelFloating
-			|| (this.props.autocomplete && this.state.isFocus);
+			|| (this.props.autocomplete && this.state.isFocus)
+			|| !!this.props.prefillSearch?.length;
 	}
 
 	get isObjectType () {
@@ -208,6 +222,8 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 	}
 
 	get showPopoverSearch () {
+		if (this.props.autocomplete && !this.responsive.onPhone) return false;
+
 		return (this.props.autocomplete && this.responsive.onPhone)
 		|| this.props.fetchUrl
 		|| this.props.customFetch
@@ -217,7 +233,8 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 	get publicInstance () {
 		return {
 			...super.publicInstance,
-			searchTerm: () => this.state.valueToSearch,
+			getSearchTerm: () => this.state.valueToSearch,
+			setSearchTerm: (val?: string) => this.state.valueToSearch = val,
 		};
 	}
 

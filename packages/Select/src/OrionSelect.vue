@@ -1,4 +1,5 @@
 <template>
+	<pre>{{ setup.valueToSearch }}</pre>
 	<v-dropdown
 		:ref="setup._popover"
 		placement="bottom-start"

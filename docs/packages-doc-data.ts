@@ -6026,6 +6026,15 @@ const packagesDocData = new Map([
 					'fr': 'options du select',
 				},
 			}, {
+				'name': 'prefillSearch',
+				'defaultValue': 'undefined',
+				'type': 'string',
+				'required': false,
+				'desc': {
+					'en': 'prefill the search field',
+					'fr': 'pré-rempli le champ de recherche',
+				},
+			}, {
 				'name': 'prefixFontIcon',
 				'type': 'string',
 				'required': false,
