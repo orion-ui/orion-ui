@@ -49,7 +49,7 @@ const icons = computed(() => {
 	flex-direction: column;
 	align-items: center;
 	gap: 1rem;
-	background: white;
+	background: var(--c-bg);
 	padding: 1.25rem;
 
 	.orion-icon {
