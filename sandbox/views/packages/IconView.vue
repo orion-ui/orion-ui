@@ -53,4 +53,9 @@ const state = reactive({ loading: false });
 		font-size: 24px;
 	}
 }
+
+[data-orion-theme='dark']
+.demo-icon {
+	background: var(--grey-light);
+}
 </style>
