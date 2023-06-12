@@ -1,0 +1,187 @@
+import { PropType, reactive, useSlots } from 'vue';
+import SharedSetupService from '../../Shared/SharedSetupService';
+import { getUid } from 'utils/tools';
+
+type Props = SetupProps<typeof OrionCarouselSetupService.props>
+type Slots = ReturnType<typeof useSlots>;
+type Emits = {(e: 'update:modelValue', val?: number | string): void}
+
+export default class OrionCarouselSetupService extends SharedSetupService<Props> {
+	static props = {
+		// @doc props/loop enable the "loop" mode
+		// @doc/fr props/loop active le mode "en boucle"
+		loop: Boolean,
+		// @doc props/pauseOnHover pause timer when hovering the carousel
+		// @doc/fr props/pauseOnHover met au pause le minuteur lors du survol du carrousel
+		pauseOnHover: Boolean,
+		// @doc props/modelValue refers to the active step's **name** prop
+		// @doc/fr props/modelValue correspond à la prop **name** de l'élément actif
+		modelValue: {
+			type: [Number, String],
+			default: undefined,
+		},
+		// @doc props/stepTimer apply a timer to automatically switch to the next item
+		// @doc/fr props/stepTimer applique un minuteur pour passer automatiquement à l'élément suivant
+		stepTimer: {
+			type: Number,
+			default: undefined,
+		},
+		// @doc props/color color of the dots at the carousel's bottom
+		// @doc/fr props/color couleur des points au bas du carrousel
+		color: {
+			type: String as PropType<Orion.Color | Orion.ColorAlt>,
+			default: 'brand',
+		},
+	};
+
+	private emits: Emits;
+	private slots: Slots;
+	private timer?: NodeJS.Timeout;
+
+	private state = reactive({
+		timerStart: new Date().valueOf(),
+		timerRemaining: 0,
+		mouseIsOver: false,
+	});
+
+	uid = this.getUid();
+
+	get step () { return this.props.modelValue; }
+	set step (val) {
+		this.emits('update:modelValue', val);
+		if (this.props.stepTimer) {
+			this.state.timerRemaining = this.props.stepTimer;
+			this.state.timerStart = new Date().valueOf();
+			if (!(this.props.pauseOnHover && this.state.mouseIsOver)) {
+				this.startTimer();
+			}
+		}
+	}
+
+	get rgbColor () { return `var(--rgb-${this.props.color})`; }
+	get stepTimerForCss () { return this.props.stepTimer + 'ms'; }
+	get shouldLoop () { return !!this.props.stepTimer || this.props.loop; }
+	get stepIndex () { return this.steps.findIndex(x => x.name === this.props.modelValue); }
+	get stepsLength () { return this.steps.length; }
+
+	get steps (): { name: string | number, uid: number }[] {
+		const slotContent = this.slots.default?.();
+		if (!slotContent || !slotContent.length) return [];
+
+		const firstStep = slotContent[0];
+		// Check if a v-for is used
+		const stepsComponents = typeof firstStep.type === 'symbol' && firstStep.type.description === 'v-fgt'
+			? firstStep.children as typeof slotContent
+			: slotContent;
+
+		return stepsComponents.filter((x) => {
+			return !(typeof x.type === 'symbol' && x.type.description === 'v-cmt');
+		}).map(x => ({
+			...x.props,
+			name: x.props?.name as string | number,
+			uid: getUid(),
+		})) ?? [];
+	}
+
+	get publicInstance () {
+		return {
+			...super.publicInstance,
+			step: this.step,
+			stepsLength: this.stepsLength,
+			stepIndex: this.stepIndex,
+			shouldLoop: this.shouldLoop,
+			goToStep: this.goToStep.bind(this),
+			goToStepIndex: this.goToStepIndex.bind(this),
+			goPreviousStep: this.goPreviousStep.bind(this),
+			goNextStep: this.goNextStep.bind(this),
+		};
+	}
+
+
+	constructor (props: Props, emits: Emits, slots: Slots) {
+		super(props);
+		this.emits = emits;
+		this.slots = slots;
+	}
+
+	protected onMounted () {
+		if (this.props.stepTimer) this.startTimer();
+	}
+
+
+	private startTimer () {
+		if (!this.props.stepTimer) return;
+
+		clearTimeout(this.timer);
+		this.timer = setTimeout(() => this.goNextStep(), this.props.stepTimer);
+		this.state.timerStart = new Date().valueOf();
+	}
+
+	private stopTimer () {
+		if (!this.props.stepTimer) return;
+
+		this.state.timerRemaining = (this.state.timerRemaining || this.props.stepTimer) - (new Date().valueOf() - this.state.timerStart);
+		clearTimeout(this.timer);
+	}
+
+	private restartTimer () {
+		if (!this.props.stepTimer) return;
+
+		this.timer = setTimeout(() => this.goNextStep(), this.state.timerRemaining);
+		this.state.timerStart = new Date().valueOf();
+	}
+
+	handleMouseEnter () {
+		if (this.state.mouseIsOver) return;
+
+		this.state.mouseIsOver = true;
+
+		if (!!this.props.stepTimer && this.props.pauseOnHover) {
+			this.stopTimer();
+
+			Array
+				.from((this.document?.querySelectorAll(`#orion-carousel-${this.uid} .orion-carousel__dot-loader`) ?? [])as HTMLElement[])
+				.forEach(el => el.style.animationPlayState = 'paused');
+		}
+	}
+
+	handleMouseLeave () {
+		if (!this.state.mouseIsOver) return;
+
+		this.state.mouseIsOver = false;
+
+		if (!!this.props.stepTimer && this.props.pauseOnHover) {
+			Array
+				.from((this.document?.querySelectorAll(`#orion-carousel-${this.uid} .orion-carousel__dot-loader`) ?? [])as HTMLElement[])
+				.forEach(el => el.style.animationPlayState = 'running');
+
+			this.restartTimer();
+		}
+	}
+
+	goToStep (step: typeof this.steps[number]) {
+		this.step = step.name;
+	}
+
+	goToStepIndex (index: number) {
+		this.step = this.steps[index]?.name;
+	}
+
+	goPreviousStep () {
+		const prevStep = this.steps[this.stepIndex - 1];
+		if (prevStep) {
+			this.step = prevStep.name;
+		} else if (this.shouldLoop) {
+			this.step = this.steps[this.stepsLength - 1]?.name;
+		}
+	}
+
+	goNextStep () {
+		const nextStep = this.steps[this.stepIndex + 1];
+		if (nextStep) {
+			this.step = nextStep.name;
+		} else if (this.shouldLoop) {
+			this.step = this.steps[0]?.name;
+		}
+	}
+}
