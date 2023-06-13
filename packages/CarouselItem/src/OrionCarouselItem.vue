@@ -1,7 +1,9 @@
 <template>
 	<div class="orion-carousel-item">
 		<div class="orion-carousel-item__content">
-			<slot v-bind="{ isActive: setup.isActive }"/>
+			<slot
+				v-if="setup.shouldBeInDom"
+				v-bind="{ isActive: setup.isActive }"/>
 		</div>
 	</div>
 </template>

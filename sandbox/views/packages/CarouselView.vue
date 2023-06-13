@@ -33,16 +33,24 @@
 						</p>
 					</o-section>
 				</o-carousel-item>
-				<o-carousel-item name="step3">
-					<o-section title="step3">
+				<o-carousel-item
+					name="step3"
+					lazy-once>
+					<o-section
+						title="step3"
+						@vnode-mounted="logMounted('step3')">
 						<p>
 							Lorem ipsum dolor sit amet consectetur adipisicing elit. Id dolorem asperiores tempora error aliquid omnis,
 							magni cum non delectus quos cumque unde ratione reiciendis et mollitia fugit eaque consectetur aut!
 						</p>
 					</o-section>
 				</o-carousel-item>
-				<o-carousel-item name="step4">
-					<o-section title="step4">
+				<o-carousel-item
+					name="step4"
+					lazy>
+					<o-section
+						title="step4"
+						@vnode-mounted="logMounted('step4')">
 						<p>
 							Lorem ipsum dolor sit amet consectetur adipisicing elit.
 							Beatae eligendi eveniet asperiores et labore odio iste, esse voluptate officia magnam.
@@ -67,6 +75,10 @@ import { ref } from 'vue';
 // Carousel
 const test = ref(true);
 const carouselValue = ref('step1');
+
+function logMounted (step: string) {
+	console.log('carousel item mounted' + step);
+}
 </script>
 
 <style scoped lang="less">

@@ -92,10 +92,10 @@ export default class OrionCarouselSetupService extends SharedSetupService<Props>
 	get publicInstance () {
 		return {
 			...super.publicInstance,
-			step: this.step,
-			stepsLength: this.stepsLength,
-			stepIndex: this.stepIndex,
-			shouldLoop: this.shouldLoop,
+			step: () => this.step,
+			stepsLength: () => this.stepsLength,
+			stepIndex: () => this.stepIndex,
+			shouldLoop: () => this.shouldLoop,
 			goToStep: this.goToStep.bind(this),
 			goToStepIndex: this.goToStepIndex.bind(this),
 			goPreviousStep: this.goPreviousStep.bind(this),

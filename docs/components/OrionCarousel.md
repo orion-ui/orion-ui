@@ -18,4 +18,10 @@ CarouselPoster
 CarouselPlayground
 :::
 
-<attribute-table/>
+## Orion Carousel
+
+<attribute-table package="Carousel"/>
+
+## Orion Carousel Item
+
+<attribute-table package="CarouselItem"/>
