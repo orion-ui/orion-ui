@@ -23,9 +23,3 @@ defineExpose(setup.publicInstance);
  * @doc/fr slot/default/isActive/desc l'élément est actif
  */
 </script>
-
-<style scoped lang="less">
-.orion-carousel-item {
-	flex: 1 0 100%;
-}
-</style>

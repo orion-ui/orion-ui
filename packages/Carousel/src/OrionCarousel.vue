@@ -19,7 +19,9 @@
 		<div
 			v-if="$slots.default"
 			class="orion-carousel__steps-wrapper">
-			<div class="orion-carousel__steps">
+			<div
+				class="orion-carousel__steps"
+				:style="{ transform: `translate3d(${setup.stepIndex * -100}%, 0, 0)` }">
 				<slot
 					v-bind="{
 						step: setup.step,
@@ -39,13 +41,13 @@
 					goPreviousStep: () => setup.goPreviousStep(),
 					goNextStep: () => setup.goNextStep(),
 				}">
-				<o-button
+				<orion-button
 					outline
 					size="sm"
 					prefix-icon="chevron_big_left"
 					@click="setup.goPreviousStep()"/>
 
-				<o-button
+				<orion-button
 					outline
 					size="sm"
 					suffix-icon="chevron_big_right"
@@ -63,8 +65,11 @@
 						{ 'orion-carousel__dot--active': (index - 1) === setup.stepIndex },
 						{ 'orion-carousel__dot--past': (index - 1) < setup.stepIndex },
 					]"
+					:style="{ '--color': setup.rgbColor }"
 					@click="setup.goToStepIndex(index - 1)">
-					<div class="orion-carousel__dot-loader"/>
+					<div
+						class="orion-carousel__dot-loader"
+						:style="{ 'animation-duration': setup.stepTimerForCss }"/>
 				</div>
 			</div>
 		</div>
@@ -75,6 +80,7 @@
 import { useSlots, provide } from 'vue';
 import './OrionCarousel.less';
 import OrionCarouselSetupService from './OrionCarouselSetupService';
+import OrionButton from 'packages/Button/src/OrionButton.vue';
 type Emits = {(e: 'update:modelValue', val?: number | string): void}
 const slots = useSlots();
 const emits = defineEmits<Emits>();
@@ -124,115 +130,3 @@ defineExpose(setup.publicInstance);
  * @doc/fr slot/actions/goNextStep/desc fonction pour afficher l'élément suivant
  */
 </script>
-
-<style scoped lang="less">
-.orion-carousel {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-
-  &__content {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    flex: 1;
-    overflow: auto;
-  }
-
-  &__poster {
-    flex: 1;
-  }
-
-	&__footer {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 1rem;
-
-		> :nth-child(1) {
-			order: 1;
-		}
-		> :nth-child(2) {
-			order: 3;
-		}
-	}
-
-  &__dot-section {
-		order: 2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-  }
-
-  &__dot {
-    --color: v-bind('setup.rgbColor');
-    transition: background .3s, border .3s, width .3s;
-		position: relative;
-		overflow: hidden;
-    height: 0.5rem;
-    width: 0.5rem;
-    border-radius: 0.25rem;
-    background: white;
-    border: 1px solid var(--grey);
-    cursor: pointer;
-
-    &:hover {
-			border-color: rgb(var(--color));
-    }
-
-    &--active, &--past {
-      border-color: transparent;
-			background-color: rgb(var(--color));
-    }
-
-		&--past {
-      opacity: 0.3;
-    }
-
-		&--active {
-			.orion-carousel--timer & {
-				background-color: rgba(var(--color), 0.2);
-				width: 1.5rem;
-			}
-		}
-
-		&-loader {
-			position: absolute;
-			top: 0;
-			bottom: 0;
-			left: 0;
-			right: 0;
-			background-color: rgb(var(--color));
-			transform: scale3d(0, 1, 1);
-			transform-origin: left;
-
-			.orion-carousel--timer .orion-carousel__dot--active & {
-				animation: dotLoader;
-				animation-duration: v-bind('setup.stepTimerForCss');
-				animation-timing-function: linear;
-			}
-		}
-  }
-
-	&__steps-wrapper {
-		overflow: hidden;
-	}
-
-  &__steps {
-		transition: transform 0.3s ease-in-out;
-    flex: 1;
-		display: flex;
-		transform: translate3d(calc(v-bind('setup.stepIndex') * -100%) , 0, 0);
-  }
-}
-
-@keyframes dotLoader {
-	0% {
-		transform: scale3d(0, 1, 1);
-	}
-	100% {
-		transform: scale3d(1, 1, 1);
-	}
-}
-</style>

@@ -12,7 +12,7 @@
 				:step-timer="3000"
 				:pause-on-hover="true"
 				:loop="false"
-				color="brand">
+				color="success">
 				<o-carousel-item
 					v-if="test"
 					name="step1">
