@@ -46,6 +46,16 @@
 				v-model="state.pauseOnHover"
 				label="Pause on hover"/>
 		</div>
+		<div class="col-sm-4">
+			<o-toggle
+				v-model="state.hideNavigationButtons"
+				label="Hide navigation buttons"/>
+		</div>
+		<div class="col-sm-4">
+			<o-toggle
+				v-model="state.hideNavigationDots"
+				label="Hide navigation dots"/>
+		</div>
 	</div>
 </template>
 
@@ -75,6 +85,8 @@ const state = reactive<OrionCarousel.Props>({
 	pauseOnHover: false,
 	color: 'brand',
 	loop: false,
+	hideNavigationButtons: false,
+	hideNavigationDots: false,
 });
 
 state.modelValue = steps.value[0].id;

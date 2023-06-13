@@ -32,9 +32,11 @@
 			</div>
 		</div>
 
-		<div class="orion-carousel__footer">
+		<div
+			v-if="!hideNavigationButtons || !hideNavigationDots"
+			class="orion-carousel__navigation">
 			<slot
-				name="actions"
+				name="navigation"
 				v-bind="{
 					step: setup.step,
 					stepIndex: setup.stepIndex,
@@ -42,12 +44,16 @@
 					goNextStep: () => setup.goNextStep(),
 				}">
 				<orion-button
+					class="orion-carousel__navigation-previous"
+					:disabled="hideNavigationButtons || (!setup.shouldLoop && setup.stepIndex === 0)"
 					outline
 					size="sm"
 					prefix-icon="chevron_big_left"
 					@click="setup.goPreviousStep()"/>
 
 				<orion-button
+					class="orion-carousel__navigation-next"
+					:disabled="hideNavigationButtons || (!setup.shouldLoop && setup.stepIndex === (setup.stepsLength - 1))"
 					outline
 					size="sm"
 					suffix-icon="chevron_big_right"
@@ -55,7 +61,7 @@
 			</slot>
 
 			<div
-				v-if="setup.stepIndex <= setup.stepsLength"
+				v-if="!hideNavigationDots && (setup.stepIndex <= setup.stepsLength)"
 				class="orion-carousel__dot-section">
 				<div
 					v-for="index in setup.stepsLength"
@@ -72,6 +78,21 @@
 						:style="{ 'animation-duration': setup.stepTimerForCss }"/>
 				</div>
 			</div>
+		</div>
+
+		<div
+			v-if="$slots.actions"
+			class="orion-carousel__actions">
+			<slot
+				name="actions"
+				v-bind="{
+					step: setup.step,
+					stepIndex: setup.stepIndex,
+					goPreviousStep: () => setup.goPreviousStep(),
+					goNextStep: () => setup.goNextStep(),
+					goToStep: (step: any) => setup.goToStep(step),
+					goToStepIndex: (index: number) => setup.goToStepIndex(index),
+				}"/>
 		</div>
 	</div>
 </template>
@@ -114,8 +135,23 @@ defineExpose(setup.publicInstance);
  * @doc slot/default/goNextStep/desc function to display next step
  * @doc/fr slot/default/goNextStep/desc fonction pour afficher l'élément suivant
  *
- * @doc slot/actions the content of the carousel (use o-carousel-item component)
- * @doc/fr slot/actions contenu du carousel (utilisez le composant o-carousel-item)
+ * @doc slot/navigation the content of the carousel (use o-carousel-item component)
+ * @doc/fr slot/navigation contenu du carousel (utilisez le composant o-carousel-item)
+ * @doc slot/navigation/step/type number | string | undefined
+ * @doc slot/navigation/step/desc active step
+ * @doc/fr slot/navigation/step/desc l'élément actif
+ * @doc slot/navigation/stepIndex/type number
+ * @doc slot/navigation/stepIndex/desc active step index
+ * @doc/fr slot/navigation/stepIndex/desc l'index de l'élément actif
+ * @doc slot/navigation/goPreviousStep/type () => void
+ * @doc slot/navigation/goPreviousStep/desc function to display previous step
+ * @doc/fr slot/navigation/goPreviousStep/desc fonction pour afficher l'élément précédent
+ * @doc slot/navigation/goNextStep/type () => void
+ * @doc slot/navigation/goNextStep/desc function to display next step
+ * @doc/fr slot/navigation/goNextStep/desc fonction pour afficher l'élément suivant
+ *
+ * @doc slot/actions display additional actions for the carousel
+ * @doc/fr slot/actions affiche des actions supplémentaires pour le carrousel
  * @doc slot/actions/step/type number | string | undefined
  * @doc slot/actions/step/desc active step
  * @doc/fr slot/actions/step/desc l'élément actif
@@ -128,5 +164,11 @@ defineExpose(setup.publicInstance);
  * @doc slot/actions/goNextStep/type () => void
  * @doc slot/actions/goNextStep/desc function to display next step
  * @doc/fr slot/actions/goNextStep/desc fonction pour afficher l'élément suivant
+ * @doc slot/actions/goToStep/type (step: { name: number | string }) => void
+ * @doc slot/actions/goToStep/desc function to activate specific step
+ * @doc/fr slot/actions/goToStep/desc fonction pour afficher un élément spécifique
+ * @doc slot/actions/goToStepIndex/type (index: number) => void
+ * @doc slot/actions/goToStepIndex/desc function to display step at specific index
+ * @doc/fr slot/actions/goToStepIndex/desc fonction pour afficher un élément à l'index spécifié
  */
 </script>

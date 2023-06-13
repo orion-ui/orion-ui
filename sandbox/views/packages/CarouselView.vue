@@ -50,6 +50,12 @@
 						</p>
 					</o-section>
 				</o-carousel-item>
+
+				<template #actions="{ goNextStep }">
+					<o-button @click="goNextStep()">
+						next
+					</o-button>
+				</template>
 			</o-carousel>
 		</o-card>
 	</o-page>

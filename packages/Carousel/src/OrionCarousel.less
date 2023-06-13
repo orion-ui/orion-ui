@@ -18,16 +18,24 @@
 		flex: 1;
 	}
 
-	&__footer {
+	&__navigation {
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		gap: 1rem;
 
-		> :nth-child(1) {
+		&-previous,
+		&-next {
+			&.orion-button--disabled {
+				opacity: 0;
+				pointer-events: none;
+			}
+		}
+
+		&-previous {
 			order: 1;
 		}
-		> :nth-child(2) {
+		&-next {
 			order: 3;
 		}
 	}
@@ -41,7 +49,6 @@
 	}
 
 	&__dot {
-		// --color: v-bind('setup.rgbColor');
 		transition: background 0.3s, border 0.3s, width 0.3s;
 		position: relative;
 		overflow: hidden;
@@ -85,7 +92,6 @@
 
 			.orion-carousel--timer .orion-carousel__dot--active & {
 				animation: dotLoader;
-				// animation-duration: v-bind('setup.stepTimerForCss');
 				animation-timing-function: linear;
 			}
 		}
@@ -99,7 +105,6 @@
 		transition: transform 0.3s ease-in-out;
 		flex: 1;
 		display: flex;
-		// transform: translate3d(calc(v-bind('setup.stepIndex') * -100%), 0, 0);
 	}
 }
 

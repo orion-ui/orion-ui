@@ -14,6 +14,12 @@ export default class OrionCarouselSetupService extends SharedSetupService<Props>
 		// @doc props/pauseOnHover pause timer when hovering the carousel
 		// @doc/fr props/pauseOnHover met au pause le minuteur lors du survol du carrousel
 		pauseOnHover: Boolean,
+		// @doc props/hideNavigationButtons hide the navigation buttons around the dots
+		// @doc/fr props/hideNavigationButtons masque les boutons de navigation autour des points
+		hideNavigationButtons: Boolean,
+		// @doc props/hideNavigationDots hide the navigation dots
+		// @doc/fr props/hideNavigationDots masque les points de navigation
+		hideNavigationDots: Boolean,
 		// @doc props/modelValue refers to the active step's **name** prop
 		// @doc/fr props/modelValue correspond à la prop **name** de l'élément actif
 		modelValue: {
