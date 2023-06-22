@@ -36,6 +36,11 @@ const packagesRoutes = [
 				component: () => import('sandbox/views/packages/CardView.vue'),
 			},
 			{
+				name: 'CarouselView',
+				path: 'carousel',
+				component: () => import('sandbox/views/packages/CarouselView.vue'),
+			},
+			{
 				name: 'ChatView',
 				path: 'chat',
 				component: () => import('sandbox/views/packages/ChatView.vue'),

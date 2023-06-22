@@ -32,6 +32,11 @@ const packagesNavigation: Orion.NavItem[] = [
 		icon: 'black_lives_matter',
 	},
 	{
+		label: 'Carousel',
+		to: { name: 'CarouselView' },
+		icon: 'black_lives_matter',
+	},
+	{
 		label: 'Chat',
 		to: { name: 'ChatView' },
 		icon: 'black_lives_matter',

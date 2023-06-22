@@ -26,6 +26,7 @@ export const en: SidebarConfig = [
 				children: [
 					`/components/OrionAvatar.md`,
 					`/components/OrionCard.md`,
+					`/components/OrionCarousel.md`,
 					`/components/OrionChips.md`,
 					`/components/OrionDailyCalendar.md`,
 					`/components/OrionDateTable.md`,
