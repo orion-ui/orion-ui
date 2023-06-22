@@ -12,6 +12,8 @@ declare module 'vue' {
 		OAvatar: typeof import('packages/index')['OrionAvatar'];
 		OButton: typeof import('packages/index')['OrionButton'];
 		OCard: typeof import('packages/index')['OrionCard'];
+		OCarousel: typeof import('packages/index')['OrionCarousel'];
+		OCarouselItem: typeof import('packages/index')['OrionCarouselItem'];
 		OChat: typeof import('packages/index')['OrionChat'];
 		OChatDiscussionList: typeof import('packages/index')['OrionChatDiscussionList'];
 		OChatMessage: typeof import('packages/index')['OrionChatMessage'];

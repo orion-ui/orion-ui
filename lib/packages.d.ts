@@ -12,6 +12,8 @@ import { OrionAsideSetupService } from '../packages/index';
 import { OrionAvatarSetupService } from '../packages/index';
 import { OrionButtonSetupService } from '../packages/index';
 import { OrionCardSetupService } from '../packages/index';
+import { OrionCarouselSetupService } from '../packages/index';
+import { OrionCarouselItemSetupService } from '../packages/index';
 import { OrionChatSetupService } from '../packages/index';
 import { OrionChatDiscussionListSetupService } from '../packages/index';
 import { OrionChatMessageSetupService } from '../packages/index';
@@ -95,6 +97,16 @@ declare global {
 	type OrionCard = InstanceType<typeof OrionCardSetupService>['publicInstance'];
 	namespace OrionCard {
 		type Props = ExtractPropTypes<typeof OrionCardSetupService.props>
+	}
+
+	type OrionCarousel = InstanceType<typeof OrionCarouselSetupService>['publicInstance'];
+	namespace OrionCarousel {
+		type Props = ExtractPropTypes<typeof OrionCarouselSetupService.props>
+	}
+
+	type OrionCarouselItem = InstanceType<typeof OrionCarouselItemSetupService>['publicInstance'];
+	namespace OrionCarouselItem {
+		type Props = ExtractPropTypes<typeof OrionCarouselItemSetupService.props>
 	}
 
 	type OrionChat = InstanceType<typeof OrionChatSetupService>['publicInstance'];

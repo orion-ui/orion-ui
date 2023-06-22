@@ -26,6 +26,7 @@ const NoRoutePackagesFolder = [
 	'TourStep',
 	'ChatMessage',
 	'ChatDiscussionList',
+	'CarouselItem',
 ];
 
 const PrivateServices = [

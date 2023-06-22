@@ -11,7 +11,7 @@ export default class OrionTabPaneSetupService extends SharedSetupService<Props> 
 		// @doc/fr props/disabled désactive le panneau
 		disabled: Boolean,
 		// @doc props/lazy the content of the tab is mounted each time the tab becomes active
-		// @doc/fr props/lazy le contenu de l'onglet est monté à chque fois qu'il devient actif
+		// @doc/fr props/lazy le contenu de l'onglet est monté à chaque fois qu'il devient actif
 		lazy: Boolean,
 		// @doc props/lazyOnce the content of the tab is only mounted once, the first time the tab is active
 		// @doc/fr props/lazyOnce le contenu de l'onglet est uniquement monté une fois, la première fois qu'il est actif
