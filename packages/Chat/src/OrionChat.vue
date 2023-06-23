@@ -4,7 +4,7 @@
 		class="orion-chat">
 		<div class="orion-chat__header">
 			<div
-				v-show="!setup.showSearch"
+				v-if="!setup.showSearch"
 				class="orion-chat__title">
 				<slot
 					name="discussion-title"

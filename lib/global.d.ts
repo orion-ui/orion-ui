@@ -163,13 +163,13 @@ declare global {
 			allowDiscussionSearch: boolean;
 			discussionSearchTimer: number;
 			// eslint-disable-next-line max-len
-			discussionFetcher?: (params: { oldestDiscussionId?: number, oldestDiscussionUpdatedDate?: Date, searchTerm: Nil<string>, searchTermHasChanged: boolean }) => Promise<Orion.ChatDiscussion[]>;
+			discussionFetcherAsync?: (params: { oldestDiscussionId?: number, oldestDiscussionUpdatedDate?: Date, searchTerm?: string, searchTermHasChanged?: boolean }) => Promise<Orion.ChatDiscussion[]>;
 			discussionTitleFormatter?: (discussion: OrionChatEntity) => string;
 			discussionInterlocutorsFormatter?: (discussion: OrionChatEntity) => ChatUser[];
 			discussionUnreadMessagesCounter?: (params: {discussion: OrionChatEntity, discussionId: number, messages: OrionChatMessageEntity[] }) => number;
-			messageFetcher: (params: { discussion: OrionChatEntity, discussionId: number, oldestMessageId?: number }) => Promise<Orion.ChatMessage[]>;
-			onMessageRead: (message: OrionChatMessageEntity) => void;
-			onNewMessage: (message: OrionChatMessageEntity) => void;
+			messageFetcherAsync: (params: { discussion: OrionChatEntity, discussionId: number, oldestMessageId?: number }) => Promise<Orion.ChatMessage[]>;
+			onMessageReadAsync: (message: OrionChatMessageEntity) => void;
+			onNewMessageAsync: (message: OrionChatMessageEntity) => void;
 			onActiveDiscussionChange: (discussionId: number, oldDiscussionId: number) => void;
 		}
 
@@ -187,19 +187,19 @@ declare global {
 		type ChatDiscussion = {
 			id: number;
 			createdDate: Date;
-			updatedDate: Date;
+			updatedDate?: Date;
 			participants: ChatUser[];
-			lastMessage: Undef<ChatMessage>;
+			lastMessage?: ChatMessage;
 			messages: ChatMessage[];
 		}
 
 		type ChatMessage = {
 			discussionId: number;
 			id: number;
-			content: string;
+			content?: string;
 			createdDate: Date;
-			updatedDate: Nullable<Date>;
-			deletedDate: Nullable<Date>;
+			updatedDate?: Date;
+			deletedDate?: Date;
 			type?: number | string;
 			metaData?: string | Record<string, any>;
 			author: ChatUser;

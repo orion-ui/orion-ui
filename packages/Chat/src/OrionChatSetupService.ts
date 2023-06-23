@@ -102,7 +102,7 @@ export default class OrionChatSetupService extends SharedSetupService<Props> {
 		watch(() => this.props.discussionId, () => {
 			nextTick(() => {
 				this.scrollToBottom();
-				this.fetchMessages();
+				this.fetchMessagesAsync();
 
 				if (this.props.focusOnOpen) {
 					this._input.value?.focus();
@@ -122,7 +122,7 @@ export default class OrionChatSetupService extends SharedSetupService<Props> {
 			if (discussionId === this.props.discussionId) this.handleMessageAdded();
 		});
 
-		await this.fetchMessages();
+		await this.fetchMessagesAsync();
 
 		if (this.props.focusOnOpen) {
 			this._input.value?.focus();
@@ -134,7 +134,7 @@ export default class OrionChatSetupService extends SharedSetupService<Props> {
 		return useMonkey(new Date(Number(date))).toReadable();
 	}
 
-	async fetchMessages () {
+	async fetchMessagesAsync () {
 		const discussion = this.discussion;
 		if (!discussion) return;
 
@@ -167,14 +167,14 @@ export default class OrionChatSetupService extends SharedSetupService<Props> {
 		entries.forEach(async (x) => {
 			if (x.isIntersecting) {
 				if (x.target.classList.contains('orion-chat__lazy-loader')) {
-					if (typeof this.chat.config.messageFetcher === 'function') {
+					if (typeof this.chat.config.messageFetcherAsync === 'function') {
 						this.lazyLoader = true;
 						this.preventScroll = true;
 
 						const currentHeight = this._content.value?.scrollHeight ?? 0;
 						const currentScroll = this._content.value?.scrollTop ?? 0;
 
-						await this.chat.fetchMessages(this.props.discussionId);
+						await this.chat.fetchMessagesAsync(this.props.discussionId);
 
 						nextTick(() => {
 							const newHeight = this._content.value?.scrollHeight ?? 0;

@@ -104,7 +104,7 @@ watch(() => chat.activeDiscussionId, (val) => {
 
 
 function initChat () {
-	chat.config.messageFetcher = async ({ discussionId, oldestMessageId }) => {
+	chat.config.messageFetcherAsync = async ({ discussionId, oldestMessageId }) => {
 
 		await sleep(400);
 		const oldestMessageIndex = oldestMessageId
@@ -113,7 +113,7 @@ function initChat () {
 		return discussionsMessages[discussionId].slice(oldestMessageIndex, oldestMessageIndex + 8);
 	};
 
-	chat.config.discussionFetcher = async ({ oldestDiscussionId, searchTerm, searchTermHasChanged }) => {
+	chat.config.discussionFetcherAsync = async ({ oldestDiscussionId, searchTerm, searchTermHasChanged }) => {
 
 		const filteredDiscussion = sortedDiscussions.value.filter(x => searchTerm
 			? useMonkey(x.participants).mapKey('name').join(' ').toLowerCase().includes(searchTerm.toLowerCase())
@@ -129,11 +129,11 @@ function initChat () {
 		return discussionsToReturn;
 	};
 
-	chat.config.onMessageRead = (message) => {
+	chat.config.onMessageReadAsync = (message) => {
 		useNotif.success(`Ajax for read message ${message.id}`);
 	};
 
-	chat.config.onNewMessage = (message) => {
+	chat.config.onNewMessageAsync = (message) => {
 		useNotif.success(`Ajax for new message ${message.id}`);
 	};
 

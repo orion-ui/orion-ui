@@ -71,7 +71,7 @@ export default class OrionChatEntity extends SharedEntity<Orion.ChatDiscussion> 
 	}
 
 	get createdDate () {
-		return this.entity.updatedDate;
+		return this.entity.createdDate;
 	}
 
 	get updatedDate () {
@@ -99,7 +99,7 @@ export default class OrionChatEntity extends SharedEntity<Orion.ChatDiscussion> 
 
 
 	async fetchMessagesAsync () {
-		await this.chat.fetchMessages(this.id);
+		await this.chat.fetchMessagesAsync(this.id);
 	}
 
 	addMessages (messages: Orion.ChatMessage[]) {
@@ -123,7 +123,7 @@ export default class OrionChatEntity extends SharedEntity<Orion.ChatDiscussion> 
 		return groupBy(
 			this.messages
 				.filter(x => searchTerm
-					? x.content.toLowerCase().includes(searchTerm)
+					? x.content?.toLowerCase().includes(searchTerm)
 					: true,
 				)
 				.sort((a, b) => a.id - b.id),

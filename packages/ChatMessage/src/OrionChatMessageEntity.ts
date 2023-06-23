@@ -48,12 +48,7 @@ export default class OrionChatMessageEntity extends SharedEntity<Orion.ChatMessa
 
 
 	constructor (
-		data: Partial<Orion.ChatMessage> & {
-			id: number,
-			content: string,
-			createdDate: Date | string,
-			author: Orion.ChatUser,
-		},
+		data: Orion.ChatMessage,
 		discussion: Orion.ChatEntity,
 	) {
 		super(data);

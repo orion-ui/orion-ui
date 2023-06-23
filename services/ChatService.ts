@@ -13,10 +13,10 @@ const defaultConfig: Omit<Orion.ChatConfig, 'user'> & {user: Undef<Orion.ChatUse
 	discussionSearchTimer: 500,
 	allowDiscussionCreation: true,
 	allowMessageStatus: true,
-	messageFetcher: async () => [],
+	messageFetcherAsync: async () => [],
 	onActiveDiscussionChange: () => null,
-	onMessageRead: () => null,
-	onNewMessage: () => null,
+	onMessageReadAsync: () => null,
+	onNewMessageAsync: () => null,
 };
 
 export class ChatService {
@@ -63,15 +63,15 @@ export class ChatService {
 	}
 
 	// #region Discussions
-	async fetchDiscussions (searchTerm: Nil<string>, searchTermHasChanged: boolean) {
-		if (!this.config.discussionFetcher) return;
+	async fetchDiscussionsAsync (searchTerm?: string, searchTermHasChanged?: boolean) {
+		if (!this.config.discussionFetcherAsync) return;
 
 		const loadedDiscussionIds = useMonkey(this.discussions).mapKey('id');
 		const oldestDiscussionId = useMonkey([...this.discussions].sort((a, b) => a.id - b.id)).first()?.id;
 		const oldestDiscussionUpdatedDate = useMonkey(
-			[...this.discussions].sort((a, b) => a.updatedDate.valueOf() - b.updatedDate.valueOf()),
+			[...this.discussions].sort((a, b) => (a.updatedDate ?? 0).valueOf() - (b.updatedDate ?? 0).valueOf()),
 		).first()?.updatedDate;
-		const fetchedDiscussions = await this.config.discussionFetcher({
+		const fetchedDiscussions = await this.config.discussionFetcherAsync({
 			oldestDiscussionId,
 			oldestDiscussionUpdatedDate,
 			searchTerm,
@@ -128,12 +128,12 @@ export class ChatService {
 	// #endregion
 
 	// #region Messages
-	async fetchMessages (discussionId: number) {
+	async fetchMessagesAsync (discussionId: number) {
 		const discussion = this.getDiscussion(discussionId);
 
 		if (!!discussion && !discussion.fullyLoaded) {
 			const oldestMessageId = useMonkey(discussion.messages.sort((a, b) => a.id - b.id)).first()?.id;
-			const messages = await this.config.messageFetcher({
+			const messages = await this.config.messageFetcherAsync({
 				discussion,
 				discussionId,
 				oldestMessageId,
@@ -158,7 +158,7 @@ export class ChatService {
 		if (!message) return;
 
 		message.read();
-		this.config.onMessageRead(message);
+		this.config.onMessageReadAsync(message);
 	}
 
 	addMessagesToDiscussion (discussionId: number, messages: Orion.ChatMessage[]) {
@@ -179,6 +179,8 @@ export class ChatService {
 		const message = new OrionChatMessageEntity(
 			{
 				id: getUid(),
+				discussionId,
+				isRead: false,
 				content,
 				createdDate: new Date(),
 				author: this.config.user,
@@ -188,7 +190,7 @@ export class ChatService {
 
 		discussion.setLastMessage(message);
 
-		this.config.onNewMessage(message);
+		this.config.onNewMessageAsync(message);
 	}
 	// #endregion
 }

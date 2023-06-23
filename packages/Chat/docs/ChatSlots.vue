@@ -46,7 +46,7 @@ initChat();
 discussionId.value = sortedDiscussions.value[0].id;
 
 function initChat () {
-	chat.config.messageFetcher = async ({ discussionId, oldestMessageId }) => {
+	chat.config.messageFetcherAsync = async ({ discussionId, oldestMessageId }) => {
 
 		await sleep(400);
 		const oldestMessageIndex = oldestMessageId
@@ -55,7 +55,7 @@ function initChat () {
 		return discussionsMessages[discussionId].slice(oldestMessageIndex, oldestMessageIndex + 8);
 	};
 
-	chat.config.discussionFetcher = async ({ oldestDiscussionId, searchTerm, searchTermHasChanged }) => {
+	chat.config.discussionFetcherAsync = async ({ oldestDiscussionId, searchTerm, searchTermHasChanged }) => {
 
 		const filteredDiscussion = sortedDiscussions.value.filter(x => searchTerm
 			? useMonkey(x.participants).mapKey('name').join(' ').toLowerCase().includes(searchTerm.toLowerCase())
@@ -82,7 +82,7 @@ function initChat () {
 
 	discussionsToFetch.length = 0;
 	discussionsToFetch.push(...seedDiscussions(1));
-	chat.fetchDiscussions(null, false);
+	chat.fetchDiscussionsAsync(undefined, false);
 }
 
 function seedDiscussions (dicussionLength = 15) {
@@ -124,7 +124,7 @@ function seedDiscussions (dicussionLength = 15) {
 		discussionsMessages[discussion.id] = seedMessages(10,
 			discussion.id,
 			discussion.createdDate,
-			discussion.updatedDate,
+			discussion.updatedDate ?? discussion.createdDate,
 			discussion.participants,
 		);
 
@@ -160,8 +160,8 @@ function seedMessages (messagesLength: number, discussionId: number, discussionC
 			content: tempUser.id + ' • ' + id + ' • ' + faker.lorem.sentences(1),
 			type: 0,
 			createdDate,
-			updatedDate: null,
-			deletedDate: null,
+			updatedDate: undefined,
+			deletedDate: undefined,
 			isRead: i < (messagesLength - 1) ? false : true,
 			//isRead: messagesLength !== 1,
 			metaData: undefined,

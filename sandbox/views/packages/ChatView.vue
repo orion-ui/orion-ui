@@ -101,7 +101,7 @@ watch(() => chat.activeDiscussionId, (val) => {
 
 
 function initChat () {
-	chat.config.messageFetcher = async ({ discussionId, oldestMessageId }) => {
+	chat.config.messageFetcherAsync = async ({ discussionId, oldestMessageId }) => {
 		await sleep(400);
 		const oldestMessageIndex = oldestMessageId
 			? discussionsMessages[discussionId].findIndex(x => x.id < oldestMessageId)
@@ -109,7 +109,7 @@ function initChat () {
 		return discussionsMessages[discussionId].slice(oldestMessageIndex, oldestMessageIndex + 8);
 	};
 
-	chat.config.discussionFetcher = async ({ oldestDiscussionId, searchTerm, searchTermHasChanged }) => {
+	chat.config.discussionFetcherAsync = async ({ oldestDiscussionId, searchTerm, searchTermHasChanged }) => {
 		const filteredDiscussion = sortedDiscussions.value.filter(x => searchTerm
 			? useMonkey(x.participants).mapKey('name').join(' ').toLowerCase().includes(searchTerm.toLowerCase())
 			: true,
@@ -124,11 +124,11 @@ function initChat () {
 		return discussionsToReturn;
 	};
 
-	chat.config.onMessageRead = (message) => {
+	chat.config.onMessageReadAsync = (message) => {
 		// useNotif.success(`Ajax for read message ${message.id}`);
 	};
 
-	chat.config.onNewMessage = (message) => {
+	chat.config.onNewMessageAsync = (message) => {
 		// useNotif.success(`Ajax for new message ${message.id}`);
 	};
 
@@ -220,7 +220,7 @@ function seedDiscussions (dicussionLength = 15, messageLength = 29) {
 		discussionsMessages[discussion.id] = seedMessages(messageLength,
 			discussion.id,
 			discussion.createdDate,
-			discussion.updatedDate,
+			discussion.updatedDate ?? discussion.createdDate,
 			discussion.participants,
 		);
 
@@ -256,8 +256,8 @@ function seedMessages (messagesLength: number, discussionId: number, discussionC
 			content: tempUser.id + ' • ' + id + ' • ' + faker.lorem.sentences(1),
 			type: 0,
 			createdDate,
-			updatedDate: null,
-			deletedDate: null,
+			updatedDate: undefined,
+			deletedDate: undefined,
 			isRead: i < (messagesLength - 1) ? false : true,
 			//isRead: messagesLength !== 1,
 			metaData: undefined,
@@ -278,7 +278,14 @@ function simulateIncomingMessage () {
 	const discussion = chat.getDiscussion(targetDiscussionId.value);
 
 	if (discussion) {
-		const newMessage = useMonkey(seedMessages(1, discussion.id, discussion.createdDate, discussion.updatedDate, discussion.participants)).last();
+		const newMessage = useMonkey(seedMessages(
+			1,
+			discussion.id,
+			discussion.createdDate,
+			discussion.updatedDate ?? discussion.createdDate,
+			discussion.participants,
+		)).last();
+
 		if (!newMessage) return;
 
 		newMessage.createdDate = new Date();
