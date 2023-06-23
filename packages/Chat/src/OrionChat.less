@@ -64,6 +64,7 @@
 		display: flex;
 		align-items: center;
 		gap: 1rem;
+		flex: 1;
 
 		.orion-icon {
 			font-size: 1.25rem;
@@ -72,6 +73,10 @@
 		.orion-input {
 			margin: 0;
 		}
+	}
+
+	&__search {
+		flex: 1;
 	}
 
 	&__content {
@@ -127,7 +132,7 @@
 	}
 
 	&__unread-bottom {
-		bottom: 0;
+		bottom: -1px;
 
 		.arrow {
 			.flex-align();
@@ -216,8 +221,8 @@
 
 	&__send {
 		position: absolute;
-		top: calc(33rem / 16);
-		right: calc(23rem / 16);
+		top: calc(21rem / 16);
+		right: calc(21rem / 16);
 		color: var(--info);
 		font-size: 1.25rem;
 	}

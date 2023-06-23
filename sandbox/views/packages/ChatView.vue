@@ -4,7 +4,7 @@
 
 		<!-- <pre>{{ discussionsToFetch.length }}</pre> -->
 
-		<div style="display:flex; align-items:center; column-gap:15px;">
+		<div class="flex ai-c g-xs">
 			<o-button
 				color="danger"
 				outline
@@ -72,6 +72,7 @@ import { computed, reactive, ref, watch } from 'vue';
 import { OrionIcon } from 'packages/Icon';
 import { faker } from '@faker-js/faker';
 import { shuffle } from 'lodash-es';
+import { OrionNotif } from 'packages';
 
 
 const userId = getUid();
@@ -101,7 +102,6 @@ watch(() => chat.activeDiscussionId, (val) => {
 
 function initChat () {
 	chat.config.messageFetcher = async ({ discussionId, oldestMessageId }) => {
-
 		await sleep(400);
 		const oldestMessageIndex = oldestMessageId
 			? discussionsMessages[discussionId].findIndex(x => x.id < oldestMessageId)
@@ -110,7 +110,6 @@ function initChat () {
 	};
 
 	chat.config.discussionFetcher = async ({ oldestDiscussionId, searchTerm, searchTermHasChanged }) => {
-
 		const filteredDiscussion = sortedDiscussions.value.filter(x => searchTerm
 			? useMonkey(x.participants).mapKey('name').join(' ').toLowerCase().includes(searchTerm.toLowerCase())
 			: true,
@@ -126,11 +125,11 @@ function initChat () {
 	};
 
 	chat.config.onMessageRead = (message) => {
-		useNotif.success(`Ajax for read message ${message.id}`);
+		// useNotif.success(`Ajax for read message ${message.id}`);
 	};
 
 	chat.config.onNewMessage = (message) => {
-		useNotif.success(`Ajax for new message ${message.id}`);
+		// useNotif.success(`Ajax for new message ${message.id}`);
 	};
 
 	chat.config.discussionUnreadMessagesCounter = ({ discussionId, messages }) => {
@@ -159,7 +158,7 @@ function initChat () {
 	discussionsToFetch.push(...seedDiscussions(15));
 }
 
-function seedDiscussions (dicussionLength = 15) {
+function seedDiscussions (dicussionLength = 15, messageLength = 29) {
 	const discussions = [];
 	const baseDate = dicussionLength === 1 ? new Date() : faker.date.recent(90);
 	let i = 0;
@@ -218,7 +217,7 @@ function seedDiscussions (dicussionLength = 15) {
 			lastMessage: undefined,
 		};
 
-		discussionsMessages[discussion.id] = seedMessages(dicussionLength === 1 ? 1 : 29,
+		discussionsMessages[discussion.id] = seedMessages(messageLength,
 			discussion.id,
 			discussion.createdDate,
 			discussion.updatedDate,
@@ -289,7 +288,7 @@ function simulateIncomingMessage () {
 }
 
 function simulateIncomingDiscussion () {
-	const newDiscussion = useMonkey(seedDiscussions(1)).first();
+	const newDiscussion = useMonkey(seedDiscussions(1, 0)).first();
 	if (!newDiscussion) return;
 
 	chat.addDiscussion(newDiscussion);
