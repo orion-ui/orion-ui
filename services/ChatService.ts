@@ -2,8 +2,8 @@ import mitt from 'mitt';
 import useMonkey from './MonkeyService';
 import { reactive } from 'vue';
 
-import OrionChatMessageEntity from 'packages/ChatMessage/src/OrionChatMessageEntity';
-import OrionChatEntity from 'packages/Chat/src/OrionChatEntity';
+import OrionChatMessageEntity from '../packages/ChatMessage/src/OrionChatMessageEntity';
+import OrionChatEntity from '../packages/Chat/src/OrionChatEntity';
 import { getUid } from 'utils/tools';
 
 
