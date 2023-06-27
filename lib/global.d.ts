@@ -276,7 +276,7 @@ declare global {
 				messageFetcherAsync: (params: { discussion: OrionChatEntity, discussionId: number, oldestMessageId?: number }) => Promise<Message[]>;
 				onMessageReadAsync: (message: OrionChatMessageEntity) => void;
 				onNewMessageAsync: (message: OrionChatMessageEntity, registerMessage: () => void) => void;
-				onActiveDiscussionChange: (discussionId: number, oldDiscussionId: number) => void;
+				onActiveDiscussionChange: (discussionId?: number, oldDiscussionId?: number) => void;
 			}
 
 			type Options = Partial<Config> & {

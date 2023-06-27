@@ -96,6 +96,7 @@ const sortedDiscussions = computed(() => {
 initChat();
 
 watch(() => chat.activeDiscussionId, (val) => {
+	console.log(`🚀 ~ watch ~ val:`, val);
 	targetDiscussionId.value = val;
 });
 
@@ -159,6 +160,11 @@ function initChat () {
 				...x,
 				name: x.name.slice(0, 3),
 			})).slice(0, 3);
+	};
+
+	chat.config.onActiveDiscussionChange = (discussionId, oldId) => {
+		console.log(`🚀 ~ initChat ~ discussionId:`, discussionId);
+		console.log(`🚀 ~ initChat ~ oldId:`, oldId);
 	};
 
 	discussionsToFetch.length = 0;

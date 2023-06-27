@@ -85,6 +85,7 @@
 					</h4>
 					<transition-group
 						name="chat-message"
+						appear
 						:duration="1000">
 						<orion-chat-message
 							v-for="message in messagesByDay"

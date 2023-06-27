@@ -37,7 +37,11 @@ export class ChatService {
 	config: Orion.Chat.Config;
 
 	get activeDiscussionId () { return this.state.activeDiscussionId; }
-	set activeDiscussionId (val) { this.state.activeDiscussionId = val; }
+	set activeDiscussionId (val) {
+		const oldVal = this.state.activeDiscussionId;
+		this.state.activeDiscussionId = val;
+		this.config.onActiveDiscussionChange(val, oldVal);
+	}
 
 	get discussionsFullyLoaded () { return this.state.discussionsFullyLoaded; }
 	set discussionsFullyLoaded (val) { this.state.discussionsFullyLoaded = val; }
