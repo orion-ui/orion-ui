@@ -4,8 +4,8 @@ import { groupBy } from 'lodash-es';
 import useMonkey from 'services/MonkeyService';
 
 import SharedEntity from 'packages/Shared/SharedEntity';
-import OrionChatMessageEntity from 'packages/ChatMessage/src/OrionChatMessageEntity';
-import type { ChatService } from 'services/ChatService';
+import OrionChatMessageEntity from '../../ChatMessage/src/OrionChatMessageEntity';
+import type { ChatService } from '../../../services/ChatService';
 
 export default class OrionChatEntity extends SharedEntity<Orion.Chat.Discussion> {
 	private state = reactive({
