@@ -3,7 +3,7 @@
 		<div class="orion-chat-discussion-list__header">
 			<div class="orion-chat-discussion-list__subheader">
 				<orion-input
-					v-if="(setup.discussions.length || setup.searchTerm) && setup.chat.config.allowDiscussionCreation"
+					v-if="(setup.discussions.length || setup.searchTerm) && setup.chat.config.allowDiscussionSearch"
 					v-model="setup.searchTerm"
 					class="orion-chat-discussion-list__search"
 					:label="setup.lang.SEARCH"

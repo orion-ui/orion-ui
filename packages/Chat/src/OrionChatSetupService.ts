@@ -8,7 +8,7 @@ import SharedSetupService from '../../Shared/SharedSetupService';
 type Props = SetupProps<typeof OrionChatSetupService.props>
 
 type ChatEmit = {
-  (e: 'new-message', payload: Orion.ChatNewMessage): void;
+  (e: 'new-message', payload: Orion.Chat.NewMessage): void;
 }
 
 export default class OrionChatSetupService extends SharedSetupService<Props> {

@@ -7,8 +7,8 @@ import OrionChatEntity from 'packages/Chat/src/OrionChatEntity';
 import { getUid } from 'utils/tools';
 
 
-const defaultConfig: Omit<Orion.ChatConfig, 'user'> & {user: Undef<Orion.ChatUser>} = {
-	user: undefined as Undef<Orion.ChatUser>,
+const defaultConfig: Omit<Orion.Chat.Config, 'user'> & {user: Undef<Orion.Chat.User>} = {
+	user: undefined as Undef<Orion.Chat.User>,
 	allowDiscussionSearch: true,
 	discussionSearchTimer: 500,
 	allowDiscussionCreation: true,
@@ -34,7 +34,7 @@ export class ChatService {
 		registry: new Map<number, OrionChatEntity>(),
 	});
 
-	config: Orion.ChatConfig;
+	config: Orion.Chat.Config;
 
 	get activeDiscussionId () { return this.state.activeDiscussionId; }
 	set activeDiscussionId (val) { this.state.activeDiscussionId = val; }
@@ -55,7 +55,7 @@ export class ChatService {
 	}
 
 
-	constructor (options: Orion.ChatOptions) {
+	constructor (options: Orion.Chat.Options) {
 		this.config = {
 			...defaultConfig,
 			...options,
@@ -110,11 +110,11 @@ export class ChatService {
 			return this.getDiscussion(this.state.activeDiscussionId);
 	}
 
-	setDiscussions (discussions: Orion.ChatDiscussion[]) {
+	setDiscussions (discussions: Orion.Chat.Discussion[]) {
 		discussions.forEach(d => this.registerDiscussionEntity(new OrionChatEntity(d, this)));
 	}
 
-	addDiscussion (discussion: Orion.ChatDiscussion) {
+	addDiscussion (discussion: Orion.Chat.Discussion) {
 		this.registerDiscussionEntity(new OrionChatEntity(discussion, this));
 	}
 
@@ -161,7 +161,7 @@ export class ChatService {
 		this.config.onMessageReadAsync(message);
 	}
 
-	addMessagesToDiscussion (discussionId: number, messages: Orion.ChatMessage[]) {
+	addMessagesToDiscussion (discussionId: number, messages: Orion.Chat.Message[]) {
 		const discussion = this.getDiscussion(discussionId);
 		if (discussion) {
 			messages.forEach(m => new OrionChatMessageEntity(m, discussion));
@@ -195,7 +195,7 @@ export class ChatService {
 	// #endregion
 }
 
-export default function useChat (options: Orion.ChatOptions) {
+export default function useChat (options: Orion.Chat.Options) {
 	return new ChatService(options);
 }
 

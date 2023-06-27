@@ -209,6 +209,14 @@
 		[data-orion-theme='dark'] & {
 			background: var(--grey-light);
 		}
+
+		> .orion-chat__send {
+			position: absolute;
+			top: calc(21rem / 16);
+			right: calc(21rem / 16);
+			color: var(--info);
+			font-size: 1.25rem;
+		}
 	}
 
 	&__textarea.orion-textarea {
@@ -221,13 +229,5 @@
 		.orion-input__input {
 			min-height: 2.5rem;
 		}
-	}
-
-	&__send {
-		position: absolute;
-		top: calc(21rem / 16);
-		right: calc(21rem / 16);
-		color: var(--info);
-		font-size: 1.25rem;
 	}
 }

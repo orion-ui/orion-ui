@@ -141,18 +141,18 @@ function initChat () {
 			).length + messages.filter(m => !m.isReadByUser).length;
 	};
 
-	/* chat.config.discussionTitleFormatter = (discussion) => {
+	chat.config.discussionTitleFormatter = (discussion) => {
 		return `la discussion ${discussion.id}`;
-	}; */
+	};
 
-	/* chat.config.discussionInterlocutorsFormatter = (discussion) => {
+	chat.config.discussionInterlocutorsFormatter = (discussion) => {
 		return discussion.participants
 			.filter(x => x.id !== discussion.chat.userId)
 			.map(x => ({
 				...x,
 				name: x.name.slice(0, 3),
 			})).slice(0, 3);
-	}; */
+	};
 
 	discussionsToFetch.length = 0;
 	discussionsToFetch.push(...seedDiscussions(15));
