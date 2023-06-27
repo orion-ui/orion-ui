@@ -78,10 +78,10 @@ import { OrionNotif } from 'packages';
 const userId = getUid();
 let discussionId = ref<number>();
 let targetDiscussionId = ref<number>();
-let discussionsMessages = reactive({}) as Record<number, Orion.ChatMessage[]>;
-let discussionsToFetch = reactive([]) as Orion.ChatDiscussion[];
+let discussionsMessages = reactive({}) as Record<number, Orion.Chat.Message[]>;
+let discussionsToFetch = reactive([]) as Orion.Chat.Discussion[];
 
-const user: Orion.ChatUser = {
+const user: Orion.Chat.User = {
 	id: userId,
 	name: 'Bobby Sixkiller',
 	avatar: faker.image.avatar(),
@@ -135,7 +135,7 @@ function initChat () {
 	chat.config.discussionUnreadMessagesCounter = ({ discussionId, messages }) => {
 		const messageEntitiesIds = useMonkey(messages).mapKey('id');
 		return discussionsMessages[discussionId]
-			?.filter((m: Orion.ChatMessage) => m.author.id !== user.id
+			?.filter((m: Orion.Chat.Message) => m.author.id !== user.id
 				&& !messageEntitiesIds.includes(m.id)
 				&& !m.isRead,
 			).length + messages.filter(m => !m.isReadByUser).length;
@@ -164,7 +164,7 @@ function seedDiscussions (dicussionLength = 15, messageLength = 29) {
 	let i = 0;
 
 	while (i < dicussionLength) {
-		const agencyCompany: Orion.ChatUser = {
+		const agencyCompany: Orion.Chat.User = {
 			id: getUid(),
 			name: `${faker.name.firstName()} ${faker.name.lastName()}`,
 			avatar: faker.image.image(),
@@ -175,7 +175,7 @@ function seedDiscussions (dicussionLength = 15, messageLength = 29) {
 		const updatedDate = new Date(baseDate);
 		const createdDate = dicussionLength === 1 ? new Date() : faker.date.past(0, updatedDate);
 		const id = getUid();
-		const participants: Orion.ChatUser[] = [
+		const participants: Orion.Chat.User[] = [
 			agencyCompany,
 			{
 				id: user.id,
@@ -208,7 +208,7 @@ function seedDiscussions (dicussionLength = 15, messageLength = 29) {
 			});
 		}
 
-		const discussion: Orion.ChatDiscussion = {
+		const discussion: Orion.Chat.Discussion = {
 			id,
 			createdDate,
 			updatedDate,
@@ -237,8 +237,9 @@ function seedDiscussions (dicussionLength = 15, messageLength = 29) {
 	return discussions;
 }
 
-function seedMessages (messagesLength: number, discussionId: number, discussionCreatedDate: Date, discussionUpdatedDate: Date, participants: Orion.ChatUser[]) {
-	const messages: Orion.ChatMessage[] = [];
+// eslint-disable-next-line max-len
+function seedMessages (messagesLength: number, discussionId: number, discussionCreatedDate: Date, discussionUpdatedDate: Date, participants: Orion.Chat.User[]) {
+	const messages: Orion.Chat.Message[] = [];
 	const baseDate = faker.date.between(discussionCreatedDate, discussionUpdatedDate);
 	let i = 0;
 

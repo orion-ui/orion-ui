@@ -5,6 +5,7 @@ import useMonkey from 'services/MonkeyService';
 
 import SharedEntity from 'packages/Shared/SharedEntity';
 import OrionChatMessageEntity from 'packages/ChatMessage/src/OrionChatMessageEntity';
+import type { ChatService } from 'services/ChatService';
 
 export default class OrionChatEntity extends SharedEntity<Orion.Chat.Discussion> {
 	private state = reactive({
@@ -15,7 +16,7 @@ export default class OrionChatEntity extends SharedEntity<Orion.Chat.Discussion>
 		lastMessage: undefined as Undef<OrionChatMessageEntity>,
 	});
 
-	chat: Orion.Chat.Service;
+	chat: ChatService;
 
 	get initialLoad () { return this.state.initialLoad; }
 	set initialLoad (val) { this.state.initialLoad = val; }
@@ -79,7 +80,7 @@ export default class OrionChatEntity extends SharedEntity<Orion.Chat.Discussion>
 	}
 
 
-	constructor (data: Partial<Orion.Chat.Discussion> & {id: number}, chat: Orion.Chat.Service) {
+	constructor (data: Partial<Orion.Chat.Discussion> & {id: number}, chat: ChatService) {
 		super(data);
 		this.chat = chat;
 

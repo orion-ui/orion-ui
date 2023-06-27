@@ -1,12 +1,11 @@
 /// <reference path="packages.d.ts"/>
 
-import OrionChatEntity from 'packages/Chat/src/OrionChatEntity';
-import OrionChatMessageEntity from 'packages/ChatMessage/src/OrionChatMessageEntity';
-import { ChatService } from 'services/ChatService';
 import { Component, Slot } from 'vue';
 import { RouteLocationRaw, Router } from 'vue-router';
 import { coolicons } from '../assets/fonts/coolicons';
 import { useValidation } from '../services/index';
+import OrionChatEntity from '../packages/Chat/src/OrionChatEntity';
+import OrionChatMessageEntity from '../packages/ChatMessage/src/OrionChatMessageEntity';
 
 declare global {
 	type Nullable<T> = T | null;
@@ -317,12 +316,6 @@ declare global {
 				message: string;
 				discussionId: number;
 			}
-
-			type Entity = InstanceType<typeof OrionChatEntity>;
-
-			type MessageEntity = InstanceType<typeof OrionChatMessageEntity>;
-
-			type Service = InstanceType<typeof ChatService>;
 		}
 
 		namespace Private {
