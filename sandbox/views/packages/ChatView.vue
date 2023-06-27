@@ -128,7 +128,9 @@ function initChat () {
 		// useNotif.success(`Ajax for read message ${message.id}`);
 	};
 
-	chat.config.onNewMessageAsync = (message) => {
+	chat.config.onNewMessageAsync = async (message, registerMessage) => {
+		await sleep(600);
+		registerMessage();
 		// useNotif.success(`Ajax for new message ${message.id}`);
 	};
 

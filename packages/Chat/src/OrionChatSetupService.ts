@@ -250,20 +250,24 @@ export default class OrionChatSetupService extends SharedSetupService<Props> {
 
 	checkIfShouldScroll () {
 		const domContent = this._content.value;
-		if (domContent && (domContent.offsetHeight + domContent.scrollTop) > (domContent.scrollHeight - 30)) {
-			this.scrollToLastRead();
-		}
+		return domContent && (domContent.offsetHeight + domContent.scrollTop) > (domContent.scrollHeight - 30);
 	};
 
-	sendNewMessage () {
+	async sendNewMessageAsync () {
 		if (this.state.newMessage && this.discussion) {
-			this.discussion?.addNewMessage(this.state.newMessage);
+			const message = this.state.newMessage;
+			this.state.newMessage = null;
+
+			const shouldScroll = this.checkIfShouldScroll();
+
+			await this.discussion?.addNewMessageAsync(message);
+
 			this.emit('new-message', {
-				message: this.state.newMessage,
+				message: message,
 				discussionId: this.discussion.id,
 			});
-			this.checkIfShouldScroll();
-			this.newMessage = null;
+
+			if (shouldScroll) this.scrollToLastRead();
 		}
 	};
 
@@ -287,7 +291,9 @@ export default class OrionChatSetupService extends SharedSetupService<Props> {
 
 	handleMessageAdded () {
 		this.resetIntersectionObserver();
-		this.checkIfShouldScroll();
+
+		if (this.checkIfShouldScroll()) this.scrollToLastRead();
+
 		this.checkUnreadMessagesInDom();
 	};
 

@@ -136,7 +136,7 @@ export default class OrionChatEntity extends SharedEntity<Orion.Chat.Discussion>
 		this.state.messages.set(messageEntity.id, messageEntity);
 	}
 
-	addNewMessage (content: string) {
-		this.chat.addNewMessage(this.id, content);
+	async addNewMessageAsync (content: string) {
+		await this.chat.addNewMessageAsync(this.id, content);
 	}
 }

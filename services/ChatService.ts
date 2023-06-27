@@ -170,7 +170,7 @@ export class ChatService {
 		}
 	}
 
-	addNewMessage (discussionId: number, content: string) {
+	async addNewMessageAsync (discussionId: number, content: string) {
 		if (!content?.trim().length) return;
 
 		const discussion = this.getDiscussion(discussionId);
@@ -186,11 +186,12 @@ export class ChatService {
 				author: this.config.user,
 			},
 			discussion,
+			false,
 		);
 
-		discussion.setLastMessage(message);
+		await this.config.onNewMessageAsync(message, () => discussion.registerChatMessageEntity(message));
 
-		this.config.onNewMessageAsync(message);
+		discussion.setLastMessage(message);
 	}
 	// #endregion
 }

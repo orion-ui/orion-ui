@@ -275,7 +275,7 @@ declare global {
 				discussionUnreadMessagesCounter?: (params: {discussion: OrionChatEntity, discussionId: number, messages: OrionChatMessageEntity[] }) => number;
 				messageFetcherAsync: (params: { discussion: OrionChatEntity, discussionId: number, oldestMessageId?: number }) => Promise<Message[]>;
 				onMessageReadAsync: (message: OrionChatMessageEntity) => void;
-				onNewMessageAsync: (message: OrionChatMessageEntity) => void;
+				onNewMessageAsync: (message: OrionChatMessageEntity, registerMessage: () => void) => void;
 				onActiveDiscussionChange: (discussionId: number, oldDiscussionId: number) => void;
 			}
 

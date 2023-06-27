@@ -51,12 +51,18 @@ export default class OrionChatMessageEntity extends SharedEntity<Orion.Chat.Mess
 	constructor (
 		data: Orion.Chat.Message,
 		discussion: OrionChatEntity,
+		autoRegisterMessage = true,
 	) {
 		super(data);
 		this.discussion = discussion;
-		this.discussion.registerChatMessageEntity(this);
+		if (autoRegisterMessage) {
+			this.discussion.registerChatMessageEntity(this);
+		}
 	}
 
+	setId (id: number) {
+		this.entity.id = id;
+	}
 
 	read () {
 		this.entity.isRead = true;

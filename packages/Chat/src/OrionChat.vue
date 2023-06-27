@@ -224,13 +224,13 @@
 				v-model="setup.newMessage"
 				:label="setup.textareaLabel"
 				class="orion-chat__textarea"
-				@submit="setup.sendNewMessage()"/>
+				@submit="setup.sendNewMessageAsync()"/>
 			<orion-icon
 				v-tooltip="setup.sendTooltip"
 				class="orion-chat__send"
 				icon="message_plus_alt"
 				ripple="info"
-				@click="setup.sendNewMessage()"/>
+				@click="setup.sendNewMessageAsync()"/>
 		</div>
 
 		<orion-loader
@@ -248,7 +248,7 @@ import { OrionLoader } from 'packages/Loader';
 import { OrionTextarea } from 'packages/Textarea';
 import { OrionChatMessage } from 'packages/ChatMessage';
 import OrionChatSetupService from './OrionChatSetupService';
-type ChatEmit = { (e: 'new-message', payload: Orion.ChatNewMessage): void; }
+type ChatEmit = { (e: 'new-message', payload: Orion.Chat.NewMessage): void; }
 const props = defineProps(OrionChatSetupService.props);
 const emit = defineEmits<ChatEmit>();
 const setup = new OrionChatSetupService(props, emit);
