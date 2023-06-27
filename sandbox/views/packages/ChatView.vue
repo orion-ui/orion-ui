@@ -119,6 +119,11 @@ function initChat () {
 			? filteredDiscussion.findIndex(x => x.id < oldestDiscussionId)
 			: 0;
 
+		if (oldestDiscussionIndex === -1) {
+			chat.setDiscussionsFullyLoaded(true);
+			return [];
+		}
+
 		const discussionsToReturn = filteredDiscussion.slice(oldestDiscussionIndex, oldestDiscussionIndex + 5);
 
 		return discussionsToReturn;
@@ -158,9 +163,11 @@ function initChat () {
 
 	discussionsToFetch.length = 0;
 	discussionsToFetch.push(...seedDiscussions(15));
+
+	chat.fetchDiscussionsAsync();
 }
 
-function seedDiscussions (dicussionLength = 15, messageLength = 29) {
+function seedDiscussions (dicussionLength = 15, messageLength = 39) {
 	const discussions = [];
 	const baseDate = dicussionLength === 1 ? new Date() : faker.date.recent(90);
 	let i = 0;

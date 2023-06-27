@@ -36,7 +36,6 @@ export default class OrionChatSetupService extends SharedSetupService<Props> {
 	private observer = null as Nullable<IntersectionObserver>;
 	protected emit: ChatEmit;
 	private state = reactive({
-		lazyLoader: false,
 		preventScroll: false,
 		isLoading: false,
 		searchTerm: undefined as Undef<string>,
@@ -81,12 +80,6 @@ export default class OrionChatSetupService extends SharedSetupService<Props> {
 
 	get searchTerm () { return this.state.searchTerm; }
 	set searchTerm (val) { this.state.searchTerm = val; }
-
-	get lazyLoader () { return this.state.lazyLoader; }
-	set lazyLoader (val) { this.state.lazyLoader = val; }
-
-	get preventScroll () { return this.state.preventScroll; }
-	set preventScroll (val) { this.state.preventScroll = val; }
 
 	get isLoading () { return this.state.isLoading; }
 	set isLoading (val) { this.state.isLoading = val; }
@@ -168,8 +161,7 @@ export default class OrionChatSetupService extends SharedSetupService<Props> {
 			if (x.isIntersecting) {
 				if (x.target.classList.contains('orion-chat__lazy-loader')) {
 					if (typeof this.chat.config.messageFetcherAsync === 'function') {
-						this.lazyLoader = true;
-						this.preventScroll = true;
+						this.state.preventScroll = true;
 
 						const currentHeight = this._content.value?.scrollHeight ?? 0;
 						const currentScroll = this._content.value?.scrollTop ?? 0;
@@ -177,13 +169,11 @@ export default class OrionChatSetupService extends SharedSetupService<Props> {
 						await this.chat.fetchMessagesAsync(this.props.discussionId);
 
 						nextTick(() => {
-							const newHeight = this._content.value?.scrollHeight ?? 0;
-							const targetScroll = currentScroll + (newHeight - currentHeight) - (this._lazyLoader.value?.offsetHeight ?? 0);
-							this._content.value?.scrollTo({ top: targetScroll });
-
 							setTimeout(() => {
-								this.lazyLoader = false;
-								this.preventScroll = false;
+								const newHeight = this._content.value?.scrollHeight ?? 0;
+								const targetScroll = currentScroll + (newHeight - currentHeight) - (this._content.value?.offsetHeight ?? 0) / 3;
+								this._content.value?.scrollTo({ top: targetScroll });
+								this.state.preventScroll = false;
 								this.initIntersectionObserver();
 							}, 100);
 						});
@@ -213,7 +203,7 @@ export default class OrionChatSetupService extends SharedSetupService<Props> {
 	};
 
 	scrollToLastRead () {
-		if (this.preventScroll) return;
+		if (this.state.preventScroll) return;
 
 		const firstUnread = this._content.value
 			?.querySelectorAll('.orion-chat-message--is-unread.orion-chat-message--from-interlocutor')
@@ -232,7 +222,7 @@ export default class OrionChatSetupService extends SharedSetupService<Props> {
 	};
 
 	scrollToBottom (smooth = false) {
-		if (this.preventScroll) return;
+		if (this.state.preventScroll) return;
 
 		const content = this._content.value;
 		const sectionsWrapper = this._sectionsWrapper.value;

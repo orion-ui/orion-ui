@@ -83,14 +83,18 @@
 					<h4 class="orion-chat__section-title">
 						<span>{{ setup.getSectionTitle(+date) }}</span>
 					</h4>
-					<orion-chat-message
-						v-for="message in messagesByDay"
-						:key="message.id"
-						v-bind="{
-							chat: setup.props.chat,
-							discussion: setup.discussion,
-							message,
-						}"/>
+					<transition-group
+						name="chat-message"
+						:duration="1000">
+						<orion-chat-message
+							v-for="message in messagesByDay"
+							:key="message.id"
+							v-bind="{
+								chat: setup.props.chat,
+								discussion: setup.discussion,
+								message,
+							}"/>
+					</transition-group>
 				</section>
 
 				<div

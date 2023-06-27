@@ -59,6 +59,7 @@ export default class OrionChatDiscussionListSetupService extends SharedSetupServ
 
 		watch(() => this.discussions.length, () => {
 			setTimeout(this.checkContentScroll, 300);
+			this.resetObservers();
 		});
 
 		watch(() => this.searchTerm, () => {
@@ -75,7 +76,6 @@ export default class OrionChatDiscussionListSetupService extends SharedSetupServ
 					root: this._el.value,
 					threshold: 1,
 				});
-			await this.fetchDiscussionsAsync();
 			this.initObservers();
 		}
 	}
@@ -83,10 +83,7 @@ export default class OrionChatDiscussionListSetupService extends SharedSetupServ
 
 	async fetchDiscussionsAsync (searchTermHasChanged = false) {
 		if (!this.chat.config.discussionFetcherAsync) return;
-
 		await this.chat.fetchDiscussionsAsync(this.searchTerm, searchTermHasChanged);
-
-		this.resetObservers();
 	}
 
 	intersectionObserverCallback (entries: IntersectionObserverEntry[]) {
@@ -104,9 +101,7 @@ export default class OrionChatDiscussionListSetupService extends SharedSetupServ
 
 	resetObservers () {
 		this.intersectionObserver?.disconnect();
-		nextTick(() => {
-			this.initObservers();
-		});
+		nextTick(() => this.initObservers());
 	}
 
 	checkContentScroll () {

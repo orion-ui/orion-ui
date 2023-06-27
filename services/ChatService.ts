@@ -62,6 +62,7 @@ export class ChatService {
 		};
 	}
 
+
 	// #region Discussions
 	async fetchDiscussionsAsync (searchTerm?: string, searchTermHasChanged?: boolean) {
 		if (!this.config.discussionFetcherAsync) return;
@@ -94,7 +95,6 @@ export class ChatService {
 				.filter(d => !loadedDiscussionIds.includes(d.id))
 				.forEach(d => this.addDiscussion(d));
 		}
-		this.discussionsFullyLoaded = !!fetchedDiscussions.length;
 	}
 
 	getDiscussion (discussionId: number) {
@@ -124,6 +124,10 @@ export class ChatService {
 
 	registerBubbleEntity (bubbleEntity: OrionChatMessageEntity, discussionId: number) {
 		this.registry.get(discussionId)?.registerChatMessageEntity(bubbleEntity);
+	}
+
+	setDiscussionsFullyLoaded (fullyLoaded: boolean) {
+		this.discussionsFullyLoaded = fullyLoaded;
 	}
 	// #endregion
 
