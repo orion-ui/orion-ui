@@ -86,6 +86,13 @@ export default class OrionChatSetupService extends SharedSetupService<Props> {
 	get newMessage () { return this.state.newMessage; }
 	set newMessage (val) { this.state.newMessage = val; }
 
+	get publicInstance () {
+		return {
+			...super.publicInstance,
+			checkUnreadMessagesInDom: this.checkUnreadMessagesInDom.bind(this),
+		};
+	}
+
 
 	constructor (props: Props, emit: ChatEmit) {
 		super(props);
