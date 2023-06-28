@@ -90,6 +90,7 @@ export default class OrionChatSetupService extends SharedSetupService<Props> {
 		return {
 			...super.publicInstance,
 			checkUnreadMessagesInDom: this.checkUnreadMessagesInDom.bind(this),
+			getDiscussionId: () => this.discussion?.id,
 		};
 	}
 
