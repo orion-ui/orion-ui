@@ -59,6 +59,7 @@ export default class OrionChatSetupService extends SharedSetupService<Props> {
 	get newMessageLabel () { return usePluralize(this.lang.ORION_CHAT__NEW_MESSAGE, this.state.unreadBottom, true); }
 	get unreadTop () { return this.state.unreadTop; }
 	get unreadBottom () { return this.state.unreadBottom; }
+	get isLoading () { return this.state.isLoading; }
 
 	get textareaLabel () {
 		return this._input.value?.isFocus()
@@ -81,8 +82,6 @@ export default class OrionChatSetupService extends SharedSetupService<Props> {
 	get searchTerm () { return this.state.searchTerm; }
 	set searchTerm (val) { this.state.searchTerm = val; }
 
-	get isLoading () { return this.state.isLoading; }
-	set isLoading (val) { this.state.isLoading = val; }
 
 	get newMessage () { return this.state.newMessage; }
 	set newMessage (val) { this.state.newMessage = val; }
@@ -127,11 +126,11 @@ export default class OrionChatSetupService extends SharedSetupService<Props> {
 		return useMonkey(new Date(Number(date))).toReadable();
 	}
 
-	async fetchMessagesAsync () {
+	private async fetchMessagesAsync () {
 		const discussion = this.discussion;
 		if (!discussion) return;
 
-		this.isLoading = true;
+		this.state.isLoading = true;
 
 		if (!discussion.messages.length || !discussion.initialLoad) {
 			await this.discussion?.fetchMessagesAsync();
@@ -141,10 +140,10 @@ export default class OrionChatSetupService extends SharedSetupService<Props> {
 		await this.resetIntersectionObserver();
 		this.scrollToLastRead();
 		await this.checkUnreadMessagesInDom();
-		this.isLoading = false;
+		this.state.isLoading = false;
 	};
 
-	initIntersectionObserver () {
+	private initIntersectionObserver () {
 		const messages = this._content.value?.querySelectorAll('.orion-chat-message--is-unread.orion-chat-message--from-interlocutor');
 		if (messages?.length) {
 			[...messages].forEach((el) => {
@@ -156,7 +155,7 @@ export default class OrionChatSetupService extends SharedSetupService<Props> {
 		if (lazyLoader) this.observer?.observe(lazyLoader);
 	};
 
-	intersectionObserverCallback (entries: IntersectionObserverEntry[], observer: IntersectionObserver) {
+	private intersectionObserverCallback (entries: IntersectionObserverEntry[], observer: IntersectionObserver) {
 		entries.forEach(async (x) => {
 			if (x.isIntersecting) {
 				if (x.target.classList.contains('orion-chat__lazy-loader')) {
@@ -192,7 +191,7 @@ export default class OrionChatSetupService extends SharedSetupService<Props> {
 		});
 	};
 
-	resetIntersectionObserver () {
+	private resetIntersectionObserver () {
 		return new Promise((resolve) => {
 			this.observer?.disconnect();
 			nextTick(() => {
@@ -202,7 +201,7 @@ export default class OrionChatSetupService extends SharedSetupService<Props> {
 		});
 	};
 
-	scrollToLastRead () {
+	private scrollToLastRead () {
 		if (this.state.preventScroll) return;
 
 		const firstUnread = this._content.value
@@ -221,7 +220,7 @@ export default class OrionChatSetupService extends SharedSetupService<Props> {
 		}
 	};
 
-	scrollToBottom (smooth = false) {
+	private scrollToBottom (smooth = false) {
 		if (this.state.preventScroll) return;
 
 		const content = this._content.value;
@@ -238,7 +237,7 @@ export default class OrionChatSetupService extends SharedSetupService<Props> {
 		}
 	};
 
-	checkIfShouldScroll () {
+	private checkIfShouldScroll () {
 		const domContent = this._content.value;
 		return domContent && (domContent.offsetHeight + domContent.scrollTop) > (domContent.scrollHeight - 30);
 	};
@@ -279,7 +278,7 @@ export default class OrionChatSetupService extends SharedSetupService<Props> {
 		}
 	};
 
-	handleMessageAdded () {
+	private handleMessageAdded () {
 		this.resetIntersectionObserver();
 
 		if (this.checkIfShouldScroll()) this.scrollToLastRead();
@@ -287,14 +286,21 @@ export default class OrionChatSetupService extends SharedSetupService<Props> {
 		this.checkUnreadMessagesInDom();
 	};
 
-	checkUnreadMessagesInDom () {
-		return new Promise((resolve) => {
+	private checkUnreadMessagesInDom () {
+		return new Promise<void>((resolve) => {
 			nextTick(() => {
+				if (this.discussion?.unreadMessagesCount === 0) {
+					this.state.unreadBottom = 0;
+					this.state.unreadTop = 0;
+					resolve();
+					return;
+				}
+
 				const content = this._content.value;
 				const sectionsWrapper = this._sectionsWrapper.value;
 				if (!content || !sectionsWrapper) {
 					this.state.unreadBottom = 0;
-					resolve(true);
+					resolve();
 					return;
 				}
 
@@ -317,7 +323,7 @@ export default class OrionChatSetupService extends SharedSetupService<Props> {
 					.length;
 
 				this.state.unreadTop = (this.discussion?.unreadMessagesCount ?? 0) - unreadInArea - this.state.unreadBottom;
-				resolve(true);
+				resolve();
 			});
 		});
 	};
