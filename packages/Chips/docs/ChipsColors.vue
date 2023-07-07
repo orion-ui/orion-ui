@@ -17,6 +17,27 @@
 				{{ color }}
 			</o-chips>
 		</div>
+		<div
+			v-if="showGreys"
+			class="flex g-xs fw-w">
+			<o-chips
+				v-for="(color, index) of greys"
+				:key="index"
+				:color="color">
+				{{ color }}
+			</o-chips>
+		</div>
+		<div
+			v-if="showGreys"
+			class="flex g-xs fw-w">
+			<o-chips
+				v-for="(color, index) of greys"
+				:key="index"
+				:color="color"
+				outline>
+				{{ color }}
+			</o-chips>
+		</div>
 		<div class="flex g-xs fw-w">
 			<o-chips
 				v-for="(color, index) of chipsColors"
@@ -31,16 +52,21 @@
 	</div>
 
 	<hr>
-
-	<o-toggle
-		v-model="altColors"
-		label="Alternative colors"/>
+	<div class="flex g-md">
+		<o-toggle
+			v-model="altColors"
+			label="Alternative colors"/>
+		<o-toggle
+			v-model="showGreys"
+			label="Grey alternatives"/>
+	</div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import { colors, colorsAlt } from 'lib';
+import { colors, colorsAlt, greys } from 'lib';
 const altColors = ref(false);
+const showGreys = ref(false);
 const chipsColors = computed(() => altColors.value ? colorsAlt : colors);
 </script>
 
@@ -48,7 +74,7 @@ const chipsColors = computed(() => altColors.value ? colorsAlt : colors);
 
 @lang:en
 ### Colors
-It comes with different colors from `Orion.ColorExtended`.
+It comes with different colors from `Orion.ColorExtendedAndGreys`.
 
 You can easily change the style with the prop `outline` and add more informations with the `dual` slot.
 
@@ -60,7 +86,7 @@ All colors are defined with CSS variables, so you can easily override them.
 @lang:fr
 ### Couleurs
 
-Plusieurs couleurs sont disponibles et définies par `Orion.ColorExtended`.
+Plusieurs couleurs sont disponibles et définies par `Orion.ColorExtendedAndGreys`.
 
 Il est possibe de changer son style grâce à la prop `outline`,
 et d'ajouter un complément d'information avec le slot `dual` qui va scinder le composant en deux.
