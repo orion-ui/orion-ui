@@ -20,7 +20,9 @@
 				clearable/>
 		</div>
 		<div class="col-sm-4">
-			<color-selection v-model="state.color"/>
+			<color-selection
+				v-model="state.color"
+				show-greys/>
 		</div>
 		<div class="col-sm-4">
 			<size-selection v-model="state.size"/>

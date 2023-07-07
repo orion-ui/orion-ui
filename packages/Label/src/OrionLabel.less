@@ -10,7 +10,7 @@
 	border-radius: var(--radius-label);
 	white-space: nowrap;
 
-	each(@colors, {
+	each(@colorsAndGreys, {
 		@color: ~"--@{value}";
 		@colorLight: ~"--@{value}-light";
 		@colorDark: ~"--@{value}-dark";
@@ -83,6 +83,21 @@
 		color: var(--grey-lighter);
 		background: var(--inverse);
 	}
+
+	&--grey-light, &--grey-lighter {
+		color: var(--grey-darker);
+	}
+
+	&[class*='--grey'] {
+		&.orion-label--outline {
+			color: var(--grey-darker);
+			background: var(--grey-lighter);
+
+			[data-orion-theme='dark'] & {
+				background: rgba(0, 0, 0, 0.7);
+			}
+		}
+	} 
 
 	&--outline:not(&--inverse):not(&--default) {
 		.orion-label__content {
