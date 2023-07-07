@@ -28,6 +28,15 @@ export default class SharedProps {
 		},
 	});
 
+	static colorExtendedAndGreys = (defaultValue: Orion.ColorExtendedAndGreys = 'default') => ({
+		// @doc props/color defines the color
+		// @doc/fr props/color définit la couleur
+		color: {
+			type: String as PropType<Orion.ColorExtendedAndGreys>,
+			default: defaultValue,
+		},
+	});
+
 	static size = (defaultValue: Orion.Size = 'md') => ({
 		// @doc props/size define the size
 		// @doc/fr props/size définit la taille

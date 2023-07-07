@@ -52,3 +52,25 @@ export const greys: Orion.Grey[] = [
 	'grey-lighter',
 ];
 
+export const colorsExtendedAndGreys: Orion.ColorExtendedAndGreys[] = [
+	'default',
+	'brand',
+	'success',
+	'info',
+	'warning',
+	'danger',
+	'pink',
+	'inverse',
+	'brand-alt',
+	'success-alt',
+	'info-alt',
+	'warning-alt',
+	'danger-alt',
+	'pink-alt',
+	'grey-darker',
+	'grey-dark',
+	'grey',
+	'grey-light',
+	'grey-lighter',
+];
+
