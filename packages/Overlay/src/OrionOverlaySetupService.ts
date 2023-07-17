@@ -68,7 +68,7 @@ export default class OrionOverlaySetupService extends SharedSetupService<Props> 
 		if (this.props.global) {
 			this.hide();
 			forEach([..._queue.OrionAside, ..._queue.OrionModal], (x) => {
-				if (x.state.visible && x.options.hideOnOverlayClick) {
+				if (x.state.visible && x.options.hideOnOverlayClick && x.isLastOpenedPopable()) {
 					x.close();
 				}
 			});

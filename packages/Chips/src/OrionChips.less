@@ -43,7 +43,7 @@
 		}
 	}
 
-	each(@colors, {
+	each(@colorsAndGreys, {
 		@color: ~"--@{value}";
 		@colorLight: ~"--@{value}-light";
 		@colorDark: ~"--@{value}-dark";
@@ -192,6 +192,22 @@
 			}
 		}
 	}
+
+	&--grey-light, &--grey-lighter {
+		color: var(--grey-darker);
+	}
+
+	&[class*='--grey'] {
+		&.orion-chips--outline {
+			color: var(--grey-darker);
+			background: var(--grey-lighter);
+			border-color: var(--grey-lighter);
+
+			[data-orion-theme='dark'] & {
+				background: rgba(0, 0, 0, 0.7);
+			}
+		}
+	} 
 
 	&--outline:not(&--inverse):not(&--default) {
 		.orion-chips__main,

@@ -6,7 +6,7 @@ type Props = SetupProps<typeof OrionChipsSetupService.props>
 export default class OrionChipsSetupService extends SharedSetupService<Props> {
 	static props = {
 		...SharedProps.size(),
-		...SharedProps.colorExtended(),
+		...SharedProps.colorExtendedAndGreys(),
 		// @doc props/outline Adds an outline style on the chips
 		// @doc/fr props/outline modifie le style en ajoutant un contraste
 		outline: Boolean,

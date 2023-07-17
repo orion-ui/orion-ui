@@ -97,6 +97,7 @@ export default abstract class SharedPopableSetupService<P extends Props> extends
 			trigger: this.trigger.bind(this),
 			animateAsync: this.animateAsync.bind(this),
 			removeProgrammatic: this.removeProgrammatic.bind(this),
+			isLastOpenedPopable: () => this.isLastOpenedPopable,
 		};
 	}
 

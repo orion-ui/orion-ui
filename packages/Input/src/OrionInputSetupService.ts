@@ -178,9 +178,13 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Prop
 
 			if (value && this.props.maxValue && Number(value) > this.props.maxValue) {
 				value = this.props.maxValue;
+				if (this._input.value)
+					this._input.value.value = String(value);
 			}
 			if (value && this.props.minValue && Number(value) < this.props.minValue) {
 				value = this.props.minValue;
+				if (this._input.value)
+					this._input.value.value = String(value);
 			}
 
 			if (value === this.vModel) return;

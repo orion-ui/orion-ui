@@ -18,7 +18,7 @@ export default class OrionRadioSetupService extends SharedFieldSetupService<Prop
 		// @doc props/inputValue value of the radio button
 		// @doc/fr props/inputValue valeur du bouton radio
 		inputValue: {
-			type: [Array, Boolean, Number, Object, String] as PropType<VModelType> as PropType<string | number | string[] | undefined>,
+			type: [Array, Boolean, Number, Object, String] as PropType<VModelType> as PropType<string | boolean | number | string[] | undefined>,
 			default: undefined,
 		},
 		// @doc props/iconCheck the icon when the radio button is checked

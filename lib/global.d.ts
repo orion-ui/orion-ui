@@ -77,6 +77,8 @@ declare global {
 
 		type ColorExtended = Color | ColorAlt;
 
+		type ColorExtendedAndGreys = Color | ColorAlt | Grey;
+
 		type Grey = 'grey-darker' | 'grey-dark' | 'grey' | 'grey-light' |'grey-lighter';
 
 		type DatepickerType = 'date' | 'range' | 'week';
