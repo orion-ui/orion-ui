@@ -222,6 +222,9 @@ const packagesDocData = new Map([
 				'name': 'removeProgrammatic',
 				'type': '() => void',
 			}, {
+				'name': 'isLastOpenedPopable',
+				'type': '() => boolean',
+			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
 			}],
@@ -4409,6 +4412,9 @@ const packagesDocData = new Map([
 				'name': 'removeProgrammatic',
 				'type': '() => void',
 			}, {
+				'name': 'isLastOpenedPopable',
+				'type': '() => boolean',
+			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
 			}],
@@ -4508,6 +4514,9 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'removeProgrammatic',
 				'type': '() => void',
+			}, {
+				'name': 'isLastOpenedPopable',
+				'type': '() => boolean',
 			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
