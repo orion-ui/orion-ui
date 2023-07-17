@@ -222,6 +222,9 @@ const packagesDocData = new Map([
 				'name': 'removeProgrammatic',
 				'type': '() => void',
 			}, {
+				'name': 'isLastOpenedPopable',
+				'type': '() => boolean',
+			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
 			}],
@@ -1265,7 +1268,7 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'inputValue',
 				'defaultValue': 'undefined',
-				'type': 'string | number | string[] | undefined',
+				'type': 'string | boolean | number | string[] | undefined',
 				'required': false,
 				'desc': {
 					'en': 'the value of the checkbox',
@@ -4409,6 +4412,9 @@ const packagesDocData = new Map([
 				'name': 'removeProgrammatic',
 				'type': '() => void',
 			}, {
+				'name': 'isLastOpenedPopable',
+				'type': '() => boolean',
+			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
 			}],
@@ -4508,6 +4514,9 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'removeProgrammatic',
 				'type': '() => void',
+			}, {
+				'name': 'isLastOpenedPopable',
+				'type': '() => boolean',
 			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
@@ -5605,7 +5614,7 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'inputValue',
 				'defaultValue': 'undefined',
-				'type': 'string | number | string[] | undefined',
+				'type': 'string | boolean | number | string[] | undefined',
 				'required': false,
 				'desc': {
 					'en': 'value of the radio button',

@@ -22,7 +22,7 @@ export default class OrionCheckboxSetupService extends SharedFieldSetupService<P
 		// @doc props/inputValue the value of the checkbox
 		// @doc/fr props/inputValue valeur de la case à cocher
 		inputValue: {
-			type: [Array, Boolean, Number, Object, String] as PropType<VModelType> as PropType<string | number | string[] | undefined>,
+			type: [Array, Boolean, Number, Object, String] as PropType<VModelType> as PropType<string | boolean | number | string[] | undefined>,
 			default: undefined,
 		},
 		// @doc props/iconCheck the icon when the checkbox is checked
