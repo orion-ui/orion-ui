@@ -1425,6 +1425,9 @@ const packagesDocData = new Map([
 				'name': 'setHasBeenFocus',
 				'type': '(value: boolean) => void',
 			}, {
+				'name': 'isValid',
+				'type': '() => boolean',
+			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
 			}],
@@ -1811,6 +1814,9 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'setHasBeenFocus',
 				'type': '(value: boolean) => void',
+			}, {
+				'name': 'isValid',
+				'type': '() => boolean',
 			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
@@ -2477,6 +2483,9 @@ const packagesDocData = new Map([
 				'name': 'setHasBeenFocus',
 				'type': '(value: boolean) => void',
 			}, {
+				'name': 'isValid',
+				'type': '() => boolean',
+			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
 			}],
@@ -2946,6 +2955,9 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'setHasBeenFocus',
 				'type': '(value: boolean) => void',
+			}, {
+				'name': 'isValid',
+				'type': '() => boolean',
 			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
@@ -3566,6 +3578,9 @@ const packagesDocData = new Map([
 				'name': 'setHasBeenFocus',
 				'type': '(value: boolean) => void',
 			}, {
+				'name': 'isValid',
+				'type': '() => boolean',
+			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
 			}],
@@ -3861,6 +3876,9 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'setHasBeenFocus',
 				'type': '(value: boolean) => void',
+			}, {
+				'name': 'isValid',
+				'type': '() => boolean',
 			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
@@ -4967,6 +4985,9 @@ const packagesDocData = new Map([
 				'name': 'setHasBeenFocus',
 				'type': '(value: boolean) => void',
 			}, {
+				'name': 'isValid',
+				'type': '() => boolean',
+			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
 			}],
@@ -5234,6 +5255,9 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'setHasBeenFocus',
 				'type': '(value: boolean) => void',
+			}, {
+				'name': 'isValid',
+				'type': '() => boolean',
 			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
@@ -5761,6 +5785,9 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'setHasBeenFocus',
 				'type': '(value: boolean) => void',
+			}, {
+				'name': 'isValid',
+				'type': '() => boolean',
 			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
@@ -6498,6 +6525,9 @@ const packagesDocData = new Map([
 				'name': 'setHasBeenFocus',
 				'type': '(value: boolean) => void',
 			}, {
+				'name': 'isValid',
+				'type': '() => boolean',
+			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
 			}],
@@ -7082,6 +7112,9 @@ const packagesDocData = new Map([
 				'name': 'setHasBeenFocus',
 				'type': '(value: boolean) => void',
 			}, {
+				'name': 'isValid',
+				'type': '() => boolean',
+			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
 			}],
@@ -7579,6 +7612,9 @@ const packagesDocData = new Map([
 				'name': 'setHasBeenFocus',
 				'type': '(value: boolean) => void',
 			}, {
+				'name': 'isValid',
+				'type': '() => boolean',
+			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
 			}],
@@ -8062,6 +8098,9 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'setHasBeenFocus',
 				'type': '(value: boolean) => void',
+			}, {
+				'name': 'isValid',
+				'type': '() => boolean',
 			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
