@@ -104,7 +104,7 @@ export default abstract class SharedFieldSetupService<P, T, E extends FieldEmit 
 		return this.props.modelValue !== null && this.props.modelValue !== undefined && this.props.modelValue !== '';
 	}
 
-	private get isValidDefault () {
+	private get isValidDefault () : boolean {
 		if (!isNil(this.props.validation)) {
 			if (typeof this.props.validation === 'object') {
 				// using a this.props.validation instance
@@ -221,6 +221,7 @@ export default abstract class SharedFieldSetupService<P, T, E extends FieldEmit 
 			blur: this.blur.bind(this),
 			clear: this.clear.bind(this),
 			setHasBeenFocus: this.setHasBeenFocus.bind(this),
+			isValid: () => this.isValid,
 		};
 	}
 
