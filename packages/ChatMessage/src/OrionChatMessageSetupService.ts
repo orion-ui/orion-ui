@@ -1,8 +1,8 @@
 import { PropType } from 'vue';
-import OrionChatEntity from 'packages/Chat/src/OrionChatEntity';
+import OrionChatEntity from '../../Chat/src/OrionChatEntity';
 import SharedSetupService from '../../Shared/SharedSetupService';
 import OrionChatMessageEntity from './OrionChatMessageEntity';
-import { ChatService } from 'services/ChatService';
+import { ChatService } from '../../../services/ChatService';
 
 type Props = SetupProps<typeof OrionChatMessageSetupService.props>
 

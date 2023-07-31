@@ -2,21 +2,22 @@ import mitt from 'mitt';
 import useMonkey from './MonkeyService';
 import { reactive } from 'vue';
 
-import OrionChatMessageEntity from 'packages/ChatMessage/src/OrionChatMessageEntity';
-import OrionChatEntity from 'packages/Chat/src/OrionChatEntity';
+import OrionChatMessageEntity from '../packages/ChatMessage/src/OrionChatMessageEntity';
+import OrionChatEntity from '../packages/Chat/src/OrionChatEntity';
 import { getUid } from 'utils/tools';
+import { groupBy } from 'lodash-es';
 
 
-const defaultConfig: Omit<Orion.ChatConfig, 'user'> & {user: Undef<Orion.ChatUser>} = {
-	user: undefined as Undef<Orion.ChatUser>,
+const defaultConfig: Omit<Orion.Chat.Config, 'user'> & {user: Undef<Orion.Chat.User>} = {
+	user: undefined as Undef<Orion.Chat.User>,
 	allowDiscussionSearch: true,
 	discussionSearchTimer: 500,
 	allowDiscussionCreation: true,
 	allowMessageStatus: true,
-	messageFetcher: async () => [],
+	messageFetcherAsync: async () => [],
 	onActiveDiscussionChange: () => null,
-	onMessageRead: () => null,
-	onNewMessage: () => null,
+	onMessageReadAsync: () => null,
+	onNewMessageAsync: () => null,
 };
 
 export class ChatService {
@@ -34,10 +35,14 @@ export class ChatService {
 		registry: new Map<number, OrionChatEntity>(),
 	});
 
-	config: Orion.ChatConfig;
+	config: Orion.Chat.Config;
 
 	get activeDiscussionId () { return this.state.activeDiscussionId; }
-	set activeDiscussionId (val) { this.state.activeDiscussionId = val; }
+	set activeDiscussionId (val) {
+		const oldVal = this.state.activeDiscussionId;
+		this.state.activeDiscussionId = val;
+		this.config.onActiveDiscussionChange(val, oldVal);
+	}
 
 	get discussionsFullyLoaded () { return this.state.discussionsFullyLoaded; }
 	set discussionsFullyLoaded (val) { this.state.discussionsFullyLoaded = val; }
@@ -55,23 +60,24 @@ export class ChatService {
 	}
 
 
-	constructor (options: Orion.ChatOptions) {
+	constructor (options: Orion.Chat.Options) {
 		this.config = {
 			...defaultConfig,
 			...options,
 		};
 	}
 
+
 	// #region Discussions
-	async fetchDiscussions (searchTerm: Nil<string>, searchTermHasChanged: boolean) {
-		if (!this.config.discussionFetcher) return;
+	async fetchDiscussionsAsync (searchTerm?: string, searchTermHasChanged?: boolean) {
+		if (!this.config.discussionFetcherAsync) return;
 
 		const loadedDiscussionIds = useMonkey(this.discussions).mapKey('id');
 		const oldestDiscussionId = useMonkey([...this.discussions].sort((a, b) => a.id - b.id)).first()?.id;
 		const oldestDiscussionUpdatedDate = useMonkey(
-			[...this.discussions].sort((a, b) => a.updatedDate.valueOf() - b.updatedDate.valueOf()),
+			[...this.discussions].sort((a, b) => (a.updatedDate ?? 0).valueOf() - (b.updatedDate ?? 0).valueOf()),
 		).first()?.updatedDate;
-		const fetchedDiscussions = await this.config.discussionFetcher({
+		const fetchedDiscussions = await this.config.discussionFetcherAsync({
 			oldestDiscussionId,
 			oldestDiscussionUpdatedDate,
 			searchTerm,
@@ -94,7 +100,6 @@ export class ChatService {
 				.filter(d => !loadedDiscussionIds.includes(d.id))
 				.forEach(d => this.addDiscussion(d));
 		}
-		this.discussionsFullyLoaded = !!fetchedDiscussions.length;
 	}
 
 	getDiscussion (discussionId: number) {
@@ -110,11 +115,11 @@ export class ChatService {
 			return this.getDiscussion(this.state.activeDiscussionId);
 	}
 
-	setDiscussions (discussions: Orion.ChatDiscussion[]) {
+	setDiscussions (discussions: Orion.Chat.Discussion[]) {
 		discussions.forEach(d => this.registerDiscussionEntity(new OrionChatEntity(d, this)));
 	}
 
-	addDiscussion (discussion: Orion.ChatDiscussion) {
+	addDiscussion (discussion: Orion.Chat.Discussion) {
 		this.registerDiscussionEntity(new OrionChatEntity(discussion, this));
 	}
 
@@ -125,15 +130,19 @@ export class ChatService {
 	registerBubbleEntity (bubbleEntity: OrionChatMessageEntity, discussionId: number) {
 		this.registry.get(discussionId)?.registerChatMessageEntity(bubbleEntity);
 	}
+
+	setDiscussionsFullyLoaded (fullyLoaded: boolean) {
+		this.discussionsFullyLoaded = fullyLoaded;
+	}
 	// #endregion
 
 	// #region Messages
-	async fetchMessages (discussionId: number) {
+	async fetchMessagesAsync (discussionId: number) {
 		const discussion = this.getDiscussion(discussionId);
 
 		if (!!discussion && !discussion.fullyLoaded) {
 			const oldestMessageId = useMonkey(discussion.messages.sort((a, b) => a.id - b.id)).first()?.id;
-			const messages = await this.config.messageFetcher({
+			const messages = await this.config.messageFetcherAsync({
 				discussion,
 				discussionId,
 				oldestMessageId,
@@ -158,19 +167,24 @@ export class ChatService {
 		if (!message) return;
 
 		message.read();
-		this.config.onMessageRead(message);
+		this.config.onMessageReadAsync(message);
 	}
 
-	addMessagesToDiscussion (discussionId: number, messages: Orion.ChatMessage[]) {
-		const discussion = this.getDiscussion(discussionId);
-		if (discussion) {
-			messages.forEach(m => new OrionChatMessageEntity(m, discussion));
-			discussion.setLastMessageFromRegistered();
-			this.bus.emit('message-added', discussion.id);
-		}
+	addMessagesToDiscussions (messages: Orion.Chat.Message[]) {
+		const discussionIds = groupBy(messages, 'discussionId');
+
+		Object.keys(discussionIds).forEach((discussionId) => {
+			const discussion = this.getDiscussion(+discussionId);
+			if (discussion) {
+				messages.forEach(m => new OrionChatMessageEntity(m, discussion));
+				discussion.setLastMessageFromRegistered();
+				this.bus.emit('message-added', discussion.id);
+			}
+		});
+
 	}
 
-	addNewMessage (discussionId: number, content: string) {
+	async addNewMessageAsync (discussionId: number, content: string) {
 		if (!content?.trim().length) return;
 
 		const discussion = this.getDiscussion(discussionId);
@@ -179,21 +193,24 @@ export class ChatService {
 		const message = new OrionChatMessageEntity(
 			{
 				id: getUid(),
+				discussionId,
+				isRead: false,
 				content,
 				createdDate: new Date(),
 				author: this.config.user,
 			},
 			discussion,
+			false,
 		);
 
-		discussion.setLastMessage(message);
+		await this.config.onNewMessageAsync(message, () => discussion.registerChatMessageEntity(message));
 
-		this.config.onNewMessage(message);
+		discussion.setLastMessage(message);
 	}
 	// #endregion
 }
 
-export default function useChat (options: Orion.ChatOptions) {
+export default function useChat (options: Orion.Chat.Options) {
 	return new ChatService(options);
 }
 

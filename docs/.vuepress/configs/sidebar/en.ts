@@ -87,13 +87,13 @@ export const en: SidebarConfig = [
 					`/components/OrionSection.md`,
 				],
 			},
-			/* {
+			{
 				text: 'Others',
 				children: [
 					`/components/OrionChat.md`,
-					`/components/OrionTour.md`,
+					// `/components/OrionTour.md`,
 				],
-			}, */
+			},
 		],
 	},
 	{

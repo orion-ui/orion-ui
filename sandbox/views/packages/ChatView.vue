@@ -4,7 +4,7 @@
 
 		<!-- <pre>{{ discussionsToFetch.length }}</pre> -->
 
-		<div style="display:flex; align-items:center; column-gap:15px;">
+		<div class="flex ai-c g-xs">
 			<o-button
 				color="danger"
 				outline
@@ -72,15 +72,16 @@ import { computed, reactive, ref, watch } from 'vue';
 import { OrionIcon } from 'packages/Icon';
 import { faker } from '@faker-js/faker';
 import { shuffle } from 'lodash-es';
+import { OrionNotif } from 'packages';
 
 
 const userId = getUid();
 let discussionId = ref<number>();
 let targetDiscussionId = ref<number>();
-let discussionsMessages = reactive({}) as Record<number, Orion.ChatMessage[]>;
-let discussionsToFetch = reactive([]) as Orion.ChatDiscussion[];
+let discussionsMessages = reactive({}) as Record<number, Orion.Chat.Message[]>;
+let discussionsToFetch = reactive([]) as Orion.Chat.Discussion[];
 
-const user: Orion.ChatUser = {
+const user: Orion.Chat.User = {
 	id: userId,
 	name: 'Bobby Sixkiller',
 	avatar: faker.image.avatar(),
@@ -95,13 +96,13 @@ const sortedDiscussions = computed(() => {
 initChat();
 
 watch(() => chat.activeDiscussionId, (val) => {
+	console.log(`🚀 ~ watch ~ val:`, val);
 	targetDiscussionId.value = val;
 });
 
 
 function initChat () {
-	chat.config.messageFetcher = async ({ discussionId, oldestMessageId }) => {
-
+	chat.config.messageFetcherAsync = async ({ discussionId, oldestMessageId }) => {
 		await sleep(400);
 		const oldestMessageIndex = oldestMessageId
 			? discussionsMessages[discussionId].findIndex(x => x.id < oldestMessageId)
@@ -109,8 +110,7 @@ function initChat () {
 		return discussionsMessages[discussionId].slice(oldestMessageIndex, oldestMessageIndex + 8);
 	};
 
-	chat.config.discussionFetcher = async ({ oldestDiscussionId, searchTerm, searchTermHasChanged }) => {
-
+	chat.config.discussionFetcherAsync = async ({ oldestDiscussionId, searchTerm, searchTermHasChanged }) => {
 		const filteredDiscussion = sortedDiscussions.value.filter(x => searchTerm
 			? useMonkey(x.participants).mapKey('name').join(' ').toLowerCase().includes(searchTerm.toLowerCase())
 			: true,
@@ -120,52 +120,66 @@ function initChat () {
 			? filteredDiscussion.findIndex(x => x.id < oldestDiscussionId)
 			: 0;
 
+		if (oldestDiscussionIndex === -1) {
+			chat.setDiscussionsFullyLoaded(true);
+			return [];
+		}
+
 		const discussionsToReturn = filteredDiscussion.slice(oldestDiscussionIndex, oldestDiscussionIndex + 5);
 
 		return discussionsToReturn;
 	};
 
-	chat.config.onMessageRead = (message) => {
-		useNotif.success(`Ajax for read message ${message.id}`);
+	chat.config.onMessageReadAsync = (message) => {
+		// useNotif.success(`Ajax for read message ${message.id}`);
 	};
 
-	chat.config.onNewMessage = (message) => {
-		useNotif.success(`Ajax for new message ${message.id}`);
+	chat.config.onNewMessageAsync = async (message, registerMessage) => {
+		await sleep(600);
+		registerMessage();
+		// useNotif.success(`Ajax for new message ${message.id}`);
 	};
 
 	chat.config.discussionUnreadMessagesCounter = ({ discussionId, messages }) => {
 		const messageEntitiesIds = useMonkey(messages).mapKey('id');
 		return discussionsMessages[discussionId]
-			?.filter((m: Orion.ChatMessage) => m.author.id !== user.id
+			?.filter((m: Orion.Chat.Message) => m.author.id !== user.id
 				&& !messageEntitiesIds.includes(m.id)
 				&& !m.isRead,
 			).length + messages.filter(m => !m.isReadByUser).length;
 	};
 
-	/* chat.config.discussionTitleFormatter = (discussion) => {
+	chat.config.discussionTitleFormatter = (discussion) => {
 		return `la discussion ${discussion.id}`;
-	}; */
+	};
 
-	/* chat.config.discussionInterlocutorsFormatter = (discussion) => {
+	chat.config.discussionInterlocutorsFormatter = (discussion) => {
 		return discussion.participants
 			.filter(x => x.id !== discussion.chat.userId)
 			.map(x => ({
 				...x,
 				name: x.name.slice(0, 3),
 			})).slice(0, 3);
-	}; */
+	};
+
+	chat.config.onActiveDiscussionChange = (discussionId, oldId) => {
+		console.log(`🚀 ~ initChat ~ discussionId:`, discussionId);
+		console.log(`🚀 ~ initChat ~ oldId:`, oldId);
+	};
 
 	discussionsToFetch.length = 0;
 	discussionsToFetch.push(...seedDiscussions(15));
+
+	chat.fetchDiscussionsAsync();
 }
 
-function seedDiscussions (dicussionLength = 15) {
+function seedDiscussions (dicussionLength = 15, messageLength = 39) {
 	const discussions = [];
 	const baseDate = dicussionLength === 1 ? new Date() : faker.date.recent(90);
 	let i = 0;
 
 	while (i < dicussionLength) {
-		const agencyCompany: Orion.ChatUser = {
+		const agencyCompany: Orion.Chat.User = {
 			id: getUid(),
 			name: `${faker.name.firstName()} ${faker.name.lastName()}`,
 			avatar: faker.image.image(),
@@ -176,7 +190,7 @@ function seedDiscussions (dicussionLength = 15) {
 		const updatedDate = new Date(baseDate);
 		const createdDate = dicussionLength === 1 ? new Date() : faker.date.past(0, updatedDate);
 		const id = getUid();
-		const participants: Orion.ChatUser[] = [
+		const participants: Orion.Chat.User[] = [
 			agencyCompany,
 			{
 				id: user.id,
@@ -209,7 +223,7 @@ function seedDiscussions (dicussionLength = 15) {
 			});
 		}
 
-		const discussion: Orion.ChatDiscussion = {
+		const discussion: Orion.Chat.Discussion = {
 			id,
 			createdDate,
 			updatedDate,
@@ -218,10 +232,10 @@ function seedDiscussions (dicussionLength = 15) {
 			lastMessage: undefined,
 		};
 
-		discussionsMessages[discussion.id] = seedMessages(dicussionLength === 1 ? 1 : 29,
+		discussionsMessages[discussion.id] = seedMessages(messageLength,
 			discussion.id,
 			discussion.createdDate,
-			discussion.updatedDate,
+			discussion.updatedDate ?? discussion.createdDate,
 			discussion.participants,
 		);
 
@@ -238,8 +252,9 @@ function seedDiscussions (dicussionLength = 15) {
 	return discussions;
 }
 
-function seedMessages (messagesLength: number, discussionId: number, discussionCreatedDate: Date, discussionUpdatedDate: Date, participants: Orion.ChatUser[]) {
-	const messages: Orion.ChatMessage[] = [];
+// eslint-disable-next-line max-len
+function seedMessages (messagesLength: number, discussionId: number, discussionCreatedDate: Date, discussionUpdatedDate: Date, participants: Orion.Chat.User[]) {
+	const messages: Orion.Chat.Message[] = [];
 	const baseDate = faker.date.between(discussionCreatedDate, discussionUpdatedDate);
 	let i = 0;
 
@@ -257,10 +272,10 @@ function seedMessages (messagesLength: number, discussionId: number, discussionC
 			content: tempUser.id + ' • ' + id + ' • ' + faker.lorem.sentences(1),
 			type: 0,
 			createdDate,
-			updatedDate: null,
-			deletedDate: null,
-			isRead: i < (messagesLength - 1) ? false : true,
-			//isRead: messagesLength !== 1,
+			updatedDate: undefined,
+			deletedDate: undefined,
+			// isRead: i < (messagesLength - 1) ? false : true,
+			isRead: false,
 			metaData: undefined,
 			author: tempUser,
 			discussionId,
@@ -279,7 +294,14 @@ function simulateIncomingMessage () {
 	const discussion = chat.getDiscussion(targetDiscussionId.value);
 
 	if (discussion) {
-		const newMessage = useMonkey(seedMessages(1, discussion.id, discussion.createdDate, discussion.updatedDate, discussion.participants)).last();
+		const newMessage = useMonkey(seedMessages(
+			1,
+			discussion.id,
+			discussion.createdDate,
+			discussion.updatedDate ?? discussion.createdDate,
+			discussion.participants,
+		)).last();
+
 		if (!newMessage) return;
 
 		newMessage.createdDate = new Date();
@@ -289,7 +311,7 @@ function simulateIncomingMessage () {
 }
 
 function simulateIncomingDiscussion () {
-	const newDiscussion = useMonkey(seedDiscussions(1)).first();
+	const newDiscussion = useMonkey(seedDiscussions(1, 0)).first();
 	if (!newDiscussion) return;
 
 	chat.addDiscussion(newDiscussion);

@@ -64,9 +64,10 @@ export default class OrionTextareaSetupService extends SharedFieldSetupService<P
 		nextTick(() => {
 			const input = this._input.value;
 			if (input) {
-				const minRows = 2;
-				input.rows = 2;
-				const rows = Math.ceil((input.scrollHeight - 60) / 20);
+				const minRows = 1;
+				input.rows = minRows;
+				const scrollHeight = input.scrollHeight;
+				const rows = Math.ceil((scrollHeight - 40) / 20);
 				input.rows = minRows + rows;
 			}
 		});

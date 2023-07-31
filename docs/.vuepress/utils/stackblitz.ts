@@ -6,11 +6,12 @@ export const files = {
 		"dev": "vite"
 	},
 	"dependencies": {
-		"vue": "^3.2.45",
-		"@orion.ui/orion": "latest"
+		"@orion.ui/orion": "latest",
+		"vue": "^3.2.45"
 	},
 	"devDependencies": {
 		"@vitejs/plugin-vue": "^4.0.0",
+		"less": "^4.1.3",
 		"typescript": "^4.9.3",
 		"vite": "^4.0.1",
 		"vue-tsc": "^1.0.13"

@@ -3,7 +3,9 @@
 		v-if="setup.discussion"
 		class="orion-chat">
 		<div class="orion-chat__header">
-			<div class="orion-chat__title">
+			<div
+				v-if="!setup.showSearch"
+				class="orion-chat__title">
 				<slot
 					name="discussion-title"
 					v-bind="{ discussion: setup.discussion }">
@@ -24,15 +26,17 @@
 			<div class="orion-chat__actions">
 				<slot
 					name="prepend-discussion-actions"
-					v-bind="{ discussion: setup.discussion }"/>
+					v-bind="{ discussion: setup.discussion, showSearch: setup.showSearch }"/>
 
 				<template v-if="!setup.hideSearch">
 					<orion-input
 						v-if="setup.showSearch"
 						:ref="setup._search"
 						v-model="setup.searchTerm"
+						class="orion-chat__search"
 						label="Rechercher"
 						:donetyping="300"
+						clearable
 						@keydown-esc="setup.toggleSearch()"
 						@blur="setup.handleSearchBlur()"/>
 					<orion-icon
@@ -44,7 +48,7 @@
 
 				<slot
 					name="append-discussion-actions"
-					v-bind="{ discussion: setup.discussion }"/>
+					v-bind="{ discussion: setup.discussion, showSearch: setup.showSearch }"/>
 			</div>
 		</div>
 
@@ -79,14 +83,19 @@
 					<h4 class="orion-chat__section-title">
 						<span>{{ setup.getSectionTitle(+date) }}</span>
 					</h4>
-					<orion-chat-message
-						v-for="message in messagesByDay"
-						:key="message.id"
-						v-bind="{
-							chat: setup.props.chat,
-							discussion: setup.discussion,
-							message,
-						}"/>
+					<transition-group
+						name="chat-message"
+						appear
+						:duration="1000">
+						<orion-chat-message
+							v-for="message in messagesByDay"
+							:key="message.id"
+							v-bind="{
+								chat: setup.props.chat,
+								discussion: setup.discussion,
+								message,
+							}"/>
+					</transition-group>
 				</section>
 
 				<div
@@ -218,16 +227,15 @@
 			<orion-textarea
 				:ref="setup._input"
 				v-model="setup.newMessage"
-				:rows="3"
-				:label="setup.lang.ORION_CHAT__NEW_MESSAGE"
+				:label="setup.textareaLabel"
 				class="orion-chat__textarea"
-				@submit="setup.sendNewMessage()"/>
+				@submit="setup.sendNewMessageAsync()"/>
 			<orion-icon
 				v-tooltip="setup.sendTooltip"
 				class="orion-chat__send"
 				icon="message_plus_alt"
 				ripple="info"
-				@click="setup.sendNewMessage()"/>
+				@click="setup.sendNewMessageAsync()"/>
 		</div>
 
 		<orion-loader
@@ -245,7 +253,7 @@ import { OrionLoader } from 'packages/Loader';
 import { OrionTextarea } from 'packages/Textarea';
 import { OrionChatMessage } from 'packages/ChatMessage';
 import OrionChatSetupService from './OrionChatSetupService';
-type ChatEmit = { (e: 'new-message', payload: Orion.ChatNewMessage): void; }
+type ChatEmit = { (e: 'new-message', payload: Orion.Chat.NewMessage): void; }
 const props = defineProps(OrionChatSetupService.props);
 const emit = defineEmits<ChatEmit>();
 const setup = new OrionChatSetupService(props, emit);
@@ -256,19 +264,25 @@ defineExpose(setup.publicInstance);
  * @doc/fr slot/discussion-title titre de la discussion
  * @doc slot/discussion-title/discussion/type OrionChatEntity
  * @doc slot/discussion-title/discussion/desc Instance of the discussion entity
- * @doc/fr slot/discussion-title/discussion/desc instance de l'entité `discussion`
+ * @doc/fr slot/discussion-title/discussion/desc Instance de l'entité `discussion`
  *
  * @doc slot/prepend-discussion-actions left part of the action's content
  * @doc/fr slot/prepend-discussion-actions partie située avant les actions
  * @doc slot/prepend-discussion-actions/discussion/type OrionChatEntity
  * @doc slot/prepend-discussion-actions/discussion/desc Instance of the discussion entity
- * @doc/fr slot/prepend-discussion-actions/discussion/desc instance de l'entité `discussion`
+ * @doc/fr slot/prepend-discussion-actions/discussion/desc Instance de l'entité `discussion`
+ * @doc slot/prepend-discussion-actions/showSearch/type boolean
+ * @doc slot/prepend-discussion-actions/showSearch/desc `true` if the search field is displayed
+ * @doc/fr slot/prepend-discussion-actions/showSearch/desc `true` si le champ de recherche est affiché
  *
  * @doc slot/append-discussion-actions right part of the action's content
  * @doc/fr slot/append-discussion-actions partie située à droite des actions
  * @doc slot/append-discussion-actions/discussion/type OrionChatEntity
  * @doc slot/append-discussion-actions/discussion/desc Instance of the discussion entity
- * @doc/fr slot/append-discussion-actions/discussion/desc instance de l'entité `discussion`
+ * @doc/fr slot/append-discussion-actions/discussion/desc Instance de l'entité `discussion`
+ * @doc slot/prepend-discussion-actions/showSearch/type boolean
+ * @doc slot/prepend-discussion-actions/showSearch/desc `true` if the search field is displayed
+ * @doc/fr slot/prepend-discussion-actions/showSearch/desc `true` si le champ de recherche est affiché
  *
  * @doc event/new-message/desc emitted when a new message is sent
  * @doc/fr event/new-message/desc émis lorsqu'un nouveau message est envoyé

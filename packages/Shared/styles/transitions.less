@@ -60,7 +60,7 @@
 		transition-timing-function: ease-out;
 	}
 
-	&-enter,
+	&-enter-from,
 	&-leave-to {
 		opacity: 0;
 	}
@@ -68,6 +68,28 @@
 	&-enter-to,
 	&-leave {
 		opacity: 1;
+	}
+}
+
+.chat-message {
+	&-enter-active,
+	&-leave-active {
+		transition-property: opacity, transform;
+		transition-duration: 0.5s;
+		transition-delay: 0.2s;
+		transition-timing-function: ease-out;
+	}
+
+	&-enter-from,
+	&-leave-to {
+		opacity: 0;
+		transform: translate3d(0, -70%, 0);
+	}
+
+	&-enter-to,
+	&-leave {
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
 	}
 }
 

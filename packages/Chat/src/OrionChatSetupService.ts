@@ -8,7 +8,7 @@ import SharedSetupService from '../../Shared/SharedSetupService';
 type Props = SetupProps<typeof OrionChatSetupService.props>
 
 type ChatEmit = {
-  (e: 'new-message', payload: Orion.ChatNewMessage): void;
+  (e: 'new-message', payload: Orion.Chat.NewMessage): void;
 }
 
 export default class OrionChatSetupService extends SharedSetupService<Props> {
@@ -36,7 +36,6 @@ export default class OrionChatSetupService extends SharedSetupService<Props> {
 	private observer = null as Nullable<IntersectionObserver>;
 	protected emit: ChatEmit;
 	private state = reactive({
-		lazyLoader: false,
 		preventScroll: false,
 		isLoading: false,
 		searchTerm: undefined as Undef<string>,
@@ -46,67 +45,52 @@ export default class OrionChatSetupService extends SharedSetupService<Props> {
 		showSearch: false,
 	});
 
-	_input = ref<RefDom>();
+	_input = ref<OrionTextarea>();
 	_content = ref<RefDom>();
 	_lazyLoader = ref<RefDom>();
 	_sectionsWrapper = ref<RefDom>();
 	_search = ref<RefDom>();
 
+	get chat () { return this.props.chat; }
+	get discussion () { return this.chat.getDiscussion(this.props.discussionId); }
+	get hideSearch () { return this.props.hideSearch; }
+	get showSearch () { return this.state.showSearch; }
+	get unreadMessageLabel () { return usePluralize(this.lang.ORION_CHAT__UNREAD_MESSAGE, this.state.unreadTop, true); }
+	get newMessageLabel () { return usePluralize(this.lang.ORION_CHAT__NEW_MESSAGE, this.state.unreadBottom, true); }
+	get unreadTop () { return this.state.unreadTop; }
+	get unreadBottom () { return this.state.unreadBottom; }
+	get isLoading () { return this.state.isLoading; }
+
+	get textareaLabel () {
+		return this._input.value?.isFocus()
+			? this.sendTooltip
+			: this.lang.ORION_CHAT__NEW_MESSAGE;
+	}
+
+	get showLazyLoader () {
+		return !this.discussion
+			? false
+			: !this.discussion.fullyLoaded;
+	}
+
+	get sendTooltip () {
+		return isMac()
+			? `⌘ + ${this.lang.ORION_CHAT__ENTER_TO_SEND}`
+			: `CTRL + ${this.lang.ORION_CHAT__ENTER_TO_SEND}`;
+	}
+
 	get searchTerm () { return this.state.searchTerm; }
 	set searchTerm (val) { this.state.searchTerm = val; }
-
-	get lazyLoader () { return this.state.lazyLoader; }
-	set lazyLoader (val) { this.state.lazyLoader = val; }
-
-	get preventScroll () { return this.state.preventScroll; }
-	set preventScroll (val) { this.state.preventScroll = val; }
-
-	get isLoading () { return this.state.isLoading; }
-	set isLoading (val) { this.state.isLoading = val; }
 
 	get newMessage () { return this.state.newMessage; }
 	set newMessage (val) { this.state.newMessage = val; }
 
-	get chat () {
-		return this.props.chat;
-	}
-
-	get discussion () {
-		return this.chat.getDiscussion(this.props.discussionId);
-	}
-
-	get hideSearch () {
-		return this.props.hideSearch;
-	}
-
-	get showSearch () {
-		return this.state.showSearch;
-	}
-
-	get unreadMessageLabel () {
-		return usePluralize(this.lang.ORION_CHAT__UNREAD_MESSAGE, this.state.unreadTop, true);
-	}
-
-	get newMessageLabel () {
-		return usePluralize(this.lang.ORION_CHAT__NEW_MESSAGE, this.state.unreadBottom, true);
-	}
-
-	get showLazyLoader () {
-		if (!this.discussion) return false;
-
-		return !this.discussion.fullyLoaded;
-	}
-
-	get sendTooltip () {
-		return isMac() ? `⌘ + ${this.lang.ORION_CHAT__ENTER_TO_SEND}` : `CTRL + ${this.lang.ORION_CHAT__ENTER_TO_SEND}`;
-	}
-
-	get unreadTop () {
-		return this.state.unreadTop;
-	}
-
-	get unreadBottom () {
-		return this.state.unreadBottom;
+	get publicInstance () {
+		return {
+			...super.publicInstance,
+			checkUnreadMessagesInDom: this.checkUnreadMessagesInDom.bind(this),
+			getDiscussionId: () => this.discussion?.id,
+		};
 	}
 
 
@@ -117,7 +101,7 @@ export default class OrionChatSetupService extends SharedSetupService<Props> {
 		watch(() => this.props.discussionId, () => {
 			nextTick(() => {
 				this.scrollToBottom();
-				this.fetchMessages();
+				this.fetchMessagesAsync();
 
 				if (this.props.focusOnOpen) {
 					this._input.value?.focus();
@@ -137,7 +121,7 @@ export default class OrionChatSetupService extends SharedSetupService<Props> {
 			if (discussionId === this.props.discussionId) this.handleMessageAdded();
 		});
 
-		await this.fetchMessages();
+		await this.fetchMessagesAsync();
 
 		if (this.props.focusOnOpen) {
 			this._input.value?.focus();
@@ -149,11 +133,11 @@ export default class OrionChatSetupService extends SharedSetupService<Props> {
 		return useMonkey(new Date(Number(date))).toReadable();
 	}
 
-	async fetchMessages () {
+	private async fetchMessagesAsync () {
 		const discussion = this.discussion;
 		if (!discussion) return;
 
-		this.isLoading = true;
+		this.state.isLoading = true;
 
 		if (!discussion.messages.length || !discussion.initialLoad) {
 			await this.discussion?.fetchMessagesAsync();
@@ -163,10 +147,10 @@ export default class OrionChatSetupService extends SharedSetupService<Props> {
 		await this.resetIntersectionObserver();
 		this.scrollToLastRead();
 		await this.checkUnreadMessagesInDom();
-		this.isLoading = false;
+		this.state.isLoading = false;
 	};
 
-	initIntersectionObserver () {
+	private initIntersectionObserver () {
 		const messages = this._content.value?.querySelectorAll('.orion-chat-message--is-unread.orion-chat-message--from-interlocutor');
 		if (messages?.length) {
 			[...messages].forEach((el) => {
@@ -178,24 +162,26 @@ export default class OrionChatSetupService extends SharedSetupService<Props> {
 		if (lazyLoader) this.observer?.observe(lazyLoader);
 	};
 
-	intersectionObserverCallback (entries: IntersectionObserverEntry[], observer: IntersectionObserver) {
+	private intersectionObserverCallback (entries: IntersectionObserverEntry[], observer: IntersectionObserver) {
 		entries.forEach(async (x) => {
 			if (x.isIntersecting) {
 				if (x.target.classList.contains('orion-chat__lazy-loader')) {
-					if (typeof this.chat.config.messageFetcher === 'function') {
-						this.lazyLoader = true;
-						this.preventScroll = true;
+					if (typeof this.chat.config.messageFetcherAsync === 'function') {
+						this.state.preventScroll = true;
 
-						await this.chat.fetchMessages(this.props.discussionId);
+						const currentHeight = this._content.value?.scrollHeight ?? 0;
+						const currentScroll = this._content.value?.scrollTop ?? 0;
+
+						await this.chat.fetchMessagesAsync(this.props.discussionId);
 
 						nextTick(() => {
-							this._content.value?.scrollTo({
-								top: 60,
-								//behavior: 'smooth',
-							});
-							this.lazyLoader = false;
-							this.preventScroll = false;
-							this.initIntersectionObserver();
+							setTimeout(() => {
+								const newHeight = this._content.value?.scrollHeight ?? 0;
+								const targetScroll = currentScroll + (newHeight - currentHeight) - (this._content.value?.offsetHeight ?? 0) / 3;
+								this._content.value?.scrollTo({ top: targetScroll });
+								this.state.preventScroll = false;
+								this.initIntersectionObserver();
+							}, 100);
 						});
 					}
 				} else {
@@ -212,7 +198,7 @@ export default class OrionChatSetupService extends SharedSetupService<Props> {
 		});
 	};
 
-	resetIntersectionObserver () {
+	private resetIntersectionObserver () {
 		return new Promise((resolve) => {
 			this.observer?.disconnect();
 			nextTick(() => {
@@ -222,10 +208,11 @@ export default class OrionChatSetupService extends SharedSetupService<Props> {
 		});
 	};
 
-	scrollToLastRead () {
-		if (this.preventScroll) return;
+	private scrollToLastRead () {
+		if (this.state.preventScroll) return;
 
-		const firstUnread = this._content.value?.querySelectorAll('.orion-chat-message--is-unread.orion-chat-message--from-interlocutor')
+		const firstUnread = this._content.value
+			?.querySelectorAll('.orion-chat-message--is-unread.orion-chat-message--from-interlocutor')
 			.item(0) as HTMLElement;
 
 
@@ -240,8 +227,8 @@ export default class OrionChatSetupService extends SharedSetupService<Props> {
 		}
 	};
 
-	scrollToBottom (smooth = false) {
-		if (this.preventScroll) return;
+	private scrollToBottom (smooth = false) {
+		if (this.state.preventScroll) return;
 
 		const content = this._content.value;
 		const sectionsWrapper = this._sectionsWrapper.value;
@@ -257,22 +244,26 @@ export default class OrionChatSetupService extends SharedSetupService<Props> {
 		}
 	};
 
-	checkIfShouldScroll () {
+	private checkIfShouldScroll () {
 		const domContent = this._content.value;
-		if (domContent && (domContent.offsetHeight + domContent.scrollTop) > (domContent.scrollHeight - 30)) {
-			this.scrollToLastRead();
-		}
+		return domContent && (domContent.offsetHeight + domContent.scrollTop) > (domContent.scrollHeight - 30);
 	};
 
-	sendNewMessage () {
+	async sendNewMessageAsync () {
 		if (this.state.newMessage && this.discussion) {
-			this.discussion?.addNewMessage(this.state.newMessage);
+			const message = this.state.newMessage;
+			this.state.newMessage = null;
+
+			const shouldScroll = this.checkIfShouldScroll();
+
+			await this.discussion?.addNewMessageAsync(message);
+
 			this.emit('new-message', {
-				message: this.state.newMessage,
+				message: message,
 				discussionId: this.discussion.id,
 			});
-			this.checkIfShouldScroll();
-			this.newMessage = null;
+
+			if (shouldScroll) this.scrollToLastRead();
 		}
 	};
 
@@ -294,20 +285,29 @@ export default class OrionChatSetupService extends SharedSetupService<Props> {
 		}
 	};
 
-	handleMessageAdded () {
+	private handleMessageAdded () {
 		this.resetIntersectionObserver();
-		this.checkIfShouldScroll();
+
+		if (this.checkIfShouldScroll()) this.scrollToLastRead();
+
 		this.checkUnreadMessagesInDom();
 	};
 
-	checkUnreadMessagesInDom () {
-		return new Promise((resolve) => {
+	private checkUnreadMessagesInDom () {
+		return new Promise<void>((resolve) => {
 			nextTick(() => {
+				if (this.discussion?.unreadMessagesCount === 0) {
+					this.state.unreadBottom = 0;
+					this.state.unreadTop = 0;
+					resolve();
+					return;
+				}
+
 				const content = this._content.value;
 				const sectionsWrapper = this._sectionsWrapper.value;
 				if (!content || !sectionsWrapper) {
 					this.state.unreadBottom = 0;
-					resolve(true);
+					resolve();
 					return;
 				}
 
@@ -330,7 +330,7 @@ export default class OrionChatSetupService extends SharedSetupService<Props> {
 					.length;
 
 				this.state.unreadTop = (this.discussion?.unreadMessagesCount ?? 0) - unreadInArea - this.state.unreadBottom;
-				resolve(true);
+				resolve();
 			});
 		});
 	};

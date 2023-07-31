@@ -152,46 +152,6 @@ const globalTypesDocData = {
 		'description': '{ \n\t\t\tsize: number; \n\t\t\tindex: number; \n\t\t} \n',
 	}, {
 		'ns': 'Orion',
-		'type': 'ChatConfig',
-		'generic': '',
-		'description': '{ \n\t\t\tuser: ChatUser; \n\t\t\tallowMessageStatus: boolean; \n\t\t\tallowDiscussionCreation: boolean; \n\t\t\tallowDiscussionSearch: boolean; \n\t\t\tdiscussionSearchTimer: number; \n\t\t\t// eslint-disable-next-line max-len \n\t\t\tdiscussionFetcher?: (params: { oldestDiscussionId?: number, oldestDiscussionUpdatedDate?: Date, searchTerm: Nil<string>, searchTermHasChanged: boolean }) => Promise<Orion.ChatDiscussion[]>; \n\t\t\tdiscussionTitleFormatter?: (discussion: OrionChatEntity) => string; \n\t\t\tdiscussionInterlocutorsFormatter?: (discussion: OrionChatEntity) => ChatUser[]; \n\t\t\tdiscussionUnreadMessagesCounter?: (params: {discussion: OrionChatEntity, discussionId: number, messages: OrionChatMessageEntity[] }) => number; \n\t\t\tmessageFetcher: (params: { discussion: OrionChatEntity, discussionId: number, oldestMessageId?: number }) => Promise<Orion.ChatMessage[]>; \n\t\t\tonMessageRead: (message: OrionChatMessageEntity) => void; \n\t\t\tonNewMessage: (message: OrionChatMessageEntity) => void; \n\t\t\tonActiveDiscussionChange: (discussionId: number, oldDiscussionId: number) => void; \n\t\t} \n',
-	}, {
-		'ns': 'Orion',
-		'type': 'ChatOptions',
-		'generic': '',
-		'description': 'Partial<ChatConfig> & { \n\t\t\tuser: ChatUser; \n\t\t}; \n',
-	}, {
-		'ns': 'Orion',
-		'type': 'ChatUser',
-		'generic': '',
-		'description': '{ \n\t\t\tid: number; \n\t\t\tname: string; \n\t\t\tavatar: string; \n\t\t\tavatarProps?: Record<string, any>; \n\t\t}; \n',
-	}, {
-		'ns': 'Orion',
-		'type': 'ChatDiscussion',
-		'generic': '',
-		'description': '{ \n\t\t\tid: number; \n\t\t\tcreatedDate: Date; \n\t\t\tupdatedDate: Date; \n\t\t\tparticipants: ChatUser[]; \n\t\t\tlastMessage: Undef<ChatMessage>; \n\t\t\tmessages: ChatMessage[]; \n\t\t} \n',
-	}, {
-		'ns': 'Orion',
-		'type': 'ChatMessage',
-		'generic': '',
-		'description': '{ \n\t\t\tdiscussionId: number; \n\t\t\tid: number; \n\t\t\tcontent: string; \n\t\t\tcreatedDate: Date; \n\t\t\tupdatedDate: Nullable<Date>; \n\t\t\tdeletedDate: Nullable<Date>; \n\t\t\ttype?: number | string; \n\t\t\tmetaData?: string | Record<string, any>; \n\t\t\tauthor: ChatUser; \n\t\t\tisRead: boolean; \n\t\t} \n',
-	}, {
-		'ns': 'Orion',
-		'type': 'ChatNewMessage',
-		'generic': '',
-		'description': '{ \n\t\t\tmessage: string; \n\t\t\tdiscussionId: number; \n\t\t} \n',
-	}, {
-		'ns': 'Orion',
-		'type': 'ChatEntity',
-		'generic': '',
-		'description': 'InstanceType<typeof OrionChatEntity>; \n',
-	}, {
-		'ns': 'Orion',
-		'type': 'ChatService',
-		'generic': '',
-		'description': 'InstanceType<typeof ChatService>; \n',
-	}, {
-		'ns': 'Orion',
 		'type': 'NavItem',
 		'generic': '',
 		'description': 'Partial<{ \n\t\t\talways: boolean; \n\t\t\tbackLabel: string; \n\t\t\tcallback: (item: NavItem, ev: MouseEvent | TouchEvent) => any; \n\t\t\tchildren: NavItem[]; \n\t\t\tclass: string; \n\t\t\texpand: boolean; \n\t\t\tfontIcon: string; \n\t\t\ticon: Orion.Icon; \n\t\t\tid: string; \n\t\t\tif: boolean | (() => boolean); \n\t\t\tlabel: string; \n\t\t\tline: boolean; \n\t\t\tparent: NavItem; \n\t\t\treload: boolean; \n\t\t\treplace: boolean; \n\t\t\troot: boolean; \n\t\t\tsectionTitle: boolean; \n\t\t\tshowCarret: boolean; \n\t\t\ttag: string; \n\t\t\tto: RouteLocationRaw; \n\t\t\twrapperClass: string; \n\t\t\tactiveWhenExact: boolean; \n\t\t}> \n',
@@ -258,6 +218,38 @@ const globalTypesDocData = {
 		'type': 'Options',
 		'generic': '',
 		'description': 'Popable.Options & { \n\t\t\t\ttitle: Nil<string>; \n\t\t\t\tmessage: Nil<string>; \n\t\t\t\tduration?: Nil<number>; \n\t\t\t\ticon?: Orion.Icon; \n\t\t\t\tfontIcon?: string; \n\t\t\t\tcolor?: \'info\' | \'success\' | \'warning\' | \'danger\' ; \n\t\t\t\tevents?: Record<string, (notif: OrionNotif, params: any) => void>; \n\t\t\t};',
+	}],
+
+	'Orion.Chat': [{
+		'ns': 'Orion.Chat',
+		'type': 'Config',
+		'generic': '',
+		'description': '{ \n\t\t\t\tuser: User; \n\t\t\t\tallowMessageStatus: boolean; \n\t\t\t\tallowDiscussionCreation: boolean; \n\t\t\t\tallowDiscussionSearch: boolean; \n\t\t\t\tdiscussionSearchTimer: number; \n\t\t\t\t// eslint-disable-next-line max-len \n\t\t\t\tdiscussionFetcherAsync?: (params: { oldestDiscussionId?: number, oldestDiscussionUpdatedDate?: Date, searchTerm?: string, searchTermHasChanged?: boolean }) => Promise<Discussion[]>; \n\t\t\t\tdiscussionTitleFormatter?: (discussion: OrionChatEntity) => string; \n\t\t\t\tdiscussionInterlocutorsFormatter?: (discussion: OrionChatEntity) => User[]; \n\t\t\t\tdiscussionUnreadMessagesCounter?: (params: {discussion: OrionChatEntity, discussionId: number, messages: OrionChatMessageEntity[] }) => number; \n\t\t\t\tmessageFetcherAsync: (params: { discussion: OrionChatEntity, discussionId: number, oldestMessageId?: number }) => Promise<Message[]>; \n\t\t\t\tonMessageReadAsync: (message: OrionChatMessageEntity) => void; \n\t\t\t\tonNewMessageAsync: (message: OrionChatMessageEntity, registerMessage: () => void) => void; \n\t\t\t\tonActiveDiscussionChange: (discussionId?: number, oldDiscussionId?: number) => void; \n\t\t\t} \n',
+	}, {
+		'ns': 'Orion.Chat',
+		'type': 'Options',
+		'generic': '',
+		'description': 'Partial<Config> & { \n\t\t\t\tuser: User; \n\t\t\t}; \n',
+	}, {
+		'ns': 'Orion.Chat',
+		'type': 'User',
+		'generic': '',
+		'description': '{ \n\t\t\t\tid: number; \n\t\t\t\tname: string; \n\t\t\t\tavatar: string; \n\t\t\t\tavatarProps?: Record<string, any>; \n\t\t\t}; \n',
+	}, {
+		'ns': 'Orion.Chat',
+		'type': 'Discussion',
+		'generic': '',
+		'description': '{ \n\t\t\t\tid: number; \n\t\t\t\tcreatedDate: Date; \n\t\t\t\tupdatedDate?: Date; \n\t\t\t\tparticipants: User[]; \n\t\t\t\tlastMessage?: Message; \n\t\t\t\tmessages: Message[]; \n\t\t\t} \n',
+	}, {
+		'ns': 'Orion.Chat',
+		'type': 'Message',
+		'generic': '',
+		'description': '{ \n\t\t\t\tdiscussionId: number; \n\t\t\t\tid: number; \n\t\t\t\tcontent?: string; \n\t\t\t\tcreatedDate: Date; \n\t\t\t\tupdatedDate?: Date; \n\t\t\t\tdeletedDate?: Date; \n\t\t\t\ttype?: number | string; \n\t\t\t\tmetaData?: string | Record<string, any>; \n\t\t\t\tauthor: User; \n\t\t\t\tisRead: boolean; \n\t\t\t} \n',
+	}, {
+		'ns': 'Orion.Chat',
+		'type': 'NewMessage',
+		'generic': '',
+		'description': '{ \n\t\t\t\tmessage: string; \n\t\t\t\tdiscussionId: number; \n\t\t\t}',
 	}],
 
 	'Orion.Private': [{

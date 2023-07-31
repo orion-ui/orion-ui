@@ -1,9 +1,10 @@
 import SharedEntity from 'packages/Shared/SharedEntity';
 import useMonkey from 'services/MonkeyService';
+import type OrionChatEntity from '../../Chat/src/OrionChatEntity';
 
 
-export default class OrionChatMessageEntity extends SharedEntity<Orion.ChatMessage> {
-	private discussion: Orion.ChatEntity;
+export default class OrionChatMessageEntity extends SharedEntity<Orion.Chat.Message> {
+	readonly discussion: OrionChatEntity;
 
 	get isRead () { return this.entity.isRead; }
 	set isRead (val) { this.entity.isRead = val; }
@@ -48,20 +49,20 @@ export default class OrionChatMessageEntity extends SharedEntity<Orion.ChatMessa
 
 
 	constructor (
-		data: Partial<Orion.ChatMessage> & {
-			id: number,
-			content: string,
-			createdDate: Date | string,
-			author: Orion.ChatUser,
-		},
-		discussion: Orion.ChatEntity,
+		data: Orion.Chat.Message,
+		discussion: OrionChatEntity,
+		autoRegisterMessage = true,
 	) {
 		super(data);
 		this.discussion = discussion;
-
-		this.discussion.registerChatMessageEntity(this);
+		if (autoRegisterMessage) {
+			this.discussion.registerChatMessageEntity(this);
+		}
 	}
 
+	setId (id: number) {
+		this.entity.id = id;
+	}
 
 	read () {
 		this.entity.isRead = true;

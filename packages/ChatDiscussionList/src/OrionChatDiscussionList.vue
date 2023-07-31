@@ -3,7 +3,7 @@
 		<div class="orion-chat-discussion-list__header">
 			<div class="orion-chat-discussion-list__subheader">
 				<orion-input
-					v-if="(setup.discussions.length || setup.searchTerm) && setup.chat.config.allowDiscussionCreation"
+					v-if="(setup.discussions.length || setup.searchTerm) && setup.chat.config.allowDiscussionSearch"
 					v-model="setup.searchTerm"
 					class="orion-chat-discussion-list__search"
 					:label="setup.lang.SEARCH"
@@ -250,15 +250,24 @@ defineExpose(setup.publicInstance);
 /** Doc
  * @doc slot/append-discussion-list-header the bottom content of the list header
  * @doc/fr slot/append-discussion-list-header contenu situé en bas de l'en-tête de la liste
+ *
  * @doc slot/before-discussion-list the content before all the discussion items
  * @doc/fr slot/before-discussion-list contenu placé juste avant la liste de discussions
+ *
  * @doc slot/discussion-item the content of the discussion item
  * @doc/fr slot/discussion-item contenu d'un élément de la liste
+ * @doc slot/discussion-item/discussion/type OrionChatEntity
+ * @doc slot/discussion-item/discussion/desc the discussion's instance
+ * @doc/fr slot/discussion-item/discussion/desc l'instance de la discussion
+ *
  * @doc slot/append-discussion-item the content under the discussion item
  * @doc/fr slot/append-discussion-item contenu situé juste après un élément de la liste
  *
+ *
+ *
  * @doc event/new-discussion/desc emitted when a new discussion is created
  * @doc/fr event/new-discussion/desc émis lorsqu'une nouvelle discussion est créée
+ *
  * @doc event/select-discussion/desc emitted when a discussion is selected
  * @doc/fr event/select-discussion/desc émis quand une discussion est séléctionnée
  */
