@@ -5,9 +5,9 @@ import anime from 'animejs';
 import SharedSetupService from './SharedSetupService';
 import useOverlay from 'services/OverlayService';
 import { toggleGlobalListener } from 'utils/tools';
-import type { OrionAsideSetupService } from 'packages/Aside';
-import type { OrionModalSetupService } from 'packages/Modal';
-import type { OrionNotifSetupService } from 'packages/Notif';
+import type { OrionAsideSetupService } from '../Aside';
+import type { OrionModalSetupService } from '../Modal';
+import type { OrionNotifSetupService } from '../Notif';
 
 type Props = SetupProps<typeof SharedPopableSetupService.props>
 

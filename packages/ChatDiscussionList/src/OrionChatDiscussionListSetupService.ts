@@ -39,7 +39,7 @@ export default class OrionChatDiscussionListSetupService extends SharedSetupServ
 
 	get discussions () {
 		return [...this.chat.discussions]
-			.filter(x => this.searchTerm && !this.chat.config.discussionFetcher ? x.title.toLowerCase().includes(this.searchTerm.toLowerCase()) : true)
+			.filter(x => this.searchTerm && !this.chat.config.discussionFetcherAsync ? x.title.toLowerCase().includes(this.searchTerm.toLowerCase()) : true)
 			.sort((a, b) => b.lastMessage && a.lastMessage
 				? b.lastMessage.createdDate.valueOf() - a.lastMessage.createdDate.valueOf()
 				: 0,
@@ -47,7 +47,7 @@ export default class OrionChatDiscussionListSetupService extends SharedSetupServ
 	}
 
 	get showLazyLoader () {
-		if (!this.discussions.length || !this.chat.config.discussionFetcher) return false;
+		if (!this.discussions.length || !this.chat.config.discussionFetcherAsync) return false;
 
 		return !this.chat.discussionsFullyLoaded && this.state.contentHasScroll;
 	}
@@ -59,15 +59,16 @@ export default class OrionChatDiscussionListSetupService extends SharedSetupServ
 
 		watch(() => this.discussions.length, () => {
 			setTimeout(this.checkContentScroll, 300);
+			this.resetObservers();
 		});
 
 		watch(() => this.searchTerm, () => {
-			this.fetchDiscussions(true);
+			this.fetchDiscussionsAsync(true);
 		});
 	}
 
 	protected async onMounted () {
-		if (this.chat.config.discussionFetcher) {
+		if (this.chat.config.discussionFetcherAsync) {
 			// Init intersectionObserver to mark messages as read when scroll into view
 			this.intersectionObserver = new IntersectionObserver(
 				this.intersectionObserverCallback.bind(this),
@@ -75,24 +76,20 @@ export default class OrionChatDiscussionListSetupService extends SharedSetupServ
 					root: this._el.value,
 					threshold: 1,
 				});
-			await this.fetchDiscussions();
 			this.initObservers();
 		}
 	}
 
 
-	async fetchDiscussions (searchTermHasChanged = false) {
-		if (!this.chat.config.discussionFetcher) return;
-
-		await this.chat.fetchDiscussions(this.searchTerm, searchTermHasChanged);
-
-		this.resetObservers();
+	async fetchDiscussionsAsync (searchTermHasChanged = false) {
+		if (!this.chat.config.discussionFetcherAsync) return;
+		await this.chat.fetchDiscussionsAsync(this.searchTerm, searchTermHasChanged);
 	}
 
 	intersectionObserverCallback (entries: IntersectionObserverEntry[]) {
 		entries.forEach(async (x) => {
-			if (x.isIntersecting && this.chat.config.discussionFetcher) {
-				this.fetchDiscussions();
+			if (x.isIntersecting && this.chat.config.discussionFetcherAsync) {
+				this.fetchDiscussionsAsync();
 			}
 		});
 	}
@@ -104,9 +101,7 @@ export default class OrionChatDiscussionListSetupService extends SharedSetupServ
 
 	resetObservers () {
 		this.intersectionObserver?.disconnect();
-		nextTick(() => {
-			this.initObservers();
-		});
+		nextTick(() => this.initObservers());
 	}
 
 	checkContentScroll () {
@@ -124,7 +119,7 @@ export default class OrionChatDiscussionListSetupService extends SharedSetupServ
 		if (date.valueOf() < useMonkey(new Date()).toMidnight().valueOf()) {
 			return useMonkey(date).toReadable();
 		} else {
-			return useMonkey(date).toReadable('$hours:$minutes');
+			return useMonkey(date).toReadable('$hh:$mm');
 		}
 	}
 

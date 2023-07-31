@@ -1,12 +1,11 @@
 /// <reference path="packages.d.ts"/>
 
-import OrionChatEntity from 'packages/Chat/src/OrionChatEntity';
-import OrionChatMessageEntity from 'packages/ChatMessage/src/OrionChatMessageEntity';
-import { ChatService } from 'services/ChatService';
 import { Component, Slot } from 'vue';
 import { RouteLocationRaw, Router } from 'vue-router';
 import { coolicons } from '../assets/fonts/coolicons';
 import { useValidation } from '../services/index';
+import OrionChatEntity from '../packages/Chat/src/OrionChatEntity';
+import OrionChatMessageEntity from '../packages/ChatMessage/src/OrionChatMessageEntity';
 
 declare global {
 	type Nullable<T> = T | null;
@@ -158,65 +157,6 @@ declare global {
 			index: number;
 		}
 
-		type ChatConfig = {
-			user: ChatUser;
-			allowMessageStatus: boolean;
-			allowDiscussionCreation: boolean;
-			allowDiscussionSearch: boolean;
-			discussionSearchTimer: number;
-			// eslint-disable-next-line max-len
-			discussionFetcher?: (params: { oldestDiscussionId?: number, oldestDiscussionUpdatedDate?: Date, searchTerm: Nil<string>, searchTermHasChanged: boolean }) => Promise<Orion.ChatDiscussion[]>;
-			discussionTitleFormatter?: (discussion: OrionChatEntity) => string;
-			discussionInterlocutorsFormatter?: (discussion: OrionChatEntity) => ChatUser[];
-			discussionUnreadMessagesCounter?: (params: {discussion: OrionChatEntity, discussionId: number, messages: OrionChatMessageEntity[] }) => number;
-			messageFetcher: (params: { discussion: OrionChatEntity, discussionId: number, oldestMessageId?: number }) => Promise<Orion.ChatMessage[]>;
-			onMessageRead: (message: OrionChatMessageEntity) => void;
-			onNewMessage: (message: OrionChatMessageEntity) => void;
-			onActiveDiscussionChange: (discussionId: number, oldDiscussionId: number) => void;
-		}
-
-		type ChatOptions = Partial<ChatConfig> & {
-			user: ChatUser;
-		};
-
-		type ChatUser = {
-			id: number;
-			name: string;
-			avatar: string;
-			avatarProps?: Record<string, any>;
-		};
-
-		type ChatDiscussion = {
-			id: number;
-			createdDate: Date;
-			updatedDate: Date;
-			participants: ChatUser[];
-			lastMessage: Undef<ChatMessage>;
-			messages: ChatMessage[];
-		}
-
-		type ChatMessage = {
-			discussionId: number;
-			id: number;
-			content: string;
-			createdDate: Date;
-			updatedDate: Nullable<Date>;
-			deletedDate: Nullable<Date>;
-			type?: number | string;
-			metaData?: string | Record<string, any>;
-			author: ChatUser;
-			isRead: boolean;
-		}
-
-		type ChatNewMessage = {
-			message: string;
-			discussionId: number;
-		}
-
-		type ChatEntity = InstanceType<typeof OrionChatEntity>;
-
-		type ChatService = InstanceType<typeof ChatService>;
-
 		type NavItem = Partial<{
 			always: boolean;
 			backLabel: string;
@@ -321,6 +261,63 @@ declare global {
 				color?: 'info' | 'success' | 'warning' | 'danger' ;
 				events?: Record<string, (notif: OrionNotif, params: any) => void>;
 			};
+		}
+
+		namespace Chat {
+			type Config = {
+				user: User;
+				allowMessageStatus: boolean;
+				allowDiscussionCreation: boolean;
+				allowDiscussionSearch: boolean;
+				discussionSearchTimer: number;
+				// eslint-disable-next-line max-len
+				discussionFetcherAsync?: (params: { oldestDiscussionId?: number, oldestDiscussionUpdatedDate?: Date, searchTerm?: string, searchTermHasChanged?: boolean }) => Promise<Discussion[]>;
+				discussionTitleFormatter?: (discussion: OrionChatEntity) => string;
+				discussionInterlocutorsFormatter?: (discussion: OrionChatEntity) => User[];
+				discussionUnreadMessagesCounter?: (params: {discussion: OrionChatEntity, discussionId: number, messages: OrionChatMessageEntity[] }) => number;
+				messageFetcherAsync: (params: { discussion: OrionChatEntity, discussionId: number, oldestMessageId?: number }) => Promise<Message[]>;
+				onMessageReadAsync: (message: OrionChatMessageEntity) => void;
+				onNewMessageAsync: (message: OrionChatMessageEntity, registerMessage: () => void) => void;
+				onActiveDiscussionChange: (discussionId?: number, oldDiscussionId?: number) => void;
+			}
+
+			type Options = Partial<Config> & {
+				user: User;
+			};
+
+			type User = {
+				id: number;
+				name: string;
+				avatar: string;
+				avatarProps?: Record<string, any>;
+			};
+
+			type Discussion = {
+				id: number;
+				createdDate: Date;
+				updatedDate?: Date;
+				participants: User[];
+				lastMessage?: Message;
+				messages: Message[];
+			}
+
+			type Message = {
+				discussionId: number;
+				id: number;
+				content?: string;
+				createdDate: Date;
+				updatedDate?: Date;
+				deletedDate?: Date;
+				type?: number | string;
+				metaData?: string | Record<string, any>;
+				author: User;
+				isRead: boolean;
+			}
+
+			type NewMessage = {
+				message: string;
+				discussionId: number;
+			}
 		}
 
 		namespace Private {

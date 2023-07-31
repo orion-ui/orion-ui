@@ -1,7 +1,7 @@
 <template>
 	<aside class="toc-container" v-if="state.titles.length">
 		<nav class="toc-content">
-			<h5>{{tocTitle}}</h5>
+			<h5>{{ tocTitle }}</h5>
 			<ul class="toc-list">
 				<li
 					v-for="item in state.titles"
@@ -10,8 +10,7 @@
 					:class="`toc-list__item--${item.tagName}`">
 					<a 
 						:href="'#' + item.id"
-						:id="'toc-' + item.id"
-						@click="makeActiveOnclick(item.id)">
+						:id="'toc-' + item.id">
 						{{ capitalizeFirstLetter(item.innerText.replace(/#\s?/, '')) }}
 					</a>
 				</li>
@@ -30,7 +29,7 @@ import { useRouter } from 'vue-router';
 import { DefaultThemePageFrontmatter } from 'vuepress-vite';
 
 const scrollSpy = throttle(() => {
-		checkActive();
+	checkActive();
 }, 100);
 
 const frontmatter = usePageFrontmatter<DefaultThemePageFrontmatter>()
@@ -59,10 +58,10 @@ const tocTitle = computed(() => {
 })
 
 const router = useRouter();
-watch(() => router.currentRoute.value, () => {
-	nextTick(() => {
-		getTitles();
-	});
+watch(() => router.currentRoute.value, (to, from) => {
+	if (from.fullPath !== to.fullPath) {
+		nextTick(getTitles);
+	}
 })
 
 onMounted(() => {
@@ -82,11 +81,14 @@ onUnmounted(() => {
 
 function getTitles () {
 	state.titles.length = 0;
+	nextTick(() => {
 		const tab = document.querySelectorAll('h2, h3');
 		tab.forEach((item) => {
 			if (item.id !== '')
 				state.titles.push(item as HTMLElement);
 		});
+		nextTick(checkScroll)
+	})
 }
 
 function checkScroll () {
@@ -119,15 +121,6 @@ function removeAllActive () {
 	const sections = [...state.titles];
 	[...Array(sections.length).keys()].forEach((link) => removeActive(link));
 } 
-
-function makeActiveOnclick(item: string) {
-
-	const element = document.getElementById('toc-' + item);
-	setTimeout( () => {
-		removeAllActive();
-		element?.classList.add("active");
-	}, 100) 
-}
 </script>
 
 <style scoped lang="less">
