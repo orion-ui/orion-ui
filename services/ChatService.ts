@@ -5,6 +5,7 @@ import { reactive } from 'vue';
 import OrionChatMessageEntity from '../packages/ChatMessage/src/OrionChatMessageEntity';
 import OrionChatEntity from '../packages/Chat/src/OrionChatEntity';
 import { getUid } from 'utils/tools';
+import { groupBy } from 'lodash-es';
 
 
 const defaultConfig: Omit<Orion.Chat.Config, 'user'> & {user: Undef<Orion.Chat.User>} = {
@@ -169,13 +170,18 @@ export class ChatService {
 		this.config.onMessageReadAsync(message);
 	}
 
-	addMessagesToDiscussion (discussionId: number, messages: Orion.Chat.Message[]) {
-		const discussion = this.getDiscussion(discussionId);
-		if (discussion) {
-			messages.forEach(m => new OrionChatMessageEntity(m, discussion));
-			discussion.setLastMessageFromRegistered();
-			this.bus.emit('message-added', discussion.id);
-		}
+	addMessagesToDiscussions (messages: Orion.Chat.Message[]) {
+		const discussionIds = groupBy(messages, 'discussionId');
+
+		Object.keys(discussionIds).forEach((discussionId) => {
+			const discussion = this.getDiscussion(+discussionId);
+			if (discussion) {
+				messages.forEach(m => new OrionChatMessageEntity(m, discussion));
+				discussion.setLastMessageFromRegistered();
+				this.bus.emit('message-added', discussion.id);
+			}
+		});
+
 	}
 
 	async addNewMessageAsync (discussionId: number, content: string) {

@@ -23,7 +23,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import { faker } from '@faker-js/faker';
-import { getUid } from 'utils/tools';
+import { getUid } from 'lib';
 
 type Step = { id: number, img: string, caption: string };
 

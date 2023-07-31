@@ -104,7 +104,7 @@ export default class OrionChatEntity extends SharedEntity<Orion.Chat.Discussion>
 	}
 
 	addMessages (messages: Orion.Chat.Message[]) {
-		this.chat.addMessagesToDiscussion(this.id, messages);
+		this.chat.addMessagesToDiscussions(messages);
 	}
 
 	getMessageEntity (id: number) {

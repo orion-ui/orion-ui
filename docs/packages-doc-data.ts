@@ -910,10 +910,10 @@ const packagesDocData = new Map([
 	[
 		'Chat',
 		{
-			localTypes: { 'ChatEmit': '{ (e: \'new-message\', payload: Orion.ChatNewMessage): void; }' },
+			localTypes: { 'ChatEmit': '{ (e: \'new-message\', payload: Orion.Chat.NewMessage): void; }' },
 			events: [{
 				'name': 'new-message',
-				'payload': 'Orion.ChatNewMessage',
+				'payload': 'Orion.Chat.NewMessage',
 				'optional': false,
 				'desc': {
 					'en': 'emitted when a new message is sent',
@@ -932,7 +932,7 @@ const packagesDocData = new Map([
 					'type': 'OrionChatEntity',
 					'desc': {
 						'en': 'Instance of the discussion entity',
-						'fr': 'instance de l\'entité `discussion`',
+						'fr': 'Instance de l\'entité `discussion`',
 					},
 				}],
 			}, {
@@ -946,7 +946,14 @@ const packagesDocData = new Map([
 					'type': 'OrionChatEntity',
 					'desc': {
 						'en': 'Instance of the discussion entity',
-						'fr': 'instance de l\'entité `discussion`',
+						'fr': 'Instance de l\'entité `discussion`',
+					},
+				}, {
+					'bind': 'showSearch',
+					'type': 'boolean',
+					'desc': {
+						'en': '`true` if the search field is displayed',
+						'fr': '`true` si le champ de recherche est affiché',
 					},
 				}],
 			}, {
@@ -960,7 +967,7 @@ const packagesDocData = new Map([
 					'type': 'OrionChatEntity',
 					'desc': {
 						'en': 'Instance of the discussion entity',
-						'fr': 'instance de l\'entité `discussion`',
+						'fr': 'Instance de l\'entité `discussion`',
 					},
 				}],
 			}],
@@ -1047,7 +1054,14 @@ const packagesDocData = new Map([
 					'en': 'the content of the discussion item',
 					'fr': 'contenu d\'un élément de la liste',
 				},
-				'bindings': [],
+				'bindings': [{
+					'bind': 'discussion',
+					'type': 'OrionChatEntity',
+					'desc': {
+						'en': 'the discussion\'s instance',
+						'fr': 'l\'instance de la discussion',
+					},
+				}],
 			}, {
 				'name': 'append-discussion-item',
 				'desc': {
@@ -1424,9 +1438,6 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'setHasBeenFocus',
 				'type': '(value: boolean) => void',
-			}, {
-				'name': 'isValid',
-				'type': '() => boolean',
 			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
@@ -1814,9 +1825,6 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'setHasBeenFocus',
 				'type': '(value: boolean) => void',
-			}, {
-				'name': 'isValid',
-				'type': '() => boolean',
 			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
@@ -2483,9 +2491,6 @@ const packagesDocData = new Map([
 				'name': 'setHasBeenFocus',
 				'type': '(value: boolean) => void',
 			}, {
-				'name': 'isValid',
-				'type': '() => boolean',
-			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
 			}],
@@ -2955,9 +2960,6 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'setHasBeenFocus',
 				'type': '(value: boolean) => void',
-			}, {
-				'name': 'isValid',
-				'type': '() => boolean',
 			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
@@ -3578,9 +3580,6 @@ const packagesDocData = new Map([
 				'name': 'setHasBeenFocus',
 				'type': '(value: boolean) => void',
 			}, {
-				'name': 'isValid',
-				'type': '() => boolean',
-			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
 			}],
@@ -3876,9 +3875,6 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'setHasBeenFocus',
 				'type': '(value: boolean) => void',
-			}, {
-				'name': 'isValid',
-				'type': '() => boolean',
 			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
@@ -4985,9 +4981,6 @@ const packagesDocData = new Map([
 				'name': 'setHasBeenFocus',
 				'type': '(value: boolean) => void',
 			}, {
-				'name': 'isValid',
-				'type': '() => boolean',
-			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
 			}],
@@ -5255,9 +5248,6 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'setHasBeenFocus',
 				'type': '(value: boolean) => void',
-			}, {
-				'name': 'isValid',
-				'type': '() => boolean',
 			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
@@ -5785,9 +5775,6 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'setHasBeenFocus',
 				'type': '(value: boolean) => void',
-			}, {
-				'name': 'isValid',
-				'type': '() => boolean',
 			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
@@ -6525,9 +6512,6 @@ const packagesDocData = new Map([
 				'name': 'setHasBeenFocus',
 				'type': '(value: boolean) => void',
 			}, {
-				'name': 'isValid',
-				'type': '() => boolean',
-			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
 			}],
@@ -7112,9 +7096,6 @@ const packagesDocData = new Map([
 				'name': 'setHasBeenFocus',
 				'type': '(value: boolean) => void',
 			}, {
-				'name': 'isValid',
-				'type': '() => boolean',
-			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
 			}],
@@ -7612,9 +7593,6 @@ const packagesDocData = new Map([
 				'name': 'setHasBeenFocus',
 				'type': '(value: boolean) => void',
 			}, {
-				'name': 'isValid',
-				'type': '() => boolean',
-			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
 			}],
@@ -8098,9 +8076,6 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'setHasBeenFocus',
 				'type': '(value: boolean) => void',
-			}, {
-				'name': 'isValid',
-				'type': '() => boolean',
 			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',

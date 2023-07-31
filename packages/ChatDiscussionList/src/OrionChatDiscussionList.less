@@ -68,6 +68,7 @@
 
 		&-content {
 			display: flex;
+			align-items: center;
 
 			> div {
 				min-width: 0;
@@ -76,8 +77,9 @@
 
 		&-avatars {
 			.square(calc(50rem / 16));
-			margin-right: 0.5rem;
 			display: flex;
+			align-self: flex-start;
+			margin-right: 0.5rem;
 
 			+ div {
 				flex: 1;

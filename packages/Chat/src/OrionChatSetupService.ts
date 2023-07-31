@@ -82,7 +82,6 @@ export default class OrionChatSetupService extends SharedSetupService<Props> {
 	get searchTerm () { return this.state.searchTerm; }
 	set searchTerm (val) { this.state.searchTerm = val; }
 
-
 	get newMessage () { return this.state.newMessage; }
 	set newMessage (val) { this.state.newMessage = val; }
 
