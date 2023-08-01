@@ -52,6 +52,7 @@ const navMain: OrionNavMain.Props = {
 			icon: 'alarm',
 			// eslint-disable-next-line no-console
 			callback: (item, ev) => console.log(item, ev),
+			if: () => false,
 		},
 		{
 			label: `Sandbox`,
@@ -96,6 +97,7 @@ const LayoutConfig = computed<Orion.LayoutConfig>(() => ({
 				icon: 'alarm',
 				// eslint-disable-next-line no-console
 				callback: (item, ev) => console.log(item, ev),
+				if: () => false,
 			},
 			...packagesNavigation.slice(0, 3) ],
 	},
@@ -107,6 +109,7 @@ const LayoutConfig = computed<Orion.LayoutConfig>(() => ({
 				icon: 'alarm',
 				// eslint-disable-next-line no-console
 				callback: (item, ev) => console.log(item, ev),
+				if: () => false,
 			},
 			...packagesNavigation.slice(0, 4),
 		],

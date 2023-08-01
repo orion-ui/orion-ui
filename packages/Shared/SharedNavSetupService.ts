@@ -12,7 +12,7 @@ export default abstract class SharedNavSetupService<P> extends SharedSetupServic
 
 
 	get itemsToDisplay () {
-		return this.items?.filter(x => x.if !== false);
+		return this.items?.filter(x => typeof x.if === 'function' ? x.if() : x.if !== false);
 	}
 
 
