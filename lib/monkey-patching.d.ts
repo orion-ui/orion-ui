@@ -10,6 +10,7 @@ interface Array<T> {
   mapKey<K extends keyof T>(keyPath?: K): T[K][];
   findByKey<K extends keyof T>(keyValue: T[K], key?: K): T | undefined;
   pushUniq(item: T): T[];
+  filterNil(): T[];
 }
 
 interface Date {

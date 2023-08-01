@@ -18,6 +18,8 @@ declare global {
 
 	type SetupProps<T> = Readonly<import('vue').ExtractPropTypes<T>>
 
+	type OrionValidator = ReturnType<typeof useValidation>;
+
 	type OrionValidatorRule = ReturnType<ReturnType<typeof useValidation>['rule']>;
 
 	type OrionValidatorMessages = Partial<{
