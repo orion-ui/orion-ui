@@ -27,7 +27,11 @@ export default class OrionNavMainSetupService extends SharedNavSetupService<Prop
 	get items () { return this.props.items; }
 
 	get itemsToDisplay () {
-		let itemsToDisplay = this.state.menuHistory.slice(-1)[0]?.filter(x => x.if !== false && !x.always) as Orion.NavItem[];
+		let itemsToDisplay = this.state.menuHistory.slice(-1)[0]?.filter((x) => {
+			return typeof x.if === 'function'
+				? !x.always && x.if()
+				: !x.always && x.if !== false;
+		}) as Orion.NavItem[];
 
 		if (this.state.menuHistory.length > 1) {
 			let backLink = itemsToDisplay.find(x => !!x.backLabel);
@@ -47,13 +51,21 @@ export default class OrionNavMainSetupService extends SharedNavSetupService<Prop
 			}
 		}
 
-		itemsToDisplay = concat(this.props.items.filter(x => x.always && x.if !== false), itemsToDisplay);
+		itemsToDisplay = concat(this.props.items.filter((x) => {
+			return typeof x.if === 'function'
+				? x.always && x.if()
+				: x.always && x.if !== false;
+		}), itemsToDisplay);
 
 		return itemsToDisplay;
 	}
 
 	get itemsToDisplayTop () {
-		return this.props.navTop?.items?.filter(x => x.if !== false);
+		return this.props.navTop?.items?.filter((x) => {
+			return typeof x.if === 'function'
+				? x.if()
+				: x.if !== false;
+		});
 	}
 
 

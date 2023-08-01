@@ -156,6 +156,14 @@ class ArrayMonkeyPatching<T> extends Array<T> {
 		if (!this.includes(item)) this.push(item);
 		return this as T[];
 	}
+
+	/**
+	 * @desc return the array without null or undefined items
+	 * @return {*}  {T[]}
+	 */
+	filterNil (): T[] {
+		return this.filter(x => x !== undefined && x !== null);
+	}
 }
 
 class DateMonkeyPatching extends Date {
