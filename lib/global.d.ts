@@ -4,6 +4,7 @@ import { Component, Slot } from 'vue';
 import { RouteLocationRaw, Router } from 'vue-router';
 import { coolicons } from '../assets/fonts/coolicons';
 import { useValidation } from '../services/index';
+import { ValidationArrayType } from '../services/ValidationService';
 import OrionChatEntity from '../packages/Chat/src/OrionChatEntity';
 import OrionChatMessageEntity from '../packages/ChatMessage/src/OrionChatMessageEntity';
 
@@ -18,7 +19,7 @@ declare global {
 
 	type SetupProps<T> = Readonly<import('vue').ExtractPropTypes<T>>
 
-	type OrionValidator = ReturnType<typeof useValidation>;
+	type OrionValidator<T extends Record<string, any>> = ReturnType<typeof useValidation<T, ValidationArrayType<T>>>;
 
 	type OrionValidatorRule = ReturnType<ReturnType<typeof useValidation>['rule']>;
 
