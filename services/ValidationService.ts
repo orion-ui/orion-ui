@@ -1,8 +1,8 @@
 import { get } from 'lodash-es';
 import { reactive } from 'vue';
 
-type ValidationArrayType = {
-  [key: string]: string | Function;
+export type ValidationArrayType<T extends Record<string, any>> = {
+  [K in keyof T]?: string | Function;
 }
 
 type FieldHasBeenFocusSetter = {
@@ -17,7 +17,7 @@ type PhoneValidation = Record<
 	}
 >;
 
-class ValidationService<T extends ValidationArrayType> {
+class ValidationService<T extends ValidationArrayType<any>> {
 	private regexRegistry = {
 		password: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,60}$/,
 		hasLowercase: /[a-z]/,
@@ -189,6 +189,6 @@ class ValidationService<T extends ValidationArrayType> {
 	}
 }
 
-export default function useValidation<T extends ValidationArrayType> (objectToValidate?: Record<string, any>, validatorRules?: T) {
+export default function useValidation<T extends Record<string, any>, V extends ValidationArrayType<T>> (objectToValidate?: T, validatorRules?: V) {
 	return new ValidationService(objectToValidate, validatorRules);
 }

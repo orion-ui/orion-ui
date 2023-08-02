@@ -194,6 +194,11 @@ const serviceDocData = new Map([
 						'description': 'item to add',
 					}],
 				},
+				filterNil: {
+					'description': 'return the array without null or undefined items',
+					'return': '{*}  {T[]}',
+					'param': [],
+				},
 			},
 			'Date': {
 				toPost: {
