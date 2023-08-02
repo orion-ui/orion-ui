@@ -35,6 +35,11 @@ const globalTypesDocData = {
 		'description': 'Readonly<import(\'vue\').ExtractPropTypes<T>> \n',
 	}, {
 		'ns': 'global',
+		'type': 'OrionValidator',
+		'generic': 'T extends Record<string, any>',
+		'description': 'ReturnType<typeof useValidation<T, ValidationArrayType<T>>>; \n',
+	}, {
+		'ns': 'global',
 		'type': 'OrionValidatorRule',
 		'generic': '',
 		'description': 'ReturnType<ReturnType<typeof useValidation>[\'rule\']>; \n',
