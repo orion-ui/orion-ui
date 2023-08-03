@@ -66,12 +66,6 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Prop
 			type: Object,
 			default: undefined,
 		},
-		// @doc props/validationErrorMessage the error message displayed after input's validation.
-		// @doc/fr props/validationErrorMessage le message d'erreur affiché en cas d'erreur lors de la validation
-		validationErrorMessage: {
-			type: String,
-			default: undefined,
-		},
 	};
 
 	static cleaveDirective: Directive = {

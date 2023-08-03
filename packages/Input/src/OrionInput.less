@@ -3,7 +3,7 @@
 
 .orion-input {
 	position: relative;
-	height: 2.5rem;
+	// height: 2.5rem;
 	margin: 0.5rem 0;
 	overflow-x: clip;
 	font-size: 0.85rem;
@@ -181,9 +181,17 @@
 		}
 	}
 
-	&__errorMessage {
+	&__error-message {
+		margin-top: 0.25rem;
 		color: var(--danger);
 		font-size: 0.75rem;
+		line-height: 1.3;
+		padding: 0 0.25rem;
+
+		.orion-datepicker--range > &,
+		.orion-select > & {
+			margin-top: 0;
+		}
 	}
 
 	&__pictos {
@@ -191,6 +199,7 @@
 		top: calc(1rem / 16);
 		bottom: calc(1rem / 16);
 		right: calc(1rem / 16);
+		height: calc(2.5rem - 2rem / 16);
 		border-radius: 0.25rem;
 		display: flex;
 		align-items: center;

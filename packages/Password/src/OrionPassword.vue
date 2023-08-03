@@ -20,6 +20,7 @@
 				@change="setup.handleChange()"
 				@focus="setup.handleFocus($event)"
 				@blur="setup.handleBlur($event)">
+
 			<template #icon-suffix>
 				<orion-icon
 					class="orion-input__reveal"
@@ -27,6 +28,12 @@
 					ripple="default"
 					@click="setup.toggleReveal()"/>
 			</template>
+
+			<div
+				v-if="!setup.isValid && setup.orionFieldBinding.showError"
+				class="orion-input__error-message">
+				{{ setup.props.validationErrorMessage }}
+			</div>
 		</orion-field>
 
 		<template #popper>
