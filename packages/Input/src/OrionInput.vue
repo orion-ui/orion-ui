@@ -18,11 +18,12 @@
 			@change="setup.handleChange()"
 			@focus="setup.handleFocus($event)"
 			@blur="setup.handleBlur($event)">
-		<span
+
+		<div
 			v-if="!setup.isValid && setup.orionFieldBinding.showError"
-			class="orion-input__errorMessage">
+			class="orion-input__error-message">
 			{{ setup.props.validationErrorMessage }}
-		</span>
+		</div>
 	</orion-field>
 </template>
 

@@ -75,6 +75,12 @@
 					:class="{ 'open' : setup.isFocus }"
 					:loading="setup.isFetching"/>
 			</template>
+
+			<div
+				v-if="!setup.isValid && setup.orionFieldBinding.showError"
+				class="orion-input__error-message">
+				{{ setup.props.validationErrorMessage }}
+			</div>
 		</orion-field>
 
 		<template #popper>

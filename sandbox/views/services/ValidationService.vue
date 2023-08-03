@@ -24,133 +24,132 @@
 
 		<div class="row row--grid">
 			<div class="col-sm-6">
-				<o-input
-					v-model="user.name"
-					class="grid-input"
-					label="Test validation required et length"
-					:validation="validator.rule('name')"/>
-				<o-input
-					v-model="user.login.email"
-					type="email"
-					class="grid-input"
-					label="Test validation email"
-					validation-error-message="Email invalide"
-					:validation="validator.rule('login.email')"/>
-				<o-input
-					v-model="user.date"
-					class="grid-input"
-					label="Test validation fonction"
-					:validation="validator.rule('date')"/>
-				<o-phone
-					v-model="user.phone"
-					label="téléphone"
-					:validation="validator.rule('phone')"
-					mobile/>
-
-				<o-password
-					v-model="user.password.value"
-					password-tooltip
-					label="Mot de passe"
-					:validation="validator.rule('password.value')"
-					:validation-messages="passwordValidationMessages"/>
-
-				<o-password
-					v-model="user.password.passwordConfirm"
-					password-tooltip
-					label="Confirm password"
-					:validation="validator.rule('password.passwordConfirm')"/>
-
-				<o-checkbox
-					v-model="user.choice"
-					required
-					label="On coche ?"
-					:validation="validator.rule('choice')"
-					inline
-					style="margin-right:20px"/>
-
-				<o-radio
-					v-model="user.radio"
-					input-value="Oui"
-					label="Oui"
-					inline
-					style="margin-right:20px"/>
-				<o-radio
-					v-model="user.radio"
-					input-value="Non"
-					label="Non"
-					inline
-					style="margin-right:20px"/>
-				<o-radio
-					v-model="user.radio"
-					required
-					input-value="Peut être"
-					label="Peut être"
-					:validation="validator.rule('radio')"
-					inline
-					style="margin-right:20px"/>
-
-				<o-toggle
-					v-model="user.toggle"
-					label="Toggle"
-					size="xs"
-					inline
-					style="margin-right:20px"/>
-
-				<o-toggle
-					v-model="user.toggleRequired"
-					label="Required"
-					required
-					:validation="validator.rule('toggleRequired')"
-					size="xs"
-					inline
-					style="margin-right:20px"/>
-
-				<o-datepicker
-					v-model="user.datePicker"
-					label="Date picker"
-					required
-					:validation="validator.rule('datePicker')"
-					clearable/>
-
-				<o-datepicker
-					v-model:range="user.daterange.value"
-					required
-					clearable
-					type="range"
-					label="Date range"
-					:validation="validator.rule('daterange.value')"/>
-
-				<o-select
-					v-model="user.select"
-					label="Select"
-					required
-					clearable
-					:validation="validator.rule('select')"
-					:options="['oui', 'non', 'peut etre']"/>
-
-				<o-textarea
-					v-model="user.area"
-					required
-					clearable
-					label="Text area"
-					:validation="validator.rule('area')"
-					@submit="onSubmit()"/>
-
-				<o-alert :color="resultColor">
-					Le résultat est .... {{ result }}
-				</o-alert>
-
-				<hr>
-
-				<o-input
-					v-model="testMail"
-					label="test mail"
-					validation="required|email"/>
-				<o-input
-					v-model="testMail"
-					required
-					label="test mail length"
-					:validation="validateTestMail"/>
+				<div class="flex fd-c g-sm">
+					<o-input
+						v-model="user.name"
+						class="grid-input"
+						label="Test validation required et length"
+						:validation-error-message="testLongErrorMessage"
+						:validation="validator.rule('name')"/>
+					<o-input
+						v-model="user.login.email"
+						type="email"
+						class="grid-input"
+						label="Test validation email"
+						validation-error-message="Email invalide"
+						:validation="validator.rule('login.email')"/>
+					<o-input
+						v-model="user.date"
+						class="grid-input"
+						label="Test validation fonction"
+						:validation="validator.rule('date')"/>
+					<o-phone
+						v-model="user.phone"
+						label="téléphone"
+						:validation-error-message="testLongErrorMessage"
+						:validation="validator.rule('phone')"
+						mobile/>
+					<o-password
+						v-model="user.password.value"
+						password-tooltip
+						label="Mot de passe"
+						:validation-error-message="testLongErrorMessage"
+						:validation="validator.rule('password.value')"
+						:validation-messages="passwordValidationMessages"/>
+					<o-password
+						v-model="user.password.passwordConfirm"
+						password-tooltip
+						label="Confirm password"
+						:validation="validator.rule('password.passwordConfirm')"/>
+					<o-checkbox
+						v-model="user.choice"
+						required
+						label="On coche ?"
+						:validation-error-message="testLongErrorMessage"
+						:validation="validator.rule('choice')"
+						inline
+						style="margin-right:20px"/>
+					<o-radio
+						v-model="user.radio"
+						input-value="Oui"
+						label="Oui"
+						inline
+						style="margin-right:20px"/>
+					<o-radio
+						v-model="user.radio"
+						input-value="Non"
+						label="Non"
+						inline
+						style="margin-right:20px"/>
+					<o-radio
+						v-model="user.radio"
+						required
+						input-value="Peut être"
+						label="Peut être"
+						:validation-error-message="testLongErrorMessage"
+						:validation="validator.rule('radio')"
+						inline
+						style="margin-right:20px"/>
+					<o-toggle
+						v-model="user.toggle"
+						label="Toggle"
+						size="xs"
+						inline
+						style="margin-right:20px"/>
+					<o-toggle
+						v-model="user.toggleRequired"
+						label="Required"
+						required
+						:validation-error-message="testLongErrorMessage"
+						:validation="validator.rule('toggleRequired')"
+						size="xs"
+						inline
+						style="margin-right:20px"/>
+					<o-datepicker
+						v-model="user.datePicker"
+						label="Date picker"
+						required
+						:validation-error-message="testLongErrorMessage"
+						:validation="validator.rule('datePicker')"
+						clearable/>
+					<o-datepicker
+						v-model:range="user.daterange.value"
+						required
+						clearable
+						type="range"
+						label="Date range"
+						:validation-error-message="testLongErrorMessage"
+						:validation="validator.rule('daterange.value')"/>
+					<o-select
+						v-model="user.select"
+						label="Select"
+						required
+						clearable
+						:validation-error-message="testLongErrorMessage"
+						:validation="validator.rule('select')"
+						:options="['oui', 'non', 'peut etre']"/>
+					<o-textarea
+						v-model="user.area"
+						required
+						clearable
+						label="Text area"
+						:validation-error-message="testLongErrorMessage"
+						:validation="validator.rule('area')"
+						@submit="onSubmit()"/>
+					<o-alert :color="resultColor">
+						Le résultat est .... {{ result }}
+					</o-alert>
+					<hr>
+					<o-input
+						v-model="testMail"
+						label="test mail"
+						validation="required|email"/>
+					<o-input
+						v-model="testMail"
+						required
+						label="test mail length"
+						:validation="validateTestMail"/>
+				</div>
 			</div>
 
 			<div class="col-sm-6">
@@ -167,6 +166,8 @@ import { ref, reactive } from 'vue';
 
 const testMail = ref<string>();
 const validateTestMail = () => (testMail.value?.length ?? 0) > 5;
+// eslint-disable-next-line max-len, @typescript-eslint/no-unused-vars
+const testLongErrorMessage = 'Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Donec sed odio dui. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.';
 
 let user = reactive({
 	name: '',
@@ -217,9 +218,9 @@ let tab = {
 };
 
 const passwordValidationMessages: OrionValidatorMessages = {
-	hasLowercase: 'faut des minuscules',
-	hasUppercase: 'faut des majusculues',
-	hasNumber: 'faut des noumbeurs',
+	hasLowercase: 'needs lowercase',
+	hasUppercase: 'needs uppercase',
+	hasNumber: 'needs numbers',
 };
 
 const validator = useValidation(user, tab);
@@ -243,8 +244,5 @@ function onSubmit () {
 
 <style lang="less">
 
-.grid-input {
-	margin-bottom: 40px;
-}
 </style>
 

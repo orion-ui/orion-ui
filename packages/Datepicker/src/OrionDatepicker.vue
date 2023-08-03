@@ -26,6 +26,7 @@
 				@mouseup="setup.handleMouseup($event)"
 				@mousedown="setup.handleMousedown()"
 				@blur="setup.handleBlur($event)">
+
 			<div
 				v-else
 				:ref="setup._input"
@@ -49,6 +50,12 @@
 						{{ setup.displayDateSelected }}
 					</template>
 				</span>
+			</div>
+
+			<div
+				v-if="!setup.isValid && setup.orionFieldBinding.showError"
+				class="orion-input__error-message">
+				{{ setup.props.validationErrorMessage }}
 			</div>
 		</orion-field>
 
