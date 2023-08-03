@@ -66,16 +66,22 @@ export default abstract class SharedFieldSetupService<P, T, E extends FieldEmit 
 			type: Number,
 			default: 0,
 		},
-		// @doc props/validationMessages displays informations about the validation error
-		// @doc/fr props/validationMessages affiche un message concernant l'erreur lors de la validation
-		validationMessages: {
-			type: Object as PropType<OrionValidatorMessages>,
-			default: undefined,
-		},
 		// @doc props/validation the validation for the field
 		// @doc/fr props/validation la validation du champ
 		validation: {
 			type: [String, Function, Object, Boolean] as PropType<string | Function | OrionValidatorRule | boolean>,
+			default: undefined,
+		},
+		// @doc props/validationErrorMessage the error message displayed after input's validation.
+		// @doc/fr props/validationErrorMessage le message d'erreur affiché en cas d'erreur lors de la validation
+		validationErrorMessage: {
+			type: String,
+			default: undefined,
+		},
+		// @doc props/validationMessages displays informations about the validation error
+		// @doc/fr props/validationMessages affiche un message concernant l'erreur lors de la validation
+		validationMessages: {
+			type: Object as PropType<OrionValidatorMessages>,
 			default: undefined,
 		},
 	};

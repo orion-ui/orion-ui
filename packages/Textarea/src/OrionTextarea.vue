@@ -30,6 +30,12 @@
 			class="orion-input__textarea-counter">
 			{{ setup.vModel?.length ?? 0 }}
 		</span>
+
+		<div
+			v-if="!setup.isValid && setup.orionFieldBinding.showError"
+			class="orion-input__error-message">
+			{{ setup.props.validationErrorMessage }}
+		</div>
 	</orion-field>
 </template>
 
