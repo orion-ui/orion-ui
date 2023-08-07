@@ -136,6 +136,11 @@ const packagesRoutes = [
 				component: () => import('sandbox/views/packages/NotifView.vue'),
 			},
 			{
+				name: 'OtpView',
+				path: 'otp',
+				component: () => import('sandbox/views/packages/OtpView.vue'),
+			},
+			{
 				name: 'OverlayView',
 				path: 'overlay',
 				component: () => import('sandbox/views/packages/OverlayView.vue'),

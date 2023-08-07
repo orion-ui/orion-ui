@@ -47,6 +47,7 @@ declare module 'vue' {
 		ONavTabs: typeof import('packages/index')['OrionNavTabs'];
 		ONavTop: typeof import('packages/index')['OrionNavTop'];
 		ONotif: typeof import('packages/index')['OrionNotif'];
+		OOtp: typeof import('packages/index')['OrionOtp'];
 		OOverlay: typeof import('packages/index')['OrionOverlay'];
 		OPage: typeof import('packages/index')['OrionPage'];
 		OPaginate: typeof import('packages/index')['OrionPaginate'];
