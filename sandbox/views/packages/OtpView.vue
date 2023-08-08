@@ -2,6 +2,13 @@
 	<o-page title="Otp">
 		code <pre>{{ test?.code() }}</pre>
 		readable code {{ test?.readableCode() }}
+		<br>
+		<o-button @click="test?.reset()">
+			reset
+		</o-button>
+		<o-button @click="test?.focus()">
+			focus
+		</o-button>
 		<o-otp
 			ref="test"
 			:size="6"

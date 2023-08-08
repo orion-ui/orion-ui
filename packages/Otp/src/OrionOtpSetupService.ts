@@ -107,9 +107,21 @@ export default class OrionOtpSetupService extends SharedSetupService<Props> {
 		this.emits('filled', this.readableCode);
 	}
 
+	reset () {
+		Object.keys(this.code).forEach(key => this.state.code[Number(key)] = '');
+		this.focus();
+	}
+
+	focus () {
+		if (!this._inputs.value) return;
+		this._inputs.value[0].focus();
+	}
+
 	get publicInstance () {
 		return {
 			...super.publicInstance,
+			reset: this.reset.bind(this),
+			focus: this.focus.bind(this),
 			code: () => this.code,
 			readableCode: () => this.readableCode,
 		};
