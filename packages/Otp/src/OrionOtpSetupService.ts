@@ -39,6 +39,17 @@ export default class OrionOtpSetupService extends SharedSetupService<Props> {
 		return result;
 	}
 
+	get publicInstance () {
+		return {
+			...super.publicInstance,
+			reset: this.reset.bind(this),
+			focus: this.focus.bind(this),
+			code: () => this.code,
+			readableCode: () => this.readableCode,
+		};
+	}
+
+
 	constructor (props: Props, emits: Emits) {
 		super(props);
 		this.emits = emits;
@@ -55,6 +66,7 @@ export default class OrionOtpSetupService extends SharedSetupService<Props> {
 			this.splitCodeFromString(this.props.value);
 		}
 	}
+
 
 	splitCodeFromString (value: string) {
 		const array = value.split('');
