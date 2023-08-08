@@ -2,8 +2,8 @@ import SharedSetupService from '../../Shared/SharedSetupService';
 import { PropType, nextTick, reactive, ref, watch } from 'vue';
 
 type Props = SetupProps<typeof OrionOtpSetupService.props>
-type Code = {[key: number]: string }
 type Emits = {(e: 'filled', val: string): void}
+type Code = {[key: number]: string }
 
 export default class OrionOtpSetupService extends SharedSetupService<Props> {
 	static props = {
@@ -23,8 +23,8 @@ export default class OrionOtpSetupService extends SharedSetupService<Props> {
 	};
 
 	readonly _inputs = ref<OrionInput[]>();
-	emits: Emits;
 
+	private emits: Emits;
 	private state = reactive({
 		code: {} as Code,
 		validated: false,
@@ -62,12 +62,12 @@ export default class OrionOtpSetupService extends SharedSetupService<Props> {
 			if (index > this.props.size - 1) return;
 			this.state.code[index+1] = char;
 		});
+
 		if (this._inputs.value)
 			this._inputs.value[this.props.size-1].focus();
 	}
 
 	handleInput (payload: any, index: number) {
-
 		if (!this._inputs.value || payload.length > 1) return;
 
 		if (payload) {
@@ -79,7 +79,6 @@ export default class OrionOtpSetupService extends SharedSetupService<Props> {
 					this.state.validated = !this.state.validated;
 				}
 			}
-
 		}
 	}
 
@@ -100,7 +99,6 @@ export default class OrionOtpSetupService extends SharedSetupService<Props> {
 				this.validate();
 			}
 		});
-
 	}
 
 	validate () {
@@ -109,21 +107,12 @@ export default class OrionOtpSetupService extends SharedSetupService<Props> {
 
 	reset () {
 		Object.keys(this.code).forEach(key => this.state.code[Number(key)] = '');
+		this.state.validated = false;
 		this.focus();
 	}
 
 	focus () {
 		if (!this._inputs.value) return;
 		this._inputs.value[0].focus();
-	}
-
-	get publicInstance () {
-		return {
-			...super.publicInstance,
-			reset: this.reset.bind(this),
-			focus: this.focus.bind(this),
-			code: () => this.code,
-			readableCode: () => this.readableCode,
-		};
 	}
 }
