@@ -22,6 +22,12 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Prop
 		...SharedFieldSetupService.props,
 		allowNegative: Boolean,
 		selectOnFocus: Boolean,
+		// @doc props/autocomplete provides automated assistance in filling out form field values from native html input
+		// @doc/fr props/autocomplete fournit une assitance automatique de remplissage du champ
+		autocomplete: {
+			type: String,
+			default: undefined,
+		},
 		// @doc props/mask the mask applied on the input
 		// @doc/fr props/mask masque appliqué sur le champ
 		mask: {

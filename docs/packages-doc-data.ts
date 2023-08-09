@@ -1007,6 +1007,12 @@ const packagesDocData = new Map([
 				},
 			}],
 			publicInstance: [{
+				'name': 'checkUnreadMessagesInDom',
+				'type': '() => Promise<void>',
+			}, {
+				'name': 'getDiscussionId',
+				'type': '() => number | undefined',
+			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
 			}],
@@ -1411,6 +1417,15 @@ const packagesDocData = new Map([
 					'fr': 'la validation du champ',
 				},
 			}, {
+				'name': 'validationErrorMessage',
+				'defaultValue': 'undefined',
+				'type': 'string',
+				'required': false,
+				'desc': {
+					'en': 'the error message displayed after input\'s validation.',
+					'fr': 'le message d\'erreur affiché en cas d\'erreur lors de la validation',
+				},
+			}, {
 				'name': 'validationMessages',
 				'defaultValue': 'undefined',
 				'type': 'OrionValidatorMessages',
@@ -1422,10 +1437,10 @@ const packagesDocData = new Map([
 			}],
 			publicInstance: [{
 				'name': 'hasBeenFocus',
-				'type': 'boolean',
+				'type': '() => boolean',
 			}, {
 				'name': 'isFocus',
-				'type': 'boolean',
+				'type': '() => boolean',
 			}, {
 				'name': 'focus',
 				'type': '() => void',
@@ -1438,6 +1453,9 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'setHasBeenFocus',
 				'type': '(value: boolean) => void',
+			}, {
+				'name': 'isValid',
+				'type': '() => boolean',
 			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
@@ -1798,6 +1816,15 @@ const packagesDocData = new Map([
 					'fr': 'la validation du champ',
 				},
 			}, {
+				'name': 'validationErrorMessage',
+				'defaultValue': 'undefined',
+				'type': 'string',
+				'required': false,
+				'desc': {
+					'en': 'the error message displayed after input\'s validation.',
+					'fr': 'le message d\'erreur affiché en cas d\'erreur lors de la validation',
+				},
+			}, {
 				'name': 'validationMessages',
 				'defaultValue': 'undefined',
 				'type': 'OrionValidatorMessages',
@@ -1809,10 +1836,10 @@ const packagesDocData = new Map([
 			}],
 			publicInstance: [{
 				'name': 'hasBeenFocus',
-				'type': 'boolean',
+				'type': '() => boolean',
 			}, {
 				'name': 'isFocus',
-				'type': 'boolean',
+				'type': '() => boolean',
 			}, {
 				'name': 'focus',
 				'type': '() => void',
@@ -1825,6 +1852,9 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'setHasBeenFocus',
 				'type': '(value: boolean) => void',
+			}, {
+				'name': 'isValid',
+				'type': '() => boolean',
 			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
@@ -2454,6 +2484,15 @@ const packagesDocData = new Map([
 					'fr': 'la validation du champ',
 				},
 			}, {
+				'name': 'validationErrorMessage',
+				'defaultValue': 'undefined',
+				'type': 'string',
+				'required': false,
+				'desc': {
+					'en': 'the error message displayed after input\'s validation.',
+					'fr': 'le message d\'erreur affiché en cas d\'erreur lors de la validation',
+				},
+			}, {
 				'name': 'validationMessages',
 				'defaultValue': 'undefined',
 				'type': 'OrionValidatorMessages',
@@ -2474,10 +2513,10 @@ const packagesDocData = new Map([
 			}],
 			publicInstance: [{
 				'name': 'hasBeenFocus',
-				'type': 'boolean',
+				'type': '() => boolean',
 			}, {
 				'name': 'isFocus',
-				'type': 'boolean',
+				'type': '() => boolean',
 			}, {
 				'name': 'focus',
 				'type': '() => void',
@@ -2490,6 +2529,9 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'setHasBeenFocus',
 				'type': '(value: boolean) => void',
+			}, {
+				'name': 'isValid',
+				'type': '() => boolean',
 			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
@@ -2933,6 +2975,15 @@ const packagesDocData = new Map([
 					'fr': 'la validation du champ',
 				},
 			}, {
+				'name': 'validationErrorMessage',
+				'defaultValue': 'undefined',
+				'type': 'string',
+				'required': false,
+				'desc': {
+					'en': 'the error message displayed after input\'s validation.',
+					'fr': 'le message d\'erreur affiché en cas d\'erreur lors de la validation',
+				},
+			}, {
 				'name': 'validationMessages',
 				'defaultValue': 'undefined',
 				'type': 'OrionValidatorMessages',
@@ -2944,10 +2995,10 @@ const packagesDocData = new Map([
 			}],
 			publicInstance: [{
 				'name': 'hasBeenFocus',
-				'type': 'boolean',
+				'type': '() => boolean',
 			}, {
 				'name': 'isFocus',
-				'type': 'boolean',
+				'type': '() => boolean',
 			}, {
 				'name': 'focus',
 				'type': '() => void',
@@ -2960,6 +3011,9 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'setHasBeenFocus',
 				'type': '(value: boolean) => void',
+			}, {
+				'name': 'isValid',
+				'type': '() => boolean',
 			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
@@ -3304,6 +3358,15 @@ const packagesDocData = new Map([
 					'fr': 'Missing @doc',
 				},
 			}, {
+				'name': 'autocomplete',
+				'defaultValue': 'undefined',
+				'type': 'string',
+				'required': false,
+				'desc': {
+					'en': 'provides automated assistance in filling out form field values from native html input',
+					'fr': 'fournit une assitance automatique de remplissage du champ',
+				},
+			}, {
 				'name': 'autofocus',
 				'defaultValue': false,
 				'type': 'boolean',
@@ -3563,10 +3626,10 @@ const packagesDocData = new Map([
 			}],
 			publicInstance: [{
 				'name': 'hasBeenFocus',
-				'type': 'boolean',
+				'type': '() => boolean',
 			}, {
 				'name': 'isFocus',
-				'type': 'boolean',
+				'type': '() => boolean',
 			}, {
 				'name': 'focus',
 				'type': '() => void',
@@ -3579,6 +3642,9 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'setHasBeenFocus',
 				'type': '(value: boolean) => void',
+			}, {
+				'name': 'isValid',
+				'type': '() => boolean',
 			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
@@ -3848,6 +3914,15 @@ const packagesDocData = new Map([
 					'fr': 'la validation du champ',
 				},
 			}, {
+				'name': 'validationErrorMessage',
+				'defaultValue': 'undefined',
+				'type': 'string',
+				'required': false,
+				'desc': {
+					'en': 'the error message displayed after input\'s validation.',
+					'fr': 'le message d\'erreur affiché en cas d\'erreur lors de la validation',
+				},
+			}, {
 				'name': 'validationMessages',
 				'defaultValue': 'undefined',
 				'type': 'OrionValidatorMessages',
@@ -3859,10 +3934,10 @@ const packagesDocData = new Map([
 			}],
 			publicInstance: [{
 				'name': 'hasBeenFocus',
-				'type': 'boolean',
+				'type': '() => boolean',
 			}, {
 				'name': 'isFocus',
-				'type': 'boolean',
+				'type': '() => boolean',
 			}, {
 				'name': 'focus',
 				'type': '() => void',
@@ -3875,6 +3950,9 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'setHasBeenFocus',
 				'type': '(value: boolean) => void',
+			}, {
+				'name': 'isValid',
+				'type': '() => boolean',
 			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
@@ -4538,6 +4616,76 @@ const packagesDocData = new Map([
 		},
 	],
 	[
+		'Otp',
+		{
+			localTypes: { 'Emits': '{(e: \'filled\', val: string): void}' },
+			events: [{
+				'name': 'filled',
+				'payload': 'string',
+				'optional': false,
+				'desc': {
+					'en': 'emitted when the code is completed',
+					'fr': 'émis lorsque le code est complété',
+				},
+			}],
+			provide: [],
+			slots: [],
+			props: [{
+				'name': 'dataType',
+				'defaultValue': '\'text\'',
+				'type': '\'number\' | \'text\'',
+				'required': false,
+				'desc': {
+					'en': 'defines the type of the code',
+					'fr': 'definit le type du code',
+				},
+			}, {
+				'name': 'readonly',
+				'defaultValue': false,
+				'type': 'boolean',
+				'required': false,
+				'desc': {
+					'en': 'if set, the code will be on read-only mode',
+					'fr': 'si défini, le code sera en mode read-only',
+				},
+			}, {
+				'name': 'size',
+				'defaultValue': '4',
+				'type': 'number',
+				'required': false,
+				'desc': {
+					'en': 'defines the size of the code',
+					'fr': 'définit la taille du code',
+				},
+			}, {
+				'name': 'value',
+				'defaultValue': 'undefined',
+				'type': 'string',
+				'required': false,
+				'desc': {
+					'en': 'the string value of the code, if it is prefilled',
+					'fr': 'valeur du code sous forme de chaîne de caractères, s\'il est pré-rempli',
+				},
+			}],
+			publicInstance: [{
+				'name': 'reset',
+				'type': '() => void',
+			}, {
+				'name': 'focus',
+				'type': '() => void',
+			}, {
+				'name': 'code',
+				'type': '() => Code',
+			}, {
+				'name': 'readableCode',
+				'type': '() => string',
+			}, {
+				'name': '_el',
+				'type': '() => HTMLElement | undefined',
+			}],
+		},
+	],
+	[
 		'Overlay',
 		{
 			localTypes: {},
@@ -4953,6 +5101,15 @@ const packagesDocData = new Map([
 					'fr': 'la validation du champ',
 				},
 			}, {
+				'name': 'validationErrorMessage',
+				'defaultValue': 'undefined',
+				'type': 'string',
+				'required': false,
+				'desc': {
+					'en': 'the error message displayed after input\'s validation.',
+					'fr': 'le message d\'erreur affiché en cas d\'erreur lors de la validation',
+				},
+			}, {
 				'name': 'validationMessages',
 				'defaultValue': 'undefined',
 				'type': 'OrionValidatorMessages',
@@ -4964,10 +5121,10 @@ const packagesDocData = new Map([
 			}],
 			publicInstance: [{
 				'name': 'hasBeenFocus',
-				'type': 'boolean',
+				'type': '() => boolean',
 			}, {
 				'name': 'isFocus',
-				'type': 'boolean',
+				'type': '() => boolean',
 			}, {
 				'name': 'focus',
 				'type': '() => void',
@@ -4980,6 +5137,9 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'setHasBeenFocus',
 				'type': '(value: boolean) => void',
+			}, {
+				'name': 'isValid',
+				'type': '() => boolean',
 			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
@@ -5221,6 +5381,15 @@ const packagesDocData = new Map([
 					'fr': 'la validation du champ',
 				},
 			}, {
+				'name': 'validationErrorMessage',
+				'defaultValue': 'undefined',
+				'type': 'string',
+				'required': false,
+				'desc': {
+					'en': 'the error message displayed after input\'s validation.',
+					'fr': 'le message d\'erreur affiché en cas d\'erreur lors de la validation',
+				},
+			}, {
 				'name': 'validationMessages',
 				'defaultValue': 'undefined',
 				'type': 'OrionValidatorMessages',
@@ -5232,10 +5401,10 @@ const packagesDocData = new Map([
 			}],
 			publicInstance: [{
 				'name': 'hasBeenFocus',
-				'type': 'boolean',
+				'type': '() => boolean',
 			}, {
 				'name': 'isFocus',
-				'type': 'boolean',
+				'type': '() => boolean',
 			}, {
 				'name': 'focus',
 				'type': '() => void',
@@ -5248,6 +5417,9 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'setHasBeenFocus',
 				'type': '(value: boolean) => void',
+			}, {
+				'name': 'isValid',
+				'type': '() => boolean',
 			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
@@ -5748,6 +5920,15 @@ const packagesDocData = new Map([
 					'fr': 'la validation du champ',
 				},
 			}, {
+				'name': 'validationErrorMessage',
+				'defaultValue': 'undefined',
+				'type': 'string',
+				'required': false,
+				'desc': {
+					'en': 'the error message displayed after input\'s validation.',
+					'fr': 'le message d\'erreur affiché en cas d\'erreur lors de la validation',
+				},
+			}, {
 				'name': 'validationMessages',
 				'defaultValue': 'undefined',
 				'type': 'OrionValidatorMessages',
@@ -5759,10 +5940,10 @@ const packagesDocData = new Map([
 			}],
 			publicInstance: [{
 				'name': 'hasBeenFocus',
-				'type': 'boolean',
+				'type': '() => boolean',
 			}, {
 				'name': 'isFocus',
-				'type': 'boolean',
+				'type': '() => boolean',
 			}, {
 				'name': 'focus',
 				'type': '() => void',
@@ -5775,6 +5956,9 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'setHasBeenFocus',
 				'type': '(value: boolean) => void',
+			}, {
+				'name': 'isValid',
+				'type': '() => boolean',
 			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
@@ -6469,6 +6653,15 @@ const packagesDocData = new Map([
 					'fr': 'la validation du champ',
 				},
 			}, {
+				'name': 'validationErrorMessage',
+				'defaultValue': 'undefined',
+				'type': 'string',
+				'required': false,
+				'desc': {
+					'en': 'the error message displayed after input\'s validation.',
+					'fr': 'le message d\'erreur affiché en cas d\'erreur lors de la validation',
+				},
+			}, {
 				'name': 'validationMessages',
 				'defaultValue': 'undefined',
 				'type': 'OrionValidatorMessages',
@@ -6495,10 +6688,10 @@ const packagesDocData = new Map([
 				'type': '(val?: string) => string | undefined',
 			}, {
 				'name': 'hasBeenFocus',
-				'type': 'boolean',
+				'type': '() => boolean',
 			}, {
 				'name': 'isFocus',
-				'type': 'boolean',
+				'type': '() => boolean',
 			}, {
 				'name': 'focus',
 				'type': '() => void',
@@ -6511,6 +6704,9 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'setHasBeenFocus',
 				'type': '(value: boolean) => void',
+			}, {
+				'name': 'isValid',
+				'type': '() => boolean',
 			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
@@ -7068,6 +7264,15 @@ const packagesDocData = new Map([
 					'fr': 'la validation du champ',
 				},
 			}, {
+				'name': 'validationErrorMessage',
+				'defaultValue': 'undefined',
+				'type': 'string',
+				'required': false,
+				'desc': {
+					'en': 'the error message displayed after input\'s validation.',
+					'fr': 'le message d\'erreur affiché en cas d\'erreur lors de la validation',
+				},
+			}, {
 				'name': 'validationMessages',
 				'defaultValue': 'undefined',
 				'type': 'OrionValidatorMessages',
@@ -7079,10 +7284,10 @@ const packagesDocData = new Map([
 			}],
 			publicInstance: [{
 				'name': 'hasBeenFocus',
-				'type': 'boolean',
+				'type': '() => boolean',
 			}, {
 				'name': 'isFocus',
-				'type': 'boolean',
+				'type': '() => boolean',
 			}, {
 				'name': 'focus',
 				'type': '() => void',
@@ -7095,6 +7300,9 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'setHasBeenFocus',
 				'type': '(value: boolean) => void',
+			}, {
+				'name': 'isValid',
+				'type': '() => boolean',
 			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
@@ -7556,6 +7764,15 @@ const packagesDocData = new Map([
 					'fr': 'la validation du champ',
 				},
 			}, {
+				'name': 'validationErrorMessage',
+				'defaultValue': 'undefined',
+				'type': 'string',
+				'required': false,
+				'desc': {
+					'en': 'the error message displayed after input\'s validation.',
+					'fr': 'le message d\'erreur affiché en cas d\'erreur lors de la validation',
+				},
+			}, {
 				'name': 'validationMessages',
 				'defaultValue': 'undefined',
 				'type': 'OrionValidatorMessages',
@@ -7576,10 +7793,10 @@ const packagesDocData = new Map([
 			}],
 			publicInstance: [{
 				'name': 'hasBeenFocus',
-				'type': 'boolean',
+				'type': '() => boolean',
 			}, {
 				'name': 'isFocus',
-				'type': 'boolean',
+				'type': '() => boolean',
 			}, {
 				'name': 'focus',
 				'type': '() => void',
@@ -7592,6 +7809,9 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'setHasBeenFocus',
 				'type': '(value: boolean) => void',
+			}, {
+				'name': 'isValid',
+				'type': '() => boolean',
 			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
@@ -8049,6 +8269,15 @@ const packagesDocData = new Map([
 					'fr': 'la validation du champ',
 				},
 			}, {
+				'name': 'validationErrorMessage',
+				'defaultValue': 'undefined',
+				'type': 'string',
+				'required': false,
+				'desc': {
+					'en': 'the error message displayed after input\'s validation.',
+					'fr': 'le message d\'erreur affiché en cas d\'erreur lors de la validation',
+				},
+			}, {
 				'name': 'validationMessages',
 				'defaultValue': 'undefined',
 				'type': 'OrionValidatorMessages',
@@ -8060,10 +8289,10 @@ const packagesDocData = new Map([
 			}],
 			publicInstance: [{
 				'name': 'hasBeenFocus',
-				'type': 'boolean',
+				'type': '() => boolean',
 			}, {
 				'name': 'isFocus',
-				'type': 'boolean',
+				'type': '() => boolean',
 			}, {
 				'name': 'focus',
 				'type': '() => void',
@@ -8076,6 +8305,9 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'setHasBeenFocus',
 				'type': '(value: boolean) => void',
+			}, {
+				'name': 'isValid',
+				'type': '() => boolean',
 			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',

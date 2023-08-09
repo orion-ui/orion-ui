@@ -54,6 +54,7 @@ export const en: SidebarConfig = [
 					`/components/OrionEditor.md`,
 					`/components/OrionInput.md`,
 					`/components/OrionInputRange.md`,
+					`/components/OrionOtp.md`,
 					`/components/OrionPassword.md`,
 					`/components/OrionPhone.md`,
 					`/components/OrionRadio.md`,

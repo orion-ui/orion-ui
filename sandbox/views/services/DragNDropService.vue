@@ -26,9 +26,25 @@
 						v-for="item in middle"
 						:key="item.id"
 						:data="item"
-						:tag="`o-sticker`">
+						:tag="`o-sticker`"
+						class="order-pipeline-candidate-sticker">
 						<strong>{{ item.title }} </strong>
+						<o-icon
+							v-tooltip="'tututu'"
+							icon="LinkedIn"/>
 						<o-icon font-icon="layout-module"/>
+						<div class="order-pipeline-candidate-sticker__actions">
+							<o-icon
+								v-tooltip="`Voir le profil`"
+								ripple="info"
+								icon="calendar"
+								@mousedown.stop/>
+							<o-icon
+								v-tooltip="`Discussion`"
+								ripple="info"
+								icon="calendar"
+								@mousedown.stop/>
+						</div>
 					</o-draggable>
 				</o-droppable>
 			</o-section>
@@ -115,6 +131,49 @@ const middle = ref([
 </script>
 
 <style scoped lang="less">
+.order-pipeline-candidate-sticker{
+&:hover {
+		max-height: 6.25rem;
+
+		.order-pipeline-candidate-sticker__actions {
+			max-height: 1rem;
+			margin: 1rem 0 0;
+			pointer-events: all;
+			opacity: 1;
+
+			.orion-icon {
+				opacity: 1;
+
+				each(range(5), {
+					&:nth-child(@{value}) {
+						transition-delay: calc(@value * 0.07s);
+					}
+				})
+			}
+		}
+	}
+
+	&__actions{
+		transition: max-height 0.3s, margin 0.3s, opacity 0.3s;
+		will-change: max-height, margin, opacity;
+		display: flex;
+		width: 100%;
+		justify-content: center;
+		align-items: center;
+		gap: 1.3rem;
+		pointer-events: none;
+		opacity: 0;
+		margin: 0;
+		max-height: 0;
+
+		.orion-icon {
+			transition: opacity 0.3s;
+			font-size: 0.9rem;
+			opacity: 0;
+		}
+	}
+}
+
 .horizontal-scroll {
 	&__container {
 		position: relative;
