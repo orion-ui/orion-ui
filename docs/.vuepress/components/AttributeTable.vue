@@ -8,7 +8,7 @@
 				{{ capitalizeFirstLetter(dataType) }}
 			</h2>
 
-			<h3 v-else :id="dataType" class="attribute-table__title">
+			<h3 v-else :id="dataType  + package" class="attribute-table__title">
 				{{ capitalizeFirstLetter(dataType) }}
 			</h3>
 

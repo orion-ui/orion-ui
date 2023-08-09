@@ -84,7 +84,7 @@ function getTitles () {
 	nextTick(() => {
 		const tab = document.querySelectorAll('h2, h3');
 		tab.forEach((item) => {
-			if (item.id !== '')
+			if (item.id !== '' && !state.titles.includes(item as HTMLElement))
 				state.titles.push(item as HTMLElement);
 		});
 		nextTick(checkScroll)
