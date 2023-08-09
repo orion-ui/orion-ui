@@ -13,15 +13,6 @@
 		</o-button>
 
 		<o-aside ref="_asideA">
-			<template #actions>
-				<o-button
-					prefix-icon="check"
-					color="success"/>
-				<o-button
-					prefix-icon="facebook"
-					color="info"/>
-			</template>
-
 			<o-section title="Aside with actions">
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 				Duis sagittis viverra vulputate. Nunc ultricies ante urna, eget.
@@ -32,6 +23,17 @@
 				Ut ut molestie nisi. Nulla facilisi. Duis volutpat imperdiet nisi.
 			</o-section>
 		</o-aside>
+
+		<teleport
+			v-if="_asideA"
+			:to="_asideA?.actionsSlotId">
+			<o-button
+				prefix-icon="check"
+				color="success"/>
+			<o-button
+				prefix-icon="facebook"
+				color="info"/>
+		</teleport>
 
 		<o-aside ref="_asideB">
 			<template #footer>
@@ -79,16 +81,38 @@ const _asideB = ref<OrionAside>();
 const _asideC = ref<OrionAside>();
 </script>
 
-@hl {16-23,37-44,58-60}
+@hl {29,39-46,60-62}
 
 @lang:en
 ### Slots
 
 There are 3 slots you can use to structure the aside content : `actions`, `header` and `footer`.
+
+:::tip Good to know
+These slots can be accessed using the `teleport` component,
+and targeting the slot id using a string like `#OrionAside-${uid}__$slotName`.\
+Getters are available to easily get aside's slots ids :
+- `posterSlotId`
+- `actionsSlotId`
+- `footerSlotId`
+
+**It is possible to see an example of this syntax with the `actions` slot, line 29.**
+:::
 @lang
 
 @lang:fr
 ### Slots
 
 Il existe 3 slots permettant de structurer le contenu de l'aside : `actions`, `header` and `footer`.
+
+:::tip Bon à savoir
+Il est possible d'accéder à ces slots en utilisant le composant `teleport`,
+ et en ciblant l'id du slot à l'aide d'une string de la forme `#OrionAside-${uid}__$slotName`.\
+Des getters sont disponibles pour récupérer plus facilement les ids correspondants aux différents slots de l'aside :
+- `posterSlotId`
+- `actionsSlotId`
+- `footerSlotId`
+
+**Il est possible de voir un exemple de cette syntaxe avec le slot `actions`, ligne 29.**
+:::
 @lang

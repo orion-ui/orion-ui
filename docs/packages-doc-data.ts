@@ -192,6 +192,15 @@ const packagesDocData = new Map([
 				},
 			}],
 			publicInstance: [{
+				'name': 'posterSlotId',
+				'type': 'string',
+			}, {
+				'name': 'footerSlotId',
+				'type': 'string',
+			}, {
+				'name': 'actionsSlotId',
+				'type': 'string',
+			}, {
 				'name': '_loader',
 				'type': '() => OrionLoader',
 			}, {
@@ -4474,6 +4483,9 @@ const packagesDocData = new Map([
 				},
 			}],
 			publicInstance: [{
+				'name': 'footerSlotId',
+				'type': 'string',
+			}, {
 				'name': '_loader',
 				'type': '() => OrionLoader',
 			}, {

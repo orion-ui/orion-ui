@@ -37,8 +37,15 @@ export default class OrionModalSetupService extends SharedPopableSetupService<Pr
 		}
 	}
 
-	get prompt () {
-		return this.options.prompt as Orion.Modal.Prompt;
+	get prompt () { return this.options.prompt as Orion.Modal.Prompt;}
+
+	get footerSlotId () { return `#OrionModal-${this.uid}__footer`;}
+
+	get publicInstance () {
+		return {
+			...super.publicInstance,
+			footerSlotId: this.footerSlotId,
+		};
 	}
 
 
