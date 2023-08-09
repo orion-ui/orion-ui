@@ -13,6 +13,7 @@
 				type: setup.props.type,
 				disabled: setup.props.disabled,
 				readonly: setup.props.readonly,
+				autocomplete: autocomplete,
 			}"
 			@keydown="setup.handleKeydownGuard($event)"
 			@change="setup.handleChange()"

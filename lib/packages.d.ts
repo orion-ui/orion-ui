@@ -47,6 +47,7 @@ import { OrionNavMainItemSetupService } from '../packages/index';
 import { OrionNavTabsSetupService } from '../packages/index';
 import { OrionNavTopSetupService } from '../packages/index';
 import { OrionNotifSetupService } from '../packages/index';
+import { OrionOtpSetupService } from '../packages/index';
 import { OrionOverlaySetupService } from '../packages/index';
 import { OrionPageSetupService } from '../packages/index';
 import { OrionPaginateSetupService } from '../packages/index';
@@ -272,6 +273,11 @@ declare global {
 	type OrionNotif = InstanceType<typeof OrionNotifSetupService>['publicInstance'];
 	namespace OrionNotif {
 		type Props = ExtractPropTypes<typeof OrionNotifSetupService.props>
+	}
+
+	type OrionOtp = InstanceType<typeof OrionOtpSetupService>['publicInstance'];
+	namespace OrionOtp {
+		type Props = ExtractPropTypes<typeof OrionOtpSetupService.props>
 	}
 
 	type OrionOverlay = InstanceType<typeof OrionOverlaySetupService>['publicInstance'];

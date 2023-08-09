@@ -132,6 +132,11 @@ const packagesNavigation: Orion.NavItem[] = [
 		icon: 'black_lives_matter',
 	},
 	{
+		label: 'Otp',
+		to: { name: 'OtpView' },
+		icon: 'black_lives_matter',
+	},
+	{
 		label: 'Overlay',
 		to: { name: 'OverlayView' },
 		icon: 'black_lives_matter',
