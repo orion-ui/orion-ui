@@ -24,7 +24,7 @@ export default class OrionModalSetupService extends SharedPopableSetupService<Pr
 	protected name = 'OrionModal' as const;
 	protected emit: ModalEmit;
 
-	_prompt = ref<RefDom>();
+	readonly _prompt = ref<RefDom>();
 
 	options = reactive<Orion.Modal.Options>({
 		...this.baseOptions,
@@ -39,12 +39,12 @@ export default class OrionModalSetupService extends SharedPopableSetupService<Pr
 
 	get prompt () { return this.options.prompt as Orion.Modal.Prompt;}
 
-	get footerSlotId () { return `#OrionModal-${this.uid}__footer`;}
+	get slotFooter () { return `#OrionModal-${this.uid}__footer`;}
 
 	get publicInstance () {
 		return {
 			...super.publicInstance,
-			footerSlotId: this.footerSlotId,
+			slotFooter: this.slotFooter,
 		};
 	}
 

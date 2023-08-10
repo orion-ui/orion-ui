@@ -55,19 +55,6 @@
 			</o-section>
 		</o-modal>
 
-
-		<teleport
-			v-if="_modalC"
-			:to="_modalC?.footerSlotId">
-			<o-section>
-				<o-alert
-					color="info"
-					center>
-					Footer with teleport component
-				</o-alert>
-			</o-section>
-		</teleport>
-
 		<o-modal ref="_modalC">
 			<o-section title="Modal with actions from footer slot">
 				<p class="text--grey-dark">
@@ -78,6 +65,16 @@
 					Curabitur libero odio, condimentum ac massa eget, placerat commodo mi.
 				</p>
 			</o-section>
+
+			<teleport
+				v-if="_modalC"
+				:to="_modalC?.slotFooter">
+				<o-alert
+					color="info"
+					center>
+					Footer with teleport component
+				</o-alert>
+			</teleport>
 		</o-modal>
 	</div>
 </template>
@@ -91,7 +88,7 @@ const _modalB = ref<OrionModal>();
 const _modalC = ref<OrionModal>();
 </script>
 
-@hl {13-19,32-41}
+@hl {17-23,36-45,69-77}
 
 @lang:en
 ### Actions & footer slot
@@ -99,11 +96,11 @@ const _modalC = ref<OrionModal>();
 You can add actions to the modal using the property `actions` from the `options` prop or the `footer` slot.
 
 :::tip Good to know
-This slot can be accessed using the `teleport` component,
-and targeting the modal's slot id using a string like `#OrionModal-${uid}__footer`.\
-A getter `footerSlotId` is available to easily get the modal's slot id.
+If you need to access the `footer` slot from a subcomponent of the modal,
+you can use the built-in Vue `teleport` component.\
+Simply provide the `:to` prop using the appropriate getter `slotFooter`.
 
-**It is possible to see an example of this syntax with the `actions` slot, line 61.**
+**You can see an example of this syntax with the `actions` slot, line 69 to 77.**
 :::
 @lang
 
@@ -113,9 +110,10 @@ A getter `footerSlotId` is available to easily get the modal's slot id.
 Il est possible de modifier les actions par défaut en utilisant la propritété `actions` de la prop `options` ou le slot `footer`.
 
 :::tip Bon à savoir
-Il est possible d'accéder à ce slot en utilisant le composant `teleport`,
- et en ciblant l'id du slot de la modal avec une string de la forme `#OrionModal-${uid}__footer`.\
-Un getter `footerSlotId` est disponible pour récupérer plus facilement l'id correspondant au slot de la modal.\
-**Il est possible de voir un exemple de cette syntaxe avec le slot `footer`, ligne 61.**
+Dans le cas où vous auriez besoin d'accéder au slot `footer` depuis un sous composant de la modal
+il est possible d'utiliser le composant `teleport` intégré à Vue.\
+Il suffira de alors de renseigner la prop `:to` en utilisant le getter approprié `slotFooter`.
+
+**Il est possible de voir un exemple de cette syntaxe avec le slot `footer`, lignes 69 à 77.**
 :::
 @lang

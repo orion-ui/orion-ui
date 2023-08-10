@@ -19,18 +19,20 @@ export default class OrionAsideSetupService extends SharedPopableSetupService<Pr
 	protected name = 'OrionAside' as const;
 	protected emit: PopableEmit;
 
-	_actions = ref<RefDom>();
+	readonly _actions = ref<RefDom>();
 
-	get posterSlotId () { return `#OrionAside-${this.uid}__poster`;}
-	get footerSlotId () { return `#OrionAside-${this.uid}__footer`;}
-	get actionsSlotId () { return `#OrionAside-${this.uid}__actions`;}
+	get slotPoster () { return `#OrionAside-${this.uid}__poster`;}
+	get slotFooter () { return `#OrionAside-${this.uid}__footer`;}
+	get slotActions () { return `#OrionAside-${this.uid}__actions`;}
+	get slotHeader () { return `#OrionAside-${this.uid}__header`;}
 
 	get publicInstance () {
 		return {
 			...super.publicInstance,
-			posterSlotId: this.posterSlotId,
-			footerSlotId: this.footerSlotId,
-			actionsSlotId: this.actionsSlotId,
+			slotPoster: this.slotPoster,
+			slotFooter: this.slotFooter,
+			slotActions: this.slotActions,
+			slotHeader: this.slotHeader,
 		};
 	}
 

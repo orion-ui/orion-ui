@@ -10,6 +10,7 @@ import type { OrionModalSetupService } from '../Modal';
 import type { OrionNotifSetupService } from '../Notif';
 
 type Props = SetupProps<typeof SharedPopableSetupService.props>
+type Popable = OrionAside | OrionNotif | OrionModal;
 
 export type PopableEmit = {
 	(e: 'enter-start'): void;
@@ -107,7 +108,7 @@ export default abstract class SharedPopableSetupService<P extends Props> extends
 
 		Object.assign(this.options, props.options);
 
-		_popables[this.options.uid] = this.publicInstance;
+		_popables[this.options.uid] = this.publicInstance as Popable;
 
 		watch(() => this.props.display, (val) => {
 			if (val) {
@@ -137,7 +138,7 @@ export default abstract class SharedPopableSetupService<P extends Props> extends
 		for (const event in this.options.events) {
 			this.bus.on(event, (params) => {
 				if (this.options.events && this.options.events[event]) {
-					this.options.events[event](this.publicInstance, params);
+					this.options.events[event](this.publicInstance as Popable, params);
 				}
 			});
 		}
