@@ -41,7 +41,7 @@ AsideNested
 <legend>Nested component source code</legend>
 <details>
 
-@[code vue{51}](../../packages/Aside/docs/NestedComp.vue)
+@[code vue{50}](../../packages/Aside/docs/NestedComp.vue)
 
 </details>
 </summary>

@@ -13,15 +13,6 @@
 		</o-button>
 
 		<o-aside ref="_asideA">
-			<template #actions>
-				<o-button
-					prefix-icon="check"
-					color="success"/>
-				<o-button
-					prefix-icon="facebook"
-					color="info"/>
-			</template>
-
 			<o-section title="Aside with actions">
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 				Duis sagittis viverra vulputate. Nunc ultricies ante urna, eget.
@@ -31,6 +22,17 @@
 				Praesent eu erat iaculis, venenatis ligula non, fringilla turpis.
 				Ut ut molestie nisi. Nulla facilisi. Duis volutpat imperdiet nisi.
 			</o-section>
+
+			<teleport
+				v-if="_asideA"
+				:to="_asideA?.slotActions">
+				<o-button
+					prefix-icon="check"
+					color="success"/>
+				<o-button
+					prefix-icon="facebook"
+					color="info"/>
+			</teleport>
 		</o-aside>
 
 		<o-aside ref="_asideB">
@@ -79,16 +81,40 @@ const _asideB = ref<OrionAside>();
 const _asideC = ref<OrionAside>();
 </script>
 
-@hl {16-23,37-44,58-60}
+@hl {28,39-46,60-62}
 
 @lang:en
 ### Slots
 
-There are 3 slots you can use to structure the aside content : `actions`, `header` and `footer`.
+There are 4 slots available to structure the content of the aside: `actions`, `header`, `poster`, and `footer`.
+
+:::tip Tip
+If you need to access these slots from a subcomponent of the aside,
+you can use the built-in Vue `teleport` component.\
+Simply provide the `:to` prop using the appropriate getter:
+- `slotPoster`
+- `slotFooter`
+- `slotActions`
+- `slotHeader`
+
+**You can see an example of this syntax with the `actions` slot, lines 26 to 35.**
+:::
 @lang
 
 @lang:fr
 ### Slots
 
-Il existe 3 slots permettant de structurer le contenu de l'aside : `actions`, `header` and `footer`.
+Il existe 4 slots permettant de structurer le contenu de l'aside : `actions`, `header`, `poster` and `footer`.
+
+:::tip Bon à savoir
+Dans le cas où vous auriez besoin d'accéder à ces slots depuis un sous composant de l'aside
+il est possible d'utiliser le composant `teleport` intégré à Vue.\
+Il suffira de alors de renseigner la prop `:to` en utilisant le getter approprié :
+- `slotPoster`
+- `slotFooter`
+- `slotActions`
+- `slotHeader`
+
+**Il est possible de voir un exemple de cette syntaxe avec le slot `actions`, ligne 26 à 35.**
+:::
 @lang

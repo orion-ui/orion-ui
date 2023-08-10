@@ -30,6 +30,9 @@
 					<slot name="header"/>
 				</div>
 				<div
+					v-else
+					:id="`OrionAside-${setup.uid}__header`"/>
+				<div
 					:id="`OrionAside-${setup.uid}__actions`"
 					:ref="setup._actions"
 					class="orion-aside__actions">

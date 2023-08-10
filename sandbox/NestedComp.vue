@@ -99,9 +99,9 @@
 
 		<teleport
 			v-if="_aside"
-			:to="`#OrionAside-${_aside.uid}__actions`">
+			:to="_aside.slotActions">
 			<o-button
-				color="danger"
+				color="warning"
 				prefix-icon="close_big"
 				@click="_aside?.close()"/>
 			<o-button
@@ -115,7 +115,7 @@
 
 		<teleport
 			v-if="_aside"
-			:to="`#OrionAside-${_aside.uid}__footer`">
+			:to="_aside.slotFooter">
 			<o-button
 				color="danger"
 				@click="_aside?.close()">
@@ -125,7 +125,7 @@
 
 		<teleport
 			v-if="_aside"
-			:to="`#OrionAside-${_aside.uid}__poster`">
+			:to="_aside.slotPoster">
 			<img src="https://picsum.photos/1000/500">
 		</teleport>
 	</div>

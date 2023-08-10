@@ -31,6 +31,12 @@
 		<div class="col-sm-4">
 			<color-selection v-model="state.selectedColor"/>
 		</div>
+		<div class="col-sm-4">
+			<o-input
+				v-model="state.hoverElevation"
+				label="Hover elevation"
+				type="number"/>
+		</div>
 	</div>
 	<div class="row row--grid row--toggles">
 		<div class="col-sm-4">
@@ -53,11 +59,6 @@
 				v-model="state.selected"
 				label="Selected"/>
 		</div>
-		<div class="col-sm-4">
-			<o-toggle
-				v-model="state.useElevation"
-				label="Use elevation"/>
-		</div>
 	</div>
 </template>
 
@@ -71,7 +72,7 @@ const state = reactive({
 	selected: false,
 	thumbnail: true,
 	selectedColor: 'info' as Orion.Color,
-	useElevation: true,
+	hoverElevation: 1,
 });
 </script>
 

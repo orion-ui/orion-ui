@@ -30,6 +30,7 @@
 						:gradient="color"
 						:selected-color="color"
 						:title="color"
+						:hover-elevation="index * 1"
 						v-bind="state">
 						<pre style="color:black">{{ color }}</pre>
 						Etiam porta sem malesuada magna mollis euismod.
@@ -44,6 +45,7 @@
 				style="width: 300px;"
 				:selected="state.selected"
 				title="Euismod Aenean Egestas"
+				:hover-elevation="0"
 				@click="notify()">
 				Etiam porta sem malesuada magna mollis euismod.
 
