@@ -37,6 +37,12 @@
 		<div class="col-sm-4">
 			<size-selection v-model="state.size"/>
 		</div>
+		<div class="col-sm-4">
+			<o-input
+				v-model="state.hoverElevation"
+				label="Hover elevation"
+				type="number"/>
+		</div>
 	</div>
 
 	<div class="row row--gutter">
@@ -73,11 +79,6 @@
 				v-model="state.actionsLine"
 				label="Actions Line"/>
 		</div>
-		<div class="col-sm-4">
-			<o-toggle
-				v-model="state.useElevation"
-				label="Use Elevation"/>
-		</div>
 	</div>
 </template>
 
@@ -99,7 +100,7 @@ const state = reactive({
 	headerLine: false,
 	actionsLine: false,
 	size: 'md' as Orion.Size,
-	useElevation: true,
+	hoverElevation: 1,
 });
 </script>
 
