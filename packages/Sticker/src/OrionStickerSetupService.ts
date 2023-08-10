@@ -26,11 +26,11 @@ export default class OrionStickerSetupService extends SharedSetupService<Props> 
 			type: String,
 			default: undefined,
 		},
-		// @doc props/useElevation apply an elevation effect on mouse hover
-		// @doc/fr props/useElevation applique un effet d'élévation au survol de la souris
-		useElevation: {
-			type: Boolean,
-			default: true,
+		// @doc props/hoverElevation elevation level on mouse hover
+		// @doc/fr props/hoverElevation niveau d'élévation au survol de la souris
+		hoverElevation: {
+			type: Number,
+			default: 1,
 		},
 	};
 

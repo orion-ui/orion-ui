@@ -192,6 +192,15 @@ const packagesDocData = new Map([
 				},
 			}],
 			publicInstance: [{
+				'name': 'posterSlotId',
+				'type': 'string',
+			}, {
+				'name': 'footerSlotId',
+				'type': 'string',
+			}, {
+				'name': 'actionsSlotId',
+				'type': 'string',
+			}, {
 				'name': '_loader',
 				'type': '() => OrionLoader',
 			}, {
@@ -549,6 +558,15 @@ const packagesDocData = new Map([
 					'fr': 'affiche une line de sépération entre les slots `header` et `default` de la carte',
 				},
 			}, {
+				'name': 'hoverElevation',
+				'defaultValue': '1',
+				'type': 'number',
+				'required': false,
+				'desc': {
+					'en': 'elevation level on mouse hover',
+					'fr': 'niveau d\'élévation au survol de la souris',
+				},
+			}, {
 				'name': 'selected',
 				'defaultValue': 'false',
 				'type': 'boolean',
@@ -584,15 +602,6 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'the title of the card',
 					'fr': 'titre de la carte',
-				},
-			}, {
-				'name': 'useElevation',
-				'defaultValue': 'true',
-				'type': 'boolean',
-				'required': false,
-				'desc': {
-					'en': 'apply an elevation effect on mouse hover',
-					'fr': 'applique un effet d\'élévation au survol de la souris',
 				},
 			}],
 			publicInstance: [{
@@ -4474,6 +4483,9 @@ const packagesDocData = new Map([
 				},
 			}],
 			publicInstance: [{
+				'name': 'footerSlotId',
+				'type': 'string',
+			}, {
 				'name': '_loader',
 				'type': '() => OrionLoader',
 			}, {
@@ -6751,6 +6763,15 @@ const packagesDocData = new Map([
 					'fr': 'masque les actions du sticker',
 				},
 			}, {
+				'name': 'hoverElevation',
+				'defaultValue': '1',
+				'type': 'number',
+				'required': false,
+				'desc': {
+					'en': 'elevation level on mouse hover',
+					'fr': 'niveau d\'élévation au survol de la souris',
+				},
+			}, {
 				'name': 'muted',
 				'defaultValue': false,
 				'type': 'boolean',
@@ -6785,15 +6806,6 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'title of the sticker',
 					'fr': 'titre du sticker',
-				},
-			}, {
-				'name': 'useElevation',
-				'defaultValue': 'true',
-				'type': 'boolean',
-				'required': false,
-				'desc': {
-					'en': 'apply an elevation effect on mouse hover',
-					'fr': 'applique un effet d\'élévation au survol de la souris',
 				},
 			}],
 			publicInstance: [{

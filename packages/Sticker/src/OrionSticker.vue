@@ -7,7 +7,7 @@
 			{ 'orion-sticker--muted': setup.props.muted },
 			{ 'orion-sticker--clickable': !!$attrs.onClick },
 			{ 'orion-sticker--selected': setup.props.selected },
-			{ 'orion-sticker--no-elevation': !setup.props.useElevation },
+			{ 'orion-sticker--no-elevation': hoverElevation <= 0 },
 		]">
 		<div
 			v-if="$slots.thumbnail"
@@ -67,3 +67,21 @@ defineExpose(setup.publicInstance);
  * @doc/fr slot/actions actions du sticker
  */
 </script>
+
+<style scoped lang="less">
+.orion-sticker:not(.orion-sticker--muted):not(.orion-sticker--no-elevation):hover {
+	--elevation: calc(1rem * v-bind(hoverElevation));
+	--shadowColor: rgba(0, 0, 0, calc(0.03 * (1 + v-bind(hoverElevation) / 5)));
+
+	body:not(.istouch) & {
+		z-index: 1;
+		transform: translate3d(0, -0.125rem, 0);
+		box-shadow:
+			0 calc(var(--elevation) / 8) calc(var(--elevation) / 8) var(--shadowColor),
+			0 calc(var(--elevation) / 4) calc(var(--elevation) / 4) var(--shadowColor),
+			0 calc(var(--elevation) / 2) calc(var(--elevation) / 2) var(--shadowColor),
+			0 var(--elevation) var(--elevation) var(--shadowColor),
+			0 calc(var(--elevation) * 2) calc(var(--elevation) * 2) var(--shadowColor);
+	}
+}
+</style>
