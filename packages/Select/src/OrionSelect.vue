@@ -96,10 +96,11 @@
 					class="orion-select__popover-search-input"
 					size="xs"
 					suffix-icon="search"
-					@keydown.down.prevent="setup.handleKeydown('down')"
-					@keydown.up.prevent="setup.handleKeydown('up')"
-					@keydown.enter="setup.selectItemFromEnter()"
-					@keydown.esc="setup.handleBlur()"
+					@keydown.down.prevent.stop="setup.handleKeydown('down')"
+					@keydown.up.prevent.stop="setup.handleKeydown('up')"
+					@keydown.enter.stop="setup.selectItemFromEnter()"
+					@keydown.esc.stop="setup.handleBlur()"
+					@keydown.tab.prevent.stop="$emit('input-keydown-tab')"
 					@blur="setup.handleBlur()"
 					@input="setup.resetIndex()"/>
 
@@ -178,6 +179,7 @@ type SelectEmit = {
   (e: 'focus', payload: FocusEvent): void;
   (e: 'blur', payload?: FocusEvent): void;
   (e: 'input', payload: VModelType): void;
+  (e: 'input-keydown-tab'): void;
   (e: 'change', val?: VModelType): void;
   (e: 'update:modelValue', payload: VModelType): void;
   (e: 'clear'): void;
@@ -232,6 +234,8 @@ defineExpose(setup.publicInstance);
  * @doc/fr event/blur/desc émis quand le focus quitte le champ
  * @doc event/input/desc emitted when the value of the field changes
  * @doc/fr event/input/desc émis lorsque la valeur est modifiée
+ * @doc event/input-keydown-tab/desc emitted when pressing Tab key from the search field
+ * @doc/fr event/input-keydown-tab/desc émis lors de l'appui sur la touche Tab depuis le champ de recherche
  * @doc event/change/desc emitted when the value of the field changes
  * @doc/fr event/change/desc émis lorsque la valeur est modifiée
  * @doc event/update:modelValue/desc emitted to update the field value

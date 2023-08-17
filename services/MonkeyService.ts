@@ -735,6 +735,11 @@ class StringMonkeyPatching extends String {
 		}
 	};
 
+
+	/**
+	 * @desc returns a hashCode of the string
+	 * @return number
+	 */
 	hashCode () {
 		return this.split('').reduce((a, b) => (((a << 5) - a) + b.charCodeAt(0))|0, 0);
 	};
@@ -751,6 +756,21 @@ class StringMonkeyPatching extends String {
 		const regex = new RegExp(`(${escapeRegExp(valueToMark)})`, 'gmi');
 
 		return this.replace(regex, subst);
+	}
+
+	/**
+	 * @desc return a preview of the string with the given character length and an ellipsis if necessary
+	 * @param {number} charLength the length of the preview
+	 * @param {string} [ellipsis='...'] the ellipsis
+	 * @return string
+	 */
+	preview (charLength: number, ellipsis = '...') {
+		if (this.length <= charLength) {
+			return this.toString();
+		} else {
+			const preview = this.slice(0, charLength - ellipsis.length);
+			return preview + ellipsis;
+		}
 	}
 }
 

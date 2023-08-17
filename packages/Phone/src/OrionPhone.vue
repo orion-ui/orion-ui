@@ -10,7 +10,8 @@
 			:disabled="setup.props.disabled"
 			:options="setup.countryList"
 			:custom-search="setup.customSearch.bind(setup)"
-			@input="setup.emitInput()">
+			@input="setup.emitInput()"
+			@input-keydown-tab="setup._input.value?.focus()">
 			<template #value="{ item }">
 				{{ item !== null && item !== undefined ? item.code : '' }}
 			</template>
