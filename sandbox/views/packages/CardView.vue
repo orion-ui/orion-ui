@@ -45,7 +45,7 @@
 				style="width: 300px;"
 				:selected="state.selected"
 				title="Euismod Aenean Egestas"
-				:hover-elevation="0"
+				:hover-elevation="1"
 				@click="notify()">
 				Etiam porta sem malesuada magna mollis euismod.
 
