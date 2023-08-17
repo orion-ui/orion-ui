@@ -2,6 +2,9 @@
 @import '../../Shared/styles/mixins.less';
 
 .orion-card {
+	--hoverElevation: 1;
+	--elevation: calc(1rem * var(--hoverElevation));
+	--shadowColor: rgba(0, 0, 0, calc(0.03 * (1 + var(--hoverElevation) / 5)));
 	transition: box-shadow 0.3s, transform 0.3s;
 	position: relative;
 	display: flex;
@@ -431,6 +434,22 @@
 		}
 		[data-orion-theme='dark'] & {
 			background: linear-gradient(to bottom right, var(--grey-darker), white);
+		}
+	}
+
+	&:not(.orion-card--no-elevation):hover {
+		body:not(.istouch) & {
+			z-index: 1;
+			transform: translate3d(0, -0.125rem, 0);
+			box-shadow: 0 calc(var(--elevation) / 8) calc(var(--elevation) / 8)
+					var(--shadowColor),
+				0 calc(var(--elevation) / 4) calc(var(--elevation) / 4)
+					var(--shadowColor),
+				0 calc(var(--elevation) / 2) calc(var(--elevation) / 2)
+					var(--shadowColor),
+				0 var(--elevation) var(--elevation) var(--shadowColor),
+				0 calc(var(--elevation) * 2) calc(var(--elevation) * 2)
+					var(--shadowColor);
 		}
 	}
 }
