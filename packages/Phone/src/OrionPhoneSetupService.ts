@@ -102,7 +102,7 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 		watch(() => this.state.hasBeenFocus, (val) => {
 			// reflect validation state changes from OrionPhone to embed input
 			if (this._input.value) {
-				this._input.value.hasBeenFocus = val;
+				this._input.value.setHasBeenFocus(val);
 			}
 		});
 	}
