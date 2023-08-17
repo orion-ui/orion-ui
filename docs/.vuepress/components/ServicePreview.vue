@@ -70,7 +70,7 @@ const jsxListItem = (props : {item : ServiceDataItem, keyname: string}) => {
 								<span class="function-parameters__name"> {name} </span>
 								<code>
 									{type}
-									{ defaultValue ? <span> : {defaultValue}</span> : undefined }
+									{ defaultValue ? <span> = {defaultValue}</span> : undefined }
 								</code>
 								<div class="function__description">
 									<Markdown source={capitalizeFirstLetter(description)

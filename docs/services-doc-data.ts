@@ -397,6 +397,11 @@ const serviceDocData = new Map([
 						'description': 'if set to true, the quantity will be added at the begining of the string',
 					}],
 				},
+				hashCode: {
+					'description': 'returns a hashCode of the string',
+					'return': 'number',
+					'param': [],
+				},
 				mark: {
 					'description': 'highlights in the string, the term given in parameter',
 					'return': 'string',
@@ -404,6 +409,20 @@ const serviceDocData = new Map([
 						'name': 'valueToMark',
 						'type': 'string',
 						'description': 'the term to mark',
+					}],
+				},
+				preview: {
+					'description': 'return a preview of the string with the given character length and an ellipsis if necessary',
+					'return': 'string',
+					'param': [{
+						'name': 'charLength',
+						'type': 'number',
+						'description': 'the length of the preview',
+					}, {
+						'name': 'ellipsis',
+						'type': 'string',
+						'defaultValue': '\'...\'',
+						'description': 'the ellipsis',
 					}],
 				},
 			},

@@ -4,7 +4,8 @@
 		<o-textarea
 			v-model="value"
 			label="My label trop cool"
-			show-length/>
+			show-length
+			suffix-icon="add_column"/>
 	</o-page>
 </template>
 

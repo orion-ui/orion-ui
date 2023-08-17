@@ -14,6 +14,7 @@
 				<div class="col-sm-4">
 					<o-select
 						v-model="data.ajaxSingle"
+						size="xs"
 						track-key="id"
 						display-key="email"
 						value-key="id"

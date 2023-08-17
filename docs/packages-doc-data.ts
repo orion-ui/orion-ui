@@ -6171,7 +6171,7 @@ const packagesDocData = new Map([
 			localTypes: {
 				'BaseVModelType': 'string | number | boolean | Record<string, any>',
 				'VModelType': 'BaseVModelType | BaseVModelType[] | null | undefined',
-				'SelectEmit': '{\n  (e: \'focus\', payload: FocusEvent): void;\n  (e: \'blur\', payload?: FocusEvent): void;\n  (e: \'input\', payload: VModelType): void;\n  (e: \'change\', val?: VModelType): void;\n  (e: \'update:modelValue\', payload: VModelType): void;\n  (e: \'clear\'): void;\n\t(e: \'add\', payload: BaseVModelType): void;\n\t(e: \'remove\', payload: BaseVModelType): void;\n\t(e: \'select\', payload: BaseVModelType): void;\n\t(e: \'fetch-start\', payload: string): void;\n\t(e: \'fetch-end\', payload: BaseVModelType[]): void;\n}',
+				'SelectEmit': '{\n  (e: \'focus\', payload: FocusEvent): void;\n  (e: \'blur\', payload?: FocusEvent): void;\n  (e: \'input\', payload: VModelType): void;\n  (e: \'input-keydown-tab\'): void;\n  (e: \'change\', val?: VModelType): void;\n  (e: \'update:modelValue\', payload: VModelType): void;\n  (e: \'clear\'): void;\n\t(e: \'add\', payload: BaseVModelType): void;\n\t(e: \'remove\', payload: BaseVModelType): void;\n\t(e: \'select\', payload: BaseVModelType): void;\n\t(e: \'fetch-start\', payload: string): void;\n\t(e: \'fetch-end\', payload: BaseVModelType[]): void;\n}',
 			},
 			events: [{
 				'name': 'focus',
@@ -6196,6 +6196,14 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'emitted when the value of the field changes',
 					'fr': 'émis lorsque la valeur est modifiée',
+				},
+			}, {
+				'name': 'input-keydown-tab',
+				'payload': 'undefined',
+				'optional': false,
+				'desc': {
+					'en': 'emitted when pressing Tab key from the search field',
+					'fr': 'émis lors de l\'appui sur la touche Tab depuis le champ de recherche',
 				},
 			}, {
 				'name': 'change',

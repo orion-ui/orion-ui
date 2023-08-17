@@ -4,7 +4,7 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router/index.router';
 import Orion from '../lib';
-import orionAppService from 'utils/Orion';
+// import orionAppService from 'utils/Orion';
 
 const sandboxApp = createApp(App)
 	.use(router)

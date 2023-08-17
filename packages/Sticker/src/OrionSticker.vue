@@ -68,7 +68,7 @@ defineExpose(setup.publicInstance);
  */
 </script>
 
-<style scoped lang="less">
+<style lang="less">
 .orion-sticker:not(.orion-sticker--muted):not(.orion-sticker--no-elevation):hover {
 	--elevation: calc(1rem * v-bind(hoverElevation));
 	--shadowColor: rgba(0, 0, 0, calc(0.03 * (1 + v-bind(hoverElevation) / 5)));
