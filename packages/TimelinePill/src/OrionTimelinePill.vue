@@ -5,6 +5,7 @@
 <script setup lang="tsx">
 import './OrionTimelinePill.less';
 import { OrionIcon } from 'packages/Icon';
+import { OrionHorizontalScroll } from 'packages/HorizontalScroll';
 import OrionTimelinePillSetupService from './OrionTimelinePillSetupService';
 import { isDefineOrTrue } from 'utils/tools';
 const props = defineProps(OrionTimelinePillSetupService.props);
@@ -72,8 +73,13 @@ const jsxTimelinePill = () => {
 		);
 	});
 
+	const scrollStep = () => { return [...document.querySelectorAll('.orion-timeline-pill-wrapper')] as HTMLElement[];};
 	return (
-		<div class="orion-timeline__pills">{ timeline }</div>
+		!setup.props.scrollable
+			? <div class="orion-timeline__pills">{ timeline }</div>
+			: <OrionHorizontalScroll scrollStep={scrollStep}>
+				<div class="orion-timeline__pills">{timeline}</div>
+			</OrionHorizontalScroll>
 	);
 };
 </script>

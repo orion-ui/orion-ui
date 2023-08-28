@@ -15,6 +15,9 @@ export default class OrionTimelineSetupService extends SharedSetupService<Props>
 		// @doc props/horizontal the orientation of the component
 		// @doc/fr props/horizontal l'orientation du composant
 		horizontal: Boolean,
+		// @doc props/scrollable displays an horizontal scroll on the timeline pills if it does not fit in its container
+		// @doc/fr props/scrollable affiche un scroll horizontal au niveau de la timeline si elle dépasse de son conteneur.
+		scrollable: Boolean,
 		// @doc props/modelValue the model value
 		// @doc/fr props/modelValue le modelValue
 		modelValue: {

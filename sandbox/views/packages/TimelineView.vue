@@ -8,6 +8,7 @@
 			<o-timeline
 				ref="timeline"
 				v-model="activePane"
+				scrollable
 				horizontal>
 				<o-timeline-pane
 					name="pane1"
