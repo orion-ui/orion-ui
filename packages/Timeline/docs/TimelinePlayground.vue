@@ -2,6 +2,7 @@
 	<o-card :use-elevation="false">
 		<o-timeline
 			v-model="activePane"
+			scrollable
 			v-bind="state">
 			<o-timeline-pane
 				name="pane1"

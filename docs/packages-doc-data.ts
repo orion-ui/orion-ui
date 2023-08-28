@@ -192,13 +192,16 @@ const packagesDocData = new Map([
 				},
 			}],
 			publicInstance: [{
-				'name': 'posterSlotId',
+				'name': 'slotPoster',
 				'type': 'string',
 			}, {
-				'name': 'footerSlotId',
+				'name': 'slotFooter',
 				'type': 'string',
 			}, {
-				'name': 'actionsSlotId',
+				'name': 'slotActions',
+				'type': 'string',
+			}, {
+				'name': 'slotHeader',
 				'type': 'string',
 			}, {
 				'name': '_loader',
@@ -4483,7 +4486,7 @@ const packagesDocData = new Map([
 				},
 			}],
 			publicInstance: [{
-				'name': 'footerSlotId',
+				'name': 'slotFooter',
 				'type': 'string',
 			}, {
 				'name': '_loader',
@@ -7389,6 +7392,15 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'the model value',
 					'fr': 'le modelValue',
+				},
+			}, {
+				'name': 'scrollable',
+				'defaultValue': false,
+				'type': 'boolean',
+				'required': false,
+				'desc': {
+					'en': 'displays an horizontal scroll on the timeline pills if it does not fit in its container',
+					'fr': 'affiche un scroll horizontal au niveau de la timeline si elle dépasse de son conteneur.',
 				},
 			}],
 			publicInstance: [{
