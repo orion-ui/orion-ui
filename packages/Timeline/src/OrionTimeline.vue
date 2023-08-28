@@ -26,6 +26,7 @@ const jsxTimeline = () => {
 		value: setup.props.modelValue,
 		panes: setup.panes,
 		current: setup.current,
+		scrollable: setup.props.scrollable,
 		onPillClick: setup.onPillClick.bind(setup),
 	};
 

@@ -6,6 +6,7 @@ type Props = SetupProps<typeof OrionTimelinePillSetupService.props>
 export default class OrionTimelinePillSetupService extends SharedSetupService<Props> {
 	static props = {
 		disabled: Boolean,
+		scrollable: Boolean,
 		value: {
 			type: [String, Number],
 			default: undefined,
