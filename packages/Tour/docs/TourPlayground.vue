@@ -1,5 +1,4 @@
 <template>
-	<!-- <the-julie-tour ref="_tour"/> -->
 	<o-button
 		id="tour1"
 		color="info"
@@ -11,14 +10,19 @@
 
 <script setup lang="ts">
 import { useTour } from 'lib';
-// import TheJulieTour from '../../../sandbox/views/sandbox-julie/Tour.vue';
-import { ref } from 'vue';
-
-const _tour = ref<RefDom<OrionTour>>();
 
 function startTour () {
-	useTour('_tour').start();
+	useTour('tour').start();
 }
 </script>
 
-### Playground
+@lang:en
+## Tour
+
+**You can see how to create a complete tour in [this section](#Example).**
+@lang
+
+@lang:fr
+## Tour
+**Vous pouvez trouver un exemple de création de tour dans [cette section](#comment-creer-un-tour).**
+@lang

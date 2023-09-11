@@ -1,6 +1,7 @@
 import { Component, reactive, Slots, VNode, watch } from 'vue';
 import SharedSetupService from '../../Shared/SharedSetupService';
 import { isArray } from 'lodash-es';
+import type { OrionTourStepSetupService } from 'packages/TourStep';
 
 type Props = SetupProps<typeof OrionTourSetupService.props>
 
@@ -23,8 +24,9 @@ export default class OrionTourSetupService extends SharedSetupService<Props> {
 	private slots: Slots;
 	private state = reactive({
 		steps: [] as Orion.Private.TsxTourStep[],
-		currentIndex: -1,
 		tourStep: [] as Orion.Private.TsxTourStep[],
+		currentIndex: -1,
+		currentStepPublicInstance: undefined as Undef<OrionTourStepSetupService['publicInstance']>,
 	});
 
 	private get content () {
@@ -39,16 +41,13 @@ export default class OrionTourSetupService extends SharedSetupService<Props> {
 		return this.state.currentIndex;
 	}
 
-	set currentIndex (val) {
-		this.state.currentIndex = val;
-	}
-
 	get publicInstance () {
 		return {
 			...super.publicInstance,
 			steps: this.state.steps,
 			getCurrentIndex: () => this.state.currentIndex,
 			setCurrent: this.setCurrent.bind(this),
+			setCurrentStepPublicInstance: this.setCurrentStepPublicInstance.bind(this),
 			start: (index = 0) => this.start(index),
 			stop: () => this.stop(),
 		};
@@ -71,6 +70,10 @@ export default class OrionTourSetupService extends SharedSetupService<Props> {
 
 	setCurrent (val: number) {
 		this.state.currentIndex = val;
+	}
+
+	setCurrentStepPublicInstance (instance: Undef<OrionTourStepSetupService['publicInstance']>) {
+		this.state.currentStepPublicInstance = instance;
 	}
 
 	private calcStepInstances () {
@@ -103,16 +106,17 @@ export default class OrionTourSetupService extends SharedSetupService<Props> {
 	}
 
 	start (index = 0) {
-		this.currentIndex = index;
+		this.setCurrent(index);
 		this.document?.documentElement.classList.add('ovf-h');
 	}
 
 	stop () {
-		if (this.props.callback)
+		if (this.props.callback) {
 			this.props.callback();
+		}
 
+		this.state.currentStepPublicInstance?.stop(true);
 		this.document?.documentElement.classList.remove('ovf-h');
-		this.currentIndex = -1;
-
+		this.setCurrent(-1);
 	}
 }

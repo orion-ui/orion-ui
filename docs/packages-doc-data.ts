@@ -7889,6 +7889,9 @@ const packagesDocData = new Map([
 				'name': 'setCurrent',
 				'type': '(val: number) => void',
 			}, {
+				'name': 'setCurrentStepPublicInstance',
+				'type': '(instance: Undef<{\n\tprevious: () => Promise<void>;\n\tnext: () => Promise<void>;\n\tstop: (fromTour?: boolean) => Promise<void>;\n\t_el: () => HTMLElement | undefined;\n}>) => void',
+			}, {
 				'name': 'start',
 				'type': '(index?: number) => void',
 			}, {
@@ -7959,8 +7962,8 @@ const packagesDocData = new Map([
 				'type': 'Object',
 				'required': false,
 				'desc': {
-					'en': 'Missing @doc',
-					'fr': 'Missing @doc',
+					'en': 'object which contains a label, and a callback and clean functions for the final step',
+					'fr': 'objet contenant un label, et des fonction `callback` et `clean` pour l\'étape finale',
 				},
 			}, {
 				'name': 'hideFinish',
@@ -7986,8 +7989,8 @@ const packagesDocData = new Map([
 				'type': 'Object',
 				'required': false,
 				'desc': {
-					'en': 'Missing @doc',
-					'fr': 'Missing @doc',
+					'en': 'object which contains a label, and a callback and clean functions for the previous step',
+					'fr': 'objet contenant un label, et des fonction `callback` et `clean` pour l\'étape précédente',
 				},
 			}, {
 				'name': 'size',
@@ -8004,8 +8007,8 @@ const packagesDocData = new Map([
 				'type': 'string | function | boolean',
 				'required': false,
 				'desc': {
-					'en': 'possibility to target a DOM element. If it is a `string`, it must represent an `id` in the DOM. If `false`, no target will be selected\'',
-					'fr': 'Permet de cibler un élément dans le DOM. S\'il s\'agit d\'une string, elle doit correspondre à l\'id de cet élément. Si elle est définie à `false` l\'étape se placera au centre de la page, sans cible.\'',
+					'en': 'possibility to target a DOM element. If it is a `string`, it must represent an `id` in the DOM. If `false`, no target will be selected',
+					'fr': 'Permet de cibler un élément dans le DOM. S\'il s\'agit d\'une string, elle doit correspondre à l\'id de cet élément. Si elle est définie à `false` l\'étape se placera au centre de la page, sans cible.',
 				},
 			}, {
 				'name': 'timeout',
@@ -8027,6 +8030,15 @@ const packagesDocData = new Map([
 				},
 			}],
 			publicInstance: [{
+				'name': 'previous',
+				'type': '() => Promise<void>',
+			}, {
+				'name': 'next',
+				'type': '() => Promise<void>',
+			}, {
+				'name': 'stop',
+				'type': '(fromTour?: boolean) => Promise<void>',
+			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
 			}],

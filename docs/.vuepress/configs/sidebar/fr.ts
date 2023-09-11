@@ -92,7 +92,7 @@ export const fr: SidebarConfig = [
 				text: 'Autres',
 				children: [
 					`/fr/components/OrionChat.md`,
-					// `/fr/components/OrionTour.md`,
+					`/fr/components/OrionTour.md`,
 				],
 			},
 		],
