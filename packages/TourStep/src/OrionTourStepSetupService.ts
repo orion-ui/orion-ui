@@ -3,7 +3,7 @@ import anime from 'animejs';
 import { debounce } from 'lodash-es';
 import SharedSetupService from '../../Shared/SharedSetupService';
 import { toggleGlobalListener } from 'utils/tools';
-import { flip, offset, shift, computePosition, arrow, autoUpdate } from '@floating-ui/dom';
+import { autoPlacement, offset, shift, computePosition, arrow, autoUpdate } from '@floating-ui/dom';
 import useLoader from 'services/LoaderService';
 import useConfirm from 'services/ConfirmService';
 
@@ -117,7 +117,6 @@ export default class OrionTourStepSetupService extends SharedSetupService<Props>
 			stop: (fromTour = false) => this.stop(fromTour),
 		};
 	}
-
 
 	windowResizeHandler = debounce(async () => {
 		await this.getTarget();
@@ -249,10 +248,13 @@ export default class OrionTourStepSetupService extends SharedSetupService<Props>
 				const { x, y, middlewareData, placement } = await computePosition(this._stepTarget.value, this._el.value, {
 					strategy: 'fixed',
 					middleware: [
-						flip(),
+						autoPlacement(),
 						offset({ mainAxis: 10 }),
 						shift({ padding: 16 }),
-						arrow({ element: arrowElement }),
+						arrow({
+							element: arrowElement,
+							padding: 10,
+						}),
 					],
 				});
 				const side = placement.split('-')[0];
