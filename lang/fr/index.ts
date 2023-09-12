@@ -46,6 +46,7 @@ export default {
 	TIME_SEPARATOR: `:`,
 	THERE_IS: `Il y a`,
 	UNDO: `Annuler`,
+	VALIDATE: `Valider`,
 	WEEK: `Semaine`,
 	YEAR: `An`,
 

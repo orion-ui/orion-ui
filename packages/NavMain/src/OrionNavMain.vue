@@ -15,8 +15,7 @@
 					:key="`main_${i}_${setup.getUid()}`"
 					:data-index="i"
 					:item="navItem"
-					@click-label="setup.handleClick(...$event)"
-					@touchstart.prevent="setup.handleClick(navItem, $event)">
+					@click-label="setup.handleClick(...$event)">
 					<template #prepend="{ item }">
 						<slot
 							name="prepend"

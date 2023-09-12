@@ -145,8 +145,8 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 	_autocomplete = ref<RefDom<HTMLInputElement>>();
 	_optionssearchinput = ref<OrionInput>();
 	_items = ref<(Element | ComponentPublicInstance)[]>([]);
-	isArray = isArray;
-	get = get;
+	readonly isArray = isArray;
+	readonly get = get;
 
 	get autocompleteValue () {
 		return (this.state.isFocus || this.props.prefillSearch?.length) && !this.props.modelValue
@@ -491,15 +491,19 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 		});
 	}
 
-	handleBlur (e?: FocusEvent) {
+	handleBlur (e?: FocusEvent, selection?: boolean) {
 		if (e?.relatedTarget) {
 			const el = e.relatedTarget as HTMLElement;
 			if (el.parentElement?.classList.contains('orion-select__popover-search-input')) return false;
 		}
 
 		this.state.hasBeenFocus = true;
-		this.state.isFocus = false;
 		this.state.indexNav = -1;
+
+		if (!this.responsive.onPhone || selection) {
+			this.state.isFocus = false;
+		}
+
 		this.blur();
 	}
 
@@ -535,6 +539,12 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 		}
 	}
 
+	handleScroll () {
+		if (this.responsive.onPhone) {
+			this._optionssearchinput.value?.blur();
+		}
+	}
+
 	selectItem (value: BaseVModelType) {
 		if (this.props.readonly) return;
 		if (this.props.disabledKey && !!get(value, this.props.disabledKey, false)) return;
@@ -547,7 +557,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 			}
 		} else {
 			this.bus.emit('select', value);
-			this.handleBlur();
+			this.handleBlur(undefined, true);
 		}
 	}
 
@@ -558,6 +568,10 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 			if (this.state.isFocus && !this.props.multiple) {
 				this.handleBlur();
 			}
+		}
+
+		if (this.responsive.onPhone) {
+			this._optionssearchinput.value?.blur();
 		}
 	}
 

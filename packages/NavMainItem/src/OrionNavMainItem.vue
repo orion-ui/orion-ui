@@ -4,7 +4,7 @@
 			:is="setup.itemIs(item)"
 			v-if="item"
 			v-bind="setup.itemData(item)"
-			@click.prevent="$emit('click-label', [item, $event])">
+			@click.stop.prevent="$emit('click-label', [item, $event])">
 			<orion-icon
 				v-if="item.icon || item.fontIcon"
 				class="orion-nav-main__item-main-icon"
@@ -40,8 +40,7 @@
 				:key="`main_${i}_${setup.getUid()}`"
 				:data-index="i"
 				:item="subitem"
-				@click-label="setup.handleClick(...$event)"
-				@touchstart.prevent="setup.handleClick(...$event)">
+				@click-label="setup.handleClick(...$event)">
 				<template #prepend>
 					<slot
 						name="prepend"

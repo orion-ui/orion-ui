@@ -2,7 +2,7 @@
 	<v-dropdown
 		:ref="setup._popover"
 		placement="bottom-start"
-		theme="orion-select"
+		:theme="setup.showPopoverSearch ? 'orion-select-searchable' : 'orion-select'"
 		:positioning-disabled="setup.responsive.onPhone"
 		:triggers="[]"
 		:shown="setup.showPopover"
@@ -87,7 +87,9 @@
 			<div
 				:ref="setup._popoverinner"
 				class="orion-select__popover"
-				:class="{ 'orion-select-multiple__popover': setup.props.multiple }">
+				:class="{ 'orion-select-multiple__popover': setup.props.multiple }"
+				@touchmove.stop="setup.handleScroll()"
+				@scroll.stop>
 				<orion-input
 					v-if="setup.showPopoverSearch"
 					:ref="setup._optionssearchinput"
@@ -96,6 +98,7 @@
 					class="orion-select__popover-search-input"
 					size="xs"
 					suffix-icon="search"
+					enterkeyhint="search"
 					@keydown.down.prevent.stop="setup.handleKeydown('down')"
 					@keydown.up.prevent.stop="setup.handleKeydown('up')"
 					@keydown.enter.stop="setup.selectItemFromEnter()"
@@ -117,7 +120,8 @@
 				<div
 					v-else
 					:ref="setup._optionscontainer"
-					@mousemove="setup.indexNav = -1">
+					@mousemove="setup.indexNav = -1"
+					@touchmove="setup.indexNav = -1">
 					<div
 						v-for="(option, i) in setup.optionsDisplay"
 						:key="i"
@@ -128,8 +132,7 @@
 							'hover' : setup.indexNav === i,
 							'disabled' : !!setup.props.disabledKey && !!setup.get(option, setup.props.disabledKey, false),
 						}"
-						@mousedown.prevent="setup.selectItem(option)"
-						@touchstart.prevent="setup.selectItem(option)">
+						@mousedown.prevent="setup.selectItem(option)">
 						<slot
 							name="option"
 							:item="option"
@@ -155,6 +158,16 @@
 					name="after-options"
 					:options="setup.optionsDisplay"/>
 
+				<div
+					v-if="setup.responsive.onPhone && multiple"
+					class="orion-select__popover-actions">
+					<orion-button
+						outline
+						@click="setup.handleBlur(undefined, true)">
+						{{ setup.lang.CLOSE_ACTION }}
+					</orion-button>
+				</div>
+
 				<orion-loader
 					class="orion-select__popover-loader"
 					size="sm"
@@ -168,6 +181,7 @@
 
 <script setup lang="ts">
 import './OrionSelect.less';
+import { OrionButton } from 'packages/Button';
 import { OrionIcon } from 'packages/Icon';
 import { OrionInput } from 'packages/Input';
 import { OrionLoader } from 'packages/Loader';

@@ -3,7 +3,7 @@
 		placement="bottom-start"
 		:positioning-disabled="setup.responsive.onPhone"
 		:triggers="[]"
-		:shown="setup.isFocus"
+		:shown="setup.isFocus && !setup.selectionIsOnHourMinute"
 		:auto-hide="false"
 		@apply-show="setup.handlePopperShow()"
 		@apply-hide="setup.handlePopperHide()">
@@ -23,7 +23,7 @@
 				v-bind="$attrs"
 				@keydown="setup.handleKeydownGuard($event)"
 				@focus="setup.handleFocus($event)"
-				@mouseup="setup.handleMouseup($event)"
+				@mouseup="setup.handleMouseup()"
 				@mousedown="setup.handleMousedown()"
 				@blur="setup.handleBlur($event)">
 
@@ -66,7 +66,10 @@
 				v-model="setup.vModel"
 				:min-date="setup.minDate"
 				:max-date="setup.maxDate"
-				@update:model-value="setup.handleBlur()"/>
+				@update:model-value="time && !setup.responsive.onPhone
+					? $nextTick(() => setup.setSelectionToHour())
+					: setup.handleBlur()
+				"/>
 			<orion-date-range
 				v-else-if="setup.props.type === 'range'"
 				:ref="setup._options"
@@ -81,12 +84,80 @@
 				:min-date="setup.minDate"
 				:max-date="setup.maxDate"
 				@update:model-value="setup.handleBlur()"/>
+
+			<div
+				v-if="setup.isOnPhoneWithTimepicker"
+				class="orion-datepicker__timepicker-wrapper">
+				<div class="orion-datepicker-timepicker">
+					<div
+						:ref="setup._hours"
+						class="orion-datepicker-timepicker__hours"
+						@scroll="setup.handleTimeScroll('hours')">
+						<div class="orion-datepicker-timepicker__scroll-filler"/>
+						<div
+							v-if="setup.appLang === 'fr'"
+							class="orion-datepicker-timepicker__scroll-item">
+							00
+						</div>
+						<div
+							v-for="i in (setup.appLang === 'en' ? 12 : 23)"
+							:key="i"
+							:data-value="i"
+							class="orion-datepicker-timepicker__scroll-item">
+							{{ i.toString().padStart(2, '0') }}
+						</div>
+						<div class="orion-datepicker-timepicker__scroll-filler"/>
+					</div>
+					<div class="orion-datepicker-timepicker__separator">{{ setup.lang.TIME_SEPARATOR }}</div>
+					<div
+						:ref="setup._minutes"
+						class="orion-datepicker-timepicker__minutes"
+						@scroll="setup.handleTimeScroll('minutes')">
+						<div class="orion-datepicker-timepicker__scroll-filler"/>
+						<div class="orion-datepicker-timepicker__scroll-item">00</div>
+						<div
+							v-for="i in 59"
+							:key="i"
+							:data-value="i"
+							class="orion-datepicker-timepicker__scroll-item">
+							{{ i.toString().padStart(2, '0') }}
+						</div>
+						<div class="orion-datepicker-timepicker__scroll-filler"/>
+					</div>
+					<div
+						v-if="setup.appLang === 'en'"
+						class="orion-datepicker-timepicker__meridian">
+						<div
+							:class="{ 'active': !setup.isPm }"
+							@click="setup.setAmPm('a')">
+							AM
+						</div>
+						<div
+							:class="{ 'active': setup.isPm }"
+							@click="setup.setAmPm('p')">
+							PM
+						</div>
+					</div>
+				</div>
+
+				<div class="orion-datepicker-timepicker-actions">
+					<div class="orion-input__input">{{ setup.displayDateSelected }}</div>
+					<orion-button
+						block
+						outline
+						color="brand"
+						@click="setup.handleBlur(undefined, true)">
+						{{ setup.lang.VALIDATE }}
+					</orion-button>
+				</div>
+			</div>
 		</template>
 	</v-dropdown>
 </template>
 
 <script setup lang="ts">
 import './OrionDatepicker.less';
+import { OrionButton } from 'packages/Button';
 import { OrionDateRange } from 'packages/DateRange';
 import { OrionDateTable } from 'packages/DateTable';
 import { OrionDateWeek } from 'packages/DateWeek';

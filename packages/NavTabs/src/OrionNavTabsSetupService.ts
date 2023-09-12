@@ -14,11 +14,10 @@ export default class OrionNavTabsSetupService extends SharedNavSetupService<Prop
 		},
 	};
 
-	_el = ref<RefDom>();
+	readonly _el = ref<RefDom>();
+	readonly _navAside = ref<OrionAside>();
 
-	_navAside = ref<OrionAside>();
-
-	baseClass = 'orion-nav-tabs';
+	readonly baseClass = 'orion-nav-tabs';
 
 	get items () {
 		return this.props.items;
