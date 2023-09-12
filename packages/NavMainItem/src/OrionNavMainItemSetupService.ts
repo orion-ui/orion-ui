@@ -11,7 +11,7 @@ export default class OrionNavMainItemSetupService extends SharedNavSetupService<
 		},
 	};
 
-	baseClass = 'orion-nav-main';
+	readonly baseClass = 'orion-nav-main';
 
 	get items () {
 		return !this.props.item.replace

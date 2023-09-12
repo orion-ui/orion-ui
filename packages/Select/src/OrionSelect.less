@@ -43,9 +43,11 @@
 			color: var(--grey-dark);
 			cursor: pointer;
 
-			&:hover {
-				background: rgba(var(--rgb-danger), 0.1);
-				color: var(--danger);
+			body:not(.istouch) & {
+				&:hover {
+					background: rgba(var(--rgb-danger), 0.1);
+					color: var(--danger);
+				}
 			}
 
 			.orion-input--disabled &,
@@ -78,12 +80,14 @@
 
 	&__popover {
 		overflow-y: auto;
+		overscroll-behavior: contain;
 		max-height: 20rem;
 		max-width: calc(100vw - 2rem);
 		min-width: 10rem;
 
 		@media @phone {
-			max-height: 75vh;
+			max-height: 75vh; // dvh support fallback
+			max-height: 75dvh;
 		}
 
 		&-item {
@@ -111,10 +115,12 @@
 				border-bottom-right-radius: 0.25rem;
 			}
 
-			&.hover,
-			&:hover {
-				color: var(--grey-darker);
-				background: var(--grey-lighter);
+			body:not(.istouch) & {
+				&.hover,
+				&:hover {
+					color: var(--grey-darker);
+					background: var(--grey-lighter);
+				}
 			}
 
 			&.selected {
@@ -129,17 +135,19 @@
 						display: block;
 					}
 
-					&.hover,
-					&:hover {
-						color: var(--danger);
-						background: rgba(var(--rgb-danger), 0.1);
+					body:not(.istouch) & {
+						&.hover,
+						&:hover {
+							color: var(--danger);
+							background: rgba(var(--rgb-danger), 0.1);
 
-						.icon--selected {
-							display: none;
-						}
+							.icon--selected {
+								display: none;
+							}
 
-						.icon--delete {
-							display: block;
+							.icon--delete {
+								display: block;
+							}
 						}
 					}
 				}
@@ -153,6 +161,17 @@
 			&--noresult {
 				text-align: center;
 				opacity: 1 !important;
+			}
+		}
+
+		&-actions {
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+			margin-top: 1rem;
+
+			> .orion-button {
+				flex: 1;
 			}
 		}
 	}

@@ -16,11 +16,11 @@ export default class OrionNavMainSetupService extends SharedNavSetupService<Prop
 		},
 	};
 
-	_el = ref<RefDom>();
-	_wrapper = ref<RefDom>();
-	_children = ref<RefDom>();
+	readonly _el = ref<RefDom>();
+	readonly _wrapper = ref<RefDom>();
+	readonly _children = ref<RefDom>();
 
-	baseClass = 'orion-nav-main';
+	readonly baseClass = 'orion-nav-main';
 
 	private state = reactive({ menuHistory: [] as Orion.NavItem[][] });
 
