@@ -242,7 +242,12 @@ export default class OrionTourStepSetupService extends SharedSetupService<Props>
 	async calculateTooltipPosition () {
 		if (this.props.target) {
 			await this.getTarget();
-			if (this._stepTarget.value && this._el.value) {
+			if (this._stepTarget.value && this._el.value && this.window) {
+				const value = this._stepTarget.value.getBoundingClientRect();
+
+				if (value.bottom > this.window.innerHeight - 60 || value.top < 50) {
+					await this.scrollToTarget(this._stepTarget.value as HTMLElement);
+				}
 
 				const arrowElement = document.querySelector('#orion-tour-tooltip__arrow') as HTMLElement;
 				const { x, y, middlewareData, placement } = await computePosition(this._stepTarget.value, this._el.value, {
@@ -348,7 +353,8 @@ export default class OrionTourStepSetupService extends SharedSetupService<Props>
 				return;
 			}
 			const scrollCoords = { y: this.window.scrollY === 0 ? 0 : this.window.innerHeight + this.window.scrollY };
-			const targetScroll = target?.getBoundingClientRect().bottom > 50 ? target?.getBoundingClientRect().top - 100 + this.window.scrollY : 0;
+			const targetScroll = target?.getBoundingClientRect().bottom > 50 ? target?.getBoundingClientRect().top - 50 + this.window.scrollY : 0;
+
 			anime({
 				targets: scrollCoords,
 				y: targetScroll,
@@ -356,7 +362,7 @@ export default class OrionTourStepSetupService extends SharedSetupService<Props>
 				duration: 600,
 				easing: 'easeOutQuad',
 				update: () => {
-					scrollableParent?.scrollTo(0, scrollCoords.y);
+					target.scrollIntoView({ block: 'center' });
 				},
 				complete: () => {
 					resolve(target.getBoundingClientRect());
