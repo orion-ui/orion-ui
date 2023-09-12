@@ -8,8 +8,7 @@
 				v-for="(item, i) in setup.itemsToDisplay"
 				:key="i"
 				v-bind="setup.itemData(item)"
-				@click.prevent="setup.handleClick(item, $event)"
-				@touchstart.prevent="setup.handleClick(item, $event)">
+				@click.prevent="setup.handleClick(item, $event)">
 				<orion-icon
 					v-if="item.icon || item.fontIcon"
 					v-bind="item"/>

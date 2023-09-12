@@ -48,6 +48,7 @@ export class OrionAppService {
 						arrowPadding: 15,
 					},
 					'orion-select': { $extend: 'orion' },
+					'orion-select-searchable': { $extend: 'orion' },
 					'orion-pop-confirm': { $extend: 'orion' },
 					'orion-editor-toolbar': {
 						$extend: 'orion',

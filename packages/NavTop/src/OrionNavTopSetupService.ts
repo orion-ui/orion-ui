@@ -8,11 +8,11 @@ type Props = SetupProps<typeof OrionNavTopSetupService.props>
 export default class OrionNavTopSetupService extends SharedNavSetupService<Props> {
 	static props = { ...SharedProps.nav() };
 
-	_el = ref<RefDom>();
+	readonly _el = ref<RefDom>();
 
-	baseClass = 'orion-nav-top';
+	readonly baseClass = 'orion-nav-top';
 
-	scrollSpy = throttle(() => {
+	readonly scrollSpy = throttle(() => {
 		this.handleScroll();
 	}, 100);
 
