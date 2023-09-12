@@ -6,4 +6,80 @@
 		min-height: 2.5rem;
 		height: auto;
 	}
+
+	&__timepicker-wrapper {
+		display: flex;
+	}
+}
+
+.orion-datepicker-timepicker {
+	--picker-height: 8rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.125rem;
+	width: 9rem;
+
+	&__hours,
+	&__minutes {
+		display: flex;
+		flex-direction: column;
+		width: 2.5rem;
+		height: var(--picker-height);
+		border-radius: 0.25rem;
+		overflow: auto;
+		scroll-snap-type: y mandatory;
+
+		&::-webkit-scrollbar {
+			display: none;
+		}
+	}
+
+	&__scroll-item {
+		--factor: 1;
+		transition: font-size 16ms, opacity 16ms;
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		scroll-snap-align: center;
+		flex: 0 0 calc(var(--picker-height) / 5);
+		min-width: 1px;
+		font-size: calc(1.75rem * var(--factor));
+		opacity: calc(1 * var(--factor));
+		line-height: 1;
+	}
+
+	&__separator {
+		font-weight: bold;
+		font-size: 1rem;
+	}
+
+	&__scroll-filler {
+		flex: 0 0 calc(var(--picker-height) / 5 * 2);
+	}
+
+	&__meridian {
+		padding-left: 0.5rem;
+		font-weight: 600;
+
+		> .active {
+			color: var(--brand);
+		}
+	}
+}
+
+.orion-datepicker-timepicker-actions {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: var(--space-xs);
+	flex: 1;
+	padding: 1rem;
+
+	.orion-input__input {
+		text-align: center;
+		font-weight: 600;
+	}
 }

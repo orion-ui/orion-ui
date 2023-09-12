@@ -55,7 +55,7 @@
 import { getAppLang } from 'lib';
 import { ref } from 'vue';
 
-const date = ref<Date>(new Date(2023, 8, 3, 12, 2));
+const date = ref<Date>(new Date(2023, 8, 3, 6, 42));
 const date2 = ref<Date>(new Date(2023, 8, 3));
 const daterange = ref<Orion.DateRange>();
 const dateweek = ref<Orion.DateRange>();

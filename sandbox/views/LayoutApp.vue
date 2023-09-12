@@ -4,7 +4,9 @@
 		class="main-layout">
 		<template #nav-top-left>
 			Orion v1
+		</template>
 
+		<div class="flex fw-w g-xs mb-md">
 			<o-button @click="setThemeMode('light')">
 				light theme
 			</o-button>
@@ -29,7 +31,8 @@
 					label="FR"
 					input-value="fr"/>
 			</div>
-		</template>
+		</div>
+
 		<router-view/>
 	</o-layout>
 </template>
@@ -61,7 +64,7 @@ const navMain: OrionNavMain.Props = {
 		{
 			label: `Services`,
 			icon: 'note',
-			replace: true,
+			// replace: true,
 			children: [
 				{
 					label: `Validation`,

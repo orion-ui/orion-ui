@@ -38,6 +38,12 @@
 			height: 100%;
 			display: flex;
 			align-items: flex-end;
+			overscroll-behavior: none;
+			overflow: auto;
+
+			&::-webkit-scrollbar {
+				display: none; /* Chrome, Safari and Opera */
+			}
 
 			.v-popper__inner {
 				border-radius: 0;
@@ -47,6 +53,8 @@
 			.v-popper__backdrop {
 				display: block;
 				background: rgba(var(--rgb-grey-darker), 0.7);
+				bottom: -1px; // for parent overscroll-behavior
+				height: auto; // for parent overscroll-behavior
 
 				[data-orion-theme='dark'] & {
 					background: rgba(0, 0, 0, 0.7);
@@ -54,9 +62,10 @@
 			}
 
 			.v-popper__wrapper {
+				transition: transform 0.15s ease-out;
 				width: 100%;
 				pointer-events: auto;
-				transition: transform 0.15s ease-out;
+				margin-bottom: -2px;
 			}
 
 			&.v-popper__popper--hidden .v-popper__wrapper {
@@ -106,6 +115,14 @@
 					}
 				}
 			}
+		}
+	}
+
+	&-orion-select-searchable {
+		&.v-popper__popper--no-positioning .orion-select__popover {
+			height: calc(100vh - var(--fluid-30px)); // dvh support fallback
+			height: calc(100dvh - var(--fluid-30px));
+			max-height: none;
 		}
 	}
 }
