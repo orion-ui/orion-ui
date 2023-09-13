@@ -251,16 +251,18 @@ export default class OrionChatSetupService extends SharedSetupService<Props> {
 
 	async sendNewMessageAsync () {
 		if (this.state.newMessage && this.discussion) {
+			const { discussion } = this;
 			const message = this.state.newMessage;
+
 			this.state.newMessage = null;
 
 			const shouldScroll = this.checkIfShouldScroll();
 
-			await this.discussion?.addNewMessageAsync(message);
+			await discussion.addNewMessageAsync(message);
 
 			this.emit('new-message', {
 				message: message,
-				discussionId: this.discussion.id,
+				discussionId: discussion.id,
 			});
 
 			if (shouldScroll) this.scrollToLastRead();
