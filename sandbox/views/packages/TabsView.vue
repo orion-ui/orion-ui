@@ -3,6 +3,24 @@
 		<o-select
 			v-model="pillIcon"
 			:options="pillIconOptions"/>
+
+		<o-card
+			title="Connected to router"
+			class="mv-lg">
+			<o-tabs
+				:use-router="activeTab === 'toto'"
+				router-view-name="toto">
+				<o-tab-pane
+					name="TabsOne"
+					label="toggle"/>
+				<o-tab-pane
+					name="TabsTwo"
+					label="button"/>
+			</o-tabs>
+		</o-card>
+
+		<router-view/>
+
 		<o-tabs v-model="activeTab">
 			<o-tab-pane
 				name="toto"

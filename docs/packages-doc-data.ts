@@ -7019,6 +7019,24 @@ const packagesDocData = new Map([
 					'en': 'model value',
 					'fr': 'modelValue du composant',
 				},
+			}, {
+				'name': 'routerViewName',
+				'defaultValue': 'undefined',
+				'type': 'string',
+				'required': false,
+				'desc': {
+					'en': 'the name of the `<router-view/>` when using `use-router` prop',
+					'fr': 'le nom du `<router-view/>` lors de l\'utilisation de la prop `use-router`',
+				},
+			}, {
+				'name': 'useRouter',
+				'defaultValue': false,
+				'type': 'boolean',
+				'required': false,
+				'desc': {
+					'en': 'connect the tabs to the router to bind active tab to current route and use `<router-view/>` component',
+					'fr': 'connecte les tabs au router pour synchroniser la tab active avec la router actuelle et utiliser le composant `<router-view/>`',
+				},
 			}],
 			publicInstance: [{
 				'name': '_loader',
@@ -7029,6 +7047,9 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'getValue',
 				'type': '() => string | undefined',
+			}, {
+				'name': 'useRouter',
+				'type': 'boolean',
 			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
