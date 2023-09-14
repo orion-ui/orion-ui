@@ -327,6 +327,10 @@ export default class OrionTourStepSetupService extends SharedSetupService<Props>
 
 		if (this._stepHighlighter.value) {
 			this.document.body.removeChild(this._stepHighlighter.value);
+			const highlighters = this.document.body.getElementsByClassName('orion-tour-step-highlighter');
+			while (highlighters[0]) {
+				highlighters[0].parentNode?.removeChild(highlighters[0]);
+			}
 		}
 		this._stepHighlighter.value = null;
 	}
