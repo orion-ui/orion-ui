@@ -1,26 +1,24 @@
 <template>
-	<!-- <tour-step ref="_tourStep"/> -->
-
 	<div class="row row--grid row--middle targetplayground">
 		<o-button
 			id="tour2"
 			outline
 			color="info"
-			@click="startTour(0)">
+			@click="startTour">
 			Step with no target
 		</o-button>
 		<o-button
 			id="tour3"
 			outline
 			color="info"
-			@click="startTour(2)">
-			Step md
+			@click="startTour(1)">
+			Step with string target
 		</o-button>
 		<o-button
 			id="tour4"
 			outline
 			color="info"
-			@click="startTour(4)">
+			@click="startTour(2)">
 			Function target
 		</o-button>
 	</div>
@@ -29,13 +27,9 @@
 
 <script setup lang="ts">
 import { useTour } from 'lib';
-// import TourStep from '../../../sandbox/views/sandbox-julie/TourStep.vue';
-import { ref } from 'vue';
 
-const _tourStep = ref<RefDom<OrionTour>>();
-
-function startTour (index = 0) {
-	useTour('_tourStep').start(index);
+function startTour (index?: number) {
+	useTour('_tourProps').start(index);
 }
 
 </script>
@@ -45,7 +39,7 @@ function startTour (index = 0) {
 
 The `target` prop allows you to select a DOM element. If it is a `string`, the target should represent an `id` of an element in the DOM.\
 It can also be a function (so you can use a jquery selector for example or do some actions before selecting the target).\
-If this prop is not set, no target will be highlighted and the step will appear in the middle of the window.\
+If this prop is not set, no target will be highlighted and the step will appear in the middle of the window.
 @lang
 
 @lang:fr

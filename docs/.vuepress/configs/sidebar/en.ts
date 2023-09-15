@@ -92,7 +92,7 @@ export const en: SidebarConfig = [
 				text: 'Others',
 				children: [
 					`/components/OrionChat.md`,
-					// `/components/OrionTour.md`,
+					`/components/OrionTour.md`,
 				],
 			},
 		],
@@ -101,7 +101,7 @@ export const en: SidebarConfig = [
 		text: 'Services',
 		collapsible: true,
 		children: readdirSync(path.resolve(__dirname, '../../../services/'))
-			.filter(x => x !== 'Tour.md')
+			.filter(x => x !== 'Tour.md')	
 			.map(x => '/services/' + x.slice(0, x.length-3))
 	},
 	{

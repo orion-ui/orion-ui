@@ -1,5 +1,4 @@
 <template>
-	<!-- <tour-step ref="_tourStep"/> -->
 	<o-button
 		id="tour11"
 		color="info"
@@ -47,10 +46,6 @@
 
 <script setup lang="ts">
 import { useTour } from 'lib';
-// import TourStep from '../../../sandbox/views/sandbox-julie/TourStep.vue';
-import { ref } from 'vue';
-
-const _tourStep = ref<RefDom<OrionTour>>();
 
 function startTour (index = 0) {
 	useTour('_tourStep').start(index);

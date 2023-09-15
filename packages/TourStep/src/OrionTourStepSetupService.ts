@@ -3,21 +3,11 @@ import anime from 'animejs';
 import { debounce } from 'lodash-es';
 import SharedSetupService from '../../Shared/SharedSetupService';
 import { toggleGlobalListener } from 'utils/tools';
+import { autoPlacement, offset, shift, computePosition, arrow, autoUpdate } from '@floating-ui/dom';
 import useLoader from 'services/LoaderService';
 import useConfirm from 'services/ConfirmService';
 
 type Props = SetupProps<typeof OrionTourStepSetupService.props>
-
-type TooltipStyleType = {
-	left: string;
-	top: string;
-}
-
-type ArrowStyleType = {
-	transform: string;
-	left: string;
-	top: string;
-}
 
 type OverlayPaneCoord = {
 	left: string;
@@ -46,9 +36,9 @@ export default class OrionTourStepSetupService extends SharedSetupService<Props>
 			default: undefined,
 		},
 		// eslint-disable-next-line max-len
-		// @doc props/target possibility to target a DOM element. If it is a `string`, it must represent an `id` in the DOM. If `false`, no target will be selected'
+		// @doc props/target possibility to target a DOM element. If it is a `string`, it must represent an `id` in the DOM. If `false`, no target will be selected
 		// eslint-disable-next-line max-len
-		// @doc/fr props/target Permet de cibler un élément dans le DOM. S'il s'agit d'une string, elle doit correspondre à l'id de cet élément. Si elle est définie à `false` l'étape se placera au centre de la page, sans cible.'
+		// @doc/fr props/target Permet de cibler un élément dans le DOM. S'il s'agit d'une string, elle doit correspondre à l'id de cet élément. Si elle est définie à `false` l'étape se placera au centre de la page, sans cible.
 		target: {
 			type: [String, Function, Boolean],
 			default: false,
@@ -59,14 +49,14 @@ export default class OrionTourStepSetupService extends SharedSetupService<Props>
 			type: Object,
 			default: undefined,
 		},
-		// // @doc props/next object which contains a label, and a callback and clean functions for the final step
-		// @doc/fr props/next objet contenant un label, et des fonction `callback` et `clean` pour l'étape finale
+		// // @doc props/end object which contains a label, and a callback and clean functions for the final step
+		// @doc/fr props/end objet contenant un label, et des fonction `callback` et `clean` pour l'étape finale
 		end: {
 			type: Object,
 			default: undefined,
 		},
-		// @doc props/next object which contains a label, and a callback and clean functions for the previous step
-		// @doc/fr props/next objet contenant un label, et des fonction `callback` et `clean` pour l'étape précédente
+		// @doc props/previous object which contains a label, and a callback and clean functions for the previous step
+		// @doc/fr props/previous objet contenant un label, et des fonction `callback` et `clean` pour l'étape précédente
 		previous: {
 			type: Object,
 			default: undefined,
@@ -104,30 +94,29 @@ export default class OrionTourStepSetupService extends SharedSetupService<Props>
 	};
 
 	private _tour?: OrionTour;
+	private cleanup?: () => void;
 
 	private state = reactive({
-		isReady: false,
 		bodyOverflowStyle: [] as Array<string>,
 		globalEscEvent: undefined as Undef<number>,
-		tooltipStyle: {
-			left: '0',
-			top: '0',
-		} as TooltipStyleType,
-		arrowStyle: {
-			transform: '0',
-			left: '0',
-			top: '0',
-		} as ArrowStyleType,
 	});
 
-	_el = ref<RefDom>();
-	_stepHighlighter = ref<RefDom | null>();
-	_stepTarget = ref<RefDom | null>();
+	readonly _el = ref<RefDom>();
+	readonly _stepHighlighter = ref<RefDom | null>();
+	readonly _stepTarget = ref<RefDom | null>();
 
 	get steps () {
 		return this._tour?.steps;
 	}
 
+	get publicInstance () {
+		return {
+			...super.publicInstance,
+			previous: () => this.goPreviousStep(),
+			next: () => this.goNextStep(),
+			stop: (fromTour = false) => this.stop(fromTour),
+		};
+	}
 
 	windowResizeHandler = debounce(async () => {
 		await this.getTarget();
@@ -143,14 +132,6 @@ export default class OrionTourStepSetupService extends SharedSetupService<Props>
 		right: null,
 		global: null,
 	});
-
-	get isReady () {
-		return this.state.isReady;
-	}
-
-	set isReady (val) {
-		this.state.isReady = val;
-	}
 
 	get currentIndex () {
 		return this._tour?.getCurrentIndex();
@@ -168,26 +149,12 @@ export default class OrionTourStepSetupService extends SharedSetupService<Props>
 		return this.props.end?.label ? this.props.end?.label : this.lang.FINISH;
 	};
 
-	get tooltipStyle () {
-		return this.state.tooltipStyle;
-	}
-
-	set tooltipStyle (val) {
-		this.state.tooltipStyle = val;
-	}
-
-
-	get arrowStyle () {
-		return this.state.arrowStyle;
-	}
-
 	constructor (props: Props, _tour?: OrionTour) {
 		super(props);
 		this._tour = _tour;
 
 		watch(() => this.currentIndex, async () => {
-			if (this.currentIndex === -1)
-				await this.stop();
+			if (this.currentIndex === -1) await this.stop();
 		});
 
 		watch(() => props.target, () => {
@@ -195,19 +162,27 @@ export default class OrionTourStepSetupService extends SharedSetupService<Props>
 		});
 
 		onMounted(() => {
-			// this.storeBodyOverflow();
+			this._tour?.setCurrentStepPublicInstance(this.publicInstance);
 			this.showTooltip();
 			this.window?.addEventListener('resize', this.debouncedWindowResizeHandler.bind(this));
 
 			this.state.globalEscEvent = toggleGlobalListener('keydown', (event: any) => {
-				if ((event as KeyboardEvent).key === 'Escape') stop();
+				if ((event as KeyboardEvent).key === 'Escape') this.stop();
 			}) as number;
+
+			if (this._stepTarget.value && this._el.value) {
+				this.cleanup = autoUpdate(
+					this._stepTarget.value,
+					this._el.value,
+					this.calculateTooltipPosition.bind(this),
+				);
+			}
 		});
 
 		onUnmounted(() => {
 			this.window?.removeEventListener('resize', this.debouncedWindowResizeHandler.bind(this));
 			this._stepTarget.value?.removeEventListener('click', this.clickableTargetHandler.bind(this));
-
+			this.cleanup?.();
 			if (this.state.globalEscEvent) {
 				toggleGlobalListener(this.state.globalEscEvent);
 			}
@@ -243,7 +218,6 @@ export default class OrionTourStepSetupService extends SharedSetupService<Props>
 
 	async showTooltip () {
 		try {
-			this.isReady = false;
 			this.cleanPreviousStep();
 
 			if (this.props.target) {
@@ -258,208 +232,85 @@ export default class OrionTourStepSetupService extends SharedSetupService<Props>
 				}
 
 			} else {
-				this.calculateTooltipPosition(false);
+				this.calculateTooltipPosition();
 			}
-
 		} catch (e) {
 			this.showTimeoutModal();
 		}
 	}
 
-	async calculateTooltipPosition (target = true) {
-		if (this.window && target) {
-			let value = this._stepTarget.value?.getBoundingClientRect();
-			if (!value) return;
+	async calculateTooltipPosition () {
+		if (this.props.target) {
+			await this.getTarget();
+			if (this._stepTarget.value && this._el.value && this.window) {
+				const value = this._stepTarget.value.getBoundingClientRect();
 
-			if (value.bottom > this.window.innerHeight - 60 || value.top < 60) {
-				await this.scrollToTarget(this._stepTarget.value as HTMLElement);
-			}
+				if (value.bottom > this.window.innerHeight - 60 || value.top < 50) {
+					await this.scrollToTarget(this._stepTarget.value as HTMLElement);
+				}
 
-			value = this._stepTarget?.value?.getBoundingClientRect();
-			if (!value) return;
+				const arrowElement = document.querySelector('#orion-tour-tooltip__arrow') as HTMLElement;
+				const { x, y, middlewareData, placement } = await computePosition(this._stepTarget.value, this._el.value, {
+					strategy: 'fixed',
+					middleware: [
+						autoPlacement(),
+						offset({ mainAxis: 10 }),
+						shift({ padding: 16 }),
+						arrow({
+							element: arrowElement,
+							padding: 10,
+						}),
+					],
+				});
+				const side = placement.split('-')[0];
+				const staticSide = {
+					top: 'bottom',
+					right: 'left',
+					bottom: 'top',
+					left: 'right',
+				}[side];
 
-			this.isReady = true;
+				if (this._el.value) {
+					Object.assign(this._el.value.style, {
+						left: `${x}px`,
+						top: `${y}px`,
+						opacity: '1',
+					});
 
-			nextTick(async () => {
-				if (!this.window) return;
-
-				const boundingClient = this._el.value?.getBoundingClientRect();
-				if (value && boundingClient) {
-					const left = value?.left - boundingClient?.width;
-					const right = value?.left + value.width + boundingClient?.width;
-					const bottom = value?.bottom + boundingClient?.height;
-					const top = value?.top - boundingClient?.height;
-
-					// Placement normal, centré en dessous de la target
-					if (bottom < this.window.innerHeight && (value?.left + value.width / 2 - boundingClient?.width / 2 > 0)
-					&& (value?.left + boundingClient?.width < this.window.innerWidth)) {
-						this.state.tooltipStyle = {
-							left: `${value?.left + value.width / 2 - boundingClient?.width / 2 }px`,
-							top: `${value?.bottom + 10}px`,
-						};
-
-						Object.assign(this.state.arrowStyle, {
-							transform: `rotate(0deg)`,
-							left: `${boundingClient?.width / 2}px`,
-							top: `${-5 }px`,
+					if (middlewareData.arrow && staticSide && arrowElement) {
+						const { x, y } = middlewareData.arrow;
+						Object.assign(arrowElement.style, {
+							left: x != null ? `${x}px` : '',
+							top: y != null ? `${y}px` : '',
+							[staticSide]: `${-5}px`,
+							display: 'unset',
+							transform: 'rotate(45deg)',
 						});
-						return;
-					}
-
-
-					// Différent cas de dépassement de la fenêtre
-					if (top < 0 && bottom > this.window.innerHeight) {
-						this.tooltipStyle.top = `${value?.top}px`;
-						await scrollBy(0, value.bottom - boundingClient.height + 40);
-
-						nextTick(() => {
-							if (!this.window) return;
-
-							value = this._stepTarget.value?.getBoundingClientRect();
-							if (value && boundingClient) {
-								if (this.responsive.onPhone) {
-									this.tooltipStyle.top = `${value?.bottom + 10 }px`;
-									this.calculateHighlighterPosition();
-									this.calculateOverlayPosition();
-								} else {
-									this.tooltipStyle.top = `${5}px`;
-
-									if (right < this.window.innerWidth) {
-										this.tooltipStyle.left = `${value?.right + 10 }px`;
-										Object.assign(this.arrowStyle, {
-											transform: `rotate(-90deg)`,
-											left: `${- 7}px`,
-											top: `${value.top}px`,
-										});
-									} else {
-										this.tooltipStyle.left = `${value?.left - boundingClient.width - 7 }px`;
-										Object.assign(this.arrowStyle, {
-											transform: `rotate(90deg)`,
-											left: `${boundingClient.width - 2}px`,
-											top: `${value.top + 5}px`,
-										});
-									}
-									this.calculateHighlighterPosition();
-									this.calculateOverlayPosition();
-								}
-
-							}
-						});
-						return;
-					}
-
-					if (bottom > this.window.innerHeight) {
-						this.tooltipStyle.top = `${value?.top - boundingClient?.height - 9 }px`;
-						if (right >= this.window.innerWidth) {
-							this.tooltipStyle.left = `${value?.left - boundingClient?.width - 10 }px`;
-							this.tooltipStyle.top = `${value?.bottom - boundingClient?.height + 5 }px`;
-							Object.assign(this.arrowStyle, {
-								transform: `rotate(90deg)`,
-								left: `${boundingClient?.width - 3}px`,
-								top: `${boundingClient?.height - 15 }px`,
-							});
-						} else {
-							this.tooltipStyle.top = `${value?.top - boundingClient?.height - 9 }px`;
-							this.tooltipStyle.left = `${value?.left + value.width / 2 - boundingClient?.width / 2}px`;
-							Object.assign(this.arrowStyle, {
-								transform: `rotate(180deg)`,
-								left: `${boundingClient?.width / 2}px`,
-								top: `${boundingClient?.height }px`,
-							});
-						}
-
-					}
-
-					if (left < 0) {
-						if (bottom > this.window.innerHeight) {
-							if (this.responsive.onPhone) {
-								this.tooltipStyle.left = `5px`;
-								this.tooltipStyle.top = `${value?.top - boundingClient.height - 7}px`;
-
-								Object.assign(this.arrowStyle, {
-									transform: `rotate(180deg)`,
-									left: `${value.left + value.width/2 - 10}px`,
-									top: `${boundingClient?.height }px`,
-								});
-							} else {
-								this.tooltipStyle.top = `${value?.bottom - boundingClient?.height + 5 }px`;
-							}
-						} else {
-							if (this.responsive.onPhone) {
-								this.tooltipStyle.left = `${value?.left}px`;
-								this.tooltipStyle.top = `${value?.bottom + 7 }px`;
-								this.arrowStyle.left = `${value?.width/2}px`;
-							} else {
-								this.tooltipStyle.top = `${value?.top - 2 }px`;
-								this.tooltipStyle.left = `${value?.right + 10 }px`;
-								Object.assign(this.arrowStyle, {
-									transform: `rotate(-90deg)`,
-									left: `-7px`,
-									top: `${value?.height/2 }px`,
-								});
-							}
-						}
-						return;
-					}
-
-					if (right >= this.window.innerWidth) {
-						if (bottom > this.window.innerHeight) {
-							if (this.responsive.onPhone) {
-								this.tooltipStyle.left = `${this.window.innerWidth - boundingClient.width }px`;
-								this.tooltipStyle.top = `${value?.top - boundingClient.height - 7 }px`;
-								Object.assign(this.arrowStyle, {
-									transform: `rotate(180deg)`,
-									left: `${ value.left - (this.window.innerWidth - boundingClient.width) + value.width/2 - 5}px`,
-									top: `${boundingClient.height}px`,
-								});
-								return;
-							} else {
-								this.tooltipStyle.top = `${value?.bottom - boundingClient?.height }px`;
-								this.tooltipStyle.left = `${value?.left - 2 - boundingClient?.width - 9}px`;
-								this.arrowStyle.top = `${boundingClient.height - value.height / 2 - 2}px`;
-								this.arrowStyle.left = `${boundingClient?.width - 1}px`;
-							}
-						} else {
-							if (this.responsive.onPhone) {
-								this.tooltipStyle.left = `${this.window.innerWidth - boundingClient?.width }px`;
-								this.tooltipStyle.top = `${value?.bottom + 7 }px`;
-								Object.assign(this.arrowStyle, {
-									transform: `rotate(0deg)`,
-									left: `${ value.left - (this.window.innerWidth - boundingClient.width) + value.width/2 - 5}px`,
-									top: `${-5}px`,
-								});
-							} else {
-								this.tooltipStyle.left = `${value?.left - boundingClient?.width - 8}px`;
-								Object.assign(this.arrowStyle, {
-									transform: `rotate(90deg)`,
-									left: `${boundingClient?.width - 2}px`,
-									top: `${value?.height/2 }px`,
-								});
-								this.tooltipStyle.top = `${value?.top - 2 }px`;
-								this.arrowStyle.top = `${value?.height/2}px`;
-							}
-						}
 					}
 				}
-			});
+
+
+			}
 		} else {
-			this.isReady = true;
 			nextTick(() => {
 				if (!this.window) return;
-
+				const arrowElement = document.querySelector('#orion-tour-tooltip__arrow') as HTMLElement;
 				const boundingClient = this._el.value?.getBoundingClientRect();
-				if (boundingClient) {
-					Object.assign(this.tooltipStyle, {
+				if (boundingClient && this._el.value) {
+					Object.assign(this._el.value.style, {
 						left: `${this.window.innerWidth/2 - boundingClient?.width / 2 }px`,
 						top: `${this.window.innerHeight/2 - boundingClient.height /2}px`,
+						opacity: '1',
 					});
-					Object.assign(this.arrowStyle, {
+					Object.assign(arrowElement.style, {
 						left: `0`,
 						top: `0`,
+						display: 'none',
 					});
 				}
 			});
 		}
+
 	}
 
 	addHighlighter () {
@@ -476,6 +327,10 @@ export default class OrionTourStepSetupService extends SharedSetupService<Props>
 
 		if (this._stepHighlighter.value) {
 			this.document.body.removeChild(this._stepHighlighter.value);
+			const highlighters = this.document.body.getElementsByClassName('orion-tour-step-highlighter');
+			while (highlighters[0]) {
+				highlighters[0].parentNode?.removeChild(highlighters[0]);
+			}
 		}
 		this._stepHighlighter.value = null;
 	}
@@ -502,7 +357,8 @@ export default class OrionTourStepSetupService extends SharedSetupService<Props>
 				return;
 			}
 			const scrollCoords = { y: this.window.scrollY === 0 ? 0 : this.window.innerHeight + this.window.scrollY };
-			const targetScroll = target?.getBoundingClientRect().bottom > 50 ? target?.getBoundingClientRect().top - 100 + this.window.scrollY : 0;
+			const targetScroll = target?.getBoundingClientRect().bottom > 50 ? target?.getBoundingClientRect().top - 50 + this.window.scrollY : 0;
+
 			anime({
 				targets: scrollCoords,
 				y: targetScroll,
@@ -510,7 +366,7 @@ export default class OrionTourStepSetupService extends SharedSetupService<Props>
 				duration: 600,
 				easing: 'easeOutQuad',
 				update: () => {
-					scrollableParent?.scrollTo(0, scrollCoords.y);
+					target.scrollIntoView({ block: 'center' });
 				},
 				complete: () => {
 					resolve(target.getBoundingClientRect());
@@ -541,6 +397,7 @@ export default class OrionTourStepSetupService extends SharedSetupService<Props>
 		}
 		if (this.currentIndex && this.currentIndex > 0)
 			this._tour?.setCurrent(this.currentIndex - 1);
+		this._tour?.setCurrentStepPublicInstance(this.publicInstance);
 
 		if (typeof this.props.previous?.clean !== 'undefined') {
 			this.props.previous?.clean();
@@ -548,7 +405,6 @@ export default class OrionTourStepSetupService extends SharedSetupService<Props>
 	}
 
 	async goNextStep () {
-		// this.resetBodyOverflow();
 		this.cleanPreviousStep();
 		if (typeof this.props.next?.callback !== 'undefined') {
 			await this.props.next?.callback();
@@ -556,16 +412,14 @@ export default class OrionTourStepSetupService extends SharedSetupService<Props>
 		if (this.currentIndex !== -1 && this.currentIndex !== undefined && this.steps
 		&& (this.currentIndex < this.steps?.length - 1)) {
 			this._tour?.setCurrent(this.currentIndex + 1);
+			this._tour?.setCurrentStepPublicInstance(this.publicInstance);
 		}
 		if (typeof this.props.next?.clean !== 'undefined') {
 			this.props.next?.clean();
 		}
-
-		// this.storeBodyOverflow();
 	}
 
 	cleanPreviousStep () {
-		this.isReady = false;
 		this.addOverlay(true);
 		if (!!this._stepTarget.value) {
 			if (!this.props.clickable) {
@@ -578,24 +432,29 @@ export default class OrionTourStepSetupService extends SharedSetupService<Props>
 
 	waitFor (element : string): Promise<HTMLElement | null> | null {
 		return new Promise((resolve, reject) => {
-			let returnElement = null as HTMLElement | null;
-			const timeout = setTimeout(() => {
-				useLoader().hide();
-				reject('Element not found');
-				clearInterval(interval);
-			}, this.props.timeout);
+			let returnElement = this.document?.getElementById(element) ?? null;
 
-			const interval = setInterval(() => {
-				useLoader().show(this.lang.LOADING);
-				returnElement = this.document?.getElementById(element) ?? null;
-
-				if (returnElement) {
+			if (returnElement) {
+				resolve(returnElement);
+			} else {
+				const timeout = setTimeout(() => {
 					useLoader().hide();
+					reject('Element not found');
 					clearInterval(interval);
-					clearTimeout(timeout);
-					resolve(returnElement);
-				}
-			}, 50);
+				}, this.props.timeout);
+
+				const interval = setInterval(() => {
+					useLoader().show(this.lang.LOADING);
+					returnElement = this.document?.getElementById(element) ?? null;
+
+					if (returnElement) {
+						useLoader().hide();
+						clearInterval(interval);
+						clearTimeout(timeout);
+						resolve(returnElement);
+					}
+				}, 50);
+			}
 		});
 	}
 
@@ -616,16 +475,17 @@ export default class OrionTourStepSetupService extends SharedSetupService<Props>
 		});
 	}
 
-	async stop () {
+	async stop (fromTour = false) {
 		this.cleanPreviousStep();
 		this.removeOverlay();
 
-		if (typeof this.props.end?.callback !== 'undefined') {
+		if (typeof this.props.end?.callback !== 'undefined' && !fromTour) {
 			await this.props.end?.callback();
 		}
 
-		// this.resetBodyOverflow();
-		this._tour?.stop();
+		if (!fromTour) {
+			this._tour?.stop();
+		}
 	}
 
 	addOverlay (global = false) {
@@ -718,29 +578,4 @@ export default class OrionTourStepSetupService extends SharedSetupService<Props>
 
 		}
 	};
-
-	/** TODO: FIXME:
-	 * remove following methods and their calls
-	 * if no bug detected
-	 */
-
-	/* storeBodyOverflow () {
-		if (!this.document) return;
-
-		if (this.props.next?.callback || (typeof this.props.target === 'function')) {
-			setTimeout(() => {
-				if (!this.document) return;
-				this.state.bodyOverflowStyle.push(this.document.body.style.overflow);
-				this.document.body.style.overflow = 'hidden';
-			}, 300);
-		} else {
-			this.state.bodyOverflowStyle.push(this.document.body.style.overflow);
-			this.document.body.style.overflow = 'hidden';
-		}
-	}; */
-
-	/* resetBodyOverflow () {
-		if (!this.document) return;
-		this.document.body.style.overflow = this.state.bodyOverflowStyle[this.state.bodyOverflowStyle.length -1] ?? '';
-	} */
 }

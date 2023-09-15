@@ -1,13 +1,11 @@
 <template>
-	<!-- <tour-step ref="_tourStep"/> -->
-
 	<div class="row row--grid row--middle">
 		<o-button
-			id="next"
+			id="stepNext"
 			outline
 			color="info"
-			@click="startTour(5)">
-			Step with next object
+			@click="startTour(6)">
+			Step with End object
 		</o-button>
 	</div>
 </template>
@@ -15,13 +13,10 @@
 
 <script setup lang="ts">
 import { useTour } from 'lib';
-// import TourStep from '../../../sandbox/views/sandbox-julie/TourStep.vue';
-import { ref } from 'vue';
 
-const _tourStep = ref<RefDom<OrionTour>>();
 
 function startTour (index = 0) {
-	useTour('_tourStep').start(index);
+	useTour('_tourProps').start(index);
 }
 
 </script>
