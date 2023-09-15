@@ -1,7 +1,7 @@
 <template>
 	<div id="layout">
 		<orion-nav-main
-			v-if="setup.responsive.onTabletLandscape"
+			v-if="setup.responsive.onTabletLandscape && setup.props.navMain"
 			v-bind="setup.props.navMain">
 			<template #prepend="{ item }">
 				<slot

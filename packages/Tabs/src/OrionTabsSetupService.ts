@@ -12,6 +12,15 @@ type TabsEmit = {
 
 export default class OrionTabsSetupService extends SharedSetupService<Props> {
 	static props = {
+		// @doc props/useRouter connect the tabs to the router to bind active tab to current route and use `<router-view/>` component
+		// @doc/fr props/useRouter connecte les tabs au router pour synchroniser la tab active avec la router actuelle et utiliser le composant `<router-view/>`
+		useRouter: Boolean,
+		// @doc props/routerViewName the name of the `<router-view/>` when using `use-router` prop
+		// @doc/fr props/routerViewName le nom du `<router-view/>` lors de l'utilisation de la prop `use-router`
+		routerViewName: {
+			type: String,
+			default: undefined,
+		},
 		// @doc props/modelValue model value
 		// @doc/fr props/modelValue modelValue du composant
 		modelValue: {
@@ -45,6 +54,7 @@ export default class OrionTabsSetupService extends SharedSetupService<Props> {
 			_loader: () => this._loader.value,
 			panes: this.state.panes as Orion.Private.TsxTabPane[],
 			getValue: () => this.props.modelValue,
+			useRouter: this.props.useRouter,
 		};
 	}
 
@@ -101,7 +111,9 @@ export default class OrionTabsSetupService extends SharedSetupService<Props> {
 	onTabClick (pane: OrionTabPane, event: MouseEvent) {
 		if (isDefineOrTrue(pane.disabled)) return;
 
-		if (this.props.modelValue !== pane.name) {
+		if (this.props.useRouter && this.router.currentRoute.value.name !== pane.name) {
+			this.router.push({ name: pane.name });
+		} else if (this.props.modelValue !== pane.name) {
 			this.emit('update:modelValue', pane.name);
 			this.emit('input', pane.name);
 		}

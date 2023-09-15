@@ -9,6 +9,7 @@ import { isDefineOrTrue } from 'utils/tools';
 import { OrionTabNav } from 'packages/TabNav';
 import { OrionLoader } from 'packages/Loader';
 import OrionTabsSetupService from './OrionTabsSetupService';
+import { RouterView } from 'vue-router';
 type TabsEmit = {
 	(e: 'input', payload: string): void
 	(e: 'tab-click', ...payload: [OrionTabPane, MouseEvent]): void
@@ -43,7 +44,11 @@ const jsxTabs = () => {
 
 	const content = (
 		<div class="orion-tabs__content">
-			{ slots.default ? slots.default() : null }
+			{
+				setup.props.useRouter
+					? <RouterView name={setup.props.routerViewName}/>
+					: slots.default ? slots.default() : null
+			}
 			<OrionLoader { ...loaderData }/>
 		</div>
 	);

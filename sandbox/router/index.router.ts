@@ -9,6 +9,23 @@ const router = createRouter({
 			component: () => import('sandbox/views/LayoutApp.vue'),
 			children: [
 				...packagesRoutes,
+				{
+					name: 'TabsView',
+					path: '/packages/tabs',
+					component: () => import('sandbox/views/packages/TabsView.vue'),
+					children: [
+						{
+							path: 'toggle',
+							name: 'TabsOne',
+							components: { toto: () => import('sandbox/views/packages/ToggleView.vue') },
+						},
+						{
+							path: 'button',
+							name: 'TabsTwo',
+							components: { toto: () => import('sandbox/views/packages/ButtonView.vue') },
+						},
+					],
+				},
 			],
 		},
 		{

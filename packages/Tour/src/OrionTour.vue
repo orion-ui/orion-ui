@@ -19,7 +19,7 @@ const jsxTimeline = () => {
 		const test = slots.default().filter(x => !!x.props);
 
 		const tourSteps = (
-			<div class="orion-tour__steps" >
+			<div class="orion-tour__steps" key={setup.getUid()}>
 				{ test.length ? test[setup.currentIndex] : null }
 			</div>
 		);

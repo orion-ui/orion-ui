@@ -26,6 +26,8 @@
 			</main>
 			
 			<TableOfContent v-if="shouldShowToc"/>
+			<tour-doc/>
+			<tour-props/>
 		</div>
 </template>
 
@@ -44,6 +46,8 @@ import PageNav from '@theme/PageNav.vue';
 import PageMeta from '@theme/PageMeta.vue';
 import TableOfContent from './components/TableOfContents.vue';
 import Home from './components/Home.vue';
+import TourDoc from '@/packages/Tour/docs/TourDoc.vue'
+import TourProps from '@/packages/Tour/docs/TourProps.vue'
 
 const frontmatter = usePageFrontmatter<any>()
 

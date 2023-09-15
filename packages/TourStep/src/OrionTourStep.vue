@@ -1,20 +1,19 @@
 <template>
 	<div
-		v-if="setup.isReady && _tour"
+		v-if="_tour"
 		id="tour-tooltip"
 		:ref="setup._el"
 		class="orion-tour-tooltip"
 		:class="[
 			`orion-tour-tooltip--${setup.props.size}`,
-		]"
-		:style="setup.tooltipStyle">
+		]">
 		<span
 			v-if="setup.props.closable"
 			class="orion-tour-tooltip__close"
-			@click="setup.stop"/>
-		<span
-			class="orion-tour-tooltip__arrow"
-			:style="setup.arrowStyle"/>
+			@click="setup.stop()"/>
+		<div
+			id="orion-tour-tooltip__arrow"
+			class="orion-tour-tooltip__arrow"/>
 		<div class="orion-tour-tooltip__title">
 			{{ setup.props.title }}
 		</div>

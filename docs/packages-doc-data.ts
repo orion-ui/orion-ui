@@ -7019,6 +7019,24 @@ const packagesDocData = new Map([
 					'en': 'model value',
 					'fr': 'modelValue du composant',
 				},
+			}, {
+				'name': 'routerViewName',
+				'defaultValue': 'undefined',
+				'type': 'string',
+				'required': false,
+				'desc': {
+					'en': 'the name of the `<router-view/>` when using `use-router` prop',
+					'fr': 'le nom du `<router-view/>` lors de l\'utilisation de la prop `use-router`',
+				},
+			}, {
+				'name': 'useRouter',
+				'defaultValue': false,
+				'type': 'boolean',
+				'required': false,
+				'desc': {
+					'en': 'connect the tabs to the router to bind active tab to current route and use `<router-view/>` component',
+					'fr': 'connecte les tabs au router pour synchroniser la tab active avec la router actuelle et utiliser le composant `<router-view/>`',
+				},
 			}],
 			publicInstance: [{
 				'name': '_loader',
@@ -7029,6 +7047,9 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'getValue',
 				'type': '() => string | undefined',
+			}, {
+				'name': 'useRouter',
+				'type': 'boolean',
 			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
@@ -7889,6 +7910,9 @@ const packagesDocData = new Map([
 				'name': 'setCurrent',
 				'type': '(val: number) => void',
 			}, {
+				'name': 'setCurrentStepPublicInstance',
+				'type': '(instance: Undef<{\n\tprevious: () => Promise<void>;\n\tnext: () => Promise<void>;\n\tstop: (fromTour?: boolean) => Promise<void>;\n\t_el: () => HTMLElement | undefined;\n}>) => void',
+			}, {
 				'name': 'start',
 				'type': '(index?: number) => void',
 			}, {
@@ -7959,8 +7983,8 @@ const packagesDocData = new Map([
 				'type': 'Object',
 				'required': false,
 				'desc': {
-					'en': 'Missing @doc',
-					'fr': 'Missing @doc',
+					'en': 'object which contains a label, and a callback and clean functions for the final step',
+					'fr': 'objet contenant un label, et des fonction `callback` et `clean` pour l\'étape finale',
 				},
 			}, {
 				'name': 'hideFinish',
@@ -7986,8 +8010,8 @@ const packagesDocData = new Map([
 				'type': 'Object',
 				'required': false,
 				'desc': {
-					'en': 'Missing @doc',
-					'fr': 'Missing @doc',
+					'en': 'object which contains a label, and a callback and clean functions for the previous step',
+					'fr': 'objet contenant un label, et des fonction `callback` et `clean` pour l\'étape précédente',
 				},
 			}, {
 				'name': 'size',
@@ -8004,8 +8028,8 @@ const packagesDocData = new Map([
 				'type': 'string | function | boolean',
 				'required': false,
 				'desc': {
-					'en': 'possibility to target a DOM element. If it is a `string`, it must represent an `id` in the DOM. If `false`, no target will be selected\'',
-					'fr': 'Permet de cibler un élément dans le DOM. S\'il s\'agit d\'une string, elle doit correspondre à l\'id de cet élément. Si elle est définie à `false` l\'étape se placera au centre de la page, sans cible.\'',
+					'en': 'possibility to target a DOM element. If it is a `string`, it must represent an `id` in the DOM. If `false`, no target will be selected',
+					'fr': 'Permet de cibler un élément dans le DOM. S\'il s\'agit d\'une string, elle doit correspondre à l\'id de cet élément. Si elle est définie à `false` l\'étape se placera au centre de la page, sans cible.',
 				},
 			}, {
 				'name': 'timeout',
@@ -8027,6 +8051,15 @@ const packagesDocData = new Map([
 				},
 			}],
 			publicInstance: [{
+				'name': 'previous',
+				'type': '() => Promise<void>',
+			}, {
+				'name': 'next',
+				'type': '() => Promise<void>',
+			}, {
+				'name': 'stop',
+				'type': '(fromTour?: boolean) => Promise<void>',
+			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
 			}],

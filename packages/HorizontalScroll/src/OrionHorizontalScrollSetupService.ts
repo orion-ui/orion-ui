@@ -396,7 +396,6 @@ export default class OrionHorizontalScrollSetupService extends SharedSetupServic
 
 	scrollTo (element: HTMLElement) {
 		element.scrollIntoView({
-			inline: 'center',
 			behavior: 'smooth',
 			block: 'nearest',
 		});
