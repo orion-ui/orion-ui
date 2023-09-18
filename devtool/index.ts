@@ -5,12 +5,25 @@ import { getThemeMode, isIpad, isMac, isTouch, isWindows } from 'utils/tools';
 import { OrionAppService } from 'utils/Orion';
 import useLang from 'services/LangService';
 import Log from 'utils/Log';
+import useResponsive from 'services/ResponsiveService';
 
 export const devtoolId = 'orion-devtool';
 
 export let devtool: Undef<DevtoolsPluginApi<ExtractSettingsTypes<Record<string, PluginSettingsItem>>>>;
 
 const orionStateType = 'SetupService';
+const SetupServiceKeysToExclude = [
+	'Bus',
+	'bus',
+	'props',
+	'responsive',
+	'ui',
+	'window',
+	'document',
+	'defaultRouter',
+	'getUid',
+	'emits',
+];
 
 export function setupDevtools (app: any, orionAppService: OrionAppService) {
 	setupDevtoolsPlugin({
@@ -77,6 +90,23 @@ export function setupDevtools (app: any, orionAppService: OrionAppService) {
 							value: isWindows(),
 						},
 					],
+					'Responsive': [
+						'ww',
+						'wh',
+						'onPhone',
+						'onTablet',
+						'onTabletOnly',
+						'onTabletPortrait',
+						'onTabletPortraitOnly',
+						'onTabletLandscape',
+						'onTabletLandscapeOnly',
+						'onDesktop',
+						'onDesktopOnly',
+						'onDesktopXL',
+					].map(key => ({
+						key,
+						value: (useResponsive() as any)[key],
+					})),
 				};
 			} else if (payload.nodeId === 'localization') {
 				const currentLang = useLang();
@@ -126,25 +156,57 @@ export function setupDevtools (app: any, orionAppService: OrionAppService) {
 		api.on.inspectComponent((payload) => {
 			if (/^Orion/.test(payload.componentInstance.type.__name)) {
 				const instance = payload.instanceData;
-				const exposed = payload.componentInstance.exposed;
+				const SetupService = payload.componentInstance.devtoolsRawSetupState.setup;
 
-				// Remove SetupService
-				const setupPropsIndex = instance.state.findIndex(x => x.type === 'setup' && x.key === 'props');
-				instance.state.splice(setupPropsIndex, 1);
-				const setupSetupIndex = instance.state.findIndex(x => x.type === 'setup' && x.key === 'setup');
-				instance.state.splice(setupSetupIndex, 1);
-
-				if (exposed) {
-					instance.state.push(...Object.entries(exposed)
-						.map(([key, value]) => ({
-							type: orionStateType,
-							key,
-							value,
-							// editable: typeof value !== 'function',
-						})),
-					);
+				for (let i = instance.state.length - 1; i > -1; i--) {
+					const element = instance.state[i];
+					if (element.type === 'setup' || element.type === 'setup (other)') {
+						instance.state.splice(i, 1);
+					}
 				}
+
+				instance.state.unshift(...Object.entries(SetupService)
+					.filter(([key]) => !SetupServiceKeysToExclude.includes(key) && !Object.keys(SetupService.publicInstance).includes(key))
+					.map(([key, value]) => ({
+						type: orionStateType,
+						key,
+						value: typeof value !== 'function' ? value : handleFunctions(value),
+						editable: typeof value !== 'function',
+					})),
+				);
+
+				instance.state.unshift(...Object.entries(SetupService.publicInstance)
+					.map(([key, value]) => ({
+						type: 'Setup.publicInstance',
+						key,
+						value: typeof value !== 'function' ? value : handleFunctions(value),
+					})),
+				);
 			}
 		});
 	});
+}
+
+
+function handleFunctions (value: Function) {
+	return {
+		_custom: {
+			type: Function,
+			readOnly: true,
+			display: `Function`,
+			tooltip: 'Click the icon to trigger',
+			// value: 'value',
+			actions: [
+				{
+					icon: 'input',
+					tooltip: 'Trigger function',
+					action: async () => {
+						// console.log(value);
+						// eslint-disable-next-line no-console
+						console.log(await value());
+					},
+				},
+			],
+		},
+	};
 }
