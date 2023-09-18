@@ -6,6 +6,8 @@ import orionAppService from 'utils/Orion';
 import useDocument from './DocumentService';
 
 class NotifService extends PopableService<OrionNotif> {
+	nameForDevtool = `OrionNotif`;
+
 	constructor (options: Partial<Orion.Notif.Options>) {
 		super({
 			duration: 5,
@@ -29,6 +31,8 @@ class NotifService extends PopableService<OrionNotif> {
 			}
 
 			render(vnode, container);
+
+			this.registerComponentInstanceInDevtool(vnode);
 		}
 
 		const instance = _popables[this.options.uid];

@@ -6,6 +6,8 @@ import orionAppService from 'utils/Orion';
 import useDocument from './DocumentService';
 
 class AsideService extends PopableService<OrionAside> {
+	nameForDevtool = `OrionAside`;
+
 	constructor (options: Partial<Orion.Aside.Options>) {
 		super(options);
 	}
@@ -26,6 +28,8 @@ class AsideService extends PopableService<OrionAside> {
 			}
 
 			render(vnode, container);
+
+			this.registerComponentInstanceInDevtool(vnode);
 		}
 
 		const instance = _popables[this.options.uid];

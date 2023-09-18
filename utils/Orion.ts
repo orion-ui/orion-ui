@@ -1,4 +1,4 @@
-import { App, AppContext, createVNode, render } from 'vue';
+import { App, createVNode, render } from 'vue';
 import FloatingVue from 'floating-vue';
 
 import { handleTouchDevice, initThemeMode } from './tools';
@@ -11,11 +11,12 @@ import { getAppLang, setAppLang } from 'services/LangService';
 
 
 export class OrionAppService {
-	private app!: App;
-	private context!: AppContext;
+	private _app!: App;
 	private config!: Orion.AppServiceConfig;
 
-	get appContext () { return this.context; }
+	get app () { return this._app; }
+	get appContext () { return this._app._context; }
+	get appInstance () { return this._app._instance; }
 	get appLang () { return getAppLang(); }
 	get appConfig () { return this.config; }
 	get appUse () { return this.config.use; }
@@ -32,8 +33,7 @@ export class OrionAppService {
 
 		if (!app) throw `Parameter "app" is missing in Orion initializer`;
 
-		this.app = app;
-		this.context = app._context;
+		this._app = app;
 		this.config = config;
 
 		setAppLang(config.lang);
@@ -41,7 +41,7 @@ export class OrionAppService {
 		this.preventVuePrefixWarning();
 
 		if (this.appUse.includes('components')) {
-			this.app.use(FloatingVue, {
+			this._app.use(FloatingVue, {
 				themes: {
 					'orion': {
 						$extend: 'dropdown',
@@ -74,7 +74,7 @@ export class OrionAppService {
 	}
 
 	private preventVuePrefixWarning (): void {
-		this.app.config.warnHandler = (msg) => {
+		this._app.config.warnHandler = (msg) => {
 			// Remove warning about property's name returned to template
 			// Orion use :
 			//    _el      for template ref
@@ -85,7 +85,7 @@ export class OrionAppService {
 	private registerGlobalComponents (): void {
 		if (!this.appPrefix) throw `key "prefix" is missing in config`;
 
-		OrionComponentsPlugin.install?.(this.app, this.appPrefix);
+		OrionComponentsPlugin.install?.(this._app, this.appPrefix);
 	}
 
 	private createPopableWrapper () {

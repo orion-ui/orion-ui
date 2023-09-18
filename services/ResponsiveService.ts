@@ -23,9 +23,8 @@ export class ResponsiveService {
 		},
 	});
 
-	private get ww () { return this.state.windowSize.width; }
-	private get wh () { return this.state.windowSize.height; }
-
+	get ww () { return this.state.windowSize.width; }
+	get wh () { return this.state.windowSize.height; }
 	get onPhone () { return this.ww < this.BPtablet; }
 	get onTablet () { return this.ww >= this.BPtablet; }
 	get onTabletOnly () { return this.ww >= this.BPtablet && this.ww < this.BPdesktop; }
