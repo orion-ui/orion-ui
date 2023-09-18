@@ -6,6 +6,8 @@ import orionAppService from 'utils/Orion';
 import useDocument from './DocumentService';
 
 class ModalService extends PopableService<OrionModal> {
+	nameForDevtool = `OrionModal`;
+
 	constructor (options: Partial<Orion.Modal.Options>) {
 		super(options);
 	}
@@ -26,6 +28,8 @@ class ModalService extends PopableService<OrionModal> {
 			}
 
 			render(vnode, container);
+
+			this.registerComponentInstanceInDevtool(vnode);
 		}
 
 		const instance = _popables[this.options.uid];

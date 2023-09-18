@@ -8,6 +8,8 @@ import { toggleGlobalListener } from 'utils/tools';
 import type { OrionAsideSetupService } from '../Aside';
 import type { OrionModalSetupService } from '../Modal';
 import type { OrionNotifSetupService } from '../Notif';
+import { devtool } from 'devtool';
+import orionAppService from 'utils/Orion';
 
 type Props = SetupProps<typeof SharedPopableSetupService.props>
 type Popable = OrionAside | OrionNotif | OrionModal;
@@ -159,6 +161,15 @@ export default abstract class SharedPopableSetupService<P extends Props> extends
 	protected onUnmounted () {
 		this.close();
 		toggleGlobalListener(this.uid);
+
+		if (this.options.programmatic) {
+			devtool?.on.visitComponentTree((payload) => {
+				if (payload.treeNode.uid === orionAppService.appInstance?.uid) {
+					const index = payload.treeNode.children.findIndex(x => (x as any).orionUid === this.uid);
+					if (index > -1) payload.treeNode.children.splice(index, 1);
+				}
+			});
+		}
 	}
 
 
