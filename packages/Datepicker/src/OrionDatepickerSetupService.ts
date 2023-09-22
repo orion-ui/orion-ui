@@ -1,8 +1,10 @@
 import { nextTick, PropType, reactive, ref } from 'vue';
 import { debounce, isNil, throttle } from 'lodash-es';
+import { Dropdown } from 'floating-vue';
 import SharedFieldSetupService, { FieldEmit } from '../../Shared/SharedFieldSetupService';
 import useMonkey from 'services/MonkeyService';
 import { getAppLang } from 'services/LangService';
+import { addPopoverBackdropCloseAbility } from 'utils/tools';
 
 type Props = SetupProps<typeof OrionDatepickerSetupService.props>
 type DatepickerEmit = FieldEmit<Nil<Date>> & {
@@ -55,6 +57,7 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 
 	protected emit: DatepickerEmit;
 
+	readonly _popover = ref<InstanceType<typeof Dropdown>>();
 	readonly _options = ref<OrionDateWeek | OrionDateRange | OrionDateTable>();
 	readonly _hours = ref<HTMLElement>();
 	readonly _minutes = ref<HTMLElement>();
@@ -533,7 +536,7 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 	}
 
 	handleBlur (e?: FocusEvent, force = false) {
-		if (this.isOnPhoneWithTimepicker && !force) return;
+		if (this.responsive.onPhone && !force) return;
 
 		this.focusedWithMouse = false;
 		super.handleBlur(e);
@@ -839,6 +842,8 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 	}
 
 	handlePopperShow () {
+		addPopoverBackdropCloseAbility(this._popover, () => this.handleBlur(undefined, true));
+
 		if (this.isOnPhoneWithTimepicker) {
 			this.computeTimeItemsStyle('hours');
 			this.computeTimeItemsStyle('minutes');

@@ -1,5 +1,6 @@
 import { ComponentPublicInstance, nextTick, PropType, reactive, ref, watch } from 'vue';
 import { cloneDeep, debounce, get, isArray, isEmpty, isNil, isObject, upperFirst } from 'lodash-es';
+import { Dropdown } from 'floating-vue';
 import mitt from 'mitt';
 import anime from 'animejs';
 
@@ -7,6 +8,7 @@ import SharedFieldSetupService, { FieldEmit } from '../../Shared/SharedFieldSetu
 import Log from 'utils/Log';
 import useNotif from 'services/NotifService';
 import useMonkey from 'services/MonkeyService';
+import { addPopoverBackdropCloseAbility } from 'utils/tools';
 
 type Props = SetupProps<typeof OrionSelectSetupService.props>
 type BaseVModelType = string | number | boolean | Record<string, any>;
@@ -139,12 +141,12 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 		fetchResult: [] as BaseVModelType[],
 	});
 
-	_popover = ref<RefDom>();
-	_popoverinner = ref<RefDom>();
-	_optionscontainer = ref<RefDom>();
-	_autocomplete = ref<RefDom<HTMLInputElement>>();
-	_optionssearchinput = ref<OrionInput>();
-	_items = ref<(Element | ComponentPublicInstance)[]>([]);
+	readonly _popover = ref<InstanceType<typeof Dropdown>>();
+	readonly _popoverinner = ref<RefDom>();
+	readonly _optionscontainer = ref<RefDom>();
+	readonly _autocomplete = ref<RefDom<HTMLInputElement>>();
+	readonly _optionssearchinput = ref<OrionInput>();
+	readonly _items = ref<(Element | ComponentPublicInstance)[]>([]);
 	readonly isArray = isArray;
 	readonly get = get;
 
@@ -475,6 +477,8 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 	}
 
 	handlePopoverShow () {
+		addPopoverBackdropCloseAbility(this._popover, () => this.handleBlur(undefined, true));
+
 		if (isArray(this._items.value)) {
 			this.state.indexNav = this._items.value.findIndex(x => (x as HTMLElement).classList.contains('selected'));
 			this.animate();

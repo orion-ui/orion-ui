@@ -166,6 +166,11 @@ const toolsDocData = {
 			'description': 'the keys to extract',
 		}],
 	},
+	addPopoverBackdropCloseAbility: {
+		'description': 'add a \'click\' event listener on the popover\'s backdrop to close it',
+		'return': 'void',
+		'param': [],
+	},
 };
 
 export default toolsDocData;
