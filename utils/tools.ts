@@ -1,3 +1,5 @@
+import { Ref, nextTick } from 'vue';
+import { Dropdown } from 'floating-vue';
 import { devtool, devtoolId } from 'devtool';
 import useDocument from 'services/DocumentService';
 import useLocalStorage from 'services/LocalStorageService';
@@ -236,6 +238,23 @@ export function pickFrom <T extends object, K extends keyof T> (target: T, keys:
 		res[k] = target[k];
 	});
 	return res;
+}
+
+/**
+ * @desc add a 'click' event listener on the popover's backdrop to close it
+ * @param {Ref<InstanceType<typeof Dropdown>>} popoverRef
+ * @param {() => void} [cb]
+ * @return void
+ */
+export function addPopoverBackdropCloseAbility (popoverRef: Ref<Undef<InstanceType<typeof Dropdown>>>, cb?: () => void) {
+	const targetPopoverId = (popoverRef.value?.getTargetNodes() as HTMLElement[])[0]?.getAttribute('aria-describedby');
+	if (targetPopoverId) {
+		const backdrop = document.getElementById(targetPopoverId)?.querySelector('.v-popper__backdrop') as Undef<HTMLElement>;
+		backdrop?.addEventListener('click', () => {
+			popoverRef.value?.hide();
+			nextTick(() => cb?.());
+		}, { once: true });
+	}
 }
 
 

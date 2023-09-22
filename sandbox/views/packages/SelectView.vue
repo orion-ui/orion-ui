@@ -87,7 +87,7 @@
 							<o-select
 								v-model="data.fieldSelect.value"
 								:label="`Simple`"
-								:options="data.fieldSelect.options">
+								:options="[]">
 								<template #before-options="{ options }">
 									turltutu {{ options.length }}
 								</template>
