@@ -1,5 +1,6 @@
 <template>
 	<v-dropdown
+		:ref="setup._popover"
 		placement="bottom-start"
 		:positioning-disabled="setup.responsive.onPhone"
 		:triggers="[]"
@@ -68,7 +69,7 @@
 				:max-date="setup.maxDate"
 				@update:model-value="time && !setup.responsive.onPhone
 					? $nextTick(() => setup.setSelectionToHour())
-					: setup.handleBlur()
+					: setup.handleBlur(undefined, setup.responsive.onPhone && !time)
 				"/>
 			<orion-date-range
 				v-else-if="setup.props.type === 'range'"
@@ -76,7 +77,7 @@
 				v-model="setup.range"
 				:min-date="setup.minDate"
 				:max-date="setup.maxDate"
-				@select-range="setup.handleBlur()"/>
+				@select-range="setup.handleBlur(undefined, true)"/>
 			<orion-date-week
 				v-else-if="setup.props.type === 'week'"
 				:ref="setup._options"

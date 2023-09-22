@@ -62,14 +62,9 @@
 			}
 
 			.v-popper__wrapper {
-				transition: transform 0.15s ease-out;
 				width: 100%;
 				pointer-events: auto;
 				margin-bottom: -2px;
-			}
-
-			&.v-popper__popper--hidden .v-popper__wrapper {
-				transform: translateY(100%);
 			}
 		}
 	}
@@ -120,8 +115,8 @@
 
 	&-orion-select-searchable {
 		&.v-popper__popper--no-positioning .orion-select__popover {
-			height: calc(100vh - var(--fluid-30px)); // dvh support fallback
-			height: calc(100dvh - var(--fluid-30px));
+			height: calc(90vh - var(--fluid-30px)); // dvh support fallback
+			height: calc(90dvh - var(--fluid-30px));
 			max-height: none;
 		}
 	}
