@@ -85,6 +85,7 @@ export default {
 	ORION_EDITOR__LINK: `Lien`,
 	ORION_EDITOR__LINK_URL: `Adresse du lien`,
 	ORION_EDITOR__PICTURE: `Image`,
+	ORION_EDITOR__PICTURE_URL: `Image depuis URL`,
 	ORION_EDITOR__PICTURE_TOO_HEAVY: `L'image $fileName est trop lourde, la taille maximale autorisée est de $imgMaxSize Ko.`,
 	ORION_EDITOR__REGULAR_TEXT: `Texte normal`,
 	ORION_EDITOR__TEXT_COLOR: `Couleur de texte`,

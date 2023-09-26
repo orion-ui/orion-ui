@@ -165,4 +165,12 @@ export default class OrionEditorSetupService extends SharedFieldSetupService<Pro
 			reader.readAsDataURL(file);
 		});
 	}
+
+	async promptImageUrlAsync () {
+		const { confirm, value } = await usePrompt<string>({ title: this.lang.ORION_EDITOR__ADD_PICTURE });
+
+		if (confirm && value?.length) {
+			this.editor.value?.chain().focus().setImage({ src: value }).run();
+		}
+	}
 }

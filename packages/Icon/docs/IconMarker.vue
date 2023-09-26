@@ -1,15 +1,15 @@
 <template>
 	<div class="flex g-md">
 		<o-icon
-			icon="home_fill"
+			icon="house_01"
 			:marker="3"
 			@marker-click="useNotif.info('You clicked on marker')"/>
 		<o-icon
-			icon="home_fill"
+			icon="house_01"
 			marker
 			marker-color="warning"/>
 		<o-icon
-			icon="home_fill"
+			icon="house_01"
 			marker
 			marker-color="success"
 			marker-position="bottom right"/>

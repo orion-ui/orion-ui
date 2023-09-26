@@ -32,7 +32,7 @@
 			<template #footer="{ close }">
 				<div class="orion-nav-aside__footer">
 					<orion-button
-						suffix-icon="chevron_big_right"
+						suffix-icon="chevron_right"
 						outline
 						@click="close()">
 						{{ setup.lang.CLOSE_MENU }}

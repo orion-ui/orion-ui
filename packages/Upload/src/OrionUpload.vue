@@ -31,7 +31,7 @@
 					<div class="orion-upload__or">{{ setup.lang.OR }}</div>
 
 					<div class="orion-upload__drag-over-indicator">
-						<orion-icon icon="cloud_up"/>
+						<orion-icon icon="cloud_upload"/>
 					</div>
 					<orion-button
 						class="orion-upload__button"

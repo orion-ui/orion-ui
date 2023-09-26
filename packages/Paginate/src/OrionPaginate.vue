@@ -3,7 +3,7 @@
 		<orion-button
 			nude
 			class="orion-paginate__prev"
-			prefix-icon="chevron_big_left"
+			prefix-icon="chevron_left"
 			@click="setup.index -= 1"/>
 
 		<div class="orion-paginate__wrapper">
@@ -26,7 +26,7 @@
 		<orion-button
 			nude
 			class="orion-paginate__next"
-			suffix-icon="chevron_big_right"
+			suffix-icon="chevron_right"
 			@click="setup.index += 1"/>
 	</div>
 </template>

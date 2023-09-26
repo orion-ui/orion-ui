@@ -30,7 +30,7 @@
 					prefix-icon="check"
 					color="success"/>
 				<o-button
-					prefix-icon="facebook"
+					prefix-icon="camera"
 					color="info"/>
 			</teleport>
 		</o-aside>

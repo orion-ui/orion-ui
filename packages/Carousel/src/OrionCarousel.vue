@@ -48,7 +48,7 @@
 					:disabled="hideNavigationButtons || (!setup.shouldLoop && setup.stepIndex === 0)"
 					outline
 					size="sm"
-					prefix-icon="chevron_big_left"
+					prefix-icon="chevron_left"
 					@click="setup.goPreviousStep()"/>
 
 				<orion-button
@@ -56,7 +56,7 @@
 					:disabled="hideNavigationButtons || (!setup.shouldLoop && setup.stepIndex === (setup.stepsLength - 1))"
 					outline
 					size="sm"
-					suffix-icon="chevron_big_right"
+					suffix-icon="chevron_right"
 					@click="setup.goNextStep()"/>
 			</slot>
 

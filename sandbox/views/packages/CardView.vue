@@ -54,10 +54,10 @@
 						icon="check"
 						@click="state.selected = !state.selected"/>
 					<o-icon
-						icon="Sketch"
+						icon="camera"
 						:loading="state.selected"/>
 					<o-icon
-						icon="Sketch"
+						icon="airplay"
 						@click="triggerConfirm()"/>
 				</template>
 			</o-card>
