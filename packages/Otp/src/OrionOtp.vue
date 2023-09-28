@@ -10,10 +10,8 @@
 			type="text"
 			:onkeypress="dataType !== 'text' ? 'return /[0-9]/i.test(event.key)' : undefined"
 			:readonly="readonly"
-			:max-length="1"
 			autocomplete="one-time-code"
 			class="orion-otp__input"
-			@paste.self="setup.handlePaste($event)"
 			@input="setup.handleInput($event, index)"
 			@keydown.delete="setup.handleDelete(index)"/>
 	</div>
