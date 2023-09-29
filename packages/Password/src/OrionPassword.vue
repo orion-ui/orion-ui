@@ -43,7 +43,7 @@
 					:key="index"
 					class="password-check-line"
 					:class="validationMessage.valid ? 'text--success': 'text--warning'">
-					<orion-icon :icon="validationMessage.valid ? 'check_bold': 'warning'"/>
+					<orion-icon :icon="validationMessage.valid ? 'check': 'warning'"/>
 					<span>{{ validationMessage.message }}</span>
 				</div>
 			</div>

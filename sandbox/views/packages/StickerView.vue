@@ -6,13 +6,13 @@
 			Lorem ipsum dolor sit amet consectetur adipisicing elit.
 
 			<o-icon-section
-				icon="Sketch"
+				icon="camera"
 				title="turlututu">
 				Chapeau pointu
 			</o-icon-section>
 
 			<o-icon
-				icon="linkpath"
+				icon="link"
 				style="font-size: 2rem"
 				marker/>
 		</o-sticker>

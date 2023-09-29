@@ -10,7 +10,7 @@
 					:data="item"
 					tag="o-sticker">
 					<div class="draggable-content">
-						<o-icon icon="file_pdf"/>
+						<o-icon icon="file_document"/>
 						<strong>{{ item.title }}</strong>
 					</div>
 				</o-draggable>
@@ -28,7 +28,7 @@
 					:data="item"
 					tag="o-sticker">
 					<div class="draggable-content">
-						<o-icon icon="file_archive"/>
+						<o-icon icon="file_blank"/>
 						<strong>{{ item.title }}</strong>
 					</div>
 				</o-draggable>

@@ -4,14 +4,14 @@
 	<div class="row row--gutter">
 		<div class="col-sm-6">
 			<o-icon-section
-				icon="image"
+				icon="image_01"
 				title="Default">
 				Lorem ipsum
 			</o-icon-section>
 		</div>
 		<div class="col-sm-6">
 			<o-icon-section
-				icon="home_fill"
+				icon="house_01"
 				title="Center">
 				Lorem ipsum
 			</o-icon-section>
@@ -33,7 +33,7 @@
 		</div>
 		<div class="col-sm-6">
 			<o-icon-section
-				icon="refresh"
+				icon="redo"
 				title="Only centers the description"
 				center>
 				Lorem ipsum

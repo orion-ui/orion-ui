@@ -58,7 +58,7 @@
 						<orion-icon icon="calendar"/>
 					</template>
 					<template #append-discussion-actions>
-						<orion-icon icon="plus_circle"/>
+						<orion-icon icon="add_plus_circle"/>
 					</template>
 				</o-chat>
 			</div>

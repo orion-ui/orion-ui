@@ -15,7 +15,8 @@
 			</o-timeline-pane>
 			<o-timeline-pane
 				v-bind="state"
-				name="pane2">
+				name="pane2"
+				icon="clock">
 				<template #[targetSlot]>
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras gravida orci a nulla auctor,
 					in tempus erat elementum. Nullam ac tincidunt dolor. Sed sapien massa, commodo sed feugiat ac.
@@ -35,7 +36,7 @@
 				name="pane4"
 				label="step 4"
 				disabled
-				icon="heart_outline">
+				icon="heart_01">
 				<template #[targetSlot]>
 					Cras mattis consectetur purus sit amet fermentum.
 					Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.

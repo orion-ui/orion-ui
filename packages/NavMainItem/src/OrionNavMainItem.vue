@@ -23,12 +23,12 @@
 			<orion-icon
 				v-if="(item.children && item.replace) || item.showCarret"
 				class="icon--children-indicator"
-				icon="chevron_big_right"/>
+				icon="chevron_right"/>
 
 			<orion-icon
 				v-if="item.children && !item.replace"
 				class="icon--collapse"
-				:icon="item?.expand ? `caret_down` : `caret_right`"/>
+				:icon="item?.expand ? `caret_down_sm` : `caret_right_sm`"/>
 		</component>
 
 		<div

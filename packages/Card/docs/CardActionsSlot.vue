@@ -17,7 +17,7 @@
 						@click="selected = !selected"/>
 
 					<o-icon
-						icon="play_arrow"
+						icon="play"
 						ripple="success"
 						@click="triggerNotif()"/>
 				</template>

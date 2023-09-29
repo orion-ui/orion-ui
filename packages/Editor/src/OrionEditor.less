@@ -9,6 +9,10 @@
 	border: 0.0625rem solid var(--grey-light);
 	padding: var(--fluid-10px);
 
+	[data-orion-theme='dark'] & {
+		background: var(--grey-lighter);
+	}
+
 	&__toolbar {
 		display: flex;
 		flex-wrap: wrap;
@@ -21,10 +25,11 @@
 		.orion-button {
 			padding: var(--fluid-5px) var(--fluid-12px);
 			box-shadow: none;
-			border: 0.0625rem solid rgba(var(--grey-light), 0.7);
+			border-radius: 0.5rem;
 
 			&.active {
-				border-color: var(--info);
+				color: var(--info);
+				background-color: rgba(var(--rgb-info), 0.1);
 			}
 		}
 
@@ -49,6 +54,10 @@
 
 			img {
 				max-width: 100%;
+
+				&.ProseMirror-selectednode {
+					outline: 3px solid var(--info);
+				}
 			}
 		}
 	}

@@ -16,7 +16,7 @@
 			<o-input
 				v-model="value"
 				label="Both"
-				prefix-icon="warning"
+				prefix-icon="airplay"
 				suffix-icon="check"/>
 		</div>
 	</div>

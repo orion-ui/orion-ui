@@ -48,7 +48,7 @@ const navMain: OrionNavMain.Props = {
 			label: `Home`,
 			root: true,
 			to: '/',
-			icon: 'home_alt_fill',
+			icon: 'house_01',
 		},
 		{
 			label: `test callback`,

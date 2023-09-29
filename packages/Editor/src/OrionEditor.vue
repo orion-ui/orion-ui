@@ -9,26 +9,21 @@
 		}">
 		<div class="orion-editor__toolbar">
 			<orion-button
-				size="xs"
-				@click="setup.editor.value?.chain().focus().undo().run()">
-				<img
-					src="~./editor/icons/arrows-round-left.svg"
-					:alt="setup.lang.UNDO">
-			</orion-button>
+				v-tooltip="setup.lang.UNDO"
+				size="sm"
+				prefix-icon="undo"
+				@click="setup.editor.value?.chain().focus().undo().run()"/>
 			<orion-button
-				size="xs"
-				@click="setup.editor.value?.chain().focus().redo().run()">
-				<img
-					src="~./editor/icons/arrows-round-right.svg"
-					:alt="setup.lang.REDO">
-			</orion-button>
+				v-tooltip="setup.lang.REDO"
+				size="sm"
+				prefix-icon="redo"
+				@click="setup.editor.value?.chain().focus().redo().run()"/>
 
 			<v-dropdown theme="orion-editor-toolbar">
-				<orion-button size="xs">
-					<img
-						src="~./editor/icons/text-formatting-font-size.svg"
-						:alt="setup.lang.ORION_EDITOR__FONT_SIZE">
-				</orion-button>
+				<orion-button
+					v-tooltip="setup.lang.ORION_EDITOR__FONT_SIZE"
+					size="sm"
+					prefix-icon="font"/>
 				<template #popper>
 					<orion-button
 						size="xs"
@@ -59,12 +54,10 @@
 
 			<v-dropdown theme="orion-editor-toolbar">
 				<orion-button
-					size="xs"
-					:class="{ 'active': setup.editor.value.isActive('textColor') }">
-					<img
-						src="~./editor/icons/text-formatting-text.svg"
-						:alt="setup.lang.ORION_EDITOR__TEXT_COLOR">
-				</orion-button>
+					v-tooltip="setup.lang.ORION_EDITOR__TEXT_COLOR"
+					size="sm"
+					prefix-icon="swatches_palette"
+					:class="{ 'active': setup.editor.value.isActive('textColor') }"/>
 				<template #popper>
 					<orion-color-picker
 						hide-rgba
@@ -83,12 +76,10 @@
 
 			<v-dropdown theme="orion-editor-toolbar">
 				<orion-button
-					size="xs"
-					:class="{ 'active': setup.editor.value.isActive('textBackground') }">
-					<img
-						src="~./editor/icons/text-formatting-text-square.svg"
-						:alt="setup.lang.ORION_EDITOR__BACKGROUND_COLOR">
-				</orion-button>
+					v-tooltip="setup.lang.ORION_EDITOR__BACKGROUND_COLOR"
+					size="sm"
+					prefix-icon="rainbow"
+					:class="{ 'active': setup.editor.value.isActive('textBackground') }"/>
 				<template #popper>
 					<orion-color-picker
 						hide-rgba
@@ -107,48 +98,41 @@
 			</v-dropdown>
 
 			<orion-button
-				size="xs"
+				v-tooltip="setup.lang.ORION_EDITOR__BOLD"
+				size="sm"
+				prefix-icon="bold"
 				:class="{ 'active': setup.editor.value.isActive('bold') }"
-				@click="setup.editor.value?.chain().focus().toggleBold().run()">
-				<img
-					src="~./editor/icons/text-formatting-bold.svg"
-					:alt="setup.lang.ORION_EDITOR__BOLD">
-			</orion-button>
+				@click="setup.editor.value?.chain().focus().toggleBold().run()"/>
 			<orion-button
-				size="xs"
+				v-tooltip="setup.lang.ORION_EDITOR__ITALIC"
+				size="sm"
+				prefix-icon="italic"
 				:class="{ 'active': setup.editor.value.isActive('italic') }"
-				@click="setup.editor.value?.chain().focus().toggleItalic().run()">
-				<img
-					src="~./editor/icons/text-formatting-italic.svg"
-					:alt="setup.lang.ORION_EDITOR__ITALIC">
-			</orion-button>
+				@click="setup.editor.value?.chain().focus().toggleItalic().run()"/>
 			<orion-button
-				size="xs"
+				v-tooltip="setup.lang.ORION_EDITOR__UNDERLINE"
+				size="sm"
+				prefix-icon="underline"
 				:class="{ 'active': setup.editor.value.isActive('underline') }"
-				@click="setup.editor.value?.chain().focus().toggleUnderline().run()">
-				<img
-					src="~./editor/icons/text-formatting-underline.svg"
-					:alt="setup.lang.ORION_EDITOR__UNDERLINE">
-			</orion-button>
+				@click="setup.editor.value?.chain().focus().toggleUnderline().run()"/>
 
 			<v-dropdown theme="orion-editor-toolbar">
-				<orion-button size="xs">
-					<img
-						src="~./editor/icons/text-formatting-left-align-2.svg"
-						:alt="setup.lang.ORION_EDITOR__ALIGN">
-				</orion-button>
+				<orion-button
+					v-tooltip="setup.lang.ORION_EDITOR__ALIGN"
+					size="sm"
+					prefix-icon="text_align_center"/>
 				<template #popper>
 					<orion-button
 						size="xs"
 						:class="{ 'active': setup.editor.value.isActive({ textAlign: 'left' }) }"
 						@click="setup.editor.value?.chain().focus().setTextAlign('left').run()">
-						{{ setup.lang.ORION_EDITOR__ALIGN_CENTER }}
+						{{ setup.lang.ORION_EDITOR__ALIGN_LEFT }}
 					</orion-button>
 					<orion-button
 						size="xs"
 						:class="{ 'active': setup.editor.value.isActive({ textAlign: 'center' }) }"
 						@click="setup.editor.value?.chain().focus().setTextAlign('center').run()">
-						{{ setup.lang.ORION_EDITOR__ALIGN_LEFT }}
+						{{ setup.lang.ORION_EDITOR__ALIGN_CENTER }}
 					</orion-button>
 					<orion-button
 						size="xs"
@@ -160,44 +144,42 @@
 			</v-dropdown>
 
 			<orion-button
-				size="xs"
+				v-tooltip="setup.lang.ORION_EDITOR__UNORDERED_LIST"
+				size="sm"
+				prefix-icon="list_unordered"
 				:class="{ 'active': setup.editor.value.isActive('bulletList') }"
-				@click="setup.editor.value?.chain().focus().toggleBulletList().run()">
-				<img
-					src="~./editor/icons/text-formatting-list-bullets.svg"
-					:alt="setup.lang.ORION_EDITOR__UNORDERED_LIST">
-			</orion-button>
+				@click="setup.editor.value?.chain().focus().toggleBulletList().run()"/>
 			<orion-button
-				size="xs"
+				v-tooltip="setup.lang.ORION_EDITOR__LINK"
+				size="sm"
+				prefix-icon="link"
 				:class="{ 'active': setup.editor.value.isActive('link') }"
-				@click="setup.setLinkAsync()">
-				<img
-					src="~./editor/icons/link.svg"
-					:alt="setup.lang.ORION_EDITOR__LINK">
-			</orion-button>
+				@click="setup.setLinkAsync()"/>
 			<orion-button
 				v-if="setup.editor.value.isActive('link')"
-				size="xs"
-				@click="setup.editor.value?.chain().focus().unsetLink().run()">
-				<img
-					src="~./editor/icons/unlink.svg"
-					:alt="setup.lang.ORION_EDITOR__UNLINK">
-			</orion-button>
+				v-tooltip="setup.lang.ORION_EDITOR__UNLINK"
+				size="sm"
+				prefix-icon="link_break"
+				@click="setup.editor.value?.chain().focus().unsetLink().run()"/>
 
 			<orion-button
-				size="xs"
-				@click="setup.promptImageAsync()">
-				<img
-					src="~./editor/icons/image-camera-1.svg"
-					:alt="setup.lang.ORION_EDITOR__PICTURE">
-			</orion-button>
+				v-tooltip="setup.lang.ORION_EDITOR__PICTURE_URL"
+				size="sm"
+				prefix-icon="image_01"
+				@click="setup.promptImageUrlAsync()"/>
+
+			<orion-button
+				v-if="allowImgToBase64"
+				v-tooltip="setup.lang.ORION_EDITOR__PICTURE"
+				size="sm"
+				prefix-icon="camera"
+				@click="setup.promptImageAsync()"/>
 		</div>
 
 		<editor-content
 			:ref="setup._input"
 			class="orion-editor__content"
-			:editor="setup.editor.value"
-			:name="name"/>
+			:editor="setup.editor.value"/>
 	</div>
 </template>
 

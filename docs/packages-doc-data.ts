@@ -2775,6 +2775,15 @@ const packagesDocData = new Map([
 			provide: [],
 			slots: [],
 			props: [{
+				'name': 'allowImgToBase64',
+				'defaultValue': false,
+				'type': 'boolean',
+				'required': false,
+				'desc': {
+					'en': 'Allows uploading an image from the hard drive. Use with caution as it significantly increases the request payload size (if stored in the database)',
+					'fr': 'autorise l\'upload d\'une image depuis le disque dur. Utiliser avec prudence car augmente considérablement le poids de la requête (si stocké en BDD)',
+				},
+			}, {
 				'name': 'autofocus',
 				'defaultValue': false,
 				'type': 'boolean',
@@ -8186,7 +8195,7 @@ const packagesDocData = new Map([
 				},
 			}, {
 				'name': 'fileTypes',
-				'defaultValue': '() => [\'image/jpeg\', \'image/png\', \'application/pdf\']',
+				'defaultValue': '() => [\'image/jpeg\', \'image/png\', \'image/gif\', \'application/pdf\']',
 				'type': 'string[]',
 				'required': false,
 				'desc': {

@@ -7,7 +7,7 @@
 					v-model="setup.searchTerm"
 					class="orion-chat-discussion-list__search"
 					:label="setup.lang.SEARCH"
-					suffix-icon="search"
+					suffix-icon="search_magnifying_glass"
 					:donetyping="setup.chat.config.discussionSearchTimer"
 					clearable/>
 
@@ -17,7 +17,7 @@
 					class="orion-chat-discussion-list__new-discussion"
 					color="info"
 					outline
-					prefix-icon="message_writing"
+					prefix-icon="chat_conversation"
 					@click="setup.createNewDiscussion()"/>
 			</div>
 
@@ -222,7 +222,7 @@
 				<orion-button
 					v-if="setup.chat.config.allowDiscussionCreation"
 					color="info"
-					prefix-icon="message_writing"
+					prefix-icon="chat_conversation"
 					@click="setup.createNewDiscussion()">
 					{{ setup.lang.ORION_CHAT_DISCUSSION__LIST_NEW_CONVERSATION }}
 				</orion-button>

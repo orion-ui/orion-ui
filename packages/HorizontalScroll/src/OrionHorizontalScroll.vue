@@ -18,7 +18,7 @@
 			class="orion-horizontal-scroll__button orion-horizontal-scroll__button--left">
 			<orion-icon
 				:button="setup.dropShadow ? `default` : undefined"
-				icon="chevron_big_left"
+				icon="chevron_left"
 				@click="setup.slide('left')"/>
 		</div>
 		<div
@@ -26,7 +26,7 @@
 			class="orion-horizontal-scroll__button orion-horizontal-scroll__button--right">
 			<orion-icon
 				:button="setup.dropShadow ? `default` : undefined"
-				icon="chevron_big_right"
+				icon="chevron_right"
 				@click="setup.slide('right')"/>
 		</div>
 

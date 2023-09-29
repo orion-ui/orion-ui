@@ -101,7 +101,7 @@
 								v-model="data.fieldSelect.value"
 								:label="`Simple Prefix Icon`"
 								:options="data.fieldSelect.options"
-								prefix-icon="apple"/>
+								prefix-icon="camera"/>
 						</div>
 						<div class="col-sm-6">
 							<o-select
@@ -120,7 +120,7 @@
 								:label="`Simple Searchable Prefix Icon`"
 								searchable
 								:options="data.fieldSelect.options"
-								prefix-icon="apple"/>
+								prefix-icon="camera"/>
 						</div>
 					</div>
 				</div>
@@ -151,7 +151,7 @@
 								display-key="label"
 								track-key="id"
 								:options="data.fieldSelectObject.options"
-								prefix-icon="apple"/>
+								prefix-icon="camera"/>
 						</div>
 						<div class="col-sm-6">
 							<o-select
@@ -170,7 +170,7 @@
 								track-key="id"
 								searchable
 								:options="data.fieldSelectObject.options"
-								prefix-icon="apple"/>
+								prefix-icon="camera"/>
 						</div>
 					</div>
 				</div>
@@ -209,7 +209,7 @@
 								track-key="id"
 								value-key="label"
 								:options="data.fieldSelectObject.options"
-								prefix-icon="apple"/>
+								prefix-icon="camera"/>
 						</div>
 						<div class="col-sm-6">
 							<o-select
@@ -230,7 +230,7 @@
 								value-key="label"
 								searchable
 								:options="data.fieldSelectObject.options"
-								prefix-icon="apple"/>
+								prefix-icon="camera"/>
 						</div>
 					</div>
 				</div>
@@ -257,7 +257,7 @@
 								:label="`Multiple Prefix Icon`"
 								multiple
 								:options="data.fieldSelectMultiple.options"
-								prefix-icon="apple"/>
+								prefix-icon="camera"/>
 						</div>
 						<div class="col-sm-6">
 							<o-select
@@ -274,7 +274,7 @@
 								multiple
 								searchable
 								:options="data.fieldSelectMultiple.options"
-								prefix-icon="apple"/>
+								prefix-icon="camera"/>
 						</div>
 					</div>
 				</div>
@@ -305,7 +305,7 @@
 								display-key="label"
 								multiple
 								:options="data.fieldSelectObjectMultiple.options"
-								prefix-icon="apple"/>
+								prefix-icon="camera"/>
 						</div>
 						<div class="col-sm-6">
 							<o-select
@@ -326,7 +326,7 @@
 								multiple
 								searchable
 								:options="data.fieldSelectObjectMultiple.options"
-								prefix-icon="building"/>
+								prefix-icon="camera"/>
 						</div>
 					</div>
 				</div>
@@ -355,7 +355,7 @@
 								</template>
 								<template #option="{ item, index }">
 									<div>
-										<o-icon icon="LinkedIn"/>{{ `${index} -- ${item.label}` }}
+										<o-icon icon="camera"/>{{ `${index} -- ${item.label}` }}
 									</div>
 								</template>
 							</o-select>
@@ -369,7 +369,7 @@
 								value-key="label"
 								multiple
 								:options="data.fieldSelectObjectMultiple.options"
-								prefix-icon="chevron_duo_right"/>
+								prefix-icon="camera"/>
 						</div>
 						<div class="col-sm-6">
 							<o-select
@@ -392,7 +392,7 @@
 								multiple
 								searchable
 								:options="data.fieldSelectObjectMultiple.options"
-								prefix-icon="pause_circle_filled"/>
+								prefix-icon="camera"/>
 						</div>
 					</div>
 				</div>

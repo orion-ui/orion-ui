@@ -71,7 +71,7 @@
 					v-show="!setup.props.autocomplete &&
 						(!setup.props.clearable || (setup.props.clearable && !setup.hasValue))"
 					class="orion-input__icon orion-select__carret orion-select__icon--internal"
-					icon="chevron_big_down"
+					icon="chevron_down"
 					:class="{ 'open' : setup.isFocus }"
 					:loading="setup.isFetching"/>
 			</template>
@@ -97,7 +97,7 @@
 					:label="setup.lang.SEARCH"
 					class="orion-select__popover-search-input"
 					size="xs"
-					suffix-icon="search"
+					suffix-icon="search_magnifying_glass"
 					enterkeyhint="search"
 					@keydown.down.prevent.stop="setup.handleKeydown('down')"
 					@keydown.up.prevent.stop="setup.handleKeydown('up')"

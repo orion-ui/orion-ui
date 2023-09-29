@@ -1,5 +1,5 @@
 import SharedSetupService from '../../Shared/SharedSetupService';
-import { PropType, nextTick, reactive, ref, watch } from 'vue';
+import { PropType, reactive, ref } from 'vue';
 
 type Props = SetupProps<typeof OrionOtpSetupService.props>
 type Emits = {(e: 'filled', val: string): void}
@@ -32,6 +32,8 @@ export default class OrionOtpSetupService extends SharedSetupService<Props> {
 
 	readonly _inputs = ref<OrionInput[]>();
 
+	tutu = ref('');
+
 	private emits: Emits;
 	private state = reactive({
 		code: {} as Code,
@@ -62,36 +64,37 @@ export default class OrionOtpSetupService extends SharedSetupService<Props> {
 		super(props);
 		this.emits = emits;
 
-		watch(() => this.code[this.props.size], (val) => {
-			if (val.length > 1) {
-				this.code[this.props.size] = val[0];
-			}
-		});
-
 	}
 
 	onMounted () {
 		if (this.props.value) {
-			this.splitCodeFromString(this.props.value);
+			this.splitCodeFromString(this.props.value, 1);
 		}
 	}
 
+	splitCodeFromString (value: string, index: number) {
 
-	splitCodeFromString (value: string) {
 		const array = value.split('');
-		array.forEach((char, index) => {
-			if (index > this.props.size - 1) return;
-			this.state.code[index+1] = char;
-		});
+		for (let i=0; i<this.props.size; i++) {
+			this.state.code[i+1] = array[i];
+		}
 
-		if (this._inputs.value)
+		if (!this._inputs.value) return;
+
+		if (value.length >= this.props.size) {
+			this._inputs.value[index-1].blur();
+			this.validate();
+		} else {
 			this._inputs.value[this.props.size-1].focus();
+		}
 	}
 
 	handleInput (payload: any, index: number) {
-		if (!this._inputs.value || payload.length > 1) return;
+		if (!this._inputs.value) return;
 
-		if (payload) {
+		if (payload.length > 1)
+			this.splitCodeFromString(payload, index);
+		else if (payload) {
 			if (index < this.props.size) {
 				this._inputs.value[index].focus();
 			} else if (index === this.props.size) {
@@ -99,6 +102,7 @@ export default class OrionOtpSetupService extends SharedSetupService<Props> {
 					this.validate();
 					this.state.validated = !this.state.validated;
 				}
+				this._inputs.value[index-1].blur();
 			}
 		}
 	}
@@ -110,16 +114,6 @@ export default class OrionOtpSetupService extends SharedSetupService<Props> {
 		if (!this.code[index] && index > 1) {
 			this._inputs.value[index-2].focus();
 		}
-	}
-
-	handlePaste (event: ClipboardEvent) {
-		nextTick(() => {
-			const text = event.clipboardData?.getData('text/plain').slice(0, this.props.size);
-			if (text) {
-				this.splitCodeFromString(text);
-				this.validate();
-			}
-		});
 	}
 
 	validate () {

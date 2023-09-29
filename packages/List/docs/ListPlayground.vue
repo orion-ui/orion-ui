@@ -11,7 +11,7 @@
 				:title="item.title">
 				{{ item.description }}
 				<template #actions>
-					<o-icon icon="image"/>
+					<o-icon icon="image_01"/>
 					<o-icon icon="redo"/>
 					<o-icon
 						icon="check_big"
