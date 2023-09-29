@@ -163,16 +163,17 @@
 				@click="setup.editor.value?.chain().focus().unsetLink().run()"/>
 
 			<orion-button
-				v-tooltip="setup.lang.ORION_EDITOR__PICTURE"
-				size="sm"
-				prefix-icon="camera"
-				@click="setup.promptImageAsync()"/>
-
-			<orion-button
 				v-tooltip="setup.lang.ORION_EDITOR__PICTURE_URL"
 				size="sm"
 				prefix-icon="image_01"
 				@click="setup.promptImageUrlAsync()"/>
+
+			<orion-button
+				v-if="allowImgToBase64"
+				v-tooltip="setup.lang.ORION_EDITOR__PICTURE"
+				size="sm"
+				prefix-icon="camera"
+				@click="setup.promptImageAsync()"/>
 		</div>
 
 		<editor-content

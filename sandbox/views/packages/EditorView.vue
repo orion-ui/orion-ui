@@ -14,7 +14,8 @@
 			v-model="text"
 			v-model:json="json"
 			label="zegfsd"
-			required/>
+			required
+			allow-img-to-base64/>
 
 		<pre>{{ json }}</pre>
 	</o-page>

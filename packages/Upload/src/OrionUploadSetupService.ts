@@ -23,7 +23,7 @@ export default class OrionUploadSetupService extends SharedFieldSetupService<Pro
 		// @doc/fr props/fileType définit les types de fichiers autorisés
 		fileTypes: {
 			type: Array as PropType<string[]>,
-			default: () => ['image/jpeg', 'image/png', 'application/pdf'],
+			default: () => ['image/jpeg', 'image/png', 'image/gif', 'application/pdf'],
 		},
 		// @doc props/fileMaxSize the maximal size of the uploaded file (Mo)
 		// @doc/fr props/fileMaxSize taille maximale d'un fichier (Mo)

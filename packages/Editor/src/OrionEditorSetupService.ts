@@ -23,6 +23,11 @@ type EditorEmit = FieldEmit<string | null | undefined> & {
 export default class OrionEditorSetupService extends SharedFieldSetupService<Props, string | null | undefined> {
 	static props = {
 		...SharedFieldSetupService.props,
+		// eslint-disable-next-line max-len
+		// @doc props/allowImgToBase64 Allows uploading an image from the hard drive. Use with caution as it significantly increases the request payload size (if stored in the database)
+		// eslint-disable-next-line max-len
+		// @doc/fr props/allowImgToBase64 autorise l'upload d'une image depuis le disque dur. Utiliser avec prudence car augmente considérablement le poids de la requête (si stocké en BDD)
+		allowImgToBase64: Boolean,
 		// @doc props/json the json format of the editor value
 		// @doc/fr props/json valeur de l'éditeur au format JSON
 		json: {
