@@ -6,7 +6,7 @@
 				label="Loading"/>
 			<o-icon
 				style="font-size: 24px;"
-				icon="Sketch"
+				icon="camera"
 				:loading="state.loading"/>
 		</o-section>
 

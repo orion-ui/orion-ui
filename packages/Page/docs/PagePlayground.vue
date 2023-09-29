@@ -21,7 +21,7 @@
 		<template #actions>
 			<o-icon
 				v-tooltip="`Search`"
-				icon="search"
+				icon="file_search"
 				@click="triggerSearch()"/>
 			<o-button
 				color="success"
@@ -39,8 +39,8 @@
 			</o-button>
 			<div class="flex g-xs mr-xs">
 				<o-icon icon="alarm"/>
-				<o-icon icon="file_archive"/>
-				<o-icon icon="bar_chart_alt"/>
+				<o-icon icon="file_blank"/>
+				<o-icon icon="chart_line"/>
 				<o-icon
 					icon="devices"
 					button="info"/>

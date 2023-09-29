@@ -20,7 +20,7 @@
 			class="orion-avatar__picto">
 			<orion-icon
 				v-tooltip="setup.tooltip"
-				icon="cloud_up"
+				icon="cloud_upload"
 				ripple="info"
 				@click="setup.props.updateFunction?.()"/>
 		</div>

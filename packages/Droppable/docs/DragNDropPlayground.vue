@@ -11,7 +11,7 @@
 					:disabled="item.title === 'Item 1' ? state.disabled : false"
 					:tag="state.tag">
 					<div class="draggable-content">
-						<o-icon icon="file_pdf"/>
+						<o-icon icon="file_document"/>
 						<strong>{{ item.title }}</strong>
 					</div>
 				</o-draggable>
@@ -28,7 +28,7 @@
 					:data="item"
 					:tag="state.tag">
 					<div class="draggable-content">
-						<o-icon icon="file_archive"/>
+						<o-icon icon="file_blank"/>
 						<strong>{{ item.title }}</strong>
 					</div>
 				</o-draggable>
@@ -46,7 +46,7 @@
 					:data="item"
 					:tag="state.tag">
 					<div class="draggable-content">
-						<o-icon icon="file_image"/>
+						<o-icon icon="file_code"/>
 						<strong>{{ item.title }}</strong>
 					</div>
 				</o-draggable>

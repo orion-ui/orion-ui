@@ -10,7 +10,7 @@
 				<h4 class="orion-daily-calendar__title">{{ setup.readableDate }}</h4>
 				<div class="orion-daily-calendar__other-days">
 					<orion-icon
-						icon="chevron_big_left"
+						icon="chevron_left"
 						class="orion-daily-calendar__icon"
 						:class="setup.today ? 'disabled' : null"
 						:ripple="setup.today ? undefined : 'info'"
@@ -20,7 +20,7 @@
 					<orion-icon
 						ripple="info"
 						class="orion-daily-calendar__icon"
-						icon="chevron_big_right"
+						icon="chevron_right"
 						@click="setup.getNextDay()"/>
 				</div>
 			</div>
@@ -66,7 +66,7 @@
 			v-if="setup.elementsAreHidden"
 			class="orion-daily-calendar__hidden-task-indicator">
 			<orion-button
-				prefix-icon="chevron_big_down"
+				prefix-icon="chevron_down"
 				@click="setup.scrollDown()"/>
 		</div>
 

@@ -5,7 +5,7 @@
 		<div class="orion-date-week__header">
 			<orion-icon
 				class="orion-date-week__header-carret"
-				icon="circle_chevron_left"
+				icon="chevron_left"
 				@click="setup.switchPeriod(-1)"/>
 
 			<span class="orion-date-week__header-current-display">
@@ -23,7 +23,7 @@
 
 			<orion-icon
 				class="orion-date-week__header-carret"
-				icon="circle_chevron_right"
+				icon="chevron_right"
 				@click="setup.switchPeriod(1)"/>
 		</div>
 

@@ -5,7 +5,7 @@
 		<template #actions>
 			<o-button
 				color="info"
-				prefix-icon="Sketch">
+				prefix-icon="camera">
 				hehhhoooo
 			</o-button>
 		</template>

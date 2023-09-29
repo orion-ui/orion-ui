@@ -51,6 +51,8 @@
 						:suffix-icon="state.suffixIcon ? 'bulb' : undefined">
 						{{ color }}
 					</o-button>
+
+					<o-button prefix-icon="add_plus"/>
 				</div>
 			</o-card>
 		</o-section>

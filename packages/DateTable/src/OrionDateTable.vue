@@ -7,7 +7,7 @@
 			<orion-icon
 				class="orion-date-table__header-carret"
 				:class="{ 'disable' : !setup.props.canGoPrevMonth }"
-				icon="circle_chevron_left"
+				icon="chevron_left"
 				@click="setup.switchPeriod(-1)"/>
 
 			<div class="orion-date-table__header-current-display">
@@ -31,7 +31,7 @@
 			<orion-icon
 				class="orion-date-table__header-carret"
 				:class="{ 'disable' : !setup.props.canGoNextMonth }"
-				icon="circle_chevron_right"
+				icon="chevron_right"
 				@click="setup.switchPeriod(1)"/>
 		</div>
 

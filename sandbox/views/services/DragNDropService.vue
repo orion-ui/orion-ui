@@ -31,7 +31,7 @@
 						<strong>{{ item.title }} </strong>
 						<o-icon
 							v-tooltip="'tututu'"
-							icon="LinkedIn"/>
+							icon="chart_line"/>
 						<o-icon font-icon="layout-module"/>
 						<div class="order-pipeline-candidate-sticker__actions">
 							<o-icon

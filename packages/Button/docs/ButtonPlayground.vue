@@ -2,7 +2,7 @@
 	<o-button
 		v-bind="state"
 		:prefix-icon="state.prefix ? 'check' : undefined"
-		:suffix-icon="state.suffix ? 'repeat' : undefined"
+		:suffix-icon="state.suffix ? 'arrow_right_md' : undefined"
 		:outline="state.style==='outline'"
 		:nude="state.style==='nude'"
 		@click="click()">
