@@ -62,13 +62,19 @@
 		}
 
 		each(@colors, {
-        @color: ~"--@{value}";
-        &--@{value} {
-          &::-moz-range-thumb {
-            border: 0.125rem solid var(@color);
-          }
-        }
-      });
+			@color: ~"--@{value}";
+			&--@{value} {
+				&::-moz-range-thumb {
+					border: 0.125rem solid var(@color);
+				}
+			}
+		});
+
+		&--default {
+			&::-webkit-slider-thumb {
+				border-color: var(--grey-dark);
+			}
+		}
 
 		&::-moz-range-progress {
 			height: 0;
@@ -108,6 +114,12 @@
         }
       }
     });
+
+		&--default {
+			&::-webkit-slider-thumb {
+				border-color: var(--grey-dark);
+			}
+		}
 	}
 
 	&__progress-bar {
@@ -121,10 +133,11 @@
       &--@{value} {
         @color: ~"--@{value}";
         background: var(@color);
-        [data-orion-theme="dark"] & {
-          color: black;
-        }
       }
     });
+
+		&--default {
+			background: var(--grey-dark);
+		}
 	}
 }

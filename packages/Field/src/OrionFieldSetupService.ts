@@ -62,9 +62,9 @@ export default class OrionFieldSetupService extends SharedSetupService<Props> {
 	get validationClass () {
 		return [
 			`${this.baseClass}__validation`,
-			{ 'ci-check_bold': this.props.showSuccess },
+			{ 'ci-check': this.props.showSuccess },
 			{ 'orion-input__validation--success': this.props.showSuccess },
-			{ 'ci-warning': this.props.showError },
+			{ 'ci-triangle_warning': this.props.showError },
 			{ 'orion-input__validation--error': this.props.showError },
 		];
 	}
