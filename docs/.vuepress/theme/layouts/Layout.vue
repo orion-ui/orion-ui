@@ -38,7 +38,7 @@ import '../../styles/index.less';
 import { nextTick, onMounted, ref, watch, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { usePageFrontmatter, usePageLang } from '@vuepress/client';
-import { setThemeMode, setAppLang } from '@/lib';
+import { setThemeMode, setAppLang, useResponsive } from '@/lib';
 import { addCopyFeatureToCode } from '@utils/tools';
 import Sidebar from '@theme/Sidebar.vue';
 import Navbar from '@theme/Navbar.vue';
@@ -55,7 +55,7 @@ const sidebarOpened = ref(false);
 // navbar
 const shouldShowNavbar = computed(() => frontmatter.value.navbar !== false)
 const shouldShowSidebar = computed(() => frontmatter.value.home !== true)
-const shouldShowToc = computed(() => frontmatter.value.home !== true && !frontmatter.value.pageClass?.includes('no-toc'))
+const shouldShowToc = computed(() => frontmatter.value.home !== true && !frontmatter.value.pageClass?.includes('no-toc') && !useResponsive().onPhone)
 
 const router = useRouter();
 const currentLang = usePageLang();

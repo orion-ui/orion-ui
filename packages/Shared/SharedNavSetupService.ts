@@ -75,6 +75,7 @@ export default abstract class SharedNavSetupService<P> extends SharedSetupServic
 	}
 
 	handleClick (item: Orion.NavItem, ev: MouseEvent | TouchEvent) {
+		if (ev.metaKey || ev.ctrlKey) return;
 		if (item.callback) item.callback(item, ev);
 		if (item.to) this.router.push(item.to);
 	}
