@@ -1,7 +1,9 @@
 <template>
 	<aside class="toc-container" v-if="state.titles.length">
 		<nav class="toc-content">
-			<h5>{{ tocTitle }}</h5>
+			<h5 @click="useResponsive().onPhone ? scrollToTop() : undefined">
+				{{ tocTitle }}
+			</h5>
 			<ul class="toc-list">
 				<li
 					v-for="item in state.titles"
@@ -23,7 +25,7 @@
 import { onMounted, onUpdated, onUnmounted, reactive, watch, nextTick, computed } from 'vue';
 import { throttle } from 'lodash-es';
 import { capitalizeFirstLetter } from '@utils/tools';
-import { Bus } from '@/lib';
+import { Bus, useResponsive } from '@/lib';
 import { usePageFrontmatter } from '@vuepress/client';
 import { useRouter } from 'vue-router';
 import { DefaultThemePageFrontmatter } from 'vuepress-vite';
@@ -51,11 +53,13 @@ Bus.on('ServicePreview:unMounted', () => {
 });
 
 const tocTitle = computed(() => {
-	if(frontmatter.value.lang?.includes('en'))
-		return 'On this page'
-	else 
-		return 'Sur cette page'
-})
+	if(frontmatter.value.lang?.includes('en')) {
+		return useResponsive().onPhone ? 'Return to top' : 'On this page'
+	}
+	else {
+		return useResponsive().onPhone ? 'Retour en haut' : 'Sur cette page'
+	}
+}) 
 
 const router = useRouter();
 watch(() => router.currentRoute.value, (to, from) => {
@@ -78,6 +82,10 @@ onUnmounted(() => {
 	window.removeEventListener("scroll", scrollSpy);
 	checkScroll();
 });
+
+function scrollToTop () {
+	window.scrollTo(0,0)
+}
 
 function getTitles () {
 	state.titles.length = 0;
@@ -124,9 +132,6 @@ function removeAllActive () {
 </script>
 
 <style scoped lang="less">
-.toc-content {
-	width: 12.5rem;
-}
 
 .toc-list {
 	&__item {
