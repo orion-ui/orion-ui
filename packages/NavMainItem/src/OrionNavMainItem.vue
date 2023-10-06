@@ -4,7 +4,7 @@
 			:is="setup.itemIs(item)"
 			v-if="item"
 			v-bind="setup.itemData(item)"
-			@click.stop.prevent="$emit('click-label', [item, $event])">
+			@click.stop="$emit('click-label', [item, $event])">
 			<orion-icon
 				v-if="item.icon || item.fontIcon"
 				class="orion-nav-main__item-main-icon"

@@ -91,13 +91,9 @@
 		}
 	}
 
-	/* .site-name {
-		display: none;
-
-		@media @tabletLandscape {
-			display: inline-block;
-		}
-	} */
+	.site-name {
+		white-space: nowrap;
+	}
 }
 
 .toggle-sidebar-button {
@@ -175,8 +171,12 @@
 		max-width: 75rem;
 	}
 
-	@media @phone {
-		padding: var(--fluid-45px) var(--fluid-15px);
+	@media @phone  {
+		padding: var(--fluid-20px) var(--fluid-15px);
+	}
+
+	@media @tabletPortrait {
+		padding: var(--fluid-30px) var(--fluid-30px);
 	}
 
 	h2,
@@ -241,21 +241,21 @@
 	}
 }
 
-.toc-container {
-	@media @phone, @tabletPortraitOnly {
-		display: none;
-	}
-}
-
 .toc-content {
 	position: sticky;
 	top: 4rem;
 	padding: var(--fluid-30px);
 	background: transparent;
 	white-space: nowrap;
+	width: 12.5rem;
 
 	[data-orion-theme='dark'] & {
 		background: rgba(34, 39, 46, 0.7);
+	}
+
+	@media @phone {
+		padding: 0.5rem;
+		width: fit-content;
 	}
 }
 
@@ -265,6 +265,19 @@
 	&.active {
 		font-weight: bold;
 		color: var(--c-brand);
+	}
+}
+
+.show-toc-button {
+	position: sticky;
+	top: var(--navbar-height);
+	display: flex;
+	z-index: 20;
+	justify-content: flex-end;
+	backdrop-filter: saturate(50%) blur(8px);
+    background: rgba(255, 255, 255, 0.7);
+	[data-orion-theme='dark'] & {
+		background: rgba(34, 39, 46, 0.7);
 	}
 }
 
@@ -282,4 +295,24 @@ h4 {
 	display: flex;
 	justify-content: center;
 	padding: var(--fluid-30px);
+}
+
+code {
+	.oriondoc-demo__source & {
+		@media @phone {
+			font-size: 0.5rem !important;
+		}
+		
+	}
+}
+@media @tabletPortraitOnly {
+.DocSearch {
+		&-Button-Placeholder {
+			display: none;
+		}
+
+		&-Button-Keys {
+			display: none !important;
+		}
+	}
 }

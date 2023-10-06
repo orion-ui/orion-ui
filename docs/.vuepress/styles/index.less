@@ -15,6 +15,7 @@
 html {
 	font-size: 1rem;
 	font-family: 'Source Sans Pro', sans-serif;
+	-webkit-text-size-adjust: 100%;
 }
 
 body.oriondoc {
@@ -182,12 +183,16 @@ p[class='sidebar-item active'] {
 code {
 	font-family: var(--font-family-code);
 	font-weight: 600;
-	font-size: 0.75rem;
+	font-size: 0.75rem !important;
 	background: rgba(var(--rgb-grey-light), 0.5);
 	color: var(--grey-dark);
 	line-height: 1.25rem;
 	display: inline-block;
 	padding: 0 var(--fluid-8px);
+
+	> span {
+		font-size: 0.75rem !important;
+	}
 
 	* {
 		font-family: var(--font-family-code);
