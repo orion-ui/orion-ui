@@ -43,7 +43,7 @@ export default class OrionNavMainSetupService extends SharedNavSetupService<Prop
 				backLink = { label: this.lang.BACK };
 			}
 
-			backLink.icon = 'chevron_big_left';
+			backLink.icon = 'chevron_left';
 			backLink.callback = this.goBack.bind(this);
 
 			if (!hasBackLink) {

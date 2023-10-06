@@ -13,6 +13,25 @@
 			<Navbar v-if="shouldShowNavbar" @toggle-sidebar="toggleSidebar()"/>
 			
 			<main class="doc-content">
+				<v-dropdown 
+					v-if="useResponsive().onPhone && shouldShowToc && !sidebarOpened"
+					:arrow-padding="180"
+					class="show-toc-button" 
+					placement="bottom-end"
+					@apply-show="toggleTocIcon()"
+					@apply-hide="toggleTocIcon()">
+						<o-button 
+							outline 
+							nude 
+							:suffix-icon="tocOpened ? 'chevron_down' : 'chevron_right'"
+							color="brand">
+								{{ tocButtonLabel }}
+						</o-button>
+					<template #popper="{ hide }">
+						<TableOfContent @click="hide()"/>
+					</template>
+				</v-dropdown>
+
 				<Home v-if="frontmatter.home"/>
 				<Content v-else/>
 				<PageNav v-if="!frontmatter.home"/>
@@ -25,10 +44,11 @@
 				</div>
 			</main>
 			
-			<TableOfContent v-if="shouldShowToc"/>
-			<tour-doc/>
-			<tour-props/>
+			
+			<TableOfContent v-if="!useResponsive().onPhone && shouldShowToc"/>
 		</div>
+		<tour-doc/>
+		<tour-props/>
 </template>
 
 
@@ -38,7 +58,7 @@ import '../../styles/index.less';
 import { nextTick, onMounted, ref, watch, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { usePageFrontmatter, usePageLang } from '@vuepress/client';
-import { setThemeMode, setAppLang } from '@/lib';
+import { setThemeMode, setAppLang, useResponsive, Bus } from '@/lib';
 import { addCopyFeatureToCode } from '@utils/tools';
 import Sidebar from '@theme/Sidebar.vue';
 import Navbar from '@theme/Navbar.vue';
@@ -52,10 +72,12 @@ import TourProps from '@/packages/Tour/docs/TourProps.vue'
 const frontmatter = usePageFrontmatter<any>()
 
 const sidebarOpened = ref(false);
+const tocOpened = ref(false);
 // navbar
 const shouldShowNavbar = computed(() => frontmatter.value.navbar !== false)
 const shouldShowSidebar = computed(() => frontmatter.value.home !== true)
 const shouldShowToc = computed(() => frontmatter.value.home !== true && !frontmatter.value.pageClass?.includes('no-toc'))
+const tocButtonLabel = computed(() => frontmatter.value.lang?.includes('en') ? `On this page`: 'Sur cette page')
 
 const router = useRouter();
 const currentLang = usePageLang();
@@ -69,7 +91,6 @@ watch(() => router.currentRoute.value, () => {
 		setTimeout(addGlobalTypesLink, 200);
 	});
 })
-
 
 onMounted(() => {
 	if (typeof MutationObserver !== 'undefined') {
@@ -143,6 +164,10 @@ function cleanCopyFeature() {
 
 function toggleSidebar () {
 	sidebarOpened.value = !sidebarOpened.value;
+}
+
+function toggleTocIcon () {
+	tocOpened.value = !tocOpened.value;
 }
 
 function setTheme () {
