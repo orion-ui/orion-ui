@@ -82,7 +82,7 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 	}
 
 	get isFocus () {
-		return this.state.isFocus || this.selectionIsOnHourMinute;
+		return this.state.isFocus;
 	}
 
 	get displayDateSelected () {

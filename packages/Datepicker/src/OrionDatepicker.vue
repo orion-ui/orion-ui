@@ -4,7 +4,7 @@
 		placement="bottom-start"
 		:positioning-disabled="setup.responsive.onPhone"
 		:triggers="[]"
-		:shown="setup.isFocus && !setup.selectionIsOnHourMinute"
+		:shown="setup.isFocus"
 		:auto-hide="false"
 		@apply-show="setup.handlePopperShow()"
 		@apply-hide="setup.handlePopperHide()">
