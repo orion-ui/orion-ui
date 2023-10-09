@@ -114,12 +114,8 @@ const toolsDocData = {
 		'return': 'void',
 		'param': [{
 			'name': 'element',
-			'type': 'HTMLElement | string | null',
-			'description': 'element to highlight',
-		}, {
-			'name': 'event',
-			'type': 'MouseEvent',
-			'description': 'event to trigger the highlight',
+			'type': '(HTMLElement | string | null | undefined)',
+			'description': 'DOM element to highlight',
 		}],
 	},
 	handleTouchDevice: {

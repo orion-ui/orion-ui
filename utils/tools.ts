@@ -149,11 +149,11 @@ export function isWindows () {
 
 /**
  * @desc hightlights an element of the DOM
- * @param {HTMLElement | string | null} element element to highlight
- * @param {MouseEvent} event event to trigger the highlight
+ * @param {(HTMLElement | string | null | undefined)} element DOM element to highlight
+ * @param {{ padding?: number, delay?: number, event?: MouseEvent }} [options] options
  * @return void
  */
-export function highlightDomElement (element: HTMLElement | string | null, event: MouseEvent) {
+export function highlightDomElement (element: Nil<HTMLElement | string>, options?: { padding?: number, delay?: number, event?: MouseEvent }) {
 	const browserDocument = useDocument();
 	if (!browserDocument) return;
 
@@ -163,34 +163,41 @@ export function highlightDomElement (element: HTMLElement | string | null, event
 
 	if (!element) return;
 
-	const padding = 10;
+	const mergedOptions = {
+		...{
+			padding: 3,
+			delay: 1000,
+			event: undefined,
+		},
+		...(options ?? {}),
+	};
+
 	const highlighter = browserDocument.createElement('canvas');
-	highlighter.classList.add('highlighter');
-	highlighter.style.top = (element.offsetTop - padding) + 'px';
-	highlighter.style.left = (element.offsetLeft - padding) + 'px';
-	highlighter.style.height = (element.offsetHeight + padding * 2) + 'px';
-	highlighter.style.width = (element.offsetWidth + padding * 2) + 'px';
+	highlighter.classList.add('orion-highlighter');
+	highlighter.style.top = (element.offsetTop - mergedOptions.padding) + 'px';
+	highlighter.style.left = (element.offsetLeft - mergedOptions.padding) + 'px';
+	highlighter.style.height = (element.offsetHeight + mergedOptions.padding * 2) + 'px';
+	highlighter.style.width = (element.offsetWidth + mergedOptions.padding * 2) + 'px';
 
 	if (element.parentElement && element.parentElement.append) {
-		// @SENTRY ARMADO_FRONTEND-4Z
 		// https://developer.mozilla.org/fr/docs/Web/API/ParentNode/append
 		element.parentElement.append(highlighter);
 	}
 
 	setTimeout(() => {
-		highlighter.classList.add('highlighter--visible');
+		highlighter.classList.add('orion-highlighter--visible');
 	}, 50);
 
-	if (event.type === 'mouseenter') {
-		event.target?.addEventListener('mouseleave', () => {
+	if (mergedOptions.event?.type === 'mouseenter') {
+		mergedOptions.event.target?.addEventListener('mouseleave', () => {
 			highlighter.addEventListener('transitionend', () => highlighter.remove());
-			highlighter.classList.remove('highlighter--visible');
+			highlighter.classList.remove('orion-highlighter--visible');
 		}, { once: true });
-	} else if (event.type === 'click') {
+	} else if (mergedOptions.event?.type === 'click' || !mergedOptions.event) {
 		setTimeout(() => {
 			highlighter.addEventListener('transitionend', () => highlighter.remove());
-			highlighter.classList.remove('highlighter--visible');
-		}, 1000);
+			highlighter.classList.remove('orion-highlighter--visible');
+		}, mergedOptions.delay);
 	}
 }
 
