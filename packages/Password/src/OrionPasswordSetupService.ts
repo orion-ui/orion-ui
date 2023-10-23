@@ -71,7 +71,7 @@ export default class OrionPasswordSetupService extends SharedFieldSetupService<P
 					},
 					{
 						message: this.lang.ORION_PASSWORD__VALIDATION_LENGTH,
-						valid: useValidation().checkRuleParams(this.vModel, 'length:6,60'),
+						valid: useValidation().checkRuleParams(this.vModel, 'length:8,60'),
 					},
 				];
 			}

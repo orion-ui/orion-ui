@@ -17,6 +17,12 @@
 				<o-input
 					v-model="form.login"
 					label="Login"/>
+
+				<o-password
+					v-model="form.password"
+					name="password"
+					label="Password"
+					password-tooltip/>
 			</div>
 		</div>
 	</o-page>
