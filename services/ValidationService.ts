@@ -19,7 +19,7 @@ type PhoneValidation = Record<
 
 class ValidationService<T extends ValidationArrayType<any>> {
 	private regexRegistry = {
-		password: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,60}$/,
+		password: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,60}$/,
 		hasLowercase: /[a-z]/,
 		hasUppercase: /[A-Z]/,
 		hasNumber: /[0-9]/,
