@@ -119,8 +119,8 @@ declare global {
 		}
 
 		type DndValidation = {
-			method: (payload: DndData) => boolean;
-			notif: (payload: any) => void;
+			method: (payload?: DndData) => boolean;
+			notif: (payload?: any) => void;
 		}
 
 		type Period = {

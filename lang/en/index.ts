@@ -104,7 +104,7 @@ export default {
 	ORION_PASSWORD__VALIDATION_HAS_LOWERCASE: `At least 1 lowercase`,
 	ORION_PASSWORD__VALIDATION_HAS_UPPERCASE: `At least 1 uppercase`,
 	ORION_PASSWORD__VALIDATION_HAS_NUMBER: `At least 1 number`,
-	ORION_PASSWORD__VALIDATION_LENGTH: `Between 6 and 60 characters`,
+	ORION_PASSWORD__VALIDATION_LENGTH: `Between 8 and 60 characters`,
 	ORION_PHONE__DEFAULT_COUNTRY_CODE: `US` as Orion.Country['code'],
 	ORION_POP_CONFIRM__TITLE: `Do you confirm this action ?`,
 	ORION_SELECT__REMOVE_VALUE_ERROR: `The value couldn't be removed`,
