@@ -18,7 +18,7 @@
 			@keydown="setup.handleKeydownGuard($event)"
 			@change="setup.handleChange()"
 			@focus="setup.handleFocus($event)"
-			@blur="setup.handleBlur($event)">
+			@blur="setup.handleBlurCustom($event)">
 
 		<div
 			v-if="!setup.isValid && setup.orionFieldBinding.showError"
