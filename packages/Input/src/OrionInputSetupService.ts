@@ -181,11 +181,6 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Prop
 				if (this._input.value)
 					this._input.value.value = String(value);
 			}
-			if (value && this.props.minValue && Number(value) < this.props.minValue) {
-				value = this.props.minValue;
-				if (this._input.value)
-					this._input.value.value = String(value);
-			}
 
 			if (value === this.vModel) return;
 
@@ -207,6 +202,15 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Prop
 			input.cleave.destroy();
 			input.cleave = new Cleave(input, val ?? {});
 		});
+	}
+
+	handleBlurCustom (event: FocusEvent) {
+		if (this._input.value?.value && this.props.minValue && (hoursToNumber(this._input.value.value, this.props.maskHourSeparator)) < this.props.minValue) {
+			this.emit('update:modelValue', this.props.minValue);
+			this.emit('input', this.props.minValue);
+		}
+
+		this.handleBlur(event);
 	}
 
 
