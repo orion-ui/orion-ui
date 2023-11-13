@@ -32,6 +32,16 @@
 						:validation-error-message="testLongErrorMessage"
 						:validation="validator.rule('name')"/>
 					<o-input
+						v-model="user.name"
+						class="grid-input"
+						label="Test validation required et length"
+						required/>
+					<o-input
+						v-model="user.name"
+						class="grid-input"
+						label="Test validation required et length"
+						validation="required|length:3"/>
+					<o-input
 						v-model="user.login.email"
 						type="email"
 						class="grid-input"
@@ -200,16 +210,17 @@ let result = false;
 const resultColor = ref<Orion.Color>('default');
 
 let tab = {
-	name: 'required|length:5',
-	['login.email']: 'email',
-	date: () => {
-		return user.date > 10;
+	//name: 'required|length:5',
+	name: (val?: string) => {
+		return (val?.length ?? 0) > 5;
 	},
-	phone: 'phone:mobile',
+	['login.email']: 'email',
+	date: (val: number) => { return val > 10; },
+	phone: 'required|phone:mobile',
 	['password.value']: 'required|hasLowerase|hasUppercase|hasNumber',
 	['password.passwordConfirm']: 'passwordConfirm:password.value',
 	choice: 'required',
-	radio: () => {return user.radio === 'Peut être'; },
+	radio: (val: any) => val === 'Peut être',
 	toggleRequired: 'required',
 	datePicker: 'required',
 	['daterange.value']: 'required',

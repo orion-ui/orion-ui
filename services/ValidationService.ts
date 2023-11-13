@@ -111,12 +111,12 @@ class ValidationService<T extends ValidationArrayType<any>> {
 	/**
 	 * @desc checks if the value verifies the rule given in parameter
 	 * @param {any} value value to check
-	 * @param {string | (() => boolean)} [ruleParams] rule which must verify the value to pass the verification
+	 * @param {string | ((val: any) => boolean)} [ruleParams] rule which must verify the value to pass the verification
 	 * @return boolean
 	 */
-	checkRuleParams (value: any, ruleParams: string | (() => boolean)) {
+	checkRuleParams (value: any, ruleParams: string | ((val: any) => boolean)) {
 		if (typeof ruleParams === 'function') {
-			return ruleParams();
+			return ruleParams(value);
 		} else {
 			const rulesToValidate = ruleParams?.split('|');
 			for (let i = 0; i < rulesToValidate?.length; i++) {

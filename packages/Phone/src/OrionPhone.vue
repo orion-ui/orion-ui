@@ -10,7 +10,6 @@
 			:disabled="setup.props.disabled"
 			:options="setup.countryList"
 			:custom-search="setup.customSearch.bind(setup)"
-			@input="setup.emitInput()"
 			@input-keydown-tab="setup._input.value?.focus()">
 			<template #value="{ item }">
 				{{ item !== null && item !== undefined ? item.code : '' }}
@@ -37,7 +36,6 @@
 				required: setup.isRequired,
 			}"
 			force-label-floating
-			@input="setup.emitInput()"
 			@focus="setup.handleFocus($event)"
 			@blur="setup.handleBlur($event)"/>
 	</div>
@@ -48,19 +46,24 @@ import './OrionPhone.less';
 import { OrionInput } from 'packages/Input';
 import { OrionSelect } from 'packages/Select';
 import OrionPhoneSetupService from './OrionPhoneSetupService';
+// TODO: avoid code duplicate
+// https://github.com/vuejs/core/issues/8301
+// import OrionPhoneSetupService, { type OrionPhoneEmit } from './OrionPhoneSetupService';
 type VModelType = Nil<{
   phoneNumber: Nil<string>;
-  phoneCountryCode: Nil<string>;
+  phoneCountryCode: Nil<Orion.Country['code']>;
 }>;
-type FieldEmit = {
+type OrionPhoneEmit = {
   (e: 'focus', payload: FocusEvent): void;
   (e: 'blur', payload?: FocusEvent): void;
   (e: 'input', payload: VModelType): void;
   (e: 'change', val?: VModelType): void;
   (e: 'update:modelValue', payload: VModelType): void;
+  (e: 'update:phoneNumber', payload?: string): void;
+  (e: 'update:phoneCountryCode', payload?: Orion.Country['code']): void;
   (e: 'clear'): void;
 }
-const emit = defineEmits<FieldEmit>();
+const emit = defineEmits<OrionPhoneEmit>();
 const props = defineProps(OrionPhoneSetupService.props);
 const setup = new OrionPhoneSetupService(props, emit);
 defineExpose(setup.publicInstance);
