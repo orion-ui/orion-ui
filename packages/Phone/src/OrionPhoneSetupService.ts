@@ -1,7 +1,7 @@
 import { reactive, ref, watch } from 'vue';
 import { isEmpty, isNil } from 'lodash-es';
 import 'cleave.js/src/addons/phone-type-formatter.i18n';
-import SharedFieldSetupService, { FieldEmit } from '../../Shared/SharedFieldSetupService';
+import SharedFieldSetupService from '../../Shared/SharedFieldSetupService';
 import useCountry from 'services/CountryService';
 import useValidation from 'services/ValidationService';
 
@@ -10,6 +10,17 @@ type VModelType = Nil<{
   phoneNumber: Nil<string>;
   phoneCountryCode: Nil<Orion.Country['code']>;
 }>;
+
+export type OrionPhoneEmit = {
+  (e: 'focus', payload: FocusEvent): void;
+  (e: 'blur', payload?: FocusEvent): void;
+  (e: 'input', payload: VModelType): void;
+  (e: 'change', val?: VModelType): void;
+  (e: 'update:modelValue', payload: VModelType): void;
+  (e: 'update:phoneNumber', payload?: string): void;
+  (e: 'update:phoneCountryCode', payload?: Orion.Country['code']): void;
+  (e: 'clear'): void;
+}
 
 export default class OrionPhoneSetupService extends SharedFieldSetupService<Props, VModelType> {
 	static props = {
@@ -23,11 +34,24 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 			type: String,
 			default: 'tel',
 		},
+		// @doc props/phoneNumber the phoneNumber string, isolated from its parent object
+		// @doc/fr props/phoneNumber le numéro de téléphone, isolé de son objet parent
+		phoneNumber: {
+			type: String,
+			default: undefined,
+		},
+		// @doc props/phoneCountryCode the country code string, isolated from its parent object
+		// @doc/fr props/phoneCountryCode le code pays, isolé de son objet parent
+		phoneCountryCode: {
+			type: String,
+			default: undefined,
+		},
 	};
 
-	_country = ref<OrionSelect>();
-	_input = ref<HTMLInputElement & OrionInput>();
-	countryList = useCountry().countries;
+	protected readonly emit: OrionPhoneEmit;
+	readonly _country = ref<OrionSelect>();
+	readonly _input = ref<HTMLInputElement & OrionInput>();
+	readonly countryList = useCountry().countries;
 
 	protected state = reactive({
 		...this.sharedState,
@@ -39,7 +63,7 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 		return this.vModel?.phoneCountryCode === 'FR';
 	}
 
-	protected get hasValue () {
+	protected override get hasValue () {
 		return (
 			!isNil(this.vModel) &&
 			!isEmpty(this.phoneNumberWithoutIndicatif) &&
@@ -47,20 +71,24 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 		);
 	}
 
-	get country () {
-		return this.state.country;
-	}
-
+	get country () { return this.state.country; }
 	set country (val) {
 		this.state.country = val;
+		this.emit('update:phoneCountryCode', val?.code);
+		this.setVModel();
 	}
 
-	get phoneNumber () {
-		return this.state.phoneNumber;
-	}
-
+	get phoneNumber () { return this.state.phoneNumber; }
 	set phoneNumber (val) {
 		this.state.phoneNumber = val;
+		this.emit('update:phoneNumber', val);
+		this.setVModel();
+	}
+
+	get vModel () { return this.props.modelValue as VModelType; }
+	set vModel (val) {
+		this.emit('update:modelValue', val);
+		this.emit('input', val);
 	}
 
 	get cleaveOptions () {
@@ -83,9 +111,24 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 		return useValidation().checkRuleParams(this.vModel, this.props.mobile ? 'phone:mobile' : 'phone');
 	}
 
+	get showState () {
+		const validator = this.props.validation as Undef<OrionValidatorRule>;
 
-	constructor (props: Props, emit: FieldEmit<VModelType>) {
+		if (this.props.inheritValidationState !== undefined) {
+			return this.props.inheritValidationState;
+		}
+
+		if (this.state.hasBeenFocus) {
+			return !!validator || !!this.hasValue;
+		} else {
+			return validator?.showValidationState ?? false;
+		}
+	}
+
+
+	constructor (props: Props, emit: OrionPhoneEmit) {
 		super(props, emit);
+		this.emit = emit;
 
 		watch(() => this.vModel?.phoneNumber, (val) => {
 			if (val) {
@@ -146,7 +189,7 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 		return phoneNumber ?? '';
 	}
 
-	emitInput () {
+	setVModel () {
 		const regex = new RegExp(/^[+]330\d+$/);
 		if (this.state.phoneNumber && regex.test(this.state.phoneNumber)) {
 			this.state.phoneNumber = this.state.phoneNumber.replace('+330', '+33');
@@ -156,7 +199,5 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 			phoneNumber: this.state.phoneNumber,
 			phoneCountryCode: this.state.country?.code,
 		};
-
-		this.emit('input', this.vModel);
 	}
 }

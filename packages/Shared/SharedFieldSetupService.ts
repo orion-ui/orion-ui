@@ -42,9 +42,6 @@ export default abstract class SharedFieldSetupService<P, T, E extends FieldEmit 
 		// @doc props/forceLabelFloating allows floating label
 		// @doc/fr props/forceLabelFloating permet au label de se placer au dessus du champ lorsqu'il possède une valeur
 		forceLabelFloating: Boolean,
-		// @doc props/inheritValidationState defines if the validation comes from its parent
-		// @doc/fr props/inheritValidationState définit si la validation provient du parent
-		inheritValidationState: Boolean,
 		// @doc props/clearToNull sets the value to null when the field is cleared
 		// @doc/fr props/clearToNull lorsque que le champ est vidé, sa valeur vaut `null`
 		clearToNull: Boolean,
@@ -84,9 +81,15 @@ export default abstract class SharedFieldSetupService<P, T, E extends FieldEmit 
 			type: Object as PropType<OrionValidatorMessages>,
 			default: undefined,
 		},
+		// @doc props/inheritValidationState defines if the validation comes from its parent
+		// @doc/fr props/inheritValidationState définit si la validation provient du parent
+		inheritValidationState: {
+			type: Boolean,
+			default: undefined,
+		},
 	};
 
-	_input = ref<HTMLInputElement>();
+	readonly _input = ref<HTMLInputElement>();
 
 	protected inputType = 'input';
 
@@ -164,12 +167,17 @@ export default abstract class SharedFieldSetupService<P, T, E extends FieldEmit 
 	}
 
 	get showState () {
-		return (this.isRequired && this.state.hasBeenFocus)
-			|| ((this.props.validation as OrionValidatorRule)?.showValidationState || this.props.inheritValidationState) && this.isRequired
-			|| (this.hasValue && this.state.hasBeenFocus && !this.state.isFocus && (
-				(!!this.props.validation && !isNil(this.isValid)) || this.showStateCustom
-				|| (this.props.type === 'tel' && this.props.modelValue !== '+33')
-			));
+		const validator = this.props.validation as Undef<OrionValidatorRule>;
+
+		if (this.props.inheritValidationState !== undefined) {
+			return this.props.inheritValidationState;
+		}
+
+		if (this.state.hasBeenFocus) {
+			return !!validator || (this.isRequired && !this.hasValue);
+		} else {
+			return validator?.showValidationState ?? false;
+		}
 	}
 
 	get vModel () {

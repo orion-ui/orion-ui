@@ -129,7 +129,7 @@ const globalTypesDocData = {
 		'ns': 'Orion',
 		'type': 'DndValidation',
 		'generic': '',
-		'description': '{ \n\t\t\tmethod: (payload: DndData) => boolean; \n\t\t\tnotif: (payload: any) => void; \n\t\t} \n',
+		'description': '{ \n\t\t\tmethod: (payload?: DndData) => boolean; \n\t\t\tnotif: (payload?: any) => void; \n\t\t} \n',
 	}, {
 		'ns': 'Orion',
 		'type': 'Period',
