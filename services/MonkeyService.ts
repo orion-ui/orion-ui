@@ -735,13 +735,12 @@ class StringMonkeyPatching extends String {
 		}
 	};
 
-
 	/**
 	 * @desc returns a hashCode of the string
 	 * @return number
 	 */
 	hashCode () {
-		return this.split('').reduce((a, b) => (((a << 5) - a) + b.charCodeAt(0))|0, 0);
+		return [...this].reduce((s, c) => Math.imul(31, s) + c.charCodeAt(0) | 0, 0);
 	};
 
 	/**
