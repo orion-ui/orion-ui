@@ -7,6 +7,9 @@ const { parse, compileScript } = require('@vue/compiler-sfc');
 const { sleep } = require('radash');
 const { log, note, spinner } = require('@clack/prompts');
 
+// https://github.com/vuejs/core/issues/8301
+// require('@vue/compiler-sfc').registerTS(() => require('typescript')); // TODO:
+
 // const setupServiceImportRegex = /^import (\w+SetupService) from .+\n/gm;
 const lessImportRegex = /^import .+.less.+\n/gm;
 

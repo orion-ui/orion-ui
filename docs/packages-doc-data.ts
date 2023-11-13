@@ -1281,7 +1281,7 @@ const packagesDocData = new Map([
 				},
 			}, {
 				'name': 'inheritValidationState',
-				'defaultValue': false,
+				'defaultValue': 'undefined',
 				'type': 'boolean',
 				'required': false,
 				'desc': {
@@ -1707,7 +1707,7 @@ const packagesDocData = new Map([
 				},
 			}, {
 				'name': 'inheritValidationState',
-				'defaultValue': false,
+				'defaultValue': 'undefined',
 				'type': 'boolean',
 				'required': false,
 				'desc': {
@@ -2339,7 +2339,7 @@ const packagesDocData = new Map([
 				},
 			}, {
 				'name': 'inheritValidationState',
-				'defaultValue': false,
+				'defaultValue': 'undefined',
 				'type': 'boolean',
 				'required': false,
 				'desc': {
@@ -2866,7 +2866,7 @@ const packagesDocData = new Map([
 				},
 			}, {
 				'name': 'inheritValidationState',
-				'defaultValue': false,
+				'defaultValue': 'undefined',
 				'type': 'boolean',
 				'required': false,
 				'desc': {
@@ -3452,7 +3452,7 @@ const packagesDocData = new Map([
 				},
 			}, {
 				'name': 'inheritValidationState',
-				'defaultValue': false,
+				'defaultValue': 'undefined',
 				'type': 'boolean',
 				'required': false,
 				'desc': {
@@ -3796,7 +3796,7 @@ const packagesDocData = new Map([
 				},
 			}, {
 				'name': 'inheritValidationState',
-				'defaultValue': false,
+				'defaultValue': 'undefined',
 				'type': 'boolean',
 				'required': false,
 				'desc': {
@@ -4995,7 +4995,7 @@ const packagesDocData = new Map([
 				},
 			}, {
 				'name': 'inheritValidationState',
-				'defaultValue': false,
+				'defaultValue': 'undefined',
 				'type': 'boolean',
 				'required': false,
 				'desc': {
@@ -5174,8 +5174,8 @@ const packagesDocData = new Map([
 		'Phone',
 		{
 			localTypes: {
-				'VModelType': 'Nil<{\n  phoneNumber: Nil<string>;\n  phoneCountryCode: Nil<string>;\n}>',
-				'FieldEmit': '{\n  (e: \'focus\', payload: FocusEvent): void;\n  (e: \'blur\', payload?: FocusEvent): void;\n  (e: \'input\', payload: VModelType): void;\n  (e: \'change\', val?: VModelType): void;\n  (e: \'update:modelValue\', payload: VModelType): void;\n  (e: \'clear\'): void;\n}',
+				'VModelType': 'Nil<{\n  phoneNumber: Nil<string>;\n  phoneCountryCode: Nil<Orion.Country[\'code\']>;\n}>',
+				'OrionPhoneEmit': '{\n  (e: \'focus\', payload: FocusEvent): void;\n  (e: \'blur\', payload?: FocusEvent): void;\n  (e: \'input\', payload: VModelType): void;\n  (e: \'change\', val?: VModelType): void;\n  (e: \'update:modelValue\', payload: VModelType): void;\n  (e: \'update:phoneNumber\', payload?: string): void;\n  (e: \'update:phoneCountryCode\', payload?: Orion.Country[\'code\']): void;\n  (e: \'clear\'): void;\n}',
 			},
 			events: [{
 				'name': 'focus',
@@ -5216,6 +5216,22 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'emitted to update the field value',
 					'fr': 'émis pour mettre à jour la valeur',
+				},
+			}, {
+				'name': 'update:phoneNumber',
+				'payload': 'string',
+				'optional': true,
+				'desc': {
+					'en': 'Missing @doc',
+					'fr': 'Missing @doc',
+				},
+			}, {
+				'name': 'update:phoneCountryCode',
+				'payload': 'Orion.Country[\'code\']',
+				'optional': true,
+				'desc': {
+					'en': 'Missing @doc',
+					'fr': 'Missing @doc',
 				},
 			}, {
 				'name': 'clear',
@@ -5284,7 +5300,7 @@ const packagesDocData = new Map([
 				},
 			}, {
 				'name': 'inheritValidationState',
-				'defaultValue': false,
+				'defaultValue': 'undefined',
 				'type': 'boolean',
 				'required': false,
 				'desc': {
@@ -5316,6 +5332,24 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'modelValue of the component',
 					'fr': 'modelValue du composant',
+				},
+			}, {
+				'name': 'phoneCountryCode',
+				'defaultValue': 'undefined',
+				'type': 'string',
+				'required': false,
+				'desc': {
+					'en': 'the country code string, isolated from its parent object',
+					'fr': 'le code pays, isolé de son objet parent',
+				},
+			}, {
+				'name': 'phoneNumber',
+				'defaultValue': 'undefined',
+				'type': 'string',
+				'required': false,
+				'desc': {
+					'en': 'the phoneNumber string, isolated from its parent object',
+					'fr': 'le numéro de téléphone, isolé de son objet parent',
 				},
 			}, {
 				'name': 'prefixFontIcon',
@@ -5805,7 +5839,7 @@ const packagesDocData = new Map([
 				},
 			}, {
 				'name': 'inheritValidationState',
-				'defaultValue': false,
+				'defaultValue': 'undefined',
 				'type': 'boolean',
 				'required': false,
 				'desc': {
@@ -6528,7 +6562,7 @@ const packagesDocData = new Map([
 				},
 			}, {
 				'name': 'inheritValidationState',
-				'defaultValue': false,
+				'defaultValue': 'undefined',
 				'type': 'boolean',
 				'required': false,
 				'desc': {
@@ -7187,7 +7221,7 @@ const packagesDocData = new Map([
 				},
 			}, {
 				'name': 'inheritValidationState',
-				'defaultValue': false,
+				'defaultValue': 'undefined',
 				'type': 'boolean',
 				'required': false,
 				'desc': {
@@ -7696,7 +7730,7 @@ const packagesDocData = new Map([
 				},
 			}, {
 				'name': 'inheritValidationState',
-				'defaultValue': false,
+				'defaultValue': 'undefined',
 				'type': 'boolean',
 				'required': false,
 				'desc': {
@@ -8213,7 +8247,7 @@ const packagesDocData = new Map([
 				},
 			}, {
 				'name': 'inheritValidationState',
-				'defaultValue': false,
+				'defaultValue': 'undefined',
 				'type': 'boolean',
 				'required': false,
 				'desc': {

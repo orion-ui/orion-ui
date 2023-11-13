@@ -7,6 +7,7 @@ import TextStyle from '@tiptap/extension-text-style';
 import Image from '@tiptap/extension-image';
 import Link from '@tiptap/extension-link';
 import Color from '@tiptap/extension-color';
+import Youtube from '@tiptap/extension-youtube';
 
 import TextBackground from './editor/extensions/text-background';
 
@@ -78,6 +79,7 @@ export default class OrionEditorSetupService extends SharedFieldSetupService<Pro
 			Color.configure({ types: ['textStyle'] }),
 			TextStyle,
 			TextBackground,
+			Youtube,
 		],
 		onCreate: ({ editor }) => {
 			if (!this.sanitizeHtml(this.vModel).length && this.vModelJson) {
@@ -172,10 +174,24 @@ export default class OrionEditorSetupService extends SharedFieldSetupService<Pro
 	}
 
 	async promptImageUrlAsync () {
-		const { confirm, value } = await usePrompt<string>({ title: this.lang.ORION_EDITOR__ADD_PICTURE });
+		const { confirm, value } = await usePrompt<string>({
+			title: this.lang.ORION_EDITOR__ADD_PICTURE,
+			prompt: { fieldProps: { label: this.lang.ORION_EDITOR__ADD_PICTURE_LABEL } },
+		});
 
 		if (confirm && value?.length) {
 			this.editor.value?.chain().focus().setImage({ src: value }).run();
+		}
+	}
+
+	async promptYouTubeAsync () {
+		const { confirm, value } = await usePrompt<string>({
+			title: this.lang.ORION_EDITOR__YOUTUBE,
+			prompt: { fieldProps: { label: this.lang.ORION_EDITOR__ADD_YOUTUBE_LABEL } },
+		});
+
+		if (confirm && value?.length) {
+			this.editor.value?.chain().focus().setYoutubeVideo({ src: value }).run();
 		}
 	}
 }

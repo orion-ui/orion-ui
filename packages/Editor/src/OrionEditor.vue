@@ -174,6 +174,12 @@
 				size="sm"
 				prefix-icon="camera"
 				@click="setup.promptImageAsync()"/>
+
+			<orion-button
+				v-tooltip="setup.lang.ORION_EDITOR__YOUTUBE"
+				size="sm"
+				prefix-icon="play"
+				@click="setup.promptYouTubeAsync()"/>
 		</div>
 
 		<editor-content
