@@ -52,4 +52,5 @@ interface String {
   pluralize(quantity: number, quantityIncluded?: boolean): string;
   hashCode(): number;
 	mark(valueToMark?: string): string;
+	preview(charLength: number, ellipsis?: string): string
 }
