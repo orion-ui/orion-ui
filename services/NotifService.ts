@@ -1,9 +1,9 @@
 import { h, render, unref } from 'vue';
 import { PopableService } from './PopableService';
-import { _popables } from 'packages/Shared/SharedPopableSetupService';
 import { OrionNotif } from 'packages/Notif';
 import orionAppService from 'utils/Orion';
 import useDocument from './DocumentService';
+import usePopableQueueService from './PopableQueueService';
 
 class NotifService extends PopableService<OrionNotif> {
 	nameForDevtool = `OrionNotif`;
@@ -35,7 +35,7 @@ class NotifService extends PopableService<OrionNotif> {
 			this.registerComponentInstanceInDevtool(vnode);
 		}
 
-		const instance = _popables[this.options.uid];
+		const instance = usePopableQueueService().getInstance(this.options.uid);
 		return instance as OrionNotif;
 	}
 

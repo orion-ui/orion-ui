@@ -1,9 +1,9 @@
 import { h, render } from 'vue';
 import { PopableService } from './PopableService';
-import { _popables } from 'packages/Shared/SharedPopableSetupService';
 import { OrionAside } from 'packages/Aside';
 import orionAppService from 'utils/Orion';
 import useDocument from './DocumentService';
+import usePopableQueueService from './PopableQueueService';
 
 class AsideService extends PopableService<OrionAside> {
 	nameForDevtool = `OrionAside`;
@@ -32,7 +32,7 @@ class AsideService extends PopableService<OrionAside> {
 			this.registerComponentInstanceInDevtool(vnode);
 		}
 
-		const instance = _popables[this.options.uid];
+		const instance = usePopableQueueService().getInstance(this.options.uid);
 		return instance as OrionAside;
 	}
 }

@@ -20,6 +20,7 @@ export { default as useMouse } from './MouseService';
 export { default as useNotif } from './NotifService';
 export { default as useOverlay } from './OverlayService';
 export { default as usePluralize } from './PluralizeService';
+export { default as usePopableQueue } from './PopableQueueService';
 export { default as usePrompt } from './PromptService';
 export { default as useResponsive } from './ResponsiveService';
 export { default as useTour } from './TourService';
