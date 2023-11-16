@@ -7,6 +7,7 @@ import { useValidation } from '../services/index';
 import { ValidationArrayType } from '../services/ValidationService';
 import OrionChatEntity from '../packages/Chat/src/OrionChatEntity';
 import OrionChatMessageEntity from '../packages/ChatMessage/src/OrionChatMessageEntity';
+import type { OrionAsideSetupService, OrionModalSetupService, OrionNotifSetupService } from '../packages';
 
 declare global {
 	type Nullable<T> = T | null;
@@ -193,6 +194,11 @@ declare global {
 
 		namespace Popable {
 			type Name = 'OrionAside' | 'OrionModal' | 'OrionNotif';
+
+			type PublicIntance =
+				| OrionAsideSetupService['publicInstance']
+				| OrionModalSetupService['publicInstance']
+				| OrionNotifSetupService['publicInstance']
 
 			type Options = {
 				uid: number;

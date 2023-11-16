@@ -58,6 +58,7 @@ class TypesDeclarationFilesFactory {
 			'utils/Log.ts',
 			'utils/Orion.ts',
 			'utils/tools.ts',
+			'utils/mockup.ts',
 			'services/**/*.ts',
 		],
 	};
