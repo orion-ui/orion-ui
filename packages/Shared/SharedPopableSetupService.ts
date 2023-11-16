@@ -4,10 +4,8 @@ import anime from 'animejs';
 
 import SharedSetupService from './SharedSetupService';
 import useOverlay from 'services/OverlayService';
+import usePopableQueueService from 'services/PopableQueueService';
 import { toggleGlobalListener } from 'utils/tools';
-import type { OrionAsideSetupService } from '../Aside';
-import type { OrionModalSetupService } from '../Modal';
-import type { OrionNotifSetupService } from '../Notif';
 import { devtool } from 'devtool';
 import orionAppService from 'utils/Orion';
 
@@ -21,13 +19,6 @@ export type PopableEmit = {
 	(e: 'leave-end'): void;
 }
 
-export const _popables: Record<number, OrionAside | OrionNotif | OrionModal> = {};
-export const _queue = reactive({
-	OrionAside: [] as OrionAsideSetupService['publicInstance'][],
-	OrionModal: [] as OrionModalSetupService['publicInstance'][],
-	OrionNotif: [] as OrionNotifSetupService['publicInstance'][],
-	ids: [] as number[],
-});
 
 export default abstract class SharedPopableSetupService<P extends Props> extends SharedSetupService<P> {
 	static props = {
@@ -72,15 +63,15 @@ export default abstract class SharedPopableSetupService<P extends Props> extends
 
 	options = reactive<Orion.Popable.Options>({ ...this.baseOptions });
 
-	protected get pendingQueue () { return _queue[this.name] as (typeof this.publicInstance)[]; }
+	protected get pendingQueue () { return usePopableQueueService().queue[this.name] as (typeof this.publicInstance)[]; }
 
 	get uid () { return this.options.uid; }
 	get visible () { return this.state.visible; }
 	get isMounted () { return this.state.isMounted; }
-	get isLastOpenedPopable () { return _queue.ids.slice(-1)[0] === this.uid; }
+	get isLastOpenedPopable () { return usePopableQueueService().queueIds.slice(-1)[0] === this.uid; }
 
 	get zIndexBumper (): number {
-		return _queue.ids.findIndex(x => x === this.uid);
+		return usePopableQueueService().queueIds.findIndex(x => x === this.uid);
 	}
 
 	get domStyle (): Record<string, any> {
@@ -110,7 +101,7 @@ export default abstract class SharedPopableSetupService<P extends Props> extends
 
 		Object.assign(this.options, props.options);
 
-		_popables[this.options.uid] = this.publicInstance as Popable;
+		usePopableQueueService().register(this.options.uid, this.publicInstance as Orion.Popable.PublicIntance);
 
 		watch(() => this.props.display, (val) => {
 			if (val) {
@@ -249,7 +240,7 @@ export default abstract class SharedPopableSetupService<P extends Props> extends
 
 		// On ajout le popable en premier dans la queue
 		this.pendingQueue.unshift(this.publicInstance);
-		if (this.name !== 'OrionNotif') _queue.ids.push(this.uid);
+		if (this.name !== 'OrionNotif') usePopableQueueService().queueIds.push(this.uid);
 	}
 
 	private unqueue () {
@@ -302,7 +293,7 @@ export default abstract class SharedPopableSetupService<P extends Props> extends
 		}
 
 		// Vérification si les queue Aside et Modal sont vide, on masque l'overlay
-		if (!_queue.OrionAside.length && !_queue.OrionModal.length) {
+		if (!usePopableQueueService().asideQueue.length && !usePopableQueueService().modalQueue.length) {
 			useOverlay().hide();
 		}
 	}
@@ -316,13 +307,13 @@ export default abstract class SharedPopableSetupService<P extends Props> extends
 		if (targetWrapper) render(null, targetWrapper);
 
 		targetWrapper?.remove();
-		delete _popables[this.uid];
+		usePopableQueueService().unregister(this.uid);
 		this.removeFromQueueIds(this.uid);
 	}
 
 	private removeFromQueueIds (id: number) {
-		const idIndex = _queue.ids.findIndex(x => x === id);
-		if (idIndex > -1) _queue.ids.splice(idIndex, 1);
+		const idIndex = usePopableQueueService().queueIds.findIndex(x => x === id);
+		if (idIndex > -1) usePopableQueueService().queueIds.splice(idIndex, 1);
 	}
 
 	trigger (eventName: string, params?: any) {

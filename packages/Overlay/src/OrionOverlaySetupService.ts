@@ -1,9 +1,8 @@
 import { reactive } from 'vue';
 import { forEach } from 'lodash-es';
-
-import { _queue } from '../../Shared/SharedPopableSetupService';
 import SharedSetupService from '../../Shared/SharedSetupService';
 import useOverlay from 'services/OverlayService';
+import usePopableQueueService from 'services/PopableQueueService';
 
 type Props = SetupProps<typeof OrionOverlaySetupService.props>
 
@@ -20,11 +19,11 @@ export default class OrionOverlaySetupService extends SharedSetupService<Props> 
 	});
 
 	private get activeModalUsingOverlay () {
-		return _queue.OrionModal.filter(x => x.state.visible && x.options.overlay);
+		return usePopableQueueService().modalQueue.filter(x => x.state.visible && x.options.overlay);
 	}
 
 	private get activeAsideUsingOverlay () {
-		return _queue.OrionAside.filter(x => x.state.visible && x.options.overlay);
+		return usePopableQueueService().asideQueue.filter(x => x.state.visible && x.options.overlay);
 	}
 
 	get visible () {
@@ -32,7 +31,7 @@ export default class OrionOverlaySetupService extends SharedSetupService<Props> 
 	}
 
 	get zIndex () {
-		const queueLength = _queue.ids.length;
+		const queueLength = usePopableQueueService().queueIds.length;
 		return this.props.global && queueLength
 			? 100 - 1 + queueLength
 			: 100;
@@ -67,7 +66,10 @@ export default class OrionOverlaySetupService extends SharedSetupService<Props> 
 	handleClick () {
 		if (this.props.global) {
 			this.hide();
-			forEach([..._queue.OrionAside, ..._queue.OrionModal], (x) => {
+			forEach([
+				...usePopableQueueService().asideQueue,
+				...usePopableQueueService().modalQueue,
+			], (x) => {
 				if (x.state.visible && x.options.hideOnOverlayClick && x.isLastOpenedPopable()) {
 					x.close();
 				}
