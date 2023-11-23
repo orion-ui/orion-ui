@@ -465,6 +465,10 @@ const serviceDocData = new Map([
 		{},
 	],
 	[
+		'PopableQueue',
+		{},
+	],
+	[
 		'Popable',
 		{},
 	],

@@ -1300,7 +1300,7 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'inputValue',
 				'defaultValue': 'undefined',
-				'type': 'string | boolean | number | string[] | undefined',
+				'type': 'string | boolean | number | Object | any[] | Date | undefined',
 				'required': false,
 				'desc': {
 					'en': 'the value of the checkbox',

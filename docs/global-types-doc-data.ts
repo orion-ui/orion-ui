@@ -171,7 +171,7 @@ const globalTypesDocData = {
 		'ns': 'Orion.Popable',
 		'type': 'Name',
 		'generic': '',
-		'description': '\'OrionAside\' | \'OrionModal\' | \'OrionNotif\'; \n',
+		'description': '\'OrionAside\' | \'OrionModal\' | \'OrionNotif\'; \n \n\t\t\ttype PublicIntance = \n\t\t\t\t| OrionAsideSetupService[\'publicInstance\'] \n\t\t\t\t| OrionModalSetupService[\'publicInstance\'] \n\t\t\t\t| OrionNotifSetupService[\'publicInstance\'] \n',
 	}, {
 		'ns': 'Orion.Popable',
 		'type': 'Options',

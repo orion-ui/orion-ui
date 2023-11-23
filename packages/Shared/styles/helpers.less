@@ -59,6 +59,10 @@
 	&--nowrap {
 		white-space: nowrap;
 	}
+
+	&--ellipsis {
+		.ellipsis();
+	}
 }
 
 .background {
@@ -212,5 +216,15 @@ each(@sizes, {
 	}
 	.pa-@{value} {
 		padding: var(@size);
+	}
+});
+
+each(range(5), {
+	.line-clamp-@{value} {
+		.line-clamp(@value);
+	}
+	
+	.flex-@{value} {
+		flex: @value;
 	}
 });
