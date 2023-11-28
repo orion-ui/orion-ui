@@ -329,7 +329,7 @@ declare global {
 		}
 
 		namespace Validator {
-			type RuleFunction = ((...args: any[]) => (value: any) => boolean);
+			type RuleFunction = ((...args: any[]) => (value?: any) => boolean);
 			type Rule<T = any> =
 				| string
 				| ((val?: T) => boolean)

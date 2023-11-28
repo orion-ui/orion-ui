@@ -2,7 +2,7 @@ import { reactive } from 'vue';
 import Log from './Log';
 
 type ValidatorExtendedRule<T> = {
-	rule: (value: T) => boolean,
+	rule: (value?: T) => boolean,
 	level: 'error' | 'warning'
 	message?: string
 	id?: string | number,

@@ -241,7 +241,7 @@ const validator = useValidation(user, {
 	phone: new Validator<typeof user.phone>([
 		{
 			level: 'error',
-			rule: value => value.phoneCountryCode === 'DE',
+			rule: value => value?.phoneCountryCode === 'DE',
 			message: 'phone should be german',
 		},
 	]),
@@ -256,10 +256,10 @@ const validator = useValidation(user, {
 			message: `value required`,
 		},
 	]),
-	select: new Validator([
+	select: new Validator<string>([
 		{
 			level: 'error',
-			rule: (val?:string) => val === 'oui',
+			rule: val => val === 'oui',
 		},
 	]),
 	area: Validator.rules.hasMaxLength(10),
