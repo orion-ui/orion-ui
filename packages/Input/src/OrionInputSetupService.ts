@@ -93,10 +93,6 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Prop
 		}
 	}
 
-	protected get showStateCustom () {
-		return this.props.type === 'email';
-	}
-
 	get vModel () {
 		const value = this.props.modelValue;
 
@@ -204,6 +200,7 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Prop
 		});
 	}
 
+
 	handleBlurCustom (event: FocusEvent) {
 		if (this._input.value?.value && this.props.minValue && (hoursToNumber(this._input.value.value, this.props.maskHourSeparator)) < this.props.minValue) {
 			this.emit('update:modelValue', this.props.minValue);
@@ -212,7 +209,6 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Prop
 
 		this.handleBlur(event);
 	}
-
 
 	handleKeydownGuard (e: KeyboardEvent) {
 		if (this.props.mask) {

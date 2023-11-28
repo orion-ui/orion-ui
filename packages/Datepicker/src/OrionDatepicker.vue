@@ -54,10 +54,11 @@
 			</div>
 
 			<div
-				v-if="!setup.isValid && setup.orionFieldBinding.showError"
-				class="orion-input__error-message">
-				{{ setup.props.validationErrorMessage }}
-			</div>
+				v-if="setup.showState
+					&& (setup.showError || setup.showWarning)
+					&& setup.validationHtmlMessages?.length"
+				class="orion-input__error-message"
+				v-html="setup.validationHtmlMessages"/>
 		</orion-field>
 
 		<template #popper>
@@ -74,7 +75,7 @@
 			<orion-date-range
 				v-else-if="setup.props.type === 'range'"
 				:ref="setup._options"
-				v-model="setup.range"
+				v-model="setup.rangeBuffer"
 				:min-date="setup.minDate"
 				:max-date="setup.maxDate"
 				@select-range="setup.handleBlur(undefined, true)"/>

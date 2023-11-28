@@ -28,27 +28,37 @@
 					<o-input
 						v-model="user.name"
 						class="grid-input"
-						label="Test validation required et length"
-						:validation-error-message="testLongErrorMessage"
-						:validation="validator.rule('name')"/>
-					<o-input
-						v-model="user.name"
-						class="grid-input"
-						label="Test validation required et length"
+						label="required only"
 						required/>
 					<o-input
 						v-model="user.name"
 						class="grid-input"
-						label="Test validation required et length"
+						label="Validation with custom function"
+						:validation-error-message="testLongErrorMessage"
+						:validation="(val?: string) => (val?.length ?? 0) > 2"/>
+					<o-input
+						v-model="user.name"
+						class="grid-input"
+						label="Test validation simple Validator"
+						:validation="validator.rule('name')"/>
+					<o-input
+						v-model="user.nameForExtendedRule"
+						class="grid-input"
+						label="Test validation extended rule"
+						:validation="validator.rule('nameForExtendedRule')"/>
+					<o-input
+						v-model="user.name"
+						class="grid-input"
+						label="Test validation (string) required and length"
 						validation="required|length:3"/>
 					<o-input
-						v-model="user.login.email"
+						v-model="user.login"
 						type="email"
 						class="grid-input"
 						label="Test validation email"
 						validation-error-message="Email invalide"
-						:validation="validator.rule('login.email')"/>
-					<o-input
+						:validation="validator.rule('login')"/>
+					<o-datepicker
 						v-model="user.date"
 						class="grid-input"
 						label="Test validation fonction"
@@ -56,80 +66,79 @@
 					<o-phone
 						v-model="user.phone"
 						label="téléphone"
-						:validation-error-message="testLongErrorMessage"
 						:validation="validator.rule('phone')"
 						mobile/>
 					<o-password
-						v-model="user.password.value"
-						password-tooltip
+						v-model="user.password"
 						label="Mot de passe"
-						:validation-error-message="testLongErrorMessage"
-						:validation="validator.rule('password.value')"
-						:validation-messages="passwordValidationMessages"/>
+						:validation="(val?:string) => !!(val?.length && val.length >= 3)"
+						validation-error-message="hey 3 char. min"/>
 					<o-password
-						v-model="user.password.passwordConfirm"
+						v-model="user.password"
+						password-tooltip
+						label="Mot de passe"/>
+					<o-password
+						v-model="user.passwordConfirm"
 						password-tooltip
 						label="Confirm password"
-						:validation="validator.rule('password.passwordConfirm')"/>
+						:password-to-confirm="user.password"/>
 					<o-checkbox
 						v-model="user.choice"
-						required
 						label="On coche ?"
-						:validation-error-message="testLongErrorMessage"
-						:validation="validator.rule('choice')"
-						inline
-						style="margin-right:20px"/>
-					<o-radio
-						v-model="user.radio"
-						input-value="Oui"
-						label="Oui"
-						inline
-						style="margin-right:20px"/>
-					<o-radio
-						v-model="user.radio"
-						input-value="Non"
-						label="Non"
-						inline
-						style="margin-right:20px"/>
-					<o-radio
-						v-model="user.radio"
+						color="brand"/>
+					<o-checkbox
+						v-model="user.choice"
+						label="On coche ?"
 						required
-						input-value="Peut être"
-						label="Peut être"
 						:validation-error-message="testLongErrorMessage"
-						:validation="validator.rule('radio')"
-						inline
-						style="margin-right:20px"/>
+						:validation="validator.rule('choice')"/>
+
+					<div class="flex g-sm">
+						<o-radio
+							v-model="user.radio"
+							input-value="Oui"
+							label="Oui"
+							color="brand"
+							:validation="validator.rule('radio')"/>
+						<o-radio
+							v-model="user.radio"
+							input-value="Non"
+							label="Non"
+							color="brand"
+							:validation="validator.rule('radio')"/>
+						<o-radio
+							v-model="user.radio"
+							input-value="Peut être"
+							label="Peut être"
+							color="brand"
+							:validation="validator.rule('radio')"/>
+					</div>
 					<o-toggle
 						v-model="user.toggle"
 						label="Toggle"
 						size="xs"
-						inline
-						style="margin-right:20px"/>
+						color="brand"/>
 					<o-toggle
 						v-model="user.toggleRequired"
 						label="Required"
 						required
 						:validation-error-message="testLongErrorMessage"
 						:validation="validator.rule('toggleRequired')"
-						size="xs"
-						inline
-						style="margin-right:20px"/>
+						size="xs"/>
 					<o-datepicker
 						v-model="user.datePicker"
 						label="Date picker"
-						required
 						:validation-error-message="testLongErrorMessage"
 						:validation="validator.rule('datePicker')"
 						clearable/>
 					<o-datepicker
-						v-model:range="user.daterange.value"
+						v-model:range="user.daterange"
 						required
 						clearable
 						type="range"
 						label="Date range"
 						:validation-error-message="testLongErrorMessage"
-						:validation="validator.rule('daterange.value')"/>
+						:validation="validator.rule('daterange')"/>
 					<o-select
 						v-model="user.select"
 						label="Select"
@@ -144,13 +153,12 @@
 						clearable
 						label="Text area"
 						:validation-error-message="testLongErrorMessage"
-						:validation="validator.rule('area')"
-						@submit="onSubmit()"/>
+						:validation="validator.rule('area')"/>
 					<o-alert :color="resultColor">
 						Le résultat est .... {{ result }}
 					</o-alert>
 					<hr>
-					<o-input
+					<!-- <o-input
 						v-model="testMail"
 						label="test mail"
 						validation="required|email"/>
@@ -158,7 +166,7 @@
 						v-model="testMail"
 						required
 						label="test mail length"
-						:validation="validateTestMail"/>
+						:validation="validateTestMail"/> -->
 				</div>
 			</div>
 
@@ -171,70 +179,92 @@
 
 
 <script setup lang="ts">
-import { useValidation, useNotif } from 'lib';
 import { ref, reactive } from 'vue';
+import { useValidation } from 'lib';
+import Validator from 'utils/Validator';
 
-const testMail = ref<string>();
-const validateTestMail = () => (testMail.value?.length ?? 0) > 5;
 // eslint-disable-next-line max-len, @typescript-eslint/no-unused-vars
 const testLongErrorMessage = 'Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Donec sed odio dui. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.';
 
 let user = reactive({
-	name: '',
+	name: undefined as Undef<string>,
+	nameForExtendedRule: undefined as Undef<string>,
 	toggle: false,
 	toggleRequired: false,
 	choice: false,
-	radio: null,
-	login: { email: null },
-	date: 0,
+	radio: undefined,
+	login: undefined as Undef<string>,
+	date: undefined as Undef<Date>,
 	phone: {
 		phoneCountryCode: 'FR',
-		phoneNumber: null,
+		phoneNumber: undefined as Undef<string>,
 	},
-	password: {
-		value: null,
-		passwordConfirm: null,
-	},
-	datePicker: null,
-	daterange: {
-		value: null,
-		label: 'Label daterange',
-	},
-	select: null,
-	area: null,
+	password: undefined,
+	passwordConfirm: undefined,
+	datePicker: undefined,
+	daterange: undefined,
+	select: undefined,
+	area: undefined,
 });
 
 let result = false;
 
-
 const resultColor = ref<Orion.Color>('default');
 
-let tab = {
-	//name: 'required|length:5',
-	name: (val?: string) => {
-		return (val?.length ?? 0) > 5;
-	},
-	['login.email']: 'email',
-	date: (val: number) => { return val > 10; },
-	phone: 'required|phone:mobile',
-	['password.value']: 'required|hasLowerase|hasUppercase|hasNumber',
-	['password.passwordConfirm']: 'passwordConfirm:password.value',
-	choice: 'required',
-	radio: (val: any) => val === 'Peut être',
-	toggleRequired: 'required',
-	datePicker: 'required',
-	['daterange.value']: 'required',
-	select: 'required',
-	area: 'required|length:10',
-};
+const validator = useValidation(user, {
+	login: val => !!val?.length && val.length > 10 && Validator.rules.email()(val),
+	name: new Validator([
+		Validator.rules.required(),
+		Validator.rules.hasUppercase(),
+		Validator.rules.hasMinLength(5),
+	]),
+	nameForExtendedRule: new Validator([
+		{
+			level: 'error',
+			rule: val => Validator.rules.required()(user.name)
+				? Validator.rules.required()(val)
+				: true,
+			message: `this field is required`,
+		},
+		{
+			level: 'warning',
+			rule: Validator.rules.hasMinLength(3),
+			message: `should be at least 3 char. long`,
+		},
+		{
+			level: 'warning',
+			rule: () => !!user.nameForExtendedRule?.includes('toto'),
+			message: `should contain 'toto'`,
+		},
+	]),
+	date: Validator.rules.required(),
+	phone: new Validator<typeof user.phone>([
+		{
+			level: 'error',
+			rule: value => value.phoneCountryCode === 'DE',
+			message: 'phone should be german',
+		},
+	]),
+	choice: Validator.rules.required(),
+	radio: Validator.rules.required(),
+	toggleRequired: Validator.rules.required(),
+	datePicker: Validator.rules.required(),
+	daterange: new Validator([
+		{
+			level: 'warning',
+			rule: Validator.rules.required(),
+			message: `value required`,
+		},
+	]),
+	select: new Validator([
+		{
+			level: 'error',
+			rule: (val?:string) => val === 'oui',
+		},
+	]),
+	area: Validator.rules.hasMaxLength(10),
+});
 
-const passwordValidationMessages: OrionValidatorMessages = {
-	hasLowercase: 'needs lowercase',
-	hasUppercase: 'needs uppercase',
-	hasNumber: 'needs numbers',
-};
-
-const validator = useValidation(user, tab);
 
 function checkForm () : void {
 	result = validator.validate();
@@ -247,13 +277,8 @@ function checkForm () : void {
 	}
 }
 
-function onSubmit () {
-	useNotif.info('submitted');
-}
-
 </script>
 
 <style lang="less">
-
 </style>
 

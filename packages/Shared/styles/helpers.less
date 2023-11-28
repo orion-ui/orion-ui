@@ -167,6 +167,20 @@
 	});
 }
 
+// #region margin and padding
+.ml-a {
+	margin-left: auto;
+}
+.mr-a {
+	margin-right: auto;
+}
+.mt-a {
+	margin-top: auto;
+}
+.mb-a {
+	margin-bottom: auto;
+}
+
 each(@sizes, {
 	@size: ~"--space-@{value}";
 	
@@ -182,11 +196,19 @@ each(@sizes, {
 	.ml-@{value} {
 		margin-left: var(@size);
 	}
-	.mv-@{value} {
+	.mv-@{value} { // TODO: deprecated, replaced by my-
 		margin-top: var(@size);
 		margin-bottom: var(@size);
 	}
-	.mh-@{value} {
+	.mh-@{value} { // TODO: deprecated, replaced by mx-
+		margin-left: var(@size);
+		margin-right: var(@size);
+	}
+	.my-@{value} {
+		margin-top: var(@size);
+		margin-bottom: var(@size);
+	}
+	.mx-@{value} {
 		margin-left: var(@size);
 		margin-right: var(@size);
 	}
@@ -206,11 +228,19 @@ each(@sizes, {
 	.pl-@{value} {
 		padding-left: var(@size);
 	}
-	.pv-@{value} {
+	.pv-@{value} { // TODO: deprecated, replaced by py-
 		padding-top: var(@size);
 		padding-bottom: var(@size);
 	}
-	.ph-@{value} {
+	.ph-@{value} { // TODO: deprecated, replaced by px-
+		padding-left: var(@size);
+		padding-right: var(@size);
+	}
+	.py-@{value} {
+		padding-top: var(@size);
+		padding-bottom: var(@size);
+	}
+	.px-@{value} {
 		padding-left: var(@size);
 		padding-right: var(@size);
 	}
@@ -218,6 +248,7 @@ each(@sizes, {
 		padding: var(@size);
 	}
 });
+// #endregion
 
 each(range(5), {
 	.line-clamp-@{value} {

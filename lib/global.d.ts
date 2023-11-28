@@ -3,11 +3,11 @@
 import { Component, Slot } from 'vue';
 import { RouteLocationRaw, Router } from 'vue-router';
 import { coolicons } from '../assets/fonts/coolicons';
-import { useValidation } from '../services/index';
-import { ValidationArrayType } from '../services/ValidationService';
 import OrionChatEntity from '../packages/Chat/src/OrionChatEntity';
 import OrionChatMessageEntity from '../packages/ChatMessage/src/OrionChatMessageEntity';
 import type { OrionAsideSetupService, OrionModalSetupService, OrionNotifSetupService } from '../packages';
+import useValidation from '../services/ValidationService';
+import ValidatorClass from '../utils/Validator';
 
 declare global {
 	type Nullable<T> = T | null;
@@ -19,14 +19,6 @@ declare global {
 	type RefDom<T = HTMLElement> = undefined | HTMLElement & T;
 
 	type SetupProps<T> = Readonly<import('vue').ExtractPropTypes<T>>
-
-	type OrionValidator<T extends Record<string, any>> = ReturnType<typeof useValidation<T, ValidationArrayType<T>>>;
-
-	type OrionValidatorRule = ReturnType<ReturnType<typeof useValidation>['rule']>;
-
-	type OrionValidatorMessages = Partial<{
-		[key in keyof ReturnType<typeof useValidation>['rulesRegistry']]: string;
-	}>
 
 	type AsideAnimationHookType =
 	| 'asideEnterBefore'
@@ -327,6 +319,21 @@ declare global {
 				message: string;
 				discussionId: number;
 			}
+		}
+
+		namespace Validation {
+			type Rule = ReturnType<ReturnType<typeof useValidation<any, any>>['rule']>;
+			type Rules<T> = {
+				[K in keyof T]?: Validator.Rule<T[K]>;
+			}
+		}
+
+		namespace Validator {
+			type RuleFunction = ((...args: any[]) => (value: any) => boolean);
+			type Rule<T = any> =
+				| string
+				| ((val?: T) => boolean)
+				| ValidatorClass
 		}
 
 		namespace Private {

@@ -22,7 +22,10 @@
 			:ref="setup._suffixPictos"
 			:class="`${setup.baseClass}__pictos`">
 			<orion-icon
-				v-if="(setup.props.showError || setup.props.showSuccess) && !['checkbox', 'radio', 'toggle'].includes(setup.props.inputType)"
+				v-if="(setup.props.showError
+					|| setup.props.showWarning
+					|| setup.props.showSuccess
+				) && !['checkbox', 'radio', 'toggle'].includes(setup.props.inputType)"
 				:class="setup.validationClass"/>
 
 			<span

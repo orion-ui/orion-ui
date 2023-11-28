@@ -104,7 +104,7 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 	}
 
 	get showWarning () {
-		return this.isFrPhone && this.hasValue && !this.isValid && this.isFocus;
+		return this.isFrPhone && this.hasValue && !this.isValid.value && this.isFocus;
 	}
 
 	get isValidCustom () {
@@ -112,7 +112,7 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 	}
 
 	get showState () {
-		const validator = this.props.validation as Undef<OrionValidatorRule>;
+		const validator = this.props.validation as Undef<Orion.Validation.Rule>;
 
 		if (this.props.inheritValidationState !== undefined) {
 			return this.props.inheritValidationState;

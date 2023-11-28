@@ -17,6 +17,7 @@ export default class OrionFieldSetupService extends SharedSetupService<Props> {
 		hasValue: Boolean,
 		labelIsFloating: Boolean,
 		showError: Boolean,
+		showWarning: Boolean,
 		showSuccess: Boolean,
 		inputType: {
 			type: String,
@@ -28,8 +29,8 @@ export default class OrionFieldSetupService extends SharedSetupService<Props> {
 		},
 	};
 
-	_el = ref<RefDom>();
-	_suffixPictos = ref<RefDom>();
+	readonly _el = ref<RefDom>();
+	readonly _suffixPictos = ref<RefDom>();
 
 	get baseClass () {
 		return `orion-${this.props.inputType}`;
@@ -39,6 +40,7 @@ export default class OrionFieldSetupService extends SharedSetupService<Props> {
 		const cls = [`${this.baseClass}--${this.props.size}`];
 
 		if (this.props.showError) cls.push(`${this.baseClass}--error`);
+		if (this.props.showWarning) cls.push(`${this.baseClass}--warning`);
 		if (this.props.showSuccess) cls.push(`${this.baseClass}--success`);
 		if (this.props.prefixIcon || this.props.prefixFontIcon) cls.push(`${this.baseClass}--prefix-icon`);
 		if (this.props.suffixIcon || this.props.suffixFontIcon) cls.push(`${this.baseClass}--suffix-icon`);
@@ -66,6 +68,8 @@ export default class OrionFieldSetupService extends SharedSetupService<Props> {
 			{ 'orion-input__validation--success': this.props.showSuccess },
 			{ 'ci-triangle_warning': this.props.showError },
 			{ 'orion-input__validation--error': this.props.showError },
+			{ 'ci-triangle_warning': this.props.showWarning },
+			{ 'orion-input__validation--warning': this.props.showWarning },
 		];
 	}
 
