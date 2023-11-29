@@ -5,7 +5,8 @@
 			v-model="rawHtml"
 			label="zegfsd"
 			:img-max-size="4000"
-			required/>
+			required
+			:disable-features="['ImageBase64', 'ImageUrl', 'YouTube']"/>
 
 		<hr>
 
