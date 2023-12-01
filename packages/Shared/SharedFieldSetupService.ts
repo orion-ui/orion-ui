@@ -4,7 +4,7 @@ import SharedProps from './SharedProps';
 import SharedSetupService from './SharedSetupService';
 import useValidation from 'services/ValidationService';
 import useWindow from 'services/WindowService';
-import Validator from 'utils/Validator';
+import { Validator } from 'utils/Validator';
 
 type Props = SetupProps<typeof SharedFieldSetupService.props>
 export type FieldEmit<T = any | null | undefined> = {

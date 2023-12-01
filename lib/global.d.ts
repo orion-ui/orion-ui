@@ -7,7 +7,7 @@ import OrionChatEntity from '../packages/Chat/src/OrionChatEntity';
 import OrionChatMessageEntity from '../packages/ChatMessage/src/OrionChatMessageEntity';
 import type { OrionAsideSetupService, OrionModalSetupService, OrionNotifSetupService } from '../packages';
 import useValidation from '../services/ValidationService';
-import ValidatorClass from '../utils/Validator';
+import { Validator as ValidatorClass } from '../utils/Validator';
 
 declare global {
 	type Nullable<T> = T | null;

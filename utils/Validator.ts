@@ -26,7 +26,7 @@ type ValidatorPhoneValidation = Record<
 
 type Rule<T> = ((value: T) => boolean) | ValidatorExtendedRule<T>
 
-export default class Validator<T = any> {
+export class Validator<T = any> {
 	static readonly regex = {
 		password: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,60}$/,
 		hasLowercase: /[a-z]/,
