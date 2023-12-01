@@ -10,17 +10,21 @@
 		}">
 		<div class="orion-editor__toolbar">
 			<orion-button
+				v-if="!disableFeatures.includes('Undo')"
 				v-tooltip="setup.lang.UNDO"
 				size="sm"
 				prefix-icon="undo"
 				@click="setup.editor.value?.chain().focus().undo().run()"/>
 			<orion-button
+				v-if="!disableFeatures.includes('Redo')"
 				v-tooltip="setup.lang.REDO"
 				size="sm"
 				prefix-icon="redo"
 				@click="setup.editor.value?.chain().focus().redo().run()"/>
 
-			<v-dropdown theme="orion-editor-toolbar">
+			<v-dropdown
+				v-if="!disableFeatures.includes('FontSize')"
+				theme="orion-editor-toolbar">
 				<orion-button
 					v-tooltip="setup.lang.ORION_EDITOR__FONT_SIZE"
 					size="sm"
@@ -53,7 +57,9 @@
 				</template>
 			</v-dropdown>
 
-			<v-dropdown theme="orion-editor-toolbar">
+			<v-dropdown
+				v-if="!disableFeatures.includes('TextColor')"
+				theme="orion-editor-toolbar">
 				<orion-button
 					v-tooltip="setup.lang.ORION_EDITOR__TEXT_COLOR"
 					size="sm"
@@ -75,7 +81,9 @@
 				</template>
 			</v-dropdown>
 
-			<v-dropdown theme="orion-editor-toolbar">
+			<v-dropdown
+				v-if="!disableFeatures.includes('BackgroundColor')"
+				theme="orion-editor-toolbar">
 				<orion-button
 					v-tooltip="setup.lang.ORION_EDITOR__BACKGROUND_COLOR"
 					size="sm"
@@ -99,25 +107,30 @@
 			</v-dropdown>
 
 			<orion-button
+				v-if="!disableFeatures.includes('Bold')"
 				v-tooltip="setup.lang.ORION_EDITOR__BOLD"
 				size="sm"
 				prefix-icon="bold"
 				:class="{ 'active': setup.editor.value.isActive('bold') }"
 				@click="setup.editor.value?.chain().focus().toggleBold().run()"/>
 			<orion-button
+				v-if="!disableFeatures.includes('Italic')"
 				v-tooltip="setup.lang.ORION_EDITOR__ITALIC"
 				size="sm"
 				prefix-icon="italic"
 				:class="{ 'active': setup.editor.value.isActive('italic') }"
 				@click="setup.editor.value?.chain().focus().toggleItalic().run()"/>
 			<orion-button
+				v-if="!disableFeatures.includes('Underline')"
 				v-tooltip="setup.lang.ORION_EDITOR__UNDERLINE"
 				size="sm"
 				prefix-icon="underline"
 				:class="{ 'active': setup.editor.value.isActive('underline') }"
 				@click="setup.editor.value?.chain().focus().toggleUnderline().run()"/>
 
-			<v-dropdown theme="orion-editor-toolbar">
+			<v-dropdown
+				v-if="!disableFeatures.includes('TextAlign')"
+				theme="orion-editor-toolbar">
 				<orion-button
 					v-tooltip="setup.lang.ORION_EDITOR__ALIGN"
 					size="sm"
@@ -145,38 +158,42 @@
 			</v-dropdown>
 
 			<orion-button
+				v-if="!disableFeatures.includes('BulletList')"
 				v-tooltip="setup.lang.ORION_EDITOR__UNORDERED_LIST"
 				size="sm"
 				prefix-icon="list_unordered"
 				:class="{ 'active': setup.editor.value.isActive('bulletList') }"
 				@click="setup.editor.value?.chain().focus().toggleBulletList().run()"/>
 			<orion-button
+				v-if="!disableFeatures.includes('Link')"
 				v-tooltip="setup.lang.ORION_EDITOR__LINK"
 				size="sm"
 				prefix-icon="link"
 				:class="{ 'active': setup.editor.value.isActive('link') }"
 				@click="setup.setLinkAsync()"/>
 			<orion-button
-				v-if="setup.editor.value.isActive('link')"
+				v-if="!disableFeatures.includes('Link') && setup.editor.value.isActive('link')"
 				v-tooltip="setup.lang.ORION_EDITOR__UNLINK"
 				size="sm"
 				prefix-icon="link_break"
 				@click="setup.editor.value?.chain().focus().unsetLink().run()"/>
 
 			<orion-button
+				v-if="!disableFeatures.includes('ImageUrl')"
 				v-tooltip="setup.lang.ORION_EDITOR__PICTURE_URL"
 				size="sm"
 				prefix-icon="image_01"
 				@click="setup.promptImageUrlAsync()"/>
 
 			<orion-button
-				v-if="allowImgToBase64"
+				v-if="!disableFeatures.includes('ImageBase64')"
 				v-tooltip="setup.lang.ORION_EDITOR__PICTURE"
 				size="sm"
 				prefix-icon="camera"
 				@click="setup.promptImageAsync()"/>
 
 			<orion-button
+				v-if="!disableFeatures.includes('YouTube')"
 				v-tooltip="setup.lang.ORION_EDITOR__YOUTUBE"
 				size="sm"
 				prefix-icon="play"
