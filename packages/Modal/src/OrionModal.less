@@ -9,7 +9,6 @@
 @widthMD: calc(708rem / 16);
 @widthSM: calc(480rem / 16);
 @widthXS: calc(340rem / 16);
-@heightXL: calc(100vh - 8rem);
 
 #o-modal-wrapper {
 	display: flex;
@@ -22,7 +21,10 @@
 	top: @positionTop;
 	display: flex;
 	flex-direction: column;
-	max-height: calc(100vh - @positionTop - @positionBottom);
+	max-height: calc(
+		100vh - @positionTop - @positionBottom
+	); // dvh support fallback
+	max-height: calc(100dvh - @positionTop - @positionBottom);
 	background: white;
 	padding: 0;
 	margin: 0;
@@ -179,7 +181,8 @@
 		border-radius: 0;
 
 		.orion-modal__body {
-			height: calc(100vh - 4rem - 5rem);
+			height: calc(100vh - 4rem - 5rem); // dvh support fallback
+			height: calc(100dvh - 4rem - 5rem);
 		}
 	}
 
