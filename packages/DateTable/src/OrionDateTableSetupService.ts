@@ -328,11 +328,14 @@ export default class OrionDateTableSetupService extends SharedSetupService<Props
 	protected async onBeforeMount () {
 		this.setDateCalendar();
 		this.createColorsArrayFromPeriods();
-		// triggerSelectPeriod(); TODO: clean if not necessary
+		if (this.props.month)
+			this.state.viewMonth = true;
 	}
 
 	protected onUpdated () {
 		this.triggerSelectPeriod();
+		if (this.props.month)
+			this.state.viewMonth = true;
 	}
 
 
