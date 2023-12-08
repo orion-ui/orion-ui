@@ -250,6 +250,9 @@ export default class OrionTourStepSetupService extends SharedSetupService<Props>
 				}
 
 				const arrowElement = document.querySelector('#orion-tour-tooltip__arrow') as HTMLElement;
+
+				if (!this._stepTarget.value || !this._el.value) return;
+
 				const { x, y, middlewareData, placement } = await computePosition(this._stepTarget.value, this._el.value, {
 					strategy: 'fixed',
 					middleware: [
