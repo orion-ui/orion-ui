@@ -9,6 +9,7 @@ import { addPopoverBackdropCloseAbility } from 'utils/tools';
 type Props = SetupProps<typeof OrionDatepickerSetupService.props>
 type DatepickerEmit = FieldEmit<Nil<Date>> & {
 	(e: 'update:range', payload: Nil<Orion.DateRange>): void;
+	(e: 'update:multiple', payload: Date[]): void;
 }
 
 export default class OrionDatepickerSetupService extends SharedFieldSetupService<Props, Nil<Date>> {
@@ -25,6 +26,18 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 		range: {
 			type: Object as PropType<Nil<Orion.DateRange>>,
 			default: undefined,
+		},
+		// @doc props/multiple the modelValue if the type is set to `multiple`
+		// @doc/fr props/multiple le modelValue si le type est défini à `multiple`
+		multiple: {
+			type: Array as PropType<Date[]>,
+			default: () => [],
+		},
+		// @doc props/multipleLabelColor color of the displayed dates is the type is set to `multiple`
+		// @doc/fr props/multipleLabelColor couleurs des dates affichées si le type est défini à `multiple`
+		multipleLabelColor: {
+			type: String as PropType<Orion.ColorExtendedAndGreys>,
+			default: 'default',
 		},
 		// @doc props/minDate the minimum date which can be selected
 		// @doc/fr props/minDate la date minimum qui peut être sélectionnée
@@ -43,7 +56,7 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 		type: {
 			type: String as PropType<Orion.DatepickerType>,
 			default: 'date',
-			validator: (val: Orion.DatepickerType) => ['date', 'range', 'week'].includes(val),
+			validator: (val: Orion.DatepickerType) => ['date', 'range', 'week', 'multiple', 'month'].includes(val),
 		},
 		// @doc props/valueDisplayFormat function to customize the display format
 		// @doc/fr props/valueDisplayFormat fonction pour personnaliser l'affichage
@@ -92,6 +105,10 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 					.replace('$start', useMonkey(this.range.start).toReadable())
 					.replace('$end', useMonkey(this.range.end).toReadable());
 			}
+		} else if (this.props.type === 'month') {
+			if (this.range?.start instanceof Date) {
+				return useMonkey(this.range?.start)?.toReadable('$MMMM');
+			}
 		} else {
 			if (this.vModel instanceof Date) {
 				return this.inputValueFormat(this.vModel);
@@ -109,8 +126,11 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 	}
 
 	get hasValue () {
-		if (['range', 'week'].includes(this.props.type) && !!this.props.range) {
+		if (['range', 'week', 'month'].includes(this.props.type) && !!this.props.range) {
 			return !!this.props.range.start && !!this.props.range.end;
+		}
+		if (this.props.type === 'multiple') {
+			return this.props.multiple.length > 0;
 		} else {
 			return !isNil(this.vModel);
 		}
@@ -170,6 +190,14 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 		this.emit('update:range', val);
 	}
 
+	get multiple () {
+		return this.props.multiple;
+	}
+
+	set multiple (val) {
+		this.emit('update:multiple', val);
+	}
+
 
 	constructor (props: Props, emit: DatepickerEmit) {
 		super(props, emit);
@@ -177,8 +205,8 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 	}
 
 
-	private inputValueFormat (date: Date) {
-		if (this.props.time) {
+	inputValueFormat (date: Date) {
+		if (this.props.time && this.props.type !== 'multiple') {
 			return useMonkey(date).toReadable()
 				+ this.dateTimeSeparator
 				+ useMonkey(date).toReadable(`$hh${this.timeSeparator}$mm${this.appLang === 'en' ? ` $A` : ''}`);
@@ -190,7 +218,7 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 	private setDateFormat () {
 		let result = this.lang.DATE_PATTERN;
 
-		if (this.props.time)
+		if (this.props.time && this.props.type !== 'multiple')
 			result += this.dateTimeSeparator + this.lang.HOUR_FORMAT.replace('$TIME_SEPARATOR', this.timeSeparator);
 
 		if (this.appLang === 'fr')
@@ -544,8 +572,10 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 
 	handleClear () {
 		if (this.props.disabled || this.props.readonly) return;
-		if (this.props.type === 'range' || this.props.type === 'week') {
+		if (this.props.type === 'range' || this.props.type === 'week' || this.props.type === 'month') {
 			this.emit('update:range', undefined);
+		} else if (this.props.type === 'multiple') {
+			this.emit('update:multiple', []);
 		} else {
 			this.emit('update:modelValue', undefined);
 		}
@@ -895,4 +925,8 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 
 		this.vModel = dateToEmit;
 	}, 200);
+
+	removeDate (date: Date) {
+		this.multiple = useMonkey(this.multiple).toggle(date);
+	}
 }

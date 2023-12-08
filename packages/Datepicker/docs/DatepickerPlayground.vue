@@ -4,15 +4,23 @@
 			<o-datepicker
 				v-model="state.date"
 				v-model:range="state.daterange"
+				v-model:multiple="state.dates"
 				clearable
 				label="Date"
 				v-bind="state"/>
 		</div>
 	</div>
-
+	<div class="row row--grid">
+		<div class="col-sm-6 flex fd-c fw-w">
+			<strong>daterange: </strong><pre>{{ state.daterange }}</pre>
+			<strong>date:</strong> <div class="flex fw-w">{{ state.date }}</div>
+			<br>
+			<strong>dates:</strong> <pre>{{ state.dates }}</pre>
+		</div>
+	</div>
 	<hr>
 
-	<div class="flex g-sm">
+	<div class="flex g-sm fw-w">
 		<o-radio
 			v-for="(type, index) in typeOptions"
 			:key="index"
@@ -57,11 +65,14 @@ const typeOptions = [
 	'date',
 	'range',
 	'week',
+	'month',
+	'multiple',
 ];
 
 const state = reactive({
 	type: 'date' as Orion.DatepickerType,
 	date: new Date(),
+	dates: [],
 	daterange: null,
 	minDate: null,
 	maxDate: null,

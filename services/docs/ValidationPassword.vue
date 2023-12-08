@@ -27,7 +27,7 @@ let user = reactive({
 });
 
 let rules = {
-	['password.value']: 'required|hasLowerase|hasUppercase|hasNumber',
+	['password.value']: 'required|hasLowercase|hasUppercase|hasNumber',
 	['password.passwordConfirm']: 'passwordConfirm:password.value',
 };
 

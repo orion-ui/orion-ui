@@ -13,7 +13,10 @@
 			class="orion-datepicker"
 			:has-value="setup.hasValue"
 			:label-is-floating="setup.hasValue || (setup.props.type === 'date' && setup.isFocus)"
-			:class="{ 'orion-datepicker--range' : setup.props.type === 'range' }"
+			:class="[
+				{ 'orion-datepicker--range' : setup.props.type === 'range' },
+				{ 'orion-datepicker-multiple' : setup.props.type === 'multiple' },
+			]"
 			@clear="setup.handleClear()">
 			<input
 				v-if="setup.props.type === 'date'"
@@ -27,6 +30,38 @@
 				@mouseup="setup.handleMouseup()"
 				@mousedown="setup.handleMousedown()"
 				@blur="setup.handleBlur($event)">
+
+			<div
+				v-else-if="type === 'multiple' "
+				:ref="setup._input"
+				class="orion-input__input"
+				tabindex="0"
+				@focus="setup.handleFocus($event)"
+				@blur="setup.handleBlur($event)">
+				<div
+					v-if="!$slots.multipleDisplay"
+					class="orion-datepicker-multiple__content">
+					<orion-label
+						v-for="date in multiple"
+						:key="date.toString()"
+						:color="multipleLabelColor"
+						size="sm">
+						<div class="flex ai-c g-xs">
+							{{ setup.inputValueFormat(date) }}
+							<span
+								:class="`orion-datepicker-multiple__clearable`"
+								@click="setup.removeDate(date)"/>
+						</div>
+					</orion-label>
+				</div>
+				<div
+					class="orion-datepicker__multiple">
+					<slot
+						name="multipleDisplay"
+						:datas="multiple"
+						:close="setup.removeDate.bind(setup)"/>
+				</div>
+			</div>
 
 			<div
 				v-else
@@ -71,6 +106,17 @@
 					? $nextTick(() => setup.setSelectionToHour())
 					: setup.handleBlur(undefined, setup.responsive.onPhone && !time)
 				"/>
+			<orion-date-table
+				v-if="setup.props.type === 'multiple'"
+				:ref="setup._options"
+				v-model:multiple="setup.multiple"
+				:type="type === 'multiple' ? 'multiple' : undefined"
+				:min-date="setup.minDate"
+				:max-date="setup.maxDate"
+				@update:model-value="time && !setup.responsive.onPhone
+					? $nextTick(() => setup.setSelectionToHour())
+					: setup.handleBlur(undefined, setup.responsive.onPhone && !time)
+				"/>
 			<orion-date-range
 				v-else-if="setup.props.type === 'range'"
 				:ref="setup._options"
@@ -85,6 +131,15 @@
 				:min-date="setup.minDate"
 				:max-date="setup.maxDate"
 				@update:model-value="setup.handleBlur()"/>
+			<orion-date-table
+				v-if="setup.props.type === 'month'"
+				:ref="setup._options"
+				v-model:range="setup.range"
+				:min-date="setup.minDate"
+				type="range"
+				month
+				:max-date="setup.maxDate"
+				@update:range="setup.handleBlur(undefined, setup.responsive.onPhone)"/>
 
 			<div
 				v-if="setup.isOnPhoneWithTimepicker"
@@ -163,6 +218,7 @@ import { OrionDateRange } from 'packages/DateRange';
 import { OrionDateTable } from 'packages/DateTable';
 import { OrionDateWeek } from 'packages/DateWeek';
 import { OrionField } from 'packages/Field';
+import { OrionLabel } from 'packages/Label';
 import OrionDatepickerSetupService from './OrionDatepickerSetupService';
 type VModelType = Nil<Date>;
 type FieldEmit = {
@@ -173,6 +229,7 @@ type FieldEmit = {
   (e: 'update:modelValue', payload: VModelType): void;
   (e: 'clear'): void;
 	(e: 'update:range', payload: Nil<Orion.DateRange>): void;
+	(e: 'update:multiple', payload: Date[]): void;
 }
 const emit = defineEmits<FieldEmit>();
 const props = defineProps(OrionDatepickerSetupService.props);
@@ -180,6 +237,15 @@ const setup = new OrionDatepickerSetupService(props, emit);
 defineExpose(setup.publicInstance);
 
 /** Doc
+ * @doc slot/multipleDisplay if type is `multiple`, the content inside the input
+ * @doc/fr slot/multipleDisplay si le type est `multiple`, il s'agit du contenu de l'input
+ * @doc slot/multipleDisplay/datas/type Date[]
+ * @doc slot/multipleDisplay/datas/desc the selected dates
+ * @doc slot/multipleDisplay/datas/desc les dates sélectionnées
+ * @doc slot/multipleDisplay/close/type (date: Date) => void
+ * @doc slot/multipleDisplay/close/desc remove the date
+ * @doc/fr slot/multipleDisplay/close/desc retire la date
+ *
  * @doc event/focus/desc emitted on focus
  * @doc/fr event/focus/desc émis lors du focus
  *
@@ -194,6 +260,12 @@ defineExpose(setup.publicInstance);
  *
  * @doc event/update:modelValue/desc emitted to update the field value
  * @doc/fr event/update:modelValue/desc émis pour mettre à jour la valeur
+ *
+ * @doc event/update:range/desc emitted to update the modelValue when the type is `range`
+ * @doc/fr event/update:range/desc émis pour mettre à jour la valeur quand le type est `range`
+ *
+ * @doc event/update:multiple/desc emitted to update the field value when the type is `multiple`
+ * @doc/fr event/update:multiple/desc émis pour mettre à jour la valeur quand le type est `multiple`
  *
  * @doc event/clear/desc emitted when the field is cleared
  * @doc/fr event/clear/desc émis quand le champ est vidé
