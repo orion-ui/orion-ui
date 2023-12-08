@@ -77,7 +77,9 @@ declare global {
 
 		type Grey = 'grey-darker' | 'grey-dark' | 'grey' | 'grey-light' |'grey-lighter';
 
-		type DatepickerType = 'date' | 'range' | 'week';
+		type DatepickerType = 'date' | 'range' | 'week' | 'multiple' | 'month';
+
+		type DateTableType = 'date' | 'range' | 'multiple' | 'month';
 
 		type Phone = {
 			phoneNumber?: Nil<string>;
@@ -89,6 +91,7 @@ declare global {
 			end?: Date;
 			weekNumber?: number;
 			year?: number;
+			monthNumber?: number;
 			selecting?: boolean;
 		}
 

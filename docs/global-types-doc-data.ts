@@ -104,7 +104,12 @@ const globalTypesDocData = {
 		'ns': 'Orion',
 		'type': 'DatepickerType',
 		'generic': '',
-		'description': '\'date\' | \'range\' | \'week\'; \n',
+		'description': '\'date\' | \'range\' | \'week\' | \'multiple\' | \'month\'; \n',
+	}, {
+		'ns': 'Orion',
+		'type': 'DateTableType',
+		'generic': '',
+		'description': '\'date\' | \'range\' | \'multiple\' | \'month\'; \n',
 	}, {
 		'ns': 'Orion',
 		'type': 'Phone',
@@ -114,7 +119,7 @@ const globalTypesDocData = {
 		'ns': 'Orion',
 		'type': 'DateRange',
 		'generic': '',
-		'description': '{ \n\t\t\tstart?: Date; \n\t\t\tend?: Date; \n\t\t\tweekNumber?: number; \n\t\t\tyear?: number; \n\t\t\tselecting?: boolean; \n\t\t} \n',
+		'description': '{ \n\t\t\tstart?: Date; \n\t\t\tend?: Date; \n\t\t\tweekNumber?: number; \n\t\t\tyear?: number; \n\t\t\tmonthNumber?: number; \n\t\t\tselecting?: boolean; \n\t\t} \n',
 	}, {
 		'ns': 'Orion',
 		'type': 'DailyCalendarTask',

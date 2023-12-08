@@ -10,27 +10,27 @@ This service is used to perform validation on a field or on a form to check ever
 
 <service-preview />
 
-
 ## Usage
 
 ### Field validation
 
 You can easily add a validation for a field with the props `validation`.
 
-It can be a custom function which returns a boolean, or one or more rules from : 
-``` js
-  [
-		'required', 
-		'hasLowercase', 
-		'hasUppercase', 
-		'hasNumber', 
-		'hasSpecialChar', 
-		'length', 
-		'phone', 
-		'password', 
-		'passwordConfirm', 
-		'email' 
-	]
+It can be a custom function which returns a boolean, or one or more rules from :
+
+```js
+[
+	'required',
+	'hasLowercase',
+	'hasUppercase',
+	'hasNumber',
+	'hasSpecialChar',
+	'length',
+	'phone',
+	'password',
+	'passwordConfirm',
+	'email',
+];
 ```
 
 ::: demo:(service)
@@ -45,13 +45,11 @@ ValidationPassword
 If you want to see the default behaviour, you can look at [Components > Password](../components/OrionPassword.md)  
 :::
 
-
-
 ### Form validation
 
 To create a form validation, all the values to check must be in a reactive object:
 
-``` js
+```js
 let user = reactive({
 	name: '',
 	choice: false,
@@ -67,34 +65,36 @@ let user = reactive({
 });
 ```
 
-Then, create a second object which has the name of the field to check, and the associated rules to verify. It can be a custom function which returns a boolean, or one or more rules from : 
-``` js
-  [
-		'required', 
-		'hasLowercase', 
-		'hasUppercase', 
-		'hasNumber', 
-		'hasSpecialChar', 
-		'length', 
-		'phone', 
-		'password', 
-		'passwordConfirm', 
-		'email' 
-	]
+Then, create a second object which has the name of the field to check, and the associated rules to verify. It can be a custom function which returns a boolean, or one or more rules from :
+
+```js
+[
+	'required',
+	'hasLowercase',
+	'hasUppercase',
+	'hasNumber',
+	'hasSpecialChar',
+	'length',
+	'phone',
+	'password',
+	'passwordConfirm',
+	'email',
+];
 ```
 
 **Object example :**
 
-``` js
+```js
 let tab = {
 	name: 'required|length:5',
 	phone: 'phone:mobile',
 	choice: 'required',
-	['password.value']: 'required|hasLowerase|hasUppercase|hasNumber',
-	radio: () => {return user.radio === 'True'; },
+	['password.value']: 'required|hasLowercase|hasUppercase|hasNumber',
+	radio: () => {
+		return user.radio === 'True';
+	},
 };
 ```
-
 
 Finally, create an instance of this service and call the `validate` function to get the result of the form validation.
 

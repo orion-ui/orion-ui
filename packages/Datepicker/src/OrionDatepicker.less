@@ -10,7 +10,64 @@
 	&__timepicker-wrapper {
 		display: flex;
 	}
-}
+
+	&-multiple {
+
+	display: flex;
+	align-items: center;
+	gap: var(--space-xs);
+
+	.orion-input__pictos {
+		top: calc(50% - 1.20rem);
+	}
+
+	.orion-input__input {
+		padding: var(--space-xs);
+		align-items: center;
+
+		display: flex;
+	}
+
+	&__content {
+		height: 100%;
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-xs);
+		align-items: center;
+	}
+
+	.orion-label {
+		height: 1.4rem;
+		display: flex;
+		align-items: center;
+	}
+
+		&__clearable {
+			.flex-align();
+			-webkit-tap-highlight-color: transparent;
+			transition: all 0.3s;
+			font-size: 1rem;
+			opacity: 0.7;
+			cursor: pointer;
+		
+			&::before {
+				content: '\00D7';
+				font-weight: 600;
+				transform: translateY(-0.0625rem);
+			}
+		
+			&:hover {
+				opacity: 1;
+				color: var(--grey-darker);
+				border-color: var(--grey-dark);
+				transform: rotate(90deg);
+			}
+				margin: 0.125rem;
+				pointer-events: all;
+			}
+		}
+	}
+
 
 .orion-datepicker-timepicker {
 	--picker-height: 8rem;
