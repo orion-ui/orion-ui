@@ -2017,7 +2017,7 @@ const packagesDocData = new Map([
 			localTypes: {
 				'Period': '{\n\tisStart?: boolean;\n\tisEnd?: boolean;\n\tstart: Date;\n\tend: Date;\n\tlabel: string;\n\tcolor: Orion.Color;\n\tcallback?: () => void;\n\tspecific?: {\n\t\tcolor: Orion.Color;\n\t\tdate: Date;\n\t\texclude: boolean;\n\t}[];\n}',
 				'PeriodDay': '{\n\tcolor?: Orion.Color;\n\tdate: Date;\n\tisStart: boolean;\n\tisEnd: boolean;\n\tisSelected: boolean;\n\texclude: boolean;\n\tnumber: number;\n\tmonth: number;\n\tyear: number;\n\tperiod: Period[];\n\tcallback?: () => void;\n}',
-				'DateTableEmit': '{\n\t(e: \'update:modelValue\', payload: Nil<Date>): void;\n\t(e: \'update:range\', payload: Nil<Orion.DateRange>): void;\n\t(e: \'update:dayHover\', payload: Nil<Date>): void;\n\t(e: \'change-month\', payload: { month: number, year: number }): void;\n\t(e: \'select-specific\', payload: Period | PeriodDay): void;\n\t(e: \'select-period\', payload: Period[]): void;\n\t(e: \'select-day\', payload: Period | PeriodDay): void;\n}',
+				'DateTableEmit': '{\n\t(e: \'update:modelValue\', payload: Nil<Date>): void;\n\t(e: \'update:range\', payload: Nil<Orion.DateRange>): void;\n\t(e: \'update:multiple\', payload: Nil<Date[]>): void;\n\t(e: \'update:dayHover\', payload: Nil<Date>): void;\n\t(e: \'change-month\', payload: { month: number, year: number }): void;\n\t(e: \'select-specific\', payload: Period | PeriodDay): void;\n\t(e: \'select-period\', payload: Period[]): void;\n\t(e: \'select-day\', payload: Period | PeriodDay): void;\n}',
 			},
 			events: [{
 				'name': 'update:modelValue',
@@ -2034,6 +2034,14 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'emitted to update the range value',
 					'fr': 'émis pour mettre à jour le modelValue dans le cas ou il est de type `range`',
+				},
+			}, {
+				'name': 'update:multiple',
+				'payload': 'Nil<Date[]>',
+				'optional': false,
+				'desc': {
+					'en': 'emitted to update the multiple value',
+					'fr': 'émis pour mettre à jour le modelValue dans le cas ou il est de type `multiple`',
 				},
 			}, {
 				'name': 'update:dayHover',
@@ -2147,8 +2155,26 @@ const packagesDocData = new Map([
 				'type': 'Nil<Date>',
 				'required': false,
 				'desc': {
-					'en': 'Missing @doc',
-					'fr': 'Missing @doc',
+					'en': 'of the dateTable',
+					'fr': 'du composant',
+				},
+			}, {
+				'name': 'month',
+				'defaultValue': false,
+				'type': 'boolean',
+				'required': false,
+				'desc': {
+					'en': 'if set, displays only months',
+					'fr': 'si défini, affiche uniquement les mois',
+				},
+			}, {
+				'name': 'multiple',
+				'defaultValue': '() => []',
+				'type': 'Date[]',
+				'required': false,
+				'desc': {
+					'en': 'the modelValue if the type is set to `multiple`',
+					'fr': 'modelValue du composant si la prop `type` est `multiple`',
 				},
 			}, {
 				'name': 'periods',
@@ -2189,7 +2215,7 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'type',
 				'defaultValue': '\'date\'',
-				'type': 'InputType',
+				'type': 'Orion.DateTableType',
 				'required': false,
 				'desc': {
 					'en': 'the type of the model value',
@@ -2222,7 +2248,7 @@ const packagesDocData = new Map([
 		{
 			localTypes: {
 				'VModelType': 'Nil<Date>',
-				'FieldEmit': '{\n  (e: \'focus\', payload: FocusEvent): void;\n  (e: \'blur\', payload?: FocusEvent): void;\n  (e: \'input\', payload: VModelType): void;\n  (e: \'change\', val?: VModelType): void;\n  (e: \'update:modelValue\', payload: VModelType): void;\n  (e: \'clear\'): void;\n\t(e: \'update:range\', payload: Nil<Orion.DateRange>): void;\n}',
+				'FieldEmit': '{\n  (e: \'focus\', payload: FocusEvent): void;\n  (e: \'blur\', payload?: FocusEvent): void;\n  (e: \'input\', payload: VModelType): void;\n  (e: \'change\', val?: VModelType): void;\n  (e: \'update:modelValue\', payload: VModelType): void;\n  (e: \'clear\'): void;\n\t(e: \'update:range\', payload: Nil<Orion.DateRange>): void;\n\t(e: \'update:multiple\', payload: Date[]): void;\n}',
 			},
 			events: [{
 				'name': 'focus',
@@ -2277,12 +2303,41 @@ const packagesDocData = new Map([
 				'payload': 'Nil<Orion.DateRange>',
 				'optional': false,
 				'desc': {
-					'en': 'Missing @doc',
-					'fr': 'Missing @doc',
+					'en': 'emitted to update the modelValue when the type is `range`',
+					'fr': 'émis pour mettre à jour la valeur quand le type est `range`',
+				},
+			}, {
+				'name': 'update:multiple',
+				'payload': 'Date[]',
+				'optional': false,
+				'desc': {
+					'en': 'emitted to update the field value when the type is `multiple`',
+					'fr': 'émis pour mettre à jour la valeur quand le type est `multiple`',
 				},
 			}],
 			provide: [],
-			slots: [],
+			slots: [{
+				'name': 'multipleDisplay',
+				'desc': {
+					'en': 'if type is `multiple`, the content inside the input',
+					'fr': 'si le type est `multiple`, il s\'agit du contenu de l\'input',
+				},
+				'bindings': [{
+					'bind': 'datas',
+					'type': 'Date[]',
+					'desc': {
+						'en': 'the selected dates',
+						'fr': 'Missing @doc',
+					},
+				}, {
+					'bind': 'close',
+					'type': '(date: Date) => void',
+					'desc': {
+						'en': 'remove the date',
+						'fr': 'retire la date',
+					},
+				}],
+			}],
 			props: [{
 				'name': 'autofocus',
 				'defaultValue': false,
@@ -2380,6 +2435,24 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'modelValue of the component',
 					'fr': 'modelValue du composant',
+				},
+			}, {
+				'name': 'multiple',
+				'defaultValue': '() => []',
+				'type': 'Date[]',
+				'required': false,
+				'desc': {
+					'en': 'the modelValue if the type is set to `multiple`',
+					'fr': 'le modelValue si le type est défini à `multiple`',
+				},
+			}, {
+				'name': 'multipleLabelColor',
+				'defaultValue': '\'default\'',
+				'type': 'Orion.ColorExtendedAndGreys',
+				'required': false,
+				'desc': {
+					'en': 'color of the displayed dates is the type is set to `multiple`',
+					'fr': 'couleurs des dates affichées si le type est défini à `multiple`',
 				},
 			}, {
 				'name': 'prefixFontIcon',
@@ -2775,15 +2848,6 @@ const packagesDocData = new Map([
 			provide: [],
 			slots: [],
 			props: [{
-				'name': 'allowImgToBase64',
-				'defaultValue': false,
-				'type': 'boolean',
-				'required': false,
-				'desc': {
-					'en': 'Allows uploading an image from the hard drive. Use with caution as it significantly increases the request payload size (if stored in the database)',
-					'fr': 'autorise l\'upload d\'une image depuis le disque dur. Utiliser avec prudence car augmente considérablement le poids de la requête (si stocké en BDD)',
-				},
-			}, {
 				'name': 'autofocus',
 				'defaultValue': false,
 				'type': 'boolean',
@@ -2811,15 +2875,6 @@ const packagesDocData = new Map([
 					'fr': 'lorsque que le champ est vidé, sa valeur vaut `null`',
 				},
 			}, {
-				'name': 'config',
-				'defaultValue': '() => ({})',
-				'type': 'Object',
-				'required': false,
-				'desc': {
-					'en': 'configuration of the editor',
-					'fr': 'configuration de l\'éditeur',
-				},
-			}, {
 				'name': 'disabled',
 				'defaultValue': false,
 				'type': 'boolean',
@@ -2827,6 +2882,15 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'disables the field',
 					'fr': 'désactive le champ',
+				},
+			}, {
+				'name': 'disableFeatures',
+				'defaultValue': '() => []',
+				'type': 'EditorFeature[]',
+				'required': false,
+				'desc': {
+					'en': 'disable some editor\'s features',
+					'fr': 'désactive des fonctions de l\'éditeur',
 				},
 			}, {
 				'name': 'donetyping',

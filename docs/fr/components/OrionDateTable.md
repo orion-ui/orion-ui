@@ -17,6 +17,7 @@ Il permet notamment l'affichage de périodes avec une gestion fine des dates à 
 ::: demo:DateTable
 DateTablePeriods
 DateTableMonthSwitch
+DateTableMultiple
 DateTablePlayground
 :::
 

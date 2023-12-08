@@ -4,7 +4,6 @@ import useMonkey from 'services/MonkeyService';
 import SharedSetupService from '../../Shared/SharedSetupService';
 
 type Props = SetupProps<typeof OrionDateTableSetupService.props>
-type InputType = 'date' | 'range';
 
 type PeriodDay = {
 	color?: Orion.Color;
@@ -23,6 +22,7 @@ type PeriodDay = {
 type DateTableEmit = {
 	(e: 'update:modelValue', payload: Nil<Date>): void;
 	(e: 'update:range', payload: Nil<Orion.DateRange>): void;
+	(e: 'update:multiple', payload: Nil<Date[]>): void;
 	(e: 'update:dayHover', payload: Nil<Date>): void;
 	(e: 'change-month', payload: { month: number, year: number }): void;
 	(e: 'select-specific', payload: Orion.Period | PeriodDay): void;
@@ -32,8 +32,11 @@ type DateTableEmit = {
 
 export default class OrionDateTableSetupService extends SharedSetupService<Props> {
 	static props = {
-		// @doc modelValue of the dateTable
-		// @doc/fr modelValue du composant
+		// @doc props/month if set, displays only months
+		// @doc/fr props/month si défini, affiche uniquement les mois
+		month: Boolean,
+		// @doc props/modelValue of the dateTable
+		// @doc/fr props/modelValue du composant
 		modelValue: {
 			type: Date as PropType<Nil<Date>>,
 			default: undefined,
@@ -43,6 +46,12 @@ export default class OrionDateTableSetupService extends SharedSetupService<Props
 		range: {
 			type: Object as PropType<Nil<Orion.DateRange>>,
 			default: undefined,
+		},
+		// @doc props/multiple the modelValue if the type is set to `multiple`
+		// @doc/fr props/multiple modelValue du composant si la prop `type` est `multiple`
+		multiple: {
+			type: Array as PropType<Date[]>,
+			default: () => [],
 		},
 		// @doc props/dayHover the value of the hovered day
 		// @doc/fr props/dayHover valeur du jour survolé
@@ -80,9 +89,9 @@ export default class OrionDateTableSetupService extends SharedSetupService<Props
 		// @doc props/type the type of the model value
 		// @doc/fr props/type le type de modelValue
 		type: {
-			type: String as PropType<InputType>,
+			type: String as PropType<Orion.DateTableType>,
 			default: 'date',
-			validator: (val: InputType) => ['date', 'range'].includes(val),
+			validator: (val: Orion.DateTableType) => ['date', 'range', 'multiple', 'month'].includes(val),
 		},
 		// @doc props/canGoNextMonth allows the navigation to the next month
 		// @doc/fr props/canGoNextMonth permet la navigation vers le mois suivant
@@ -113,6 +122,7 @@ export default class OrionDateTableSetupService extends SharedSetupService<Props
 		filterHover: undefined as Undef<string>,
 		colorArray: [] as string[],
 		dayHover: undefined as Nil<Date>,
+		selectedDates: [] as PeriodDay[],
 	});
 
 	_options = ref<RefDom>();
@@ -279,25 +289,12 @@ export default class OrionDateTableSetupService extends SharedSetupService<Props
 		return range;
 	}
 
-	get monthName () {
-		return this.lang.MONTH_NAME[this.currentMonth];
-	}
-
-	get currentYear () {
-		return this.state.currentDate.getFullYear();
-	}
-
-	get viewMonth () {
-		return this.state.viewMonth;
-	}
-
-	get viewYears () {
-		return this.state.viewYears;
-	}
-
-	get filter () {
-		return this.state.filter;
-	}
+	get monthName () { return this.lang.MONTH_NAME[this.currentMonth];}
+	get currentYear () { return this.state.currentDate.getFullYear();}
+	get viewMonth () {return this.state.viewMonth;}
+	get viewYears () {return this.state.viewYears;}
+	get filter () { return this.state.filter;}
+	get selectedDates () { return this.state.selectedDates; }
 
 	get labels () {
 		if (this.props.periods?.length) {
@@ -331,11 +328,14 @@ export default class OrionDateTableSetupService extends SharedSetupService<Props
 	protected async onBeforeMount () {
 		this.setDateCalendar();
 		this.createColorsArrayFromPeriods();
-		// triggerSelectPeriod(); TODO: clean if not necessary
+		if (this.props.month)
+			this.state.viewMonth = true;
 	}
 
 	protected onUpdated () {
 		this.triggerSelectPeriod();
+		if (this.props.month)
+			this.state.viewMonth = true;
 	}
 
 
@@ -455,10 +455,12 @@ export default class OrionDateTableSetupService extends SharedSetupService<Props
 		let newDate = day.date;
 
 		if (this.props.minDate && newDate < this.props.minDate) {
+			if (this.props.type === 'multiple') return;
 			newDate = this.props.minDate;
 		}
 
 		if (this.props.maxDate && newDate > this.props.maxDate) {
+			if (this.props.type === 'multiple') return;
 			newDate = this.props.maxDate;
 		}
 
@@ -483,6 +485,13 @@ export default class OrionDateTableSetupService extends SharedSetupService<Props
 						selecting: false,
 					};
 				}
+			}
+		} else if (this.props.type === 'multiple') {
+			const targetIndex = this.props.multiple.findIndex(x => x.valueOf() === newDate.valueOf());
+			if (targetIndex >= 0) {
+				this.props.multiple.splice(targetIndex, 1);
+			} else {
+				this.props.multiple.push(newDate);
 			}
 		} else {
 			this.vModel = newDate;
@@ -573,6 +582,9 @@ export default class OrionDateTableSetupService extends SharedSetupService<Props
 					|| this.range?.end && useMonkey(this.range?.end).toMidnight().valueOf() === dayDate.valueOf()) {
 					cssClass.push('selected');
 				}
+			} else if (this.props.multiple.length) {
+				if (dayDate && this.props.multiple.find(x => x.getTime() === dayDate.getTime()))
+					cssClass.push('selected');
 			} else if (this.vModel && useMonkey(this.vModel).toMidnight().valueOf() === dayDate.valueOf()) {
 				cssClass.push('selected');
 			}
@@ -581,9 +593,37 @@ export default class OrionDateTableSetupService extends SharedSetupService<Props
 		return [...dayPeriodColors, ...cssClass];
 	}
 
+	getCssClassForMonth (month: number) {
+		const cssClass = ['orion-date-table-row__cell orion-date-table-row__cell--month'];
+
+		if (this.props.month) {
+			if (this.range?.monthNumber === month)
+				cssClass.push('selected');
+
+			if ((this.props.minDate && new Date(this.currentYear, month, 1) < this.props.minDate)
+			|| (this.props.maxDate && new Date(this.currentYear, month, new Date(this.currentYear, month+1, 0).getDate()) > this.props.maxDate)) {
+				cssClass.push('disabled');
+			}
+		}
+
+		return cssClass;
+	}
+
 	selectMonth (month: number) {
 		this.state.currentDate = new Date(this.currentYear, month, 1);
 		this.state.viewMonth = false;
+		if (this.props.month) {
+			if ((this.props.minDate && this.state.currentDate < this.props.minDate)
+			|| (this.props.maxDate && new Date(this.currentYear, month, new Date(this.currentYear, month+1, 0).getDate()) > this.props.maxDate))
+				return;
+
+			this.range = {
+				start: this.state.currentDate,
+				end: new Date(this.currentYear, month, new Date(this.currentYear, month+1, 0).getDate()),
+				monthNumber: month,
+				year: this.currentYear,
+			};
+		}
 	}
 
 	selectYear (year: number) {

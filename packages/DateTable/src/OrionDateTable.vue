@@ -12,7 +12,7 @@
 
 			<div class="orion-date-table__header-current-display">
 				<span
-					v-show="!setup.viewMonth && !setup.viewYears"
+					v-show="!setup.viewMonth && !setup.viewYears && !month"
 					class="orion-date-table__header-current-month"
 					:class="{ 'disable': setup.props.disableMonthAndYear }"
 					@click="setup.showMonths">{{ setup.monthName }} </span>
@@ -37,7 +37,7 @@
 
 		<div class="orion-date-table__body">
 			<div
-				v-show="!setup.viewMonth && !setup.viewYears"
+				v-show="!setup.viewMonth && !setup.viewYears && !month"
 				class="orion-date-table__body-dow">
 				<span>{{ setup.lang.DAY_NAME_SHORT[0] }}</span>
 				<span>{{ setup.lang.DAY_NAME_SHORT[1] }}</span>
@@ -49,7 +49,7 @@
 			</div>
 
 			<div
-				v-show="!setup.viewMonth && !setup.viewYears"
+				v-show="!setup.viewMonth && !setup.viewYears && !month"
 				class="orion-date-table__body">
 				<div
 					v-for="i in 6"
@@ -114,7 +114,7 @@
 			</div>
 
 			<div
-				v-show="setup.viewMonth"
+				v-show="(setup.viewMonth || month) && !setup.viewYears"
 				class="orion-date-table__body__months">
 				<div
 					v-for="i in 3"
@@ -123,7 +123,7 @@
 					<span
 						v-for="(month, index) in setup.lang.MONTH_NAME.slice((i - 1) * 4, i * 4)"
 						:key="`month-${month}`"
-						class="orion-date-table-row__cell orion-date-table-row__cell--month"
+						:class="setup.getCssClassForMonth(index + ((i - 1) * 4))"
 						@click="setup.selectMonth(index + ((i - 1) * 4))">{{ month }}</span>
 				</div>
 			</div>
@@ -143,8 +143,6 @@
 				</div>
 			</div>
 		</div>
-
-		<!-- <pre>{{ setup.daysToDisplay }}</pre> -->
 	</div>
 </template>
 
@@ -182,6 +180,7 @@ type PeriodDay = {
 type DateTableEmit = {
 	(e: 'update:modelValue', payload: Nil<Date>): void;
 	(e: 'update:range', payload: Nil<Orion.DateRange>): void;
+	(e: 'update:multiple', payload: Nil<Date[]>): void;
 	(e: 'update:dayHover', payload: Nil<Date>): void;
 	(e: 'change-month', payload: { month: number, year: number }): void;
 	(e: 'select-specific', payload: Period | PeriodDay): void;
@@ -199,6 +198,9 @@ defineExpose(setup.publicInstance);
  *
  * @doc event/update:range/desc emitted to update the range value
  * @doc/fr event/update:range/desc émis pour mettre à jour le modelValue dans le cas ou il est de type `range`
+ *
+ * @doc event/update:multiple/desc emitted to update the multiple value
+ * @doc/fr event/update:multiple/desc émis pour mettre à jour le modelValue dans le cas ou il est de type `multiple`
  *
  * @doc event/update:dayHover/desc emitted to update the dayHover value
  * @doc/fr event/update:dayHover/desc émis pour mettre à jour la valeur de `dayHover`

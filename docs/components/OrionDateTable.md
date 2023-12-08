@@ -18,6 +18,7 @@ See the example below.
 ::: demo:DateTable
 DateTablePeriods
 DateTableMonthSwitch
+DateTableMultiple
 DateTablePlayground
 :::
 
