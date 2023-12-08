@@ -10,10 +10,13 @@
 				v-bind="state"/>
 		</div>
 	</div>
-	<div class="col-sm-6">
-		daterange: <pre>{{ state.daterange }}</pre>
-		date: <pre>{{ state.date }}</pre>
-		dates: <pre>{{ state.dates }}</pre>
+	<div class="row row--grid">
+		<div class="col-sm-6 flex fd-c fw-w">
+			<strong>daterange: </strong><pre>{{ state.daterange }}</pre>
+			<strong>date:</strong> <div class="flex fw-w">{{ state.date }}</div>
+			<br>
+			<strong>dates:</strong> <pre>{{ state.dates }}</pre>
+		</div>
 	</div>
 	<hr>
 
