@@ -39,9 +39,9 @@
 					<o-input
 						v-model="user.name"
 						class="grid-input"
-						label="Test validation simple Validator"
+						label="Test validation simple Validator msdlkqhqdsfkljh"
 						:validation="validator.rule('name')"/>
-					<o-input
+					<!-- <o-input
 						v-model="user.nameForExtendedRule"
 						class="grid-input"
 						label="Test validation extended rule"
@@ -153,7 +153,7 @@
 						clearable
 						label="Text area"
 						:validation-error-message="testLongErrorMessage"
-						:validation="validator.rule('area')"/>
+						:validation="validator.rule('area')"/> -->
 					<o-alert :color="resultColor">
 						Le résultat est .... {{ result }}
 					</o-alert>
@@ -181,7 +181,7 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
 import { useValidation } from 'lib';
-import Validator from 'utils/Validator';
+import { Validator } from 'utils/Validator';
 
 // eslint-disable-next-line max-len, @typescript-eslint/no-unused-vars
 const testLongErrorMessage = 'Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Donec sed odio dui. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.';
@@ -214,11 +214,12 @@ const resultColor = ref<Orion.Color>('default');
 const validator = useValidation(user, {
 	login: val => !!val?.length && val.length > 10 && Validator.rules.email()(val),
 	name: new Validator([
-		Validator.rules.required(),
+		/* Validator.rules.required(),
 		Validator.rules.hasUppercase(),
-		Validator.rules.hasMinLength(5),
+		Validator.rules.hasMinLength(5), */
+		Validator.rules.hasMaxLength(10),
 	]),
-	nameForExtendedRule: new Validator([
+	/* nameForExtendedRule: new Validator([
 		{
 			level: 'error',
 			rule: val => Validator.rules.required()(user.name)
@@ -262,7 +263,7 @@ const validator = useValidation(user, {
 			rule: val => val === 'oui',
 		},
 	]),
-	area: Validator.rules.hasMaxLength(10),
+	area: Validator.rules.hasMaxLength(10), */
 });
 
 

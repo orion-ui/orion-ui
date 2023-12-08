@@ -121,7 +121,7 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 		if (this.state.hasBeenFocus) {
 			return !!validator || !!this.hasValue;
 		} else {
-			return validator?.showValidationState ?? false;
+			return validator?.showStatus ?? false;
 		}
 	}
 

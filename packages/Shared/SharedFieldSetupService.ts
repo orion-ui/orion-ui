@@ -203,7 +203,7 @@ export default abstract class SharedFieldSetupService<P, T, E extends FieldEmit 
 		if (this.state.hasBeenFocus) {
 			return !!validator || (this.isRequired && !this.hasValue);
 		} else {
-			return validator?.showValidationState ?? false;
+			return validator?.showStatus ?? false;
 		}
 	}
 
@@ -266,7 +266,7 @@ export default abstract class SharedFieldSetupService<P, T, E extends FieldEmit 
 		this.emit = emit;
 
 		if (!!this.props.validation && typeof this.props.validation === 'object') {
-			this.props.validation.registerComponentFocusState(this.publicInstance);
+			this.props.validation.registerComponentFocusStateSetter(this.publicInstance);
 		}
 	}
 

@@ -72,7 +72,7 @@ export class Validator<T = any> {
 			return (value?.length ?? 0) <= max;
 		},
 
-		length: (...args: any[]) => (value?: string): boolean => {
+		length: (...args: [number, number]) => (value?: string): boolean => {
 			const min = args[0] ?? 0;
 			const max = args[1] ?? Infinity;
 			return (value?.length ?? 0) >= min && (value?.length ?? 0) <= max;
@@ -102,6 +102,21 @@ export class Validator<T = any> {
 		},
 	};
 
+	/* static readonly defaultValidationMessages: Record<keyof typeof Validator.rules, string> = {
+		required: '',
+		hasLowercase: '',
+		hasUppercase: '',
+		hasNumber: '',
+		hasSpecialChar: '',
+		hasMinLength: '',
+		hasMaxLength: '',
+		length: '',
+		phone: '',
+		password: '',
+		passwordConfirm: '',
+		email: '',
+	}; */
+
 	private readonly state = reactive({ rules: [] as Rule<T>[] });
 
 
@@ -114,18 +129,24 @@ export class Validator<T = any> {
 		this.state.rules.push(rule);
 	}
 
-	deleteRule (rule: Rule<T>) {
-		if (typeof rule === 'object' && rule.id) {
+	deleteRule (ruleId: number): void
+	deleteRule (rule: Rule<T>): void
+	deleteRule (rule: number | Rule<T>): void {
+		if (typeof rule === 'number') {
+			const targetRuleIndex = this.state.rules.findIndex(x => typeof x === 'object' && x.id === rule);
+			if (targetRuleIndex > -1) this.state.rules.splice(targetRuleIndex, 1);
+		} else if (typeof rule === 'object' && rule.id) {
 			const targetRuleIndex = this.state.rules.findIndex(x => typeof x === 'object' && x.id === rule.id);
 			if (targetRuleIndex > -1) this.state.rules.splice(targetRuleIndex, 1);
-			return true;
 		} else {
 			Log.error(`Rule should be an object and have an "id" property`, `Orion Validator`);
 		}
 	}
 
-	validate (value: any): ValidatorResults {
+	validate (value: T): ValidatorResults {
 		return this.state.rules.map((rule) => {
+			// console.log(`🚀 ~ returnthis.state.rules.map ~ rule:\n`, typeof rule);
+			// console.log(`🚀 ~ returnthis.state.rules.map ~ rule:\n`, rule);
 			if (typeof rule === 'function') {
 				const result = rule(value);
 				return {

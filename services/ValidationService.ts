@@ -2,15 +2,15 @@ import { reactive } from 'vue';
 import { Validator } from '../utils/Validator';
 
 
-
 type FieldHasBeenFocusSetter = {
 	setHasBeenFocus: (value: boolean) => void;
 }
 
+
 class ValidationService<T, V extends Orion.Validation.Rules<T>> {
 
 	private state = reactive({
-		showState: false,
+		showStatus: false,
 		componentFocusState: [] as FieldHasBeenFocusSetter[],
 	});
 
@@ -25,14 +25,15 @@ class ValidationService<T, V extends Orion.Validation.Rules<T>> {
 
 
 	private checkObjectPropRule (propName: keyof T) {
-		if (!this.objectToValidate?.[propName]) return false;
+		if (typeof this.objectToValidate !== 'object') return false;
+		if (!this.objectToValidate || !(propName in this.objectToValidate)) return false;
 		return this.checkRuleParams(this.objectToValidate[propName], (this.validatorRules as any)[propName]);
 	}
 
 	/**
 	 * @desc checks if the value verifies the rule given in parameter
 	 * @param {any} value value to check
-	 * @param {string | ((val: any) => boolean)} [ruleParams] rule which must verify the value to pass the verification
+	 * @param {string | ((val: any) => boolean) | Validator} [ruleParams] rule which must verify the value to pass the verification
 	 * @return boolean
 	 */
 	checkRuleParams (value: any, ruleParams: Orion.Validator.Rule<T>): boolean {
@@ -62,7 +63,7 @@ class ValidationService<T, V extends Orion.Validation.Rules<T>> {
 	 * @return void
 	 */
 	showValidationState () {
-		this.state.showState = true;
+		this.state.showStatus = true;
 	}
 
 	/**
@@ -70,7 +71,7 @@ class ValidationService<T, V extends Orion.Validation.Rules<T>> {
 	 * @return void
 	*/
 	hideValidationState () {
-		this.state.showState = false;
+		this.state.showStatus = false;
 	}
 
 	/**
@@ -78,14 +79,19 @@ class ValidationService<T, V extends Orion.Validation.Rules<T>> {
 	 * @return void
 	 */
 	resetValidationState () {
-		this.state.showState = false;
+		this.state.showStatus = false;
 		this.state.componentFocusState.forEach((x) => {
 			x.setHasBeenFocus(false);
 		});
 	}
 
-	registerComponentFocusState (value: FieldHasBeenFocusSetter) {
-		this.state.componentFocusState.push(value);
+	/**
+	 * @desc this method allows the ValidationService instance to set the component's focus state, to display validation status on it
+	 * @param {FieldHasBeenFocusSetter} setter
+	 * @return void
+	 */
+	registerComponentFocusStateSetter (setter: FieldHasBeenFocusSetter) {
+		this.state.componentFocusState.push(setter);
 	}
 
 	/**
@@ -105,8 +111,8 @@ class ValidationService<T, V extends Orion.Validation.Rules<T>> {
 	 */
 	rule (ruleName: keyof V) {
 		return {
-			registerComponentFocusState: this.registerComponentFocusState.bind(this),
-			showValidationState: this.state.showState,
+			registerComponentFocusStateSetter: this.registerComponentFocusStateSetter.bind(this),
+			showStatus: this.state.showStatus,
 			definition: this.validatorRules?.[ruleName as keyof T],
 			validate: () => this.checkObjectPropRule(ruleName as keyof T),
 		};
