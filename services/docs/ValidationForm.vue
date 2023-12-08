@@ -92,7 +92,7 @@ let tab = {
 	name: 'required|length:5',
 	phone: 'phone:mobile',
 	choice: 'required',
-	['password.value']: 'required|hasLowerase|hasUppercase|hasNumber',
+	['password.value']: 'required|hasLowercase|hasUppercase|hasNumber',
 	radio: () => {return user.radio === 'True'; },
 };
 

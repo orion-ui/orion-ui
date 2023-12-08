@@ -217,7 +217,7 @@ let tab = {
 	['login.email']: 'email',
 	date: (val: number) => { return val > 10; },
 	phone: 'required|phone:mobile',
-	['password.value']: 'required|hasLowerase|hasUppercase|hasNumber',
+	['password.value']: 'required|hasLowercase|hasUppercase|hasNumber',
 	['password.passwordConfirm']: 'passwordConfirm:password.value',
 	choice: 'required',
 	radio: (val: any) => val === 'Peut être',
