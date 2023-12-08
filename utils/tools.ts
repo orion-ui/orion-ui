@@ -323,7 +323,10 @@ export function setThemeMode (mode: Orion.Theme) {
 	if (mode === 'dark' || mode === 'light') {
 		useLocalStorage()?.setItem('orion-theme', mode);
 		useDocument()?.documentElement.setAttribute('data-orion-theme', mode);
-		darkThemeMediaQuery?.removeEventListener('change', themeMediaQueryListEventHandler);
+
+		if (typeof darkThemeMediaQuery?.removeEventListener === 'function') {
+			darkThemeMediaQuery?.removeEventListener('change', themeMediaQueryListEventHandler);
+		}
 	} else {
 		useLocalStorage()?.removeItem('orion-theme');
 		if (darkThemeMediaQuery?.matches) {
@@ -331,7 +334,10 @@ export function setThemeMode (mode: Orion.Theme) {
 		} else {
 			useDocument()?.documentElement.setAttribute('data-orion-theme', 'light');
 		}
-		darkThemeMediaQuery?.addEventListener('change', themeMediaQueryListEventHandler);
+
+		if (typeof darkThemeMediaQuery?.addEventListener === 'function') {
+			darkThemeMediaQuery?.addEventListener('change', themeMediaQueryListEventHandler);
+		}
 	}
 
 	devtool?.sendInspectorState(devtoolId);
