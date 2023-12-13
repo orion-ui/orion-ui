@@ -22,7 +22,8 @@
 			<o-datepicker
 				v-model="date2"
 				label="simple date"
-				clearable/>
+				clearable
+				select-on-focus/>
 		</o-card>
 
 		<hr>
