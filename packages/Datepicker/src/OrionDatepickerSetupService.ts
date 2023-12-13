@@ -253,10 +253,11 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 		const input = this._input.value as HTMLInputElement;
 		const isPM = /(PM$)/.test(input.value);
 		const isTwelveHours = /(AM|PM$)/.test(input.value);
-		const selection = input.selectionStart && input.selectionEnd
+		const selection = input.selectionStart !== null && input.selectionEnd !== null
 			? input.value.slice(input.selectionStart, input.selectionEnd)
 			: '';
 
+		const isFullSelected = selection.length === input.value.length;
 		const firstSeparatorIndex = input.value.indexOf(this.dateSeparator);
 		const dateTimeSeparatorIndex = input.value.indexOf(this.dateTimeSeparator);
 		const secondSeparatorIndex = input.value.indexOf(this.dateSeparator, firstSeparatorIndex + 1);
@@ -303,6 +304,7 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 			selectionIsOnHour,
 			selectionIsOnMinute,
 			selectionIsOnAmPm,
+			isFullSelected,
 			isPM,
 			isTwelveHours,
 			day: input.value.split(this.dateTimeSeparator)[0].split(this.dateSeparator)[dayIndex],
@@ -533,6 +535,8 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 		} = this.getEventData();
 
 		setTimeout(() => {
+			if (this.props.selectOnFocus && this.hasValue) return;
+
 			if (this.vModel) {
 				if (selectionIsOnYear) this.setSelectionToYear();
 				if (selectionIsOnMonth) this.setSelectionToMonth();
@@ -553,7 +557,7 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 	}
 
 	handleFocus (e: FocusEvent) {
-		if (!this.focusedWithMouse && this.props.type === 'date' && !this.responsive.onPhone) {
+		if (!this.focusedWithMouse && this.props.type === 'date' && !this.responsive.onPhone && !this.props.selectOnFocus) {
 			setTimeout(() => {
 				const { input, firstSeparatorIndex } = this.getEventData();
 				input.setSelectionRange(0, firstSeparatorIndex);
@@ -586,7 +590,7 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 
 	handleKeydownGuard (e: KeyboardEvent) {
 		const {
-			input, cursorPosition, day, month, year, hour, minute, isTwelveHours, selection,
+			input, cursorPosition, day, month, year, hour, minute, isTwelveHours, isFullSelected, selection,
 			selectionIsOnYear, selectionIsOnMonth, selectionIsOnDay, selectionIsOnHour, selectionIsOnMinute, selectionIsOnAmPm,
 			firstSeparatorIndex, secondSeparatorIndex, dateTimeSeparatorIndex, timeSeparatorIndex,
 		} = this.getEventData();
@@ -789,6 +793,11 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 
 		// Handle deletion keys
 		if (deletion.includes(key)) {
+			if (isFullSelected) {
+				this.clear();
+				nextTick(() => this.setSelectionToDay());
+				return;
+			}
 
 			const dayPattern = this.pattern.day.replace('$', '');
 			const monthPattern = this.pattern.month.replace('$', '');
