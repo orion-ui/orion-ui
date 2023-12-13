@@ -149,37 +149,39 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Prop
 	set vModel (value) {
 		this.handleInputDebounce(() => {
 			// value will always be a string when coming from the input
-			value = value as string;
+			value = value?.toString();
 
-			if (this.props.cleave?.phone) {
-				value = value.replace(/\s*/g, '');
-			}
-
-			if (this.props.type === 'email') {
-				value = value.normalize('NFD').replace(/[\u0300-\u036f ]/g, '');
-			} else if (typeof this.props.mask === 'string' && ['integer', 'decimal'].includes(this.props.mask) && value !== '-') {
-				value = value.length ? Number(value) : null;
-			} else if (this.props.mask === 'hour') {
-				value = hoursToNumber(value, this.props.maskHourSeparator);
-
-				if (this.props.maskHourFormat === '24h') {
-					const maxValue = hoursToNumber('23:59');
-					value = value > maxValue ? maxValue : value;
-				}
-			} else if (typeof this.props.mask === 'object' && this.props.mask) {
-				if (this._input.value) {
-					this._input.value.value = String(this.props.mask.display(value));
+			if (value) {
+				if (this.props.cleave?.phone) {
+					value = value.replace(/\s*/g, '');
 				}
 
-				value = typeof this.props.mask.value === 'function'
-					? this.props.mask.value(value)
-					: this.props.mask.display(value);
-			}
+				if (this.props.type === 'email') {
+					value = value.normalize('NFD').replace(/[\u0300-\u036f ]/g, '');
+				} else if (typeof this.props.mask === 'string' && ['integer', 'decimal'].includes(this.props.mask) && value !== '-') {
+					value = value.length ? Number(value) : null;
+				} else if (this.props.mask === 'hour') {
+					value = hoursToNumber(value, this.props.maskHourSeparator);
 
-			if (value && this.props.maxValue && Number(value) > this.props.maxValue) {
-				value = this.props.maxValue;
-				if (this._input.value)
-					this._input.value.value = String(value);
+					if (this.props.maskHourFormat === '24h') {
+						const maxValue = hoursToNumber('23:59');
+						value = value > maxValue ? maxValue : value;
+					}
+				} else if (typeof this.props.mask === 'object' && this.props.mask) {
+					if (this._input.value) {
+						this._input.value.value = String(this.props.mask.display(value));
+					}
+
+					value = typeof this.props.mask.value === 'function'
+						? this.props.mask.value(value)
+						: this.props.mask.display(value);
+				}
+
+				if (value && this.props.maxValue && Number(value) > this.props.maxValue) {
+					value = this.props.maxValue;
+					if (this._input.value)
+						this._input.value.value = String(value);
+				}
 			}
 
 			if (value === this.vModel) return;
@@ -204,6 +206,7 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Prop
 		});
 	}
 
+
 	handleBlurCustom (event: FocusEvent) {
 		if (this._input.value?.value && this.props.minValue && (hoursToNumber(this._input.value.value, this.props.maskHourSeparator)) < this.props.minValue) {
 			this.emit('update:modelValue', this.props.minValue);
@@ -212,7 +215,6 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Prop
 
 		this.handleBlur(event);
 	}
-
 
 	handleKeydownGuard (e: KeyboardEvent) {
 		if (this.props.mask) {
