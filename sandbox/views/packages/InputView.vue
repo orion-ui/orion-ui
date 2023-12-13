@@ -40,6 +40,7 @@
 					label="Mask integer"
 					v-bind="commonBind"
 					:min-value="4"
+					type="number"
 					mask="integer"/>
 			</div>
 			<div class="col-sm-3">
