@@ -152,7 +152,7 @@ export class Validator<T = any> {
 				return {
 					rule,
 					result,
-					message: 'oops',
+					message: 'Oops',
 					level: 'error',
 					id: undefined,
 				};
