@@ -33,7 +33,7 @@ export class Validator<T = any> {
 		hasUppercase: /[A-Z]/,
 		hasNumber: /[0-9]/,
 		hasSpecialChar: /[^A-Za-z0-9]/,
-		email: /^([a-zA-Z0-9_-]+([+.]{1}[a-zA-Z0-9_-]+)*)@([a-zA-Z0-9_-]+([.]{1}[a-zA-Z0-9_-]+)*)([.]{1}[a-z]{2,12})$/,
+		email: /^([a-zA-Z0-9_-]+([+.]{1}[a-zA-Z0-9_-]+)*)@([a-zA-Z0-9_-]+([.]{1}[a-zA-Z0-9_-]+)*)([.]{1}[a-zA-Z]{2,12})$/,
 		phone: {
 			FR: {
 				classic: /^([+]33|0)\d{9}$/,
