@@ -71,6 +71,7 @@ export default class OrionHorizontalScrollSetupService extends SharedSetupServic
 		elements: [] as HTMLElement[],
 		pourcentage: 0,
 		visibilityValues: [] as PreviewDatas[],
+		useNaturalScroll: false,
 	});
 
 
@@ -315,19 +316,31 @@ export default class OrionHorizontalScrollSetupService extends SharedSetupServic
 		// #endregion
 	};
 
-	handleScroll (event: WheelEvent) {
+	handleScroll (event: UIEvent) {
+		if (event.target !== this._slider.value) {
+			this.state.useNaturalScroll = true;
+			this.handleScrollEnd();
+		}
+	}
+
+	handleScrollEnd = debounce(() => this.state.useNaturalScroll = false, 100);
+
+	handleWheel = throttle((event: WheelEvent) => {
+		if (this.state.useNaturalScroll) return;
+
 		if (this._el.value === undefined) return;
 		if (!this._slider.value) return;
 		if (this.state.width - this.state.sliderScrollWidth >= 0) return;
 
+
 		if (this._el.value.scrollHeight <= this._el.value.offsetHeight) {
-			event.preventDefault();
 			this._slider.value.scrollLeft += event.deltaY + event.deltaX;
+			event.preventDefault();
 		}
 
 		this.handleShadows();
 		this.getVisibility();
-	};
+	}, 8, { leading: false });
 
 	debouncedWindowResizeHandler () : void {
 		this.windowResizeHandler();
