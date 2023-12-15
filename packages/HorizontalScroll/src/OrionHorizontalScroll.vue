@@ -8,7 +8,8 @@
 			`orion-horizontal-scroll--${setup.shadowColor}`,
 			{ 'orion-horizontal-scroll--drop-shadow' : setup.dropShadow },
 		]"
-		@wheel="setup.handleScroll($event)"
+
+
 		@touchmove="setup.handleDragScroll($event)"
 		@mousemove="setup.handleDragScroll($event)"
 		@touchend="setup.resetDragScroll()"
@@ -33,7 +34,9 @@
 		<div
 			id="slider"
 			:ref="setup._slider"
-			class="orion-horizontal-scroll__slider">
+			class="orion-horizontal-scroll__slider"
+			@wheel="setup.handleWheel($event)"
+			@scroll.capture="setup.handleScroll($event)">
 			<slot/>
 		</div>
 	</div>
