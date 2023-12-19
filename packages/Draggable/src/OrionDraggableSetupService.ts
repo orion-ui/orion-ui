@@ -113,7 +113,7 @@ export default class OrionDraggableSetupService extends SharedSetupService<Props
 	};
 
 	handleMouseDown (event: MouseEvent | TouchEvent) {
-		if (!this.document || this.dnd.registry.isDragging) return;
+		if (!this.document || this.dnd.registry.isDragging || this.props.disabled) return;
 
 		this.document.body.classList.add('body--orion-dragging');
 		if (this.props.disabled) return;
