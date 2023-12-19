@@ -434,13 +434,14 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 	}
 
 	valueDisplay (item?: BaseVModelType | null): { display: any, item: any } {
+		const optionsToSearchIn = (this.props.fetchUrl || this.props.customFetch) ? this.fetchOptions : this.props.options;
+		const currentValue = optionsToSearchIn.find((x) => {
+			return this.itemIsObject(x)
+				&& this.props.valueKey
+				&& x[this.props.valueKey] === item;
+		});
+
 		if (this.props.valueKey && this.props.displayKey) {
-			const optionsToSearchIn = (this.props.fetchUrl || this.props.customFetch) ? this.fetchOptions : this.props.options;
-			const currentValue = optionsToSearchIn.find((x) => {
-				return this.itemIsObject(x)
-					&& this.props.valueKey
-					&& x[this.props.valueKey] === item;
-			});
 			return currentValue && this.itemIsObject(currentValue) && currentValue[this.props.displayKey]
 				? {
 					display: currentValue[this.props.displayKey],
@@ -449,12 +450,22 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 					display: item,
 					item,
 				};
-		} else {
-			return item && this.itemIsObject(item) && this.props.displayKey && item[this.props.displayKey]
+		} else if (this.props.displayKey) {
+			return item && this.itemIsObject(item) && item[this.props.displayKey]
 				? {
 					display: item[this.props.displayKey],
 					item,
 				} : {
+					display: item,
+					item: currentValue,
+				};
+		} else {
+			return item && this.props.valueKey
+				? {
+					display: currentValue[this.props.valueKey],
+					item: currentValue,
+				}
+				: {
 					display: item,
 					item,
 				};
