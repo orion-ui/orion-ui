@@ -29,6 +29,7 @@
 						:key="Number(i)"
 						class="orion-select__selected-item">
 						<slot
+							v-if="setup.valueDisplay()"
 							name="value"
 							v-bind="setup.valueDisplay(item)">
 							{{ setup.valueDisplay(item).display }}
@@ -42,7 +43,7 @@
 					</span>
 				</div>
 				<slot
-					v-else-if="!setup.props.multiple && !setup.isArray(setup.vModel)"
+					v-else-if="!setup.props.multiple && !setup.isArray(setup.vModel) && setup.valueDisplay()"
 					name="value"
 					v-bind="setup.valueDisplay(setup.vModel)">
 					{{ setup.valueDisplay(setup.vModel).display }}
