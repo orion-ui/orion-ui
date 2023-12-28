@@ -10,6 +10,10 @@ export const fr: NavbarConfig = [
 		link: `/fr/components/OrionAvatar.md`,
 	},
 	{
+		text: `Services`,
+		link: `/fr/services.md`,
+	},
+	{
 		text: 'CLI',
 		link: 'https://github.com/orion-ui/orion-cli',
 	},

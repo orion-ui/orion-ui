@@ -8,6 +8,7 @@ export default {
 	ACTIVATE: `Activate`,
 	BACK: `Back`,
 	CANCEL: `Cancel`,
+	CHARACTER: `character`,
 	CLOSE_ACTION: `Close`,
 	CLOSE_MENU: `Close menu`,
 	CONFIRM: `Confirm`,
@@ -119,4 +120,17 @@ export default {
 	ORION_UPLOAD__PROCESSING: `Processing...`,
 
 	USE_CONFIRM__TITLE: `Confirmation`,
+
+	VALIDATOR_ERROR_REQUIRED: `Required`,
+	VALIDATOR_ERROR_HAS_LOWERCASE: `Missing lowercase character`,
+	VALIDATOR_ERROR_HAS_UPPERCASE: `Missing uppercase character`,
+	VALIDATOR_ERROR_HAS_NUMBER: `Missing number character`,
+	VALIDATOR_ERROR_HAS_SPECIAL_CHAR: `Missing special character`,
+	VALIDATOR_ERROR_HAS_MIN_LENGTH: `Minimum length of $charLength required`,
+	VALIDATOR_ERROR_HAS_MAX_LENGTH: `Maximum length of $charLength required`,
+	VALIDATOR_ERROR_LENGTH: `Characters length must be between $min and $max`,
+	VALIDATOR_ERROR_PHONE: `Invalid phone number`,
+	VALIDATOR_ERROR_PASSWORD: `Invalid password`,
+	VALIDATOR_ERROR_PASSWORD_CONFIRM: `Invalid password confirmation`,
+	VALIDATOR_ERROR_EMAIL: `Invalid email`,
 };

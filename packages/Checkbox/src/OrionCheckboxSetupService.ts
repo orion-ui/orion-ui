@@ -49,10 +49,6 @@ export default class OrionCheckboxSetupService extends SharedFieldSetupService<P
 		return true;
 	}
 
-	protected get showStateCustom () {
-		return this.props.required;
-	}
-
 	get hasValue () {
 		if (isArray(this.vModel)) return !!this.vModel.length;
 		return !!this.vModel;

@@ -32,22 +32,7 @@ const globalTypesDocData = {
 		'ns': 'global',
 		'type': 'SetupProps',
 		'generic': 'T',
-		'description': 'Readonly<import(\'vue\').ExtractPropTypes<T>> \n',
-	}, {
-		'ns': 'global',
-		'type': 'OrionValidator',
-		'generic': 'T extends Record<string, any>',
-		'description': 'ReturnType<typeof useValidation<T, ValidationArrayType<T>>>; \n',
-	}, {
-		'ns': 'global',
-		'type': 'OrionValidatorRule',
-		'generic': '',
-		'description': 'ReturnType<ReturnType<typeof useValidation>[\'rule\']>; \n',
-	}, {
-		'ns': 'global',
-		'type': 'OrionValidatorMessages',
-		'generic': '',
-		'description': 'Partial<{ \n\t\t[key in keyof ReturnType<typeof useValidation>[\'rulesRegistry\']]: string; \n\t}> \n \n\ttype AsideAnimationHookType = \n\t| \'asideEnterBefore\' \n\t| \'asideEnterStart\' \n\t| \'asideEnterEnd\' \n\t| \'asideLeaveBefore\' \n\t| \'asideLeaveStart\' \n\t| \'asideLeaveEnd\' \n\t; \n \n\ttype ModalAnimationHookType = \n\t| \'modalEnterBefore\' \n\t| \'modalEnterStart\' \n\t| \'modalEnterEnd\' \n\t| \'modalLeaveBefore\' \n\t| \'modalLeaveStart\' \n\t| \'modalLeaveEnd\' \n\t; \n \n\ttype NotifAnimationHookType = \n\t| \'notifEnterBefore\' \n\t| \'notifEnterStart\' \n\t| \'notifEnterEnd\' \n\t| \'notifLeaveBefore\' \n\t| \'notifLeaveStart\' \n\t| \'notifLeaveEnd\' \n\t; \n',
+		'description': 'Readonly<import(\'vue\').ExtractPropTypes<T>> \n \n\ttype AsideAnimationHookType = \n\t| \'asideEnterBefore\' \n\t| \'asideEnterStart\' \n\t| \'asideEnterEnd\' \n\t| \'asideLeaveBefore\' \n\t| \'asideLeaveStart\' \n\t| \'asideLeaveEnd\' \n\t; \n \n\ttype ModalAnimationHookType = \n\t| \'modalEnterBefore\' \n\t| \'modalEnterStart\' \n\t| \'modalEnterEnd\' \n\t| \'modalLeaveBefore\' \n\t| \'modalLeaveStart\' \n\t| \'modalLeaveEnd\' \n\t; \n \n\ttype NotifAnimationHookType = \n\t| \'notifEnterBefore\' \n\t| \'notifEnterStart\' \n\t| \'notifEnterEnd\' \n\t| \'notifLeaveBefore\' \n\t| \'notifLeaveStart\' \n\t| \'notifLeaveEnd\' \n\t; \n',
 	}],
 
 	'Orion': [{
@@ -260,6 +245,30 @@ const globalTypesDocData = {
 		'type': 'NewMessage',
 		'generic': '',
 		'description': '{ \n\t\t\t\tmessage: string; \n\t\t\t\tdiscussionId: number; \n\t\t\t}',
+	}],
+
+	'Orion.Validation': [{
+		'ns': 'Orion.Validation',
+		'type': 'Rule',
+		'generic': '',
+		'description': 'ReturnType<ReturnType<typeof useValidation<any, any>>[\'rule\']>; \n\t\t\ttype RuleResult<T> = string | boolean | ((val: T) => boolean | Validator.RuleResult) | ValidatorClass<T>;',
+	}, {
+		'ns': 'Orion.Validation',
+		'type': 'Rules',
+		'generic': 'T',
+		'description': '{ \n\t\t\t\t[K in keyof T]?: RuleResult<T[K]>; \n\t\t\t}',
+	}],
+
+	'Orion.Validator': [{
+		'ns': 'Orion.Validator',
+		'type': 'Rule',
+		'generic': 'T = any',
+		'description': '((value: T) => Orion.Validator.RuleResult); \n\t\t\ttype RuleFunction = ((...args: any[]) => (value?: any) => boolean);',
+	}, {
+		'ns': 'Orion.Validator',
+		'type': 'RuleResult',
+		'generic': '',
+		'description': '{ \n\t\t\t\tresult: boolean \n\t\t\t\tmessage?: string \n\t\t\t\tlevel: \'warning\' | \'error\' \n\t\t\t}',
 	}],
 
 	'Orion.Private': [{

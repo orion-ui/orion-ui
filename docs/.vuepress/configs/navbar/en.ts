@@ -6,6 +6,7 @@ export const en: NavbarConfig = [
 		text: `Components`,
 		link: `/components/OrionAvatar.md`,
 	},
+	`/services.md`,
 	{
 		text: 'CLI',
 		link: 'https://github.com/orion-ui/orion-cli',

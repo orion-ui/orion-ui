@@ -759,11 +759,12 @@ class ServiceFileScanner extends DocUtility {
 		const result = new Map();
 		var params = [];
 		var paramFormatted = [];
-		const regex = /((@desc\s)(?<description>.+))|(@param\s)(?<param>.+)|((@return\s)(?<return>.+))/g;
+		const regex = /((@desc\s)(?<description>.+))|(@param\s)(?<param>.+)|((@return\s)(?<return>.+))|((@deprecated\s)(?<deprecated>.+))/g;
 		const regexParam = /{(?<type>.+)}\s+((?<name>\w+)|(\[(?<nameWith>\w+)=(?<value>.+)\]))\s+(?<description>.*)/g;
 
 		result.set('description', comment.match(regex)?.find(x => /@desc/.test(x))?.replace(/@desc\s*/, ''));
 		result.set('return', comment.match(regex)?.find(x => /@return/.test(x))?.replace(/@return\s*/, ''));
+		result.set('deprecated', comment.match(regex)?.find(x => /@deprecated/.test(x))?.replace(/@deprecated\s*/, ''));
 		params = comment.match(regex)?.filter(x => /@param/.test(x)).map(x => x.replace(/@param\s*/, ''));
 
 		params.filter((x) => {

@@ -65,7 +65,7 @@
 		<o-section>
 			<div class="row row--grid-xs">
 				<div v-for="(feature, index) in features" :key="index" class="col-sm-6 col-md-4">
-					<div class="feature">
+					<div class="tile tile--grey-lighter">
 						<h3>{{ feature.title }}</h3>
 						{{ feature.description }}
 					</div>
@@ -140,24 +140,6 @@ const features = computed (() => {
 
 <style scoped lang="less">
 @import '../../../../../packages/Shared/styles/variables.less';
-
-.feature {
-	position: relative;
-	background: var(--grey-lighter);
-	height: 100%;
-	padding: var(--fluid-30px);
-	line-height: 1.5;
-	
-	@media @tablet {
-		padding: var(--fluid-45px);
-	}
-
-	> h3 {
-		margin-bottom: 1.25rem;
-		margin-top: 0;
-		padding-top: 0;
-	}
-}
 
 .container {
 	padding: 0 var(--fluid-30px);

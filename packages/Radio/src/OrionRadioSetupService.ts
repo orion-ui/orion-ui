@@ -44,10 +44,6 @@ export default class OrionRadioSetupService extends SharedFieldSetupService<Prop
 		return true;
 	}
 
-	protected get showStateCustom () {
-		return this.props.required;
-	}
-
 	get isChecked () {
 		return this.vModel === this.props.inputValue;
 	}
