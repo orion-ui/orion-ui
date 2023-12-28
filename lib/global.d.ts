@@ -326,17 +326,20 @@ declare global {
 
 		namespace Validation {
 			type Rule = ReturnType<ReturnType<typeof useValidation<any, any>>['rule']>;
+			type RuleResult<T> = string | boolean | ((val: T) => boolean | Validator.RuleResult) | ValidatorClass<T>;
 			type Rules<T> = {
-				[K in keyof T]?: Validator.Rule<T[K]>;
+				[K in keyof T]?: RuleResult<T[K]>;
 			}
 		}
 
 		namespace Validator {
+			type Rule<T = any> = ((value: T) => Orion.Validator.RuleResult);
 			type RuleFunction = ((...args: any[]) => (value?: any) => boolean);
-			type Rule<T = any> =
-				| string
-				| ((val?: T) => boolean)
-				| ValidatorClass
+			type RuleResult = {
+				result: boolean
+				message?: string
+				level: 'warning' | 'error'
+			}
 		}
 
 		namespace Private {

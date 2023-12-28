@@ -1422,7 +1422,7 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'validation',
 				'defaultValue': 'undefined',
-				'type': 'string | Function | OrionValidatorRule | boolean',
+				'type': 'string | ((val: any) => boolean) | Orion.Validator.Rule | Orion.Validation.Rule | boolean',
 				'required': false,
 				'desc': {
 					'en': 'the validation for the field',
@@ -1436,15 +1436,6 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'the error message displayed after input\'s validation.',
 					'fr': 'le message d\'erreur affiché en cas d\'erreur lors de la validation',
-				},
-			}, {
-				'name': 'validationMessages',
-				'defaultValue': 'undefined',
-				'type': 'OrionValidatorMessages',
-				'required': false,
-				'desc': {
-					'en': 'displays informations about the validation error',
-					'fr': 'affiche un message concernant l\'erreur lors de la validation',
 				},
 			}],
 			publicInstance: [{
@@ -1821,7 +1812,7 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'validation',
 				'defaultValue': 'undefined',
-				'type': 'string | Function | OrionValidatorRule | boolean',
+				'type': 'string | ((val: any) => boolean) | Orion.Validator.Rule | Orion.Validation.Rule | boolean',
 				'required': false,
 				'desc': {
 					'en': 'the validation for the field',
@@ -1835,15 +1826,6 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'the error message displayed after input\'s validation.',
 					'fr': 'le message d\'erreur affiché en cas d\'erreur lors de la validation',
-				},
-			}, {
-				'name': 'validationMessages',
-				'defaultValue': 'undefined',
-				'type': 'OrionValidatorMessages',
-				'required': false,
-				'desc': {
-					'en': 'displays informations about the validation error',
-					'fr': 'affiche un message concernant l\'erreur lors de la validation',
 				},
 			}],
 			publicInstance: [{
@@ -2413,7 +2395,7 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'maxDate',
 				'defaultValue': 'undefined',
-				'type': 'Nil<Date>',
+				'type': 'Undef<Date>',
 				'required': false,
 				'desc': {
 					'en': 'the maximum date which can be selected',
@@ -2422,7 +2404,7 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'minDate',
 				'defaultValue': 'undefined',
-				'type': 'Nil<Date>',
+				'type': 'Undef<Date>',
 				'required': false,
 				'desc': {
 					'en': 'the minimum date which can be selected',
@@ -2482,7 +2464,7 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'range',
 				'defaultValue': 'undefined',
-				'type': 'Nil<Orion.DateRange>',
+				'type': 'Undef<Orion.DateRange>',
 				'required': false,
 				'desc': {
 					'en': 'the modelValue if the type is set to `range`',
@@ -2562,7 +2544,7 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'validation',
 				'defaultValue': 'undefined',
-				'type': 'string | Function | OrionValidatorRule | boolean',
+				'type': 'string | ((val: any) => boolean) | Orion.Validator.Rule | Orion.Validation.Rule | boolean',
 				'required': false,
 				'desc': {
 					'en': 'the validation for the field',
@@ -2576,15 +2558,6 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'the error message displayed after input\'s validation.',
 					'fr': 'le message d\'erreur affiché en cas d\'erreur lors de la validation',
-				},
-			}, {
-				'name': 'validationMessages',
-				'defaultValue': 'undefined',
-				'type': 'OrionValidatorMessages',
-				'required': false,
-				'desc': {
-					'en': 'displays informations about the validation error',
-					'fr': 'affiche un message concernant l\'erreur lors de la validation',
 				},
 			}, {
 				'name': 'valueDisplayFormat',
@@ -3053,7 +3026,7 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'validation',
 				'defaultValue': 'undefined',
-				'type': 'string | Function | OrionValidatorRule | boolean',
+				'type': 'string | ((val: any) => boolean) | Orion.Validator.Rule | Orion.Validation.Rule | boolean',
 				'required': false,
 				'desc': {
 					'en': 'the validation for the field',
@@ -3067,15 +3040,6 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'the error message displayed after input\'s validation.',
 					'fr': 'le message d\'erreur affiché en cas d\'erreur lors de la validation',
-				},
-			}, {
-				'name': 'validationMessages',
-				'defaultValue': 'undefined',
-				'type': 'OrionValidatorMessages',
-				'required': false,
-				'desc': {
-					'en': 'displays informations about the validation error',
-					'fr': 'affiche un message concernant l\'erreur lors de la validation',
 				},
 			}],
 			publicInstance: [{
@@ -3684,7 +3648,7 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'validation',
 				'defaultValue': 'undefined',
-				'type': 'string | Function | OrionValidatorRule | boolean',
+				'type': 'string | ((val: any) => boolean) | Orion.Validator.Rule | Orion.Validation.Rule | boolean',
 				'required': false,
 				'desc': {
 					'en': 'the validation for the field',
@@ -3698,15 +3662,6 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'the error message displayed after input\'s validation.',
 					'fr': 'le message d\'erreur affiché en cas d\'erreur lors de la validation',
-				},
-			}, {
-				'name': 'validationMessages',
-				'defaultValue': 'undefined',
-				'type': 'OrionValidatorMessages',
-				'required': false,
-				'desc': {
-					'en': 'displays informations about the validation error',
-					'fr': 'affiche un message concernant l\'erreur lors de la validation',
 				},
 			}],
 			publicInstance: [{
@@ -3992,7 +3947,7 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'validation',
 				'defaultValue': 'undefined',
-				'type': 'string | Function | OrionValidatorRule | boolean',
+				'type': 'string | ((val: any) => boolean) | Orion.Validator.Rule | Orion.Validation.Rule | boolean',
 				'required': false,
 				'desc': {
 					'en': 'the validation for the field',
@@ -4006,15 +3961,6 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'the error message displayed after input\'s validation.',
 					'fr': 'le message d\'erreur affiché en cas d\'erreur lors de la validation',
-				},
-			}, {
-				'name': 'validationMessages',
-				'defaultValue': 'undefined',
-				'type': 'OrionValidatorMessages',
-				'required': false,
-				'desc': {
-					'en': 'displays informations about the validation error',
-					'fr': 'affiche un message concernant l\'erreur lors de la validation',
 				},
 			}],
 			publicInstance: [{
@@ -5086,7 +5032,7 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'passwordToConfirm',
 				'defaultValue': 'undefined',
-				'type': 'Nullable<string>',
+				'type': 'Undef<string>',
 				'required': false,
 				'desc': {
 					'en': 'if specified, checks the match with the password value',
@@ -5182,7 +5128,7 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'validation',
 				'defaultValue': 'undefined',
-				'type': 'string | Function | OrionValidatorRule | boolean',
+				'type': 'string | ((val: any) => boolean) | Orion.Validator.Rule | Orion.Validation.Rule | boolean',
 				'required': false,
 				'desc': {
 					'en': 'the validation for the field',
@@ -5196,15 +5142,6 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'the error message displayed after input\'s validation.',
 					'fr': 'le message d\'erreur affiché en cas d\'erreur lors de la validation',
-				},
-			}, {
-				'name': 'validationMessages',
-				'defaultValue': 'undefined',
-				'type': 'OrionValidatorMessages',
-				'required': false,
-				'desc': {
-					'en': 'displays informations about the validation error',
-					'fr': 'affiche un message concernant l\'erreur lors de la validation',
 				},
 			}],
 			publicInstance: [{
@@ -5496,7 +5433,7 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'validation',
 				'defaultValue': 'undefined',
-				'type': 'string | Function | OrionValidatorRule | boolean',
+				'type': 'string | ((val: any) => boolean) | Orion.Validator.Rule | Orion.Validation.Rule | boolean',
 				'required': false,
 				'desc': {
 					'en': 'the validation for the field',
@@ -5510,15 +5447,6 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'the error message displayed after input\'s validation.',
 					'fr': 'le message d\'erreur affiché en cas d\'erreur lors de la validation',
-				},
-			}, {
-				'name': 'validationMessages',
-				'defaultValue': 'undefined',
-				'type': 'OrionValidatorMessages',
-				'required': false,
-				'desc': {
-					'en': 'displays informations about the validation error',
-					'fr': 'affiche un message concernant l\'erreur lors de la validation',
 				},
 			}],
 			publicInstance: [{
@@ -6035,7 +5963,7 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'validation',
 				'defaultValue': 'undefined',
-				'type': 'string | Function | OrionValidatorRule | boolean',
+				'type': 'string | ((val: any) => boolean) | Orion.Validator.Rule | Orion.Validation.Rule | boolean',
 				'required': false,
 				'desc': {
 					'en': 'the validation for the field',
@@ -6049,15 +5977,6 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'the error message displayed after input\'s validation.',
 					'fr': 'le message d\'erreur affiché en cas d\'erreur lors de la validation',
-				},
-			}, {
-				'name': 'validationMessages',
-				'defaultValue': 'undefined',
-				'type': 'OrionValidatorMessages',
-				'required': false,
-				'desc': {
-					'en': 'displays informations about the validation error',
-					'fr': 'affiche un message concernant l\'erreur lors de la validation',
 				},
 			}],
 			publicInstance: [{
@@ -6776,7 +6695,7 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'validation',
 				'defaultValue': 'undefined',
-				'type': 'string | Function | OrionValidatorRule | boolean',
+				'type': 'string | ((val: any) => boolean) | Orion.Validator.Rule | Orion.Validation.Rule | boolean',
 				'required': false,
 				'desc': {
 					'en': 'the validation for the field',
@@ -6790,15 +6709,6 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'the error message displayed after input\'s validation.',
 					'fr': 'le message d\'erreur affiché en cas d\'erreur lors de la validation',
-				},
-			}, {
-				'name': 'validationMessages',
-				'defaultValue': 'undefined',
-				'type': 'OrionValidatorMessages',
-				'required': false,
-				'desc': {
-					'en': 'displays informations about the validation error',
-					'fr': 'affiche un message concernant l\'erreur lors de la validation',
 				},
 			}, {
 				'name': 'valueKey',
@@ -7408,7 +7318,7 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'validation',
 				'defaultValue': 'undefined',
-				'type': 'string | Function | OrionValidatorRule | boolean',
+				'type': 'string | ((val: any) => boolean) | Orion.Validator.Rule | Orion.Validation.Rule | boolean',
 				'required': false,
 				'desc': {
 					'en': 'the validation for the field',
@@ -7422,15 +7332,6 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'the error message displayed after input\'s validation.',
 					'fr': 'le message d\'erreur affiché en cas d\'erreur lors de la validation',
-				},
-			}, {
-				'name': 'validationMessages',
-				'defaultValue': 'undefined',
-				'type': 'OrionValidatorMessages',
-				'required': false,
-				'desc': {
-					'en': 'displays informations about the validation error',
-					'fr': 'affiche un message concernant l\'erreur lors de la validation',
 				},
 			}],
 			publicInstance: [{
@@ -7917,7 +7818,7 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'validation',
 				'defaultValue': 'undefined',
-				'type': 'string | Function | OrionValidatorRule | boolean',
+				'type': 'string | ((val: any) => boolean) | Orion.Validator.Rule | Orion.Validation.Rule | boolean',
 				'required': false,
 				'desc': {
 					'en': 'the validation for the field',
@@ -7931,15 +7832,6 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'the error message displayed after input\'s validation.',
 					'fr': 'le message d\'erreur affiché en cas d\'erreur lors de la validation',
-				},
-			}, {
-				'name': 'validationMessages',
-				'defaultValue': 'undefined',
-				'type': 'OrionValidatorMessages',
-				'required': false,
-				'desc': {
-					'en': 'displays informations about the validation error',
-					'fr': 'affiche un message concernant l\'erreur lors de la validation',
 				},
 			}, {
 				'name': 'value',
@@ -8434,7 +8326,7 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'validation',
 				'defaultValue': 'undefined',
-				'type': 'string | Function | OrionValidatorRule | boolean',
+				'type': 'string | ((val: any) => boolean) | Orion.Validator.Rule | Orion.Validation.Rule | boolean',
 				'required': false,
 				'desc': {
 					'en': 'the validation for the field',
@@ -8448,15 +8340,6 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'the error message displayed after input\'s validation.',
 					'fr': 'le message d\'erreur affiché en cas d\'erreur lors de la validation',
-				},
-			}, {
-				'name': 'validationMessages',
-				'defaultValue': 'undefined',
-				'type': 'OrionValidatorMessages',
-				'required': false,
-				'desc': {
-					'en': 'displays informations about the validation error',
-					'fr': 'affiche un message concernant l\'erreur lors de la validation',
 				},
 			}],
 			publicInstance: [{

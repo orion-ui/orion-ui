@@ -108,7 +108,7 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 	}
 
 	get isValidCustom () {
-		return useValidation().checkRuleParams(this.vModel, this.props.mobile ? 'phone:mobile' : 'phone');
+		return useValidation().check(this.vModel, this.props.mobile ? 'phone:mobile' : 'phone');
 	}
 
 	get showState () {

@@ -27,7 +27,7 @@
 			<o-input
 				v-model="user.name"
 				class="grid-input"
-				label="Test validation required et length"
+				label="Required and max-length"
 				:validation="validator.rule('name')"/>
 			<o-phone
 				v-model="user.phone"
@@ -36,10 +36,10 @@
 				mobile/>
 
 			<o-password
-				v-model="user.password.value"
+				v-model="user.password"
 				password-tooltip
-				label="Mot de passe"
-				:validation="validator.rule('password.value')"/>
+				label="Password"
+				:validation="validator.rule('password')"/>
 		</div>
 
 		<div class="col-sm-6">
@@ -69,38 +69,35 @@
 
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
-import { useValidation } from '../../lib';
+import { useValidation, Validator } from '../../lib';
 
 let result = ref(false);
 const resultColor = ref<Orion.Color>('default');
 
 let user = reactive({
-	name: '',
+	name: undefined as undefined | string,
 	choice: false,
-	radio: null,
-	password: {
-		value: null,
-		passwordConfirm: null,
-	},
+	radio: undefined as undefined | string,
+	password: undefined as undefined | string,
 	phone: {
 		phoneCountryCode: 'FR',
-		phoneNumber: null,
+		phoneNumber: undefined as undefined | string,
 	},
 });
 
-let tab = {
-	name: 'required|length:5',
+const validator = useValidation(user, {
+	name: new Validator([
+		Validator.rules.required(),
+		Validator.rules.hasMaxLength(5, 'No more than 5 chars.'),
+	]),
 	phone: 'phone:mobile',
 	choice: 'required',
-	['password.value']: 'required|hasLowercase|hasUppercase|hasNumber',
-	radio: () => {return user.radio === 'True'; },
-};
-
-
-const validator = useValidation(user, tab);
+	password: Validator.rules.password(),
+	radio: () => { return user.radio === 'True'; },
+});
 
 function checkForm () : void {
-	result.value = validator.validate(); ;
+	result.value = validator.validate();
 	if (result.value) {
 		resultColor.value = 'success';
 		validator.showValidationState();
@@ -111,14 +108,14 @@ function checkForm () : void {
 }
 </script>
 
-@hmr services/Validation.md
+@hmr fr/services/Validation.md
 
 @hl {31,35,40,42,49,61,75-87,89-95,98,101,104,107}
 
 @lang:en
-#### Example with full code
+### Full Example
 @lang
 
 @lang:fr
-#### Exemple avec code
+### Exemple complet
 @lang

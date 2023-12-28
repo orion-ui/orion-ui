@@ -27,18 +27,18 @@ class ValidationService<T, V extends Orion.Validation.Rules<T>> {
 	private checkObjectPropRule (propName: keyof T) {
 		if (typeof this.objectToValidate !== 'object') return false;
 		if (!this.objectToValidate || !(propName in this.objectToValidate)) return false;
-		return this.checkRuleParams(this.objectToValidate[propName], (this.validatorRules as any)[propName]);
+		return this.check(this.objectToValidate[propName], (this.validatorRules as any)[propName]);
 	}
 
 	/**
 	 * @desc checks if the value verifies the rule given in parameter
 	 * @param {any} value value to check
-	 * @param {string | ((val: any) => boolean) | Validator} [ruleParams] rule which must verify the value to pass the verification
+	 * @param {Orion.Validation.RuleResult<any>} ruleParams rule which must verify the value to pass the verification
 	 * @return boolean
 	 */
-	checkRuleParams (value: any, ruleParams: Orion.Validator.Rule<T>): boolean {
+	check <T = any> (value: T, ruleParams: Orion.Validation.RuleResult<T>): boolean {
 		if (typeof ruleParams === 'function') {
-			return ruleParams(value);
+			return Validator.convertToValidatorResult(ruleParams(value)).result;
 		} else if (typeof ruleParams === 'string') {
 			const rulesToValidate = ruleParams?.split('|');
 			for (let i = 0; i < rulesToValidate?.length; i++) {
@@ -46,8 +46,8 @@ class ValidationService<T, V extends Orion.Validation.Rules<T>> {
 				const ruleName = rule.split(':')[0] as keyof typeof Validator.rules;
 				const ruleArgs = rule.split(':')[1]?.split(',') ?? [];
 				if (Validator.rules[ruleName]) {
-					const test = (Validator.rules[ruleName] as Orion.Validator.RuleFunction)(...ruleArgs)(value);
-					if (!test) return false;
+					const test = (Validator.rules[ruleName] as any)(...ruleArgs)(value) as Orion.Validator.RuleResult;
+					if (!test.result) return false;
 				}
 			}
 			return true;
@@ -56,6 +56,17 @@ class ValidationService<T, V extends Orion.Validation.Rules<T>> {
 		} else {
 			return true;
 		}
+	}
+
+	/**
+	 * @desc checks if the value verifies the rule given in parameter
+	 * @param {any} value value to check
+	 * @param {Orion.Validation.RuleResult<any>} ruleParams rule which must verify the value to pass the verification
+	 * @return boolean
+	 * @deprecated Use "check" method instead
+	 */
+	checkRuleParams (value: any, ruleParams: Orion.Validation.RuleResult<T>): boolean {
+		return this.check(value, ruleParams);
 	}
 
 	/**

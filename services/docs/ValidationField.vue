@@ -1,36 +1,39 @@
 <template>
-	<div>
-		<!-- Field validation with rules -->
-		<o-input
-			v-model="mail"
-			label="Test mail required"
-			validation="required|email"/>
+	<div class="row row--grid">
+		<div class="col-sm-6">
+			<!-- Field validation with rules -->
+			<o-input
+				v-model="mail"
+				label="Test mail required"
+				validation="required|email"/>
+		</div>
 
-		<!-- Field validation with custom fuction -->
-		<o-input
-			v-model="input"
-			label="Check field length > 5"
-			:validation="validateField"/>
+		<div class="col-sm-6">
+			<!-- Field validation with custom fuction -->
+			<o-input
+				v-model="input"
+				label="Check field length > 5"
+				:validation="validateField"/>
+		</div>
 	</div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
 
-const input = ref('');
-const mail = ref('');
-const validateField = () => input.value?.length > 5;
-
+const input = ref<string>();
+const mail = ref<string>();
+const validateField = () => (input.value?.length ?? 0) > 5;
 </script>
 
 @hmr services/Validation.md
 
-@hl {7,13,20-22}
+@hl {8,16,26}
 
 @lang:en
-### Example
+### Simple input validation
 @lang
 
 @lang:fr
-### Exemple
+### Validation simple de champ
 @lang

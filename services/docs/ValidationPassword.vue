@@ -1,15 +1,19 @@
 <template>
-	<div>
-		<o-password
-			v-model="user.password"
-			label="Password"
-			password-tooltip/>
+	<div class="row row--grid">
+		<div class="col-sm-6">
+			<o-password
+				v-model="user.password"
+				label="Password"
+				password-tooltip/>
+		</div>
 
-		<o-password
-			v-model="user.passwordConfirm"
-			label="Confirm password"
-			password-tooltip
-			:password-to-confirm="user.password"/>
+		<div class="col-sm-6">
+			<o-password
+				v-model="user.passwordConfirm"
+				label="Confirm password"
+				password-tooltip
+				:password-to-confirm="user.password"/>
+		</div>
 	</div>
 </template>
 
@@ -24,7 +28,7 @@ let user = reactive({
 
 @hmr services/Validation.md
 
-@hl {6,11-12,19-22}
+@hl {7,14-15,23-26}
 
 @lang:en
 ### Password validation

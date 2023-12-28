@@ -26,43 +26,62 @@
 			<div class="col-sm-6">
 				<div class="flex fd-c g-sm">
 					<o-input
-						v-model="user.name"
+						v-model="user.required"
 						class="grid-input"
 						label="required only"
 						required/>
 					<o-input
-						v-model="user.name"
+						v-model="user.customRuleInTemplate"
 						class="grid-input"
-						label="Validation with custom function"
-						:validation-error-message="testLongErrorMessage"
+						label="custom rule in template"
 						:validation="(val?: string) => (val?.length ?? 0) > 2"/>
+					<o-input
+						v-model="user.customValidatorRuleInTemplate"
+						class="grid-input"
+						label="custom ValidatorRule in template"
+						:validation="(val?: string) => ({
+							result: (val?.length ?? 0) > 2,
+							message: 'hoho',
+							level: 'warning',
+						})"/>
+					<o-input
+						v-model="user.emailRequired"
+						class="grid-input"
+						label="rule emailRequired"
+						:validation="validator.rule('emailRequired')"/>
 					<o-input
 						v-model="user.name"
 						class="grid-input"
-						label="Test validation simple Validator msdlkqhqdsfkljh"
+						label="rule name"
 						:validation="validator.rule('name')"/>
-					<!-- <o-input
+					<o-input
 						v-model="user.nameForExtendedRule"
 						class="grid-input"
 						label="Test validation extended rule"
 						:validation="validator.rule('nameForExtendedRule')"/>
-					<o-input
-						v-model="user.name"
+					<o-datepicker
+						v-model="user.date"
+						class="grid-input"
+						label="rule date"
+						:validation="validator.rule('date')"/>
+					<!-- <o-input
+						v-model="user.name2"
 						class="grid-input"
 						label="Test validation (string) required and length"
-						validation="required|length:3"/>
+						validation="required|length:3"/> -->
 					<o-input
-						v-model="user.login"
+						v-model="user.name2"
+						class="grid-input"
+						label="Test validation (string) required and length"
+						validation="required:|length:3,5"/>
+					<!-- <o-input
+						v-model="user.emailRequired"
 						type="email"
 						class="grid-input"
 						label="Test validation email"
 						validation-error-message="Email invalide"
-						:validation="validator.rule('login')"/>
-					<o-datepicker
-						v-model="user.date"
-						class="grid-input"
-						label="Test validation fonction"
-						:validation="validator.rule('date')"/>
+						:validation="validator.rule('emailRequired')"/>
+
 					<o-phone
 						v-model="user.phone"
 						label="téléphone"
@@ -187,13 +206,17 @@ import { Validator } from 'utils/Validator';
 const testLongErrorMessage = 'Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Donec sed odio dui. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.';
 
 let user = reactive({
+	required: undefined as Undef<string>,
+	customRuleInTemplate: undefined as Undef<string>,
+	customValidatorRuleInTemplate: undefined as Undef<string>,
 	name: undefined as Undef<string>,
+	name2: undefined as Undef<string>,
 	nameForExtendedRule: undefined as Undef<string>,
 	toggle: false,
 	toggleRequired: false,
 	choice: false,
 	radio: undefined,
-	login: undefined as Undef<string>,
+	emailRequired: undefined as Undef<string>,
 	date: undefined as Undef<Date>,
 	phone: {
 		phoneCountryCode: 'FR',
@@ -212,34 +235,63 @@ let result = false;
 const resultColor = ref<Orion.Color>('default');
 
 const validator = useValidation(user, {
-	login: val => !!val?.length && val.length > 10 && Validator.rules.email()(val),
+	// emailRequired: val => !!val?.length && val.length > 10 && Validator.rules.email()(val).result,
+	emailRequired: new Validator([
+		Validator.rules.required(),
+		Validator.rules.email('oulala'),
+	]),
+	// name: 'required|length:2',
 	name: new Validator([
-		/* Validator.rules.required(),
+		Validator.rules.required(`Ce champ est requis`),
 		Validator.rules.hasUppercase(),
-		Validator.rules.hasMinLength(5), */
-		Validator.rules.hasMaxLength(10),
+		// Validator.rules.hasMinLength(5),
+		// Validator.rules.hasMaxLength(10),
+		Validator.rules.length(2),
 	]),
 	/* nameForExtendedRule: new Validator([
-		{
+		val => ({
+			result: (val?.length ?? 0) > 2,
+			message: 'length supérieure à 2',
 			level: 'error',
-			rule: val => Validator.rules.required()(user.name)
-				? Validator.rules.required()(val)
-				: true,
-			message: `this field is required`,
-		},
-		{
-			level: 'warning',
-			rule: Validator.rules.hasMinLength(3),
-			message: `should be at least 3 char. long`,
-		},
-		{
-			level: 'warning',
-			rule: () => !!user.nameForExtendedRule?.includes('toto'),
-			message: `should contain 'toto'`,
-		},
-	]),
-	date: Validator.rules.required(),
-	phone: new Validator<typeof user.phone>([
+		}),
+		val => ({
+			result: !!val?.includes('toto'),
+			message: 'doit contenir "toto"',
+			level: 'error',
+		}),
+	]), */
+	nameForExtendedRule: (val) => {
+		if (val?.length) {
+			return {
+				result: (val?.length ?? 0) > 2,
+				message: 'length supérieure à 2',
+				level: 'error',
+			};
+		}
+		return true;
+	},
+	customRuleInTemplate: () => false,
+	date: (val) => {
+		if (val?.getFullYear() === 2023) {
+			if (val.getMonth() === 11) {
+				return {
+					result: false,
+					level: 'error',
+					message: `date should be before december`,
+				};
+			}
+			if (val.getMonth() < 4) {
+				return {
+					result: false,
+					level: 'error',
+					message: `date should be after may`,
+				};
+			}
+			return true;
+		}
+		return true;
+	},
+	/* phone: new Validator<typeof user.phone>([
 		{
 			level: 'error',
 			rule: value => value?.phoneCountryCode === 'DE',
@@ -282,4 +334,3 @@ function checkForm () : void {
 
 <style lang="less">
 </style>
-

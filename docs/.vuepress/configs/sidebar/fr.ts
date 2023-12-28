@@ -111,6 +111,7 @@ export const fr: SidebarConfig = [
 			'/fr/tooling/bus.md',
 			'/fr/tooling/log.md',
 			'/fr/tooling/tools.md',
+			'/fr/tooling/validator.md',
 		],
 	},
 	{

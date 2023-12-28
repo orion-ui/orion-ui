@@ -67,7 +67,7 @@ export default abstract class SharedFieldSetupService<P, T, E extends FieldEmit 
 		// @doc props/validation the validation for the field
 		// @doc/fr props/validation la validation du champ
 		validation: {
-			type: [String, Function, Object, Boolean] as PropType<string | ((val: any) => boolean) | Orion.Validation.Rule | boolean>,
+			type: [String, Function, Object, Boolean] as PropType<string | ((val: any) => boolean) | Orion.Validator.Rule | Orion.Validation.Rule | boolean>,
 			default: undefined,
 		},
 		// @doc props/validationErrorMessage the error message displayed after input's validation.
@@ -106,9 +106,15 @@ export default abstract class SharedFieldSetupService<P, T, E extends FieldEmit 
 
 	readonly isValid = computed(() => this.isValidDefault);
 
-	readonly validationResults = computed(() => {
-		if (typeof this.props.validation === 'object' && this.props.validation.definition instanceof Validator) {
-			return this.props.validation.definition.validate(this.props.modelValue);
+	readonly validationResults = computed<Orion.Validator.RuleResult[]>(() => {
+		if (typeof this.props.validation === 'object') {
+			if (this.props.validation.definition instanceof Validator) {
+				return this.props.validation.definition.validate(this.props.modelValue);
+			} else if (typeof this.props.validation.definition === 'function') {
+				return [Validator.convertToValidatorResult(this.props.validation.definition(this.props.modelValue))];
+			}
+		} else if (typeof this.props.validation === 'function') {
+			return [Validator.convertToValidatorResult(this.props.validation(this.props.modelValue))];
 		}
 		return [];
 	});
@@ -124,10 +130,10 @@ export default abstract class SharedFieldSetupService<P, T, E extends FieldEmit 
 				return this.props.validation.validate();
 			} else if (typeof this.props.validation === 'function') {
 				// using a standalone validation function
-				return this.props.validation(this.props.modelValue);
+				return Validator.convertToValidatorResult(this.props.validation(this.props.modelValue)).result;
 			} else if (typeof this.props.validation === 'string') {
 				// using string base validation
-				return useValidation().checkRuleParams(this.props.modelValue, this.props.validation);
+				return useValidation().check(this.props.modelValue, this.props.validation);
 			} else if (typeof this.props.validation === 'boolean') {
 				// using boolean base validation
 				return this.props.validation;

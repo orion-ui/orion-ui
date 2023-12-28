@@ -36,6 +36,7 @@ type ServiceDataItem = {
       description: string,
       defaultValue?: string
     }[]
+		deprecated?: string
 }
 
 const props = defineProps({
@@ -55,7 +56,7 @@ const jsxListItem = (props : {item : ServiceDataItem, keyname: string}) => {
 	const methodName = `${props.keyname}(${props.item?.param?.filter(x => x.type.trim().length).map(x => x.name).join(', ')})`
 
   return (
-		<prop-description name={methodName} type={props.item?.return}>
+		<prop-description name={methodName} type={props.item?.return} deprecated={props.item?.deprecated}>
 			{ 
 				props.item?.description 
 					? <Markdown source={capitalizeFirstLetter(props.item?.description)}/>

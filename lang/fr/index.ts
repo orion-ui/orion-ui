@@ -8,6 +8,7 @@ export default {
 	ACTIVATE: `Activer`,
 	BACK: `Retour`,
 	CANCEL: `Annuler`,
+	CHARACTER: `caractère`,
 	CLOSE_ACTION: `Fermer`,
 	CLOSE_MENU: `Fermer le menu`,
 	CONFIRM: `Confirmer`,
@@ -119,4 +120,17 @@ export default {
 	ORION_UPLOAD__PROCESSING: `Traîtement en cours...`,
 
 	USE_CONFIRM__TITLE: `Confirmation`,
+
+	VALIDATOR_ERROR_REQUIRED: `Requis`,
+	VALIDATOR_ERROR_HAS_LOWERCASE: `Caractère minuscule manquant`,
+	VALIDATOR_ERROR_HAS_UPPERCASE: `Caractère majuscule manquant`,
+	VALIDATOR_ERROR_HAS_NUMBER: `Caractère numérique manquant`,
+	VALIDATOR_ERROR_HAS_SPECIAL_CHAR: `Caractère spécial manquant`,
+	VALIDATOR_ERROR_HAS_MIN_LENGTH: `Longueur minimale de $charLength requise`,
+	VALIDATOR_ERROR_HAS_MAX_LENGTH: `Longueur maximale de $charLength requise`,
+	VALIDATOR_ERROR_LENGTH: `La longueur des caractères doit être comprise entre $min et $max`,
+	VALIDATOR_ERROR_PHONE: `Numéro de téléphone invalide`,
+	VALIDATOR_ERROR_PASSWORD: `Mot de passe invalide`,
+	VALIDATOR_ERROR_PASSWORD_CONFIRM: `Confirmation de mot de passe invalide`,
+	VALIDATOR_ERROR_EMAIL: `Email non valide`,
 };

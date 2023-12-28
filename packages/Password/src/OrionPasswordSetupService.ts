@@ -35,7 +35,7 @@ export default class OrionPasswordSetupService extends SharedFieldSetupService<P
 		if (this.props.passwordToConfirm) {
 			return this.props.passwordToConfirm === this.vModel;
 		}
-		return useValidation().checkRuleParams(this.vModel, 'password');
+		return useValidation().check(this.vModel, 'password');
 	}
 
 	get showState (): boolean {
@@ -61,19 +61,19 @@ export default class OrionPasswordSetupService extends SharedFieldSetupService<P
 			return [
 				{
 					message: this.lang.ORION_PASSWORD__VALIDATION_HAS_LOWERCASE,
-					valid: useValidation().checkRuleParams(this.vModel, 'hasLowercase'),
+					valid: useValidation().check(this.vModel, 'hasLowercase'),
 				},
 				{
 					message: this.lang.ORION_PASSWORD__VALIDATION_HAS_UPPERCASE,
-					valid: useValidation().checkRuleParams(this.vModel, 'hasUppercase'),
+					valid: useValidation().check(this.vModel, 'hasUppercase'),
 				},
 				{
 					message: this.lang.ORION_PASSWORD__VALIDATION_HAS_NUMBER,
-					valid: useValidation().checkRuleParams(this.vModel, 'hasNumber'),
+					valid: useValidation().check(this.vModel, 'hasNumber'),
 				},
 				{
 					message: this.lang.ORION_PASSWORD__VALIDATION_LENGTH,
-					valid: useValidation().checkRuleParams(this.vModel, 'length:8,60'),
+					valid: useValidation().check(this.vModel, 'length:8,60'),
 				},
 			];
 		}
