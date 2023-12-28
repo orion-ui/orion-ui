@@ -139,24 +139,6 @@ select:-webkit-autofill:focus {
 		}
 	}
 
-	each(@colors, {
-		@color: ~"--@{value}";
-		&--@{value} {
-			[class*="__label"] {
-				color: var(@color);
-			}
-
-			&[class*="--checked"] > [class*="__check-container"] {
-				background: var(@color);
-				border-color: var(@color);
-			}
-
-			&:hover > [class*="__check-container"] {
-				border-color: var(@color);
-			}
-		}
-	});
-
 	&--default {
 		&[class*='--checked'] > [class*='__check-container'] {
 			background: var(--info);
@@ -167,6 +149,20 @@ select:-webkit-autofill:focus {
 			border-color: var(--info);
 		}
 	}
+
+	each(@colors, {
+		@color: ~"--@{value}";
+		&--@{value} {
+			&[class*="--checked"] > [class*="__check-container"] {
+				background: var(@color);
+				border-color: var(@color);
+			}
+
+			&:hover > [class*="__check-container"] {
+				border-color: var(@color);
+			}
+		}
+	});
 
 	&--error {
 		&:not(.orion-radio--default) > [class*='__label'] {

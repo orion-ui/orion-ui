@@ -89,12 +89,8 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Prop
 
 	protected get isValidCustom () {
 		if (this.props.type === 'email') {
-			return useValidation().checkRuleParams(this.vModel, 'email');
+			return useValidation().check(this.vModel, 'email');
 		}
-	}
-
-	protected get showStateCustom () {
-		return this.props.type === 'email';
 	}
 
 	get vModel () {

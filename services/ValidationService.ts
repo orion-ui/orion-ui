@@ -1,135 +1,72 @@
-import { get } from 'lodash-es';
 import { reactive } from 'vue';
+import { Validator } from '../utils/Validator';
 
-export type ValidationArrayType<T extends Record<string, any>> = {
-  [K in keyof T]?: string | Function;
-}
 
 type FieldHasBeenFocusSetter = {
 	setHasBeenFocus: (value: boolean) => void;
 }
 
-type PhoneValidation = Record<
-	Orion.Country['code'],
-	{
-		classic: RegExp,
-		mobile: RegExp
-	}
->;
 
-class ValidationService<T extends ValidationArrayType<any>> {
-	private regexRegistry = {
-		password: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,60}$/,
-		hasLowercase: /[a-z]/,
-		hasUppercase: /[A-Z]/,
-		hasNumber: /[0-9]/,
-		hasSpecialChar: /[^A-Za-z0-9]/,
-		email: /^([a-zA-Z0-9_-]+([+.]{1}[a-zA-Z0-9_-]+)*)@([a-zA-Z0-9_-]+([.]{1}[a-zA-Z0-9_-]+)*)([.]{1}[a-zA-Z]{2,12})$/,
-		phone: {
-			FR: {
-				classic: /^([+]33|0)\d{9}$/,
-				mobile: /^([+]33|0)(6|7)\d{8}$/,
-			},
-			// @contribution Put other country validation RegExp here
-		} as PhoneValidation,
-	};
-
-	private rulesRegistry = {
-		required: (value: any) => {
-			return (value && value !== '');
-		},
-
-		hasLowercase: (value: string) => {
-			return !!value?.length && this.regexRegistry.hasLowercase.test(value);
-		},
-
-		hasUppercase: (value: string) => {
-			return !!value?.length && this.regexRegistry.hasUppercase.test(value);
-		},
-
-		hasNumber: (value: string) => {
-			return !!value?.length && this.regexRegistry.hasNumber.test(value);
-		},
-
-		hasSpecialChar: (value: string) => {
-			return !!value?.length && this.regexRegistry.hasSpecialChar.test(value);
-		},
-
-		length: (value: string, ...args: any[]) => {
-			const min = args[0] ?? 0;
-			const max = args[1] ?? Infinity;
-			return value?.length >= min && value.length <= max;
-		},
-
-		phone: (value: any, ...args: any[]) => {
-			const countryCode = value?.phoneCountryCode as Undef<Orion.Country['code']>;
-			if (!!countryCode && value?.phoneNumber && this.regexRegistry.phone[countryCode]) {
-				return args[0]?.includes('mobile')
-					? this.regexRegistry.phone[countryCode].mobile.test(value.phoneNumber)
-					: this.regexRegistry.phone[countryCode].classic.test(value.phoneNumber);
-			} else {
-				return !!value?.phoneNumber;
-			}
-		},
-
-		password: (value: string) => {
-			return this.regexRegistry.password.test(value);
-		},
-
-		passwordConfirm: (value : string, ...args: any[]) => {
-			return !!value?.length && get(this.objectToValidate, args[0]) === value;
-		},
-
-		email: (value: string) => {
-			return this.regexRegistry.email.test(value);
-		},
-	};
+class ValidationService<T, V extends Orion.Validation.Rules<T>> {
 
 	private state = reactive({
-		showState: false,
+		showStatus: false,
 		componentFocusState: [] as FieldHasBeenFocusSetter[],
 	});
 
-	objectToValidate?: Record<string, any>;
-	validatorRules?: T;
+	objectToValidate?: T;
+	validatorRules?: Orion.Validation.Rules<T>;
 
 
-	constructor (objectToValidate?: Record<string, any>, validatorRules?: T) {
+	constructor (objectToValidate?: T, validatorRules?: V) {
 		this.objectToValidate = objectToValidate;
 		this.validatorRules = validatorRules;
 	}
 
 
-	private phoneNumberWithoutPrefix (value: string) {
-		return value.replace(value.slice(0, 3), '');
-	}
-
-	private checkObjectPropRule (propName: string) {
-		return this.checkRuleParams(get(this.objectToValidate, propName), (this.validatorRules as any)[propName]);
+	private checkObjectPropRule (propName: keyof T) {
+		if (typeof this.objectToValidate !== 'object') return false;
+		if (!this.objectToValidate || !(propName in this.objectToValidate)) return false;
+		return this.check(this.objectToValidate[propName], (this.validatorRules as any)[propName]);
 	}
 
 	/**
 	 * @desc checks if the value verifies the rule given in parameter
 	 * @param {any} value value to check
-	 * @param {string | ((val: any) => boolean)} [ruleParams] rule which must verify the value to pass the verification
+	 * @param {Orion.Validation.RuleResult<any>} ruleParams rule which must verify the value to pass the verification
 	 * @return boolean
 	 */
-	checkRuleParams (value: any, ruleParams: string | ((val: any) => boolean)) {
+	check <T = any> (value: T, ruleParams: Orion.Validation.RuleResult<T>): boolean {
 		if (typeof ruleParams === 'function') {
-			return ruleParams(value);
-		} else {
+			return Validator.convertToValidatorResult(ruleParams(value)).result;
+		} else if (typeof ruleParams === 'string') {
 			const rulesToValidate = ruleParams?.split('|');
 			for (let i = 0; i < rulesToValidate?.length; i++) {
 				const rule = rulesToValidate[i];
-				const ruleName = rule.split(':')[0] as keyof typeof this.rulesRegistry;
+				const ruleName = rule.split(':')[0] as keyof typeof Validator.rules;
 				const ruleArgs = rule.split(':')[1]?.split(',') ?? [];
-				if (this.rulesRegistry[ruleName]) {
-					const test = this.rulesRegistry[ruleName](value, ...ruleArgs);
-					if (!test) return false;
+				if (Validator.rules[ruleName]) {
+					const test = (Validator.rules[ruleName] as any)(...ruleArgs)(value) as Orion.Validator.RuleResult;
+					if (!test.result) return false;
 				}
 			}
 			return true;
+		} else if (ruleParams instanceof Validator) {
+			return ruleParams.validate(value).filter(x => x.result === false).length === 0;
+		} else {
+			return true;
 		}
+	}
+
+	/**
+	 * @desc checks if the value verifies the rule given in parameter
+	 * @param {any} value value to check
+	 * @param {Orion.Validation.RuleResult<any>} ruleParams rule which must verify the value to pass the verification
+	 * @return boolean
+	 * @deprecated Use "check" method instead
+	 */
+	checkRuleParams (value: any, ruleParams: Orion.Validation.RuleResult<T>): boolean {
+		return this.check(value, ruleParams);
 	}
 
 	/**
@@ -137,7 +74,7 @@ class ValidationService<T extends ValidationArrayType<any>> {
 	 * @return void
 	 */
 	showValidationState () {
-		this.state.showState = true;
+		this.state.showStatus = true;
 	}
 
 	/**
@@ -145,7 +82,7 @@ class ValidationService<T extends ValidationArrayType<any>> {
 	 * @return void
 	*/
 	hideValidationState () {
-		this.state.showState = false;
+		this.state.showStatus = false;
 	}
 
 	/**
@@ -153,25 +90,29 @@ class ValidationService<T extends ValidationArrayType<any>> {
 	 * @return void
 	 */
 	resetValidationState () {
-		this.state.showState = false;
+		this.state.showStatus = false;
 		this.state.componentFocusState.forEach((x) => {
 			x.setHasBeenFocus(false);
 		});
 	}
 
-	registerComponentFocusState (value: FieldHasBeenFocusSetter) {
-		this.state.componentFocusState.push(value);
+	/**
+	 * @desc this method allows the ValidationService instance to set the component's focus state, to display validation status on it
+	 * @param {FieldHasBeenFocusSetter} setter
+	 * @return void
+	 */
+	registerComponentFocusStateSetter (setter: FieldHasBeenFocusSetter) {
+		this.state.componentFocusState.push(setter);
 	}
 
 	/**
 	 * @desc checks if the object to validate verifies all the rules.
 	 * @return boolean
 	*/
-	validate () {
+	validate (): boolean {
 		for (const key in this.validatorRules) {
-			const test = this.checkObjectPropRule(key);
-			if (!test)
-				return false;
+			const result = this.checkObjectPropRule(key);
+			if (!result) return false;
 		}
 		return true;
 	}
@@ -179,16 +120,16 @@ class ValidationService<T extends ValidationArrayType<any>> {
 	/**
 	 * @param {string} ruleName name of the rule
 	 */
-	rule (ruleName: keyof T) {
+	rule (ruleName: keyof V) {
 		return {
-			registerComponentFocusState: this.registerComponentFocusState.bind(this),
-			showValidationState: this.state.showState,
-			validationArgs: this.validatorRules?.[ruleName],
-			validate: () => this.checkObjectPropRule(ruleName as string),
+			registerComponentFocusStateSetter: this.registerComponentFocusStateSetter.bind(this),
+			showStatus: this.state.showStatus,
+			definition: this.validatorRules?.[ruleName as keyof T],
+			validate: () => this.checkObjectPropRule(ruleName as keyof T),
 		};
 	}
 }
 
-export default function useValidation<T extends Record<string, any>, V extends ValidationArrayType<T>> (objectToValidate?: T, validatorRules?: V) {
+export default function useValidation<T, V extends Orion.Validation.Rules<T>> (objectToValidate?: T, validatorRules?: V) {
 	return new ValidationService(objectToValidate, validatorRules);
 }

@@ -1,48 +1,34 @@
 <template>
-	<div>
-		<o-password
-			v-model="user.password.value"
-			password-tooltip
-			label="Password"
-			:validation="validator.rule('password.value')"
-			:validation-messages="passwordValidationMessages"/>
+	<div class="row row--grid">
+		<div class="col-sm-6">
+			<o-password
+				v-model="user.password"
+				label="Password"
+				password-tooltip/>
+		</div>
 
-		<o-password
-			v-model="user.password.passwordConfirm"
-			password-tooltip
-			label="Confirm password"
-			:validation="validator.rule('password.passwordConfirm')"/>
+		<div class="col-sm-6">
+			<o-password
+				v-model="user.passwordConfirm"
+				label="Confirm password"
+				password-tooltip
+				:password-to-confirm="user.password"/>
+		</div>
 	</div>
 </template>
 
-<script setup lang="ts">import { reactive } from 'vue';
-import { useValidation } from '../../lib';
-
+<script setup lang="ts">
+import { reactive } from 'vue';
 
 let user = reactive({
-	password: {
-		value: null,
-		passwordConfirm: null,
-	},
+	password: undefined as Undef<string>,
+	passwordConfirm: undefined as Undef<string>,
 });
-
-let rules = {
-	['password.value']: 'required|hasLowercase|hasUppercase|hasNumber',
-	['password.passwordConfirm']: 'passwordConfirm:password.value',
-};
-
-const validator = useValidation(user, rules);
-
-const passwordValidationMessages: OrionValidatorMessages = {
-	hasLowercase: 'Need lowercase !',
-	hasUppercase: 'Need uppercase !',
-	hasNumber: 'Need numbers !',
-};
 </script>
 
 @hmr services/Validation.md
 
-@hl {5,7-8,12,14,22-27,29-32,34}
+@hl {7,14-15,23-26}
 
 @lang:en
 ### Password validation

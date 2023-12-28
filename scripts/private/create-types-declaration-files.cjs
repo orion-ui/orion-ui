@@ -57,6 +57,7 @@ class TypesDeclarationFilesFactory {
 			'utils/Bus.ts',
 			'utils/Log.ts',
 			'utils/Orion.ts',
+			'utils/Validator.ts',
 			'utils/tools.ts',
 			'utils/mockup.ts',
 			'services/**/*.ts',

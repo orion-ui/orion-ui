@@ -104,15 +104,15 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 	}
 
 	get showWarning () {
-		return this.isFrPhone && this.hasValue && !this.isValid && this.isFocus;
+		return this.isFrPhone && this.hasValue && !this.isValid.value && this.isFocus;
 	}
 
 	get isValidCustom () {
-		return useValidation().checkRuleParams(this.vModel, this.props.mobile ? 'phone:mobile' : 'phone');
+		return useValidation().check(this.vModel, this.props.mobile ? 'phone:mobile' : 'phone');
 	}
 
 	get showState () {
-		const validator = this.props.validation as Undef<OrionValidatorRule>;
+		const validator = this.props.validation as Undef<Orion.Validation.Rule>;
 
 		if (this.props.inheritValidationState !== undefined) {
 			return this.props.inheritValidationState;
@@ -121,7 +121,7 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 		if (this.state.hasBeenFocus) {
 			return !!validator || !!this.hasValue;
 		} else {
-			return validator?.showValidationState ?? false;
+			return validator?.showStatus ?? false;
 		}
 	}
 

@@ -1,43 +1,52 @@
 <template>
-	<div class="orion-input-group orion-input-group--phone">
-		<orion-select
-			:ref="setup._country"
-			v-model="setup.country"
-			class="orion-telephone--indicatif"
-			track-key="code"
-			display-key="codeArea"
-			searchable
-			:disabled="setup.props.disabled"
-			:options="setup.countryList"
-			:custom-search="setup.customSearch.bind(setup)"
-			@input-keydown-tab="setup._input.value?.focus()">
-			<template #value="{ item }">
-				{{ item !== null && item !== undefined ? item.code : '' }}
-			</template>
+	<div class="orion-phone">
+		<div class="orion-input-group orion-input-group--phone">
+			<orion-select
+				:ref="setup._country"
+				v-model="setup.country"
+				class="orion-telephone--indicatif"
+				track-key="code"
+				display-key="codeArea"
+				searchable
+				:disabled="setup.props.disabled"
+				:options="setup.countryList"
+				:custom-search="setup.customSearch.bind(setup)"
+				@input-keydown-tab="setup._input.value?.focus()">
+				<template #value="{ item }">
+					{{ item !== null && item !== undefined ? item.code : '' }}
+				</template>
 
-			<template #option="{ item }">
-				{{ `${item.name} (+${item.areaCode})` }}
-			</template>
-		</orion-select>
+				<template #option="{ item }">
+					{{ `${item.name} (+${item.areaCode})` }}
+				</template>
+			</orion-select>
 
-		<orion-input
-			:ref="setup._input"
-			v-model="setup.phoneNumber"
-			type="tel"
-			:cleave="setup.cleaveOptions"
-			:class="{ 'orion-input--warning': setup.showWarning }"
-			:validation="setup.isValid"
-			:inherit-validation-state="setup.showState"
-			v-bind="{
-				...$attrs,
-				label: setup.props.label,
-				disabled: setup.props.disabled,
-				clearable: setup.props.clearable,
-				required: setup.isRequired,
-			}"
-			force-label-floating
-			@focus="setup.handleFocus($event)"
-			@blur="setup.handleBlur($event)"/>
+			<orion-input
+				:ref="setup._input"
+				v-model="setup.phoneNumber"
+				type="tel"
+				:cleave="setup.cleaveOptions"
+				:class="{ 'orion-input--warning': setup.showWarning }"
+				:validation="setup.isValid.value"
+				:inherit-validation-state="setup.showState"
+				v-bind="{
+					...$attrs,
+					label: setup.props.label,
+					disabled: setup.props.disabled,
+					clearable: setup.props.clearable,
+					required: setup.isRequired,
+				}"
+				force-label-floating
+				@focus="setup.handleFocus($event)"
+				@blur="setup.handleBlur($event)"/>
+		</div>
+
+		<div
+			v-if="setup.showState
+				&& (setup.showError || setup.showWarning)
+				&& setup.validationHtmlMessages?.length"
+			class="orion-input__error-message"
+			v-html="setup.validationHtmlMessages"/>
 	</div>
 </template>
 

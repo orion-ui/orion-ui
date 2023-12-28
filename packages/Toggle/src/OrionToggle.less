@@ -180,6 +180,14 @@
 	}
 
 	&--checked {
+		&.orion-toggle--default {
+			> .orion-toggle__core,
+			> .orion-toggle__core > .orion-toggle__core-button::before,
+			> .orion-toggle__core > .orion-toggle__core-button::after {
+				background: var(--info);
+			}
+		}
+
 		each(@colors, {
 			@color: ~"--@{value}";
       &.orion-toggle--@{value} {
@@ -190,14 +198,6 @@
         }
       }
     });
-
-		&.orion-toggle--default {
-			> .orion-toggle__core,
-			> .orion-toggle__core > .orion-toggle__core-button::before,
-			> .orion-toggle__core > .orion-toggle__core-button::after {
-				background: var(--info);
-			}
-		}
 
 		&.orion-toggle--inverse {
 			> .orion-toggle__core,

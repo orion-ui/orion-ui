@@ -21,10 +21,11 @@
 			@blur="setup.handleBlurCustom($event)">
 
 		<div
-			v-if="!setup.isValid && setup.orionFieldBinding.showError"
-			class="orion-input__error-message">
-			{{ setup.props.validationErrorMessage }}
-		</div>
+			v-if="setup.showState
+				&& (setup.showError || setup.showWarning)
+				&& setup.validationHtmlMessages?.length"
+			class="orion-input__error-message"
+			v-html="setup.validationHtmlMessages"/>
 	</orion-field>
 </template>
 

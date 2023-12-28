@@ -6,6 +6,7 @@
 				{
 					'sidebar--opened': sidebarOpened,
 					'doc-content-wrapper--home': frontmatter.home,
+					'doc-content-wrapper--no-toc': frontmatter.noToc,
 				}
 			]">
 			<Sidebar v-if="shouldShowSidebar"/>
@@ -32,7 +33,9 @@
 					</template>
 				</v-dropdown>
 
-				<Home v-if="frontmatter.home"/>
+				<component 
+					v-if="frontmatter.viewComponent && viewComponent[frontmatter.viewComponent]" 
+					:is="viewComponent[frontmatter.viewComponent]"/>
 				<Content v-else/>
 				<PageNav v-if="!frontmatter.home"/>
 				<PageMeta v-if="!frontmatter.home"/>
@@ -55,7 +58,7 @@
 <script setup lang="ts">
 import '../../styles/index.less';
 
-import { nextTick, onMounted, ref, watch, computed } from 'vue';
+import { nextTick, onMounted, ref, watch, computed, type Component } from 'vue';
 import { useRouter } from 'vue-router';
 import { usePageFrontmatter, usePageLang } from '@vuepress/client';
 import { setThemeMode, setAppLang, useResponsive, Bus } from '@/lib';
@@ -66,10 +69,16 @@ import PageNav from '@theme/PageNav.vue';
 import PageMeta from '@theme/PageMeta.vue';
 import TableOfContent from './components/TableOfContents.vue';
 import Home from './components/Home.vue';
+import Services from './components/Services.vue';
 import TourDoc from '@/packages/Tour/docs/TourDoc.vue'
 import TourProps from '@/packages/Tour/docs/TourProps.vue'
 
 const frontmatter = usePageFrontmatter<any>()
+
+const viewComponent: Record<string, Component> = {
+	Home,
+	Services,
+}
 
 const sidebarOpened = ref(false);
 const tocOpened = ref(false);

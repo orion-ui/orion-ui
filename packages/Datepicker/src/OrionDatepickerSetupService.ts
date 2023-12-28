@@ -1,4 +1,4 @@
-import { nextTick, PropType, reactive, ref } from 'vue';
+import { nextTick, PropType, reactive, ref, watchEffect } from 'vue';
 import { debounce, isNil, throttle } from 'lodash-es';
 import { Dropdown } from 'floating-vue';
 import SharedFieldSetupService, { FieldEmit } from '../../Shared/SharedFieldSetupService';
@@ -24,7 +24,7 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 		// @doc props/range the modelValue if the type is set to `range`
 		// @doc/fr props/range le modelValue si le type est défini à `range`
 		range: {
-			type: Object as PropType<Nil<Orion.DateRange>>,
+			type: Object as PropType<Undef<Orion.DateRange>>,
 			default: undefined,
 		},
 		// @doc props/multiple the modelValue if the type is set to `multiple`
@@ -42,13 +42,13 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 		// @doc props/minDate the minimum date which can be selected
 		// @doc/fr props/minDate la date minimum qui peut être sélectionnée
 		minDate: {
-			type: Date as PropType<Nil<Date>>,
+			type: Date as PropType<Undef<Date>>,
 			default: undefined,
 		},
 		// @doc props/maxDate the maximum date which can be selected
 		// @doc/fr props/maxDate la date maximum qui peut être sélectionnée
 		maxDate: {
-			type: Date as PropType<Nil<Date>>,
+			type: Date as PropType<Undef<Date>>,
 			default: undefined,
 		},
 		// @doc props/type the type of the model value
@@ -80,6 +80,7 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 		mobileHoursValue: 0,
 		mobileMinutesValue: 0,
 		selectionIsOn: undefined as Undef<'year' | 'month' | 'day' | 'hours' | 'minutes' | 'ampm'>,
+		rangeBuffer: undefined as Undef<Orion.DateRange>,
 	});
 
 	private get dateSeparator () { return this.lang.DATE_SEPARATOR; }
@@ -182,11 +183,14 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 		this.emit('input', val);
 	}
 
-	get range () {
-		return this.props.range;
-	}
+	get range () { return this.props.range; }
 
-	set range (val) {
+	get rangeBuffer () { return this.state.rangeBuffer; }
+	set rangeBuffer (val) {
+		this.state.rangeBuffer = val;
+
+		if (!!val?.selecting) return;
+		if (!!val?.start && !val.end) return;
 		this.emit('update:range', val);
 	}
 
@@ -202,6 +206,8 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 	constructor (props: Props, emit: DatepickerEmit) {
 		super(props, emit);
 		this.emit = emit;
+
+		watchEffect(() => this.state.rangeBuffer = { ...this.props.range });
 	}
 
 
@@ -899,7 +905,7 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 		}
 
 		if (this.props.type === 'range' && !this.hasValue) {
-			this.range = {};
+			// this.rangeBuffer = {};
 		}
 
 		if (this.props.type === 'week' && this.hasValue) {
@@ -911,6 +917,10 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 	handlePopperHide () {
 		if (this.props.type === 'range' && !this.hasValue) {
 			this.handleClear();
+		}
+
+		if (this.props.type === 'range' && this.state.rangeBuffer?.selecting) {
+			this.state.rangeBuffer = { ...this.props.range };
 		}
 	}
 

@@ -171,7 +171,11 @@
 		max-width: 75rem;
 	}
 
-	@media @phone  {
+	.doc-content-wrapper--no-toc & {
+		max-width: 57rem;
+	}
+
+	@media @phone {
 		padding: var(--fluid-20px) var(--fluid-15px);
 	}
 
@@ -197,6 +201,7 @@
 
 	.page-meta {
 		padding: 0;
+		margin-top: 2rem;
 
 		.meta-item-info {
 			color: var(--grey-darker);
@@ -275,7 +280,7 @@
 	z-index: 20;
 	justify-content: flex-end;
 	backdrop-filter: saturate(50%) blur(8px);
-    background: rgba(255, 255, 255, 0.7);
+	background: rgba(255, 255, 255, 0.7);
 	[data-orion-theme='dark'] & {
 		background: rgba(34, 39, 46, 0.7);
 	}
@@ -302,11 +307,10 @@ code {
 		@media @phone {
 			font-size: 0.5rem !important;
 		}
-		
 	}
 }
 @media @tabletPortraitOnly {
-.DocSearch {
+	.DocSearch {
 		&-Button-Placeholder {
 			display: none;
 		}

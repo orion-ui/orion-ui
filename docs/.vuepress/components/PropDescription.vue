@@ -1,5 +1,5 @@
 <template>
-	<div class="prop-description">
+	<div class="prop-description" :class="{ 'prop-description--deprecated': !!deprecated }">
 		<div class="prop-description__header">
 			<span class="prop-description__name">{{ name }}</span>
 			<code>
@@ -7,6 +7,11 @@
 				<span v-if="type && value"> : </span>
 				<span v-if="value" class="prop-description__value">{{ value }}</span>
 			</code>
+		</div>
+
+		<div v-if="!!deprecated" class="prop-description__deprecated">
+			<code>deprecated</code>
+			<span>{{ deprecated }}</span>
 		</div>
 		
 		<div class="prop-description__description">
@@ -29,6 +34,10 @@ defineProps({
 		type: [String, Number],
 		default: undefined,
 	},
+	deprecated: {
+		type: String,
+		default: undefined,
+	}
 })
 </script>
 
@@ -57,6 +66,10 @@ defineProps({
 	&__name {
 		font-family: var(--font-family-code);
 		color: var(--info);
+
+		.prop-description--deprecated & {
+			color: var(--warning);
+		}
 	}
 
 	&__value {
@@ -76,6 +89,20 @@ defineProps({
 
 		:deep(p:last-child) {
 			margin-bottom: 0;
+		}
+	}
+
+	&__deprecated {
+		display: flex;
+		gap: 0.5rem;
+		color: var(--warning);
+		border: 1px solid var(--warning-light);
+		border-radius: 0.25rem;
+		padding: 0.25rem;
+
+		code {
+			color: var(--warning);
+			background-color: var(--warning-light);
 		}
 	}
 }

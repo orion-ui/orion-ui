@@ -13,7 +13,7 @@ export default class OrionPasswordSetupService extends SharedFieldSetupService<P
 		// @doc props/passwordToConfirm if specified, checks the match with the password value
 		// @doc/fr props/passwordToConfirm si spécifié, vérifie la correspondance avec le champ de mot de passe dans le cas d'une confirmation
 		passwordToConfirm: {
-			type: String as PropType<Nullable<string>>,
+			type: String as PropType<Undef<string>>,
 			default: undefined,
 		},
 		// @doc props/type type of the input
@@ -35,49 +35,48 @@ export default class OrionPasswordSetupService extends SharedFieldSetupService<P
 		if (this.props.passwordToConfirm) {
 			return this.props.passwordToConfirm === this.vModel;
 		}
-		return useValidation().checkRuleParams(this.vModel, 'password');
+		return useValidation().check(this.vModel, 'password');
 	}
 
-	protected get showStateCustom () {
-		return this.props.passwordTooltip;
+	get showState (): boolean {
+		return super.showState || (
+			this.props.passwordTooltip
+			&& this.state.hasBeenFocus
+		);
 	}
 
 	get tooltipValidationMessages () {
-		if (!this.props.validationMessages) {
-			if (this.props.passwordToConfirm !== undefined
+		if (this.props.passwordToConfirm !== undefined
 				|| (typeof this.props.validation === 'string' && this.props.validation.includes('passwordConfirm'))
 				|| (typeof this.props.validation === 'object'
-					&& typeof this.props.validation.validationArgs === 'string'
-					&& this.props.validation.validationArgs.includes('passwordConfirm')
+					&& typeof this.props.validation.definition === 'string'
+					&& this.props.validation.definition.includes('passwordConfirm')
 				)
-			) {
-				return [{
-					message: this.lang.ORION_PASSWORD__VALIDATION_PASWWORD_CONFIRMATION,
-					valid: this.isValid,
-				}];
-			} else {
-				return [
-					{
-						message: this.lang.ORION_PASSWORD__VALIDATION_HAS_LOWERCASE,
-						valid: useValidation().checkRuleParams(this.vModel, 'hasLowercase'),
-					},
-					{
-						message: this.lang.ORION_PASSWORD__VALIDATION_HAS_UPPERCASE,
-						valid: useValidation().checkRuleParams(this.vModel, 'hasUppercase'),
-					},
-					{
-						message: this.lang.ORION_PASSWORD__VALIDATION_HAS_NUMBER,
-						valid: useValidation().checkRuleParams(this.vModel, 'hasNumber'),
-					},
-					{
-						message: this.lang.ORION_PASSWORD__VALIDATION_LENGTH,
-						valid: useValidation().checkRuleParams(this.vModel, 'length:8,60'),
-					},
-				];
-			}
+		) {
+			return [{
+				message: this.lang.ORION_PASSWORD__VALIDATION_PASWWORD_CONFIRMATION,
+				valid: this.isValid.value,
+			}];
+		} else {
+			return [
+				{
+					message: this.lang.ORION_PASSWORD__VALIDATION_HAS_LOWERCASE,
+					valid: useValidation().check(this.vModel, 'hasLowercase'),
+				},
+				{
+					message: this.lang.ORION_PASSWORD__VALIDATION_HAS_UPPERCASE,
+					valid: useValidation().check(this.vModel, 'hasUppercase'),
+				},
+				{
+					message: this.lang.ORION_PASSWORD__VALIDATION_HAS_NUMBER,
+					valid: useValidation().check(this.vModel, 'hasNumber'),
+				},
+				{
+					message: this.lang.ORION_PASSWORD__VALIDATION_LENGTH,
+					valid: useValidation().check(this.vModel, 'length:8,60'),
+				},
+			];
 		}
-
-		return this.validationMessagesToDisplay;
 	}
 
 	get placementToolTip () {

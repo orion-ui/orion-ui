@@ -1,9 +1,10 @@
-import { PropType, reactive, ref } from 'vue';
+import { PropType, computed, reactive, ref } from 'vue';
 import { debounce, isNil } from 'lodash-es';
 import SharedProps from './SharedProps';
 import SharedSetupService from './SharedSetupService';
 import useValidation from 'services/ValidationService';
 import useWindow from 'services/WindowService';
+import { Validator } from 'utils/Validator';
 
 type Props = SetupProps<typeof SharedFieldSetupService.props>
 export type FieldEmit<T = any | null | undefined> = {
@@ -66,19 +67,13 @@ export default abstract class SharedFieldSetupService<P, T, E extends FieldEmit 
 		// @doc props/validation the validation for the field
 		// @doc/fr props/validation la validation du champ
 		validation: {
-			type: [String, Function, Object, Boolean] as PropType<string | Function | OrionValidatorRule | boolean>,
+			type: [String, Function, Object, Boolean] as PropType<string | ((val: any) => boolean) | Orion.Validator.Rule | Orion.Validation.Rule | boolean>,
 			default: undefined,
 		},
 		// @doc props/validationErrorMessage the error message displayed after input's validation.
 		// @doc/fr props/validationErrorMessage le message d'erreur affiché en cas d'erreur lors de la validation
 		validationErrorMessage: {
 			type: String,
-			default: undefined,
-		},
-		// @doc props/validationMessages displays informations about the validation error
-		// @doc/fr props/validationMessages affiche un message concernant l'erreur lors de la validation
-		validationMessages: {
-			type: Object as PropType<OrionValidatorMessages>,
 			default: undefined,
 		},
 		// @doc props/inheritValidationState defines if the validation comes from its parent
@@ -109,21 +104,36 @@ export default abstract class SharedFieldSetupService<P, T, E extends FieldEmit 
 
 	protected state = reactive({ ...this.sharedState });
 
-	protected get hasValue () {
+	readonly isValid = computed(() => this.isValidDefault);
+
+	readonly validationResults = computed<Orion.Validator.RuleResult[]>(() => {
+		if (typeof this.props.validation === 'object') {
+			if (this.props.validation.definition instanceof Validator) {
+				return this.props.validation.definition.validate(this.props.modelValue);
+			} else if (typeof this.props.validation.definition === 'function') {
+				return [Validator.convertToValidatorResult(this.props.validation.definition(this.props.modelValue))];
+			}
+		} else if (typeof this.props.validation === 'function') {
+			return [Validator.convertToValidatorResult(this.props.validation(this.props.modelValue))];
+		}
+		return [];
+	});
+
+	protected get hasValue (): boolean {
 		return this.props.modelValue !== null && this.props.modelValue !== undefined && this.props.modelValue !== '';
 	}
 
-	private get isValidDefault () : boolean {
+	private get isValidDefault (): boolean {
 		if (!isNil(this.props.validation)) {
 			if (typeof this.props.validation === 'object') {
 				// using a this.props.validation instance
 				return this.props.validation.validate();
 			} else if (typeof this.props.validation === 'function') {
 				// using a standalone validation function
-				return this.props.validation();
+				return Validator.convertToValidatorResult(this.props.validation(this.props.modelValue)).result;
 			} else if (typeof this.props.validation === 'string') {
 				// using string base validation
-				return useValidation().checkRuleParams(this.props.modelValue, this.props.validation);
+				return useValidation().check(this.props.modelValue, this.props.validation);
 			} else if (typeof this.props.validation === 'boolean') {
 				// using boolean base validation
 				return this.props.validation;
@@ -137,37 +147,60 @@ export default abstract class SharedFieldSetupService<P, T, E extends FieldEmit 
 	}
 
 	protected get isValidCustom (): boolean | undefined {
+		// Can be customized in each field type to act as default validator
 		return;
-	}
-
-	protected get showStateCustom () {
-		return false;
-	}
-
-	protected get validationMessagesToDisplay () {
-		if (this.props.validationMessages) {
-			return (Object.keys(this.props.validationMessages) as (keyof typeof this.props.validationMessages)[])
-				.map(rule => ({
-					message: this.props.validationMessages?.[rule],
-					valid: useValidation().checkRuleParams(this.props.modelValue, rule),
-				}));
-		} else return [];
 	}
 
 	protected get labelIsFloating () {
 		return this.state.isFocus || this.hasValue || this.props.forceLabelFloating || this.state.isAutoFilled;
 	}
 
-	get showError () {
-		return this.isValid === false && this.showState;
+	get validationHtmlMessages () {
+		const res = this.validationResults.value.length
+			? this.validationResults.value
+				.filter(x => !x.result)
+				.filter(x => !!x.message)
+				.map((x) => {
+					return x.level === 'error'
+						? `<div class="text--danger">${x.message}</div>`
+						: `<div class="text--warning">${x.message}</div>`;
+				})
+			: [];
+
+		if (!!this.props.validationErrorMessage) {
+			res.push(`<div class="text--danger">${this.props.validationErrorMessage}</div>`);
+		}
+
+		return res.join('\n');
 	}
 
-	get showSuccess () {
-		return this.isValid && this.showState;
+	get showError (): boolean {
+		if (!this.showState) return false;
+
+		if (this.validationResults.value.length) {
+			return !!this.validationResults.value.filter(x => x.level === 'error' && x.result === false).length;
+		} else {
+			return this.isValid.value === false;
+		}
 	}
 
-	get showState () {
-		const validator = this.props.validation as Undef<OrionValidatorRule>;
+	get showWarning (): boolean {
+		if (!this.showState) return false;
+		if (this.showError || this.showSuccess) return false;
+
+		if (this.validationResults.value.length) {
+			return !this.showError && !!this.validationResults.value.filter(x => x.level === 'warning' && x.result === false).length;
+		} else {
+			return false;
+		}
+	}
+
+	get showSuccess (): boolean {
+		return this.isValid.value && this.showState;
+	}
+
+	get showState (): boolean {
+		const validator = this.props.validation as Undef<Orion.Validation.Rule>;
 
 		if (this.props.inheritValidationState !== undefined) {
 			return this.props.inheritValidationState;
@@ -176,7 +209,7 @@ export default abstract class SharedFieldSetupService<P, T, E extends FieldEmit 
 		if (this.state.hasBeenFocus) {
 			return !!validator || (this.isRequired && !this.hasValue);
 		} else {
-			return validator?.showValidationState ?? false;
+			return validator?.showStatus ?? false;
 		}
 	}
 
@@ -189,20 +222,13 @@ export default abstract class SharedFieldSetupService<P, T, E extends FieldEmit 
 		this.emit('input', val);
 	}
 
-	get isValid () {
-		return this.isValidDefault;
-	}
-
-	get isFocus () {
+	get isFocus (): boolean {
 		return this.state.isFocus;
 	}
 
-	get isRequired () {
+	get isRequired (): boolean {
 		return this.props.required
-		|| !!(typeof this.props.validation === 'string' && this.props.validation.includes('required'))
-			|| !!(typeof this.props.validation === 'object'
-				&& typeof this.props.validation?.validationArgs === 'string'
-				&& this.props.validation.validationArgs?.includes('required'));
+		|| !!(typeof this.props.validation === 'string' && this.props.validation.includes('required'));
 	}
 
 	get orionFieldBinding (): OrionField.Props {
@@ -217,6 +243,7 @@ export default abstract class SharedFieldSetupService<P, T, E extends FieldEmit 
 			readonly: this.props.readonly,
 			required: this.isRequired,
 			showError: this.showError,
+			showWarning: this.showWarning,
 			showSuccess: this.showSuccess,
 			size: this.props.size,
 			suffixIcon: this.props.suffixIcon,
@@ -235,7 +262,7 @@ export default abstract class SharedFieldSetupService<P, T, E extends FieldEmit 
 			blur: this.blur.bind(this),
 			clear: this.clear.bind(this),
 			setHasBeenFocus: this.setHasBeenFocus.bind(this),
-			isValid: () => this.isValid,
+			isValid: () => this.isValid.value,
 		};
 	}
 
@@ -245,7 +272,7 @@ export default abstract class SharedFieldSetupService<P, T, E extends FieldEmit 
 		this.emit = emit;
 
 		if (!!this.props.validation && typeof this.props.validation === 'object') {
-			this.props.validation.registerComponentFocusState(this.publicInstance);
+			this.props.validation.registerComponentFocusStateSetter(this.publicInstance);
 		}
 	}
 

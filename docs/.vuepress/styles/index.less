@@ -50,6 +50,10 @@ ul:last-child {
 	margin-bottom: 0;
 }
 
+p a code {
+	font-weight: 600;
+}
+
 p > code {
 	margin: 0 calc(3rem / 16);
 }
@@ -251,6 +255,47 @@ summary.flat-source-code {
 		cursor: pointer;
 
 		&:hover {
+			color: var(--brand);
+		}
+	}
+}
+
+.tile {
+	display: block;
+	position: relative;
+	height: 100%;
+	padding: var(--fluid-30px);
+	line-height: 1.5;
+	border: 1px solid transparent;
+
+	@media @tablet {
+		padding: var(--fluid-45px);
+	}
+
+	> h3:not([class*='orion-']) {
+		margin-bottom: 1.25rem;
+		margin-top: 0;
+		padding-top: 0;
+	}
+
+	&--grey-lighter {
+		background: var(--grey-lighter);
+	}
+}
+
+a.tile {
+	transition: border-color 0.6s, border-radius 0.45s;
+	color: var(--grey-dark);
+
+	> h3:not([class*='orion-']) {
+		transition: color 0.3s;
+	}
+
+	&:hover {
+		border-color: var(--brand);
+		border-radius: 0.25rem;
+
+		> h3:not([class*='orion-']) {
 			color: var(--brand);
 		}
 	}

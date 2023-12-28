@@ -516,13 +516,31 @@ const serviceDocData = new Map([
 	[
 		'Validation',
 		{
-			checkRuleParams: {
+			check: {
 				'description': 'checks if the value verifies the rule given in parameter',
 				'return': 'boolean',
 				'param': [{
 					'name': 'value',
 					'type': 'any',
 					'description': 'value to check',
+				}, {
+					'name': 'ruleParams',
+					'type': 'Orion.Validation.RuleResult<any>',
+					'description': 'rule which must verify the value to pass the verification',
+				}],
+			},
+			checkRuleParams: {
+				'description': 'checks if the value verifies the rule given in parameter',
+				'return': 'boolean',
+				'deprecated': 'Use "check" method instead',
+				'param': [{
+					'name': 'value',
+					'type': 'any',
+					'description': 'value to check',
+				}, {
+					'name': 'ruleParams',
+					'type': 'Orion.Validation.RuleResult<any>',
+					'description': 'rule which must verify the value to pass the verification',
 				}],
 			},
 			showValidationState: {
@@ -537,6 +555,11 @@ const serviceDocData = new Map([
 			},
 			resetValidationState: {
 				'description': 'resets the validation state',
+				'return': 'void',
+				'param': [],
+			},
+			registerComponentFocusStateSetter: {
+				'description': 'this method allows the ValidationService instance to set the component\'s focus state, to display validation status on it',
 				'return': 'void',
 				'param': [],
 			},
