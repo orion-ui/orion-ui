@@ -6,7 +6,7 @@
 				v-model="setup.country"
 				class="orion-telephone--indicatif"
 				track-key="code"
-				display-key="codeArea"
+				display-key="areaCode"
 				searchable
 				:disabled="setup.props.disabled"
 				:options="setup.countryList"
@@ -37,6 +37,7 @@
 					required: setup.isRequired,
 				}"
 				force-label-floating
+				@keydown="setup.keydownGuard($event)"
 				@focus="setup.handleFocus($event)"
 				@blur="setup.handleBlur($event)"/>
 		</div>
