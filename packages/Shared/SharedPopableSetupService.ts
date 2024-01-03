@@ -115,9 +115,9 @@ export default abstract class SharedPopableSetupService<P extends Props> extends
 	protected onMounted () {
 		if (this.name !== 'OrionNotif') {
 			this.bus.on('enter-start', () => {
-				(this._el.value as HTMLDivElement).setAttribute('tabindex', '-1');
+				this._el.value?.setAttribute('tabindex', '-1');
 				nextTick(() => {
-					(this._el.value as HTMLDivElement).focus();
+					this._el.value?.focus();
 				});
 			});
 		}
