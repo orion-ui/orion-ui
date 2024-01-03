@@ -60,7 +60,7 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 	});
 
 	protected get isFrPhone () {
-		return this.vModel?.phoneCountryCode === 'FR';
+		return this.vModel?.phoneCountryCode === 'FR' || this.props.phoneCountryCode === 'FR';
 	}
 
 	protected override get hasValue () {
@@ -80,8 +80,8 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 
 	get phoneNumber () { return this.state.phoneNumber; }
 	set phoneNumber (val) {
-		this.state.phoneNumber = val;
-		this.emit('update:phoneNumber', val);
+		this.state.phoneNumber = this.sanitizePhoneNumber(val);
+		this.emit('update:phoneNumber', this.state.phoneNumber);
 		this.setVModel();
 	}
 
@@ -168,6 +168,14 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 	}
 
 
+	keydownGuard (e: KeyboardEvent) {
+		if (this.isFrPhone) {
+			if (this.state.phoneNumber === '+33' && e.key === '0') {
+				e.preventDefault();
+			}
+		}
+	}
+
 	customSearch (x: Orion.Country, valueRechercher: string) {
 		const display = `${x.name} +${x.areaCode}`;
 		return (
@@ -175,26 +183,17 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 		);
 	}
 
-	sanitizePhoneNumber () {
-		let phoneNumber = this.vModel?.phoneNumber;
+	sanitizePhoneNumber (phoneNumberToSanitize?: string) {
+		const phoneNumber = phoneNumberToSanitize ?? this.vModel?.phoneNumber;
 
 		if (this.isFrPhone && phoneNumber) {
-			if (phoneNumber.charAt(0) === '0') {
-				phoneNumber = phoneNumber.replace('0', '+33');
-			} else if (phoneNumber.includes('+330')) {
-				phoneNumber = phoneNumber.replace('+330', '+33');
-			}
+			return phoneNumber.replace(/^(0|\+330)(\d+)/, '+33$2');
 		}
 
 		return phoneNumber ?? '';
 	}
 
 	setVModel () {
-		const regex = new RegExp(/^[+]330\d+$/);
-		if (this.state.phoneNumber && regex.test(this.state.phoneNumber)) {
-			this.state.phoneNumber = this.state.phoneNumber.replace('+330', '+33');
-		}
-
 		this.vModel = {
 			phoneNumber: this.state.phoneNumber,
 			phoneCountryCode: this.state.country?.code,
