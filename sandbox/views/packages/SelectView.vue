@@ -18,9 +18,11 @@
 						track-key="id"
 						display-key="email"
 						value-key="id"
-						fetch-url="https://jsonplaceholder.typicode.com/users"
+						:custom-fetch="customFetch"
+						:fetch-min-search="2"
 						:fetch-initial-options="data.ajaxSingleInitialOptions"
-						:label="`Single`">
+						:label="`Single`"
+						@fetch-search-clear="cb">
 						<template #option="{ item, markedSearch }">
 							<div v-if="item">
 								<strong v-html="markedSearch(item.name.slice(0, 10))"/><br>
@@ -547,7 +549,8 @@ const commonBind = inject('commonBind');
 
 
 // #region Methods
-async function customFetch () {
+async function customFetch (term?: string) {
+	console.log(`customFetch term:`, term);
 	const resp = await fetch(`https://jsonplaceholder.typicode.com/users`);
 	return await resp.json();
 }

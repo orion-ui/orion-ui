@@ -204,6 +204,7 @@ type SelectEmit = {
 	(e: 'select', payload: BaseVModelType): void;
 	(e: 'fetch-start', payload: string): void;
 	(e: 'fetch-end', payload: BaseVModelType[]): void;
+	(e: 'fetch-search-clear'): void;
 }
 const emit = defineEmits<SelectEmit>();
 const props = defineProps(OrionSelectSetupService.props);

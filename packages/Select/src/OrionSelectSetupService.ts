@@ -17,8 +17,9 @@ type SelectEmit = FieldEmit<VModelType> & {
 	(e: 'add', payload: BaseVModelType): void;
 	(e: 'remove', payload: BaseVModelType): void;
 	(e: 'select', payload: BaseVModelType): void;
-	(e: 'fetch-start', payload: string): void;
+	(e: 'fetch-start', payload?: string): void;
 	(e: 'fetch-end', payload: BaseVModelType[]): void;
+	(e: 'fetch-search-clear'): void;
 }
 
 export default class OrionSelectSetupService extends SharedFieldSetupService<Props, VModelType> {
@@ -103,7 +104,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 		// @doc props/customFetch allows you to custom the fetch function
 		// @doc/fr props/customFetch permet de personnaliser la fonction de récupération des options
 		customFetch: {
-			type: Function,
+			type: Function as PropType<(searchTerm?: string) => BaseVModelType[]>,
 			default: undefined,
 		},
 		// @doc props/donetyping the duration to trigger the fetch
@@ -127,7 +128,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 		remove: BaseVModelType;
 	}>();
 
-	private fetchSearchDebounce = debounce((term: string) => {
+	private fetchSearchDebounce = debounce((term?: string) => {
 		this.fetchSearchAsync(term);
 	}, this.props.donetyping);
 
@@ -161,7 +162,23 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 	set autocompleteValue (value) { this.state.valueToSearch = value; }
 
 	get valueToSearch () { return this.state.valueToSearch; }
-	set valueToSearch (value) { this.state.valueToSearch = value; }
+	set valueToSearch (value) {
+		this.state.valueToSearch = value;
+
+		if (!value?.length) {
+			this.emit('fetch-search-clear');
+		}
+
+		if (this.props.fetchUrl || this.props.customFetch) {
+			this.fetchSearchDebounce(value);
+		} else {
+			nextTick(this.animate.bind(this));
+		}
+
+		if (this.props.autocomplete && !this.props.multiple && !value?.length) {
+			this.clear();
+		}
+	}
 
 	get indexNav () { return this.state.indexNav; }
 	set indexNav (value) { this.state.indexNav = value; }
@@ -250,18 +267,6 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 		watch(() => this.isObjectType, () => {
 			this.checkProps();
 		});
-
-		watch(() => this.state.valueToSearch, (val) => {
-			if (val && (this.props.fetchUrl || this.props.customFetch)) {
-				this.fetchSearchDebounce(val);
-			} else {
-				nextTick(this.animate.bind(this));
-			}
-
-			if (props.autocomplete && !props.multiple && !val?.length) {
-				this.clear();
-			}
-		});
 	}
 
 	protected async onBeforeMount () {
@@ -298,8 +303,12 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 		}
 	}
 
-	private async fetchSearchAsync (term: string) {
-		if (!term || term.length < this.props.fetchMinSearch) return;
+	private async fetchSearchAsync (term?: string) {
+		if (!isNil(term)
+			&& this.props.fetchMinSearch
+			&& term.length
+			&& term.length < this.props.fetchMinSearch
+		) return;
 
 		this.state.isFetching = true;
 		this.emit('fetch-start', term);
