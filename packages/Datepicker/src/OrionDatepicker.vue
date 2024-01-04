@@ -32,7 +32,7 @@
 				@blur="setup.handleBlur($event)">
 
 			<div
-				v-else-if="type === 'multiple' "
+				v-else-if="type === 'multiple'"
 				:ref="setup._input"
 				class="orion-input__input"
 				tabindex="0"
@@ -128,14 +128,14 @@
 			<orion-date-week
 				v-else-if="setup.props.type === 'week'"
 				:ref="setup._options"
-				v-model="setup.range"
+				v-model="setup.rangeBuffer"
 				:min-date="setup.minDate"
 				:max-date="setup.maxDate"
 				@update:model-value="setup.handleBlur()"/>
 			<orion-date-table
 				v-if="setup.props.type === 'month'"
 				:ref="setup._options"
-				v-model:range="setup.range"
+				v-model:range="setup.rangeBuffer"
 				:min-date="setup.minDate"
 				type="range"
 				month

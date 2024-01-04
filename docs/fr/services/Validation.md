@@ -31,7 +31,6 @@ Il propose notamment des "raccourcis" vers les principales règles de validation
 'phone'
 'phone:mobile'
 'password'
-'passwordConfirm' // uniquement avec le composant OrionPassword
 'email'
 ```
 

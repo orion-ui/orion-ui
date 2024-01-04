@@ -5,6 +5,7 @@ import SharedFieldSetupService, { FieldEmit } from '../../Shared/SharedFieldSetu
 import useMonkey from 'services/MonkeyService';
 import { getAppLang } from 'services/LangService';
 import { addPopoverBackdropCloseAbility } from 'utils/tools';
+import Log from 'utils/Log';
 
 type Props = SetupProps<typeof OrionDatepickerSetupService.props>
 type DatepickerEmit = FieldEmit<Nil<Date>> & {
@@ -208,6 +209,10 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 		this.emit = emit;
 
 		watchEffect(() => this.state.rangeBuffer = { ...this.props.range });
+
+		if (this.props.clearToNull && this.props.type === 'multiple') {
+			Log.warn(`props "clear-to-null" is not compatible with type "multiple"`, `OrionDatepicker`);
+		}
 	}
 
 
@@ -581,16 +586,18 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 	}
 
 	handleClear () {
+		const clearTo = this.props.clearToNull ? null : undefined;
+
 		if (this.props.disabled || this.props.readonly) return;
 		if (this.props.type === 'range' || this.props.type === 'week' || this.props.type === 'month') {
-			this.emit('update:range', undefined);
+			this.emit('update:range', clearTo);
 		} else if (this.props.type === 'multiple') {
 			this.emit('update:multiple', []);
 		} else {
-			this.emit('update:modelValue', undefined);
+			this.emit('update:modelValue', clearTo);
 		}
-		this.emit('input', undefined);
-		this.emit('change', undefined);
+		this.emit('input', clearTo);
+		this.emit('change', clearTo);
 		this.emit('clear');
 	}
 
