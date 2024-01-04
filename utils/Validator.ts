@@ -108,11 +108,17 @@ export class Validator<T = any> {
 			level: 'error',
 		}),
 
-		passwordConfirm: (passwordToConfirm: string, message = useLang().VALIDATOR_ERROR_PASSWORD_CONFIRM) => (value?: string): Orion.Validator.RuleResult => ({
-			result: !!value?.toString().trim().length && value === passwordToConfirm,
-			message,
-			level: 'error',
-		}),
+		passwordConfirm: (
+			passwordToConfirm = '' as string | (() => string | undefined),
+			message = useLang().VALIDATOR_ERROR_PASSWORD_CONFIRM,
+		) => (value?: string): Orion.Validator.RuleResult => {
+			const valueToCompare = typeof passwordToConfirm === 'string' ? passwordToConfirm : passwordToConfirm?.();
+			return {
+				result: !!valueToCompare?.trim().length && !!value?.trim().length && (valueToCompare === value),
+				message,
+				level: 'error',
+			};
+		},
 
 		email: (message = useLang().VALIDATOR_ERROR_EMAIL) => (value?: string): Orion.Validator.RuleResult => {
 			return {

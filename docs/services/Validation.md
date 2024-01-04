@@ -31,7 +31,6 @@ It notably proposes "shortcuts" to the main validation rules *(below)*.
 'phone'
 'phone:mobile'
 'password'
-'passwordConfirm' // only on OrionPassword component
 'email'
 ```
 
