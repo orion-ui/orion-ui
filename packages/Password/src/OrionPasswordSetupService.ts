@@ -13,7 +13,7 @@ export default class OrionPasswordSetupService extends SharedFieldSetupService<P
 		// @doc props/passwordToConfirm if specified, checks the match with the password value
 		// @doc/fr props/passwordToConfirm si spécifié, vérifie la correspondance avec le champ de mot de passe dans le cas d'une confirmation
 		passwordToConfirm: {
-			type: String as PropType<Undef<string>>,
+			type: [String, Boolean] as PropType<Undef<string | boolean>>,
 			default: undefined,
 		},
 		// @doc props/type type of the input
@@ -32,27 +32,18 @@ export default class OrionPasswordSetupService extends SharedFieldSetupService<P
 	});
 
 	protected get isValidCustom () {
-		if (this.props.passwordToConfirm) {
+		if (typeof this.props.passwordToConfirm === 'string' && this.props.passwordToConfirm?.length) {
 			return this.props.passwordToConfirm === this.vModel;
 		}
 		return useValidation().check(this.vModel, 'password');
 	}
 
 	get showState (): boolean {
-		return super.showState || (
-			this.props.passwordTooltip
-			&& this.state.hasBeenFocus
-		);
+		return super.showState || (this.props.passwordTooltip && this.state.hasBeenFocus);
 	}
 
 	get tooltipValidationMessages () {
-		if (this.props.passwordToConfirm !== undefined
-				|| (typeof this.props.validation === 'string' && this.props.validation.includes('passwordConfirm'))
-				|| (typeof this.props.validation === 'object'
-					&& typeof this.props.validation.definition === 'string'
-					&& this.props.validation.definition.includes('passwordConfirm')
-				)
-		) {
+		if (this.props.passwordToConfirm !== undefined) {
 			return [{
 				message: this.lang.ORION_PASSWORD__VALIDATION_PASWWORD_CONFIRMATION,
 				valid: this.isValid.value,

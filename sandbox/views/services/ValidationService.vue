@@ -91,17 +91,19 @@
 						v-model="user.password"
 						label="Mot de passe"
 						:validation="(val?:string) => !!(val?.length && val.length >= 3)"
-						validation-error-message="hey 3 char. min"/>
+						validation-error-message="hey 3 char. min"/> -->
 					<o-password
 						v-model="user.password"
 						password-tooltip
-						label="Mot de passe"/>
+						label="Mot de passe"
+						:validation="validator.rule('password')"/>
 					<o-password
 						v-model="user.passwordConfirm"
 						password-tooltip
 						label="Confirm password"
-						:password-to-confirm="user.password"/>
-					<o-checkbox
+						password-to-confirm
+						:validation="validator.rule('passwordConfirm')"/>
+					<!-- <o-checkbox
 						v-model="user.choice"
 						label="On coche ?"
 						color="brand"/>
@@ -235,6 +237,8 @@ let result = false;
 const resultColor = ref<Orion.Color>('default');
 
 const validator = useValidation(user, {
+	password: 'required|password',
+	passwordConfirm: Validator.rules.passwordConfirm(() => user.password),
 	// emailRequired: val => !!val?.length && val.length > 10 && Validator.rules.email()(val).result,
 	emailRequired: new Validator([
 		Validator.rules.required(),

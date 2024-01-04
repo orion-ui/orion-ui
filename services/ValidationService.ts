@@ -45,7 +45,11 @@ class ValidationService<T, V extends Orion.Validation.Rules<T>> {
 				const rule = rulesToValidate[i];
 				const ruleName = rule.split(':')[0] as keyof typeof Validator.rules;
 				const ruleArgs = rule.split(':')[1]?.split(',') ?? [];
-				if (Validator.rules[ruleName]) {
+
+				if (['passwordConfirm'].includes(ruleName)) {
+					// eslint-disable-next-line max-len
+					throw `\n"${ruleName}" should only be used via Validator.rules.${ruleName}().\nCheck https://orion-ui.org/services/Validation.html for more infos.`;
+				} else if (Validator.rules[ruleName]) {
 					const test = (Validator.rules[ruleName] as any)(...ruleArgs)(value) as Orion.Validator.RuleResult;
 					if (!test.result) return false;
 				}
