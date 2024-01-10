@@ -159,7 +159,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 			: this.state.isFocus ? this.state.valueToSearch : this.valueDisplay(this.vModel).display;
 	}
 
-	set autocompleteValue (value) { this.state.valueToSearch = value; }
+	set autocompleteValue (value) { this.valueToSearch = value; }
 
 	get valueToSearch () { return this.state.valueToSearch; }
 	set valueToSearch (value) {

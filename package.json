@@ -53,7 +53,7 @@
 		"@vue/devtools-api": "^6.4.5",
 		"animejs": "^3.2.1",
 		"cleave.js": "^1.6.0",
-		"floating-vue": "^2.0.0-beta.24",
+		"floating-vue": "^5.0.3",
 		"lodash-es": "^4.17.21",
 		"mitt": "^3.0.0",
 		"pluralize": "^8.0.0",
