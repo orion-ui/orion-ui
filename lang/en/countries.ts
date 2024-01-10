@@ -395,6 +395,11 @@ const countries: Orion.Country[] = [
 		areaCode: '995',
 	},
 	{
+		code: 'GF',
+		name: 'French Guyana',
+		areaCode: '594',
+	},
+	{
 		code: 'GG',
 		name: 'Guernsey',
 		areaCode: '44-1481',
@@ -423,6 +428,11 @@ const countries: Orion.Country[] = [
 		code: 'GN',
 		name: 'Guinea',
 		areaCode: '224',
+	},
+	{
+		code: 'GP',
+		name: 'Guadeloupe',
+		areaCode: '590',
 	},
 	{
 		code: 'GQ',
@@ -723,6 +733,11 @@ const countries: Orion.Country[] = [
 		code: 'MP',
 		name: 'Northern Mariana Islands',
 		areaCode: '1-670',
+	},
+	{
+		code: 'MQ',
+		name: 'Martinique',
+		areaCode: '596',
 	},
 	{
 		code: 'MR',
