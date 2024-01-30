@@ -8,6 +8,7 @@ type DateWeekEmit = { (e: 'update:modelValue', payload: Nil<Orion.DateRange>): v
 export default class OrionDateWeekSetupService extends SharedSetupService<Props> {
 	static props = {
 		disableMonthAndYear: Boolean,
+		hideDisabled: Boolean,
 		modelValue: {
 			type: Object as PropType<Nil<Orion.DateRange>>,
 			default: undefined,
@@ -45,6 +46,8 @@ export default class OrionDateWeekSetupService extends SharedSetupService<Props>
 	get weekOptions () {
 		const weekOptions = [];
 		for (let i = 1; i <= this.numberOfWeeksInYear; i++) {
+			if (this.props.hideDisabled && this.weekIsDisabled(this.weekDates(i))) continue;
+
 			weekOptions.push({
 				...this.weekDates(i),
 				weekNumber: i,

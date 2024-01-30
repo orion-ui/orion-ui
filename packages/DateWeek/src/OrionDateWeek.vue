@@ -48,8 +48,7 @@
 				</div>
 			</div>
 
-			<div
-				v-show="setup.viewYears">
+			<div v-show="setup.viewYears">
 				<div
 					v-for="i in 3"
 					:key="i"

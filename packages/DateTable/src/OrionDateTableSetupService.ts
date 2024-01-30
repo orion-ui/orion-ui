@@ -597,7 +597,7 @@ export default class OrionDateTableSetupService extends SharedSetupService<Props
 		const cssClass = ['orion-date-table-row__cell orion-date-table-row__cell--month'];
 
 		if (this.props.month) {
-			if (this.range?.monthNumber === month)
+			if (this.range?.monthNumber === month && this.range?.year === this.currentYear)
 				cssClass.push('selected');
 
 			if ((this.props.minDate && new Date(this.currentYear, month, 1) < this.props.minDate)
@@ -648,6 +648,11 @@ export default class OrionDateTableSetupService extends SharedSetupService<Props
 				this.state.currentDate = this.range?.end
 					? new Date(this.range.end)
 					: new Date(today.getFullYear(), today.getMonth() + 1, 1);
+			}
+			if (this.props.month) {
+				this.state.currentDate = this.range?.start
+					? new Date(this.range.start)
+					: new Date();
 			}
 		}
 	}

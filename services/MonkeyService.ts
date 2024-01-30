@@ -396,7 +396,8 @@ class DateMonkeyPatching extends Date {
 	 * @return object
 	 */
 	getWeekDays () {
-		const fdow = this.setDateToFirstDow();
+		const originalDate = new DateMonkeyPatching(this);
+		const fdow = originalDate.setDateToFirstDow();
 		const day = fdow.getDate();
 		const month = fdow.getMonth();
 		const year = fdow.getFullYear();
