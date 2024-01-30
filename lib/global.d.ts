@@ -337,8 +337,9 @@ declare global {
 			type RuleFunction = ((...args: any[]) => (value?: any) => boolean);
 			type RuleResult = {
 				result: boolean
-				message?: string
 				level: 'warning' | 'error'
+				message?: string
+				uid?: any,
 			}
 		}
 

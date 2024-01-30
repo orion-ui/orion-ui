@@ -19,6 +19,12 @@
 					@click="validator.resetValidationState()">
 					Resetons ça !
 				</o-button>
+				<o-button
+					color="info"
+					outline
+					@click="logResults()">
+					log results
+				</o-button>
 			</template>
 		</o-section>
 
@@ -204,6 +210,8 @@ import { ref, reactive } from 'vue';
 import { useValidation } from 'lib';
 import { Validator } from 'utils/Validator';
 
+window.Validator = Validator;
+
 // eslint-disable-next-line max-len, @typescript-eslint/no-unused-vars
 const testLongErrorMessage = 'Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Donec sed odio dui. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.';
 
@@ -270,11 +278,15 @@ const validator = useValidation(user, {
 				result: (val?.length ?? 0) > 2,
 				message: 'length supérieure à 2',
 				level: 'error',
+				uid: 'lengthSup2',
 			};
 		}
 		return true;
 	},
-	customRuleInTemplate: () => false,
+	customRuleInTemplate: val => ({
+		...Validator.rules.required()(val),
+		uid: 'customRuleInTemplate',
+	}),
 	date: (val) => {
 		if (val?.getFullYear() === 2023) {
 			if (val.getMonth() === 11) {
@@ -282,6 +294,7 @@ const validator = useValidation(user, {
 					result: false,
 					level: 'error',
 					message: `date should be before december`,
+					uid: 'dateBeforeDecember',
 				};
 			}
 			if (val.getMonth() < 4) {
@@ -289,6 +302,7 @@ const validator = useValidation(user, {
 					result: false,
 					level: 'error',
 					message: `date should be after may`,
+					uid: 'dateAfterMay',
 				};
 			}
 			return true;
@@ -332,6 +346,10 @@ function checkForm () : void {
 		resultColor.value = 'danger';
 		validator.showValidationState();
 	}
+}
+
+function logResults () : void {
+	console.log(`🚀  validator.getResults():`, validator.getResults());
 }
 
 </script>
