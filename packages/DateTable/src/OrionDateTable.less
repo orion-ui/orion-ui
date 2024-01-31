@@ -214,8 +214,10 @@
 
 			&--month,
 			&--year {
-				.square(calc(50rem / 16));
+				width: 5rem;
 				margin: 0.25rem 0.5rem;
+				padding: 0.5rem 1rem;
+				border-radius: 0.25rem;
 
 				&:hover {
 					color: var(--info);
@@ -228,6 +230,7 @@
 
 				&.selected {
 					color: var(--info);
+					background-color: var(--info-light);
 				}
 
 				&.disabled {

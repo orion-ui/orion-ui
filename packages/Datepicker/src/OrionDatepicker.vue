@@ -131,15 +131,16 @@
 				v-model="setup.rangeBuffer"
 				:min-date="setup.minDate"
 				:max-date="setup.maxDate"
+				:hide-disabled="hideDisabled"
 				@update:model-value="setup.handleBlur()"/>
 			<orion-date-table
 				v-if="setup.props.type === 'month'"
 				:ref="setup._options"
 				v-model:range="setup.rangeBuffer"
 				:min-date="setup.minDate"
+				:max-date="setup.maxDate"
 				type="range"
 				month
-				:max-date="setup.maxDate"
 				@update:range="setup.handleBlur(undefined, setup.responsive.onPhone)"/>
 
 			<div
