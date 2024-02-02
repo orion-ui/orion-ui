@@ -9,7 +9,7 @@ type ValidatorPhoneValidation = Record<
 	}
 >;
 
-type Rule<T> = ((value: T) => Orion.Validator.RuleResult)
+type Rule<T> = ((value: T) => boolean | Orion.Validator.RuleResult)
 
 export class Validator<T = any> {
 	static readonly regex = {
@@ -142,12 +142,34 @@ export class Validator<T = any> {
 	private readonly state = reactive({ rules: [] as Rule<T>[] });
 
 
-	constructor (rules?: Rule<T>[]) {
-		this.state.rules = rules ?? [];
+	constructor (rules?: Rule<T>[] | string) {
+		this.handleConstructorRules(rules);
 	}
 
 
+	handleConstructorRules (rules?: Rule<T>[] | string) {
+		if (typeof rules === 'string') {
+			const rulesToValidate = rules?.split('|');
+			for (let i = 0; i < rulesToValidate?.length; i++) {
+				const rule = rulesToValidate[i];
+				const ruleName = rule.split(':')[0] as keyof typeof Validator.rules;
+				const ruleArgs = rule.split(':')[1]?.split(',') ?? [];
+
+				if (['passwordConfirm'].includes(ruleName)) {
+					throw [`\n`,
+						`"${ruleName}" should only be used via Validator.rules.${ruleName}().`,
+						`Check https://orion-ui.org/services/Validation.html for more infos.`,
+					].join('\n');
+				} else if (Validator.rules[ruleName]) {
+					this.state.rules.push((Validator.rules[ruleName] as any)(...ruleArgs));
+				}
+			}
+		} else if (rules) {
+			this.state.rules.push(...rules);
+		}
+	}
+
 	validate (value: T): Orion.Validator.RuleResult[] {
-		return this.state.rules.map(rule => rule(value));
+		return this.state.rules.map(rule => Validator.convertToValidatorResult(rule(value)));
 	}
 }
