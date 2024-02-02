@@ -278,14 +278,14 @@ const validator = useValidation(user, {
 				result: (val?.length ?? 0) > 2,
 				message: 'length supérieure à 2',
 				level: 'error',
-				uid: 'lengthSup2',
+				meta: 'lengthSup2',
 			};
 		}
 		return true;
 	},
 	customRuleInTemplate: val => ({
 		...Validator.rules.required()(val),
-		uid: 'customRuleInTemplate',
+		meta: 213,
 	}),
 	date: (val) => {
 		if (val?.getFullYear() === 2023) {

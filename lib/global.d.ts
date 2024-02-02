@@ -339,7 +339,7 @@ declare global {
 				result: boolean
 				level: 'warning' | 'error'
 				message?: string
-				uid?: any,
+				meta?: any,
 			}
 		}
 
