@@ -20,6 +20,7 @@
 				:tabindex="setup.props.disabled ? undefined : 0"
 				@focus="setup.handleFocus($event)"
 				@blur="setup.handleBlur($event)"
+				@keydown.esc="setup.handleBlur()"
 				@keydown.down.prevent="setup.handleKeydown('down')"
 				@keydown.up.prevent="setup.handleKeydown('up')"
 				@keydown.enter="setup.selectItemFromEnter()">
@@ -104,8 +105,8 @@
 					@keydown.down.prevent.stop="setup.handleKeydown('down')"
 					@keydown.up.prevent.stop="setup.handleKeydown('up')"
 					@keydown.enter.stop="setup.selectItemFromEnter()"
+					@keydown.tab.prevent.stop="setup.handleTabEvent()"
 					@keydown.esc.stop="setup.handleBlur()"
-					@keydown.tab.prevent.stop="$emit('input-keydown-tab')"
 					@blur="setup.handleBlur()"
 					@input="setup.resetIndex()"/>
 
@@ -202,7 +203,7 @@ type SelectEmit = {
 	(e: 'add', payload: BaseVModelType): void;
 	(e: 'remove', payload: BaseVModelType): void;
 	(e: 'select', payload: BaseVModelType): void;
-	(e: 'fetch-start', payload: string): void;
+	(e: 'fetch-start', payload?: string): void;
 	(e: 'fetch-end', payload: BaseVModelType[]): void;
 	(e: 'fetch-search-clear'): void;
 }

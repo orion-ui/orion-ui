@@ -5032,7 +5032,7 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'passwordToConfirm',
 				'defaultValue': 'undefined',
-				'type': 'Undef<string>',
+				'type': 'Undef<string | boolean>',
 				'required': false,
 				'desc': {
 					'en': 'if specified, checks the match with the password value',
@@ -6200,7 +6200,7 @@ const packagesDocData = new Map([
 			localTypes: {
 				'BaseVModelType': 'string | number | boolean | Record<string, any>',
 				'VModelType': 'BaseVModelType | BaseVModelType[] | null | undefined',
-				'SelectEmit': '{\n  (e: \'focus\', payload: FocusEvent): void;\n  (e: \'blur\', payload?: FocusEvent): void;\n  (e: \'input\', payload: VModelType): void;\n  (e: \'input-keydown-tab\'): void;\n  (e: \'change\', val?: VModelType): void;\n  (e: \'update:modelValue\', payload: VModelType): void;\n  (e: \'clear\'): void;\n\t(e: \'add\', payload: BaseVModelType): void;\n\t(e: \'remove\', payload: BaseVModelType): void;\n\t(e: \'select\', payload: BaseVModelType): void;\n\t(e: \'fetch-start\', payload: string): void;\n\t(e: \'fetch-end\', payload: BaseVModelType[]): void;\n}',
+				'SelectEmit': '{\n  (e: \'focus\', payload: FocusEvent): void;\n  (e: \'blur\', payload?: FocusEvent): void;\n  (e: \'input\', payload: VModelType): void;\n  (e: \'input-keydown-tab\'): void;\n  (e: \'change\', val?: VModelType): void;\n  (e: \'update:modelValue\', payload: VModelType): void;\n  (e: \'clear\'): void;\n\t(e: \'add\', payload: BaseVModelType): void;\n\t(e: \'remove\', payload: BaseVModelType): void;\n\t(e: \'select\', payload: BaseVModelType): void;\n\t(e: \'fetch-start\', payload?: string): void;\n\t(e: \'fetch-end\', payload: BaseVModelType[]): void;\n\t(e: \'fetch-search-clear\'): void;\n}',
 			},
 			events: [{
 				'name': 'focus',
@@ -6285,7 +6285,7 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'fetch-start',
 				'payload': 'string',
-				'optional': false,
+				'optional': true,
 				'desc': {
 					'en': 'emitted when the fetch research starts',
 					'fr': 'émis lorsque la récupération des options commence',
@@ -6297,6 +6297,14 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'emitted when the fetch research ends',
 					'fr': 'émis quand la récupération des options est finie',
+				},
+			}, {
+				'name': 'fetch-search-clear',
+				'payload': 'undefined',
+				'optional': false,
+				'desc': {
+					'en': 'Missing @doc',
+					'fr': 'Missing @doc',
 				},
 			}],
 			provide: [],
@@ -6438,7 +6446,7 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'customFetch',
 				'defaultValue': 'undefined',
-				'type': 'Function',
+				'type': '(searchTerm?: string) => BaseVModelType[]',
 				'required': false,
 				'desc': {
 					'en': 'allows you to custom the fetch function',

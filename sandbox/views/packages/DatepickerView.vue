@@ -61,7 +61,10 @@
 				type="week"
 				label="simple dateweek"
 				clearable
-				clear-to-null/>
+				clear-to-null
+				:min-date="new Date()"
+				:max-date="new Date(2024, 2, 13)"
+				hide-disabled/>
 		</o-card>
 
 		<hr>

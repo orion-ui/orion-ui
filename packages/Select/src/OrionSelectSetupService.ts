@@ -14,12 +14,20 @@ type Props = SetupProps<typeof OrionSelectSetupService.props>
 type BaseVModelType = string | number | boolean | Record<string, any>;
 type VModelType = BaseVModelType | BaseVModelType[] | null | undefined;
 type SelectEmit = FieldEmit<VModelType> & {
+  (e: 'focus', payload: FocusEvent): void;
+  (e: 'blur', payload?: FocusEvent): void;
+  (e: 'input', payload: VModelType): void;
+  (e: 'input-keydown-tab'): void;
+  (e: 'change', val?: VModelType): void;
+  (e: 'update:modelValue', payload: VModelType): void;
+  (e: 'clear'): void;
 	(e: 'add', payload: BaseVModelType): void;
 	(e: 'remove', payload: BaseVModelType): void;
 	(e: 'select', payload: BaseVModelType): void;
 	(e: 'fetch-start', payload?: string): void;
 	(e: 'fetch-end', payload: BaseVModelType[]): void;
 	(e: 'fetch-search-clear'): void;
+
 }
 
 export default class OrionSelectSetupService extends SharedFieldSetupService<Props, VModelType> {
@@ -567,6 +575,12 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 		if (this.responsive.onPhone) {
 			this._optionssearchinput.value?.blur();
 		}
+	}
+
+	handleTabEvent () {
+		this.emit('input-keydown-tab');
+		if (this.props.searchable || this.props.fetchUrl)
+			this._input.value?.focus();
 	}
 
 	selectItem (value: BaseVModelType) {
