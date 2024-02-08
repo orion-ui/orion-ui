@@ -2,6 +2,7 @@ import { defineUserConfig } from 'vuepress';
 import { viteBundler } from '@vuepress/bundler-vite';
 import { registerComponentsPlugin } from '@vuepress/plugin-register-components';
 import vueJsx from '@vitejs/plugin-vue-jsx';
+import babel from 'vite-plugin-babel';
 import path from 'path';
 
 import { alias } from '../../vite.config';
@@ -70,6 +71,7 @@ export default defineUserConfig({
 			plugins: [
 				OrionDemos(specificPackagesMap, supportedLanguages),
 				vueJsx(),
+				babel({ filter: /\.tsx?$/ }),
 			]
 		},
 	}),

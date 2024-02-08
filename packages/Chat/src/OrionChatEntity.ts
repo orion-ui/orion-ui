@@ -1,6 +1,6 @@
-import { reactive } from 'vue';
 import { groupBy } from 'lodash-es';
 
+import { Reactive } from 'utils/decorators';
 import useMonkey from 'services/MonkeyService';
 
 import SharedEntity from 'packages/Shared/SharedEntity';
@@ -8,13 +8,13 @@ import OrionChatMessageEntity from '../../ChatMessage/src/OrionChatMessageEntity
 import type { ChatService } from '../../../services/ChatService';
 
 export default class OrionChatEntity extends SharedEntity<Orion.Chat.Discussion> {
-	private state = reactive({
+	@Reactive private readonly state = {
 		hidden: false,
 		initialLoad: false,
 		fullyLoaded: false,
 		messages: new Map() as Map<number, OrionChatMessageEntity>,
 		lastMessage: undefined as Undef<OrionChatMessageEntity>,
-	});
+	};
 
 	chat: ChatService;
 

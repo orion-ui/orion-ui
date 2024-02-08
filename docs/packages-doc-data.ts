@@ -2375,6 +2375,15 @@ const packagesDocData = new Map([
 					'fr': 'permet au label de se placer au dessus du champ lorsqu\'il possède une valeur',
 				},
 			}, {
+				'name': 'hideDisabled',
+				'defaultValue': false,
+				'type': 'boolean',
+				'required': false,
+				'desc': {
+					'en': 'hide disabled dates',
+					'fr': 'cache les dates désactivées',
+				},
+			}, {
 				'name': 'inheritValidationState',
 				'defaultValue': 'undefined',
 				'type': 'boolean',
