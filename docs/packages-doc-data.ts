@@ -2380,8 +2380,8 @@ const packagesDocData = new Map([
 				'type': 'boolean',
 				'required': false,
 				'desc': {
-					'en': 'hide disabled dates',
-					'fr': 'cache les dates désactivées',
+					'en': 'hide disabled dates (currently for type="week" only)',
+					'fr': 'cache les dates désactivées (actuellement uniquement avec type="week")',
 				},
 			}, {
 				'name': 'inheritValidationState',

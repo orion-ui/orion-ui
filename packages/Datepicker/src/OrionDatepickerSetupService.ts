@@ -21,8 +21,8 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 		// @doc props/time displays also hours/minutes
 		// @doc/fr props/time affiche aussi les heures/minutes
 		time: Boolean,
-		// @doc props/hideDisabled hide disabled dates
-		// @doc/fr props/hideDisabled cache les dates désactivées
+		// @doc props/hideDisabled hide disabled dates (currently for type="week" only)
+		// @doc/fr props/hideDisabled cache les dates désactivées (actuellement uniquement avec type="week")
 		hideDisabled: Boolean,
 		// @doc props/range the modelValue if the type is set to `range`
 		// @doc/fr props/range le modelValue si le type est défini à `range`
