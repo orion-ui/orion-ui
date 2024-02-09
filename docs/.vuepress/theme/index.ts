@@ -1,7 +1,9 @@
+import { getDirname, path } from 'vuepress/utils'
+const __dirname = getDirname(import.meta.url)
+
 import type { Theme } from '@vuepress/core';
 import type { DefaultThemeOptions } from '@vuepress/theme-default';
 import { defaultTheme } from "@vuepress/theme-default";
-import path from 'path';
 import { navbar, sidebar } from '../configs';
 import { docsearchPlugin } from '@vuepress/plugin-docsearch'
 import { loadEnv } from 'vite';

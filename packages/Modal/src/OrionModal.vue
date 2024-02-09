@@ -3,7 +3,6 @@
 		to="#orion-popable-wrapper"
 		:disabled="setup.options.programmatic">
 		<dialog
-			v-show="setup.visible"
 			:id="`OrionModal-${setup.uid}`"
 			:ref="setup._el"
 			:style="setup.domStyle"

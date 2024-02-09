@@ -50,7 +50,7 @@ export const en: SidebarConfig = [
 					`/components/OrionCheckbox.md`,
 					`/components/OrionColorPicker.md`,
 					`/components/OrionCropper.md`,
-					`/components/OrionDatePicker.md`,
+					`/components/OrionDatepicker.md`,
 					`/components/OrionEditor.md`,
 					`/components/OrionInput.md`,
 					`/components/OrionInputRange.md`,

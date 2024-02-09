@@ -38,7 +38,7 @@
 
 <script setup lang="ts">
 import { addCopyFeatureToCode } from '@utils/tools'
-import { useSiteLocaleData } from '@vuepress/client';
+import { useSiteLocaleData } from 'vuepress/client';
 import { ref } from 'vue';
 import * as sb from '../utils/stackblitz'
 import sdk from '@stackblitz/sdk';

@@ -2,6 +2,10 @@
 	<o-page title="Modal">
 		<pre>displayAside {{ displayPopable }}</pre>
 
+		<o-alert v-show="displayPopable">
+			test
+		</o-alert>
+
 		<o-section align="left">
 			<o-button @click="displayPopable = true">
 				open modal

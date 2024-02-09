@@ -38,7 +38,7 @@
 					lazy-once>
 					<o-section
 						title="step3"
-						@vnode-mounted="logMounted('step3')">
+						@vue:mounted="logMounted('step3')">
 						<p>
 							Lorem ipsum dolor sit amet consectetur adipisicing elit. Id dolorem asperiores tempora error aliquid omnis,
 							magni cum non delectus quos cumque unde ratione reiciendis et mollitia fugit eaque consectetur aut!
@@ -50,7 +50,7 @@
 					lazy>
 					<o-section
 						title="step4"
-						@vnode-mounted="logMounted('step4')">
+						@vue:mounted="logMounted('step4')">
 						<p>
 							Lorem ipsum dolor sit amet consectetur adipisicing elit.
 							Beatae eligendi eveniet asperiores et labore odio iste, esse voluptate officia magnam.

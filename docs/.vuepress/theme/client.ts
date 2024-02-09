@@ -1,4 +1,4 @@
-import { defineClientConfig } from '@vuepress/client';
+import { defineClientConfig } from 'vuepress/client';
 import Orion, { useDocument } from '@/lib';
 import Markdown from 'vue3-markdown-it';
 import PackageDemo from '../components/PackageDemo.vue';
@@ -8,7 +8,7 @@ import NotFound from './layouts/NotFound.vue';
 export default defineClientConfig({
 	layouts: { Layout, NotFound },
 
-	enhance({app}) {
+	enhance({ app }) {
 		app.use(Orion);
 
 		app.component('Markdown', Markdown);
@@ -17,3 +17,4 @@ export default defineClientConfig({
 		useDocument()?.body.classList.add('oriondoc')
 	},
 })
+

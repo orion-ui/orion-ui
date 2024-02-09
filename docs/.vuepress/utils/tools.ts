@@ -1,5 +1,5 @@
 import path from 'path';
-import { usePageData } from '@vuepress/client';
+import { usePageData } from 'vuepress/client';
 import packagesDocData from '@/docs/packages-doc-data';
 import servicesDocData from '@/docs/services-doc-data';
 import { useLang } from '@/services';

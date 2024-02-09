@@ -2,6 +2,7 @@ import { PropType, reactive, ref } from 'vue';
 import anime from 'animejs';
 import SharedPopableSetupService, { PopableEmit } from '../../Shared/SharedPopableSetupService';
 import orionAppService from 'utils/Orion';
+import { sleep } from 'utils/tools';
 
 type Props = SetupProps<typeof OrionModalSetupService.props>
 
@@ -59,7 +60,10 @@ export default class OrionModalSetupService extends SharedPopableSetupService<Pr
 	async animateAsync (enter: boolean) {
 		return new Promise<void>(async (resolve) => {
 			if (enter) {
+				console.log(`🚀  enter:`, enter);
+				console.log(this.visible);
 				this.state.visible = true;
+				console.log(this.visible);
 
 				await orionAppService.popableAnimationHooks.modalEnterBefore?.(this.publicInstance);
 

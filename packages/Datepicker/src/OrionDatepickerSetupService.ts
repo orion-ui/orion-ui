@@ -5,7 +5,6 @@ import SharedFieldSetupService, { FieldEmit } from '../../Shared/SharedFieldSetu
 import useMonkey from 'services/MonkeyService';
 import { getAppLang } from 'services/LangService';
 import { addPopoverBackdropCloseAbility } from 'utils/tools';
-import Log from 'utils/Log';
 
 type Props = SetupProps<typeof OrionDatepickerSetupService.props>
 type DatepickerEmit = FieldEmit<Nil<Date>> & {
@@ -214,7 +213,8 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 		watchEffect(() => this.state.rangeBuffer = { ...this.props.range });
 
 		if (this.props.clearToNull && this.props.type === 'multiple') {
-			Log.warn(`props "clear-to-null" is not compatible with type "multiple"`, `OrionDatepicker`);
+			// eslint-disable-next-line no-console
+			console.warn(`OrionDatepicker - props "clear-to-null" is not compatible with type "multiple"`);
 		}
 	}
 

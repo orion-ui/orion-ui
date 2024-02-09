@@ -1,36 +1,29 @@
-import { defineUserConfig } from 'vuepress';
-import { viteBundler } from '@vuepress/bundler-vite';
-import { registerComponentsPlugin } from '@vuepress/plugin-register-components';
+import { path } from 'vuepress/utils'
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import babel from 'vite-plugin-babel';
-import path from 'path';
+
+import { defineUserConfig } from 'vuepress';
+import { viteBundler } from '@vuepress/bundler-vite'
+import { registerComponentsPlugin } from '@vuepress/plugin-register-components';
 
 import { alias } from '../../vite.config';
 import { mdDemoPlugin } from './plugins/md-demo-plugin';
-import { OrionDemos } from './plugins/orion-demos';
 import { mdTypesPlugin } from './plugins/md-types-plugin';
+import { OrionDemos } from './plugins/orion-demos';
+
 import themeOrion from './theme';
 
-
+const supportedLanguages = ['en', 'fr'];
 const specificPackagesMap = new Map([
 	['DragNDrop', 'Droppable'],
 	['Tabs', 'Tabs'],
 ]);
-
-const supportedLanguages = ['en', 'fr'];
-
 
 export default defineUserConfig({
 	lang: 'en-US',
 	title: `Orion UI`,
 	description: `Documentation for Orion UI framework`,
 	pagePatterns: ['**/*.md', '**/*.mdx', '!.vuepress', '!node_modules'],
-	theme: themeOrion(),
-	extendsMarkdown: (md, App) => {
-		mdDemoPlugin(md, App, supportedLanguages)
-		mdTypesPlugin(md, App)
-	},
-
 	head: [
 		[
 			'link',
@@ -42,29 +35,34 @@ export default defineUserConfig({
 			},
 		],
 	],
-
 	locales: {
-    '/': {
-      lang: 'en-US',
+		'/': {
+			lang: 'en-US',
 			title: 'Orion UI',
-    },
-    '/fr/': {
-      lang: 'fr-FR',
+		},
+		'/fr/': {
+			lang: 'fr-FR',
 			title: 'Orion UI',
-    },
-  },
+		},
+	},
+	alias: {
+		...alias,
+		'@': path.resolve(__dirname, '../../'),
+		'@utils': path.resolve(__dirname, './utils/'),
+	},
+
+	theme: themeOrion(),
+
+	extendsMarkdown: (md, App) => {
+		mdDemoPlugin(md, App, supportedLanguages)
+		mdTypesPlugin(md, App)
+	},
 
 	plugins: [
 		registerComponentsPlugin({
 			componentsDir: path.resolve(__dirname, './components'),
 		}),
 	],
-
-	alias: {
-		...alias,
-		'@': path.resolve(__dirname, '../../'),
-		'@utils': path.resolve(__dirname, './utils/'),
-	},
 
 	bundler: viteBundler({
 		viteOptions: {
@@ -73,6 +71,6 @@ export default defineUserConfig({
 				vueJsx(),
 				babel({ filter: /\.tsx?$/ }),
 			]
-		},
+		}
 	}),
-});
+})

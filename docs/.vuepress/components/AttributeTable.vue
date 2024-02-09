@@ -90,7 +90,7 @@
 import { onMounted, onUnmounted } from 'vue';
 import { Bus, itemHas } from '@/lib';
 import { capitalizeFirstLetter, usePackageData } from '@utils/tools'
-import { usePageFrontmatter } from '@vuepress/client';
+import { usePageFrontmatter } from 'vuepress/client';
 import { DefaultThemePageFrontmatter } from 'vuepress-vite';
 
 const props = defineProps({

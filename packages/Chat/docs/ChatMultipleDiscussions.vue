@@ -63,7 +63,7 @@ function generateInterlocutors (qty = 1): Orion.Chat.User[] {
 	for (let index = 0; index < qty; index++) {
 		interlocutors.push({
 			id: getUid(),
-			name: faker.name.firstName(),
+			name: faker.person.firstName(),
 			avatar: `https://picsum.photos/200?random=${getUid()}`,
 		});
 	}
