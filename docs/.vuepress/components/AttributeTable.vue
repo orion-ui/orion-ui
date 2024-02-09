@@ -5,11 +5,15 @@
 		class="attribute-table">
 		<div v-if="data?.length">
 			<h2 v-if="!package" :id="dataType" class="attribute-table__title">
-				{{ capitalizeFirstLetter(dataType) }}
+				<a :href="`#${dataType}`" class="header-anchor">
+					<span>{{ capitalizeFirstLetter(dataType) }}</span>
+				</a>
 			</h2>
 
-			<h3 v-else :id="dataType  + package" class="attribute-table__title">
-				{{ capitalizeFirstLetter(dataType) }}
+			<h3 v-else :id="dataType + package" class="attribute-table__title">
+				<a :href="`#${dataType + package}`" class="header-anchor">
+					<span>{{ capitalizeFirstLetter(dataType) }}</span>
+				</a>
 			</h3>
 
 			<div class="data-type-table">
