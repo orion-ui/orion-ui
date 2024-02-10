@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useRouteLocale, useSiteLocaleData } from '@vuepress/client'
+import { useRouteLocale, useSiteLocaleData } from 'vuepress/client'
 
 const routeLocale = useRouteLocale()
 

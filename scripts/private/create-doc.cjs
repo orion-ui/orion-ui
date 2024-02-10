@@ -242,7 +242,7 @@ class DocFactory extends DocUtility {
 			await mkdir(this.docFolderPath, { recursive: true });
 			await writeFile(filePath, content, 'utf8');
 			log.step(`🥨 --> Lint output file for packages`);
-			exec(`npx eslint --fix ${filePath}`);
+			exec(`npx eslint --fix "${filePath}"`);
 		}
 	}
 
@@ -814,7 +814,7 @@ class ServiceFileScanner extends DocUtility {
 			await mkdir(this.docFolderPath, { recursive: true });
 			await writeFile(filePath, content, 'utf8');
 			log.step(`🥨 --> Lint output file for Services`);
-			exec(`npx eslint --fix ${filePath}`);
+			exec(`npx eslint --fix "${filePath}"`);
 		}
 	}
 
@@ -833,7 +833,7 @@ class ServiceFileScanner extends DocUtility {
 			await mkdir(this.docFolderPath, { recursive: true });
 			await writeFile(filePath, content, 'utf8');
 			log.step(`🥨 --> Lint output file for Tools`);
-			exec(`npx eslint --fix ${filePath}`);
+			exec(`npx eslint --fix "${filePath}"`);
 		}
 	}
 
@@ -1007,7 +1007,7 @@ class globalTypeFileScanner extends DocUtility {
 			await mkdir(this.docFolderPath, { recursive: true });
 			await writeFile(filePath, content, 'utf8');
 			log.warn(`🥨 --> Lint output file for global types`);
-			exec(`npx eslint --fix ${filePath}`);
+			exec(`npx eslint --fix "${filePath}"`);
 		}
 	}
 

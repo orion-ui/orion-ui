@@ -521,11 +521,11 @@ const serviceDocData = new Map([
 				'return': 'boolean',
 				'param': [{
 					'name': 'value',
-					'type': 'any',
+					'type': 'T',
 					'description': 'value to check',
 				}, {
 					'name': 'ruleParams',
-					'type': 'Orion.Validation.RuleResult<any>',
+					'type': 'Orion.Validation.RuleResult<T>',
 					'description': 'rule which must verify the value to pass the verification',
 				}],
 			},
@@ -541,6 +541,36 @@ const serviceDocData = new Map([
 					'name': 'ruleParams',
 					'type': 'Orion.Validation.RuleResult<any>',
 					'description': 'rule which must verify the value to pass the verification',
+				}],
+			},
+			validate: {
+				'description': 'checks if the object to validate verifies all the rules.',
+				'return': 'boolean',
+				'param': [],
+			},
+			getResult: {
+				'description': 'checks if the value verifies the rule given in parameter and return its full result.',
+				'return': 'Orion.Validator.RuleResult[]',
+				'param': [{
+					'name': 'value',
+					'type': 'T',
+					'description': 'value to check',
+				}, {
+					'name': 'ruleParams',
+					'type': 'Orion.Validation.RuleResult<T>',
+					'description': 'rule which must verify the value to pass the verification',
+				}],
+			},
+			getResults: {
+				'description': 'checks each rule and return its result.',
+				'return': 'Orion.Validator.RuleResult[]',
+				'param': [],
+			},
+			rule: {
+				'param': [{
+					'name': 'ruleName',
+					'type': 'string',
+					'description': 'name of the rule',
 				}],
 			},
 			showValidationState: {
@@ -562,18 +592,6 @@ const serviceDocData = new Map([
 				'description': 'this method allows the ValidationService instance to set the component\'s focus state, to display validation status on it',
 				'return': 'void',
 				'param': [],
-			},
-			validate: {
-				'description': 'checks if the object to validate verifies all the rules.',
-				'return': 'boolean',
-				'param': [],
-			},
-			rule: {
-				'param': [{
-					'name': 'ruleName',
-					'type': 'string',
-					'description': 'name of the rule',
-				}],
 			},
 		},
 	],

@@ -1,11 +1,11 @@
 import mitt from 'mitt';
 import useMonkey from './MonkeyService';
-import { reactive } from 'vue';
 
 import OrionChatMessageEntity from '../packages/ChatMessage/src/OrionChatMessageEntity';
 import OrionChatEntity from '../packages/Chat/src/OrionChatEntity';
 import { getUid } from 'utils/tools';
 import { groupBy } from 'lodash-es';
+import { Reactive } from 'utils/decorators';
 
 
 const defaultConfig: Omit<Orion.Chat.Config, 'user'> & {user: Undef<Orion.Chat.User>} = {
@@ -29,11 +29,11 @@ export class ChatService {
 		'new-discussion': void;
 	}>();
 
-	private state = reactive({
+	@Reactive private readonly state = {
 		activeDiscussionId: undefined as Undef<number>,
 		discussionsFullyLoaded: false,
 		registry: new Map<number, OrionChatEntity>(),
-	});
+	};
 
 	config: Orion.Chat.Config;
 

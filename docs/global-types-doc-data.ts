@@ -268,7 +268,7 @@ const globalTypesDocData = {
 		'ns': 'Orion.Validator',
 		'type': 'RuleResult',
 		'generic': '',
-		'description': '{ \n\t\t\t\tresult: boolean \n\t\t\t\tmessage?: string \n\t\t\t\tlevel: \'warning\' | \'error\' \n\t\t\t}',
+		'description': '{ \n\t\t\t\tresult: boolean \n\t\t\t\tlevel: \'warning\' | \'error\' \n\t\t\t\tmessage?: string \n\t\t\t\tmeta?: any, \n\t\t\t}',
 	}],
 
 	'Orion.Private': [{

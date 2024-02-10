@@ -8,6 +8,7 @@ import usePopableQueueService from 'services/PopableQueueService';
 import { toggleGlobalListener } from 'utils/tools';
 import { devtool } from 'devtool';
 import orionAppService from 'utils/Orion';
+import { Reactive } from 'utils/decorators';
 
 type Props = SetupProps<typeof SharedPopableSetupService.props>
 type Popable = OrionAside | OrionNotif | OrionModal;
@@ -38,12 +39,12 @@ export default abstract class SharedPopableSetupService<P extends Props> extends
 	_loader = ref<OrionLoader>();
 	bus = mitt();
 
-	protected state = reactive({
+	@Reactive protected readonly state = {
 		isClosing: false,
 		isOpening: false,
 		isMounted: false,
 		visible: false,
-	});
+	};
 
 	protected baseOptions = {
 		uid: this.getUid(),

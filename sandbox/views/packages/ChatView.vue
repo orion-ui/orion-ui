@@ -175,51 +175,54 @@ function initChat () {
 
 function seedDiscussions (dicussionLength = 15, messageLength = 39) {
 	const discussions = [];
-	const baseDate = dicussionLength === 1 ? new Date() : faker.date.recent(90);
+	const baseDate = dicussionLength === 1 ? new Date() : faker.date.recent({ days: 90 });
 	let i = 0;
 
 	while (i < dicussionLength) {
 		const agencyCompany: Orion.Chat.User = {
 			id: getUid(),
-			name: `${faker.name.firstName()} ${faker.name.lastName()}`,
-			avatar: faker.image.image(),
+			name: `${faker.person.firstName()} ${faker.person.lastName()}`,
+			avatar: faker.image.url(),
 			avatarProps: { square: false },
 		};
 
 		baseDate.setDate(baseDate.getDate() + 1);
 		const updatedDate = new Date(baseDate);
-		const createdDate = dicussionLength === 1 ? new Date() : faker.date.past(0, updatedDate);
+		const createdDate = dicussionLength === 1 ? new Date() : faker.date.past({
+			years: 1,
+			refDate: updatedDate,
+		});
 		const id = getUid();
 		const participants: Orion.Chat.User[] = [
 			agencyCompany,
 			{
 				id: user.id,
 				name: user.name,
-				avatar: faker.image.image(),
+				avatar: faker.image.url(),
 			},
 		];
 
 		if (i > 1) {
 			participants.push({
 				id: getUid(),
-				name: `${faker.name.firstName()} ${faker.name.lastName()}`,
-				avatar: faker.image.image(),
+				name: `${faker.person.firstName()} ${faker.person.lastName()}`,
+				avatar: faker.image.url(),
 			});
 		}
 
 		if (i > 2) {
 			participants.push({
 				id: getUid(),
-				name: `${faker.name.firstName()} ${faker.name.lastName()}`,
-				avatar: faker.image.image(),
+				name: `${faker.person.firstName()} ${faker.person.lastName()}`,
+				avatar: faker.image.url(),
 			});
 		}
 
 		if (i > 3) {
 			participants.push({
 				id: getUid(),
-				name: `${faker.name.firstName()} ${faker.name.lastName()}`,
-				avatar: faker.image.image(),
+				name: `${faker.person.firstName()} ${faker.person.lastName()}`,
+				avatar: faker.image.url(),
 			});
 		}
 
@@ -255,7 +258,10 @@ function seedDiscussions (dicussionLength = 15, messageLength = 39) {
 // eslint-disable-next-line max-len
 function seedMessages (messagesLength: number, discussionId: number, discussionCreatedDate: Date, discussionUpdatedDate: Date, participants: Orion.Chat.User[]) {
 	const messages: Orion.Chat.Message[] = [];
-	const baseDate = faker.date.between(discussionCreatedDate, discussionUpdatedDate);
+	const baseDate = faker.date.between({
+		from: discussionCreatedDate,
+		to: discussionUpdatedDate,
+	});
 	let i = 0;
 
 	while (i < messagesLength) {

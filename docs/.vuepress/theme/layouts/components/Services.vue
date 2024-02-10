@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import { usePageFrontmatter } from '@vuepress/client';
+import { usePageFrontmatter } from 'vuepress/client';
 import { DefaultThemePageFrontmatter } from 'vuepress-vite';
 
 const frontmatter = usePageFrontmatter<DefaultThemePageFrontmatter>()

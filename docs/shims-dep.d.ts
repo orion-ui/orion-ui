@@ -4,4 +4,6 @@ declare module 'vue3-markdown-it';
 
 declare module 'markdown-it-container';
 
-declare module 'escape-html';
+declare module 'vuepress/utils';
+
+declare module 'vuepress/client';
