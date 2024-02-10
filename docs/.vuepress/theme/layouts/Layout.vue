@@ -60,7 +60,7 @@ import '../../styles/index.less';
 
 import { nextTick, onMounted, ref, watch, computed, type Component } from 'vue';
 import { useRouter } from 'vue-router';
-import { usePageFrontmatter, usePageLang } from '@vuepress/client';
+import { usePageFrontmatter, usePageLang } from 'vuepress/client';
 import { setThemeMode, setAppLang, useResponsive, Bus } from '@/lib';
 import { addCopyFeatureToCode } from '@utils/tools';
 import Sidebar from '@theme/Sidebar.vue';
@@ -73,7 +73,7 @@ import Services from './components/Services.vue';
 import TourDoc from '@/packages/Tour/docs/TourDoc.vue'
 import TourProps from '@/packages/Tour/docs/TourProps.vue'
 
-const frontmatter = usePageFrontmatter<any>()
+const frontmatter = usePageFrontmatter<any>();
 
 const viewComponent: Record<string, Component> = {
 	Home,

@@ -210,8 +210,6 @@ import { ref, reactive } from 'vue';
 import { useValidation } from 'lib';
 import { Validator } from 'utils/Validator';
 
-window.Validator = Validator;
-
 // eslint-disable-next-line max-len, @typescript-eslint/no-unused-vars
 const testLongErrorMessage = 'Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Donec sed odio dui. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.';
 
@@ -349,6 +347,7 @@ function checkForm () : void {
 }
 
 function logResults () : void {
+	// eslint-disable-next-line no-console
 	console.log(`🚀  validator.getResults():`, validator.getResults());
 }
 

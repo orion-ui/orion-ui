@@ -5,7 +5,7 @@
 				v-for="i in 4"
 				:key="i"
 				class="col-xs-6 col-sm-4 col-lg-3">
-				<o-card :title="faker.name.firstName()">
+				<o-card :title="faker.person.firstName()">
 					{{ faker.lorem.paragraph() }}
 				</o-card>
 			</div>

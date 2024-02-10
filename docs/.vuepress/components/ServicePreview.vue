@@ -1,7 +1,11 @@
 <template>
     <div v-if="currentService === 'Monkey'">
       <div v-for="(serviceDataItem, prototypeName) in serviceData('Monkey')">
-        <h3 :id="prototypeName">{{prototypeName}}</h3>
+        <h3 :id="prototypeName">
+					<a :href="`#${prototypeName}`" class="header-anchor">
+						<span>{{prototypeName}}</span>
+					</a>
+				</h3>
 				<div>
 					<jsx-list-item v-for="(item, key) in serviceDataItem" :item="item" :keyname="key"/>
 				</div>
@@ -13,7 +17,11 @@
     </div>
 		
     <div v-else-if="Object.keys(serviceData(currentService)).length">
-      <h2 id="Methods">Methods</h2>
+      <h2 id="Methods">
+				<a :href="`#Methods`" class="header-anchor">
+					<span>Methods</span>
+				</a>
+			</h2>
 			<jsx-list-item v-for="(item, key) in serviceData(currentService)" :key="key" :item="item" :keyname="key"/>
     </div>
 </template>

@@ -106,6 +106,58 @@ function checkForm () {
 }
 ```
 
+## Retrieving full results
+
+The `getResults()` method will allow you to retrieve the complete result for each validation rule.
+
+:::tip
+The `getResult(value, ruleParams)` method will do the same for a value and a rule passed as parameters.
+:::
+
+Following the example of the **validator** above, you will get this:
+
+
+```ts:no-line-numbers
+validator.getResults();
+
+/** returns
+{
+	"birthdate": [
+		{
+			"result": false,
+			"level": "error"
+		}
+	],
+	"firstName": [
+		{
+			"result": true,
+			"message": "Requis",
+			"level": "error"
+		}
+	],
+	"lastName": [
+		{
+			"result": true,
+			"message": "Custom error message",
+			"level": "error"
+		}
+	],
+	"email": [
+		{
+			"result": true,
+			"message": "Email non valide",
+			"level": "error"
+		},
+		{
+			"result": false,
+			"level": "error",
+			"message": "Email should include \"doe\""
+		}
+	]
+}
+*/
+```
+
 ## Binding with the template
 
 The `useValidation` service integrates seamlessly with **Orion** components via the `validation` prop and the method `myValidator.rule('...')` of the service instance *(example below)*.\

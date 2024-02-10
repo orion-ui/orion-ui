@@ -29,8 +29,11 @@ export abstract class PopableService<T> {
 			vnode.component.root = orionAppService.appInstance;
 
 			devtool?.on.visitComponentTree((payload) => {
+				// Add custom type to the treeNode
+				type CustomComponentTreeNode = typeof payload.treeNode & { orionUid: number }
+
 				if (payload.treeNode.uid === orionAppService.appInstance?.uid && vnode.component?.uid) {
-					payload.treeNode.children.push({
+					(payload.treeNode.children as CustomComponentTreeNode[]).push({
 						autoOpen: false,
 						children: [],
 						hasChildren: false,

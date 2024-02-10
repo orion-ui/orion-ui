@@ -76,7 +76,7 @@
 </template>
 
 <script setup lang="ts">
-import { usePageFrontmatter } from '@vuepress/client';
+import { usePageFrontmatter } from 'vuepress/client';
 import { computed } from 'vue';
 import { DefaultThemePageFrontmatter } from 'vuepress-vite';
 

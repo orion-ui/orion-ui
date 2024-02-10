@@ -26,7 +26,7 @@ import { onMounted, onUpdated, onUnmounted, reactive, watch, nextTick, computed 
 import { throttle } from 'lodash-es';
 import { capitalizeFirstLetter } from '@utils/tools';
 import { Bus, useResponsive } from '@/lib';
-import { usePageFrontmatter } from '@vuepress/client';
+import { usePageFrontmatter } from 'vuepress/client';
 import { useRouter } from 'vue-router';
 import { DefaultThemePageFrontmatter } from 'vuepress-vite';
 

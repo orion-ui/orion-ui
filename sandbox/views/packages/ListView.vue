@@ -39,8 +39,8 @@ function seedList (qty = 50) {
 	for (let index = 0; index < qty; index++) {
 		items.push({
 			id: getUid(),
-			name: faker.name.firstName(),
-			lastname: faker.name.lastName(),
+			name: faker.person.firstName(),
+			lastname: faker.person.lastName(),
 		});
 	}
 

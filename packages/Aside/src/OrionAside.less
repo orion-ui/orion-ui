@@ -16,7 +16,7 @@
 	bottom: var(--fluid-20px);
 	border-radius: var(--radius-aside);
 	max-width: calc(100vw - 2.5rem);
-	display: flex;
+	display: none;
 	flex-direction: column;
 	background: white;
 	backface-visibility: hidden;
@@ -102,7 +102,8 @@
 		} */
 
 		// #region Pure CSS scroll shadow
-		background: linear-gradient(white 30%, rgba(255, 255, 255, 0)),
+		background:
+			linear-gradient(white 30%, rgba(255, 255, 255, 0)),
 			linear-gradient(rgba(255, 255, 255, 0), white 70%) 0 100%,
 			radial-gradient(
 				farthest-side at 50% 0,
@@ -117,14 +118,16 @@
 				0 100%;
 		background-repeat: no-repeat;
 		background-color: white;
-		background-size: 100% 2.5rem, 100% 2.5rem, 100% 0, 100% 0.5rem;
+		background-size:
+			100% 2.5rem,
+			100% 2.5rem,
+			100% 0,
+			100% 0.5rem;
 		background-attachment: local, local, scroll, scroll;
 
 		[data-orion-theme='dark'] & {
-			background: linear-gradient(
-					var(--grey-lighter) 30%,
-					rgba(255, 255, 255, 0)
-				),
+			background:
+				linear-gradient(var(--grey-lighter) 30%, rgba(255, 255, 255, 0)),
 				linear-gradient(rgba(255, 255, 255, 0), var(--grey-lighter) 70%) 0 100%,
 				radial-gradient(
 					farthest-side at 50% 0,
@@ -138,7 +141,11 @@
 					)
 					0 100%;
 			background-repeat: no-repeat;
-			background-size: 100% 2.5rem, 100% 2.5rem, 100% 0, 100% 0.5rem;
+			background-size:
+				100% 2.5rem,
+				100% 2.5rem,
+				100% 0,
+				100% 0.5rem;
 			background-attachment: local, local, scroll, scroll;
 			background-color: var(--grey-lighter);
 		}
@@ -192,6 +199,7 @@
 	}
 
 	&--visible {
+		display: flex;
 		box-shadow: 0 0 7.5rem fade(black, 50);
 
 		[data-orion-theme='dark'] & {

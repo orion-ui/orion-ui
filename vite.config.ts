@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import { resolve } from 'path';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
+import babel from 'vite-plugin-babel';
 
 const alias = {
 	'assets': resolve(__dirname, 'assets'),
@@ -21,6 +22,7 @@ export default defineConfig({
 	plugins: [
 		vue(),
 		vueJsx(),
+		babel({ filter: /\.tsx?$/ }),
 	],
 	resolve: { alias },
 	build: {
