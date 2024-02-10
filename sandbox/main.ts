@@ -4,6 +4,7 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router/index.router';
 import Orion from '../lib';
+import { setupDevtools } from 'devtool/vue-devtools';
 // import orionAppService from 'utils/Orion';
 
 const sandboxApp = createApp(App)
@@ -29,5 +30,7 @@ const sandboxApp = createApp(App)
 		}, */
 	} as Orion.Config)
 	.mount('#app');
+
+setupDevtools();
 
 export default sandboxApp;

@@ -4,8 +4,8 @@ import type { App, Plugin } from 'vue';
 
 import orionAppService from '../utils/Orion';
 import 'packages/Shared/styles/styles.less';
-import { setupDevtools } from '../devtool';
 import { applyMonkeyPatching } from 'services/MonkeyService';
+// import { setupDevtools } from 'devtool/vue-devtools';
 
 
 const Orion: Plugin = {
@@ -21,7 +21,7 @@ const Orion: Plugin = {
 			applyMonkeyPatching();
 		}
 
-		setupDevtools(app, orionAppService);
+		// setupDevtools(app, orionAppService);
 	},
 };
 

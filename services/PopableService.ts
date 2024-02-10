@@ -1,4 +1,4 @@
-import { devtool } from 'devtool';
+// import { devtool } from 'devtool';
 import { getUid } from 'utils/tools';
 import orionAppService from 'utils/Orion';
 import { VNode } from 'vue';
@@ -23,7 +23,7 @@ export abstract class PopableService<T> {
 	}
 
 
-	registerComponentInstanceInDevtool (vnode: VNode) {
+	/* registerComponentInstanceInDevtool (vnode: VNode) { TODO: devtool
 		if (vnode.component?.uid && orionAppService.appInstance) {
 			vnode.component.parent = orionAppService.appInstance;
 			vnode.component.root = orionAppService.appInstance;
@@ -53,13 +53,13 @@ export abstract class PopableService<T> {
 				}
 			});
 		}
-	}
+	} */
 
-	async notifyPopableUpdate (targetUid: number) {
+	/* async notifyPopableUpdate (targetUid: number) { TODO: devtool
 		const allInstances = await devtool?.getComponentInstances(orionAppService.app);
 		const instance = allInstances?.find(x => x.uid === targetUid);
 		devtool?.notifyComponentUpdate(instance);
-	}
+	} */
 
 
   abstract createVNode (): T

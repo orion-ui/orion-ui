@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import { resolve } from 'path';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
+import vueDevTools from 'vite-plugin-vue-devtools';
 import babel from 'vite-plugin-babel';
 
 const alias = {
@@ -22,7 +23,16 @@ export default defineConfig({
 	plugins: [
 		vue(),
 		vueJsx(),
-		babel({ filter: /\.tsx?$/ }),
+		vueDevTools(),
+		babel({
+			filter: /\.tsx?$/,
+			babelConfig: {
+				babelrc: false,
+				configFile: false,
+				presets: ['@babel/preset-typescript'],
+				plugins: [['@babel/plugin-proposal-decorators', { 'version': '2023-01' }]],
+			},
+		}),
 	],
 	resolve: { alias },
 	build: {

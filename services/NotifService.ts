@@ -32,7 +32,7 @@ class NotifService extends PopableService<OrionNotif> {
 
 			render(vnode, container);
 
-			this.registerComponentInstanceInDevtool(vnode);
+			// this.registerComponentInstanceInDevtool(vnode); TODO: devtool
 		}
 
 		const instance = usePopableQueueService().getInstance(this.options.uid);

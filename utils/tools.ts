@@ -1,6 +1,6 @@
 import { Ref, nextTick } from 'vue';
 import { Dropdown } from 'floating-vue';
-import { devtool, devtoolId } from 'devtool';
+// import { devtool, devtoolId } from 'devtool';
 import useDocument from 'services/DocumentService';
 import useLocalStorage from 'services/LocalStorageService';
 import useWindow from 'services/WindowService';
@@ -340,7 +340,7 @@ export function setThemeMode (mode: Orion.Theme) {
 		}
 	}
 
-	devtool?.sendInspectorState(devtoolId);
+	// devtool?.sendInspectorState(devtoolId);
 }
 
 export function initThemeMode () {

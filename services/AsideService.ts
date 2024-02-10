@@ -29,7 +29,7 @@ class AsideService extends PopableService<OrionAside> {
 
 			render(vnode, container);
 
-			this.registerComponentInstanceInDevtool(vnode);
+			// this.registerComponentInstanceInDevtool(vnode); TODO: devtool
 		}
 
 		const instance = usePopableQueueService().getInstance(this.options.uid);

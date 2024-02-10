@@ -6,7 +6,7 @@ import SharedSetupService from './SharedSetupService';
 import useOverlay from 'services/OverlayService';
 import usePopableQueueService from 'services/PopableQueueService';
 import { toggleGlobalListener } from 'utils/tools';
-import { devtool } from 'devtool';
+// import { devtool } from 'devtool';
 import orionAppService from 'utils/Orion';
 import { Reactive } from 'utils/decorators';
 
@@ -154,14 +154,14 @@ export default abstract class SharedPopableSetupService<P extends Props> extends
 		this.close();
 		toggleGlobalListener(this.uid);
 
-		if (this.options.programmatic) {
+		/* if (this.options.programmatic) {
 			devtool?.on.visitComponentTree((payload) => {
 				if (payload.treeNode.uid === orionAppService.appInstance?.uid) {
 					const index = payload.treeNode.children.findIndex(x => (x as any).orionUid === this.uid);
 					if (index > -1) payload.treeNode.children.splice(index, 1);
 				}
 			});
-		}
+		} */
 	}
 
 
