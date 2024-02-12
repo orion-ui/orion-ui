@@ -1,6 +1,6 @@
 <template>
 	<ClientOnly>
-		<slot v-bind="{ lang: siteLocale.lang.split('-')[0] }"/>
+		<slot v-bind="{ lang: cleanRouteLocale }"/>
 
 		<div class="oriondoc-demo__component">
 			<component :is="demo"/>
@@ -38,13 +38,14 @@
 
 <script setup lang="ts">
 import { addCopyFeatureToCode } from '@utils/tools'
-import { useSiteLocaleData } from 'vuepress/client';
+import { useRouteLocale } from 'vuepress/client';
 import { ref } from 'vue';
 import * as sb from '../utils/stackblitz'
 import sdk from '@stackblitz/sdk';
 
 const _rawSource = ref<HTMLElement>();
-const siteLocale = useSiteLocaleData()
+const routeLocale = useRouteLocale().value.replace(/\//g, '');
+const cleanRouteLocale = routeLocale.length ? routeLocale : 'en';
 const props = defineProps<{
 	demo: object & {__name: string}
 	source: string

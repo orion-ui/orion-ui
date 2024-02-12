@@ -78,9 +78,8 @@
 <script setup lang="ts">
 import { usePageFrontmatter } from 'vuepress/client';
 import { computed } from 'vue';
-import { DefaultThemePageFrontmatter } from 'vuepress-vite';
 
-const frontmatter = usePageFrontmatter<DefaultThemePageFrontmatter>()
+const frontmatter = usePageFrontmatter()
 
 const features = computed (() => {
 	if(frontmatter.value.lang !== 'fr') return [

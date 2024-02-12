@@ -28,13 +28,12 @@ import { capitalizeFirstLetter } from '@utils/tools';
 import { Bus, useResponsive } from '@/lib';
 import { usePageFrontmatter } from 'vuepress/client';
 import { useRouter } from 'vue-router';
-import { DefaultThemePageFrontmatter } from 'vuepress-vite';
 
 const scrollSpy = throttle(() => {
 	checkActive();
 }, 100);
 
-const frontmatter = usePageFrontmatter<DefaultThemePageFrontmatter>()
+const frontmatter = usePageFrontmatter()
 
 const sectionMargin = 250;
 
