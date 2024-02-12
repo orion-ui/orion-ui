@@ -44,7 +44,6 @@ Bus.emit('ServicePreview:unMounted');
 });
 
 function formatSource (item: any) {
-  console.log(item)
   return `
 \`\`\`ts
 ${item.description}
