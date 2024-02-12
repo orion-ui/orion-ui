@@ -95,7 +95,6 @@ import { onMounted, onUnmounted } from 'vue';
 import { Bus, itemHas } from '@/lib';
 import { capitalizeFirstLetter, usePackageData } from '@utils/tools'
 import { usePageFrontmatter } from 'vuepress/client';
-import { DefaultThemePageFrontmatter } from 'vuepress-vite';
 
 const props = defineProps({
 	package: {
@@ -104,7 +103,7 @@ const props = defineProps({
 	}
 })
 
-const frontmatter = usePageFrontmatter<DefaultThemePageFrontmatter>()
+const frontmatter = usePageFrontmatter()
 
 const packageData = usePackageData(props.package);
 // To define order of appearence
