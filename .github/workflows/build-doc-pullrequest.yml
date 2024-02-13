@@ -31,7 +31,7 @@ jobs:
         run: node scripts/ci-build-lib.cjs
 
       - name: Upload Lib artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: orion-build
           path: dist
@@ -42,7 +42,7 @@ jobs:
     needs: build-lib-pullrequest
     steps:
       - name: Download Lib artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: orion-build
 
