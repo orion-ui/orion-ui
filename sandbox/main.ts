@@ -10,7 +10,7 @@ const sandboxApp = createApp(App)
 	.use(router)
 	.use(Orion, {
 		use: ['components'],
-		router,
+		// router,
 		/* popableAnimationHooks: {
 			asideEnterBefore: () => {
 				(orionAppService.appContext.app._container as HTMLElement)?.classList
