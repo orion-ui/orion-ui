@@ -4,7 +4,8 @@ import { reactive } from 'vue';
 type ValidatorPhoneValidation = Record<
 	Orion.Country['code'],
 	{
-		classic: RegExp,
+		default: RegExp,
+		landline: RegExp,
 		mobile: RegExp
 	}
 >;
@@ -21,8 +22,9 @@ export class Validator<T = any> {
 		email: /^([a-zA-Z0-9_-]+([+.]{1}[a-zA-Z0-9_-]+)*)@([a-zA-Z0-9_-]+([.]{1}[a-zA-Z0-9_-]+)*)([.]{1}[a-zA-Z]{2,12})$/,
 		phone: {
 			FR: {
-				classic: /^([+]33|0)\d{9}$/,
-				mobile: /^([+]33|0)(6|7)\d{8}$/,
+				default: /^([+]33|0)\d{9}$/,
+				landline: /^([+]33|0)[^67]\d{8}$/,
+				mobile: /^([+]33|0)[67]\d{8}$/,
 			},
 			// @contribution Put other country validation RegExp here
 		} as ValidatorPhoneValidation,
@@ -83,13 +85,15 @@ export class Validator<T = any> {
 			};
 		},
 
-		phone: (mobile = false, message = useLang().VALIDATOR_ERROR_PHONE) => (value: any): Orion.Validator.RuleResult => {
+		phone: (mobile?: undefined | boolean, message = useLang().VALIDATOR_ERROR_PHONE) => (value: any): Orion.Validator.RuleResult => {
 			const countryCode = value?.phoneCountryCode as Undef<Orion.Country['code']>;
 			if (!!countryCode && value?.phoneNumber && this.regex.phone[countryCode]) {
 				return {
-					result: mobile
-						? this.regex.phone[countryCode].mobile.test(value.phoneNumber)
-						: this.regex.phone[countryCode].classic.test(value.phoneNumber),
+					result: mobile === undefined
+						? this.regex.phone[countryCode].default.test(value.phoneNumber)
+						: mobile
+							? this.regex.phone[countryCode].mobile.test(value.phoneNumber)
+							: this.regex.phone[countryCode].landline.test(value.phoneNumber),
 					message,
 					level: 'error',
 				};
