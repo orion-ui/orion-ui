@@ -31,11 +31,22 @@ export class Validator<T = any> {
 	};
 
 	static readonly rules = {
-		required: (message = useLang().VALIDATOR_ERROR_REQUIRED) => (value: any): Orion.Validator.RuleResult => ({
-			result: !!value?.toString().trim().length,
-			message,
-			level: 'error',
-		}),
+		required: (message = useLang().VALIDATOR_ERROR_REQUIRED) => (value: any): Orion.Validator.RuleResult => {
+			// Handle OrionPhone validation
+			if (typeof value === 'object' && 'phoneCountryCode' in value && 'phoneNumber' in value) {
+				return {
+					result: !!value?.phoneNumber?.length,
+					message,
+					level: 'error',
+				};
+			} else {
+				return {
+					result: !!value?.toString().trim().length,
+					message,
+					level: 'error',
+				};
+			}
+		},
 
 		hasLowercase: (message = useLang().VALIDATOR_ERROR_HAS_LOWERCASE) => (value?: string): Orion.Validator.RuleResult => ({
 			result: !!value?.length && this.regex.hasLowercase.test(value),
@@ -99,7 +110,7 @@ export class Validator<T = any> {
 				};
 			} else {
 				return {
-					result: !!value?.phoneNumber,
+					result: true,
 					message,
 					level: 'error',
 				};
