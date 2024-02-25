@@ -2,9 +2,9 @@ import { addCustomTab } from '@vue/devtools-api';
 // import type { OrionAppService } from 'utils/Orion';
 // import Log from 'utils/Log';
 
-export function setupDevtools (/* app: any, orionAppService: OrionAppService */) {
-	/* addCustomTab({
-	// unique identifier
+export function setupDevtools(/* app: any, orionAppService: OrionAppService */) {
+	addCustomTab({
+		// unique identifier
 		name: 'orion-ui',
 		// title to display in the tab
 		title: 'Orion UI',
@@ -16,7 +16,7 @@ export function setupDevtools (/* app: any, orionAppService: OrionAppService */)
 			src: 'https://orion-ui.org/',
 		},
 		category: 'advanced',
-	}); */
+	});
 
 	console.log(addCustomTab);
 
