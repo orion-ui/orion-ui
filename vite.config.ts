@@ -51,7 +51,7 @@ export default defineConfig({
 			'lodash-es',
 			'mitt',
 			'vue',
-			'vue-router',
+			// 'vue-router',
 			'floating-vue',
 		],
 	},
