@@ -82,6 +82,7 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Prop
 		updated: (el: CleaveElement) => {
 			if (!el.cleave) return;
 			const event = new Event('input', { bubbles: true });
+			el.cleave.setRawValue(el.value);
 			el.value = el.cleave.properties.result;
 			el.dispatchEvent(event);
 		},

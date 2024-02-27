@@ -194,9 +194,17 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 	}
 
 	setVModel () {
+		let phoneNumber = this.state.phoneNumber as Nil<string>;
+		let phoneCountryCode = this.state.country?.code as Nil<Orion.Country['code']>;
+
+		if (phoneNumber === `+${this.state.country?.areaCode}`) {
+			phoneNumber = this.props.clearToNull ? null : undefined;
+			phoneCountryCode = this.props.clearToNull ? null : undefined;
+		}
+
 		this.vModel = {
-			phoneNumber: this.state.phoneNumber,
-			phoneCountryCode: this.state.country?.code,
+			phoneNumber,
+			phoneCountryCode,
 		};
 	}
 }

@@ -1,5 +1,6 @@
 import { reactive } from 'vue';
 import { Validator } from '../utils/Validator';
+import Log from 'utils/Log';
 
 
 type FieldHasBeenFocusSetter = {
@@ -25,8 +26,16 @@ class ValidationService<T, V extends Orion.Validation.Rules<T>> {
 
 
 	private checkObjectPropRule (propName: keyof T) {
-		if (typeof this.objectToValidate !== 'object') return false;
-		if (!this.objectToValidate || !(propName in this.objectToValidate)) return false;
+		if (typeof this.objectToValidate !== 'object') {
+			Log.warn(`useValidation() first parameter is undefined or not an object.`);
+			return false;
+		}
+
+		if (!this.objectToValidate || !(propName in this.objectToValidate)) {
+			Log.warn(`useValidation() first parameter does not contain the property "${propName.toString()}"`);
+			return false;
+		}
+
 		return this.check(this.objectToValidate[propName], (this.validatorRules as any)[propName]);
 	}
 

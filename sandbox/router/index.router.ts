@@ -49,6 +49,10 @@ const router = createRouter({
 				},
 			],
 		},
+		{
+			path: '/sandbox-:sandbox/:subview*',
+			component: () => import('sandbox/views/SandboxView.vue'),
+		},
 	],
 });
 
