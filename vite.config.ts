@@ -3,6 +3,7 @@ import { resolve } from 'path';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import babel from 'vite-plugin-babel';
+import TurboConsole from 'unplugin-turbo-console/vite';
 
 const alias = {
 	'assets': resolve(__dirname, 'assets'),
@@ -23,6 +24,7 @@ export default defineConfig({
 		vue(),
 		vueJsx(),
 		babel({ filter: /\.tsx?$/ }),
+		TurboConsole({ disableLaunchEditor: true }),
 	],
 	resolve: { alias },
 	build: {
