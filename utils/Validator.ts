@@ -33,7 +33,7 @@ export class Validator<T = any> {
 	static readonly rules = {
 		required: (message = useLang().VALIDATOR_ERROR_REQUIRED) => (value: any): Orion.Validator.RuleResult => {
 			// Handle OrionPhone validation
-			if (typeof value === 'object' && 'phoneCountryCode' in value && 'phoneNumber' in value) {
+			if (typeof value === 'object' && value !== null && 'phoneCountryCode' in value && 'phoneNumber' in value) {
 				return {
 					result: !!value?.phoneNumber?.length,
 					message,
