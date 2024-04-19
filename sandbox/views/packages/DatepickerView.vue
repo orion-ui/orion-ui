@@ -13,6 +13,7 @@
 				label="simple date"
 				clearable
 				time
+				disabled
 				clear-to-null/>
 		</o-card>
 

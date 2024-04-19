@@ -543,6 +543,10 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 			return;
 		};
 
+		if (this.props.disabled || this.props.readonly) {
+			return;
+		}
+
 		const {
 			selectionIsOnYear, selectionIsOnMonth, selectionIsOnDay,
 			selectionIsOnHour, selectionIsOnMinute, selectionIsOnAmPm,
@@ -605,6 +609,11 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 	}
 
 	handleKeydownGuard (e: KeyboardEvent) {
+		if (this.props.disabled || this.props.readonly) {
+			e.preventDefault();
+			return;
+		}
+
 		const {
 			input, cursorPosition, day, month, year, hour, minute, isTwelveHours, isFullSelected, selection,
 			selectionIsOnYear, selectionIsOnMonth, selectionIsOnDay, selectionIsOnHour, selectionIsOnMinute, selectionIsOnAmPm,
