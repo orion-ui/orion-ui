@@ -13,8 +13,19 @@
 				label="simple date"
 				clearable
 				time
-				disabled
-				clear-to-null/>
+				clear-to-null
+				disable-popover>
+				<template #popper="{ closePopperSlot }">
+					<div style="width:720px; background-color:aquamarine; color:black; padding:1rem;">
+						Aenean eu leo quam.
+						Pellentesque ornare sem lacinia quam venenatis vestibulum.
+						Maecenas sed diam eget risus varius blandit sit amet non magna.
+						Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
+						Nulla vitae elit libero, a pharetra augue.
+						<o-button @click="closePopperSlot()">close</o-button>
+					</div>
+				</template>
+			</o-datepicker>
 		</o-card>
 
 		<hr>
