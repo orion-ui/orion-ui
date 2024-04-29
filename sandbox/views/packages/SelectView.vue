@@ -544,7 +544,7 @@ const data = reactive({
 	},
 });
 
-const commonBind = inject('commonBind');
+const commonBind = inject<Record<string, any>>('commonBind');
 // #endregion
 
 
