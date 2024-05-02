@@ -106,6 +106,7 @@
 					v-model="setup.vModel"
 					:min-date="setup.minDate"
 					:max-date="setup.maxDate"
+					:display-week-number="displayWeekNumber"
 					@update:model-value="time && !setup.responsive.onPhone
 						? $nextTick(() => setup.setSelectionToHour())
 						: setup.handleBlur(undefined, setup.responsive.onPhone && !time)
@@ -117,6 +118,7 @@
 					:type="type === 'multiple' ? 'multiple' : undefined"
 					:min-date="setup.minDate"
 					:max-date="setup.maxDate"
+					:display-week-number="displayWeekNumber"
 					@update:model-value="time && !setup.responsive.onPhone
 						? $nextTick(() => setup.setSelectionToHour())
 						: setup.handleBlur(undefined, setup.responsive.onPhone && !time)
@@ -127,6 +129,7 @@
 					v-model="setup.rangeBuffer"
 					:min-date="setup.minDate"
 					:max-date="setup.maxDate"
+					:display-week-number="displayWeekNumber"
 					@select-range="setup.handleBlur(undefined, true)"/>
 				<orion-date-week
 					v-else-if="setup.props.type === 'week'"
@@ -142,6 +145,7 @@
 					v-model:range="setup.rangeBuffer"
 					:min-date="setup.minDate"
 					:max-date="setup.maxDate"
+					:display-week-number="displayWeekNumber"
 					type="range"
 					month
 					@update:range="setup.handleBlur(undefined, setup.responsive.onPhone)"/>

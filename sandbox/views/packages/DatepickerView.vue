@@ -35,10 +35,16 @@
 			<pre>typeof: {{ typeof date2 }}</pre>
 			<pre> = null: {{ date2 === null }}</pre>
 		</o-alert>
+		<div class="mv-sm">
+			<o-toggle
+				v-model="showWeekNumber"
+				label="show week number"/>
+		</div>
 		<o-card style="width:320px">
 			<o-datepicker
 				v-model="date2"
 				label="simple date"
+				:display-week-number="showWeekNumber"
 				clearable
 				select-on-focus
 				clear-to-null/>
@@ -56,6 +62,7 @@
 				v-model:range="daterange"
 				type="range"
 				label="simple daterange"
+				:display-week-number="showWeekNumber"
 				clearable
 				clear-to-null/>
 		</o-card>
@@ -75,7 +82,6 @@
 				clearable
 				clear-to-null
 				:min-date="new Date()"
-				:max-date="new Date(2024, 2, 13)"
 				hide-disabled/>
 		</o-card>
 
@@ -107,6 +113,7 @@
 				v-model:multiple="datemultiple"
 				type="multiple"
 				label="simple datemultiple"
+				:display-week-number="showWeekNumber"
 				clearable
 				clear-to-null/>
 		</o-card>
@@ -123,4 +130,5 @@ const daterange = ref<Orion.DateRange>();
 const dateweek = ref<Orion.DateRange>();
 const datemonth = ref<Orion.DateRange>();
 const datemultiple = ref<Date[]>([]);
+const showWeekNumber = ref(true);
 </script>

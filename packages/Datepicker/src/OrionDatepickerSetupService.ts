@@ -27,6 +27,9 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 		// @doc props/disablePopover if you don't want to use the calendar popover
 		// @doc/fr props/disablePopover si vous ne souhaitez pas utiliser la popover avec le calendrier
 		disablePopover: Boolean,
+		// @doc props/displayWeekNumber if true, displays week number on each row
+		// @doc/fr props/displayWeekNumber si true, affiche le numéro de semaine sur chaque ligne
+		displayWeekNumber: Boolean,
 		// @doc props/range the modelValue if the type is set to `range`
 		// @doc/fr props/range le modelValue si le type est défini à `range`
 		range: {

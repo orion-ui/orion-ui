@@ -1,11 +1,17 @@
 <template>
 	<o-page title="DateTable">
 		<o-alert><pre>{{ date }}</pre></o-alert>
+		<div class="mv-sm">
+			<o-toggle
+				v-model="showWeekNumber"
+				label="show week number"/>
+		</div>
 		<o-card style="width:20rem">
 			<o-date-table
 				v-model="date"
 				type="range"
-				:periods="periods"/>
+				:periods="periods"
+				:display-week-number="showWeekNumber"/>
 		</o-card>
 	</o-page>
 </template>
@@ -13,6 +19,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
+const showWeekNumber = ref(true);
 const currentYear = new Date().getFullYear();
 const currentMonth = new Date().getMonth();
 const date = ref(new Date());
