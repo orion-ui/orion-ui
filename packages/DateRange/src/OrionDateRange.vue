@@ -13,6 +13,7 @@
 			:min-date="minDate"
 			:max-date="maxDate"
 			:can-go-next-month="setup.canGoNextMonth"
+			:display-week-number="displayWeekNumber"
 			@change-month="setup.handleChangeMonth('start')"/>
 
 		<div class="orion-date-range__separator"/>
@@ -28,6 +29,7 @@
 			:min-date="minDate"
 			:max-date="maxDate"
 			:can-go-prev-month="setup.canGoPrevMonth"
+			:display-week-number="displayWeekNumber"
 			@change-month="setup.handleChangeMonth('end')"/>
 	</div>
 </template>

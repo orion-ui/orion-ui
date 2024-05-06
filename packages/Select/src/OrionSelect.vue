@@ -20,6 +20,7 @@
 				:tabindex="setup.props.disabled ? undefined : 0"
 				@focus="setup.handleFocus($event)"
 				@blur="setup.handleBlur($event)"
+				@mousedown="setup.handleInputMousedown()"
 				@keydown.esc="setup.handleBlur()"
 				@keydown.down.prevent="setup.handleKeydown('down')"
 				@keydown.up.prevent="setup.handleKeydown('up')"

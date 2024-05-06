@@ -583,6 +583,12 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 			this._input.value?.focus();
 	}
 
+	handleInputMousedown () {
+		if (this.showPopover) {
+			setTimeout(() => this._input.value?.blur(), 50);
+		}
+	}
+
 	selectItem (value: BaseVModelType) {
 		if (this.props.readonly) return;
 		if (this.props.disabledKey && !!get(value, this.props.disabledKey, false)) return;

@@ -1,7 +1,10 @@
 <template>
 	<div
 		:ref="setup._options"
-		class="orion-date-table"
+		:class="{
+			'orion-date-table': true,
+			'orion-date-table--with-week-number': displayWeekNumber,
+		}"
 		@mousedown.prevent>
 		<div class="orion-date-table__header">
 			<orion-icon
@@ -14,12 +17,12 @@
 				<span
 					v-show="!setup.viewMonth && !setup.viewYears && !month"
 					class="orion-date-table__header-current-month"
-					:class="{ 'disable': setup.props.disableMonthAndYear }"
+					:class="{ 'disabled': setup.props.disableMonthAndYear }"
 					@click="setup.showMonths">{{ setup.monthName }} </span>
 				<span
 					v-if="!setup.viewYears"
 					class="orion-date-table__header-current-year"
-					:class="{ 'disable': setup.props.disableMonthAndYear }"
+					:class="{ 'disabled': setup.props.disableMonthAndYear }"
 					@click="setup.showYears">{{ setup.currentYear }}</span>
 				<span
 					v-else
@@ -39,6 +42,9 @@
 			<div
 				v-show="!setup.viewMonth && !setup.viewYears && !month"
 				class="orion-date-table__body-dow">
+				<span
+					v-if="displayWeekNumber"
+					class="orion-date-table__week-number">{{ setup.lang.WEEK_NUMBER_LABEL }}</span>
 				<span>{{ setup.lang.DAY_NAME_SHORT[0] }}</span>
 				<span>{{ setup.lang.DAY_NAME_SHORT[1] }}</span>
 				<span>{{ setup.lang.DAY_NAME_SHORT[2] }}</span>
@@ -55,6 +61,9 @@
 					v-for="i in 6"
 					:key="i"
 					class="orion-date-table-row">
+					<span
+						v-if="displayWeekNumber"
+						class="orion-date-table__week-number">{{ setup.getWeekNumber(setup.daysToDisplay[i - 1][0].date) }}</span>
 					<span
 						v-for="day in setup.daysToDisplay[i - 1]"
 						:key="`day-${day.number}`"

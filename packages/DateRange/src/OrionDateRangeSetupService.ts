@@ -9,6 +9,7 @@ type DateRangeEmit = {
 
 export default class OrionDateRangeSetupService extends SharedSetupService<Props> {
 	static props = {
+		displayWeekNumber: Boolean,
 		modelValue: {
 			type: Object as PropType<Nil<Orion.DateRange>>,
 			default: undefined,
