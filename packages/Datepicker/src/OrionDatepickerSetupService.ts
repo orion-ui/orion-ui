@@ -1,4 +1,4 @@
-import { nextTick, PropType, reactive, ref, watchEffect } from 'vue';
+import { nextTick, PropType, reactive, ref, Slots, watchEffect } from 'vue';
 import { debounce, isNil, throttle } from 'lodash-es';
 import { Dropdown } from 'floating-vue';
 import SharedFieldSetupService, { FieldEmit } from '../../Shared/SharedFieldSetupService';
@@ -24,6 +24,12 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 		// @doc props/hideDisabled hide disabled dates (currently for type="week" only)
 		// @doc/fr props/hideDisabled cache les dates désactivées (actuellement uniquement avec type="week")
 		hideDisabled: Boolean,
+		// @doc props/disablePopover if you don't want to use the calendar popover
+		// @doc/fr props/disablePopover si vous ne souhaitez pas utiliser la popover avec le calendrier
+		disablePopover: Boolean,
+		// @doc props/displayWeekNumber if true, displays week number on each row
+		// @doc/fr props/displayWeekNumber si true, affiche le numéro de semaine sur chaque ligne
+		displayWeekNumber: Boolean,
 		// @doc props/range the modelValue if the type is set to `range`
 		// @doc/fr props/range le modelValue si le type est défini à `range`
 		range: {
@@ -99,6 +105,7 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 	}
 
 	get isFocus () {
+		if (this.props.disablePopover) return false;
 		return this.state.isFocus;
 	}
 
@@ -206,7 +213,7 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 	}
 
 
-	constructor (props: Props, emit: DatepickerEmit) {
+	constructor (props: Props, emit: DatepickerEmit, private slots: Slots) {
 		super(props, emit);
 		this.emit = emit;
 
@@ -543,6 +550,10 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 			return;
 		};
 
+		if (this.props.disabled || this.props.readonly) {
+			return;
+		}
+
 		const {
 			selectionIsOnYear, selectionIsOnMonth, selectionIsOnDay,
 			selectionIsOnHour, selectionIsOnMinute, selectionIsOnAmPm,
@@ -582,6 +593,7 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 	}
 
 	handleBlur (e?: FocusEvent, force = false) {
+		if (!!this.slots.popper) return;
 		if (this.responsive.onPhone && !force) return;
 
 		this.focusedWithMouse = false;
@@ -605,6 +617,11 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 	}
 
 	handleKeydownGuard (e: KeyboardEvent) {
+		if (this.props.disabled || this.props.readonly) {
+			e.preventDefault();
+			return;
+		}
+
 		const {
 			input, cursorPosition, day, month, year, hour, minute, isTwelveHours, isFullSelected, selection,
 			selectionIsOnYear, selectionIsOnMonth, selectionIsOnDay, selectionIsOnHour, selectionIsOnMinute, selectionIsOnAmPm,
@@ -957,5 +974,10 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 
 	removeDate (date: Date) {
 		this.multiple = useMonkey(this.multiple).toggle(date);
+	}
+
+	closePopperSlot () {
+		this.focusedWithMouse = false;
+		super.handleBlur();
 	}
 }

@@ -97,118 +97,126 @@
 		</orion-field>
 
 		<template #popper>
-			<orion-date-table
-				v-if="setup.props.type === 'date'"
-				:ref="setup._options"
-				v-model="setup.vModel"
-				:min-date="setup.minDate"
-				:max-date="setup.maxDate"
-				@update:model-value="time && !setup.responsive.onPhone
-					? $nextTick(() => setup.setSelectionToHour())
-					: setup.handleBlur(undefined, setup.responsive.onPhone && !time)
-				"/>
-			<orion-date-table
-				v-if="setup.props.type === 'multiple'"
-				:ref="setup._options"
-				v-model:multiple="setup.multiple"
-				:type="type === 'multiple' ? 'multiple' : undefined"
-				:min-date="setup.minDate"
-				:max-date="setup.maxDate"
-				@update:model-value="time && !setup.responsive.onPhone
-					? $nextTick(() => setup.setSelectionToHour())
-					: setup.handleBlur(undefined, setup.responsive.onPhone && !time)
-				"/>
-			<orion-date-range
-				v-else-if="setup.props.type === 'range'"
-				:ref="setup._options"
-				v-model="setup.rangeBuffer"
-				:min-date="setup.minDate"
-				:max-date="setup.maxDate"
-				@select-range="setup.handleBlur(undefined, true)"/>
-			<orion-date-week
-				v-else-if="setup.props.type === 'week'"
-				:ref="setup._options"
-				v-model="setup.rangeBuffer"
-				:min-date="setup.minDate"
-				:max-date="setup.maxDate"
-				:hide-disabled="hideDisabled"
-				@update:model-value="setup.handleBlur()"/>
-			<orion-date-table
-				v-if="setup.props.type === 'month'"
-				:ref="setup._options"
-				v-model:range="setup.rangeBuffer"
-				:min-date="setup.minDate"
-				:max-date="setup.maxDate"
-				type="range"
-				month
-				@update:range="setup.handleBlur(undefined, setup.responsive.onPhone)"/>
+			<slot
+				name="popper"
+				v-bind="{ closePopperSlot: setup.closePopperSlot.bind(setup) }">
+				<orion-date-table
+					v-if="setup.props.type === 'date'"
+					:ref="setup._options"
+					v-model="setup.vModel"
+					:min-date="setup.minDate"
+					:max-date="setup.maxDate"
+					:display-week-number="displayWeekNumber"
+					@update:model-value="time && !setup.responsive.onPhone
+						? $nextTick(() => setup.setSelectionToHour())
+						: setup.handleBlur(undefined, setup.responsive.onPhone && !time)
+					"/>
+				<orion-date-table
+					v-if="setup.props.type === 'multiple'"
+					:ref="setup._options"
+					v-model:multiple="setup.multiple"
+					:type="type === 'multiple' ? 'multiple' : undefined"
+					:min-date="setup.minDate"
+					:max-date="setup.maxDate"
+					:display-week-number="displayWeekNumber"
+					@update:model-value="time && !setup.responsive.onPhone
+						? $nextTick(() => setup.setSelectionToHour())
+						: setup.handleBlur(undefined, setup.responsive.onPhone && !time)
+					"/>
+				<orion-date-range
+					v-else-if="setup.props.type === 'range'"
+					:ref="setup._options"
+					v-model="setup.rangeBuffer"
+					:min-date="setup.minDate"
+					:max-date="setup.maxDate"
+					:display-week-number="displayWeekNumber"
+					@select-range="setup.handleBlur(undefined, true)"/>
+				<orion-date-week
+					v-else-if="setup.props.type === 'week'"
+					:ref="setup._options"
+					v-model="setup.rangeBuffer"
+					:min-date="setup.minDate"
+					:max-date="setup.maxDate"
+					:hide-disabled="hideDisabled"
+					@update:model-value="setup.handleBlur()"/>
+				<orion-date-table
+					v-if="setup.props.type === 'month'"
+					:ref="setup._options"
+					v-model:range="setup.rangeBuffer"
+					:min-date="setup.minDate"
+					:max-date="setup.maxDate"
+					:display-week-number="displayWeekNumber"
+					type="range"
+					month
+					@update:range="setup.handleBlur(undefined, setup.responsive.onPhone)"/>
 
-			<div
-				v-if="setup.isOnPhoneWithTimepicker"
-				class="orion-datepicker__timepicker-wrapper">
-				<div class="orion-datepicker-timepicker">
-					<div
-						:ref="setup._hours"
-						class="orion-datepicker-timepicker__hours"
-						@scroll="setup.handleTimeScroll('hours')">
-						<div class="orion-datepicker-timepicker__scroll-filler"/>
+				<div
+					v-if="setup.isOnPhoneWithTimepicker"
+					class="orion-datepicker__timepicker-wrapper">
+					<div class="orion-datepicker-timepicker">
 						<div
-							v-if="setup.appLang === 'fr'"
-							class="orion-datepicker-timepicker__scroll-item">
-							00
+							:ref="setup._hours"
+							class="orion-datepicker-timepicker__hours"
+							@scroll="setup.handleTimeScroll('hours')">
+							<div class="orion-datepicker-timepicker__scroll-filler"/>
+							<div
+								v-if="setup.appLang === 'fr'"
+								class="orion-datepicker-timepicker__scroll-item">
+								00
+							</div>
+							<div
+								v-for="i in (setup.appLang === 'en' ? 12 : 23)"
+								:key="i"
+								:data-value="i"
+								class="orion-datepicker-timepicker__scroll-item">
+								{{ i.toString().padStart(2, '0') }}
+							</div>
+							<div class="orion-datepicker-timepicker__scroll-filler"/>
+						</div>
+						<div class="orion-datepicker-timepicker__separator">{{ setup.lang.TIME_SEPARATOR }}</div>
+						<div
+							:ref="setup._minutes"
+							class="orion-datepicker-timepicker__minutes"
+							@scroll="setup.handleTimeScroll('minutes')">
+							<div class="orion-datepicker-timepicker__scroll-filler"/>
+							<div class="orion-datepicker-timepicker__scroll-item">00</div>
+							<div
+								v-for="i in 59"
+								:key="i"
+								:data-value="i"
+								class="orion-datepicker-timepicker__scroll-item">
+								{{ i.toString().padStart(2, '0') }}
+							</div>
+							<div class="orion-datepicker-timepicker__scroll-filler"/>
 						</div>
 						<div
-							v-for="i in (setup.appLang === 'en' ? 12 : 23)"
-							:key="i"
-							:data-value="i"
-							class="orion-datepicker-timepicker__scroll-item">
-							{{ i.toString().padStart(2, '0') }}
+							v-if="setup.appLang === 'en'"
+							class="orion-datepicker-timepicker__meridian">
+							<div
+								:class="{ 'active': !setup.isPm }"
+								@click="setup.setAmPm('a')">
+								AM
+							</div>
+							<div
+								:class="{ 'active': setup.isPm }"
+								@click="setup.setAmPm('p')">
+								PM
+							</div>
 						</div>
-						<div class="orion-datepicker-timepicker__scroll-filler"/>
 					</div>
-					<div class="orion-datepicker-timepicker__separator">{{ setup.lang.TIME_SEPARATOR }}</div>
-					<div
-						:ref="setup._minutes"
-						class="orion-datepicker-timepicker__minutes"
-						@scroll="setup.handleTimeScroll('minutes')">
-						<div class="orion-datepicker-timepicker__scroll-filler"/>
-						<div class="orion-datepicker-timepicker__scroll-item">00</div>
-						<div
-							v-for="i in 59"
-							:key="i"
-							:data-value="i"
-							class="orion-datepicker-timepicker__scroll-item">
-							{{ i.toString().padStart(2, '0') }}
-						</div>
-						<div class="orion-datepicker-timepicker__scroll-filler"/>
-					</div>
-					<div
-						v-if="setup.appLang === 'en'"
-						class="orion-datepicker-timepicker__meridian">
-						<div
-							:class="{ 'active': !setup.isPm }"
-							@click="setup.setAmPm('a')">
-							AM
-						</div>
-						<div
-							:class="{ 'active': setup.isPm }"
-							@click="setup.setAmPm('p')">
-							PM
-						</div>
+
+					<div class="orion-datepicker-timepicker-actions">
+						<div class="orion-input__input">{{ setup.displayDateSelected }}</div>
+						<orion-button
+							block
+							outline
+							color="brand"
+							@click="setup.handleBlur(undefined, true)">
+							{{ setup.lang.VALIDATE }}
+						</orion-button>
 					</div>
 				</div>
-
-				<div class="orion-datepicker-timepicker-actions">
-					<div class="orion-input__input">{{ setup.displayDateSelected }}</div>
-					<orion-button
-						block
-						outline
-						color="brand"
-						@click="setup.handleBlur(undefined, true)">
-						{{ setup.lang.VALIDATE }}
-					</orion-button>
-				</div>
-			</div>
+			</slot>
 		</template>
 	</v-dropdown>
 </template>
@@ -222,6 +230,7 @@ import { OrionDateWeek } from 'packages/DateWeek';
 import { OrionField } from 'packages/Field';
 import { OrionLabel } from 'packages/Label';
 import OrionDatepickerSetupService from './OrionDatepickerSetupService';
+import { useSlots } from 'vue';
 type VModelType = Nil<Date>;
 type FieldEmit = {
   (e: 'focus', payload: FocusEvent): void;
@@ -233,9 +242,10 @@ type FieldEmit = {
 	(e: 'update:range', payload: Nil<Orion.DateRange>): void;
 	(e: 'update:multiple', payload: Date[]): void;
 }
+const slots = useSlots();
 const emit = defineEmits<FieldEmit>();
 const props = defineProps(OrionDatepickerSetupService.props);
-const setup = new OrionDatepickerSetupService(props, emit);
+const setup = new OrionDatepickerSetupService(props, emit, slots);
 defineExpose(setup.publicInstance);
 
 /** Doc

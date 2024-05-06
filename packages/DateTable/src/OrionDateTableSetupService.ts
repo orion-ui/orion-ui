@@ -35,6 +35,9 @@ export default class OrionDateTableSetupService extends SharedSetupService<Props
 		// @doc props/month if set, displays only months
 		// @doc/fr props/month si défini, affiche uniquement les mois
 		month: Boolean,
+		// @doc props/displayWeekNumber if true, displays week number on each row
+		// @doc/fr props/displayWeekNumber si true, affiche le numéro de semaine sur chaque ligne
+		displayWeekNumber: Boolean,
 		// @doc props/modelValue of the dateTable
 		// @doc/fr props/modelValue du composant
 		modelValue: {
@@ -669,5 +672,9 @@ export default class OrionDateTableSetupService extends SharedSetupService<Props
 		if (this.props.type === 'range') {
 			this.dayHover = day.date;
 		}
+	}
+
+	getWeekNumber (date: Date) {
+		return useMonkey(date).getWeekNumber();
 	}
 }

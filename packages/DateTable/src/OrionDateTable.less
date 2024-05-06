@@ -7,6 +7,10 @@
 	padding: var(--fluid-10px);
 	background-color: white;
 
+	&--with-week-number {
+		padding: var(--fluid-5px);
+	}
+
 	[data-orion-theme='dark'] & {
 		background-color: var(--grey-lighter);
 	}
@@ -37,12 +41,15 @@
 
 		&-current-month,
 		&-current-year {
-			cursor: pointer;
 			border: 0.0625rem solid var(--grey-light);
 			border-radius: 0.25rem;
 
-			&:hover {
-				color: var(--info);
+			&:not(.disabled) {
+				cursor: pointer;
+
+				&:hover {
+					color: var(--info);
+				}
 			}
 		}
 
@@ -112,6 +119,20 @@
 		}
 	}
 
+	&__week-number {
+		.flex-align();
+		width: calc(100% / 8);
+		height: calc(40rem / 16);
+		background-color: var(--grey-lighter);
+		color: var(--grey-dark);
+		font-style: italic;
+		font-size: 0.7rem;
+
+		.orion-date-table__body-dow & {
+			background-color: transparent;
+		}
+	}
+
 	&-row {
 		display: flex;
 		justify-content: center;
@@ -123,6 +144,10 @@
 			height: calc(40rem / 16);
 			cursor: pointer;
 			position: relative;
+
+			.orion-date-table--with-week-number & {
+				width: calc(100% / 8);
+			}
 
 			&-notification {
 				position: absolute;
