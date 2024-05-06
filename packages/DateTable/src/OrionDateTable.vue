@@ -44,7 +44,7 @@
 				class="orion-date-table__body-dow">
 				<span
 					v-if="displayWeekNumber"
-					class="orion-date-table__week-number"/>
+					class="orion-date-table__week-number">{{ setup.lang.WEEK_NUMBER_LABEL }}</span>
 				<span>{{ setup.lang.DAY_NAME_SHORT[0] }}</span>
 				<span>{{ setup.lang.DAY_NAME_SHORT[1] }}</span>
 				<span>{{ setup.lang.DAY_NAME_SHORT[2] }}</span>

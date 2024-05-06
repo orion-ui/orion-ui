@@ -50,6 +50,7 @@ export default {
 	VALIDATE: `Valider`,
 	WEEK: `Semaine`,
 	YEAR: `An`,
+	WEEK_NUMBER_LABEL: 'Sem.',
 
 	get DAY_NAME_SHORT () {
 		return this.DAY_NAME.map(x => x.toLowerCase().slice(0, 3));
