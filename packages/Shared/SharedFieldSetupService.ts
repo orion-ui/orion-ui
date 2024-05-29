@@ -263,6 +263,7 @@ export default abstract class SharedFieldSetupService<P, T, E extends FieldEmit 
 			clear: this.clear.bind(this),
 			setHasBeenFocus: this.setHasBeenFocus.bind(this),
 			isValid: () => this.isValid.value,
+			_input: () => this._input.value,
 		};
 	}
 

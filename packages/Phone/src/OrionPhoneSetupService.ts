@@ -50,7 +50,7 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 
 	protected readonly emit: OrionPhoneEmit;
 	readonly _country = ref<OrionSelect>();
-	readonly _input = ref<HTMLInputElement & OrionInput>();
+	readonly _orionInput = ref<HTMLInputElement & OrionInput>();
 	readonly countryList = useCountry().countries;
 
 	protected state = reactive({
@@ -144,8 +144,8 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 
 		watch(() => this.state.hasBeenFocus, (val) => {
 			// reflect validation state changes from OrionPhone to embed input
-			if (this._input.value) {
-				this._input.value.setHasBeenFocus(val);
+			if (this._orionInput.value) {
+				this._orionInput.value.setHasBeenFocus(val);
 			}
 		});
 	}
@@ -173,6 +173,56 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 			if (this.state.phoneNumber === '+33' && e.key === '0') {
 				e.preventDefault();
 			}
+		}
+
+		const numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+		const misc = ['Backspace', 'Delete'];
+
+		const valueLength = this._orionInput.value?._input()?.value.length ?? 0;
+		const selectionStart = this._orionInput.value?._input()?.selectionStart ?? 0;
+		const selectionEnd = this._orionInput.value?._input()?.selectionEnd ?? 0;
+		const selectionLength = selectionEnd - selectionStart;
+		// const inputValueBeforeCursor = this._orionInput.value?._input()?.value.slice(0, selectionStart) ?? '';
+		const inputValueAfterCursor = this._orionInput.value?._input()?.value.slice(selectionEnd) ?? '';
+		const inputSelectionValue = this._orionInput.value?._input()?.value.slice(selectionStart, selectionEnd) ?? '';
+
+		if (selectionStart === selectionEnd && selectionStart === valueLength && selectionLength === 0) return;
+
+		if ([...numbers, ...misc].includes(e.key)) {
+			setTimeout(() => {
+				if (selectionLength === 0) {
+					let targetSelection = e.key === 'Backspace' ? selectionStart - 1 : selectionStart;
+
+					if (e.key === 'Delete' && /^\s/.test(inputValueAfterCursor)) {
+						targetSelection++;
+					}
+
+					if (numbers.includes(e.key)) {
+						targetSelection = /^\s/.test(inputValueAfterCursor)
+							? selectionStart + 2
+							: selectionStart + 1;
+					}
+
+					this._orionInput.value?._input()?.setSelectionRange(targetSelection, targetSelection);
+				} else {
+					let targetSelectionStart = selectionStart;
+					let targetSelectionEnd = selectionEnd;
+
+					if (numbers.includes(e.key)) {
+						targetSelectionStart = /^\s/.test(inputSelectionValue)
+							? selectionStart + 2
+							: selectionStart + 1;
+
+						targetSelectionEnd = targetSelectionStart;
+					}
+
+					if (misc.includes(e.key)) {
+						targetSelectionEnd = targetSelectionStart;
+					}
+
+					this._orionInput.value?._input()?.setSelectionRange(targetSelectionStart, targetSelectionEnd);
+				}
+			}, 10);
 		}
 	}
 
