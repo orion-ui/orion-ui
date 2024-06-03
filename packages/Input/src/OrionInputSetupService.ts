@@ -183,6 +183,8 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Prop
 						this._input.value.value = String(value);
 					}
 				}
+			} else {
+				value = this.props.clearToNull ? null : undefined;
 			}
 
 			if (value === this.vModel) return;
