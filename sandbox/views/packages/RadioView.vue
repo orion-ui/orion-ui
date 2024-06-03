@@ -15,7 +15,8 @@
 		<o-radio
 			v-model="fieldValue"
 			label="toto3"
-			input-value="toto3"/>
+			input-value="toto3"
+			disabled/>
 		<o-radio
 			v-model="fieldValue"
 			label="toto4"
