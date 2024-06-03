@@ -54,13 +54,17 @@
 						prefill-search="oiu"
 						track-key="id"
 						display-key="email"
+						value-key="id"
 						label="Single"
 						:custom-fetch="customFetch"
 						v-bind="commonBind">
-						<template #item="{ data: itemData, markedSearch }">
+						<template #value="{ item, display }">
+							<div class="flex g-xs ai-c">{{ item?.name }} <o-label>{{ display }}</o-label></div>
+						</template>
+						<template #option="{ item, markedSearch }">
 							<div>
-								<span v-html="markedSearch(itemData.name)"/> <span v-html="markedSearch(itemData.username)"/><br>
-								<b v-html="markedSearch(itemData.email)"/>
+								<span v-html="markedSearch(item.name)"/> <span v-html="markedSearch(item.username)"/><br>
+								<b v-html="markedSearch(item.email)"/>
 							</div>
 						</template>
 					</o-select>
@@ -549,15 +553,15 @@ const commonBind = inject<Record<string, any>>('commonBind');
 
 
 // #region Methods
-async function customFetch (term?: string) {
+async function customFetch (term?: string): Promise<any[]> {
 	console.log(`customFetch term:`, term);
 	const resp = await fetch(`https://jsonplaceholder.typicode.com/users`);
 	return await resp.json();
 }
 
-function cb (e:any) {
+function cb () {
 	// eslint-disable-next-line no-console
-	console.log(`🚀 ~ cb ~ e`, e);
+	console.log(`🚀 ~ cb ~`);
 }
 // #endregion
 </script>
