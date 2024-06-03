@@ -156,7 +156,10 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Prop
 				if (this.props.type === 'email') {
 					value = value.normalize('NFD').replace(/[\u0300-\u036f ]/g, '');
 				} else if (typeof this.props.mask === 'string' && ['integer', 'decimal'].includes(this.props.mask) && value !== '-') {
-					value = value.length ? Number(value) : null;
+					value = value.replace(/[^0-9.]/g, '');
+					if (!Number.isNaN(Number(value))) {
+						value = value.length ? Number(value) : null;
+					}
 				} else if (this.props.mask === 'hour') {
 					value = hoursToNumber(value, this.props.maskHourSeparator);
 
@@ -176,8 +179,9 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Prop
 
 				if (value && this.props.maxValue && Number(value) > this.props.maxValue) {
 					value = this.props.maxValue;
-					if (this._input.value)
+					if (this._input.value) {
 						this._input.value.value = String(value);
+					}
 				}
 			}
 
@@ -228,9 +232,28 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Prop
 
 			if (this.props.mask === 'decimal') {
 				if (![...numeric, '.'].includes(e.key)) e.preventDefault();
+
 				if (e.key === '.' && this._input.value?.value.includes('.')) e.preventDefault();
-				if (e.key === ',' && this._input.value && !this._input.value.value.includes('.')) {
-					this._input.value.value += '.';
+
+				if ([',', '.'].includes(e.key) && this._input.value && !this._input.value.value.includes('.')) {
+					e.preventDefault();
+					const inputValueBeforeCursor = this._input.value.value.slice(0, this._input.value.selectionStart ?? 0);
+					const inputValueAfterCursor = this._input.value.value.slice(this._input.value.selectionEnd ?? 0);
+					this._input.value.value = this._input.value.value.length
+						? inputValueBeforeCursor + '.' + inputValueAfterCursor
+						: '0.';
+
+					if (this._input.value.value !== '0.') {
+						this.vModel = Number(this._input.value.value);
+					}
+
+					setTimeout(() => {
+						if (this._input.value?.value === '0.') {
+							this._input.value?.setSelectionRange(this._input.value.value.length, this._input.value.value.length);
+						} else {
+							this._input.value?.setSelectionRange(inputValueBeforeCursor.length + 1, inputValueBeforeCursor.length + 1);
+						}
+					});
 				}
 			}
 
