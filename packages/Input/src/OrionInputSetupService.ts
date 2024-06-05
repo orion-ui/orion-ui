@@ -20,7 +20,11 @@ type CleaveElement = HTMLInputElement & {
 export default class OrionInputSetupService extends SharedFieldSetupService<Props, VModelType> {
 	static props = {
 		...SharedFieldSetupService.props,
+		// @doc props/allowNegative allow negative values
+		// @doc/fr props/allowNegative autorise les valeurs négatives
 		allowNegative: Boolean,
+		// @doc props/selectOnFocus select the input value on focus
+		// @doc/fr props/selectOnFocus sélectionne la valeur du champ au focus
 		selectOnFocus: Boolean,
 		// @doc props/autocomplete provides automated assistance in filling out form field values from native html input
 		// @doc/fr props/autocomplete fournit une assitance automatique de remplissage du champ
@@ -102,7 +106,7 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Prop
 				return this.props.mask.display(value);
 			}
 
-			if (this.props.mask === 'integer' && value) {
+			if (this.props.mask === 'integer' && value && !Number.isNaN(Number(value))) {
 				return Math.round(Number(value));
 			}
 
@@ -156,7 +160,8 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Prop
 				if (this.props.type === 'email') {
 					value = value.normalize('NFD').replace(/[\u0300-\u036f ]/g, '');
 				} else if (typeof this.props.mask === 'string' && ['integer', 'decimal'].includes(this.props.mask) && value !== '-') {
-					value = value.replace(/[^0-9.]/g, '');
+					value = value.replace(/[^0-9.-]/g, '');
+
 					if (!Number.isNaN(Number(value))) {
 						value = value.length ? Number(value) : null;
 					}
@@ -227,6 +232,24 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Prop
 			const numeric = [... numbers, ...arrows, ...misc];
 
 			if (e.metaKey || e.ctrlKey) return;
+
+			if (e.key === '-'
+				&& this._input.value
+				&& this.props.allowNegative
+				&& typeof this.props.mask === 'string'
+				&& ['integer', 'decimal'].includes(this.props.mask)) {
+				e.preventDefault();
+
+				this._input.value?.value.includes('-')
+					? this._input.value.value = this._input.value.value.replace(/-/g, '')
+					: this._input.value.value = '-' + this._input.value.value;
+
+				if (typeof this.vModel === 'number' && this._input.value.value !== '-') {
+					this.vModel = -this.vModel;
+				} else if (typeof this.vModel === 'string' && this._input.value.value !== '-') {
+					this.vModel = '-' + this.vModel;
+				}
+			}
 
 			if (this.props.mask === 'integer') {
 				if (!numeric.includes(e.key)) e.preventDefault();

@@ -39,8 +39,7 @@
 					v-model="fields.input.integer"
 					label="Mask integer"
 					v-bind="commonBind"
-					:min-value="4"
-					type="number"
+					allow-negative
 					mask="integer"/>
 			</div>
 			<div class="col-sm-3">
@@ -48,6 +47,7 @@
 					v-model="fields.input.decimal"
 					label="Mask decimal"
 					v-bind="commonBind"
+					allow-negative
 					mask="decimal"/>
 			</div>
 			<div class="col-sm-3">
