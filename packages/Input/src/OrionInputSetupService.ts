@@ -230,6 +230,8 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Prop
 			const arrows = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
 			const misc = ['Backspace', 'Delete', 'Tab'];
 			const numeric = [... numbers, ...arrows, ...misc];
+			const inputValueBeforeCursor = this._input.value!.value.slice(0, this._input.value!.selectionStart ?? 0);
+			const inputValueAfterCursor = this._input.value!.value.slice(this._input.value!.selectionEnd ?? 0);
 
 			if (e.metaKey || e.ctrlKey) return;
 
@@ -238,9 +240,13 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Prop
 				&& this.props.allowNegative
 				&& typeof this.props.mask === 'string'
 				&& ['integer', 'decimal'].includes(this.props.mask)) {
+				const inputValueLength = this._input.value.value.length;
+				const inputValueSelectionLength = (this._input.value.selectionEnd ?? 0) - (this._input.value.selectionStart ?? 0);
+				if (inputValueLength && inputValueSelectionLength === inputValueLength) return;
+
 				e.preventDefault();
 
-				this._input.value?.value.includes('-')
+				this._input.value.value.includes('-')
 					? this._input.value.value = this._input.value.value.replace(/-/g, '')
 					: this._input.value.value = '-' + this._input.value.value;
 
@@ -262,8 +268,7 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Prop
 
 				if ([',', '.'].includes(e.key) && this._input.value && !this._input.value.value.includes('.')) {
 					e.preventDefault();
-					const inputValueBeforeCursor = this._input.value.value.slice(0, this._input.value.selectionStart ?? 0);
-					const inputValueAfterCursor = this._input.value.value.slice(this._input.value.selectionEnd ?? 0);
+
 					this._input.value.value = this._input.value.value.length
 						? inputValueBeforeCursor + '.' + inputValueAfterCursor
 						: '0.';
@@ -279,6 +284,15 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Prop
 							this._input.value?.setSelectionRange(inputValueBeforeCursor.length + 1, inputValueBeforeCursor.length + 1);
 						}
 					});
+				}
+
+				if (['Backspace', 'Delete'].includes(e.key) && this._input.value?.value.includes('.')) {
+					if (
+						(e.key === 'Backspace' && /\.\d$/.test(inputValueBeforeCursor)) ||
+						(e.key === 'Delete' && /\d*\.$/.test(inputValueBeforeCursor) && /^\d$/.test(inputValueAfterCursor))
+					) {
+						setTimeout(() => this._input.value!.value += '.', 1);
+					}
 				}
 			}
 
