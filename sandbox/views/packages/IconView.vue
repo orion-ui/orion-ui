@@ -10,6 +10,18 @@
 				:loading="state.loading"/>
 		</o-section>
 
+		<div
+			class="my-xl flex ai-c"
+			style="background-color:antiquewhite;">
+			<o-icon
+				style="font-size:1.5rem"
+				icon="camera"/>
+			<o-icon
+				style="font-size:1.5rem"
+				icon="camera"
+				button="brand"/>
+		</div>
+
 		<o-section>
 			<div class="demo-icon-wrapper">
 				<div

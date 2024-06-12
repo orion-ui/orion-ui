@@ -131,15 +131,18 @@
 	}
 
 	&--button {
-		.orion-icon__button {
-			.circle(1em);
-			transition: box-shadow 0.3s, background 0.3s;
+		.flex-align();
+
+		&::before {
 			position: absolute;
+		}
+
+		.orion-icon__button {
+			.circle(1.8em);
+			transition: box-shadow 0.3s, background 0.3s;
+			position: relative;
 			z-index: 0;
-			top: 0;
-			left: 0;
 			display: block;
-			transform: scale(1.8);
 		}
 
 		&-default {
