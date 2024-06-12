@@ -20,7 +20,11 @@ type CleaveElement = HTMLInputElement & {
 export default class OrionInputSetupService extends SharedFieldSetupService<Props, VModelType> {
 	static props = {
 		...SharedFieldSetupService.props,
+		// @doc props/allowNegative allow negative values
+		// @doc/fr props/allowNegative autorise les valeurs négatives
 		allowNegative: Boolean,
+		// @doc props/selectOnFocus select the input value on focus
+		// @doc/fr props/selectOnFocus sélectionne la valeur du champ au focus
 		selectOnFocus: Boolean,
 		// @doc props/autocomplete provides automated assistance in filling out form field values from native html input
 		// @doc/fr props/autocomplete fournit une assitance automatique de remplissage du champ
@@ -102,7 +106,7 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Prop
 				return this.props.mask.display(value);
 			}
 
-			if (this.props.mask === 'integer' && value) {
+			if (this.props.mask === 'integer' && value && !Number.isNaN(Number(value))) {
 				return Math.round(Number(value));
 			}
 
@@ -156,7 +160,11 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Prop
 				if (this.props.type === 'email') {
 					value = value.normalize('NFD').replace(/[\u0300-\u036f ]/g, '');
 				} else if (typeof this.props.mask === 'string' && ['integer', 'decimal'].includes(this.props.mask) && value !== '-') {
-					value = value.length ? Number(value) : null;
+					value = value.replace(/[^0-9.-]/g, '');
+
+					if (!Number.isNaN(Number(value))) {
+						value = value.length ? Number(value) : null;
+					}
 				} else if (this.props.mask === 'hour') {
 					value = hoursToNumber(value, this.props.maskHourSeparator);
 
@@ -176,9 +184,12 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Prop
 
 				if (value && this.props.maxValue && Number(value) > this.props.maxValue) {
 					value = this.props.maxValue;
-					if (this._input.value)
+					if (this._input.value) {
 						this._input.value.value = String(value);
+					}
 				}
+			} else {
+				value = this.props.clearToNull ? null : undefined;
 			}
 
 			if (value === this.vModel) return;
@@ -219,8 +230,32 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Prop
 			const arrows = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
 			const misc = ['Backspace', 'Delete', 'Tab'];
 			const numeric = [... numbers, ...arrows, ...misc];
+			const inputValueBeforeCursor = this._input.value!.value.slice(0, this._input.value!.selectionStart ?? 0);
+			const inputValueAfterCursor = this._input.value!.value.slice(this._input.value!.selectionEnd ?? 0);
 
 			if (e.metaKey || e.ctrlKey) return;
+
+			if (e.key === '-'
+				&& this._input.value
+				&& this.props.allowNegative
+				&& typeof this.props.mask === 'string'
+				&& ['integer', 'decimal'].includes(this.props.mask)) {
+				const inputValueLength = this._input.value.value.length;
+				const inputValueSelectionLength = (this._input.value.selectionEnd ?? 0) - (this._input.value.selectionStart ?? 0);
+				if (inputValueLength && inputValueSelectionLength === inputValueLength) return;
+
+				e.preventDefault();
+
+				this._input.value.value.includes('-')
+					? this._input.value.value = this._input.value.value.replace(/-/g, '')
+					: this._input.value.value = '-' + this._input.value.value;
+
+				if (typeof this.vModel === 'number' && this._input.value.value !== '-') {
+					this.vModel = -this.vModel;
+				} else if (typeof this.vModel === 'string' && this._input.value.value !== '-') {
+					this.vModel = '-' + this.vModel;
+				}
+			}
 
 			if (this.props.mask === 'integer') {
 				if (!numeric.includes(e.key)) e.preventDefault();
@@ -228,9 +263,36 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Prop
 
 			if (this.props.mask === 'decimal') {
 				if (![...numeric, '.'].includes(e.key)) e.preventDefault();
+
 				if (e.key === '.' && this._input.value?.value.includes('.')) e.preventDefault();
-				if (e.key === ',' && this._input.value && !this._input.value.value.includes('.')) {
-					this._input.value.value += '.';
+
+				if ([',', '.'].includes(e.key) && this._input.value && !this._input.value.value.includes('.')) {
+					e.preventDefault();
+
+					this._input.value.value = this._input.value.value.length
+						? inputValueBeforeCursor + '.' + inputValueAfterCursor
+						: '0.';
+
+					if (this._input.value.value !== '0.') {
+						this.vModel = Number(this._input.value.value);
+					}
+
+					setTimeout(() => {
+						if (this._input.value?.value === '0.') {
+							this._input.value?.setSelectionRange(this._input.value.value.length, this._input.value.value.length);
+						} else {
+							this._input.value?.setSelectionRange(inputValueBeforeCursor.length + 1, inputValueBeforeCursor.length + 1);
+						}
+					});
+				}
+
+				if (['Backspace', 'Delete'].includes(e.key) && this._input.value?.value.includes('.')) {
+					if (
+						(e.key === 'Backspace' && /\.\d$/.test(inputValueBeforeCursor)) ||
+						(e.key === 'Delete' && /\d*\.$/.test(inputValueBeforeCursor) && /^\d$/.test(inputValueAfterCursor))
+					) {
+						setTimeout(() => this._input.value!.value += '.', 1);
+					}
 				}
 			}
 

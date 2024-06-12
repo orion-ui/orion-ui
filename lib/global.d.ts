@@ -365,6 +365,7 @@ declare global {
 				props: OrionTimelinePane.Props & {
 					'font-icon': string;
 					'marker-color': string;
+					'centered-pill': string;
 				};
 				children: {
 					default: Slot;

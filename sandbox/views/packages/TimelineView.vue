@@ -9,7 +9,8 @@
 				ref="timeline"
 				v-model="activePane"
 				scrollable
-				horizontal>
+				horizontal
+				centered-pill>
 				<o-timeline-pane
 					name="pane1"
 					label="huhuhuuuuu"
@@ -54,9 +55,11 @@
 				</o-timeline-pane>
 				<o-timeline-pane
 					name="pane5"
-					pill="5"
-					complete>
+					pill="5">
 					<h3>pane5</h3>
+					<template #after>
+						Commande de 2 intérimaires déposée
+					</template>
 				</o-timeline-pane>
 			</o-timeline>
 
@@ -68,7 +71,7 @@
 
 		<hr>
 
-		<o-card size="xl">
+		<!-- <o-card size="xl">
 			<o-button @click="tutu.push(tutu.length + 1)">
 				add an entry
 			</o-button>
@@ -90,7 +93,7 @@
 					</template>
 				</o-timeline-pane>
 			</o-timeline>
-		</o-card>
+		</o-card> -->
 	</o-page>
 </template>
 
@@ -100,10 +103,8 @@ import NestedComp from 'sandbox/NestedComp.vue';
 
 const timeline = ref<OrionTimeline>();
 
-const activePane = ref('pane5');
+const activePane = ref('pane3');
 const tutu = reactive([1, 2, 3, 4]);
-const pillIcon = ref<Orion.Icon>('adobe_xd');
-const pillIconOptions: Orion.Icon[] = [
-	'Figma', 'LinkedIn', 'Sketch', 'add_column', 'add_row', 'add_to_queue',
-];
+const pillIcon = ref<Orion.Icon>('alarm');
+const pillIconOptions: Orion.Icon[] = ['figma', 'link', 'shield_check', 'add_column', 'add_row', 'add_to_queue'];
 </script>

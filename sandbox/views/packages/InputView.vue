@@ -1,13 +1,13 @@
 <template>
 	<o-page title="Input">
-		<pre>LOG : {{ fields.input.value }} | {{ typeof fields.input.value }}</pre>
+		<pre>{{ fields.input }}</pre>
 		<div class="row row--gutter">
 			<div class="col-sm-3">
 				<o-input
 					v-model="fields.input.value"
 					label="Simple input with donetyping"
 					v-bind="commonBind"
-					:donetyping="1000"
+					clear-to-null
 					@keydown:enter="cb('tto')"/>
 			</div>
 			<div class="col-sm-3">
@@ -39,8 +39,7 @@
 					v-model="fields.input.integer"
 					label="Mask integer"
 					v-bind="commonBind"
-					:min-value="4"
-					type="number"
+					allow-negative
 					mask="integer"/>
 			</div>
 			<div class="col-sm-3">
@@ -48,6 +47,7 @@
 					v-model="fields.input.decimal"
 					label="Mask decimal"
 					v-bind="commonBind"
+					allow-negative
 					mask="decimal"/>
 			</div>
 			<div class="col-sm-3">
@@ -86,7 +86,7 @@ const fields = reactive({
 	showError: false,
 	showSuccess: false,
 	input: {
-		value: null,
+		value: undefined,
 		integer: 10,
 		decimal: 85.62,
 		label: 'Label input',

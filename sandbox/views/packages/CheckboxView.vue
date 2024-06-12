@@ -5,7 +5,8 @@
 		</o-alert>
 		<o-checkbox
 			v-model="fieldBoolean"
-			label="boolean"/>
+			label="boolean"
+			disabled/>
 
 		<hr>
 

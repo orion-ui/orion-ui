@@ -112,7 +112,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 		// @doc props/customFetch allows you to custom the fetch function
 		// @doc/fr props/customFetch permet de personnaliser la fonction de récupération des options
 		customFetch: {
-			type: Function as PropType<(searchTerm?: string) => BaseVModelType[]>,
+			type: Function as PropType<(searchTerm?: string) => Promise<BaseVModelType[]>>,
 			default: undefined,
 		},
 		// @doc props/donetyping the duration to trigger the fetch
@@ -158,16 +158,6 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 	readonly _items = ref<(Element | ComponentPublicInstance)[]>([]);
 	readonly isArray = isArray;
 	readonly get = get;
-
-	get autocompleteValue () {
-		return (this.state.isFocus || this.props.prefillSearch?.length) && !this.props.modelValue
-			? this.state.isFocus
-				? this.state.valueToSearch ?? this.props.prefillSearch
-				: this.props.prefillSearch
-			: this.state.isFocus ? this.state.valueToSearch : this.valueDisplay(this.vModel).display;
-	}
-
-	set autocompleteValue (value) { this.valueToSearch = value; }
 
 	get valueToSearch () { return this.state.valueToSearch; }
 	set valueToSearch (value) {
@@ -232,7 +222,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 		return this.hasValue
 			|| this.props.forceLabelFloating
 			|| (this.props.autocomplete && this.state.isFocus)
-			|| !!this.props.prefillSearch?.length;
+			|| !!this.valueToSearch?.length;
 	}
 
 	get isObjectType () {
@@ -275,6 +265,10 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 		watch(() => this.isObjectType, () => {
 			this.checkProps();
 		});
+
+		if (this.props.prefillSearch) {
+			this.state.valueToSearch = this.props.prefillSearch;
+		}
 	}
 
 	protected async onBeforeMount () {
@@ -360,7 +354,6 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 
 			if (this.props.autocomplete) {
 				nextTick(() => {
-					this.state.valueToSearch = this.valueDisplay(this.vModel).display;
 					this._autocomplete.value?.blur();
 				});
 			}
@@ -450,7 +443,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 		return isObject(item);
 	}
 
-	valueDisplay (item?: BaseVModelType | null): { display: any, item: any } {
+	valueDisplay (item?: BaseVModelType | null): { display: any, item?: any } {
 		const optionsToSearchIn = (this.props.fetchUrl || this.props.customFetch) ? this.fetchOptions : this.props.options;
 		const currentValue = optionsToSearchIn.find((x) => {
 			return this.itemIsObject(x)
@@ -513,13 +506,15 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 		}
 
 		nextTick(() => {
-			if (this.props.searchable || this.props.fetchUrl || (this.props.autocomplete && this.responsive.onPhone)) {
-				this._optionssearchinput.value?.focus();
-			}
+			this._autocomplete.value?.focus();
+			this._optionssearchinput.value?.focus();
+		});
+	}
 
-			if (this.props.multiple && this.hasValue) {
-				this._autocomplete.value?.focus();
-			}
+	handleFocus (e: FocusEvent) {
+		super.handleFocus(e);
+		nextTick(() => {
+			this._autocomplete.value?.focus();
 		});
 	}
 
@@ -631,7 +626,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 	}
 
 	markedSearch (content?: string) {
-		if (!this.state.valueToSearch || !content) return content;
+		if (!this.state.valueToSearch || !content || typeof content !== 'string') return content;
 		return useMonkey(content).mark(this.state.valueToSearch) as string;
 	}
 

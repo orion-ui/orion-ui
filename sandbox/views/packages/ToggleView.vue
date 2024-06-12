@@ -11,6 +11,11 @@
 				:color="color"
 				label="toto1"/>
 		</div>
+		<div style="width:20rem;">
+			<o-toggle
+				v-model="fieldValue"
+				label="fqsmljqsdf oiazjfe ozaeijf zamleifj mldsqkfj fqsdlmijf smqoifdsjqmlksqdjf sqdomfij"/>
+		</div>
 	</o-page>
 </template>
 

@@ -1460,6 +1460,9 @@ const packagesDocData = new Map([
 				'name': 'isValid',
 				'type': '() => boolean',
 			}, {
+				'name': '_input',
+				'type': '() => HTMLInputElement | undefined',
+			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
 			}],
@@ -1850,6 +1853,9 @@ const packagesDocData = new Map([
 				'name': 'isValid',
 				'type': '() => boolean',
 			}, {
+				'name': '_input',
+				'type': '() => HTMLInputElement | undefined',
+			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
 			}],
@@ -2114,6 +2120,15 @@ const packagesDocData = new Map([
 					'fr': 'désactive la sélection du mois et de l\'année en haut du calendrier',
 				},
 			}, {
+				'name': 'displayWeekNumber',
+				'defaultValue': false,
+				'type': 'boolean',
+				'required': false,
+				'desc': {
+					'en': 'if true, displays week number on each row',
+					'fr': 'si true, affiche le numéro de semaine sur chaque ligne',
+				},
+			}, {
 				'name': 'maxDate',
 				'defaultValue': 'undefined',
 				'type': 'Nil<Date>',
@@ -2319,6 +2334,13 @@ const packagesDocData = new Map([
 						'fr': 'retire la date',
 					},
 				}],
+			}, {
+				'name': 'popper',
+				'desc': {
+					'en': 'Missing @doc',
+					'fr': 'Missing @doc',
+				},
+				'bindings': [],
 			}],
 			props: [{
 				'name': 'autofocus',
@@ -2355,6 +2377,24 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'disables the field',
 					'fr': 'désactive le champ',
+				},
+			}, {
+				'name': 'disablePopover',
+				'defaultValue': false,
+				'type': 'boolean',
+				'required': false,
+				'desc': {
+					'en': 'if you don\'t want to use the calendar popover',
+					'fr': 'si vous ne souhaitez pas utiliser la popover avec le calendrier',
+				},
+			}, {
+				'name': 'displayWeekNumber',
+				'defaultValue': false,
+				'type': 'boolean',
+				'required': false,
+				'desc': {
+					'en': 'if true, displays week number on each row',
+					'fr': 'si true, affiche le numéro de semaine sur chaque ligne',
 				},
 			}, {
 				'name': 'donetyping',
@@ -2599,6 +2639,9 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'isValid',
 				'type': '() => boolean',
+			}, {
+				'name': '_input',
+				'type': '() => HTMLInputElement | undefined',
 			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
@@ -3073,6 +3116,9 @@ const packagesDocData = new Map([
 				'name': 'isValid',
 				'type': '() => boolean',
 			}, {
+				'name': '_input',
+				'type': '() => HTMLInputElement | undefined',
+			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
 			}],
@@ -3412,8 +3458,8 @@ const packagesDocData = new Map([
 				'type': 'boolean',
 				'required': false,
 				'desc': {
-					'en': 'Missing @doc',
-					'fr': 'Missing @doc',
+					'en': 'allow negative values',
+					'fr': 'autorise les valeurs négatives',
 				},
 			}, {
 				'name': 'autocomplete',
@@ -3616,8 +3662,8 @@ const packagesDocData = new Map([
 				'type': 'boolean',
 				'required': false,
 				'desc': {
-					'en': 'select the field content when focused.',
-					'fr': 'sélectionne le contenu du champ lorsqu\'il est focus.',
+					'en': 'select the input value on focus',
+					'fr': 'sélectionne la valeur du champ au focus',
 				},
 			}, {
 				'name': 'size',
@@ -3694,6 +3740,9 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'isValid',
 				'type': '() => boolean',
+			}, {
+				'name': '_input',
+				'type': '() => HTMLInputElement | undefined',
 			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
@@ -3993,6 +4042,9 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'isValid',
 				'type': '() => boolean',
+			}, {
+				'name': '_input',
+				'type': '() => HTMLInputElement | undefined',
 			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
@@ -5175,6 +5227,9 @@ const packagesDocData = new Map([
 				'name': 'isValid',
 				'type': '() => boolean',
 			}, {
+				'name': '_input',
+				'type': '() => HTMLInputElement | undefined',
+			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
 			}],
@@ -5479,6 +5534,9 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'isValid',
 				'type': '() => boolean',
+			}, {
+				'name': '_input',
+				'type': '() => HTMLInputElement | undefined',
 			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
@@ -6010,6 +6068,9 @@ const packagesDocData = new Map([
 				'name': 'isValid',
 				'type': '() => boolean',
 			}, {
+				'name': '_input',
+				'type': '() => HTMLInputElement | undefined',
+			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
 			}],
@@ -6455,7 +6516,7 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'customFetch',
 				'defaultValue': 'undefined',
-				'type': '(searchTerm?: string) => BaseVModelType[]',
+				'type': '(searchTerm?: string) => Promise<BaseVModelType[]>',
 				'required': false,
 				'desc': {
 					'en': 'allows you to custom the fetch function',
@@ -6764,6 +6825,9 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'isValid',
 				'type': '() => boolean',
+			}, {
+				'name': '_input',
+				'type': '() => HTMLInputElement | undefined',
 			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
@@ -7373,6 +7437,9 @@ const packagesDocData = new Map([
 				'name': 'isValid',
 				'type': '() => boolean',
 			}, {
+				'name': '_input',
+				'type': '() => HTMLInputElement | undefined',
+			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
 			}],
@@ -7413,6 +7480,15 @@ const packagesDocData = new Map([
 			}],
 			slots: [],
 			props: [{
+				'name': 'centeredPill',
+				'defaultValue': false,
+				'type': 'boolean',
+				'required': false,
+				'desc': {
+					'en': 'centers the pill and the #after slot',
+					'fr': 'centre la vignette et le slot #after',
+				},
+			}, {
 				'name': 'horizontal',
 				'defaultValue': false,
 				'type': 'boolean',
@@ -7485,6 +7561,15 @@ const packagesDocData = new Map([
 				'bindings': [],
 			}],
 			props: [{
+				'name': 'centeredPill',
+				'defaultValue': false,
+				'type': 'boolean',
+				'required': false,
+				'desc': {
+					'en': 'centers the pill and the #after slot',
+					'fr': 'centre la vignette et le slot #after',
+				},
+			}, {
 				'name': 'complete',
 				'defaultValue': 'undefined',
 				'type': 'boolean',
@@ -7881,6 +7966,9 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'isValid',
 				'type': '() => boolean',
+			}, {
+				'name': '_input',
+				'type': '() => HTMLInputElement | undefined',
 			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
@@ -8380,6 +8468,9 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'isValid',
 				'type': '() => boolean',
+			}, {
+				'name': '_input',
+				'type': '() => HTMLInputElement | undefined',
 			}, {
 				'name': '_el',
 				'type': '() => HTMLElement | undefined',
