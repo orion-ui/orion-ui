@@ -7480,6 +7480,15 @@ const packagesDocData = new Map([
 			}],
 			slots: [],
 			props: [{
+				'name': 'centeredPill',
+				'defaultValue': false,
+				'type': 'boolean',
+				'required': false,
+				'desc': {
+					'en': 'centers the pill and the #after slot',
+					'fr': 'centre la vignette et le slot #after',
+				},
+			}, {
 				'name': 'horizontal',
 				'defaultValue': false,
 				'type': 'boolean',
@@ -7552,6 +7561,15 @@ const packagesDocData = new Map([
 				'bindings': [],
 			}],
 			props: [{
+				'name': 'centeredPill',
+				'defaultValue': false,
+				'type': 'boolean',
+				'required': false,
+				'desc': {
+					'en': 'centers the pill and the #after slot',
+					'fr': 'centre la vignette et le slot #after',
+				},
+			}, {
 				'name': 'complete',
 				'defaultValue': 'undefined',
 				'type': 'boolean',

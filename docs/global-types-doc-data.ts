@@ -290,7 +290,7 @@ const globalTypesDocData = {
 		'ns': 'Orion.Private',
 		'type': 'TsxTimelinePane',
 		'generic': '',
-		'description': '{ \n\t\t\t\tprops: OrionTimelinePane.Props & { \n\t\t\t\t\t\'font-icon\': string; \n\t\t\t\t\t\'marker-color\': string; \n\t\t\t\t}; \n\t\t\t\tchildren: { \n\t\t\t\t\tdefault: Slot; \n\t\t\t\t\tafter?: Slot; \n\t\t\t\t\tbefore?: Slot; \n\t\t\t\t}; \n\t\t\t} \n',
+		'description': '{ \n\t\t\t\tprops: OrionTimelinePane.Props & { \n\t\t\t\t\t\'font-icon\': string; \n\t\t\t\t\t\'marker-color\': string; \n\t\t\t\t\t\'centered-pill\': string; \n\t\t\t\t}; \n\t\t\t\tchildren: { \n\t\t\t\t\tdefault: Slot; \n\t\t\t\t\tafter?: Slot; \n\t\t\t\t\tbefore?: Slot; \n\t\t\t\t}; \n\t\t\t} \n',
 	}, {
 		'ns': 'Orion.Private',
 		'type': 'TsxTourStep',

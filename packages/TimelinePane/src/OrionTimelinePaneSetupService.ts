@@ -16,6 +16,9 @@ export default class OrionTimelinePaneSetupService extends SharedSetupService<Pr
 		// @doc props/lazyOnce the content of the pane is only loading once, the first time the pane is active
 		// @doc/fr props/lazyOnce le contenu du panneau est seulement chargé une fois, la première fois que le panneau est actif
 		lazyOnce: Boolean,
+		// @doc props/centeredPill centers the pill and the #after slot
+		// @doc/fr props/centeredPill centre la vignette et le slot #after
+		centeredPill: Boolean,
 		// @doc props/complete adds a complete style and defines the pill as clickable
 		// @doc/fr props/complete ajoute le style `complete` et permet de cliquer sur la vignette
 		complete: {

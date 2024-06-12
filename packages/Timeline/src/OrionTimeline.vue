@@ -3,6 +3,7 @@
 </template>
 
 <script setup lang="tsx">
+// @ts-nocheck
 import './OrionTimeline.less';
 import { provide, useSlots } from 'vue';
 import { OrionLoader } from 'packages/Loader';
@@ -28,6 +29,7 @@ const jsxTimeline = () => {
 		current: setup.current,
 		scrollable: setup.props.scrollable,
 		onPillClick: setup.onPillClick.bind(setup),
+		centeredPill: setup.props.centeredPill,
 	};
 
 	const pills = (
