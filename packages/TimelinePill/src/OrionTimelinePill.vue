@@ -3,6 +3,7 @@
 </template>
 
 <script setup lang="tsx">
+// @ts-nocheck
 import './OrionTimelinePill.less';
 import { OrionIcon } from 'packages/Icon';
 import { OrionHorizontalScroll } from 'packages/HorizontalScroll';
@@ -17,9 +18,10 @@ const jsxTimelinePill = () => {
 
 	const useBefore = !!panes.filter(p => !!p.children?.before).length;
 
-	const timeline = panes.map((pane, index) => {
+	const timeline = panes.map((pane, index): any => {
 		const originIndex = panes.findIndex(pane => pane.props.name === setup.props.value);
 
+		const isCenteredPill = setup.props.centeredPill || isDefineOrTrue(pane.props['centered-pill']);
 		const icon = pane.props.icon || pane.props['font-icon']
 			? (<OrionIcon class="orion-timeline-pill__icon" icon={pane.props.icon} fontIcon={pane.props['font-icon']}/>)
 			: null;
@@ -49,7 +51,10 @@ const jsxTimelinePill = () => {
 				&& (setup.props.current === pane.props.name || isDefineOrTrue(pane.props.complete) || index <= originIndex);
 
 		return (
-			<div class="orion-timeline-pill-wrapper">
+			<div class={{
+				'orion-timeline-pill-wrapper': true,
+				'orion-timeline-pill-wrapper--centered-pill': isCenteredPill,
+			}}>
 				{ before }
 				<div class="orion-timeline-pill">
 					<div
@@ -66,7 +71,9 @@ const jsxTimelinePill = () => {
 						{ icon ?? <span class="orion-timeline-pill__core-text">{pane.props.pill}</span> }
 						{ marker }
 					</div>
-					<div class="orion-timeline-pill__separator"/>
+
+					{ isCenteredPill && <div class="orion-timeline-pill__separator orion-timeline-pill__separator--before"/> }
+					<div class="orion-timeline-pill__separator orion-timeline-pill__separator--after"/>
 				</div>
 				{ after }
 			</div>

@@ -43,10 +43,10 @@
 			:visible="useFooterSelected && !!setup.selected.length">
 			<div class="orion-footer-selected__qty">
 				<span class="orion-footer-selected__qty-number">{{ setup.selected.length }}</span>
-				<span class="orion-footer-selected__qty-text">
-					{{ setup.computedItemType }}<br>
-					{{ setup.computedItemAdjective }}
-				</span>
+				<div class="orion-footer-selected__qty-text">
+					<span>{{ setup.computedItemType }}</span>
+					<span>{{ setup.computedItemAdjective }}</span>
+				</div>
 			</div>
 			<div class="orion-footer-selected__actions">
 				<slot name="footer-selected-actions"/>

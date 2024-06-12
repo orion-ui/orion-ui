@@ -14,15 +14,15 @@ export default abstract class SharedSetupService<P> {
 	props = {} as P;
 
 	private defaultRouter = useRouter();
-	responsive = useResponsive();
-	window = useWindow();
-	document = useDocument();
-	ui = useUi();
+	readonly responsive = useResponsive();
+	readonly window = useWindow();
+	readonly document = useDocument();
+	readonly ui = useUi();
 
-	Bus = Bus;
-	getUid = getUid;
+	readonly Bus = Bus;
+	readonly getUid = getUid;
 
-	_el = ref<HTMLElement>();
+	readonly _el = ref<HTMLElement>();
 
 	get router () { return orionAppService.appRouter ?? this.defaultRouter; }
 	get publicInstance () { return { _el: () => this._el.value }; }

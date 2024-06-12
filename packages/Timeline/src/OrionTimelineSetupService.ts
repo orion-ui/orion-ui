@@ -18,6 +18,9 @@ export default class OrionTimelineSetupService extends SharedSetupService<Props>
 		// @doc props/scrollable displays an horizontal scroll on the timeline pills if it does not fit in its container
 		// @doc/fr props/scrollable affiche un scroll horizontal au niveau de la timeline si elle dépasse de son conteneur.
 		scrollable: Boolean,
+		// @doc props/centeredPill centers the pill and the #after slot
+		// @doc/fr props/centeredPill centre la vignette et le slot #after
+		centeredPill: Boolean,
 		// @doc props/modelValue the model value
 		// @doc/fr props/modelValue le modelValue
 		modelValue: {

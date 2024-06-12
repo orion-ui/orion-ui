@@ -22,7 +22,7 @@
 			</orion-select>
 
 			<orion-input
-				:ref="setup._input"
+				:ref="setup._orionInput"
 				v-model="setup.phoneNumber"
 				type="tel"
 				:cleave="setup.cleaveOptions"
@@ -37,7 +37,7 @@
 					required: setup.isRequired,
 				}"
 				force-label-floating
-				@keydown="setup.keydownGuard($event)"
+				@keydown.self="setup.keydownGuard($event)"
 				@focus="setup.handleFocus($event)"
 				@blur="setup.handleBlur($event)"/>
 		</div>

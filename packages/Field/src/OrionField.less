@@ -145,7 +145,7 @@ select:-webkit-autofill:focus {
 			border-color: var(--info);
 		}
 
-		&:hover > [class*='__check-container'] {
+		&:not([class*="--disabled"]):hover > [class*='__check-container'] {
 			border-color: var(--info);
 		}
 	}

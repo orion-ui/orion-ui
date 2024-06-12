@@ -52,13 +52,9 @@
 				</slot>
 
 				<input
-					v-if="setup.props.autocomplete &&
-						(!setup.props.multiple ||
-							(setup.props.multiple && !setup.hasValue) ||
-							(setup.props.multiple && setup.hasValue && setup.isFocus)
-						)"
+					v-if="setup.props.autocomplete && (!setup.hasValue || (setup.hasValue && setup.isFocus))"
 					:ref="setup._autocomplete"
-					v-model="setup.autocompleteValue"
+					v-model="setup.valueToSearch"
 					type="text"
 					class="orion-input__input orion-select__autocomplete"
 					:class="{

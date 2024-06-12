@@ -69,6 +69,7 @@ export default class OrionToggleSetupService extends SharedFieldSetupService<Pro
 	get coreStyle () {
 		return {
 			width: this.px(this.width),
+			minWidth: this.px(this.width),
 			height: this.px(this.height),
 			borderRadius: this.px(this.height),
 		};
