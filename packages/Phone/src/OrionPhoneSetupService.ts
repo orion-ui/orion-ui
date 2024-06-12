@@ -51,7 +51,6 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 	protected readonly emit: OrionPhoneEmit;
 	readonly _country = ref<OrionSelect>();
 	readonly _orionInput = ref<HTMLInputElement & OrionInput>();
-	readonly countryList = useCountry().countries;
 
 	protected state = reactive({
 		...this.sharedState,
@@ -69,6 +68,10 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 			!isEmpty(this.phoneNumberWithoutIndicatif) &&
 			!isNil(this.state.phoneNumber)
 		);
+	}
+
+	get countryList () {
+		return useCountry().countries.toSorted((a, b) => a.name.localeCompare(b.name));
 	}
 
 	get country () { return this.state.country; }
