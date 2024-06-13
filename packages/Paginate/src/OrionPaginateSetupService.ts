@@ -63,18 +63,18 @@ export default class OrionPaginateSetupService extends SharedSetupService<Props>
 
 	get pagesArray () {
 		const a = [];
-		if (this.props.modelValue < 6) {
-			for (let index = 1; index <= (this.pagesLength < 6 ? this.pagesLength : 5); index++) {
+		if (this.props.modelValue < 5 || this.pagesLength === 5) {
+			for (let index = 1; index <= (this.pagesLength < 6 ? this.pagesLength : 4); index++) {
 				a.push(index);
 			}
 			if (this.pagesLength > 5) {
 				a.push('...');
 				a.push(this.pagesLength);
 			}
-		} else if (this.props.modelValue > this.pagesLength - 5) {
+		} else if (this.props.modelValue > this.pagesLength - 4) {
 			a.push(1);
 			a.push('...');
-			const indexFor = this.pagesLength - 4;
+			const indexFor = this.pagesLength - 3;
 			for (let index = indexFor; index <= this.pagesLength; index++) {
 				a.push(index);
 			}
