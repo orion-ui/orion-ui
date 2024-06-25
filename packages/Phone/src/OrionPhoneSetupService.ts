@@ -4,6 +4,7 @@ import 'cleave.js/src/addons/phone-type-formatter.i18n';
 import SharedFieldSetupService from '../../Shared/SharedFieldSetupService';
 import useCountry from 'services/CountryService';
 import useValidation from 'services/ValidationService';
+import { AsYouType, CountryCode, isValidPhoneNumber, parsePhoneNumber, parsePhoneNumberWithError, validatePhoneNumberLength } from 'libphonenumber-js';
 
 type Props = SetupProps<typeof OrionPhoneSetupService.props>
 type VModelType = Nil<{
@@ -46,6 +47,12 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 			type: String,
 			default: undefined,
 		},
+		//@doc props/withFlag Allow to display or not the flag of the selected country
+		//@doc/fr props/withFlag Permet d'afficher le drapeau du pays choisi
+		withFlag: {
+			type: Boolean,
+			default: false,
+		},
 	};
 
 	protected readonly emit: OrionPhoneEmit;
@@ -56,6 +63,7 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 		...this.sharedState,
 		country: useCountry().getCountryByCode(this.lang.ORION_PHONE__DEFAULT_COUNTRY_CODE),
 		phoneNumber: '',
+		ctrlPress: false,
 	});
 
 	protected get isFrPhone () {
@@ -81,9 +89,18 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 		this.setVModel();
 	}
 
-	get phoneNumber () { return this.state.phoneNumber; }
+	get ctrlPress () { return this.state.ctrlPress; }
+	set ctrlPress (val) { this.state.ctrlPress = val; }
+
+	get phoneNumber () {
+		// return this.state.phoneNumber;
+		return new AsYouType(this.country?.code).input(this.state.phoneNumber);
+	}
+
 	set phoneNumber (val) {
-		this.state.phoneNumber = this.sanitizePhoneNumber(val);
+		this.state.phoneNumber = this.sanitizePhoneNumber(val).startsWith('+')
+			? this.sanitizePhoneNumber(val)
+			: this.indicatif + this.sanitizePhoneNumber(val);
 		this.emit('update:phoneNumber', this.state.phoneNumber);
 		this.setVModel();
 	}
@@ -92,14 +109,6 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 	set vModel (val) {
 		this.emit('update:modelValue', val);
 		this.emit('input', val);
-	}
-
-	get cleaveOptions () {
-		return {
-			phone: true,
-			phoneRegionCode: this.state.country?.code,
-			prefix: `+${this.state.country?.areaCode ?? '33'} `,
-		};
 	}
 
 	get phoneNumberWithoutIndicatif () {
@@ -128,6 +137,10 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 		}
 	}
 
+	get src () { return new URL('../../../assets/flag/' + this.country?.code + '.svg', import.meta.url).href;};
+
+	get indicatif () { return `+${this.country?.areaCode}`;};
+
 
 	constructor (props: Props, emit: OrionPhoneEmit) {
 		super(props, emit);
@@ -155,12 +168,12 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 
 	protected async onBeforeMount () {
 		if (isNil(this.vModel)) {
-			this.state.phoneNumber = '';
 			this.state.country = useCountry().getCountryByCode(this.lang.ORION_PHONE__DEFAULT_COUNTRY_CODE);
+			this.state.phoneNumber += `+${this.state.country?.areaCode}`;
 		} else {
 			if (this.vModel && (isEmpty(this.vModel.phoneCountryCode) || isNil(this.vModel.phoneCountryCode))) {
 				this.vModel.phoneCountryCode = this.lang.ORION_PHONE__DEFAULT_COUNTRY_CODE;
-				this.vModel.phoneNumber = '';
+				this.state.phoneNumber += `+${this.state.country?.areaCode}`;
 			}
 
 			if (this.vModel.phoneCountryCode) {
@@ -170,6 +183,22 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 		}
 	}
 
+	protected onMounted (): void {
+		/* const inputElt = this._orionInput.value?._input() as HTMLInputElement;
+		if (!isNil(inputElt)) {
+			inputElt.onpaste = (e) => {
+				e.preventDefault();
+				console.log(e.clipboardData?.getData('Text'));
+				const paste = e.clipboardData?.getData('Text');
+				if (paste) {
+					for (let i = 0; i < paste?.length; i++) {
+
+					}
+				}
+			};
+			inputElt.oncut = e => e.preventDefault();
+		} */
+	}
 
 	keydownGuard (e: KeyboardEvent) {
 		if (this.isFrPhone) {
@@ -180,19 +209,90 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 
 		const numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 		const misc = ['Backspace', 'Delete'];
+		const move = ['ArrowLeft', 'ArrowRight', 'Tab'];
 
-		const valueLength = this._orionInput.value?._input()?.value.length ?? 0;
-		const selectionStart = this._orionInput.value?._input()?.selectionStart ?? 0;
-		const selectionEnd = this._orionInput.value?._input()?.selectionEnd ?? 0;
+		const validInput = [...numbers, ...misc, ...move];
+
+		const inputElt = this._orionInput.value?._input();
+		const valueLength = inputElt?.value.length ?? 0;
+		const selectionStart = inputElt?.selectionStart ?? 0;
+		const selectionEnd = inputElt?.selectionEnd ?? 0;
 		const selectionLength = selectionEnd - selectionStart;
-		// const inputValueBeforeCursor = this._orionInput.value?._input()?.value.slice(0, selectionStart) ?? '';
-		const inputValueAfterCursor = this._orionInput.value?._input()?.value.slice(selectionEnd) ?? '';
-		const inputSelectionValue = this._orionInput.value?._input()?.value.slice(selectionStart, selectionEnd) ?? '';
+		const inputValueBeforeCursor = inputElt?.value.slice(0, selectionStart) ?? '';
+		const inputValueAfterCursor = inputElt?.value.slice(selectionEnd) ?? '';
+		const inputSelectionValue = inputElt?.value.slice(selectionStart, selectionEnd) ?? '';
 
-		if (selectionStart === selectionEnd && selectionStart === valueLength && selectionLength === 0) return;
 
-		if ([...numbers, ...misc].includes(e.key)) {
+		if (e.key === 'v')
+			return;
+
+		if (e.key === 'Control' || e.key === 'Meta') {
+			this.ctrlPress = true;
+			return;
+		}
+
+		//TODO: rework on peut pas utiliser copy paste
+		//empeche d'écrire autre chose que des chiffres dans l'input
+		if (!validInput.includes(e.key)) {
+			if (!this.ctrlPress)
+				e.preventDefault();
+			return;
+		}
+
+		if (move.includes(e.key)) {
+			return;
+		}
+
+		//Vérifie si on ne supprime pas l'indicatif
+		//this.phoneNumber = this.indicatif
+		if (selectionStart <= this.indicatif.length) {
+			if (selectionStart < this.indicatif.length ||
+				(selectionStart === this.indicatif.length && selectionStart === selectionEnd && e.key === 'Backspace')) {
+				e.preventDefault();
+				return;
+			}
+		}
+
+		//on écrit à la fin
+		if (selectionStart === valueLength) {
+			const inputValueAfterKeydown = inputValueBeforeCursor + e.key;
+			if (inputElt) {
+				if (!isValidPhoneNumber(inputElt.value, this.country?.code) || misc.includes(e.key)) {
+					return;
+				} else {
+					if (!isValidPhoneNumber(inputValueAfterKeydown, this.country?.code)) {
+						e.preventDefault();
+					}
+				}
+			}
+			return;
+		}
+
+		//on écrit entre les deux
+		if (selectionStart === selectionEnd) {
+			const inputValueAfterKeydown = inputValueBeforeCursor + e.key + inputValueAfterCursor;
+			if (inputElt) {
+				if (!isValidPhoneNumber(inputElt.value, this.country?.code) || misc.includes(e.key)) {
+					return;
+				} else {
+					if (!isValidPhoneNumber(inputValueAfterKeydown, this.country?.code)) {
+						const inputValueIfInsert = inputValueBeforeCursor + e.key + inputValueAfterCursor.substring(1);
+						if (!isValidPhoneNumber(inputValueIfInsert, this.country?.code)) {
+							e.preventDefault();
+							return;
+						}
+						setTimeout(() => {
+							this.phoneNumber = inputValueIfInsert.replace(/\s+/g, '');
+						}, 10);
+					}
+					return;
+				}
+			}
+		}
+
+		/* if ([...numbers, ...misc].includes(e.key)) {
 			setTimeout(() => {
+
 				if (selectionLength === 0) {
 					let targetSelection = e.key === 'Backspace' ? selectionStart - 1 : selectionStart;
 
@@ -226,6 +326,12 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 					this._orionInput.value?._input()?.setSelectionRange(targetSelectionStart, targetSelectionEnd);
 				}
 			}, 10);
+		} */
+	}
+
+	keyupGuard (event: KeyboardEvent) {
+		if (event.key === 'Control' || event.key ==='Meta') {
+			this.ctrlPress = false;
 		}
 	}
 
@@ -236,14 +342,24 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 		);
 	}
 
-	sanitizePhoneNumber (phoneNumberToSanitize?: string) {
-		const phoneNumber = phoneNumberToSanitize ?? this.vModel?.phoneNumber;
+	sanitizePhoneNumber (phoneNumberToSanitize?: string) : string {
 
-		if (this.isFrPhone && phoneNumber) {
-			return phoneNumber.replace(/^(0|\+330)(\d+)/, '+33$2');
+		if (phoneNumberToSanitize && validatePhoneNumberLength(phoneNumberToSanitize, this.country?.code) === 'TOO_LONG')
+			return this.indicatif;
+
+		let phoneNumber = phoneNumberToSanitize ?? this.vModel?.phoneNumber;
+		if (phoneNumber) {
+			phoneNumber = phoneNumber.replace(/\s*/g, '');
+		}
+
+		if (phoneNumber) {
+			const regex = new RegExp(`^(0|\\${this.indicatif}0)(\\d+)`);
+			const test = `${this.indicatif}$2`;
+			return phoneNumber.replace(regex, test).replace(/\s*/g, '');
 		}
 
 		return phoneNumber ?? '';
+
 	}
 
 	setVModel () {
@@ -259,5 +375,18 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 			phoneNumber,
 			phoneCountryCode,
 		};
+	}
+
+	changeAreaCode () {
+		this.phoneNumber = this.indicatif;
+	}
+
+	handleMouseEvent (event: MouseEvent) {
+		const input = (event.target as HTMLInputElement);
+		event.preventDefault();
+		input.focus();
+		setTimeout(() => {
+			input.setSelectionRange(3, 3);
+		}, 10);
 	}
 }

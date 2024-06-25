@@ -53,6 +53,7 @@
 		"animejs": "^3.2.2",
 		"cleave.js": "^1.6.0",
 		"floating-vue": "^5.2.2",
+		"libphonenumber-js": "^1.11.4",
 		"lodash-es": "^4.17.21",
 		"mitt": "^3.0.1",
 		"pluralize": "^8.0.0",

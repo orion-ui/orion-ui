@@ -5,15 +5,24 @@
 				:ref="setup._country"
 				v-model="setup.country"
 				class="orion-telephone--indicatif"
+				:class="{ 'orion-telephone--with-flag': withFlag }"
 				track-key="code"
 				display-key="areaCode"
 				searchable
 				:disabled="setup.props.disabled"
 				:options="setup.countryList"
 				:custom-search="setup.customSearch.bind(setup)"
-				@input-keydown-tab="setup._input.value?.focus()">
+				@input-keydown-tab="setup._input.value?.focus()"
+				@update:model-value="setup.changeAreaCode()">
 				<template #value="{ item }">
-					{{ item !== null && item !== undefined ? item.code : '' }}
+					<div class="flex ai-c">
+						<img
+							v-if="withFlag && setup.country"
+							:src="setup.src"
+							width="15.75"
+							height="12">
+						&nbsp;{{ item !== null && item !== undefined ? item.code : '' }}
+					</div>
 				</template>
 
 				<template #option="{ item }">
@@ -25,9 +34,8 @@
 				:ref="setup._orionInput"
 				v-model="setup.phoneNumber"
 				type="tel"
-				:cleave="setup.cleaveOptions"
 				:class="{ 'orion-input--warning': setup.showWarning }"
-				:validation="setup.isValid.value"
+				:validation="isValidPhoneNumber(setup.phoneNumber, setup.country?.code)"
 				:inherit-validation-state="setup.showState"
 				v-bind="{
 					...$attrs,
@@ -38,10 +46,12 @@
 				}"
 				force-label-floating
 				@keydown.self="setup.keydownGuard($event)"
+				@keyup.self="setup.keyupGuard($event)"
+				@mousedown-right="setup.handleMouseEvent($event)"
 				@focus="setup.handleFocus($event)"
 				@blur="setup.handleBlur($event)"/>
 		</div>
-
+		<pre>{{ setup.ctrlPress }}</pre>
 		<div
 			v-if="setup.showState
 				&& (setup.showError || setup.showWarning)
@@ -55,6 +65,7 @@
 import './OrionPhone.less';
 import { OrionInput } from 'packages/Input';
 import { OrionSelect } from 'packages/Select';
+import { isValidPhoneNumber } from 'libphonenumber-js';
 import OrionPhoneSetupService from './OrionPhoneSetupService';
 // TODO: avoid code duplicate
 // https://github.com/vuejs/core/issues/8301

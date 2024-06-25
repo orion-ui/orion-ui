@@ -8,6 +8,7 @@ import OrionChatMessageEntity from '../packages/ChatMessage/src/OrionChatMessage
 import type { OrionAsideSetupService, OrionModalSetupService, OrionNotifSetupService } from '../packages';
 import useValidation from '../services/ValidationService';
 import { Validator as ValidatorClass } from '../utils/Validator';
+import { CountryCode } from 'libphonenumber-js';
 
 declare global {
 	type Nullable<T> = T | null;
@@ -135,7 +136,7 @@ declare global {
 		}
 
 		type Country = {
-			code: Uppercase<`${Private.Letter}${Private.Letter}`>;
+			code: CountryCode;
 			name: string;
 			areaCode: string;
 		}
