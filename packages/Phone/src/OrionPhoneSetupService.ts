@@ -347,7 +347,11 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 		if (phoneNumberToSanitize && validatePhoneNumberLength(phoneNumberToSanitize, this.country?.code) === 'TOO_LONG')
 			return this.indicatif;
 
-		let phoneNumber = phoneNumberToSanitize ?? this.vModel?.phoneNumber;
+		let phoneNumber;
+		if (!phoneNumberToSanitize?.startsWith(this.indicatif) && phoneNumberToSanitize?.startsWith('+')) {
+			phoneNumber = phoneNumberToSanitize?.replace('+', this.indicatif);
+		} else phoneNumber = phoneNumberToSanitize ?? this.vModel?.phoneNumber;
+
 		if (phoneNumber) {
 			phoneNumber = phoneNumber.replace(/\s*/g, '');
 		}
