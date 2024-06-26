@@ -98,9 +98,10 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 	}
 
 	set phoneNumber (val) {
-		this.state.phoneNumber = this.sanitizePhoneNumber(val).startsWith('+')
-			? this.sanitizePhoneNumber(val)
-			: this.indicatif + this.sanitizePhoneNumber(val);
+		const sanitized = this.sanitizePhoneNumber(val);
+		this.state.phoneNumber = sanitized.startsWith('+')
+			? sanitized
+			: this.indicatif + sanitized;
 		this.emit('update:phoneNumber', this.state.phoneNumber);
 		this.setVModel();
 	}
@@ -139,7 +140,7 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 
 	get src () { return new URL('../../../assets/flag/' + this.country?.code + '.svg', import.meta.url).href;};
 
-	get indicatif () { return `+${this.country?.areaCode}`;};
+	get indicatif () { return `+${this.country?.areaCode}`.replace('-', ' ');};
 
 
 	constructor (props: Props, emit: OrionPhoneEmit) {
@@ -183,23 +184,6 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 		}
 	}
 
-	protected onMounted (): void {
-		/* const inputElt = this._orionInput.value?._input() as HTMLInputElement;
-		if (!isNil(inputElt)) {
-			inputElt.onpaste = (e) => {
-				e.preventDefault();
-				console.log(e.clipboardData?.getData('Text'));
-				const paste = e.clipboardData?.getData('Text');
-				if (paste) {
-					for (let i = 0; i < paste?.length; i++) {
-
-					}
-				}
-			};
-			inputElt.oncut = e => e.preventDefault();
-		} */
-	}
-
 	keydownGuard (e: KeyboardEvent) {
 		if (this.isFrPhone) {
 			if (this.state.phoneNumber === '+33' && e.key === '0') {
@@ -222,10 +206,6 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 		const inputValueAfterCursor = inputElt?.value.slice(selectionEnd) ?? '';
 		const inputSelectionValue = inputElt?.value.slice(selectionStart, selectionEnd) ?? '';
 
-
-		if (e.key === 'v')
-			return;
-
 		if (e.key === 'Control' || e.key === 'Meta') {
 			this.ctrlPress = true;
 			return;
@@ -245,7 +225,7 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 
 		//Vérifie si on ne supprime pas l'indicatif
 		//this.phoneNumber = this.indicatif
-		if (selectionStart <= this.indicatif.length) {
+		if (selectionStart <= this.indicatif.length && valueLength >= this.indicatif.length) {
 			if (selectionStart < this.indicatif.length ||
 				(selectionStart === this.indicatif.length && selectionStart === selectionEnd && e.key === 'Backspace')) {
 				e.preventDefault();
@@ -257,7 +237,7 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 		if (selectionStart === valueLength) {
 			const inputValueAfterKeydown = inputValueBeforeCursor + e.key;
 			if (inputElt) {
-				if (!isValidPhoneNumber(inputElt.value, this.country?.code) || misc.includes(e.key)) {
+				if ((!isValidPhoneNumber(inputElt.value, this.country?.code) || misc.includes(e.key))) {
 					return;
 				} else {
 					if (!isValidPhoneNumber(inputValueAfterKeydown, this.country?.code)) {
@@ -270,13 +250,16 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 
 		//on écrit entre les deux
 		if (selectionStart === selectionEnd) {
-			const inputValueAfterKeydown = inputValueBeforeCursor + e.key + inputValueAfterCursor;
+			const inputValueAfterKeydown = inputValueBeforeCursor + e.key
+											+ (inputValueAfterCursor.startsWith(' ') ? inputValueAfterCursor.substring(1) : inputValueAfterCursor);
+
 			if (inputElt) {
 				if (!isValidPhoneNumber(inputElt.value, this.country?.code) || misc.includes(e.key)) {
-					return;
+					//return;
 				} else {
 					if (!isValidPhoneNumber(inputValueAfterKeydown, this.country?.code)) {
-						const inputValueIfInsert = inputValueBeforeCursor + e.key + inputValueAfterCursor.substring(1);
+						const inputValueIfInsert = inputValueBeforeCursor + e.key
+											+ (inputValueAfterCursor.startsWith(' ') ? inputValueAfterCursor.substring(2) : inputValueAfterCursor.substring(1));
 						if (!isValidPhoneNumber(inputValueIfInsert, this.country?.code)) {
 							e.preventDefault();
 							return;
@@ -285,12 +268,11 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 							this.phoneNumber = inputValueIfInsert.replace(/\s+/g, '');
 						}, 10);
 					}
-					return;
 				}
 			}
 		}
 
-		/* if ([...numbers, ...misc].includes(e.key)) {
+		if ([...numbers, ...misc].includes(e.key)) {
 			setTimeout(() => {
 
 				if (selectionLength === 0) {
@@ -326,7 +308,7 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 					this._orionInput.value?._input()?.setSelectionRange(targetSelectionStart, targetSelectionEnd);
 				}
 			}, 10);
-		} */
+		}
 	}
 
 	keyupGuard (event: KeyboardEvent) {
@@ -343,9 +325,24 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 	}
 
 	sanitizePhoneNumber (phoneNumberToSanitize?: string) : string {
+		if (phoneNumberToSanitize && validatePhoneNumberLength(phoneNumberToSanitize, this.country?.code) === 'TOO_LONG') {
+			while (validatePhoneNumberLength(phoneNumberToSanitize, this.country?.code) === 'TOO_LONG') {
+				phoneNumberToSanitize = phoneNumberToSanitize?.slice(0, -1);
+			}
+			const inputValue = this._orionInput.value?._input();
+			if (inputValue)
+				inputValue.value = phoneNumberToSanitize;
+			return phoneNumberToSanitize.replace(/\s*/g, '');
+		}
 
-		if (phoneNumberToSanitize && validatePhoneNumberLength(phoneNumberToSanitize, this.country?.code) === 'TOO_LONG')
-			return this.indicatif;
+		if (phoneNumberToSanitize && validatePhoneNumberLength(phoneNumberToSanitize, this.country?.code) === 'NOT_A_NUMBER') {
+			if (validatePhoneNumberLength(this.phoneNumber, this.country?.code) !== 'NOT_A_NUMBER') {
+				const inputValue = this._orionInput.value?._input();
+				if (inputValue)
+					inputValue.value = this.phoneNumber;
+				return this.phoneNumber.replace(/\s*/g, '');
+			}
+		}
 
 		let phoneNumber;
 		if (!phoneNumberToSanitize?.startsWith(this.indicatif) && phoneNumberToSanitize?.startsWith('+')) {
@@ -357,9 +354,9 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 		}
 
 		if (phoneNumber) {
-			const regex = new RegExp(`^(0|\\${this.indicatif}0)(\\d+)`);
-			const test = `${this.indicatif}$2`;
-			return phoneNumber.replace(regex, test).replace(/\s*/g, '');
+			const regex = new RegExp(`^(0|\\${this.indicatif}0|\\${this.indicatif}\\${this.indicatif})(\\d+)`);
+			const replaceRegex = `${this.indicatif}$2`;
+			return phoneNumber.replace(regex, replaceRegex).replace(/\s*/g, '');
 		}
 
 		return phoneNumber ?? '';

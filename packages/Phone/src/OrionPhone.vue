@@ -51,7 +51,6 @@
 				@focus="setup.handleFocus($event)"
 				@blur="setup.handleBlur($event)"/>
 		</div>
-		<pre>{{ setup.ctrlPress }}</pre>
 		<div
 			v-if="setup.showState
 				&& (setup.showError || setup.showWarning)
