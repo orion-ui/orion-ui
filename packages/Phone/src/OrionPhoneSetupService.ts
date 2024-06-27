@@ -47,9 +47,9 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 			type: String,
 			default: undefined,
 		},
-		//@doc props/withFlag Allow to display or not the flag of the selected country
-		//@doc/fr props/withFlag Permet d'afficher le drapeau du pays choisi
-		withFlag: {
+		//@doc props/flag Allow to display or not the flag of the selected country
+		//@doc/fr props/flag Permet d'afficher le drapeau du pays choisi
+		flag: {
 			type: Boolean,
 			default: false,
 		},

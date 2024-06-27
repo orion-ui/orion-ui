@@ -5,7 +5,7 @@
 				:ref="setup._country"
 				v-model="setup.country"
 				class="orion-telephone--indicatif"
-				:class="{ 'orion-telephone--with-flag': withFlag }"
+				:class="{ 'orion-telephone--with-flag': flag }"
 				track-key="code"
 				display-key="areaCode"
 				searchable
@@ -17,7 +17,7 @@
 				<template #value="{ item }">
 					<div class="flex ai-c">
 						<img
-							v-if="withFlag && setup.country"
+							v-if="flag && setup.country"
 							:src="setup.src"
 							width="15.75"
 							height="12">

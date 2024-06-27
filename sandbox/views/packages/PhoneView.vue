@@ -6,7 +6,7 @@
 					v-model:phone-number="test2.phoneNumber"
 					v-model:phone-country-code="test2.phoneCountryCode"
 					:label="phone.label"
-					with-flag
+					flag
 					@update:phone-country-code="onChangeCountryCode()"/>
 				<pre>{{ test2 }}</pre>
 			</div>
