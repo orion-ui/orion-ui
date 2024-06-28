@@ -63,7 +63,6 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 		...this.sharedState,
 		country: useCountry().getCountryByCode(this.lang.ORION_PHONE__DEFAULT_COUNTRY_CODE),
 		phoneNumber: '',
-		ctrlPress: false,
 	});
 
 	protected get isFrPhone () {
@@ -88,9 +87,6 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 		this.emit('update:phoneCountryCode', val?.code);
 		this.setVModel();
 	}
-
-	get ctrlPress () { return this.state.ctrlPress; }
-	set ctrlPress (val) { this.state.ctrlPress = val; }
 
 	get phoneNumber () {
 		// return this.state.phoneNumber;
@@ -206,16 +202,12 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 		const inputValueAfterCursor = inputElt?.value.slice(selectionEnd) ?? '';
 		const inputSelectionValue = inputElt?.value.slice(selectionStart, selectionEnd) ?? '';
 
-		if (e.key === 'Control' || e.key === 'Meta') {
-			this.ctrlPress = true;
-			return;
-		}
 
-		//TODO: rework on peut pas utiliser copy paste
-		//empeche d'écrire autre chose que des chiffres dans l'input
+		if (e.metaKey || e.ctrlKey) return;
+
+		//Block input to everything except number, movement and delete
 		if (!validInput.includes(e.key)) {
-			if (!this.ctrlPress)
-				e.preventDefault();
+			e.preventDefault();
 			return;
 		}
 
@@ -223,8 +215,7 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 			return;
 		}
 
-		//Vérifie si on ne supprime pas l'indicatif
-		//this.phoneNumber = this.indicatif
+		//Check if we try to delete the area code
 		if (selectionStart <= this.indicatif.length && valueLength >= this.indicatif.length) {
 			if (selectionStart < this.indicatif.length ||
 				(selectionStart === this.indicatif.length && selectionStart === selectionEnd && e.key === 'Backspace')) {
@@ -233,7 +224,7 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 			}
 		}
 
-		//on écrit à la fin
+		//The cursor is at the end
 		if (selectionStart === valueLength) {
 			const inputValueAfterKeydown = inputValueBeforeCursor + e.key;
 			if (inputElt) {
@@ -248,7 +239,7 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 			return;
 		}
 
-		//on écrit entre les deux
+		//The cursor is between two part
 		if (selectionStart === selectionEnd) {
 			const inputValueAfterKeydown = inputValueBeforeCursor + e.key
 											+ (inputValueAfterCursor.startsWith(' ') ? inputValueAfterCursor.substring(1) : inputValueAfterCursor);
@@ -308,12 +299,6 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 					this._orionInput.value?._input()?.setSelectionRange(targetSelectionStart, targetSelectionEnd);
 				}
 			}, 10);
-		}
-	}
-
-	keyupGuard (event: KeyboardEvent) {
-		if (event.key === 'Control' || event.key ==='Meta') {
-			this.ctrlPress = false;
 		}
 	}
 

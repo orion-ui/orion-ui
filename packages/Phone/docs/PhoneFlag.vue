@@ -26,5 +26,5 @@ With the prop `flag` you can display a flag in your select element.
 @lang:fr
 ### Drapeau
 
-Avec la prop `flag` un drapeau sera ajouté dans l'encadrer comportant le code ISO du pays sélectionné.
+Avec la prop `flag` un drapeau sera ajouté dans l'encadré comportant le code ISO du pays sélectionné.
 @lang
