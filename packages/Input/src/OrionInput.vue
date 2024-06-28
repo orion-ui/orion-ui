@@ -18,6 +18,7 @@
 			@keydown="setup.handleKeydownGuard($event)"
 			@change="setup.handleChange()"
 			@focus="setup.handleFocus($event)"
+			@mousedown.right="$emit('mousedown-right', $event)"
 			@blur="setup.handleBlurCustom($event)">
 
 		<div

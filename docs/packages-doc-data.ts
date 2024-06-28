@@ -5355,6 +5355,15 @@ const packagesDocData = new Map([
 					'fr': 'défini la durée du debounce avant de mettre à jour la valeur (utile pour les champs de recherche)',
 				},
 			}, {
+				'name': 'flag',
+				'defaultValue': 'false',
+				'type': 'boolean',
+				'required': false,
+				'desc': {
+					'en': 'Allow to display or not the flag of the selected country',
+					'fr': 'Permet d\'afficher le drapeau du pays choisi',
+				},
+			}, {
 				'name': 'forceLabelFloating',
 				'defaultValue': false,
 				'type': 'boolean',

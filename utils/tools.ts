@@ -4,6 +4,7 @@ import { devtool, devtoolId } from 'devtool';
 import useDocument from 'services/DocumentService';
 import useLocalStorage from 'services/LocalStorageService';
 import useWindow from 'services/WindowService';
+import { CountryCode, parsePhoneNumber } from 'libphonenumber-js';
 
 
 const uidGenerator = function* () {
@@ -261,6 +262,18 @@ export function addPopoverBackdropCloseAbility (popoverRef: Ref<Undef<InstanceTy
 			popoverRef.value?.hide();
 			nextTick(() => cb?.());
 		}, { once: true });
+	}
+}
+
+export function displayPhone (phoneNumber : string, code: CountryCode) {
+	try {
+		const parsedPhoneNumber = parsePhoneNumber(phoneNumber, code);
+		if (parsedPhoneNumber.isValid()) {
+			return parsedPhoneNumber.formatInternational();
+		}
+		return phoneNumber;
+	} catch {
+		return phoneNumber;
 	}
 }
 
