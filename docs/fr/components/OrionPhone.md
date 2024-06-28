@@ -13,6 +13,7 @@ Le numéro sera formatté en fonction du pays sélectionné.
 
 ::: demo:Phone
 PhoneMobile
+PhoneFlag
 PhonePlayground
 :::
 

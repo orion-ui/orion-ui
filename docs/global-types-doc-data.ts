@@ -129,7 +129,7 @@ const globalTypesDocData = {
 		'ns': 'Orion',
 		'type': 'Country',
 		'generic': '',
-		'description': '{ \n\t\t\tcode: Uppercase<`${Private.Letter}${Private.Letter}`>; \n\t\t\tname: string; \n\t\t\tareaCode: string; \n\t\t} \n',
+		'description': '{ \n\t\t\tcode: CountryCode; \n\t\t\tname: string; \n\t\t\tareaCode: string; \n\t\t} \n',
 	}, {
 		'ns': 'Orion',
 		'type': 'LayoutConfig',
