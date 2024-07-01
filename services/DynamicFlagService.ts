@@ -8,7 +8,6 @@ class DynamicFlagService {
 
 
 	getImageFromSlug (slug: CountryCode) {
-		//return this.imgFlagRegistry[slug];
 		return this.flags[slug];
 	}
 
