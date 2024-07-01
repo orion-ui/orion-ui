@@ -57,6 +57,10 @@ const serviceDocData = new Map([
 		{},
 	],
 	[
+		'DynamicFlag',
+		{},
+	],
+	[
 		'Lang',
 		{},
 	],

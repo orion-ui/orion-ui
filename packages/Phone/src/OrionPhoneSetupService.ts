@@ -4,7 +4,8 @@ import 'cleave.js/src/addons/phone-type-formatter.i18n';
 import SharedFieldSetupService from '../../Shared/SharedFieldSetupService';
 import useCountry from 'services/CountryService';
 import useValidation from 'services/ValidationService';
-import { AsYouType, CountryCode, isValidPhoneNumber, parsePhoneNumber, parsePhoneNumberWithError, validatePhoneNumberLength } from 'libphonenumber-js';
+import { AsYouType, isValidPhoneNumber, validatePhoneNumberLength } from 'libphonenumber-js';
+import useDynamicFlagService from 'services/DynamicFlagService';
 
 type Props = SetupProps<typeof OrionPhoneSetupService.props>
 type VModelType = Nil<{
@@ -134,7 +135,7 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 		}
 	}
 
-	get src () { return new URL('../../../assets/flag/' + this.country?.code + '.svg', import.meta.url).href;};
+	get src () { return useDynamicFlagService((this.country?.code ?? 'FR'));};
 
 	get indicatif () { return `+${this.country?.areaCode}`.replace('-', ' ');};
 
