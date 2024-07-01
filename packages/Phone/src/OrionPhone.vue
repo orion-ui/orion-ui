@@ -46,7 +46,6 @@
 				}"
 				force-label-floating
 				@keydown.self="setup.keydownGuard($event)"
-				@keyup.self="setup.keyupGuard($event)"
 				@mousedown-right="setup.handleMouseEvent($event)"
 				@focus="setup.handleFocus($event)"
 				@blur="setup.handleBlur($event)"/>
