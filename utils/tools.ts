@@ -5,6 +5,7 @@ import useDocument from 'services/DocumentService';
 import useLocalStorage from 'services/LocalStorageService';
 import useWindow from 'services/WindowService';
 import { CountryCode, parsePhoneNumber } from 'libphonenumber-js';
+import useDynamicFlagService from 'services/DynamicFlagService';
 
 
 const uidGenerator = function* () {
@@ -275,6 +276,10 @@ export function displayPhone (phoneNumber : string, code: CountryCode) {
 	} catch {
 		return phoneNumber;
 	}
+}
+
+export function getImageFlag (countryCode: CountryCode) {
+	return useDynamicFlagService(countryCode);
 }
 
 
