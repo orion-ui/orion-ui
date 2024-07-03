@@ -39,6 +39,7 @@ type FieldEmit = {
   (e: 'focus', payload: FocusEvent): void;
   (e: 'blur', payload?: FocusEvent): void;
   (e: 'input', payload: VModelType): void;
+  (e: 'mousedown-right', payload: MouseEvent): void;
   (e: 'change', val?: VModelType): void;
   (e: 'update:modelValue', payload: VModelType): void;
   (e: 'clear'): void;
@@ -67,5 +68,8 @@ defineExpose(setup.publicInstance);
  *
  * @doc event/clear/desc emitted when the field is cleared
  * @doc/fr event/clear/desc émis quand le champ est vidé
+ *
+ * @doc event/mousedown-right/desc emitted right-click
+ * @doc/fr event/clear/desc émis lors du click droit
  *  */
 </script>
