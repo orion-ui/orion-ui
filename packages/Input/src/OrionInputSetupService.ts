@@ -288,7 +288,7 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Prop
 
 				if (['Backspace', 'Delete'].includes(e.key) && this._input.value?.value.includes('.')) {
 					if (
-						(e.key === 'Backspace' && /\.\d$/.test(inputValueBeforeCursor)) ||
+						(e.key === 'Backspace' && /\.\d$/.test(inputValueBeforeCursor) && !/^\d$/.test(inputValueAfterCursor)) ||
 						(e.key === 'Delete' && /\d*\.$/.test(inputValueBeforeCursor) && /^\d$/.test(inputValueAfterCursor))
 					) {
 						setTimeout(() => this._input.value!.value += '.', 1);
