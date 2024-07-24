@@ -1,7 +1,7 @@
 import { CountryCode } from 'libphonenumber-js';
 import { filename } from 'pathe/utils';
 
-class DynamicFlagService {
+export class DynamicFlagService {
 
 	readonly glob = import.meta.glob('assets/flag/*.svg', { eager: true });
 	readonly flags = Object.fromEntries(Object.entries(this.glob).map(([key, value]) => [filename(key), value.default]));
