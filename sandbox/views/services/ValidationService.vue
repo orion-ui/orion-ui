@@ -336,13 +336,13 @@ const validator = useValidation(user, {
 
 
 function checkForm () : void {
-	result = validator.validate();
+	result = validator.validate(true);
 	if (result) {
 		resultColor.value = 'brand';
-		validator.showValidationState();
+		// validator.showValidationState();
 	} else {
 		resultColor.value = 'danger';
-		validator.showValidationState();
+		// validator.showValidationState();
 	}
 }
 

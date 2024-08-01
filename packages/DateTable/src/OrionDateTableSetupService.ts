@@ -271,12 +271,6 @@ export default class OrionDateTableSetupService extends SharedSetupService<Props
 				days.push(day);
 			}
 
-			/* if (i === 1) {
-				console.clear();
-				console.log(`🚀 ~ getdaysToDisplay ~ firstDayOfMonth`, firstDayOfMonth);
-				console.log(`🚀 ~ getdaysToDisplay ~ days`, useMonkey(days).mapKey('date'));
-			} */
-
 			weeks.push(days);
 		}
 		return weeks;

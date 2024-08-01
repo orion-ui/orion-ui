@@ -60,10 +60,7 @@ export default class OrionModalSetupService extends SharedPopableSetupService<Pr
 	async animateAsync (enter: boolean) {
 		return new Promise<void>(async (resolve) => {
 			if (enter) {
-				console.log(`🚀  enter:`, enter);
-				console.log(this.visible);
 				this.state.visible = true;
-				console.log(this.visible);
 
 				await orionAppService.popableAnimationHooks.modalEnterBefore?.(this.publicInstance);
 

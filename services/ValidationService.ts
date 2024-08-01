@@ -72,11 +72,16 @@ class ValidationService<T, V extends Orion.Validation.Rules<T>> {
 	 * @desc checks if the object to validate verifies all the rules.
 	 * @return boolean
 	 */
-	validate (): boolean {
+	validate (showValidationState?: boolean): boolean {
 		for (const key in this.validatorRules) {
 			const result = this.checkObjectPropRule(key);
-			if (!result) return false;
+			if (!result) {
+				if (showValidationState) this.showValidationState();
+				return false;
+			}
 		}
+
+		if (showValidationState) this.showValidationState();
 		return true;
 	}
 
