@@ -118,12 +118,12 @@ export default class OrionDraggableSetupService extends SharedSetupService<Props
 		this.document.body.classList.add('body--orion-dragging');
 		if (this.props.disabled) return;
 		if (event instanceof MouseEvent) {
-			this.document.addEventListener('mousemove', this.handleDragStart.bind(this), {
+			this.document.addEventListener('mousemove', this.handleDragStart, {
 				once: true,
 				passive: false,
 			});
 		} else if (event instanceof TouchEvent) {
-			this.document.addEventListener('touchmove', this.handleDragStart.bind(this), {
+			this.document.addEventListener('touchmove', this.handleDragStart, {
 				once: true,
 				passive: false,
 			});
@@ -133,13 +133,12 @@ export default class OrionDraggableSetupService extends SharedSetupService<Props
 	handleMouseUp () {
 		if (!this.document || this.props.disabled) return;
 
-		this.document.removeEventListener('mousemove', this.handleDragStart.bind(this));
-		this.document.removeEventListener('touchmove', this.handleDragStart.bind(this));
+		this.document.removeEventListener('mousemove', this.handleDragStart);
+		this.document.removeEventListener('touchmove', this.handleDragStart);
 		this.document.body.classList.remove('body--orion-dragging');
 	};
 
-	async handleDragStart (event: MouseEvent | TouchEvent) {
-
+	private readonly handleDragStart = async (event: MouseEvent | TouchEvent) => {
 		if (this.dnd.registry.isDragging) return;
 		this.dnd.bus.on('dragLeave', this.goToInitialPlace.bind(this, undefined));
 		event.preventDefault();

@@ -86,10 +86,14 @@ export default class OrionHorizontalScrollSetupService extends SharedSetupServic
 
 	get elements () { return this.state.elements;}
 
-	windowResizeHandler = debounce(async () => {
+	private readonly windowResizeHandler = debounce(async () => {
 		this.getElementInPreviewSize();
 		this.getVisibility();
 	}, 17);
+
+	private readonly debouncedWindowResizeHandler = () => {
+		this.windowResizeHandler();
+	};
 
 	constructor (props: Props) {
 		super(props);
@@ -110,11 +114,11 @@ export default class OrionHorizontalScrollSetupService extends SharedSetupServic
 			this.getElementInPreviewSize();
 			setTimeout(() => this.getVisibility(), 200);
 
-			this.window?.addEventListener('resize', this.debouncedWindowResizeHandler.bind(this));
+			this.window?.addEventListener('resize', this.debouncedWindowResizeHandler);
 		});
 
 		onUnmounted(() => {
-			this.window?.removeEventListener('resize', this.debouncedWindowResizeHandler.bind(this));
+			this.window?.removeEventListener('resize', this.debouncedWindowResizeHandler);
 		});
 
 		watch(() => this.state.dragScrollRight, () => {
@@ -341,10 +345,6 @@ export default class OrionHorizontalScrollSetupService extends SharedSetupServic
 		this.handleShadows();
 		this.getVisibility();
 	}, 8, { leading: false });
-
-	debouncedWindowResizeHandler () : void {
-		this.windowResizeHandler();
-	}
 
 	handleShadows () {
 		this.state.showLeftShadow = this.scrollLeft - this.props.tolerance > 0;
