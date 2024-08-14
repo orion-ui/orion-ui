@@ -1,5 +1,7 @@
 <template>
-	<div id="layout">
+	<div
+		id="layout"
+		:ref="setup._el">
 		<orion-nav-main
 			v-if="setup.responsive.onTabletLandscape && setup.props.navMain"
 			v-bind="setup.props.navMain">

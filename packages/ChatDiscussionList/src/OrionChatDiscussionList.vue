@@ -1,5 +1,7 @@
 <template>
-	<div class="orion-chat-discussion-list">
+	<div
+		:ref="setup._el"
+		class="orion-chat-discussion-list">
 		<div class="orion-chat-discussion-list__header">
 			<div class="orion-chat-discussion-list__subheader">
 				<orion-input

@@ -1,5 +1,6 @@
 <template>
 	<div
+		:ref="setup._el"
 		class="orion-swipe"
 		@touchstart="setup.touchCallback()"
 		@mouseenter="setup.handleHover()"

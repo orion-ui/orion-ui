@@ -1,5 +1,6 @@
 <template>
 	<footer
+		:ref="setup._el"
 		class="orion-footer-fixed"
 		:class="[{ 'orion-footer-fixed--visible': setup.props.visible },
 			{ 'orion-footer-fixed--without-nav': !setup.withNavItems },

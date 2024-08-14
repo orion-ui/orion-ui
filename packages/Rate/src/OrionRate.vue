@@ -1,5 +1,6 @@
 <template>
 	<div
+		:ref="setup._el"
 		:class="[
 			`orion-rate`,
 			`orion-rate--${setup.color}`,

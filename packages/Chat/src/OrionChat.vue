@@ -1,6 +1,7 @@
 <template>
 	<div
 		v-if="setup.discussion"
+		:ref="setup._el"
 		class="orion-chat">
 		<div class="orion-chat__header">
 			<div

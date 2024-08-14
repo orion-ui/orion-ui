@@ -1,5 +1,6 @@
 <template>
 	<div
+		:ref="setup._el"
 		class="orion-progress-circle"
 		:class="`orion-progress-circle--${color}`"
 		:style="{
