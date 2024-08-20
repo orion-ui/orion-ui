@@ -518,6 +518,10 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 		});
 	}
 
+	handleMousedownOnPopper (e: MouseEvent) {
+		e.preventDefault();
+	}
+
 	handleBlur (e?: FocusEvent, selection?: boolean) {
 		if (e?.relatedTarget) {
 			const el = e.relatedTarget as HTMLElement;
