@@ -2,6 +2,7 @@
 	<div
 		v-if="setup.shouldBeInDom"
 		v-show="setup.active"
+		:ref="setup._el"
 		class="orion-tab-pane">
 		<slot/>
 	</div>

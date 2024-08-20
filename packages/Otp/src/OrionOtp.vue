@@ -1,5 +1,7 @@
 <template>
-	<div class="orion-otp">
+	<div
+		:ref="setup._el"
+		class="orion-otp">
 		<orion-input
 			v-for="index in size"
 			:ref="setup._inputs"

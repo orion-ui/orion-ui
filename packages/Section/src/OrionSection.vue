@@ -1,7 +1,7 @@
 <template>
 	<component
 		:is="collapsible ? 'details' : 'section'"
-		:ref="setup._details"
+		:ref="setup._el"
 		:open="!collapsed"
 		class="orion-section"
 		:class="`orion-section--${setup.props.gap}`">

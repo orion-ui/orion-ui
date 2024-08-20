@@ -30,6 +30,10 @@ export default class OrionPopConfirmSetupService extends SharedSetupService<Prop
 		return this.props.title ?? this.lang.ORION_POP_CONFIRM__TITLE;
 	}
 
+	get publicInstance () {
+		return {};
+	}
+
 
 	constructor (props: Props, emit: PopConfirmEmit) {
 		super(props);

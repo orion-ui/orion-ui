@@ -1,4 +1,4 @@
-import { PropType, reactive, ref, watchEffect } from 'vue';
+import { PropType, reactive, watchEffect } from 'vue';
 import { uniqBy } from 'lodash-es';
 import useMonkey from 'services/MonkeyService';
 import SharedSetupService from '../../Shared/SharedSetupService';
@@ -127,8 +127,6 @@ export default class OrionDateTableSetupService extends SharedSetupService<Props
 		dayHover: undefined as Nil<Date>,
 		selectedDates: [] as PeriodDay[],
 	});
-
-	_options = ref<RefDom>();
 
 	private get periodsToFilter () {
 		if (this.state.filter.length) {
@@ -270,12 +268,6 @@ export default class OrionDateTableSetupService extends SharedSetupService<Props
 
 				days.push(day);
 			}
-
-			/* if (i === 1) {
-				console.clear();
-				console.log(`🚀 ~ getdaysToDisplay ~ firstDayOfMonth`, firstDayOfMonth);
-				console.log(`🚀 ~ getdaysToDisplay ~ days`, useMonkey(days).mapKey('date'));
-			} */
 
 			weeks.push(days);
 		}

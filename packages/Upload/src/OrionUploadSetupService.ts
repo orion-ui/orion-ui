@@ -48,6 +48,10 @@ export default class OrionUploadSetupService extends SharedFieldSetupService<Pro
 		dragCounter: 0,
 	});
 
+	private readonly preventDrop = (e: DragEvent) => {
+		e.preventDefault();
+	};
+
 	get isDraggingOver () {
 		return this.state.isDraggingOver;
 	}
@@ -73,13 +77,13 @@ export default class OrionUploadSetupService extends SharedFieldSetupService<Pro
 	protected onMounted () {
 		this.vModel.forEach((file, index) => this.getFilePreview(file, index));
 
-		this.window?.addEventListener('dragover', this.preventDrop.bind(this), false);
-		this.window?.addEventListener('drop', this.preventDrop.bind(this), false);
+		this.window?.addEventListener('dragover', this.preventDrop);
+		this.window?.addEventListener('drop', this.preventDrop);
 	}
 
 	protected onUnmounted () {
-		this.window?.removeEventListener('dragover', this.preventDrop.bind(this), false);
-		this.window?.removeEventListener('drop', this.preventDrop.bind(this), false);
+		this.window?.removeEventListener('dragover', this.preventDrop);
+		this.window?.removeEventListener('drop', this.preventDrop);
 	}
 
 
@@ -101,10 +105,6 @@ export default class OrionUploadSetupService extends SharedFieldSetupService<Pro
 		}
 		this.vModel.forEach((file, index) => this.getFilePreview(file, index));
 		this.emit('input', this.vModel);
-	}
-
-	private preventDrop (e: DragEvent) {
-		e.preventDefault();
 	}
 
 	private getFilePreview (file: File, index: number) {

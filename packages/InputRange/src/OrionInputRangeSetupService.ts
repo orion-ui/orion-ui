@@ -29,9 +29,6 @@ export default class OrionInputRangeSetupService extends SharedFieldSetupService
 		},
 	};
 
-	_minInput = ref<RefDom>();
-	_maxInput = ref<RefDom>();
-
 	private circleSize = 20;
 
 	get multiple () {

@@ -281,10 +281,10 @@ const validator = useValidation(user, {
 		}
 		return true;
 	},
-	customRuleInTemplate: val => ({
+	/* customRuleInTemplate: val => ({
 		...Validator.rules.required()(val),
 		meta: 213,
-	}),
+	}), */
 	date: (val) => {
 		if (val?.getFullYear() === 2023) {
 			if (val.getMonth() === 11) {
@@ -336,13 +336,14 @@ const validator = useValidation(user, {
 
 
 function checkForm () : void {
-	result = validator.validate();
+	result = validator.validateAndShowState();
+	console.log('result', validator.getResults());
 	if (result) {
 		resultColor.value = 'brand';
-		validator.showValidationState();
+		// validator.showValidationState();
 	} else {
 		resultColor.value = 'danger';
-		validator.showValidationState();
+		// validator.showValidationState();
 	}
 }
 

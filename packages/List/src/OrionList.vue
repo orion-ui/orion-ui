@@ -1,5 +1,7 @@
 <template>
-	<div class="orion-list">
+	<div
+		:ref="setup._el"
+		class="orion-list">
 		<orion-paginate
 			v-if="setup.props.usePaginationTop && !!setup.page && !!setup.props.total"
 			v-model="setup.page.index"

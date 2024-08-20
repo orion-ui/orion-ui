@@ -1,6 +1,7 @@
 <template>
 	<div
 		v-if="setup.vModel"
+		:ref="setup._el"
 		class="orion-date-range">
 		<orion-date-table
 			:ref="setup._start"

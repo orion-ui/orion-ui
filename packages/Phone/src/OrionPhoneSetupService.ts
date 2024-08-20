@@ -139,6 +139,14 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 
 	get indicatif () { return `+${this.country?.areaCode}`.replace('-', ' ');};
 
+	get publicInstance () {
+		return {
+			...super.publicInstance,
+			_country: () => this._country.value,
+			_orionInput: () => this._orionInput.value,
+		};
+	}
+
 
 	constructor (props: Props, emit: OrionPhoneEmit) {
 		super(props, emit);

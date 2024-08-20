@@ -1,5 +1,7 @@
 <template>
-	<div :class="item.wrapperClass">
+	<div
+		:ref="setup._el"
+		:class="item.wrapperClass">
 		<component
 			:is="setup.itemIs(item)"
 			v-if="item"
