@@ -48,8 +48,8 @@ export default class OrionSectionSetupService extends SharedSetupService<Props> 
 
 	private state = reactive({ isCollapsed: false });
 	private emits: Emits;
-	_content = ref<RefDom>();
-	_details = ref<HTMLDetailsElement>();
+	readonly _content = ref<RefDom>();
+	readonly _el = ref<HTMLDetailsElement>();
 
 	get isCollapsed () { return this.state.isCollapsed;}
 
@@ -60,9 +60,9 @@ export default class OrionSectionSetupService extends SharedSetupService<Props> 
 
 	protected onMounted () {
 		this.state.isCollapsed = this.props.collapsed;
-		this._details.value?.addEventListener('toggle', () => {
-			this.state.isCollapsed = !this._details.value?.open;
-			this.emits('update:collapsed', !this._details.value?.open);
+		this._el.value?.addEventListener('toggle', () => {
+			this.state.isCollapsed = !this._el.value?.open;
+			this.emits('update:collapsed', !this._el.value?.open);
 			nextTick(() => this._content.value?.classList.toggle('orion-section__content--collasped'));
 		});
 	}

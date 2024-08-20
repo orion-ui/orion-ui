@@ -2,6 +2,7 @@
 	<component
 		:is="setup.tag"
 		:id="`orion-draggable-${setup.uid}`"
+		:ref="setup._el"
 		v-bind="$attrs"
 		class="orion-draggable"
 		:class="{

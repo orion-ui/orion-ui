@@ -1,5 +1,6 @@
 <template>
 	<div
+		:ref="setup._el"
 		class="orion-icon-section"
 		:class="{ 'orion-icon-section--center': setup.props.center }">
 		<orion-icon

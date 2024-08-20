@@ -1,6 +1,6 @@
 <template>
 	<div
-		:ref="setup._options"
+		:ref="setup._el"
 		:class="{
 			'orion-date-table': true,
 			'orion-date-table--with-week-number': displayWeekNumber,

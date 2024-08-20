@@ -89,6 +89,7 @@
 				class="orion-select__popover"
 				:class="{ 'orion-select-multiple__popover': setup.props.multiple }"
 				@touchmove.stop="setup.handleScroll()"
+				@mousedown="setup.handleMousedownOnPopper($event)"
 				@scroll.stop>
 				<orion-input
 					v-if="setup.showPopoverSearch"

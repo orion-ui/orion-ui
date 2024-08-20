@@ -17,7 +17,7 @@
 			:class="`orion-input-range__progress-bar--${setup.props.color}`"
 			:style="setup.inputRangeStyle"/>
 		<input
-			:ref="setup._minInput"
+			:ref="setup._input"
 			v-model="setup.minFieldValue"
 			class="orion-input-range__input"
 			:class="`orion-input-range__input--${setup.props.color}`"
@@ -32,7 +32,6 @@
 			:max="maxValue">
 		<input
 			v-if="setup.multiple"
-			:ref="setup._maxInput"
 			v-model="setup.maxFieldValue"
 			style="position: absolute; left: 0;"
 			class="orion-input-range__input"

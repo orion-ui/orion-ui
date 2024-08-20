@@ -3399,7 +3399,7 @@ const packagesDocData = new Map([
 		{
 			localTypes: {
 				'VModelType': 'Nil<string | number>',
-				'FieldEmit': '{\n  (e: \'focus\', payload: FocusEvent): void;\n  (e: \'blur\', payload?: FocusEvent): void;\n  (e: \'input\', payload: VModelType): void;\n  (e: \'change\', val?: VModelType): void;\n  (e: \'update:modelValue\', payload: VModelType): void;\n  (e: \'clear\'): void;\n}',
+				'FieldEmit': '{\n  (e: \'focus\', payload: FocusEvent): void;\n  (e: \'blur\', payload?: FocusEvent): void;\n  (e: \'input\', payload: VModelType): void;\n  (e: \'mousedown-right\', payload: MouseEvent): void;\n  (e: \'change\', val?: VModelType): void;\n  (e: \'update:modelValue\', payload: VModelType): void;\n  (e: \'clear\'): void;\n}',
 			},
 			events: [{
 				'name': 'focus',
@@ -3424,6 +3424,14 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'emitted when the value of the field changes',
 					'fr': 'émis lorsque la valeur est modifiée',
+				},
+			}, {
+				'name': 'mousedown-right',
+				'payload': 'MouseEvent',
+				'optional': false,
+				'desc': {
+					'en': 'emitted right-click',
+					'fr': 'Missing @doc',
 				},
 			}, {
 				'name': 'change',

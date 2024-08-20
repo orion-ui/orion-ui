@@ -1,5 +1,6 @@
 <template>
 	<div
+		:ref="setup._el"
 		class="orion-date-week"
 		@mousedown.prevent>
 		<div class="orion-date-week__header">

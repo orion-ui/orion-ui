@@ -552,6 +552,10 @@ const serviceDocData = new Map([
 				'return': 'boolean',
 				'param': [],
 			},
+			validateAndShowState: {
+				'return': 'boolean',
+				'param': [],
+			},
 			getResult: {
 				'description': 'checks if the value verifies the rule given in parameter and return its full result.',
 				'return': 'Orion.Validator.RuleResult[]',

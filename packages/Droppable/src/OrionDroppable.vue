@@ -3,6 +3,7 @@
 		:is="setup.tag"
 		v-bind="$attrs"
 		:id="`orion-droppable-${setup.uid}`"
+		:ref="setup._el"
 		class="orion-droppable"
 		:class="{
 			'orion-droppable--allowed': setup.isDragging && setup.canDrop && setup.canHandle,

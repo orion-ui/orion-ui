@@ -16,6 +16,10 @@ export default class OrionNavAsideSetupService extends SharedSetupService<Props>
 		},
 	};
 
+	get publicInstance () {
+		return {};
+	}
+
 	constructor (props: Props, _aside?: OrionAside) {
 		super(props);
 
