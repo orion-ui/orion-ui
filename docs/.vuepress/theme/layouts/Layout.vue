@@ -63,17 +63,17 @@ import { useRouter } from 'vue-router';
 import { usePageFrontmatter, usePageLang } from 'vuepress/client';
 import { setThemeMode, setAppLang, useResponsive, Bus } from '@/lib';
 import { addCopyFeatureToCode } from '@utils/tools';
-import Sidebar from '@theme/Sidebar.vue';
-import Navbar from '@theme/Navbar.vue';
-import PageNav from '@theme/PageNav.vue';
-import PageMeta from '@theme/PageMeta.vue';
+import Sidebar from '@theme/VPSidebar.vue';
+import Navbar from '@theme/VPNavbar.vue';
+import PageNav from '@theme/VPPageNav.vue';
+import PageMeta from '@theme/VPPageMeta.vue';
 import TableOfContent from './components/TableOfContents.vue';
 import Home from './components/Home.vue';
 import Services from './components/Services.vue';
 import TourDoc from '@/packages/Tour/docs/TourDoc.vue'
 import TourProps from '@/packages/Tour/docs/TourProps.vue'
 
-const frontmatter = usePageFrontmatter<any>();
+const frontmatter = usePageFrontmatter();
 
 const viewComponent: Record<string, Component> = {
 	Home,

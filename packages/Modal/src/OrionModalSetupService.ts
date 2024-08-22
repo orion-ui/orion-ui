@@ -2,7 +2,6 @@ import { PropType, reactive, ref } from 'vue';
 import anime from 'animejs';
 import SharedPopableSetupService, { PopableEmit } from '../../Shared/SharedPopableSetupService';
 import orionAppService from 'utils/Orion';
-import { sleep } from 'utils/tools';
 
 type Props = SetupProps<typeof OrionModalSetupService.props>
 
