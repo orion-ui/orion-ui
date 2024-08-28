@@ -1,0 +1,54 @@
+name: Publish on pkg.pr.new
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'feature/**'
+      - 'hotfix/**'
+      - 'release/**'
+      - '!develop'
+      - '!main'
+    paths:
+      - '.github/workflows/**'
+      - 'assets/**'
+      - 'devtool/**'
+      - 'lang/**'
+      - 'lib/**'
+      - 'packages/*/src/**'
+      - 'packages/*/index.ts'
+      - 'scripts/**'
+      - 'services/**'
+      - 'utils/**'
+      - 'cli.cjs'
+      - 'vite.config.ts'
+      - 'build-lib-prerelease.yml'
+
+jobs:
+  build-publish-prerelease:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org
+
+      - name: Install dependencies
+        run: npm ci
+
+      # - name: Bump version
+      #   run: npm version "$(BRANCH=${GITHUB_REF_NAME} node scripts/npm-version.cjs)" --no-git-tag-version
+
+      - name: Build lib
+        run: npm run build
+
+      - name: Run post build script
+        run: node scripts/ci-build-lib.cjs
+
+      - name: Publish to pkg.pr.new for pre-release
+        run: npx pkg-pr-new publish --compact
