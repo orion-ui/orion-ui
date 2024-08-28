@@ -344,6 +344,19 @@ declare global {
 			}
 		}
 
+		namespace Planning {
+			type Event = {
+				id: number,
+				begin: Date,
+				end: Date,
+				label: string,
+				color: Orion.Color,
+				subEvent?: Event,
+			}
+
+			type DateRangeType = 'day' | 'week' | 'month';
+		}
+
 		namespace Private {
 			type Number = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 

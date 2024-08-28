@@ -1,0 +1,80 @@
+@import '../../Shared/styles/variables.less';
+@import '../../Shared/styles/mixins.less';
+
+.orion-planning {
+
+	&-header {
+		display: flex;
+		align-items: center;
+
+		&__actions {
+			flex: 1;
+		}
+	}
+	
+	&-body{
+		display: flex;
+		align-items: center;
+		height: 100vh;
+		width: 100%;
+		position: relative;
+		overflow: hidden;
+	}
+
+	&-day {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.25rem;
+		height: 100%;
+		flex: 1;
+		&__date {
+			padding: 0.25rem 0.5rem;
+			line-height: 1rem;
+		}
+
+		&__content {
+			height: 100%;
+			width: 100%;
+			background-color: white;
+			border: 1px solid grey;
+			position: relative;
+
+			&--public-holiday{
+				background-color: lightgray;
+			}
+
+			&--no-business-day {
+				background: repeating-linear-gradient(
+					135deg,
+					white,
+					white 10px,
+					grey 10px,
+					grey 20px
+				  );
+			}
+		}
+
+		&--today {
+			> .orion-planning-day__date {
+				background-color: var(--info);
+				color: white;
+				border-radius: 8px;
+			}
+
+			> .orion-planning-day__content::after {
+				position: absolute;
+				left: 50%;
+				border-left: 1px solid red;
+				content: "";
+				height: 100%;
+				z-index: 2;
+			}
+		}
+	}
+
+	&-placement {
+		position: absolute;
+		transition: all 0.3s;
+	}
+}

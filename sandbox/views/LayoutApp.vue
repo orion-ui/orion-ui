@@ -32,15 +32,72 @@
 					input-value="fr"/>
 			</div>
 		</div>
+		<orion-period
+			:begin="new Date()"
+			:end="new Date()"
+			color="danger"/>
+
+		<span @click="console.log(tmpTasks)">
+			Orion Planning
+		</span>
+		<orion-planning
+			v-model:date-range="tmpDateRange"
+			:day-start="new Date('2024-08-01T00:00:00')"
+			:day-end="new Date('2024-10-30T00:00:00')"
+			:date="new Date('2024-08-11T00:00:00')"
+			:events="tmpTasks">
+			<template #periodContent="{ event }">
+				<span>
+					{{ event.label }}
+				</span>
+			</template>
+		</orion-planning>
 
 		<router-view/>
 	</o-layout>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import packagesNavigation from 'sandbox/utils/packages-navigation';
-import { setThemeMode, getAppLang, setAppLang } from 'lib';
+import OrionPeriod from 'packages/Period/src/OrionPeriod.vue';
+import OrionPlanning from 'packages/Planning/src/OrionPlanning.vue';
+import { setThemeMode, getAppLang, setAppLang, getUid } from 'lib';
+
+let tmpDateRange = ref('month' as Orion.Planning.DateRangeType);
+
+const tmpTasks = [{
+	id: getUid(),
+	begin: new Date('2024-08-12T00:00:00'),
+	end: new Date('2024-08-18T00:00:00'),
+	label: 'vacances',
+	color: 'info',
+}, {
+	id: getUid(),
+	begin: new Date('2024-08-14T00:00:00'),
+	end: new Date('2024-08-26T00:00:00'),
+	label: '2xko',
+	color: 'brand',
+	subEvent: {
+		id: getUid(),
+		begin: new Date('2024-08-27T00:00:00'),
+		end: new Date('2024-08-29T00:00:00'),
+		label: 'Sub2xko',
+		color: 'brand',
+	},
+}, {
+	id: getUid(),
+	begin: new Date('2024-08-08T00:00:00'),
+	end: new Date('2024-08-11T00:00:00'),
+	label: 'last',
+	color: 'warning',
+}, {
+	id: getUid(),
+	begin: new Date('2024-08-15T00:00:00'),
+	end: new Date('2024-08-31T00:00:00'),
+	label: 'last',
+	color: 'pink',
+}];
 
 const navMain: OrionNavMain.Props = {
 	items: [

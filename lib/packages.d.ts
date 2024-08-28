@@ -52,6 +52,7 @@ import { OrionOverlaySetupService } from '../packages/index';
 import { OrionPageSetupService } from '../packages/index';
 import { OrionPaginateSetupService } from '../packages/index';
 import { OrionPasswordSetupService } from '../packages/index';
+import { OrionPeriodSetupService } from '../packages/index';
 import { OrionPhoneSetupService } from '../packages/index';
 import { OrionPopConfirmSetupService } from '../packages/index';
 import { OrionProgressBarSetupService } from '../packages/index';
@@ -298,6 +299,11 @@ declare global {
 	type OrionPassword = InstanceType<typeof OrionPasswordSetupService>['publicInstance'];
 	namespace OrionPassword {
 		type Props = ExtractPropTypes<typeof OrionPasswordSetupService.props>
+	}
+
+	type OrionPeriod = InstanceType<typeof OrionPeriodSetupService>['publicInstance'];
+	namespace OrionPeriod {
+		type Props = ExtractPropTypes<typeof OrionPeriodSetupService.props>
 	}
 
 	type OrionPhone = InstanceType<typeof OrionPhoneSetupService>['publicInstance'];
