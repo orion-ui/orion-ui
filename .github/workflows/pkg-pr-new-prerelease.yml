@@ -42,7 +42,7 @@ jobs:
         run: npm ci
 
       - name: Bump version
-        run: npm version "${GITHUB_REF_NAME}" --no-git-tag-version
+        run: npm version 0.0.0-pkg.pr.new --no-git-tag-version
 
       - name: Build lib
         run: npm run build
