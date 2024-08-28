@@ -4,10 +4,10 @@ on:
   workflow_dispatch:
   push:
     branches:
+      - 'develop'
       - 'feature/**'
-      - 'hotfix/**'
-      - 'release/**'
-      - '!develop'
+      - '!hotfix/**'
+      - '!release/**'
       - '!main'
     paths:
       - '.github/workflows/**'
@@ -42,7 +42,7 @@ jobs:
         run: npm ci
 
       - name: Bump version
-        run: npm version ${GITHUB_REF_NAME} --no-git-tag-version
+        run: npm version "${GITHUB_REF_NAME}" --no-git-tag-version
 
       - name: Build lib
         run: npm run build

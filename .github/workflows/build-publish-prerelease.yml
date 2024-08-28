@@ -4,10 +4,10 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - develop
-      - 'feature/**'
       - 'hotfix/**'
       - 'release/**'
+      - '!develop'
+      - '!feature/**'
       - '!main'
     paths:
       - '.github/workflows/**'
