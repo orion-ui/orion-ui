@@ -22,8 +22,6 @@ const Orion: Plugin = {
 		}
 
 		setupDevtools(app, orionAppService);
-
-		console.log('Hello from pkg.pr.new');
 	},
 };
 
