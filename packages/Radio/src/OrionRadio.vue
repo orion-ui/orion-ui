@@ -3,10 +3,10 @@
 		v-bind="setup.orionFieldBinding"
 		:label-is-floating="false"
 		:class="[
-			`orion-radio--${setup.props.color}`,
+			`orion-radio--${color}`,
 			{ 'orion-radio--checked': setup.isChecked },
-			{ 'orion-radio--reverse': setup.props.reverse },
-			{ 'orion-radio--inline': setup.props.inline },
+			{ 'orion-radio--reverse': reverse },
+			{ 'orion-radio--inline': inline },
 		]"
 		input-type="radio"
 		@click="setup.handleClick()">
@@ -16,14 +16,14 @@
 			:ref="setup._input"
 			class="orion-radio__input"
 			type="radio"
-			:value="setup.props.inputValue"
+			:value="inputValue"
 			:checked="setup.isChecked"
-			v-bind="{ ...$attrs, disabled: setup.props.disabled }">
+			v-bind="{ ...$attrs, disabled: disabled }">
 
 		<span class="orion-radio__check-container">
 			<orion-icon
-				v-if="setup.props.iconCheck"
-				:icon="setup.props.iconCheck"
+				v-if="iconCheck"
+				:icon="iconCheck"
 				@click="setup.handleClick()"/>
 			<span
 				v-else
@@ -37,18 +37,10 @@ import './OrionRadio.less';
 import { OrionField } from 'packages/Field';
 import { OrionIcon } from 'packages/Icon';
 import OrionRadioSetupService from './OrionRadioSetupService';
-type VModelType = Nil<any[] | boolean | number | Record<string, any> | string>;
-type FieldEmit = {
-  (e: 'focus', payload: FocusEvent): void;
-  (e: 'blur', payload?: FocusEvent): void;
-  (e: 'input', payload: VModelType): void;
-  (e: 'change', val?: VModelType): void;
-  (e: 'update:modelValue', payload: VModelType): void;
-  (e: 'clear'): void;
-}
-const emit = defineEmits<FieldEmit>();
-const props = defineProps(OrionRadioSetupService.props);
-const setup = new OrionRadioSetupService(props, emit);
+import type { OrionRadioProps, OrionRadioEmits } from './OrionRadioSetupService';
+const emits = defineEmits<OrionRadioEmits>() as OrionRadioEmits;
+const props = withDefaults(defineProps<OrionRadioProps>(), OrionRadioSetupService.defaultProps);
+const setup = new OrionRadioSetupService(props, emits);
 defineExpose(setup.publicInstance);
 
 /** Doc

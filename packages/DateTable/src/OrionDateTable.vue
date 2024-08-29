@@ -9,7 +9,7 @@
 		<div class="orion-date-table__header">
 			<orion-icon
 				class="orion-date-table__header-carret"
-				:class="{ 'disable' : !setup.props.canGoPrevMonth }"
+				:class="{ 'disable' : !canGoPrevMonth }"
 				icon="chevron_left"
 				@click="setup.switchPeriod(-1)"/>
 
@@ -17,12 +17,12 @@
 				<span
 					v-show="!setup.viewMonth && !setup.viewYears && !month"
 					class="orion-date-table__header-current-month"
-					:class="{ 'disabled': setup.props.disableMonthAndYear }"
+					:class="{ 'disabled': disableMonthAndYear }"
 					@click="setup.showMonths">{{ setup.monthName }} </span>
 				<span
 					v-if="!setup.viewYears"
 					class="orion-date-table__header-current-year"
-					:class="{ 'disabled': setup.props.disableMonthAndYear }"
+					:class="{ 'disabled': disableMonthAndYear }"
 					@click="setup.showYears">{{ setup.currentYear }}</span>
 				<span
 					v-else
@@ -33,7 +33,7 @@
 
 			<orion-icon
 				class="orion-date-table__header-carret"
-				:class="{ 'disable' : !setup.props.canGoNextMonth }"
+				:class="{ 'disable' : !canGoNextMonth }"
 				icon="chevron_right"
 				@click="setup.switchPeriod(1)"/>
 		</div>
@@ -159,46 +159,11 @@
 import './OrionDateTable.less';
 import { OrionIcon } from 'packages/Icon';
 import OrionDateTableSetupService from './OrionDateTableSetupService';
-type Period = {
-	isStart?: boolean;
-	isEnd?: boolean;
-	start: Date;
-	end: Date;
-	label: string;
-	color: Orion.Color;
-	callback?: () => void;
-	specific?: {
-		color: Orion.Color;
-		date: Date;
-		exclude: boolean;
-	}[];
-}
-type PeriodDay = {
-	color?: Orion.Color;
-	date: Date;
-	isStart: boolean;
-	isEnd: boolean;
-	isSelected: boolean;
-	exclude: boolean;
-	number: number;
-	month: number;
-	year: number;
-	period: Period[];
-	callback?: () => void;
-}
-type DateTableEmit = {
-	(e: 'update:modelValue', payload: Nil<Date>): void;
-	(e: 'update:range', payload: Nil<Orion.DateRange>): void;
-	(e: 'update:multiple', payload: Nil<Date[]>): void;
-	(e: 'update:dayHover', payload: Nil<Date>): void;
-	(e: 'change-month', payload: { month: number, year: number }): void;
-	(e: 'select-specific', payload: Period | PeriodDay): void;
-	(e: 'select-period', payload: Period[]): void;
-	(e: 'select-day', payload: Period | PeriodDay): void;
-}
-const emit = defineEmits<DateTableEmit>();
-const props = defineProps(OrionDateTableSetupService.props);
-const setup = new OrionDateTableSetupService(props, emit);
+
+const emits = defineEmits<OrionDateTableEmits>() as OrionDateTableEmits;
+import type { OrionDateTableProps, OrionDateTableEmits } from './OrionDateTableSetupService';
+const props = withDefaults(defineProps<OrionDateTableProps>(), OrionDateTableSetupService.defaultProps);
+const setup = new OrionDateTableSetupService(props, emits);
 defineExpose(setup.publicInstance);
 
 /** Doc

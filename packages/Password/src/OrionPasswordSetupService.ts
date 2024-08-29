@@ -1,27 +1,25 @@
-import { PropType, reactive } from 'vue';
-import SharedFieldSetupService, { FieldEmit } from '../../Shared/SharedFieldSetupService';
+import { reactive } from 'vue';
+import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetupServiceProps } from '../../Shared/SharedFieldSetupService';
 import useValidation from 'services/ValidationService';
 
-type Props = SetupProps<typeof OrionPasswordSetupService.props>
+export type OrionPasswordEmits = SharedFieldSetupServiceEmits<string> & {}
+export type OrionPasswordProps =  SharedFieldSetupServiceProps & {
+	// @doc props/passwordToConfirm if specified, checks the match with the password value
+	// @doc/fr props/passwordToConfirm si spécifié, vérifie la correspondance avec le champ de mot de passe dans le cas d'une confirmation
+	passwordToConfirm: Undef<string | boolean>,
+	// @doc props/passwordTooltip shows the tooltip with the password's rules
+	// @doc/fr props/passwordTooltip affiche la une tooltip avec les règles à respecter
+	passwordTooltip: boolean,
+	// @doc props/type type of the input
+	// @doc/fr props/type type du champ
+	type: string,
+};
 
-export default class OrionPasswordSetupService extends SharedFieldSetupService<Props, string | null | undefined> {
-	static props = {
-		...SharedFieldSetupService.props,
-		// @doc props/passwordTooltip shows the tooltip with the password's rules
-		// @doc/fr props/passwordTooltip affiche la une tooltip avec les règles à respecter
-		passwordTooltip: Boolean,
-		// @doc props/passwordToConfirm if specified, checks the match with the password value
-		// @doc/fr props/passwordToConfirm si spécifié, vérifie la correspondance avec le champ de mot de passe dans le cas d'une confirmation
-		passwordToConfirm: {
-			type: [String, Boolean] as PropType<Undef<string | boolean>>,
-			default: undefined,
-		},
-		// @doc props/type type of the input
-		// @doc/fr props/type type du champ
-		type: {
-			type: String,
-			default: 'password',
-		},
+export default class OrionPasswordSetupService extends SharedFieldSetupService<OrionPasswordProps, string | null | undefined> {
+	static readonly defaultProps = {
+		...SharedFieldSetupService.defaultProps,
+		passwordTooltip: false,
+		type: 'password',
 	};
 
 	protected state = reactive({
@@ -79,8 +77,8 @@ export default class OrionPasswordSetupService extends SharedFieldSetupService<P
 	}
 
 
-	constructor (props: Props, emit: FieldEmit<string>) {
-		super(props, emit);
+	constructor (protected props: OrionPasswordProps, protected emits: OrionPasswordEmits) {
+		super(props, emits);
 	}
 
 	protected onMounted () {

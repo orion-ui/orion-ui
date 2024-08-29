@@ -1,25 +1,17 @@
-import { PropType } from 'vue';
 import SharedSetupService from '../../Shared/SharedSetupService';
 
-type Props = SetupProps<typeof OrionTabNavSetupService.props>
+export type OrionTabNavEmits = {}
 
-export default class OrionTabNavSetupService extends SharedSetupService<Props> {
-	static props = {
-		value: {
-			type: String,
-			default: undefined,
-		},
-		panes: {
-			type: Array as PropType<Orion.Private.TsxTabPane[]>,
-			default: () => [],
-		},
-		onTabClick: {
-			type: Function as PropType<(...val: [OrionTabPane, MouseEvent]) => void>,
-			required: true as const,
-		},
-	};
+export type OrionTabNavProps = {
+	value?: string,
+	panes: Orion.Private.TsxTabPane[],
+	onTabClick:(...val: [OrionTabPane, MouseEvent]) => void,
+}
 
-	constructor (props: Props) {
-		super(props);
+export default class OrionTabNavSetupService extends SharedSetupService {
+	static readonly defaultProps = { panes: () => [] as Orion.Private.TsxTabPane[] };
+
+	constructor (protected props: OrionTabNavProps, protected emits: OrionTabNavEmits) {
+		super();
 	}
 }

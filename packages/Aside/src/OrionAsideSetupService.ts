@@ -1,23 +1,27 @@
-import { PropType, ref } from 'vue';
+import { ref } from 'vue';
 import anime from 'animejs';
-import SharedPopableSetupService, { PopableEmit } from '../../Shared/SharedPopableSetupService';
+import SharedPopableSetupService, { SharedPopableSetupServiceEmits, SharedPopableSetupServiceProps } from '../../Shared/SharedPopableSetupService';
 import orionAppService from 'utils/Orion';
 
-type Props = SetupProps<typeof OrionAsideSetupService.props>
+export type OrionAsideEmits = SharedPopableSetupServiceEmits & {}
+export type OrionAsideProps = SharedPopableSetupServiceProps & {
+	// @doc props/display if set, displays the component
+	// @doc/fr props/display Missing @doc
+	display: boolean,
+	// @doc props/options options of the aside
+	// @doc/fr props/options options de l'aside
+	options: Partial<Orion.Aside.Options>,
+};
 
-export default class OrionAsideSetupService extends SharedPopableSetupService<Props> {
-	static props = {
-		...SharedPopableSetupService.props,
-		// @doc props/options options of the aside
-		// @doc/fr props/options options de l'aside
-		options: {
-			type: Object as PropType<Partial<Orion.Aside.Options>>,
-			default: () => {},
-		},
+export default class OrionAsideSetupService extends SharedPopableSetupService {
+	static readonly defaultProps = {
+		...SharedPopableSetupService.defaultProps,
+		display: false,
+		options: () => {},
 	};
 
 	protected name = 'OrionAside' as const;
-	protected emit: PopableEmit;
+
 
 	readonly _actions = ref<RefDom>();
 
@@ -36,9 +40,8 @@ export default class OrionAsideSetupService extends SharedPopableSetupService<Pr
 		};
 	}
 
-	constructor (props: Props, emit: PopableEmit) {
-		super(props);
-		this.emit = emit;
+	constructor (protected props: OrionAsideProps, protected emits: OrionAsideEmits) {
+		super(props, emits);
 	}
 
 	async animateAsync (enter: boolean) {
@@ -57,14 +60,14 @@ export default class OrionAsideSetupService extends SharedPopableSetupService<Pr
 					easing: 'easeOutQuad',
 					begin: async () => {
 						await orionAppService.popableAnimationHooks.asideEnterStart?.(this.publicInstance);
-						this.emit('enter-start');
+						this.emits('enter-start');
 						this.trigger('enter-start');
 						this.animateActions();
 					},
 					complete: async () => {
 						await orionAppService.popableAnimationHooks.asideEnterEnd?.(this.publicInstance);
 						resolve();
-						this.emit('enter-end');
+						this.emits('enter-end');
 						this.trigger('enter-end');
 					},
 				});
@@ -79,14 +82,14 @@ export default class OrionAsideSetupService extends SharedPopableSetupService<Pr
 					easing: 'linear',
 					begin: async () => {
 						await orionAppService.popableAnimationHooks.asideLeaveStart?.(this.publicInstance);
-						this.emit('leave-start');
+						this.emits('leave-start');
 						this.trigger('leave-start');
 					},
 					complete: async () => {
 						this.state.visible = false;
 						await orionAppService.popableAnimationHooks.asideLeaveEnd?.(this.publicInstance);
 						resolve();
-						this.emit('leave-end');
+						this.emits('leave-end');
 						this.trigger('leave-end');
 					},
 				});

@@ -1,28 +1,33 @@
-import SharedFieldSetupService, { FieldEmit } from '../../Shared/SharedFieldSetupService';
-import SharedProps from '../../Shared/SharedProps';
+import { SharedPropsColor } from 'lib/shared-props';
+import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetupServiceProps } from '../../Shared/SharedFieldSetupService';
 import { reactive } from 'vue';
 
-type Props = SetupProps<typeof OrionToggleSetupService.props>
+export type OrionToggleEmits = SharedFieldSetupServiceEmits<boolean> & {}
+export type OrionToggleProps =
+ SharedFieldSetupServiceProps &
+ SharedPropsColor & {
+	// @doc props/inline set the property `display` on `inline-flex` instead of `flex`
+	// @doc/fr props/inline défini la propriété `display` à `inline-flex` à la place `flex`
+	inline: boolean,
+	// @doc props/reverse displays the label first
+	// @doc/fr props/reverse affiche d'abord le label
+	reverse: boolean,
+	// @doc props/type type of the input
+	// @doc/fr props/type type du champ
+	type: string,
+	// @doc props/value value of the toggle
+	// @doc/fr props/value valeur du toggle
+	value: boolean,
+};
 
-export default class OrionToggleSetupService extends SharedFieldSetupService<Props, boolean> {
-	static props = {
-		...SharedFieldSetupService.props,
-		...SharedProps.color(),
-		// @doc props/inline set the property `display` on `inline-flex` instead of `flex`
-		// @doc/fr props/inline défini la propriété `display` à `inline-flex` à la place `flex`
-		inline: Boolean,
-		// @doc props/reverse displays the label first
-		// @doc/fr props/reverse affiche d'abord le label
-		reverse: Boolean,
-		// @doc props/value value of the toggle
-		// @doc/fr props/value valeur du toggle
-		value: Boolean,
-		// @doc props/type type of the input
-		// @doc/fr props/type type du champ
-		type: {
-			type: String,
-			default: 'toggle',
-		},
+export default class OrionToggleSetupService extends SharedFieldSetupService<OrionToggleProps, boolean> {
+	static readonly defaultProps = {
+		...SharedFieldSetupService.defaultProps,
+		inline: false,
+		reverse: false,
+		type: 'toggle',
+		value: false,
+		color: 'default' as Orion.Color,
 	};
 
 	protected inputType = 'toggle';
@@ -89,8 +94,8 @@ export default class OrionToggleSetupService extends SharedFieldSetupService<Pro
 	}
 
 
-	constructor (props: Props, emit: FieldEmit<boolean>) {
-		super(props, emit);
+	constructor (protected props: OrionToggleProps, protected emits: OrionToggleEmits) {
+		super(props, emits);
 	}
 
 

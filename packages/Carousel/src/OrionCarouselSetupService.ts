@@ -1,46 +1,42 @@
-import { PropType, reactive, useSlots } from 'vue';
+import { reactive, useSlots } from 'vue';
 import SharedSetupService from '../../Shared/SharedSetupService';
 import { getUid } from 'utils/tools';
 
-type Props = SetupProps<typeof OrionCarouselSetupService.props>
+export type OrionCarouselEmits = {(e: 'update:modelValue', val?: number | string): void}
+export type OrionCarouselProps = {
+	// @doc props/color color of the dots at the carousel's bottom
+	// @doc/fr props/color couleur des points au bas du carrousel
+	color: Orion.Color | Orion.ColorAlt,
+	// @doc props/hideNavigationButtons hide the navigation buttons around the dots
+	// @doc/fr props/hideNavigationButtons masque les boutons de navigation autour des points
+	hideNavigationButtons: boolean,
+	// @doc props/hideNavigationDots hide the navigation dots
+	// @doc/fr props/hideNavigationDots masque les points de navigation
+	hideNavigationDots: boolean,
+	// @doc props/loop enable the "loop" mode
+	// @doc/fr props/loop active le mode "en boucle"
+	loop: boolean,
+	// @doc props/modelValue refers to the active step's **name** prop
+	// @doc/fr props/modelValue correspond à la prop **name** de l'élément actif
+	modelValue: number | string,
+	// @doc props/pauseOnHover pause timer when hovering the carousel
+	// @doc/fr props/pauseOnHover met au pause le minuteur lors du survol du carrousel
+	pauseOnHover: boolean,
+	// @doc props/stepTimer apply a timer to automatically switch to the next item
+	// @doc/fr props/stepTimer applique un minuteur pour passer automatiquement à l'élément suivant
+	stepTimer: number,
+};
 type Slots = ReturnType<typeof useSlots>;
-type Emits = {(e: 'update:modelValue', val?: number | string): void}
 
-export default class OrionCarouselSetupService extends SharedSetupService<Props> {
-	static props = {
-		// @doc props/loop enable the "loop" mode
-		// @doc/fr props/loop active le mode "en boucle"
-		loop: Boolean,
-		// @doc props/pauseOnHover pause timer when hovering the carousel
-		// @doc/fr props/pauseOnHover met au pause le minuteur lors du survol du carrousel
-		pauseOnHover: Boolean,
-		// @doc props/hideNavigationButtons hide the navigation buttons around the dots
-		// @doc/fr props/hideNavigationButtons masque les boutons de navigation autour des points
-		hideNavigationButtons: Boolean,
-		// @doc props/hideNavigationDots hide the navigation dots
-		// @doc/fr props/hideNavigationDots masque les points de navigation
-		hideNavigationDots: Boolean,
-		// @doc props/modelValue refers to the active step's **name** prop
-		// @doc/fr props/modelValue correspond à la prop **name** de l'élément actif
-		modelValue: {
-			type: [Number, String],
-			default: undefined,
-		},
-		// @doc props/stepTimer apply a timer to automatically switch to the next item
-		// @doc/fr props/stepTimer applique un minuteur pour passer automatiquement à l'élément suivant
-		stepTimer: {
-			type: Number,
-			default: undefined,
-		},
-		// @doc props/color color of the dots at the carousel's bottom
-		// @doc/fr props/color couleur des points au bas du carrousel
-		color: {
-			type: String as PropType<Orion.Color | Orion.ColorAlt>,
-			default: 'brand',
-		},
+export default class OrionCarouselSetupService extends SharedSetupService {
+	static readonly defaultProps = {
+		color: 'brand' as Orion.Color,
+		hideNavigationButtons: false,
+		hideNavigationDots: false,
+		loop: false,
+		pauseOnHover: false,
 	};
 
-	private emits: Emits;
 	private slots: Slots;
 	private timer?: NodeJS.Timeout;
 
@@ -104,9 +100,8 @@ export default class OrionCarouselSetupService extends SharedSetupService<Props>
 	}
 
 
-	constructor (props: Props, emits: Emits, slots: Slots) {
-		super(props);
-		this.emits = emits;
+	constructor (protected props: OrionCarouselProps, protected emits: OrionCarouselEmits, slots: Slots) {
+		super();
 		this.slots = slots;
 	}
 

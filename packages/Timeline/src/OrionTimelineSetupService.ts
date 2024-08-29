@@ -3,43 +3,41 @@ import SharedSetupService from '../../Shared/SharedSetupService';
 import { isDefineOrTrue } from 'utils/tools';
 import { isArray } from 'lodash-es';
 
-type Props = SetupProps<typeof OrionTimelineSetupService.props>
-type TimelineEmit = {
+export type OrionTimelineEmits = {
 	(e: 'input', payload: string | number): void
 	(e: 'pill-click', ...payload: [OrionTimelinePane, MouseEvent]): void
 	(e: 'update:modelValue', payload: string | number): void
 }
 
-export default class OrionTimelineSetupService extends SharedSetupService<Props> {
-	static props = {
-		// @doc props/horizontal the orientation of the component
-		// @doc/fr props/horizontal l'orientation du composant
-		horizontal: Boolean,
-		// @doc props/scrollable displays an horizontal scroll on the timeline pills if it does not fit in its container
-		// @doc/fr props/scrollable affiche un scroll horizontal au niveau de la timeline si elle dépasse de son conteneur.
-		scrollable: Boolean,
-		// @doc props/centeredPill centers the pill and the #after slot
-		// @doc/fr props/centeredPill centre la vignette et le slot #after
-		centeredPill: Boolean,
-		// @doc props/modelValue the model value
-		// @doc/fr props/modelValue le modelValue
-		modelValue: {
-			type: [String, Number],
-			default: undefined,
-		},
-		// @doc props/loader displays a loader on the timeline
-		// @doc/fr props/loader affiche un loader sur la timeline
-		loader: {
-			type: [String, Boolean],
-			default: undefined,
-		},
+export type OrionTimelineProps = {
+	// @doc props/centeredPill centers the pill and the #after slot
+	// @doc/fr props/centeredPill centre la vignette et le slot #after
+	centeredPill: boolean,
+	// @doc props/horizontal the orientation of the component
+	// @doc/fr props/horizontal l'orientation du composant
+	horizontal: boolean,
+	// @doc props/loader displays a loader on the timeline
+	// @doc/fr props/loader affiche un loader sur la timeline
+	loader?: string | boolean,
+	// @doc props/modelValue the model value
+	// @doc/fr props/modelValue le modelValue
+	modelValue?: string | number | undefined,
+	// @doc props/scrollable displays an horizontal scroll on the timeline pills if it does not fit in its container
+	// @doc/fr props/scrollable affiche un scroll horizontal au niveau de la timeline si elle dépasse de son conteneur.
+	scrollable: boolean,
+};
+export default class OrionTimelineSetupService extends SharedSetupService {
+	static readonly defaultProps = {
+		centeredPill: false,
+		horizontal: false,
+		scrollable: false,
 	};
 
 	_loader = ref<OrionLoader>();
 	private slots: Slots;
-	private emit: TimelineEmit;
+
 	private state = reactive({
-		current: this.props.modelValue,
+		current: '' as OrionTimelineProps['modelValue'],
 		panes: [] as Orion.Private.TsxTimelinePane[],
 	});
 
@@ -67,10 +65,11 @@ export default class OrionTimelineSetupService extends SharedSetupService<Props>
 	}
 
 
-	constructor (props: Props, slots: Slots, emit: TimelineEmit) {
-		super(props);
+	constructor (protected props: OrionTimelineProps, protected emits: OrionTimelineEmits, slots: Slots) {
+		super();
+		this.state.current = props.modelValue;
 		this.slots = slots;
-		this.emit = emit;
+
 
 		watch(() => this.props.modelValue, (val) => {
 			if (!!val) this.setOrigin(val);
@@ -125,7 +124,7 @@ export default class OrionTimelineSetupService extends SharedSetupService<Props>
 		if (isDefineOrTrue(pane.disabled)) return;
 
 		this.setCurrent(pane.name);
-		this.emit('pill-click', pane, event);
+		this.emits('pill-click', pane, event);
 	}
 
 	setCurrent (name: string | number) {
@@ -133,8 +132,8 @@ export default class OrionTimelineSetupService extends SharedSetupService<Props>
 	}
 
 	private setOrigin (val: string | number) {
-		this.emit('update:modelValue', val);
-		this.emit('input', val);
+		this.emits('update:modelValue', val);
+		this.emits('input', val);
 		this.setCurrent(val);
 	}
 }

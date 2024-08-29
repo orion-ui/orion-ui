@@ -36,7 +36,9 @@ import { OrionButton } from 'packages/Button';
 import { OrionInputRange } from 'packages/InputRange';
 import { Cropper, CircleStencil, RectangleStencil } from 'vue-advanced-cropper';
 import OrionCropperSetupService from './OrionCropperSetupService';
-const props = defineProps(OrionCropperSetupService.props);
-const setup = new OrionCropperSetupService(props);
+import type { OrionCropperProps, OrionCropperEmits } from './OrionCropperSetupService';
+const emits = defineEmits<OrionCropperEmits>() as OrionCropperEmits;
+const props = withDefaults(defineProps<OrionCropperProps>(), OrionCropperSetupService.defaultProps);
+const setup = new OrionCropperSetupService(props, emits);
 defineExpose(setup.publicInstance);
 </script>

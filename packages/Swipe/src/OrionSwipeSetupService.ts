@@ -1,19 +1,16 @@
-import { PropType, reactive, ref, Slots } from 'vue';
+import { reactive, ref, Slots } from 'vue';
 import SharedSetupService from '../../Shared/SharedSetupService';
 
-type Props = SetupProps<typeof OrionSwipeSetupService.props>
+export type OrionSwipeEmits = {}
+export type OrionSwipeProps = {
+	// @doc props/direction direction of the swipe animation
+	// @doc/fr props/direction direction de l'animation du swipe
+	direction: SwipeDirection,
+};
 type SwipeDirection = 'left' | 'right';
 
-export default class OrionSwipeSetupService extends SharedSetupService<Props> {
-	static props = {
-		// @doc props/direction direction of the swipe animation
-		// @doc/fr props/direction direction de l'animation du swipe
-		direction: {
-			type: String as PropType<SwipeDirection>,
-			default: 'left',
-			validator: (val: string) => ['left', 'right'].includes(val),
-		},
-	};
+export default class OrionSwipeSetupService extends SharedSetupService {
+	static readonly defaultProps = { direction: 'left' as OrionSwipeProps['direction'] };
 
 	_actions = ref<RefDom>();
 
@@ -48,8 +45,8 @@ export default class OrionSwipeSetupService extends SharedSetupService<Props> {
 	}
 
 
-	constructor (props: Props, slots: Slots) {
-		super(props);
+	constructor (protected props: OrionSwipeProps, protected emits: OrionSwipeEmits, slots: Slots) {
+		super();
 		this.slots = slots;
 	}
 

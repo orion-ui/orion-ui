@@ -1,53 +1,39 @@
 import SharedSetupService from '../../Shared/SharedSetupService';
-import SharedProps from '../../Shared/SharedProps';
-import { nextTick, PropType, ref, SetupContext, watch } from 'vue';
+import { nextTick, ref, SetupContext, watch } from 'vue';
 import anime from 'animejs';
+import { SharedPropsIcon } from 'lib/shared-props';
 
-type Props = SetupProps<typeof OrionIconSetupService.props>
+export type OrionIconEmits = {}
+export type OrionIconProps = SharedPropsIcon & {
+	// @doc props/button adds a background color
+	// @doc/fr props/button ajouter une couleur en arrière plan
+	button?: Orion.Color,
+	// @doc props/loading if set, blocks the click on the icon
+	// @doc/fr props/loading si défini, bloque le click sur l'icône
+	loading: boolean,
+	// @doc props/marker adds a visual marker, can be used as a notification marker
+	// @doc/fr props/marker ajoute un marqueur visuel, qui peut être utilisé comme un marqueur de notification
+	marker: boolean | number,
+	// @doc props/markerColor the color of the marker
+	// @doc/fr props/markerColor couleur du marqueur
+	markerColor: Orion.Color,
+	// @doc props/markerPosition the position of the marker
+	// @doc/fr props/markerPosition position du marqueur
+	markerPosition: string,
+	// @doc props/onMarkerClick Missing @doc
+	// @doc/fr props/onMarkerClick Missing @doc
+	onMarkerClick?: (e: MouseEvent) => void,
+	// @doc props/ripple emits a wave on the click and adds an hover color
+	// @doc/fr props/ripple émet une onde au moment du click et ajoute un style au moment du survol
+	ripple?: Orion.Color,
+};
 
-export default class OrionIconSetupService extends SharedSetupService<Props> {
-	static props = {
-		...SharedProps.icon(),
-		// @doc props/loading if set, blocks the click on the icon
-		// @doc/fr props/loading si défini, bloque le click sur l'icône
-		loading: Boolean,
-		// @doc props/marker adds a visual marker, can be used as a notification marker
-		// @doc/fr props/marker ajoute un marqueur visuel, qui peut être utilisé comme un marqueur de notification
-		marker: {
-			type: [Boolean, Number],
-			default: undefined,
-		},
-		// @doc props/markerColor the color of the marker
-		// @doc/fr props/markerColor couleur du marqueur
-		markerColor: {
-			type: String as PropType<Orion.Color>,
-			default: 'danger',
-			validator: (value: string): boolean => ['default', 'brand', 'info', 'success', 'warning', 'danger', 'pink'].includes(value),
-		},
-		// @doc props/markerPosition the position of the marker
-		// @doc/fr props/markerPosition position du marqueur
-		markerPosition: {
-			type: String,
-			default: 'top right',
-		},
-		// @doc props/ripple emits a wave on the click and adds an hover color
-		// @doc/fr props/ripple émet une onde au moment du click et ajoute un style au moment du survol
-		ripple: {
-			type: String as PropType<Orion.Color>,
-			default: undefined,
-			validator: (value: string): boolean => ['default', 'brand', 'info', 'success', 'warning', 'danger', 'pink'].includes(value),
-		},
-		// @doc props/button adds a background color
-		// @doc/fr props/button ajouter une couleur en arrière plan
-		button: {
-			type: String as PropType<Orion.Color>,
-			default: undefined,
-			validator: (value: string): boolean => ['default', 'brand', 'info', 'success', 'warning', 'danger', 'pink'].includes(value),
-		},
-		onMarkerClick: {
-			type: Function as PropType<(e: MouseEvent) => void>,
-			default: undefined,
-		},
+export default class OrionIconSetupService extends SharedSetupService {
+	static readonly defaultProps = {
+		loading: false,
+		marker: false,
+		markerColor: 'danger' as Orion.Color,
+		markerPosition: 'top right',
 	};
 
 	_el = ref<RefDom>();
@@ -68,8 +54,8 @@ export default class OrionIconSetupService extends SharedSetupService<Props> {
 	}
 
 
-	constructor (props: Props, attrs: SetupContext['attrs']) {
-		super(props);
+	constructor (protected props: OrionIconProps, protected emits: OrionIconEmits, attrs: SetupContext['attrs']) {
+		super();
 		this.attrs = attrs;
 
 		watch(() => this.props.loading, () => this.setSpinnerDimensions());

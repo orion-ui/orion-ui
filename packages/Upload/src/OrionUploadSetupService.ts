@@ -1,36 +1,31 @@
-import { ComponentPublicInstance, nextTick, PropType, reactive, ref } from 'vue';
+import { ComponentPublicInstance, nextTick, reactive, ref } from 'vue';
 import anime from 'animejs';
-import SharedFieldSetupService, { FieldEmit } from '../../Shared/SharedFieldSetupService';
+import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetupServiceProps } from '../../Shared/SharedFieldSetupService';
 import useNotif from 'services/NotifService';
-import SharedProps from 'packages/Shared/SharedProps';
 
-type Props = SetupProps<typeof OrionUploadSetupService.props>
+export type OrionUploadEmits = SharedFieldSetupServiceEmits<Nil<File[]>> & {}
+export type OrionUploadProps = SharedFieldSetupServiceProps<File[]> & {
+	// @doc props/fileMaxSize the maximal size of the uploaded file (Mo)
+	// @doc/fr props/fileMaxSize taille maximale d'un fichier (Mo)
+	fileMaxSize: number,
+	// @doc props/fileTypes Missing @doc
+	// @doc/fr props/fileTypes Missing @doc
+	fileTypes: string[],
+	// @doc props/multiple allows multiple files upload.
+	// @doc/fr props/multiple permet le chargement de plusieurs fichiers.
+	multiple: boolean,
+	// @doc props/showPreview shows a preview of the selected file
+	// @doc/fr props/showPreview montre un apperçu du fichier chargé
+	showPreview: boolean,
+};
 
-export default class OrionUploadSetupService extends SharedFieldSetupService<Props, File[]> {
-	static props = {
-		...SharedFieldSetupService.props,
-		...SharedProps.vModel<File[]>(() => []),
-		// @doc props/multiple allows multiple files upload.
-		// @doc/fr props/multiple permet le chargement de plusieurs fichiers.
-		multiple: Boolean,
-		// @doc props/showPreview shows a preview of the selected file
-		// @doc/fr props/showPreview montre un apperçu du fichier chargé
-		showPreview: {
-			type: Boolean,
-			default: true,
-		},
-		// @doc props/fileType defines the allowed types
-		// @doc/fr props/fileType définit les types de fichiers autorisés
-		fileTypes: {
-			type: Array as PropType<string[]>,
-			default: () => ['image/jpeg', 'image/png', 'image/gif', 'application/pdf'],
-		},
-		// @doc props/fileMaxSize the maximal size of the uploaded file (Mo)
-		// @doc/fr props/fileMaxSize taille maximale d'un fichier (Mo)
-		fileMaxSize: {
-			type: Number,
-			default: 4,
-		},
+export default class OrionUploadSetupService extends SharedFieldSetupService<OrionUploadProps, File[]> {
+	static readonly defaultProps = {
+		...SharedFieldSetupService.defaultProps,
+		fileMaxSize: 4,
+		fileTypes: () => ['image/jpeg', 'image/png', 'image/gif', 'application/pdf'],
+		multiple: false,
+		showPreview: true,
 	};
 
 	_input = ref<HTMLInputElement>();
@@ -66,8 +61,8 @@ export default class OrionUploadSetupService extends SharedFieldSetupService<Pro
 	}
 
 
-	constructor (props: Props, emit: FieldEmit<File[]>) {
-		super(props, emit);
+	constructor (protected props: OrionUploadProps, protected emits: OrionUploadEmits) {
+		super(props, emits);
 	}
 
 	protected onBeforeUpdate () {
@@ -75,7 +70,7 @@ export default class OrionUploadSetupService extends SharedFieldSetupService<Pro
 	}
 
 	protected onMounted () {
-		this.vModel.forEach((file, index) => this.getFilePreview(file, index));
+		this.vModel?.forEach((file: File, index: number) => this.getFilePreview(file, index));
 
 		this.window?.addEventListener('dragover', this.preventDrop);
 		this.window?.addEventListener('drop', this.preventDrop);
@@ -100,11 +95,12 @@ export default class OrionUploadSetupService extends SharedFieldSetupService<Pro
 	}
 
 	private emitInput () {
+		if (!this.vModel) return;
 		if (!this.props.multiple && this.vModel.length > 1) {
 			this.vModel.splice(1, this.vModel.length);
 		}
-		this.vModel.forEach((file, index) => this.getFilePreview(file, index));
-		this.emit('input', this.vModel);
+		this.vModel.forEach((file: File, index: number) => this.getFilePreview(file, index));
+		this.emits('input', this.vModel);
 	}
 
 	private getFilePreview (file: File, index: number) {
@@ -129,10 +125,11 @@ export default class OrionUploadSetupService extends SharedFieldSetupService<Pro
 	}
 
 	clear () {
-		this.vModel.length = 0;
-		this.emit('input', []);
-		this.emit('change', []);
-		this.emit('clear');
+		if (this.vModel)
+			this.vModel.length = 0;
+		this.emits('input', []);
+		this.emits('change', []);
+		this.emits('clear');
 	}
 
 	setFilePreviewRef (el: ComponentPublicInstance | Element | null) {
@@ -167,6 +164,7 @@ export default class OrionUploadSetupService extends SharedFieldSetupService<Pro
 	}
 
 	handleChange () {
+		if (!this.vModel) return;
 		this.vModel.length = 0;
 		if (this._input.value?.files?.length) {
 			for (const file of this._input.value.files) {
@@ -181,6 +179,7 @@ export default class OrionUploadSetupService extends SharedFieldSetupService<Pro
 	}
 
 	deleteFile (index: number) {
+		if (!this.vModel) return;
 		this._filePreview.value.length = 0;
 		if (this._input.value) this._input.value.value = '';
 		this.vModel.splice(index, 1);
@@ -188,6 +187,7 @@ export default class OrionUploadSetupService extends SharedFieldSetupService<Pro
 	}
 
 	handleDrop (ev: DragEvent) {
+		if (!this.vModel) return;
 		if (!this.props.multiple) this.vModel.length = 0;
 		ev.preventDefault();
 

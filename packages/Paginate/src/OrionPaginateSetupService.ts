@@ -1,42 +1,27 @@
 import SharedSetupService from '../../Shared/SharedSetupService';
 
-type Props = SetupProps<typeof OrionPaginateSetupService.props>
-type Emit = {
+export type OrionPaginateEmits = {
 	(e: 'update:modelValue', payload: number): void;
 	(e: 'paginate', payload: number): void;
 }
 
-export default class OrionPaginateSetupService extends SharedSetupService<Props> {
-	static props = {
-		// @doc props/modelValue active page index
-		// @doc/fr props/modelValue index de la page active
-		modelValue: {
-			type: Number,
-			required: true as const,
-		},
-		// @doc props/size number of elements to display on each page
-		// @doc/fr props/size nombre d'éléments à afficher sur chaque page
-		size: {
-			type: Number,
-			required: true as const,
-		},
-		// @doc props/total total number of element which are paginated
-		// @doc/fr props/total nombre total d'éléments
-		total: {
-			type: Number,
-			required: true as const,
-		},
-		// eslint-disable-next-line max-len
-		// @doc props/bindRouter the key used in the url query to get the current active page (ex: ...url/my-list?**page**=2 • *bindRouter = **page***)
-		// eslint-disable-next-line max-len
-		// @doc/fr props/bindRouter représente la clé utilisée dans l'url pour déterminer la page active actuelle (ex: ...url/my-list?**page**=2 • *bindRouter = **page***)
-		bindRouter: {
-			type: String,
-			default: undefined,
-		},
-	};
+export type OrionPaginateProps = {
+	// @doc props/bindRouter the key used in the url query to get the current active page (ex: ...url/my-list?**page**=2 • *bindRouter = **page***)
+	// @doc/fr props/bindRouter représente la clé utilisée dans l'url pour déterminer la page active actuelle (ex: ...url/my-list?**page**=2 • *bindRouter = **page***)
+	bindRouter?: string,
+	// @doc props/modelValue active page index
+	// @doc/fr props/modelValue index de la page active
+	modelValue: number,
+	// @doc props/size number of elements to display on each page
+	// @doc/fr props/size nombre d'éléments à afficher sur chaque page
+	size: number,
+	// @doc props/total total number of element which are paginated
+	// @doc/fr props/total nombre total d'éléments
+	total: number,
+};
 
-	private emit: Emit;
+export default class OrionPaginateSetupService extends SharedSetupService {
+	static readonly defaultProps = {};
 
 	get index () {
 		if (this.props.bindRouter && this.router.currentRoute.value.query[this.props.bindRouter]) {
@@ -47,8 +32,8 @@ export default class OrionPaginateSetupService extends SharedSetupService<Props>
 
 	set index (val) {
 		if (val < 1 || val > this.pagesLength || isNaN(val) || val === this.index) return;
-		this.emit('update:modelValue', val);
-		this.emit('paginate', val);
+		this.emits('update:modelValue', val);
+		this.emits('paginate', val);
 
 		if (this.props.bindRouter && !!this.props.bindRouter.length) {
 			this.router.push({
@@ -97,9 +82,8 @@ export default class OrionPaginateSetupService extends SharedSetupService<Props>
 	}
 
 
-	constructor (props: Props, emit: Emit) {
-		super(props);
-		this.emit = emit;
+	constructor (protected props: OrionPaginateProps, protected emits: OrionPaginateEmits) {
+		super();
 	}
 
 

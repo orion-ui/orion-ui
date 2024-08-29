@@ -91,11 +91,12 @@ export default class SharedProps {
 		},
 	});
 
-	static nav = () => ({
+	/* 	static nav = () => ({
 		items: {
 			type: Array as PropType<Orion.NavItem[]>,
 			default: () => [],
 		},
-	});
+	}); */
+	static nav = () => ({ items: [] as Orion.NavItem[] });
 }
 

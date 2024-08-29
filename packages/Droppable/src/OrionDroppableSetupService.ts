@@ -1,43 +1,34 @@
 import mitt from 'mitt';
-import { PropType, watch, nextTick } from 'vue';
+import { watch, nextTick } from 'vue';
 import SharedSetupService from '../../Shared/SharedSetupService';
 import useDragNDrop from 'services/DragNDropService';
 import useMonkey from 'services/MonkeyService';
 import { toggleGlobalListener } from 'utils/tools';
 
-type Props = SetupProps<typeof OrionDroppableSetupService.props>
-
-type DataListItem = Record<string, any>;
-type DropEmit = {
+export type OrionDroppableEmits = {
 	(e: 'dropIn', payload: any): void ;
 	(e: 'dragOver'): void ;
 	(e: 'dragLeave'): void ;
 	(e: 'reorder', payload: any): void ;
 	(e: 'dropOut', payload: any): void ;
-	(e: 'update:datalist', payload: any): void ;
-}
+	(e: 'update:datalist', payload: any): void ;}
 
-export default class OrionDroppableSetupService extends SharedSetupService<Props> {
-	static props = {
-		// @doc props/tag the tag or component of the droppable area
-		// @doc/fr props/tag tag ou composant qui représentera la zone de drop
-		tag: {
-			type: String,
-			default: 'div',
-		},
-		// @doc props/datalist datas of the component
-		// @doc/fr props/datalist liste d'objets du composant
-		datalist: {
-			type: Array as PropType<DataListItem[]>,
-			default: null,
-		},
-		// @doc props/validation allows you to add a validation before the item drops
-		// @doc/fr props/validation permet d'ajouter une validation avant de déposer un objet dans la zone
-		validation: {
-			type: Object as PropType<Orion.DndValidation>,
-			default: null,
-		},
-	};
+export type OrionDroppableProps = {
+	// @doc props/datalist datas of the component
+	// @doc/fr props/datalist liste d'objets du composant
+	datalist?: DataListItem[],
+	// @doc props/tag the tag or component of the droppable area
+	// @doc/fr props/tag tag ou composant qui représentera la zone de drop
+	tag: string,
+	// @doc props/validation allows you to add a validation before the item drops
+	// @doc/fr props/validation permet d'ajouter une validation avant de déposer un objet dans la zone
+	validation?: Orion.DndValidation,
+};
+
+type DataListItem = Record<string, any>;
+
+export default class OrionDroppableSetupService extends SharedSetupService {
+	static readonly defaultProps = { tag: 'div' };
 
 	isHovering = false;
 	isMounted = false;
@@ -51,8 +42,6 @@ export default class OrionDroppableSetupService extends SharedSetupService<Props
 	private _aside?: OrionAside;
 
 	private dnd = useDragNDrop();
-
-	private emit: DropEmit;
 
 	private bus = mitt<{
 		dropIn: any;
@@ -116,15 +105,15 @@ export default class OrionDroppableSetupService extends SharedSetupService<Props
 		return false;
 	}
 
-	constructor (props: Props, emit: DropEmit, _modal?: OrionModal, _aside?: OrionAside) {
-		super(props);
-		this.emit = emit;
+	constructor (protected props: OrionDroppableProps, protected emits: OrionDroppableEmits, _modal?: OrionModal, _aside?: OrionAside) {
+		super();
+
 		this._modal = _modal;
 		this._aside = _aside;
 
-		this.bus.on('*', (type, e) => this.emit(type as any, e as any));
+		this.bus.on('*', (type, e) => this.emits(type as any, e as any));
 
-		this.emit('update:datalist', this.datalist.map(x => ({
+		this.emits('update:datalist', this.datalist?.map(x => ({
 			...x,
 			__uid: this.getUid(),
 		})));
@@ -155,17 +144,19 @@ export default class OrionDroppableSetupService extends SharedSetupService<Props
 			const { index } = lastItem;
 			if (typeof index === 'number') {
 				const toEmit = this.datalist;
-				toEmit.splice(index, 0, val);
-				this.emit('update:datalist', toEmit);
+				toEmit?.splice(index, 0, val);
+				this.emits('update:datalist', toEmit);
 			}
 		});
 
 		this.bus.on('dropOut', (val: DataListItem) => {
+			if (!this.datalist) return;
 			const toEmit = useMonkey(this.datalist).delete(val);
-			this.emit('update:datalist', toEmit);
+			this.emits('update:datalist', toEmit);
 		});
 
 		this.bus.on('reorder', (val: DataListItem) => {
+			if (!this.datalist) return;
 			const toEmit = useMonkey(this.datalist).delete(val, '__uid');
 			const lastItem = useMonkey(this.dnd.registry.items).last();
 
@@ -174,7 +165,7 @@ export default class OrionDroppableSetupService extends SharedSetupService<Props
 			const { index } = lastItem;
 			if (typeof index === 'number') {
 				toEmit.splice(index, 0, val);
-				this.emit('update:datalist', toEmit);
+				this.emits('update:datalist', toEmit);
 			}
 		});
 

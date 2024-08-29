@@ -19,20 +19,12 @@
 import { inject, provide } from 'vue';
 import './OrionDroppable.less';
 import OrionDroppableSetupService from './OrionDroppableSetupService';
-
-type DropEmit = {
-	(e: 'dropIn', payload: any): void ;
-	(e: 'dragOver'): void ;
-	(e: 'dragLeave'): void ;
-	(e: 'reorder', payload: any): void ;
-	(e: 'dropOut', payload: any): void ;
-	(e: 'update:datalist', payload: any[]): void ;
-}
-const props = defineProps(OrionDroppableSetupService.props);
-const emit = defineEmits<DropEmit>();
+import type { OrionDroppableProps, OrionDroppableEmits } from './OrionDroppableSetupService';
+const emits = defineEmits<OrionDroppableEmits>() as OrionDroppableEmits;
+const props = withDefaults(defineProps<OrionDroppableProps>(), OrionDroppableSetupService.defaultProps);
 const _aside = inject<OrionAside>('_aside');
 const _modal = inject<OrionModal>('_modal');
-const setup = new OrionDroppableSetupService(props, emit, _aside, _modal);
+const setup = new OrionDroppableSetupService(props, emits, _aside, _modal);
 provide('_droppable', setup.publicInstance);
 defineExpose(setup.publicInstance);
 

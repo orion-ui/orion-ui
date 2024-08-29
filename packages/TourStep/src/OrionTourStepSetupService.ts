@@ -7,7 +7,39 @@ import { autoPlacement, offset, shift, computePosition, arrow, autoUpdate } from
 import useLoader from 'services/LoaderService';
 import useConfirm from 'services/ConfirmService';
 
-type Props = SetupProps<typeof OrionTourStepSetupService.props>
+export type OrionTourStepEmits = {}
+export type OrionTourStepProps = {
+	// @doc props/clickable if there is a target, it allows the user to click on the target (if the target is a button for example). It also ends the tour.
+	// @doc/fr props/clickable s'il y a une cible, permet de clicker sur la cible  (si c'est un bouton par exemple). Cela met aussi fin au tour.
+	clickable?: boolean | Function,
+	// @doc props/closable defines if the step can be closable
+	// @doc/fr props/closable définit si l'étape peut être fermée à l'aide de la croix
+	closable: boolean,
+	// @doc props/end object which contains a label, and a callback and clean functions for the final step
+	// @doc/fr props/end objet contenant un label, et des fonction `callback` et `clean` pour l'étape finale
+	end?: Orion.Tour.TourObject,
+	// @doc props/hideFinish hides the Finish button
+	// @doc/fr props/hideFinish masque le bouton pour terminer le tour
+	hideFinish: boolean,
+	// @doc props/next object which contains a label, and a callback and clean functions for the next step
+	// @doc/fr props/next objet contenant un label, et des fonction `callback` et `clean` pour l'étape suivante
+	next?: Orion.Tour.TourObject,
+	// @doc props/previous object which contains a label, and a callback and clean functions for the previous step
+	// @doc/fr props/previous objet contenant un label, et des fonction `callback` et `clean` pour l'étape précédente
+	previous?: Orion.Tour.TourObject,
+	// @doc props/size the size of the step
+	// @doc/fr props/size taille de l'étape
+	size: string,
+	// @doc props/target possibility to target a DOM element. If it is a `string`, it must represent an `id` in the DOM. If `false`, no target will be selected
+	// @doc/fr props/target Permet de cibler un élément dans le DOM. S'il s'agit d'une string, elle doit correspondre à l'id de cet élément. Si elle est définie à `false` l'étape se placera au centre de la page, sans cible.
+	target: string | Function | boolean,
+	// @doc props/timeout when a target can not be find in DOM, a modal appears after a certain time defined with this attribut
+	// @doc/fr props/timeout quand la cible n'est pas trouvée dans le DOM, une modal appararaît après le temps spécifié
+	timeout: number,
+	// @doc props/title title of the step
+	// @doc/fr props/title titre de l'étape
+	title?: string,
+};
 
 type OverlayPaneCoord = {
 	left: string;
@@ -27,70 +59,13 @@ type OverlayCoordArray = {
 	coord: OverlayPaneCoord,
 }[];
 
-export default class OrionTourStepSetupService extends SharedSetupService<Props> {
-	static props = {
-		// @doc props/title title of the step
-		// @doc/fr props/title titre de l'étape
-		title: {
-			type: String,
-			default: undefined,
-		},
-		// eslint-disable-next-line max-len
-		// @doc props/target possibility to target a DOM element. If it is a `string`, it must represent an `id` in the DOM. If `false`, no target will be selected
-		// eslint-disable-next-line max-len
-		// @doc/fr props/target Permet de cibler un élément dans le DOM. S'il s'agit d'une string, elle doit correspondre à l'id de cet élément. Si elle est définie à `false` l'étape se placera au centre de la page, sans cible.
-		target: {
-			type: [String, Function, Boolean],
-			default: false,
-		},
-		// @doc props/next object which contains a label, and a callback and clean functions for the next step
-		// @doc/fr props/next objet contenant un label, et des fonction `callback` et `clean` pour l'étape suivante
-		next: {
-			type: Object,
-			default: undefined,
-		},
-		// // @doc props/end object which contains a label, and a callback and clean functions for the final step
-		// @doc/fr props/end objet contenant un label, et des fonction `callback` et `clean` pour l'étape finale
-		end: {
-			type: Object,
-			default: undefined,
-		},
-		// @doc props/previous object which contains a label, and a callback and clean functions for the previous step
-		// @doc/fr props/previous objet contenant un label, et des fonction `callback` et `clean` pour l'étape précédente
-		previous: {
-			type: Object,
-			default: undefined,
-		},
-		// @doc props/timeout when a target can not be find in DOM, a modal appears after a certain time defined with this attribut
-		// @doc/fr props/timeout quand la cible n'est pas trouvée dans le DOM, une modal appararaît après le temps spécifié
-		timeout: {
-			type: Number,
-			default: 3000,
-		},
-		// @doc props/clickable if there is a target, it allows the user to click on the target (if the target is a button for example). It also ends the tour.
-		// @doc/fr props/clickable s'il y a une cible, permet de clicker sur la cible  (si c'est un bouton par exemple). Cela met aussi fin au tour.
-		clickable: {
-			type: [Boolean, Function],
-			default: undefined,
-		},
-		// @doc props/closable defines if the step can be closable
-		// @doc/fr props/closable définit si l'étape peut être fermée à l'aide de la croix
-		closable: {
-			type: Boolean,
-			default: true,
-		},
-		// @doc props/hideFinish hides the Finish button
-		// @doc/fr props/hideFinish masque le bouton pour terminer le tour
-		hideFinish: {
-			type: Boolean,
-			default: false,
-		},
-		// @doc props/size the size of the step
-		// @doc/fr props/size taille de l'étape
-		size: {
-			type: String,
-			default: 'md',
-		},
+export default class OrionTourStepSetupService extends SharedSetupService {
+	static readonly defaultProps = {
+		closable: true,
+		hideFinish: false,
+		size: 'md',
+		target: false,
+		timeout: 3000,
 	};
 
 	private _tour?: OrionTour;
@@ -164,8 +139,8 @@ export default class OrionTourStepSetupService extends SharedSetupService<Props>
 		return this.props.end?.label ? this.props.end?.label : this.lang.FINISH;
 	};
 
-	constructor (props: Props, _tour?: OrionTour) {
-		super(props);
+	constructor (protected props: OrionTourStepProps, protected emits: OrionTourStepEmits, _tour?: OrionTour) {
+		super();
 		this._tour = _tour;
 
 		watch(() => this.currentIndex, async () => {
@@ -234,7 +209,7 @@ export default class OrionTourStepSetupService extends SharedSetupService<Props>
 			} else {
 				this.calculateTooltipPosition();
 			}
-		} catch (e) {
+		} catch (e: any) {
 			this.showTimeoutModal();
 		}
 	}

@@ -3,11 +3,11 @@
 		v-bind="setup.orionFieldBinding"
 		:label-is-floating="false"
 		:class="[
-			`orion-toggle--${setup.props.color}`,
-			`orion-toggle--${setup.props.size}`,
+			`orion-toggle--${color}`,
+			`orion-toggle--${size}`,
 			{ 'orion-toggle--checked': setup.vModel },
-			{ 'orion-toggle--reverse': setup.props.reverse },
-			{ 'orion-toggle--inline': setup.props.inline },
+			{ 'orion-toggle--reverse': reverse },
+			{ 'orion-toggle--inline': inline },
 		]"
 		input-type="toggle"
 		@click="setup.handleClick()">
@@ -19,7 +19,7 @@
 			class="orion-toggle__input"
 			type="checkbox"
 			:checked="setup.vModel"
-			v-bind="{ ...$attrs, disabled: setup.props.disabled }">
+			v-bind="{ ...$attrs, disabled: disabled }">
 
 		<div
 			class="orion-toggle__core"
@@ -35,17 +35,10 @@
 import './OrionToggle.less';
 import { OrionField } from 'packages/Field';
 import OrionToggleSetupService from './OrionToggleSetupService';
-type FieldEmit = {
-  (e: 'focus', payload: FocusEvent): void;
-  (e: 'blur', payload?: FocusEvent): void;
-  (e: 'input', payload: boolean): void;
-  (e: 'change', val?: boolean): void;
-  (e: 'update:modelValue', payload: boolean): void;
-  (e: 'clear'): void;
-}
-const emit = defineEmits<FieldEmit>();
-const props = defineProps(OrionToggleSetupService.props);
-const setup = new OrionToggleSetupService(props, emit);
+import type { OrionToggleProps, OrionToggleEmits } from './OrionToggleSetupService';
+const emits = defineEmits<OrionToggleEmits>() as OrionToggleEmits;
+const props = withDefaults(defineProps<OrionToggleProps>(), OrionToggleSetupService.defaultProps);
+const setup = new OrionToggleSetupService(props, emits);
 defineExpose(setup.publicInstance);
 
 /** Doc

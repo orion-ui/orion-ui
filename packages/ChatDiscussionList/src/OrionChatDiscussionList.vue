@@ -240,12 +240,9 @@ import { OrionInput } from 'packages/Input';
 import { OrionLoader } from 'packages/Loader';
 import { OrionAvatar } from 'packages/Avatar';
 import OrionChatDiscussionListSetupService from './OrionChatDiscussionListSetupService';
-type Emits = {
-	(e: 'new-discussion'): void;
-	(e: 'select-discussion', payload: number): void;
-}
-const emits = defineEmits<Emits>();
-const props = defineProps(OrionChatDiscussionListSetupService.props);
+import type { OrionChatDiscussionListProps, OrionChatDiscussionListEmits } from './OrionChatDiscussionListSetupService';
+const emits = defineEmits<OrionChatDiscussionListEmits>() as OrionChatDiscussionListEmits;
+const props = withDefaults(defineProps<OrionChatDiscussionListProps>(), OrionChatDiscussionListSetupService.defaultProps);
 const setup = new OrionChatDiscussionListSetupService(props, emits);
 defineExpose(setup.publicInstance);
 

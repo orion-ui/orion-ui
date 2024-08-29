@@ -3,13 +3,16 @@
 </template>
 
 <script setup lang="tsx">
+//@ts-nocheck
 import './OrionTour.less';
 import { provide, useSlots } from 'vue';
 import OrionTourSetupService from './OrionTourSetupService';
 
 const slots = useSlots();
-const props = defineProps(OrionTourSetupService.props);
-const setup = new OrionTourSetupService(props, slots);
+const emits = defineEmits<OrionTourEmits>() as OrionTourEmits;
+import type { OrionTourProps, OrionTourEmits } from './OrionTourSetupService';
+const props = withDefaults(defineProps<OrionTourProps>(), OrionTourSetupService.defaultProps);
+const setup = new OrionTourSetupService(props, emits, slots);
 provide('_tour', setup.publicInstance);
 defineExpose(setup.publicInstance);
 

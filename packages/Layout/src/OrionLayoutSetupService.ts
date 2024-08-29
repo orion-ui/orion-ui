@@ -1,38 +1,30 @@
-import { PropType, ref } from 'vue';
+import { ref } from 'vue';
 import anime from 'animejs';
 
 import SharedSetupService from '../../Shared/SharedSetupService';
 
 
-type Props = SetupProps<typeof OrionLayoutSetupService.props>
+export type OrionLayoutEmits = {}
+export type OrionLayoutProps = {
+	// @doc props/navMain these props will be applied to the layout's `<o-nav-main>` component
+	// @doc/fr props/navMain ces props seront passées au composant `<o-nav-main>` du layout
+	navMain: OrionNavMain.Props,
+	// @doc props/navTabs these props will be applied to the layout's `<o-nav-tabs>` component
+	// @doc/fr props/navTabs ces props seront passées au composant `<o-nav-tabs>` du layout
+	navTabs: OrionNavTabs.Props,
+	// @doc props/navTop these props will be applied to the layout's `<o-nav-top>` component
+	// @doc/fr props/navTop ces props seront passées au composant `<o-nav-top>` du layout
+	navTop: OrionNavTop.Props,
+};
 
-export default class OrionLayoutSetupService extends SharedSetupService<Props> {
-	static props = {
-		// @doc props/navMain these props will be applied to the layout's `<o-nav-main>` component
-		// @doc/fr props/navMain ces props seront passées au composant `<o-nav-main>` du layout
-		navMain: {
-			type: Object as PropType<OrionNavMain.Props>,
-			default: undefined,
-		},
-		// @doc props/navTop these props will be applied to the layout's `<o-nav-top>` component
-		// @doc/fr props/navTop ces props seront passées au composant `<o-nav-top>` du layout
-		navTop: {
-			type: Object as PropType<OrionNavTop.Props>,
-			default: undefined,
-		},
-		// @doc props/navTabs these props will be applied to the layout's `<o-nav-tabs>` component
-		// @doc/fr props/navTabs ces props seront passées au composant `<o-nav-tabs>` du layout
-		navTabs: {
-			type: Object as PropType<OrionNavTabs.Props>,
-			default: undefined,
-		},
-	};
+export default class OrionLayoutSetupService extends SharedSetupService {
+	static readonly defaultProps = {};
 
 	_main = ref<RefDom>();
 
 
-	constructor (props: Props) {
-		super(props);
+	constructor (protected props: OrionLayoutProps, protected emits: OrionLayoutEmits) {
+		super();
 	}
 
 	protected onMounted () {

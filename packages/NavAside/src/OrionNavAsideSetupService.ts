@@ -1,27 +1,22 @@
-import { PropType, watch } from 'vue';
+import { watch } from 'vue';
 import { useRoute } from 'vue-router';
 import SharedSetupService from '../../Shared/SharedSetupService';
 
-type Props = SetupProps<typeof OrionNavAsideSetupService.props>
+export type OrionNavAsideEmits = {}
+export type OrionNavAsideProps = {
+	navMain?: OrionNavMain.Props
+	navTop?: OrionNavTop.Props
+}
 
-export default class OrionNavAsideSetupService extends SharedSetupService<Props> {
-	static props = {
-		navMain: {
-			type: Object as PropType<OrionNavMain.Props>,
-			default: undefined,
-		},
-		navTop: {
-			type: Object as PropType<OrionNavTop.Props>,
-			default: undefined,
-		},
-	};
+export default class OrionNavAsideSetupService extends SharedSetupService {
+	static readonly defaultProps = {};
 
 	get publicInstance () {
 		return {};
 	}
 
-	constructor (props: Props, _aside?: OrionAside) {
-		super(props);
+	constructor (protected props: OrionNavAsideProps, protected emits: OrionNavAsideEmits, _aside?: OrionAside) {
+		super();
 
 		const route = useRoute();
 		watch(route, () => _aside?.close());

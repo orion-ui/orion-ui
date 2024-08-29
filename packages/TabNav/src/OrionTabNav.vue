@@ -3,18 +3,21 @@
 </template>
 
 <script setup lang="tsx">
+//@ts-nocheck
 import './OrionTabNav.less';
 import { inject } from 'vue';
 import { isDefineOrTrue } from 'utils/tools';
 import { OrionIcon } from 'packages/Icon';
 import OrionTabNavSetupService from './OrionTabNavSetupService';
+import type { OrionTabNavProps, OrionTabNavEmits } from './OrionTabNavSetupService';
+const emits = defineEmits<OrionTabNavEmits>() as OrionTabNavEmits;
+const props = withDefaults(defineProps<OrionTabNavProps>(), OrionTabNavSetupService.defaultProps);
 const _tabs = inject<OrionTabs>('_tabs');
-const props = defineProps(OrionTabNavSetupService.props);
-const setup = new OrionTabNavSetupService(props);
+const setup = new OrionTabNavSetupService(props, emits);
 defineExpose(setup.publicInstance);
 
 const jsxTabNav = () => {
-	const tabs = (setup.props.panes).map((pane) => {
+	const tabs = (props.panes).map((pane) => {
 		const icon = pane.props.icon || pane.props['font-icon']
 			? (<OrionIcon class="orion-tab-nav__icon" icon={ pane.props.icon } fontIcon={pane.props['font-icon']}/>)
 			: null;

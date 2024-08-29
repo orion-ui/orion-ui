@@ -2,8 +2,8 @@
 	<color-picker
 		class="orion-color-picker"
 		:class="[
-			{ 'orion-color-picker--hide-hex': setup.props.hideHex },
-			{ 'orion-color-picker--hide-rgba': setup.props.hideRgba },
+			{ 'orion-color-picker--hide-hex': hideHex },
+			{ 'orion-color-picker--hide-rgba': hideRgba },
 		]"
 		theme="light"
 		:color="setup.color"
@@ -14,34 +14,11 @@
 <script setup lang="ts">
 import './OrionColorPicker.less';
 import { ColorPicker } from 'vue-color-kit';
+const emits = defineEmits<OrionColorPickerEmits>() as OrionColorPickerEmits;
 import OrionColorPickerSetupService from './OrionColorPickerSetupService';
-type ColorValue = {
-  rgba: {
-    r: number;
-    g: number;
-    b: number;
-    a: number;
-  };
-  hsv: {
-    h: number;
-    s: number;
-    v: number;
-  };
-  hex: string;
-}
-type VModelType = Nil<string>;
-type ColorPickerEmit = {
-  (e: 'focus', payload: FocusEvent): void;
-  (e: 'blur', payload?: FocusEvent): void;
-  (e: 'input', payload: VModelType): void;
-  (e: 'change', val?: VModelType): void;
-  (e: 'update:modelValue', payload: VModelType): void;
-  (e: 'clear'): void;
-	(e: 'picked', payload: ColorValue): void;
-}
-const emit = defineEmits<ColorPickerEmit>();
-const props = defineProps(OrionColorPickerSetupService.props);
-const setup = new OrionColorPickerSetupService(props, emit);
+import type { OrionColorPickerProps, OrionColorPickerEmits } from './OrionColorPickerSetupService';
+const props = withDefaults(defineProps<OrionColorPickerProps>(), OrionColorPickerSetupService.defaultProps);
+const setup = new OrionColorPickerSetupService(props, emits);
 defineExpose(setup.publicInstance);
 
 /** Doc

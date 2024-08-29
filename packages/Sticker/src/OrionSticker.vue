@@ -3,10 +3,10 @@
 		:ref="setup._el"
 		class="orion-sticker"
 		:class="[
-			`orion-sticker--selected-${setup.props.selectedColor}`,
-			{ 'orion-sticker--muted': setup.props.muted },
+			`orion-sticker--selected-${selectedColor}`,
+			{ 'orion-sticker--muted': muted },
 			{ 'orion-sticker--clickable': !!$attrs.onClick },
-			{ 'orion-sticker--selected': setup.props.selected },
+			{ 'orion-sticker--selected': selected },
 			{ 'orion-sticker--no-elevation': hoverElevation <= 0 },
 		]"
 		:style="`--hoverElevation: ${hoverElevation}`">
@@ -18,16 +18,16 @@
 
 		<div class="orion-sticker__content">
 			<h4
-				v-if="setup.props.title"
+				v-if="title"
 				class="orion-sticker__title">
-				{{ setup.props.title }}
+				{{ title }}
 			</h4>
 
 			<slot/>
 		</div>
 
 		<div
-			v-if="!setup.props.hideActions && $slots.actions"
+			v-if="!hideActions && $slots.actions"
 			class="orion-sticker__actions">
 			<slot name="actions"/>
 		</div>
@@ -53,8 +53,10 @@
 <script setup lang="ts">
 import './OrionSticker.less';
 import OrionStickerSetupService from './OrionStickerSetupService';
-const props = defineProps(OrionStickerSetupService.props);
-const setup = new OrionStickerSetupService(props);
+import type { OrionStickerProps, OrionStickerEmits } from './OrionStickerSetupService';
+const emits = defineEmits<OrionStickerEmits>() as OrionStickerEmits;
+const props = withDefaults(defineProps<OrionStickerProps>(), OrionStickerSetupService.defaultProps);
+const setup = new OrionStickerSetupService(props, emits);
 defineExpose(setup.publicInstance);
 
 /** Doc

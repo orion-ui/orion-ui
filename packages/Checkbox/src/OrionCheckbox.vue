@@ -3,10 +3,10 @@
 		v-bind="setup.orionFieldBinding"
 		:label-is-floating="false"
 		:class="[
-			`orion-checkbox--${setup.props.color}`,
+			`orion-checkbox--${color}`,
 			{ 'orion-checkbox--checked': setup.isChecked },
-			{ 'orion-checkbox--reverse': setup.props.reverse },
-			{ 'orion-checkbox--inline': setup.props.inline },
+			{ 'orion-checkbox--reverse': reverse },
+			{ 'orion-checkbox--inline': inline },
 		]"
 		input-type="checkbox"
 		@click="setup.handleClick()">
@@ -16,14 +16,14 @@
 			:ref="setup._input"
 			class="orion-checkbox__input"
 			type="checkbox"
-			:value="setup.props.inputValue"
+			:value="inputValue"
 			:checked="setup.isChecked"
-			v-bind="{ ...$attrs, disabled: setup.props.disabled }">
+			v-bind="{ ...$attrs, disabled: disabled }">
 
 		<span class="orion-checkbox__check-container">
 			<orion-icon
-				v-if="setup.props.iconCheck"
-				:icon="setup.props.iconCheck"
+				v-if="iconCheck"
+				:icon="iconCheck"
 				@click="setup.handleClick()"/>
 			<svg
 				v-else
@@ -40,17 +40,12 @@ import { OrionField } from 'packages/Field';
 import { OrionIcon } from 'packages/Icon';
 import OrionCheckboxSetupService from './OrionCheckboxSetupService';
 type VModelType = any[] | boolean | null | undefined;
-type FieldEmit = {
-  (e: 'focus', payload: FocusEvent): void;
-  (e: 'blur', payload?: FocusEvent): void;
-  (e: 'input', payload: VModelType): void;
-  (e: 'change', val?: VModelType): void;
-  (e: 'update:modelValue', payload: VModelType): void;
-  (e: 'clear'): void;
-}
-const emit = defineEmits<FieldEmit>();
-const props = defineProps(OrionCheckboxSetupService.props);
-const setup = new OrionCheckboxSetupService(props, emit);
+
+
+const emits = defineEmits<OrionCheckboxEmits>() as OrionCheckboxEmits;
+import type { OrionCheckboxProps, OrionCheckboxEmits } from './OrionCheckboxSetupService';
+const props = withDefaults(defineProps<OrionCheckboxProps>(), OrionCheckboxSetupService.defaultProps);
+const setup = new OrionCheckboxSetupService(props, emits);
 defineExpose(setup.publicInstance);
 
 /** Doc

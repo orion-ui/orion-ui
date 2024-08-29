@@ -1,20 +1,20 @@
-import SharedFieldSetupService, { FieldEmit } from '../../Shared/SharedFieldSetupService';
+import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetupServiceProps } from '../../Shared/SharedFieldSetupService';
 import { nextTick, ref } from 'vue';
 
-type Props = SetupProps<typeof OrionTextareaSetupService.props>
+export type OrionTextareaEmits = SharedFieldSetupServiceEmits<Nil<string>> & {}
+export type OrionTextareaProps = SharedFieldSetupServiceProps & {
+	// @doc props/maxLength maximal length of the input
+	// @doc/fr props/maxLength taille maximale de l'entrée
+	maxLength?: number,
+	// @doc props/showLength show input's value length
+	// @doc/fr props/showLength affiche le nombre de caractères
+	showLength: boolean,
+};
 
-export default class OrionTextareaSetupService extends SharedFieldSetupService<Props, string | null | undefined> {
-	static props = {
-		...SharedFieldSetupService.props,
-		// @doc props/showLength show input's value length
-		// @doc/fr props/showLength affiche le nombre de caractères
-		showLength: Boolean,
-		// @doc props/maxLength maximal length of the input
-		// @doc/fr props/maxLength taille maximale de l'entrée
-		maxLength: {
-			type: Number,
-			default: undefined,
-		},
+export default class OrionTextareaSetupService extends SharedFieldSetupService<OrionTextareaProps, string | null | undefined> {
+	static readonly defaultProps = {
+		...SharedFieldSetupService.defaultProps,
+		showLength: false,
 	};
 
 	_input = ref<HTMLInputElement & HTMLTextAreaElement>();
@@ -30,14 +30,14 @@ export default class OrionTextareaSetupService extends SharedFieldSetupService<P
 
 	set vModel (value) {
 		this.handleInputDebounce(() => {
-			this.emit(`update:modelValue`, value);
-			this.emit('input', value);
+			this.emits(`update:modelValue`, value);
+			this.emits('input', value);
 		});
 	}
 
 
-	constructor (props: Props, emit: FieldEmit<string>, _modal?: OrionModal, _aside?: OrionAside) {
-		super(props, emit);
+	constructor (protected props: OrionTextareaProps, protected emits: OrionTextareaEmits, _modal?: OrionModal, _aside?: OrionAside) {
+		super(props, emits);
 		this._modal = _modal;
 		this._aside = _aside;
 	}

@@ -74,15 +74,10 @@ import './OrionAside.less';
 import { provide } from 'vue';
 import { OrionLoader } from 'packages/Loader';
 import OrionAsideSetupService from './OrionAsideSetupService';
-type AsideEmit = {
-	(e: 'enter-start'): void,
-	(e: 'enter-end'): void,
-	(e: 'leave-start'): void,
-	(e: 'leave-end'): void,
-}
-const emit = defineEmits<AsideEmit>();
-const props = defineProps(OrionAsideSetupService.props);
-const setup = new OrionAsideSetupService(props, emit);
+import type { OrionAsideProps, OrionAsideEmits } from './OrionAsideSetupService';
+const emits = defineEmits<OrionAsideEmits>() as OrionAsideEmits;
+const props = withDefaults(defineProps<OrionAsideProps>(), OrionAsideSetupService.defaultProps);
+const setup = new OrionAsideSetupService(props, emits);
 provide('_aside', setup.publicInstance);
 defineExpose(setup.publicInstance);
 

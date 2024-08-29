@@ -57,18 +57,10 @@ import './OrionPassword.less';
 import { OrionField } from 'packages/Field';
 import { OrionIcon } from 'packages/Icon';
 import OrionPasswordSetupService from './OrionPasswordSetupService';
-type VModelType = Nil<string>;
-type FieldEmit = {
-  (e: 'focus', payload: FocusEvent): void;
-  (e: 'blur', payload?: FocusEvent): void;
-  (e: 'input', payload: VModelType): void;
-  (e: 'change', val?: VModelType): void;
-  (e: 'update:modelValue', payload: VModelType): void;
-  (e: 'clear'): void;
-}
-const emit = defineEmits<FieldEmit>();
-const props = defineProps(OrionPasswordSetupService.props);
-const setup = new OrionPasswordSetupService(props, emit);
+import type { OrionPasswordProps, OrionPasswordEmits } from './OrionPasswordSetupService';
+const emits = defineEmits<OrionPasswordEmits>() as OrionPasswordEmits;
+const props = withDefaults(defineProps<OrionPasswordProps>(), OrionPasswordSetupService.defaultProps);
+const setup = new OrionPasswordSetupService(props, emits);
 defineExpose(setup.publicInstance);
 
 /** Doc

@@ -3,16 +3,16 @@
 		:ref="setup._el"
 		:class="[setup.baseClass, setup.additionalClass]">
 		<label
-			v-if="setup.props.label"
+			v-if="label"
 			:class="setup.labelClass"
-			v-html="setup.props.label"/>
+			v-html="label"/>
 
 		<slot/>
 
 		<orion-icon
-			v-if="setup.props.prefixIcon || setup.props.prefixFontIcon"
-			:icon="setup.props.prefixIcon"
-			:font-icon="setup.props.prefixFontIcon"
+			v-if="prefixIcon || prefixFontIcon"
+			:icon="prefixIcon"
+			:font-icon="prefixFontIcon"
 			:class="[
 				`${setup.baseClass}__icon`,
 				`${setup.baseClass}__icon--prefix`,
@@ -22,21 +22,21 @@
 			:ref="setup._suffixPictos"
 			:class="`${setup.baseClass}__pictos`">
 			<orion-icon
-				v-if="(setup.props.showError
-					|| setup.props.showWarning
-					|| setup.props.showSuccess
-				) && !['checkbox', 'radio', 'toggle'].includes(setup.props.inputType)"
+				v-if="(showError
+					|| showWarning
+					|| showSuccess
+				) && !['checkbox', 'radio', 'toggle'].includes(inputType)"
 				:class="setup.validationClass"/>
 
 			<span
-				v-if="setup.props.clearable && setup.props.hasValue && !setup.props.readonly && !setup.props.disabled"
+				v-if="clearable && hasValue && !readonly && !disabled"
 				:class="`${setup.baseClass}__clearable`"
-				@click="$emit('clear')"/>
+				@click="emits('clear')"/>
 
 			<orion-icon
-				v-if="setup.props.suffixIcon || setup.props.suffixFontIcon"
-				:icon="setup.props.suffixIcon"
-				:font-icon="setup.props.suffixFontIcon"
+				v-if="suffixIcon || suffixFontIcon"
+				:icon="suffixIcon"
+				:font-icon="suffixFontIcon"
 				:class="[
 					`${setup.baseClass}__icon`,
 					`${setup.baseClass}__icon--suffix`,
@@ -51,8 +51,9 @@
 import './OrionField.less';
 import { OrionIcon } from 'packages/Icon';
 import OrionFieldSetupService from './OrionFieldSetupService';
-defineEmits<{(e: 'clear'): void}>();
-const props = defineProps(OrionFieldSetupService.props);
-const setup = new OrionFieldSetupService(props);
+import type { OrionFieldProps, OrionFieldEmits } from './OrionFieldSetupService';
+const emits = defineEmits<OrionFieldEmits>() as OrionFieldEmits;
+const props = withDefaults(defineProps<OrionFieldProps>(), OrionFieldSetupService.defaultProps);
+const setup = new OrionFieldSetupService(props, emits);
 defineExpose(setup.publicInstance);
 </script>

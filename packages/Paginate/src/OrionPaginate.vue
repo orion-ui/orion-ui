@@ -37,13 +37,10 @@
 import './OrionPaginate.less';
 import { OrionButton } from 'packages/Button';
 import OrionPaginateSetupService from './OrionPaginateSetupService';
-// eslint-disable-next-line func-call-spacing
-const emit = defineEmits<{
-	(e: 'update:modelValue', payload: number): void;
-	(e: 'paginate', payload: number): void;
-}>();
-const props = defineProps(OrionPaginateSetupService.props);
-const setup = new OrionPaginateSetupService(props, emit);
+import type { OrionPaginateProps, OrionPaginateEmits } from './OrionPaginateSetupService';
+const emits = defineEmits<OrionPaginateEmits>() as OrionPaginateEmits;
+const props = withDefaults(defineProps<OrionPaginateProps>(), OrionPaginateSetupService.defaultProps);
+const setup = new OrionPaginateSetupService(props, emits);
 defineExpose(setup.publicInstance);
 
 /** Doc

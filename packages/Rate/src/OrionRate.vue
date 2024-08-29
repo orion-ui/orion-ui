@@ -50,13 +50,12 @@ import { OrionIcon } from 'packages/Icon';
 import './OrionRate.less';
 import OrionRateSetupService from './OrionRateSetupService';
 
-type RateEmit = {
-	(e: 'input', val: number): void,
-	(e: 'update:modelValue', val: number): void,
-}
-const emit = defineEmits<RateEmit>();
-const props = defineProps(OrionRateSetupService.props);
-const setup = new OrionRateSetupService(props, emit);
+
+
+const emits = defineEmits<OrionRateEmits>() as OrionRateEmits;
+import type { OrionRateProps, OrionRateEmits } from './OrionRateSetupService';
+const props = withDefaults(defineProps<OrionRateProps>(), OrionRateSetupService.defaultProps);
+const setup = new OrionRateSetupService(props, emits);
 defineExpose(setup.publicInstance);
 
 /** Doc

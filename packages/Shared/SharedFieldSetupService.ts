@@ -1,13 +1,12 @@
-import { PropType, computed, reactive, ref } from 'vue';
-import { debounce, isNil } from 'lodash-es';
-import SharedProps from './SharedProps';
+import { computed, reactive, ref } from 'vue';
+import { debounce, DebouncedFunc, isNil } from 'lodash-es';
 import SharedSetupService from './SharedSetupService';
 import useValidation from 'services/ValidationService';
 import useWindow from 'services/WindowService';
 import { Validator } from 'utils/Validator';
+import { SharedPropsPrefixIcon, SharedPropsSize, SharedPropsSuffixIcon, SharedPropsvModel } from 'lib/shared-props';
 
-type Props = SetupProps<typeof SharedFieldSetupService.props>
-export type FieldEmit<T = any | null | undefined> = {
+export type SharedFieldSetupServiceEmits<T = any | null | undefined> = {
   (e: 'focus', payload: FocusEvent): void;
   (e: 'blur', payload?: FocusEvent): void;
   (e: 'input', payload: T): void;
@@ -16,91 +15,83 @@ export type FieldEmit<T = any | null | undefined> = {
   (e: 'clear'): void;
 }
 
-export default abstract class SharedFieldSetupService<P, T, E extends FieldEmit = FieldEmit> extends SharedSetupService<Props & P> {
-	static props = {
-		...SharedProps.vModel(),
-		...SharedProps.prefixIcon(),
-		...SharedProps.suffixIcon(),
-		...SharedProps.size(),
-		// @doc props/autofocus autofocus the field when mounted.
-		// @doc/fr props/autofocus focus automatiquement le champ lorsqu'il est monté.
-		autofocus: Boolean,
-		// @doc props/clearable defines if the field can be cleared.
-		// @doc/fr props/clearable définit si le champ peut être vidé.
-		clearable: Boolean,
-		// @doc props/readonly sets the field to read-only mode
-		// @doc/fr props/readonly définit le champ comme étant en lecture seule
-		readonly: Boolean,
-		// @doc props/required sets the field required
-		// @doc/fr props/required indique que le champ est obligatoire
-		required: Boolean,
-		// @doc props/disabled disables the field
-		// @doc/fr props/disabled désactive le champ
-		disabled: Boolean,
-		// @doc props/selectOnFocus select the field content when focused.
-		// @doc/fr props/selectOnFocus sélectionne le contenu du champ lorsqu'il est focus.
-		selectOnFocus: Boolean,
-		// @doc props/forceLabelFloating allows floating label
-		// @doc/fr props/forceLabelFloating permet au label de se placer au dessus du champ lorsqu'il possède une valeur
-		forceLabelFloating: Boolean,
-		// @doc props/clearToNull sets the value to null when the field is cleared
-		// @doc/fr props/clearToNull lorsque que le champ est vidé, sa valeur vaut `null`
-		clearToNull: Boolean,
-		// @doc props/label label of the field
-		// @doc/fr props/label le label du champ
-		label: {
-			type: String,
-			default: undefined as string | undefined,
-		},
-		// @doc props/type type of the input
-		// @doc/fr props/type type of the input
-		type: {
-			type: String as PropType<string | Orion.DatepickerType>,
-			default: 'text',
-		},
-		// @doc props/donetyping define the debounce duration before updating the value (useful for search field)
-		// @doc/fr props/donetyping défini la durée du debounce avant de mettre à jour la valeur (utile pour les champs de recherche)
-		donetyping: {
-			type: Number,
-			default: 0,
-		},
-		// @doc props/validation the validation for the field
-		// @doc/fr props/validation la validation du champ
-		validation: {
-			type: [String, Function, Object, Boolean] as PropType<string | ((val: any) => boolean) | Orion.Validator.Rule | Orion.Validation.Rule | boolean>,
-			default: undefined,
-		},
-		// @doc props/validationErrorMessage the error message displayed after input's validation.
-		// @doc/fr props/validationErrorMessage le message d'erreur affiché en cas d'erreur lors de la validation
-		validationErrorMessage: {
-			type: String,
-			default: undefined,
-		},
-		// @doc props/inheritValidationState defines if the validation comes from its parent
-		// @doc/fr props/inheritValidationState définit si la validation provient du parent
-		inheritValidationState: {
-			type: Boolean,
-			default: undefined,
-		},
+export type SharedFieldSetupServiceProps<T> = {
+	modelValue?: SharedPropsvModel<T>['modelValue'],
+	prefixIcon?: SharedPropsPrefixIcon['prefixIcon'],
+	prefixFontIcon?: SharedPropsPrefixIcon['prefixFontIcon'],
+	suffixIcon?: SharedPropsSuffixIcon['suffixIcon'],
+	suffixFontIcon?: SharedPropsSuffixIcon['suffixFontIcon'],
+	size?: SharedPropsSize['size'],
+	// @doc props/autofocus autofocus the field when mounted.
+	// @doc/fr props/autofocus focus automatiquement le champ lorsqu'il est monté.
+	autofocus: boolean,
+	// @doc props/clearable defines if the field can be cleared.
+	// @doc/fr props/clearable définit si le champ peut être vidé.
+	clearable: boolean,
+	// @doc props/readonly sets the field to read-only mode
+	// @doc/fr props/readonly définit le champ comme étant en lecture seule
+	readonly: boolean,
+	// @doc props/required sets the field required
+	// @doc/fr props/required indique que le champ est obligatoire
+	required: boolean,
+	// @doc props/disabled disables the field
+	// @doc/fr props/disabled désactive le champ
+	disabled: boolean,
+	// @doc props/selectOnFocus select the field content when focused.
+	// @doc/fr props/selectOnFocus sélectionne le contenu du champ lorsqu'il est focus.
+	selectOnFocus: boolean,
+	// @doc props/forceLabelFloating allows floating label
+	// @doc/fr props/forceLabelFloating permet au label de se placer au dessus du champ lorsqu'il possède une valeur
+	forceLabelFloating: boolean,
+	// @doc props/clearToNull sets the value to null when the field is cleared
+	// @doc/fr props/clearToNull lorsque que le champ est vidé, sa valeur vaut `null`
+	clearToNull: boolean,
+	// @doc props/label label of the field
+	// @doc/fr props/label le label du champ
+	label?: string,
+	// @doc props/type type of the input
+	// @doc/fr props/type type of the input
+	type: string | Orion.DatepickerType,
+	// @doc props/donetyping define the debounce duration before updating the value (useful for search field)
+	// @doc/fr props/donetyping défini la durée du debounce avant de mettre à jour la valeur (utile pour les champs de recherche)
+	donetyping: number,
+	// @doc props/validation the validation for the field
+	// @doc/fr props/validation la validation du champ
+	validation?: string | ((val: any) => boolean) | Orion.Validator.Rule | Orion.Validation.Rule | boolean,
+	// @doc props/validationErrorMessage the error message displayed after input's validation.
+	// @doc/fr props/validationErrorMessage le message d'erreur affiché en cas d'erreur lors de la validation
+	validationErrorMessage?: string,
+	// @doc props/inheritValidationState defines if the validation comes from its parent
+	// @doc/fr props/inheritValidationState définit si la validation provient du parent
+	inheritValidationState: boolean,
+}
+
+export default abstract class SharedFieldSetupService<P, T, E extends SharedFieldSetupServiceEmits = SharedFieldSetupServiceEmits> extends SharedSetupService {
+	static readonly defaultProps = {
+		type: 'text',
+		donetyping: 0,
+		autofocus: false,
+		clearable: false,
+		readonly: false,
+		required: false,
+		disabled: false,
+		selectOnFocus: false,
+		forceLabelFloating: false,
+		clearToNull: false,
+		inheritValidationState: false,
 	};
 
 	readonly _input = ref<HTMLInputElement>();
 
 	protected inputType = 'input';
 
-	protected emit: E;
+	protected handleInputDebounce: DebouncedFunc<(callback: any) => void>;
 
-	protected handleInputDebounce = debounce((callback) => {
-		if (typeof callback === 'function') {
-			callback();
-		}
-	}, this.props.donetyping);
-
-	protected sharedState = {
+	sharedState = reactive({
 		hasBeenFocus: false,
 		isFocus: false,
 		isAutoFilled: false,
-	};
+	});
 
 	protected state = reactive({ ...this.sharedState });
 
@@ -214,12 +205,12 @@ export default abstract class SharedFieldSetupService<P, T, E extends FieldEmit 
 	}
 
 	get vModel () {
-		return this.props.modelValue as T;
+		return this.props.modelValue;
 	}
 
 	set vModel (val) {
-		this.emit('update:modelValue', val);
-		this.emit('input', val);
+		this.emits('update:modelValue', val);
+		this.emits('input', val);
 	}
 
 	get isFocus (): boolean {
@@ -263,17 +254,23 @@ export default abstract class SharedFieldSetupService<P, T, E extends FieldEmit 
 			setHasBeenFocus: this.setHasBeenFocus.bind(this),
 			isValid: () => this.isValid.value,
 			_input: () => this._input.value,
+			sharedState: () => this.sharedState,
 		};
 	}
 
 
-	constructor (props: Props & P, emit: E) {
-		super(props);
-		this.emit = emit;
+	constructor (protected props: SharedFieldSetupServiceProps<T> & P, protected emits: E) {
+		super();
 
 		if (!!this.props.validation && typeof this.props.validation === 'object') {
 			this.props.validation.registerComponentFocusStateSetter(this.publicInstance);
 		}
+
+		this.handleInputDebounce = debounce((callback) => {
+			if (typeof callback === 'function') {
+				callback();
+			}
+		}, this.props.donetyping);
 	}
 
 	protected onMounted () {
@@ -291,7 +288,7 @@ export default abstract class SharedFieldSetupService<P, T, E extends FieldEmit 
 
 
 	protected blur = debounce(() => {
-		this.emit('blur', new FocusEvent('blur'));
+		this.emits('blur', new FocusEvent('blur'));
 		this._input.value?.blur();
 	}, 50, {
 		leading: true,
@@ -307,7 +304,7 @@ export default abstract class SharedFieldSetupService<P, T, E extends FieldEmit 
 
 	protected focus () {
 		this._input.value?.focus();
-		this.emit('focus', new FocusEvent('focus'));
+		this.emits('focus', new FocusEvent('focus'));
 	}
 
 	handleFocus (e: FocusEvent) {
@@ -319,23 +316,23 @@ export default abstract class SharedFieldSetupService<P, T, E extends FieldEmit 
 			input.select();
 		}
 
-		this.emit('focus', e);
+		this.emits('focus', e);
 	}
 
 	handleInput (e: Event) {
 		const input = e?.target as HTMLInputElement;
-		this.emit('input', input?.value);
+		this.emits('input', input?.value);
 	}
 
 	handleChange () {
-		this.emit('change');
+		this.emits('change');
 	}
 
 	handleBlur (e?: FocusEvent) {
 		this.state.hasBeenFocus = true;
 		this.state.isFocus = false;
 		this._input?.value?.blur();
-		this.emit('blur', e);
+		this.emits('blur', e);
 
 		if (this.props.donetyping) {
 			this.handleInputDebounce.flush();
@@ -344,10 +341,10 @@ export default abstract class SharedFieldSetupService<P, T, E extends FieldEmit 
 
 	clear () {
 		if (this.props.disabled || this.props.readonly) return;
-		this.emit('update:modelValue', this.props.clearToNull ? null : undefined);
-		this.emit('input', this.props.clearToNull ? null : undefined);
-		this.emit('change', this.props.clearToNull ? null : undefined);
-		this.emit('clear');
+		this.emits('update:modelValue', this.props.clearToNull ? null : undefined);
+		this.emits('input', this.props.clearToNull ? null : undefined);
+		this.emits('change', this.props.clearToNull ? null : undefined);
+		this.emits('clear');
 	}
 
 	setHasBeenFocus (value: boolean) {

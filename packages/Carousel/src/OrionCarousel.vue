@@ -103,10 +103,10 @@ import { useSlots, provide } from 'vue';
 import './OrionCarousel.less';
 import OrionCarouselSetupService from './OrionCarouselSetupService';
 import OrionButton from 'packages/Button/src/OrionButton.vue';
-type Emits = {(e: 'update:modelValue', val?: number | string): void}
+import type { OrionCarouselProps, OrionCarouselEmits } from './OrionCarouselSetupService';
 const slots = useSlots();
-const emits = defineEmits<Emits>();
-const props = defineProps(OrionCarouselSetupService.props);
+const emits = defineEmits<OrionCarouselEmits>() as OrionCarouselEmits;
+const props = withDefaults(defineProps<OrionCarouselProps>(), OrionCarouselSetupService.defaultProps);
 const setup = new OrionCarouselSetupService(props, emits, slots);
 provide('_carousel', setup.publicInstance);
 defineExpose(setup.publicInstance);

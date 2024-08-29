@@ -1,51 +1,41 @@
 import SharedSetupService from '../../Shared/SharedSetupService';
 import { isArray, throttle, debounce } from 'lodash-es';
-import { nextTick, onMounted, onUnmounted, PropType, reactive, ref, watch } from 'vue';
+import { nextTick, onMounted, onUnmounted, reactive, ref, watch } from 'vue';
 import useDragNDrop from 'services/DragNDropService';
 
-type Props = SetupProps<typeof OrionHorizontalScrollSetupService.props>
+export type OrionHorizontalScrollEmits = {}
+export type OrionHorizontalScrollProps = {
+	// @doc props/dropShadow if set, hides the shadow on the extremities of the scroll
+	// @doc/fr props/dropShadow si défini, masque l'ombre aux extrémités du composant
+	dropShadow: boolean,
+	// @doc props/hideButton if set, hides the buttons to slide left or right
+	// @doc/fr props/hideButton si défini, masque les bouttons permettant de glisser vers gauche ou vers la droite.
+	hideButton: boolean,
+	// @doc props/scrollStep defines the targets of the scroll step
+	// @doc/fr props/scrollStep défini le pas du scroll, ou un tableau d'éléments dans le DOM pour le calculer automatiquement
+	scrollStep?: () => number | Array<HTMLElement>,
+	// @doc props/shadowColor the color of the shadow on the extremities of the scroll
+	// @doc/fr props/shadowColor couleur de l'ombre aux extrémités du composant
+	shadowColor?: string,
+	// @doc props/targets if set, shows a preview of the items contained is the scroll. The function must return an array of DOM elements which are in the scroll area.
+	// @doc/fr props/targets si défini, affiche un aperçu des éléments contenus dans le scroll. Cette fonction doit renvoyer un tableau d'éléments du DOM.
+	targets?: () => Array<HTMLElement>,
+	// @doc props/tolerance set the scroll tolerance that trigger the shadow's display
+	// @doc/fr props/tolerance défini la tolérence pour le déclenchement de l'apparition ou de la disparation de l'ombre
+	tolerance: number,
+};
 
 type PreviewDatas = {
 	visibility?: number,
 	isHidingLeft?: boolean,
 }
 
-export default class OrionHorizontalScrollSetupService extends SharedSetupService<Props> {
-	static props = {
-		// @doc props/shadowColor the color of the shadow on the extremities of the scroll
-		// @doc/fr props/shadowColor couleur de l'ombre aux extrémités du composant
-		shadowColor: {
-			type: String,
-			default: 'grey-lighter',
-		},
-		// @doc props/dropShadow if set, hides the shadow on the extremities of the scroll
-		// @doc/fr props/dropShadow si défini, masque l'ombre aux extrémités du composant
-		dropShadow: {
-			type: Boolean,
-			default: false,
-		},
-		// @doc props/tolerance set the scroll tolerance that trigger the shadow's display
-		// @doc/fr props/tolerance défini la tolérence pour le déclenchement de l'apparition ou de la disparation de l'ombre
-		tolerance: {
-			type: Number,
-			default: 1,
-		},
-		// @doc props/scrollStep defines the targets of the scroll step
-		// @doc/fr props/scrollStep défini le pas du scroll, ou un tableau d'éléments dans le DOM pour le calculer automatiquement
-		scrollStep: {
-			type: Function as PropType<() => number | Array<HTMLElement>>,
-			default: null,
-		},
-		// eslint-disable-next-line max-len
-		// @doc props/targets if set, shows a preview of the items contained is the scroll. The function must return an array of DOM elements which are in the scroll area.
-		// @doc/fr props/targets si défini, affiche un aperçu des éléments contenus dans le scroll. Cette fonction doit renvoyer un tableau d'éléments du DOM.
-		targets: {
-			type: Function as PropType<() => Array<HTMLElement>>,
-			default: undefined,
-		},
-		// @doc props/hideButton if set, hides the buttons to slide left or right
-		// @doc/fr props/hideButton si défini, masque les bouttons permettant de glisser vers gauche ou vers la droite.
-		hideButton: Boolean,
+export default class OrionHorizontalScrollSetupService extends SharedSetupService {
+	static readonly defaultProps = {
+		dropShadow: false,
+		hideButton: false,
+		shadowColor: 'grey-lighter',
+		tolerance: 1,
 	};
 
 	_el = ref<RefDom>();
@@ -95,8 +85,8 @@ export default class OrionHorizontalScrollSetupService extends SharedSetupServic
 		this.windowResizeHandler();
 	};
 
-	constructor (props: Props) {
-		super(props);
+	constructor (protected props: OrionHorizontalScrollProps, protected emits: OrionHorizontalScrollEmits) {
+		super();
 
 		onMounted(async () => {
 			this.setShadows();
@@ -320,7 +310,7 @@ export default class OrionHorizontalScrollSetupService extends SharedSetupServic
 		// #endregion
 	};
 
-	handleScroll (event: UIEvent) {
+	handleScroll (event: Event) {
 		if (event.target !== this._slider.value) {
 			this.state.useNaturalScroll = true;
 			this.handleScrollEnd();

@@ -1,13 +1,13 @@
 <template>
 	<transition name="fade">
 		<div
-			v-show="setup.props.visible || setup.forceVisible"
+			v-show="visible || setup.forceVisible"
 			:ref="setup._el"
 			class="orion-loader"
 			:class="[
-				`orion-loader--${setup.props.size}`,
-				`orion-loader--${setup.props.color}`,
-				{ 'orion-loader--main': setup.props.global },
+				`orion-loader--${size}`,
+				`orion-loader--${color}`,
+				{ 'orion-loader--main': global },
 			]">
 			<div class="orion-loader__spinner">
 				<orion-icon loading/>
@@ -25,7 +25,9 @@
 import { OrionIcon } from 'packages/Icon';
 import './OrionLoader.less';
 import OrionLoaderSetupService from './OrionLoaderSetupService';
-const props = defineProps(OrionLoaderSetupService.props);
-const setup = new OrionLoaderSetupService(props);
+import type { OrionLoaderProps, OrionLoaderEmits } from './OrionLoaderSetupService';
+const emits = defineEmits<OrionLoaderEmits>() as OrionLoaderEmits;
+const props = withDefaults(defineProps<OrionLoaderProps>(), OrionLoaderSetupService.defaultProps);
+const setup = new OrionLoaderSetupService(props, emits);
 defineExpose(setup.publicInstance);
 </script>

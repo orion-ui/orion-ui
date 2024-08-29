@@ -92,7 +92,7 @@
 							v-for="message in messagesByDay"
 							:key="message.id"
 							v-bind="{
-								chat: setup.props.chat,
+								chat: chat,
 								discussion: setup.discussion,
 								message,
 							}"/>
@@ -254,10 +254,11 @@ import { OrionLoader } from 'packages/Loader';
 import { OrionTextarea } from 'packages/Textarea';
 import { OrionChatMessage } from 'packages/ChatMessage';
 import OrionChatSetupService from './OrionChatSetupService';
-type ChatEmit = { (e: 'new-message', payload: Orion.Chat.NewMessage): void; }
-const props = defineProps(OrionChatSetupService.props);
-const emit = defineEmits<ChatEmit>();
-const setup = new OrionChatSetupService(props, emit);
+import type { OrionChatProps, OrionChatEmits } from './OrionChatSetupService';
+const emits = defineEmits<OrionChatEmits>() as OrionChatEmits;
+const props = withDefaults(defineProps<OrionChatProps>(), OrionChatSetupService.defaultProps);
+
+const setup = new OrionChatSetupService(props, emits);
 defineExpose(setup.publicInstance);
 
 /** Doc

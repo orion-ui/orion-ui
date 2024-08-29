@@ -17,9 +17,11 @@ export default { name: 'OrionTabPane' };
 import './OrionTabPane.less';
 import { inject } from 'vue';
 import OrionTabPaneSetupService from './OrionTabPaneSetupService';
+import type { OrionTabPaneProps, OrionTabPaneEmits } from './OrionTabPaneSetupService';
 const _tabs = inject<OrionTabs>('_tabs');
-const props = defineProps(OrionTabPaneSetupService.props);
-const setup = new OrionTabPaneSetupService(props, _tabs);
+const emits = defineEmits<OrionTabPaneEmits>() as OrionTabPaneEmits;
+const props = withDefaults(defineProps<OrionTabPaneProps>(), OrionTabPaneSetupService.defaultProps);
+const setup = new OrionTabPaneSetupService(props, emits, _tabs);
 defineExpose(setup.publicInstance);
 
 /** Doc

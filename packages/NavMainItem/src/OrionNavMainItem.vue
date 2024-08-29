@@ -65,8 +65,9 @@
 import './OrionNavMainItem.less';
 import { OrionIcon } from 'packages/Icon';
 import OrionNavMainItemSetupService from './OrionNavMainItemSetupService';
-defineEmits<{(e: 'click-label', val: [Orion.NavItem, MouseEvent]): void}>();
-const props = defineProps(OrionNavMainItemSetupService.props);
-const setup = new OrionNavMainItemSetupService(props);
+import type { OrionNavMainItemProps, OrionNavMainItemEmits } from './OrionNavMainItemSetupService';
+const emits = defineEmits<OrionNavMainItemEmits>() as OrionNavMainItemEmits;
+const props = withDefaults(defineProps<OrionNavMainItemProps>(), OrionNavMainItemSetupService.defaultProps);
+const setup = new OrionNavMainItemSetupService(props, emits);
 defineExpose(setup.publicInstance);
 </script>

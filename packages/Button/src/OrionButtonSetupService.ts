@@ -1,41 +1,51 @@
 import { ref } from 'vue';
 import SharedSetupService from '../../Shared/SharedSetupService';
-import SharedProps from '../../Shared/SharedProps';
+import { SharedPropsColor, SharedPropsPrefixIcon, SharedPropsSize, SharedPropsSuffixIcon } from 'lib/shared-props';
 
-type Props = SetupProps<typeof OrionButtonSetupService.props>
+export type OrionButtonEmits = {}
+export type OrionButtonProps =
+SharedPropsSize &
+SharedPropsPrefixIcon &
+SharedPropsSuffixIcon &
+SharedPropsColor & {
+	// @doc props/autofocus if set, focus the button
+	// @doc/fr props/autofocus si défini, le focus sera placé sur le bouton
+	autofocus: boolean,
+	// @doc props/block defines the button's width to 100%
+	// @doc/fr props/block définie la largeur du bouton à 100%
+	block: boolean,
+	// @doc props/disabled determines if the button is disabled
+	// @doc/fr props/disabled désactive le bouton
+	disabled: boolean,
+	// @doc props/loading adds a loading icon and disables the button
+	// @doc/fr props/loading ajoute une icône de chargement et désactive le bouton
+	loading: boolean,
+	// @doc props/nude removes the background color
+	// @doc/fr props/nude masque la couleur en arrière plan
+	nude: boolean,
+	// @doc props/outline adds an outline on the button
+	// @doc/fr props/outline ajoute un contraste sur le bouton
+	outline: boolean,
+};
 
-export default class OrionButtonSetupService extends SharedSetupService<Props> {
-	static props = {
-		...SharedProps.size(),
-		...SharedProps.color(),
-		...SharedProps.prefixIcon(),
-		...SharedProps.suffixIcon(),
-		// @doc props/autofocus if set, focus the button
-		// @doc/fr props/autofocus si défini, le focus sera placé sur le bouton
-		autofocus: Boolean,
-		// @doc props/disabled determines if the button is disabled
-		// @doc/fr props/disabled désactive le bouton
-		disabled: Boolean,
-		// @doc props/loading adds a loading icon and disables the button
-		// @doc/fr props/loading ajoute une icône de chargement et désactive le bouton
-		loading: Boolean,
-		// @doc props/outline adds an outline on the button
-		// @doc/fr props/outline ajoute un contraste sur le bouton
-		outline: Boolean,
-		// @doc props/nude removes the background color
-		// @doc/fr props/nude masque la couleur en arrière plan
-		nude: Boolean,
-		// @doc props/block defines the button's width to 100%
-		// @doc/fr props/block définie la largeur du bouton à 100%
-		block: Boolean,
+export default class OrionButtonSetupService extends SharedSetupService {
+	static readonly defaultProps = {
+		autofocus: false,
+		block: false,
+		disabled: false,
+		loading: false,
+		nude: false,
+		outline: false,
+		size: 'md' as Orion.Size,
+		color: 'default' as Orion.Color,
 	};
 
 	_el = ref<RefDom>();
 
 	uid = this.getUid();
 
-	constructor (props: Props) {
-		super(props);
+	constructor (protected props: OrionButtonProps, protected emits: OrionButtonEmits) {
+		super();
 	}
 
 	onMounted () {

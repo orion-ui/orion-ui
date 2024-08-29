@@ -3,41 +3,33 @@ import { isArray } from 'lodash-es';
 import { isDefineOrTrue } from 'utils/tools';
 import SharedSetupService from '../../Shared/SharedSetupService';
 
-type Props = SetupProps<typeof OrionTabsSetupService.props>
-type TabsEmit = {
-	(e: 'input', payload: string): void
+export type OrionTabsEmits = {
+	(e: 'input', payload?: string): void
 	(e: 'tab-click', ...payload: [OrionTabPane, MouseEvent]): void
-	(e: 'update:modelValue', payload: string): void
+	(e: 'update:modelValue', payload?: string): void
 }
 
-export default class OrionTabsSetupService extends SharedSetupService<Props> {
-	static props = {
-		// @doc props/useRouter connect the tabs to the router to bind active tab to current route and use `<router-view/>` component
-		// @doc/fr props/useRouter connecte les tabs au router pour synchroniser la tab active avec la router actuelle et utiliser le composant `<router-view/>`
-		useRouter: Boolean,
-		// @doc props/routerViewName the name of the `<router-view/>` when using `use-router` prop
-		// @doc/fr props/routerViewName le nom du `<router-view/>` lors de l'utilisation de la prop `use-router`
-		routerViewName: {
-			type: String,
-			default: undefined,
-		},
-		// @doc props/modelValue model value
-		// @doc/fr props/modelValue modelValue du composant
-		modelValue: {
-			type: String,
-			default: undefined,
-		},
-		// @doc props/loader adds a loader on the tab
-		// @doc/fr props/loader ajoute une icône de chargement sur l'onglet
-		loader: {
-			type: [String, Boolean],
-			default: undefined,
-		},
-	};
+export type OrionTabsProps = {
+	// @doc props/loader adds a loader on the tab
+	// @doc/fr props/loader ajoute une icône de chargement sur l'onglet
+	loader?: string | boolean,
+	// @doc props/modelValue model value
+	// @doc/fr props/modelValue modelValue du composant
+	modelValue?: string,
+	// @doc props/routerViewName the name of the `<router-view/>` when using `use-router` prop
+	// @doc/fr props/routerViewName le nom du `<router-view/>` lors de l'utilisation de la prop `use-router`
+	routerViewName?: string,
+	// @doc props/useRouter connect the tabs to the router to bind active tab to current route and use `<router-view/>` component
+	// @doc/fr props/useRouter connecte les tabs au router pour synchroniser la tab active avec la router actuelle et utiliser le composant `<router-view/>`
+	useRouter: boolean,
+};
+
+export default class OrionTabsSetupService extends SharedSetupService {
+	static readonly defaultProps = { useRouter: false };
 
 	_loader = ref<OrionLoader>();
 	private slots: Slots;
-	private emit: TabsEmit;
+
 	private state = reactive({ panes: [] as Orion.Private.TsxTabPane[] });
 
 	private get content () {
@@ -59,10 +51,10 @@ export default class OrionTabsSetupService extends SharedSetupService<Props> {
 	}
 
 
-	constructor (props: Props, slots: Slots, emit: TabsEmit) {
-		super(props);
+	constructor (protected props: OrionTabsProps, protected emits: OrionTabsEmits, slots: Slots) {
+		super();
 		this.slots = slots;
-		this.emit = emit;
+
 
 		watch(() => this.content, () => this.calcPaneInstances());
 	}
@@ -114,10 +106,10 @@ export default class OrionTabsSetupService extends SharedSetupService<Props> {
 		if (this.props.useRouter && this.router.currentRoute.value.name !== pane.name) {
 			this.router.push({ name: pane.name });
 		} else if (this.props.modelValue !== pane.name) {
-			this.emit('update:modelValue', pane.name);
-			this.emit('input', pane.name);
+			this.emits('update:modelValue', pane.name);
+			this.emits('input', pane.name);
 		}
 
-		this.emit('tab-click', pane, event);
+		this.emits('tab-click', pane, event);
 	}
 }

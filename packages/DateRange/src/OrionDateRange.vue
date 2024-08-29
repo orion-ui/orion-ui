@@ -39,12 +39,9 @@
 import './OrionDateRange.less';
 import { OrionDateTable } from 'packages/DateTable';
 import OrionDateRangeSetupService from './OrionDateRangeSetupService';
-type DateRangeEmit = {
-	(e: 'update:modelValue', payload: Nil<Orion.DateRange>): void
-	(e: 'select-range', payload: Orion.DateRange): void
-}
-const emit = defineEmits<DateRangeEmit>();
-const props = defineProps(OrionDateRangeSetupService.props);
-const setup = new OrionDateRangeSetupService(props, emit);
+import type { OrionDateRangeProps, OrionDateRangeEmits } from './OrionDateRangeSetupService';
+const emits = defineEmits<OrionDateRangeEmits>() as OrionDateRangeEmits;
+const props = withDefaults(defineProps<OrionDateRangeProps>(), OrionDateRangeSetupService.defaultProps);
+const setup = new OrionDateRangeSetupService(props, emits);
 defineExpose(setup.publicInstance);
 </script>

@@ -1,20 +1,14 @@
 import { reactive, ref, watch } from 'vue';
 import { isEmpty, isNil } from 'lodash-es';
 import 'cleave.js/src/addons/phone-type-formatter.i18n';
-import SharedFieldSetupService from '../../Shared/SharedFieldSetupService';
+import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetupServiceProps } from '../../Shared/SharedFieldSetupService';
 import useCountry from 'services/CountryService';
 import useValidation from 'services/ValidationService';
 import { AsYouType, isValidPhoneNumber, validatePhoneNumberLength } from 'libphonenumber-js';
 import useDynamicFlagService from 'services/DynamicFlagService';
 
-type Props = SetupProps<typeof OrionPhoneSetupService.props>
-type VModelType = Nil<{
-  phoneNumber: Nil<string>;
-  phoneCountryCode: Nil<Orion.Country['code']>;
-}>;
-
-export type OrionPhoneEmit = {
-  (e: 'focus', payload: FocusEvent): void;
+export type OrionPhoneEmits = SharedFieldSetupServiceEmits<VModelType> & {
+	(e: 'focus', payload: FocusEvent): void;
   (e: 'blur', payload?: FocusEvent): void;
   (e: 'input', payload: VModelType): void;
   (e: 'change', val?: VModelType): void;
@@ -24,39 +18,36 @@ export type OrionPhoneEmit = {
   (e: 'clear'): void;
 }
 
-export default class OrionPhoneSetupService extends SharedFieldSetupService<Props, VModelType> {
-	static props = {
-		...SharedFieldSetupService.props,
-		// @doc props/mobile defines if the number is a mobile phone
-		// @doc/fr props/mobile définit si le numéro correspond à un portable
-		mobile: Boolean,
-		// @doc props/type the type of the input
-		// @doc/fr props/type type du champ
-		type: {
-			type: String,
-			default: 'tel',
-		},
-		// @doc props/phoneNumber the phoneNumber string, isolated from its parent object
-		// @doc/fr props/phoneNumber le numéro de téléphone, isolé de son objet parent
-		phoneNumber: {
-			type: String,
-			default: undefined,
-		},
-		// @doc props/phoneCountryCode the country code string, isolated from its parent object
-		// @doc/fr props/phoneCountryCode le code pays, isolé de son objet parent
-		phoneCountryCode: {
-			type: String,
-			default: undefined,
-		},
-		//@doc props/flag Allow to display or not the flag of the selected country
-		//@doc/fr props/flag Permet d'afficher le drapeau du pays choisi
-		flag: {
-			type: Boolean,
-			default: false,
-		},
+export type OrionPhoneProps =  SharedFieldSetupServiceProps & {
+	// @doc props/flag Allow to display or not the flag of the selected country
+	// @doc/fr props/flag Permet d'afficher le drapeau du pays choisi
+	flag: boolean,
+	// @doc props/mobile defines if the number is a mobile phone
+	// @doc/fr props/mobile définit si le numéro correspond à un portable
+	mobile: boolean,
+	// @doc props/phoneCountryCode the country code string, isolated from its parent object
+	// @doc/fr props/phoneCountryCode le code pays, isolé de son objet parent
+	phoneCountryCode?: string,
+	// @doc props/phoneNumber the phoneNumber string, isolated from its parent object
+	// @doc/fr props/phoneNumber le numéro de téléphone, isolé de son objet parent
+	phoneNumber?: string,
+	// @doc props/type the type of the input
+	// @doc/fr props/type type du champ
+	type: string,
+};
+
+type VModelType = Nil<{
+  phoneNumber: Nil<string>;
+  phoneCountryCode: Nil<Orion.Country['code']>;
+}>;
+export default class OrionPhoneSetupService extends SharedFieldSetupService<OrionPhoneProps, VModelType> {
+	static readonly defaultProps = {
+		...SharedFieldSetupService.defaultProps,
+		flag: false,
+		mobile: false,
+		type: 'tel',
 	};
 
-	protected readonly emit: OrionPhoneEmit;
 	readonly _country = ref<OrionSelect>();
 	readonly _orionInput = ref<HTMLInputElement & OrionInput>();
 
@@ -85,7 +76,7 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 	get country () { return this.state.country; }
 	set country (val) {
 		this.state.country = val;
-		this.emit('update:phoneCountryCode', val?.code);
+		this.emits('update:phoneCountryCode', val?.code);
 		this.setVModel();
 	}
 
@@ -99,14 +90,14 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 		this.state.phoneNumber = sanitized.startsWith('+')
 			? sanitized
 			: this.indicatif + sanitized;
-		this.emit('update:phoneNumber', this.state.phoneNumber);
+		this.emits('update:phoneNumber', this.state.phoneNumber);
 		this.setVModel();
 	}
 
 	get vModel () { return this.props.modelValue as VModelType; }
 	set vModel (val) {
-		this.emit('update:modelValue', val);
-		this.emit('input', val);
+		this.emits('update:modelValue', val);
+		this.emits('input', val);
 	}
 
 	get phoneNumberWithoutIndicatif () {
@@ -148,9 +139,9 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 	}
 
 
-	constructor (props: Props, emit: OrionPhoneEmit) {
-		super(props, emit);
-		this.emit = emit;
+	constructor (protected props: OrionPhoneProps, protected emits: OrionPhoneEmits) {
+		super(props, emits);
+
 
 		watch(() => this.vModel?.phoneNumber, (val) => {
 			if (val) {

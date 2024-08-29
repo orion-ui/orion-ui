@@ -1,23 +1,27 @@
-import { PropType, reactive, ref } from 'vue';
+import { reactive, ref } from 'vue';
 import { isNil } from 'lodash-es';
 import anime from 'animejs';
-import SharedPopableSetupService, { PopableEmit } from '../../Shared/SharedPopableSetupService';
+import SharedPopableSetupService, { SharedPopableSetupServiceEmits, SharedPopableSetupServiceProps } from '../../Shared/SharedPopableSetupService';
 import orionAppService from 'utils/Orion';
 
-type Props = SetupProps<typeof OrionNotifSetupService.props>
+export type OrionNotifEmits = SharedPopableSetupServiceEmits & {}
+export type OrionNotifProps = SharedPopableSetupServiceProps & {
+	// @doc props/display if set, displays the component
+	// @doc/fr props/display Missing @doc
+	display: boolean,
+	// @doc props/options options of the notification
+	// @doc/fr props/options Missing @doc
+	options?: Partial<Orion.Notif.Options>,
+};
 
-export default class OrionNotifSetupService extends SharedPopableSetupService<Props> {
-	static props = {
-		...SharedPopableSetupService.props,
-		// @doc props/options options of the notification
-		options: {
-			type: Object as PropType<Partial<Orion.Notif.Options>>,
-			default: () => {},
-		},
+export default class OrionNotifSetupService extends SharedPopableSetupService {
+	static readonly defaultProps = {
+		...SharedPopableSetupService.defaultProps,
+		display: false,
 	};
 
 	protected name = 'OrionNotif' as const;
-	protected emit: PopableEmit;
+
 
 	_timerProgress = ref<HTMLElement>();
 	options = reactive<Orion.Notif.Options>({
@@ -27,7 +31,7 @@ export default class OrionNotifSetupService extends SharedPopableSetupService<Pr
 	});
 
 	private timerValue = ref<Nil<number>>();
-	private timerInterval?: NodeJS.Timer;
+	private timerInterval?: NodeJS.Timeout;
 
 	get timer () {
 		return this.timerValue.value;
@@ -41,9 +45,9 @@ export default class OrionNotifSetupService extends SharedPopableSetupService<Pr
 	}
 
 
-	constructor (props: Props, emit: PopableEmit) {
-		super(props);
-		this.emit = emit;
+	constructor (protected props: OrionNotifProps, protected emits: OrionNotifEmits) {
+		super(props, emits);
+
 		Object.assign(this.options, props.options);
 	}
 
@@ -73,7 +77,7 @@ export default class OrionNotifSetupService extends SharedPopableSetupService<Pr
 					easing: 'easeOutCubic',
 					begin: async () => {
 						await orionAppService.popableAnimationHooks.notifEnterStart?.(this.publicInstance);
-						this.emit('enter-start');
+						this.emits('enter-start');
 						this.trigger('enter-start');
 
 						if (this.props.options.duration) {
@@ -91,7 +95,7 @@ export default class OrionNotifSetupService extends SharedPopableSetupService<Pr
 					complete: async () => {
 						await orionAppService.popableAnimationHooks.notifEnterEnd?.(this.publicInstance);
 						resolve();
-						this.emit('enter-end');
+						this.emits('enter-end');
 						this.trigger('enter-end');
 					},
 				});
@@ -106,14 +110,14 @@ export default class OrionNotifSetupService extends SharedPopableSetupService<Pr
 					easing: 'easeOutCubic',
 					begin: async () => {
 						await orionAppService.popableAnimationHooks.notifLeaveStart?.(this.publicInstance);
-						this.emit('leave-start');
+						this.emits('leave-start');
 						this.trigger('leave-start');
 					},
 					complete: async () => {
 						this.state.visible = false;
 						await orionAppService.popableAnimationHooks.notifLeaveEnd?.(this.publicInstance);
 						resolve();
-						this.emit('leave-end');
+						this.emits('leave-end');
 						this.trigger('leave-end');
 					},
 				});

@@ -1,29 +1,19 @@
-import { nextTick, PropType, reactive, ref } from 'vue';
+import { nextTick, reactive, ref } from 'vue';
 import useMonkey from 'services/MonkeyService';
 import SharedSetupService from '../../Shared/SharedSetupService';
 
-type Props = SetupProps<typeof OrionDateWeekSetupService.props>
-type DateWeekEmit = { (e: 'update:modelValue', payload: Nil<Orion.DateRange>): void }
+export type OrionDateWeekEmits = { (e: 'update:modelValue', payload: Nil<Orion.DateRange>): void }
+export type OrionDateWeekProps = {
+	disableMonthAndYear?: boolean,
+	hideDisabled?: boolean,
+	modelValue: Undef<Orion.DateRange>,
+	minDate?: Undef<Date>,
+	maxDate?: Undef<Date>
+}
 
-export default class OrionDateWeekSetupService extends SharedSetupService<Props> {
-	static props = {
-		disableMonthAndYear: Boolean,
-		hideDisabled: Boolean,
-		modelValue: {
-			type: Object as PropType<Nil<Orion.DateRange>>,
-			default: undefined,
-		},
-		minDate: {
-			type: Date as PropType<Nil<Date>>,
-			default: undefined,
-		},
-		maxDate: {
-			type: Date as PropType<Nil<Date>>,
-			default: undefined,
-		},
-	};
+export default class OrionDateWeekSetupService extends SharedSetupService {
+	static defaultProps = {};
 
-	private emit: DateWeekEmit;
 	private state = reactive({
 		year: new Date().getFullYear(),
 		viewYears: false,
@@ -40,7 +30,7 @@ export default class OrionDateWeekSetupService extends SharedSetupService<Props>
 	}
 
 	private set vModel (val) {
-		this.emit('update:modelValue', val);
+		this.emits('update:modelValue', val);
 	}
 
 	get weekOptions () {
@@ -82,9 +72,8 @@ export default class OrionDateWeekSetupService extends SharedSetupService<Props>
 	}
 
 
-	constructor (props: Props, emit: DateWeekEmit) {
-		super(props);
-		this.emit = emit;
+	constructor (protected props: OrionDateWeekProps, protected emits: OrionDateWeekEmits) {
+		super();
 	}
 
 	protected onMounted () {

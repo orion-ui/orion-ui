@@ -151,18 +151,11 @@ import { OrionButton } from 'packages/Button';
 import { OrionIcon } from 'packages/Icon';
 import { OrionLoader } from 'packages/Loader';
 import OrionUploadSetupService from './OrionUploadSetupService';
-type VModelType = Nil<File[]>;
-type FieldEmit = {
-  (e: 'focus', payload: FocusEvent): void;
-  (e: 'blur', payload?: FocusEvent): void;
-  (e: 'input', payload: VModelType): void;
-  (e: 'change', val?: VModelType): void;
-  (e: 'update:modelValue', payload: VModelType): void;
-  (e: 'clear'): void;
-}
-const emit = defineEmits<FieldEmit>();
-const props = defineProps(OrionUploadSetupService.props);
-const setup = new OrionUploadSetupService(props, emit);
+
+const emits = defineEmits<OrionUploadEmits>() as OrionUploadEmits;
+import type { OrionUploadProps, OrionUploadEmits } from './OrionUploadSetupService';
+const props = withDefaults(defineProps<OrionUploadProps>(), OrionUploadSetupService.defaultProps);
+const setup = new OrionUploadSetupService(props, emits);
 defineExpose(setup.publicInstance);
 
 /** Doc

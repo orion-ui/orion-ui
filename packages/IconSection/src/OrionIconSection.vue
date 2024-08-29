@@ -2,16 +2,16 @@
 	<div
 		:ref="setup._el"
 		class="orion-icon-section"
-		:class="{ 'orion-icon-section--center': setup.props.center }">
+		:class="{ 'orion-icon-section--center': center }">
 		<orion-icon
-			v-if="setup.props.icon || setup.props.fontIcon"
+			v-if="icon || fontIcon"
 			class="orion-icon-section__icon"
 			v-bind="{ icon, fontIcon }"/>
 		<div class="orion-icon-section__content">
 			<h6
-				v-if="setup.props.title"
+				v-if="title"
 				class="orion-icon-section__title">
-				{{ setup.props.title }}
+				{{ title }}
 			</h6>
 
 			<div
@@ -27,8 +27,10 @@
 import './OrionIconSection.less';
 import { OrionIcon } from 'packages/Icon';
 import OrionIconSectionSetupService from './OrionIconSectionSetupService';
-const props = defineProps(OrionIconSectionSetupService.props);
-const setup = new OrionIconSectionSetupService(props);
+import type { OrionIconSectionProps, OrionIconSectionEmits } from './OrionIconSectionSetupService';
+const emits = defineEmits<OrionIconSectionEmits>() as OrionIconSectionEmits;
+const props = withDefaults(defineProps<OrionIconSectionProps>(), OrionIconSectionSetupService.defaultProps);
+const setup = new OrionIconSectionSetupService(props, emits);
 defineExpose(setup.publicInstance);
 /**
  * @doc slot/default the content of the description

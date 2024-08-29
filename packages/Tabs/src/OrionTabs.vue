@@ -3,6 +3,7 @@
 </template>
 
 <script setup lang="tsx">
+//@ts-nocheck
 import './OrionTabs.less';
 import { provide, useSlots } from 'vue';
 import { isDefineOrTrue } from 'utils/tools';
@@ -10,21 +11,19 @@ import { OrionTabNav } from 'packages/TabNav';
 import { OrionLoader } from 'packages/Loader';
 import OrionTabsSetupService from './OrionTabsSetupService';
 import { RouterView } from 'vue-router';
-type TabsEmit = {
-	(e: 'input', payload: string): void
-	(e: 'tab-click', ...payload: [OrionTabPane, MouseEvent]): void
-	(e: 'update:modelValue', payload: string): void
-}
-const emit = defineEmits<TabsEmit>();
+import type { OrionTabsProps, OrionTabsEmits } from './OrionTabsSetupService';
 const slots = useSlots();
-const props = defineProps(OrionTabsSetupService.props);
-const setup = new OrionTabsSetupService(props, slots, emit);
+const emits = defineEmits<OrionTabsEmits>() as OrionTabsEmits;
+const props = withDefaults(defineProps<OrionTabsProps>(), OrionTabsSetupService.defaultProps);
+const setup = new OrionTabsSetupService(props, emits, slots);
 provide('_tabs', setup.publicInstance);
 defineExpose(setup.publicInstance);
 
+
+
 const jsxTabs = () => {
 	const navData = {
-		value: setup.props.modelValue,
+		value: props.modelValue,
 		panes: setup.panes,
 		onTabClick: setup.onTabClick.bind(setup),
 	};
@@ -37,16 +36,16 @@ const jsxTabs = () => {
 
 	const loaderData = {
 		ref: setup._loader,
-		message: typeof setup.props.loader === 'string' ? setup.props.loader : undefined,
-		visible: isDefineOrTrue(setup.props.loader),
+		message: typeof props.loader === 'string' ? props.loader : undefined,
+		visible: isDefineOrTrue(props.loader),
 		size: 'sm' as Orion.Size,
 	};
 
 	const content = (
 		<div class="orion-tabs__content">
 			{
-				setup.props.useRouter
-					? <RouterView name={setup.props.routerViewName}/>
+				props.useRouter
+					? <RouterView name={props.routerViewName}/>
 					: slots.default ? slots.default() : null
 			}
 			<OrionLoader { ...loaderData }/>

@@ -1,81 +1,66 @@
-import { Directive, nextTick, PropType, watch } from 'vue';
+import { Directive, nextTick, watch } from 'vue';
 import { isString } from 'lodash-es';
 import Cleave from 'cleave.js';
 
-import SharedFieldSetupService, { FieldEmit } from '../../Shared/SharedFieldSetupService';
+import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetupServiceProps } from '../../Shared/SharedFieldSetupService';
 import useValidation from 'services/ValidationService';
 import { hoursToNumber } from 'utils/tools';
 import { useMonkey } from 'services';
 
-type Props = SetupProps<typeof OrionInputSetupService.props>
+export type OrionInputEmits = SharedFieldSetupServiceEmits<Nil<string | number>> & {}
+export type OrionInputProps =  SharedFieldSetupServiceProps & {
+	// @doc props/allowNegative allow negative values
+	// @doc/fr props/allowNegative autorise les valeurs négatives
+	allowNegative: boolean,
+	// @doc props/autocomplete provides automated assistance in filling out form field values from native html input
+	// @doc/fr props/autocomplete fournit une assitance automatique de remplissage du champ
+	autocomplete?: string,
+	// @doc props/cleave Missing @doc
+	// @doc/fr props/cleave Missing @doc
+	cleave?: Object,
+	// @doc props/mask the mask applied on the input
+	// @doc/fr props/mask masque appliqué sur le champ
+	mask?: string | InputMask,
+	// @doc props/maskFormat Missing @doc
+	// @doc/fr props/maskFormat Missing @doc
+	maskFormat?: string,
+	// @doc props/maskHourFormat the hour format
+	// @doc/fr props/maskHourFormat format de l'heure
+	maskHourFormat: string,
+	// @doc props/maskHourSeparator hour separator
+	// @doc/fr props/maskHourSeparator sépérateur d'heures
+	maskHourSeparator: string,
+	// @doc props/maxLength maximum length of the input
+	// @doc/fr props/maxLength longueur maximum du champ
+	maxLength?: number,
+	// @doc props/maxValue maximum value of the input
+	// @doc/fr props/maxValue valeur maximale du champ
+	maxValue?: number,
+	// @doc props/minValue minimum value of the input
+	// @doc/fr props/minValue valeur minimale du champ
+	minValue?: number,
+	// @doc props/selectOnFocus select the input value on focus
+	// @doc/fr props/selectOnFocus sélectionne la valeur du champ au focus
+	selectOnFocus: boolean,
+};
+
 type VModelType = Nil<string | number>;
 type InputMask = 'integer' | 'decimal' | 'hour' | {
 	value: (val: any) => VModelType;
 	display: (val: any) => VModelType;
 };
+
 type CleaveElement = HTMLInputElement & {
 	cleave: Cleave;
 }
 
-export default class OrionInputSetupService extends SharedFieldSetupService<Props, VModelType> {
-	static props = {
-		...SharedFieldSetupService.props,
-		// @doc props/allowNegative allow negative values
-		// @doc/fr props/allowNegative autorise les valeurs négatives
-		allowNegative: Boolean,
-		// @doc props/selectOnFocus select the input value on focus
-		// @doc/fr props/selectOnFocus sélectionne la valeur du champ au focus
-		selectOnFocus: Boolean,
-		// @doc props/autocomplete provides automated assistance in filling out form field values from native html input
-		// @doc/fr props/autocomplete fournit une assitance automatique de remplissage du champ
-		autocomplete: {
-			type: String,
-			default: undefined,
-		},
-		// @doc props/mask the mask applied on the input
-		// @doc/fr props/mask masque appliqué sur le champ
-		mask: {
-			type: [String, Object] as PropType<string | InputMask>,
-			default: undefined,
-		},
-		maskFormat: {
-			type: String as PropType<string>,
-			default: undefined,
-		},
-		// @doc props/maskHourFormat the hour format
-		// @doc/fr props/maskHourFormat format de l'heure
-		maskHourFormat: {
-			type: String,
-			default: '24h',
-		},
-		// @doc props/maskHourSeparator hour separator
-		// @doc/fr props/maskHourSeparator sépérateur d'heures
-		maskHourSeparator: {
-			type: String,
-			default: ':',
-		},
-		// @doc props/maxLength maximum length of the input
-		// @doc/fr props/maxLength longueur maximum du champ
-		maxLength: {
-			type: Number,
-			default: undefined,
-		},
-		// @doc props/maxValue maximum value of the input
-		// @doc/fr props/maxValue valeur maximale du champ
-		maxValue: {
-			type: Number,
-			default: undefined,
-		},
-		// @doc props/minValue minimum value of the input
-		// @doc/fr props/minValue valeur minimale du champ
-		minValue: {
-			type: Number,
-			default: undefined,
-		},
-		cleave: {
-			type: Object,
-			default: undefined,
-		},
+export default class OrionInputSetupService extends SharedFieldSetupService<OrionInputProps, VModelType> {
+	static readonly defaultProps = {
+		...SharedFieldSetupService.defaultProps,
+		allowNegative: false,
+		maskHourFormat: '24h',
+		maskHourSeparator: ':',
+		selectOnFocus: false,
 	};
 
 	static cleaveDirective: Directive = {
@@ -194,8 +179,8 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Prop
 
 			if (value === this.vModel) return;
 
-			this.emit('update:modelValue', value);
-			this.emit('input', value);
+			this.emits('update:modelValue', value);
+			this.emits('input', value);
 		});
 	}
 
@@ -204,8 +189,8 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Prop
 	}
 
 
-	constructor (props: Props, emit: FieldEmit<VModelType>) {
-		super(props, emit);
+	constructor (protected props: OrionInputProps, protected emits: OrionInputEmits) {
+		super(props, emits);
 
 		watch(() => props.cleave, (val) => {
 			const input = this._input.value as CleaveElement;
@@ -217,8 +202,8 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Prop
 
 	handleBlurCustom (event: FocusEvent) {
 		if (this._input.value?.value && this.props.minValue && (hoursToNumber(this._input.value.value, this.props.maskHourSeparator)) < this.props.minValue) {
-			this.emit('update:modelValue', this.props.minValue);
-			this.emit('input', this.props.minValue);
+			this.emits('update:modelValue', this.props.minValue);
+			this.emits('input', this.props.minValue);
 		}
 
 		this.handleBlur(event);

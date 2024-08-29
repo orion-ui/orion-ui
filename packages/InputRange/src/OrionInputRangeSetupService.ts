@@ -1,32 +1,28 @@
-import { ref } from 'vue';
-import SharedFieldSetupService, { FieldEmit } from '../../Shared/SharedFieldSetupService';
-import SharedProps from '../../Shared/SharedProps';
+import { SharedPropsColor } from 'lib/shared-props';
+import SharedFieldSetupService, { SharedFieldSetupServiceProps, SharedFieldSetupServiceEmits } from '../../Shared/SharedFieldSetupService';
 
-type Props = SetupProps<typeof OrionInputRangeSetupService.props>
+export type OrionInputRangeEmits = SharedFieldSetupServiceEmits<Nil<number[] | number>> & {}
+export type OrionInputRangeProps = SharedFieldSetupServiceProps &
+	SharedPropsColor & {
+	// @doc props/maxValue maximum value of the input range
+	// @doc/fr props/maxValue valeur maximum qui peut être sélectionnée
+	maxValue: number,
+	// @doc props/minValue minimum value of the input range
+	// @doc/fr props/minValue valeur minimale qui peut être sélectionnée
+	minValue: number,
+	// @doc props/step step of the slider
+	// @doc/fr props/step pas du curseur
+	step: number,
+};
 type VModelType = number[] | number;
 
-export default class OrionInputRangeSetupService extends SharedFieldSetupService<Props, VModelType> {
-	static props = {
-		...SharedFieldSetupService.props,
-		...SharedProps.color(),
-		// @doc props/step step of the slider
-		// @doc/fr props/step pas du curseur
-		step: {
-			type: Number,
-			default: 1,
-		},
-		// @doc props/minValue minimum value of the input range
-		// @doc/fr props/minValue valeur minimale qui peut être sélectionnée
-		minValue: {
-			type: Number,
-			default: 0,
-		},
-		// @doc props/maxValue maximum value of the input range
-		// @doc/fr props/maxValue valeur maximum qui peut être sélectionnée
-		maxValue: {
-			type: Number,
-			default: 100,
-		},
+export default class OrionInputRangeSetupService extends SharedFieldSetupService<OrionInputRangeProps, VModelType> {
+	static readonly defaultProps = {
+		...SharedFieldSetupService.defaultProps,
+		maxValue: 100,
+		minValue: 0,
+		step: 1,
+		color: 'default' as Orion.Color,
 	};
 
 	private circleSize = 20;
@@ -107,8 +103,8 @@ export default class OrionInputRangeSetupService extends SharedFieldSetupService
 	}
 
 
-	constructor (props: Props, emit: FieldEmit<VModelType>) {
-		super(props, emit);
+	constructor (protected props: OrionInputRangeProps, protected emits: OrionInputRangeEmits) {
+		super(props, emits);
 	}
 
 

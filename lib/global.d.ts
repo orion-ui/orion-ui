@@ -9,6 +9,7 @@ import type { OrionAsideSetupService, OrionModalSetupService, OrionNotifSetupSer
 import useValidation from '../services/ValidationService';
 import { Validator as ValidatorClass } from '../utils/Validator';
 import { CountryCode } from 'libphonenumber-js';
+import { OrionAvatarProps } from 'packages/Avatar/src/OrionAvatarSetupService';
 
 declare global {
 	type Nullable<T> = T | null;
@@ -81,6 +82,8 @@ declare global {
 		type DatepickerType = 'date' | 'range' | 'week' | 'multiple' | 'month';
 
 		type DateTableType = 'date' | 'range' | 'multiple' | 'month';
+
+		type ListLayout = 'grid' | 'row';
 
 		type Phone = {
 			phoneNumber?: Nil<string>;
@@ -294,7 +297,7 @@ declare global {
 				id: number;
 				name: string;
 				avatar: string;
-				avatarProps?: Record<string, any>;
+				avatarProps?: Partial<OrionAvatarProps>;
 			};
 
 			type Discussion = {
@@ -322,6 +325,14 @@ declare global {
 			type NewMessage = {
 				message: string;
 				discussionId: number;
+			}
+		}
+
+		namespace Tour {
+			type TourObject = {
+				label?: string,
+				callback?: () => any;
+				clean?: () => any
 			}
 		}
 
@@ -380,4 +391,8 @@ declare global {
 			}
 		}
 	}
+
+
+
+
 }

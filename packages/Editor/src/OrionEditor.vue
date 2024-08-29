@@ -209,23 +209,14 @@
 
 <script setup lang="ts">
 import './OrionEditor.less';
-import { EditorContent, JSONContent } from '@tiptap/vue-3';
+import { EditorContent } from '@tiptap/vue-3';
 import { OrionButton } from 'packages/Button';
 import { OrionColorPicker } from 'packages/ColorPicker';
 import OrionEditorSetupService from './OrionEditorSetupService';
-type VModelType = string | null | undefined;
-type EditorEmit = {
-  (e: 'focus', payload: FocusEvent): void;
-  (e: 'blur', payload?: FocusEvent): void;
-  (e: 'input', payload: VModelType): void;
-  (e: 'change', val?: VModelType): void;
-  (e: 'update:modelValue', payload: VModelType): void;
-  (e: 'clear'): void;
-	(e: 'update:json', payload: JSONContent | undefined): void;
-}
-const emit = defineEmits<EditorEmit>();
-const props = defineProps(OrionEditorSetupService.props);
-const setup = new OrionEditorSetupService(props, emit);
+import type { OrionEditorProps, OrionEditorEmits } from './OrionEditorSetupService';
+const emits = defineEmits<OrionEditorEmits>() as OrionEditorEmits;
+const props = withDefaults(defineProps<OrionEditorProps>(), OrionEditorSetupService.defaultProps);
+const setup = new OrionEditorSetupService(props, emits);
 defineExpose(setup.publicInstance);
 
 /** Doc

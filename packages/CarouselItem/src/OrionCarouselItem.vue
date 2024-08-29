@@ -12,9 +12,11 @@
 import { inject } from 'vue';
 import './OrionCarouselItem.less';
 import OrionCarouselItemSetupService from './OrionCarouselItemSetupService';
+import type { OrionCarouselItemProps, OrionCarouselItemEmits } from './OrionCarouselItemSetupService';
 const _carousel = inject<OrionCarousel>('_carousel');
-const props = defineProps(OrionCarouselItemSetupService.props);
-const setup = new OrionCarouselItemSetupService(props, _carousel);
+const emits = defineEmits<OrionCarouselItemEmits>() as OrionCarouselItemEmits;
+const props = withDefaults(defineProps<OrionCarouselItemProps>(), OrionCarouselItemSetupService.defaultProps);
+const setup = new OrionCarouselItemSetupService(props, emits, _carousel);
 defineExpose(setup.publicInstance);
 
 /** Doc

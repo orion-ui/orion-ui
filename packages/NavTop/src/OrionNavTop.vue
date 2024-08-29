@@ -51,7 +51,9 @@
 import './OrionNavTop.less';
 import { OrionIcon } from 'packages/Icon';
 import OrionNavTopSetupService from './OrionNavTopSetupService';
-const props = defineProps(OrionNavTopSetupService.props);
-const setup = new OrionNavTopSetupService(props);
+import type { OrionNavTopProps, OrionNavTopEmits } from './OrionNavTopSetupService';
+const emits = defineEmits<OrionNavTopEmits>() as OrionNavTopEmits;
+const props = withDefaults(defineProps<OrionNavTopProps>(), OrionNavTopSetupService.defaultProps);
+const setup = new OrionNavTopSetupService(props, emits);
 defineExpose(setup.publicInstance);
 </script>

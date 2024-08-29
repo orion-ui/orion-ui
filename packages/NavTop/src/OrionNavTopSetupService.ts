@@ -1,12 +1,13 @@
 import { reactive, ref } from 'vue';
 import { throttle } from 'lodash-es';
 import SharedNavSetupService from '../../Shared/SharedNavSetupService';
-import SharedProps from '../../Shared/SharedProps';
+import { SharedPropsNav } from 'lib/shared-props';
 
-type Props = SetupProps<typeof OrionNavTopSetupService.props>
+export type OrionNavTopEmits = {}
+export type OrionNavTopProps = SharedPropsNav & {}
 
-export default class OrionNavTopSetupService extends SharedNavSetupService<Props> {
-	static props = { ...SharedProps.nav() };
+export default class OrionNavTopSetupService extends SharedNavSetupService {
+	static defaultProps = { };
 
 	readonly _el = ref<RefDom>();
 
@@ -27,8 +28,8 @@ export default class OrionNavTopSetupService extends SharedNavSetupService<Props
 	}
 
 
-	constructor (props: Props) {
-		super(props);
+	constructor (protected props: OrionNavTopProps, protected emits: OrionNavTopEmits) {
+		super();
 	}
 
 	protected onMounted () {

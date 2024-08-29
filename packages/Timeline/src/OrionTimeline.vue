@@ -10,15 +10,11 @@ import { OrionLoader } from 'packages/Loader';
 import { OrionTimelinePill } from 'packages/TimelinePill';
 import OrionTimelineSetupService from './OrionTimelineSetupService';
 import { isDefineOrTrue } from 'utils/tools';
-type TimelineEmit = {
-	(e: 'input', payload: string | number): void
-	(e: 'pill-click', ...payload: [OrionTimelinePane, MouseEvent]): void
-	(e: 'update:modelValue', payload: string | number): void
-}
-const emit = defineEmits<TimelineEmit>();
+import type { OrionTimelineProps, OrionTimelineEmits } from './OrionTimelineSetupService';
 const slots = useSlots();
-const props = defineProps(OrionTimelineSetupService.props);
-const setup = new OrionTimelineSetupService(props, slots, emit);
+const emits = defineEmits<OrionTimelineEmits>() as OrionTimelineEmits;
+const props = withDefaults(defineProps<OrionTimelineProps>(), OrionTimelineSetupService.defaultProps);
+const setup = new OrionTimelineSetupService(props, emits, slots);
 provide('_timeline', setup.publicInstance);
 defineExpose(setup.publicInstance);
 
@@ -38,7 +34,7 @@ const jsxTimeline = () => {
 
 	const loaderData = {
 		ref: setup._loader,
-		message: typeof setup.props.loader === 'string' ? setup.props.loader : undefined,
+		message: typeof loader === 'string' ? setup.props.loader : undefined,
 		visible: isDefineOrTrue(setup.props.loader),
 		size: 'sm' as Orion.Size,
 	};

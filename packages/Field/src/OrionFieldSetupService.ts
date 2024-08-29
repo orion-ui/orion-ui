@@ -1,33 +1,33 @@
 import { ref } from 'vue';
 import SharedSetupService from '../../Shared/SharedSetupService';
-import SharedProps from '../../Shared/SharedProps';
+import { SharedPropsPrefixIcon, SharedPropsSuffixIcon, SharedPropsSize } from 'lib/shared-props';
 
-type Props = SetupProps<typeof OrionFieldSetupService.props>
+export type OrionFieldEmits = {
+	(e: 'clear'): void
+}
 
-export default class OrionFieldSetupService extends SharedSetupService<Props> {
-	static props = {
-		...SharedProps.prefixIcon(),
-		...SharedProps.suffixIcon(),
-		...SharedProps.size(),
-		readonly: Boolean,
-		disabled: Boolean,
-		required: Boolean,
-		clearable: Boolean,
-		isFocus: Boolean,
-		hasValue: Boolean,
-		labelIsFloating: Boolean,
-		showError: Boolean,
-		showWarning: Boolean,
-		showSuccess: Boolean,
-		inputType: {
-			type: String,
-			default: 'input',
-		},
-		label: {
-			type: String,
-			default: undefined,
-		},
-	};
+export type OrionFieldProps = {
+	prefixIcon?: SharedPropsPrefixIcon['prefixIcon'],
+	prefixFontIcon?: SharedPropsPrefixIcon['prefixFontIcon'],
+	suffixIcon?: SharedPropsSuffixIcon['suffixIcon'],
+	suffixFontIcon?: SharedPropsSuffixIcon['suffixFontIcon'],
+	size?: SharedPropsSize['size'],
+	readonly?: boolean,
+	disabled?: boolean,
+	required?: boolean,
+	clearable?: boolean,
+	isFocus?: boolean,
+	hasValue?: boolean,
+	labelIsFloating?: boolean,
+	showError?: boolean,
+	showWarning?: boolean,
+	showSuccess?: boolean,
+	inputType?: string,
+	label?: string,
+}
+
+export default class OrionFieldSetupService extends SharedSetupService {
+	static readonly defaultProps = { inputType: 'input' };
 
 	readonly _el = ref<RefDom>();
 	readonly _suffixPictos = ref<RefDom>();
@@ -74,8 +74,8 @@ export default class OrionFieldSetupService extends SharedSetupService<Props> {
 	}
 
 
-	constructor (props: Props) {
-		super(props);
+	constructor (protected props: OrionFieldProps, protected emits: OrionFieldEmits) {
+		super();
 	}
 
 	protected onUpdated () {

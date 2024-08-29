@@ -192,7 +192,7 @@ class DocFactory extends DocUtility {
 
 		await this.setPackagesList();
 
-		if (this.options.verbose) note(this.packages.join('\n'));
+		if (this.options?.verbose) note(this.packages.join('\n'));
 
 		await this.scanSharedProps();
 
@@ -339,7 +339,7 @@ class VueFileScanner extends DocScanner {
 				?.[0].getText();
 		});
 
-		if (this.options.verbose) {
+		if (this.options?.verbose) {
 			if (Object.keys(this.localTypes).length) {
 				note(this.localTypes);
 			} else {
@@ -357,7 +357,7 @@ class VueFileScanner extends DocScanner {
 			.map(x => x.getTypeArguments()?.[0])?.[0],
 		);
 
-		if (this.options.verbose) {
+		if (this.options?.verbose) {
 			if (Object.keys(events).length) {
 				note(events.join('\n'));
 			} else {
@@ -380,7 +380,7 @@ class VueFileScanner extends DocScanner {
 				});
 			});
 
-		if (this.options.verbose) {
+		if (this.options?.verbose) {
 			if (Object.keys(provide).length) {
 				note(provide.join('\n'));
 			} else {
@@ -398,7 +398,7 @@ class VueFileScanner extends DocScanner {
 		vueTemplate.match(/<slot(?:.|\s)*?(?:(\/>)|(<\/slot>))/g)?.map((x) => {
 			return x.replace(/\t{2,}/g, '').replace(/\n/g, ' ');
 		}).forEach((x) => {
-			if (this.options.verbose) log.message(x);
+			if (this.options?.verbose) log.message(x);
 
 			const slotOpeningTag = x.match(/<slot[^>]*>/)[0];
 			const name = /name="([^"]*)"/g.exec(slotOpeningTag)?.[1] ?? 'default';
@@ -1035,3 +1035,8 @@ class globalTypeFileScanner extends DocUtility {
 	}
 
 }
+
+module.exports = {
+	SetupServiceFileScanner,
+	VueFileScanner,
+};

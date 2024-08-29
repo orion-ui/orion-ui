@@ -5,22 +5,22 @@
 		:ref="setup._el"
 		class="orion-tour-tooltip"
 		:class="[
-			`orion-tour-tooltip--${setup.props.size}`,
+			`orion-tour-tooltip--${size}`,
 		]">
 		<span
-			v-if="setup.props.closable"
+			v-if="closable"
 			class="orion-tour-tooltip__close"
 			@click="setup.stop()"/>
 		<div
 			id="orion-tour-tooltip__arrow"
 			class="orion-tour-tooltip__arrow"/>
 		<div class="orion-tour-tooltip__title">
-			{{ setup.props.title }}
+			{{ title }}
 		</div>
 		<div
 			class="orion-tour-tooltip__body"
 			:class="[
-				`orion-tour-tooltip__body--${setup.props.size}`,
+				`orion-tour-tooltip__body--${size}`,
 			]">
 			<slot/>
 		</div>
@@ -28,7 +28,7 @@
 		<div
 			class="orion-tour-tooltip__footer"
 			:class="[
-				`orion-tour-tooltip__footer--${setup.props.size}`,
+				`orion-tour-tooltip__footer--${size}`,
 			]">
 			<div
 				v-if="setup.steps?.length && setup.currentIndex !== -1 && setup.currentIndex !== undefined"
@@ -58,7 +58,7 @@
 					</orion-button>
 				</slot>
 				<orion-button
-					v-if="!setup.props.hideFinish"
+					v-if="!hideFinish"
 					id="endButton"
 					color="info"
 					size="xs"
@@ -80,9 +80,11 @@ import { inject } from 'vue';
 import { OrionButton } from 'packages/Button';
 import '../../Tour/src/OrionTour.less';
 import OrionTourStepSetupService from './OrionTourStepSetupService';
+import type { OrionTourStepProps, OrionTourStepEmits } from './OrionTourStepSetupService';
 const _tour = inject<OrionTour>('_tour');
-const props = defineProps(OrionTourStepSetupService.props);
-const setup = new OrionTourStepSetupService(props, _tour);
+const emits = defineEmits<OrionTourStepEmits>() as OrionTourStepEmits;
+const props = withDefaults(defineProps<OrionTourStepProps>(), OrionTourStepSetupService.defaultProps);
+const setup = new OrionTourStepSetupService(props, emits, _tour);
 defineExpose(setup.publicInstance);
 /** Doc
  * @doc slot/default content of the step

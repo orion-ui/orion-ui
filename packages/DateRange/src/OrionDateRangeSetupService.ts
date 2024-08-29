@@ -1,30 +1,20 @@
-import { PropType, reactive, ref, nextTick } from 'vue';
+import { reactive, ref, nextTick } from 'vue';
 import SharedSetupService from '../../Shared/SharedSetupService';
 
-type Props = SetupProps<typeof OrionDateRangeSetupService.props>
-type DateRangeEmit = {
+export type OrionDateRangeProps = {
+	displayWeekNumber: boolean,
+	modelValue?: Nil<Orion.DateRange>,
+	minDate?: Date,
+	maxDate?: Date,
+}
+export type OrionDateRangeEmits = {
 	(e: 'update:modelValue', payload: Nil<Orion.DateRange>): void
 	(e: 'select-range', payload: Orion.DateRange): void
 }
 
-export default class OrionDateRangeSetupService extends SharedSetupService<Props> {
-	static props = {
-		displayWeekNumber: Boolean,
-		modelValue: {
-			type: Object as PropType<Nil<Orion.DateRange>>,
-			default: undefined,
-		},
-		minDate: {
-			type: Date,
-			default: undefined,
-		},
-		maxDate: {
-			type: Date,
-			default: undefined,
-		},
-	};
+export default class OrionDateRangeSetupService extends SharedSetupService {
+	static readonly defaultProps = { displayWeekNumber: false };
 
-	private emit: DateRangeEmit;
 	private state = reactive({
 		selecting: false,
 		dayHover: new Date(),
@@ -67,10 +57,10 @@ export default class OrionDateRangeSetupService extends SharedSetupService<Props
 	}
 
 	set vModel (val) {
-		this.emit('update:modelValue', val);
+		this.emits('update:modelValue', val);
 
 		if (!!val?.start && !!val.end) {
-			this.emit('select-range', val);
+			this.emits('select-range', val);
 		} else {
 			nextTick(() => {
 				if (!!val?.start && !val.end && this._end.value && this._end.value.getCurrentDate().valueOf() <= val.start.valueOf()) {
@@ -84,9 +74,8 @@ export default class OrionDateRangeSetupService extends SharedSetupService<Props
 	}
 
 
-	constructor (props: Props, emit: DateRangeEmit) {
-		super(props);
-		this.emit = emit;
+	constructor (protected props: OrionDateRangeProps, protected emits: OrionDateRangeEmits) {
+		super();
 	}
 
 	protected async onBeforeMount () {

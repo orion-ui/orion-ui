@@ -1,4 +1,4 @@
-import { PropType, reactive } from 'vue';
+import { reactive } from 'vue';
 import { JSONContent, useEditor } from '@tiptap/vue-3';
 import StarterKit from '@tiptap/starter-kit';
 import Underline from '@tiptap/extension-underline';
@@ -11,15 +11,30 @@ import Youtube from '@tiptap/extension-youtube';
 
 import TextBackground from './editor/extensions/text-background';
 
-import SharedFieldSetupService, { FieldEmit } from '../../Shared/SharedFieldSetupService';
+import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetupServiceProps } from '../../Shared/SharedFieldSetupService';
 import usePrompt from 'services/PromptService';
 import useNotif from 'services/NotifService';
 
-type Props = SetupProps<typeof OrionEditorSetupService.props>
-
-type EditorEmit = FieldEmit<string | null | undefined> & {
+export type OrionEditorEmits = SharedFieldSetupServiceEmits<Nil<string>> & {
 	(e: 'update:json', payload: JSONContent | undefined): void;
 }
+export type OrionEditorProps = SharedFieldSetupServiceProps<Nil<string>> & {
+	// @doc props/disableFeatures disable some editor's features
+	// @doc/fr props/disableFeatures désactive des fonctions de l'éditeur
+	disableFeatures: EditorFeature[],
+	// @doc props/imgFileTypes authorized image file formats
+	// @doc/fr props/imgFileTypes type de fichier autorisé pour les images
+	imgFileTypes: string[],
+	// @doc props/imgMaxSize maximum size of the imported image
+	// @doc/fr props/imgMaxSize taille maximum d'une image importée
+	imgMaxSize: number,
+	// @doc props/json the json format of the editor value
+	// @doc/fr props/json valeur de l'éditeur au format JSON
+	json: JSONContent,
+	// @doc props/placeholder place holder
+	// @doc/fr props/placeholder placeholder
+	placeholder?: string,
+};
 
 type EditorFeature =
 	| 'Undo'
@@ -37,42 +52,15 @@ type EditorFeature =
 	| 'ImageBase64'
 	| 'YouTube'
 
-export default class OrionEditorSetupService extends SharedFieldSetupService<Props, string | null | undefined> {
-	static props = {
-		...SharedFieldSetupService.props,
-		// @doc props/json the json format of the editor value
-		// @doc/fr props/json valeur de l'éditeur au format JSON
-		json: {
-			type: Object as PropType<JSONContent>,
-			default: undefined,
-		},
-		// @doc props/placeholder place holder
-		// @doc/fr props/placeholder placeholder
-		placeholder: {
-			type: String,
-			default: undefined,
-		},
-		// @doc props/disableFeatures disable some editor's features
-		// @doc/fr props/disableFeatures désactive des fonctions de l'éditeur
-		disableFeatures: {
-			type: Array as PropType<EditorFeature[]>,
-			default: () => [],
-		},
-		// @doc props/imgMaxSize maximum size of the imported image
-		// @doc/fr props/imgMaxSize taille maximum d'une image importée
-		imgMaxSize: {
-			type: Number,
-			default: 1500,
-		},
-		// @doc props/imgFileTypes authorized image file formats
-		// @doc/fr props/imgFileTypes type de fichier autorisé pour les images
-		imgFileTypes: {
-			type: Array as PropType<string[]>,
-			default: () => ['image/jpeg', 'image/png', 'image/gif'],
-		},
+export default class OrionEditorSetupService extends SharedFieldSetupService<OrionEditorProps, string | null | undefined> {
+	static readonly defaultProps = {
+		...SharedFieldSetupService.defaultProps,
+		disableFeatures: () => [],
+		imgFileTypes: () => ['image/jpeg', 'image/png', 'image/gif'],
+		imgMaxSize: 1500,
 	};
 
-	protected emit: EditorEmit;
+
 
 	protected state = reactive({
 		...this.sharedState,
@@ -119,15 +107,13 @@ export default class OrionEditorSetupService extends SharedFieldSetupService<Pro
 	}
 
 	set vModelJson (val) {
-		this.emit('update:json', val);
+		this.emits('update:json', val);
 	}
 
 
-	constructor (props: Props, emit: EditorEmit) {
-		super(props, emit);
-		this.emit = emit;
+	constructor (protected props: OrionEditorProps, protected emits: OrionEditorEmits) {
+		super(props, emits);
 	}
-
 
 	private sanitizeHtml (html?: string | null) {
 		return html?.replace(/<[^>]+>/g, '').trim() ?? '';

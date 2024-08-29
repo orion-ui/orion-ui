@@ -21,17 +21,14 @@
 import { inject } from 'vue';
 import './OrionDraggable.less';
 import OrionDraggableSetupService from './OrionDraggableSetupService';
-
-type DraggableEmit = {
-	(e: 'update:disabled', payload: boolean): void;
-}
-
-const props = defineProps(OrionDraggableSetupService.props);
+import type { OrionDraggableProps, OrionDraggableEmits } from './OrionDraggableSetupService';
+const emits = defineEmits<OrionDraggableEmits>() as OrionDraggableEmits;
+const props = withDefaults(defineProps<OrionDraggableProps>(), OrionDraggableSetupService.defaultProps);
 const _aside = inject<OrionAside>('_aside');
 const _modal = inject<OrionAside>('_modal');
 const _droppable = inject<OrionDroppable>('_droppable');
-const emit = defineEmits<DraggableEmit>();
-const setup = new OrionDraggableSetupService(props, emit, _droppable, _aside, _modal);
+
+const setup = new OrionDraggableSetupService(props, emits, _droppable, _aside, _modal);
 defineExpose(setup.publicInstance);
 
 /** Doc

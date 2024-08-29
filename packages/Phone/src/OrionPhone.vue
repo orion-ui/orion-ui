@@ -9,7 +9,7 @@
 				track-key="code"
 				display-key="areaCode"
 				searchable
-				:disabled="setup.props.disabled"
+				:disabled="disabled"
 				:options="setup.countryList"
 				:custom-search="setup.customSearch.bind(setup)"
 				@input-keydown-tab="setup._input.value?.focus()"
@@ -39,9 +39,9 @@
 				:inherit-validation-state="setup.showState"
 				v-bind="{
 					...$attrs,
-					label: setup.props.label,
-					disabled: setup.props.disabled,
-					clearable: setup.props.clearable,
+					label: label,
+					disabled: disabled,
+					clearable: clearable,
 					required: setup.isRequired,
 				}"
 				force-label-floating
@@ -72,19 +72,12 @@ type VModelType = Nil<{
   phoneNumber: Nil<string>;
   phoneCountryCode: Nil<Orion.Country['code']>;
 }>;
-type OrionPhoneEmit = {
-  (e: 'focus', payload: FocusEvent): void;
-  (e: 'blur', payload?: FocusEvent): void;
-  (e: 'input', payload: VModelType): void;
-  (e: 'change', val?: VModelType): void;
-  (e: 'update:modelValue', payload: VModelType): void;
-  (e: 'update:phoneNumber', payload?: string): void;
-  (e: 'update:phoneCountryCode', payload?: Orion.Country['code']): void;
-  (e: 'clear'): void;
-}
-const emit = defineEmits<OrionPhoneEmit>();
-const props = defineProps(OrionPhoneSetupService.props);
-const setup = new OrionPhoneSetupService(props, emit);
+
+
+const emits = defineEmits<OrionPhoneEmits>() as OrionPhoneEmits;
+import type { OrionPhoneProps, OrionPhoneEmits } from './OrionPhoneSetupService';
+const props = withDefaults(defineProps<OrionPhoneProps>(), OrionPhoneSetupService.defaultProps);
+const setup = new OrionPhoneSetupService(props, emits);
 defineExpose(setup.publicInstance);
 
 /** Doc

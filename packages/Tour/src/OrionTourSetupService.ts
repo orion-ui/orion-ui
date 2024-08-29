@@ -3,23 +3,18 @@ import SharedSetupService from '../../Shared/SharedSetupService';
 import { isArray } from 'lodash-es';
 import type { OrionTourStepSetupService } from 'packages/TourStep';
 
-type Props = SetupProps<typeof OrionTourSetupService.props>
+export type OrionTourEmits = {}
+export type OrionTourProps = {
+	// @doc props/callback function executed when the tour is stopped
+	// @doc/fr props/callback fonction exécutée quand le tour est arrêté
+	callback?: Function,
+	// @doc props/value current step index of the tour
+	// @doc/fr props/value index courant du tour
+	value?: number,
+};
 
-export default class OrionTourSetupService extends SharedSetupService<Props> {
-	static props = {
-		// @doc props/value current step index of the tour
-		// @doc/fr props/value index courant du tour
-		value: {
-			type: Number,
-			default: undefined,
-		},
-		// @doc props/callback function executed when the tour is stopped
-		// @doc/fr props/callback fonction exécutée quand le tour est arrêté
-		callback: {
-			type: Function,
-			default: undefined,
-		},
-	};
+export default class OrionTourSetupService extends SharedSetupService {
+	static readonly defaultProps = {};
 
 	private slots: Slots;
 	private state = reactive({
@@ -53,8 +48,8 @@ export default class OrionTourSetupService extends SharedSetupService<Props> {
 		};
 	}
 
-	constructor (props: Props, slots: Slots) {
-		super(props);
+	constructor (protected props: OrionTourProps, protected emits: OrionTourEmits, slots: Slots) {
+		super();
 		this.slots = slots;
 
 		watch(() => this.content, () => this.calcStepInstances());

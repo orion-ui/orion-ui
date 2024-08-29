@@ -9,8 +9,10 @@ import { OrionIcon } from 'packages/Icon';
 import { OrionHorizontalScroll } from 'packages/HorizontalScroll';
 import OrionTimelinePillSetupService from './OrionTimelinePillSetupService';
 import { isDefineOrTrue } from 'utils/tools';
-const props = defineProps(OrionTimelinePillSetupService.props);
-const setup = new OrionTimelinePillSetupService(props);
+import type { OrionTimelinePillProps, OrionTimelinePillEmits } from './OrionTimelinePillSetupService';
+const emits = defineEmits<OrionTimelinePillEmits>() as OrionTimelinePillEmits;
+const props = withDefaults(defineProps<OrionTimelinePillProps>(), OrionTimelinePillSetupService.defaultProps);
+const setup = new OrionTimelinePillSetupService(props, emits);
 defineExpose(setup.publicInstance);
 
 const jsxTimelinePill = () => {
@@ -19,7 +21,7 @@ const jsxTimelinePill = () => {
 	const useBefore = !!panes.filter(p => !!p.children?.before).length;
 
 	const timeline = panes.map((pane, index): any => {
-		const originIndex = panes.findIndex(pane => pane.props.name === setup.props.value);
+		const originIndex = panes.findIndex(pane => pane.props.name === setup.props.centeredPillvalue);
 
 		const isCenteredPill = setup.props.centeredPill || isDefineOrTrue(pane.props['centered-pill']);
 		const icon = pane.props.icon || pane.props['font-icon']
@@ -47,8 +49,8 @@ const jsxTimelinePill = () => {
 			? (<div class="orion-timeline-pill__after">{ pane.children.after() }</div>)
 			: null;
 
-		const clickable = setup.props.value !== null
-				&& (setup.props.current === pane.props.name || isDefineOrTrue(pane.props.complete) || index <= originIndex);
+		const clickable = props.value !== null
+				&& (props.current === pane.props.name || isDefineOrTrue(pane.props.complete) || index <= originIndex);
 
 		return (
 			<div class={{
@@ -61,13 +63,13 @@ const jsxTimelinePill = () => {
 						class={{
 							'orion-timeline-pill__core': true,
 							'orion-timeline-pill__core--filled': index < originIndex || isDefineOrTrue(pane.props.complete),
-							'orion-timeline-pill__core--active': setup.props.current === pane.props.name,
+							'orion-timeline-pill__core--active': props.current === pane.props.name,
 							'orion-timeline-pill__core--disabled': isDefineOrTrue(pane.props.disabled),
 							'orion-timeline-pill__core--clickable': clickable,
 							'orion-timeline-pill__core--text': !!pane.props.pill,
 						}}
 						key={`orion-timeline-${pane.props.name}`}
-						onClick={ (ev: MouseEvent) => clickable ? setup.props.onPillClick(pane.props, ev) : null }>
+						onClick={ (ev: MouseEvent) => clickable ? props.onPillClick(pane.props, ev) : null }>
 						{ icon ?? <span class="orion-timeline-pill__core-text">{pane.props.pill}</span> }
 						{ marker }
 					</div>

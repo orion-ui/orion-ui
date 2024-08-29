@@ -16,10 +16,12 @@ export default { name: 'OrionTimelinePane' };
 <script setup lang="ts">
 import './OrionTimelinePane.less';
 import { inject } from 'vue';
+import type { OrionTimelinePaneProps, OrionTimelinePaneEmits } from './OrionTimelinePaneSetupService';
 import OrionTimelinePaneSetupService from './OrionTimelinePaneSetupService';
 const _timeline = inject<OrionTimeline>('_timeline');
-const props = defineProps(OrionTimelinePaneSetupService.props);
-const setup = new OrionTimelinePaneSetupService(props, _timeline);
+const emits = defineEmits<OrionTimelinePaneEmits>() as OrionTimelinePaneEmits;
+const props = withDefaults(defineProps<OrionTimelinePaneProps>(), OrionTimelinePaneSetupService.defaultProps);
+const setup = new OrionTimelinePaneSetupService(props, emits, _timeline);
 defineExpose(setup.publicInstance);
 
 /** Doc

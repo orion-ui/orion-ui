@@ -28,7 +28,7 @@ declare module 'vue' {
 		ODatepicker: typeof import('packages/index')['OrionDatepicker'];
 		ODraggable: typeof import('packages/index')['OrionDraggable'];
 		ODroppable: typeof import('packages/index')['OrionDroppable'];
-		OEditor: typeof import('packages/index')['OrionEditor'];
+		//OEditor: typeof import('packages/index')['OrionEditor'];
 		OField: typeof import('packages/index')['OrionField'];
 		OFooterFixed: typeof import('packages/index')['OrionFooterFixed'];
 		OHorizontalScroll: typeof import('packages/index')['OrionHorizontalScroll'];

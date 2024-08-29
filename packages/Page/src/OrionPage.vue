@@ -3,21 +3,21 @@
 		:ref="setup._el"
 		class="orion-page">
 		<div
-			v-if="setup.props.title || $slots.actions"
+			v-if="title || $slots.actions"
 			class="orion-page__header"
-			:class="{ 'orion-page__header--unwrap': setup.props.titleEllipsis }">
+			:class="{ 'orion-page__header--unwrap': titleEllipsis }">
 			<div class="orion-page__title-subtitle">
 				<h1
-					v-if="setup.props.title"
+					v-if="title"
 					class="orion-page__title"
-					:class="{ 'orion-page__title--ellipsis': setup.props.titleEllipsis }">
-					{{ setup.props.title }}
+					:class="{ 'orion-page__title--ellipsis': titleEllipsis }">
+					{{ title }}
 				</h1>
 				<h3
-					v-if="setup.props.subtitle"
+					v-if="subtitle"
 					class="orion-page__subtitle"
-					:class="{ 'orion-page__subtitle--ellipsis': setup.props.subtitleEllipsis }">
-					{{ setup.props.subtitle }}
+					:class="{ 'orion-page__subtitle--ellipsis': subtitleEllipsis }">
+					{{ subtitle }}
 				</h3>
 			</div>
 			<div
@@ -31,7 +31,7 @@
 			v-if="$slots.subactions"
 			class="orion-page__subactions"
 			:class="{
-				'orion-page__subactions--sticky': setup.props.stickySubactions,
+				'orion-page__subactions--sticky': stickySubactions,
 			}">
 			<slot name="subactions"/>
 		</div>
@@ -45,8 +45,10 @@
 <script setup lang="ts">
 import './OrionPage.less';
 import OrionPageSetupService from './OrionPageSetupService';
-const props = defineProps(OrionPageSetupService.props);
-const setup = new OrionPageSetupService(props);
+import type { OrionPageProps, OrionPageEmits } from './OrionPageSetupService';
+const emits = defineEmits<OrionPageEmits>() as OrionPageEmits;
+const props = withDefaults(defineProps<OrionPageProps>(), OrionPageSetupService.defaultProps);
+const setup = new OrionPageSetupService(props, emits);
 defineExpose(setup.publicInstance);
 
 /** Doc

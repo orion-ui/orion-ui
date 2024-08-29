@@ -12,14 +12,14 @@
 			v-bind="setup.orionFieldBinding"
 			class="orion-datepicker"
 			:has-value="setup.hasValue"
-			:label-is-floating="setup.hasValue || (setup.props.type === 'date' && setup.isFocus)"
+			:label-is-floating="setup.hasValue || (type === 'date' && setup.isFocus)"
 			:class="[
-				{ 'orion-datepicker--range' : setup.props.type === 'range' },
-				{ 'orion-datepicker-multiple' : setup.props.type === 'multiple' },
+				{ 'orion-datepicker--range' : type === 'range' },
+				{ 'orion-datepicker-multiple' : type === 'multiple' },
 			]"
 			@clear="setup.handleClear()">
 			<input
-				v-if="setup.props.type === 'date'"
+				v-if="type === 'date'"
 				:ref="setup._input"
 				class="orion-input__input"
 				:value="setup.displayDateSelected"
@@ -70,18 +70,18 @@
 				tabindex="0"
 				@focus="setup.handleFocus($event)"
 				@blur="setup.handleBlur($event)">
-				<span v-if="setup.props.type === 'week' && setup.range?.weekNumber">
+				<span v-if="type === 'week' && setup.range?.weekNumber">
 					<div
-						v-if="setup.props.valueDisplayFormat"
-						v-html="setup.props.valueDisplayFormat(setup.range)"/>
+						v-if="valueDisplayFormat"
+						v-html="valueDisplayFormat(setup.range)"/>
 					<template v-else>
 						{{ `${setup.lang.WEEK} ${setup.range.weekNumber}` }}
 					</template>
 				</span>
 				<span v-else>
 					<div
-						v-if="setup.props.valueDisplayFormat"
-						v-html="setup.props.valueDisplayFormat(setup.vModel ?? setup.range)"/>
+						v-if="valueDisplayFormat"
+						v-html="valueDisplayFormat(setup.vModel ?? setup.range)"/>
 					<template v-else>
 						{{ setup.displayDateSelected }}
 					</template>
@@ -101,7 +101,7 @@
 				name="popper"
 				v-bind="{ closePopperSlot: setup.closePopperSlot.bind(setup) }">
 				<orion-date-table
-					v-if="setup.props.type === 'date'"
+					v-if="type === 'date'"
 					:ref="setup._options"
 					v-model="setup.vModel"
 					:min-date="setup.minDate"
@@ -112,7 +112,7 @@
 						: setup.handleBlur(undefined, setup.responsive.onPhone && !time)
 					"/>
 				<orion-date-table
-					v-if="setup.props.type === 'multiple'"
+					v-if="type === 'multiple'"
 					:ref="setup._options"
 					v-model:multiple="setup.multiple"
 					:type="type === 'multiple' ? 'multiple' : undefined"
@@ -124,7 +124,7 @@
 						: setup.handleBlur(undefined, setup.responsive.onPhone && !time)
 					"/>
 				<orion-date-range
-					v-else-if="setup.props.type === 'range'"
+					v-else-if="type === 'range'"
 					:ref="setup._options"
 					v-model="setup.rangeBuffer"
 					:min-date="setup.minDate"
@@ -132,7 +132,7 @@
 					:display-week-number="displayWeekNumber"
 					@select-range="setup.handleBlur(undefined, true)"/>
 				<orion-date-week
-					v-else-if="setup.props.type === 'week'"
+					v-else-if="type === 'week'"
 					:ref="setup._options"
 					v-model="setup.rangeBuffer"
 					:min-date="setup.minDate"
@@ -140,7 +140,7 @@
 					:hide-disabled="hideDisabled"
 					@update:model-value="setup.handleBlur()"/>
 				<orion-date-table
-					v-if="setup.props.type === 'month'"
+					v-if="type === 'month'"
 					:ref="setup._options"
 					v-model:range="setup.rangeBuffer"
 					:min-date="setup.minDate"
@@ -231,21 +231,11 @@ import { OrionField } from 'packages/Field';
 import { OrionLabel } from 'packages/Label';
 import OrionDatepickerSetupService from './OrionDatepickerSetupService';
 import { useSlots } from 'vue';
-type VModelType = Nil<Date>;
-type FieldEmit = {
-  (e: 'focus', payload: FocusEvent): void;
-  (e: 'blur', payload?: FocusEvent): void;
-  (e: 'input', payload: VModelType): void;
-  (e: 'change', val?: VModelType): void;
-  (e: 'update:modelValue', payload: VModelType): void;
-  (e: 'clear'): void;
-	(e: 'update:range', payload: Nil<Orion.DateRange>): void;
-	(e: 'update:multiple', payload: Date[]): void;
-}
+import type { OrionDatepickerProps, OrionDatepickerEmits } from './OrionDatepickerSetupService';
 const slots = useSlots();
-const emit = defineEmits<FieldEmit>();
-const props = defineProps(OrionDatepickerSetupService.props);
-const setup = new OrionDatepickerSetupService(props, emit, slots);
+const emits = defineEmits<OrionDatepickerEmits>() as OrionDatepickerEmits;
+const props = withDefaults(defineProps<OrionDatepickerProps>(), OrionDatepickerSetupService.defaultProps);
+const setup = new OrionDatepickerSetupService(props, emits, slots);
 defineExpose(setup.publicInstance);
 
 /** Doc

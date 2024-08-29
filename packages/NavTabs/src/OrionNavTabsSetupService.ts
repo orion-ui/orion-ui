@@ -1,18 +1,14 @@
-import { PropType, ref } from 'vue';
+import { ref } from 'vue';
 
-import SharedProps from '../../Shared/SharedProps';
 import SharedNavSetupService from '../../Shared/SharedNavSetupService';
+import { SharedPropsNav } from 'lib/shared-props';
 
-type Props = SetupProps<typeof OrionNavTabsSetupService.props>
-
-export default class OrionNavTabsSetupService extends SharedNavSetupService<Props> {
-	static props = {
-		...SharedProps.nav(),
-		navAside: {
-			type: Object as PropType<OrionNavAside.Props>,
-			default: undefined,
-		},
-	};
+export type OrionNavTabsEmits = {}
+export type OrionNavTabsProps = SharedPropsNav & {
+	navAside?: OrionNavAside.Props
+}
+export default class OrionNavTabsSetupService extends SharedNavSetupService {
+	static readonly defaultProps = {};
 
 	readonly _el = ref<RefDom>();
 	readonly _navAside = ref<OrionAside>();
@@ -24,8 +20,8 @@ export default class OrionNavTabsSetupService extends SharedNavSetupService<Prop
 	}
 
 
-	constructor (props: Props) {
-		super(props);
+	constructor (protected props: OrionNavTabsProps, protected emits: OrionNavTabsEmits) {
+		super();
 	}
 
 

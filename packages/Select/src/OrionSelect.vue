@@ -12,12 +12,12 @@
 			v-bind="setup.orionFieldBinding"
 			:label-is-floating="setup.labelIsFloating"
 			class="orion-select"
-			:class="[{ 'orion-select--multiple': setup.props.multiple }, $attrs.class]"
+			:class="[{ 'orion-select--multiple': multiple }, $attrs.class]"
 			@clear="setup.clear()">
 			<div
 				:ref="setup._input"
 				class="orion-input__input"
-				:tabindex="setup.props.disabled ? undefined : 0"
+				:tabindex="disabled ? undefined : 0"
 				@focus="setup.handleFocus($event)"
 				@blur="setup.handleBlur($event)"
 				@mousedown="setup.handleInputMousedown()"
@@ -37,7 +37,7 @@
 							{{ setup.valueDisplay(item).display }}
 						</slot>
 						<span
-							v-if="!setup.props.readonly && !setup.props.disabled"
+							v-if="!readonly && !disabled"
 							class="orion-select__selected-item-remove"
 							@mousedown.prevent="setup.removeIndex(i)">
 							&times;
@@ -45,21 +45,21 @@
 					</span>
 				</div>
 				<slot
-					v-else-if="!setup.props.multiple && !setup.isArray(setup.vModel) && setup.valueDisplay()"
+					v-else-if="!multiple && !setup.isArray(setup.vModel) && setup.valueDisplay()"
 					name="value"
 					v-bind="setup.valueDisplay(setup.vModel)">
 					{{ setup.valueDisplay(setup.vModel).display }}
 				</slot>
 
 				<input
-					v-if="setup.props.autocomplete && (!setup.hasValue || (setup.hasValue && setup.isFocus))"
+					v-if="autocomplete && (!setup.hasValue || (setup.hasValue && setup.isFocus))"
 					:ref="setup._autocomplete"
 					v-model="setup.valueToSearch"
 					type="text"
 					class="orion-input__input orion-select__autocomplete"
 					:class="{
-						'orion-select__autocomplete--single': !setup.props.multiple,
-						'orion-select__autocomplete--multiple': setup.props.multiple,
+						'orion-select__autocomplete--single': !multiple,
+						'orion-select__autocomplete--multiple': multiple,
 					}"
 					@focus="setup.handleFocus($event)"
 					@blur="setup.handleBlur($event)">
@@ -67,8 +67,8 @@
 
 			<template #icon-suffix>
 				<orion-icon
-					v-show="!setup.props.autocomplete &&
-						(!setup.props.clearable || (setup.props.clearable && !setup.hasValue))"
+					v-show="!autocomplete &&
+						(!clearable || (clearable && !setup.hasValue))"
 					class="orion-input__icon orion-select__carret orion-select__icon--internal"
 					icon="chevron_down"
 					:class="{ 'open' : setup.isFocus }"
@@ -87,7 +87,7 @@
 			<div
 				:ref="setup._popoverinner"
 				class="orion-select__popover"
-				:class="{ 'orion-select-multiple__popover': setup.props.multiple }"
+				:class="{ 'orion-select-multiple__popover': multiple }"
 				@touchmove.stop="setup.handleScroll()"
 				@mousedown="setup.handleMousedownOnPopper($event)"
 				@scroll.stop>
@@ -131,7 +131,7 @@
 						:class="{
 							'selected' : setup.optionIsSelected(option),
 							'hover' : setup.indexNav === i,
-							'disabled' : !!setup.props.disabledKey && !!setup.get(option, setup.props.disabledKey, false),
+							'disabled' : !!disabledKey && !!setup.get(option, disabledKey, false),
 						}"
 						@mousedown.prevent="setup.selectItem(option)">
 						<slot
@@ -140,8 +140,8 @@
 							:index="i"
 							:marked-search="setup.markedSearch.bind(setup)">
 							<span
-								v-html="setup.itemIsObject(option) && setup.props.displayKey
-									? setup.markedSearch(option[setup.props.displayKey])
+								v-html="setup.itemIsObject(option) && displayKey
+									? setup.markedSearch(option[displayKey])
 									: setup.markedSearch(option)"/>
 						</slot>
 						<template v-if="multiple">
@@ -188,26 +188,10 @@ import { OrionInput } from 'packages/Input';
 import { OrionLoader } from 'packages/Loader';
 import { OrionField } from 'packages/Field';
 import OrionSelectSetupService from './OrionSelectSetupService';
-type BaseVModelType = string | number | boolean | Record<string, any>;
-type VModelType = BaseVModelType | BaseVModelType[] | null | undefined;
-type SelectEmit = {
-  (e: 'focus', payload: FocusEvent): void;
-  (e: 'blur', payload?: FocusEvent): void;
-  (e: 'input', payload: VModelType): void;
-  (e: 'input-keydown-tab'): void;
-  (e: 'change', val?: VModelType): void;
-  (e: 'update:modelValue', payload: VModelType): void;
-  (e: 'clear'): void;
-	(e: 'add', payload: BaseVModelType): void;
-	(e: 'remove', payload: BaseVModelType): void;
-	(e: 'select', payload: BaseVModelType): void;
-	(e: 'fetch-start', payload?: string): void;
-	(e: 'fetch-end', payload: BaseVModelType[]): void;
-	(e: 'fetch-search-clear'): void;
-}
-const emit = defineEmits<SelectEmit>();
-const props = defineProps(OrionSelectSetupService.props);
-const setup = new OrionSelectSetupService(props, emit);
+import type { OrionSelectProps, OrionSelectEmits } from './OrionSelectSetupService';
+const emits = defineEmits<OrionSelectEmits>() as OrionSelectEmits;
+const props = withDefaults(defineProps<OrionSelectProps>(), OrionSelectSetupService.defaultProps);
+const setup = new OrionSelectSetupService(props, emits);
 defineExpose(setup.publicInstance);
 
 /** Doc

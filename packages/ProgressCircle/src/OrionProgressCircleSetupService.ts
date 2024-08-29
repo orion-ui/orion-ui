@@ -1,41 +1,32 @@
+import { SharedPropsColor } from 'lib/shared-props';
 import SharedSetupService from '../../Shared/SharedSetupService';
-import SharedProps from '../../Shared/SharedProps';
 
-type Props = SetupProps<typeof OrionProgressCircleSetupService.props>
+export type OrionProgressCircleEmits = {}
+export type OrionProgressCircleProps = SharedPropsColor & {
+	// @doc props/label the label
+	// @doc/fr props/label label du cercle
+	label?: string,
+	// @doc props/pathWidth width of the path line
+	// @doc/fr props/pathWidth épaisseur du cercle
+	pathWidth: number,
+	// @doc props/size size of the progress circle
+	// @doc/fr props/size taille du cercle
+	size: number,
+	// @doc props/value value of the progress circle
+	// @doc/fr props/value valeur du cercle
+	value: number,
+	// @doc props/valueWidth width of the value line
+	// @doc/fr props/valueWidth épaisseur de la ligne qui représente la progression
+	valueWidth: number,
+};
 
-export default class OrionProgressCircleSetupService extends SharedSetupService<Props> {
-	static props = {
-		...SharedProps.color('info'),
-		// @doc props/label the label
-		// @doc/fr props/label label du cercle
-		label: {
-			type: String,
-			default: undefined,
-		},
-		// @doc props/size size of the progress circle
-		// @doc/fr props/size taille du cercle
-		size: {
-			type: Number,
-			default: 50,
-		},
-		// @doc props/value value of the progress circle
-		// @doc/fr props/value valeur du cercle
-		value: {
-			type: Number,
-			default: 0,
-		},
-		// @doc props/pathWidth width of the path line
-		// @doc/fr props/pathWidth épaisseur du cercle
-		pathWidth: {
-			type: Number,
-			default: 2,
-		},
-		// @doc props/valueWidth width of the value line
-		// @doc/fr props/valueWidth épaisseur de la ligne qui représente la progression
-		valueWidth: {
-			type: Number,
-			default: 4,
-		},
+export default class OrionProgressCircleSetupService extends SharedSetupService {
+	static readonly defaultProps = {
+		color: 'info' as Orion.Color,
+		pathWidth: 2,
+		size: 50,
+		value: 0,
+		valueWidth: 4,
 	};
 
 	get coord () {
@@ -55,7 +46,7 @@ export default class OrionProgressCircleSetupService extends SharedSetupService<
 	}
 
 
-	constructor (props: Props) {
-		super(props);
+	constructor (protected props: OrionProgressCircleProps, protected emits: OrionProgressCircleEmits) {
+		super();
 	}
 }
