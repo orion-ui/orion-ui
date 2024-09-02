@@ -1,4 +1,4 @@
-import { PropType, ref } from 'vue';
+import { PropType, reactive, ref } from 'vue';
 import SharedSetupService from '../../Shared/SharedSetupService';
 import SharedProps from '../../Shared/SharedProps';
 
@@ -30,6 +30,11 @@ export default class OrionPeriodSetupService extends SharedSetupService<Props> {
 	_el = ref<RefDom>();
 
 	uid = this.getUid();
+
+	private state = reactive({ onHover: false });
+
+	get onHover () { return this.state.onHover; }
+	set onHover (val) { this.state.onHover = val; }
 
 	constructor (props: Props) {
 		super(props);

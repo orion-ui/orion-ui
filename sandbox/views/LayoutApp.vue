@@ -44,11 +44,11 @@
 			v-model:date-range="tmpDateRange"
 			:day-start="new Date('2024-08-01T00:00:00')"
 			:day-end="new Date('2024-10-30T00:00:00')"
-			:date="new Date('2024-08-11T00:00:00')"
-			:events="tmpTasks">
-			<template #periodContent="{ event }">
+			:date="date"
+			:items="tmpTasks">
+			<template #periodContent="{ item }">
 				<span>
-					{{ event.label }}
+					{{ item.label }}
 				</span>
 			</template>
 		</orion-planning>
@@ -66,38 +66,40 @@ import { setThemeMode, getAppLang, setAppLang, getUid } from 'lib';
 
 let tmpDateRange = ref('month' as Orion.Planning.DateRangeType);
 
+const date = new Date('2024-09-11T00:00:00');
+
 const tmpTasks = [{
 	id: getUid(),
-	begin: new Date('2024-08-12T00:00:00'),
-	end: new Date('2024-08-18T00:00:00'),
+	begin: new Date('2024-09-12T00:00:00'),
+	end: new Date('2024-09-18T00:00:00'),
 	label: 'vacances',
 	color: 'info',
 }, {
 	id: getUid(),
-	begin: new Date('2024-08-14T00:00:00'),
-	end: new Date('2024-08-26T00:00:00'),
+	begin: new Date('2024-09-14T00:00:00'),
+	end: new Date('2024-09-26T00:00:00'),
 	label: '2xko',
 	color: 'brand',
-	subEvent: {
+	subItem: {
 		id: getUid(),
-		begin: new Date('2024-08-27T00:00:00'),
-		end: new Date('2024-08-29T00:00:00'),
+		begin: new Date('2024-09-27T00:00:00'),
+		end: new Date('2024-09-29T00:00:00'),
 		label: 'Sub2xko',
 		color: 'brand',
 	},
 }, {
 	id: getUid(),
-	begin: new Date('2024-08-08T00:00:00'),
-	end: new Date('2024-08-11T00:00:00'),
+	begin: new Date('2024-09-09T00:00:00'),
+	end: new Date('2024-09-11T00:00:00'),
 	label: 'last',
 	color: 'warning',
 }, {
 	id: getUid(),
-	begin: new Date('2024-08-15T00:00:00'),
-	end: new Date('2024-08-31T00:00:00'),
+	begin: new Date('2024-09-15T00:00:00'),
+	end: new Date('2024-09-30T00:00:00'),
 	label: 'last',
 	color: 'pink',
-}];
+}] as Array<Orion.Planning.Item>;
 
 const navMain: OrionNavMain.Props = {
 	items: [

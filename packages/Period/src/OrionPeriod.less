@@ -11,6 +11,10 @@
 	display: flex;
 	align-items: center;
 
+	&:hover > .orion-period__extend {
+		display: block;
+	}
+
 	&__dates {
 		flex: 1;
 	}
@@ -34,6 +38,29 @@
 			content: "75%";
 			font-size: 0.5rem;
 		  }
+	}
+
+	&__extend {
+		position: absolute;
+		width: .75rem;
+		height: .75rem;
+		border: 1px grey solid;
+		border-radius: 1rem;
+		background-color: lightgray;
+		transition: all 0.2s;
+		display: none;
+		
+		&:hover {
+			transform: scale(1.2);
+		}
+
+		&--left {
+			left: -5px;
+		}
+
+		&--right {
+			right: -5px;
+		}
 	}
 
 	each(@colors, {

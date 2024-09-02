@@ -345,13 +345,13 @@ declare global {
 		}
 
 		namespace Planning {
-			type Event = {
+			type Item = {
 				id: number,
 				begin: Date,
 				end: Date,
 				label: string,
 				color: Orion.Color,
-				subEvent?: Event,
+				subItem?: Item,
 			}
 
 			type DateRangeType = 'day' | 'week' | 'month';

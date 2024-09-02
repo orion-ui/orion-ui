@@ -1,5 +1,6 @@
 <template>
 	<div
+		:ref="setup._el"
 		class="orion-period"
 		:class="[`orion-period--${color}`]">
 		<div class="orion-period__dates">
@@ -13,6 +14,11 @@
 				75%
 			</progress>
 		</div> -->
+
+		<div
+			class="orion-period__extend orion-period__extend--left"/>
+		<div
+			class="orion-period__extend orion-period__extend--right"/>
 	</div>
 </template>
 

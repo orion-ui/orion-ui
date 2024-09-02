@@ -1,6 +1,8 @@
 <template>
-	<pre @click="setup.placeEventInPlanning()">orion Planning</pre>
-	<div class="orion-planning">
+	<pre @click="setup.placeItemInPlanning()">orion Planning</pre>
+	<div
+		:ref="setup._el"
+		class="orion-planning">
 		<div class="orion-planning-header">
 			<div class="orion-planning-header__actions">
 				<slot name="actions"/>
@@ -25,7 +27,9 @@
 				timeslot
 			</div>
 		</div>
-		<div class="orion-planning-body">
+		<div
+			id="bodyId"
+			class="orion-planning-body">
 			<div
 				v-for="date, index in setup.activePeriod"
 				:id="`date-${useMonkey(date).toReadable('$DD-$MM-$YYYY')}`"
@@ -38,11 +42,29 @@
 				</div>
 				<div
 					class="orion-planning-day__content"
+					:onDragenter="setup.handleDragEnterEvent"
+					:onDragleave="setup.handleDragExitEvent"
+					:onDrop="setup.handleDropEvent"
+					:onDragover="setup.enableDropping"
 					:class="{ 'orion-planning-day__content--public-holiday': date.getDay() === 0 || date.getDay() === 6 }"/>
 			</div>
 
-			<jsx-planning/>
+
+			<jsx-planning
+				v-for="item in items"
+				:key="item.id"
+				:item="item"/>
 		</div>
+	</div>
+	<div
+		:id="`context-menu-planning-${setup.uid}`"
+		:class="{ 'orion-planning-context-menu--hide': !setup.showContextMenu }"
+		class="orion-planning-context-menu">
+		<div @click="setup.createItem()">
+			<orion-icon
+				font-icon="icon-plus"/> Add
+		</div>
+		<div><orion-icon font-icon="icon-trash"/>Delete</div>
 	</div>
 </template>
 
@@ -51,61 +73,60 @@ import './OrionPlanning.less';
 import { useMonkey } from 'services';
 import OrionPlanningSetupService from './OrionPlanningSetupService';
 import { OrionPeriod } from 'packages/Period';
+import { OrionIcon } from 'packages/Icon';
 import { useSlots } from 'vue';
+import { cloneDeep } from 'lodash-es';
 const emit = defineEmits<PlanningEmit>();
 const props = defineProps(OrionPlanningSetupService.props);
-const setup = new OrionPlanningSetupService(props, emit);
+
 const slots = useSlots();
+let loaded = false;
 
 type PlanningEmit = {
 	(e: 'update:dateRange', payload: Orion.Planning.DateRangeType): void;
 }
 
-defineExpose(setup.publicInstance);
+const jsxPeriod = (item: Orion.Planning.Item) => {
+	const idItem = 'item-' + item.id;
+	return (<OrionPeriod
+		id={idItem}
+		class="orion-planning-placement"
+		begin={item.begin}
+		end={item.end}
+		color={item.color}
+		label={item.label}
+		draggable="true"
+		onDragstart={setup.handleDragStart(idItem)}>
+		{slots.periodContent ? slots.periodContent({ item: item }) : null}
+	</OrionPeriod>);
+};
 
-const jsxPlanning = () => {
+const jsxPlanning = (props: {item: Orion.Planning.Item}) => {
 	let htmlResponse = [] as OrionPeriod[];
-	let subEventIndex = 0;
-	props.events.forEach((event) => {
-		let idEvent = 'event-' + event.id;
+	const periodItem = jsxPeriod(props.item);
+	htmlResponse.push((
+		periodItem
+	));
+	let currentsubItem = props.item.subItem;
+	while (currentsubItem) {
+		//let copySubItem = cloneDeep(currentsubItem);
+		const periodSubItem = jsxPeriod(currentsubItem);
 		htmlResponse.push((
-			<OrionPeriod
-				id={idEvent}
-				class="orion-planning-placement"
-				begin={event.begin}
-				end={event.end}
-				color={event.color}
-				label={event.label}>
-				{slots.periodContent ? slots.periodContent({ event: event }) : null}
-			</OrionPeriod>
+			periodSubItem
 		));
-		let currentsubEvent = event.subEvent;
-		subEventIndex = 0;
-		while (currentsubEvent) {
-			let idsubEvent = 'event-' + currentsubEvent.id;
-			htmlResponse.push((
-				<OrionPeriod
-					id={idsubEvent}
-					class="orion-planning-placement"
-					begin={currentsubEvent.begin}
-					end={currentsubEvent.end}
-					color={currentsubEvent.color}
-					label={currentsubEvent.label}>
-					{slots.periodContent ? slots.periodContent({ event: event }) : null}
-				</OrionPeriod>
-			));
-			currentsubEvent = currentsubEvent.subEvent;
-		}
-	});
-
+		currentsubItem = currentsubItem.subItem;
+	}
 	return htmlResponse.map((x) => {return x;});
 };
+const setup = new OrionPlanningSetupService(props, emit);
+defineExpose(setup.publicInstance);
+
 
 /** Doc
  * @doc slot/default the content of the button
  * @doc/fr slot/default contenu du bouton
  *
- * @doc event/click/desc emitted on button click
- * @doc/fr event/click/desc émis lors du click sur le bouton
+ * @doc item/click/desc emitted on button click
+ * @doc/fr item/click/desc émis lors du click sur le bouton
  */
 </script>

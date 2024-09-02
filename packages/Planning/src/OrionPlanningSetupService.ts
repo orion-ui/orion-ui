@@ -3,6 +3,7 @@ import SharedSetupService from '../../Shared/SharedSetupService';
 import SharedProps from '../../Shared/SharedProps';
 import { debounce } from 'lodash-es';
 import { useMonkey } from 'services';
+import { getUid } from 'lib';
 
 type Props = SetupProps<typeof OrionPlanningSetupService.props>;
 type PlanningEmit = {
@@ -38,20 +39,23 @@ export default class OrionPlanningSetupService extends SharedSetupService<Props>
 			default: 'day',
 		},
 
-		events: {
-			type: Array<Orion.Planning.Event>,
+		items: {
+			type: Array<Orion.Planning.Item>,
 			required: true as const,
 		},
 	};
 
 	get activePeriod () { return this.getDisplayDates();};
+	get baseRect () { return document.getElementsByClassName('orion-planning-day')[0].getBoundingClientRect();}
 	protected emit: PlanningEmit;
-
-	_el = ref<RefDom>();
 
 	uid = this.getUid();
 
-	public state = reactive({ });
+	public state = reactive({ showContextMenu: false });
+
+	get lastItemId () { return useMonkey(this.props.items).last()?.id;}
+	get showContextMenu () { return this.state.showContextMenu; }
+	set showContextMenu (val) { this.state.showContextMenu = val; }
 
 	getDates (startDate: Date, stopDate: Date) {
 		const activeDays = [];
@@ -70,7 +74,7 @@ export default class OrionPlanningSetupService extends SharedSetupService<Props>
 		case 'day':
 			return [ this.props.date ];
 		case 'week':
-			dayStart = this.props.date;
+			dayStart = new Date(this.props.date);
 			while (dayStart.getDay() !== 1) {
 				dayStart.setDate(dayStart.getDate() - 1);
 			}
@@ -78,7 +82,7 @@ export default class OrionPlanningSetupService extends SharedSetupService<Props>
 			dayEnd.setDate(dayEnd.getDate() + 7);
 			return this.getDates(dayStart, dayEnd);
 		case 'month':
-			dayStart = this.props.date;
+			dayStart = new Date(this.props.date);
 			dayStart.setDate(1);
 			dayEnd = new Date(dayStart);
 			dayEnd.setMonth(dayEnd.getMonth() + 1);
@@ -86,88 +90,138 @@ export default class OrionPlanningSetupService extends SharedSetupService<Props>
 		}
 	}
 
-	placeEventInPlanning = debounce(async () => {
-		const datesElts = document.getElementsByClassName('orion-planning-day');
+	placeItemInPlanning = debounce(async () => {
+		//const datesElts = document.getElementsByClassName('orion-planning-day');
 
-		if (datesElts.length === 0) return;
-		const rectBase = datesElts[0].getBoundingClientRect();
+		if (!this.baseRect) return;
+		//const rectBase = datesElts[0].getBoundingClientRect();
 
 		let currentTop = 48;
 
-		this.props.events.forEach((event) => {
-			currentTop = this.placeEvent(event, rectBase.left, currentTop);
+		this.props.items.forEach((item) => {
+			currentTop = this.placeItem(item, this.baseRect.left, currentTop);
 
-			let currentsubEvent = event.subEvent;
-			while (currentsubEvent) {
-				currentTop = this.placeEvent(currentsubEvent, rectBase.left, currentTop);
-				currentsubEvent = currentsubEvent.subEvent;
+			let currentsubItem = item.subItem;
+			while (currentsubItem) {
+				currentTop = this.placeItem(currentsubItem, this.baseRect.left, currentTop);
+				currentsubItem = currentsubItem.subItem;
 			}
 
 		});
-	}, 80);
+	}, 17);
 
-	placeEvent (event: Orion.Planning.Event, leftBase: number, currentTop: number) {
-		const eventElt = document.getElementById('event-' + event.id);
-		const beginElt = document.getElementById(`date-${useMonkey(event.begin).toReadable('$DD-$MM-$YYYY')}`);
-		const endElt = document.getElementById(`date-${useMonkey(event.end).toReadable('$DD-$MM-$YYYY')}`);
+	placeItem (item: Orion.Planning.Item, leftBase: number, currentTop: number) {
+		const itemElt = document.getElementById('item-' + item.id);
+		const beginElt = document.getElementById(`date-${useMonkey(item.begin).toReadable('$DD-$MM-$YYYY')}`);
+		const endElt = document.getElementById(`date-${useMonkey(item.end).toReadable('$DD-$MM-$YYYY')}`);
 		let beginPos = -16;
 
-		if (!eventElt) return currentTop;
-		eventElt.style.display = 'flex';
+		if (!itemElt) return currentTop;
+		itemElt.style.display = 'flex';
 		if (!beginElt && !endElt) {
-			eventElt.style.display = 'none';
+			itemElt.style.display = 'none';
 			return currentTop;
 		}
-		if (!beginElt) eventElt.style.left = '-1rem';
+		if (!beginElt) itemElt.style.left = '-1rem';
 		else {
 			const rectBegin = beginElt.getBoundingClientRect();
-			eventElt.style.left = rectBegin.left - leftBase + 'px';
+			itemElt.style.left = rectBegin.left - leftBase + 'px';
 			beginPos = rectBegin.left - leftBase;
 		}
-		if (!endElt) eventElt.style.right = '-1rem';
+		if (!endElt) itemElt.style.right = '-1rem';
 		else {
 			const rectEnd = endElt.getBoundingClientRect();
-			eventElt.style.width = rectEnd.right - beginPos - leftBase + 'px';
+			itemElt.style.width = rectEnd.right - beginPos - leftBase + 'px';
 		}
 
-		eventElt.style.top = currentTop + 'px';
-		currentTop += eventElt.getBoundingClientRect().height + 4;
+		itemElt.style.top = currentTop + 'px';
+		currentTop += itemElt.getBoundingClientRect().height + 4;
 
 		return currentTop;
+	}
+
+	enableDropping (e: DragEvent) {
+		e.preventDefault();
+	}
+
+	handleDragStart (itemEltId: string) {
+		return (e: DragEvent) => {
+			this.showContextMenu = false;
+			e.dataTransfer?.setData('text', itemEltId);
+		};
+	}
+
+	handleDragEnterEvent (e: DragEvent) {
+		if (!(e.target as HTMLElement).classList.contains('orion-planning-day__content--drag-active')) {
+			(e.target as HTMLElement).className += ' orion-planning-day__content--drag-active';
+		}
+	}
+
+	handleDragExitEvent (e: DragEvent) {
+		const elt = e.target as HTMLElement;
+		elt.className = elt.className.replace('orion-planning-day__content--drag-active', '');
+	}
+
+	handleDropEvent (e: DragEvent) {
+		const elt = e.target as HTMLElement;
+		elt.className = elt.className.replace('orion-planning-day__content--drag-active', '');
+
+		const idItem = e.dataTransfer?.getData('text');
+		if (!idItem) return;
+		const itemElt = document.getElementById(idItem);
+		if (!itemElt) return;
+
+		itemElt.style.left = elt.getBoundingClientRect().left - document.getElementsByClassName('orion-planning-day')[0].getBoundingClientRect().left + 'px';
+		/* const id = +idItem.substring(idItem.indexOf('-')+1);
+		this.props.items.forEach((evt) => {
+			if (evt.id = id) {
+				evt.begin = new Date(elt.id.substring(5));
+				console.log(evt);
+			}
+		}); */
+	}
+
+	createItem () {
+		const newItem = {} as Orion.Planning.Item;
+		newItem.begin = new Date();
+		newItem.end = new Date();
+		newItem.label = 'test';
+		newItem.id = getUid();
+		newItem.color = 'info';
+		this.props.items.push(newItem);
+		this.placeItemInPlanning();
 	}
 
 	onBeforeMounted () {
 		super.onBeforeMount();
 	}
 
-	moveEventElt (eventElt: HTMLElement, event: MouseEvent) {
-		eventElt.style.left = event.clientX + 'px';
-		eventElt.style.top = event.clientY + 'px';
-	}
-
 	onMounted () {
-		this.placeEventInPlanning();
-		window.addEventListener('resize', this.debouncePlaceEventInPlanning.bind(this));
+		this.placeItemInPlanning();
+		window.addEventListener('resize', this.debouncePlaceItemInPlanning.bind(this));
 
-		this.props.events.forEach((event) => {
-			const eventElt = document.getElementById('event-'+event.id);
+		if (this._el.value) {
+			this._el.value.addEventListener('contextmenu', (e) => {
+				this.showContextMenu = true;
+				const contextMenuElt = document.getElementById(`context-menu-planning-${this.uid}`);
+				if (!contextMenuElt) return;
+				else {
+					e.preventDefault();
+					contextMenuElt.style.left = e.pageX + 'px';
+					contextMenuElt.style.top = e.pageY + 'px';
+				}
+			});
+		}
 
-			if (!eventElt) return;
-			eventElt.addEventListener('mousedown', (e) => {
-				eventElt.addEventListener('mousemove', this.moveEventElt(eventElt, this));
-			});
-			eventElt.addEventListener('mouseup', () => {
-				eventElt.removeEventListener('mousemove');
-			});
-		});
+		this.document?.addEventListener('click', () => { this.showContextMenu = false;});
 	}
 
 	onUnmounted () {
-		this.window?.removeEventListener('resize', this.debouncePlaceEventInPlanning.bind(this));
+		this.window?.removeEventListener('resize', this.debouncePlaceItemInPlanning.bind(this));
 	};
 
-	debouncePlaceEventInPlanning () {
-		this.placeEventInPlanning();
+	debouncePlaceItemInPlanning () {
+		this.placeItemInPlanning();
 	}
 
 	isSameDay (d1 : Date, d2 : Date) {
@@ -178,7 +232,7 @@ export default class OrionPlanningSetupService extends SharedSetupService<Props>
 
 	changeDateRange (dateRange: Orion.Planning.DateRangeType) {
 		this.emit('update:dateRange', dateRange);
-		this.debouncePlaceEventInPlanning();
+		this.debouncePlaceItemInPlanning();
 	}
 
 	constructor (props: Props, emit: PlanningEmit) {
