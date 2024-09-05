@@ -32,7 +32,7 @@
 					input-value="fr"/>
 			</div>
 		</div>
-		<orion-period
+		<o-period
 			:begin="new Date()"
 			:end="new Date()"
 			color="danger"/>
@@ -40,7 +40,7 @@
 		<span @click="console.log(tmpTasks)">
 			Orion Planning
 		</span>
-		<orion-planning
+		<o-planning
 			v-model:date-range="tmpDateRange"
 			:day-start="new Date('2024-08-01T00:00:00')"
 			:day-end="new Date('2024-10-30T00:00:00')"
@@ -51,7 +51,7 @@
 					{{ item.label }}
 				</span>
 			</template>
-		</orion-planning>
+		</o-planning>
 
 		<router-view/>
 	</o-layout>
@@ -60,8 +60,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import packagesNavigation from 'sandbox/utils/packages-navigation';
-import OrionPeriod from 'packages/Period/src/OrionPeriod.vue';
-import OrionPlanning from 'packages/Planning/src/OrionPlanning.vue';
 import { setThemeMode, getAppLang, setAppLang, getUid } from 'lib';
 
 let tmpDateRange = ref('month' as Orion.Planning.DateRangeType);

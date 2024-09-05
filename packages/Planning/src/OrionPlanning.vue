@@ -1,5 +1,4 @@
 <template>
-	<pre @click="setup.placeItemInPlanning()">orion Planning</pre>
 	<div
 		:ref="setup._el"
 		class="orion-planning">
@@ -71,20 +70,16 @@
 <script setup lang="tsx">
 import './OrionPlanning.less';
 import { useMonkey } from 'services';
+
 import OrionPlanningSetupService from './OrionPlanningSetupService';
 import { OrionPeriod } from 'packages/Period';
 import { OrionIcon } from 'packages/Icon';
 import { useSlots } from 'vue';
-import { cloneDeep } from 'lodash-es';
 const emit = defineEmits<PlanningEmit>();
 const props = defineProps(OrionPlanningSetupService.props);
-
+const setup = new OrionPlanningSetupService(props, emit);
+defineExpose(setup.publicInstance);
 const slots = useSlots();
-let loaded = false;
-
-type PlanningEmit = {
-	(e: 'update:dateRange', payload: Orion.Planning.DateRangeType): void;
-}
 
 const jsxPeriod = (item: Orion.Planning.Item) => {
 	const idItem = 'item-' + item.id;
@@ -118,8 +113,13 @@ const jsxPlanning = (props: {item: Orion.Planning.Item}) => {
 	}
 	return htmlResponse.map((x) => {return x;});
 };
-const setup = new OrionPlanningSetupService(props, emit);
-defineExpose(setup.publicInstance);
+
+type PlanningEmit = {
+	(e: 'update:dateRange', payload: Orion.Planning.DateRangeType): void;
+}
+
+
+
 
 
 /** Doc

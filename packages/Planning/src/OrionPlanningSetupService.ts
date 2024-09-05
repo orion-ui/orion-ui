@@ -14,7 +14,10 @@ export default class OrionPlanningSetupService extends SharedSetupService<Props>
 	static props = {
 		// @doc props/loading adds a loading icon and disables the button
 		// @doc/fr props/loading ajoute une icône de chargement et désactive le bouton
-		name: String,
+		name: {
+			type: String,
+			default: '',
+		},
 
 		dayStart: {
 			type: Date,
