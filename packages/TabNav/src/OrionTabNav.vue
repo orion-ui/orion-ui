@@ -37,6 +37,7 @@ const jsxTabNav = () => {
 				</span>
 			) : null;
 
+		console.log(`🚀 ~ tabs ~ setup.router.currentRoute.value.name:`, setup.router.currentRoute.value.name);
 		return (
 			<div
 				class={{
