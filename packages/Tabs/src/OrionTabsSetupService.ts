@@ -111,6 +111,9 @@ export default class OrionTabsSetupService extends SharedSetupService<Props> {
 	onTabClick (pane: OrionTabPane, event: MouseEvent) {
 		if (isDefineOrTrue(pane.disabled)) return;
 
+		console.log(`🚀 ~ onTabClick ~ this.props.useRouter:`, this.props.useRouter);
+		console.log(`🚀 ~ onTabClick ~ this.router.currentRoute.value.name:`, this.router.currentRoute.value.name);
+		console.log(`🚀 ~ onTabClick ~ pane.name:`, pane.name);
 		if (this.props.useRouter && this.router.currentRoute.value.name !== pane.name) {
 			this.router.push({ name: pane.name });
 		} else if (this.props.modelValue !== pane.name) {
