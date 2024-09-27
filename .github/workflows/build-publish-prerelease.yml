@@ -8,6 +8,7 @@ on:
       - 'release/**'
       - '!develop'
       - '!feature/**'
+      - '!bugfix/**'
       - '!main'
     paths:
       - '.github/workflows/**'
