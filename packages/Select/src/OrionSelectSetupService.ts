@@ -251,7 +251,8 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 		return {
 			...super.publicInstance,
 			getSearchTerm: () => this.state.valueToSearch,
-			setSearchTerm: (val?: string) => this.state.valueToSearch = val,
+			setSearchTerm: (val?: string) => this.valueToSearch = val,
+			triggerSearchAsync: async (term?: string) => await this.fetchSearchAsync(term),
 		};
 	}
 
