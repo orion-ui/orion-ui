@@ -24,18 +24,24 @@ import { faker } from '@faker-js/faker';
 import { computed, reactive } from 'vue';
 import { getUid } from 'lib';
 
+type item = {
+	id: number,
+	name: string, 
+	lastname: string
+}
+
 const fullList = seedList();
 const page = reactive<Orion.ListPage>({
 	size: 10,
 	index: 1,
 });
 
-const selectedItems = reactive<any[]>([]);
+const selectedItems = reactive<item[]>([]);
 
 const list = computed(() => fullList.slice(page.size * (page.index - 1), page.size * page.index));
 
 function seedList (qty = 50) {
-	const items = [];
+	const items: item[] = [];
 	for (let index = 0; index < qty; index++) {
 		items.push({
 			id: getUid(),

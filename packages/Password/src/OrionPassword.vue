@@ -10,7 +10,7 @@
 			@clear="setup.clear()">
 			<input
 				:ref="setup._input"
-				v-model="setup.vModel"
+				v-model="vModel"
 				class="orion-input__input"
 				:type="setup.reveal ? 'text' : 'password'"
 				:disabled="disabled"
@@ -28,6 +28,9 @@
 					ripple="default"
 					@click="setup.toggleReveal()"/>
 			</template>
+
+			error{{ setup.showError }}
+			error{{ setup.showWarning }}
 
 			<div
 				v-if="setup.showState
@@ -58,9 +61,10 @@ import { OrionField } from 'packages/Field';
 import { OrionIcon } from 'packages/Icon';
 import OrionPasswordSetupService from './OrionPasswordSetupService';
 import type { OrionPasswordProps, OrionPasswordEmits } from './OrionPasswordSetupService';
+const vModel = defineModel<Nil<string>>();
 const emits = defineEmits<OrionPasswordEmits>() as OrionPasswordEmits;
 const props = withDefaults(defineProps<OrionPasswordProps>(), OrionPasswordSetupService.defaultProps);
-const setup = new OrionPasswordSetupService(props, emits);
+const setup = new OrionPasswordSetupService(props, emits, vModel);
 defineExpose(setup.publicInstance);
 
 /** Doc

@@ -1,12 +1,12 @@
-import { reactive } from 'vue';
+import { ModelRef, reactive } from 'vue';
 import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetupServiceProps } from '../../Shared/SharedFieldSetupService';
 import useValidation from 'services/ValidationService';
 
 export type OrionPasswordEmits = SharedFieldSetupServiceEmits<string> & {}
-export type OrionPasswordProps =  SharedFieldSetupServiceProps & {
+export type OrionPasswordProps = SharedFieldSetupServiceProps & {
 	// @doc props/passwordToConfirm if specified, checks the match with the password value
 	// @doc/fr props/passwordToConfirm si spécifié, vérifie la correspondance avec le champ de mot de passe dans le cas d'une confirmation
-	passwordToConfirm: Undef<string | boolean>,
+	passwordToConfirm?: Undef<string | boolean>,
 	// @doc props/passwordTooltip shows the tooltip with the password's rules
 	// @doc/fr props/passwordTooltip affiche la une tooltip avec les règles à respecter
 	passwordTooltip: boolean,
@@ -31,12 +31,12 @@ export default class OrionPasswordSetupService extends SharedFieldSetupService<O
 
 	protected get isValidCustom () {
 		if (typeof this.props.passwordToConfirm === 'string' && this.props.passwordToConfirm?.length) {
-			return this.props.passwordToConfirm === this.vModel;
+			return this.props.passwordToConfirm === this.vModel.value;
 		}
-		return useValidation().check(this.vModel, 'password');
+		return useValidation().check(this.vModel.value, 'password');
 	}
 
-	get showState (): boolean {
+	get showState () {
 		return super.showState || (this.props.passwordTooltip && this.state.hasBeenFocus);
 	}
 
@@ -50,19 +50,19 @@ export default class OrionPasswordSetupService extends SharedFieldSetupService<O
 			return [
 				{
 					message: this.lang.ORION_PASSWORD__VALIDATION_HAS_LOWERCASE,
-					valid: useValidation().check(this.vModel, 'hasLowercase'),
+					valid: useValidation().check(this.vModel.value, 'hasLowercase'),
 				},
 				{
 					message: this.lang.ORION_PASSWORD__VALIDATION_HAS_UPPERCASE,
-					valid: useValidation().check(this.vModel, 'hasUppercase'),
+					valid: useValidation().check(this.vModel.value, 'hasUppercase'),
 				},
 				{
 					message: this.lang.ORION_PASSWORD__VALIDATION_HAS_NUMBER,
-					valid: useValidation().check(this.vModel, 'hasNumber'),
+					valid: useValidation().check(this.vModel.value, 'hasNumber'),
 				},
 				{
 					message: this.lang.ORION_PASSWORD__VALIDATION_LENGTH,
-					valid: useValidation().check(this.vModel, 'length:8,60'),
+					valid: useValidation().check(this.vModel.value, 'length:8,60'),
 				},
 			];
 		}
@@ -77,8 +77,8 @@ export default class OrionPasswordSetupService extends SharedFieldSetupService<O
 	}
 
 
-	constructor (protected props: OrionPasswordProps, protected emits: OrionPasswordEmits) {
-		super(props, emits);
+	constructor (protected props: OrionPasswordProps, protected emits: OrionPasswordEmits, protected vModel: ModelRef<Nil<string>>) {
+		super(props, emits, vModel);
 	}
 
 	protected onMounted () {

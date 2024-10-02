@@ -19,7 +19,7 @@
 					{{ title }}
 					<orion-icon
 						v-if="collapsible"
-						:icon="setup.isCollapsed ? 'chevron_down' : 'chevron_up'"
+						:icon="collapsed ? 'chevron_down' : 'chevron_up'"
 						class="orion-section__title-chevron"/>
 				</h3>
 				<h4
@@ -55,7 +55,8 @@ import OrionIcon from 'packages/Icon/src/OrionIcon.vue';
 import type { OrionSectionProps, OrionSectionEmits } from './OrionSectionSetupService';
 const emits = defineEmits<OrionSectionEmits>() as OrionSectionEmits;
 const props = withDefaults(defineProps<OrionSectionProps>(), OrionSectionSetupService.defaultProps);
-const setup = new OrionSectionSetupService(props, emits);
+const collapsed = defineModel<boolean>('collapsed', { default: false });
+const setup = new OrionSectionSetupService(props, emits, collapsed);
 defineExpose(setup.publicInstance);
 
 /** Doc

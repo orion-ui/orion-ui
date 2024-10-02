@@ -19,7 +19,7 @@ export type OrionCropperProps = {
 	file: File,
 	// @doc props/options options of the cropper
 	// @doc/fr props/options les options du cropper
-	options: Object,
+	options?: Object,
 	// @doc props/zoomMax the maximum zoom
 	// @doc/fr props/zoomMax le zoom maximum
 	zoomMax: number,

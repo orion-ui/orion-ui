@@ -32,10 +32,10 @@
 
 			<orion-input
 				:ref="setup._orionInput"
-				v-model="setup.phoneNumber"
+				v-model="setup.phoneNumberProxy"
 				type="tel"
 				:class="{ 'orion-input--warning': setup.showWarning }"
-				:validation="isValidPhoneNumber(setup.phoneNumber, setup.country?.code)"
+				:validation="isValidPhoneNumber(setup.phoneNumberProxy, setup.country?.code)"
 				:inherit-validation-state="setup.showState"
 				v-bind="{
 					...$attrs,
@@ -65,19 +65,16 @@ import { OrionInput } from 'packages/Input';
 import { OrionSelect } from 'packages/Select';
 import { isValidPhoneNumber } from 'libphonenumber-js';
 import OrionPhoneSetupService from './OrionPhoneSetupService';
+import type { OrionPhoneProps, OrionPhoneEmits, VModelType } from './OrionPhoneSetupService';
 // TODO: avoid code duplicate
 // https://github.com/vuejs/core/issues/8301
 // import OrionPhoneSetupService, { type OrionPhoneEmit } from './OrionPhoneSetupService';
-type VModelType = Nil<{
-  phoneNumber: Nil<string>;
-  phoneCountryCode: Nil<Orion.Country['code']>;
-}>;
-
-
 const emits = defineEmits<OrionPhoneEmits>() as OrionPhoneEmits;
-import type { OrionPhoneProps, OrionPhoneEmits } from './OrionPhoneSetupService';
+const vModel = defineModel<VModelType>();
+const phoneCountryCode = defineModel<string | undefined>('phoneCountryCode');
+const phoneNumber = defineModel<string | undefined>('phoneNumber');
 const props = withDefaults(defineProps<OrionPhoneProps>(), OrionPhoneSetupService.defaultProps);
-const setup = new OrionPhoneSetupService(props, emits);
+const setup = new OrionPhoneSetupService(props, emits, vModel, phoneCountryCode, phoneNumber);
 defineExpose(setup.publicInstance);
 
 /** Doc

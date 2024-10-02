@@ -1,5 +1,5 @@
-import { reactive } from 'vue';
-import { JSONContent, useEditor } from '@tiptap/vue-3';
+import { ModelRef, reactive, ShallowRef } from 'vue';
+import { Editor, JSONContent, useEditor } from '@tiptap/vue-3';
 import StarterKit from '@tiptap/starter-kit';
 import Underline from '@tiptap/extension-underline';
 import TextAlign from '@tiptap/extension-text-align';
@@ -15,10 +15,8 @@ import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetup
 import usePrompt from 'services/PromptService';
 import useNotif from 'services/NotifService';
 
-export type OrionEditorEmits = SharedFieldSetupServiceEmits<Nil<string>> & {
-	(e: 'update:json', payload: JSONContent | undefined): void;
-}
-export type OrionEditorProps = SharedFieldSetupServiceProps<Nil<string>> & {
+export type OrionEditorEmits = SharedFieldSetupServiceEmits<Nil<string>> & {}
+export type OrionEditorProps = SharedFieldSetupServiceProps & {
 	// @doc props/disableFeatures disable some editor's features
 	// @doc/fr props/disableFeatures désactive des fonctions de l'éditeur
 	disableFeatures: EditorFeature[],
@@ -28,9 +26,6 @@ export type OrionEditorProps = SharedFieldSetupServiceProps<Nil<string>> & {
 	// @doc props/imgMaxSize maximum size of the imported image
 	// @doc/fr props/imgMaxSize taille maximum d'une image importée
 	imgMaxSize: number,
-	// @doc props/json the json format of the editor value
-	// @doc/fr props/json valeur de l'éditeur au format JSON
-	json: JSONContent,
 	// @doc props/placeholder place holder
 	// @doc/fr props/placeholder placeholder
 	placeholder?: string,
@@ -67,52 +62,53 @@ export default class OrionEditorSetupService extends SharedFieldSetupService<Ori
 		image: [] as File[],
 	});
 
-	editor = useEditor({
-		content: this.vModel,
-		extensions: [
-			StarterKit,
-			Underline,
-			Image.configure({ allowBase64: true }),
-			Link.configure({ openOnClick: false }),
-			TextAlign.configure({ types: ['heading', 'paragraph'] }),
-			Color.configure({ types: ['textStyle'] }),
-			TextStyle,
-			TextBackground,
-			Youtube,
-		],
-		onCreate: ({ editor }) => {
-			if (!this.sanitizeHtml(this.vModel).length && this.vModelJson) {
-				editor.commands.setContent(this.vModelJson, true);
-			}
-		},
-		onFocus: () => {
-			this.state.isFocus = true;
-			this.state.hasBeenFocus = true;
-		},
-		onBlur: () => {
-			this.state.isFocus = false;
-		},
-		onUpdate: ({ editor }) => {
-			this.vModel = editor.getHTML();
-			this.vModelJson = editor.getJSON();
-		},
-	});
+	editor?: ShallowRef<Editor | undefined>;
 
 	get hasValue () {
-		return this.sanitizeHtml(this.vModel).length > 0;
+		return this.sanitizeHtml(this.vModel?.value).length > 0;
 	}
 
-	get vModelJson () {
-		return this.props.json;
-	}
+	// @doc vModel/json the json format of the editor value
+	// @doc/fr vModel/json valeur de l'éditeur au format JSON
+	constructor (
+		protected props: OrionEditorProps,
+		protected emits: OrionEditorEmits,
+		protected vModel: ModelRef<Nil<string>>,
+		protected json?: ModelRef<JSONContent | undefined>) {
+		super(props, emits, vModel);
 
-	set vModelJson (val) {
-		this.emits('update:json', val);
-	}
-
-
-	constructor (protected props: OrionEditorProps, protected emits: OrionEditorEmits) {
-		super(props, emits);
+		this.editor = useEditor({
+			content: this.vModel?.value,
+			extensions: [
+				StarterKit,
+				Underline,
+				Image.configure({ allowBase64: true }),
+				Link.configure({ openOnClick: false }),
+				TextAlign.configure({ types: ['heading', 'paragraph'] }),
+				Color.configure({ types: ['textStyle'] }),
+				TextStyle,
+				TextBackground,
+				Youtube,
+			],
+			onCreate: ({ editor }) => {
+				if (!this.sanitizeHtml(this.vModel?.value).length && this.json?.value) {
+					editor.commands.setContent(this.json.value, true);
+				}
+			},
+			onFocus: () => {
+				this.state.isFocus = true;
+				this.state.hasBeenFocus = true;
+			},
+			onBlur: () => {
+				this.state.isFocus = false;
+			},
+			onUpdate: ({ editor }) => {
+				if (this.vModel)
+					this.vModel.value = editor.getHTML();
+				if (this.json?.value)
+					this.json.value = editor.getJSON();
+			},
+		});
 	}
 
 	private sanitizeHtml (html?: string | null) {
@@ -123,7 +119,7 @@ export default class OrionEditorSetupService extends SharedFieldSetupService<Ori
 		const { value: url, confirm } = await usePrompt<string>({ title: this.lang.ORION_EDITOR__LINK_URL });
 
 		if (confirm && url) {
-			this.editor.value?.chain().focus().setLink({ href: url }).run();
+			this.editor?.value?.chain().focus().setLink({ href: url }).run();
 		}
 	}
 
@@ -143,7 +139,7 @@ export default class OrionEditorSetupService extends SharedFieldSetupService<Ori
 		if (confirm && value?.length) {
 			try {
 				const src = await this.imageToBase64(value[0]);
-				if (!!src) this.editor.value?.chain().focus().setImage({ src }).run();
+				if (!!src) this.editor?.value?.chain().focus().setImage({ src }).run();
 				this.state.image.length = 0;
 			} catch (e: any) {
 				useNotif.danger(e);
@@ -177,7 +173,7 @@ export default class OrionEditorSetupService extends SharedFieldSetupService<Ori
 		});
 
 		if (confirm && value?.length) {
-			this.editor.value?.chain().focus().setImage({ src: value }).run();
+			this.editor?.value?.chain().focus().setImage({ src: value }).run();
 		}
 	}
 
@@ -188,7 +184,7 @@ export default class OrionEditorSetupService extends SharedFieldSetupService<Ori
 		});
 
 		if (confirm && value?.length) {
-			this.editor.value?.chain().focus().setYoutubeVideo({ src: value }).run();
+			this.editor?.value?.chain().focus().setYoutubeVideo({ src: value }).run();
 		}
 	}
 }

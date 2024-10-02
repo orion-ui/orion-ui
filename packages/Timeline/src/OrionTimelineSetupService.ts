@@ -1,4 +1,4 @@
-import { Component, reactive, ref, Slots, VNode, watch } from 'vue';
+import { Component, ModelRef, reactive, ref, Slots, VNode, watch } from 'vue';
 import SharedSetupService from '../../Shared/SharedSetupService';
 import { isDefineOrTrue } from 'utils/tools';
 import { isArray } from 'lodash-es';
@@ -6,7 +6,6 @@ import { isArray } from 'lodash-es';
 export type OrionTimelineEmits = {
 	(e: 'input', payload: string | number): void
 	(e: 'pill-click', ...payload: [OrionTimelinePane, MouseEvent]): void
-	(e: 'update:modelValue', payload: string | number): void
 }
 
 export type OrionTimelineProps = {
@@ -16,12 +15,10 @@ export type OrionTimelineProps = {
 	// @doc props/horizontal the orientation of the component
 	// @doc/fr props/horizontal l'orientation du composant
 	horizontal: boolean,
+	
 	// @doc props/loader displays a loader on the timeline
 	// @doc/fr props/loader affiche un loader sur la timeline
 	loader?: string | boolean,
-	// @doc props/modelValue the model value
-	// @doc/fr props/modelValue le modelValue
-	modelValue?: string | number | undefined,
 	// @doc props/scrollable displays an horizontal scroll on the timeline pills if it does not fit in its container
 	// @doc/fr props/scrollable affiche un scroll horizontal au niveau de la timeline si elle dépasse de son conteneur.
 	scrollable: boolean,
@@ -37,7 +34,7 @@ export default class OrionTimelineSetupService extends SharedSetupService {
 	private slots: Slots;
 
 	private state = reactive({
-		current: '' as OrionTimelineProps['modelValue'],
+		current: '' as Undef<number | string>,
 		panes: [] as Orion.Private.TsxTimelinePane[],
 	});
 
@@ -58,20 +55,20 @@ export default class OrionTimelineSetupService extends SharedSetupService {
 			...super.publicInstance,
 			_loader: () => this._loader.value,
 			panes: this.state.panes as Orion.Private.TsxTimelinePane[],
-			getValue: () => this.props.modelValue,
+			getValue: () => this.vModel?.value,
 			getCurrent: () => this.state.current,
 			setCurrent: this.setCurrent.bind(this),
 		};
 	}
 
 
-	constructor (protected props: OrionTimelineProps, protected emits: OrionTimelineEmits, slots: Slots) {
+	constructor (protected props: OrionTimelineProps, protected emits: OrionTimelineEmits, slots: Slots, protected vModel?: ModelRef<string | number>) {
 		super();
-		this.state.current = props.modelValue;
+		this.state.current = vModel?.value;
 		this.slots = slots;
 
 
-		watch(() => this.props.modelValue, (val) => {
+		watch(() => this.vModel?.value, (val) => {
 			if (!!val) this.setOrigin(val);
 		});
 
@@ -127,13 +124,13 @@ export default class OrionTimelineSetupService extends SharedSetupService {
 		this.emits('pill-click', pane, event);
 	}
 
-	setCurrent (name: string | number) {
+	setCurrent (name?: string | number) {
 		this.state.current = name;
 	}
 
 	private setOrigin (val: string | number) {
-		this.emits('update:modelValue', val);
-		this.emits('input', val);
+		if (this.vModel?.value)
+			this.vModel.value = val;
 		this.setCurrent(val);
 	}
 }

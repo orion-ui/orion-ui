@@ -1,14 +1,11 @@
-import { nextTick, reactive, Ref, ref } from 'vue';
+import { ModelRef, nextTick, Ref, ref } from 'vue';
 import SharedSetupService from '../../Shared/SharedSetupService';
 
-export type OrionSectionEmits = {(e: 'update:collapsed', val: boolean): void}
+export type OrionSectionEmits = {}
 export type OrionSectionProps = {
 	// @doc props/align alignment of inside elements (convenient for buttons)
 	// @doc/fr props/align alignement des éléments à l'intérieur (pratique pour les boutons)
 	align?: 'left' | 'center' | 'right' | 'stretch',
-	// @doc props/collapsed if the prop `collapsible` is set to `true`, defines this initial state
-	// @doc/fr props/collapsed si la prop `collapsible` est à `true`, déinit l'état initial
-	collapsed: boolean,
 	// @doc props/collapsible defines if the section can be collapsed
 	// @doc/fr props/collapsible définit si la section peut se rétracter
 	collapsible: boolean,
@@ -25,27 +22,22 @@ export type OrionSectionProps = {
 
 export default class OrionSectionSetupService extends SharedSetupService {
 	static readonly defaultProps = {
-		collapsed: false,
 		collapsible: false,
 		gap: 'md' as Orion.Size,
 	};
 
-	private state = reactive({ isCollapsed: false });
-
 	readonly _content = ref<RefDom>();
 	readonly _el = ref<HTMLDetailsElement>();
 
-	get isCollapsed () { return this.state.isCollapsed;}
-
-	constructor (protected props: OrionSectionProps, protected emits: OrionSectionEmits) {
+	// @doc vModel/collapsed if the prop `collapsible` is set to `true`, defines this initial state
+	// @doc/fr vModel/collapsed si la prop `collapsible` est à `true`, déinit l'état initial
+	constructor (protected props: OrionSectionProps, protected emits: OrionSectionEmits, protected collapsed: ModelRef<boolean>) {
 		super();
 	}
 
 	protected onMounted () {
-		this.state.isCollapsed = this.props.collapsed;
 		this._el.value?.addEventListener('toggle', () => {
-			this.state.isCollapsed = !this._el.value?.open;
-			this.emits('update:collapsed', !this._el.value?.open);
+			this.collapsed.value = !this._el.value?.open;
 			nextTick(() => this._content.value?.classList.toggle('orion-section__content--collasped'));
 		});
 	}

@@ -19,7 +19,7 @@
 			name="scale"
 			mode="out-in">
 			<div
-				v-if="!setup.vModel?.length"
+				v-if="!vModel?.length"
 				:ref="setup._illustration"
 				key="emptyFiles"
 				class="orion-upload__wrapper">
@@ -44,11 +44,11 @@
 			</div>
 
 			<div
-				v-else-if="setup.vModel.length"
+				v-else-if="vModel.length"
 				key="filledFiles"
 				class="orion-upload__files-list">
 				<div
-					v-for="(file, i) in setup.vModel"
+					v-for="(file, i) in vModel"
 					:key="i"
 					:ref="el => setup.setFilePreviewRef(el)"
 					class="orion-upload__files-list-item">
@@ -56,7 +56,7 @@
 						v-if="showPreview"
 						class="orion-upload__files-list-item-preview">
 						<svg
-							v-if="setup.vModel.length === 1 && setup.vModel[0].type === 'application/pdf'"
+							v-if="vModel.length === 1 && vModel[0].type === 'application/pdf'"
 							viewBox="0 0 80 80"
 							version="1.1"
 							xmlns="http://www.w3.org/2000/svg"
@@ -151,11 +151,11 @@ import { OrionButton } from 'packages/Button';
 import { OrionIcon } from 'packages/Icon';
 import { OrionLoader } from 'packages/Loader';
 import OrionUploadSetupService from './OrionUploadSetupService';
-
-const emits = defineEmits<OrionUploadEmits>() as OrionUploadEmits;
 import type { OrionUploadProps, OrionUploadEmits } from './OrionUploadSetupService';
+const vModel = defineModel<File[] | undefined>();
+const emits = defineEmits<OrionUploadEmits>() as OrionUploadEmits;
 const props = withDefaults(defineProps<OrionUploadProps>(), OrionUploadSetupService.defaultProps);
-const setup = new OrionUploadSetupService(props, emits);
+const setup = new OrionUploadSetupService(props, emits, vModel);
 defineExpose(setup.publicInstance);
 
 /** Doc

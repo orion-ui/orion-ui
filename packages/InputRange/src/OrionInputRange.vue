@@ -53,8 +53,9 @@ import './OrionInputRange.less';
 import OrionInputRangeSetupService from './OrionInputRangeSetupService';
 import type { OrionInputRangeProps, OrionInputRangeEmits } from './OrionInputRangeSetupService';
 const emits = defineEmits<OrionInputRangeEmits>() as OrionInputRangeEmits;
+const vModel = defineModel<number | number[]>({ required: true });
 const props = withDefaults(defineProps<OrionInputRangeProps>(), OrionInputRangeSetupService.defaultProps);
-const setup = new OrionInputRangeSetupService(props, emits);
+const setup = new OrionInputRangeSetupService(props, emits, vModel);
 defineExpose(setup.publicInstance);
 
 /** Doc

@@ -3,9 +3,9 @@
 		:ref="setup._el"
 		class="orion-list">
 		<orion-paginate
-			v-if="usePaginationTop && !!setup.page && !!total"
-			v-model="setup.page.index"
-			:size="setup.page.size"
+			v-if="usePaginationTop && !!page && !!total"
+			v-model="page.index"
+			:size="page.size"
 			:total="total"
 			:bind-router="bindRouter"
 			@paginate="setup.handleOnPaginate()"/>
@@ -33,18 +33,18 @@
 		</template>
 
 		<orion-paginate
-			v-if="usePaginationBottom && !!setup.page && !!total"
-			v-model="setup.page.index"
-			:size="setup.page.size"
+			v-if="usePaginationBottom && !!page && !!total"
+			v-model="page.index"
+			:size="page.size"
 			:total="total"
 			:bind-router="bindRouter"
 			@paginate="setup.handleOnPaginate()"/>
 
 		<orion-footer-fixed
 			class="orion-footer-selected"
-			:visible="useFooterSelected && !!setup.selected.length">
+			:visible="useFooterSelected && !!selected.length">
 			<div class="orion-footer-selected__qty">
-				<span class="orion-footer-selected__qty-number">{{ setup.selected.length }}</span>
+				<span class="orion-footer-selected__qty-number">{{ selected.length }}</span>
 				<div class="orion-footer-selected__qty-text">
 					<span>{{ setup.computedItemType }}</span>
 					<span>{{ setup.computedItemAdjective }}</span>
@@ -60,15 +60,22 @@
 	</div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" generic="T extends Record<string,any>">
 import './OrionList.less';
 import { OrionFooterFixed } from 'packages/FooterFixed';
 import { OrionPaginate } from 'packages/Paginate';
 import OrionListSetupService from './OrionListSetupService';
 import type { OrionListProps, OrionListEmits } from './OrionListSetupService';
 const emits = defineEmits<OrionListEmits>() as OrionListEmits;
-const props = withDefaults(defineProps<OrionListProps>(), OrionListSetupService.defaultProps);
-const setup = new OrionListSetupService(props, emits);
+const page = defineModel<Orion.ListPage>('page', {
+	default: {
+		size: 20,
+		index: 1,
+	},
+});
+const selected = defineModel<T[]>('selected', { default: [] });
+const props = withDefaults(defineProps<OrionListProps<T>>(), OrionListSetupService.defaultProps);
+const setup = new OrionListSetupService(props, emits, page, selected);
 defineExpose(setup.publicInstance);
 
 /** Doc

@@ -1,22 +1,20 @@
-import { computed, reactive, ref } from 'vue';
+import { computed, ModelRef, reactive, ref } from 'vue';
 import { debounce, DebouncedFunc, isNil } from 'lodash-es';
 import SharedSetupService from './SharedSetupService';
 import useValidation from 'services/ValidationService';
 import useWindow from 'services/WindowService';
 import { Validator } from 'utils/Validator';
-import { SharedPropsPrefixIcon, SharedPropsSize, SharedPropsSuffixIcon, SharedPropsvModel } from 'lib/shared-props';
+import { SharedPropsPrefixIcon, SharedPropsSize, SharedPropsSuffixIcon } from 'lib/shared-props';
 
 export type SharedFieldSetupServiceEmits<T = any | null | undefined> = {
   (e: 'focus', payload: FocusEvent): void;
   (e: 'blur', payload?: FocusEvent): void;
   (e: 'input', payload: T): void;
   (e: 'change', val?: T): void;
-  (e: 'update:modelValue', payload: T): void;
   (e: 'clear'): void;
 }
 
-export type SharedFieldSetupServiceProps<T> = {
-	modelValue?: SharedPropsvModel<T>['modelValue'],
+export type SharedFieldSetupServiceProps = {
 	prefixIcon?: SharedPropsPrefixIcon['prefixIcon'],
 	prefixFontIcon?: SharedPropsPrefixIcon['prefixFontIcon'],
 	suffixIcon?: SharedPropsSuffixIcon['suffixIcon'],
@@ -79,6 +77,7 @@ export default abstract class SharedFieldSetupService<P, T, E extends SharedFiel
 		forceLabelFloating: false,
 		clearToNull: false,
 		inheritValidationState: false,
+		validation: undefined,
 	};
 
 	readonly _input = ref<HTMLInputElement>();
@@ -100,18 +99,18 @@ export default abstract class SharedFieldSetupService<P, T, E extends SharedFiel
 	readonly validationResults = computed<Orion.Validator.RuleResult[]>(() => {
 		if (typeof this.props.validation === 'object') {
 			if (this.props.validation.definition instanceof Validator) {
-				return this.props.validation.definition.validate(this.props.modelValue);
+				return this.props.validation.definition.validate(this.vModel?.value);
 			} else if (typeof this.props.validation.definition === 'function') {
-				return [Validator.convertToValidatorResult(this.props.validation.definition(this.props.modelValue))];
+				return [Validator.convertToValidatorResult(this.props.validation.definition(this.vModel?.value))];
 			}
 		} else if (typeof this.props.validation === 'function') {
-			return [Validator.convertToValidatorResult(this.props.validation(this.props.modelValue))];
+			return [Validator.convertToValidatorResult(this.props.validation(this.vModel?.value))];
 		}
 		return [];
 	});
 
 	protected get hasValue (): boolean {
-		return this.props.modelValue !== null && this.props.modelValue !== undefined && this.props.modelValue !== '';
+		return this.vModel?.value !== null && this.vModel?.value !== undefined && this.vModel?.value !== '';
 	}
 
 	private get isValidDefault (): boolean {
@@ -121,10 +120,10 @@ export default abstract class SharedFieldSetupService<P, T, E extends SharedFiel
 				return this.props.validation.validate();
 			} else if (typeof this.props.validation === 'function') {
 				// using a standalone validation function
-				return Validator.convertToValidatorResult(this.props.validation(this.props.modelValue)).result;
+				return Validator.convertToValidatorResult(this.props.validation(this.vModel?.value)).result;
 			} else if (typeof this.props.validation === 'string') {
 				// using string base validation
-				return useValidation().check(this.props.modelValue, this.props.validation);
+				return useValidation().check(this.vModel?.value, this.props.validation);
 			} else if (typeof this.props.validation === 'boolean') {
 				// using boolean base validation
 				return this.props.validation;
@@ -204,15 +203,6 @@ export default abstract class SharedFieldSetupService<P, T, E extends SharedFiel
 		}
 	}
 
-	get vModel () {
-		return this.props.modelValue;
-	}
-
-	set vModel (val) {
-		this.emits('update:modelValue', val);
-		this.emits('input', val);
-	}
-
 	get isFocus (): boolean {
 		return this.state.isFocus;
 	}
@@ -258,8 +248,12 @@ export default abstract class SharedFieldSetupService<P, T, E extends SharedFiel
 		};
 	}
 
-
-	constructor (protected props: SharedFieldSetupServiceProps<T> & P, protected emits: E) {
+	// @doc vModel/modelValue modelValue of the component
+	// @doc/fr vModel/modelValue modelValue du composant.
+	constructor (
+		protected props: SharedFieldSetupServiceProps & P,
+		protected emits: E,
+		protected vModel: ModelRef<Nil<T>>) {
 		super();
 
 		if (!!this.props.validation && typeof this.props.validation === 'object') {
@@ -340,8 +334,9 @@ export default abstract class SharedFieldSetupService<P, T, E extends SharedFiel
 	}
 
 	clear () {
-		if (this.props.disabled || this.props.readonly) return;
-		this.emits('update:modelValue', this.props.clearToNull ? null : undefined);
+		if (this.props.disabled || this.props.readonly || !this.vModel?.value) return;
+		this.vModel.value = this.props.clearToNull ? null : undefined;
+		//this.emits('update:modelValue', this.props.clearToNull ? null : undefined);
 		this.emits('input', this.props.clearToNull ? null : undefined);
 		this.emits('change', this.props.clearToNull ? null : undefined);
 		this.emits('clear');

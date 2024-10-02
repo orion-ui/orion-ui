@@ -70,18 +70,18 @@
 				tabindex="0"
 				@focus="setup.handleFocus($event)"
 				@blur="setup.handleBlur($event)">
-				<span v-if="type === 'week' && setup.range?.weekNumber">
+				<span v-if="type === 'week' && range?.weekNumber">
 					<div
 						v-if="valueDisplayFormat"
-						v-html="valueDisplayFormat(setup.range)"/>
+						v-html="valueDisplayFormat(range)"/>
 					<template v-else>
-						{{ `${setup.lang.WEEK} ${setup.range.weekNumber}` }}
+						{{ `${setup.lang.WEEK} ${range.weekNumber}` }}
 					</template>
 				</span>
 				<span v-else>
 					<div
 						v-if="valueDisplayFormat"
-						v-html="valueDisplayFormat(setup.vModel ?? setup.range)"/>
+						v-html="valueDisplayFormat(setup.vModelProxy ?? range)"/>
 					<template v-else>
 						{{ setup.displayDateSelected }}
 					</template>
@@ -103,7 +103,7 @@
 				<orion-date-table
 					v-if="type === 'date'"
 					:ref="setup._options"
-					v-model="setup.vModel"
+					v-model="setup.vModelProxy"
 					:min-date="setup.minDate"
 					:max-date="setup.maxDate"
 					:display-week-number="displayWeekNumber"
@@ -114,7 +114,7 @@
 				<orion-date-table
 					v-if="type === 'multiple'"
 					:ref="setup._options"
-					v-model:multiple="setup.multiple"
+					v-model:multiple="multiple"
 					:type="type === 'multiple' ? 'multiple' : undefined"
 					:min-date="setup.minDate"
 					:max-date="setup.maxDate"
@@ -233,9 +233,12 @@ import OrionDatepickerSetupService from './OrionDatepickerSetupService';
 import { useSlots } from 'vue';
 import type { OrionDatepickerProps, OrionDatepickerEmits } from './OrionDatepickerSetupService';
 const slots = useSlots();
+const vModel = defineModel<Nil<Date>>();
+const range = defineModel<Nil<Orion.DateRange>>('range');
+const multiple = defineModel<Nil<Date[]>>('multiple');
 const emits = defineEmits<OrionDatepickerEmits>() as OrionDatepickerEmits;
 const props = withDefaults(defineProps<OrionDatepickerProps>(), OrionDatepickerSetupService.defaultProps);
-const setup = new OrionDatepickerSetupService(props, emits, slots);
+const setup = new OrionDatepickerSetupService(props, emits, slots, vModel, range, multiple);
 defineExpose(setup.publicInstance);
 
 /** Doc
@@ -259,15 +262,6 @@ defineExpose(setup.publicInstance);
  *
  * @doc event/change/desc emitted when the value of the field changes
  * @doc/fr event/change/desc émis lorsque la valeur est modifiée
- *
- * @doc event/update:modelValue/desc emitted to update the field value
- * @doc/fr event/update:modelValue/desc émis pour mettre à jour la valeur
- *
- * @doc event/update:range/desc emitted to update the modelValue when the type is `range`
- * @doc/fr event/update:range/desc émis pour mettre à jour la valeur quand le type est `range`
- *
- * @doc event/update:multiple/desc emitted to update the field value when the type is `multiple`
- * @doc/fr event/update:multiple/desc émis pour mettre à jour la valeur quand le type est `multiple`
  *
  * @doc event/clear/desc emitted when the field is cleared
  * @doc/fr event/clear/desc émis quand le champ est vidé

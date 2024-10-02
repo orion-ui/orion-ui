@@ -1,4 +1,4 @@
-import { reactive, ref, watch } from 'vue';
+import { ModelRef, reactive, ref, watch } from 'vue';
 import { isEmpty, isNil } from 'lodash-es';
 import 'cleave.js/src/addons/phone-type-formatter.i18n';
 import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetupServiceProps } from '../../Shared/SharedFieldSetupService';
@@ -10,33 +10,23 @@ import useDynamicFlagService from 'services/DynamicFlagService';
 export type OrionPhoneEmits = SharedFieldSetupServiceEmits<VModelType> & {
 	(e: 'focus', payload: FocusEvent): void;
   (e: 'blur', payload?: FocusEvent): void;
-  (e: 'input', payload: VModelType): void;
   (e: 'change', val?: VModelType): void;
-  (e: 'update:modelValue', payload: VModelType): void;
-  (e: 'update:phoneNumber', payload?: string): void;
-  (e: 'update:phoneCountryCode', payload?: Orion.Country['code']): void;
   (e: 'clear'): void;
 }
 
-export type OrionPhoneProps =  SharedFieldSetupServiceProps & {
+export type OrionPhoneProps = SharedFieldSetupServiceProps & {
 	// @doc props/flag Allow to display or not the flag of the selected country
 	// @doc/fr props/flag Permet d'afficher le drapeau du pays choisi
 	flag: boolean,
 	// @doc props/mobile defines if the number is a mobile phone
 	// @doc/fr props/mobile définit si le numéro correspond à un portable
 	mobile: boolean,
-	// @doc props/phoneCountryCode the country code string, isolated from its parent object
-	// @doc/fr props/phoneCountryCode le code pays, isolé de son objet parent
-	phoneCountryCode?: string,
-	// @doc props/phoneNumber the phoneNumber string, isolated from its parent object
-	// @doc/fr props/phoneNumber le numéro de téléphone, isolé de son objet parent
-	phoneNumber?: string,
 	// @doc props/type the type of the input
 	// @doc/fr props/type type du champ
 	type: string,
 };
 
-type VModelType = Nil<{
+export type VModelType = Nil<{
   phoneNumber: Nil<string>;
   phoneCountryCode: Nil<Orion.Country['code']>;
 }>;
@@ -58,7 +48,7 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Orio
 	});
 
 	protected get isFrPhone () {
-		return this.vModel?.phoneCountryCode === 'FR' || this.props.phoneCountryCode === 'FR';
+		return this.vModel.value?.phoneCountryCode === 'FR' || this.phoneCountryCode?.value === 'FR';
 	}
 
 	protected override get hasValue () {
@@ -76,28 +66,22 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Orio
 	get country () { return this.state.country; }
 	set country (val) {
 		this.state.country = val;
-		this.emits('update:phoneCountryCode', val?.code);
+		if (this.phoneCountryCode?.value)
+			this.phoneCountryCode.value = val?.code;
 		this.setVModel();
 	}
 
-	get phoneNumber () {
-		// return this.state.phoneNumber;
+	get phoneNumberProxy () {
 		return new AsYouType(this.country?.code).input(this.state.phoneNumber);
 	}
 
-	set phoneNumber (val) {
+	set phoneNumberProxy (val) {
 		const sanitized = this.sanitizePhoneNumber(val);
 		this.state.phoneNumber = sanitized.startsWith('+')
 			? sanitized
 			: this.indicatif + sanitized;
-		this.emits('update:phoneNumber', this.state.phoneNumber);
+		this.phoneNumberProxy = this.state.phoneNumber;
 		this.setVModel();
-	}
-
-	get vModel () { return this.props.modelValue as VModelType; }
-	set vModel (val) {
-		this.emits('update:modelValue', val);
-		this.emits('input', val);
 	}
 
 	get phoneNumberWithoutIndicatif () {
@@ -138,18 +122,27 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Orio
 		};
 	}
 
+	// @doc vModel/phoneCountryCode the country code string, isolated from its parent object
+	// @doc/fr vModel/phoneCountryCode le code pays, isolé de son objet parent
+	// @doc vModel/phoneNumber the phoneNumber string, isolated from its parent object
+	// @doc/fr vModel/phoneNumber le numéro de téléphone, isolé de son objet parent
+	constructor (
+		protected props: OrionPhoneProps,
+		protected emits: OrionPhoneEmits,
+		protected vModel: ModelRef<VModelType>,
+		protected phoneCountryCode?: ModelRef<string | undefined>,
+		protected phoneNumber?: ModelRef<string | undefined>,
+	) {
+		super(props, emits, vModel);
 
-	constructor (protected props: OrionPhoneProps, protected emits: OrionPhoneEmits) {
-		super(props, emits);
 
-
-		watch(() => this.vModel?.phoneNumber, (val) => {
+		watch(() => this.vModel.value?.phoneNumber, (val) => {
 			if (val) {
 				this.state.phoneNumber = this.sanitizePhoneNumber();
 			}
 		});
 
-		watch(() => this.vModel?.phoneCountryCode, (val) => {
+		watch(() => this.vModel.value?.phoneCountryCode, (val) => {
 			if (val && val !== this.state.country?.code) {
 				this.state.country = useCountry().getCountryByCode(val);
 			}
@@ -164,18 +157,18 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Orio
 	}
 
 	protected async onBeforeMount () {
-		if (isNil(this.vModel)) {
+		if (isNil(this.vModel.value)) {
 			this.state.country = useCountry().getCountryByCode(this.lang.ORION_PHONE__DEFAULT_COUNTRY_CODE);
 			this.state.phoneNumber += `+${this.state.country?.areaCode}`;
 		} else {
-			if (this.vModel && (isEmpty(this.vModel.phoneCountryCode) || isNil(this.vModel.phoneCountryCode))) {
-				this.vModel.phoneCountryCode = this.lang.ORION_PHONE__DEFAULT_COUNTRY_CODE;
+			if (this.vModel.value && (isEmpty(this.vModel.value?.phoneCountryCode) || isNil(this.vModel.value.phoneCountryCode))) {
+				this.vModel.value.phoneCountryCode = this.lang.ORION_PHONE__DEFAULT_COUNTRY_CODE;
 				this.state.phoneNumber += `+${this.state.country?.areaCode}`;
 			}
 
-			if (this.vModel.phoneCountryCode) {
+			if (this.vModel.value?.phoneCountryCode) {
 				this.state.phoneNumber = this.sanitizePhoneNumber();
-				this.state.country = useCountry().getCountryByCode(this.vModel.phoneCountryCode);
+				this.state.country = useCountry().getCountryByCode(this.vModel.value.phoneCountryCode);
 			}
 		}
 	}
@@ -256,7 +249,7 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Orio
 							return;
 						}
 						setTimeout(() => {
-							this.phoneNumber = inputValueIfInsert.replace(/\s+/g, '');
+							this.phoneNumberProxy = inputValueIfInsert.replace(/\s+/g, '');
 						}, 10);
 					}
 				}
@@ -321,18 +314,18 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Orio
 		}
 
 		if (phoneNumberToSanitize && validatePhoneNumberLength(phoneNumberToSanitize, this.country?.code) === 'NOT_A_NUMBER') {
-			if (validatePhoneNumberLength(this.phoneNumber, this.country?.code) !== 'NOT_A_NUMBER') {
+			if (validatePhoneNumberLength(this.phoneNumberProxy, this.country?.code) !== 'NOT_A_NUMBER') {
 				const inputValue = this._orionInput.value?._input();
 				if (inputValue)
-					inputValue.value = this.phoneNumber;
-				return this.phoneNumber.replace(/\s*/g, '');
+					inputValue.value = this.phoneNumberProxy;
+				return this.phoneNumberProxy.replace(/\s*/g, '');
 			}
 		}
 
 		let phoneNumber;
 		if (!phoneNumberToSanitize?.startsWith(this.indicatif) && phoneNumberToSanitize?.startsWith('+')) {
 			phoneNumber = phoneNumberToSanitize?.replace('+', this.indicatif);
-		} else phoneNumber = phoneNumberToSanitize ?? this.vModel?.phoneNumber;
+		} else phoneNumber = phoneNumberToSanitize ?? this.vModel.value?.phoneNumber;
 
 		if (phoneNumber) {
 			phoneNumber = phoneNumber.replace(/\s*/g, '');
@@ -357,14 +350,15 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Orio
 			phoneCountryCode = this.props.clearToNull ? null : undefined;
 		}
 
-		this.vModel = {
+		this.vModel.value = {
 			phoneNumber,
 			phoneCountryCode,
 		};
 	}
 
 	changeAreaCode () {
-		this.phoneNumber = this.indicatif;
+		if (this.phoneNumber?.value)
+			this.phoneNumber.value = this.indicatif;
 	}
 
 	handleMouseEvent (event: MouseEvent) {

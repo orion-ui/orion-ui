@@ -159,11 +159,14 @@
 import './OrionDateTable.less';
 import { OrionIcon } from 'packages/Icon';
 import OrionDateTableSetupService from './OrionDateTableSetupService';
-
-const emits = defineEmits<OrionDateTableEmits>() as OrionDateTableEmits;
 import type { OrionDateTableProps, OrionDateTableEmits } from './OrionDateTableSetupService';
+const vModel = defineModel< Nil<Date>>();
+const range = defineModel<Nil<Orion.DateRange>>('range');
+const multiple = defineModel<Nil<Date[]>>('multiple');
+const dayHover = defineModel<Nil<Date>>('dayHover');
+const emits = defineEmits<OrionDateTableEmits>() as OrionDateTableEmits;
 const props = withDefaults(defineProps<OrionDateTableProps>(), OrionDateTableSetupService.defaultProps);
-const setup = new OrionDateTableSetupService(props, emits);
+const setup = new OrionDateTableSetupService(props, emits, vModel, range, multiple, dayHover);
 defineExpose(setup.publicInstance);
 
 /** Doc

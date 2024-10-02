@@ -44,7 +44,7 @@ const test2 = reactive({
 const test3 = reactive({
 	phone: {
 		phoneNumber: undefined,
-		phoneCountryCode: 'FR',
+		phoneCountryCode: 'FR' as CountryCode,
 	},
 });
 
@@ -52,7 +52,7 @@ const phone = reactive({
 	value: null,
 	valueFilled: {
 		phoneNumber: '0607944218',
-		phoneCountryCode: 'FR',
+		phoneCountryCode: 'FR' as CountryCode,
 	},
 	label: 'Phone',
 });

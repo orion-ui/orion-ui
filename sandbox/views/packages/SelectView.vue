@@ -10,6 +10,7 @@
 		</template>
 
 		<o-section title="orion-select | multiple | options -> fetch">
+			<o-input :model-value="search" @input="setting($event)"/>
 			<div class="row row--grid">
 				<div class="col-sm-4">
 					<o-select
@@ -17,6 +18,7 @@
 						size="xs"
 						track-key="id"
 						display-key="email"
+						disabled
 						value-key="id"
 						:custom-fetch="customFetch"
 						:fetch-min-search="2"
@@ -29,19 +31,24 @@
 								<span v-html="markedSearch(item.email.slice(0, 20))"/>
 							</div>
 						</template>
+					
 					</o-select>
 					<pre>{{ data.ajaxSingle }}</pre>
 				</div>
 
 				<div class="col-sm-4">
 					<o-select
-						ref="multiple"
+						ref="_test"
 						v-model="data.ajaxMultiple"
 						track-key="id"
 						display-key="email"
 						fetch-url="https://jsonplaceholder.typicode.com/users"
 						:label="`Multiple`"
-						multiple/>
+						multiple>
+						<template #before-options>
+							<o-button @click="tutu()">Reload</o-button>
+						</template>
+					</o-select>
 				</div>
 			</div>
 
@@ -430,6 +437,17 @@
 import { inject, reactive, ref } from 'vue';
 
 const _modalSelect = ref<OrionModal>();
+const _test = ref<OrionSelect>();
+const search =ref('')
+
+function tutu () {
+	_test.value?.setSearchTerm('b')
+	_test.value?.triggerSearchAsync()
+}
+
+function setting (val: string) {
+	_test.value?.setSearchTerm(val)
+}
 
 // #region Data
 const data = reactive({

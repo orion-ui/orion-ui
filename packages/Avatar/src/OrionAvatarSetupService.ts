@@ -7,7 +7,7 @@ export type OrionAvatarEmits = {}
 export type OrionAvatarProps = SharedPropsColor & {
 	// @doc props/avatar the url of the image or an id (combined with root-url prop). More info in [Edges cases](#edge-cases) section.
 	// @doc/fr props/avatar url de l'image ou id (combiné avec la prop `root-url`). Plus d'infos dans la section [Cas complexes](#cas-complexes).
-	avatar: {id: number} | number | string,
+	avatar?: {id: number} | number | string,
 	// @doc props/contain adapts the size of the image to fit into the container
 	// @doc/fr props/contain adapte la taille de l'image pour s'adapter à son conteneur
 	contain: boolean,
@@ -31,7 +31,7 @@ export type OrionAvatarProps = SharedPropsColor & {
 	tooltip?: string,
 	// @doc props/updateFunction function to call to update the avatar
 	// @doc/fr props/updateFunction fonction à appeler pour modifier l'avatar
-	updateFunction?: () => Function,
+	updateFunction?: () => void,
 };
 
 export default class OrionAvatarSetupService extends SharedSetupService {

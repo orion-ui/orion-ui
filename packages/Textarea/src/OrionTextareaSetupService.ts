@@ -1,3 +1,4 @@
+import { ModelRef } from 'vue';
 import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetupServiceProps } from '../../Shared/SharedFieldSetupService';
 import { nextTick, ref } from 'vue';
 
@@ -21,23 +22,13 @@ export default class OrionTextareaSetupService extends SharedFieldSetupService<O
 	private _modal?: OrionModal;
 	private _aside?: OrionAside;
 
-	get vModel () {
-		if (this.props.maxLength) {
-			return (this.props.modelValue as string)?.slice(0, this.props.maxLength);
-		}
-		return this.props.modelValue as string;
-	}
-
-	set vModel (value) {
-		this.handleInputDebounce(() => {
-			this.emits(`update:modelValue`, value);
-			this.emits('input', value);
-		});
-	}
-
-
-	constructor (protected props: OrionTextareaProps, protected emits: OrionTextareaEmits, _modal?: OrionModal, _aside?: OrionAside) {
-		super(props, emits);
+	constructor (
+		protected props: OrionTextareaProps,
+		protected emits: OrionTextareaEmits,
+		protected vModel: ModelRef<Nil<string>>,
+		_modal?: OrionModal,
+		_aside?: OrionAside) {
+		super(props, emits, vModel);
 		this._modal = _modal;
 		this._aside = _aside;
 	}

@@ -7,7 +7,7 @@
 		class="orion-draggable"
 		:class="{
 			'orion-dragging': setup.isDragging,
-			'orion-draggable--disabled': setup.disabled,
+			'orion-draggable--disabled': disabled,
 		}"
 		@touchstart="setup.handleMouseDown($event)"
 		@touchend="setup.handleMouseUp()"
@@ -24,11 +24,12 @@ import OrionDraggableSetupService from './OrionDraggableSetupService';
 import type { OrionDraggableProps, OrionDraggableEmits } from './OrionDraggableSetupService';
 const emits = defineEmits<OrionDraggableEmits>() as OrionDraggableEmits;
 const props = withDefaults(defineProps<OrionDraggableProps>(), OrionDraggableSetupService.defaultProps);
+const disabled = defineModel<boolean>('disabled', { default: false });
 const _aside = inject<OrionAside>('_aside');
 const _modal = inject<OrionAside>('_modal');
 const _droppable = inject<OrionDroppable>('_droppable');
 
-const setup = new OrionDraggableSetupService(props, emits, _droppable, _aside, _modal);
+const setup = new OrionDraggableSetupService(props, emits, disabled, _droppable, _aside, _modal);
 defineExpose(setup.publicInstance);
 
 /** Doc

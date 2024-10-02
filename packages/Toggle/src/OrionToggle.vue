@@ -5,7 +5,7 @@
 		:class="[
 			`orion-toggle--${color}`,
 			`orion-toggle--${size}`,
-			{ 'orion-toggle--checked': setup.vModel },
+			{ 'orion-toggle--checked': vModel },
 			{ 'orion-toggle--reverse': reverse },
 			{ 'orion-toggle--inline': inline },
 		]"
@@ -15,10 +15,10 @@
 
 		<input
 			:ref="setup._input"
-			v-model="setup.vModel"
+			v-model="vModel"
 			class="orion-toggle__input"
 			type="checkbox"
-			:checked="setup.vModel"
+			:checked="vModel"
 			v-bind="{ ...$attrs, disabled: disabled }">
 
 		<div
@@ -37,8 +37,9 @@ import { OrionField } from 'packages/Field';
 import OrionToggleSetupService from './OrionToggleSetupService';
 import type { OrionToggleProps, OrionToggleEmits } from './OrionToggleSetupService';
 const emits = defineEmits<OrionToggleEmits>() as OrionToggleEmits;
+const vModel = defineModel<boolean>({ required: true });
 const props = withDefaults(defineProps<OrionToggleProps>(), OrionToggleSetupService.defaultProps);
-const setup = new OrionToggleSetupService(props, emits);
+const setup = new OrionToggleSetupService(props, emits, vModel);
 defineExpose(setup.publicInstance);
 
 /** Doc

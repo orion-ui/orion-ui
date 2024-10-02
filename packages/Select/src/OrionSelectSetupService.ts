@@ -1,5 +1,5 @@
 import { ComponentPublicInstance, nextTick, reactive, ref, watch } from 'vue';
-import { cloneDeep, debounce, get, isArray, isEmpty, isNil, isObject, upperFirst } from 'lodash-es';
+import { cloneDeep, debounce, DebouncedFunc, get, isArray, isEmpty, isNil, isObject, upperFirst } from 'lodash-es';
 import { Dropdown } from 'floating-vue';
 import mitt from 'mitt';
 import anime from 'animejs';
@@ -9,6 +9,7 @@ import Log from 'utils/Log';
 import useNotif from 'services/NotifService';
 import useMonkey from 'services/MonkeyService';
 import { addPopoverBackdropCloseAbility } from 'utils/tools';
+import { ModelRef } from 'vue';
 
 export type OrionSelectEmits = SharedFieldSetupServiceEmits<VModelType> & {
 	(e: 'focus', payload: FocusEvent): void;
@@ -16,7 +17,6 @@ export type OrionSelectEmits = SharedFieldSetupServiceEmits<VModelType> & {
   (e: 'input', payload: VModelType): void;
   (e: 'input-keydown-tab'): void;
   (e: 'change', val?: VModelType): void;
-  (e: 'update:modelValue', payload: VModelType): void;
   (e: 'clear'): void;
 	(e: 'add', payload: BaseVModelType): void;
 	(e: 'remove', payload: BaseVModelType): void;
@@ -76,10 +76,10 @@ export type OrionSelectProps = SharedFieldSetupServiceProps & {
 	trackKey: string,
 	// @doc props/valueKey key used as field value
 	// @doc/fr props/valueKey clé qui réprésente la valeur d'un élément
-	valueKey: string,
+	valueKey?: string,
 };
 type BaseVModelType = string | number | boolean | Record<string, any>;
-type VModelType = BaseVModelType | BaseVModelType[] | null | undefined;
+export type VModelType = BaseVModelType | BaseVModelType[] | null | undefined;
 
 export default class OrionSelectSetupService extends SharedFieldSetupService<OrionSelectProps, VModelType> {
 	static readonly defaultProps = {
@@ -103,9 +103,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Ori
 		remove: BaseVModelType;
 	}>();
 
-	private fetchSearchDebounce = debounce((term?: string) => {
-		this.fetchSearchAsync(term);
-	}, this.props.donetyping);
+	private fetchSearchDebounce: DebouncedFunc<(term?: string) => void>;
 
 
 	protected state = reactive({
@@ -178,10 +176,10 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Ori
 	}
 
 	get hasValue () {
-		return this.vModel !== ''
+		return this.vModel.value !== ''
 			&& (
-				(!this.props.multiple && !isNil(this.vModel))
-				|| (this.props.multiple && isArray(this.vModel) && !!this.vModel.length)
+				(!this.props.multiple && !isNil(this.vModel.value))
+				|| (this.props.multiple && isArray(this.vModel.value) && !!this.vModel.value.length)
 			);
 	}
 
@@ -193,8 +191,8 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Ori
 	}
 
 	get isObjectType () {
-		return (!isArray(this.vModel) && isObject(this.vModel))
-			|| (isArray(this.vModel) && isObject(this.vModel[0]))
+		return (!isArray(this.vModel.value) && isObject(this.vModel.value))
+			|| (isArray(this.vModel.value) && isObject(this.vModel.value[0]))
 			|| (isArray(this.props.options) && isObject(this.props.options[0]))
 			|| (isArray(this.fetchOptions) && isObject(this.fetchOptions[0]));
 	}
@@ -223,10 +221,14 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Ori
 	}
 
 
-	constructor (protected props: OrionSelectProps, protected emits: OrionSelectEmits) {
-		super(props, emits);
+	constructor (protected props: OrionSelectProps, protected emits: OrionSelectEmits, protected vModel: ModelRef<VModelType>) {
+		super(props, emits, vModel);
 
 		this.bus.on('*', (type, e) => this.emits(type as any, e as any));
+
+		this.fetchSearchDebounce = debounce((term?: string) => {
+			this.fetchSearchAsync(term);
+		}, this.props.donetyping);
 
 		watch(() => this.isObjectType, () => {
 			this.checkProps();
@@ -244,7 +246,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Ori
 
 
 	private checkProps () {
-		if (this.props.multiple && !isNil(this.vModel) && !isArray(this.vModel)) {
+		if (this.props.multiple && !isNil(this.vModel.value) && !isArray(this.vModel.value)) {
 			// eslint-disable-next-line max-len
 			Log.error(`orion-select - prop "multiple" on orion-select requires a v-model of type Array, type ${upperFirst(typeof this.vModel)} detected`);
 		}
@@ -326,7 +328,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Ori
 		});
 
 		this.bus.on('add', (val) => {
-			let valueToEmit = cloneDeep(this.vModel);
+			let valueToEmit = cloneDeep(this.vModel.value);
 
 			if (!isArray(valueToEmit)) valueToEmit = [];
 			valueToEmit.push(
@@ -343,7 +345,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Ori
 		});
 
 		this.bus.on('remove', (val) => {
-			let valueToEmit = cloneDeep(this.vModel as BaseVModelType[]);
+			let valueToEmit = cloneDeep(this.vModel.value as BaseVModelType[]);
 			let index;
 
 			if (this.props.valueKey && this.itemIsObject(val)) {
@@ -375,7 +377,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Ori
 
 	private emitValue (valueToEmit: BaseVModelType) {
 		this.state.lastValue = valueToEmit;
-		this.vModel = valueToEmit;
+		this.vModel.value = valueToEmit;
 	}
 
 	private animate () {
@@ -452,12 +454,12 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Ori
 		let isSelect = false;
 
 		if (this.props.multiple) {
-			if (isArray(this.vModel)) {
-				const index = this.vModel.findIndex(item => this.itemMatchOption(option, item));
+			if (isArray(this.vModel.value)) {
+				const index = this.vModel.value.findIndex(item => this.itemMatchOption(option, item));
 				isSelect = index > -1;
 			}
 		} else {
-			isSelect = this.itemMatchOption(option, this.vModel as BaseVModelType);
+			isSelect = this.itemMatchOption(option, this.vModel.value as BaseVModelType);
 		}
 
 		return isSelect;
@@ -589,8 +591,8 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Ori
 	}
 
 	removeIndex (index: number) {
-		if (isArray(this.vModel)) {
-			const removedValue = this.vModel[index];
+		if (isArray(this.vModel.value)) {
+			const removedValue = this.vModel.value[index];
 			this.bus.emit('remove', removedValue);
 		}
 	}

@@ -70,7 +70,8 @@ import './OrionDateWeek.less';
 import { OrionIcon } from 'packages/Icon';
 import OrionDateWeekSetupService, { OrionDateWeekProps, OrionDateWeekEmits } from './OrionDateWeekSetupService';
 const emits = defineEmits<OrionDateWeekEmits>() as OrionDateWeekEmits;
+const vModel = defineModel<Undef<Orion.DateRange>>();
 const props = withDefaults(defineProps<OrionDateWeekProps>(), OrionDateWeekSetupService.defaultProps);
-const setup = new OrionDateWeekSetupService(props, emits);
+const setup = new OrionDateWeekSetupService(props, emits, vModel);
 defineExpose(setup.publicInstance);
 </script>

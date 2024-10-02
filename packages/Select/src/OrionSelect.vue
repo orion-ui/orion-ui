@@ -25,9 +25,9 @@
 				@keydown.down.prevent="setup.handleKeydown('down')"
 				@keydown.up.prevent="setup.handleKeydown('up')"
 				@keydown.enter="setup.selectItemFromEnter()">
-				<div v-if="multiple && setup.isArray(setup.vModel) && setup.vModel?.length">
+				<div v-if="multiple && setup.isArray(vModel) && vModel?.length">
 					<span
-						v-for="(item, i) in setup.vModel"
+						v-for="(item, i) in vModel"
 						:key="Number(i)"
 						class="orion-select__selected-item">
 						<slot
@@ -45,10 +45,10 @@
 					</span>
 				</div>
 				<slot
-					v-else-if="!multiple && !setup.isArray(setup.vModel) && setup.valueDisplay()"
+					v-else-if="!multiple && !setup.isArray(vModel) && setup.valueDisplay()"
 					name="value"
-					v-bind="setup.valueDisplay(setup.vModel)">
-					{{ setup.valueDisplay(setup.vModel).display }}
+					v-bind="setup.valueDisplay(vModel)">
+					{{ setup.valueDisplay(vModel).display }}
 				</slot>
 
 				<input
@@ -188,10 +188,11 @@ import { OrionInput } from 'packages/Input';
 import { OrionLoader } from 'packages/Loader';
 import { OrionField } from 'packages/Field';
 import OrionSelectSetupService from './OrionSelectSetupService';
-import type { OrionSelectProps, OrionSelectEmits } from './OrionSelectSetupService';
+import type { OrionSelectProps, OrionSelectEmits, VModelType } from './OrionSelectSetupService';
 const emits = defineEmits<OrionSelectEmits>() as OrionSelectEmits;
+const vModel = defineModel<VModelType>();
 const props = withDefaults(defineProps<OrionSelectProps>(), OrionSelectSetupService.defaultProps);
-const setup = new OrionSelectSetupService(props, emits);
+const setup = new OrionSelectSetupService(props, emits, vModel);
 defineExpose(setup.publicInstance);
 
 /** Doc

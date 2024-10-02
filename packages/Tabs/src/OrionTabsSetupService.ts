@@ -1,27 +1,24 @@
-import { Component, reactive, ref, Slots, VNode, watch } from 'vue';
+import { Component, ModelRef, reactive, ref, Slots, VNode, watch } from 'vue';
 import { isArray } from 'lodash-es';
 import { isDefineOrTrue } from 'utils/tools';
 import SharedSetupService from '../../Shared/SharedSetupService';
 
 export type OrionTabsEmits = {
-	(e: 'input', payload?: string): void
 	(e: 'tab-click', ...payload: [OrionTabPane, MouseEvent]): void
-	(e: 'update:modelValue', payload?: string): void
 }
 
 export type OrionTabsProps = {
 	// @doc props/loader adds a loader on the tab
 	// @doc/fr props/loader ajoute une icône de chargement sur l'onglet
 	loader?: string | boolean,
-	// @doc props/modelValue model value
-	// @doc/fr props/modelValue modelValue du composant
-	modelValue?: string,
 	// @doc props/routerViewName the name of the `<router-view/>` when using `use-router` prop
 	// @doc/fr props/routerViewName le nom du `<router-view/>` lors de l'utilisation de la prop `use-router`
 	routerViewName?: string,
 	// @doc props/useRouter connect the tabs to the router to bind active tab to current route and use `<router-view/>` component
 	// @doc/fr props/useRouter connecte les tabs au router pour synchroniser la tab active avec la router actuelle et utiliser le composant `<router-view/>`
 	useRouter: boolean,
+
+	
 };
 
 export default class OrionTabsSetupService extends SharedSetupService {
@@ -45,13 +42,13 @@ export default class OrionTabsSetupService extends SharedSetupService {
 			...super.publicInstance,
 			_loader: () => this._loader.value,
 			panes: this.state.panes as Orion.Private.TsxTabPane[],
-			getValue: () => this.props.modelValue,
+			getValue: () => this.vModel?.value,
 			useRouter: this.props.useRouter,
 		};
 	}
 
 
-	constructor (protected props: OrionTabsProps, protected emits: OrionTabsEmits, slots: Slots) {
+	constructor (protected props: OrionTabsProps, protected emits: OrionTabsEmits, slots: Slots, protected vModel?: ModelRef<string | undefined>) {
 		super();
 		this.slots = slots;
 
@@ -105,9 +102,8 @@ export default class OrionTabsSetupService extends SharedSetupService {
 
 		if (this.props.useRouter && this.router.currentRoute.value.name !== pane.name) {
 			this.router.push({ name: pane.name });
-		} else if (this.props.modelValue !== pane.name) {
-			this.emits('update:modelValue', pane.name);
-			this.emits('input', pane.name);
+		} else if (this.vModel?.value !== pane.name && this.vModel?.value) {
+			this.vModel.value = pane.name;
 		}
 
 		this.emits('tab-click', pane, event);

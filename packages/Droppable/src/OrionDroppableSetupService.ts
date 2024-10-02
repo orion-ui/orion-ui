@@ -1,5 +1,5 @@
 import mitt from 'mitt';
-import { watch, nextTick } from 'vue';
+import { watch, nextTick, ModelRef } from 'vue';
 import SharedSetupService from '../../Shared/SharedSetupService';
 import useDragNDrop from 'services/DragNDropService';
 import useMonkey from 'services/MonkeyService';
@@ -11,12 +11,9 @@ export type OrionDroppableEmits = {
 	(e: 'dragLeave'): void ;
 	(e: 'reorder', payload: any): void ;
 	(e: 'dropOut', payload: any): void ;
-	(e: 'update:datalist', payload: any): void ;}
+}
 
 export type OrionDroppableProps = {
-	// @doc props/datalist datas of the component
-	// @doc/fr props/datalist liste d'objets du composant
-	datalist?: DataListItem[],
 	// @doc props/tag the tag or component of the droppable area
 	// @doc/fr props/tag tag ou composant qui représentera la zone de drop
 	tag: string,
@@ -25,7 +22,7 @@ export type OrionDroppableProps = {
 	validation?: Orion.DndValidation,
 };
 
-type DataListItem = Record<string, any>;
+export type DataListItem = Record<string, any>;
 
 export default class OrionDroppableSetupService extends SharedSetupService {
 	static readonly defaultProps = { tag: 'div' };
@@ -50,8 +47,6 @@ export default class OrionDroppableSetupService extends SharedSetupService {
 		reorder: any;
 		dropOut: any;
 	}>();
-
-	get datalist () { return this.props.datalist; }
 
 	get publicInstance () {
 		return {
@@ -105,7 +100,14 @@ export default class OrionDroppableSetupService extends SharedSetupService {
 		return false;
 	}
 
-	constructor (protected props: OrionDroppableProps, protected emits: OrionDroppableEmits, _modal?: OrionModal, _aside?: OrionAside) {
+	// @doc vModel/datalist datas of the component
+	// @doc/fr vModel/datalist liste d'objets du composant
+	constructor (
+		protected props: OrionDroppableProps,
+		protected emits: OrionDroppableEmits,
+		protected datalist: ModelRef<Undef<DataListItem[]>>,
+		_modal?: OrionModal,
+		_aside?: OrionAside) {
 		super();
 
 		this._modal = _modal;
@@ -113,10 +115,10 @@ export default class OrionDroppableSetupService extends SharedSetupService {
 
 		this.bus.on('*', (type, e) => this.emits(type as any, e as any));
 
-		this.emits('update:datalist', this.datalist?.map(x => ({
+		this.datalist.value = this.datalist.value?.map(x => ({
 			...x,
 			__uid: this.getUid(),
-		})));
+		}));
 
 		watch(() => this.isDraggingOver, (val) => {
 			const lastItem = useMonkey(this.dnd.registry.items)?.last();
@@ -143,21 +145,21 @@ export default class OrionDroppableSetupService extends SharedSetupService {
 
 			const { index } = lastItem;
 			if (typeof index === 'number') {
-				const toEmit = this.datalist;
+				const toEmit = this.datalist.value;
 				toEmit?.splice(index, 0, val);
-				this.emits('update:datalist', toEmit);
+				this.datalist.value = toEmit;
 			}
 		});
 
 		this.bus.on('dropOut', (val: DataListItem) => {
-			if (!this.datalist) return;
-			const toEmit = useMonkey(this.datalist).delete(val);
-			this.emits('update:datalist', toEmit);
+			if (!this.datalist.value) return;
+			const toEmit = useMonkey(this.datalist.value).delete(val);
+			this.datalist.value = toEmit;
 		});
 
 		this.bus.on('reorder', (val: DataListItem) => {
-			if (!this.datalist) return;
-			const toEmit = useMonkey(this.datalist).delete(val, '__uid');
+			if (!this.datalist.value) return;
+			const toEmit = useMonkey(this.datalist.value).delete(val, '__uid');
 			const lastItem = useMonkey(this.dnd.registry.items).last();
 
 			if (!lastItem) return;
@@ -165,7 +167,7 @@ export default class OrionDroppableSetupService extends SharedSetupService {
 			const { index } = lastItem;
 			if (typeof index === 'number') {
 				toEmit.splice(index, 0, val);
-				this.emits('update:datalist', toEmit);
+				this.datalist.value = toEmit;
 			}
 		});
 
@@ -190,7 +192,7 @@ export default class OrionDroppableSetupService extends SharedSetupService {
 		this.dnd.bus.on('drop', async (payload: Orion.DndData | undefined) => {
 			if (!payload || payload.index === null) return;
 
-			if (payload.from === payload.to && this.datalist?.find(x => x.__uid === payload.data.__uid)) {
+			if (payload.from === payload.to && this.datalist.value?.find(x => x.__uid === payload.data.__uid)) {
 				this.bus.emit('reorder', payload.data);
 			} else if (this.uid === payload.to) {
 				this.handleDrop(payload);

@@ -1,8 +1,8 @@
-import { reactive, useSlots } from 'vue';
+import { ModelRef, reactive, useSlots } from 'vue';
 import SharedSetupService from '../../Shared/SharedSetupService';
 import { getUid } from 'utils/tools';
 
-export type OrionCarouselEmits = {(e: 'update:modelValue', val?: number | string): void}
+export type OrionCarouselEmits = {}
 export type OrionCarouselProps = {
 	// @doc props/color color of the dots at the carousel's bottom
 	// @doc/fr props/color couleur des points au bas du carrousel
@@ -50,7 +50,7 @@ export default class OrionCarouselSetupService extends SharedSetupService {
 
 	get step () { return this.props.modelValue; }
 	set step (val) {
-		this.emits('update:modelValue', val);
+		this.vModel.value = val;
 		if (this.props.stepTimer) {
 			this.state.timerRemaining = this.props.stepTimer;
 			this.state.timerStart = new Date().valueOf();
@@ -100,7 +100,7 @@ export default class OrionCarouselSetupService extends SharedSetupService {
 	}
 
 
-	constructor (protected props: OrionCarouselProps, protected emits: OrionCarouselEmits, slots: Slots) {
+	constructor (protected props: OrionCarouselProps, protected emits: OrionCarouselEmits, slots: Slots, protected vModel: ModelRef<Undef<number | string>>) {
 		super();
 		this.slots = slots;
 	}

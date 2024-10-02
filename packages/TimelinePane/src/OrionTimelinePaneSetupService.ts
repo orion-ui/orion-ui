@@ -27,7 +27,7 @@ export type OrionTimelinePaneProps = SharedPropsIcon & {
 	markerColor: Orion.Color,
 	// @doc props/name the name of the pane
 	// @doc/fr props/name nom du panneau
-	name: string | number,
+	name?: string | number,
 	// @doc props/pill the content displayed on the pill
 	// @doc/fr props/pill contenu affiché sur la vignette
 	pill?: string,

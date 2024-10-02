@@ -12,6 +12,7 @@ export type OrionTourStepProps = {
 	// @doc props/clickable if there is a target, it allows the user to click on the target (if the target is a button for example). It also ends the tour.
 	// @doc/fr props/clickable s'il y a une cible, permet de clicker sur la cible  (si c'est un bouton par exemple). Cela met aussi fin au tour.
 	clickable?: boolean | Function,
+	
 	// @doc props/closable defines if the step can be closable
 	// @doc/fr props/closable définit si l'étape peut être fermée à l'aide de la croix
 	closable: boolean,

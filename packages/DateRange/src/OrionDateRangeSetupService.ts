@@ -1,14 +1,12 @@
-import { reactive, ref, nextTick } from 'vue';
+import { reactive, ref, nextTick, ModelRef } from 'vue';
 import SharedSetupService from '../../Shared/SharedSetupService';
 
 export type OrionDateRangeProps = {
 	displayWeekNumber: boolean,
-	modelValue?: Nil<Orion.DateRange>,
 	minDate?: Date,
 	maxDate?: Date,
 }
 export type OrionDateRangeEmits = {
-	(e: 'update:modelValue', payload: Nil<Orion.DateRange>): void
 	(e: 'select-range', payload: Orion.DateRange): void
 }
 
@@ -39,25 +37,26 @@ export default class OrionDateRangeSetupService extends SharedSetupService {
 	}
 
 	get canGoNextMonth () {
-		if (!this._start?.value || !this.vModel?.start) return this.allowMiddleNextOrPrevMonth;
+		if (!this._start?.value || !this.vModelProxy?.start) return this.allowMiddleNextOrPrevMonth;
 
 		return this.allowMiddleNextOrPrevMonth &&
-			(this._start.value.getCurrentMonth() < this.vModel.start.getMonth() || this._start.value.getCurrentYear() < this.vModel.start.getFullYear());
+			(this._start.value.getCurrentMonth() < this.vModelProxy.start.getMonth()
+			|| this._start.value.getCurrentYear() < this.vModelProxy.start.getFullYear());
 	}
 
 	get canGoPrevMonth () {
-		if (!this._end?.value || !this.vModel?.start) return this.allowMiddleNextOrPrevMonth;
+		if (!this._end?.value || !this.vModelProxy?.start) return this.allowMiddleNextOrPrevMonth;
 
 		return this.allowMiddleNextOrPrevMonth &&
-			(this._end.value.getCurrentMonth() > this.vModel.start.getMonth() || this._end.value.getCurrentYear() > this.vModel.start.getFullYear());
+			(this._end.value.getCurrentMonth() > this.vModelProxy.start.getMonth() || this._end.value.getCurrentYear() > this.vModelProxy.start.getFullYear());
 	}
 
-	get vModel () {
-		return this.props.modelValue;
+	get vModelProxy () {
+		return this.vModel.value;
 	}
 
-	set vModel (val) {
-		this.emits('update:modelValue', val);
+	set vModelProxy (val) {
+		this.vModel.value = val;
 
 		if (!!val?.start && !!val.end) {
 			this.emits('select-range', val);
@@ -74,13 +73,13 @@ export default class OrionDateRangeSetupService extends SharedSetupService {
 	}
 
 
-	constructor (protected props: OrionDateRangeProps, protected emits: OrionDateRangeEmits) {
+	constructor (protected props: OrionDateRangeProps, protected emits: OrionDateRangeEmits, protected vModel: ModelRef<Nil<Orion.DateRange>>) {
 		super();
 	}
 
 	protected async onBeforeMount () {
-		if (!this.vModel) {
-			this.vModel = {};
+		if (!this.vModel.value) {
+			this.vModelProxy = {};
 		}
 	}
 
@@ -89,15 +88,15 @@ export default class OrionDateRangeSetupService extends SharedSetupService {
 		nextTick(() => {
 			if (!this._start.value || !this._end.value) return;
 
-			if (this.vModel?.selecting
-				&& this.vModel.start
-				&& this.vModel.start.valueOf() > this._start.value?.getCurrentDate().valueOf()) {
+			if (this.vModelProxy?.selecting
+				&& this.vModelProxy.start
+				&& this.vModelProxy.start.valueOf() > this._start.value?.getCurrentDate().valueOf()) {
 				if (from === 'start') {
-					this._end.value.selectYear(this.vModel.start.getFullYear());
-					this._end.value.selectMonth(this.vModel.start.getMonth());
+					this._end.value.selectYear(this.vModelProxy.start.getFullYear());
+					this._end.value.selectMonth(this.vModelProxy.start.getMonth());
 				} else if (from === 'end') {
-					this._start.value.selectYear(this.vModel.start.getFullYear());
-					this._start.value.selectMonth(this.vModel.start.getMonth());
+					this._start.value.selectYear(this.vModelProxy.start.getFullYear());
+					this._start.value.selectMonth(this.vModelProxy.start.getMonth());
 				}
 			}
 		});

@@ -39,13 +39,11 @@ import './OrionCheckbox.less';
 import { OrionField } from 'packages/Field';
 import { OrionIcon } from 'packages/Icon';
 import OrionCheckboxSetupService from './OrionCheckboxSetupService';
-type VModelType = any[] | boolean | null | undefined;
-
-
-const emits = defineEmits<OrionCheckboxEmits>() as OrionCheckboxEmits;
 import type { OrionCheckboxProps, OrionCheckboxEmits } from './OrionCheckboxSetupService';
+const emits = defineEmits<OrionCheckboxEmits>() as OrionCheckboxEmits;
+const vModel = defineModel<any[] | boolean | null | undefined>();
 const props = withDefaults(defineProps<OrionCheckboxProps>(), OrionCheckboxSetupService.defaultProps);
-const setup = new OrionCheckboxSetupService(props, emits);
+const setup = new OrionCheckboxSetupService(props, emits, vModel);
 defineExpose(setup.publicInstance);
 
 /** Doc
@@ -60,9 +58,6 @@ defineExpose(setup.publicInstance);
  *
  * @doc event/change/desc emitted when the value of the checkbox changes
  * @doc/fr event/change/desc  émis lorsque la valeur est modifiée
- *
- * @doc event/update:modelValue/desc emitted to update the checkbox value
- * @doc/fr event/update:modelValue/desc émis pour mettre à jour la valeur
  *
  * @doc event/clear/desc emitted when the checkbox is cleared
  * @doc/fr event/clear/desc

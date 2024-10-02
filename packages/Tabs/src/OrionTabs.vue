@@ -3,7 +3,6 @@
 </template>
 
 <script setup lang="tsx">
-//@ts-nocheck
 import './OrionTabs.less';
 import { provide, useSlots } from 'vue';
 import { isDefineOrTrue } from 'utils/tools';
@@ -15,7 +14,8 @@ import type { OrionTabsProps, OrionTabsEmits } from './OrionTabsSetupService';
 const slots = useSlots();
 const emits = defineEmits<OrionTabsEmits>() as OrionTabsEmits;
 const props = withDefaults(defineProps<OrionTabsProps>(), OrionTabsSetupService.defaultProps);
-const setup = new OrionTabsSetupService(props, emits, slots);
+const vModel = defineModel<string | undefined>();
+const setup = new OrionTabsSetupService(props, emits, slots, vModel);
 provide('_tabs', setup.publicInstance);
 defineExpose(setup.publicInstance);
 
@@ -23,7 +23,7 @@ defineExpose(setup.publicInstance);
 
 const jsxTabs = () => {
 	const navData = {
-		value: props.modelValue,
+		value: vModel,
 		panes: setup.panes,
 		onTabClick: setup.onTabClick.bind(setup),
 	};

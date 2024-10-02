@@ -1,13 +1,13 @@
 import { SharedPropsColor } from 'lib/shared-props';
 import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetupServiceProps } from '../../Shared/SharedFieldSetupService';
+import { ModelRef } from 'vue';
 
 export type OrionRadioEmits = SharedFieldSetupServiceEmits<VModelType> & {}
-export type OrionRadioProps =
-	SharedFieldSetupServiceProps<VModelType> &
+export type OrionRadioProps = SharedFieldSetupServiceProps &
 	SharedPropsColor & {
 	// @doc props/iconCheck the icon when the radio button is checked
 	// @doc/fr props/iconCheck l'icône lorsque le bouton est coché
-	iconCheck: Orion.Icon,
+	iconCheck?: Orion.Icon,
 	// @doc props/inline set the property `display` on `inline-flex` instead of `flex`
 	// @doc/fr props/inline défini la propriété `display` à `inline-flex` à la place `flex`
 	inline: boolean,
@@ -21,7 +21,7 @@ export type OrionRadioProps =
 	// @doc/fr props/type type du champ
 	type: string,
 };
-type VModelType = any[] | boolean | number | Record<string, any> | string | undefined | null;
+export type VModelType = any[] | boolean | number | Record<string, any> | string | undefined | null;
 
 export default class OrionRadioSetupService extends SharedFieldSetupService<OrionRadioProps, VModelType> {
 	static readonly defaultProps = {
@@ -36,25 +36,25 @@ export default class OrionRadioSetupService extends SharedFieldSetupService<Orio
 
 	protected get isValidCustom () {
 		if (this.props.required) {
-			return (this.props.modelValue === this.props.inputValue);
+			return (this.vModel.value === this.props.inputValue);
 		}
 		return true;
 	}
 
 	get isChecked () {
-		return this.vModel === this.props.inputValue;
+		return this.vModel.value === this.props.inputValue;
 	}
 
 
-	constructor (protected props: OrionRadioProps, protected emits: OrionRadioEmits) {
-		super(props, emits);
+	constructor (protected props: OrionRadioProps, protected emits: OrionRadioEmits, protected vModel: ModelRef<VModelType>) {
+		super(props, emits, vModel);
 	}
 
 
 	handleClick () {
 		if (!this.props.disabled && !this.props.readonly) {
 			this.state.hasBeenFocus = true;
-			this.vModel = this.props.inputValue;
+			this.vModel.value = this.props.inputValue;
 			this.emits('input', this.props.inputValue);
 		}
 	}

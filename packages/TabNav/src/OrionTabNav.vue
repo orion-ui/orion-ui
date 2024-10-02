@@ -3,7 +3,6 @@
 </template>
 
 <script setup lang="tsx">
-//@ts-nocheck
 import './OrionTabNav.less';
 import { inject } from 'vue';
 import { isDefineOrTrue } from 'utils/tools';

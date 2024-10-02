@@ -1,4 +1,4 @@
-import { Directive, nextTick, watch } from 'vue';
+import { Directive, ModelRef, nextTick, watch } from 'vue';
 import { isString } from 'lodash-es';
 import Cleave from 'cleave.js';
 
@@ -8,7 +8,7 @@ import { hoursToNumber } from 'utils/tools';
 import { useMonkey } from 'services';
 
 export type OrionInputEmits = SharedFieldSetupServiceEmits<Nil<string | number>> & {}
-export type OrionInputProps =  SharedFieldSetupServiceProps & {
+export type OrionInputProps = SharedFieldSetupServiceProps & {
 	// @doc props/allowNegative allow negative values
 	// @doc/fr props/allowNegative autorise les valeurs négatives
 	allowNegative: boolean,
@@ -83,8 +83,8 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 		}
 	}
 
-	get vModel () {
-		const value = this.props.modelValue;
+	get vModelProxy () {
+		const value = this.vModel.value;
 
 		if (this.props.mask) {
 			if (typeof this.props.mask === 'object') {
@@ -132,7 +132,7 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 		return value as VModelType;
 	}
 
-	set vModel (value) {
+	set vModelProxy (value) {
 		this.handleInputDebounce(() => {
 			// value will always be a string when coming from the input
 			value = value?.toString();
@@ -177,9 +177,9 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 				value = this.props.clearToNull ? null : undefined;
 			}
 
-			if (value === this.vModel) return;
+			if (value === this.vModelProxy) return;
 
-			this.emits('update:modelValue', value);
+			this.vModel.value = value;
 			this.emits('input', value);
 		});
 	}
@@ -189,8 +189,8 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 	}
 
 
-	constructor (protected props: OrionInputProps, protected emits: OrionInputEmits) {
-		super(props, emits);
+	constructor (protected props: OrionInputProps, protected emits: OrionInputEmits, protected vModel: ModelRef<VModelType>) {
+		super(props, emits, vModel);
 
 		watch(() => props.cleave, (val) => {
 			const input = this._input.value as CleaveElement;
@@ -202,7 +202,7 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 
 	handleBlurCustom (event: FocusEvent) {
 		if (this._input.value?.value && this.props.minValue && (hoursToNumber(this._input.value.value, this.props.maskHourSeparator)) < this.props.minValue) {
-			this.emits('update:modelValue', this.props.minValue);
+			this.vModel.value = this.props.minValue;
 			this.emits('input', this.props.minValue);
 		}
 
@@ -245,10 +245,10 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 					? this._input.value.value = this._input.value.value.replace(/-/g, '')
 					: this._input.value.value = '-' + this._input.value.value;
 
-				if (typeof this.vModel === 'number' && this._input.value.value !== '-') {
-					this.vModel = -this.vModel;
-				} else if (typeof this.vModel === 'string' && this._input.value.value !== '-') {
-					this.vModel = '-' + this.vModel;
+				if (typeof this.vModelProxy === 'number' && this._input.value.value !== '-') {
+					this.vModelProxy = -this.vModelProxy;
+				} else if (typeof this.vModelProxy === 'string' && this._input.value.value !== '-') {
+					this.vModelProxy = '-' + this.vModelProxy;
 				}
 			}
 
@@ -269,7 +269,7 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 						: '0.';
 
 					if (this._input.value.value !== '0.') {
-						this.vModel = Number(this._input.value.value);
+						this.vModelProxy = Number(this._input.value.value);
 					}
 
 					setTimeout(() => {
@@ -343,8 +343,8 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 		if (this.props.type === 'email') {
 			if (!/[.+@a-zA-Z0-9_-]/.test(e.key)) e.preventDefault();
 			if (e.key === '@'
-				&& typeof this.vModel === 'string'
-				&& this.vModel?.includes('@')
+				&& typeof this.vModelProxy === 'string'
+				&& this.vModelProxy?.includes('@')
 			) e.preventDefault();
 		}
 	}

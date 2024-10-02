@@ -1,12 +1,11 @@
+
 <template>
 	<jsx-timeline-pill/>
 </template>
-
 <script setup lang="tsx">
-// @ts-nocheck
 import './OrionTimelinePill.less';
-import { OrionIcon } from 'packages/Icon';
-import { OrionHorizontalScroll } from 'packages/HorizontalScroll';
+ import { OrionIcon } from 'packages/Icon';
+ import { OrionHorizontalScroll } from 'packages/HorizontalScroll';
 import OrionTimelinePillSetupService from './OrionTimelinePillSetupService';
 import { isDefineOrTrue } from 'utils/tools';
 import type { OrionTimelinePillProps, OrionTimelinePillEmits } from './OrionTimelinePillSetupService';
@@ -16,14 +15,14 @@ const setup = new OrionTimelinePillSetupService(props, emits);
 defineExpose(setup.publicInstance);
 
 const jsxTimelinePill = () => {
-	const panes = setup.props.panes;
+	const panes = props.panes;
 
 	const useBefore = !!panes.filter(p => !!p.children?.before).length;
 
 	const timeline = panes.map((pane, index): any => {
-		const originIndex = panes.findIndex(pane => pane.props.name === setup.props.centeredPillvalue);
+		const originIndex = panes.findIndex(pane => pane.props.name === props.value);
 
-		const isCenteredPill = setup.props.centeredPill || isDefineOrTrue(pane.props['centered-pill']);
+		const isCenteredPill = props.centeredPill || isDefineOrTrue(pane.props['centered-pill']);
 		const icon = pane.props.icon || pane.props['font-icon']
 			? (<OrionIcon class="orion-timeline-pill__icon" icon={pane.props.icon} fontIcon={pane.props['font-icon']}/>)
 			: null;
@@ -73,7 +72,6 @@ const jsxTimelinePill = () => {
 						{ icon ?? <span class="orion-timeline-pill__core-text">{pane.props.pill}</span> }
 						{ marker }
 					</div>
-
 					{ isCenteredPill && <div class="orion-timeline-pill__separator orion-timeline-pill__separator--before"/> }
 					<div class="orion-timeline-pill__separator orion-timeline-pill__separator--after"/>
 				</div>
@@ -81,14 +79,15 @@ const jsxTimelinePill = () => {
 			</div>
 		);
 	});
-
+	
 	const scrollStep = () => { return [...document.querySelectorAll('.orion-timeline-pill-wrapper')] as HTMLElement[];};
+	
 	return (
-		!setup.props.scrollable
+		!props.scrollable
 			? <div class="orion-timeline__pills">{ timeline }</div>
-			: <OrionHorizontalScroll scrollStep={scrollStep}>
+			: <><OrionHorizontalScroll scrollStep={scrollStep}>
 				<div class="orion-timeline__pills">{timeline}</div>
-			</OrionHorizontalScroll>
+			</OrionHorizontalScroll></>
 	);
 };
 </script>

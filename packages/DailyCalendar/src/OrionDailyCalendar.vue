@@ -84,9 +84,10 @@ import { OrionCard } from 'packages/Card';
 import { OrionButton } from 'packages/Button';
 import OrionDailyCalendarSetupService from './OrionDailyCalendarSetupService';
 import type { OrionDailyCalendarProps, OrionDailyCalendarEmits } from './OrionDailyCalendarSetupService';
+const date = defineModel<Date>('date', { required: true });
 const emits = defineEmits<OrionDailyCalendarEmits>() as OrionDailyCalendarEmits;
 const props = withDefaults(defineProps<OrionDailyCalendarProps>(), OrionDailyCalendarSetupService.defaultProps);
-const setup = new OrionDailyCalendarSetupService(props, emits);
+const setup = new OrionDailyCalendarSetupService(props, emits, date);
 defineExpose(setup.publicInstance);
 
 /** Doc

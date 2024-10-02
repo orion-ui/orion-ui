@@ -6,7 +6,7 @@
 		@clear="setup.clear()">
 		<textarea
 			:ref="setup._input"
-			v-model="setup.vModel"
+			v-model="vModel"
 			style="resize: none;"
 			class="orion-input__input"
 			:maxlength="maxLength"
@@ -15,20 +15,20 @@
 				disabled: disabled,
 				readonly: readonly,
 			}"
-			@keydown.enter.meta="emits('submit', setup.vModel)"
-			@keydown.enter.ctrl="emits('submit', setup.vModel)"
+			@keydown.enter.meta="emits('submit', vModel)"
+			@keydown.enter.ctrl="emits('submit', vModel)"
 			@focus="setup.handleFocus($event)"
 			@blur="setup.handleBlur($event)"/>
 
 		<span
 			v-if="maxLength"
 			class="orion-input__textarea-counter">
-			{{ setup.vModel?.length ?? 0 }}/{{ maxLength }}
+			{{ vModel?.length ?? 0 }}/{{ maxLength }}
 		</span>
 		<span
 			v-else-if="showLength"
 			class="orion-input__textarea-counter">
-			{{ setup.vModel?.length ?? 0 }}
+			{{ vModel?.length ?? 0 }}
 		</span>
 
 		<div
@@ -51,8 +51,9 @@ const _aside = inject<OrionAside>('_aside');
 const _modal = inject<OrionModal>('_modal');
 const emits = defineEmits<OrionTextareaEmits>() as OrionTextareaEmits;
 import type { OrionTextareaProps, OrionTextareaEmits } from './OrionTextareaSetupService';
+const vModel = defineModel<Nil<string>>();
 const props = withDefaults(defineProps<OrionTextareaProps>(), OrionTextareaSetupService.defaultProps);
-const setup = new OrionTextareaSetupService(props, emits, _modal, _aside);
+const setup = new OrionTextareaSetupService(props, emits, vModel, _modal, _aside);
 defineExpose(setup.publicInstance);
 
 /** Doc

@@ -105,9 +105,10 @@ import OrionCarouselSetupService from './OrionCarouselSetupService';
 import OrionButton from 'packages/Button/src/OrionButton.vue';
 import type { OrionCarouselProps, OrionCarouselEmits } from './OrionCarouselSetupService';
 const slots = useSlots();
+const vModel = defineModel<Undef<number | string>>({ required: true });
 const emits = defineEmits<OrionCarouselEmits>() as OrionCarouselEmits;
 const props = withDefaults(defineProps<OrionCarouselProps>(), OrionCarouselSetupService.defaultProps);
-const setup = new OrionCarouselSetupService(props, emits, slots);
+const setup = new OrionCarouselSetupService(props, emits, slots, vModel);
 provide('_carousel', setup.publicInstance);
 defineExpose(setup.publicInstance);
 

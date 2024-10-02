@@ -9,7 +9,7 @@ export type OrionPopConfirmEmits = {
 export type OrionPopConfirmProps = {
 	// @doc props/title title of the confirm popup
 	// @doc/fr props/title titre de la popup de confirmation
-	title: string,
+	title?: string,
 };
 
 export default class OrionPopConfirmSetupService extends SharedSetupService {

@@ -26,7 +26,7 @@
 						:value="6 - i"
 						:name="`rate-${setup._uid}-${i}`"
 						type="radio"
-						@input="setup.emitUpdate(6 - i)">
+						@input="vModel = (6 - i)">
 					<label
 						:for="`rate-${setup._uid}-${i}`"
 						class="orion-rate__star">
@@ -49,13 +49,11 @@
 import { OrionIcon } from 'packages/Icon';
 import './OrionRate.less';
 import OrionRateSetupService from './OrionRateSetupService';
-
-
-
-const emits = defineEmits<OrionRateEmits>() as OrionRateEmits;
 import type { OrionRateProps, OrionRateEmits } from './OrionRateSetupService';
+const emits = defineEmits<OrionRateEmits>() as OrionRateEmits;
 const props = withDefaults(defineProps<OrionRateProps>(), OrionRateSetupService.defaultProps);
-const setup = new OrionRateSetupService(props, emits);
+const vModel = defineModel<number>({ required: true });
+const setup = new OrionRateSetupService(props, emits, vModel);
 defineExpose(setup.publicInstance);
 
 /** Doc

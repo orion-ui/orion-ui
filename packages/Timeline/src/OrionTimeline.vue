@@ -14,14 +14,16 @@ import type { OrionTimelineProps, OrionTimelineEmits } from './OrionTimelineSetu
 const slots = useSlots();
 const emits = defineEmits<OrionTimelineEmits>() as OrionTimelineEmits;
 const props = withDefaults(defineProps<OrionTimelineProps>(), OrionTimelineSetupService.defaultProps);
-const setup = new OrionTimelineSetupService(props, emits, slots);
+const vModel = defineModel<number | string | undefined>();
+const setup = new OrionTimelineSetupService(props, emits, slots, vModel);
 provide('_timeline', setup.publicInstance);
 defineExpose(setup.publicInstance);
 
 const jsxTimeline = () => {
 	const navData = {
-		value: setup.props.modelValue,
+		value: vModel.value,
 		panes: setup.panes,
+		
 		current: setup.current,
 		scrollable: setup.props.scrollable,
 		onPillClick: setup.onPillClick.bind(setup),
@@ -29,7 +31,7 @@ const jsxTimeline = () => {
 	};
 
 	const pills = (
-		<OrionTimelinePill {...navData}></OrionTimelinePill>
+		<><OrionTimelinePill {...navData}></OrionTimelinePill></>
 	);
 
 	const loaderData = {

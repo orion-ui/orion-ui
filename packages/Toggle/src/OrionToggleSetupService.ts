@@ -1,11 +1,11 @@
 import { SharedPropsColor } from 'lib/shared-props';
 import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetupServiceProps } from '../../Shared/SharedFieldSetupService';
-import { reactive } from 'vue';
+import { ModelRef, reactive } from 'vue';
 
 export type OrionToggleEmits = SharedFieldSetupServiceEmits<boolean> & {}
 export type OrionToggleProps =
- SharedFieldSetupServiceProps &
- SharedPropsColor & {
+	SharedFieldSetupServiceProps &
+	SharedPropsColor & {
 	// @doc props/inline set the property `display` on `inline-flex` instead of `flex`
 	// @doc/fr props/inline défini la propriété `display` à `inline-flex` à la place `flex`
 	inline: boolean,
@@ -68,7 +68,7 @@ export default class OrionToggleSetupService extends SharedFieldSetupService<Ori
 
 	protected get isValidCustom () {
 		if (this.props.required)
-			return !!this.props.modelValue;
+			return !!this.vModel.value;
 	}
 
 	get coreStyle () {
@@ -94,8 +94,8 @@ export default class OrionToggleSetupService extends SharedFieldSetupService<Ori
 	}
 
 
-	constructor (protected props: OrionToggleProps, protected emits: OrionToggleEmits) {
-		super(props, emits);
+	constructor (protected props: OrionToggleProps, protected emits: OrionToggleEmits, protected vModel: ModelRef<boolean>) {
+		super(props, emits, vModel);
 	}
 
 
@@ -110,7 +110,7 @@ export default class OrionToggleSetupService extends SharedFieldSetupService<Ori
 	handleClick () {
 		if (!this.props.disabled && !this.props.readonly) {
 			this.state.hasBeenFocus = true;
-			this.vModel = !this.vModel;
+			this.vModel.value = !this.vModel.value;
 		}
 	}
 }

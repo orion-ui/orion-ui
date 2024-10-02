@@ -1,11 +1,11 @@
-import { reactive, watch } from 'vue';
+import { ModelRef, reactive, watch } from 'vue';
 import { debounce, DebouncedFunc } from 'lodash-es';
 import SharedFieldSetupService, { SharedFieldSetupServiceProps, SharedFieldSetupServiceEmits } from '../../Shared/SharedFieldSetupService';
 
 export type OrionColorPickerEmits = SharedFieldSetupServiceEmits<Nil<string>> & {
 	(e: 'picked', payload: ColorValue): void;
 }
-export type OrionColorPickerProps =  SharedFieldSetupServiceProps & {
+export type OrionColorPickerProps = SharedFieldSetupServiceProps & {
 	// @doc props/debounce the debounce interval
 	// @doc/fr props/debounce définits la durée selon laquelle la valeur va se mettre à jour
 	debounce: number,
@@ -63,8 +63,8 @@ export default class OrionColorPickerSetupService extends SharedFieldSetupServic
 	}
 
 
-	constructor (protected props: OrionColorPickerProps, protected emits: OrionColorPickerEmits) {
-		super(props, emits);
+	constructor (protected props: OrionColorPickerProps, protected emits: OrionColorPickerEmits, protected vModel: ModelRef<Nil<string>>) {
+		super(props, emits, vModel);
 
 		this.changeColor = this.init();
 
@@ -76,7 +76,7 @@ export default class OrionColorPickerSetupService extends SharedFieldSetupServic
 	}
 
 	protected async onBeforeMount () {
-		this.state.color = this.props.startValue ?? this.vModel ?? '';
+		this.state.color = this.props.startValue ?? this.vModel?.value ?? '';
 	}
 
 
@@ -96,7 +96,8 @@ export default class OrionColorPickerSetupService extends SharedFieldSetupServic
 				this.state.color = pickedColor.hex;
 			}
 
-			this.vModel = this.state.color;
+			if (this.vModel?.value)
+				this.vModel.value = this.state.color;
 			this.emits('picked', pickedColor);
 		}, this.props.debounce);
 	}

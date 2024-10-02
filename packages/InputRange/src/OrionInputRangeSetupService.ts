@@ -1,5 +1,6 @@
 import { SharedPropsColor } from 'lib/shared-props';
 import SharedFieldSetupService, { SharedFieldSetupServiceProps, SharedFieldSetupServiceEmits } from '../../Shared/SharedFieldSetupService';
+import { ModelRef } from 'vue';
 
 export type OrionInputRangeEmits = SharedFieldSetupServiceEmits<Nil<number[] | number>> & {}
 export type OrionInputRangeProps = SharedFieldSetupServiceProps &
@@ -28,7 +29,7 @@ export default class OrionInputRangeSetupService extends SharedFieldSetupService
 	private circleSize = 20;
 
 	get multiple () {
-		return typeof this.vModel !== 'number';
+		return typeof this.vModel.value !== 'number';
 	}
 
 	get leftAlign () {
@@ -71,40 +72,40 @@ export default class OrionInputRangeSetupService extends SharedFieldSetupService
 	}
 
 	get minFieldValue () {
-		if (typeof this.vModel === 'number') {
-			return this.vModel;
+		if (typeof this.vModel.value === 'number') {
+			return this.vModel.value;
 		} else {
-			return this.vModel[0];
+			return this.vModel.value[0];
 		}
 	}
 
 	set minFieldValue (value) {
 		if (this.multiple) {
-			this.vModel = [this.verifyMin(+value), this.maxFieldValue];
+			this.vModel.value = [this.verifyMin(+value), this.maxFieldValue];
 		} else {
-			this.vModel = +value;
+			this.vModel.value = +value;
 		}
 	}
 
 	get maxFieldValue () {
-		if (typeof this.vModel === 'number') {
-			return this.vModel;
+		if (typeof this.vModel.value === 'number') {
+			return this.vModel.value;
 		} else {
-			return this.vModel[1];
+			return this.vModel.value[1];
 		}
 	}
 
 	set maxFieldValue (value) {
 		if (this.multiple) {
-			this.vModel = [this.minFieldValue, this.verifyMax(+value)];
+			this.vModel.value = [this.minFieldValue, this.verifyMax(+value)];
 		} else {
-			this.vModel = +value;
+			this.vModel.value = +value;
 		}
 	}
 
 
-	constructor (protected props: OrionInputRangeProps, protected emits: OrionInputRangeEmits) {
-		super(props, emits);
+	constructor (protected props: OrionInputRangeProps, protected emits: OrionInputRangeEmits, protected vModel: ModelRef<VModelType>) {
+		super(props, emits, vModel);
 	}
 
 

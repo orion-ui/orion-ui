@@ -14,7 +14,7 @@ export type OrionOtpProps = {
 	size: number,
 	// @doc props/value the string value of the code, if it is prefilled
 	// @doc/fr props/value valeur du code sous forme de chaîne de caractères, s'il est pré-rempli
-	value: string,
+	value?: string,
 };
 
 type Code = {[key: number]: string }

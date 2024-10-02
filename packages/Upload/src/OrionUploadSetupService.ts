@@ -1,10 +1,10 @@
-import { ComponentPublicInstance, nextTick, reactive, ref } from 'vue';
+import { ComponentPublicInstance, ModelRef, nextTick, reactive, ref } from 'vue';
 import anime from 'animejs';
 import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetupServiceProps } from '../../Shared/SharedFieldSetupService';
 import useNotif from 'services/NotifService';
 
 export type OrionUploadEmits = SharedFieldSetupServiceEmits<Nil<File[]>> & {}
-export type OrionUploadProps = SharedFieldSetupServiceProps<File[]> & {
+export type OrionUploadProps = SharedFieldSetupServiceProps & {
 	// @doc props/fileMaxSize the maximal size of the uploaded file (Mo)
 	// @doc/fr props/fileMaxSize taille maximale d'un fichier (Mo)
 	fileMaxSize: number,
@@ -61,8 +61,8 @@ export default class OrionUploadSetupService extends SharedFieldSetupService<Ori
 	}
 
 
-	constructor (protected props: OrionUploadProps, protected emits: OrionUploadEmits) {
-		super(props, emits);
+	constructor (protected props: OrionUploadProps, protected emits: OrionUploadEmits, vModel: ModelRef<File[] | undefined>) {
+		super(props, emits, vModel);
 	}
 
 	protected onBeforeUpdate () {
@@ -70,7 +70,7 @@ export default class OrionUploadSetupService extends SharedFieldSetupService<Ori
 	}
 
 	protected onMounted () {
-		this.vModel?.forEach((file: File, index: number) => this.getFilePreview(file, index));
+		this.vModel.value?.forEach((file: File, index: number) => this.getFilePreview(file, index));
 
 		this.window?.addEventListener('dragover', this.preventDrop);
 		this.window?.addEventListener('drop', this.preventDrop);
@@ -95,12 +95,12 @@ export default class OrionUploadSetupService extends SharedFieldSetupService<Ori
 	}
 
 	private emitInput () {
-		if (!this.vModel) return;
-		if (!this.props.multiple && this.vModel.length > 1) {
-			this.vModel.splice(1, this.vModel.length);
+		if (!this.vModel.value) return;
+		if (!this.props.multiple && this.vModel.value.length > 1) {
+			this.vModel.value.splice(1, this.vModel.value.length);
 		}
-		this.vModel.forEach((file: File, index: number) => this.getFilePreview(file, index));
-		this.emits('input', this.vModel);
+		this.vModel.value.forEach((file: File, index: number) => this.getFilePreview(file, index));
+		this.emits('change', this.vModel.value);
 	}
 
 	private getFilePreview (file: File, index: number) {
@@ -125,9 +125,8 @@ export default class OrionUploadSetupService extends SharedFieldSetupService<Ori
 	}
 
 	clear () {
-		if (this.vModel)
-			this.vModel.length = 0;
-		this.emits('input', []);
+		if (this.vModel.value)
+			this.vModel.value.length = 0;
 		this.emits('change', []);
 		this.emits('clear');
 	}
@@ -164,11 +163,11 @@ export default class OrionUploadSetupService extends SharedFieldSetupService<Ori
 	}
 
 	handleChange () {
-		if (!this.vModel) return;
-		this.vModel.length = 0;
+		if (!this.vModel.value) return;
+		this.vModel.value.length = 0;
 		if (this._input.value?.files?.length) {
 			for (const file of this._input.value.files) {
-				if (this.fileIsValid(file)) this.vModel.push(file);
+				if (this.fileIsValid(file)) this.vModel.value.push(file);
 			}
 			this.emitInput();
 		}
@@ -179,28 +178,28 @@ export default class OrionUploadSetupService extends SharedFieldSetupService<Ori
 	}
 
 	deleteFile (index: number) {
-		if (!this.vModel) return;
+		if (!this.vModel.value) return;
 		this._filePreview.value.length = 0;
 		if (this._input.value) this._input.value.value = '';
-		this.vModel.splice(index, 1);
+		this.vModel.value.splice(index, 1);
 		this.emitInput();
 	}
 
 	handleDrop (ev: DragEvent) {
-		if (!this.vModel) return;
-		if (!this.props.multiple) this.vModel.length = 0;
+		if (!this.vModel.value) return;
+		if (!this.props.multiple) this.vModel.value.length = 0;
 		ev.preventDefault();
 
 		if (ev.dataTransfer?.items) {
 			for (let i = 0; i < (this.props.multiple ? ev.dataTransfer.items.length : 1); i++) {
 				if (ev.dataTransfer.items[i].kind === 'file') {
 					const file = ev.dataTransfer.items[i].getAsFile();
-					if (file && this.fileIsValid(file)) this.vModel.push(file);
+					if (file && this.fileIsValid(file)) this.vModel.value.push(file);
 				}
 			}
 		} else if (ev.dataTransfer?.files?.length) {
 			for (let p = 0; p < (this.props.multiple ? ev.dataTransfer.files.length : 1); p++) {
-				if (this.fileIsValid(ev.dataTransfer.files[p])) this.vModel.push(ev.dataTransfer.files[p]);
+				if (this.fileIsValid(ev.dataTransfer.files[p])) this.vModel.value.push(ev.dataTransfer.files[p]);
 			}
 		}
 

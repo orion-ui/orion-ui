@@ -40,7 +40,8 @@ import OrionPaginateSetupService from './OrionPaginateSetupService';
 import type { OrionPaginateProps, OrionPaginateEmits } from './OrionPaginateSetupService';
 const emits = defineEmits<OrionPaginateEmits>() as OrionPaginateEmits;
 const props = withDefaults(defineProps<OrionPaginateProps>(), OrionPaginateSetupService.defaultProps);
-const setup = new OrionPaginateSetupService(props, emits);
+const vModel = defineModel<number>({ required: true });
+const setup = new OrionPaginateSetupService(props, emits, vModel);
 defineExpose(setup.publicInstance);
 
 /** Doc
