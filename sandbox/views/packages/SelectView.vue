@@ -270,7 +270,11 @@
 								:label="`Multiple Prefix Icon`"
 								multiple
 								:options="data.fieldSelectMultiple.options"
-								prefix-icon="camera"/>
+								prefix-icon="camera">
+								<template #multiple-value>
+									eee {{ data.fieldSelectMultiple.value }}
+								</template>
+							</o-select>
 						</div>
 						<div class="col-sm-6">
 							<o-select
@@ -308,7 +312,11 @@
 								track-key="id"
 								display-key="label"
 								multiple
-								:options="data.fieldSelectObjectMultiple.options"/>
+								:options="data.fieldSelectObjectMultiple.options">
+								<template #multiple-value="{ value }">
+									{{ value }}
+								</template>
+							</o-select>
 						</div>
 						<div class="col-sm-6">
 							<o-select
