@@ -15,7 +15,11 @@
 		padding: var(--fluid-10px) var(--fluid-12px);
 
 		&-active {
-			box-shadow: inset 0 0 calc(1rem / 16) var(--info);
+			background: var(--info-light) !important;
+
+			[data-orion-theme="dark"] & {
+				background: var(--info-dark) !important;
+			}
 		}
 	}
 
@@ -33,7 +37,7 @@
 		min-width: 2.5rem;
 
 		&--icon-only .icon {
-			font-size: 0.85rem;
+			font-size: 0.875rem;
 		}
 	}
 }
