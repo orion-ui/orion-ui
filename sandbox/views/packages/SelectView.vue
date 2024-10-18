@@ -34,6 +34,10 @@
 				</div>
 
 				<div class="col-sm-4">
+					<o-input
+						v-model="test"
+						label="Test searchTerm"
+						@input="update($event)"/>
 					<o-select
 						ref="multiple"
 						v-model="data.ajaxMultiple"
@@ -41,7 +45,11 @@
 						display-key="email"
 						fetch-url="https://jsonplaceholder.typicode.com/users"
 						:label="`Multiple`"
-						multiple/>
+						multiple>
+						<template #before-options>
+							<o-button @click="trigger">trigger</o-button>
+						</template>
+					</o-select>
 				</div>
 			</div>
 
@@ -72,7 +80,6 @@
 
 				<div class="col-sm-4">
 					<o-select
-						ref="multiple"
 						v-model="data.ajaxMultiple"
 						autocomplete
 						track-key="id"
@@ -263,7 +270,11 @@
 								:label="`Multiple Prefix Icon`"
 								multiple
 								:options="data.fieldSelectMultiple.options"
-								prefix-icon="camera"/>
+								prefix-icon="camera">
+								<template #multiple-value>
+									eee {{ data.fieldSelectMultiple.value }}
+								</template>
+							</o-select>
 						</div>
 						<div class="col-sm-6">
 							<o-select
@@ -301,7 +312,11 @@
 								track-key="id"
 								display-key="label"
 								multiple
-								:options="data.fieldSelectObjectMultiple.options"/>
+								:options="data.fieldSelectObjectMultiple.options">
+								<template #multiple-value="{ value }">
+									{{ value }}
+								</template>
+							</o-select>
 						</div>
 						<div class="col-sm-6">
 							<o-select
@@ -430,6 +445,16 @@
 import { inject, reactive, ref } from 'vue';
 
 const _modalSelect = ref<OrionModal>();
+const multiple = ref<OrionSelect>();
+const test = ref('');
+
+function update (val: string) {
+	multiple.value?.setSearchTerm(val);
+}
+
+function trigger () {
+	multiple.value?.triggerSearchAsync();
+}
 
 // #region Data
 const data = reactive({

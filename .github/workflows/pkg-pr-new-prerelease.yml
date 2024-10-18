@@ -1,10 +1,10 @@
-name: Build & Publish for pre-release
+name: Publish on pkg.pr.new
 
 on:
   workflow_dispatch:
   push:
     branches:
-      - develop
+      - 'develop'
       - 'feature/**'
       - 'hotfix/**'
       - 'release/**'
@@ -26,7 +26,7 @@ on:
 
 jobs:
   build-publish-prerelease:
-    name: Build Develop
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -42,7 +42,7 @@ jobs:
         run: npm ci
 
       - name: Bump version
-        run: npm version "$(BRANCH=${GITHUB_REF_NAME} node scripts/npm-version.cjs)" --no-git-tag-version
+        run: npm version 0.0.0-pkg.pr.new --no-git-tag-version
 
       - name: Build lib
         run: npm run build
@@ -50,7 +50,5 @@ jobs:
       - name: Run post build script
         run: node scripts/ci-build-lib.cjs
 
-      - name: Publish to NPM for pre-release
-        run: npm publish --tag "$(BRANCH=${GITHUB_REF_NAME} node scripts/npm-sanitize-tag.cjs)" --access public
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+      - name: Publish to pkg.pr.new for pre-release
+        run: npx pkg-pr-new publish --compact

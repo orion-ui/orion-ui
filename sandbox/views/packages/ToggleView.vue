@@ -9,7 +9,8 @@
 				:key="index"
 				v-model="fieldValue"
 				:color="color"
-				label="toto1"/>
+				label="toto1"
+				size="lg"/>
 		</div>
 		<div style="width:20rem;">
 			<o-toggle
