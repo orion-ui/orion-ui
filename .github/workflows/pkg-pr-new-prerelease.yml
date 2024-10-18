@@ -6,8 +6,8 @@ on:
     branches:
       - 'develop'
       - 'feature/**'
-      - '!hotfix/**'
-      - '!release/**'
+      - 'hotfix/**'
+      - 'release/**'
       - '!main'
     paths:
       - '.github/workflows/**'
