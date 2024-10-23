@@ -319,7 +319,8 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 	}
 
 	sanitizePhoneNumber (phoneNumberToSanitize?: string) : string {
-		if (phoneNumberToSanitize && validatePhoneNumberLength(phoneNumberToSanitize, this.country?.code) === 'TOO_LONG') {
+		phoneNumberToSanitize = phoneNumberToSanitize?.replaceAll('.', '');
+		if (phoneNumberToSanitize && validatePhoneNumberLength(phoneNumberToSanitize.trim(), this.country?.code) === 'TOO_LONG') {
 			while (validatePhoneNumberLength(phoneNumberToSanitize, this.country?.code) === 'TOO_LONG') {
 				phoneNumberToSanitize = phoneNumberToSanitize?.slice(0, -1);
 			}
@@ -329,7 +330,7 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 			return phoneNumberToSanitize.replace(/\s*/g, '');
 		}
 
-		if (phoneNumberToSanitize && validatePhoneNumberLength(phoneNumberToSanitize, this.country?.code) === 'NOT_A_NUMBER') {
+		if (phoneNumberToSanitize && validatePhoneNumberLength(phoneNumberToSanitize.trim(), this.country?.code) === 'NOT_A_NUMBER') {
 			if (validatePhoneNumberLength(this.phoneNumber, this.country?.code) !== 'NOT_A_NUMBER') {
 				const inputValue = this._orionInput.value?._input();
 				if (inputValue)
