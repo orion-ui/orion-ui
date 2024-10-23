@@ -115,8 +115,8 @@ export default class OrionPlanningSetupService extends SharedSetupService<Props>
 
 	placeItem (item: Orion.Planning.Item, leftBase: number, currentTop: number) {
 		const itemElt = document.getElementById('item-' + item.id);
-		const beginElt = document.getElementById(`date-${useMonkey(item.begin).toReadable('$DD-$MM-$YYYY')}`);
-		const endElt = document.getElementById(`date-${useMonkey(item.end).toReadable('$DD-$MM-$YYYY')}`);
+		const beginElt = document.getElementById(`date-${useMonkey(item.begin).toReadable('$MM-$DD-$YYYY')}`);
+		const endElt = document.getElementById(`date-${useMonkey(item.end).toReadable('$MM-$DD-$YYYY')}`);
 		let beginPos = -16;
 
 		if (!itemElt) return currentTop;
@@ -217,6 +217,7 @@ export default class OrionPlanningSetupService extends SharedSetupService<Props>
 		}
 
 		this.document?.addEventListener('click', () => { this.showContextMenu = false;});
+		console.log(this.baseRect);
 	}
 
 	onUnmounted () {

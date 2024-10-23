@@ -31,7 +31,7 @@
 			class="orion-planning-body">
 			<div
 				v-for="date, index in setup.activePeriod"
-				:id="`date-${useMonkey(date).toReadable('$DD-$MM-$YYYY')}`"
+				:id="`date-${useMonkey(date).toReadable('$MM-$DD-$YYYY')}`"
 				:key="index"
 				class="orion-planning-day"
 				:class="{ 'orion-planning-day--today': setup.isSameDay(date, new Date()) }">
@@ -81,6 +81,28 @@ const setup = new OrionPlanningSetupService(props, emit);
 defineExpose(setup.publicInstance);
 const slots = useSlots();
 
+const handleUpdateBegin = function (date: Date | undefined, item: Orion.Planning.Item) {
+	if (date) {
+		if (date > item.end) {
+			item.begin = item.end;
+		} else {
+			item.begin = date;
+		}
+		setup.debouncePlaceItemInPlanning();
+	}
+};
+
+const handleUpdateEnd = function (date: Date | undefined, item: Orion.Planning.Item) {
+	if (date) {
+		if (date < item.begin) {
+			item.end = item.begin;
+		} else {
+			item.end = date;
+		}
+		setup.debouncePlaceItemInPlanning();
+	}
+};
+
 const jsxPeriod = (item: Orion.Planning.Item) => {
 	const idItem = 'item-' + item.id;
 	return (<OrionPeriod
@@ -91,7 +113,9 @@ const jsxPeriod = (item: Orion.Planning.Item) => {
 		color={item.color}
 		label={item.label}
 		draggable="true"
-		onDragstart={setup.handleDragStart(idItem)}>
+		onDragstart={setup.handleDragStart(idItem)}
+		onUpdateBegin={(date: Date) => handleUpdateBegin(date, item)}
+		onUpdateEnd={(date: Date) => handleUpdateEnd(date, item)}>
 		{slots.periodContent ? slots.periodContent({ item: item }) : null}
 	</OrionPeriod>);
 };
