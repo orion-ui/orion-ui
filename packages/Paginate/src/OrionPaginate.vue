@@ -45,9 +45,6 @@ const setup = new OrionPaginateSetupService(props, emits, vModel);
 defineExpose(setup.publicInstance);
 
 /** Doc
- * @doc event/update:modelValue/desc emitted to update the active page index
- * @doc/fr event/update:modelValue/desc émis pour mettre à jour l'index de la page active
- *
  * @doc event/paginate/desc emitted on page changement
  * @doc/fr event/paginate/desc émis au changement de page
  */

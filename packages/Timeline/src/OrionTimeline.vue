@@ -66,8 +66,5 @@ const jsxTimeline = () => {
  *
  * @doc event/pill-click/desc emitted when a pill is clicked
  * @doc/fr event/pill-click/desc émis au moment du click sur une vignette
- *
- * @doc event/update:modelValue/desc emitted to update the model value
- * @doc/fr event/update:modelValue/desc émis pour mettre à jour le modelValue
  */
 </script>

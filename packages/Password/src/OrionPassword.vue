@@ -80,9 +80,6 @@ defineExpose(setup.publicInstance);
  * @doc event/change/desc emitted when the value of the field changes
  * @doc/fr event/change/desc émis lorsque la valeur est modifiée
  *
- * @doc event/update:modelValue/desc emitted to update the field value
- * @doc/fr event/update:modelValue/desc émis pour mettre à jour la valeur
- *
  * @doc event/clear/desc emitted when the field is cleared
  * @doc/fr event/clear/desc émis quand le champ est vidé
  */

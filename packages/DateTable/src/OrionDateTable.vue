@@ -170,14 +170,11 @@ const setup = new OrionDateTableSetupService(props, emits, vModel, range, multip
 defineExpose(setup.publicInstance);
 
 /** Doc
- * @doc event/update:modelValue/desc emitted to update the modelValue
- * @doc/fr event/update:modelValue/desc émis pour mettre à jour le modelValue
- *
  * @doc event/update:range/desc emitted to update the range value
- * @doc/fr event/update:range/desc émis pour mettre à jour le modelValue dans le cas ou il est de type `range`
+ * @doc/fr event/update:range/desc émis pour mettre à jour le vModel dans le cas ou il est de type `range`
  *
  * @doc event/update:multiple/desc emitted to update the multiple value
- * @doc/fr event/update:multiple/desc émis pour mettre à jour le modelValue dans le cas ou il est de type `multiple`
+ * @doc/fr event/update:multiple/desc émis pour mettre à jour le vModel dans le cas ou il est de type `multiple`
  *
  * @doc event/update:dayHover/desc emitted to update the dayHover value
  * @doc/fr event/update:dayHover/desc émis pour mettre à jour la valeur de `dayHover`

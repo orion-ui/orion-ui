@@ -248,8 +248,8 @@ export default abstract class SharedFieldSetupService<P, T, E extends SharedFiel
 		};
 	}
 
-	// @doc vModel/modelValue modelValue of the component
-	// @doc/fr vModel/modelValue modelValue du composant.
+	// @doc props/vModel vModel of the component
+	// @doc/fr props/vModel vModel du composant.
 	constructor (
 		protected props: SharedFieldSetupServiceProps & P,
 		protected emits: E,
@@ -336,7 +336,6 @@ export default abstract class SharedFieldSetupService<P, T, E extends SharedFiel
 	clear () {
 		if (this.props.disabled || this.props.readonly || !this.vModel?.value) return;
 		this.vModel.value = this.props.clearToNull ? null : undefined;
-		//this.emits('update:modelValue', this.props.clearToNull ? null : undefined);
 		this.emits('input', this.props.clearToNull ? null : undefined);
 		this.emits('change', this.props.clearToNull ? null : undefined);
 		this.emits('clear');

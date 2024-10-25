@@ -35,9 +35,6 @@ defineExpose(setup.publicInstance);
  * @doc event/change/desc emitted when the value changes
  * @doc/fr event/change/desc  émis lorsque la valeur est modifiée
  *
- * @doc event/update:modelValue/desc emitted to update the value
- * @doc/fr event/update:modelValue/desc émis pour mettre à jour la valeur
- *
  * @doc event/clear/desc emitted when the value is cleared
  * @doc/fr event/clear/desc
  *

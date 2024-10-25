@@ -57,11 +57,8 @@ const setup = new OrionRateSetupService(props, emits, vModel);
 defineExpose(setup.publicInstance);
 
 /** Doc
- * @doc event/input/desc emitted on model value change
- * @doc/fr event/input/desc émis lorsque le modelValue change
- *
- * @doc event/update:modelValue/desc emitted to update the model value
- * @doc/fr event/update:modelValue/desc émis pour mettre à jour le modelValue
+ * @doc event/input/desc emitted on vModel change
+ * @doc/fr event/input/desc émis lorsque le vModel change
  *
  * @doc slot/default legend of the rating
  * @doc/fr slot/default légende de la notation

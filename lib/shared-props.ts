@@ -1,8 +1,3 @@
-
-export type SharedPropsvModel<T> = {
-    modelValue?: T,
-  }
-
 export type SharedPropsIcon = {
     icon?: Orion.Icon,
     fontIcon?: string

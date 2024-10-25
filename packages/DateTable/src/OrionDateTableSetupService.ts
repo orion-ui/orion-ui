@@ -44,8 +44,8 @@ export type OrionDateTableProps = {
 	// @doc props/rangeStart if set, defines the range start value as the current value
 	// @doc/fr props/rangeStart si définie, la date sélectionnée est le début de la période
 	rangeStart: boolean,
-	// @doc props/type the type of the model value
-	// @doc/fr props/type le type de modelValue
+	// @doc props/type the type of the vModel
+	// @doc/fr props/type le type de vModel
 	type: Orion.DateTableType,
 };
 
@@ -246,10 +246,10 @@ export default class OrionDateTableSetupService extends SharedSetupService {
 		};
 	}
 
-	// @doc vModel/range the modelValue if the type is set to `range`
-	// @doc/fr vModel/range modelValue du composant si la prop `type` est `range`
-	// @doc vModel/multiple the modelValue if the type is set to `multiple`
-	// @doc/fr vModel/multiple modelValue du composant si la prop `type` est `multiple`
+	// @doc vModel/range the vModel if the type is set to `range`
+	// @doc/fr vModel/range vModel du composant si la prop `type` est `range`
+	// @doc vModel/multiple the vModel if the type is set to `multiple`
+	// @doc/fr vModel/multiple vModel du composant si la prop `type` est `multiple`
 	// @doc vModel/dayHover the value of the hovered day
 	// @doc/fr vModel/dayHover valeur du jour survolé
 	constructor (

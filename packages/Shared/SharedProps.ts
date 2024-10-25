@@ -1,14 +1,6 @@
 import { PropType } from 'vue';
 
 export default class SharedProps {
-	static vModel = <T>(defaultValue?: T | (() => T)) => ({
-		// @doc props/modelValue modelValue of the component
-		// @doc/fr props/modelValue modelValue du composant
-		modelValue: {
-			type: [String, Number, Array, Object, Date] as PropType<T>,
-			default: defaultValue,
-		},
-	});
 
 	static color = (defaultValue: Orion.Color = 'default') => ({
 		// @doc props/color defines the color

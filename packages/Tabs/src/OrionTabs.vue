@@ -66,8 +66,5 @@ const jsxTabs = () => {
  *
  * @doc event/tab-click/desc emitted on tab click
  * @doc/fr event/tab-click/desc émis au moment du click sur un tab
- *
- * @doc event/update:modelValue/desc emitted to update the model value
- * @doc/fr event/update:modelValue/desc émis pour mettre à jour la valeur du modelValue
  */
 </script>

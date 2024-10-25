@@ -32,8 +32,8 @@ export type OrionDatepickerProps = SharedFieldSetupServiceProps & {
 	// @doc props/time displays also hours/minutes
 	// @doc/fr props/time affiche aussi les heures/minutes
 	time: boolean,
-	// @doc props/type the type of the model value
-	// @doc/fr props/type le type de modelValue
+	// @doc props/type the type of the vModel
+	// @doc/fr props/type le type de vModel
 	type: Orion.DatepickerType,
 	// @doc props/valueDisplayFormat function to customize the display format
 	// @doc/fr props/valueDisplayFormat fonction pour personnaliser l'affichage
@@ -174,12 +174,12 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 		this.range.value = val;
 	}
 
-	// @doc props/vModel the modelValue if the type is set to `date`
-	// @doc/fr props/vModel le modelValue si le type est défini à `date`
-	// @doc props/multiple the modelValue if the type is set to `multiple`
-	// @doc/fr props/multiple le modelValue si le type est défini à `multiple`
-	// @doc props/range the modelValue if the type is set to `range`
-	// @doc/fr props/range le modelValue si le type est défini à `range`
+	// @doc props/vModel the vModel if the type is set to `date`
+	// @doc/fr props/vModel le vModel si le type est défini à `date`
+	// @doc props/multiple the vModel if the type is set to `multiple`
+	// @doc/fr props/multiple le vModel si le type est défini à `multiple`
+	// @doc props/range the vModel if the type is set to `range`
+	// @doc/fr props/range le vModel si le type est défini à `range`
 	constructor (
 		protected props: OrionDatepickerProps,
 		protected emits: OrionDatepickerEmits,

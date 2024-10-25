@@ -90,8 +90,4 @@ const props = withDefaults(defineProps<OrionDailyCalendarProps>(), OrionDailyCal
 const setup = new OrionDailyCalendarSetupService(props, emits, date);
 defineExpose(setup.publicInstance);
 
-/** Doc
- * @doc event/update:date/desc Event to update the modelValue
- * @doc/fr event/update:date/desc évènement pour mettre à jour la modelValue
- */
 </script>
