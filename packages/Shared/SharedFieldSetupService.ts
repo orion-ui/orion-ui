@@ -52,6 +52,12 @@ export default abstract class SharedFieldSetupService<P, T, E extends FieldEmit 
 			type: String,
 			default: undefined as string | undefined,
 		},
+		// @doc props/placeholder placeholder of the field
+		// @doc/fr props/placeholder le placeholder du champ
+		placeholder: {
+			type: String,
+			default: undefined as string | undefined,
+		},
 		// @doc props/type type of the input
 		// @doc/fr props/type type of the input
 		type: {
@@ -248,6 +254,7 @@ export default abstract class SharedFieldSetupService<P, T, E extends FieldEmit 
 			size: this.props.size,
 			suffixIcon: this.props.suffixIcon,
 			label: this.props.label,
+			placeholder: this.props.placeholder,
 			prefixFontIcon: this.props.prefixFontIcon,
 			suffixFontIcon: this.props.suffixFontIcon,
 		};

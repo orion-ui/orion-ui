@@ -15,13 +15,14 @@
 					<o-select
 						v-model="data.ajaxSingle"
 						size="xs"
+						placeholder="placeholder"
 						track-key="id"
+						label="Label"
 						display-key="email"
 						value-key="id"
 						:custom-fetch="customFetch"
 						:fetch-min-search="2"
 						:fetch-initial-options="data.ajaxSingleInitialOptions"
-						:label="`Single`"
 						@fetch-search-clear="cb">
 						<template #option="{ item, markedSearch }">
 							<div v-if="item">
@@ -201,6 +202,7 @@
 							<o-select
 								v-model="data.fieldSelectValueKey"
 								:label="`Simple`"
+								placeholder="placeholder"
 								display-key="display"
 								track-key="id"
 								value-key="label"
