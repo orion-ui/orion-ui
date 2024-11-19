@@ -226,6 +226,12 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 
 		//Check if we try to delete the area code
 		if (selectionStart <= this.indicatif.length && valueLength >= this.indicatif.length) {
+			if (selectionLength === valueLength) {
+				if (this.vModel)
+					this.vModel.phoneNumber = undefined;
+				return;
+			}
+
 			if (selectionStart < this.indicatif.length ||
 				(selectionStart === this.indicatif.length && selectionStart === selectionEnd && e.key === 'Backspace')) {
 				e.preventDefault();
