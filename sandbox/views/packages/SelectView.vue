@@ -45,7 +45,7 @@
 						track-key="id"
 						display-key="email"
 						fetch-url="https://jsonplaceholder.typicode.com/users"
-						:label="`Multiple`"
+						:placeholder="`Multiple`"
 						multiple>
 						<template #before-options>
 							<o-button @click="trigger">trigger</o-button>
@@ -64,7 +64,7 @@
 						track-key="id"
 						display-key="email"
 						value-key="id"
-						label="Single"
+						placeholder="Placeholder"
 						:custom-fetch="customFetch"
 						v-bind="commonBind">
 						<template #value="{ item, display }">

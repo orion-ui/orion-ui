@@ -69,9 +69,7 @@ export default class OrionFieldSetupService extends SharedSetupService<Props> {
 		if (this.props.hasValue) {
 			return this.props.label;
 		} else {
-			if (!this.props.isFocus)
-				return this.props.placeholder ?? this.props.label;
-			return this.props.label;
+			return this.props.placeholder ?? this.props.label;
 		}
 	}
 

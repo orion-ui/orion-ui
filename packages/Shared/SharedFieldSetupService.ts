@@ -158,7 +158,11 @@ export default abstract class SharedFieldSetupService<P, T, E extends FieldEmit 
 	}
 
 	protected get labelIsFloating () {
-		return this.state.isFocus || this.hasValue || this.props.forceLabelFloating || this.state.isAutoFilled;
+		return (this.state.isFocus && !(this.props.placeholder && !this.hasValue))
+		|| this.hasValue
+		|| this.props.forceLabelFloating
+		|| this.state.isAutoFilled
+		;
 	}
 
 	get validationHtmlMessages () {
