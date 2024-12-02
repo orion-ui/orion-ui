@@ -9,6 +9,7 @@
 				track-key="code"
 				display-key="areaCode"
 				searchable
+				:readonly="setup.props.readonly"
 				:disabled="setup.props.disabled"
 				:options="setup.countryList"
 				:custom-search="setup.customSearch.bind(setup)"
@@ -41,6 +42,7 @@
 					...$attrs,
 					label: setup.props.label,
 					disabled: setup.props.disabled,
+					readonly: setup.props.readonly,
 					clearable: setup.props.clearable,
 					required: setup.isRequired,
 				}"
