@@ -217,7 +217,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 		return (this.hasValue
 			|| this.props.forceLabelFloating
 			|| (this.props.autocomplete && this.state.isFocus)
-			|| !!this.valueToSearch?.length);
+			|| !!this.valueToSearch?.length && !this._optionssearchinput.value);
 	}
 
 	get isObjectType () {
