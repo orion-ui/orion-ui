@@ -44,15 +44,27 @@ export default class OrionDateRangeSetupService extends SharedSetupService<Props
 
 		const endDate = new Date(this._end.value.getCurrentDate());
 		endDate.setDate(1);
+		if (this.displayNextMonth) {
+			endDate.setMonth(endDate.getMonth() + 1);
+		}
+
+		if (startDate.getFullYear() < endDate.getFullYear()) {
+			if (startDate.getFullYear() === endDate.getFullYear() - 1) {
+				if (startDate.getMonth() === 11 && endDate.getMonth() === 0) {
+					return false;
+				}
+			}
+			return true;
+		}
 
 		return startDate.getFullYear() < endDate.getFullYear() || startDate.getMonth() < (endDate.getMonth() - 1);
 	}
 
 	get canGoNextMonth () {
-		if (!this._start?.value || !this.vModel?.start) return this.allowMiddleNextOrPrevMonth;
+		if (!this._start?.value || !this._end?.value) return this.allowMiddleNextOrPrevMonth;
 
 		return this.allowMiddleNextOrPrevMonth &&
-			(this._start.value.getCurrentMonth() < this.vModel.start.getMonth() || this._start.value.getCurrentYear() < this.vModel.start.getFullYear());
+			(this._start.value.getCurrentMonth() < this._end.value.getCurrentMonth() || this._start.value.getCurrentYear() < this._end.value.getCurrentYear());
 	}
 
 	get canGoPrevMonth () {
@@ -74,13 +86,18 @@ export default class OrionDateRangeSetupService extends SharedSetupService<Props
 		} else {
 			nextTick(() => {
 				if (!!val?.start && !val.end && this._end.value && this._end.value.getCurrentDate().valueOf() <= val.start.valueOf()) {
-					const start = new Date(val.start);
-					start.setMonth(start.getMonth() + 1);
+					const start = new Date(val.start.getFullYear(), val.start.getMonth()+1, 1);
 					this._end.value?.selectYear(start.getFullYear());
 					this._end.value?.selectMonth(start.getMonth());
 				}
 			});
 		}
+	}
+
+	get displayNextMonth () {
+		return !!this.vModel && !!this.vModel.start && !!this.vModel.end
+		&& this.vModel.start?.getMonth() === this.vModel.end?.getMonth()
+		&& this.vModel.start?.getFullYear() === this.vModel.end?.getFullYear();
 	}
 
 

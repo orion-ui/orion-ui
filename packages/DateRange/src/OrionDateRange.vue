@@ -31,6 +31,7 @@
 			:max-date="maxDate"
 			:can-go-prev-month="setup.canGoPrevMonth"
 			:display-week-number="displayWeekNumber"
+			:display-next-month="setup.displayNextMonth"
 			@change-month="setup.handleChangeMonth('end')"/>
 	</div>
 </template>
