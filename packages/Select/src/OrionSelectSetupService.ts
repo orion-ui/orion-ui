@@ -521,7 +521,11 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 	handleBlur (e?: FocusEvent, selection?: boolean) {
 		if (e?.relatedTarget) {
 			const el = e.relatedTarget as HTMLElement;
-			if (el.parentElement?.classList.contains('orion-select__popover-search-input')) return false;
+			if (el.parentElement?.classList.contains('orion-select__popover-search-input')
+				|| (el === this._autocomplete.value)) {
+				return false;
+			}
+
 		}
 
 		this.state.hasBeenFocus = true;
