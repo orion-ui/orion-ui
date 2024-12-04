@@ -24,6 +24,7 @@ export type OrionFieldProps = {
 	showSuccess?: boolean,
 	inputType?: string,
 	label?: string,
+	placeholder?: string,
 }
 
 export default class OrionFieldSetupService extends SharedSetupService {
@@ -59,6 +60,14 @@ export default class OrionFieldSetupService extends SharedSetupService {
 		if (this.props.labelIsFloating) cls.push(`${this.baseClass}__label--floating`);
 
 		return cls;
+	}
+
+	get labelValue () {
+		if (this.props.hasValue) {
+			return this.props.label;
+		} else {
+			return this.props.placeholder ?? this.props.label;
+		}
 	}
 
 	get validationClass () {

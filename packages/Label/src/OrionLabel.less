@@ -3,10 +3,11 @@
 
 .orion-label {
 	.ellipsis();
-	display: inline-block;
+	display: inline-flex;
+	align-items: center;
 	max-width: 100%;
 	font-weight: 600;
-	line-height: 1.4;
+	line-height: 1;
 	border-radius: var(--radius-label);
 	white-space: nowrap;
 
@@ -107,26 +108,31 @@
 
 	&--xs {
 		padding: calc(1rem / 16) var(--fluid-5px);
-		font-size: calc(9rem / 16);
+		font-size: calc(10rem / 16);
+		min-height: 1rem;
 	}
 
 	&--sm {
 		padding: calc(1rem / 16) calc(5px + 0.125rem);
-		font-size: 0.7rem;
+		font-size: 0.75rem;
+		min-height: 1.25rem;
 	}
 
 	&--md {
 		padding: calc(2rem / 16) var(--fluid-10px);
 		font-size: 0.75rem;
+		min-height: 1.375rem;
 	}
 
 	&--lg {
 		padding: calc(1px + 0.125rem) var(--fluid-15px);
-		font-size: 0.85rem;
+		font-size: 0.875rem;
+		min-height: 1.625rem;
 	}
 
 	&--xl {
 		padding: var(--fluid-5px) var(--fluid-18px);
-		font-size: 0.85rem;
+		font-size: 0.875rem;
+		min-height: 2rem;
 	}
 }

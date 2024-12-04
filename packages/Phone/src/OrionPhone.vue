@@ -9,7 +9,8 @@
 				track-key="code"
 				display-key="areaCode"
 				searchable
-				:disabled="disabled"
+				:disabled
+				:readonly
 				:options="setup.countryList"
 				:custom-search="setup.customSearch.bind(setup)"
 				@input-keydown-tab="setup._input.value?.focus()"
@@ -42,6 +43,7 @@
 					label: label,
 					disabled: disabled,
 					clearable: clearable,
+					readonly,
 					required: setup.isRequired,
 				}"
 				force-label-floating

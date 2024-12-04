@@ -548,7 +548,7 @@ class SetupServiceDtsFileScanner extends DocScanner {
 
 		return accessor
 			.getLastChildByKind(SyntaxKind.TypeLiteral)
-			.getProperties()
+			?.getProperties()
 			.map(x => ({
 				name: x.getName(),
 				type: this.handleNameSpecificCases(x.getName())

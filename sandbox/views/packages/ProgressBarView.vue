@@ -7,9 +7,13 @@
 				size="sm">
 				<o-progress-bar
 					:color="color"
-					:label="`Toto - ${value}%`"
 					:value="value"/>
 			</o-section>
+			<o-progress-bar
+				:color="color"
+				:value="value">
+				TUTU
+			</o-progress-bar>
 		</o-card>
 	</o-page>
 </template>

@@ -47,6 +47,9 @@ export type SharedFieldSetupServiceProps = {
 	// @doc props/label label of the field
 	// @doc/fr props/label le label du champ
 	label?: string,
+	// @doc props/placeholder placeholder of the field
+	// @doc/fr props/placeholder le placeholder du champ
+	placeholder?: string,
 	// @doc props/type type of the input
 	// @doc/fr props/type type of the input
 	type: string | Orion.DatepickerType,
@@ -142,7 +145,11 @@ export default abstract class SharedFieldSetupService<P, T, E extends SharedFiel
 	}
 
 	protected get labelIsFloating () {
-		return this.state.isFocus || this.hasValue || this.props.forceLabelFloating || this.state.isAutoFilled;
+		return (this.state.isFocus && !(this.props.placeholder && !this.hasValue))
+		|| this.hasValue
+		|| this.props.forceLabelFloating
+		|| this.state.isAutoFilled
+		;
 	}
 
 	get validationHtmlMessages () {
@@ -229,6 +236,7 @@ export default abstract class SharedFieldSetupService<P, T, E extends SharedFiel
 			size: this.props.size,
 			suffixIcon: this.props.suffixIcon,
 			label: this.props.label,
+			placeholder: this.props.placeholder,
 			prefixFontIcon: this.props.prefixFontIcon,
 			suffixFontIcon: this.props.suffixFontIcon,
 		};

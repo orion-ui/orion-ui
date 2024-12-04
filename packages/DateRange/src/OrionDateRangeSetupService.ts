@@ -32,6 +32,18 @@ export default class OrionDateRangeSetupService extends SharedSetupService {
 
 		const endDate = new Date(this._end.value.getCurrentDate());
 		endDate.setDate(1);
+		if (this.dateRangeSameMonth) {
+			endDate.setMonth(endDate.getMonth() + 1);
+		}
+
+		if (startDate.getFullYear() < endDate.getFullYear()) {
+			if (startDate.getFullYear() === endDate.getFullYear() - 1) {
+				if (startDate.getMonth() === 11 && endDate.getMonth() === 0) {
+					return false;
+				}
+			}
+			return true;
+		}
 
 		return startDate.getFullYear() < endDate.getFullYear() || startDate.getMonth() < (endDate.getMonth() - 1);
 	}
@@ -63,13 +75,18 @@ export default class OrionDateRangeSetupService extends SharedSetupService {
 		} else {
 			nextTick(() => {
 				if (!!val?.start && !val.end && this._end.value && this._end.value.getCurrentDate().valueOf() <= val.start.valueOf()) {
-					const start = new Date(val.start);
-					start.setMonth(start.getMonth() + 1);
+					const start = new Date(val.start.getFullYear(), val.start.getMonth()+1, 1);
 					this._end.value?.selectYear(start.getFullYear());
 					this._end.value?.selectMonth(start.getMonth());
 				}
 			});
 		}
+	}
+
+	get dateRangeSameMonth () {
+		return !!this.vModel.value && !!this.vModel.value.start && !!this.vModel.value.end
+		&& this.vModel.value.start?.getMonth() === this.vModel.value.end?.getMonth()
+		&& this.vModel.value.start?.getFullYear() === this.vModel.value.end?.getFullYear();
 	}
 
 

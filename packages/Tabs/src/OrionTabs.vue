@@ -9,7 +9,6 @@ import { isDefineOrTrue } from 'utils/tools';
 import { OrionTabNav } from 'packages/TabNav';
 import { OrionLoader } from 'packages/Loader';
 import OrionTabsSetupService from './OrionTabsSetupService';
-import { RouterView } from 'vue-router';
 import type { OrionTabsProps, OrionTabsEmits } from './OrionTabsSetupService';
 const slots = useSlots();
 const emits = defineEmits<OrionTabsEmits>() as OrionTabsEmits;
@@ -45,7 +44,7 @@ const jsxTabs = () => {
 		<div class="orion-tabs__content">
 			{
 				props.useRouter
-					? <RouterView name={props.routerViewName}/>
+					? <router-view name={props.routerViewName}/>
 					: slots.default ? slots.default() : null
 			}
 			<OrionLoader { ...loaderData }/>

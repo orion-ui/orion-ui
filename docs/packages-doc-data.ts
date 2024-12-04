@@ -68,10 +68,7 @@ const packagesDocData = new Map([
 					'fr': 'Titre de l\'alert',
 				},
 			}],
-			publicInstance: [{
-				'name': '_el',
-				'type': '() => HTMLElement | undefined',
-			}],
+			publicInstance: undefined,
 		},
 	],
 	[
@@ -238,7 +235,7 @@ const packagesDocData = new Map([
 				'type': '() => boolean',
 			}, {
 				'name': '_el',
-				'type': '() => HTMLElement | undefined',
+				'type': '(() => HTMLElement | undefined) | undefined',
 			}],
 		},
 	],
@@ -341,10 +338,7 @@ const packagesDocData = new Map([
 					'fr': 'fonction à appeler pour modifier l\'avatar',
 				},
 			}],
-			publicInstance: [{
-				'name': '_el',
-				'type': '() => HTMLElement | undefined',
-			}],
+			publicInstance: undefined,
 		},
 	],
 	[
@@ -476,10 +470,7 @@ const packagesDocData = new Map([
 					'fr': 'définit l\'icône de suffixe',
 				},
 			}],
-			publicInstance: [{
-				'name': '_el',
-				'type': '() => HTMLElement | undefined',
-			}],
+			publicInstance: undefined,
 		},
 	],
 	[
@@ -607,10 +598,7 @@ const packagesDocData = new Map([
 					'fr': 'titre de la carte',
 				},
 			}],
-			publicInstance: [{
-				'name': '_el',
-				'type': '() => HTMLElement | undefined',
-			}],
+			publicInstance: undefined,
 		},
 	],
 	[
@@ -861,7 +849,7 @@ const packagesDocData = new Map([
 				'type': '() => void',
 			}, {
 				'name': '_el',
-				'type': '() => HTMLElement | undefined',
+				'type': '(() => HTMLElement | undefined) | undefined',
 			}],
 		},
 	],
@@ -913,10 +901,7 @@ const packagesDocData = new Map([
 					'fr': 'identifiant de l\'élément',
 				},
 			}],
-			publicInstance: [{
-				'name': '_el',
-				'type': '() => HTMLElement | undefined',
-			}],
+			publicInstance: undefined,
 		},
 	],
 	[
@@ -1026,7 +1011,7 @@ const packagesDocData = new Map([
 				'type': '() => number | undefined',
 			}, {
 				'name': '_el',
-				'type': '() => HTMLElement | undefined',
+				'type': '(() => HTMLElement | undefined) | undefined',
 			}],
 		},
 	],
@@ -1097,10 +1082,7 @@ const packagesDocData = new Map([
 					'fr': 'instance du service `chat`',
 				},
 			}],
-			publicInstance: [{
-				'name': '_el',
-				'type': '() => HTMLElement | undefined',
-			}],
+			publicInstance: undefined,
 		},
 	],
 	[
@@ -1135,10 +1117,7 @@ const packagesDocData = new Map([
 					'fr': 'Objet représentant le message',
 				},
 			}],
-			publicInstance: [{
-				'name': '_el',
-				'type': '() => HTMLElement | undefined',
-			}],
+			publicInstance: undefined,
 		},
 	],
 	[
@@ -1333,6 +1312,15 @@ const packagesDocData = new Map([
 					'fr': 'permet de selectionner plusieurs cases à cocher, dans le cas où le v-model est un tableau',
 				},
 			}, {
+				'name': 'placeholder',
+				'defaultValue': 'undefined',
+				'type': 'string',
+				'required': false,
+				'desc': {
+					'en': 'placeholder of the field',
+					'fr': 'le placeholder du champ',
+				},
+			}, {
 				'name': 'prefixFontIcon',
 				'type': 'string',
 				'required': false,
@@ -1462,9 +1450,6 @@ const packagesDocData = new Map([
 			}, {
 				'name': '_input',
 				'type': '() => HTMLInputElement | undefined',
-			}, {
-				'name': '_el',
-				'type': '() => HTMLElement | undefined',
 			}],
 		},
 	],
@@ -1536,10 +1521,7 @@ const packagesDocData = new Map([
 					'fr': 'définit la taille',
 				},
 			}],
-			publicInstance: [{
-				'name': '_el',
-				'type': '() => HTMLElement | undefined',
-			}],
+			publicInstance: undefined,
 		},
 	],
 	[
@@ -1726,6 +1708,15 @@ const packagesDocData = new Map([
 					'fr': 'modelValue du composant',
 				},
 			}, {
+				'name': 'placeholder',
+				'defaultValue': 'undefined',
+				'type': 'string',
+				'required': false,
+				'desc': {
+					'en': 'placeholder of the field',
+					'fr': 'le placeholder du champ',
+				},
+			}, {
 				'name': 'prefixFontIcon',
 				'type': 'string',
 				'required': false,
@@ -1855,9 +1846,6 @@ const packagesDocData = new Map([
 			}, {
 				'name': '_input',
 				'type': '() => HTMLInputElement | undefined',
-			}, {
-				'name': '_el',
-				'type': '() => HTMLElement | undefined',
 			}],
 		},
 	],
@@ -1946,7 +1934,7 @@ const packagesDocData = new Map([
 				'type': '() => Promise<File>',
 			}, {
 				'name': '_el',
-				'type': '() => HTMLElement | undefined',
+				'type': '(() => HTMLElement | undefined) | undefined',
 			}],
 		},
 	],
@@ -1993,10 +1981,7 @@ const packagesDocData = new Map([
 					'fr': 'la plage horaire affichée.',
 				},
 			}],
-			publicInstance: [{
-				'name': '_el',
-				'type': '() => HTMLElement | undefined',
-			}],
+			publicInstance: undefined,
 		},
 	],
 	[
@@ -2091,6 +2076,15 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'allows the navigation to the previous month',
 					'fr': 'permet la navigation vers le mois précédent',
+				},
+			}, {
+				'name': 'dateRangeSameMonth',
+				'defaultValue': 'false',
+				'type': 'boolean',
+				'required': false,
+				'desc': {
+					'en': 'when the component is used in a OrionDatepicker component with type \'range\', specified if the daterange is in one month',
+					'fr': 'quand le composant est utilisé dans un OrionDatepicker de type \'range\', défini si la période sélectionnée se situe sur un seul même mois.',
 				},
 			}, {
 				'name': 'dateSelected',
@@ -2236,7 +2230,7 @@ const packagesDocData = new Map([
 				'type': '(year: number) => void',
 			}, {
 				'name': '_el',
-				'type': '() => HTMLElement | undefined',
+				'type': '(() => HTMLElement | undefined) | undefined',
 			}],
 		},
 	],
@@ -2486,6 +2480,15 @@ const packagesDocData = new Map([
 					'fr': 'couleurs des dates affichées si le type est défini à `multiple`',
 				},
 			}, {
+				'name': 'placeholder',
+				'defaultValue': 'undefined',
+				'type': 'string',
+				'required': false,
+				'desc': {
+					'en': 'placeholder of the field',
+					'fr': 'le placeholder du champ',
+				},
+			}, {
 				'name': 'prefixFontIcon',
 				'type': 'string',
 				'required': false,
@@ -2642,9 +2645,6 @@ const packagesDocData = new Map([
 			}, {
 				'name': '_input',
 				'type': '() => HTMLInputElement | undefined',
-			}, {
-				'name': '_el',
-				'type': '() => HTMLElement | undefined',
 			}],
 		},
 	],
@@ -2698,10 +2698,7 @@ const packagesDocData = new Map([
 					'fr': 'tag ou composant qui réprésentera l\'élément',
 				},
 			}],
-			publicInstance: [{
-				'name': '_el',
-				'type': '() => HTMLElement | undefined',
-			}],
+			publicInstance: undefined,
 		},
 	],
 	[
@@ -2802,7 +2799,7 @@ const packagesDocData = new Map([
 				'type': 'number',
 			}, {
 				'name': '_el',
-				'type': '() => HTMLElement | undefined',
+				'type': '(() => HTMLElement | undefined) | undefined',
 			}],
 		},
 	],
@@ -3118,9 +3115,6 @@ const packagesDocData = new Map([
 			}, {
 				'name': '_input',
 				'type': '() => HTMLInputElement | undefined',
-			}, {
-				'name': '_el',
-				'type': '() => HTMLElement | undefined',
 			}],
 		},
 	],
@@ -3157,10 +3151,7 @@ const packagesDocData = new Map([
 					'fr': 'si défini, affiche le composant',
 				},
 			}],
-			publicInstance: [{
-				'name': '_el',
-				'type': '() => HTMLElement | undefined',
-			}],
+			publicInstance: undefined,
 		},
 	],
 	[
@@ -3232,10 +3223,7 @@ const packagesDocData = new Map([
 					'fr': 'défini la tolérence pour le déclenchement de l\'apparition ou de la disparation de l\'ombre',
 				},
 			}],
-			publicInstance: [{
-				'name': '_el',
-				'type': '() => HTMLElement | undefined',
-			}],
+			publicInstance: undefined,
 		},
 	],
 	[
@@ -3333,10 +3321,7 @@ const packagesDocData = new Map([
 					'fr': 'émet une onde au moment du click et ajoute un style au moment du survol',
 				},
 			}],
-			publicInstance: [{
-				'name': '_el',
-				'type': '() => HTMLElement | undefined',
-			}],
+			publicInstance: undefined,
 		},
 	],
 	[
@@ -3388,10 +3373,7 @@ const packagesDocData = new Map([
 					'fr': 'titre de la section',
 				},
 			}],
-			publicInstance: [{
-				'name': '_el',
-				'type': '() => HTMLElement | undefined',
-			}],
+			publicInstance: undefined,
 		},
 	],
 	[
@@ -3631,6 +3613,15 @@ const packagesDocData = new Map([
 					'fr': 'modelValue du composant',
 				},
 			}, {
+				'name': 'placeholder',
+				'defaultValue': 'undefined',
+				'type': 'string',
+				'required': false,
+				'desc': {
+					'en': 'placeholder of the field',
+					'fr': 'le placeholder du champ',
+				},
+			}, {
 				'name': 'prefixFontIcon',
 				'type': 'string',
 				'required': false,
@@ -3751,9 +3742,6 @@ const packagesDocData = new Map([
 			}, {
 				'name': '_input',
 				'type': '() => HTMLInputElement | undefined',
-			}, {
-				'name': '_el',
-				'type': '() => HTMLElement | undefined',
 			}],
 		},
 	],
@@ -3924,6 +3912,15 @@ const packagesDocData = new Map([
 					'fr': 'modelValue du composant',
 				},
 			}, {
+				'name': 'placeholder',
+				'defaultValue': 'undefined',
+				'type': 'string',
+				'required': false,
+				'desc': {
+					'en': 'placeholder of the field',
+					'fr': 'le placeholder du champ',
+				},
+			}, {
 				'name': 'prefixFontIcon',
 				'type': 'string',
 				'required': false,
@@ -4053,9 +4050,6 @@ const packagesDocData = new Map([
 			}, {
 				'name': '_input',
 				'type': '() => HTMLInputElement | undefined',
-			}, {
-				'name': '_el',
-				'type': '() => HTMLElement | undefined',
 			}],
 		},
 	],
@@ -4103,10 +4097,7 @@ const packagesDocData = new Map([
 					'fr': 'définit la taille',
 				},
 			}],
-			publicInstance: [{
-				'name': '_el',
-				'type': '() => HTMLElement | undefined',
-			}],
+			publicInstance: undefined,
 		},
 	],
 	[
@@ -4193,10 +4184,7 @@ const packagesDocData = new Map([
 					'fr': 'ces props seront passées au composant `<o-nav-top>` du layout',
 				},
 			}],
-			publicInstance: [{
-				'name': '_el',
-				'type': '() => HTMLElement | undefined',
-			}],
+			publicInstance: undefined,
 		},
 	],
 	[
@@ -4395,10 +4383,7 @@ const packagesDocData = new Map([
 					'fr': 'affiche une pagination en haut de la liste',
 				},
 			}],
-			publicInstance: [{
-				'name': '_el',
-				'type': '() => HTMLElement | undefined',
-			}],
+			publicInstance: undefined,
 		},
 	],
 	[
@@ -4464,7 +4449,7 @@ const packagesDocData = new Map([
 				'type': '() => void',
 			}, {
 				'name': '_el',
-				'type': '() => HTMLElement | undefined',
+				'type': '(() => HTMLElement | undefined) | undefined',
 			}],
 		},
 	],
@@ -4611,7 +4596,7 @@ const packagesDocData = new Map([
 				'type': '() => boolean',
 			}, {
 				'name': '_el',
-				'type': '() => HTMLElement | undefined',
+				'type': '(() => HTMLElement | undefined) | undefined',
 			}],
 		},
 	],
@@ -4714,7 +4699,7 @@ const packagesDocData = new Map([
 				'type': '() => boolean',
 			}, {
 				'name': '_el',
-				'type': '() => HTMLElement | undefined',
+				'type': '(() => HTMLElement | undefined) | undefined',
 			}],
 		},
 	],
@@ -4784,7 +4769,7 @@ const packagesDocData = new Map([
 				'type': '() => string',
 			}, {
 				'name': '_el',
-				'type': '() => HTMLElement | undefined',
+				'type': '(() => HTMLElement | undefined) | undefined',
 			}],
 		},
 	],
@@ -4813,7 +4798,7 @@ const packagesDocData = new Map([
 				'type': '() => void',
 			}, {
 				'name': '_el',
-				'type': '() => HTMLElement | undefined',
+				'type': '(() => HTMLElement | undefined) | undefined',
 			}],
 		},
 	],
@@ -4891,10 +4876,7 @@ const packagesDocData = new Map([
 					'fr': 'ajoute une ellipse au niveau du titre s\'il est trop long',
 				},
 			}],
-			publicInstance: [{
-				'name': '_el',
-				'type': '() => HTMLElement | undefined',
-			}],
+			publicInstance: undefined,
 		},
 	],
 	[
@@ -4954,10 +4936,7 @@ const packagesDocData = new Map([
 					'fr': 'nombre total d\'éléments',
 				},
 			}],
-			publicInstance: [{
-				'name': '_el',
-				'type': '() => HTMLElement | undefined',
-			}],
+			publicInstance: undefined,
 		},
 	],
 	[
@@ -5117,6 +5096,15 @@ const packagesDocData = new Map([
 					'fr': 'affiche la une tooltip avec les règles à respecter',
 				},
 			}, {
+				'name': 'placeholder',
+				'defaultValue': 'undefined',
+				'type': 'string',
+				'required': false,
+				'desc': {
+					'en': 'placeholder of the field',
+					'fr': 'le placeholder du champ',
+				},
+			}, {
 				'name': 'prefixFontIcon',
 				'type': 'string',
 				'required': false,
@@ -5237,9 +5225,6 @@ const packagesDocData = new Map([
 			}, {
 				'name': '_input',
 				'type': '() => HTMLInputElement | undefined',
-			}, {
-				'name': '_el',
-				'type': '() => HTMLElement | undefined',
 			}],
 		},
 	],
@@ -5434,6 +5419,15 @@ const packagesDocData = new Map([
 					'fr': 'le numéro de téléphone, isolé de son objet parent',
 				},
 			}, {
+				'name': 'placeholder',
+				'defaultValue': 'undefined',
+				'type': 'string',
+				'required': false,
+				'desc': {
+					'en': 'placeholder of the field',
+					'fr': 'le placeholder du champ',
+				},
+			}, {
 				'name': 'prefixFontIcon',
 				'type': 'string',
 				'required': false,
@@ -5531,6 +5525,12 @@ const packagesDocData = new Map([
 				},
 			}],
 			publicInstance: [{
+				'name': '_country',
+				'type': '() => {\n\tgetSearchTerm: () => string | undefined;\n\tsetSearchTerm: (val?: string | undefined) => string | undefined;\n\ttriggerSearchAsync: (term?: string | undefined) => Promise<void>;\n\thasBeenFocus: () => boolean;\n\tisFocus: () => boolean;\n\tfocus: () => void;\n\tblur: import("lodash").DebouncedFuncLeading<() => void>;\n\tclear: () => void;\n\tsetHasBeenFocus: (value: boolean) => void;\n\tisValid: () => boolean;\n\t_input: () => HTMLInputElement | undefined;\n} | undefined',
+			}, {
+				'name': '_orionInput',
+				'type': '() => (HTMLInputElement & {\n\thasBeenFocus: () => boolean;\n\tisFocus: () => boolean;\n\tfocus: () => void;\n\tblur: import("lodash").DebouncedFuncLeading<() => void>;\n\tclear: () => void;\n\tsetHasBeenFocus: (value: boolean) => void;\n\tisValid: () => boolean;\n\t_input: () => HTMLInputElement | undefined;\n}) | undefined',
+			}, {
 				'name': 'hasBeenFocus',
 				'type': '() => boolean',
 			}, {
@@ -5554,9 +5554,6 @@ const packagesDocData = new Map([
 			}, {
 				'name': '_input',
 				'type': '() => HTMLInputElement | undefined',
-			}, {
-				'name': '_el',
-				'type': '() => HTMLElement | undefined',
 			}],
 		},
 	],
@@ -5635,10 +5632,7 @@ const packagesDocData = new Map([
 					'fr': 'titre de la popup de confirmation',
 				},
 			}],
-			publicInstance: [{
-				'name': '_el',
-				'type': '() => HTMLElement | undefined',
-			}],
+			publicInstance: [],
 		},
 	],
 	[
@@ -5693,10 +5687,7 @@ const packagesDocData = new Map([
 					'fr': 'épaisseur de la barre de progression',
 				},
 			}],
-			publicInstance: [{
-				'name': '_el',
-				'type': '() => HTMLElement | undefined',
-			}],
+			publicInstance: undefined,
 		},
 	],
 	[
@@ -5769,10 +5760,7 @@ const packagesDocData = new Map([
 					'fr': 'épaisseur de la ligne qui représente la progression',
 				},
 			}],
-			publicInstance: [{
-				'name': '_el',
-				'type': '() => HTMLElement | undefined',
-			}],
+			publicInstance: undefined,
 		},
 	],
 	[
@@ -5958,6 +5946,15 @@ const packagesDocData = new Map([
 					'fr': 'modelValue du composant',
 				},
 			}, {
+				'name': 'placeholder',
+				'defaultValue': 'undefined',
+				'type': 'string',
+				'required': false,
+				'desc': {
+					'en': 'placeholder of the field',
+					'fr': 'le placeholder du champ',
+				},
+			}, {
 				'name': 'prefixFontIcon',
 				'type': 'string',
 				'required': false,
@@ -6087,9 +6084,6 @@ const packagesDocData = new Map([
 			}, {
 				'name': '_input',
 				'type': '() => HTMLInputElement | undefined',
-			}, {
-				'name': '_el',
-				'type': '() => HTMLElement | undefined',
 			}],
 		},
 	],
@@ -6185,10 +6179,7 @@ const packagesDocData = new Map([
 					'fr': 'nombre total de votes',
 				},
 			}],
-			publicInstance: [{
-				'name': '_el',
-				'type': '() => HTMLElement | undefined',
-			}],
+			publicInstance: undefined,
 		},
 	],
 	[
@@ -6275,10 +6266,7 @@ const packagesDocData = new Map([
 					'fr': 'titre de la section',
 				},
 			}],
-			publicInstance: [{
-				'name': '_el',
-				'type': '() => HTMLElement | undefined',
-			}],
+			publicInstance: undefined,
 		},
 	],
 	[
@@ -6435,6 +6423,20 @@ const packagesDocData = new Map([
 					'desc': {
 						'en': 'The selected item display value (display-key)',
 						'fr': 'La valeur d’affichage de l’élément sélectionné (display-key)',
+					},
+				}],
+			}, {
+				'name': 'multiple-value',
+				'desc': {
+					'en': 'The content of the select if the props multiple is set',
+					'fr': 'Contenu du select si la props multiple est définie',
+				},
+				'bindings': [{
+					'bind': 'value',
+					'type': 'BaseVModelType[]',
+					'desc': {
+						'en': 'value of the vModel',
+						'fr': 'valeur du vModel',
 					},
 				}],
 			}, {
@@ -6683,6 +6685,15 @@ const packagesDocData = new Map([
 					'fr': 'options du select',
 				},
 			}, {
+				'name': 'placeholder',
+				'defaultValue': 'undefined',
+				'type': 'string',
+				'required': false,
+				'desc': {
+					'en': 'placeholder of the field',
+					'fr': 'le placeholder du champ',
+				},
+			}, {
 				'name': 'prefillSearch',
 				'defaultValue': 'undefined',
 				'type': 'string',
@@ -6822,6 +6833,9 @@ const packagesDocData = new Map([
 				'name': 'setSearchTerm',
 				'type': '(val?: string) => string | undefined',
 			}, {
+				'name': 'triggerSearchAsync',
+				'type': '(term?: string) => Promise<void>',
+			}, {
 				'name': 'hasBeenFocus',
 				'type': '() => boolean',
 			}, {
@@ -6845,9 +6859,6 @@ const packagesDocData = new Map([
 			}, {
 				'name': '_input',
 				'type': '() => HTMLInputElement | undefined',
-			}, {
-				'name': '_el',
-				'type': '() => HTMLElement | undefined',
 			}],
 		},
 	],
@@ -6934,10 +6945,7 @@ const packagesDocData = new Map([
 					'fr': 'titre du sticker',
 				},
 			}],
-			publicInstance: [{
-				'name': '_el',
-				'type': '() => HTMLElement | undefined',
-			}],
+			publicInstance: undefined,
 		},
 	],
 	[
@@ -6971,10 +6979,7 @@ const packagesDocData = new Map([
 					'fr': 'direction de l\'animation du swipe',
 				},
 			}],
-			publicInstance: [{
-				'name': '_el',
-				'type': '() => HTMLElement | undefined',
-			}],
+			publicInstance: undefined,
 		},
 	],
 	[
@@ -7078,7 +7083,7 @@ const packagesDocData = new Map([
 				'type': 'string',
 			}, {
 				'name': '_el',
-				'type': '() => HTMLElement | undefined',
+				'type': '(() => HTMLElement | undefined) | undefined',
 			}],
 		},
 	],
@@ -7167,7 +7172,7 @@ const packagesDocData = new Map([
 				'type': 'boolean',
 			}, {
 				'name': '_el',
-				'type': '() => HTMLElement | undefined',
+				'type': '(() => HTMLElement | undefined) | undefined',
 			}],
 		},
 	],
@@ -7327,6 +7332,15 @@ const packagesDocData = new Map([
 					'fr': 'modelValue du composant',
 				},
 			}, {
+				'name': 'placeholder',
+				'defaultValue': 'undefined',
+				'type': 'string',
+				'required': false,
+				'desc': {
+					'en': 'placeholder of the field',
+					'fr': 'le placeholder du champ',
+				},
+			}, {
 				'name': 'prefixFontIcon',
 				'type': 'string',
 				'required': false,
@@ -7456,9 +7470,6 @@ const packagesDocData = new Map([
 			}, {
 				'name': '_input',
 				'type': '() => HTMLInputElement | undefined',
-			}, {
-				'name': '_el',
-				'type': '() => HTMLElement | undefined',
 			}],
 		},
 	],
@@ -7559,7 +7570,7 @@ const packagesDocData = new Map([
 				'type': '(name: string | number) => void',
 			}, {
 				'name': '_el',
-				'type': '() => HTMLElement | undefined',
+				'type': '(() => HTMLElement | undefined) | undefined',
 			}],
 		},
 	],
@@ -7682,7 +7693,7 @@ const packagesDocData = new Map([
 				'type': 'string | number',
 			}, {
 				'name': '_el',
-				'type': '() => HTMLElement | undefined',
+				'type': '(() => HTMLElement | undefined) | undefined',
 			}],
 		},
 	],
@@ -7848,6 +7859,15 @@ const packagesDocData = new Map([
 					'fr': 'modelValue du composant',
 				},
 			}, {
+				'name': 'placeholder',
+				'defaultValue': 'undefined',
+				'type': 'string',
+				'required': false,
+				'desc': {
+					'en': 'placeholder of the field',
+					'fr': 'le placeholder du champ',
+				},
+			}, {
 				'name': 'prefixFontIcon',
 				'type': 'string',
 				'required': false,
@@ -7986,9 +8006,6 @@ const packagesDocData = new Map([
 			}, {
 				'name': '_input',
 				'type': '() => HTMLInputElement | undefined',
-			}, {
-				'name': '_el',
-				'type': '() => HTMLElement | undefined',
 			}],
 		},
 	],
@@ -8032,7 +8049,7 @@ const packagesDocData = new Map([
 				'type': '(val: number) => void',
 			}, {
 				'name': 'setCurrentStepPublicInstance',
-				'type': '(instance: Undef<{\n\tprevious: () => Promise<void>;\n\tnext: () => Promise<void>;\n\tstop: (fromTour?: boolean) => Promise<void>;\n\t_el: () => HTMLElement | undefined;\n}>) => void',
+				'type': '(instance: Undef<{\n\tprevious: () => Promise<void>;\n\tnext: () => Promise<void>;\n\tstop: (fromTour?: boolean) => Promise<void>;\n\t_el?: (() => HTMLElement | undefined) | undefined;\n}>) => void',
 			}, {
 				'name': 'start',
 				'type': '(index?: number) => void',
@@ -8041,7 +8058,7 @@ const packagesDocData = new Map([
 				'type': '() => void',
 			}, {
 				'name': '_el',
-				'type': '() => HTMLElement | undefined',
+				'type': '(() => HTMLElement | undefined) | undefined',
 			}],
 		},
 	],
@@ -8182,7 +8199,7 @@ const packagesDocData = new Map([
 				'type': '(fromTour?: boolean) => Promise<void>',
 			}, {
 				'name': '_el',
-				'type': '() => HTMLElement | undefined',
+				'type': '(() => HTMLElement | undefined) | undefined',
 			}],
 		},
 	],
@@ -8359,6 +8376,15 @@ const packagesDocData = new Map([
 					'fr': 'permet le chargement de plusieurs fichiers.',
 				},
 			}, {
+				'name': 'placeholder',
+				'defaultValue': 'undefined',
+				'type': 'string',
+				'required': false,
+				'desc': {
+					'en': 'placeholder of the field',
+					'fr': 'le placeholder du champ',
+				},
+			}, {
 				'name': 'prefixFontIcon',
 				'type': 'string',
 				'required': false,
@@ -8488,9 +8514,6 @@ const packagesDocData = new Map([
 			}, {
 				'name': '_input',
 				'type': '() => HTMLInputElement | undefined',
-			}, {
-				'name': '_el',
-				'type': '() => HTMLElement | undefined',
 			}],
 		},
 	],

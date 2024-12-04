@@ -10,6 +10,7 @@
 		@apply-show="setup.handlePopoverShow()">
 		<orion-field
 			v-bind="setup.orionFieldBinding"
+			:placeholder="(setup.valueToSearch?.length && !setup._optionssearchinput || setup.labelIsFloating) ? undefined : placeholder"
 			:label-is-floating="setup.labelIsFloating"
 			class="orion-select"
 			:class="[{ 'orion-select--multiple': multiple }, $attrs.class]"
@@ -25,7 +26,7 @@
 				@keydown.down.prevent="setup.handleKeydown('down')"
 				@keydown.up.prevent="setup.handleKeydown('up')"
 				@keydown.enter="setup.selectItemFromEnter()">
-				<div v-if="multiple && setup.isArray(vModel) && vModel?.length">
+				<div v-if="multiple && setup.isArray(vModel) && vModel?.length && !$slots['multiple-value']" >
 					<span
 						v-for="(item, i) in vModel"
 						:key="Number(i)"
@@ -50,6 +51,11 @@
 					v-bind="setup.valueDisplay(vModel)">
 					{{ setup.valueDisplay(vModel).display }}
 				</slot>
+				<slot
+					v-else-if="$slots['multiple-value']"
+					name="multiple-value"
+					:value="setup.vModel"/>
+
 
 				<input
 					v-if="autocomplete && (!setup.hasValue || (setup.hasValue && setup.isFocus))"
@@ -204,6 +210,12 @@ defineExpose(setup.publicInstance);
  * @doc slot/value/display/desc The selected item display value (display-key)
  * @doc/fr slot/value/display/desc La valeur d’affichage de l’élément sélectionné (display-key)
  * @doc slot/value/display/type any
+ *
+ * @doc slot/multiple-value The content of the select if the props multiple is set
+ * @doc/fr slot/multiple-value Contenu du select si la props multiple est définie
+ * @doc slot/multiple-value/value/desc value of the vModel
+ * @doc/fr slot/multiple-value/value/desc valeur du vModel
+ * @doc slot/multiple-value/value/type BaseVModelType[]
  *
  * @doc slot/before-options Content before the select options in the popover
  * @doc/fr slot/before-options Contenu de la tooltip avant la liste des options
