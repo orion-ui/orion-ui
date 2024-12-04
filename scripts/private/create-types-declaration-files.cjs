@@ -8,7 +8,7 @@ const { sleep } = require('radash');
 const { log, note, spinner } = require('@clack/prompts');
 
 // https://github.com/vuejs/core/issues/8301
-// require('@vue/compiler-sfc').registerTS(() => require('typescript')); // TODO:
+require('@vue/compiler-sfc').registerTS(() => require('typescript')); // TODO:
 
 // const setupServiceImportRegex = /^import (\w+SetupService) from .+\n/gm;
 const lessImportRegex = /^import .+.less.+\n/gm;
@@ -134,6 +134,16 @@ class TypesDeclarationFilesFactory {
 					let isTSX = false;
 
 					if (scriptSetup) {
+						//https://github.com/parcel-bundler/parcel/issues/9565 handle [@vue/compiler-sfc] No fs option provided to `compileScript` in non-Node environment.
+
+						if (sfc.descriptor.scriptSetup) {
+							sfc.descriptor.scriptSetup.content = scriptSetup.content
+								.replace(
+									/(import type .* from ')(\..*)(?<orion>\/Orion)(?<packageName>\w*)(?<setup>SetupService';)/gm, // good luck
+									'$1packages/$<packageName>/src$<orion>$<packageName>$<setup>'
+								);
+						}
+						
 						const compiled = compileScript(sfc.descriptor, { id: 'xxx' });
 						content += compiled.content;
 						if (scriptSetup.lang && tsLang.includes(scriptSetup.lang)) isTS = true;
