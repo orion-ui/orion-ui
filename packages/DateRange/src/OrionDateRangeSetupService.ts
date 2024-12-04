@@ -44,7 +44,7 @@ export default class OrionDateRangeSetupService extends SharedSetupService<Props
 
 		const endDate = new Date(this._end.value.getCurrentDate());
 		endDate.setDate(1);
-		if (this.displayNextMonth) {
+		if (this.dateRangeSameMonth) {
 			endDate.setMonth(endDate.getMonth() + 1);
 		}
 
@@ -94,7 +94,7 @@ export default class OrionDateRangeSetupService extends SharedSetupService<Props
 		}
 	}
 
-	get displayNextMonth () {
+	get dateRangeSameMonth () {
 		return !!this.vModel && !!this.vModel.start && !!this.vModel.end
 		&& this.vModel.start?.getMonth() === this.vModel.end?.getMonth()
 		&& this.vModel.start?.getFullYear() === this.vModel.end?.getFullYear();
