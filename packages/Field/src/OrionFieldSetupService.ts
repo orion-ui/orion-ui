@@ -27,6 +27,10 @@ export default class OrionFieldSetupService extends SharedSetupService<Props> {
 			type: String,
 			default: undefined,
 		},
+		placeholder: {
+			type: String,
+			default: undefined,
+		},
 	};
 
 	readonly _el = ref<RefDom>();
@@ -59,6 +63,14 @@ export default class OrionFieldSetupService extends SharedSetupService<Props> {
 		if (this.props.labelIsFloating) cls.push(`${this.baseClass}__label--floating`);
 
 		return cls;
+	}
+
+	get labelValue () {
+		if (this.props.hasValue) {
+			return this.props.label;
+		} else {
+			return this.props.placeholder ?? this.props.label;
+		}
 	}
 
 	get validationClass () {

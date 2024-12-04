@@ -10,6 +10,7 @@
 		@apply-show="setup.handlePopoverShow()">
 		<orion-field
 			v-bind="setup.orionFieldBinding"
+			:placeholder="(setup.valueToSearch?.length && !setup._optionssearchinput || setup.labelIsFloating) ? undefined : placeholder"
 			:label-is-floating="setup.labelIsFloating"
 			class="orion-select"
 			:class="[{ 'orion-select--multiple': setup.props.multiple }, $attrs.class]"
