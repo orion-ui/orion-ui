@@ -1312,6 +1312,15 @@ const packagesDocData = new Map([
 					'fr': 'permet de selectionner plusieurs cases à cocher, dans le cas où le v-model est un tableau',
 				},
 			}, {
+				'name': 'placeholder',
+				'defaultValue': 'undefined',
+				'type': 'string',
+				'required': false,
+				'desc': {
+					'en': 'placeholder of the field',
+					'fr': 'le placeholder du champ',
+				},
+			}, {
 				'name': 'prefixFontIcon',
 				'type': 'string',
 				'required': false,
@@ -1699,6 +1708,15 @@ const packagesDocData = new Map([
 					'fr': 'modelValue du composant',
 				},
 			}, {
+				'name': 'placeholder',
+				'defaultValue': 'undefined',
+				'type': 'string',
+				'required': false,
+				'desc': {
+					'en': 'placeholder of the field',
+					'fr': 'le placeholder du champ',
+				},
+			}, {
 				'name': 'prefixFontIcon',
 				'type': 'string',
 				'required': false,
@@ -2058,6 +2076,15 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'allows the navigation to the previous month',
 					'fr': 'permet la navigation vers le mois précédent',
+				},
+			}, {
+				'name': 'dateRangeSameMonth',
+				'defaultValue': 'false',
+				'type': 'boolean',
+				'required': false,
+				'desc': {
+					'en': 'when the component is used in a OrionDatepicker component with type \'range\', specified if the daterange is in one month',
+					'fr': 'quand le composant est utilisé dans un OrionDatepicker de type \'range\', défini si la période sélectionnée se situe sur un seul même mois.',
 				},
 			}, {
 				'name': 'dateSelected',
@@ -2451,6 +2478,15 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'color of the displayed dates is the type is set to `multiple`',
 					'fr': 'couleurs des dates affichées si le type est défini à `multiple`',
+				},
+			}, {
+				'name': 'placeholder',
+				'defaultValue': 'undefined',
+				'type': 'string',
+				'required': false,
+				'desc': {
+					'en': 'placeholder of the field',
+					'fr': 'le placeholder du champ',
 				},
 			}, {
 				'name': 'prefixFontIcon',
@@ -3577,6 +3613,15 @@ const packagesDocData = new Map([
 					'fr': 'modelValue du composant',
 				},
 			}, {
+				'name': 'placeholder',
+				'defaultValue': 'undefined',
+				'type': 'string',
+				'required': false,
+				'desc': {
+					'en': 'placeholder of the field',
+					'fr': 'le placeholder du champ',
+				},
+			}, {
 				'name': 'prefixFontIcon',
 				'type': 'string',
 				'required': false,
@@ -3865,6 +3910,15 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'modelValue of the component',
 					'fr': 'modelValue du composant',
+				},
+			}, {
+				'name': 'placeholder',
+				'defaultValue': 'undefined',
+				'type': 'string',
+				'required': false,
+				'desc': {
+					'en': 'placeholder of the field',
+					'fr': 'le placeholder du champ',
 				},
 			}, {
 				'name': 'prefixFontIcon',
@@ -5042,6 +5096,15 @@ const packagesDocData = new Map([
 					'fr': 'affiche la une tooltip avec les règles à respecter',
 				},
 			}, {
+				'name': 'placeholder',
+				'defaultValue': 'undefined',
+				'type': 'string',
+				'required': false,
+				'desc': {
+					'en': 'placeholder of the field',
+					'fr': 'le placeholder du champ',
+				},
+			}, {
 				'name': 'prefixFontIcon',
 				'type': 'string',
 				'required': false,
@@ -5354,6 +5417,15 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'the phoneNumber string, isolated from its parent object',
 					'fr': 'le numéro de téléphone, isolé de son objet parent',
+				},
+			}, {
+				'name': 'placeholder',
+				'defaultValue': 'undefined',
+				'type': 'string',
+				'required': false,
+				'desc': {
+					'en': 'placeholder of the field',
+					'fr': 'le placeholder du champ',
 				},
 			}, {
 				'name': 'prefixFontIcon',
@@ -5872,6 +5944,15 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'modelValue of the component',
 					'fr': 'modelValue du composant',
+				},
+			}, {
+				'name': 'placeholder',
+				'defaultValue': 'undefined',
+				'type': 'string',
+				'required': false,
+				'desc': {
+					'en': 'placeholder of the field',
+					'fr': 'le placeholder du champ',
 				},
 			}, {
 				'name': 'prefixFontIcon',
@@ -6604,6 +6685,15 @@ const packagesDocData = new Map([
 					'fr': 'options du select',
 				},
 			}, {
+				'name': 'placeholder',
+				'defaultValue': 'undefined',
+				'type': 'string',
+				'required': false,
+				'desc': {
+					'en': 'placeholder of the field',
+					'fr': 'le placeholder du champ',
+				},
+			}, {
 				'name': 'prefillSearch',
 				'defaultValue': 'undefined',
 				'type': 'string',
@@ -7242,6 +7332,15 @@ const packagesDocData = new Map([
 					'fr': 'modelValue du composant',
 				},
 			}, {
+				'name': 'placeholder',
+				'defaultValue': 'undefined',
+				'type': 'string',
+				'required': false,
+				'desc': {
+					'en': 'placeholder of the field',
+					'fr': 'le placeholder du champ',
+				},
+			}, {
 				'name': 'prefixFontIcon',
 				'type': 'string',
 				'required': false,
@@ -7760,6 +7859,15 @@ const packagesDocData = new Map([
 					'fr': 'modelValue du composant',
 				},
 			}, {
+				'name': 'placeholder',
+				'defaultValue': 'undefined',
+				'type': 'string',
+				'required': false,
+				'desc': {
+					'en': 'placeholder of the field',
+					'fr': 'le placeholder du champ',
+				},
+			}, {
 				'name': 'prefixFontIcon',
 				'type': 'string',
 				'required': false,
@@ -8266,6 +8374,15 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'allows multiple files upload.',
 					'fr': 'permet le chargement de plusieurs fichiers.',
+				},
+			}, {
+				'name': 'placeholder',
+				'defaultValue': 'undefined',
+				'type': 'string',
+				'required': false,
+				'desc': {
+					'en': 'placeholder of the field',
+					'fr': 'le placeholder du champ',
 				},
 			}, {
 				'name': 'prefixFontIcon',

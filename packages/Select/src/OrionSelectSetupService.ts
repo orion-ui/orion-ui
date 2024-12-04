@@ -162,7 +162,6 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 	get valueToSearch () { return this.state.valueToSearch; }
 	set valueToSearch (value) {
 		this.state.valueToSearch = value;
-
 		if (!value?.length) {
 			this.emit('fetch-search-clear');
 		}
@@ -171,10 +170,6 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 			this.fetchSearchDebounce(value);
 		} else {
 			nextTick(this.animate.bind(this));
-		}
-
-		if (this.props.autocomplete && !this.props.multiple && !value?.length) {
-			this.clear();
 		}
 	}
 
@@ -219,10 +214,10 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 	}
 
 	get labelIsFloating () {
-		return this.hasValue
+		return (this.hasValue
 			|| this.props.forceLabelFloating
 			|| (this.props.autocomplete && this.state.isFocus)
-			|| !!this.valueToSearch?.length;
+			|| !!this.valueToSearch?.length && !this._optionssearchinput.value);
 	}
 
 	get isObjectType () {
@@ -234,7 +229,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 
 	get showPopover () {
 		return (!this.props.autocomplete && this.state.isFocus)
-			|| (this.props.autocomplete && this.state.isFocus && (!!this.optionsDisplay.length || this.state.isFetching))
+			|| (this.props.autocomplete && this.state.isFocus)
 			|| (this.props.autocomplete && this.responsive.onPhone && this.state.isFocus);
 	}
 
@@ -526,7 +521,11 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 	handleBlur (e?: FocusEvent, selection?: boolean) {
 		if (e?.relatedTarget) {
 			const el = e.relatedTarget as HTMLElement;
-			if (el.parentElement?.classList.contains('orion-select__popover-search-input')) return false;
+			if (el.parentElement?.classList.contains('orion-select__popover-search-input')
+				|| (el === this._autocomplete.value)) {
+				return false;
+			}
+
 		}
 
 		this.state.hasBeenFocus = true;
@@ -601,6 +600,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 			}
 		} else {
 			this.bus.emit('select', value);
+			this.valueToSearch = undefined;
 			this.handleBlur(undefined, true);
 		}
 	}

@@ -3,9 +3,9 @@
 		:ref="setup._el"
 		:class="[setup.baseClass, setup.additionalClass]">
 		<label
-			v-if="setup.props.label"
+			v-if="setup.props.label || setup.props.placeholder"
 			:class="setup.labelClass"
-			v-html="setup.props.label"/>
+			v-html="setup.labelValue"/>
 
 		<slot/>
 
