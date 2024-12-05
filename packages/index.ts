@@ -172,7 +172,7 @@ export * from './DateWeek';
 export * from './Datepicker';
 export * from './Draggable';
 export * from './Droppable';
-//export * from './Editor';
+export * from './Editor';
 export * from './Field';
 export * from './FooterFixed';
 export * from './HorizontalScroll';
