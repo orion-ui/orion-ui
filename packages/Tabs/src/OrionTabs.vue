@@ -22,7 +22,7 @@ defineExpose(setup.publicInstance);
 
 const jsxTabs = () => {
 	const navData = {
-		value: vModel,
+		value: vModel.value,
 		panes: setup.panes,
 		onTabClick: setup.onTabClick.bind(setup),
 	};

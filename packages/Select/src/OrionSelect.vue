@@ -54,7 +54,7 @@
 				<slot
 					v-else-if="$slots['multiple-value']"
 					name="multiple-value"
-					:value="setup.vModel"/>
+					:value="vModel"/>
 
 
 				<input

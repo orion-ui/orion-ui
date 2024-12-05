@@ -3,7 +3,6 @@
 </template>
 
 <script setup lang="tsx">
-//@ts-nocheck
 import './OrionTour.less';
 import { provide, useSlots } from 'vue';
 import OrionTourSetupService from './OrionTourSetupService';

@@ -4,8 +4,8 @@
 </template>
 <script setup lang="tsx">
 import './OrionTimelinePill.less';
- import { OrionIcon } from 'packages/Icon';
- import { OrionHorizontalScroll } from 'packages/HorizontalScroll';
+import { OrionIcon } from 'packages/Icon';
+import { OrionHorizontalScroll } from 'packages/HorizontalScroll';
 import OrionTimelinePillSetupService from './OrionTimelinePillSetupService';
 import { isDefineOrTrue } from 'utils/tools';
 import type { OrionTimelinePillProps, OrionTimelinePillEmits } from './OrionTimelinePillSetupService';
@@ -24,7 +24,7 @@ const jsxTimelinePill = () => {
 
 		const isCenteredPill = props.centeredPill || isDefineOrTrue(pane.props['centered-pill']);
 		const icon = pane.props.icon || pane.props['font-icon']
-			? (<OrionIcon class="orion-timeline-pill__icon" icon={pane.props.icon} fontIcon={pane.props['font-icon']}/>)
+			? (<><OrionIcon class="orion-timeline-pill__icon" icon={pane.props.icon} fontIcon={pane.props['font-icon']}/></>)
 			: null;
 
 		let markerColor = pane.props['marker-color'] ?? pane.props['markerColor'];

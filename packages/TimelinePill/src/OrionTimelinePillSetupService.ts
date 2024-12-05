@@ -9,7 +9,7 @@ export type OrionTimelinePillProps = {
 
 	current?: string | number,
 	panes: Orion.Private.TsxTimelinePane[],
-	onPillClick: (...val: [OrionTimelinePane, MouseEvent]) => void,
+	onPillClick: (...val: [Orion.Private.TsxTimelinePane['props'], MouseEvent]) => void,
 }
 
 export default class OrionTimelinePillSetupService extends SharedSetupService {

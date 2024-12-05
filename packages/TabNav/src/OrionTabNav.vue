@@ -44,11 +44,11 @@ const jsxTabNav = () => {
 				class={{
 					'orion-tab-nav': true,
 					'orion-tab-nav--disabled': isDefineOrTrue(pane.props.disabled),
-					'orion-tab-nav--active': setup.props.value === pane.props.name ||
+					'orion-tab-nav--active': props.value === pane.props.name ||
 						(_tabs?.useRouter && setup.router.currentRoute.value.name === pane.props.name),
 				}}
 				key={`orion-tab-${pane.props.name}`}
-				onClick={ (ev: MouseEvent) => setup.props.onTabClick(pane.props as unknown as OrionTabPane, ev) }>
+				onClick={ (ev: MouseEvent) => props.onTabClick(pane.props as unknown as OrionTabPane, ev) }>
 				<div class="orion-tab-nav__content">
 					{[ icon, label, marker ]}
 				</div>

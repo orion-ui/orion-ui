@@ -3,7 +3,6 @@
 </template>
 
 <script setup lang="tsx">
-// @ts-nocheck
 import './OrionTimeline.less';
 import { provide, useSlots } from 'vue';
 import { OrionLoader } from 'packages/Loader';
@@ -25,9 +24,9 @@ const jsxTimeline = () => {
 		panes: setup.panes,
 		
 		current: setup.current,
-		scrollable: setup.props.scrollable,
+		scrollable: props.scrollable,
 		onPillClick: setup.onPillClick.bind(setup),
-		centeredPill: setup.props.centeredPill,
+		centeredPill: props.centeredPill,
 	};
 
 	const pills = (
@@ -36,8 +35,8 @@ const jsxTimeline = () => {
 
 	const loaderData = {
 		ref: setup._loader,
-		message: typeof loader === 'string' ? setup.props.loader : undefined,
-		visible: isDefineOrTrue(setup.props.loader),
+		message: typeof props.loader === 'string' ? props.loader : undefined,
+		visible: isDefineOrTrue(props.loader),
 		size: 'sm' as Orion.Size,
 	};
 
@@ -50,13 +49,13 @@ const jsxTimeline = () => {
 
 
 	return (
-		<div class={{
-			'orion-timeline': true,
-			'orion-timeline--horizontal': setup.props.horizontal,
-			'orion-timeline--vertical': !setup.props.horizontal,
-		}}>
-			{[ pills, content ]}
-		</div>
+			<div class={{
+				'orion-timeline': true,
+				'orion-timeline--horizontal': props.horizontal,
+				'orion-timeline--vertical': !props.horizontal,
+			}}>
+				{[ pills, content ]}
+			</div>
 	);
 };
 

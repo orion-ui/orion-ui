@@ -1,6 +1,6 @@
 import SharedNavSetupService from '../../Shared/SharedNavSetupService';
 
-export type OrionNavMainItemEmits = {}
+export type OrionNavMainItemEmits = {(e: 'click-label', val: [Orion.NavItem, MouseEvent]): void}
 export type OrionNavMainItemProps = {
 	item: Orion.NavItem
 }

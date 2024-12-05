@@ -3,8 +3,8 @@ import SharedSetupService from '../../Shared/SharedSetupService';
 
 export type OrionLabelEmits = {}
 export type OrionLabelProps =
- SharedPropsSize &
- SharedPropsColorExtentedAndGreys & {
+	SharedPropsSize &
+	SharedPropsColorExtentedAndGreys & {
 	// @doc props/outline adds an outline style on the label
 	// @doc/fr props/outline ajoute un contraste sur le label
 	outline: boolean,

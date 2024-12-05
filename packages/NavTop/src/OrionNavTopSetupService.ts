@@ -7,7 +7,7 @@ export type OrionNavTopEmits = {}
 export type OrionNavTopProps = SharedPropsNav & {}
 
 export default class OrionNavTopSetupService extends SharedNavSetupService {
-	static defaultProps = { };
+	static readonly defaultProps = { items: () => [] as Orion.NavItem[] };
 
 	readonly _el = ref<RefDom>();
 

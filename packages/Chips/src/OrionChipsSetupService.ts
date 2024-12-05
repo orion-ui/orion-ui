@@ -1,10 +1,10 @@
 import { SharedPropsSize, SharedPropsColorExtentedAndGreys } from 'lib/shared-props';
 import SharedSetupService from '../../Shared/SharedSetupService';
 
-export type OrionChipsEmits = {}
+export type OrionChipsEmits = {(e: 'close'): void}
 export type OrionChipsProps =
-	 SharedPropsSize &
-	 SharedPropsColorExtentedAndGreys & {
+	SharedPropsSize &
+	SharedPropsColorExtentedAndGreys & {
 		// @doc props/outline Adds an outline style on the chips
 		// @doc/fr props/outline modifie le style en ajoutant un contraste
 		outline: boolean,

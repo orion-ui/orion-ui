@@ -10,6 +10,7 @@ import useValidation from '../services/ValidationService';
 import { Validator as ValidatorClass } from '../utils/Validator';
 import { CountryCode } from 'libphonenumber-js';
 import { OrionAvatarProps } from 'packages/Avatar/src/OrionAvatarSetupService';
+import { OrionTimelinePaneProps } from 'packages/TimelinePane/src/OrionTimelinePaneSetupService';
 
 declare global {
 	type Nullable<T> = T | null;
@@ -374,7 +375,7 @@ declare global {
 			}
 
 			type TsxTimelinePane = {
-				props: OrionTimelinePane.Props & {
+				props: OrionTimelinePaneProps & {
 					'font-icon': string;
 					'marker-color': string;
 					'centered-pill': string;

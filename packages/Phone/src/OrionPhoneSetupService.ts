@@ -211,8 +211,8 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Orio
 		//Check if we try to delete the area code
 		if (selectionStart <= this.indicatif.length && valueLength >= this.indicatif.length) {
 			if (selectionLength === valueLength) {
-				if (this.vModel)
-					this.vModel.phoneNumber = undefined;
+				if (this.vModel.value)
+					this.vModel.value.phoneNumber = undefined;
 				return;
 			}
 

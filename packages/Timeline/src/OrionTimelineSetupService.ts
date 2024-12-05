@@ -2,6 +2,7 @@ import { Component, ModelRef, reactive, ref, Slots, VNode, watch } from 'vue';
 import SharedSetupService from '../../Shared/SharedSetupService';
 import { isDefineOrTrue } from 'utils/tools';
 import { isArray } from 'lodash-es';
+import OrionTimelinePaneSetupService, { OrionTimelinePaneProps } from 'packages/TimelinePane/src/OrionTimelinePaneSetupService';
 
 export type OrionTimelineEmits = {
 	(e: 'input', payload: string | number): void
@@ -62,7 +63,7 @@ export default class OrionTimelineSetupService extends SharedSetupService {
 	}
 
 
-	constructor (protected props: OrionTimelineProps, protected emits: OrionTimelineEmits, slots: Slots, protected vModel?: ModelRef<string | number>) {
+	constructor (protected props: OrionTimelineProps, protected emits: OrionTimelineEmits, slots: Slots, protected vModel?: ModelRef<Undef<string | number>>) {
 		super();
 		this.state.current = vModel?.value;
 		this.slots = slots;

@@ -7,7 +7,9 @@ import useValidation from 'services/ValidationService';
 import { hoursToNumber } from 'utils/tools';
 import { useMonkey } from 'services';
 
-export type OrionInputEmits = SharedFieldSetupServiceEmits<Nil<string | number>> & {}
+export type OrionInputEmits = SharedFieldSetupServiceEmits<Nil<string | number>> & {
+	(e: 'mousedown-right', payload: MouseEvent): void;
+}
 export type OrionInputProps = SharedFieldSetupServiceProps & {
 	// @doc props/allowNegative allow negative values
 	// @doc/fr props/allowNegative autorise les valeurs négatives
@@ -17,7 +19,7 @@ export type OrionInputProps = SharedFieldSetupServiceProps & {
 	autocomplete?: string,
 	// @doc props/cleave Missing @doc
 	// @doc/fr props/cleave Missing @doc
-	cleave?: Object,
+	cleave?: Cleave,
 	// @doc props/mask the mask applied on the input
 	// @doc/fr props/mask masque appliqué sur le champ
 	mask?: string | InputMask,
@@ -138,7 +140,7 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 			value = value?.toString();
 
 			if (value) {
-				if (this.props.cleave?.phone) {
+				if (this.props.cleave?.properties.phone) {
 					value = value.replace(/\s*/g, '');
 				}
 
@@ -195,7 +197,7 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 		watch(() => props.cleave, (val) => {
 			const input = this._input.value as CleaveElement;
 			input.cleave.destroy();
-			input.cleave = new Cleave(input, val ?? {});
+			input.cleave = new Cleave(input, val?.properties ?? {});
 		});
 	}
 
