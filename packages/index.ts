@@ -28,7 +28,7 @@ import { OrionDateWeekPlugin } from './DateWeek';
 import { OrionDatepickerPlugin } from './Datepicker';
 import { OrionDraggablePlugin } from './Draggable';
 import { OrionDroppablePlugin } from './Droppable';
-//import { OrionEditorPlugin } from './Editor';
+import { OrionEditorPlugin } from './Editor';
 import { OrionFieldPlugin } from './Field';
 import { OrionFooterFixedPlugin } from './FooterFixed';
 import { OrionHorizontalScrollPlugin } from './HorizontalScroll';
@@ -98,7 +98,7 @@ const OrionComponentsPlugin: Plugin = {
 		OrionDatepickerPlugin.install?.(app, prefix);
 		OrionDraggablePlugin.install?.(app, prefix);
 		OrionDroppablePlugin.install?.(app, prefix);
-		//OrionEditorPlugin.install?.(app, prefix);
+		OrionEditorPlugin.install?.(app, prefix);
 		OrionFieldPlugin.install?.(app, prefix);
 		OrionFooterFixedPlugin.install?.(app, prefix);
 		OrionHorizontalScrollPlugin.install?.(app, prefix);
