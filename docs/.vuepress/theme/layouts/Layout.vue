@@ -101,16 +101,28 @@ watch(() => router.currentRoute.value, () => {
 	});
 })
 
+watch (() => document.getElementsByTagName('html')[0].getAttribute("data-theme"),  () => {
+	console.log('la')
+	setTheme()
+});
+
 onMounted(() => {
+	
 	if (typeof MutationObserver !== 'undefined') {
 		const darkModeObserver = new MutationObserver(setTheme);
-		darkModeObserver.observe(document.documentElement, { attributeFilter: ['class'] })
+		darkModeObserver.observe(document.documentElement, { attributeFilter: ['class'] })	
 	}
 
 	setTheme();
 	setAppLang(currentLang.value.split('-')[0].toLowerCase());
 	addCopyFeatureToCode();
 	setTimeout(addGlobalTypesLink, 200);
+
+	nextTick(() => {
+		console.log(document.getElementsByTagName('html')[0].getAttribute("data-theme"))
+		const darkModeThemeObserver = new MutationObserver(setTheme);
+		darkModeThemeObserver.observe(document.documentElement, { attributeFilter: ['data-theme'] })
+	})
 });
 
 function addGlobalTypesLink() {
@@ -180,7 +192,8 @@ function toggleTocIcon () {
 }
 
 function setTheme () {
-	setThemeMode(document.documentElement.classList.contains('dark') ? 'dark' : 'light')
+	console.log('settheme')
+	setThemeMode(document.getElementsByTagName('html')[0].getAttribute("data-theme")?.toString().includes('dark') ? 'dark' : 'light')
 }
 
 function toggleSearch() {

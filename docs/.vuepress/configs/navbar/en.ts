@@ -1,6 +1,6 @@
-import type { NavbarConfig } from '@vuepress/theme-default';
+import { LocaleData } from 'vuepress';
 
-export const en: NavbarConfig = [
+export const en: LocaleData = [
 	`/guide/quick-start.md`,
 	{
 		text: `Components`,

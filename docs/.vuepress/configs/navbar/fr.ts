@@ -1,6 +1,6 @@
-import type { NavbarConfig } from '@vuepress/theme-default';
+import { LocaleData } from 'vuepress';
 
-export const fr: NavbarConfig = [
+export const fr:  LocaleData = [
   {
 		text: `Démarrer`,
 		link: `/fr/guide/quick-start.md`,
