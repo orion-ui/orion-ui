@@ -22,28 +22,28 @@ export type SharedFieldSetupServiceProps = {
 	size?: SharedPropsSize['size'],
 	// @doc props/autofocus autofocus the field when mounted.
 	// @doc/fr props/autofocus focus automatiquement le champ lorsqu'il est monté.
-	autofocus: boolean,
+	autofocus?: boolean,
 	// @doc props/clearable defines if the field can be cleared.
 	// @doc/fr props/clearable définit si le champ peut être vidé.
-	clearable: boolean,
+	clearable?: boolean,
 	// @doc props/readonly sets the field to read-only mode
 	// @doc/fr props/readonly définit le champ comme étant en lecture seule
-	readonly: boolean,
+	readonly?: boolean,
 	// @doc props/required sets the field required
 	// @doc/fr props/required indique que le champ est obligatoire
-	required: boolean,
+	required?: boolean,
 	// @doc props/disabled disables the field
 	// @doc/fr props/disabled désactive le champ
-	disabled: boolean,
+	disabled?: boolean,
 	// @doc props/selectOnFocus select the field content when focused.
 	// @doc/fr props/selectOnFocus sélectionne le contenu du champ lorsqu'il est focus.
-	selectOnFocus: boolean,
+	selectOnFocus?: boolean,
 	// @doc props/forceLabelFloating allows floating label
 	// @doc/fr props/forceLabelFloating permet au label de se placer au dessus du champ lorsqu'il possède une valeur
-	forceLabelFloating: boolean,
+	forceLabelFloating?: boolean,
 	// @doc props/clearToNull sets the value to null when the field is cleared
 	// @doc/fr props/clearToNull lorsque que le champ est vidé, sa valeur vaut `null`
-	clearToNull: boolean,
+	clearToNull?: boolean,
 	// @doc props/label label of the field
 	// @doc/fr props/label le label du champ
 	label?: string,

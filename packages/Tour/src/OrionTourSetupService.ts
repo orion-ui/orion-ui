@@ -2,6 +2,7 @@ import { Component, reactive, Slots, VNode, watch } from 'vue';
 import SharedSetupService from '../../Shared/SharedSetupService';
 import { isArray } from 'lodash-es';
 import type { OrionTourStepSetupService } from 'packages/TourStep';
+import { Private } from 'lib/private';
 
 export type OrionTourEmits = {}
 export type OrionTourProps = {
@@ -18,8 +19,8 @@ export default class OrionTourSetupService extends SharedSetupService {
 
 	private slots: Slots;
 	private state = reactive({
-		steps: [] as Orion.Private.TsxTourStep[],
-		tourStep: [] as Orion.Private.TsxTourStep[],
+		steps: [] as Private.TsxTourStep[],
+		tourStep: [] as Private.TsxTourStep[],
 		currentIndex: -1,
 		currentStepPublicInstance: undefined as Undef<OrionTourStepSetupService['publicInstance']>,
 	});
@@ -94,7 +95,7 @@ export default class OrionTourSetupService extends SharedSetupService {
 				});
 
 			this.state.steps.push(...stepSlots.map((x) => {
-				const step = { props: x.props } as Orion.Private.TsxTourStep;
+				const step = { props: x.props } as Private.TsxTourStep;
 				return step;
 			}));
 		}

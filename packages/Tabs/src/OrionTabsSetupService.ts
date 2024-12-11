@@ -2,6 +2,7 @@ import { Component, ModelRef, reactive, ref, Slots, VNode, watch } from 'vue';
 import { isArray } from 'lodash-es';
 import { isDefineOrTrue } from 'utils/tools';
 import SharedSetupService from '../../Shared/SharedSetupService';
+import { Private } from 'lib/private';
 
 export type OrionTabsEmits = {
 	(e: 'tab-click', ...payload: [OrionTabPane, MouseEvent]): void
@@ -27,7 +28,7 @@ export default class OrionTabsSetupService extends SharedSetupService {
 	_loader = ref<OrionLoader>();
 	private slots: Slots;
 
-	private state = reactive({ panes: [] as Orion.Private.TsxTabPane[] });
+	private state = reactive({ panes: [] as Private.TsxTabPane[] });
 
 	private get content () {
 		return this.slots.default?.();
@@ -41,7 +42,7 @@ export default class OrionTabsSetupService extends SharedSetupService {
 		return {
 			...super.publicInstance,
 			_loader: () => this._loader.value,
-			panes: this.state.panes as Orion.Private.TsxTabPane[],
+			panes: this.state.panes as Private.TsxTabPane[],
 			getValue: () => this.vModel?.value,
 			useRouter: this.props.useRouter,
 		};
@@ -90,7 +91,7 @@ export default class OrionTabsSetupService extends SharedSetupService {
 				const pane = {
 					props: x.props,
 					children: x.children,
-				} as Orion.Private.TsxTabPane;
+				} as Private.TsxTabPane;
 
 				return pane;
 			}));

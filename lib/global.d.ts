@@ -1,6 +1,6 @@
 /// <reference path="packages.d.ts"/>
 
-import { Component, Slot } from 'vue';
+import { Component } from 'vue';
 import { RouteLocationRaw, Router } from 'vue-router';
 import { coolicons } from '../assets/fonts/coolicons';
 import OrionChatEntity from '../packages/Chat/src/OrionChatEntity';
@@ -10,7 +10,6 @@ import useValidation from '../services/ValidationService';
 import { Validator as ValidatorClass } from '../utils/Validator';
 import { CountryCode } from 'libphonenumber-js';
 import { OrionAvatarProps } from 'packages/Avatar/src/OrionAvatarSetupService';
-import { OrionTimelinePaneProps } from 'packages/TimelinePane/src/OrionTimelinePaneSetupService';
 
 declare global {
 	type Nullable<T> = T | null;
@@ -356,44 +355,5 @@ declare global {
 			}
 		}
 
-		namespace Private {
-			type Number = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
-
-			type Letter = 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i'
-				| 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r'
-				| 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z';
-
-			type TsxTabPane = {
-				props: OrionTabPane.Props & {
-					'font-icon': string;
-					'marker-color': string;
-				};
-				children: {
-					default: Slot;
-					label?: Slot;
-				};
-			}
-
-			type TsxTimelinePane = {
-				props: OrionTimelinePaneProps & {
-					'font-icon': string;
-					'marker-color': string;
-					'centered-pill': string;
-				};
-				children: {
-					default: Slot;
-					after?: Slot;
-					before?: Slot;
-				};
-			}
-
-			type TsxTourStep = {
-				props : OrionTourStep.Props
-			}
-		}
 	}
-
-
-
-
 }

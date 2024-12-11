@@ -2,7 +2,7 @@ import { Component, ModelRef, reactive, ref, Slots, VNode, watch } from 'vue';
 import SharedSetupService from '../../Shared/SharedSetupService';
 import { isDefineOrTrue } from 'utils/tools';
 import { isArray } from 'lodash-es';
-import OrionTimelinePaneSetupService, { OrionTimelinePaneProps } from 'packages/TimelinePane/src/OrionTimelinePaneSetupService';
+import { Private } from 'lib/private';
 
 export type OrionTimelineEmits = {
 	(e: 'input', payload: string | number): void
@@ -36,7 +36,7 @@ export default class OrionTimelineSetupService extends SharedSetupService {
 
 	private state = reactive({
 		current: '' as Undef<number | string>,
-		panes: [] as Orion.Private.TsxTimelinePane[],
+		panes: [] as Private.TsxTimelinePane[],
 	});
 
 	private get content () {
@@ -55,7 +55,7 @@ export default class OrionTimelineSetupService extends SharedSetupService {
 		return {
 			...super.publicInstance,
 			_loader: () => this._loader.value,
-			panes: this.state.panes as Orion.Private.TsxTimelinePane[],
+			panes: this.state.panes as Private.TsxTimelinePane[],
 			getValue: () => this.vModel?.value,
 			getCurrent: () => this.state.current,
 			setCurrent: this.setCurrent.bind(this),
@@ -111,7 +111,7 @@ export default class OrionTimelineSetupService extends SharedSetupService {
 				const pane = {
 					props: x.props,
 					children: x.children,
-				} as Orion.Private.TsxTimelinePane;
+				} as Private.TsxTimelinePane;
 
 				return pane;
 			}));

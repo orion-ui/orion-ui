@@ -1,3 +1,4 @@
+import { Private } from 'lib/private';
 import SharedSetupService from '../../Shared/SharedSetupService';
 
 export type OrionTimelinePillEmits = {}
@@ -8,8 +9,8 @@ export type OrionTimelinePillProps = {
 	value?: string | number,
 
 	current?: string | number,
-	panes: Orion.Private.TsxTimelinePane[],
-	onPillClick: (...val: [Orion.Private.TsxTimelinePane['props'], MouseEvent]) => void,
+	panes: Private.TsxTimelinePane[],
+	onPillClick: (...val: [Private.TsxTimelinePane['props'], MouseEvent]) => void,
 }
 
 export default class OrionTimelinePillSetupService extends SharedSetupService {
@@ -17,7 +18,7 @@ export default class OrionTimelinePillSetupService extends SharedSetupService {
 		disabled: false,
 		centeredPill: false,
 		scrollable: false,
-		panes: () => [] as Orion.Private.TsxTimelinePane[],
+		panes: () => [] as Private.TsxTimelinePane[],
 	};
 
 	constructor (protected props: OrionTimelinePillProps, protected emits: OrionTimelinePillEmits) {

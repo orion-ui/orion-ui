@@ -40,7 +40,7 @@ const cleanString = /^'|'$/g;
  * @property {boolean} [verbose]
  */
 
-module.exports = async (/** @type {Options} */ options) => {
+module.exports.default = async (/** @type {Options} */ options) => {
 	if (!existsSync(path.resolve(process.cwd(), 'dist'))) {
 		throw `./dist folder missing. You should first build the lib locally`;
 	}
@@ -1036,7 +1036,7 @@ class globalTypeFileScanner extends DocUtility {
 
 }
 
-module.exports = {
+module.exports.scanner = {
 	SetupServiceFileScanner,
 	VueFileScanner,
 };

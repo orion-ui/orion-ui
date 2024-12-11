@@ -3,7 +3,7 @@
 //const filePattern = `${await getSrcFolderFilePatternAsync()}src/setup/**/*SetupService.ts`;
 
 
-const { SetupServiceFileScanner, VueFileScanner } = require('./private/create-doc.cjs');
+const { SetupServiceFileScanner, VueFileScanner } = require('./private/create-doc.cjs').scanner;
 
 const path = require('path');
 const { readdir, writeFile } = require('fs-extra');

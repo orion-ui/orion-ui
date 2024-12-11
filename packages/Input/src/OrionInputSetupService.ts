@@ -43,7 +43,7 @@ export type OrionInputProps = SharedFieldSetupServiceProps & {
 	minValue?: number,
 	// @doc props/selectOnFocus select the input value on focus
 	// @doc/fr props/selectOnFocus sélectionne la valeur du champ au focus
-	selectOnFocus: boolean,
+	selectOnFocus?: boolean,
 };
 
 type VModelType = Nil<string | number>;

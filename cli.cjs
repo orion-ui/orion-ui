@@ -146,7 +146,7 @@ const privateChoices = [
 			break;
 		case 'doc':
 			await require('./scripts/private/create-lib.cjs')(options);
-			await require('./scripts/private/create-doc.cjs')(options);
+			await require('./scripts/private/create-doc.cjs').default(options);
 			break;
 		}
 
