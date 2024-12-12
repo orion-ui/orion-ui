@@ -7,28 +7,28 @@ export type OrionCropperEmits = {}
 export type OrionCropperProps = {
 	// @doc props/circle define if the shape of the cropper is a circle (otherwise a square)
 	// @doc/fr props/circle définit si le recadrage prend la forme d'unn cercle (un rectangle sinon)
-	circle: boolean,
+	circle?: boolean,
 	// @doc props/cropHeight the height of the cropped image
 	// @doc/fr props/cropHeight la hauteur de l'image recadrée
-	cropHeight: number,
+	cropHeight?: number,
 	// @doc props/cropWidth the width of the cropped image
 	// @doc/fr props/cropWidth la largeur de l'image recadrée
-	cropWidth: number,
+	cropWidth?: number,
 	// @doc props/file the file
 	// @doc/fr props/file le fichier à recadrer
-	file: File,
+	file?: File,
 	// @doc props/options options of the cropper
 	// @doc/fr props/options les options du cropper
 	options?: Object,
 	// @doc props/zoomMax the maximum zoom
 	// @doc/fr props/zoomMax le zoom maximum
-	zoomMax: number,
+	zoomMax?: number,
 	// @doc props/zoomMin the minimal zoom
 	// @doc/fr props/zoomMin le zoom minimum
-	zoomMin: number,
+	zoomMin?: number,
 	// @doc props/zoomStep the step of the zoom
 	// @doc/fr props/zoomStep le pas du zoom
-	zoomStep: number,
+	zoomStep?: number,
 };
 type CropperType = InstanceType<typeof Cropper> & { coefficient: number };
 
@@ -88,7 +88,9 @@ export default class OrionCropperSetupService extends SharedSetupService {
 	}
 
 
-	constructor (protected props: OrionCropperProps, protected emits: OrionCropperEmits) {
+	constructor (
+		protected props: OrionCropperProps & typeof OrionCropperSetupService.defaultProps,
+		protected emits: OrionCropperEmits) {
 		super();
 	}
 

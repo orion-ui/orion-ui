@@ -8,10 +8,10 @@ export type OrionProgressBarProps = SharedPropsColor & {
 	label?: string,
 	// @doc props/value value of the progress bar
 	// @doc/fr props/value valeur de la barre de progression
-	value: number,
+	value?: number,
 	// @doc props/width width of the progress bar
 	// @doc/fr props/width épaisseur de la barre de progression
-	width: number,
+	width?: number,
 };
 
 export default class OrionProgressBarSetupService extends SharedSetupService {
@@ -21,7 +21,9 @@ export default class OrionProgressBarSetupService extends SharedSetupService {
 		width: 10,
 	};
 
-	constructor (protected props: OrionProgressBarProps, protected emits: OrionProgressBarEmits) {
+	constructor (
+		protected props: OrionProgressBarProps & typeof OrionProgressBarSetupService.defaultProps,
+		protected emits: OrionProgressBarEmits) {
 		super();
 	}
 }

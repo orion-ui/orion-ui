@@ -11,7 +11,7 @@ export type OrionDraggableProps = {
 	data?: Orion.DndData['data'],
 	// @doc props/tag the tag or component of the draggable item
 	// @doc/fr props/tag tag ou composant qui réprésentera l'élément
-	tag: string,
+	tag?: string,
 };
 
 export default class OrionDraggableSetupService extends SharedSetupService {

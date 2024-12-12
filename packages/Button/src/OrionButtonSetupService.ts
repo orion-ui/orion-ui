@@ -10,22 +10,22 @@ SharedPropsSuffixIcon &
 SharedPropsColor & {
 	// @doc props/autofocus if set, focus the button
 	// @doc/fr props/autofocus si défini, le focus sera placé sur le bouton
-	autofocus: boolean,
+	autofocus?: boolean,
 	// @doc props/block defines the button's width to 100%
 	// @doc/fr props/block définie la largeur du bouton à 100%
-	block: boolean,
+	block?: boolean,
 	// @doc props/disabled determines if the button is disabled
 	// @doc/fr props/disabled désactive le bouton
-	disabled: boolean,
+	disabled?: boolean,
 	// @doc props/loading adds a loading icon and disables the button
 	// @doc/fr props/loading ajoute une icône de chargement et désactive le bouton
-	loading: boolean,
+	loading?: boolean,
 	// @doc props/nude removes the background color
 	// @doc/fr props/nude masque la couleur en arrière plan
-	nude: boolean,
+	nude?: boolean,
 	// @doc props/outline adds an outline on the button
 	// @doc/fr props/outline ajoute un contraste sur le bouton
-	outline: boolean,
+	outline?: boolean,
 };
 
 export default class OrionButtonSetupService extends SharedSetupService {
@@ -44,7 +44,9 @@ export default class OrionButtonSetupService extends SharedSetupService {
 
 	uid = this.getUid();
 
-	constructor (protected props: OrionButtonProps, protected emits: OrionButtonEmits) {
+	constructor (
+		protected props: OrionButtonProps & typeof OrionButtonSetupService.defaultProps, 
+		protected emits: OrionButtonEmits) {
 		super();
 	}
 

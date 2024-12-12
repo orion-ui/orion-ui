@@ -7,19 +7,21 @@ export type OrionChipsProps =
 	SharedPropsColorExtentedAndGreys & {
 		// @doc props/outline Adds an outline style on the chips
 		// @doc/fr props/outline modifie le style en ajoutant un contraste
-		outline: boolean,
+		outline?: boolean,
 		// @doc props/close Defines if the chips can be closed
 		// @doc/fr props/close définit si le chips peut être fermée
-		close: boolean,
+		close?: boolean,
 };
 
 export default class OrionChipsSetupService extends SharedSetupService {
 	static readonly defaultProps = {
-		color: 'default' as Orion.Color,
+		color: 'default' as Orion.ColorExtendedAndGreys,
 		size: 'md' as Orion.Size,
 	};
 
-	constructor (protected props: OrionChipsProps, protected emits: OrionChipsEmits) {
+	constructor (
+		protected props: OrionChipsProps & typeof OrionChipsSetupService.defaultProps,
+		protected emits: OrionChipsEmits) {
 		super();
 	}
 }

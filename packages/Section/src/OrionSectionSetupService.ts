@@ -8,16 +8,16 @@ export type OrionSectionProps = {
 	align?: 'left' | 'center' | 'right' | 'stretch',
 	// @doc props/collapsible defines if the section can be collapsed
 	// @doc/fr props/collapsible définit si la section peut se rétracter
-	collapsible: boolean,
+	collapsible?: boolean,
 	// @doc props/gap define the space with the previous sibling `<o-section>`
 	// @doc/fr props/gap définit l'écart avec la `<o-section>` voisine précédente
-	gap: Orion.Size,
+	gap?: Orion.Size,
 	// @doc props/subtitle subtitle of the section
 	// @doc/fr props/subtitle sous-titre de la section
-	subtitle?: Nil<string> | Ref<Nil<string>>,
+	subtitle?: Nil<string>,
 	// @doc props/title title of the section
 	// @doc/fr props/title titre de la section
-	title?: Nil<string> | Ref<Nil<string>>,
+	title?: Nil<string>,
 };
 
 export default class OrionSectionSetupService extends SharedSetupService {
@@ -31,7 +31,9 @@ export default class OrionSectionSetupService extends SharedSetupService {
 
 	// @doc vModel/collapsed if the prop `collapsible` is set to `true`, defines this initial state
 	// @doc/fr vModel/collapsed si la prop `collapsible` est à `true`, déinit l'état initial
-	constructor (protected props: OrionSectionProps, protected emits: OrionSectionEmits, protected collapsed: ModelRef<boolean>) {
+	constructor (
+		protected props: OrionSectionProps & typeof OrionSectionSetupService.defaultProps,
+		protected emits: OrionSectionEmits, protected collapsed: ModelRef<boolean>) {
 		super();
 	}
 

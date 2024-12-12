@@ -10,16 +10,16 @@ export type OrionIconProps = SharedPropsIcon & {
 	button?: Orion.Color,
 	// @doc props/loading if set, blocks the click on the icon
 	// @doc/fr props/loading si défini, bloque le click sur l'icône
-	loading: boolean,
+	loading?: boolean,
 	// @doc props/marker adds a visual marker, can be used as a notification marker
 	// @doc/fr props/marker ajoute un marqueur visuel, qui peut être utilisé comme un marqueur de notification
-	marker: boolean | number,
+	marker?: boolean | number,
 	// @doc props/markerColor the color of the marker
 	// @doc/fr props/markerColor couleur du marqueur
-	markerColor: Orion.Color,
+	markerColor?: Orion.Color,
 	// @doc props/markerPosition the position of the marker
 	// @doc/fr props/markerPosition position du marqueur
-	markerPosition: string,
+	markerPosition?: string,
 	// @doc props/onMarkerClick Missing @doc
 	// @doc/fr props/onMarkerClick Missing @doc
 	onMarkerClick?: (e: MouseEvent) => void,
@@ -31,7 +31,7 @@ export type OrionIconProps = SharedPropsIcon & {
 export default class OrionIconSetupService extends SharedSetupService {
 	static readonly defaultProps = {
 		loading: false,
-		marker: false,
+		marker: false as OrionIconProps['marker'],
 		markerColor: 'danger' as Orion.Color,
 		markerPosition: 'top right',
 	};
@@ -43,7 +43,6 @@ export default class OrionIconSetupService extends SharedSetupService {
 	private attrs!: SetupContext['attrs'];
 
 	get isClickable () { return !!this.attrs.onClick; }
-	//get isMarkerClickable () { return !!this.attrs.onMarkerClick; }
 	get isMarkerClickable () { return !!this.props.onMarkerClick; }
 	get onMarkerClick () { return this.attrs.onMarkerClick as () => void; }
 
@@ -54,7 +53,9 @@ export default class OrionIconSetupService extends SharedSetupService {
 	}
 
 
-	constructor (protected props: OrionIconProps, protected emits: OrionIconEmits, attrs: SetupContext['attrs']) {
+	constructor (
+		protected props: OrionIconProps & typeof OrionIconSetupService.defaultProps,
+		protected emits: OrionIconEmits, attrs: SetupContext['attrs']) {
 		super();
 		this.attrs = attrs;
 

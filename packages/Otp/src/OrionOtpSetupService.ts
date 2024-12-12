@@ -5,13 +5,13 @@ export type OrionOtpEmits = { (e: 'filled', val: string): void }
 export type OrionOtpProps = {
 	// @doc props/dataType defines the type of the code
 	// @doc/fr props/dataType definit le type du code
-	dataType: 'number' | 'text',
+	dataType?: 'number' | 'text',
 	// @doc props/readonly if set, the code will be on read-only mode
 	// @doc/fr props/readonly si défini, le code sera en mode read-only
-	readonly: boolean,
+	readonly?: boolean,
 	// @doc props/size defines the size of the code
 	// @doc/fr props/size définit la taille du code
-	size: number,
+	size?: number,
 	// @doc props/value the string value of the code, if it is prefilled
 	// @doc/fr props/value valeur du code sous forme de chaîne de caractères, s'il est pré-rempli
 	value?: string,
@@ -52,7 +52,9 @@ export default class OrionOtpSetupService extends SharedSetupService {
 	}
 
 
-	constructor (protected props: OrionOtpProps, protected emits: OrionOtpEmits) {
+	constructor (
+		protected props: OrionOtpProps & typeof OrionOtpSetupService.defaultProps,
+		protected emits: OrionOtpEmits) {
 		super();
 	}
 

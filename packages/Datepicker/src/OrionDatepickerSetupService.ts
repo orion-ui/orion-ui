@@ -10,31 +10,31 @@ export type OrionDatepickerEmits = SharedFieldSetupServiceEmits<Nil<Date>> & {}
 export type OrionDatepickerProps = SharedFieldSetupServiceProps & {
 	// @doc props/disablePopover if you don't want to use the calendar popover
 	// @doc/fr props/disablePopover si vous ne souhaitez pas utiliser la popover avec le calendrier
-	disablePopover: boolean,
+	disablePopover?: boolean,
 	// @doc props/displayWeekNumber if true, displays week number on each row
 	// @doc/fr props/displayWeekNumber si true, affiche le numéro de semaine sur chaque ligne
-	displayWeekNumber: boolean,
+	displayWeekNumber?: boolean,
 	// @doc props/hideDisabled hide disabled dates (currently for type="week" only)
 	// @doc/fr props/hideDisabled cache les dates désactivées (actuellement uniquement avec type="week")
-	hideDisabled: boolean,
+	hideDisabled?: boolean,
 	// @doc props/maxDate the maximum date which can be selected
 	// @doc/fr props/maxDate la date maximum qui peut être sélectionnée
-	maxDate?: Undef<Date>,
+	maxDate?: Date,
 	// @doc props/minDate the minimum date which can be selected
 	// @doc/fr props/minDate la date minimum qui peut être sélectionnée
-	minDate?: Undef<Date>,
+	minDate?: Date,
 	// @doc props/multipleLabelColor color of the displayed dates is the type is set to `multiple`
 	// @doc/fr props/multipleLabelColor couleurs des dates affichées si le type est défini à `multiple`
-	multipleLabelColor: Orion.ColorExtendedAndGreys,
+	multipleLabelColor?: Orion.ColorExtendedAndGreys,
 	// @doc props/preserveTime keep the current time value when changing date
 	// @doc/fr props/preserveTime conserve la valeur actuelle de l'heure lors du changement de date
-	preserveTime: boolean,
+	preserveTime?: boolean,
 	// @doc props/time displays also hours/minutes
 	// @doc/fr props/time affiche aussi les heures/minutes
-	time: boolean,
+	time?: boolean,
 	// @doc props/type the type of the vModel
 	// @doc/fr props/type le type de vModel
-	type: Orion.DatepickerType,
+	type?: Orion.DatepickerType,
 	// @doc props/valueDisplayFormat function to customize the display format
 	// @doc/fr props/valueDisplayFormat fonction pour personnaliser l'affichage
 	valueDisplayFormat?: Function,
@@ -181,7 +181,7 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 	// @doc props/range the vModel if the type is set to `range`
 	// @doc/fr props/range le vModel si le type est défini à `range`
 	constructor (
-		protected props: OrionDatepickerProps,
+		protected props: OrionDatepickerProps & typeof OrionDatepickerSetupService.defaultProps,
 		protected emits: OrionDatepickerEmits,
 		private slots: Slots,
 		protected vModel: ModelRef<Nil<Date>>,

@@ -5,20 +5,19 @@ export type OrionCarouselItemEmits = {}
 export type OrionCarouselItemProps = {
 	// @doc props/lazy the content of the item is mounted each time the item becomes active
 	// @doc/fr props/lazy le contenu de l'élément est monté à chaque fois qu'il devient actif
-	lazy: boolean,
+	lazy?: boolean,
 	// @doc props/lazyOnce the content of the item is only mounted once, the first time the item is active
 	// @doc/fr props/lazyOnce le contenu de l'élément est uniquement monté une fois, la première fois qu'il est actif
-	lazyOnce: boolean,
+	lazyOnce?: boolean,
 	// @doc props/name step identifier
 	// @doc/fr props/name identifiant de l'élément
-	name: number | string,
+	name?: number | string,
 };
 
 export default class OrionCarouselItemSetupService extends SharedSetupService {
 	static readonly defaultProps = {
 		lazy: false,
 		lazyOnce: false,
-		name: undefined,
 	};
 
 	private _carousel?: OrionCarousel;
@@ -35,7 +34,10 @@ export default class OrionCarouselItemSetupService extends SharedSetupService {
 		}
 	}
 
-	constructor (protected props: OrionCarouselItemProps, protected emits: OrionCarouselItemEmits, _carousel?: OrionCarousel) {
+	constructor (
+		protected props: OrionCarouselItemProps & typeof OrionCarouselItemSetupService.defaultProps,
+		protected emits: OrionCarouselItemEmits,
+		_carousel?: OrionCarousel) {
 		super();
 		this._carousel = _carousel;
 

@@ -19,13 +19,13 @@ export type OrionEditorEmits = SharedFieldSetupServiceEmits<Nil<string>> & {}
 export type OrionEditorProps = SharedFieldSetupServiceProps & {
 	// @doc props/disableFeatures disable some editor's features
 	// @doc/fr props/disableFeatures désactive des fonctions de l'éditeur
-	disableFeatures: EditorFeature[],
+	disableFeatures?: EditorFeature[],
 	// @doc props/imgFileTypes authorized image file formats
 	// @doc/fr props/imgFileTypes type de fichier autorisé pour les images
-	imgFileTypes: string[],
+	imgFileTypes?: string[],
 	// @doc props/imgMaxSize maximum size of the imported image
 	// @doc/fr props/imgMaxSize taille maximum d'une image importée
-	imgMaxSize: number,
+	imgMaxSize?: number,
 	// @doc props/placeholder place holder
 	// @doc/fr props/placeholder placeholder
 	placeholder?: string,
@@ -71,7 +71,7 @@ export default class OrionEditorSetupService extends SharedFieldSetupService<Ori
 	// @doc vModel/json the json format of the editor value
 	// @doc/fr vModel/json valeur de l'éditeur au format JSON
 	constructor (
-		protected props: OrionEditorProps,
+		protected props: OrionEditorProps & Omit<typeof OrionEditorSetupService.defaultProps, 'disableFeatures' | 'imgFileTypes'> & {disableFeatures: EditorFeature[], imgFileTypes:string[]},
 		protected emits: OrionEditorEmits,
 		protected vModel: ModelRef<Nil<string>>,
 		protected json?: ModelRef<JSONContent | undefined>) {

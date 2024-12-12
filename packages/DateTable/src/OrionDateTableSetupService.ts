@@ -13,40 +13,40 @@ export type OrionDateTableEmits = {
 export type OrionDateTableProps = {
 	// @doc props/canGoNextMonth allows the navigation to the next month
 	// @doc/fr props/canGoNextMonth permet la navigation vers le mois suivant
-	canGoNextMonth: boolean,
+	canGoNextMonth?: boolean,
 	// @doc props/canGoPrevMonth allows the navigation to the previous month
 	// @doc/fr props/canGoPrevMonth permet la navigation vers le mois précédent
-	canGoPrevMonth: boolean,
+	canGoPrevMonth?: boolean,
 	// @doc props/dateSelected the selected date
 	// @doc/fr props/dateSelected la date selectionée
-	dateSelected?: Nil<Date>,
+	dateSelected?: Date,
 	// @doc props/disableMonthAndYear disabled month and year selection on top
 	// @doc/fr props/disableMonthAndYear désactive la sélection du mois et de l'année en haut du calendrier
-	disableMonthAndYear: boolean,
+	disableMonthAndYear?: boolean,
 	// @doc props/displayWeekNumber if true, displays week number on each row
 	// @doc/fr props/displayWeekNumber si true, affiche le numéro de semaine sur chaque ligne
-	displayWeekNumber: boolean,
+	displayWeekNumber?: boolean,
 	// @doc props/maxDate the maximum date which can be selected
 	// @doc/fr props/maxDate la date maximum qui peut être sélectionnée
-	maxDate?: Nil<Date>,
+	maxDate?: Date,
 	// @doc props/minDate the minimum date which can be selected
 	// @doc/fr props/minDate la date minimum qui peut être selectionée
-	minDate?: Nil<Date>,
+	minDate?: Date,
 	// @doc props/month if set, displays only months
 	// @doc/fr props/month si défini, affiche uniquement les mois
-	month: boolean,
+	month?: boolean,
 	// @doc props/periods periods to display on the table
 	// @doc/fr props/periods périodes à afficher
-	periods?: Nil<Orion.Period[]>,
+	periods?: Orion.Period[],
 	// @doc props/rangeEnd if set, defines the range end value as the current value
 	// @doc/fr props/rangeEnd si définie, la date selectionnée est la fin de la période
-	rangeEnd: boolean,
+	rangeEnd?: boolean,
 	// @doc props/rangeStart if set, defines the range start value as the current value
 	// @doc/fr props/rangeStart si définie, la date sélectionnée est le début de la période
-	rangeStart: boolean,
+	rangeStart?: boolean,
 	// @doc props/type the type of the vModel
 	// @doc/fr props/type le type de vModel
-	type: Orion.DateTableType,
+	type?: Orion.DateTableType,
 	// @doc props/dateRangeSameMonth when the component is used in a OrionDatepicker component with type 'range', specified if the daterange is in one month
 	// @doc/fr props/dateRangeSameMonth quand le composant est utilisé dans un OrionDatepicker de type 'range', défini si la période sélectionnée se situe sur un seul même mois.
 	dateRangeSameMonth?: boolean,
@@ -73,7 +73,6 @@ export default class OrionDateTableSetupService extends SharedSetupService {
 		disableMonthAndYear: false,
 		displayWeekNumber: false,
 		month: false,
-		multiple: () => [],
 		rangeEnd: false,
 		rangeStart: false,
 		type: 'date' as Orion.DateTableType,
@@ -260,7 +259,7 @@ export default class OrionDateTableSetupService extends SharedSetupService {
 	// @doc vModel/dayHover the value of the hovered day
 	// @doc/fr vModel/dayHover valeur du jour survolé
 	constructor (
-		protected props: OrionDateTableProps,
+		protected props: OrionDateTableProps & typeof OrionDateTableSetupService.defaultProps,
 		protected emits: OrionDateTableEmits,
 		protected vModel: ModelRef<Nil<Date>>,
 		protected range: ModelRef<Nil<Orion.DateRange>>,

@@ -7,16 +7,16 @@ export type OrionUploadEmits = SharedFieldSetupServiceEmits<Nil<File[]>> & {}
 export type OrionUploadProps = SharedFieldSetupServiceProps & {
 	// @doc props/fileMaxSize the maximal size of the uploaded file (Mo)
 	// @doc/fr props/fileMaxSize taille maximale d'un fichier (Mo)
-	fileMaxSize: number,
+	fileMaxSize?: number,
 	// @doc props/fileTypes Missing @doc
 	// @doc/fr props/fileTypes Missing @doc
-	fileTypes: string[],
+	fileTypes?: string[],
 	// @doc props/multiple allows multiple files upload.
 	// @doc/fr props/multiple permet le chargement de plusieurs fichiers.
-	multiple: boolean,
+	multiple?: boolean,
 	// @doc props/showPreview shows a preview of the selected file
 	// @doc/fr props/showPreview montre un apperçu du fichier chargé
-	showPreview: boolean,
+	showPreview?: boolean,
 };
 
 export default class OrionUploadSetupService extends SharedFieldSetupService<OrionUploadProps, File[]> {
@@ -61,7 +61,9 @@ export default class OrionUploadSetupService extends SharedFieldSetupService<Ori
 	}
 
 
-	constructor (protected props: OrionUploadProps, protected emits: OrionUploadEmits, vModel: ModelRef<File[] | undefined>) {
+	constructor (
+		protected props: OrionUploadProps & Omit<typeof OrionUploadSetupService.defaultProps, 'fileTypes'> & { fileTypes: string[]},
+		protected emits: OrionUploadEmits, vModel: ModelRef<File[] | undefined>) {
 		super(props, emits, vModel);
 	}
 

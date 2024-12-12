@@ -8,16 +8,16 @@ export type OrionColorPickerEmits = SharedFieldSetupServiceEmits<Nil<string>> & 
 export type OrionColorPickerProps = SharedFieldSetupServiceProps & {
 	// @doc props/debounce the debounce interval
 	// @doc/fr props/debounce définits la durée selon laquelle la valeur va se mettre à jour
-	debounce: number,
+	debounce?: number,
 	// @doc props/format the format of the color definition
 	// @doc/fr props/format format de la couleur
-	format: ColorFormat,
+	format?: ColorFormat,
 	// @doc props/hideHex hides the hexadecimal value
 	// @doc/fr props/hideHex masque la valeur hexadécimale
-	hideHex: boolean,
+	hideHex?: boolean,
 	// @doc props/hideRgba hides the rgba value
 	// @doc/fr props/hideRgba masque la valeur rgba
-	hideRgba: boolean,
+	hideRgba?: boolean,
 	// @doc props/startValue the default value
 	// @doc/fr props/startValue la valeur par défaut
 	startValue?: string,
@@ -63,7 +63,10 @@ export default class OrionColorPickerSetupService extends SharedFieldSetupServic
 	}
 
 
-	constructor (protected props: OrionColorPickerProps, protected emits: OrionColorPickerEmits, protected vModel: ModelRef<Nil<string>>) {
+	constructor (
+		protected props: OrionColorPickerProps & typeof OrionColorPickerSetupService.defaultProps,
+		protected emits: OrionColorPickerEmits,
+		protected vModel: ModelRef<Nil<string>>) {
 		super(props, emits, vModel);
 
 		this.changeColor = this.init();

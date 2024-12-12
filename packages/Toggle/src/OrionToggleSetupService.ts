@@ -8,16 +8,16 @@ export type OrionToggleProps =
 	SharedPropsColor & {
 	// @doc props/inline set the property `display` on `inline-flex` instead of `flex`
 	// @doc/fr props/inline défini la propriété `display` à `inline-flex` à la place `flex`
-	inline: boolean,
+	inline?: boolean,
 	// @doc props/reverse displays the label first
 	// @doc/fr props/reverse affiche d'abord le label
-	reverse: boolean,
+	reverse?: boolean,
 	// @doc props/type type of the input
 	// @doc/fr props/type type du champ
-	type: string,
+	type?: string,
 	// @doc props/value value of the toggle
 	// @doc/fr props/value valeur du toggle
-	value: boolean,
+	value?: boolean,
 };
 
 export default class OrionToggleSetupService extends SharedFieldSetupService<OrionToggleProps, boolean> {

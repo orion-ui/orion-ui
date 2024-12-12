@@ -11,19 +11,19 @@ export type OrionCheckboxProps = SharedFieldSetupServiceProps &
 	iconCheck?: Orion.Icon,
 	// @doc props/inline set the property `display` on `inline-flex` instead of `flex`
 	// @doc/fr props/inline défini la propriété `display` à `inline-flex` à la place `flex`
-	inline: boolean,
+	inline?: boolean,
 	// @doc props/inputValue the value of the checkbox
 	// @doc/fr props/inputValue valeur de la case à cocher
 	inputValue?: string | boolean | number | Object | any[] | Date | undefined,
 	// @doc props/multiple allows to select multiples checkbox values, related to v-model array
 	// @doc/fr props/multiple permet de selectionner plusieurs cases à cocher, dans le cas où le v-model est un tableau
-	multiple: boolean,
+	multiple?: boolean,
 	// @doc props/reverse displays the label first
 	// @doc/fr props/reverse affiche d'abord le label puis la case à cocher
-	reverse: boolean,
+	reverse?: boolean,
 	// @doc props/type the type of the input
 	// @doc/fr props/type type du champ
-	type: string,
+	type?: string,
 };
 type VModelType = any[] | boolean | null | undefined;
 
@@ -60,7 +60,10 @@ export default class OrionCheckboxSetupService extends SharedFieldSetupService<O
 	}
 
 
-	constructor (protected props: OrionCheckboxProps, protected emits: OrionCheckboxEmits, protected vModel: ModelRef<VModelType>) {
+	constructor (
+		protected props: OrionCheckboxProps & typeof OrionCheckboxSetupService.defaultProps,
+		protected emits: OrionCheckboxEmits,
+		protected vModel: ModelRef<VModelType>) {
 		super(props, emits, vModel);
 	}
 

@@ -22,14 +22,16 @@ export type SharedPopableSetupServiceEmits = {
 
 export type SharedPopableSetupServiceProps = {
 	// @doc props/display if set, displays the component
-	display: boolean,
+	display?: boolean,
 	// @doc props/options options of the component
-	options: Partial<Orion.Popable.Options>
+	options?: Partial<Orion.Popable.Options>
 }
 
 
 export default abstract class SharedPopableSetupService extends SharedSetupService {
-	static readonly defaultProps = {};
+	static readonly defaultProps = {
+		options: () => ({}) as Partial<Orion.Popable.Options>
+	};
 
 	protected abstract name: Orion.Popable.Name;
 
@@ -95,7 +97,9 @@ export default abstract class SharedPopableSetupService extends SharedSetupServi
 	}
 
 
-	constructor (protected props: SharedPopableSetupServiceProps, protected emits: SharedPopableSetupServiceEmits) {
+	constructor (
+		protected props: SharedPopableSetupServiceProps & Omit<typeof SharedPopableSetupService.defaultProps, 'options'> & {options: Partial<Orion.Popable.Options>},
+		protected emits: SharedPopableSetupServiceEmits) {
 		super();
 
 		Object.assign(this.options, this.options);

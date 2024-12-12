@@ -8,7 +8,7 @@ export type OrionNotifEmits = SharedPopableSetupServiceEmits & {}
 export type OrionNotifProps = SharedPopableSetupServiceProps & {
 	// @doc props/display if set, displays the component
 	// @doc/fr props/display Missing @doc
-	display: boolean,
+	display?: boolean,
 	// @doc props/options options of the notification
 	// @doc/fr props/options Missing @doc
 	options?: Partial<Orion.Notif.Options>,
@@ -45,7 +45,9 @@ export default class OrionNotifSetupService extends SharedPopableSetupService {
 	}
 
 
-	constructor (protected props: OrionNotifProps, protected emits: OrionNotifEmits) {
+	constructor (
+		protected props: OrionNotifProps & Omit<typeof OrionNotifSetupService.defaultProps, 'options'> & {options: Partial<Orion.Popable.Options>},
+		protected emits: OrionNotifEmits) {
 		super(props, emits);
 
 		Object.assign(this.options, props.options);

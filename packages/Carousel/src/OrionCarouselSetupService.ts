@@ -6,28 +6,28 @@ export type OrionCarouselEmits = {}
 export type OrionCarouselProps = {
 	// @doc props/color color of the dots at the carousel's bottom
 	// @doc/fr props/color couleur des points au bas du carrousel
-	color: Orion.Color | Orion.ColorAlt,
+	color?: Orion.Color | Orion.ColorAlt,
 	// @doc props/hideNavigationButtons hide the navigation buttons around the dots
 	// @doc/fr props/hideNavigationButtons masque les boutons de navigation autour des points
-	hideNavigationButtons: boolean,
+	hideNavigationButtons?: boolean,
 	// @doc props/hideNavigationDots hide the navigation dots
 	// @doc/fr props/hideNavigationDots masque les points de navigation
-	hideNavigationDots: boolean,
+	hideNavigationDots?: boolean,
 	// @doc props/loop enable the "loop" mode
 	// @doc/fr props/loop active le mode "en boucle"
-	loop: boolean,
+	loop?: boolean,
 	// @doc props/pauseOnHover pause timer when hovering the carousel
 	// @doc/fr props/pauseOnHover met au pause le minuteur lors du survol du carrousel
-	pauseOnHover: boolean,
+	pauseOnHover?: boolean,
 	// @doc props/stepTimer apply a timer to automatically switch to the next item
 	// @doc/fr props/stepTimer applique un minuteur pour passer automatiquement à l'élément suivant
-	stepTimer: number,
+	stepTimer?: number,
 };
 type Slots = ReturnType<typeof useSlots>;
 
 export default class OrionCarouselSetupService extends SharedSetupService {
 	static readonly defaultProps = {
-		color: 'brand' as Orion.Color,
+		color: 'brand' as Orion.ColorExtended,
 		hideNavigationButtons: false,
 		hideNavigationDots: false,
 		loop: false,
@@ -99,7 +99,7 @@ export default class OrionCarouselSetupService extends SharedSetupService {
 	// @doc props/vModel refers to the active step's **name** prop
 	// @doc/fr props/vModel correspond à la prop **name** de l'élément actif
 	constructor (
-		protected props: OrionCarouselProps, 
+		protected props: OrionCarouselProps & typeof OrionCarouselSetupService.defaultProps, 
 		protected emits: OrionCarouselEmits, 
 		slots: Slots,
 		protected vModel: ModelRef<Undef<number | string>>) {

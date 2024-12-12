@@ -8,16 +8,16 @@ export type OrionProgressCircleProps = SharedPropsColor & {
 	label?: string,
 	// @doc props/pathWidth width of the path line
 	// @doc/fr props/pathWidth épaisseur du cercle
-	pathWidth: number,
+	pathWidth?: number,
 	// @doc props/size size of the progress circle
 	// @doc/fr props/size taille du cercle
-	size: number,
+	size?: number,
 	// @doc props/value value of the progress circle
 	// @doc/fr props/value valeur du cercle
-	value: number,
+	value?: number,
 	// @doc props/valueWidth width of the value line
 	// @doc/fr props/valueWidth épaisseur de la ligne qui représente la progression
-	valueWidth: number,
+	valueWidth?: number,
 };
 
 export default class OrionProgressCircleSetupService extends SharedSetupService {
@@ -46,7 +46,9 @@ export default class OrionProgressCircleSetupService extends SharedSetupService 
 	}
 
 
-	constructor (protected props: OrionProgressCircleProps, protected emits: OrionProgressCircleEmits) {
+	constructor (
+		protected props: OrionProgressCircleProps & typeof OrionProgressCircleSetupService.defaultProps,
+		protected emits: OrionProgressCircleEmits) {
 		super();
 	}
 }

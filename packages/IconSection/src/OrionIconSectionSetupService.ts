@@ -5,7 +5,7 @@ export type OrionIconSectionEmits = {}
 export type OrionIconSectionProps = SharedPropsIcon & {
 	// @doc props/center centers the content
 	// @doc/fr props/center centre le contenu
-	center: boolean,
+	center?: boolean,
 	// @doc props/title title of the section
 	// @doc/fr props/title titre de la section
 	title?: string,

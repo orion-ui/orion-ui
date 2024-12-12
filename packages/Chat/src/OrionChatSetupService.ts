@@ -15,16 +15,14 @@ export type OrionChatProps = {
 	discussionId: number,
 	// @doc props/focusOnOpen focused the input field chat the chat opens
 	// @doc/fr props/focusOnOpen place le focus sur la zone de texte quand le chat s'ouvre
-	focusOnOpen: boolean,
+	focusOnOpen?: boolean,
 	// @doc props/hideSearch hides the research field on the top of the chat
 	// @doc/fr props/hideSearch masque le champ de recherche en haut du chat
-	hideSearch: boolean,
+	hideSearch?: boolean,
 };
 
 export default class OrionChatSetupService extends SharedSetupService {
 	static readonly defaultProps = {
-		chat: undefined,
-		discussionId: undefined,
 		focusOnOpen: false,
 		hideSearch: false,
 	};
@@ -90,7 +88,9 @@ export default class OrionChatSetupService extends SharedSetupService {
 	}
 
 
-	constructor (protected props: OrionChatProps, protected emits: OrionChatEmits) {
+	constructor (
+		protected props: OrionChatProps & typeof OrionChatSetupService.defaultProps,
+		protected emits: OrionChatEmits) {
 		super();
 
 

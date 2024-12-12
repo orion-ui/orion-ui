@@ -7,17 +7,15 @@ export type OrionAsideEmits = SharedPopableSetupServiceEmits & {}
 export type OrionAsideProps = SharedPopableSetupServiceProps & {
 	// @doc props/display if set, displays the component
 	// @doc/fr props/display Missing @doc
-	display: boolean,
+	display?: boolean,
 	// @doc props/options options of the aside
 	// @doc/fr props/options options de l'aside
-	options: Partial<Orion.Aside.Options>,
+	options?: Partial<Orion.Aside.Options>,
 };
 
 export default class OrionAsideSetupService extends SharedPopableSetupService {
 	static readonly defaultProps = {
 		...SharedPopableSetupService.defaultProps,
-		display: false,
-		options: () => ({}) as SharedPopableSetupServiceProps['options'],
 	};
 
 	protected name = 'OrionAside' as const;
@@ -40,7 +38,9 @@ export default class OrionAsideSetupService extends SharedPopableSetupService {
 		};
 	}
 
-	constructor (protected props: OrionAsideProps, protected emits: OrionAsideEmits) {
+	constructor (
+		protected props: OrionAsideProps & Omit<typeof OrionAsideSetupService.defaultProps, 'options'> & {options: Partial<Orion.Popable.Options>},
+		protected emits: OrionAsideEmits) {
 		super(props, emits);
 	}
 

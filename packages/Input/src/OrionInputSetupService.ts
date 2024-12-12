@@ -13,7 +13,7 @@ export type OrionInputEmits = SharedFieldSetupServiceEmits<Nil<string | number>>
 export type OrionInputProps = SharedFieldSetupServiceProps & {
 	// @doc props/allowNegative allow negative values
 	// @doc/fr props/allowNegative autorise les valeurs négatives
-	allowNegative: boolean,
+	allowNegative?: boolean,
 	// @doc props/autocomplete provides automated assistance in filling out form field values from native html input
 	// @doc/fr props/autocomplete fournit une assitance automatique de remplissage du champ
 	autocomplete?: string,
@@ -28,10 +28,10 @@ export type OrionInputProps = SharedFieldSetupServiceProps & {
 	maskFormat?: string,
 	// @doc props/maskHourFormat the hour format
 	// @doc/fr props/maskHourFormat format de l'heure
-	maskHourFormat: string,
+	maskHourFormat?: string,
 	// @doc props/maskHourSeparator hour separator
 	// @doc/fr props/maskHourSeparator sépérateur d'heures
-	maskHourSeparator: string,
+	maskHourSeparator?: string,
 	// @doc props/maxLength maximum length of the input
 	// @doc/fr props/maxLength longueur maximum du champ
 	maxLength?: number,
@@ -191,7 +191,11 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 	}
 
 
-	constructor (protected props: OrionInputProps, protected emits: OrionInputEmits, protected vModel: ModelRef<VModelType>) {
+	constructor (
+		protected props: OrionInputProps & typeof OrionInputSetupService.defaultProps, 
+		protected emits: OrionInputEmits, 
+		protected vModel: ModelRef<VModelType>
+	) {
 		super(props, emits, vModel);
 
 		watch(() => props.cleave, (val) => {

@@ -8,7 +8,7 @@ export type OrionOverlayEmits = {}
 export type OrionOverlayProps = {
 	// @doc props/global defines if the overlay is fullpage
 	// @doc/fr props/global Missing @doc
-	global: boolean,
+	global?: boolean,
 };
 
 export default class OrionOverlaySetupService extends SharedSetupService {

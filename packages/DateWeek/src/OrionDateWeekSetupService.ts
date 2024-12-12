@@ -6,8 +6,8 @@ export type OrionDateWeekEmits = {}
 export type OrionDateWeekProps = {
 	disableMonthAndYear?: boolean,
 	hideDisabled?: boolean,
-	minDate?: Undef<Date>,
-	maxDate?: Undef<Date>
+	minDate?: Date,
+	maxDate?: Date
 }
 
 export default class OrionDateWeekSetupService extends SharedSetupService {

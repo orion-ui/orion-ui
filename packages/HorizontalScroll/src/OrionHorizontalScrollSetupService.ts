@@ -7,10 +7,10 @@ export type OrionHorizontalScrollEmits = {}
 export type OrionHorizontalScrollProps = {
 	// @doc props/dropShadow if set, hides the shadow on the extremities of the scroll
 	// @doc/fr props/dropShadow si défini, masque l'ombre aux extrémités du composant
-	dropShadow: boolean,
+	dropShadow?: boolean,
 	// @doc props/hideButton if set, hides the buttons to slide left or right
 	// @doc/fr props/hideButton si défini, masque les bouttons permettant de glisser vers gauche ou vers la droite.
-	hideButton: boolean,
+	hideButton?: boolean,
 	// @doc props/scrollStep defines the targets of the scroll step
 	// @doc/fr props/scrollStep défini le pas du scroll, ou un tableau d'éléments dans le DOM pour le calculer automatiquement
 	scrollStep?: () => number | Array<HTMLElement>,
@@ -22,7 +22,7 @@ export type OrionHorizontalScrollProps = {
 	targets?: () => Array<HTMLElement>,
 	// @doc props/tolerance set the scroll tolerance that trigger the shadow's display
 	// @doc/fr props/tolerance défini la tolérence pour le déclenchement de l'apparition ou de la disparation de l'ombre
-	tolerance: number,
+	tolerance?: number,
 };
 
 type PreviewDatas = {
@@ -85,7 +85,9 @@ export default class OrionHorizontalScrollSetupService extends SharedSetupServic
 		this.windowResizeHandler();
 	};
 
-	constructor (protected props: OrionHorizontalScrollProps, protected emits: OrionHorizontalScrollEmits) {
+	constructor (
+		protected props: OrionHorizontalScrollProps & typeof OrionHorizontalScrollSetupService.defaultProps,
+		protected emits: OrionHorizontalScrollEmits) {
 		super();
 
 		onMounted(async () => {

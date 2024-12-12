@@ -7,7 +7,7 @@ export type OrionLabelProps =
 	SharedPropsColorExtentedAndGreys & {
 	// @doc props/outline adds an outline style on the label
 	// @doc/fr props/outline ajoute un contraste sur le label
-	outline: boolean,
+	outline?: boolean,
 };
 
 export default class OrionLabelSetupService extends SharedSetupService {

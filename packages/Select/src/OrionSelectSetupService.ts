@@ -28,7 +28,7 @@ export type OrionSelectEmits = SharedFieldSetupServiceEmits<VModelType> & {
 export type OrionSelectProps = SharedFieldSetupServiceProps & {
 	// @doc props/autocomplete adds the possibility to write in the select field
 	// @doc/fr props/autocomplete permet à l'utilisateur d'écrire dans le champ
-	autocomplete: boolean,
+	autocomplete?: boolean,
 	// @doc props/customFetch allows you to custom the fetch function
 	// @doc/fr props/customFetch permet de personnaliser la fonction de récupération des options
 	customFetch?: (searchTerm?: string) => Promise<BaseVModelType[]>,
@@ -43,37 +43,37 @@ export type OrionSelectProps = SharedFieldSetupServiceProps & {
 	displayKey?: string,
 	// @doc props/donetyping the duration to trigger the fetch
 	// @doc/fr props/donetyping indique après combien de temps après la dernière frappe, la fonction de récupération des options est appelée
-	donetyping: number,
+	donetyping?: number,
 	// @doc props/fetchInitialOptions initial options before first fetch (when using fetch mecanism)
 	// @doc/fr props/fetchInitialOptions options intiales avant le premier fetch (lors de l'utilisation du mécanisme de fetch des options)
-	fetchInitialOptions: Array<BaseVModelType[]>,
+	fetchInitialOptions?: Array<BaseVModelType[]>,
 	// @doc props/fetchKey key used to pass the research field value as a parameter to fetch the options
 	// @doc/fr props/fetchKey clé utilisée pour passer la valeur du champ de recherche comme paramètre pour récupérer les options
-	fetchKey: string,
+	fetchKey?: string,
 	// @doc props/fetchMethod Method used to fetch the options
 	// @doc/fr props/fetchMethod Méthode utilisée pour récupérer les options
-	fetchMethod: 'GET' | 'POST',
+	fetchMethod?: 'GET' | 'POST',
 	// @doc props/fetchMinSearch minimum number of caracters to trigger the fetch
 	// @doc/fr props/fetchMinSearch nombre de caractères nécessaire pour déclencher l'appel pour récupérer les options
-	fetchMinSearch: number,
+	fetchMinSearch?: number,
 	// @doc props/fetchUrl URL to fetch the options
 	// @doc/fr props/fetchUrl URL pour récupérer les options
 	fetchUrl?: string,
 	// @doc props/multiple defines if multiple values can be select in the select
 	// @doc/fr props/multiple définit si plusieurs valeurs peuvent être sélectionnées
-	multiple: boolean,
+	multiple?: boolean,
 	// @doc props/options options of the select
 	// @doc/fr props/options options du select
-	options: BaseVModelType[],
+	options?: BaseVModelType[],
 	// @doc props/prefillSearch prefill the search field
 	// @doc/fr props/prefillSearch pré-rempli le champ de recherche
 	prefillSearch?: string,
 	// @doc props/searchable adds a search tooltip
 	// @doc/fr props/searchable ajoute un champ de recherche
-	searchable: boolean,
+	searchable?: boolean,
 	// @doc props/trackKey unique key item
 	// @doc/fr props/trackKey clé unique qui va différencier les options
-	trackKey: string,
+	trackKey?: string,
 	// @doc props/valueKey key used as field value
 	// @doc/fr props/valueKey clé qui réprésente la valeur d'un élément
 	valueKey?: string,
@@ -217,7 +217,10 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Ori
 	}
 
 
-	constructor (protected props: OrionSelectProps, protected emits: OrionSelectEmits, protected vModel: ModelRef<VModelType>) {
+	constructor (
+		protected props: OrionSelectProps & typeof OrionSelectSetupService.defaultProps,
+		protected emits: OrionSelectEmits,
+		protected vModel: ModelRef<VModelType>) {
 		super(props, emits, vModel);
 
 		this.bus.on('*', (type, e) => this.emits(type as any, e as any));

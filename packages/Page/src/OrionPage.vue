@@ -1,4 +1,4 @@
-<template>
+?<template>
 	<div
 		:ref="setup._el"
 		class="orion-page">

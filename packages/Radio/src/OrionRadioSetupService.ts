@@ -10,16 +10,16 @@ export type OrionRadioProps = SharedFieldSetupServiceProps &
 	iconCheck?: Orion.Icon,
 	// @doc props/inline set the property `display` on `inline-flex` instead of `flex`
 	// @doc/fr props/inline défini la propriété `display` à `inline-flex` à la place `flex`
-	inline: boolean,
+	inline?: boolean,
 	// @doc props/inputValue value of the radio button
 	// @doc/fr props/inputValue valeur du bouton radio
-	inputValue: string | boolean | number | string[] | undefined,
+	inputValue?: string | boolean | number | string[],
 	// @doc props/reverse displays the label first
 	// @doc/fr props/reverse affiche en premier le label
-	reverse: boolean,
+	reverse?: boolean,
 	// @doc props/type type of the input
 	// @doc/fr props/type type du champ
-	type: string,
+	type?: string,
 };
 export type VModelType = any[] | boolean | number | Record<string, any> | string | undefined | null;
 
@@ -46,7 +46,10 @@ export default class OrionRadioSetupService extends SharedFieldSetupService<Orio
 	}
 
 
-	constructor (protected props: OrionRadioProps, protected emits: OrionRadioEmits, protected vModel: ModelRef<VModelType>) {
+	constructor (
+		protected props: OrionRadioProps & typeof OrionRadioSetupService.defaultProps,
+		protected emits: OrionRadioEmits,
+		protected vModel: ModelRef<VModelType>) {
 		super(props, emits, vModel);
 	}
 

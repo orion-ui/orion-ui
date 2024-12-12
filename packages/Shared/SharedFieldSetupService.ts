@@ -52,10 +52,10 @@ export type SharedFieldSetupServiceProps = {
 	placeholder?: string,
 	// @doc props/type type of the input
 	// @doc/fr props/type type of the input
-	type: string | Orion.DatepickerType,
+	type?: string | Orion.DatepickerType,
 	// @doc props/donetyping define the debounce duration before updating the value (useful for search field)
 	// @doc/fr props/donetyping défini la durée du debounce avant de mettre à jour la valeur (utile pour les champs de recherche)
-	donetyping: number,
+	donetyping?: number,
 	// @doc props/validation the validation for the field
 	// @doc/fr props/validation la validation du champ
 	validation?: string | ((val: any) => boolean) | Orion.Validator.Rule | Orion.Validation.Rule | boolean,
@@ -64,7 +64,7 @@ export type SharedFieldSetupServiceProps = {
 	validationErrorMessage?: string,
 	// @doc props/inheritValidationState defines if the validation comes from its parent
 	// @doc/fr props/inheritValidationState définit si la validation provient du parent
-	inheritValidationState: boolean,
+	inheritValidationState?: boolean,
 }
 
 export default abstract class SharedFieldSetupService<P, T, E extends SharedFieldSetupServiceEmits = SharedFieldSetupServiceEmits> extends SharedSetupService {
@@ -80,7 +80,6 @@ export default abstract class SharedFieldSetupService<P, T, E extends SharedFiel
 		forceLabelFloating: false,
 		clearToNull: false,
 		inheritValidationState: false,
-		validation: undefined,
 	};
 
 	readonly _input = ref<HTMLInputElement>();
@@ -259,13 +258,13 @@ export default abstract class SharedFieldSetupService<P, T, E extends SharedFiel
 	// @doc props/vModel vModel of the component
 	// @doc/fr props/vModel vModel du composant.
 	constructor (
-		protected props: SharedFieldSetupServiceProps & P,
+		protected props: SharedFieldSetupServiceProps & P & typeof SharedFieldSetupService.defaultProps,
 		protected emits: E,
 		protected vModel: ModelRef<Nil<T>>) {
 		super();
 
 		if (!!this.props.validation && typeof this.props.validation === 'object') {
-			this.props.validation.registerComponentFocusStateSetter(this.publicInstance);
+			this.props.validation?.registerComponentFocusStateSetter(this.publicInstance);
 		}
 
 		this.handleInputDebounce = debounce((callback) => {

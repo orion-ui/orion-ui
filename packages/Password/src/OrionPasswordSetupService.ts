@@ -6,13 +6,13 @@ export type OrionPasswordEmits = SharedFieldSetupServiceEmits<string> & {}
 export type OrionPasswordProps = SharedFieldSetupServiceProps & {
 	// @doc props/passwordToConfirm if specified, checks the match with the password value
 	// @doc/fr props/passwordToConfirm si spécifié, vérifie la correspondance avec le champ de mot de passe dans le cas d'une confirmation
-	passwordToConfirm?: Undef<string | boolean>,
+	passwordToConfirm?: string | boolean,
 	// @doc props/passwordTooltip shows the tooltip with the password's rules
 	// @doc/fr props/passwordTooltip affiche la une tooltip avec les règles à respecter
-	passwordTooltip: boolean,
+	passwordTooltip?: boolean,
 	// @doc props/type type of the input
 	// @doc/fr props/type type du champ
-	type: string,
+	type?: string,
 };
 
 export default class OrionPasswordSetupService extends SharedFieldSetupService<OrionPasswordProps, string | null | undefined> {
@@ -77,7 +77,10 @@ export default class OrionPasswordSetupService extends SharedFieldSetupService<O
 	}
 
 
-	constructor (protected props: OrionPasswordProps, protected emits: OrionPasswordEmits, protected vModel: ModelRef<Nil<string>>) {
+	constructor (
+		protected props: OrionPasswordProps & typeof OrionPasswordSetupService.defaultProps,
+		protected emits: OrionPasswordEmits,
+		protected vModel: ModelRef<Nil<string>>) {
 		super(props, emits, vModel);
 	}
 

@@ -9,7 +9,7 @@ export type OrionTextareaProps = SharedFieldSetupServiceProps & {
 	maxLength?: number,
 	// @doc props/showLength show input's value length
 	// @doc/fr props/showLength affiche le nombre de caractères
-	showLength: boolean,
+	showLength?: boolean,
 };
 
 export default class OrionTextareaSetupService extends SharedFieldSetupService<OrionTextareaProps, string | null | undefined> {
@@ -23,7 +23,7 @@ export default class OrionTextareaSetupService extends SharedFieldSetupService<O
 	private _aside?: OrionAside;
 
 	constructor (
-		protected props: OrionTextareaProps,
+		protected props: OrionTextareaProps & typeof OrionTextareaSetupService.defaultProps,
 		protected emits: OrionTextareaEmits,
 		protected vModel: ModelRef<Nil<string>>,
 		_modal?: OrionModal,

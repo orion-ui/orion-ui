@@ -7,13 +7,13 @@ export type OrionInputRangeProps = SharedFieldSetupServiceProps &
 	SharedPropsColor & {
 	// @doc props/maxValue maximum value of the input range
 	// @doc/fr props/maxValue valeur maximum qui peut être sélectionnée
-	maxValue: number,
+	maxValue?: number,
 	// @doc props/minValue minimum value of the input range
 	// @doc/fr props/minValue valeur minimale qui peut être sélectionnée
-	minValue: number,
+	minValue?: number,
 	// @doc props/step step of the slider
 	// @doc/fr props/step pas du curseur
-	step: number,
+	step?: number,
 };
 type VModelType = number[] | number;
 
@@ -104,7 +104,10 @@ export default class OrionInputRangeSetupService extends SharedFieldSetupService
 	}
 
 
-	constructor (protected props: OrionInputRangeProps, protected emits: OrionInputRangeEmits, protected vModel: ModelRef<VModelType>) {
+	constructor (
+		protected props: OrionInputRangeProps & typeof OrionInputRangeSetupService.defaultProps,
+		protected emits: OrionInputRangeEmits,
+		protected vModel: ModelRef<VModelType>) {
 		super(props, emits, vModel);
 	}
 

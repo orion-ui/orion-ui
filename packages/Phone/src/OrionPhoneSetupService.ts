@@ -17,18 +17,18 @@ export type OrionPhoneEmits = SharedFieldSetupServiceEmits<VModelType> & {
 export type OrionPhoneProps = SharedFieldSetupServiceProps & {
 	// @doc props/flag Allow to display or not the flag of the selected country
 	// @doc/fr props/flag Permet d'afficher le drapeau du pays choisi
-	flag: boolean,
+	flag?: boolean,
 	// @doc props/mobile defines if the number is a mobile phone
 	// @doc/fr props/mobile définit si le numéro correspond à un portable
-	mobile: boolean,
+	mobile?: boolean,
 	// @doc props/type the type of the input
 	// @doc/fr props/type type du champ
-	type: string,
+	type?: string,
 };
 
 export type VModelType = Nil<{
-  phoneNumber: Nil<string>;
-  phoneCountryCode: Nil<Orion.Country['code']>;
+  phoneNumber?: Nil<string>;
+  phoneCountryCode?: Nil<Orion.Country['code']>;
 }>;
 export default class OrionPhoneSetupService extends SharedFieldSetupService<OrionPhoneProps, VModelType> {
 	static readonly defaultProps = {
@@ -127,9 +127,9 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Orio
 	// @doc vModel/phoneNumber the phoneNumber string, isolated from its parent object
 	// @doc/fr vModel/phoneNumber le numéro de téléphone, isolé de son objet parent
 	constructor (
-		protected props: OrionPhoneProps,
+		protected props: OrionPhoneProps & typeof OrionPhoneSetupService.defaultProps,
 		protected emits: OrionPhoneEmits,
-		protected vModel: ModelRef<VModelType>,
+		protected vModel: ModelRef<Nil<VModelType>>,
 		protected phoneCountryCode?: ModelRef<string | undefined>,
 		protected phoneNumber?: ModelRef<string | undefined>,
 	) {

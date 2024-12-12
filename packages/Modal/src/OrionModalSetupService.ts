@@ -10,7 +10,7 @@ export type OrionModalEmits = SharedPopableSetupServiceEmits & {
 export type OrionModalProps = SharedPopableSetupServiceProps & {
 	// @doc props/display if set, displays the component
 	// @doc/fr props/display Missing @doc
-	display: boolean,
+	display?: boolean,
 	// @doc props/options options of the modal
 	// @doc/fr props/options options de la modal
 	options?: Partial<Orion.Modal.Options>,
@@ -19,7 +19,6 @@ export type OrionModalProps = SharedPopableSetupServiceProps & {
 export default class OrionModalSetupService extends SharedPopableSetupService {
 	static readonly defaultProps = {
 		...SharedPopableSetupService.defaultProps,
-		display: false,
 	};
 
 	protected name = 'OrionModal' as const;
@@ -50,7 +49,9 @@ export default class OrionModalSetupService extends SharedPopableSetupService {
 	}
 
 
-	constructor (protected props: OrionModalProps, protected emits: OrionModalEmits) {
+	constructor (
+		protected props: OrionModalProps & Omit<typeof OrionModalSetupService.defaultProps, 'options'> & {options: Partial<Orion.Popable.Options>},
+		protected emits: OrionModalEmits) {
 		super(props, emits);
 
 		Object.assign(this.options, props.options);

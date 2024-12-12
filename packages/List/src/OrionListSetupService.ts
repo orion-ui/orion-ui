@@ -30,10 +30,10 @@ export type OrionListProps<T extends Record<string,any>> = {
 	layout?: Orion.ListLayout,
 	// @doc props/list items of the list
 	// @doc/fr props/list élements de la liste
-	list: Array<T>,
+	list?: Array<T>,
 	// @doc props/total total number of items in the list
 	// @doc/fr props/total nombre total d'éléments dans la liste
-	total: number,
+	total?: number,
 	// @doc props/trackKey determine the `key` used for the v-for in the list loop
 	// @doc/fr props/trackKey détermine la `key` utilisée pour le v-for dans la boucle de la liste
 	trackKey?: string,
@@ -90,7 +90,7 @@ export default class OrionListSetupService<T extends Record<string,any>> extends
 	// @doc vModel/selected array of the selected items
 	// @doc/fr vModel/selected tableau contenant les élements sélectionnés
 	constructor (
-		protected props: OrionListProps<T>,
+		protected props: OrionListProps<T> & Omit<typeof OrionListSetupService.defaultProps, 'list'> & {list: T[]},
 		protected emits: OrionListEmits,
 		protected page: ModelRef<Orion.ListPage>,
 		protected selected: ModelRef<T[]>) {

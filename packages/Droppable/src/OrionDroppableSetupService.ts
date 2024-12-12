@@ -16,7 +16,7 @@ export type OrionDroppableEmits = {
 export type OrionDroppableProps = {
 	// @doc props/tag the tag or component of the droppable area
 	// @doc/fr props/tag tag ou composant qui représentera la zone de drop
-	tag: string,
+	tag?: string,
 	// @doc props/validation allows you to add a validation before the item drops
 	// @doc/fr props/validation permet d'ajouter une validation avant de déposer un objet dans la zone
 	validation?: Orion.DndValidation,

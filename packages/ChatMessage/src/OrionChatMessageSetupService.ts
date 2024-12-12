@@ -17,10 +17,7 @@ export type OrionChatMessageProps = {
 };
 
 export default class OrionChatMessageSetupService extends SharedSetupService {
-	static readonly defaultProps = {
-		chat: undefined,
-		discussion: undefined,
-	};
+	static readonly defaultProps = {};
 
 	get message () {
 		return this.props.message;

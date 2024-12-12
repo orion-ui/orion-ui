@@ -8,13 +8,15 @@ export type OrionFooterFixedProps = {
 	title?: string,
 	// @doc props/visible if set, displays the footer
 	// @doc/fr props/visible si défini, affiche le composant
-	visible: boolean,
+	visible?: boolean,
 };
 
 export default class OrionFooterFixedSetupService extends SharedSetupService {
 	static readonly defaultProps = { visible: false };
 
-	constructor (protected props: OrionFooterFixedProps, protected emits: OrionFooterFixedEmits) {
+	constructor (
+		protected props: OrionFooterFixedProps & typeof OrionFooterFixedSetupService.defaultProps,
+		protected emits: OrionFooterFixedEmits) {
 		super();
 
 		watch(() => this.props.visible, (val) => {
