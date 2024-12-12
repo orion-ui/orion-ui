@@ -69,10 +69,10 @@ export const en: SidebarConfig = [
 				text: 'Feedback',
 				children: [
 					`/components/OrionAlert.md`,
-					`/components/OrionLoader.md`,
-					`/components/OrionNotif.md`,
 					`/components/OrionAside.md`,
+					`/components/OrionLoader.md`,
 					`/components/OrionModal.md`,
+					`/components/OrionNotif.md`,
 					`/components/OrionPopConfirm.md`,
 				]
 			},

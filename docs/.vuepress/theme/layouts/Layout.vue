@@ -101,11 +101,6 @@ watch(() => router.currentRoute.value, () => {
 	});
 })
 
-watch (() => document.getElementsByTagName('html')[0].getAttribute("data-theme"),  () => {
-	console.log('la')
-	setTheme()
-});
-
 onMounted(() => {
 	
 	if (typeof MutationObserver !== 'undefined') {
@@ -119,7 +114,6 @@ onMounted(() => {
 	setTimeout(addGlobalTypesLink, 200);
 
 	nextTick(() => {
-		console.log(document.getElementsByTagName('html')[0].getAttribute("data-theme"))
 		const darkModeThemeObserver = new MutationObserver(setTheme);
 		darkModeThemeObserver.observe(document.documentElement, { attributeFilter: ['data-theme'] })
 	})
@@ -192,7 +186,6 @@ function toggleTocIcon () {
 }
 
 function setTheme () {
-	console.log('settheme')
 	setThemeMode(document.getElementsByTagName('html')[0].getAttribute("data-theme")?.toString().includes('dark') ? 'dark' : 'light')
 }
 
