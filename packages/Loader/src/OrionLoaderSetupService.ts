@@ -1,10 +1,11 @@
 import { reactive, watchEffect } from 'vue';
 import SharedSetupService from '../../Shared/SharedSetupService';
 import useLoader from 'services/LoaderService';
-import { SharedPropsColor, SharedPropsSize } from 'lib/shared-props';
+import SharedProps, { SharedPropsColor, SharedPropsSize } from 'packages/Shared/SharedProps';
 
 export type OrionLoaderEmits = {}
-export type OrionLoaderProps = SharedPropsColor & SharedPropsSize & {
+export type OrionLoaderProps = SharedPropsColor & 
+	SharedPropsSize & {
 	// @doc props/global displays a fullpage loader
 	// @doc/fr props/global affiche un loader sur toute la page
 	global?: boolean,
@@ -18,10 +19,10 @@ export type OrionLoaderProps = SharedPropsColor & SharedPropsSize & {
 
 export default class OrionLoaderSetupService extends SharedSetupService {
 	static readonly defaultProps = {
-		color: 'brand' as Orion.Color,
+		...SharedProps.color,
+		...SharedProps.size,
 		global: false,
 		visible: false,
-		size: 'md' as Orion.Size,
 	};
 
 	private state = reactive({

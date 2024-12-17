@@ -1,6 +1,6 @@
-import { SharedPropsColor } from 'lib/shared-props';
 import SharedFieldSetupService, { SharedFieldSetupServiceProps, SharedFieldSetupServiceEmits } from '../../Shared/SharedFieldSetupService';
 import { ModelRef } from 'vue';
+import SharedProps, { SharedPropsColor } from 'packages/Shared/SharedProps';
 
 export type OrionInputRangeEmits = SharedFieldSetupServiceEmits<Nil<number[] | number>> & {}
 export type OrionInputRangeProps = SharedFieldSetupServiceProps &
@@ -20,6 +20,7 @@ type VModelType = number[] | number;
 export default class OrionInputRangeSetupService extends SharedFieldSetupService<OrionInputRangeProps, VModelType> {
 	static readonly defaultProps = {
 		...SharedFieldSetupService.defaultProps,
+		...SharedProps.color,
 		maxValue: 100,
 		minValue: 0,
 		step: 1,

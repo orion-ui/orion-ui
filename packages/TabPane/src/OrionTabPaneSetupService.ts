@@ -1,6 +1,6 @@
 import { reactive, watch } from 'vue';
 import SharedSetupService from '../../Shared/SharedSetupService';
-import { SharedPropsIcon } from 'lib/shared-props';
+import { SharedPropsIcon } from 'packages/Shared/SharedProps';
 
 export type OrionTabPaneEmits = {}
 export type OrionTabPaneProps = SharedPropsIcon & {

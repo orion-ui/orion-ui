@@ -4,7 +4,7 @@ import SharedSetupService from './SharedSetupService';
 import useValidation from 'services/ValidationService';
 import useWindow from 'services/WindowService';
 import { Validator } from 'utils/Validator';
-import { SharedPropsPrefixIcon, SharedPropsSize, SharedPropsSuffixIcon } from 'lib/shared-props';
+import SharedProps, { SharedPropsPrefixIcon, SharedPropsSize, SharedPropsSuffixIcon } from './SharedProps';
 
 export type SharedFieldSetupServiceEmits<T = any | null | undefined> = {
   (e: 'focus', payload: FocusEvent): void;
@@ -69,6 +69,7 @@ export type SharedFieldSetupServiceProps = {
 
 export default abstract class SharedFieldSetupService<P, T, E extends SharedFieldSetupServiceEmits = SharedFieldSetupServiceEmits> extends SharedSetupService {
 	static readonly defaultProps = {
+		...SharedProps.size,
 		type: 'text',
 		donetyping: 0,
 		autofocus: false,

@@ -1,4 +1,4 @@
-import { SharedPropsIcon } from 'lib/shared-props';
+import { SharedPropsIcon } from 'packages/Shared/SharedProps';
 import SharedSetupService from '../../Shared/SharedSetupService';
 
 export type OrionIconSectionEmits = {}

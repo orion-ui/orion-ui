@@ -1,5 +1,5 @@
-import { SharedPropsSize, SharedPropsColorExtentedAndGreys } from 'lib/shared-props';
 import SharedSetupService from '../../Shared/SharedSetupService';
+import SharedProps, { SharedPropsColorExtentedAndGreys, SharedPropsSize } from 'packages/Shared/SharedProps';
 
 export type OrionLabelEmits = {}
 export type OrionLabelProps =
@@ -12,9 +12,9 @@ export type OrionLabelProps =
 
 export default class OrionLabelSetupService extends SharedSetupService {
 	static readonly defaultProps = {
+		...SharedProps.colorExtendedAndGreys,
+		...SharedProps.size,
 		outline: false,
-		color: 'default' as Orion.ColorExtendedAndGreys,
-		size: 'md' as Orion.Size,
 	};
 
 	constructor (protected props: OrionLabelProps, protected emits: OrionLabelEmits) {

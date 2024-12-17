@@ -1,7 +1,7 @@
 import { isArray } from 'lodash-es';
 import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetupServiceProps } from '../../Shared/SharedFieldSetupService';
-import { SharedPropsColor } from 'lib/shared-props';
 import { ModelRef } from 'vue';
+import SharedProps, { SharedPropsColor } from 'packages/Shared/SharedProps';
 
 export type OrionCheckboxEmits<T =VModelType> = SharedFieldSetupServiceEmits<T> & {}
 export type OrionCheckboxProps = SharedFieldSetupServiceProps &
@@ -30,11 +30,11 @@ type VModelType = any[] | boolean | null | undefined;
 export default class OrionCheckboxSetupService extends SharedFieldSetupService<OrionCheckboxProps, VModelType, OrionCheckboxEmits> {
 	static readonly defaultProps = {
 		...SharedFieldSetupService.defaultProps,
+		...SharedProps.color,
 		inline: false,
 		multiple: false,
 		reverse: false,
 		type: 'checkbox',
-		color: 'default' as Orion.Color,
 	};
 
 	protected inputType = 'checkbox';

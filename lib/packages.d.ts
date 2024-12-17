@@ -62,6 +62,7 @@ import { OrionSectionSetupService } from '../packages/index';
 import { OrionSelectSetupService } from '../packages/index';
 import { OrionStickerSetupService } from '../packages/index';
 import { OrionSwipeSetupService } from '../packages/index';
+import { OrionSymbol(clack:cancel)SetupService } from '../packages/index';
 import { OrionTabNavSetupService } from '../packages/index';
 import { OrionTabPaneSetupService } from '../packages/index';
 import { OrionTabsSetupService } from '../packages/index';
@@ -348,6 +349,11 @@ declare global {
 	type OrionSwipe = InstanceType<typeof OrionSwipeSetupService>['publicInstance'];
 	namespace OrionSwipe {
 		type Props = ExtractPropTypes<typeof OrionSwipeSetupService.props>
+	}
+
+	type OrionSymbol(clack:cancel) = InstanceType<typeof OrionSymbol(clack:cancel)SetupService>['publicInstance'];
+	namespace OrionSymbol(clack:cancel) {
+		type Props = ExtractPropTypes<typeof OrionSymbol(clack:cancel)SetupService.props>
 	}
 
 	type OrionTabNav = InstanceType<typeof OrionTabNavSetupService>['publicInstance'];

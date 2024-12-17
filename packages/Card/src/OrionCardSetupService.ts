@@ -1,10 +1,9 @@
-import { SharedPropsSize } from 'lib/shared-props';
 import SharedSetupService from '../../Shared/SharedSetupService';
+import SharedProps, { SharedPropsSize } from 'packages/Shared/SharedProps';
 
 export type OrionCardEmits = {}
 export type OrionCardProps =
-	SharedPropsSize &
-	{
+	SharedPropsSize & {
 	// @doc props/actionsLine displays a line between the body and the actions of the card
 	// @doc/fr props/actionsLine affiche une line de sépération entre les slots `default` et `actions` de la carte
 	actionsLine?: boolean,
@@ -30,11 +29,11 @@ export type OrionCardProps =
 
 export default class OrionCardSetupService extends SharedSetupService {
 	static readonly defaultProps = {
+		...SharedProps.size,
 		actionsLine: false,
 		headerLine: false,
 		hoverElevation: 1,
 		selected: false,
-		size: 'md' as Orion.Size,
 		selectedColor: 'info' as Orion.Color,
 	};
 

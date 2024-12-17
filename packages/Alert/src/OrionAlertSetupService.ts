@@ -1,5 +1,5 @@
-import { SharedPropsColor } from 'lib/shared-props';
 import SharedSetupService from '../../Shared/SharedSetupService';
+import SharedProps, { SharedPropsColor } from 'packages/Shared/SharedProps';
 
 export type OrionAlertEmits = { (e: 'close'): void;}
 export type OrionAlertProps = SharedPropsColor & {
@@ -15,10 +15,10 @@ export type OrionAlertProps = SharedPropsColor & {
 };
 
 export default class OrionAlertSetupService extends SharedSetupService {
-	static readonly defaultProps = {
+	static readonly defaultProps =  {
+		...SharedProps.color,
 		center: false,
 		close: false,
-		color: 'default' as Orion.Color,
 	};
 
 	constructor (

@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 import SharedSetupService from '../../Shared/SharedSetupService';
-import { SharedPropsPrefixIcon, SharedPropsSuffixIcon, SharedPropsSize } from 'lib/shared-props';
+import SharedProps, { SharedPropsPrefixIcon, SharedPropsSize, SharedPropsSuffixIcon } from 'packages/Shared/SharedProps';
 
 export type OrionFieldEmits = {
 	(e: 'clear'): void
@@ -28,7 +28,9 @@ export type OrionFieldProps = {
 }
 
 export default class OrionFieldSetupService extends SharedSetupService {
-	static readonly defaultProps = { inputType: 'input' };
+	static readonly defaultProps = { 
+		...SharedProps.size,
+		inputType: 'input' };
 
 	readonly _el = ref<RefDom>();
 	readonly _suffixPictos = ref<RefDom>();

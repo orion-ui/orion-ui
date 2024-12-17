@@ -1,7 +1,7 @@
 // @ts-nocheck
 const path = require('path');
 const { readFile, readdir, writeFile, mkdir, existsSync } = require('fs-extra');
-const { Project, SyntaxKind, ScriptKind } = require('ts-morph');
+const { Project, SyntaxKind, ScriptKind, Node } = require('ts-morph');
 const { spinner, log, note } = require('@clack/prompts');
 const { exec } = require('child_process');
 const { unique, sleep } = require('radash');
@@ -12,15 +12,16 @@ const { PrivatePackagesFolder } = require('../scripts-utils.cjs');
  * to test doc data generator only on selected components
  */
 const testOnPackages = [
-	// 'Alert',
-	// 'Aside',
-	// 'Avatar',
-	// 'Button',
-	// 'Checkbox',
-	// 'Datepicker',
-	// 'Notif',
-	// 'TabPane',
-	// 'Tour',
+	/* 'Alert',
+	'Aside',
+	'Card',
+	'Avatar',
+	'Button',
+	'Checkbox',
+	'Datepicker',
+	'Notif',
+	'TabPane',
+	'Tour', */
 ];
 
 const packageDocDataTemplate = `[
@@ -180,8 +181,12 @@ class DocFactory extends DocUtility {
 		this.project = new Project({
 			compilerOptions: {
 				allowJs: true,
+				baseUrl: './',
 				declaration: true,
 				emitDeclarationOnly: true,
+				"paths": {
+     			"packages": path.resolve(__dirname, '../../packages')
+    		},
 			},
 			skipAddingFilesFromTsConfig: true,
 		});
@@ -195,6 +200,7 @@ class DocFactory extends DocUtility {
 		if (this.options?.verbose) note(this.packages.join('\n'));
 
 		await this.scanSharedProps();
+		await this.parseSharedProps();
 
 		const scanSpinner = spinner();
 		scanSpinner.start(`Scanning ${this.packages.length} packages`);
@@ -260,13 +266,45 @@ class DocFactory extends DocUtility {
 		}`;
 	}
 
+	async parseSharedProps() {
+
+		const sharedPropsContent = this.project.addSourceFileAtPath(path.resolve(
+			this.packagesFolderPath,
+			'Shared', 'SharedProps.ts',
+		)).getText(true);
+
+		const sharedPropsFile = this.project.getSourceFileOrThrow(path.resolve(this.packagesFolderPath, 'Shared', 'SharedProps.ts'));
+
+		const sharedPropsClass = sharedPropsFile.getClassOrThrow("SharedProps");
+		sharedPropsClass.getStaticProperties().forEach((prop) => {
+			const propName = prop.getName(); // Nom de la propriété statique
+			const initializer = prop.getInitializer();
+	
+			if (initializer?.getKindName() === "ObjectLiteralExpression") {
+				initializer.getProperties().forEach((child) => {
+					if (Node.isPropertyAssignment(child)) {
+						const name = child.getName();
+						const value = child.getInitializer()?.getText();
+						const type = child.getType().getText(); // Récupère le type TS de la propriété
+	
+						sharedProps.set(name, {
+							name,
+							type,
+							defaultValue: value || "undefined",
+						});
+					}
+				});
+			}
+		});
+	}
+
 	async scanSharedProps () {
 		const content = this.project.addSourceFileAtPath(path.resolve(this.packagesFolderPath, 'Shared', 'SharedProps.ts'));
 
 		this.docFlags.en += this.extractDocFlags(content.getText(true)).en;
 		this.docFlags.fr += this.extractDocFlags(content.getText(true)).fr;
 
-		const properties = content.getClass('SharedProps').getProperties();
+		/* const properties = content.getClass('SharedProps').getProperties();
 
 		properties.forEach((prop) => {
 			const sharedPropName = prop.getName();
@@ -293,7 +331,7 @@ class DocFactory extends DocUtility {
 				});
 
 			sharedProps.set(sharedPropName, propsAssignments);
-		});
+		}); */
 	}
 }
 
@@ -621,69 +659,127 @@ class SetupServiceFileScanner extends DocScanner {
 		this.addFileToTsMorphProject();
 		this.docFlags = this.extractDocFlags(this.fullText);
 
-		return this.extractPropsFromClassDeclaration(this.file.getClass(`Orion${this.pack}SetupService`));
+		return this.extractPropsFromClassDeclaration(this.file.getClass(`Orion${this.pack}SetupService`), this.file.getTypeAliases());
 	}
 
-	extractPropsFromClassDeclaration (/** @type {import('ts-morph').ClassDeclaration} */ classDeclaration) {
-		const properties = classDeclaration
-			?.getStaticMember('props')
-			?.getDescendantsOfKind(SyntaxKind.ObjectLiteralExpression)[0]
-			?.getProperties() ?? [];
+	
 
+	extractPropsFromClassDeclaration (/** @type {import('ts-morph').ClassDeclaration} */ classDeclaration, /** @type {import('ts-morph').TypeAliasDeclaration} */ typeAlias) {
+		const sharedPropsContent = this.project.addSourceFileAtPath(path.resolve(
+			this.packagesFolderPath,
+			'Shared', 'SharedProps.ts',
+		)).getText(true);
 
-		// First handle shared and inherited props
-		properties
-			.filter(x => x.getKind() === SyntaxKind.SpreadAssignment)
-			.forEach((x) => {
-				const targetClass = /\.\.\.(?<name>\w+)\./.exec(x.getText()).groups?.name;
-				if (!targetClass) return;
+		this.docFlags.en += this.extractDocFlags(sharedPropsContent).en;
+		this.docFlags.fr += this.extractDocFlags(sharedPropsContent).fr;
 
-				if (targetClass === 'SharedProps') {
-					const res = /SharedProps\.(?<name>\w*)\((?<param>[\w'"-]*)\)/.exec(x.getText())?.groups;
-					if (res?.name && sharedProps.has(res.name)) {
-						const name = res.name;
-						let param = res?.param ?? undefined;
+		const test = this.file.getTypeAliasOrThrow(`Orion${this.pack}Props`);
 
-						if (typeof param === 'string' && !param.length) param = undefined;
+		let type = test.getType();
 
-						sharedProps.get(name).forEach((x) => {
-							let defaultValue = x.defaultValue === 'defaultValue'
-								? param ?? x.sharedDefaultValue
-								: x.sharedDefaultValue;
+		if (type.getAliasSymbol()) {
+			const resolvedType = type.getAliasSymbol()
+				? type.getAliasSymbol().getDeclaredType()
+				: type;
+		}
 
-							this.props.set(x.name, {
-								...x,
-								defaultValue,
-							});
+		//GESTION DES DEFAULT PROPS
+		const defaultPropsProperty = classDeclaration.getStaticPropertyOrThrow("defaultProps");
+		const initializer = defaultPropsProperty.getInitializer();
+
+		// Objet pour stocker les propriétés finales
+		const resolvedProps = {};
+
+		// Si c'est un objet littéral, analyser les propriétés
+		if (initializer.getKindName() === "ObjectLiteralExpression") {
+			const properties = initializer.getProperties();
+
+			properties.forEach((prop) => {
+				if (prop.getKindName() === "PropertyAssignment") {
+					// Gestion des propriétés classiques : clé/valeur explicites
+					const name = prop.getName();
+					const value = prop.getInitializer()?.getText().replace(/ as Orion.\w*/, '');
+					resolvedProps[name] = value;
+
+				} else if (prop.getKindName() === "ShorthandPropertyAssignment") {
+					// Gestion des propriétés shorthand (ex : `{ prop }`)
+					const name = prop.getName();
+					resolvedProps[name] = name; // Ici, la valeur est supposée être la clé elle-même
+
+				} else if (prop.getKindName() === "SpreadAssignment") {
+					// Gestion des `...SharedProps.*`
+					const expression = prop.getExpression();
+					const symbol = expression.getSymbol();
+
+					if (symbol) {
+						const declarations = symbol.getDeclarations();
+						declarations.forEach((declaration) => {
+							if (declaration.getKindName() === "PropertyDeclaration") {
+								const varInitializer = declaration.getInitializer();
+								if (varInitializer && varInitializer.getKindName() === "ObjectLiteralExpression") {
+									const spreadProps = varInitializer.getProperties();
+
+									spreadProps.forEach((spreadProp) => {
+										// Vérifier si `spreadProp` a une méthode `getName()`
+										if (typeof spreadProp.getName === "function") {
+											const spreadName = spreadProp.getName();
+											const spreadValue = spreadProp.getInitializer()?.getText().replace(/ as Orion.\w*/, '');
+											resolvedProps[spreadName] = spreadValue;
+										}
+									});
+								}
+							}
 						});
 					}
-				} else {
-					const sharedFile = this.project.addSourceFileAtPath(path.resolve(
-						this.packagesFolderPath,
-						'Shared',
-						`${targetClass}.ts`,
-					));
-
-					this.docFlags.en += this.extractDocFlags(sharedFile.getText(true)).en;
-					this.docFlags.fr += this.extractDocFlags(sharedFile.getText(true)).fr;
-
-					this.extractPropsFromClassDeclaration(sharedFile.getClass(targetClass));
 				}
 			});
+		}
+		//
 
-		// Then handle local props
-		properties
-			.filter(x => x.getKind() !== SyntaxKind.SpreadAssignment)
-			.forEach((x) => {
-				const propsData = this.extractPropsData(x);
-				const desc = this.getPropsDesciption(propsData.name);
-				this.props.set(propsData.name, {
-					...propsData,
-					desc,
-				});
+		// Fonction pour extraire les propriétés d'un type donné
+		const extractProperties = (type) => {
+			const properties = type.getApparentProperties();
+			return properties.map((prop) => {
+				const name = prop.getName();
+				const typeValue = prop.getValueDeclaration();
+				const defaultValue = resolvedProps[name];
+				const type = typeValue ? typeValue.getType().getText().replace(/ as Orion.\w*/, '') : "unknown";
+				const desc = this.getPropsDesciption(name)
+
+				return { name, type, defaultValue, desc};
 			});
+		};
 
-		return { props: [...this.props.values()].sort((a, b) => a.name.localeCompare(b.name)) };
+		// Fonction récursive pour gérer les intersections
+		const parseType = (type) => {
+			const results = [];
+
+			if (type.isIntersection()) {
+				type.getIntersectionTypes().forEach((subType) => {
+					results.push(...parseType(subType));
+				});
+			} else {
+				const properties = type.getApparentProperties();
+				if (!properties.length) {
+				} else {
+					properties.forEach((prop) => {
+						const name = prop.getName();
+						const typeValue = prop.getValueDeclaration();
+						const defaultValue = resolvedProps[name];
+						const type = typeValue ? typeValue.getType().getText().replace(/ as Orion.\w*/, '') : "unknown";
+						const desc = this.getPropsDesciption(name)
+
+						results.push({ name, type, defaultValue, desc });
+					});
+				}
+			}
+
+			return results;
+		};
+
+		const props = parseType(type);
+
+		return { props: props.sort((a, b) => a.name.localeCompare(b.name)) };
 	}
 
 	getPropsDefaultValue (name) {

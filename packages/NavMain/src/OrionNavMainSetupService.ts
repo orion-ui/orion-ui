@@ -3,16 +3,16 @@ import { _RouteLocationBase } from 'vue-router';
 import { concat } from 'lodash-es';
 
 import SharedNavSetupService from '../../Shared/SharedNavSetupService';
-import { SharedPropsNav } from 'lib/shared-props';
+import SharedProps, { SharedPropsNav } from 'packages/Shared/SharedProps';
 
 export type OrionNavMainEmits = {}
 
-export type OrionNavMainProps = {
+export type OrionNavMainProps = SharedPropsNav & {
 		navTop?: OrionNavTop.Props
-} & SharedPropsNav
+};
 
 export default class OrionNavMainSetupService extends SharedNavSetupService {
-	static readonly defaultProps = { items: () => [] as Orion.NavItem[] };
+	static readonly defaultProps = { ...SharedProps.navDefault };
 
 	readonly _el = ref<RefDom>();
 	readonly _wrapper = ref<RefDom>();
@@ -67,7 +67,9 @@ export default class OrionNavMainSetupService extends SharedNavSetupService {
 	}
 
 
-	constructor (protected props: OrionNavMainProps, protected emits: OrionNavMainEmits) {
+	constructor (
+		protected props: OrionNavMainProps & typeof OrionNavMainSetupService.defaultProps,
+		protected emits: OrionNavMainEmits) {
 		super();
 	}
 

@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 import SharedSetupService from '../../Shared/SharedSetupService';
-import { SharedPropsColor, SharedPropsPrefixIcon, SharedPropsSize, SharedPropsSuffixIcon } from 'lib/shared-props';
+import SharedProps, { SharedPropsColor, SharedPropsPrefixIcon, SharedPropsSize, SharedPropsSuffixIcon } from 'packages/Shared/SharedProps';
 
 export type OrionButtonEmits = {}
 export type OrionButtonProps =
@@ -30,14 +30,14 @@ SharedPropsColor & {
 
 export default class OrionButtonSetupService extends SharedSetupService {
 	static readonly defaultProps = {
+		...SharedProps.color,
+		...SharedProps.size,
 		autofocus: false,
 		block: false,
 		disabled: false,
 		loading: false,
 		nude: false,
 		outline: false,
-		size: 'md' as Orion.Size,
-		color: 'default' as Orion.Color,
 	};
 
 	_el = ref<RefDom>();

@@ -1,5 +1,5 @@
-import { SharedPropsSize, SharedPropsColorExtentedAndGreys } from 'lib/shared-props';
 import SharedSetupService from '../../Shared/SharedSetupService';
+import SharedProps, { SharedPropsColorExtentedAndGreys, SharedPropsSize } from 'packages/Shared/SharedProps';
 
 export type OrionChipsEmits = {(e: 'close'): void}
 export type OrionChipsProps =
@@ -15,8 +15,8 @@ export type OrionChipsProps =
 
 export default class OrionChipsSetupService extends SharedSetupService {
 	static readonly defaultProps = {
-		color: 'default' as Orion.ColorExtendedAndGreys,
-		size: 'md' as Orion.Size,
+		...SharedProps.colorExtendedAndGreys,
+		...SharedProps.size
 	};
 
 	constructor (
