@@ -199,7 +199,6 @@ class DocFactory extends DocUtility {
 
 		if (this.options?.verbose) note(this.packages.join('\n'));
 
-		await this.scanSharedProps();
 		await this.parseSharedProps();
 
 		const scanSpinner = spinner();
@@ -273,6 +272,9 @@ class DocFactory extends DocUtility {
 			'Shared', 'SharedProps.ts',
 		)).getText(true);
 
+		this.docFlags.en += this.extractDocFlags(sharedPropsContent).en;
+		this.docFlags.fr += this.extractDocFlags(sharedPropsContent).fr;
+
 		const sharedPropsFile = this.project.getSourceFileOrThrow(path.resolve(this.packagesFolderPath, 'Shared', 'SharedProps.ts'));
 
 		const sharedPropsClass = sharedPropsFile.getClassOrThrow("SharedProps");
@@ -284,54 +286,19 @@ class DocFactory extends DocUtility {
 				initializer.getProperties().forEach((child) => {
 					if (Node.isPropertyAssignment(child)) {
 						const name = child.getName();
-						const value = child.getInitializer()?.getText();
-						const type = child.getType().getText(); // Récupère le type TS de la propriété
-	
+						const desc = this.getPropsDesciption(name)
+						const value = child.getInitializer()?.getText().replace(/as Orion.\w*/, '');
+						const type = child.getType().getText().replace(/as Orion.\w*/, '');
 						sharedProps.set(name, {
 							name,
 							type,
+							name,
 							defaultValue: value || "undefined",
 						});
 					}
 				});
 			}
 		});
-	}
-
-	async scanSharedProps () {
-		const content = this.project.addSourceFileAtPath(path.resolve(this.packagesFolderPath, 'Shared', 'SharedProps.ts'));
-
-		this.docFlags.en += this.extractDocFlags(content.getText(true)).en;
-		this.docFlags.fr += this.extractDocFlags(content.getText(true)).fr;
-
-		/* const properties = content.getClass('SharedProps').getProperties();
-
-		properties.forEach((prop) => {
-			const sharedPropName = prop.getName();
-			const statement = prop.getInitializer();
-
-			const sharedDefaultValue = statement.getChildrenOfKind(SyntaxKind.Parameter)
-				?.filter(x => x.getName() === 'defaultValue')[0]
-				?.getChildrenOfKind(SyntaxKind.StringLiteral)[0]
-				?.getText();
-
-			const propsAssignments = statement
-				.getChildrenOfKind(SyntaxKind.ParenthesizedExpression)?.[0]
-				?.getFirstChildByKindOrThrow(SyntaxKind.ObjectLiteralExpression)
-				?.getChildrenOfKind(SyntaxKind.PropertyAssignment)
-				?.map((x) => {
-					const propsData = this.extractPropsData(x);
-					const desc = this.getPropsDesciption(propsData.name);
-
-					return {
-						...propsData,
-						sharedDefaultValue,
-						desc,
-					};
-				});
-
-			sharedProps.set(sharedPropName, propsAssignments);
-		}); */
 	}
 }
 
@@ -659,23 +626,49 @@ class SetupServiceFileScanner extends DocScanner {
 		this.addFileToTsMorphProject();
 		this.docFlags = this.extractDocFlags(this.fullText);
 
-		return this.extractPropsFromClassDeclaration(this.file.getClass(`Orion${this.pack}SetupService`), this.file.getTypeAliases());
+		return this.extractPropsFromClassDeclaration(this.file.getClass(`Orion${this.pack}SetupService`));
 	}
 
+	parseDefaultProps() {
+		const classDeclaration = this.file.getClassOrThrow(`Orion${this.pack}SetupService`);
+		const defaultPropsProperty = classDeclaration.getStaticPropertyOrThrow("defaultProps");
+		const initializer = defaultPropsProperty.getInitializer();
+	
+		const resolvedProps = {};
+	
+		if (initializer?.getKindName() === "ObjectLiteralExpression") {
+			initializer.getProperties().forEach((prop) => {
+				if (Node.isPropertyAssignment(prop)) {
+					const name = prop.getName();
+					const value = prop.getInitializer()?.getText().replace(/as Orion.\w*/, '');
+					const type = prop.getType().getText().replace(/as Orion.\w*/, '');
+	
+					resolvedProps[name] = {
+						name,
+						type,
+						defaultValue: value || "undefined",
+					};
+				} else if (Node.isSpreadAssignment(prop)) {
+					const expression = prop.getExpression();
+					const propName = expression.getText().split(".")[1];
+	
+					Object.keys(sharedProps).forEach((key) => {
+						if (!resolvedProps[key]) {
+							resolvedProps[key] = sharedProps[key];
+						}
+					});
+				}
+			});
+		}
+	
+		return resolvedProps;
+	}
 	
 
-	extractPropsFromClassDeclaration (/** @type {import('ts-morph').ClassDeclaration} */ classDeclaration, /** @type {import('ts-morph').TypeAliasDeclaration} */ typeAlias) {
-		const sharedPropsContent = this.project.addSourceFileAtPath(path.resolve(
-			this.packagesFolderPath,
-			'Shared', 'SharedProps.ts',
-		)).getText(true);
+	extractPropsFromClassDeclaration (/** @type {import('ts-morph').ClassDeclaration} */ classDeclaration) {
+		const fileTypeAlias = this.file.getTypeAliasOrThrow(`Orion${this.pack}Props`);
 
-		this.docFlags.en += this.extractDocFlags(sharedPropsContent).en;
-		this.docFlags.fr += this.extractDocFlags(sharedPropsContent).fr;
-
-		const test = this.file.getTypeAliasOrThrow(`Orion${this.pack}Props`);
-
-		let type = test.getType();
+		let type = fileTypeAlias.getType();
 
 		if (type.getAliasSymbol()) {
 			const resolvedType = type.getAliasSymbol()
@@ -683,113 +676,50 @@ class SetupServiceFileScanner extends DocScanner {
 				: type;
 		}
 
-		//GESTION DES DEFAULT PROPS
+		//HANDLE DEFAULT PROPS
 		const defaultPropsProperty = classDeclaration.getStaticPropertyOrThrow("defaultProps");
 		const initializer = defaultPropsProperty.getInitializer();
 
-		// Objet pour stocker les propriétés finales
-		const resolvedProps = {};
+		const defaultProps = this.parseDefaultProps()
 
-		// Si c'est un objet littéral, analyser les propriétés
-		if (initializer.getKindName() === "ObjectLiteralExpression") {
-			const properties = initializer.getProperties();
+		const properties = {};
 
-			properties.forEach((prop) => {
-				if (prop.getKindName() === "PropertyAssignment") {
-					// Gestion des propriétés classiques : clé/valeur explicites
-					const name = prop.getName();
-					const value = prop.getInitializer()?.getText().replace(/ as Orion.\w*/, '');
-					resolvedProps[name] = value;
-
-				} else if (prop.getKindName() === "ShorthandPropertyAssignment") {
-					// Gestion des propriétés shorthand (ex : `{ prop }`)
-					const name = prop.getName();
-					resolvedProps[name] = name; // Ici, la valeur est supposée être la clé elle-même
-
-				} else if (prop.getKindName() === "SpreadAssignment") {
-					// Gestion des `...SharedProps.*`
-					const expression = prop.getExpression();
-					const symbol = expression.getSymbol();
-
-					if (symbol) {
-						const declarations = symbol.getDeclarations();
-						declarations.forEach((declaration) => {
-							if (declaration.getKindName() === "PropertyDeclaration") {
-								const varInitializer = declaration.getInitializer();
-								if (varInitializer && varInitializer.getKindName() === "ObjectLiteralExpression") {
-									const spreadProps = varInitializer.getProperties();
-
-									spreadProps.forEach((spreadProp) => {
-										// Vérifier si `spreadProp` a une méthode `getName()`
-										if (typeof spreadProp.getName === "function") {
-											const spreadName = spreadProp.getName();
-											const spreadValue = spreadProp.getInitializer()?.getText().replace(/ as Orion.\w*/, '');
-											resolvedProps[spreadName] = spreadValue;
-										}
-									});
-								}
-							}
-						});
-					}
-				}
-			});
-		}
-		//
-
-		// Fonction pour extraire les propriétés d'un type donné
-		const extractProperties = (type) => {
-			const properties = type.getApparentProperties();
-			return properties.map((prop) => {
-				const name = prop.getName();
-				const typeValue = prop.getValueDeclaration();
-				const defaultValue = resolvedProps[name];
-				const type = typeValue ? typeValue.getType().getText().replace(/ as Orion.\w*/, '') : "unknown";
-				const desc = this.getPropsDesciption(name)
-
-				return { name, type, defaultValue, desc};
-			});
-		};
-
-		// Fonction récursive pour gérer les intersections
-		const parseType = (type) => {
-			const results = [];
-
-			if (type.isIntersection()) {
-				type.getIntersectionTypes().forEach((subType) => {
-					results.push(...parseType(subType));
-				});
+		// PARSE PROPS IN FILE
+		type.getProperties().forEach((prop) => {
+			const name = prop.getName();
+			const desc = this.getPropsDesciption(name);
+			const valueDeclaration = prop.getValueDeclaration();
+			let type = "unknown";
+			
+			if (valueDeclaration) {
+				type = valueDeclaration.getType().getText().replace(/as Orion.\w*/, '');
 			} else {
-				const properties = type.getApparentProperties();
-				if (!properties.length) {
-				} else {
-					properties.forEach((prop) => {
-						const name = prop.getName();
-						const typeValue = prop.getValueDeclaration();
-						const defaultValue = resolvedProps[name];
-						const type = typeValue ? typeValue.getType().getText().replace(/ as Orion.\w*/, '') : "unknown";
-						const desc = this.getPropsDesciption(name)
-
-						results.push({ name, type, defaultValue, desc });
-					});
-				}
+				const symbolType = prop.getTypeAtLocation(this.file);
+				type = symbolType.getText().replace(/as Orion.\w*/, '');
 			}
+			
+			properties[name] = {
+				name,
+				type,
+				desc
+			};
 
-			return results;
-		};
+			// Add sharedProps value
+			if (sharedProps.get(name)) {
+				properties[name].defaultValue = sharedProps.get(name).defaultValue;
+			}
+		});
 
-		const props = parseType(type);
 
-		return { props: props.sort((a, b) => a.name.localeCompare(b.name)) };
-	}
+		const mergedProps = { ...properties };
 
-	getPropsDefaultValue (name) {
-		if (this.props.has(name)) {
-			let defaultValue = this.props.get(name)?.defaultValue;
-			if (typeof defaultValue === 'string') defaultValue = defaultValue.replace(cleanString, '');
-			return String(defaultValue);
-		} else {
-			return 'Props default value missing';
+		for (const key in defaultProps) {
+			if (mergedProps[key]) {
+				mergedProps[key].defaultValue = defaultProps[key].defaultValue;
+			}
 		}
+
+		return  {props: Object.values(mergedProps).sort((a, b) => a.name.localeCompare(b.name))};
 	}
 
 	getDesc (name) {
