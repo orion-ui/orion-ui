@@ -27,6 +27,8 @@ const globalTypesDocData = {
 'Orion.Validation': [{"ns":"Orion.Validation","type":"Rule","generic":"","description":"ReturnType<ReturnType<typeof useValidation<any, any>>['rule']>; \n\t\t\ttype RuleResult<T> = string | boolean | ((val: T) => boolean | Validator.RuleResult) | ValidatorClass<T>;"},{"ns":"Orion.Validation","type":"Rules","generic":"T","description":"{ \n\t\t\t\t[K in keyof T]?: RuleResult<T[K]>; \n\t\t\t}"}],
 			
 'Orion.Validator': [{"ns":"Orion.Validator","type":"Rule","generic":"T = any","description":"((value: T) => Orion.Validator.RuleResult); \n\t\t\ttype RuleFunction = ((...args: any[]) => (value?: any) => boolean);"},{"ns":"Orion.Validator","type":"RuleResult","generic":"","description":"{ \n\t\t\t\tresult: boolean \n\t\t\t\tlevel: 'warning' | 'error' \n\t\t\t\tmessage?: string \n\t\t\t\tmeta?: any, \n\t\t\t}"}],
+			
+'Private': [{"ns":"Private","type":"TsxTabPane","generic":"","description":"{ \n\t\tprops: OrionTabPane.Props & { \n\t\t\t'font-icon': string; \n\t\t\t'marker-color': string; \n\t\t}; \n\t\tchildren: { \n\t\t\tdefault: Slot; \n\t\t\tlabel?: Slot; \n\t\t}; \n\t} \n"},{"ns":"Private","type":"TsxTimelinePane","generic":"","description":"{ \n\t\tprops: OrionTimelinePaneProps & { \n\t\t\t'font-icon': string; \n\t\t\t'marker-color': string; \n\t\t\t'centered-pill': string; \n\t\t}; \n\t\tchildren: { \n\t\t\tdefault: Slot; \n\t\t\tafter?: Slot; \n\t\t\tbefore?: Slot; \n\t\t}; \n\t} \n"},{"ns":"Private","type":"TsxTourStep","generic":"","description":"{ \n\t\tprops : OrionTourStep.Props \n\t}"}],
 		};
 
 export default globalTypesDocData;

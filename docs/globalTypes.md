@@ -11,8 +11,12 @@ This page references all Orion global types, and their associated namespaces.
 global
 Orion
 Orion.Aside
+Orion.Chat
 Orion.Modal
 Orion.Notif
 Orion.Popable
-Orion.Private
-::: 
+Orion.Tour
+Orion.Validation
+Orion.Validator
+Private
+:::

@@ -959,7 +959,9 @@ class globalTypeFileScanner extends DocUtility {
 	}
 
 	async scanGlobalTypes () {
-		const globalData = await this.extractNamespace();
+		let globalData = await this.extractNamespace('global.d.ts');
+		const privateData =  await this.extractNamespace('private.d.ts');
+		globalData = globalData.concat(privateData)
 
 		const typesSpinner = spinner();
 		typesSpinner.start(`Scanning types`);
@@ -969,10 +971,10 @@ class globalTypeFileScanner extends DocUtility {
 		typesSpinner.stop(`Types scanned`);
 	}
 
-	async extractNamespace () {
+	async extractNamespace (filename) {
 		var file = await readFile(path.resolve(
 			this.libFolderPath,
-			'global.d.ts',
+			filename,
 		), { encoding: 'utf-8' });
 
 		/** @type { { ns: string, type: string, generic: string, description: string}[] } */
