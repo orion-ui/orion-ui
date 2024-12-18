@@ -21,8 +21,9 @@ It is installed by default when using the full library, but you can omit it in t
 To make the benefits of our Monkey Patching available to everyone we provide a **useMonkey** service (or composable) which infers parameter's type to provide available methods.
 :::
 
-:::: code-group
-::: code-group-item With MonkeyPatching
+::: code-tabs
+@tab With MonkeyPatching
+
 ```ts {5,8,12}
 import { createApp } from 'vue';
 import App from './App.vue';
@@ -32,7 +33,7 @@ import '@orion.ui/orion/dist/monkey-patching'; // Import Monkey Patching definit
 
 createApp(App)
 	.use(Orion) // full library
-	.mount('#app')
+	.mount('#app');
 
 const testDate = new Date(2022, 8, 5);
 const result = testDate.toReadable('$year - $monthNum - $dayNum');
@@ -41,9 +42,9 @@ const result = testDate.toReadable('$year - $monthNum - $dayNum');
 console.log(readableDate);
 // output -> "2022 - 09 - 05"
 ```
-:::
 
-::: code-group-item With useMonkey service
+@tab With useMonkey service
+
 ```ts {3,8,14-15}
 import { createApp } from 'vue';
 import App from './App.vue';
@@ -55,7 +56,7 @@ createApp(App)
 		use: ['components'], // use only components
 		lang: 'fr',
 	} as Orion.Config)
-	.mount('#app')
+	.mount('#app');
 
 const testDate = new Date(2022, 8, 5);
 const result = useMonkey(testDate) // type Date inferred here
@@ -64,5 +65,5 @@ const result = useMonkey(testDate) // type Date inferred here
 console.log(readableDate);
 // output -> "2022 - 09 - 05"
 ```
+
 :::
-::::

@@ -287,12 +287,13 @@ class DocFactory extends DocUtility {
 					if (Node.isPropertyAssignment(child)) {
 						const name = child.getName();
 						const desc = this.getPropsDesciption(name)
-						const value = child.getInitializer()?.getText().replace(/as Orion.\w*/, '');
-						const type = child.getType().getText().replace(/as Orion.\w*/, '');
+						const value = child.getInitializer()?.getText().replace(/as Orion.*/, '');
+						const type = child.getType().getText().replace(/as Orion.*/, '');
 						sharedProps.set(name, {
 							name,
 							type,
 							name,
+							desc,
 							defaultValue: value || "undefined",
 						});
 					}
@@ -640,8 +641,8 @@ class SetupServiceFileScanner extends DocScanner {
 			initializer.getProperties().forEach((prop) => {
 				if (Node.isPropertyAssignment(prop)) {
 					const name = prop.getName();
-					const value = prop.getInitializer()?.getText().replace(/as Orion.\w*/, '');
-					const type = prop.getType().getText().replace(/as Orion.\w*/, '');
+					const value = prop.getInitializer()?.getText().replace(/as Orion.*/, '');
+					const type = prop.getType().getText().replace(/as Orion.*/, '');
 	
 					resolvedProps[name] = {
 						name,
@@ -692,10 +693,10 @@ class SetupServiceFileScanner extends DocScanner {
 			let type = "unknown";
 			
 			if (valueDeclaration) {
-				type = valueDeclaration.getType().getText().replace(/as Orion.\w*/, '');
+				type = valueDeclaration.getType().getText().replace(/as Orion.*/, '');
 			} else {
 				const symbolType = prop.getTypeAtLocation(this.file);
-				type = symbolType.getText().replace(/as Orion.\w*/, '');
+				type = symbolType.getText().replace(/as Orion.*/, '');
 			}
 			
 			properties[name] = {
@@ -707,6 +708,7 @@ class SetupServiceFileScanner extends DocScanner {
 			// Add sharedProps value
 			if (sharedProps.get(name)) {
 				properties[name].defaultValue = sharedProps.get(name).defaultValue;
+				properties[name].desc = sharedProps.get(name).desc;
 			}
 		});
 
