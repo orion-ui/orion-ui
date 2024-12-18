@@ -29,9 +29,6 @@
 					@click="setup.toggleReveal()"/>
 			</template>
 
-			error{{ setup.showError }}
-			error{{ setup.showWarning }}
-
 			<div
 				v-if="setup.showState
 					&& (setup.showError || setup.showWarning)

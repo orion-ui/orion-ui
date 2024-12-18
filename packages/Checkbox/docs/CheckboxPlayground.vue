@@ -79,10 +79,19 @@
 				v-model="state.multiple"
 				label="Multiple"/>
 		</div>
+		
+	</div>
+
+	<div class="row row--grid row--toggles">
 		<div class="col-sm-3">
 			<o-toggle
 				v-model="state.disabled"
 				label="Disabled"/>
+		</div>
+		<div class="col-sm-3">
+			<o-toggle
+				v-model="state.readonly"
+				label="Readonly"/>
 		</div>
 	</div>
 </template>
@@ -99,6 +108,7 @@ const state = reactive({
 	inline: false,
 	reverse: false,
 	multiple: false,
+	readonly: false,
 	value: false,
 	multipleValue: [],
 	iconCheck: 'notification' as Orion.Icon,
