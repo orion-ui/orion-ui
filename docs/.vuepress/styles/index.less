@@ -29,6 +29,24 @@ body.oriondoc {
 	}
 }
 
+.external-link {
+	display: flex !important;
+	align-items: center;
+
+	&::after {
+		content: '↗';
+		display: inline-block;
+		flex-shrink: 0;
+		width: 11px;
+		height: 11px;
+		margin-top: -1px;
+		margin-left: 4px;
+		background: var(--external-link-c-icon);
+		-webkit-mask-image: var(--external-link-icon);
+		mask-image: var(--external-link-icon);
+	}
+}
+
 header.vp-navbar {
 	> span > a {
 		display: flex;

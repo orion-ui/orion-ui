@@ -1,8 +1,8 @@
-import type { SidebarConfig } from '@vuepress/theme-default';
+import type { SidebarOptions } from '@vuepress/theme-default';
 import { readdirSync } from 'fs';
 import path from 'path';
 
-export const en: SidebarConfig = [
+export const en: SidebarOptions = [
 	{
 		text: 'Guide',
 		collapsible: true,
