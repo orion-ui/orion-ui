@@ -130,7 +130,7 @@ You can use the `before-options` and `after-options` slots to add content before
 
 Use the `option` slot to customize the way **options** are displayed.
 
-Use the `value` slot to customize the way **value** is displayed.
+Use the `value` or `multiple-value` slot to customize the way **value** is displayed.
 @lang
 
 @lang:fr
@@ -140,5 +140,5 @@ Vous pouvez utiliser les slots `before-options` et `after-options` pour ajouter 
 
 Utilisez le slot `option` pour personnaliser la façon d'afficher les **options**.
 
-Utilisez le slot `value` pour personnaliser la façon d'afficher la **valeur**.
+Utilisez le slot `value` ou `multiple-value` pour personnaliser la façon d'afficher la **valeur**.
 @lang

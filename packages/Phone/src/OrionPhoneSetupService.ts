@@ -139,6 +139,14 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 
 	get indicatif () { return `+${this.country?.areaCode}`.replace('-', ' ');};
 
+	get publicInstance () {
+		return {
+			...super.publicInstance,
+			_country: () => this._country.value,
+			_orionInput: () => this._orionInput.value,
+		};
+	}
+
 
 	constructor (props: Props, emit: OrionPhoneEmit) {
 		super(props, emit);
@@ -218,6 +226,12 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 
 		//Check if we try to delete the area code
 		if (selectionStart <= this.indicatif.length && valueLength >= this.indicatif.length) {
+			if (selectionLength === valueLength) {
+				if (this.vModel)
+					this.vModel.phoneNumber = undefined;
+				return;
+			}
+
 			if (selectionStart < this.indicatif.length ||
 				(selectionStart === this.indicatif.length && selectionStart === selectionEnd && e.key === 'Backspace')) {
 				e.preventDefault();
@@ -311,7 +325,8 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 	}
 
 	sanitizePhoneNumber (phoneNumberToSanitize?: string) : string {
-		if (phoneNumberToSanitize && validatePhoneNumberLength(phoneNumberToSanitize, this.country?.code) === 'TOO_LONG') {
+		phoneNumberToSanitize = phoneNumberToSanitize?.replaceAll('.', '');
+		if (phoneNumberToSanitize && validatePhoneNumberLength(phoneNumberToSanitize.trim(), this.country?.code) === 'TOO_LONG') {
 			while (validatePhoneNumberLength(phoneNumberToSanitize, this.country?.code) === 'TOO_LONG') {
 				phoneNumberToSanitize = phoneNumberToSanitize?.slice(0, -1);
 			}
@@ -321,7 +336,7 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 			return phoneNumberToSanitize.replace(/\s*/g, '');
 		}
 
-		if (phoneNumberToSanitize && validatePhoneNumberLength(phoneNumberToSanitize, this.country?.code) === 'NOT_A_NUMBER') {
+		if (phoneNumberToSanitize && validatePhoneNumberLength(phoneNumberToSanitize.trim(), this.country?.code) === 'NOT_A_NUMBER') {
 			if (validatePhoneNumberLength(this.phoneNumber, this.country?.code) !== 'NOT_A_NUMBER') {
 				const inputValue = this._orionInput.value?._input();
 				if (inputValue)

@@ -2,6 +2,7 @@
 	<transition name="fade">
 		<div
 			v-show="setup.props.visible || setup.forceVisible"
+			:ref="setup._el"
 			class="orion-loader"
 			:class="[
 				`orion-loader--${setup.props.size}`,

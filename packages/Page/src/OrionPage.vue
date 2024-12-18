@@ -1,5 +1,7 @@
 <template>
-	<div class="orion-page">
+	<div
+		:ref="setup._el"
+		class="orion-page">
 		<div
 			v-if="setup.props.title || $slots.actions"
 			class="orion-page__header"

@@ -1,5 +1,6 @@
 <template>
 	<div
+		:ref="setup._el"
 		class="orion-progress-bar"
 		:class="`orion-progress-bar--${setup.props.color}`">
 		<div

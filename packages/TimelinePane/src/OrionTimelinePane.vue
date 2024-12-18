@@ -2,6 +2,7 @@
 	<div
 		v-if="setup.shouldBeInDom"
 		v-show="setup.active"
+		:ref="setup._el"
 		class="orion-timeline-pane">
 		<slot/>
 	</div>

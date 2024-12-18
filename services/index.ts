@@ -11,6 +11,7 @@ export { default as useConfirm } from './ConfirmService';
 export { default as useCountry } from './CountryService';
 export { default as useDocument } from './DocumentService';
 export { default as useDragNDrop } from './DragNDropService';
+export { default as useDynamicFlag } from './DynamicFlagService';
 export { default as useLang } from './LangService';
 export { default as useLoader } from './LoaderService';
 export { default as useLocalStorage } from './LocalStorageService';

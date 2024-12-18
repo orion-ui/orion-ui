@@ -6,6 +6,7 @@
 				<o-input
 					v-model="fields.input.value"
 					label="Simple input with donetyping"
+					placeholder="Placeholder"
 					v-bind="commonBind"
 					clear-to-null
 					@keydown:enter="cb('tto')"/>

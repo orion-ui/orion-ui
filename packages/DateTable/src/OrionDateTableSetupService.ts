@@ -1,4 +1,4 @@
-import { PropType, reactive, ref, watchEffect } from 'vue';
+import { PropType, reactive, watchEffect } from 'vue';
 import { uniqBy } from 'lodash-es';
 import useMonkey from 'services/MonkeyService';
 import SharedSetupService from '../../Shared/SharedSetupService';
@@ -114,6 +114,12 @@ export default class OrionDateTableSetupService extends SharedSetupService<Props
 			type: Array as PropType<Nil<Orion.Period[]>>,
 			default: undefined,
 		},
+		// @doc props/dateRangeSameMonth when the component is used in a OrionDatepicker component with type 'range', specified if the daterange is in one month
+		// @doc/fr props/dateRangeSameMonth quand le composant est utilisé dans un OrionDatepicker de type 'range', défini si la période sélectionnée se situe sur un seul même mois.
+		dateRangeSameMonth: {
+			type: Boolean,
+			default: false,
+		},
 	};
 
 	private emit: DateTableEmit;
@@ -128,8 +134,6 @@ export default class OrionDateTableSetupService extends SharedSetupService<Props
 		selectedDates: [] as PeriodDay[],
 	});
 
-	_options = ref<RefDom>();
-
 	private get periodsToFilter () {
 		if (this.state.filter.length) {
 			return this.props.periods?.filter(x => !this.state.filter.includes(x.color));
@@ -139,7 +143,7 @@ export default class OrionDateTableSetupService extends SharedSetupService<Props
 	}
 
 	private get currentMonth () {
-		return this.state.currentDate.getMonth();
+		return this.props.dateRangeSameMonth ? (this.state.currentDate.getMonth()+1)%12 : this.state.currentDate.getMonth();
 	}
 
 	private get firstDayOfCurrentMonth () {
@@ -271,12 +275,6 @@ export default class OrionDateTableSetupService extends SharedSetupService<Props
 				days.push(day);
 			}
 
-			/* if (i === 1) {
-				console.clear();
-				console.log(`🚀 ~ getdaysToDisplay ~ firstDayOfMonth`, firstDayOfMonth);
-				console.log(`🚀 ~ getdaysToDisplay ~ days`, useMonkey(days).mapKey('date'));
-			} */
-
 			weeks.push(days);
 		}
 		return weeks;
@@ -293,7 +291,11 @@ export default class OrionDateTableSetupService extends SharedSetupService<Props
 	}
 
 	get monthName () { return this.lang.MONTH_NAME[this.currentMonth];}
-	get currentYear () { return this.state.currentDate.getFullYear();}
+	get currentYear () {
+		return this.props.dateRangeSameMonth
+		&& this.currentMonth === 0 ? this.state.currentDate.getFullYear() + 1 : this.state.currentDate.getFullYear();
+	}
+
 	get viewMonth () {return this.state.viewMonth;}
 	get viewYears () {return this.state.viewYears;}
 	get filter () { return this.state.filter;}
@@ -429,16 +431,17 @@ export default class OrionDateTableSetupService extends SharedSetupService<Props
 	}
 
 	switchPeriod (numberOfperiod: number) {
+		const currentMonth = this.props.dateRangeSameMonth ? this.currentMonth - 1 : this.currentMonth;
 		if (this.state.viewMonth) {
-			this.state.currentDate = new Date(this.currentYear + numberOfperiod, this.currentMonth, 1);
+			this.state.currentDate = new Date(this.currentYear + numberOfperiod, currentMonth, 1);
 		} else if (this.state.viewYears) {
 			const year = numberOfperiod === -1 ? this.rangeYears[0] : this.rangeYears[this.rangeYears.length - 1];
-			this.state.currentDate = new Date(year + numberOfperiod, this.currentMonth, 1);
+			this.state.currentDate = new Date(year + numberOfperiod, currentMonth, 1);
 		} else {
 			if ((numberOfperiod === -1 && this.props.canGoPrevMonth) || (numberOfperiod === 1 && this.props.canGoNextMonth)) {
-				this.state.currentDate = new Date(this.currentYear, this.currentMonth + numberOfperiod, 1);
+				this.state.currentDate = new Date(this.currentYear, currentMonth + numberOfperiod, 1);
 				this.emit('change-month', {
-					month: this.currentMonth,
+					month: currentMonth,
 					year: this.currentYear,
 				});
 			}

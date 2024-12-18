@@ -1,6 +1,7 @@
 <template>
 	<div
 		:id="`orion-carousel-${setup.uid}`"
+		:ref="setup._el"
 		class="orion-carousel"
 		:class="{ 'orion-carousel--timer': !!stepTimer }"
 		@mouseenter="setup.handleMouseEnter()"

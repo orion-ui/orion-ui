@@ -105,6 +105,21 @@ export default class OrionTourStepSetupService extends SharedSetupService<Props>
 	readonly _stepHighlighter = ref<RefDom | null>();
 	readonly _stepTarget = ref<RefDom | null>();
 
+	private readonly clickableTargetHandler = async () => {
+		if (this.props.clickable) {
+			if (typeof this.props.clickable === 'function') {
+				await this.props.clickable();
+			}
+			stop();
+		}
+	};
+
+	private readonly debouncedWindowResizeHandler = () => {
+		if (this._stepTarget.value) {
+			this.windowResizeHandler();
+		}
+	};
+
 	get steps () {
 		return this._tour?.steps;
 	}
@@ -164,7 +179,7 @@ export default class OrionTourStepSetupService extends SharedSetupService<Props>
 		onMounted(() => {
 			this._tour?.setCurrentStepPublicInstance(this.publicInstance);
 			this.showTooltip();
-			this.window?.addEventListener('resize', this.debouncedWindowResizeHandler.bind(this));
+			this.window?.addEventListener('resize', this.debouncedWindowResizeHandler);
 
 			this.state.globalEscEvent = toggleGlobalListener('keydown', (event: any) => {
 				if ((event as KeyboardEvent).key === 'Escape') this.stop();
@@ -180,8 +195,8 @@ export default class OrionTourStepSetupService extends SharedSetupService<Props>
 		});
 
 		onUnmounted(() => {
-			this.window?.removeEventListener('resize', this.debouncedWindowResizeHandler.bind(this));
-			this._stepTarget.value?.removeEventListener('click', this.clickableTargetHandler.bind(this));
+			this.window?.removeEventListener('resize', this.debouncedWindowResizeHandler);
+			this._stepTarget.value?.removeEventListener('click', this.clickableTargetHandler);
 			this.cleanup?.();
 			if (this.state.globalEscEvent) {
 				toggleGlobalListener(this.state.globalEscEvent);
@@ -201,21 +216,6 @@ export default class OrionTourStepSetupService extends SharedSetupService<Props>
 			this._stepTarget.value.style.pointerEvents = 'none';
 	}
 
-	async clickableTargetHandler () : Promise<void> {
-		if (this.props.clickable) {
-			if (typeof this.props.clickable === 'function') {
-				await this.props.clickable();
-			}
-			stop();
-		}
-	}
-
-	debouncedWindowResizeHandler () : void {
-		if (this._stepTarget.value) {
-			this.windowResizeHandler();
-		}
-	}
-
 	async showTooltip () {
 		try {
 			this.cleanPreviousStep();
@@ -223,7 +223,7 @@ export default class OrionTourStepSetupService extends SharedSetupService<Props>
 			if (this.props.target) {
 				await this.getTarget();
 				if (this._stepTarget.value) {
-					this._stepTarget.value?.addEventListener('click', this.clickableTargetHandler.bind(this));
+					this._stepTarget.value?.addEventListener('click', this.clickableTargetHandler);
 					await this.calculateTooltipPosition();
 					this.addOverlay();
 					this.addHighlighter();

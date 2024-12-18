@@ -15,13 +15,14 @@
 					<o-select
 						v-model="data.ajaxSingle"
 						size="xs"
+						placeholder="placeholder"
 						track-key="id"
+						label="Label"
 						display-key="email"
 						value-key="id"
 						:custom-fetch="customFetch"
 						:fetch-min-search="2"
 						:fetch-initial-options="data.ajaxSingleInitialOptions"
-						:label="`Single`"
 						@fetch-search-clear="cb">
 						<template #option="{ item, markedSearch }">
 							<div v-if="item">
@@ -34,14 +35,22 @@
 				</div>
 
 				<div class="col-sm-4">
+					<o-input
+						v-model="test"
+						label="Test searchTerm"
+						@input="update($event)"/>
 					<o-select
 						ref="multiple"
 						v-model="data.ajaxMultiple"
 						track-key="id"
 						display-key="email"
 						fetch-url="https://jsonplaceholder.typicode.com/users"
-						:label="`Multiple`"
-						multiple/>
+						:placeholder="`Multiple`"
+						multiple>
+						<template #before-options>
+							<o-button @click="trigger">trigger</o-button>
+						</template>
+					</o-select>
 				</div>
 			</div>
 
@@ -55,7 +64,7 @@
 						track-key="id"
 						display-key="email"
 						value-key="id"
-						label="Single"
+						placeholder="Placeholder"
 						:custom-fetch="customFetch"
 						v-bind="commonBind">
 						<template #value="{ item, display }">
@@ -72,7 +81,6 @@
 
 				<div class="col-sm-4">
 					<o-select
-						ref="multiple"
 						v-model="data.ajaxMultiple"
 						autocomplete
 						track-key="id"
@@ -194,6 +202,7 @@
 							<o-select
 								v-model="data.fieldSelectValueKey"
 								:label="`Simple`"
+								placeholder="placeholder"
 								display-key="display"
 								track-key="id"
 								value-key="label"
@@ -263,7 +272,11 @@
 								:label="`Multiple Prefix Icon`"
 								multiple
 								:options="data.fieldSelectMultiple.options"
-								prefix-icon="camera"/>
+								prefix-icon="camera">
+								<template #multiple-value>
+									eee {{ data.fieldSelectMultiple.value }}
+								</template>
+							</o-select>
 						</div>
 						<div class="col-sm-6">
 							<o-select
@@ -301,7 +314,11 @@
 								track-key="id"
 								display-key="label"
 								multiple
-								:options="data.fieldSelectObjectMultiple.options"/>
+								:options="data.fieldSelectObjectMultiple.options">
+								<template #multiple-value="{ value }">
+									{{ value }}
+								</template>
+							</o-select>
 						</div>
 						<div class="col-sm-6">
 							<o-select
@@ -430,6 +447,16 @@
 import { inject, reactive, ref } from 'vue';
 
 const _modalSelect = ref<OrionModal>();
+const multiple = ref<OrionSelect>();
+const test = ref('');
+
+function update (val: string) {
+	multiple.value?.setSearchTerm(val);
+}
+
+function trigger () {
+	multiple.value?.triggerSearchAsync();
+}
 
 // #region Data
 const data = reactive({

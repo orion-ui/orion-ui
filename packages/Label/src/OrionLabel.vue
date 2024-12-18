@@ -1,5 +1,6 @@
 <template>
 	<span
+		:ref="setup._el"
 		class="orion-label"
 		:class="[
 			`orion-label--${setup.props.color}`,

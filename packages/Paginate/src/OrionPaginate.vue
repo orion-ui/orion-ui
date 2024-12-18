@@ -1,5 +1,7 @@
 <template>
-	<div class="orion-paginate">
+	<div
+		:ref="setup._el"
+		class="orion-paginate">
 		<orion-button
 			nude
 			class="orion-paginate__prev"

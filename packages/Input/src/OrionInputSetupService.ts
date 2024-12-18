@@ -230,8 +230,18 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Prop
 			const arrows = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
 			const misc = ['Backspace', 'Delete', 'Tab'];
 			const numeric = [... numbers, ...arrows, ...misc];
-			const inputValueBeforeCursor = this._input.value!.value.slice(0, this._input.value!.selectionStart ?? 0);
-			const inputValueAfterCursor = this._input.value!.value.slice(this._input.value!.selectionEnd ?? 0);
+
+			const inputElt = this._input.value!;
+			const inputValue = inputElt.value;
+			// const valueLength = inputValue.length ?? 0;
+			const selectionStart = inputElt.selectionStart ?? 0;
+			const selectionEnd = inputElt.selectionEnd ?? 0;
+			const selectionLength = selectionEnd - selectionStart;
+			const inputValueBeforeCursor = inputValue.slice(0, selectionStart) ?? '';
+			const inputValueAfterCursor = inputValue.slice(selectionEnd) ?? '';
+			// const inputSelectionValue = inputValue.slice(selectionStart, selectionEnd) ?? '';
+			const inputValueBeforeSelection = inputValue.slice(0, selectionStart);
+			const inputValueAfterSelection = inputValue.slice(selectionEnd);
 
 			if (e.metaKey || e.ctrlKey) return;
 
@@ -286,13 +296,20 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Prop
 					});
 				}
 
-				if (['Backspace', 'Delete'].includes(e.key) && this._input.value?.value.includes('.')) {
-					if (
-						(e.key === 'Backspace' && /\.\d$/.test(inputValueBeforeCursor)) ||
-						(e.key === 'Delete' && /\d*\.$/.test(inputValueBeforeCursor) && /^\d$/.test(inputValueAfterCursor))
-					) {
-						setTimeout(() => this._input.value!.value += '.', 1);
-					}
+				if (['Backspace', 'Delete'].includes(e.key)) {
+					setTimeout(() => {
+						if (!selectionLength) {
+							if (e.key === 'Backspace') {
+								this._input.value!.value = inputValueBeforeCursor.slice(0, -1) + inputValueAfterCursor;
+								this._input.value?.setSelectionRange(selectionStart - 1, selectionStart - 1);
+							} else {
+								this._input.value!.value = inputValueBeforeCursor + inputValueAfterCursor.slice(1);
+								this._input.value?.setSelectionRange(selectionStart, selectionStart);
+							}
+						} else {
+							this._input.value!.value = inputValueBeforeSelection + inputValueAfterSelection;
+						}
+					}, 1);
 				}
 			}
 

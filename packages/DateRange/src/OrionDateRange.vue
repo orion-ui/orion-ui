@@ -1,6 +1,7 @@
 <template>
 	<div
 		v-if="setup.vModel"
+		:ref="setup._el"
 		class="orion-date-range">
 		<orion-date-table
 			:ref="setup._start"
@@ -30,6 +31,7 @@
 			:max-date="maxDate"
 			:can-go-prev-month="setup.canGoPrevMonth"
 			:display-week-number="displayWeekNumber"
+			:date-range-same-month="setup.dateRangeSameMonth"
 			@change-month="setup.handleChangeMonth('end')"/>
 	</div>
 </template>
