@@ -630,6 +630,58 @@ class SetupServiceFileScanner extends DocScanner {
 		return this.extractPropsFromClassDeclaration(this.file.getClass(`Orion${this.pack}SetupService`));
 	}
 
+	resolveSpreadProps(expression) {
+    const resolvedProps = {};
+
+    if (Node.isPropertyAccessExpression(expression)) {
+        const className = expression.getExpression().getText();
+        const propertyName = expression.getName();
+
+        // Charger la classe ou l'objet correspondant
+        const referencedClass = this.file.getClass(className) ||
+            this.project.getSourceFileOrThrow(path.resolve(
+							this.packagesFolderPath,
+							'Shared',
+							`${className}.ts`)).getClassOrThrow(className);
+
+						const sharedPropsContent = this.project.addSourceFileAtPath(path.resolve(
+							this.packagesFolderPath,
+							'Shared',
+						`${className}.ts`)).getText(true);
+					
+							this.docFlags.en += this.extractDocFlags(sharedPropsContent).en;
+							this.docFlags.fr += this.extractDocFlags(sharedPropsContent).fr;
+
+        if (referencedClass) {
+            const defaultPropsProperty = referencedClass.getStaticProperty(propertyName);
+            if (defaultPropsProperty) {
+                const initializer = defaultPropsProperty.getInitializer();
+
+                if (initializer?.getKindName() === "ObjectLiteralExpression") {
+                    initializer.getProperties().forEach((prop) => {
+                        if (Node.isPropertyAssignment(prop)) {
+                            const name = prop.getName();
+
+														const desc = this.getPropsDesciption(name);
+                            const value = prop.getInitializer()?.getText().replace(/as Orion.*/, '');
+                            const type = prop.getType().getText().replace(/as Orion.*/, '');
+
+                            resolvedProps[name] = {
+                                name,
+                                type,
+																desc,
+                                defaultValue: value || "undefined",
+                            };
+                        }
+                    });
+                }
+            }
+        }
+    }
+
+    return resolvedProps;
+}
+
 	parseDefaultProps() {
 		const classDeclaration = this.file.getClassOrThrow(`Orion${this.pack}SetupService`);
 		const defaultPropsProperty = classDeclaration.getStaticPropertyOrThrow("defaultProps");
@@ -641,23 +693,35 @@ class SetupServiceFileScanner extends DocScanner {
 			initializer.getProperties().forEach((prop) => {
 				if (Node.isPropertyAssignment(prop)) {
 					const name = prop.getName();
+					const desc = this.getPropsDesciption(name);
 					const value = prop.getInitializer()?.getText().replace(/as Orion.*/, '');
 					const type = prop.getType().getText().replace(/as Orion.*/, '');
 	
 					resolvedProps[name] = {
 						name,
 						type,
+						desc,
 						defaultValue: value || "undefined",
 					};
 				} else if (Node.isSpreadAssignment(prop)) {
-					const expression = prop.getExpression();
+					/* const expression = prop.getExpression();
 					const propName = expression.getText().split(".")[1];
-	
-					Object.keys(sharedProps).forEach((key) => {
+ */
+					const expression = prop.getExpression();
+					const spreadProps = this.resolveSpreadProps(expression);
+
+					// Fusionner les propriétés résolues avec celles existantes
+					Object.keys(spreadProps).forEach((key) => {
+							if (!resolvedProps[key]) {
+									resolvedProps[key] = spreadProps[key];
+							}
+					});
+
+					/* Object.keys(sharedProps).forEach((key) => {
 						if (!resolvedProps[key]) {
 							resolvedProps[key] = sharedProps[key];
 						}
-					});
+					}); */
 				}
 			});
 		}
@@ -698,7 +762,6 @@ class SetupServiceFileScanner extends DocScanner {
 				const symbolType = prop.getTypeAtLocation(this.file);
 				type = symbolType.getText().replace(/as Orion.*/, '');
 			}
-			
 			properties[name] = {
 				name,
 				type,
