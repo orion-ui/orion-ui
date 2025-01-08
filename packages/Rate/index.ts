@@ -1,6 +1,7 @@
 import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
 import OrionRate from './src/OrionRate.vue';
+import type { OrionRateEmits, OrionRateProps } from './src/OrionRateSetupService';
 import OrionRateSetupService from './src/OrionRateSetupService';
 
 export const OrionRatePlugin: Plugin = {
@@ -9,4 +10,4 @@ export const OrionRatePlugin: Plugin = {
 	},
 };
 
-export { OrionRate, OrionRateSetupService };
+export { OrionRate, OrionRateSetupService, OrionRateEmits, OrionRateProps };

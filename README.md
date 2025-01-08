@@ -1,5 +1,4 @@
 [![Build & Publish for production](https://github.com/orion-ui/orion-ui/actions/workflows/build-publish-production.yml/badge.svg)](https://github.com/orion-ui/orion-ui/actions/workflows/build-publish-production.yml)
-![pkg.pr.new](https://badgen.net/badge/https:%2F%2Fpkg.pr.new%2F@orion.ui%2Forion/@79d4f50/purple?icon=bitcoin-lightning)
 
 ![Orion UI](https://repository-images.githubusercontent.com/616359964/fad1ee21-1781-452f-843d-43af9eda0802)
 

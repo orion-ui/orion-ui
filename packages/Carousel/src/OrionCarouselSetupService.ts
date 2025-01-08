@@ -101,8 +101,9 @@ export default class OrionCarouselSetupService extends SharedSetupService {
 	constructor (
 		protected props: OrionCarouselProps & typeof OrionCarouselSetupService.defaultProps, 
 		protected emits: OrionCarouselEmits, 
+		protected vModel: ModelRef<Undef<number | string>>,
 		slots: Slots,
-		protected vModel: ModelRef<Undef<number | string>>) {
+	) {
 		super();
 		this.slots = slots;
 	}

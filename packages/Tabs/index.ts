@@ -1,6 +1,7 @@
 import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
 import OrionTabs from './src/OrionTabs.vue';
+import type { OrionTabsEmits, OrionTabsProps } from './src/OrionTabsSetupService';
 import OrionTabsSetupService from './src/OrionTabsSetupService';
 
 export const OrionTabsPlugin: Plugin = {
@@ -9,4 +10,4 @@ export const OrionTabsPlugin: Plugin = {
 	},
 };
 
-export { OrionTabs, OrionTabsSetupService };
+export { OrionTabs, OrionTabsSetupService, OrionTabsEmits, OrionTabsProps };

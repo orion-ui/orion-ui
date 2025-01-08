@@ -99,16 +99,16 @@
 </template>
 
 <script setup lang="ts">
-import { useSlots, provide } from 'vue';
+import { provide } from 'vue';
 import './OrionCarousel.less';
 import OrionCarouselSetupService from './OrionCarouselSetupService';
 import OrionButton from 'packages/Button/src/OrionButton.vue';
 import type { OrionCarouselProps, OrionCarouselEmits } from './OrionCarouselSetupService';
-const slots = useSlots();
+const slots = defineSlots();
 const vModel = defineModel<Undef<number | string>>({ required: true });
 const emits = defineEmits<OrionCarouselEmits>() as OrionCarouselEmits;
 const props = withDefaults(defineProps<OrionCarouselProps>(), OrionCarouselSetupService.defaultProps);
-const setup = new OrionCarouselSetupService(props, emits, slots, vModel);
+const setup = new OrionCarouselSetupService(props, emits, vModel, slots);
 provide('_carousel', setup.publicInstance);
 defineExpose(setup.publicInstance);
 

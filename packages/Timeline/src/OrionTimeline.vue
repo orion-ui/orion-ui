@@ -10,7 +10,7 @@ import { OrionTimelinePill } from 'packages/TimelinePill';
 import OrionTimelineSetupService from './OrionTimelineSetupService';
 import { isDefineOrTrue } from 'utils/tools';
 import type { OrionTimelineProps, OrionTimelineEmits } from './OrionTimelineSetupService';
-const slots = useSlots();
+const slots = defineSlots();
 const emits = defineEmits<OrionTimelineEmits>() as OrionTimelineEmits;
 const props = withDefaults(defineProps<OrionTimelineProps>(), OrionTimelineSetupService.defaultProps);
 const vModel = defineModel<number | string | undefined>();

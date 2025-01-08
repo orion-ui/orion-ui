@@ -31,13 +31,12 @@
 		"lib/monkey-patching.d.ts"
 	],
 	"include": [
-		"devtool",
 		"lang",
 		"lib",
-		"packages",
-		"sandbox",
-		"scripts",
+		"assets",
 		"services",
-		"utils"
-	]
+		"styles",
+		"utils",
+		"scripts/public"
+	],
 }

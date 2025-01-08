@@ -29,7 +29,9 @@ import './OrionAlert.less';
 import OrionAlertSetupService from './OrionAlertSetupService';
 import type { OrionAlertProps, OrionAlertEmits } from './OrionAlertSetupService';
 const emits = defineEmits<OrionAlertEmits>() as OrionAlertEmits;
+
 const props = withDefaults(defineProps<OrionAlertProps>(), OrionAlertSetupService.defaultProps);
+
 const setup = new OrionAlertSetupService(props, emits);
 
 defineExpose(setup.publicInstance);

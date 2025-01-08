@@ -9,6 +9,7 @@ export type OrionListEmits = {
 	(e: 'paginate', payload: number): void;
 }
 
+
 export type OrionListProps<T extends Record<string,any>> = {
 	// @doc props/bindRouter the key used in the url query to bind the current page to the pagination component (ex: ...url/my-list?**page**=2 • *bindRouter = **page***)
 	// @doc/fr props/bindRouter représente la clé utilisée dans l'url pour binder la page courante au composant de pagination (ex: ...url/my-list?**page**=2 • *bindRouter = **page***)
@@ -76,7 +77,7 @@ export default class OrionListSetupService<T extends Record<string,any>> extends
 			: this.itemAdjective;
 	}
 
-	get listToDisplay () {
+	get listToDisplay () : T[] {
 		return this.props.useAutoPagination
 			? this.props.list.slice(
 				this.page.value.size * (this.page.value.index - 1),
@@ -117,7 +118,7 @@ export default class OrionListSetupService<T extends Record<string,any>> extends
 		this.emits('paginate', this.page.value.index);
 	}
 
-	listItemIsSelected (item: T) {
+	listItemIsSelected (item: T): boolean {
 		return this.selected.value
 			.map(x => x[this.props.trackKey!])
 			.includes(item[this.props.trackKey!]);

@@ -1,6 +1,7 @@
 import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
 import OrionModal from './src/OrionModal.vue';
+import type { OrionModalEmits, OrionModalProps } from './src/OrionModalSetupService';
 import OrionModalSetupService from './src/OrionModalSetupService';
 
 export const OrionModalPlugin: Plugin = {
@@ -9,4 +10,4 @@ export const OrionModalPlugin: Plugin = {
 	},
 };
 
-export { OrionModal, OrionModalSetupService };
+export { OrionModal, OrionModalSetupService, OrionModalEmits, OrionModalProps };

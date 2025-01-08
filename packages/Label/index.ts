@@ -1,6 +1,7 @@
 import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
 import OrionLabel from './src/OrionLabel.vue';
+import type { OrionLabelEmits, OrionLabelProps } from './src/OrionLabelSetupService';
 import OrionLabelSetupService from './src/OrionLabelSetupService';
 
 export const OrionLabelPlugin: Plugin = {
@@ -9,4 +10,4 @@ export const OrionLabelPlugin: Plugin = {
 	},
 };
 
-export { OrionLabel, OrionLabelSetupService };
+export { OrionLabel, OrionLabelSetupService, OrionLabelEmits, OrionLabelProps };

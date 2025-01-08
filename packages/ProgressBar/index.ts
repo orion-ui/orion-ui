@@ -1,6 +1,7 @@
 import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
 import OrionProgressBar from './src/OrionProgressBar.vue';
+import type { OrionProgressBarEmits, OrionProgressBarProps } from './src/OrionProgressBarSetupService';
 import OrionProgressBarSetupService from './src/OrionProgressBarSetupService';
 
 export const OrionProgressBarPlugin: Plugin = {
@@ -9,4 +10,4 @@ export const OrionProgressBarPlugin: Plugin = {
 	},
 };
 
-export { OrionProgressBar, OrionProgressBarSetupService };
+export { OrionProgressBar, OrionProgressBarSetupService, OrionProgressBarEmits, OrionProgressBarProps };

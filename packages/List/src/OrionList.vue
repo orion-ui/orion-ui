@@ -66,6 +66,7 @@ import { OrionFooterFixed } from 'packages/FooterFixed';
 import { OrionPaginate } from 'packages/Paginate';
 import OrionListSetupService from './OrionListSetupService';
 import type { OrionListProps, OrionListEmits } from './OrionListSetupService';
+
 const emits = defineEmits<OrionListEmits>() as OrionListEmits;
 const page = defineModel<Orion.ListPage>('page', {
 	default: {
@@ -73,7 +74,8 @@ const page = defineModel<Orion.ListPage>('page', {
 		index: 1,
 	},
 });
-const selected = defineModel<T[]>('selected', { default: [] });
+
+const selected = defineModel<T[]>('selected', { default: (): T[] => [] });
 const props = withDefaults(defineProps<OrionListProps<T>>(), OrionListSetupService.defaultProps);
 const setup = new OrionListSetupService(props, emits, page, selected);
 defineExpose(setup.publicInstance);

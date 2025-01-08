@@ -4,13 +4,13 @@
 
 <script setup lang="tsx">
 import './OrionTabs.less';
-import { provide, useSlots } from 'vue';
+import { provide } from 'vue';
 import { isDefineOrTrue } from 'utils/tools';
 import { OrionTabNav } from 'packages/TabNav';
 import { OrionLoader } from 'packages/Loader';
 import OrionTabsSetupService from './OrionTabsSetupService';
 import type { OrionTabsProps, OrionTabsEmits } from './OrionTabsSetupService';
-const slots = useSlots();
+const slots = defineSlots();
 const emits = defineEmits<OrionTabsEmits>() as OrionTabsEmits;
 const props = withDefaults(defineProps<OrionTabsProps>(), OrionTabsSetupService.defaultProps);
 const vModel = defineModel<string | undefined>();
