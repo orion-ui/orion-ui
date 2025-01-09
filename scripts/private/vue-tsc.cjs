@@ -107,6 +107,7 @@ class TypesDeclarationFilesFactory {
     }
 
     await fs.rm(path.resolve(rootPath, 'dist/services/docs'), { recursive: true, force: true });
+    await fs.rm(path.resolve(rootPath, 'dist/sandbox'), { recursive: true, force: true });
     await fs.move(path.resolve(rootPath, 'dist/services'), path.resolve(rootPath, 'dist/types/services'))
     await fs.move(path.resolve(rootPath, 'dist/utils'), path.resolve(rootPath, 'dist/types/utils'))
     await fs.move(path.resolve(rootPath, 'dist/lib'), path.resolve(rootPath, 'dist/types/lib'))

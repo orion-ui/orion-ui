@@ -36,6 +36,8 @@
 		"assets",
 		"services",
 		"styles",
+		"sandbox",
+		"packages",
 		"utils",
 		"scripts/public"
 	],

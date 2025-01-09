@@ -5,7 +5,7 @@ import { RouteLocationRaw, Router } from 'vue-router';
 import { coolicons } from '../assets/fonts/coolicons';
 import OrionChatEntity from '../packages/Chat/src/OrionChatEntity';
 import OrionChatMessageEntity from '../packages/ChatMessage/src/OrionChatMessageEntity';
-import type { OrionAsideSetupService, OrionModalSetupService, OrionNotifSetupService } from '../packages';
+import type { OrionAsideSetupService, OrionListProps, OrionModalSetupService, OrionNotifSetupService } from '../packages';
 import useValidation from '../services/ValidationService';
 import { Validator as ValidatorClass } from '../utils/Validator';
 import { CountryCode } from 'libphonenumber-js';
@@ -150,7 +150,7 @@ declare global {
 			navTabs?: OrionNavTabs.Props;
 		}
 
-		type List<T extends Record<string, any>> = Omit<OrionList.Props<T>, 'list' | 'selected'> & {
+		type List<T extends Record<string, any>> = Omit<OrionListProps<T>, 'list' | 'selected'> & {
 			list: T[];
 			selected?: T[];
 		}

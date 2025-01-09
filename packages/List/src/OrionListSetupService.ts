@@ -10,7 +10,7 @@ export type OrionListEmits = {
 }
 
 
-export type OrionListProps<T extends Record<string,any>> = {
+export type OrionListProps<T> = {
 	// @doc props/bindRouter the key used in the url query to bind the current page to the pagination component (ex: ...url/my-list?**page**=2 • *bindRouter = **page***)
 	// @doc/fr props/bindRouter représente la clé utilisée dans l'url pour binder la page courante au composant de pagination (ex: ...url/my-list?**page**=2 • *bindRouter = **page***)
 	bindRouter?: string,
@@ -31,7 +31,7 @@ export type OrionListProps<T extends Record<string,any>> = {
 	layout?: Orion.ListLayout,
 	// @doc props/list items of the list
 	// @doc/fr props/list élements de la liste
-	list?: Array<T>,
+	list?: T[],
 	// @doc props/total total number of items in the list
 	// @doc/fr props/total nombre total d'éléments dans la liste
 	total?: number,
