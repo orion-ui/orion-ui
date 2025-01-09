@@ -106,12 +106,25 @@ class TypesDeclarationFilesFactory {
       }
     }
 
+
     await fs.rm(path.resolve(rootPath, 'dist/services/docs'), { recursive: true, force: true });
     await fs.rm(path.resolve(rootPath, 'dist/sandbox'), { recursive: true, force: true });
     await fs.move(path.resolve(rootPath, 'dist/services'), path.resolve(rootPath, 'dist/types/services'))
+    await fs.move(path.resolve(rootPath, 'dist/lang'), path.resolve(rootPath, 'dist/types/lang'))
     await fs.move(path.resolve(rootPath, 'dist/utils'), path.resolve(rootPath, 'dist/types/utils'))
     await fs.move(path.resolve(rootPath, 'dist/lib'), path.resolve(rootPath, 'dist/types/lib'))
     await fs.move(path.resolve(rootPath, 'dist/assets/fonts/coolicons.d.ts'), path.resolve(rootPath, 'dist/types/assets/fonts/coolicons.d.ts'))
+
+    //Change import in global.d.ts
+    const filePath = path.resolve(rootPath, 'dist/types/lib/index.d.ts')
+    let content = fs.readFileSync(filePath, 'utf8');
+    if((content.includes('lib/global')))
+      content = content.replace('<reference types="lib/global" />', '<reference types="./global" />');
+    else 
+      content = `/// <reference types="./global" />\n` + content;
+
+    await fs.writeFile(filePath, content, 'utf8');
+
   }
 
 }
