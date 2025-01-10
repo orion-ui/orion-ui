@@ -65,8 +65,8 @@ class PackagesIndexFactory {
 		const importTemplate = `import { Orion{ComponentName}SetupService, Orion{ComponentName}Props, Orion{ComponentName}Emits } from '../packages/index';`;
 		const declarationTemplate = `type Orion{ComponentName} = InstanceType<typeof Orion{ComponentName}SetupService>['publicInstance'];
 	namespace Orion{ComponentName} {
-		type Props = ExtractPropTypes<Orion{ComponentName}Props>
-		type Emits = ExtractPropTypes<Orion{ComponentName}Emits>
+		type Props = Orion{ComponentName}Props
+		type Emits = Orion{ComponentName}Emits
 	}`;
 
 		let content = await readFile(path.resolve(__dirname, 'templates/packages.d.tstemplate'), { encoding: 'utf-8' });

@@ -263,7 +263,7 @@ declare global {
 
 	type OrionList = InstanceType<typeof OrionListSetupService>['publicInstance'];
 	namespace OrionList {
-		type Props = ExtractPropTypes<OrionListProps>
+		type Props = OrionListProps
 		type Emits = ExtractPropTypes<OrionListEmits>
 	}
 
