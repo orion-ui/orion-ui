@@ -1,15 +1,15 @@
 import { Private } from 'lib/private';
 import SharedSetupService from '../../Shared/SharedSetupService';
+import { OrionTimelinePaneProps } from 'packages/TimelinePane';
 
 export type OrionTimelinePillEmits = {}
 export type OrionTimelinePillProps = {
-	disabled: boolean,
-	centeredPill: boolean,
-	scrollable: boolean,
+	disabled?: boolean,
+	centeredPill?: boolean,
+	scrollable?: boolean,
 	value?: string | number,
-
 	current?: string | number,
-	panes: Private.TsxTimelinePane[],
+	panes?: Private.TsxTimelinePane[],
 	onPillClick: (...val: [Private.TsxTimelinePane['props'], MouseEvent]) => void,
 }
 

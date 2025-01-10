@@ -6,7 +6,7 @@
 				:tag="`o-section`">
 				<o-draggable
 					v-for="item in left"
-					:key="item.id"
+					:key="item.__uid"
 					:data="item"
 					:disabled="item.title === 'Item 1' ? state.disabled : false"
 					:tag="state.tag">
@@ -24,7 +24,7 @@
 				:tag="`o-section`">
 				<o-draggable
 					v-for="item in middle"
-					:key="item.id"
+					:key="item.__uid"
 					:data="item"
 					:tag="state.tag">
 					<div class="draggable-content">
@@ -42,7 +42,7 @@
 				:validation="validation">
 				<o-draggable
 					v-for="item in right"
-					:key="item.id"
+					:key="item.__uid"
 					:data="item"
 					:tag="state.tag">
 					<div class="draggable-content">
@@ -89,45 +89,45 @@ const tagOptions = [
 
 const left = ref([
 	{
-		id: getUid(),
+		__uid: getUid(),
 		title: 'Item 1',
 	},
 	{
-		id: getUid(),
+		__uid: getUid(),
 		title: 'Item 2',
 	},
 	{
-		id: getUid(),
+		__uid: getUid(),
 		title: 'Item 3',
 	},
 	{
-		id: getUid(),
+		__uid: getUid(),
 		title: 'Item 4',
 	},
 ]);
 
 const right = ref([
 	{
-		id: getUid(),
+		__uid: getUid(),
 		title: 'Item A',
 	},
 	{
-		id: getUid(),
+		__uid: getUid(),
 		title: 'Item B',
 	},
 ]);
 
 const middle = ref([
 	{
-		id: getUid(),
+		__uid: getUid(),
 		title: 'Item A1',
 	},
 	{
-		id: getUid(),
+		__uid: getUid(),
 		title: 'Item B2',
 	},
 	{
-		id: getUid(),
+		__uid: getUid(),
 		title: 'Item C3',
 	},
 ]);

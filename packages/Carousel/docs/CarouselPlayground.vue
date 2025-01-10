@@ -2,7 +2,6 @@
 	<o-card>
 		<o-carousel
 			:key="state.stepTimer"
-			v-model="state.modelValue"
 			v-bind="state"
 			:step-timer="(state.stepTimer ?? 0) * 1000">
 			<o-carousel-item
@@ -80,13 +79,14 @@ const steps = computed(() => {
 	return fakeSteps;
 });
 
-const state = reactive<OrionCarousel.Props>({
+const state = reactive({
 	stepTimer: 0,
 	pauseOnHover: false,
-	color: 'brand',
+	color: 'brand' as Orion.Color,
 	loop: false,
 	hideNavigationButtons: false,
 	hideNavigationDots: false,
+	modelValue: 0,
 });
 
 state.modelValue = steps.value[0].id;

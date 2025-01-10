@@ -17,7 +17,7 @@ export type OrionTabsProps = {
 	routerViewName?: string,
 	// @doc props/useRouter connect the tabs to the router to bind active tab to current route and use `<router-view/>` component
 	// @doc/fr props/useRouter connecte les tabs au router pour synchroniser la tab active avec la router actuelle et utiliser le composant `<router-view/>`
-	useRouter: boolean,
+	useRouter?: boolean,
 
 	
 };

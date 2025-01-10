@@ -6,7 +6,7 @@
 				:tag="`o-section`">
 				<o-draggable
 					v-for="item in left"
-					:key="item.id"
+					:key="item.__uid"
 					:data="item"
 					tag="o-sticker">
 					<div class="draggable-content">
@@ -24,7 +24,7 @@
 				:validation="validation">
 				<o-draggable
 					v-for="item in right"
-					:key="item.id"
+					:key="item.__uid"
 					:data="item"
 					tag="o-sticker">
 					<div class="draggable-content">
@@ -48,26 +48,26 @@ const validation = {
 
 const left = ref([
 	{
-		id: getUid(),
+		__uid: getUid(),
 		title: 'Item 1',
 	},
 	{
-		id: getUid(),
+		__uid: getUid(),
 		title: 'Item 2',
 	},
 	{
-		id: getUid(),
+		__uid: getUid(),
 		title: 'Item 3',
 	},
 ]);
 
 const right = ref([
 	{
-		id: getUid(),
+		__uid: getUid(),
 		title: 'Item A',
 	},
 	{
-		id: getUid(),
+		__uid: getUid(),
 		title: 'Item B',
 	},
 ]);

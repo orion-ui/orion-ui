@@ -6,25 +6,25 @@ export type OrionTimelinePaneEmits = {}
 export type OrionTimelinePaneProps = SharedPropsIcon & {
 	// @doc props/centeredPill centers the pill and the #after slot
 	// @doc/fr props/centeredPill centre la vignette et le slot #after
-	centeredPill: boolean,
+	centeredPill?: boolean,
 	// @doc props/complete adds a complete style and defines the pill as clickable
 	// @doc/fr props/complete ajoute le style `complete` et permet de cliquer sur la vignette
 	complete?: boolean,
 	// @doc props/disabled disables the pane
 	// @doc/fr props/disabled désactive le panneau
-	disabled: boolean,
+	disabled?: boolean,
 	// @doc props/lazy the content of the pane is only loaded when the tab is active
 	// @doc/fr props/lazy le contenu du panneau est seulement chargé quand il est actif
-	lazy: boolean,
+	lazy?: boolean,
 	// @doc props/lazyOnce the content of the pane is only loading once, the first time the pane is active
 	// @doc/fr props/lazyOnce le contenu du panneau est seulement chargé une fois, la première fois que le panneau est actif
-	lazyOnce: boolean,
+	lazyOnce?: boolean,
 	// @doc props/marker adds  visual marker which can be used as a notification marker
 	// @doc/fr props/marker ajoute un marqueur visuel, qui peut être utilisé comme marqueur de notification
 	marker?: boolean | number,
 	// @doc props/markerColor color of the marker
 	// @doc/fr props/markerColor couleur du marqueur
-	markerColor: Orion.Color,
+	markerColor?: Orion.Color,
 	// @doc props/name the name of the pane
 	// @doc/fr props/name nom du panneau
 	name?: string | number,

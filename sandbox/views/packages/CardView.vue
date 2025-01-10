@@ -81,7 +81,7 @@ const state = reactive({
 
 function notify () {
 	console.log(theOne.value);
-	console.log(theOne.value?._el());
+	console.log(theOne.value?._el?.());
 
 	useNotif.info('dsmldkj');
 }

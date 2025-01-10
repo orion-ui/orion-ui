@@ -22,7 +22,6 @@ const jsxTimeline = () => {
 	const navData = {
 		value: vModel.value,
 		panes: setup.panes,
-		
 		current: setup.current,
 		scrollable: props.scrollable,
 		onPillClick: setup.onPillClick.bind(setup),

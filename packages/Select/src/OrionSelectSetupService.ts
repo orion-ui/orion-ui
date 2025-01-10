@@ -46,7 +46,7 @@ export type OrionSelectProps = SharedFieldSetupServiceProps & {
 	donetyping?: number,
 	// @doc props/fetchInitialOptions initial options before first fetch (when using fetch mecanism)
 	// @doc/fr props/fetchInitialOptions options intiales avant le premier fetch (lors de l'utilisation du mécanisme de fetch des options)
-	fetchInitialOptions?: Array<BaseVModelType[]>,
+	fetchInitialOptions?: BaseVModelType[],
 	// @doc props/fetchKey key used to pass the research field value as a parameter to fetch the options
 	// @doc/fr props/fetchKey clé utilisée pour passer la valeur du champ de recherche comme paramètre pour récupérer les options
 	fetchKey?: string,
@@ -218,7 +218,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Ori
 
 
 	constructor (
-		protected props: OrionSelectProps & typeof OrionSelectSetupService.defaultProps,
+		protected props: OrionSelectProps & Omit<typeof OrionSelectSetupService.defaultProps, 'options' | 'fetchInitialOptions'> & {options:  BaseVModelType[], fetchInitialOptions: BaseVModelType[]},
 		protected emits: OrionSelectEmits,
 		protected vModel: ModelRef<VModelType>) {
 		super(props, emits, vModel);

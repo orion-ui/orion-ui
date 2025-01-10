@@ -18,7 +18,7 @@ defineExpose(setup.publicInstance);
 const jsxTimeline = () => {
 
 	if (Number.isFinite(setup.currentIndex) && setup.currentIndex !== -1 && slots.default) {
-		const test = slots.default().filter(x => !!x.props);
+		const test = slots.default().filter((x: any) => !!x.props);
 
 		const tourSteps = (
 			<div class="orion-tour__steps" key={setup.getUid()}>

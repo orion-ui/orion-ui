@@ -157,9 +157,9 @@ export default abstract class SharedPopableSetupService extends SharedSetupServi
 		toggleGlobalListener(this.uid);
 
 		if (this.options.programmatic) {
-			devtool?.on.visitComponentTree((payload) => {
+			devtool?.on.visitComponentTree((payload: any) => {
 				if (payload.treeNode.uid === orionAppService.appInstance?.uid) {
-					const index = payload.treeNode.children.findIndex(x => (x as any).orionUid === this.uid);
+					const index = payload.treeNode.children.findIndex((x: any) => (x as any).orionUid === this.uid);
 					if (index > -1) payload.treeNode.children.splice(index, 1);
 				}
 			});

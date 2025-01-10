@@ -11,7 +11,7 @@ export type OrionDailyCalendarProps = {
 	dayTasks?: Orion.DailyCalendarTask[],
 	// @doc props/range hour range displayed.
 	// @doc/fr props/range la plage horaire affichée.
-	range: number[],
+	range?: number[],
 };
 export default class OrionDailyCalendarSetupService extends SharedSetupService {
 	static readonly defaultProps = {
@@ -97,7 +97,9 @@ export default class OrionDailyCalendarSetupService extends SharedSetupService {
 
 	// @doc vModel/date the selected date.
 	// @doc/fr vModel/date la date sélectionnée.
-	constructor (protected props: OrionDailyCalendarProps, protected emits: OrionDailyCalendarEmits, protected date: ModelRef<Date>) {
+	constructor (protected props: OrionDailyCalendarProps & Omit<typeof OrionDailyCalendarSetupService.defaultProps, 'range'> & {range:  number[]},
+		protected emits: OrionDailyCalendarEmits,
+		protected date: ModelRef<Date>) {
 		super();
 
 		watch(() => this.taskOfTheDay, () => {

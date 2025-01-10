@@ -12,17 +12,16 @@ export type OrionTimelineEmits = {
 export type OrionTimelineProps = {
 	// @doc props/centeredPill centers the pill and the #after slot
 	// @doc/fr props/centeredPill centre la vignette et le slot #after
-	centeredPill: boolean,
+	centeredPill?: boolean,
 	// @doc props/horizontal the orientation of the component
 	// @doc/fr props/horizontal l'orientation du composant
-	horizontal: boolean,
-	
+	horizontal?: boolean,
 	// @doc props/loader displays a loader on the timeline
 	// @doc/fr props/loader affiche un loader sur la timeline
 	loader?: string | boolean,
 	// @doc props/scrollable displays an horizontal scroll on the timeline pills if it does not fit in its container
 	// @doc/fr props/scrollable affiche un scroll horizontal au niveau de la timeline si elle dépasse de son conteneur.
-	scrollable: boolean,
+	scrollable?: boolean,
 };
 export default class OrionTimelineSetupService extends SharedSetupService {
 	static readonly defaultProps = {

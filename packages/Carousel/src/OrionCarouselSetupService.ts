@@ -28,10 +28,6 @@ type Slots = ReturnType<typeof useSlots>;
 export default class OrionCarouselSetupService extends SharedSetupService {
 	static readonly defaultProps = {
 		color: 'brand' as Orion.ColorExtended,
-		hideNavigationButtons: false,
-		hideNavigationDots: false,
-		loop: false,
-		pauseOnHover: false,
 	};
 
 	private slots: Slots;

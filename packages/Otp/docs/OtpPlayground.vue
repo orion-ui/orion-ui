@@ -38,13 +38,14 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 import { reactive } from 'vue';
+import { OrionOtpProps } from '../src/OrionOtpSetupService';
 
 const otp = ref<OrionOtp>();
 
 const state = reactive({
 	size: 4,
 	value: '',
-	dataType: 'text',
+	dataType: 'text' as OrionOtpProps['dataType'],
 	readonly: false,
 });
 

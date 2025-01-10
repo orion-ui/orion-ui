@@ -6,22 +6,22 @@ export type OrionTabPaneEmits = {}
 export type OrionTabPaneProps = SharedPropsIcon & {
 	// @doc props/disabled disabled the pane
 	// @doc/fr props/disabled désactive le panneau
-	disabled: boolean,
+	disabled?: boolean,
 	// @doc props/label the label of the tab
 	// @doc/fr props/label le label de l'onglet
 	label?: string,
 	// @doc props/lazy the content of the tab is mounted each time the tab becomes active
 	// @doc/fr props/lazy le contenu de l'onglet est monté à chaque fois qu'il devient actif
-	lazy: boolean,
+	lazy?: boolean,
 	// @doc props/lazyOnce the content of the tab is only mounted once, the first time the tab is active
 	// @doc/fr props/lazyOnce le contenu de l'onglet est uniquement monté une fois, la première fois qu'il est actif
-	lazyOnce: boolean,
+	lazyOnce?: boolean,
 	// @doc props/marker adds a visual marker, can be used as a notification marker
 	// @doc/fr props/marker ajoute un marqueur visuel, qui peut être utilisé comme marqueur de notification
 	marker?: boolean | number,
 	// @doc props/markerColor the color of the marker
 	// @doc/fr props/markerColor la couleur du marqueur
-	markerColor: Orion.Color,
+	markerColor?: Orion.Color,
 	// @doc props/name the name of the tab
 	// @doc/fr props/name le nom de l'onglet
 	name?: string,

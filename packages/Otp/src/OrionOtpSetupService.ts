@@ -21,7 +21,6 @@ type Code = {[key: number]: string }
 export default class OrionOtpSetupService extends SharedSetupService {
 	static readonly defaultProps = {
 		dataType: 'text' as OrionOtpProps['dataType'],
-		readonly: false,
 		size: 4,
 	};
 

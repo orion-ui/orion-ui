@@ -61,7 +61,7 @@ class TypesDeclarationFilesFactory {
   executeCommand(command) {
     return new Promise((resolve, reject) => {
         exec(command, (error, stdout, stderr) => {
-       /*    if (stdout) {
+       /*  if (stdout) {
             console.log(`stdout: ${stdout}`);
         }
         if (stderr) {
