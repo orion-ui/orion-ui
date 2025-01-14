@@ -36,7 +36,7 @@ export type OrionAvatarProps = SharedPropsColor & {
 
 export default class OrionAvatarSetupService extends SharedSetupService {
 	static readonly defaultProps = {
-		size: SharedProps.size as unknown as OrionAvatarProps['size'],
+		size: SharedProps.size['size'] as OrionAvatarProps['size'],
 		contain: false,
 		name: '',
 		nbAvatarUpdates: 0,

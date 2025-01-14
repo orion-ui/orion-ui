@@ -80,7 +80,6 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Orio
 		this.state.phoneNumber = sanitized.startsWith('+')
 			? sanitized
 			: this.indicatif + sanitized;
-		this.phoneNumberProxy = this.state.phoneNumber;
 		this.setVModel();
 	}
 
