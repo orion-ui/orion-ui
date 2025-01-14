@@ -31,7 +31,7 @@ export type OrionListProps<T = any> = {
 	layout?: Orion.ListLayout,
 	// @doc props/list items of the list
 	// @doc/fr props/list élements de la liste
-	list?: T[],
+	list: T[],
 	// @doc props/total total number of items in the list
 	// @doc/fr props/total nombre total d'éléments dans la liste
 	total?: number,
