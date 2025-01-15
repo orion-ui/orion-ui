@@ -355,7 +355,7 @@ declare global {
 			}
 		}
 
-		namespace Types {
+		/* namespace Types {
 			type SharedPropsIcon = {
 				// @doc props/icon the icon of the component
 				// @doc/fr props/icon définit l'icône
@@ -409,7 +409,7 @@ declare global {
 			type SharedPropsNav = {
 				items?: Orion.NavItem[]
 			}
-		}
+		} */
 
 	}
 }

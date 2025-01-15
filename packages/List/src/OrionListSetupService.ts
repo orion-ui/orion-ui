@@ -34,7 +34,7 @@ export type OrionListProps<T = any> = {
 	list: T[],
 	// @doc props/total total number of items in the list
 	// @doc/fr props/total nombre total d'éléments dans la liste
-	total?: number,
+	total: number,
 	// @doc props/trackKey determine the `key` used for the v-for in the list loop
 	// @doc/fr props/trackKey détermine la `key` utilisée pour le v-for dans la boucle de la liste
 	trackKey?: string,
