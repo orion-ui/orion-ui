@@ -248,6 +248,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 			getSearchTerm: () => this.state.valueToSearch,
 			setSearchTerm: (val?: string) => this.valueToSearch = val,
 			triggerSearchAsync: async (term?: string) => await this.fetchSearchAsync(term),
+			hanbleBlurCustom: this.handleBlur.bind(this)
 		};
 	}
 
@@ -530,6 +531,9 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 
 		this.state.hasBeenFocus = true;
 		this.state.indexNav = -1;
+
+		if(this.props.autocomplete)
+			this._autocomplete.value?.blur()
 
 		if (!this.responsive.onPhone || selection) {
 			this.state.isFocus = false;
