@@ -183,7 +183,7 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 			}
 
 			if (this.vModel.phoneCountryCode) {
-				this.state.phoneNumber = this.sanitizePhoneNumber();
+				this.state.phoneNumber = this.vModel.phoneNumber ? this.sanitizePhoneNumber(this.vModel.phoneNumber) : this.sanitizePhoneNumber();
 				this.state.country = useCountry().getCountryByCode(this.vModel.phoneCountryCode);
 			}
 		}
