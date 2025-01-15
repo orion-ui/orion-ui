@@ -118,7 +118,7 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 	}
 
 	get isValidCustom () {
-		return useValidation().check(this.vModel, this.props.mobile ? 'phone:mobile' : 'phone');
+		return isValidPhoneNumber(this.phoneNumber, this.country?.code);
 	}
 
 	get showState () {
@@ -154,7 +154,7 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 
 		watch(() => this.vModel?.phoneNumber, (val) => {
 			if (val) {
-				this.state.phoneNumber = this.sanitizePhoneNumber();
+				this.state.phoneNumber = val;
 			}
 		});
 
@@ -326,6 +326,9 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 
 	sanitizePhoneNumber (phoneNumberToSanitize?: string) : string {
 		phoneNumberToSanitize = phoneNumberToSanitize?.replaceAll('.', '');
+		if (!phoneNumberToSanitize) {
+			return '';
+		}
 		if (phoneNumberToSanitize && validatePhoneNumberLength(phoneNumberToSanitize.trim(), this.country?.code) === 'TOO_LONG') {
 			while (validatePhoneNumberLength(phoneNumberToSanitize, this.country?.code) === 'TOO_LONG') {
 				phoneNumberToSanitize = phoneNumberToSanitize?.slice(0, -1);
@@ -348,7 +351,9 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Prop
 		let phoneNumber;
 		if (!phoneNumberToSanitize?.startsWith(this.indicatif) && phoneNumberToSanitize?.startsWith('+')) {
 			phoneNumber = phoneNumberToSanitize?.replace('+', this.indicatif);
-		} else phoneNumber = phoneNumberToSanitize ?? this.vModel?.phoneNumber;
+		} else {
+			phoneNumber = phoneNumberToSanitize ?? this.vModel?.phoneNumber;
+		}
 
 		if (phoneNumber) {
 			phoneNumber = phoneNumber.replace(/\s*/g, '');
