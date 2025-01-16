@@ -92,7 +92,7 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Orio
 	}
 
 	get isValidCustom () {
-		return useValidation().check(this.vModel, this.props.mobile ? 'phone:mobile' : 'phone');
+		return isValidPhoneNumber(this.phoneNumberProxy, this.country?.code);
 	}
 
 	get showState () {
@@ -137,7 +137,7 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Orio
 
 		watch(() => this.vModel.value?.phoneNumber, (val) => {
 			if (val) {
-				this.state.phoneNumber = this.sanitizePhoneNumber();
+				this.state.phoneNumber = val;
 			}
 		});
 
@@ -166,8 +166,8 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Orio
 			}
 
 			if (this.vModel.value?.phoneCountryCode) {
-				this.state.phoneNumber = this.sanitizePhoneNumber();
-				this.state.country = useCountry().getCountryByCode(this.vModel.value.phoneCountryCode);
+				this.state.phoneNumber = this.vModel.value?.phoneNumber ? this.sanitizePhoneNumber(this.vModel.value?.phoneNumber) : this.sanitizePhoneNumber();;
+				this.state.country = useCountry().getCountryByCode(this.vModel.value?.phoneCountryCode);
 			}
 		}
 	}
@@ -309,6 +309,9 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Orio
 
 	sanitizePhoneNumber (phoneNumberToSanitize?: string) : string {
 		phoneNumberToSanitize = phoneNumberToSanitize?.replaceAll('.', '');
+		if (!phoneNumberToSanitize) {
+			return '';
+		}
 		if (phoneNumberToSanitize && validatePhoneNumberLength(phoneNumberToSanitize.trim(), this.country?.code) === 'TOO_LONG') {
 			while (validatePhoneNumberLength(phoneNumberToSanitize, this.country?.code) === 'TOO_LONG') {
 				phoneNumberToSanitize = phoneNumberToSanitize?.slice(0, -1);

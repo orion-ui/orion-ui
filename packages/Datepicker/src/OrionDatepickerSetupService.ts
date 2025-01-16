@@ -96,8 +96,8 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 				return useMonkey(this.range.value?.start)?.toReadable('$MMMM');
 			}
 		} else {
-			if (this.vModel.value instanceof Date) {
-				return this.inputValueFormat(this.vModel.value);
+			if (this.vModel instanceof Date) {
+				return this.props.valueDisplayFormat ? this.props.valueDisplayFormat(this.vModel) : this.inputValueFormat(this.vModel);
 			} else if (this.state.isFocus) {
 				return this.dateformat.replaceAll('$', '').toLowerCase();
 			}

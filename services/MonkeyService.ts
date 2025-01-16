@@ -699,7 +699,7 @@ class StringMonkeyPatching extends String {
 	toReadableDate (pattern?: string): string {
 		if (isNaN(new Date(this as unknown as Date).getDate())) {
 			// eslint-disable-next-line no-console
-			console.error(`String.toReadableDate() - Invalid date string detected : ${this}`);
+			console.error(`String.toReadableDate() Invalid date string detected : ${this}`);
 			return this as unknown as string;
 		}
 		return useMonkey(new Date(this as unknown as Date)).toReadable(pattern);

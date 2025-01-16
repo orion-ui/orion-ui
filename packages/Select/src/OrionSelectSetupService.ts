@@ -213,6 +213,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Ori
 			getSearchTerm: () => this.state.valueToSearch,
 			setSearchTerm: (val?: string) => this.valueToSearch = val,
 			triggerSearchAsync: async (term?: string) => await this.fetchSearchAsync(term),
+			blur: this.handleBlur.bind(this),
 		};
 	}
 
@@ -489,11 +490,11 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Ori
 		e.preventDefault();
 	}
 
-	handleBlur (e?: FocusEvent, selection?: boolean) {
+	handleBlur = debounce((e?: FocusEvent, selection?: boolean) => {
 		if (e?.relatedTarget) {
 			const el = e.relatedTarget as HTMLElement;
 			if (el.parentElement?.classList.contains('orion-select__popover-search-input')
-				|| (el === this._autocomplete.value)) {
+					|| (el === this._autocomplete.value)) {
 				return false;
 			}
 
@@ -502,12 +503,18 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Ori
 		this.state.hasBeenFocus = true;
 		this.state.indexNav = -1;
 
+		if (this.props.autocomplete)
+			this._autocomplete.value?.blur();
+
 		if (!this.responsive.onPhone || selection) {
 			this.state.isFocus = false;
 		}
 
 		this.blur();
-	}
+	}, 50, {
+		leading: true,
+		trailing: false,
+	});
 
 	handleKeydown (direction: 'down' | 'up') {
 		const popoverInner = this._popoverinner.value;
