@@ -80,7 +80,7 @@ export default abstract class SharedFieldSetupService<P, T, E extends SharedFiel
 		selectOnFocus: false,
 		forceLabelFloating: false,
 		clearToNull: false,
-		inheritValidationState: false,
+		inheritValidationState: undefined as SharedFieldSetupServiceProps['inheritValidationState'],
 	};
 
 	readonly _input = ref<HTMLInputElement>();
@@ -171,7 +171,7 @@ export default abstract class SharedFieldSetupService<P, T, E extends SharedFiel
 		return res.join('\n');
 	}
 
-	get showError (): boolean {
+	get showError () {
 		if (!this.showState) return false;
 
 		if (this.validationResults.value.length) {
@@ -181,7 +181,7 @@ export default abstract class SharedFieldSetupService<P, T, E extends SharedFiel
 		}
 	}
 
-	get showWarning (): boolean {
+	get showWarning () {
 		if (!this.showState) return false;
 		if (this.showError || this.showSuccess) return false;
 
@@ -192,16 +192,17 @@ export default abstract class SharedFieldSetupService<P, T, E extends SharedFiel
 		}
 	}
 
-	get showSuccess (): boolean {
+	get showSuccess () {
 		return this.isValid.value && this.showState;
 	}
 
-	get showState (): boolean {
+	get showState () {
 		const validator = this.props.validation as Undef<Orion.Validation.Rule>;
 
 		if (this.props.inheritValidationState !== undefined) {
 			return this.props.inheritValidationState;
 		}
+		
 
 		if (this.state.hasBeenFocus) {
 			return !!validator || (this.isRequired && !this.hasValue);
@@ -210,11 +211,11 @@ export default abstract class SharedFieldSetupService<P, T, E extends SharedFiel
 		}
 	}
 
-	get isFocus (): boolean {
+	get isFocus () {
 		return this.state.isFocus;
 	}
 
-	get isRequired (): boolean {
+	get isRequired () {
 		return this.props.required
 		|| !!(typeof this.props.validation === 'string' && this.props.validation.includes('required'));
 	}

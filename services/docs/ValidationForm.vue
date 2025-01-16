@@ -69,7 +69,7 @@
 
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
-import { useValidation, Validator } from '../../lib';
+import { useValidation, Validator } from 'lib';
 import { CountryCode } from 'libphonenumber-js';
 
 let result = ref(false);
