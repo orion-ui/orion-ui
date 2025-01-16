@@ -30,13 +30,12 @@
 					{{ `${item.name} (+${item.areaCode})` }}
 				</template>
 			</orion-select>
-
 			<orion-input
 				:ref="setup._orionInput"
 				v-model="setup.phoneNumber"
 				type="tel"
 				:class="{ 'orion-input--warning': setup.showWarning }"
-				:validation="isValidPhoneNumber(setup.phoneNumber, setup.country?.code)"
+				:validation="setup.isValid.value"
 				:inherit-validation-state="setup.showState"
 				v-bind="{
 					...$attrs,
@@ -65,7 +64,6 @@
 import './OrionPhone.less';
 import { OrionInput } from 'packages/Input';
 import { OrionSelect } from 'packages/Select';
-import { isValidPhoneNumber } from 'libphonenumber-js';
 import OrionPhoneSetupService from './OrionPhoneSetupService';
 // TODO: avoid code duplicate
 // https://github.com/vuejs/core/issues/8301
