@@ -11,27 +11,27 @@ import useMonkey from 'services/MonkeyService';
 import { addPopoverBackdropCloseAbility } from 'utils/tools';
 import { ModelRef } from 'vue';
 
-export type OrionSelectEmits = SharedFieldSetupServiceEmits<VModelType> & {
+export type OrionSelectEmits<T = Record<string, any>> = SharedFieldSetupServiceEmits<VModelType<T>> & {
 	(e: 'focus', payload: FocusEvent): void;
   (e: 'blur', payload?: FocusEvent): void;
-  (e: 'input', payload: VModelType): void;
+  (e: 'input', payload: VModelType<T>): void;
   (e: 'input-keydown-tab'): void;
-  (e: 'change', val?: VModelType): void;
+  (e: 'change', val?: VModelType<T>): void;
   (e: 'clear'): void;
-	(e: 'add', payload: BaseVModelType): void;
-	(e: 'remove', payload: BaseVModelType): void;
-	(e: 'select', payload: BaseVModelType): void;
+	(e: 'add', payload: BaseVModelType<T>): void;
+	(e: 'remove', payload: BaseVModelType<T>): void;
+	(e: 'select', payload: BaseVModelType<T>): void;
 	(e: 'fetch-start', payload?: string): void;
-	(e: 'fetch-end', payload: BaseVModelType[]): void;
+	(e: 'fetch-end', payload: BaseVModelType<T>[]): void;
 	(e: 'fetch-search-clear'): void;
 }
-export type OrionSelectProps = SharedFieldSetupServiceProps & {
+export type OrionSelectProps<T = any> = SharedFieldSetupServiceProps & {
 	// @doc props/autocomplete adds the possibility to write in the select field
 	// @doc/fr props/autocomplete permet à l'utilisateur d'écrire dans le champ
 	autocomplete?: boolean,
 	// @doc props/customFetch allows you to custom the fetch function
 	// @doc/fr props/customFetch permet de personnaliser la fonction de récupération des options
-	customFetch?: (searchTerm?: string) => Promise<BaseVModelType[]>,
+	customFetch?: (searchTerm?: string) => Promise<BaseVModelType<T>[]>,
 	// @doc props/customSearch allows you to custom the search function
 	// @doc/fr props/customSearch permet de personnaliser la fonction de recherche
 	customSearch?: Function,
@@ -40,13 +40,13 @@ export type OrionSelectProps = SharedFieldSetupServiceProps & {
 	disabledKey?: string,
 	// @doc props/displayKey key used to display the value in the field
 	// @doc/fr props/displayKey clé qui sera affiché au niveau du champ
-	displayKey?: string,
+	displayKey?: T extends Record<string, any> ? keyof T : string,
 	// @doc props/donetyping the duration to trigger the fetch
 	// @doc/fr props/donetyping indique après combien de temps après la dernière frappe, la fonction de récupération des options est appelée
 	donetyping?: number,
 	// @doc props/fetchInitialOptions initial options before first fetch (when using fetch mecanism)
 	// @doc/fr props/fetchInitialOptions options intiales avant le premier fetch (lors de l'utilisation du mécanisme de fetch des options)
-	fetchInitialOptions?: BaseVModelType[],
+	fetchInitialOptions?: BaseVModelType<T>[],
 	// @doc props/fetchKey key used to pass the research field value as a parameter to fetch the options
 	// @doc/fr props/fetchKey clé utilisée pour passer la valeur du champ de recherche comme paramètre pour récupérer les options
 	fetchKey?: string,
@@ -64,7 +64,7 @@ export type OrionSelectProps = SharedFieldSetupServiceProps & {
 	multiple?: boolean,
 	// @doc props/options options of the select
 	// @doc/fr props/options options du select
-	options?: BaseVModelType[],
+	options?: BaseVModelType<T>[],
 	// @doc props/prefillSearch prefill the search field
 	// @doc/fr props/prefillSearch pré-rempli le champ de recherche
 	prefillSearch?: string,
@@ -76,12 +76,14 @@ export type OrionSelectProps = SharedFieldSetupServiceProps & {
 	trackKey?: string,
 	// @doc props/valueKey key used as field value
 	// @doc/fr props/valueKey clé qui réprésente la valeur d'un élément
-	valueKey?: string,
+	valueKey?: T extends Record<string, any> ? keyof T : string,
 };
-type BaseVModelType = string | number | boolean | Record<string, any>;
-export type VModelType = BaseVModelType | BaseVModelType[] | null | undefined;
 
-export default class OrionSelectSetupService extends SharedFieldSetupService<OrionSelectProps, VModelType> {
+//export type BaseVModelType<T> = string | number | boolean | T;
+export type BaseVModelType<T> = T extends Record<string, any> ? T : (string | number | boolean);
+export type VModelType<T> = BaseVModelType<T> | BaseVModelType<T>[] | undefined | null;
+
+export default class OrionSelectSetupService<T extends Record<string, any> | string | number | boolean> extends SharedFieldSetupService<OrionSelectProps, VModelType<T>> {
 	static readonly defaultProps = {
 		...SharedFieldSetupService.defaultProps,
 		autocomplete: false,
@@ -97,22 +99,21 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Ori
 	};
 
 	private bus = mitt<{
-		input: BaseVModelType;
-		select: BaseVModelType;
-		add: BaseVModelType;
-		remove: BaseVModelType;
+		input: BaseVModelType<T>;
+		select: BaseVModelType<T>;
+		add: BaseVModelType<T>;
+		remove: BaseVModelType<T>;
 	}>();
 
 	private fetchSearchDebounce: DebouncedFunc<(term?: string) => void>;
 
-
 	protected state = reactive({
 		...this.sharedState,
 		valueToSearch: undefined as string | undefined,
-		lastValue: undefined as Nil<VModelType>,
+		lastValue: undefined as Nil<VModelType<T>>,
 		indexNav: -1,
 		isFetching: false,
-		fetchResult: [] as BaseVModelType[],
+		fetchResult: [] as BaseVModelType<T>[],
 	});
 
 	readonly _popover = ref<InstanceType<typeof Dropdown>>();
@@ -145,7 +146,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Ori
 		return this.state.isFetching;
 	}
 
-	get optionsDisplay (): any[] { // force return type to any[] to prevent linter error in templates when using slots
+	get optionsDisplay () {
 		this._items.value.length = 0;
 		if (this.props.fetchUrl || this.props.customFetch) {
 			return this.fetchOptions;
@@ -153,9 +154,9 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Ori
 			if (this.props.customSearch) {
 				return this.props.options.filter(x => this.props.customSearch?.(x, this.state.valueToSearch));
 			} else {
-				return this.props.options.filter((x: any) => {
+				return this.props.options.filter((x) => {
 					if (!this.state.valueToSearch) return true;
-					const target = this.itemIsObject(x) && this.props.displayKey ? x[this.props.displayKey] : x;
+					const target = this.itemIsObject(x) && this.props.displayKey ? x[this.props.displayKey as unknown as keyof T] : x;
 					return this.normalizeString(target).indexOf(this.normalizeString(this.state.valueToSearch)) !== -1;
 				});
 			}
@@ -164,7 +165,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Ori
 		}
 	}
 
-	get fetchOptions (): any[] {
+	get fetchOptions () {
 		return !!this.state.fetchResult.length
 			? this.state.fetchResult
 			: this.props.fetchInitialOptions;
@@ -219,13 +220,15 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Ori
 
 
 	constructor (
-		protected props: OrionSelectProps & Omit<typeof OrionSelectSetupService.defaultProps, 'options' | 'fetchInitialOptions'> & {options:  BaseVModelType[], fetchInitialOptions: BaseVModelType[]},
+		protected props: OrionSelectProps & Omit<typeof OrionSelectSetupService.defaultProps, 'options' | 'fetchInitialOptions'> & {
+			options:  BaseVModelType<T>[], 
+			fetchInitialOptions: BaseVModelType<T>[]
+		},
 		protected emits: OrionSelectEmits,
-		protected vModel: ModelRef<VModelType>) {
+		protected vModel: ModelRef<VModelType<T>>) {
 		super(props, emits, vModel);
 
-		this.bus.on('*', (type, e) => this.emits(type as any, e as any));
-
+		this.bus.on('*', (type, e) => this.emits(type, e));
 		this.fetchSearchDebounce = debounce((term?: string) => {
 			this.fetchSearchAsync(term);
 		}, this.props.donetyping);
@@ -257,11 +260,11 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Ori
 		}
 	}
 
-	private itemMatchOption (option: BaseVModelType, item: BaseVModelType) {
+	private itemMatchOption (option: BaseVModelType<T>, item: BaseVModelType<T>) {
 		if (this.isObjectType && this.itemIsObject(option)) {
 			if (this.props.valueKey) {
 				return !isNil(item)
-					? item === option[this.props.valueKey]
+					? item === option[this.props.valueKey as keyof T]
 					: false;
 			} else {
 				return !isNil(item) && this.itemIsObject(item)
@@ -317,7 +320,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Ori
 	private handleFieldEvents () {
 		this.bus.on('select', (val) => {
 			!!val && this.itemIsObject(val) && this.props.valueKey
-				? this.emitValue(val[this.props.valueKey])
+				? this.emitValue(val[this.props.valueKey as keyof T])
 				: this.emitValue(val);
 
 			if (this.props.autocomplete) {
@@ -333,7 +336,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Ori
 			if (!isArray(valueToEmit)) valueToEmit = [];
 			valueToEmit.push(
 				this.props.valueKey && this.itemIsObject(val)
-					? val[this.props.valueKey]
+					? val[this.props.valueKey as keyof T]
 					: val,
 			);
 
@@ -345,23 +348,23 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Ori
 		});
 
 		this.bus.on('remove', (val) => {
-			let valueToEmit = cloneDeep(this.vModel.value as BaseVModelType[]);
+			let valueToEmit = cloneDeep(this.vModel.value as BaseVModelType<T>[]);
 			let index;
 
 			if (this.props.valueKey && this.itemIsObject(val)) {
-				val = val[this.props.valueKey];
+				val = val[this.props.valueKey as keyof T];
 			}
 
 			if (!valueToEmit?.length) {
 				valueToEmit = [];
 			} else {
 				if (this.isObjectType && !this.props.valueKey) {
-					index = valueToEmit.findIndex((x: BaseVModelType) =>
+					index = valueToEmit.findIndex((x: VModelType<T>) =>
 						this.itemIsObject(x) &&
 						this.itemIsObject(val) &&
 						x[this.props.trackKey] === val[this.props.trackKey]);
 				} else {
-					index = valueToEmit.findIndex((x: BaseVModelType) => x === val);
+					index = valueToEmit.findIndex((x: VModelType<T>) => x === val);
 				}
 
 				if (index > -1) {
@@ -375,7 +378,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Ori
 		});
 	}
 
-	private emitValue (valueToEmit: BaseVModelType) {
+	private emitValue (valueToEmit: VModelType<T>) {
 		this.state.lastValue = valueToEmit;
 		this.vModel.value = valueToEmit;
 	}
@@ -407,31 +410,31 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Ori
 		}
 	}
 
-	itemIsObject (item: BaseVModelType): item is Record<string, any> {
-		return isObject(item);
+	itemIsObject (item: BaseVModelType<T> | VModelType<T>): item is Extract<T, Record<string, any>> {
+		return typeof item === 'object' && item !== null;
 	}
 
-	valueDisplay (item?: BaseVModelType | null): { display: any, item?: any } {
+	valueDisplay (item?: BaseVModelType<T> | null) {
 		const optionsToSearchIn = (this.props.fetchUrl || this.props.customFetch) ? this.fetchOptions : this.props.options;
 		const currentValue = optionsToSearchIn.find((x) => {
 			return this.itemIsObject(x)
 				&& this.props.valueKey
-				&& x[this.props.valueKey] === item;
+				&& x[this.props.valueKey as keyof T] === item;
 		});
 
 		if (this.props.valueKey && this.props.displayKey) {
-			return currentValue && this.itemIsObject(currentValue) && currentValue[this.props.displayKey]
+			return currentValue && this.itemIsObject(currentValue) && currentValue[this.props.displayKey as keyof T]
 				? {
-					display: currentValue[this.props.displayKey],
+					display: currentValue[this.props.displayKey as keyof T],
 					item: currentValue,
 				} : {
 					display: item,
 					item,
 				};
 		} else if (this.props.displayKey) {
-			return item && this.itemIsObject(item) && item[this.props.displayKey]
+			return item && this.itemIsObject(item) && item[this.props.displayKey as keyof T]
 				? {
-					display: item[this.props.displayKey],
+					display: item[this.props.displayKey as keyof T],
 					item,
 				} : {
 					display: item,
@@ -440,7 +443,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Ori
 		} else {
 			return item && this.props.valueKey
 				? {
-					display: currentValue[this.props.valueKey],
+					display: currentValue ? currentValue[this.props.valueKey] : undefined,
 					item: currentValue,
 				}
 				: {
@@ -450,7 +453,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Ori
 		}
 	}
 
-	optionIsSelected (option: BaseVModelType) {
+	optionIsSelected (option: BaseVModelType<T>) {
 		let isSelect = false;
 
 		if (this.props.multiple) {
@@ -459,7 +462,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Ori
 				isSelect = index > -1;
 			}
 		} else {
-			isSelect = this.itemMatchOption(option, this.vModel.value as BaseVModelType);
+			isSelect = this.itemMatchOption(option, this.vModel.value as BaseVModelType<T>);
 		}
 
 		return isSelect;
@@ -566,7 +569,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Ori
 		}
 	}
 
-	selectItem (value: BaseVModelType) {
+	selectItem (value: BaseVModelType<T>) {
 		if (this.props.readonly) return;
 		if (this.props.disabledKey && !!get(value, this.props.disabledKey, false)) return;
 

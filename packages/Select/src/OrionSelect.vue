@@ -52,7 +52,7 @@
 					{{ setup.valueDisplay(vModel).display }}
 				</slot>
 				<slot
-					v-else-if="$slots['multiple-value']"
+					v-else-if="$slots['multiple-value'] && vModel && setup.isArray(vModel)"
 					name="multiple-value"
 					:value="vModel"/>
 
@@ -186,7 +186,7 @@
 	</v-dropdown>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" generic="T extends Record<string, any> | string | number | boolean">
 import './OrionSelect.less';
 import { OrionButton } from 'packages/Button';
 import { OrionIcon } from 'packages/Icon';
@@ -194,11 +194,25 @@ import { OrionInput } from 'packages/Input';
 import { OrionLoader } from 'packages/Loader';
 import { OrionField } from 'packages/Field';
 import OrionSelectSetupService from './OrionSelectSetupService';
-import type { OrionSelectProps, OrionSelectEmits, VModelType } from './OrionSelectSetupService';
+import type { OrionSelectProps, OrionSelectEmits, VModelType, BaseVModelType } from './OrionSelectSetupService';
 const emits = defineEmits<OrionSelectEmits>() as OrionSelectEmits;
-const vModel = defineModel<VModelType>();
-const props = withDefaults(defineProps<OrionSelectProps>(), OrionSelectSetupService.defaultProps);
+const vModel = defineModel<VModelType<T>>();
+const props = withDefaults(defineProps<OrionSelectProps<T>>(), OrionSelectSetupService.defaultProps);
 const setup = new OrionSelectSetupService(props, emits, vModel);
+
+const slots = defineSlots<{
+  'default'(): void
+  'option'(props: { 
+			item: T,
+			index: number,
+			markedSearch:(content: string) => string | undefined
+		}): void
+  'value'(props: { item: BaseVModelType<T> , display: BaseVModelType<T>}): void
+  'multiple-value'(props: { value: BaseVModelType<T>[] }): void
+  'before-options'(props: { options: BaseVModelType<T>[] }): void
+  'after-options'(props: { options: BaseVModelType<T>[] }): void
+}>()
+
 defineExpose(setup.publicInstance);
 
 /** Doc

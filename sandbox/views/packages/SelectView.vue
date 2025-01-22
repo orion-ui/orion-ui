@@ -129,6 +129,8 @@
 								<template #before-options="{ options }">
 									turltutu {{ options.length }}
 								</template>
+								<template #value={item}>{{item}}</template>
+								<template #option="{item}"> {{ item }}</template>
 							</o-select>
 						</div>
 						<div class="col-sm-6">
@@ -212,10 +214,10 @@
 								clearable
 								:options="data.fieldSelectObject.options">
 								<template #value="{ item }">
-									{{ item?.label }}
+									{{ item.label }}
 								</template>
 								<template #option="{ item, index }">
-									{{ `${index} -- ${item.label}` }}
+									{{ `${index} -- ${item}` }}
 								</template>
 							</o-select>
 						</div>
@@ -276,8 +278,8 @@
 								multiple
 								:options="data.fieldSelectMultiple.options"
 								prefix-icon="camera">
-								<template #multiple-value>
-									eee {{ data.fieldSelectMultiple.value }}
+								<template #multiple-value="{value}">
+									{{ data.fieldSelectMultiple.value }}
 								</template>
 							</o-select>
 						</div>
@@ -319,7 +321,7 @@
 								multiple
 								:options="data.fieldSelectObjectMultiple.options">
 								<template #multiple-value="{ value }">
-									{{ value }}
+									ici {{ value }}
 								</template>
 							</o-select>
 						</div>
@@ -375,13 +377,13 @@
 								value-key="label"
 								multiple
 								:options="data.fieldSelectObjectMultiple.options">
-								<template #value="{ display }">
+								<template #multiple-value="{ value }">
 									<!-- {{ item?.label }} - {{ item.id }} -->
-									{{ display }} heho
+									{{ value }} heho
 								</template>
 								<template #option="{ item, index }">
 									<div>
-										<o-icon icon="camera"/>{{ `${index} -- ${item.label}` }}
+										<o-icon icon="camera"/>{{ `${index} -- ${item}` }}
 									</div>
 								</template>
 							</o-select>
