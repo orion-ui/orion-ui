@@ -1,4 +1,4 @@
-import { nextTick, PropType, reactive, ref, Slots, watchEffect } from 'vue';
+import { nextTick, PropType, reactive, ref, useSlots, watchEffect } from 'vue';
 import { debounce, isNil, throttle } from 'lodash-es';
 import { Dropdown } from 'floating-vue';
 import SharedFieldSetupService, { FieldEmit } from '../../Shared/SharedFieldSetupService';
@@ -7,6 +7,7 @@ import { getAppLang } from 'services/LangService';
 import { addPopoverBackdropCloseAbility } from 'utils/tools';
 
 type Props = SetupProps<typeof OrionDatepickerSetupService.props>
+type Slots = ReturnType<typeof useSlots>;
 type DatepickerEmit = FieldEmit<Nil<Date>> & {
 	(e: 'update:range', payload: Nil<Orion.DateRange>): void;
 	(e: 'update:multiple', payload: Date[]): void;
@@ -85,7 +86,7 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 	readonly _minutes = ref<HTMLElement>();
 
 	protected state = reactive({
-		...super.state,
+		...this.sharedState,
 		mobileHoursValue: 0,
 		mobileMinutesValue: 0,
 		selectionIsOn: undefined as Undef<'year' | 'month' | 'day' | 'hours' | 'minutes' | 'ampm'>,
@@ -180,12 +181,15 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 		if (val) {
 			if (currentValue && (this.props.preserveTime || !dateUnchanged)) {
 				val.setHours(currentValue.getHours(), currentValue.getMinutes(), currentValue.getSeconds(), currentValue.getMilliseconds());
-			}
-			if (this.props.minDate && val.valueOf() < this.props.minDate.valueOf()) {
-				val = this.props.minDate;
-			}
-			if (this.props.maxDate && val.valueOf() > this.props.maxDate.valueOf()) {
-				val = this.props.maxDate;
+			}	
+
+			if(!this.isFocus) {
+				if (this.props.minDate && val.valueOf() < this.props.minDate.valueOf()) {
+					val = this.props.minDate;
+				}
+				if (this.props.maxDate && val.valueOf() > this.props.maxDate.valueOf()) {
+					val = this.props.maxDate;
+				}
 			}
 		}
 
@@ -362,7 +366,7 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 		if (!this.props.time) return;
 		this.state.selectionIsOn = 'hours';
 		const { input, hour, timeSeparatorIndex } = this.getEventData();
-		input.setSelectionRange(timeSeparatorIndex - hour?.length ?? 2, timeSeparatorIndex);
+		input.setSelectionRange(timeSeparatorIndex - (hour?.length ?? 2), timeSeparatorIndex);
 	}
 
 	private setSelectionToMinute () {
@@ -596,6 +600,17 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 		if (!!this.slots.popper) return;
 		if (this.responsive.onPhone && !force) return;
 
+		if (this.props.minDate && this.vModel && this.vModel.valueOf() < this.props.minDate.valueOf()) {
+			this.emit('update:modelValue', this.props.minDate);
+			this.emit('input', this.props.minDate);
+		}
+		if (this.props.maxDate && this.vModel && this.vModel.valueOf() > this.props.maxDate.valueOf()) {
+			this.emit('update:modelValue', this.props.maxDate);
+			this.emit('input', this.props.maxDate);
+		}
+
+
+
 		this.focusedWithMouse = false;
 		super.handleBlur(e);
 	}
@@ -632,7 +647,7 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 		const alpha = ['A', 'a', 'P', 'p'] as const;
 		const arrows = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
 		const deletion = ['Backspace', 'Delete'];
-		const misc = ['Tab'];
+		const misc = ['Tab', 'Enter'];
 		const allowed = [...numbers, ...alpha, ...arrows, ...deletion, ...misc, this.dateSeparator, this.timeSeparator];
 		const isSeparatorKey = this.dateSeparator.includes(key) || this.timeSeparator.includes(key) || this.dateTimeSeparator.includes(key);
 
@@ -910,6 +925,10 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 		// Handle tab key
 		if (key === 'Tab') {
 			this.setInputStringValue(year, month, day, hour, minute);
+		}
+
+		if (key === 'Enter') {
+			this.handleBlur()
 		}
 	}
 
