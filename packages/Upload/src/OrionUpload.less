@@ -242,6 +242,33 @@
 		}
 	}
 
+	&--error {
+		border-color: var(--danger);
+
+		.orion-upload__or::before,
+		.orion-upload__or::after {
+			background: rgba(var(--rgb-danger), 0.5);
+		}
+	}
+
+	&--warning {
+		border-color: var(--warning);
+
+		.orion-upload__or::before,
+		.orion-upload__or::after {
+			background: rgba(var(--rgb-warning), 0.5);
+		}
+	}
+
+	&--success {
+		border-color: var(--success);
+
+		.orion-upload__or::before,
+		.orion-upload__or::after {
+			background: rgba(var(--rgb-success), 0.5);
+		}
+	}
+
 	&:hover {
 		border-color: var(--info);
 
