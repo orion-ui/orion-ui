@@ -51,4 +51,7 @@ jobs:
         run: node scripts/ci-build-lib.cjs
 
       - name: Publish to pkg.pr.new for pre-release
-        run: npx pkg-pr-new publish --compact
+        run: echo "PR_LINK=$(npx pkg-pr-new publish --comment | grep -o 'https://github.com/[^ ]*')" >> $GITHUB_ENV
+
+      - name: Add pkg link to Readme
+        run: echo "$PR_LINK" >> README.md
