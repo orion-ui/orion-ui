@@ -60,5 +60,5 @@ export default class OrionButtonSetupService extends SharedSetupService<Props> {
 			this._el.value?.removeChild(visualClick);
 			visualClick.remove();
 		};
-	}
+	}//
 }
