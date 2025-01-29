@@ -9,6 +9,7 @@ on:
       - 'hotfix/**'
       - 'release/**'
       - '!main'
+      - 'pkgGetLink'
     paths:
       - '.github/workflows/**'
       - 'assets/**'
