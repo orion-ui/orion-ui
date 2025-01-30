@@ -55,7 +55,7 @@ jobs:
         run: npx pkg-pr-new publish --comment | grep -o 'https://pkg.pr.new/orion-ui/orion-ui/@orion.ui/orion@[^ ]*' > packageLink.txt
 
       - name: save as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: temporaryPackageLink
           path: packageLink.txt
