@@ -52,7 +52,7 @@ jobs:
         run: node scripts/ci-build-lib.cjs
 
       - name: Publish to pkg.pr.new for pre-release
-        run: npx pkg-pr-new publish --comment > packageLink.txt
+        run: npx pkg-pr-new publish --comment > packageLink.txt 2>&1 error.txt
 
       - name: save as artifact
         uses: actions/upload-artifact@v4
