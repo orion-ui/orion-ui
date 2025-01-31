@@ -24,7 +24,6 @@ on:
       - 'cli.cjs'
       - 'vite.config.ts'
       - 'build-lib-prerelease.yml'
-      - '!README.md'
 
 jobs:
   build-publish-prerelease:
