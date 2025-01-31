@@ -24,6 +24,7 @@ on:
       - 'cli.cjs'
       - 'vite.config.ts'
       - 'build-lib-prerelease.yml'
+      - '!README.md'
 
 jobs:
   build-publish-prerelease:
@@ -55,7 +56,7 @@ jobs:
         run: echo "PACKAGE_LINK=$(npx pkg-pr-new publish --comment 2>&1 | grep -Eo 'https://pkg.pr.new/orion-ui/orion-ui/@orion.ui/orion@[a-zA-Z0-9]+')" >> $GITHUB_ENV"
 
       - name: Add link to readme
-        run: echo -e "\n## 📦 Latest Pre-release\n$PACKAGE_LINK" >> README.md
+        run: echo -e "\n## Latest Pre-release\n$PACKAGE_LINK" >> README.md
         env:
           PACKAGE_LINK: ${{ env.PACKAGE_LINK }}
 
