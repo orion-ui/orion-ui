@@ -55,17 +55,7 @@ jobs:
       - name: Publish to pkg.pr.new for pre-release and put it in a git var environnement
         run: echo "PACKAGE_LINK=$(npx pkg-pr-new publish --comment 2>&1 | grep -Eo 'https://pkg.pr.new/orion-ui/orion-ui/@orion.ui/orion@[a-zA-Z0-9]+')" >> $GITHUB_ENV
 
-      - name: Add link to readme
-        run: echo -e "\n## 📦 Latest Pre-release\n$PACKAGE_LINK" >> README.md
+      - name: Add link to notice action
+        run: echo -e "::notice::📦 Latest Pre-release - $PACKAGE_LINK"
         env:
           PACKAGE_LINK: ${{ env.PACKAGE_LINK }}
-
-      - name: Commit and push changes
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add README.md
-          git commit -m "Update README with latest pre-release package link"
-          git push origin HEAD:${GITHUB_REF#refs/heads/}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
