@@ -53,18 +53,12 @@ jobs:
         run: node scripts/ci-build-lib.cjs
 
       - name: Publish to pkg.pr.new for pre-release and put it in a git var environnement
-        run: echo "PACKAGE_LINK=$(npx pkg-pr-new publish --comment 2>&1 | grep -Eo 'https://pkg.pr.new/orion-ui/orion-ui/@orion.ui/orion@[a-zA-Z0-9]+')" >> $GITHUB_ENV"
+        run: echo "PACKAGE_LINK=$(npx pkg-pr-new publish --comment 2>&1 | grep -Eo 'https://pkg.pr.new/orion-ui/orion-ui/@orion.ui/orion@[a-zA-Z0-9]+')" >> $GITHUB_ENV
 
       - name: Add link to readme
-        run: echo -e "\n## Latest Pre-release\n$PACKAGE_LINK" >> README.md
+        run: echo -e "\n## 📦 Latest Pre-release\n$PACKAGE_LINK" >> README.md
         env:
           PACKAGE_LINK: ${{ env.PACKAGE_LINK }}
-
-      - name: save as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: temporaryPackageLink
-          path: packageLink.txt
 
        - name: Commit and push changes
         run: |
