@@ -1,4 +1,4 @@
-import { Directive, ModelRef, nextTick, watch } from 'vue';
+import { Directive, ModelRef, nextTick, reactive, watch } from 'vue';
 import { isString } from 'lodash-es';
 import Cleave from 'cleave.js';
 
@@ -23,9 +23,6 @@ export type OrionInputProps = SharedFieldSetupServiceProps & {
 	// @doc props/mask the mask applied on the input
 	// @doc/fr props/mask masque appliqué sur le champ
 	mask?: string | InputMask,
-	// @doc props/maskFormat Missing @doc
-	// @doc/fr props/maskFormat Missing @doc
-	maskFormat?: string,
 	// @doc props/maskHourFormat the hour format
 	// @doc/fr props/maskHourFormat format de l'heure
 	maskHourFormat?: string,
@@ -52,6 +49,11 @@ type InputMask = 'integer' | 'decimal' | 'hour' | {
 	display: (val: any) => VModelType;
 };
 
+type PatternArray = {
+	type: RegExp | 'mask',
+	value?: string | number,
+}
+
 type CleaveElement = HTMLInputElement & {
 	cleave: Cleave;
 }
@@ -64,6 +66,11 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 		maskHourSeparator: ':',
 		selectOnFocus: false,
 	};
+
+	protected state = reactive({ 
+		...this.sharedState,
+		maskPatternTab: [] as PatternArray[]
+	});
 
 	static cleaveDirective: Directive = {
 		mounted: (el, binding) => {
@@ -83,6 +90,15 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 		if (this.props.type === 'email') {
 			return useValidation().check(this.vModel, 'email');
 		}
+	}
+
+	get maskPatternTab () { return this.state.maskPatternTab; }
+
+	get maskSanitized () {
+		if (typeof this.props.mask === 'string' && !['integer', 'decimal', 'hour'].includes(this.props.mask)){
+			return this.props.mask
+		}
+		return undefined
 	}
 
 	get vModelProxy () {
@@ -125,6 +141,10 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 				}
 				return valueToReturn;
 			}
+
+			if (this.maskPatternTab.length) {
+				return this.vModelWithMask()
+			}
 		}
 
 		if (isString(value) && this.props.maxLength) {
@@ -138,7 +158,6 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 		this.handleInputDebounce(() => {
 			// value will always be a string when coming from the input
 			value = value?.toString();
-
 			if (value) {
 				if (this.props.cleave?.properties.phone) {
 					value = value.replace(/\s*/g, '');
@@ -179,7 +198,14 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 				value = this.props.clearToNull ? null : undefined;
 			}
 
-			if (value === this.vModelProxy) return;
+			if (this.maskPatternTab.length) {
+				//value = this.vModelWithMask(value?.toString())
+				value = this.getVModelWithoutMask(value?.toString())
+			}
+
+			//if (value === this.vModelProxy) return;
+
+		
 
 			this.vModel.value = value;
 			this.emits('input', value);
@@ -203,6 +229,14 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 			input.cleave.destroy();
 			input.cleave = new Cleave(input, val?.properties ?? {});
 		});
+
+		watch(() => this.vModelProxy, (val) => {
+			if(this._input.value?.value) {
+				this._input.value.value = val?.toString() ?? ''
+			}
+		})
+
+		this.parsePattern()
 	}
 
 
@@ -344,6 +378,14 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 					}
 				}
 			}
+
+			if (this.maskPatternTab.length) {
+				if(!this.testKeyPattern(e.key) && !misc.includes(e.key)) {
+					e.preventDefault();
+				}
+			}
+
+
 		}
 
 		if (this.props.type === 'email') {
@@ -354,4 +396,80 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 			) e.preventDefault();
 		}
 	}
+
+	vModelWithMask (val?: string) {
+		const inputValue = val ?? this._input.value?.value;
+		if(!inputValue || !this.maskPatternTab.length || !this.vModel.value) return;
+		let stringToReturn = ''
+			for(let i=0; i< this.maskPatternTab.length; i++) {
+				if(i < inputValue.length) {
+					if(this.maskPatternTab[i].type === 'mask') {
+						stringToReturn += this.maskPatternTab[i].value
+					} else {
+						stringToReturn += inputValue[i]
+					} 
+				} else if(this.maskPatternTab[i].type === 'mask') {
+					stringToReturn += this.maskPatternTab[i].value
+				} else 
+						break		
+			}
+
+			return stringToReturn
+	}
+
+	getVModelWithoutMask (val?: string) {
+		if(!val || !this.maskPatternTab.length) return;
+		let stringToReturn = ''
+			for(let i=0; i < val.length; i++) {
+				if(this.maskPatternTab[i].type === 'mask') {
+					continue
+				} else {
+					stringToReturn += val[i]
+				} 
+			}
+			return stringToReturn
+	}
+
+	testKeyPattern (key?: string) {
+		if(!this._input.value || (!this._input.value?.value?.length && !key) || this._input.value?.value?.length > this.maskPatternTab.length) return false
+
+		const patternToCheck = this.maskPatternTab[this._input.value.value.length];
+		if(!patternToCheck) return false;
+
+		if(!patternToCheck.value	&& key?.match(patternToCheck.type)) {
+			return true
+		} else if (!patternToCheck.value	&& !key?.match(patternToCheck.type)) {
+			return false;
+		}
+		return false
+	}
+
+	parsePattern () {
+		if(!this.props.mask || typeof this.props.mask === 'object') return
+		
+		useMonkey(this.state.maskPatternTab).empty()
+		for(let i=0; i < this.props.mask.length; i++) {
+			if(this.props.mask[i] === '$') {
+				switch(this.props.mask[i + 1]) {
+					case 'd': 
+						this.state.maskPatternTab.push({type: new RegExp(/\d/)});
+						i++;
+						break;
+					case 'w': 
+						this.state.maskPatternTab.push({type: new RegExp(/\w/)});
+						i++;
+						break;
+					default: 
+						this.state.maskPatternTab.push({type: 'mask', value:'$'})
+						i++;
+						break;
+				}
+			} else {
+				this.state.maskPatternTab.push({type:'mask', value:this.props.mask[i] })
+			}
+		}
+
+
+	}
 }
+
