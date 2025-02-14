@@ -2,6 +2,7 @@ import { Directive, ModelRef, nextTick, reactive, watch } from 'vue';
 import { isString } from 'lodash-es';
 import Cleave from 'cleave.js';
 
+
 import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetupServiceProps } from '../../Shared/SharedFieldSetupService';
 import useValidation from 'services/ValidationService';
 import { hoursToNumber } from 'utils/tools';
@@ -123,13 +124,6 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 		}
 	}
 
-	get maskSanitized () {
-		if (typeof this.props.mask === 'string' && !['integer', 'decimal', 'hour'].includes(this.props.mask)){
-			return this.props.mask
-		}
-		return undefined
-	}
-
 	readablevModelArray () {
 		return this.state.vmodelArray.map((x) => {
 			return !x.value ? '_' : x.value
@@ -179,7 +173,6 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 
 			if (this.maskPatternTab.length) {
 				return this.readablevModelArray()
-				//return this.vModelWithMask()
 			}
 		}
 
@@ -582,39 +575,45 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 	}
 
 	parsePattern () {
-		if(!this.props.mask || typeof this.props.mask === 'object') return
+		if(!this.props.mask 
+			|| typeof this.props.mask === 'object' 
+			|| this.props.mask === 'hour'
+			|| this.props.mask === 'decimal'
+			|| this.props.mask === 'integer')
+			return
 		const quantifierRegex = /\$\w{1}{(?<iteration>\d)}/
 
 		useMonkey(this.state.maskPatternTab).empty()
-		for(let i=0; i < this.props.mask.length; i++) {
-			if(this.props.mask[i] === '$') {
-				//with quantifier
-				const quantifier = this.props.mask.slice(i, i+5);
-				
-
-				if(quantifierRegex.test(quantifier)) {
-					const value = this.props.mask[i + 1];
-					const iteratif =	quantifier.match(quantifierRegex)?.groups?.iteration
-
-					if(iteratif) {
-						for(let j=0; j< +iteratif; j++) {
-							this.convertPatternToRegex(value)
+			for(let i=0; i < this.props.mask.length; i++) {
+				if(this.props.mask[i] === '$') {
+					//with quantifier
+					const quantifier = this.props.mask.slice(i, i+5);
+					
+	
+					if(quantifierRegex.test(quantifier)) {
+						const value = this.props.mask[i + 1];
+						const iteratif =	quantifier.match(quantifierRegex)?.groups?.iteration
+	
+						if(iteratif) {
+							for(let j=0; j< +iteratif; j++) {
+								this.convertPatternToRegex(value)
+							}
 						}
+						i+=4;
+					} else {
+						this.convertPatternToRegex(this.props.mask[i+1])
+						i++
 					}
-					i+=4;
 				} else {
-					this.convertPatternToRegex(this.props.mask[i+1])
-					i++
+					this.state.maskPatternTab.push({type:'mask', value:this.props.mask[i] })
+					this.state.vmodelArray.push({
+						value: this.props.mask[i],
+						mask: 'mask',
+						isValid: true
+					})
 				}
-			} else {
-				this.state.maskPatternTab.push({type:'mask', value:this.props.mask[i] })
-				this.state.vmodelArray.push({
-					value: this.props.mask[i],
-					mask: 'mask',
-					isValid: true
-				})
 			}
-		}
+		
 	}
 
 	convertPatternToRegex (val: string) {
@@ -648,9 +647,9 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 		}
 	}
 
-	setVModelArray (key: string) {
+	setVModelArray (key?: string) {
 
-		if(!this.selection) return;
+		if(!this.selection || !key) return;
 
 		if(this.selection.start === this.selection.end && key.length === 1) {
 			if(this.vmodelArray[this.selection.end].mask !== 'mask' && this.testKeyPattern(key, this.selection.start  )) {
