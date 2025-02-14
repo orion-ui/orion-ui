@@ -41,7 +41,7 @@ export type OrionSelectProps<O, DKey extends keyof O, VKey extends keyof O> = Sh
 	disabledKey?: string,
 	// @doc props/displayKey key used to display the value in the field
 	// @doc/fr props/displayKey clé qui sera affiché au niveau du champ
-	displayKey?: DKey extends keyof O ? DKey : string,
+	displayKey?: DKey | keyof O,
 	// @doc props/donetyping the duration to trigger the fetch
 	// @doc/fr props/donetyping indique après combien de temps après la dernière frappe, la fonction de récupération des options est appelée
 	donetyping?: number,
@@ -74,10 +74,10 @@ export type OrionSelectProps<O, DKey extends keyof O, VKey extends keyof O> = Sh
 	searchable?: boolean,
 	// @doc props/trackKey unique key item
 	// @doc/fr props/trackKey clé unique qui va différencier les options
-	trackKey?: O extends Record<string, any> ? keyof O : string,
+	trackKey?: keyof O,
 	// @doc props/valueKey key used as field value
 	// @doc/fr props/valueKey clé qui réprésente la valeur d'un élément
-	valueKey?: VKey extends keyof O ? VKey : string,
+	valueKey?: VKey,
 };
 
 export type VModelType<T> = T | T[] | undefined | null;
@@ -157,7 +157,7 @@ export default class OrionSelectSetupService<
 			} else {
 				return this.props.options.filter((x) => {
 					if (!this.state.valueToSearch) return true;
-					const target = (this.itemIsObject(x) && this.props.displayKey) ? x[this.props.displayKey as unknown as keyof O] : String(x);
+					const target = (this.itemIsObject(x) && this.props.displayKey) ? x[this.props.displayKey] : String(x);
 					return this.normalizeString(target).indexOf(this.normalizeString(this.state.valueToSearch)) !== -1;
 				});
 			}

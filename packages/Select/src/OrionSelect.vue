@@ -192,8 +192,8 @@
 	generic="
 		T,
 		O,
-		DKey extends keyof O,
-    VKey extends keyof O
+		VKey extends keyof O = never,
+		DKey extends keyof O = VKey,
 	">
 import './OrionSelect.less';
 import { OrionButton } from 'packages/Button';
@@ -219,30 +219,24 @@ defineSlots<{
 		}): void
 	'value'(props: {
 			item: Nil<O> | Nil<T>,
-			display: DKey extends keyof O
-				? O[DKey]
-				: VKey extends keyof O
-					? O[VKey]
-					: Nil<T>;
+			display: ObjectKeyValidator<O, DKey, VKey> extends never
+				? O
+				: DKey extends keyof O
+					? O[DKey]
+					: O | undefined;
 		}): void
 }>();
 
-/* type ReturnTypeOf<T> = T extends () => infer R ? R : never;
-
-// Utilisation
-type Func = () => string;
-type Result = ReturnTypeOf<typeof displayIsValueKey>; // Result est "string"
-
-function displayIsDisplayKey () {
-	return (setup.isObjectType && !!props.displayKey) ? props.options[0][props.displayKey as keyof O] : undefined;
-}
-function displayIsValueKey () {
-	return (setup.isObjectType && !!props.valueKey) ? props.options[0][props.valueKey as keyof O] : undefined;
-} */
-
-
-
 defineExpose(setup.publicInstance);
+
+
+type ObjectKeyValidator<
+	O,
+	D extends keyof O,
+	V extends keyof O
+> = D extends never
+	? (V extends never ? O : O[V])
+	: O[D];
 
 /** Doc
  * @doc slot/value The selected value if single select, each value if multiple select
