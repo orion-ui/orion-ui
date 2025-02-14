@@ -239,8 +239,7 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 				this.setCursorPosition()
 			}
 
-			if (value === this.vModelProxy) return;
-
+			if(value === this.vModelProxy) return;
 			this.vModel.value = value;
 			this.emits('input', value);
 		});
@@ -559,7 +558,7 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 			if(this.vmodelArray[i]?.mask !== 'mask' && this.vmodelArray[i]?.value)
 				stringToReturn += this.vmodelArray[i].value
 		}
-		return val
+		return stringToReturn
 	}
 
 	testKeyPattern (key: string, start: number, end?: number) {
