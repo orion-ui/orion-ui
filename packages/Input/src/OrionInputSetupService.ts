@@ -54,6 +54,12 @@ type PatternArray = {
 	value?: string | number,
 }
 
+type VmodelArray = {
+	value?: Undef<string>,
+	mask: RegExp | 'mask',
+	isValid: boolean
+}
+
 type CleaveElement = HTMLInputElement & {
 	cleave: Cleave;
 }
@@ -69,7 +75,13 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 
 	protected state = reactive({ 
 		...this.sharedState,
-		maskPatternTab: [] as PatternArray[]
+		maskPatternTab: [] as PatternArray[],
+		vmodelArray: [] as VmodelArray[],
+		selection: {
+			start: 0 as number | undefined | null,
+			end: 0 as number | undefined | null,
+		}
+
 	});
 
 	static cleaveDirective: Directive = {
@@ -92,13 +104,36 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 		}
 	}
 
+	protected get labelIsFloating () {
+		return this.state.vmodelArray.length ? true : super.labelIsFloating
+	}
+
+	get vmodelArray () { return this.state.vmodelArray; }
 	get maskPatternTab () { return this.state.maskPatternTab; }
+	get selection () { 
+		const inputElt = this._input.value;
+		if(!inputElt) return;
+
+		const start = this.state.selection.start ?? inputElt.selectionStart;
+		const end = this.state.selection.end ?? inputElt.selectionEnd;
+
+		return {
+			start: start ?? 0,
+			end: end ?? 0
+		}
+	}
 
 	get maskSanitized () {
 		if (typeof this.props.mask === 'string' && !['integer', 'decimal', 'hour'].includes(this.props.mask)){
 			return this.props.mask
 		}
 		return undefined
+	}
+
+	readablevModelArray () {
+		return this.state.vmodelArray.map((x) => {
+			return !x.value ? '_' : x.value
+		}).join('')
 	}
 
 	get vModelProxy () {
@@ -143,7 +178,8 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 			}
 
 			if (this.maskPatternTab.length) {
-				return this.vModelWithMask()
+				return this.readablevModelArray()
+				//return this.vModelWithMask()
 			}
 		}
 
@@ -198,14 +234,12 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 				value = this.props.clearToNull ? null : undefined;
 			}
 
-			if (this.maskPatternTab.length) {
-				//value = this.vModelWithMask(value?.toString())
+			if (this.vmodelArray.length) {
 				value = this.getVModelWithoutMask(value?.toString())
+				this.setCursorPosition()
 			}
 
-			//if (value === this.vModelProxy) return;
-
-		
+			if (value === this.vModelProxy) return;
 
 			this.vModel.value = value;
 			this.emits('input', value);
@@ -230,15 +264,28 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 			input.cleave = new Cleave(input, val?.properties ?? {});
 		});
 
-		watch(() => this.vModelProxy, (val) => {
-			if(this._input.value?.value) {
-				this._input.value.value = val?.toString() ?? ''
-			}
-		})
-
 		this.parsePattern()
 	}
 
+	setCursorPosition (event?: MouseEvent | KeyboardEvent) {
+
+		const start = (event?.target as HTMLInputElement)?.selectionStart ?? this._input.value?.selectionStart
+		const end = (event?.target as HTMLInputElement)?.selectionEnd  ?? this._input.value?.selectionEnd
+		
+		nextTick(() => {
+		this.state.selection.start = start
+		this.state.selection.end = end
+			this._input.value?.setSelectionRange(start ?? 0, end ?? 0)
+		})
+	}
+
+	handleFocus(e: FocusEvent): void {
+		this.state.selection = {
+			start: this._input.value?.selectionStart ?? 0,
+			end: this._input.value?.selectionStart ?? 0,
+		}
+		super.handleFocus(e)
+	}
 
 	handleBlurCustom (event: FocusEvent) {
 		if (this._input.value?.value && this.props.minValue && (hoursToNumber(this._input.value.value, this.props.maskHourSeparator)) < this.props.minValue) {
@@ -337,7 +384,6 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 					}, 1);
 				}
 			}
-
 			if (this.props.mask === 'hour') {
 				if (![...numeric, this.props.maskHourSeparator].includes(e.key)) e.preventDefault();
 
@@ -377,15 +423,26 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 						}
 					}
 				}
-			}
+			} else if (this.vmodelArray.length) {
 
-			if (this.maskPatternTab.length) {
-				if(!this.testKeyPattern(e.key) && !misc.includes(e.key)) {
+				if(misc.includes(e.key)) {
+					e.preventDefault()
+					this.handleDeletionWithMask(e.key)
+				}
+
+				//exclude special keys (like shift, capsLock etc...)
+				if(e.key.length > 1 || !this.selection){
+					return;
+				} 
+				
+				else if(!this.testKeyPattern(e.key, this.selection.start) && !arrows.includes(e.key)) {
 					e.preventDefault();
 				}
+				else if (!arrows.includes(e.key)){
+					e.preventDefault()
+					this.setVModelArray(e.key)
+				}
 			}
-
-
 		}
 
 		if (this.props.type === 'email') {
@@ -397,11 +454,89 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 		}
 	}
 
+	handleDeletionWithMask(key: string) {
+		if (key === 'Backspace') {
+			if(!this.state.selection.end) return
+
+			if(this.state.selection.start === this.state.selection.end && this.state.selection.start !==0) {
+				while(this.state.selection.end > 0 && this.vmodelArray[this.state.selection.end-1].mask === 'mask') {
+					if(this.state.selection.end > 0)
+						this.state.selection.end -= 1;
+				}
+				this.state.selection.end-= 1;
+
+				if(this.state.selection.start === 0) return;
+
+				this.vmodelArray[this.state.selection.end].value = '_'
+				this.vmodelArray[this.state.selection.end].isValid = false
+				this.state.selection.start = this.state.selection.end
+				nextTick(() => {
+					this._input.value?.setSelectionRange(this.state.selection.end ?? 0, this.state.selection.end ?? 0)
+				})
+			} else {
+					while(this.state.selection.end !== this.state.selection.start && !!this.state.selection.end) {
+						if(this.vmodelArray[this.state.selection.end-1].mask !== 'mask') {
+							this.vmodelArray[this.state.selection.end-1].value = '_'
+							this.vmodelArray[this.state.selection.end-1].isValid = false
+						}
+						this.state.selection.end -= 1;
+					}
+					nextTick(() => {
+						this._input.value?.setSelectionRange(this.state.selection.start ?? 0, this.state.selection.end ?? 0)
+					})
+				}
+		// Handle delete key		
+		} else {
+			if(this.state.selection.start === this.state.selection.end && this.state.selection.end !== undefined) {
+					//check if next elems can be shifted
+					if(!this.state.selection.end) return;
+					let i = this.state.selection.end
+					for(i; i < this.vmodelArray.length; i++) {
+						if (this.vmodelArray[i+1].value && this.testKeyPattern(this.vmodelArray[i+1].value!, i)) {
+							this.vmodelArray[i].value = this.vmodelArray[i + 1].value
+						} else if (this.vmodelArray[i+1]?.mask === "mask") {
+							let  j=i+1
+							for(j; j< this.vmodelArray.length; j++) {
+								if(this.vmodelArray[j].mask !== 'mask') {
+									break;
+								}
+							}
+							if(this.vmodelArray[j]?.value && j !== this.vmodelArray.length) {
+								this.vmodelArray[i].value = this.vmodelArray[j]?.value
+							} else {
+								this.vmodelArray[i].value = '_';
+								break
+							}
+							i = j-1
+						} else {
+							this.vmodelArray[i].value = '_'
+							break
+						}
+					}
+
+					nextTick(() => {
+						this._input.value?.setSelectionRange(this.state.selection.start ?? 0, this.state.selection.end ?? 0)
+					})
+				}
+				else {
+					while(this.state.selection.end !== this.state.selection.start && !!this.state.selection.end) {
+						if(this.vmodelArray[this.state.selection.end-1].mask !== 'mask') {
+							this.vmodelArray[this.state.selection.end-1].value = '_'
+						}
+						this.state.selection.end -= 1;
+					}
+					nextTick(() => {
+						this._input.value?.setSelectionRange(this.state.selection.start ?? 0, this.state.selection.end ?? 0)
+					})
+				}
+		}
+	}
+
 	vModelWithMask (val?: string) {
 		const inputValue = val ?? this._input.value?.value;
 		if(!inputValue || !this.maskPatternTab.length || !this.vModel.value) return;
 		let stringToReturn = ''
-			for(let i=0; i< this.maskPatternTab.length; i++) {
+			for(let i=0; i < this.maskPatternTab.length; i++) {
 				if(i < inputValue.length) {
 					if(this.maskPatternTab[i].type === 'mask') {
 						stringToReturn += this.maskPatternTab[i].value
@@ -413,63 +548,166 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 				} else 
 						break		
 			}
-
 			return stringToReturn
 	}
 
 	getVModelWithoutMask (val?: string) {
-		if(!val || !this.maskPatternTab.length) return;
 		let stringToReturn = ''
-			for(let i=0; i < val.length; i++) {
-				if(this.maskPatternTab[i].type === 'mask') {
-					continue
-				} else {
-					stringToReturn += val[i]
-				} 
-			}
-			return stringToReturn
+		
+		if(!val || !this.vmodelArray.length) return;
+		for(let i=0; i < val.length; i++) {
+			if(this.vmodelArray[i]?.mask !== 'mask' && this.vmodelArray[i]?.value)
+				stringToReturn += this.vmodelArray[i].value
+		}
+		return val
 	}
 
-	testKeyPattern (key?: string) {
-		if(!this._input.value || (!this._input.value?.value?.length && !key) || this._input.value?.value?.length > this.maskPatternTab.length) return false
+	testKeyPattern (key: string, start: number, end?: number) {
+		if(!this._input.value 
+			|| (!this._input.value?.value?.length && !key) 
+			|| !this.selection
+		) return false
+			
+		const patternToCheck = this.vmodelArray.slice(start, end ? end : start+1);
+		if(!patternToCheck.length) return false;
 
-		const patternToCheck = this.maskPatternTab[this._input.value.value.length];
-		if(!patternToCheck) return false;
-
-		if(!patternToCheck.value	&& key?.match(patternToCheck.type)) {
-			return true
-		} else if (!patternToCheck.value	&& !key?.match(patternToCheck.type)) {
-			return false;
+		if(patternToCheck.length === 1) {
+			if(key?.match(patternToCheck[0].mask)) {
+				return true
+			} else if (!patternToCheck[0].value	&& !key?.match(patternToCheck[0].mask)) {
+				return false;
+			}
 		}
+	
 		return false
 	}
 
 	parsePattern () {
 		if(!this.props.mask || typeof this.props.mask === 'object') return
-		
+		const quantifierRegex = /\$\w{1}{(?<iteration>\d)}/
+
 		useMonkey(this.state.maskPatternTab).empty()
 		for(let i=0; i < this.props.mask.length; i++) {
 			if(this.props.mask[i] === '$') {
-				switch(this.props.mask[i + 1]) {
-					case 'd': 
-						this.state.maskPatternTab.push({type: new RegExp(/\d/)});
-						i++;
-						break;
-					case 'w': 
-						this.state.maskPatternTab.push({type: new RegExp(/\w/)});
-						i++;
-						break;
-					default: 
-						this.state.maskPatternTab.push({type: 'mask', value:'$'})
-						i++;
-						break;
+				//with quantifier
+				const quantifier = this.props.mask.slice(i, i+5);
+				
+
+				if(quantifierRegex.test(quantifier)) {
+					const value = this.props.mask[i + 1];
+					const iteratif =	quantifier.match(quantifierRegex)?.groups?.iteration
+
+					if(iteratif) {
+						for(let j=0; j< +iteratif; j++) {
+							this.convertPatternToRegex(value)
+						}
+					}
+					i+=4;
+				} else {
+					this.convertPatternToRegex(this.props.mask[i+1])
+					i++
 				}
 			} else {
 				this.state.maskPatternTab.push({type:'mask', value:this.props.mask[i] })
+				this.state.vmodelArray.push({
+					value: this.props.mask[i],
+					mask: 'mask',
+					isValid: true
+				})
 			}
 		}
+	}
 
+	convertPatternToRegex (val: string) {
+		switch(val) {
+			case 'd': 
+			case '.': 
+			case 's': 
+				this.state.maskPatternTab.push({type: new RegExp(`\\${val}`)});
+				this.state.vmodelArray.push({
+					value: undefined,
+					mask: new RegExp(`\\${val}`),
+					isValid: false
+				})
+				break;
+			case 'w': 
+				this.state.maskPatternTab.push({type: new RegExp(/[a-zA-Z]/)});
+				this.state.vmodelArray.push({
+					value: undefined,
+					mask: new RegExp(/[a-zA-Z]/),
+					isValid: false
+				})
+				break;
+			default: 
+				this.state.maskPatternTab.push({type: 'mask', value:'$'})
+				this.state.vmodelArray.push({
+					value: '$',
+					mask: 'mask',
+					isValid: true
+				})
+				break;
+		}
+	}
 
+	setVModelArray (key: string) {
+
+		if(!this.selection) return;
+
+		if(this.selection.start === this.selection.end && key.length === 1) {
+			if(this.vmodelArray[this.selection.end].mask !== 'mask' && this.testKeyPattern(key, this.selection.start  )) {
+				this.vmodelArray[this.selection.end].value = key
+				this.vmodelArray[this.selection.end].isValid = true
+
+				this.state.selection = { 
+					start: this.selection.end + 1,
+					end: this.selection.end + 1
+				};
+				this.vModelProxy = this.readablevModelArray();
+
+				this.setNextValidCursorPosition()
+				nextTick(() => {
+					this._input.value?.setSelectionRange(this.state.selection.end ?? 0, this.state.selection.end ?? 0)
+				})
+
+			}			
+		} else {
+			let i = this.state.selection.start;
+			if(i === undefined || i === null) return;
+
+			while(key.length > 0) {
+				if(!this.vmodelArray[i]) break;
+				if(this.vmodelArray[i].mask !== 'mask' && this.testKeyPattern(key[0], i)) {
+					this.vmodelArray[i].value = key[0]
+					this.vmodelArray[i].isValid = true
+					key = key.slice(1)
+				}
+				i++
+			}
+			this.setNextValidCursorPosition()
+			nextTick(() => {
+				this.state.selection = { 
+					start: this.state.selection.end,
+					end: this.state.selection.end
+				};
+				if(this.state.selection.end)
+					this._input.value?.setSelectionRange(this.state.selection.end, this.state.selection.end)
+			})
+		}
+	}
+
+	setNextValidCursorPosition () {
+		if(!this.selection?.start) return
+		for(let i = this.selection.start; i < this.vmodelArray.length; i++) {
+			if(this.vmodelArray[i].mask === 'mask')
+				continue;
+			else {
+				this.state.selection = { 
+					start: i,
+					end: i
+				};
+				return;
+			}
+		}
 	}
 }
 

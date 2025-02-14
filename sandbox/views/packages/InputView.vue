@@ -2,17 +2,18 @@
 	<o-page title="Input">
 		<pre>{{ fields.input }}</pre>
 	
-		valeur du mask $d$w.
+		valeur du mask $d{3}
 		<br>
-		<o-input
+		<!-- <o-input
 					v-model="inputMask"
 					label="MASK"
 					placeholder="Placeholder"
 					v-bind="commonBind"
-					mask="$d$w."
+					mask="$d{3}$w$d{2}"
 					clear-to-null
-					@keydown:enter="cb('tto')"/>
+					@keydown:enter="cb('tto')"/> -->
 
+					
 		valeur du mask <strong>$d$d#$w$w##</strong>
 		<br>
 		valeur du vmodel {{ inputMask }}
@@ -21,7 +22,7 @@
 					label="MASK"
 					placeholder="Placeholder"
 					v-bind="commonBind"
-					mask="$d$d#$w$w%#"
+					mask="$d$d#$d$w%#&"
 					clear-to-null
 					@keydown:enter="cb('tto')"/>
 			<pre>

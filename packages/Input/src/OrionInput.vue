@@ -17,8 +17,12 @@
 			}"
 			@keydown="setup.handleKeydownGuard($event)"
 			@change="setup.handleChange()"
+			@paste="setup.setVModelArray($event.clipboardData?.getData('text'))"
 			@focus="setup.handleFocus($event)"
 			@mousedown.right="emits('mousedown-right', $event)"
+			@mouseup.left="setup.setCursorPosition($event)"
+			@keyup.left="setup.setCursorPosition($event)"
+			@keyup.right="setup.setCursorPosition($event)"
 			@blur="setup.handleBlurCustom($event)">
 
 		<div
