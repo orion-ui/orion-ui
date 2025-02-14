@@ -1,6 +1,6 @@
-import SharedProps from 'packages/Shared/SharedProps';
+import SharedProps from '../../Shared/SharedProps';
 import SharedSetupService from '../../Shared/SharedSetupService';
-import type { SharedPropsColor } from 'packages/Shared/SharedProps';
+import type { SharedPropsColor } from '../../Shared/SharedProps';
 
 export type OrionAlertEmits = { (e: 'close'): void;}
 export type OrionAlertProps = SharedPropsColor & {

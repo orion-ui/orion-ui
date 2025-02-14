@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 import SharedSetupService from '../../Shared/SharedSetupService';
-import SharedProps, { SharedPropsColor, SharedPropsPrefixIcon, SharedPropsSize, SharedPropsSuffixIcon } from 'packages/Shared/SharedProps';
+import SharedProps, { SharedPropsColor, SharedPropsPrefixIcon, SharedPropsSize, SharedPropsSuffixIcon } from '../../Shared/SharedProps';
 
 export type OrionButtonEmits = {}
 export type OrionButtonProps =
@@ -45,7 +45,7 @@ export default class OrionButtonSetupService extends SharedSetupService {
 	uid = this.getUid();
 
 	constructor (
-		protected props: OrionButtonProps & typeof OrionButtonSetupService.defaultProps, 
+		protected props: OrionButtonProps & typeof OrionButtonSetupService.defaultProps,
 		protected emits: OrionButtonEmits) {
 		super();
 	}
