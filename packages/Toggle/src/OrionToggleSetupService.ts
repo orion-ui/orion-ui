@@ -1,6 +1,6 @@
 import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetupServiceProps } from '../../Shared/SharedFieldSetupService';
 import { ModelRef, reactive } from 'vue';
-import SharedProps, { SharedPropsColor } from 'packages/Shared/SharedProps';
+import SharedProps, { SharedPropsColor } from '../../Shared/SharedProps';
 
 export type OrionToggleEmits = SharedFieldSetupServiceEmits<boolean> & {}
 export type OrionToggleProps =

@@ -1,5 +1,5 @@
 import SharedSetupService from '../../Shared/SharedSetupService';
-import SharedProps, { SharedPropsSize } from 'packages/Shared/SharedProps';
+import SharedProps, { SharedPropsSize } from '../../Shared/SharedProps';
 
 export type OrionCardEmits = {}
 export type OrionCardProps =

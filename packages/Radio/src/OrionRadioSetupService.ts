@@ -1,4 +1,4 @@
-import { SharedPropsColor } from 'packages/Shared/SharedProps';
+import { SharedPropsColor } from '../../Shared/SharedProps';
 import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetupServiceProps } from '../../Shared/SharedFieldSetupService';
 import { ModelRef } from 'vue';
 

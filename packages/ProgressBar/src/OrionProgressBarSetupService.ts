@@ -1,4 +1,4 @@
-import { SharedPropsColor } from 'packages/Shared/SharedProps';
+import { SharedPropsColor } from '../../Shared/SharedProps';
 import SharedSetupService from '../../Shared/SharedSetupService';
 
 export type OrionProgressBarEmits = {}

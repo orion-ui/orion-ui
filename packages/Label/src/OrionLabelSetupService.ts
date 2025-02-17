@@ -1,5 +1,5 @@
 import SharedSetupService from '../../Shared/SharedSetupService';
-import SharedProps, { SharedPropsColorExtentedAndGreys, SharedPropsSize } from 'packages/Shared/SharedProps';
+import SharedProps, { SharedPropsColorExtentedAndGreys, SharedPropsSize } from '../../Shared/SharedProps';
 
 export type OrionLabelEmits = {}
 export type OrionLabelProps =

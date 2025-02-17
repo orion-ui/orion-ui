@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 import SharedSetupService from '../../Shared/SharedSetupService';
-import SharedProps, { SharedPropsPrefixIcon, SharedPropsSize, SharedPropsSuffixIcon } from 'packages/Shared/SharedProps';
+import SharedProps, { SharedPropsPrefixIcon, SharedPropsSize, SharedPropsSuffixIcon } from '../../Shared/SharedProps';
 
 export type OrionFieldEmits = {
 	(e: 'clear'): void

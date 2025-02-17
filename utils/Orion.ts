@@ -3,11 +3,11 @@ import FloatingVue from 'floating-vue';
 
 import { handleTouchDevice, initThemeMode } from './tools';
 import useDocument from '../services/DocumentService';
+import { getAppLang, setAppLang } from '../services/LangService';
 import { OrionOverlay } from '../packages/Overlay';
 import { OrionLoader } from '../packages/Loader';
 import OrionComponentsPlugin from '../packages';
 import Log from './Log';
-import { getAppLang, setAppLang } from 'services/LangService';
 
 
 export class OrionAppService {

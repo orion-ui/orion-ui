@@ -1,7 +1,7 @@
 import SharedSetupService from '../../Shared/SharedSetupService';
 import { reactive, watch } from 'vue';
 import { isObject, isString } from 'lodash-es';
-import SharedProps, { SharedPropsColor } from 'packages/Shared/SharedProps';
+import SharedProps, { SharedPropsColor } from '../../Shared/SharedProps';
 
 export type OrionAvatarEmits = {}
 export type OrionAvatarProps = SharedPropsColor & {

@@ -1,7 +1,7 @@
 import { reactive, ref } from 'vue';
 import { throttle } from 'lodash-es';
 import SharedNavSetupService from '../../Shared/SharedNavSetupService';
-import SharedProps, { SharedPropsNav } from 'packages/Shared/SharedProps';
+import SharedProps, { SharedPropsNav } from '../../Shared/SharedProps';
 
 export type OrionNavTopEmits = {}
 export type OrionNavTopProps = SharedPropsNav & {}

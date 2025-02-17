@@ -1,7 +1,7 @@
 import SharedSetupService from '../../Shared/SharedSetupService';
 import { nextTick, ref, SetupContext, watch } from 'vue';
 import anime from 'animejs';
-import { SharedPropsIcon } from 'packages/Shared/SharedProps';
+import { SharedPropsIcon } from '../../Shared/SharedProps';
 
 export type OrionIconEmits = {}
 export type OrionIconProps = SharedPropsIcon & {
