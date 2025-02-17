@@ -205,7 +205,7 @@ import OrionSelectSetupService from './OrionSelectSetupService';
 import type { OrionSelectProps, OrionSelectEmits, VModelType } from './OrionSelectSetupService';
 const emits = defineEmits<OrionSelectEmits<T, O>>();
 const vModel = defineModel<VModelType<T>>();
-const props = withDefaults(defineProps<OrionSelectProps<O, DKey, VKey>>(), OrionSelectSetupService.defaultProps);
+const props = withDefaults(defineProps<OrionSelectProps<O, VKey, DKey>>(), OrionSelectSetupService.defaultProps);
 const setup = new OrionSelectSetupService(props, emits, vModel);
 
 defineSlots<{

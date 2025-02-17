@@ -1,0 +1,22 @@
+{
+	"extends": "./tsconfig.json",
+	"include": [
+		"lang",
+		"lib",
+		"assets",
+		"services",
+		"styles",
+		"packages",
+		"utils",
+		"scripts/public"
+	],
+	"exclude": [
+		"node_modules",
+		"dist",
+		"docs",
+		"devtool",
+		"lib/monkey-patching.d.ts",
+		"packages/*/docs",
+		"services/docs"
+	]
+}

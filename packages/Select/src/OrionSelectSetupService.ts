@@ -26,7 +26,7 @@ export type OrionSelectEmits<T, O> = SharedFieldSetupServiceEmits<VModelType<T>>
 	(e: 'fetch-end', payload: O[]): void;
 	(e: 'fetch-search-clear'): void;
 }
-export type OrionSelectProps<O, DKey extends keyof O, VKey extends keyof O> = SharedFieldSetupServiceProps & {
+export type OrionSelectProps<O, VKey extends keyof O, DKey extends keyof O = VKey> = SharedFieldSetupServiceProps & {
 	// @doc props/autocomplete adds the possibility to write in the select field
 	// @doc/fr props/autocomplete permet à l'utilisateur d'écrire dans le champ
 	autocomplete?: boolean,
@@ -431,7 +431,7 @@ export default class OrionSelectSetupService<
 		if (this.props.valueKey && this.props.displayKey) {
 			return this.itemIsObject(currentValue) && currentValue[this.props.displayKey]
 				? {
-					display: currentValue[this.props.displayKey] as O[DKey],
+					display: currentValue[this.props.displayKey],
 					item: currentValue as Nil<O>,
 				} : {
 					display: item,
@@ -440,7 +440,7 @@ export default class OrionSelectSetupService<
 		} else if (this.props.displayKey) {
 			return item && this.itemIsObject(item) && item[this.props.displayKey]
 				? {
-					display: item[this.props.displayKey] as O[DKey],
+					display: item[this.props.displayKey],
 					item: item as Nil<T>,
 				} : {
 					display: item,
@@ -450,7 +450,7 @@ export default class OrionSelectSetupService<
 			return item && this.props.valueKey
 				? {
 					display: this.itemIsObject(currentValue) && currentValue[this.props.valueKey]
-						? currentValue[this.props.valueKey] as O[VKey]
+						? currentValue[this.props.valueKey]
 						: undefined as Nil<T>,
 					item: currentValue as Nil<O>,
 				} : {

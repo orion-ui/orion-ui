@@ -14,5 +14,6 @@ module.exports = async (/** @type {Options} */ options) => {
 		cli: true,
 		dts: true,
 	});
+	await require('./clean-generic-components-type.cjs')();
 };
 
