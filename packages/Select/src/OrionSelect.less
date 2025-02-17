@@ -94,6 +94,12 @@
 			max-height: 75dvh;
 		}
 
+		.favorite-separator{
+			margin: .5rem 0rem;
+			border-image: unset;
+			border-color: var(--grey);
+		}
+
 		&-item {
 			display: flex;
 			align-items: center;
@@ -125,6 +131,15 @@
 					color: var(--grey-darker);
 					background: var(--grey-lighter);
 				}
+			}
+
+			& .favorite-icon {
+				display: none;
+				color: var(--grey);
+			}
+
+			&.favorite > .favorite-icon {
+				display: unset;
 			}
 
 			&.selected {

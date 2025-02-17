@@ -426,6 +426,65 @@
 				</div>
 			</div>
 		</o-section>
+		<o-section title="orion-select | favorites options">
+			<div class="row row--gutter">
+				<div class="col-sm-6">
+					<div class="row row--gutter">
+						<div class="col-sm-6">
+							<o-select
+								v-model="data.fieldSelectMulitpleValueKey"
+								:label="`Favorite`"
+								track-key="id"
+								display-key="label"
+								value-key="label"
+								multiple
+								:options="data.fieldSelectObjectMultiple.options"
+								:favorites-options="data.fieldSelectObjectMultiple.options.slice(3, 5)">
+								<template #value="{ display }">
+									<!-- {{ item?.label }} - {{ item.id }} -->
+									{{ display }} heho
+								</template>
+								<template #option="{ item, index }">
+									<div>
+										<o-icon icon="camera"/>{{ `${index} -- ${item.label}` }}
+									</div>
+								</template>
+							</o-select>
+						</div>
+						<div class="col-sm-6">
+							<o-select
+								v-model="data.fieldSelectMulitpleValueKey"
+								:label="`Favorite with icon`"
+								track-key="id"
+								display-key="label"
+								value-key="label"
+								multiple
+								:options="data.fieldSelectObjectMultiple.options"
+								:favorites-options="data.fieldSelectObjectMultiple.options.slice(3, 5)"
+								show-favorite-icon
+								prefix-icon="camera"/>
+						</div>
+						<div class="col-sm-6">
+							<o-select
+								v-model="data.fieldSelectMulitpleValueKey"
+								:label="`Favorite icon set`"
+								track-key="id"
+								display-key="label"
+								value-key="label"
+								multiple
+								:options="data.fieldSelectObjectMultiple.options"
+								:favorites-options="data.fieldSelectObjectMultiple.options.slice(3, 5)"
+								:favorite-icon="'add_column'"
+								show-favorite-icon
+								prefix-icon="camera"/>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<pre>{{ data.fieldSelectMulitpleValueKey }}</pre>
+				</div>
+			</div>
+		</o-section>
 	</o-page>
 
 	<o-modal

@@ -66,6 +66,9 @@ export type OrionSelectProps<O, DKey extends keyof O, VKey extends keyof O> = Sh
 	// @doc props/options options of the select
 	// @doc/fr props/options options du select
 	options?: O[],
+	// @doc props/favoriteOptions your favorites options
+	// @doc/fr props/favoriteOptions options favoris du select, elles apparaissent avant les options
+	favoritesOptions?: O[],
 	// @doc props/prefillSearch prefill the search field
 	// @doc/fr props/prefillSearch pré-rempli le champ de recherche
 	prefillSearch?: string,
@@ -120,6 +123,7 @@ export default class OrionSelectSetupService<
 	readonly _popover = ref<InstanceType<typeof Dropdown>>();
 	readonly _popoverinner = ref<RefDom>();
 	readonly _optionscontainer = ref<RefDom>();
+	readonly _favoritesoptionscontainer = ref<RefDom>();
 	readonly _autocomplete = ref<RefDom<HTMLInputElement>>();
 	readonly _optionssearchinput = ref<OrionInput>();
 	readonly _items = ref<(Element | ComponentPublicInstance)[]>([]);
@@ -151,18 +155,27 @@ export default class OrionSelectSetupService<
 		this._items.value.length = 0;
 		if (this.props.fetchUrl || this.props.customFetch) {
 			return this.fetchOptions;
-		} else if ((this.props.searchable || this.props.autocomplete) && !isEmpty(this.state.valueToSearch)) {
-			if (this.props.customSearch) {
-				return this.props.options.filter(x => this.props.customSearch?.(x, this.state.valueToSearch));
-			} else {
-				return this.props.options.filter((x) => {
-					if (!this.state.valueToSearch) return true;
-					const target = (this.itemIsObject(x) && this.props.displayKey) ? x[this.props.displayKey] : String(x);
-					return this.normalizeString(target).indexOf(this.normalizeString(this.state.valueToSearch)) !== -1;
-				});
-			}
 		} else {
-			return this.props.options;
+			let options = [];
+			if (this.favoritesOptions && this.favoritesOptions.length > 0) {
+				options = [...this.favoritesOptions, ...this.props.options]
+					.filter((obj, index, self) => index === self.findIndex(o => JSON.stringify(o) === JSON.stringify(obj)));
+			} else {
+				options = this.props.options;
+			}
+			if ((this.props.searchable || this.props.autocomplete) && !isEmpty(this.state.valueToSearch)) {
+				if (this.props.customSearch) {
+					return options.filter(x => this.props.customSearch?.(x, this.state.valueToSearch));
+				} else {
+					return options.filter((x: any) => {
+						if (!this.state.valueToSearch) return true;
+						const target = this.itemIsObject(x) && this.props.displayKey ? x[this.props.displayKey] : x;
+						return this.normalizeString(target).indexOf(this.normalizeString(this.state.valueToSearch)) !== -1;
+					});
+				}
+			} else {
+				return options;
+			}
 		}
 	}
 
@@ -214,6 +227,8 @@ export default class OrionSelectSetupService<
 			...super.publicInstance,
 			getSearchTerm: () => this.state.valueToSearch,
 			setSearchTerm: (val?: string) => this.valueToSearch = val,
+			setFavoritesOptions: (val: BaseVModelType[]) => this.updateProps(val),
+
 			triggerSearchAsync: async (term?: string) => await this.fetchSearchAsync(term),
 			blur: this.handleBlur.bind(this),
 		};

@@ -129,36 +129,47 @@
 					:ref="setup._optionscontainer"
 					@mousemove="setup.indexNav = -1"
 					@touchmove="setup.indexNav = -1">
-					<div
+					<template
 						v-for="(option, i) in setup.optionsDisplay"
-						:key="i"
-						:ref="el => { if (!!el) setup._items.value.push(el) }"
-						class="orion-select__popover-item"
-						:class="{
-							'selected' : setup.optionIsSelected(option),
-							'hover' : setup.indexNav === i,
-							'disabled' : !!disabledKey && !!setup.get(option, disabledKey, false),
-						}"
-						@mousedown.prevent="setup.selectItem(option)">
-						<slot
-							name="option"
-							:item="option"
-							:index="i"
-							:marked-search="setup.markedSearch.bind(setup)">
-							<span
-								v-html="setup.itemIsObject(option) && displayKey
-									? setup.markedSearch(option[displayKey])
-									: setup.markedSearch(String(option))"/>
-						</slot>
-						<template v-if="multiple">
+						:key="i">
+						<div
+							:ref="el => { if (!!el) setup._items.value.push(el) }"
+							class="orion-select__popover-item"
+							:class="{
+								'selected' : setup.optionIsSelected(option),
+								'hover' : setup.indexNav === i,
+								'disabled' : !!disabledKey && !!setup.get(option, disabledKey, false),
+								'favorite' : i < (favoritesOptions ? favoritesOptions.length : 0),
+								'favorite--last': favoritesOptions && i + 1 === favoritesOptions.length,
+							}"
+							@mousedown.prevent="setup.selectItem(option)">
+							<slot
+								name="option"
+								:item="option"
+								:index="i"
+								:marked-search="setup.markedSearch.bind(setup)">
+								<span
+									v-html="setup.itemIsObject(option) && displayKey
+										? setup.markedSearch(option[displayKey])
+										: setup.markedSearch(String(option))"/>
+							</slot>
+							<template v-if="multiple">
+								<orion-icon
+									icon="check"
+									class="icon--selected orion-select__icon--internal"/>
+								<orion-icon
+									icon="trash_full"
+									class="icon--delete orion-select__icon--internal"/>
+							</template>
 							<orion-icon
-								icon="check"
-								class="icon--selected orion-select__icon--internal"/>
-							<orion-icon
-								icon="trash_full"
-								class="icon--delete orion-select__icon--internal"/>
-						</template>
-					</div>
+								v-if="showFavoriteIcon && !setup.optionIsSelected(option)"
+								:icon="favoriteIcon"
+								class="favorite-icon"/>
+						</div>
+						<hr
+							v-if="favoritesOptions && i === (favoritesOptions.length - 1)"
+							class="favorite-separator">
+					</template>
 				</div>
 
 				<slot
