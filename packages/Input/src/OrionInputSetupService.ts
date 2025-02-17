@@ -21,6 +21,7 @@ export type OrionInputProps = SharedFieldSetupServiceProps & {
 	// @doc props/cleave Missing @doc
 	// @doc/fr props/cleave Missing @doc
 	cleave?: Cleave,
+	maskAlwaysVisible?: boolean,
 	// @doc props/mask the mask applied on the input
 	// @doc/fr props/mask masque appliqué sur le champ
 	mask?: string | InputMask,
@@ -72,11 +73,11 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 		maskHourFormat: '24h',
 		maskHourSeparator: ':',
 		selectOnFocus: false,
+		maskAlwaysVisible: true,
 	};
 
 	protected state = reactive({ 
 		...this.sharedState,
-		maskPatternTab: [] as PatternArray[],
 		vmodelArray: [] as VmodelArray[],
 		selection: {
 			start: 0 as number | undefined | null,
@@ -106,11 +107,10 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 	}
 
 	protected get labelIsFloating () {
-		return this.state.vmodelArray.length ? true : super.labelIsFloating
+		return (this.state.vmodelArray.length && this.props.maskAlwaysVisible) ? true : super.labelIsFloating
 	}
 
 	get vmodelArray () { return this.state.vmodelArray; }
-	get maskPatternTab () { return this.state.maskPatternTab; }
 	get selection () { 
 		const inputElt = this._input.value;
 		if(!inputElt) return;
@@ -124,11 +124,7 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 		}
 	}
 
-	readablevModelArray () {
-		return this.state.vmodelArray.map((x) => {
-			return !x.value ? '_' : x.value
-		}).join('')
-	}
+	get vModelIsValid() {return !this.vmodelArray.find(x => !x.isValid)}
 
 	get vModelProxy () {
 		const value = this.vModel.value;
@@ -171,7 +167,7 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 				return valueToReturn;
 			}
 
-			if (this.maskPatternTab.length) {
+			if (this.vmodelArray.length) {
 				return this.readablevModelArray()
 			}
 		}
@@ -232,14 +228,16 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 				this.setCursorPosition()
 			}
 
-			if(value === this.vModelProxy) return;
 			this.vModel.value = value;
 			this.emits('input', value);
 		});
 	}
 
 	get publicInstance () {
-		return { ...super.publicInstance };
+		return { 
+			...super.publicInstance,
+			valueDisplay: () => this.readablevModelArray()
+		};
 	}
 
 
@@ -257,6 +255,11 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 		});
 
 		this.parsePattern()
+	}
+
+	clear () {
+		this.parsePattern();
+		super.clear()
 	}
 
 	setCursorPosition (event?: MouseEvent | KeyboardEvent) {
@@ -297,13 +300,11 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 
 			const inputElt = this._input.value!;
 			const inputValue = inputElt.value;
-			// const valueLength = inputValue.length ?? 0;
 			const selectionStart = inputElt.selectionStart ?? 0;
 			const selectionEnd = inputElt.selectionEnd ?? 0;
 			const selectionLength = selectionEnd - selectionStart;
 			const inputValueBeforeCursor = inputValue.slice(0, selectionStart) ?? '';
 			const inputValueAfterCursor = inputValue.slice(selectionEnd) ?? '';
-			// const inputSelectionValue = inputValue.slice(selectionStart, selectionEnd) ?? '';
 			const inputValueBeforeSelection = inputValue.slice(0, selectionStart);
 			const inputValueAfterSelection = inputValue.slice(selectionEnd);
 
@@ -459,7 +460,7 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 
 				if(this.state.selection.start === 0) return;
 
-				this.vmodelArray[this.state.selection.end].value = '_'
+				this.vmodelArray[this.state.selection.end].value = this.props.maskAlwaysVisible ? '_' : undefined
 				this.vmodelArray[this.state.selection.end].isValid = false
 				this.state.selection.start = this.state.selection.end
 				nextTick(() => {
@@ -468,7 +469,7 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 			} else {
 					while(this.state.selection.end !== this.state.selection.start && !!this.state.selection.end) {
 						if(this.vmodelArray[this.state.selection.end-1].mask !== 'mask') {
-							this.vmodelArray[this.state.selection.end-1].value = '_'
+							this.vmodelArray[this.state.selection.end-1].value = this.props.maskAlwaysVisible ? '_' : undefined
 							this.vmodelArray[this.state.selection.end-1].isValid = false
 						}
 						this.state.selection.end -= 1;
@@ -486,6 +487,7 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 					for(i; i < this.vmodelArray.length; i++) {
 						if (this.vmodelArray[i+1].value && this.testKeyPattern(this.vmodelArray[i+1].value!, i)) {
 							this.vmodelArray[i].value = this.vmodelArray[i + 1].value
+							this.vmodelArray[i].isValid = true;
 						} else if (this.vmodelArray[i+1]?.mask === "mask") {
 							let  j=i+1
 							for(j; j< this.vmodelArray.length; j++) {
@@ -495,13 +497,16 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 							}
 							if(this.vmodelArray[j]?.value && j !== this.vmodelArray.length) {
 								this.vmodelArray[i].value = this.vmodelArray[j]?.value
+								this.vmodelArray[i].isValid = true
 							} else {
-								this.vmodelArray[i].value = '_';
+								this.vmodelArray[i].value = this.props.maskAlwaysVisible ? '_' : undefined
+								this.vmodelArray[i].isValid = false;
 								break
 							}
 							i = j-1
 						} else {
-							this.vmodelArray[i].value = '_'
+							this.vmodelArray[i].value = this.props.maskAlwaysVisible ? '_' : undefined
+							this.vmodelArray[i].isValid = false;
 							break
 						}
 					}
@@ -513,7 +518,8 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 				else {
 					while(this.state.selection.end !== this.state.selection.start && !!this.state.selection.end) {
 						if(this.vmodelArray[this.state.selection.end-1].mask !== 'mask') {
-							this.vmodelArray[this.state.selection.end-1].value = '_'
+							this.vmodelArray[this.state.selection.end-1].value = this.props.maskAlwaysVisible ? '_' : undefined
+							this.vmodelArray[this.state.selection.end-1].isValid = false;
 						}
 						this.state.selection.end -= 1;
 					}
@@ -521,22 +527,24 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 						this._input.value?.setSelectionRange(this.state.selection.start ?? 0, this.state.selection.end ?? 0)
 					})
 				}
+				
 		}
+		this.vModelProxy = this.vModelWithMask()
 	}
 
 	vModelWithMask (val?: string) {
 		const inputValue = val ?? this._input.value?.value;
-		if(!inputValue || !this.maskPatternTab.length || !this.vModel.value) return;
+		if(!inputValue || !this.vmodelArray.length || !this.vModel.value) return;
 		let stringToReturn = ''
-			for(let i=0; i < this.maskPatternTab.length; i++) {
+			for(let i=0; i < this.vmodelArray.length; i++) {
 				if(i < inputValue.length) {
-					if(this.maskPatternTab[i].type === 'mask') {
-						stringToReturn += this.maskPatternTab[i].value
+					if(this.vmodelArray[i].mask === 'mask') {
+						stringToReturn += this.vmodelArray[i].value
 					} else {
 						stringToReturn += inputValue[i]
 					} 
-				} else if(this.maskPatternTab[i].type === 'mask') {
-					stringToReturn += this.maskPatternTab[i].value
+				} else if(this.vmodelArray[i].mask === 'mask') {
+					stringToReturn += this.vmodelArray[i].value
 				} else 
 						break		
 			}
@@ -548,7 +556,7 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 		
 		if(!val || !this.vmodelArray.length) return;
 		for(let i=0; i < val.length; i++) {
-			if(this.vmodelArray[i]?.mask !== 'mask' && this.vmodelArray[i]?.value)
+			if(this.vmodelArray[i]?.mask !== 'mask' && this.vmodelArray[i]?.value && this.vmodelArray[i].isValid)
 				stringToReturn += this.vmodelArray[i].value
 		}
 		return stringToReturn
@@ -583,12 +591,11 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 			return
 		const quantifierRegex = /\$\w{1}{(?<iteration>\d)}/
 
-		useMonkey(this.state.maskPatternTab).empty()
+		this.state.vmodelArray = []
 			for(let i=0; i < this.props.mask.length; i++) {
 				if(this.props.mask[i] === '$') {
 					//with quantifier
 					const quantifier = this.props.mask.slice(i, i+5);
-					
 	
 					if(quantifierRegex.test(quantifier)) {
 						const value = this.props.mask[i + 1];
@@ -605,7 +612,6 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 						i++
 					}
 				} else {
-					this.state.maskPatternTab.push({type:'mask', value:this.props.mask[i] })
 					this.state.vmodelArray.push({
 						value: this.props.mask[i],
 						mask: 'mask',
@@ -621,7 +627,6 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 			case 'd': 
 			case '.': 
 			case 's': 
-				this.state.maskPatternTab.push({type: new RegExp(`\\${val}`)});
 				this.state.vmodelArray.push({
 					value: undefined,
 					mask: new RegExp(`\\${val}`),
@@ -629,7 +634,6 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 				})
 				break;
 			case 'w': 
-				this.state.maskPatternTab.push({type: new RegExp(/[a-zA-Z]/)});
 				this.state.vmodelArray.push({
 					value: undefined,
 					mask: new RegExp(/[a-zA-Z]/),
@@ -637,13 +641,40 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 				})
 				break;
 			default: 
-				this.state.maskPatternTab.push({type: 'mask', value:'$'})
 				this.state.vmodelArray.push({
 					value: '$',
 					mask: 'mask',
 					isValid: true
 				})
 				break;
+		}
+	}
+
+	readablevModelArray () {
+		if(this.props.maskAlwaysVisible) {
+			return this.state.vmodelArray.map((x) => {
+				return !x.value ? '_' : x.value
+			}).join('')
+		} else {
+			let stringToReturn = '';
+			
+			for(let i=0; i < this.state.vmodelArray.length; i++) {
+				if(!this.state.vmodelArray[i]?.isValid){
+					break;
+				}
+				else if (this.state.vmodelArray[i]?.mask === 'mask') {
+					while (this.state.vmodelArray[i]?.mask === 'mask') {
+						stringToReturn += this.state.vmodelArray[i].value;
+						if(this.state.vmodelArray[i+1]?.mask === 'mask')
+							i++
+						else break;
+					}
+				}
+				else {
+					stringToReturn += this.state.vmodelArray[i].value
+				}
+			}
+			return stringToReturn;
 		}
 	}
 
@@ -694,8 +725,9 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 	}
 
 	setNextValidCursorPosition () {
-		if(!this.selection?.start) return
-		for(let i = this.selection.start; i < this.vmodelArray.length; i++) {
+		if(!this.selection?.start) return;
+		let i =  this.selection.start
+		for(i; i < this.vmodelArray.length; i++) {
 			if(this.vmodelArray[i].mask === 'mask')
 				continue;
 			else {
@@ -706,6 +738,10 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 				return;
 			}
 		}
+		return this.state.selection = { 
+			start: i,
+			end: i
+		};
 	}
 }
 

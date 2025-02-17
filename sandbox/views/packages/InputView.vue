@@ -22,7 +22,7 @@
 					label="MASK"
 					placeholder="Placeholder"
 					v-bind="commonBind"
-					mask="$d$d#$d$w%#&"
+					mask="$d$d##$d$w%#&"
 					clear-to-null
 					@keydown:enter="cb('tto')"/>
 			<pre>
