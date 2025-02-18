@@ -2,6 +2,7 @@
 	<div class="row row--grid row--middle">
 		<div class="col-sm-9">
 			<o-phone
+				ref="_phone"
 				v-model="number"
 				:flag="flag"
 				v-bind="state"
@@ -12,13 +13,13 @@
 	<div class="row row--toggles">
 		<div class="col-sm-3">
 			<o-toggle
-			v-model="mobile"
-			label="Mobile"/>
+				v-model="mobile"
+				label="Mobile"/>
 		</div>
 		<div class="col-sm-3">
 			<o-toggle
-			v-model="flag"
-			label="Flag"/>
+				v-model="flag"
+				label="Flag"/>
 		</div>
 		<div class="col-sm-3">
 			<o-toggle
@@ -35,6 +36,16 @@
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
+
+const _phone = ref<OrionPhone>();
+
+const favoriteCountry = [{
+	code: 'FR',
+	name: 'France',
+	areaCode: '33',
+}];
+
+setTimeout(() => {_phone.value?._country()?.setFavoritesOptions(favoriteCountry);}, 1000);
 
 const number = ref<Orion.Phone>({ phoneCountryCode: 'FR' });
 const mobile = ref(false);

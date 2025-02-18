@@ -31,7 +31,6 @@
 <script setup lang="ts">
 import { CountryCode } from 'libphonenumber-js';
 import { reactive, ref } from 'vue';
-import { displayPhone } from 'lib';
 
 const _phoneOne = ref<OrionPhone>();
 

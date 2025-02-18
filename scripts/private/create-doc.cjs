@@ -184,9 +184,7 @@ class DocFactory extends DocUtility {
 				baseUrl: './',
 				declaration: true,
 				emitDeclarationOnly: true,
-				"paths": {
-     			"packages": path.resolve(__dirname, '../../packages')
-    		},
+				'paths': { 'packages': path.resolve(__dirname, '../../packages') },
 			},
 			skipAddingFilesFromTsConfig: true,
 		});
@@ -265,7 +263,7 @@ class DocFactory extends DocUtility {
 		}`;
 	}
 
-	async parseSharedProps() {
+	async parseSharedProps () {
 
 		const sharedPropsContent = this.project.addSourceFileAtPath(path.resolve(
 			this.packagesFolderPath,
@@ -277,16 +275,16 @@ class DocFactory extends DocUtility {
 
 		const sharedPropsFile = this.project.getSourceFileOrThrow(path.resolve(this.packagesFolderPath, 'Shared', 'SharedProps.ts'));
 
-		const sharedPropsClass = sharedPropsFile.getClassOrThrow("SharedProps");
+		const sharedPropsClass = sharedPropsFile.getClassOrThrow('SharedProps');
 		sharedPropsClass.getStaticProperties().forEach((prop) => {
 			const propName = prop.getName(); // Nom de la propriété statique
 			const initializer = prop.getInitializer();
-	
-			if (initializer?.getKindName() === "ObjectLiteralExpression") {
+
+			if (initializer?.getKindName() === 'ObjectLiteralExpression') {
 				initializer.getProperties().forEach((child) => {
 					if (Node.isPropertyAssignment(child)) {
 						const name = child.getName();
-						const desc = this.getPropsDesciption(name)
+						const desc = this.getPropsDesciption(name);
 						const value = child.getInitializer()?.getText().replace(/as Orion.*/, '');
 						const type = child.getType().getText().replace(/as Orion.*/, '');
 						sharedProps.set(name, {
@@ -294,7 +292,7 @@ class DocFactory extends DocUtility {
 							type,
 							name,
 							desc,
-							defaultValue: value || "undefined",
+							defaultValue: value || 'undefined',
 						});
 					}
 				});
@@ -316,8 +314,11 @@ class VueFileScanner extends DocScanner {
 			'src',
 			`Orion${this.pack}.vue`,
 		), { encoding: 'utf-8' });
-		const vueScript = /<script.*>((.|\n)*)<\/script>/gm.exec(this.vue)[1];
-
+		const groups = /<script((.|\s)*)>(?<content>(.|\n)*)<\/script>/gm?.exec(this.vue);
+		//const vueScript = this.vue.match(/<script((.|\s)*)>(?<content>(.|\n)*)<\/script>/gm)?.groups?.content;
+		//const groups = this.vue.exec(/<script((.|\s)*)>(?<content>(.|\n)*)<\/script>/gm)?.groups;
+		log.message(groups);
+		const vueScript = groups.content;
 		this.file = this.project.createSourceFile('tmp/tmp.ts', vueScript, { overwrite: true });
 	}
 
@@ -630,78 +631,75 @@ class SetupServiceFileScanner extends DocScanner {
 		return this.extractPropsFromClassDeclaration(this.file.getClass(`Orion${this.pack}SetupService`));
 	}
 
-	resolveSpreadProps(expression) {
-    const resolvedProps = {};
-
-    if (Node.isPropertyAccessExpression(expression)) {
-        const className = expression.getExpression().getText();
-        const propertyName = expression.getName();
-
-        // Charger la classe ou l'objet correspondant
-        const referencedClass = this.file.getClass(className) ||
-            this.project.getSourceFileOrThrow(path.resolve(
-							this.packagesFolderPath,
-							'Shared',
-							`${className}.ts`)).getClassOrThrow(className);
-
-						const sharedPropsContent = this.project.addSourceFileAtPath(path.resolve(
-							this.packagesFolderPath,
-							'Shared',
-						`${className}.ts`)).getText(true);
-					
-							this.docFlags.en += this.extractDocFlags(sharedPropsContent).en;
-							this.docFlags.fr += this.extractDocFlags(sharedPropsContent).fr;
-
-        if (referencedClass) {
-            const defaultPropsProperty = referencedClass.getStaticProperty(propertyName);
-            if (defaultPropsProperty) {
-                const initializer = defaultPropsProperty.getInitializer();
-
-                if (initializer?.getKindName() === "ObjectLiteralExpression") {
-                    initializer.getProperties().forEach((prop) => {
-                        if (Node.isPropertyAssignment(prop)) {
-                            const name = prop.getName();
-
-														const desc = this.getPropsDesciption(name);
-                            const value = prop.getInitializer()?.getText().replace(/as Orion.*/, '');
-                            const type = prop.getType().getText().replace(/as Orion.*/, '');
-
-                            resolvedProps[name] = {
-                                name,
-                                type,
-																desc,
-                                defaultValue: value || "undefined",
-                            };
-                        }
-                    });
-                }
-            }
-        }
-    }
-
-    return resolvedProps;
-}
-
-	parseDefaultProps() {
-		const classDeclaration = this.file.getClassOrThrow(`Orion${this.pack}SetupService`);
-		const defaultPropsProperty = classDeclaration.getStaticPropertyOrThrow("defaultProps");
-		const initializer = defaultPropsProperty.getInitializer();
-	
+	resolveSpreadProps (expression) {
 		const resolvedProps = {};
-	
-		if (initializer?.getKindName() === "ObjectLiteralExpression") {
+
+		if (Node.isPropertyAccessExpression(expression)) {
+			const className = expression.getExpression().getText();
+			const propertyName = expression.getName();
+
+			// Charger la classe ou l'objet correspondant
+			const referencedClass = this.file.getClass(className) ||
+            this.project.getSourceFileOrThrow(path.resolve(this.packagesFolderPath, 'Shared', `${className}.ts`)).getClassOrThrow(className);
+
+			const sharedPropsContent = this.project.addSourceFileAtPath(path.resolve(
+				this.packagesFolderPath,
+				'Shared',
+				`${className}.ts`)).getText(true);
+
+			this.docFlags.en += this.extractDocFlags(sharedPropsContent).en;
+			this.docFlags.fr += this.extractDocFlags(sharedPropsContent).fr;
+
+			if (referencedClass) {
+				const defaultPropsProperty = referencedClass.getStaticProperty(propertyName);
+				if (defaultPropsProperty) {
+					const initializer = defaultPropsProperty.getInitializer();
+
+					if (initializer?.getKindName() === 'ObjectLiteralExpression') {
+						initializer.getProperties().forEach((prop) => {
+							if (Node.isPropertyAssignment(prop)) {
+								const name = prop.getName();
+
+								const desc = this.getPropsDesciption(name);
+								const value = prop.getInitializer()?.getText().replace(/as Orion.*/, '');
+								const type = prop.getType().getText().replace(/as Orion.*/, '');
+
+								resolvedProps[name] = {
+									name,
+									type,
+									desc,
+									defaultValue: value || 'undefined',
+								};
+							}
+						});
+					}
+				}
+			}
+		}
+
+		return resolvedProps;
+	}
+
+	parseDefaultProps () {
+		const classDeclaration = this.file.getClassOrThrow(`Orion${this.pack}SetupService`);
+		const defaultPropsProperty = classDeclaration.getStaticPropertyOrThrow('defaultProps');
+		const initializer = defaultPropsProperty.getInitializer();
+
+		const resolvedProps = {};
+
+		if (initializer?.getKindName() === 'ObjectLiteralExpression') {
 			initializer.getProperties().forEach((prop) => {
 				if (Node.isPropertyAssignment(prop)) {
 					const name = prop.getName();
 					const desc = this.getPropsDesciption(name);
 					const value = prop.getInitializer()?.getText().replace(/as Orion.*/, '');
 					const type = prop.getType().getText().replace(/as Orion.*/, '');
-	
+
 					resolvedProps[name] = {
 						name,
 						type,
 						desc,
-						defaultValue: value || "undefined",
+						defaultValue: value || 'undefined',
 					};
 				} else if (Node.isSpreadAssignment(prop)) {
 					/* const expression = prop.getExpression();
@@ -712,9 +710,9 @@ class SetupServiceFileScanner extends DocScanner {
 
 					// Fusionner les propriétés résolues avec celles existantes
 					Object.keys(spreadProps).forEach((key) => {
-							if (!resolvedProps[key]) {
-									resolvedProps[key] = spreadProps[key];
-							}
+						if (!resolvedProps[key]) {
+							resolvedProps[key] = spreadProps[key];
+						}
 					});
 
 					/* Object.keys(sharedProps).forEach((key) => {
@@ -725,10 +723,10 @@ class SetupServiceFileScanner extends DocScanner {
 				}
 			});
 		}
-	
+
 		return resolvedProps;
 	}
-	
+
 
 	extractPropsFromClassDeclaration (/** @type {import('ts-morph').ClassDeclaration} */ classDeclaration) {
 		const fileTypeAlias = this.file.getTypeAliasOrThrow(`Orion${this.pack}Props`);
@@ -742,10 +740,10 @@ class SetupServiceFileScanner extends DocScanner {
 		}
 
 		//HANDLE DEFAULT PROPS
-		const defaultPropsProperty = classDeclaration.getStaticPropertyOrThrow("defaultProps");
+		const defaultPropsProperty = classDeclaration.getStaticPropertyOrThrow('defaultProps');
 		const initializer = defaultPropsProperty.getInitializer();
 
-		const defaultProps = this.parseDefaultProps()
+		const defaultProps = this.parseDefaultProps();
 
 		const properties = {};
 
@@ -754,8 +752,8 @@ class SetupServiceFileScanner extends DocScanner {
 			const name = prop.getName();
 			const desc = this.getPropsDesciption(name);
 			const valueDeclaration = prop.getValueDeclaration();
-			let type = "unknown";
-			
+			let type = 'unknown';
+
 			if (valueDeclaration) {
 				type = valueDeclaration.getType().getText().replace(/as Orion.*/, '');
 			} else {
@@ -765,7 +763,7 @@ class SetupServiceFileScanner extends DocScanner {
 			properties[name] = {
 				name,
 				type,
-				desc
+				desc,
 			};
 
 			// Add sharedProps value
@@ -784,7 +782,7 @@ class SetupServiceFileScanner extends DocScanner {
 			}
 		}
 
-		return  {props: Object.values(mergedProps).sort((a, b) => a.name.localeCompare(b.name))};
+		return { props: Object.values(mergedProps).sort((a, b) => a.name.localeCompare(b.name)) };
 	}
 
 	getDesc (name) {
@@ -1023,8 +1021,8 @@ class globalTypeFileScanner extends DocUtility {
 
 	async scanGlobalTypes () {
 		let globalData = await this.extractNamespace('global.d.ts');
-		const privateData =  await this.extractNamespace('private.d.ts');
-		globalData = globalData.concat(privateData)
+		const privateData = await this.extractNamespace('private.d.ts');
+		globalData = globalData.concat(privateData);
 
 		const typesSpinner = spinner();
 		typesSpinner.start(`Scanning types`);

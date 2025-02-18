@@ -66,9 +66,6 @@ export type OrionSelectProps<O, DKey extends keyof O, VKey extends keyof O> = Sh
 	// @doc props/options options of the select
 	// @doc/fr props/options options du select
 	options?: O[],
-	// @doc props/favoriteOptions your favorites options
-	// @doc/fr props/favoriteOptions options favoris du select, elles apparaissent avant les options
-	favoritesOptions?: O[],
 	// @doc props/prefillSearch prefill the search field
 	// @doc/fr props/prefillSearch pré-rempli le champ de recherche
 	prefillSearch?: string,
@@ -81,6 +78,12 @@ export type OrionSelectProps<O, DKey extends keyof O, VKey extends keyof O> = Sh
 	// @doc props/valueKey key used as field value
 	// @doc/fr props/valueKey clé qui réprésente la valeur d'un élément
 	valueKey?: VKey,
+	// @doc props/showFavoriteIcon key used to display or not an icon new to the favorites options
+	// @doc/fr props/showFavoriteIcon clé qui permet ou non d'afficher un icône pour les favoris
+	showFavoriteIcon?: boolean,
+	// @doc props/favoriteIcon key used to choice the favorite icon
+	// @doc/fr props/favoriteIcon clé qui permet de choisir l'icône des favoris
+	favoriteIcon?: Orion.Icon,
 };
 
 export type VModelType<T> = T | T[] | undefined | null;
@@ -100,6 +103,8 @@ export default class OrionSelectSetupService<
 		options: () => [],
 		searchable: false,
 		trackKey: 'id' as any, // avoid typing error in OrionSelect.vue
+		showFavoriteIcon: false,
+		favoriteIcon: 'star' as Orion.Icon,
 	};
 
 	private bus = mitt<{
@@ -157,8 +162,8 @@ export default class OrionSelectSetupService<
 			return this.fetchOptions;
 		} else {
 			let options = [];
-			if (this.favoritesOptions && this.favoritesOptions.length > 0) {
-				options = [...this.favoritesOptions, ...this.props.options]
+			if (this.favoritesOptions.value && this.favoritesOptions.value.length > 0) {
+				options = [...this.favoritesOptions.value, ...this.props.options]
 					.filter((obj, index, self) => index === self.findIndex(o => JSON.stringify(o) === JSON.stringify(obj)));
 			} else {
 				options = this.props.options;
@@ -227,21 +232,22 @@ export default class OrionSelectSetupService<
 			...super.publicInstance,
 			getSearchTerm: () => this.state.valueToSearch,
 			setSearchTerm: (val?: string) => this.valueToSearch = val,
-			setFavoritesOptions: (val: BaseVModelType[]) => this.updateProps(val),
-
+			setFavoritesOptions: (val: O[]) => this.favoritesOptions.value = val,
 			triggerSearchAsync: async (term?: string) => await this.fetchSearchAsync(term),
 			blur: this.handleBlur.bind(this),
 		};
 	}
 
-
+	// @doc props/favoriteOptions your favorites options
+	// @doc/fr props/favoriteOptions options favoris du select, elles apparaissent avant les options
 	constructor (
 		protected props: OrionSelectProps<O, DKey, VKey> & Omit<typeof OrionSelectSetupService.defaultProps, 'options' | 'fetchInitialOptions'> & {
 			options: O[],
 			fetchInitialOptions: O[]
 		},
 		protected emits: OrionSelectEmits<T, O>,
-		protected vModel: ModelRef<VModelType<T>>) {
+		protected vModel: ModelRef<VModelType<T>>,
+		protected favoritesOptions: ModelRef<O[]>) {
 		super(props, emits, vModel);
 
 		this.bus.on('*', (type, e) => this.emits(type as any, e as any));

@@ -3,7 +3,6 @@ import { isEmpty, isNil } from 'lodash-es';
 import 'cleave.js/src/addons/phone-type-formatter.i18n';
 import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetupServiceProps } from '../../Shared/SharedFieldSetupService';
 import useCountry from 'services/CountryService';
-import useValidation from 'services/ValidationService';
 import { AsYouType, isValidPhoneNumber, validatePhoneNumberLength } from 'libphonenumber-js';
 import useDynamicFlagService from 'services/DynamicFlagService';
 
@@ -166,7 +165,7 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Orio
 			}
 
 			if (this.vModel.value?.phoneCountryCode) {
-				this.state.phoneNumber = this.vModel.value?.phoneNumber ? this.sanitizePhoneNumber(this.vModel.value?.phoneNumber) : this.sanitizePhoneNumber();;
+				this.state.phoneNumber = this.vModel.value?.phoneNumber ? this.sanitizePhoneNumber(this.vModel.value?.phoneNumber) : this.sanitizePhoneNumber();
 				this.state.country = useCountry().getCountryByCode(this.vModel.value?.phoneCountryCode);
 			}
 		}

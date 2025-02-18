@@ -14,6 +14,7 @@ SelectData
 SelectFormat
 SelectFetch
 SelectSlot
+SelectFavorite
 SelectPlayground
 :::
 
