@@ -1,37 +1,9 @@
 <template>
 	<o-page title="Input">
 		<pre>{{ fields.input }}</pre>
-	
-		valeur du mask $d{3}
-		<br>
-		<!-- <o-input
-					v-model="inputMask"
-					label="MASK"
-					placeholder="Placeholder"
-					v-bind="commonBind"
-					mask="$d{3}$w$d{2}"
-					clear-to-null
-					@keydown:enter="cb('tto')"/> -->
-
-					
-		valeur du mask <strong>$d$d#$w$w##</strong>
-		<br>
-		valeur du vmodel {{ inputMask }}
-		<o-input
-					v-model="inputMask"
-					label="MASK"
-					placeholder="Placeholder"
-					v-bind="commonBind"
-					mask="$d$d##$d$w%#&"
-					clear-to-null
-					@keydown:enter="cb('tto')"/>
-			<pre>
-
-			</pre>
 		<div class="row row--gutter">
 			
 			<div class="col-sm-3">
-				
 				<o-input
 					label="Simple input with donetyping"
 					placeholder="Placeholder"
@@ -96,6 +68,25 @@
 					type="email"
 					v-bind="commonBind"/>
 			</div>
+			<div class="col-sm-6">
+				<o-input
+					v-model="inputMaskStatic"
+					label="Static mask - $d$d##$d$w%#&"
+					v-bind="commonBind"
+					mask="$d$d##$d$w%#&"
+					clear-to-null
+					@keydown:enter="cb('tto')"/>
+			</div>
+			<div class="col-sm-6">
+			<o-input
+				v-model="inputMask"
+				:static-mask="false"
+				label="As you type mask - $d$d##$d$w%#&"
+				v-bind="commonBind"
+				mask="$d$d##$d$w%#&"
+				clear-to-null
+				@keydown:enter="cb('tto')"/>
+			</div>
 		</div>
 	</o-page>
 </template>
@@ -111,6 +102,7 @@ const commonBind = reactive({
 });
 const email = ref<string>();
 const inputMask = ref<string>('');
+const inputMaskStatic = ref<string>('');
 
 const fields = reactive({
 	showError: false,

@@ -21,7 +21,9 @@ export type OrionInputProps = SharedFieldSetupServiceProps & {
 	// @doc props/cleave Missing @doc
 	// @doc/fr props/cleave Missing @doc
 	cleave?: Cleave,
-	maskAlwaysVisible?: boolean,
+	// @doc props/staticMask Determines if the mask should be present all the time, even if the field is empty
+	// @doc/fr props/staticMask Détermine si le masque doit être présent en permanence, même si le champ est vide
+	staticMask?: boolean,
 	// @doc props/mask the mask applied on the input
 	// @doc/fr props/mask masque appliqué sur le champ
 	mask?: string | InputMask,
@@ -73,7 +75,7 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 		maskHourFormat: '24h',
 		maskHourSeparator: ':',
 		selectOnFocus: false,
-		maskAlwaysVisible: true,
+		staticMask: true,
 	};
 
 	protected state = reactive({ 
@@ -107,7 +109,7 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 	}
 
 	protected get labelIsFloating () {
-		return (this.state.vmodelArray.length && this.props.maskAlwaysVisible) ? true : super.labelIsFloating
+		return (this.state.vmodelArray.length && this.props.staticMask) ? true : super.labelIsFloating
 	}
 
 	get vmodelArray () { return this.state.vmodelArray; }
@@ -460,7 +462,7 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 
 				if(this.state.selection.start === 0) return;
 
-				this.vmodelArray[this.state.selection.end].value = this.props.maskAlwaysVisible ? '_' : undefined
+				this.vmodelArray[this.state.selection.end].value = this.props.staticMask ? '_' : undefined
 				this.vmodelArray[this.state.selection.end].isValid = false
 				this.state.selection.start = this.state.selection.end
 				nextTick(() => {
@@ -469,7 +471,7 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 			} else {
 					while(this.state.selection.end !== this.state.selection.start && !!this.state.selection.end) {
 						if(this.vmodelArray[this.state.selection.end-1].mask !== 'mask') {
-							this.vmodelArray[this.state.selection.end-1].value = this.props.maskAlwaysVisible ? '_' : undefined
+							this.vmodelArray[this.state.selection.end-1].value = this.props.staticMask ? '_' : undefined
 							this.vmodelArray[this.state.selection.end-1].isValid = false
 						}
 						this.state.selection.end -= 1;
@@ -499,13 +501,13 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 								this.vmodelArray[i].value = this.vmodelArray[j]?.value
 								this.vmodelArray[i].isValid = true
 							} else {
-								this.vmodelArray[i].value = this.props.maskAlwaysVisible ? '_' : undefined
+								this.vmodelArray[i].value = this.props.staticMask ? '_' : undefined
 								this.vmodelArray[i].isValid = false;
 								break
 							}
 							i = j-1
 						} else {
-							this.vmodelArray[i].value = this.props.maskAlwaysVisible ? '_' : undefined
+							this.vmodelArray[i].value = this.props.staticMask ? '_' : undefined
 							this.vmodelArray[i].isValid = false;
 							break
 						}
@@ -518,7 +520,7 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 				else {
 					while(this.state.selection.end !== this.state.selection.start && !!this.state.selection.end) {
 						if(this.vmodelArray[this.state.selection.end-1].mask !== 'mask') {
-							this.vmodelArray[this.state.selection.end-1].value = this.props.maskAlwaysVisible ? '_' : undefined
+							this.vmodelArray[this.state.selection.end-1].value = this.props.staticMask ? '_' : undefined
 							this.vmodelArray[this.state.selection.end-1].isValid = false;
 						}
 						this.state.selection.end -= 1;
@@ -651,7 +653,7 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 	}
 
 	readablevModelArray () {
-		if(this.props.maskAlwaysVisible) {
+		if(this.props.staticMask) {
 			return this.state.vmodelArray.map((x) => {
 				return !x.value ? '_' : x.value
 			}).join('')
