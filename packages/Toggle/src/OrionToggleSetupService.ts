@@ -14,9 +14,6 @@ export default class OrionToggleSetupService extends SharedFieldSetupService<Pro
 		// @doc props/reverse displays the label first
 		// @doc/fr props/reverse affiche d'abord le label
 		reverse: Boolean,
-		// @doc props/value value of the toggle
-		// @doc/fr props/value valeur du toggle
-		value: Boolean,
 		// @doc props/type type of the input
 		// @doc/fr props/type type du champ
 		type: {
