@@ -81,7 +81,6 @@
 				label="simple dateweek"
 				clearable
 				clear-to-null
-				:min-date="new Date()"
 				hide-disabled/>
 		</o-card>
 

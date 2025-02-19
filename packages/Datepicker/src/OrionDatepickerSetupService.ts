@@ -181,9 +181,9 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 		if (val) {
 			if (currentValue && (this.props.preserveTime || !dateUnchanged)) {
 				val.setHours(currentValue.getHours(), currentValue.getMinutes(), currentValue.getSeconds(), currentValue.getMilliseconds());
-			}	
+			}
 
-			if(!this.isFocus) {
+			if (!this.isFocus) {
 				if (this.props.minDate && val.valueOf() < this.props.minDate.valueOf()) {
 					val = this.props.minDate;
 				}
@@ -928,7 +928,7 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 		}
 
 		if (key === 'Enter') {
-			this.handleBlur()
+			this.handleBlur();
 		}
 	}
 
