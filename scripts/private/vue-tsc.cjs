@@ -6,7 +6,7 @@ const { exec } = require('child_process');
 // path the the `vue-tsc` binary in `node_modules`
 const vueTscPath = path.resolve('node_modules/.bin/vue-tsc');
 const rootPath = path.resolve(__dirname, '../..');
-const outputDir = path.resolve(rootPath, 'dist');
+const outputDir = path.resolve(rootPath, 'dist/types');
 const buildLibTsConfigPath = path.resolve(rootPath, 'tsconfig.build-lib.json');
 const lessImportRegex = /^import .+.less.+\n/gm;
 

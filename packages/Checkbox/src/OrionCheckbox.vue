@@ -40,7 +40,7 @@ import { OrionField } from 'packages/Field';
 import { OrionIcon } from 'packages/Icon';
 import OrionCheckboxSetupService from './OrionCheckboxSetupService';
 import type { OrionCheckboxProps, OrionCheckboxEmits } from './OrionCheckboxSetupService';
-const emits = defineEmits<OrionCheckboxEmits>() as OrionCheckboxEmits;
+const emits = defineEmits<OrionCheckboxEmits<any>>() as OrionCheckboxEmits<any>;
 const vModel = defineModel<any[] | boolean | null | undefined>();
 const props = withDefaults(defineProps<OrionCheckboxProps>(), OrionCheckboxSetupService.defaultProps);
 const setup = new OrionCheckboxSetupService(props, emits, vModel);

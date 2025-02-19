@@ -26,7 +26,7 @@ export type OrionSelectEmits<T, O> = SharedFieldSetupServiceEmits<VModelType<T>>
 	(e: 'fetch-end', payload: O[]): void;
 	(e: 'fetch-search-clear'): void;
 }
-export type OrionSelectProps<O, VKey extends keyof O, DKey extends keyof O = VKey> = SharedFieldSetupServiceProps & {
+export type OrionSelectProps<T, O, VKey extends keyof O, DKey extends keyof O = VKey> = SharedFieldSetupServiceProps & {
 	// @doc props/autocomplete adds the possibility to write in the select field
 	// @doc/fr props/autocomplete permet à l'utilisateur d'écrire dans le champ
 	autocomplete?: boolean,
@@ -83,8 +83,8 @@ export type OrionSelectProps<O, VKey extends keyof O, DKey extends keyof O = VKe
 export type VModelType<T> = T | T[] | undefined | null;
 
 export default class OrionSelectSetupService<
-	T, O, DKey extends keyof O, VKey extends keyof O
-> extends SharedFieldSetupService<OrionSelectProps<O, DKey, VKey>, VModelType<T>> {
+	T, O, VKey extends keyof O, DKey extends keyof O = VKey
+> extends SharedFieldSetupService<OrionSelectProps<T, O, VKey, DKey>, VModelType<T>> {
 	static readonly defaultProps = {
 		...SharedFieldSetupService.defaultProps,
 		autocomplete: false,
@@ -221,7 +221,7 @@ export default class OrionSelectSetupService<
 
 
 	constructor (
-		protected props: OrionSelectProps<O, DKey, VKey> & Omit<typeof OrionSelectSetupService.defaultProps, 'options' | 'fetchInitialOptions'> & {
+		protected props: OrionSelectProps<T, O, VKey, DKey> & Omit<typeof OrionSelectSetupService.defaultProps, 'options' | 'fetchInitialOptions'> & {
 			options: O[],
 			fetchInitialOptions: O[]
 		},
