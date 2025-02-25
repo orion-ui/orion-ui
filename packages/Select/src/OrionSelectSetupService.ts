@@ -415,7 +415,7 @@ export default class OrionSelectSetupService<
 		return typeof item === 'object' && item !== null;
 	}
 
-	valueDisplay (item?: Nil<T>): any {
+	valueDisplay (item?: Nil<T>): { item: Nil<T> | Nil<O>, display: any } {
 		const optionsToSearchIn = (this.props.fetchUrl || this.props.customFetch) ? this.fetchOptions : this.props.options;
 		const currentValue = optionsToSearchIn.find((x) => {
 			return this.itemIsObject(x)

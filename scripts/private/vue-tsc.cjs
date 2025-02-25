@@ -65,7 +65,11 @@ class TypesDeclarationFilesFactory {
 			if (sourceFile.includes('.vue')) {
 				const filePath = path.resolve(rootPath, 'dist/types/packages/' + sourceFile);
 				let content = fs.readFileSync(filePath, 'utf8');
-				content = content.replace(lessImportRegex, '');
+
+				content = content
+					.replace(lessImportRegex, '')
+					.replace(/__VLS_PrettifyLocal<any & /gm, '__VLS_PrettifyLocal<');
+
 				await fs.writeFile(filePath, content, 'utf8');
 			}
 		}
@@ -74,15 +78,6 @@ class TypesDeclarationFilesFactory {
 	async copyFiles () {
 
 		await fs.move(path.resolve(rootPath, 'dist/packages'), path.resolve(rootPath, 'dist/types/packages'));
-
-		/* await fs.rm(path.resolve(rootPath, 'dist/services/docs'), {
-			recursive: true,
-			force: true,
-		}); */
-		/* await fs.rm(path.resolve(rootPath, 'dist/sandbox'), {
-			recursive: true,
-			force: true,
-		}); */
 		await fs.move(path.resolve(rootPath, 'dist/services'), path.resolve(rootPath, 'dist/types/services'));
 		await fs.move(path.resolve(rootPath, 'dist/lang'), path.resolve(rootPath, 'dist/types/lang'));
 		await fs.move(path.resolve(rootPath, 'dist/utils'), path.resolve(rootPath, 'dist/types/utils'));

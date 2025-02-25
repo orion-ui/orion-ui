@@ -218,7 +218,7 @@ defineSlots<{
 			markedSearch:(content: string) => string | undefined
 		}): void
 	'value'(props: {
-			item: Nil<O> | Nil<T>,
+			item: ReturnType<OrionSelectSetupService<T, O, VKey, DKey>['valueDisplay']>['item'],
 			display: ObjectKeyValidator<O, DKey, VKey> extends never
 				? O
 				: DKey extends keyof O
