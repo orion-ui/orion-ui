@@ -49,6 +49,7 @@ class GenericComponentsCleaner {
 
 						await fs.writeFile(libPackagesPath, libPackagesContent, 'utf8');
 					} else {
+						// eslint-disable-next-line no-console
 						console.log(`Line Props not found for package: ${packageName}`);
 					}
 				}
@@ -72,6 +73,7 @@ class GenericComponentsCleaner {
 
 						await fs.writeFile(libPackagesPath, libPackagesContent, 'utf8');
 					} else {
+						// eslint-disable-next-line no-console
 						console.log(`Line Emits not found for package: ${packageName}`);
 					}
 				}

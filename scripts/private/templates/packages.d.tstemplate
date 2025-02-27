@@ -5,8 +5,6 @@
  * Manual changes will be overwritten
  */
 
-import { ExtractPropTypes } from 'vue';
-
 {imports}
 
 declare global {

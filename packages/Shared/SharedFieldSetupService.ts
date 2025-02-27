@@ -202,7 +202,6 @@ export default abstract class SharedFieldSetupService<P, T, E extends SharedFiel
 		if (this.props.inheritValidationState !== undefined) {
 			return this.props.inheritValidationState;
 		}
-		
 
 		if (this.state.hasBeenFocus) {
 			return !!validator || (this.isRequired && !this.hasValue);

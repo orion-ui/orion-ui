@@ -26,6 +26,7 @@ export type OrionSelectEmits<T, O> = SharedFieldSetupServiceEmits<VModelType<T>>
 	(e: 'fetch-end', payload: O[]): void;
 	(e: 'fetch-search-clear'): void;
 }
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export type OrionSelectProps<T, O, VKey extends keyof O, DKey extends keyof O = VKey> = SharedFieldSetupServiceProps & {
 	// @doc props/autocomplete adds the possibility to write in the select field
 	// @doc/fr props/autocomplete permet à l'utilisateur d'écrire dans le champ
