@@ -71,7 +71,9 @@ export default class OrionEditorSetupService extends SharedFieldSetupService<Ori
 	// @doc vModel/json the json format of the editor value
 	// @doc/fr vModel/json valeur de l'éditeur au format JSON
 	constructor (
-		protected props: OrionEditorProps & Omit<typeof OrionEditorSetupService.defaultProps, 'disableFeatures' | 'imgFileTypes'> & {disableFeatures: EditorFeature[], imgFileTypes:string[]},
+		protected props: OrionEditorProps
+			& Omit<typeof OrionEditorSetupService.defaultProps, 'disableFeatures' | 'imgFileTypes'>
+			& { disableFeatures: EditorFeature[], imgFileTypes:string[] },
 		protected emits: OrionEditorEmits,
 		protected vModel: ModelRef<Nil<string>>,
 		protected json?: ModelRef<JSONContent | undefined>) {
@@ -103,10 +105,12 @@ export default class OrionEditorSetupService extends SharedFieldSetupService<Ori
 				this.state.isFocus = false;
 			},
 			onUpdate: ({ editor }) => {
-				if (this.vModel)
+				if (this.vModel.value) {
 					this.vModel.value = editor.getHTML();
-				if (this.json?.value)
+				}
+				if (this.json?.value) {
 					this.json.value = editor.getJSON();
+				}
 			},
 		});
 	}

@@ -79,8 +79,9 @@ export default class OrionCheckboxSetupService extends SharedFieldSetupService<O
 					this.vModel?.value.push(this.props.inputValue);
 				}
 			} else {
-				if (this.vModel)
+				if (this.vModel.value) {
 					this.vModel.value = !this.vModel.value;
+				}
 			}
 		}
 	}

@@ -37,7 +37,7 @@ export type OrionDatepickerProps = SharedFieldSetupServiceProps & {
 	type?: Orion.DatepickerType,
 	// @doc props/valueDisplayFormat function to customize the display format
 	// @doc/fr props/valueDisplayFormat fonction pour personnaliser l'affichage
-	valueDisplayFormat?: Function,
+	valueDisplayFormat?: (val: Date) => string,
 };
 
 export default class OrionDatepickerSetupService extends SharedFieldSetupService<OrionDatepickerProps, Nil<Date>> {
@@ -96,8 +96,8 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 				return useMonkey(this.range.value?.start)?.toReadable('$MMMM');
 			}
 		} else {
-			if (this.vModel instanceof Date) {
-				return this.props.valueDisplayFormat ? this.props.valueDisplayFormat(this.vModel) : this.inputValueFormat(this.vModel);
+			if (this.vModel.value instanceof Date) {
+				return this.props.valueDisplayFormat ? this.props.valueDisplayFormat(this.vModel.value) : this.inputValueFormat(this.vModel.value);
 			} else if (this.state.isFocus) {
 				return this.dateformat.replaceAll('$', '').toLowerCase();
 			}
@@ -524,7 +524,7 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 			return;
 		};
 
-		if (this.props.disabled || this.props.readonly) {
+		if (this.props.disabled || this.props.readonly || this.props.valueDisplayFormat) {
 			return;
 		}
 
@@ -556,7 +556,12 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 	}
 
 	handleFocus (e: FocusEvent) {
-		if (!this.focusedWithMouse && this.props.type === 'date' && !this.responsive.onPhone && !this.props.selectOnFocus) {
+		if (!this.focusedWithMouse
+			&& this.props.type === 'date'
+			&& !this.responsive.onPhone
+			&& !this.props.selectOnFocus
+			&& !this.props.valueDisplayFormat
+		) {
 			setTimeout(() => {
 				const { input, firstSeparatorIndex } = this.getEventData();
 				input.setSelectionRange(0, firstSeparatorIndex);
@@ -590,7 +595,7 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 	}
 
 	handleKeydownGuard (e: KeyboardEvent) {
-		if (this.props.disabled || this.props.readonly) {
+		if (this.props.disabled || this.props.readonly || this.props.valueDisplayFormat) {
 			e.preventDefault();
 			return;
 		}

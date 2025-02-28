@@ -82,7 +82,7 @@ export default class OrionToggleSetupService extends SharedFieldSetupService<Ori
 
 	get buttonStyle () {
 		const cssMargin = this.px(this.state.margin);
-		const transform = this.vModel
+		const transform = this.vModel.value
 			? this.translate3d(this.distance, cssMargin)
 			: this.translate3d(cssMargin, cssMargin);
 

@@ -15,7 +15,7 @@
 				:custom-search="setup.customSearch.bind(setup)"
 				@input-keydown-tab="setup._input.value?.focus()"
 				@update:model-value="setup.changeAreaCode()">
-				<template #value="{ item }">
+				<template #value="{ item }: any">
 					<div class="flex ai-c">
 						<img
 							v-if="flag && setup.country"
@@ -26,7 +26,7 @@
 					</div>
 				</template>
 
-				<template #option="{ item }">
+				<template #option="{ item }: any">
 					{{ `${item.name} (+${item.areaCode})` }}
 				</template>
 			</orion-select>
@@ -45,7 +45,6 @@
 					readonly,
 					required: setup.isRequired,
 				}"
-				force-label-floating
 				@keydown.self="setup.keydownGuard($event)"
 				@mousedown-right="setup.handleMouseEvent($event)"
 				@focus="setup.handleFocus($event)"

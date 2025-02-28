@@ -72,16 +72,9 @@ export default abstract class SharedFieldSetupService<P, T, E extends SharedFiel
 		...SharedProps.size,
 		type: 'text',
 		donetyping: 0,
-		autofocus: false,
-		clearable: false,
-		readonly: false,
-		required: false,
-		disabled: false,
-		selectOnFocus: false,
-		forceLabelFloating: false,
-		clearToNull: false,
 		inheritValidationState: undefined as SharedFieldSetupServiceProps['inheritValidationState'],
-	};
+		validation: undefined as SharedFieldSetupServiceProps['validation'],
+	} as {}; // bypass "is not assignable to type 'InferDefault<LooseRequired<__component__Props>>" in Orion__field__.vue
 
 	readonly _input = ref<HTMLInputElement>();
 
@@ -97,26 +90,7 @@ export default abstract class SharedFieldSetupService<P, T, E extends SharedFiel
 
 	protected state = reactive({ ...this.sharedState });
 
-	readonly isValid = computed(() => this.isValidDefault);
-
-	readonly validationResults = computed<Orion.Validator.RuleResult[]>(() => {
-		if (typeof this.props.validation === 'object') {
-			if (this.props.validation.definition instanceof Validator) {
-				return this.props.validation.definition.validate(this.vModel?.value);
-			} else if (typeof this.props.validation.definition === 'function') {
-				return [Validator.convertToValidatorResult(this.props.validation.definition(this.vModel?.value))];
-			}
-		} else if (typeof this.props.validation === 'function') {
-			return [Validator.convertToValidatorResult(this.props.validation(this.vModel?.value))];
-		}
-		return [];
-	});
-
-	protected get hasValue (): boolean {
-		return this.vModel?.value !== null && this.vModel?.value !== undefined && this.vModel?.value !== '';
-	}
-
-	private get isValidDefault (): boolean {
+	readonly isValid = computed(() => {
 		if (!isNil(this.props.validation)) {
 			if (typeof this.props.validation === 'object') {
 				// using a this.props.validation instance
@@ -137,6 +111,23 @@ export default abstract class SharedFieldSetupService<P, T, E extends SharedFiel
 			return this.hasValue;
 		}
 		return true;
+	});
+
+	readonly validationResults = computed<Orion.Validator.RuleResult[]>(() => {
+		if (typeof this.props.validation === 'object') {
+			if (this.props.validation.definition instanceof Validator) {
+				return this.props.validation.definition.validate(this.vModel?.value);
+			} else if (typeof this.props.validation.definition === 'function') {
+				return [Validator.convertToValidatorResult(this.props.validation.definition(this.vModel?.value))];
+			}
+		} else if (typeof this.props.validation === 'function') {
+			return [Validator.convertToValidatorResult(this.props.validation(this.vModel?.value))];
+		}
+		return [];
+	});
+
+	protected get hasValue (): boolean {
+		return this.vModel?.value !== null && this.vModel?.value !== undefined && this.vModel?.value !== '';
 	}
 
 	protected get isValidCustom (): boolean | undefined {
@@ -197,16 +188,14 @@ export default abstract class SharedFieldSetupService<P, T, E extends SharedFiel
 	}
 
 	get showState () {
-		const validator = this.props.validation as Undef<Orion.Validation.Rule>;
-
 		if (this.props.inheritValidationState !== undefined) {
 			return this.props.inheritValidationState;
 		}
 
 		if (this.state.hasBeenFocus) {
-			return !!validator || (this.isRequired && !this.hasValue);
-		} else {
-			return validator?.showStatus ?? false;
+			return !isNil(this.props.validation) || (this.isRequired && !this.hasValue) || !isNil(this.isValidCustom);
+		} else if (typeof this.props.validation === 'object') {
+			return this.props.validation.showStatus ?? false;
 		}
 	}
 

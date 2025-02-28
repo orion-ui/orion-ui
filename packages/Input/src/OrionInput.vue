@@ -5,7 +5,6 @@
 		<input
 			:ref="setup._input"
 			v-model="setup.vModelProxy"
-			v-cleave="cleave"
 			class="orion-input__input"
 			:maxlength="maxLength"
 			v-bind="{
@@ -39,7 +38,6 @@ const emits = defineEmits<OrionInputEmits>() as OrionInputEmits;
 const vModel = defineModel<Nil<string | number>>();
 const props = withDefaults(defineProps<OrionInputProps>(), OrionInputSetupService.defaultProps);
 const setup = new OrionInputSetupService(props, emits, vModel);
-const vCleave = OrionInputSetupService.cleaveDirective;
 defineExpose(setup.publicInstance);
 
 /** Doc

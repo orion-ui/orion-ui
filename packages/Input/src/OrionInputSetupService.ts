@@ -1,6 +1,5 @@
-import { Directive, ModelRef, nextTick, watch } from 'vue';
+import { ModelRef, nextTick } from 'vue';
 import { isString } from 'lodash-es';
-import Cleave from 'cleave.js';
 
 import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetupServiceProps } from '../../Shared/SharedFieldSetupService';
 import useValidation from 'services/ValidationService';
@@ -17,9 +16,6 @@ export type OrionInputProps = SharedFieldSetupServiceProps & {
 	// @doc props/autocomplete provides automated assistance in filling out form field values from native html input
 	// @doc/fr props/autocomplete fournit une assitance automatique de remplissage du champ
 	autocomplete?: string,
-	// @doc props/cleave Missing @doc
-	// @doc/fr props/cleave Missing @doc
-	cleave?: Cleave,
 	// @doc props/mask the mask applied on the input
 	// @doc/fr props/mask masque appliqué sur le champ
 	mask?: string | InputMask,
@@ -52,10 +48,6 @@ type InputMask = 'integer' | 'decimal' | 'hour' | {
 	display: (val: any) => VModelType;
 };
 
-type CleaveElement = HTMLInputElement & {
-	cleave: Cleave;
-}
-
 export default class OrionInputSetupService extends SharedFieldSetupService<OrionInputProps, VModelType> {
 	static readonly defaultProps = {
 		...SharedFieldSetupService.defaultProps,
@@ -65,23 +57,13 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 		selectOnFocus: false,
 	};
 
-	static cleaveDirective: Directive = {
-		mounted: (el, binding) => {
-			if (!binding.value) return;
-			el.cleave = new Cleave(el, binding.value ?? {});
-		},
-		updated: (el: CleaveElement) => {
-			if (!el.cleave) return;
-			const event = new Event('input', { bubbles: true });
-			el.cleave.setRawValue(el.value);
-			el.value = el.cleave.properties.result;
-			el.dispatchEvent(event);
-		},
-	};
-
 	protected get isValidCustom () {
 		if (this.props.type === 'email') {
-			return useValidation().check(this.vModel, 'email');
+			const emailValidation = useValidation().check(this.vModel.value, 'email');
+
+			return this.props.required
+				? emailValidation && this.hasValue
+				: this.hasValue ? emailValidation : undefined;
 		}
 	}
 
@@ -140,10 +122,6 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 			value = value?.toString();
 
 			if (value) {
-				if (this.props.cleave?.properties.phone) {
-					value = value.replace(/\s*/g, '');
-				}
-
 				if (this.props.type === 'email') {
 					value = value.normalize('NFD').replace(/[\u0300-\u036f ]/g, '');
 				} else if (typeof this.props.mask === 'string' && ['integer', 'decimal'].includes(this.props.mask) && value !== '-') {
@@ -192,17 +170,11 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 
 
 	constructor (
-		protected props: OrionInputProps & typeof OrionInputSetupService.defaultProps, 
-		protected emits: OrionInputEmits, 
-		protected vModel: ModelRef<VModelType>
+		protected props: OrionInputProps & typeof OrionInputSetupService.defaultProps,
+		protected emits: OrionInputEmits,
+		protected vModel: ModelRef<VModelType>,
 	) {
 		super(props, emits, vModel);
-
-		watch(() => props.cleave, (val) => {
-			const input = this._input.value as CleaveElement;
-			input.cleave.destroy();
-			input.cleave = new Cleave(input, val?.properties ?? {});
-		});
 	}
 
 

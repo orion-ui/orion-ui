@@ -253,7 +253,7 @@ export default class OrionSelectSetupService<
 	private checkProps () {
 		if (this.props.multiple && !isNil(this.vModel.value) && !isArray(this.vModel.value)) {
 			// eslint-disable-next-line max-len
-			Log.error(`orion-select - prop "multiple" on orion-select requires a v-model of type Array, type ${upperFirst(typeof this.vModel)} detected`);
+			Log.error(`orion-select - prop "multiple" on orion-select requires a v-model of type Array, type ${upperFirst(typeof this.vModel.value)} detected`);
 		}
 
 		if (this.isObjectType && !this.props.trackKey) {
