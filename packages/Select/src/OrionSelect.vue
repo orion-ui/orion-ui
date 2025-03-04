@@ -1,14 +1,16 @@
 <template>
 	<v-dropdown
 		:ref="setup._popover"
-		placement="bottom-start"
 		:theme="setup.showPopoverSearch ? 'orion-select-searchable' : 'orion-select'"
 		:positioning-disabled="setup.responsive.onPhone"
 		:triggers="[]"
 		:shown="setup.showPopover"
-		:auto-hide="false"
+		:auto-hide="!!setup.dropDownOptions.container"
+		v-bind="setup.dropDownOptions"
+		@hide="setup.handleBlur()"
 		@apply-show="setup.handlePopoverShow()">
 		<orion-field
+			v-if="!setup.dropDownOptions.container"
 			v-bind="setup.orionFieldBinding"
 			:placeholder="(setup.valueToSearch?.length && !setup._optionssearchinput || setup.labelIsFloating) ? undefined : placeholder"
 			:label-is-floating="setup.labelIsFloating"

@@ -127,6 +127,13 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 			type: String,
 			default: undefined,
 		},
+		/* eslint-disable max-len */
+		// @doc props/dropdownOptions options to configure the dropdown [(go to Floating Vue doc for more details)](https://floating-vue.starpad.dev/api/#component-props)
+		// @doc/fr props/dropdownOptions options pour configurer la dropdown [(Voir la documentation de Floating Vue pour plus de détails)](https://floating-vue.starpad.dev/api/#component-props)
+		dropdownOptions: {
+			type: Object as PropType<Partial<Orion.VDropdown>>,
+			default: undefined,
+		},
 	};
 
 	private bus = mitt<{
@@ -147,8 +154,16 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 		lastValue: undefined as Nil<VModelType>,
 		indexNav: -1,
 		isFetching: false,
+		showPopover: false,
 		fetchResult: [] as BaseVModelType[],
 	});
+
+	protected baseDropdownOptions : Orion.VDropdown = {
+		placement: 'bottom-start',
+		container: undefined,
+	};
+
+	dropDownOptions = reactive<Orion.VDropdown>({ ...this.baseDropdownOptions });
 
 	readonly _popover = ref<InstanceType<typeof Dropdown>>();
 	readonly _popoverinner = ref<RefDom>();
@@ -230,7 +245,8 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 	get showPopover () {
 		return (!this.props.autocomplete && this.state.isFocus)
 			|| (this.props.autocomplete && this.state.isFocus)
-			|| (this.props.autocomplete && this.responsive.onPhone && this.state.isFocus);
+			|| (this.props.autocomplete && this.responsive.onPhone && this.state.isFocus)
+			|| this.state.showPopover;
 	}
 
 	get showPopoverSearch () {
@@ -248,6 +264,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 			getSearchTerm: () => this.state.valueToSearch,
 			setSearchTerm: (val?: string) => this.valueToSearch = val,
 			triggerSearchAsync: async (term?: string) => await this.fetchSearchAsync(term),
+			triggerPopover: () => this.state.showPopover = true,
 			blur: this.handleBlur.bind(this),
 		};
 	}
@@ -256,6 +273,8 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 	constructor (props: Props, emit: SelectEmit) {
 		super(props, emit);
 		this.emit = emit;
+
+		Object.assign(this.dropDownOptions, props.dropdownOptions);
 
 		this.bus.on('*', (type, e) => this.emit(type as any, e as any));
 
@@ -520,6 +539,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 	}
 
 	handleBlur = debounce((e?: FocusEvent, selection?: boolean) => {
+		this.state.showPopover = false;
 		if (e?.relatedTarget) {
 			const el = e.relatedTarget as HTMLElement;
 			if (el.parentElement?.classList.contains('orion-select__popover-search-input')

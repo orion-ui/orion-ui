@@ -424,6 +424,39 @@
 				</div>
 			</div>
 		</o-section>
+
+		<o-section title="orion-select | dropdownOptions | triggerPopover">
+			<div class="row row--gutter mb-xl">
+				<div class="col-sm-6">
+					<o-button @click="_selectWithTrigger?.triggerPopover()">
+						trigger popover
+					</o-button>
+				</div>
+
+				<div class="col-sm-6">
+					<div
+						class="chip-style">
+						<o-chips
+							ref="_chip"
+							class="tytyty"
+							@click="_selectWithTrigger?.triggerPopover()">
+							Click me!
+						</o-chips>
+						<o-select
+							v-if="_chip"
+							ref="_selectWithTrigger"
+							v-model="data.ajaxSingle"
+							class="hide-select"
+							display-key="email"
+							:dropdown-options="{
+								container: '.chip-style',
+								placement: 'bottom-start',
+							}"
+							:options="data.fieldSelect.options"/>
+					</div>
+				</div>
+			</div>
+		</o-section>
 	</o-page>
 
 	<o-modal
@@ -448,6 +481,8 @@ import { inject, reactive, ref } from 'vue';
 
 const _modalSelect = ref<OrionModal>();
 const multiple = ref<OrionSelect>();
+const _chip = ref<OrionSelect>();
+const _selectWithTrigger = ref<OrionSelect>();
 const test = ref('');
 
 function update (val: string) {
@@ -592,3 +627,14 @@ function cb () {
 }
 // #endregion
 </script>
+
+<style lang="less">
+
+.chip-style {
+	position: relative;
+	width: fit-content;
+}
+.hide-select {
+	visibility: hidden;
+}
+</style>

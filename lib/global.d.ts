@@ -188,6 +188,11 @@ declare global {
 			if?: boolean | (() => boolean);
 		}
 
+		type VDropdown = {
+			container?: HTMLElement | string;
+			placement?: string;
+		}
+
 		namespace Popable {
 			type Name = 'OrionAside' | 'OrionModal' | 'OrionNotif';
 
