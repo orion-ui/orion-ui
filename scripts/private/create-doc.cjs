@@ -314,11 +314,8 @@ class VueFileScanner extends DocScanner {
 			'src',
 			`Orion${this.pack}.vue`,
 		), { encoding: 'utf-8' });
-		const groups = /<script((.|\s)*)>(?<content>(.|\n)*)<\/script>/gm?.exec(this.vue);
-		//const vueScript = this.vue.match(/<script((.|\s)*)>(?<content>(.|\n)*)<\/script>/gm)?.groups?.content;
-		//const groups = this.vue.exec(/<script((.|\s)*)>(?<content>(.|\n)*)<\/script>/gm)?.groups;
-		log.message(groups);
-		const vueScript = groups.content;
+		const groups = /<script\s+setup\s+lang="ts"(?:\s+generic="([^"]*)")?\s*>(?<content>(.|\n)*)<\/script>/gm.exec(this.vue)?.groups;
+		const vueScript = groups?.content;
 		this.file = this.project.createSourceFile('tmp/tmp.ts', vueScript, { overwrite: true });
 	}
 
