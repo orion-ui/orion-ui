@@ -35,7 +35,7 @@ export default {
 	MENU: `Menu`,
 	MINUTE: `Minute`,
 	MONTH: `Mois`,
-	MONTH_NAME: ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+	MONTH_NAME: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
 	NEXT: `Suivant`,
 	NO_RESULT: `Aucun résultat`,
 	OR: `ou`,
