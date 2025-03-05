@@ -1,7 +1,10 @@
 import SharedSetupService from '../../Shared/SharedSetupService';
 import SharedProps, { SharedPropsSize } from '../../Shared/SharedProps';
 
-export type OrionCardEmits = {}
+export type OrionCardEmits = {
+	(e: 'header-click'): void
+	(e: 'body-click'): void
+}
 export type OrionCardProps =
 	SharedPropsSize & {
 	// @doc props/actionsLine displays a line between the body and the actions of the card

@@ -2,7 +2,9 @@ import { ref } from 'vue';
 import SharedSetupService from '../../Shared/SharedSetupService';
 import SharedProps, { SharedPropsColor, SharedPropsPrefixIcon, SharedPropsSize, SharedPropsSuffixIcon } from '../../Shared/SharedProps';
 
-export type OrionButtonEmits = {}
+export type OrionButtonEmits = {
+	(e: 'click', event: MouseEvent): void
+}
 export type OrionButtonProps =
 SharedPropsSize &
 SharedPropsPrefixIcon &
