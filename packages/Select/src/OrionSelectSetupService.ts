@@ -45,6 +45,9 @@ export type OrionSelectProps<O, DKey extends keyof O, VKey extends keyof O> = Sh
 	// @doc props/donetyping the duration to trigger the fetch
 	// @doc/fr props/donetyping indique après combien de temps après la dernière frappe, la fonction de récupération des options est appelée
 	donetyping?: number,
+	// @doc props/favoriteIcon key used to choice the favorite icon
+	// @doc/fr props/favoriteIcon clé qui permet de choisir l'icône des favoris
+	favoriteIcon?: Orion.Icon,
 	// @doc props/fetchInitialOptions initial options before first fetch (when using fetch mecanism)
 	// @doc/fr props/fetchInitialOptions options intiales avant le premier fetch (lors de l'utilisation du mécanisme de fetch des options)
 	fetchInitialOptions?: O[],
@@ -72,18 +75,15 @@ export type OrionSelectProps<O, DKey extends keyof O, VKey extends keyof O> = Sh
 	// @doc props/searchable adds a search tooltip
 	// @doc/fr props/searchable ajoute un champ de recherche
 	searchable?: boolean,
+	// @doc props/showFavoriteIcon key used to display or not an icon new to the favorites options
+	// @doc/fr props/showFavoriteIcon clé qui permet ou non d'afficher un icône pour les favoris
+	showFavoriteIcon?: boolean,
 	// @doc props/trackKey unique key item
 	// @doc/fr props/trackKey clé unique qui va différencier les options
 	trackKey?: keyof O,
 	// @doc props/valueKey key used as field value
 	// @doc/fr props/valueKey clé qui réprésente la valeur d'un élément
 	valueKey?: VKey,
-	// @doc props/showFavoriteIcon key used to display or not an icon new to the favorites options
-	// @doc/fr props/showFavoriteIcon clé qui permet ou non d'afficher un icône pour les favoris
-	showFavoriteIcon?: boolean,
-	// @doc props/favoriteIcon key used to choice the favorite icon
-	// @doc/fr props/favoriteIcon clé qui permet de choisir l'icône des favoris
-	favoriteIcon?: Orion.Icon,
 };
 
 export type VModelType<T> = T | T[] | undefined | null;
@@ -103,7 +103,6 @@ export default class OrionSelectSetupService<
 		options: () => [],
 		searchable: false,
 		trackKey: 'id' as any, // avoid typing error in OrionSelect.vue
-		showFavoriteIcon: false,
 		favoriteIcon: 'star' as Orion.Icon,
 	};
 
