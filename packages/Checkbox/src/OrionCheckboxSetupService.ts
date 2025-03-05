@@ -31,9 +31,6 @@ export default class OrionCheckboxSetupService extends SharedFieldSetupService<O
 	static readonly defaultProps = {
 		...SharedFieldSetupService.defaultProps,
 		...SharedProps.color,
-		inline: false,
-		multiple: false,
-		reverse: false,
 		type: 'checkbox',
 	};
 
@@ -79,9 +76,7 @@ export default class OrionCheckboxSetupService extends SharedFieldSetupService<O
 					this.vModel?.value.push(this.props.inputValue);
 				}
 			} else {
-				if (this.vModel.value) {
-					this.vModel.value = !this.vModel.value;
-				}
+				this.vModel.value = !this.vModel.value;
 			}
 		}
 	}
