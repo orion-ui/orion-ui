@@ -1,6 +1,6 @@
 import { reactive, watch } from 'vue';
 import SharedSetupService from '../../Shared/SharedSetupService';
-import { SharedPropsIcon } from 'packages/Shared/SharedProps';
+import { SharedPropsIcon } from '../../Shared/SharedProps';
 
 export type OrionTimelinePaneEmits = {}
 export type OrionTimelinePaneProps = SharedPropsIcon & {
@@ -34,13 +34,7 @@ export type OrionTimelinePaneProps = SharedPropsIcon & {
 };
 
 export default class OrionTimelinePaneSetupService extends SharedSetupService {
-	static readonly defaultProps = {
-		centeredPill: false,
-		disabled: false,
-		lazy: false,
-		lazyOnce: false,
-		markerColor: 'danger' as Orion.Color,
-	};
+	static readonly defaultProps = { markerColor: 'danger' as Orion.Color };
 
 	private _timeline?: OrionTimeline;
 	private state = reactive({ hasBeenActive: false });

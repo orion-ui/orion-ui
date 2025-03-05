@@ -1,4 +1,4 @@
-import { SharedPropsColor } from 'packages/Shared/SharedProps';
+import { SharedPropsColor } from '../../Shared/SharedProps';
 import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetupServiceProps } from '../../Shared/SharedFieldSetupService';
 import { ModelRef } from 'vue';
 
@@ -27,8 +27,6 @@ export default class OrionRadioSetupService extends SharedFieldSetupService<Orio
 	static readonly defaultProps = {
 		...SharedFieldSetupService.defaultProps,
 		color: 'info' as Orion.Color,
-		inline: false,
-		reverse: false,
 		type: 'radio',
 	};
 

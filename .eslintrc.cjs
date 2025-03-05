@@ -12,7 +12,7 @@ module.exports = {
 
 	plugins: ['@typescript-eslint'],
 
-	extends: [,
+	extends: [
 		'prettier',
 		'plugin:vue/vue3-recommended',
 		'@vue/typescript',
@@ -56,7 +56,10 @@ module.exports = {
 			'always',
 			{ exceptAfterSingleLine: true },
 		],
-		'max-len': ['error', { code: 160 }],
+		'max-len': ['error', {
+			code: 160,
+			ignoreComments: true,
+		}],
 		'no-console': 'warn',
 		'no-debugger': process.env.NODE_ENV !== 'development' ? 'error' : 'warn',
 		'no-mixed-spaces-and-tabs': [2, 'smart-tabs'],

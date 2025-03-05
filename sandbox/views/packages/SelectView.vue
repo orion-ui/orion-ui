@@ -10,7 +10,9 @@
 		</template>
 
 		<o-section title="orion-select | multiple | options -> fetch">
-			<o-input :model-value="search" @input="setting($event)"/>
+			<o-input
+				:model-value="search"
+				@input="setting($event)"/>
 			<div class="row row--grid">
 				<div class="col-sm-4">
 					<o-select
@@ -32,16 +34,11 @@
 								<span v-html="markedSearch(item.email.slice(0, 20))"/>
 							</div>
 						</template>
-					
 					</o-select>
 					<pre>{{ data.ajaxSingle }}</pre>
 				</div>
 
 				<div class="col-sm-4">
-					<o-input
-						v-model="test"
-						label="Test searchTerm"
-						@input="update($event)"/>
 					<o-select
 						ref="_test"
 						v-model="data.ajaxMultiple"
@@ -129,8 +126,8 @@
 								<template #before-options="{ options }">
 									turltutu {{ options.length }}
 								</template>
-								<template #value={item}>{{item}}</template>
-								<template #option="{item}"> {{ item }}</template>
+								<template #value="{ item }">{{ item }}</template>
+								<template #option="{ item }"> {{ item }}</template>
 							</o-select>
 						</div>
 						<div class="col-sm-6">
@@ -204,20 +201,20 @@
 				<div class="col-sm-6">
 					<div class="row row--gutter">
 						<div class="col-sm-6">
+							<pre>{{ data.fieldSelectValueKey }}</pre>
 							<o-select
 								v-model="data.fieldSelectValueKey"
-								:label="`Simple`"
+								:label="`Simple----`"
 								placeholder="placeholder"
-								display-key="display"
-								track-key="id"
-								value-key="label"
 								clearable
+								value-key="id"
+								display-key="label"
 								:options="data.fieldSelectObject.options">
-								<template #value="{ item }">
-									{{ item.label }}
+								<template #value="{ item, display }">
+									{{ display }} - {{ item }}
 								</template>
 								<template #option="{ item, index }">
-									{{ `${index} -- ${item}` }}
+									{{ `${index} -- ${item.label}` }}
 								</template>
 							</o-select>
 						</div>
@@ -278,8 +275,8 @@
 								multiple
 								:options="data.fieldSelectMultiple.options"
 								prefix-icon="camera">
-								<template #multiple-value="{value}">
-									{{ data.fieldSelectMultiple.value }}
+								<template #multiple-value="{ value }">
+									{{ value[0]?.toUpperCase() }}
 								</template>
 							</o-select>
 						</div>
@@ -453,15 +450,15 @@ import { inject, reactive, ref } from 'vue';
 
 const _modalSelect = ref<OrionModal>();
 const _test = ref<OrionSelect>();
-const search =ref('')
+const search =ref('');
 
 function tutu () {
-	_test.value?.setSearchTerm('b')
-	_test.value?.triggerSearchAsync()
+	_test.value?.setSearchTerm('b');
+	_test.value?.triggerSearchAsync();
 }
 
-function setting (val: string) {
-	_test.value?.setSearchTerm(val)
+function setting (val: Nil<string | number>) {
+	_test.value?.setSearchTerm(String(val));
 }
 
 // #region Data
@@ -499,7 +496,7 @@ const data = reactive({
 		value: ['toto', 'tutu'],
 		options: ['toto', 'tutu', 'titi', 'tata', 'dodo', 'dudu', 'didi', 'dada'],
 	},
-	fieldSelectValueKey: null,
+	fieldSelectValueKey: null as string | null,
 	fieldSelectMulitpleValueKey: ['toto', 'titi'],
 	fieldSelectObject: {
 		value: {
@@ -587,6 +584,7 @@ const commonBind = inject<Record<string, any>>('commonBind');
 
 // #region Methods
 async function customFetch (term?: string): Promise<any[]> {
+	// eslint-disable-next-line no-console
 	console.log(`customFetch term:`, term);
 	const resp = await fetch(`https://jsonplaceholder.typicode.com/users`);
 	return await resp.json();

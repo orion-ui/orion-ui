@@ -33,11 +33,9 @@ export default defineConfig({
 			name: 'Orion',
 		},
 		rollupOptions: {
-			output: { 
+			output: {
 				exports: 'named',
-				globals: {
-					vue: 'Vue'
-				}
+				globals: { vue: 'Vue' },
 			},
 			external: ['vue'],
 		},

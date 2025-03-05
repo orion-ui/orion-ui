@@ -26,16 +26,16 @@
 				@keydown.down.prevent="setup.handleKeydown('down')"
 				@keydown.up.prevent="setup.handleKeydown('up')"
 				@keydown.enter="setup.selectItemFromEnter()">
-				<div v-if="multiple && setup.isArray(vModel) && vModel?.length && !$slots['multiple-value']" >
+				<div v-if="multiple && setup.isArray(vModel) && vModel?.length && !$slots['multiple-value']">
 					<span
 						v-for="(item, i) in vModel"
 						:key="Number(i)"
 						class="orion-select__selected-item">
 						<slot
-							v-if="setup.valueDisplay()"
+							v-if="setup.valueDisplay(item)"
 							name="value"
 							v-bind="setup.valueDisplay(item)">
-							{{ setup.valueDisplay(item).display }}
+							{{ setup.valueDisplay(item)!.display }}
 						</slot>
 						<span
 							v-if="!readonly && !disabled"
@@ -148,7 +148,7 @@
 							<span
 								v-html="setup.itemIsObject(option) && displayKey
 									? setup.markedSearch(option[displayKey])
-									: setup.markedSearch(option)"/>
+									: setup.markedSearch(String(option))"/>
 						</slot>
 						<template v-if="multiple">
 							<orion-icon
@@ -186,7 +186,15 @@
 	</v-dropdown>
 </template>
 
-<script setup lang="ts" generic="T extends Record<string, any> | string | number | boolean">
+<script
+	setup
+	lang="ts"
+	generic="
+		T,
+		O,
+		VKey extends keyof O = never,
+		DKey extends keyof O = VKey,
+	">
 import './OrionSelect.less';
 import { OrionButton } from 'packages/Button';
 import { OrionIcon } from 'packages/Icon';
@@ -194,26 +202,41 @@ import { OrionInput } from 'packages/Input';
 import { OrionLoader } from 'packages/Loader';
 import { OrionField } from 'packages/Field';
 import OrionSelectSetupService from './OrionSelectSetupService';
-import type { OrionSelectProps, OrionSelectEmits, VModelType, BaseVModelType } from './OrionSelectSetupService';
-const emits = defineEmits<OrionSelectEmits>() as OrionSelectEmits;
+import type { OrionSelectProps, OrionSelectEmits, VModelType } from './OrionSelectSetupService';
+const emits = defineEmits<OrionSelectEmits<T, O>>();
 const vModel = defineModel<VModelType<T>>();
-const props = withDefaults(defineProps<OrionSelectProps<T>>(), OrionSelectSetupService.defaultProps);
+const props = withDefaults(defineProps<OrionSelectProps<T, O, VKey, DKey>>(), OrionSelectSetupService.defaultProps);
 const setup = new OrionSelectSetupService(props, emits, vModel);
 
-const slots = defineSlots<{
-  'default'(): void
-  'option'(props: { 
-			item: T,
+defineSlots<{
+	'multiple-value'(props: { value: T[] }): void
+	'before-options'(props: { options: O[] }): void
+	'after-options'(props: { options: O[] }): void
+  'option'(props: {
+			item: O,
 			index: number,
 			markedSearch:(content: string) => string | undefined
 		}): void
-  'value'(props: { item: BaseVModelType<T> , display: BaseVModelType<T>}): void
-  'multiple-value'(props: { value: BaseVModelType<T>[] }): void
-  'before-options'(props: { options: BaseVModelType<T>[] }): void
-  'after-options'(props: { options: BaseVModelType<T>[] }): void
-}>()
+	'value'(props: {
+			item: ReturnType<OrionSelectSetupService<T, O, VKey, DKey>['valueDisplay']>['item'],
+			display: ObjectKeyValidator<O, DKey, VKey> extends never
+				? O
+				: DKey extends keyof O
+					? O[DKey]
+					: O | undefined;
+		}): void
+}>();
 
 defineExpose(setup.publicInstance);
+
+
+type ObjectKeyValidator<
+	O,
+	D extends keyof O,
+	V extends keyof O
+> = D extends never
+	? (V extends never ? O : O[V])
+	: O[D];
 
 /** Doc
  * @doc slot/value The selected value if single select, each value if multiple select

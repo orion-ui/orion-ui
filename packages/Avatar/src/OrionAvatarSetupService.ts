@@ -1,7 +1,7 @@
 import SharedSetupService from '../../Shared/SharedSetupService';
 import { reactive, watch } from 'vue';
 import { isObject, isString } from 'lodash-es';
-import SharedProps, { SharedPropsColor } from 'packages/Shared/SharedProps';
+import SharedProps, { SharedPropsColor } from '../../Shared/SharedProps';
 
 export type OrionAvatarEmits = {}
 export type OrionAvatarProps = SharedPropsColor & {
@@ -37,12 +37,10 @@ export type OrionAvatarProps = SharedPropsColor & {
 export default class OrionAvatarSetupService extends SharedSetupService {
 	static readonly defaultProps = {
 		size: SharedProps.size['size'] as OrionAvatarProps['size'],
-		contain: false,
 		name: '',
 		nbAvatarUpdates: 0,
 		rootUrl: '/avatar/',
 		color: 'brand' as Orion.Color,
-		square: false,
 	};
 
 	private state = reactive({ error: false });
@@ -115,7 +113,7 @@ export default class OrionAvatarSetupService extends SharedSetupService {
 
 	constructor (
 		protected props: OrionAvatarProps & typeof OrionAvatarSetupService.defaultProps,
-		protected emits: OrionAvatarEmits
+		protected emits: OrionAvatarEmits,
 	) {
 		super();
 

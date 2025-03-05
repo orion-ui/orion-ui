@@ -37,18 +37,13 @@ export type OrionDatepickerProps = SharedFieldSetupServiceProps & {
 	type?: Orion.DatepickerType,
 	// @doc props/valueDisplayFormat function to customize the display format
 	// @doc/fr props/valueDisplayFormat fonction pour personnaliser l'affichage
-	valueDisplayFormat?: Function,
+	valueDisplayFormat?: (val: Date) => string,
 };
 
 export default class OrionDatepickerSetupService extends SharedFieldSetupService<OrionDatepickerProps, Nil<Date>> {
 	static readonly defaultProps = {
 		...SharedFieldSetupService.defaultProps,
-		disablePopover: false,
-		displayWeekNumber: false,
-		hideDisabled: false,
 		multipleLabelColor: 'default' as Orion.ColorExtendedAndGreys,
-		preserveTime: false,
-		time: false,
 		type: 'date' as Orion.DatepickerType,
 	};
 
@@ -96,8 +91,8 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 				return useMonkey(this.range.value?.start)?.toReadable('$MMMM');
 			}
 		} else {
-			if (this.vModel instanceof Date) {
-				return this.props.valueDisplayFormat ? this.props.valueDisplayFormat(this.vModel) : this.inputValueFormat(this.vModel);
+			if (this.vModel.value instanceof Date) {
+				return this.props.valueDisplayFormat ? this.props.valueDisplayFormat(this.vModel.value) : this.inputValueFormat(this.vModel.value);
 			} else if (this.state.isFocus) {
 				return this.dateformat.replaceAll('$', '').toLowerCase();
 			}
@@ -154,11 +149,14 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 			if (currentValue && (this.props.preserveTime || !dateUnchanged)) {
 				val.setHours(currentValue.getHours(), currentValue.getMinutes(), currentValue.getSeconds(), currentValue.getMilliseconds());
 			}
-			if (this.props.minDate && val.valueOf() < this.props.minDate.valueOf()) {
-				val = this.props.minDate;
-			}
-			if (this.props.maxDate && val.valueOf() > this.props.maxDate.valueOf()) {
-				val = this.props.maxDate;
+
+			if (!this.isFocus) {
+				if (this.props.minDate && val.valueOf() < this.props.minDate.valueOf()) {
+					val = this.props.minDate;
+				}
+				if (this.props.maxDate && val.valueOf() > this.props.maxDate.valueOf()) {
+					val = this.props.maxDate;
+				}
 			}
 		}
 
@@ -524,7 +522,7 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 			return;
 		};
 
-		if (this.props.disabled || this.props.readonly) {
+		if (this.props.disabled || this.props.readonly || this.props.valueDisplayFormat) {
 			return;
 		}
 
@@ -556,7 +554,12 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 	}
 
 	handleFocus (e: FocusEvent) {
-		if (!this.focusedWithMouse && this.props.type === 'date' && !this.responsive.onPhone && !this.props.selectOnFocus) {
+		if (!this.focusedWithMouse
+			&& this.props.type === 'date'
+			&& !this.responsive.onPhone
+			&& !this.props.selectOnFocus
+			&& !this.props.valueDisplayFormat
+		) {
 			setTimeout(() => {
 				const { input, firstSeparatorIndex } = this.getEventData();
 				input.setSelectionRange(0, firstSeparatorIndex);
@@ -569,6 +572,15 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 	handleBlur (e?: FocusEvent, force = false) {
 		if (!!this.slots.popper) return;
 		if (this.responsive.onPhone && !force) return;
+
+		if (this.props.minDate && this.vModel.value && this.vModel.value.valueOf() < this.props.minDate.valueOf()) {
+			this.vModel.value = this.props.minDate;
+			this.emits('input', this.props.minDate);
+		}
+		if (this.props.maxDate && this.vModel.value && this.vModel.value.valueOf() > this.props.maxDate.valueOf()) {
+			this.vModel.value = this.props.maxDate;
+			this.emits('input', this.props.maxDate);
+		}
 
 		this.focusedWithMouse = false;
 		super.handleBlur(e);
@@ -590,7 +602,7 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 	}
 
 	handleKeydownGuard (e: KeyboardEvent) {
-		if (this.props.disabled || this.props.readonly) {
+		if (this.props.disabled || this.props.readonly || this.props.valueDisplayFormat) {
 			e.preventDefault();
 			return;
 		}
@@ -605,7 +617,7 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 		const alpha = ['A', 'a', 'P', 'p'] as const;
 		const arrows = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
 		const deletion = ['Backspace', 'Delete'];
-		const misc = ['Tab'];
+		const misc = ['Tab', 'Enter'];
 		const allowed = [...numbers, ...alpha, ...arrows, ...deletion, ...misc, this.dateSeparator, this.timeSeparator];
 		const isSeparatorKey = this.dateSeparator.includes(key) || this.timeSeparator.includes(key) || this.dateTimeSeparator.includes(key);
 
@@ -883,6 +895,10 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 		// Handle tab key
 		if (key === 'Tab') {
 			this.setInputStringValue(year, month, day, hour, minute);
+		}
+
+		if (key === 'Enter') {
+			this.handleBlur();
 		}
 	}
 

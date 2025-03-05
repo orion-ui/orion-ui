@@ -44,8 +44,6 @@ export default class OrionColorPickerSetupService extends SharedFieldSetupServic
 	static readonly defaultProps = {
 		...SharedFieldSetupService.defaultProps,
 		debounce: 300,
-		hideHex: false,
-		hideRgba: false,
 		format: 'hex' as ColorFormat,
 	};
 

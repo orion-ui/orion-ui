@@ -1,4 +1,4 @@
-import { SharedPropsIcon } from 'packages/Shared/SharedProps';
+import { SharedPropsIcon } from '../../Shared/SharedProps';
 import SharedSetupService from '../../Shared/SharedSetupService';
 
 export type OrionIconSectionEmits = {}
@@ -12,7 +12,7 @@ export type OrionIconSectionProps = SharedPropsIcon & {
 };
 
 export default class OrionIconSectionSetupService extends SharedSetupService {
-	static readonly defaultProps = { center: false };
+	static readonly defaultProps = {};
 
 	constructor (protected props: OrionIconSectionProps, protected emits: OrionIconSectionEmits) {
 		super();

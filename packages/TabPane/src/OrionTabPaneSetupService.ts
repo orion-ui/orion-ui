@@ -1,6 +1,6 @@
 import { reactive, watch } from 'vue';
 import SharedSetupService from '../../Shared/SharedSetupService';
-import { SharedPropsIcon } from 'packages/Shared/SharedProps';
+import { SharedPropsIcon } from '../../Shared/SharedProps';
 
 export type OrionTabPaneEmits = {}
 export type OrionTabPaneProps = SharedPropsIcon & {
@@ -28,12 +28,7 @@ export type OrionTabPaneProps = SharedPropsIcon & {
 };
 
 export default class OrionTabPaneSetupService extends SharedSetupService {
-	static readonly defaultProps = {
-		disabled: false,
-		lazy: false,
-		lazyOnce: false,
-		markerColor: 'danger' as Orion.Color,
-	};
+	static readonly defaultProps = { markerColor: 'danger' as Orion.Color };
 
 	private _tabs?: OrionTabs;
 	private state = reactive({ hasBeenActive: false });

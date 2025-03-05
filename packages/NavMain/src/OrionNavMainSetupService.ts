@@ -3,7 +3,7 @@ import { _RouteLocationBase } from 'vue-router';
 import { concat } from 'lodash-es';
 
 import SharedNavSetupService from '../../Shared/SharedNavSetupService';
-import SharedProps, { SharedPropsNav } from 'packages/Shared/SharedProps';
+import SharedProps, { SharedPropsNav } from '../../Shared/SharedProps';
 
 export type OrionNavMainEmits = {}
 

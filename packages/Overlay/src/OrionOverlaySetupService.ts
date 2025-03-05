@@ -12,7 +12,7 @@ export type OrionOverlayProps = {
 };
 
 export default class OrionOverlaySetupService extends SharedSetupService {
-	static readonly defaultProps = { global: false };
+	static readonly defaultProps = {};
 
 	private state = reactive({
 		visible: false,

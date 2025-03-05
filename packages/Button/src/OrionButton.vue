@@ -17,7 +17,8 @@
 		:tabindex="disabled || loading ? undefined : setup.uid"
 		:disabled="disabled || loading"
 		:autofocus="autofocus"
-		@click.left="setup.visualClick($event)">
+		@click.left="setup.visualClick($event)"
+		@click="emits('click', $event)">
 		<orion-icon
 			v-if="prefixIcon || prefixFontIcon || loading"
 			class="orion-button__icon orion-button__icon--prefix"
@@ -49,7 +50,6 @@ import type { OrionButtonProps, OrionButtonEmits } from './OrionButtonSetupServi
 const emits = defineEmits<OrionButtonEmits>() as OrionButtonEmits;
 const props = withDefaults(defineProps<OrionButtonProps>(), OrionButtonSetupService.defaultProps);
 const setup = new OrionButtonSetupService(props, emits);
-
 defineExpose(setup.publicInstance);
 
 /** Doc

@@ -32,8 +32,6 @@ type PreviewDatas = {
 
 export default class OrionHorizontalScrollSetupService extends SharedSetupService {
 	static readonly defaultProps = {
-		dropShadow: false,
-		hideButton: false,
 		shadowColor: 'grey-lighter',
 		tolerance: 1,
 	};

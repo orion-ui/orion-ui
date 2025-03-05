@@ -1,6 +1,5 @@
 import { Private } from 'lib/private';
 import SharedSetupService from '../../Shared/SharedSetupService';
-import { OrionTimelinePaneProps } from 'packages/TimelinePane';
 
 export type OrionTimelinePillEmits = {}
 export type OrionTimelinePillProps = {
@@ -14,12 +13,7 @@ export type OrionTimelinePillProps = {
 }
 
 export default class OrionTimelinePillSetupService extends SharedSetupService {
-	static readonly defaultProps = {
-		disabled: false,
-		centeredPill: false,
-		scrollable: false,
-		panes: () => [] as Private.TsxTimelinePane[],
-	};
+	static readonly defaultProps = { panes: () => [] as Private.TsxTimelinePane[] };
 
 	constructor (protected props: OrionTimelinePillProps, protected emits: OrionTimelinePillEmits) {
 		super();

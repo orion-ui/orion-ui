@@ -62,9 +62,7 @@ type OverlayCoordArray = {
 export default class OrionTourStepSetupService extends SharedSetupService {
 	static readonly defaultProps = {
 		closable: true,
-		hideFinish: false,
 		size: 'md',
-		target: false,
 		timeout: 3000,
 	};
 

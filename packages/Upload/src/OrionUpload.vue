@@ -1,7 +1,7 @@
 <template>
 	<div
 		class="orion-upload"
-		:class="{ 'orion-upload--drag-over' : setup.isDraggingOver }"
+		:class="setup.cssClass"
 		@mouseenter.prevent="setup.animIllustration()"
 		@dragenter.prevent="setup.handleDragEnter($event)"
 		@dragleave.prevent="setup.handleDragLeave($event)"
@@ -26,6 +26,9 @@
 				<div class="orion-upload__content">
 					<div class="orion-upload__label">
 						<slot>{{ setup.label }}</slot>
+						<span
+							v-if="required"
+							class="text--danger">*</span>
 					</div>
 
 					<div class="orion-upload__or">{{ setup.lang.OR }}</div>
@@ -138,6 +141,13 @@
 					:message="setup.lang.ORION_UPLOAD__PROCESSING"/>
 			</div>
 		</transition>
+
+		<div
+			v-if="setup.showState
+				&& (setup.showError || setup.showWarning)
+				&& setup.validationHtmlMessages?.length"
+			class="orion-input__error-message"
+			v-html="setup.validationHtmlMessages"/>
 
 		<div
 			:ref="setup._bubble"

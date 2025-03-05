@@ -23,7 +23,7 @@
 			:class="[
 				{ 'orion-card__header--lined': headerLine },
 			]"
-			@click="$emit('header-click')">
+			@click="emits('header-click')">
 			<h4
 				v-if="title"
 				class="orion-card__title">
@@ -34,7 +34,7 @@
 
 		<div
 			class="orion-card__body"
-			@click="$emit('body-click')">
+			@click="emits('body-click')">
 			<slot/>
 		</div>
 
@@ -72,8 +72,6 @@ import type { OrionCardProps, OrionCardEmits } from './OrionCardSetupService';
 const emits = defineEmits<OrionCardEmits>() as OrionCardEmits;
 const props = withDefaults(defineProps<OrionCardProps>(), OrionCardSetupService.defaultProps);
 const setup = new OrionCardSetupService(props, emits);
-// eslint-disable-next-line func-call-spacing
-
 defineExpose(setup.publicInstance);
 
 /** Doc

@@ -1,7 +1,7 @@
 import { ref } from 'vue';
 
 import SharedNavSetupService from '../../Shared/SharedNavSetupService';
-import SharedProps, { SharedPropsNav } from 'packages/Shared/SharedProps';
+import SharedProps, { SharedPropsNav } from '../../Shared/SharedProps';
 
 export type OrionNavTabsEmits = {}
 export type OrionNavTabsProps = SharedPropsNav & {

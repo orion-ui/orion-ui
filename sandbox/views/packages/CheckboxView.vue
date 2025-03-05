@@ -5,8 +5,7 @@
 		</o-alert>
 		<o-checkbox
 			v-model="fieldBoolean"
-			label="boolean"
-			disabled/>
+			label="boolean"/>
 
 		<hr>
 
@@ -39,6 +38,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-const fieldBoolean = ref(false);
+const fieldBoolean = ref<boolean>();
 const fieldMultiple = ref(['toto2']);
 </script>

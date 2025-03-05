@@ -11,7 +11,7 @@ export type OrionDateRangeEmits = {
 }
 
 export default class OrionDateRangeSetupService extends SharedSetupService {
-	static readonly defaultProps = { displayWeekNumber: false };
+	static readonly defaultProps = {};
 
 	private state = reactive({
 		selecting: false,

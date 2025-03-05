@@ -1,6 +1,6 @@
 import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetupServiceProps } from '../../Shared/SharedFieldSetupService';
 import { ModelRef, reactive } from 'vue';
-import SharedProps, { SharedPropsColor } from 'packages/Shared/SharedProps';
+import SharedProps, { SharedPropsColor } from '../../Shared/SharedProps';
 
 export type OrionToggleEmits = SharedFieldSetupServiceEmits<boolean> & {}
 export type OrionToggleProps =
@@ -24,10 +24,7 @@ export default class OrionToggleSetupService extends SharedFieldSetupService<Ori
 	static readonly defaultProps = {
 		...SharedFieldSetupService.defaultProps,
 		...SharedProps.color,
-		inline: false,
-		reverse: false,
 		type: 'toggle',
-		value: false,
 	};
 
 	protected inputType = 'toggle';
@@ -82,7 +79,7 @@ export default class OrionToggleSetupService extends SharedFieldSetupService<Ori
 
 	get buttonStyle () {
 		const cssMargin = this.px(this.state.margin);
-		const transform = this.vModel
+		const transform = this.vModel.value
 			? this.translate3d(this.distance, cssMargin)
 			: this.translate3d(cssMargin, cssMargin);
 
