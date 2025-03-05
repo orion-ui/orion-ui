@@ -154,11 +154,14 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 			if (currentValue && (this.props.preserveTime || !dateUnchanged)) {
 				val.setHours(currentValue.getHours(), currentValue.getMinutes(), currentValue.getSeconds(), currentValue.getMilliseconds());
 			}
-			if (this.props.minDate && val.valueOf() < this.props.minDate.valueOf()) {
-				val = this.props.minDate;
-			}
-			if (this.props.maxDate && val.valueOf() > this.props.maxDate.valueOf()) {
-				val = this.props.maxDate;
+
+			if (!this.isFocus) {
+				if (this.props.minDate && val.valueOf() < this.props.minDate.valueOf()) {
+					val = this.props.minDate;
+				}
+				if (this.props.maxDate && val.valueOf() > this.props.maxDate.valueOf()) {
+					val = this.props.maxDate;
+				}
 			}
 		}
 
@@ -575,6 +578,15 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 		if (!!this.slots.popper) return;
 		if (this.responsive.onPhone && !force) return;
 
+		if (this.props.minDate && this.vModel.value && this.vModel.value.valueOf() < this.props.minDate.valueOf()) {
+			this.vModel.value = this.props.minDate;
+			this.emits('input', this.props.minDate);
+		}
+		if (this.props.maxDate && this.vModel.value && this.vModel.value.valueOf() > this.props.maxDate.valueOf()) {
+			this.vModel.value = this.props.maxDate;
+			this.emits('input', this.props.maxDate);
+		}
+
 		this.focusedWithMouse = false;
 		super.handleBlur(e);
 	}
@@ -610,7 +622,7 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 		const alpha = ['A', 'a', 'P', 'p'] as const;
 		const arrows = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
 		const deletion = ['Backspace', 'Delete'];
-		const misc = ['Tab'];
+		const misc = ['Tab', 'Enter'];
 		const allowed = [...numbers, ...alpha, ...arrows, ...deletion, ...misc, this.dateSeparator, this.timeSeparator];
 		const isSeparatorKey = this.dateSeparator.includes(key) || this.timeSeparator.includes(key) || this.dateTimeSeparator.includes(key);
 
@@ -888,6 +900,10 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 		// Handle tab key
 		if (key === 'Tab') {
 			this.setInputStringValue(year, month, day, hour, minute);
+		}
+
+		if (key === 'Enter') {
+			this.handleBlur();
 		}
 	}
 

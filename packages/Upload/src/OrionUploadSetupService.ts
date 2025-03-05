@@ -60,10 +60,35 @@ export default class OrionUploadSetupService extends SharedFieldSetupService<Ori
 			);
 	}
 
+	get cssClass () {
+		const baseClass = `orion-upload`;
+		const cls = [
+			`${baseClass}--${this.props.size}`,
+			{ 'orion-upload--drag-over': this.isDraggingOver },
+		];
+
+		if (this.showError) cls.push(`${baseClass}--error`);
+		if (this.showWarning) cls.push(`${baseClass}--warning`);
+		if (this.showSuccess) cls.push(`${baseClass}--success`);
+		if (this.props.clearable) cls.push(`${baseClass}--clearable`);
+		if (this.isFocus) cls.push(`${baseClass}--focused`);
+		if (this.props.disabled) cls.push(`${baseClass}--disabled`);
+		if (this.props.required) cls.push(`${baseClass}--required`);
+		if (this.props.readonly) cls.push(`${baseClass}--readonly`);
+
+		return cls;
+	}
+
+	protected get hasValue (): boolean {
+		return this.vModel.value !== null && this.vModel.value !== undefined && !!this.vModel.length;
+	}
+
 
 	constructor (
 		protected props: OrionUploadProps & Omit<typeof OrionUploadSetupService.defaultProps, 'fileTypes'> & { fileTypes: string[]},
-		protected emits: OrionUploadEmits, vModel: ModelRef<File[] | undefined>) {
+		protected emits: OrionUploadEmits,
+		protected vModel: ModelRef<File[] | undefined>,
+	) {
 		super(props, emits, vModel);
 	}
 
@@ -177,6 +202,7 @@ export default class OrionUploadSetupService extends SharedFieldSetupService<Ori
 
 	clickInput () {
 		this._input.value?.click();
+		setTimeout(() => this.setHasBeenFocus(true), 600);
 	}
 
 	deleteFile (index: number) {
@@ -190,6 +216,7 @@ export default class OrionUploadSetupService extends SharedFieldSetupService<Ori
 	handleDrop (ev: DragEvent) {
 		if (!this.vModel.value) return;
 		if (!this.props.multiple) this.vModel.value.length = 0;
+		this.setHasBeenFocus(true);
 		ev.preventDefault();
 
 		if (ev.dataTransfer?.items) {

@@ -24,10 +24,7 @@ export default class OrionToggleSetupService extends SharedFieldSetupService<Ori
 	static readonly defaultProps = {
 		...SharedFieldSetupService.defaultProps,
 		...SharedProps.color,
-		inline: false,
-		reverse: false,
 		type: 'toggle',
-		value: false,
 	};
 
 	protected inputType = 'toggle';
