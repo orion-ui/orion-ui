@@ -12,7 +12,7 @@ export type OrionIconSectionProps = SharedPropsIcon & {
 };
 
 export default class OrionIconSectionSetupService extends SharedSetupService {
-	static readonly defaultProps = { center: false };
+	static readonly defaultProps = {};
 
 	constructor (protected props: OrionIconSectionProps, protected emits: OrionIconSectionEmits) {
 		super();

@@ -24,11 +24,7 @@ export type OrionTimelineProps = {
 	scrollable?: boolean,
 };
 export default class OrionTimelineSetupService extends SharedSetupService {
-	static readonly defaultProps = {
-		centeredPill: false,
-		horizontal: false,
-		scrollable: false,
-	};
+	static readonly defaultProps = {};
 
 	_loader = ref<OrionLoader>();
 	private slots: Slots;

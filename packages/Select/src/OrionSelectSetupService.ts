@@ -26,7 +26,8 @@ export type OrionSelectEmits<T, O> = SharedFieldSetupServiceEmits<VModelType<T>>
 	(e: 'fetch-end', payload: O[]): void;
 	(e: 'fetch-search-clear'): void;
 }
-export type OrionSelectProps<O, DKey extends keyof O, VKey extends keyof O> = SharedFieldSetupServiceProps & {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export type OrionSelectProps<T, O, VKey extends keyof O, DKey extends keyof O = VKey> = SharedFieldSetupServiceProps & {
 	// @doc props/autocomplete adds the possibility to write in the select field
 	// @doc/fr props/autocomplete permet à l'utilisateur d'écrire dans le champ
 	autocomplete?: boolean,
@@ -89,19 +90,16 @@ export type OrionSelectProps<O, DKey extends keyof O, VKey extends keyof O> = Sh
 export type VModelType<T> = T | T[] | undefined | null;
 
 export default class OrionSelectSetupService<
-	T, O, DKey extends keyof O, VKey extends keyof O
-> extends SharedFieldSetupService<OrionSelectProps<O, DKey, VKey>, VModelType<T>> {
+	T, O, VKey extends keyof O, DKey extends keyof O = VKey
+> extends SharedFieldSetupService<OrionSelectProps<T, O, VKey, DKey>, VModelType<T>> {
 	static readonly defaultProps = {
 		...SharedFieldSetupService.defaultProps,
-		autocomplete: false,
 		donetyping: 600,
 		fetchInitialOptions: () => [],
 		fetchKey: 'search',
 		fetchMethod: 'GET' as OrionSelectProps<any, any, any>['fetchMethod'],
 		fetchMinSearch: 1,
-		multiple: false,
 		options: () => [],
-		searchable: false,
 		trackKey: 'id' as any, // avoid typing error in OrionSelect.vue
 		favoriteIcon: 'star' as Orion.Icon,
 	};
@@ -190,11 +188,11 @@ export default class OrionSelectSetupService<
 	}
 
 	get hasValue () {
-		return this.vModel.value !== ''
+		return !!(this.vModel.value !== ''
 			&& (
 				(!this.props.multiple && !isNil(this.vModel.value))
 				|| (this.props.multiple && isArray(this.vModel.value) && !!this.vModel.value.length)
-			);
+			));
 	}
 
 	get labelIsFloating () {
@@ -240,7 +238,7 @@ export default class OrionSelectSetupService<
 	// @doc props/favoriteOptions your favorites options
 	// @doc/fr props/favoriteOptions options favoris du select, elles apparaissent avant les options
 	constructor (
-		protected props: OrionSelectProps<O, DKey, VKey> & Omit<typeof OrionSelectSetupService.defaultProps, 'options' | 'fetchInitialOptions'> & {
+		protected props: OrionSelectProps<T, O, VKey, DKey> & Omit<typeof OrionSelectSetupService.defaultProps, 'options' | 'fetchInitialOptions'> & {
 			options: O[],
 			fetchInitialOptions: O[]
 		},
@@ -272,7 +270,7 @@ export default class OrionSelectSetupService<
 	private checkProps () {
 		if (this.props.multiple && !isNil(this.vModel.value) && !isArray(this.vModel.value)) {
 			// eslint-disable-next-line max-len
-			Log.error(`orion-select - prop "multiple" on orion-select requires a v-model of type Array, type ${upperFirst(typeof this.vModel)} detected`);
+			Log.error(`orion-select - prop "multiple" on orion-select requires a v-model of type Array, type ${upperFirst(typeof this.vModel.value)} detected`);
 		}
 
 		if (this.isObjectType && !this.props.trackKey) {
@@ -435,7 +433,7 @@ export default class OrionSelectSetupService<
 		return typeof item === 'object' && item !== null;
 	}
 
-	valueDisplay (item?: Nil<T>): any {
+	valueDisplay (item?: Nil<T>): { item: Nil<T> | Nil<O>, display: any } {
 		const optionsToSearchIn = (this.props.fetchUrl || this.props.customFetch) ? this.fetchOptions : this.props.options;
 		const currentValue = optionsToSearchIn.find((x) => {
 			return this.itemIsObject(x)
@@ -451,7 +449,7 @@ export default class OrionSelectSetupService<
 		if (this.props.valueKey && this.props.displayKey) {
 			return this.itemIsObject(currentValue) && currentValue[this.props.displayKey]
 				? {
-					display: currentValue[this.props.displayKey] as O[DKey],
+					display: currentValue[this.props.displayKey],
 					item: currentValue as Nil<O>,
 				} : {
 					display: item,
@@ -460,7 +458,7 @@ export default class OrionSelectSetupService<
 		} else if (this.props.displayKey) {
 			return item && this.itemIsObject(item) && item[this.props.displayKey]
 				? {
-					display: item[this.props.displayKey] as O[DKey],
+					display: item[this.props.displayKey],
 					item: item as Nil<T>,
 				} : {
 					display: item,
@@ -470,7 +468,7 @@ export default class OrionSelectSetupService<
 			return item && this.props.valueKey
 				? {
 					display: this.itemIsObject(currentValue) && currentValue[this.props.valueKey]
-						? currentValue[this.props.valueKey] as O[VKey]
+						? currentValue[this.props.valueKey]
 						: undefined as Nil<T>,
 					item: currentValue as Nil<O>,
 				} : {

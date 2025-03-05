@@ -34,7 +34,6 @@ type CropperType = InstanceType<typeof Cropper> & { coefficient: number };
 
 export default class OrionCropperSetupService extends SharedSetupService {
 	static readonly defaultProps = {
-		circle: false,
 		cropHeight: 300,
 		cropWidth: 300,
 		zoomMax: 3,

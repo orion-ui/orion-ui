@@ -643,6 +643,7 @@ const commonBind = inject<Record<string, any>>('commonBind');
 
 // #region Methods
 async function customFetch (term?: string): Promise<any[]> {
+	// eslint-disable-next-line no-console
 	console.log(`customFetch term:`, term);
 	const resp = await fetch(`https://jsonplaceholder.typicode.com/users`);
 	return await resp.json();

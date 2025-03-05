@@ -3,7 +3,7 @@ import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetup
 import { ModelRef } from 'vue';
 import SharedProps, { SharedPropsColor } from '../../Shared/SharedProps';
 
-export type OrionCheckboxEmits<T =VModelType> = SharedFieldSetupServiceEmits<T> & {}
+export type OrionCheckboxEmits<T> = SharedFieldSetupServiceEmits<T> & {}
 export type OrionCheckboxProps = SharedFieldSetupServiceProps &
 	SharedPropsColor & {
 	// @doc props/iconCheck the icon when the checkbox is checked
@@ -27,13 +27,10 @@ export type OrionCheckboxProps = SharedFieldSetupServiceProps &
 };
 type VModelType = any[] | boolean | null | undefined;
 
-export default class OrionCheckboxSetupService extends SharedFieldSetupService<OrionCheckboxProps, VModelType, OrionCheckboxEmits> {
+export default class OrionCheckboxSetupService extends SharedFieldSetupService<OrionCheckboxProps, VModelType, OrionCheckboxEmits<VModelType>> {
 	static readonly defaultProps = {
 		...SharedFieldSetupService.defaultProps,
 		...SharedProps.color,
-		inline: false,
-		multiple: false,
-		reverse: false,
 		type: 'checkbox',
 	};
 
@@ -62,7 +59,7 @@ export default class OrionCheckboxSetupService extends SharedFieldSetupService<O
 
 	constructor (
 		protected props: OrionCheckboxProps & typeof OrionCheckboxSetupService.defaultProps,
-		protected emits: OrionCheckboxEmits,
+		protected emits: OrionCheckboxEmits<VModelType>,
 		protected vModel: ModelRef<VModelType>) {
 		super(props, emits, vModel);
 	}
@@ -79,8 +76,7 @@ export default class OrionCheckboxSetupService extends SharedFieldSetupService<O
 					this.vModel?.value.push(this.props.inputValue);
 				}
 			} else {
-				if (this.vModel)
-					this.vModel.value = !this.vModel.value;
+				this.vModel.value = !this.vModel.value;
 			}
 		}
 	}

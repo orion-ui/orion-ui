@@ -1,4 +1,4 @@
-import { ModelRef, nextTick, Ref, ref } from 'vue';
+import { ModelRef, nextTick, ref } from 'vue';
 import SharedSetupService from '../../Shared/SharedSetupService';
 
 export type OrionSectionEmits = {}
@@ -21,10 +21,7 @@ export type OrionSectionProps = {
 };
 
 export default class OrionSectionSetupService extends SharedSetupService {
-	static readonly defaultProps = {
-		collapsible: false,
-		gap: 'md' as Orion.Size,
-	};
+	static readonly defaultProps = { gap: 'md' as Orion.Size };
 
 	readonly _content = ref<RefDom>();
 	readonly _el = ref<HTMLDetailsElement>();

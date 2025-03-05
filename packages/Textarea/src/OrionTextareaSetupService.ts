@@ -13,10 +13,7 @@ export type OrionTextareaProps = SharedFieldSetupServiceProps & {
 };
 
 export default class OrionTextareaSetupService extends SharedFieldSetupService<OrionTextareaProps, string | null | undefined> {
-	static readonly defaultProps = {
-		...SharedFieldSetupService.defaultProps,
-		showLength: false,
-	};
+	static readonly defaultProps = { ...SharedFieldSetupService.defaultProps };
 
 	_input = ref<HTMLInputElement & HTMLTextAreaElement>();
 	private _modal?: OrionModal;

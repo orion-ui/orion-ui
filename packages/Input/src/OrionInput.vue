@@ -5,7 +5,6 @@
 		<input
 			:ref="setup._input"
 			v-model="setup.vModelProxy"
-			v-cleave="cleave"
 			class="orion-input__input"
 			:maxlength="maxLength"
 			v-bind="{
@@ -17,8 +16,12 @@
 			}"
 			@keydown="setup.handleKeydownGuard($event)"
 			@change="setup.handleChange()"
+			@paste="setup.setVModelArray($event.clipboardData?.getData('text'))"
 			@focus="setup.handleFocus($event)"
 			@mousedown.right="emits('mousedown-right', $event)"
+			@mouseup.left="setup.setCursorPosition($event)"
+			@keyup.left="setup.setCursorPosition($event)"
+			@keyup.right="setup.setCursorPosition($event)"
 			@blur="setup.handleBlurCustom($event)">
 
 		<div
@@ -39,7 +42,6 @@ const emits = defineEmits<OrionInputEmits>() as OrionInputEmits;
 const vModel = defineModel<Nil<string | number>>();
 const props = withDefaults(defineProps<OrionInputProps>(), OrionInputSetupService.defaultProps);
 const setup = new OrionInputSetupService(props, emits, vModel);
-const vCleave = OrionInputSetupService.cleaveDirective;
 defineExpose(setup.publicInstance);
 
 /** Doc

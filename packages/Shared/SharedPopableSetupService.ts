@@ -29,9 +29,7 @@ export type SharedPopableSetupServiceProps = {
 
 
 export default abstract class SharedPopableSetupService extends SharedSetupService {
-	static readonly defaultProps = {
-		options: () => ({}) as Partial<Orion.Popable.Options>
-	};
+	static readonly defaultProps = { options: () => ({}) as Partial<Orion.Popable.Options> };
 
 	protected abstract name: Orion.Popable.Name;
 
@@ -98,7 +96,9 @@ export default abstract class SharedPopableSetupService extends SharedSetupServi
 
 
 	constructor (
-		protected props: SharedPopableSetupServiceProps & Omit<typeof SharedPopableSetupService.defaultProps, 'options'> & {options: Partial<Orion.Popable.Options>},
+		protected props: SharedPopableSetupServiceProps
+			& Omit<typeof SharedPopableSetupService.defaultProps, 'options'>
+			& {options: Partial<Orion.Popable.Options>},
 		protected emits: SharedPopableSetupServiceEmits) {
 		super();
 

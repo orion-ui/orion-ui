@@ -18,7 +18,6 @@ export type OrionPasswordProps = SharedFieldSetupServiceProps & {
 export default class OrionPasswordSetupService extends SharedFieldSetupService<OrionPasswordProps, string | null | undefined> {
 	static readonly defaultProps = {
 		...SharedFieldSetupService.defaultProps,
-		passwordTooltip: false,
 		type: 'password',
 	};
 

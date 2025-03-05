@@ -15,10 +15,7 @@ export type OrionNotifProps = SharedPopableSetupServiceProps & {
 };
 
 export default class OrionNotifSetupService extends SharedPopableSetupService {
-	static readonly defaultProps = {
-		...SharedPopableSetupService.defaultProps,
-		display: false,
-	};
+	static readonly defaultProps = { ...SharedPopableSetupService.defaultProps };
 
 	protected name = 'OrionNotif' as const;
 

@@ -60,7 +60,7 @@
 	</div>
 </template>
 
-<script setup lang="ts" generic="T extends Record<string,any>">
+<script setup lang="ts" generic="T extends Record<string, any>">
 import './OrionList.less';
 import { OrionFooterFixed } from 'packages/FooterFixed';
 import { OrionPaginate } from 'packages/Paginate';

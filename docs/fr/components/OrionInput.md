@@ -14,6 +14,7 @@ title: Input
 ::: demo:Input
 InputIcons
 InputStyle
+InputMask
 InputPlayground
 :::
 

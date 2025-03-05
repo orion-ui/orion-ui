@@ -9,8 +9,7 @@ export type OrionListEmits = {
 	(e: 'paginate', payload: number): void;
 }
 
-
-export type OrionListProps<T = any> = {
+export type OrionListProps<T extends Record<string, any>> = {
 	// @doc props/bindRouter the key used in the url query to bind the current page to the pagination component (ex: ...url/my-list?**page**=2 • *bindRouter = **page***)
 	// @doc/fr props/bindRouter représente la clé utilisée dans l'url pour binder la page courante au composant de pagination (ex: ...url/my-list?**page**=2 • *bindRouter = **page***)
 	bindRouter?: string,
@@ -52,7 +51,7 @@ export type OrionListProps<T = any> = {
 	usePaginationTop?: boolean,
 };
 
-export default class OrionListSetupService<T extends Record<string,any>> extends SharedSetupService {
+export default class OrionListSetupService<T extends Record<string, any>> extends SharedSetupService {
 	static readonly defaultProps = {
 		cellClass: 'col-sm-6 col-lg-4 col-xl-3',
 		gridClass: 'row row--grid',
@@ -60,7 +59,6 @@ export default class OrionListSetupService<T extends Record<string,any>> extends
 		list: () => [],
 		total: 0,
 		trackKey: 'id',
-		useAutoPagination: false,
 		useFooterSelected: true,
 		usePaginationBottom: true,
 		usePaginationTop: true,

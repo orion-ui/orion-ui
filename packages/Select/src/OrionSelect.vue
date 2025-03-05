@@ -217,7 +217,7 @@ import type { OrionSelectProps, OrionSelectEmits, VModelType } from './OrionSele
 const emits = defineEmits<OrionSelectEmits<T, O>>();
 const vModel = defineModel<VModelType<T>>();
 const favoritesOptions = defineModel<O[]>('favoritesOptions', { default: [] as O[] });
-const props = withDefaults(defineProps<OrionSelectProps<O, DKey, VKey>>(), OrionSelectSetupService.defaultProps);
+const props = withDefaults(defineProps<OrionSelectProps<T, O, VKey, DKey>>(), OrionSelectSetupService.defaultProps);
 const setup = new OrionSelectSetupService(props, emits, vModel, favoritesOptions);
 
 defineSlots<{
@@ -230,7 +230,7 @@ defineSlots<{
 			markedSearch:(content: string) => string | undefined
 		}): void
 	'value'(props: {
-			item: Nil<O> | Nil<T>,
+			item: ReturnType<OrionSelectSetupService<T, O, VKey, DKey>['valueDisplay']>['item'],
 			display: ObjectKeyValidator<O, DKey, VKey> extends never
 				? O
 				: DKey extends keyof O

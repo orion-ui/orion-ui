@@ -12,7 +12,7 @@ export type OrionFooterFixedProps = {
 };
 
 export default class OrionFooterFixedSetupService extends SharedSetupService {
-	static readonly defaultProps = { visible: false };
+	static readonly defaultProps = {};
 
 	constructor (
 		protected props: OrionFooterFixedProps & typeof OrionFooterFixedSetupService.defaultProps,

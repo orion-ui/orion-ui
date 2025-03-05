@@ -16,11 +16,7 @@ export type OrionAlertProps = SharedPropsColor & {
 };
 
 export default class OrionAlertSetupService extends SharedSetupService {
-	static readonly defaultProps : Partial<OrionAlertProps> = {
-		...SharedProps.color,
-		center: false,
-		close: false,
-	};
+	static readonly defaultProps : Partial<OrionAlertProps> = { ...SharedProps.color };
 
 	constructor (
 		protected props: OrionAlertProps & typeof OrionAlertSetupService.defaultProps,

@@ -70,11 +70,6 @@ export default class OrionDateTableSetupService extends SharedSetupService {
 	static readonly defaultProps = {
 		canGoNextMonth: true,
 		canGoPrevMonth: true,
-		disableMonthAndYear: false,
-		displayWeekNumber: false,
-		month: false,
-		rangeEnd: false,
-		rangeStart: false,
 		type: 'date' as Orion.DateTableType,
 	};
 
