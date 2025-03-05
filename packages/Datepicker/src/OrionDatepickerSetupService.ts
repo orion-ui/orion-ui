@@ -43,12 +43,7 @@ export type OrionDatepickerProps = SharedFieldSetupServiceProps & {
 export default class OrionDatepickerSetupService extends SharedFieldSetupService<OrionDatepickerProps, Nil<Date>> {
 	static readonly defaultProps = {
 		...SharedFieldSetupService.defaultProps,
-		disablePopover: false,
-		displayWeekNumber: false,
-		hideDisabled: false,
 		multipleLabelColor: 'default' as Orion.ColorExtendedAndGreys,
-		preserveTime: false,
-		time: false,
 		type: 'date' as Orion.DatepickerType,
 	};
 

@@ -37,12 +37,10 @@ export type OrionAvatarProps = SharedPropsColor & {
 export default class OrionAvatarSetupService extends SharedSetupService {
 	static readonly defaultProps = {
 		size: SharedProps.size['size'] as OrionAvatarProps['size'],
-		contain: false,
 		name: '',
 		nbAvatarUpdates: 0,
 		rootUrl: '/avatar/',
 		color: 'brand' as Orion.Color,
-		square: false,
 	};
 
 	private state = reactive({ error: false });
@@ -115,7 +113,7 @@ export default class OrionAvatarSetupService extends SharedSetupService {
 
 	constructor (
 		protected props: OrionAvatarProps & typeof OrionAvatarSetupService.defaultProps,
-		protected emits: OrionAvatarEmits
+		protected emits: OrionAvatarEmits,
 	) {
 		super();
 

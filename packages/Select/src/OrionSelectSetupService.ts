@@ -88,15 +88,12 @@ export default class OrionSelectSetupService<
 > extends SharedFieldSetupService<OrionSelectProps<T, O, VKey, DKey>, VModelType<T>> {
 	static readonly defaultProps = {
 		...SharedFieldSetupService.defaultProps,
-		autocomplete: false,
 		donetyping: 600,
 		fetchInitialOptions: () => [],
 		fetchKey: 'search',
 		fetchMethod: 'GET' as OrionSelectProps<any, any, any>['fetchMethod'],
 		fetchMinSearch: 1,
-		multiple: false,
 		options: () => [],
-		searchable: false,
 		trackKey: 'id' as any, // avoid typing error in OrionSelect.vue
 	};
 
@@ -174,11 +171,11 @@ export default class OrionSelectSetupService<
 	}
 
 	get hasValue () {
-		return this.vModel.value !== ''
+		return !!(this.vModel.value !== ''
 			&& (
 				(!this.props.multiple && !isNil(this.vModel.value))
 				|| (this.props.multiple && isArray(this.vModel.value) && !!this.vModel.value.length)
-			);
+			));
 	}
 
 	get labelIsFloating () {

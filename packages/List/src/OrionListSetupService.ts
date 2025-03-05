@@ -59,7 +59,6 @@ export default class OrionListSetupService<T extends Record<string, any>> extend
 		list: () => [],
 		total: 0,
 		trackKey: 'id',
-		useAutoPagination: false,
 		useFooterSelected: true,
 		usePaginationBottom: true,
 		usePaginationTop: true,

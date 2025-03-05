@@ -19,11 +19,11 @@ export type OrionTabsProps = {
 	// @doc/fr props/useRouter connecte les tabs au router pour synchroniser la tab active avec la router actuelle et utiliser le composant `<router-view/>`
 	useRouter?: boolean,
 
-	
+
 };
 
 export default class OrionTabsSetupService extends SharedSetupService {
-	static readonly defaultProps = { useRouter: false };
+	static readonly defaultProps = {};
 
 	_loader = ref<OrionLoader>();
 	private slots: Slots;

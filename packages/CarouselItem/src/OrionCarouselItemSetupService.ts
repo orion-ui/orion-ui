@@ -15,10 +15,7 @@ export type OrionCarouselItemProps = {
 };
 
 export default class OrionCarouselItemSetupService extends SharedSetupService {
-	static readonly defaultProps = {
-		lazy: false,
-		lazyOnce: false,
-	};
+	static readonly defaultProps = {};
 
 	private _carousel?: OrionCarousel;
 	private state = reactive({ hasBeenActive: false });

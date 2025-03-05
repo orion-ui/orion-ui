@@ -27,8 +27,6 @@ export default class OrionRadioSetupService extends SharedFieldSetupService<Orio
 	static readonly defaultProps = {
 		...SharedFieldSetupService.defaultProps,
 		color: 'info' as Orion.Color,
-		inline: false,
-		reverse: false,
 		type: 'radio',
 	};
 

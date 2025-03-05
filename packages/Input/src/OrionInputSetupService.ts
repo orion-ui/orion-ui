@@ -51,10 +51,8 @@ type InputMask = 'integer' | 'decimal' | 'hour' | {
 export default class OrionInputSetupService extends SharedFieldSetupService<OrionInputProps, VModelType> {
 	static readonly defaultProps = {
 		...SharedFieldSetupService.defaultProps,
-		allowNegative: false,
 		maskHourFormat: '24h',
 		maskHourSeparator: ':',
-		selectOnFocus: false,
 	};
 
 	protected get isValidCustom () {

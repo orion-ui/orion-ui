@@ -20,11 +20,7 @@ export type OrionPageProps = {
 };
 
 export default class OrionPageSetupService extends SharedSetupService {
-	static readonly defaultProps = {
-		stickySubactions: false,
-		subtitleEllipsis: false,
-		titleEllipsis: false,
-	};
+	static readonly defaultProps = {};
 
 	constructor (protected props: OrionPageProps, protected emits: OrionPageEmits) {
 		super();

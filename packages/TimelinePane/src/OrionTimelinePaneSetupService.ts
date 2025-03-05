@@ -34,13 +34,7 @@ export type OrionTimelinePaneProps = SharedPropsIcon & {
 };
 
 export default class OrionTimelinePaneSetupService extends SharedSetupService {
-	static readonly defaultProps = {
-		centeredPill: false,
-		disabled: false,
-		lazy: false,
-		lazyOnce: false,
-		markerColor: 'danger' as Orion.Color,
-	};
+	static readonly defaultProps = { markerColor: 'danger' as Orion.Color };
 
 	private _timeline?: OrionTimeline;
 	private state = reactive({ hasBeenActive: false });

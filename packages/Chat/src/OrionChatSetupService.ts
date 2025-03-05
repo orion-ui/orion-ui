@@ -22,10 +22,7 @@ export type OrionChatProps = {
 };
 
 export default class OrionChatSetupService extends SharedSetupService {
-	static readonly defaultProps = {
-		focusOnOpen: false,
-		hideSearch: false,
-	};
+	static readonly defaultProps = {};
 
 	private observer = null as Nullable<IntersectionObserver>;
 

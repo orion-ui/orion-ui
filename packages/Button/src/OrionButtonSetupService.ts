@@ -34,12 +34,6 @@ export default class OrionButtonSetupService extends SharedSetupService {
 	static readonly defaultProps = {
 		...SharedProps.color,
 		...SharedProps.size,
-		autofocus: false,
-		block: false,
-		disabled: false,
-		loading: false,
-		nude: false,
-		outline: false,
 	};
 
 	_el = ref<RefDom>();

@@ -24,7 +24,6 @@ export default class OrionUploadSetupService extends SharedFieldSetupService<Ori
 		...SharedFieldSetupService.defaultProps,
 		fileMaxSize: 4,
 		fileTypes: () => ['image/jpeg', 'image/png', 'image/gif', 'application/pdf'],
-		multiple: false,
 		showPreview: true,
 	};
 

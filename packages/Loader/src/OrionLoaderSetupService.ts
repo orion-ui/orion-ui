@@ -21,8 +21,6 @@ export default class OrionLoaderSetupService extends SharedSetupService {
 	static readonly defaultProps = {
 		...SharedProps.color,
 		...SharedProps.size,
-		global: false,
-		visible: false,
 	};
 
 	private state = reactive({

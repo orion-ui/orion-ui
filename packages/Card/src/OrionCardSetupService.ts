@@ -33,10 +33,7 @@ export type OrionCardProps =
 export default class OrionCardSetupService extends SharedSetupService {
 	static readonly defaultProps = {
 		...SharedProps.size,
-		actionsLine: false,
-		headerLine: false,
 		hoverElevation: 1,
-		selected: false,
 		selectedColor: 'info' as Orion.Color,
 	};
 

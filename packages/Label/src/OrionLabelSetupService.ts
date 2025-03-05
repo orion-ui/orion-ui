@@ -14,7 +14,6 @@ export default class OrionLabelSetupService extends SharedSetupService {
 	static readonly defaultProps = {
 		...SharedProps.colorExtendedAndGreys,
 		...SharedProps.size,
-		outline: false,
 	};
 
 	constructor (protected props: OrionLabelProps, protected emits: OrionLabelEmits) {
