@@ -2,7 +2,7 @@ import { reactive, ref, nextTick, ModelRef } from 'vue';
 import SharedSetupService from '../../Shared/SharedSetupService';
 
 export type OrionDateRangeProps = {
-	displayWeekNumber: boolean,
+	displayWeekNumber?: boolean,
 	minDate?: Date,
 	maxDate?: Date,
 }

@@ -1,4 +1,4 @@
-import { ComponentPublicInstance, nextTick, ref, watch } from 'vue';
+import { ComponentPublicInstance, nextTick, reactive, ref, watch } from 'vue';
 import { cloneDeep, debounce, DebouncedFunc, get, isArray, isEmpty, isNil, isObject, upperFirst } from 'lodash-es';
 import { Dropdown } from 'floating-vue';
 import mitt from 'mitt';
@@ -51,6 +51,7 @@ export type OrionSelectProps<T, O, VKey extends keyof O, DKey extends keyof O = 
 	favoriteIcon?: Orion.Icon,
 	// @doc props/fetchInitialOptions initial options before first fetch (when using fetch mecanism)
 	// @doc/fr props/fetchInitialOptions options intiales avant le premier fetch (lors de l'utilisation du mécanisme de fetch des options)
+	favoritesOptions?: O[],
 	fetchInitialOptions?: O[],
 	// @doc props/fetchKey key used to pass the research field value as a parameter to fetch the options
 	// @doc/fr props/fetchKey clé utilisée pour passer la valeur du champ de recherche comme paramètre pour récupérer les options
@@ -97,6 +98,7 @@ export default class OrionSelectSetupService<
 		fetchMethod: 'GET' as OrionSelectProps<any, any, any>['fetchMethod'],
 		fetchMinSearch: 1,
 		options: () => [],
+		favoritesOptions: () => [],
 		trackKey: 'id' as any, // avoid typing error in OrionSelect.vue
 		favoriteIcon: 'star' as Orion.Icon,
 	};
@@ -117,6 +119,7 @@ export default class OrionSelectSetupService<
 		indexNav: -1,
 		isFetching: false,
 		fetchResult: [] as O[],
+		favoritesOptions: [] as O[],
 	};
 
 	readonly _popover = ref<InstanceType<typeof Dropdown>>();
@@ -129,6 +132,7 @@ export default class OrionSelectSetupService<
 	readonly isArray = isArray;
 	readonly get = get;
 
+	get favoritesOptions () { return this.state.favoritesOptions; }
 	get valueToSearch () { return this.state.valueToSearch; }
 	set valueToSearch (value) {
 		this.state.valueToSearch = value;
@@ -156,8 +160,8 @@ export default class OrionSelectSetupService<
 			return this.fetchOptions;
 		} else {
 			let options = [];
-			if (this.favoritesOptions.value && this.favoritesOptions.value.length > 0) {
-				options = [...this.favoritesOptions.value, ...this.props.options]
+			if (this.favoritesOptions && this.favoritesOptions.length > 0) {
+				options = [...this.favoritesOptions, ...this.props.options]
 					.filter((obj, index, self) => index === self.findIndex(o => JSON.stringify(o) === JSON.stringify(obj)));
 			} else {
 				options = this.props.options;
@@ -226,22 +230,23 @@ export default class OrionSelectSetupService<
 			...super.publicInstance,
 			getSearchTerm: () => this.state.valueToSearch,
 			setSearchTerm: (val?: string) => this.valueToSearch = val,
-			setFavoritesOptions: (val: O[]) => this.favoritesOptions.value = val,
+			setFavoritesOptions: (val: O[]) => this.state.favoritesOptions = [...val],
 			triggerSearchAsync: async (term?: string) => await this.fetchSearchAsync(term),
 			blur: this.handleBlur.bind(this),
 		};
 	}
 
 	constructor (
-		protected props: OrionSelectProps<T, O, VKey, DKey> & Omit<typeof OrionSelectSetupService.defaultProps, 'options' | 'fetchInitialOptions'> & {
+		protected props: OrionSelectProps<T, O, VKey, DKey>
+		& Omit<typeof OrionSelectSetupService.defaultProps, 'options' | 'fetchInitialOptions' | 'favoritesOptions'> & {
 			options: O[],
 			fetchInitialOptions: O[]
+			favoritesOptions: O[]
 		},
 		protected emits: OrionSelectEmits<T, O>,
-		protected vModel: ModelRef<VModelType<T>>,
-		protected favoritesOptions: ModelRef<O[]>) {
+		protected vModel: ModelRef<VModelType<T>>) {
 		super(props, emits, vModel);
-
+		this.state.favoritesOptions = [...this.props.favoritesOptions];
 		this.bus.on('*', (type, e) => this.emits(type as any, e as any));
 		this.fetchSearchDebounce = debounce((term?: string) => {
 			this.fetchSearchAsync(term);

@@ -139,8 +139,8 @@
 								'selected' : setup.optionIsSelected(option),
 								'hover' : setup.indexNav === i,
 								'disabled' : !!disabledKey && !!setup.get(option, disabledKey, false),
-								'favorite' : i < (favoritesOptions ? favoritesOptions.length : 0),
-								'favorite--last': favoritesOptions && i + 1 === favoritesOptions.length,
+								'favorite' : i < (setup.favoritesOptions ? setup.favoritesOptions.length : 0),
+								'favorite--last': setup.favoritesOptions && i + 1 === setup.favoritesOptions.length,
 							}"
 							@mousedown.prevent="setup.selectItem(option)">
 							<slot
@@ -167,7 +167,7 @@
 								class="favorite-icon"/>
 						</div>
 						<hr
-							v-if="favoritesOptions && i === (favoritesOptions.length - 1)"
+							v-if="setup.favoritesOptions && i === (setup.favoritesOptions.length - 1)"
 							class="favorite-separator">
 					</template>
 				</div>
@@ -216,9 +216,8 @@ import OrionSelectSetupService from './OrionSelectSetupService';
 import type { OrionSelectProps, OrionSelectEmits, VModelType } from './OrionSelectSetupService';
 const emits = defineEmits<OrionSelectEmits<T, O>>();
 const vModel = defineModel<VModelType<T>>();
-const favoritesOptions = defineModel<O[]>('favoritesOptions', { default: [] as O[] });
 const props = withDefaults(defineProps<OrionSelectProps<T, O, VKey, DKey>>(), OrionSelectSetupService.defaultProps);
-const setup = new OrionSelectSetupService(props, emits, vModel, favoritesOptions);
+const setup = new OrionSelectSetupService(props, emits, vModel);
 
 defineSlots<{
 	'multiple-value'(props: { value: T[] }): void
@@ -253,8 +252,6 @@ type ObjectKeyValidator<
 /** Doc
  * @doc vModel/vModel component's vModel
  * @doc/fr vModel/vModel vModel du composant
- * @doc vModel/favoritesOptions your favorites options
- * @doc/fr vModel/favoritesOptions options favorites du select, elles apparaissent avant les options
  *
  * @doc slot/value The selected value if single select, each value if multiple select
  * @doc/fr slot/value La valeur sélectionnée s'il s'agit d'un select simple, sinon chaque valeur s'il s'agit d'un select multiple

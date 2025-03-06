@@ -37,7 +37,7 @@ export type OrionDatepickerProps = SharedFieldSetupServiceProps & {
 	type?: Orion.DatepickerType,
 	// @doc props/valueDisplayFormat function to customize the display format
 	// @doc/fr props/valueDisplayFormat fonction pour personnaliser l'affichage
-	valueDisplayFormat?: (val: Date) => string,
+	valueDisplayFormat?: (val: Nil<Date> | Nil<Orion.DateRange>) => string,
 };
 
 export default class OrionDatepickerSetupService extends SharedFieldSetupService<OrionDatepickerProps, Nil<Date>> {
