@@ -76,9 +76,6 @@ export type OrionSelectProps<T, O, VKey extends keyof O, DKey extends keyof O = 
 	// @doc props/searchable adds a search tooltip
 	// @doc/fr props/searchable ajoute un champ de recherche
 	searchable?: boolean,
-	// @doc props/showFavoriteIcon key used to display or not an icon new to the favorites options
-	// @doc/fr props/showFavoriteIcon clé qui permet ou non d'afficher un icône pour les favoris
-	showFavoriteIcon?: boolean,
 	// @doc props/trackKey unique key item
 	// @doc/fr props/trackKey clé unique qui va différencier les options
 	trackKey?: keyof O,

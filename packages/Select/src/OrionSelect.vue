@@ -162,7 +162,7 @@
 									class="icon--delete orion-select__icon--internal"/>
 							</template>
 							<orion-icon
-								v-if="showFavoriteIcon && !setup.optionIsSelected(option)"
+								v-if="favoriteIcon && !setup.optionIsSelected(option)"
 								:icon="favoriteIcon"
 								class="favorite-icon"/>
 						</div>
