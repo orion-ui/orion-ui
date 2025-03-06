@@ -30,6 +30,9 @@ provide('_droppable', setup.publicInstance);
 defineExpose(setup.publicInstance);
 
 /** Doc
+ * @doc vModel/datalist datas of the component
+ * @doc/fr vModel/datalist liste d'objets du composant
+ *
  * @doc slot/default The content of the component
  * @doc/fr slot/default Contenu du composant
  *

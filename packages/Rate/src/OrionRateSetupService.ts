@@ -55,7 +55,6 @@ export default class OrionRateSetupService extends SharedSetupService {
 		this.rate.value = val;
 	}
 
-
 	constructor (
 		protected props: OrionRateProps & typeof OrionRateSetupService.defaultProps,
 		protected emits: OrionRateEmits,

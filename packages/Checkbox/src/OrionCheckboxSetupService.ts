@@ -56,7 +56,6 @@ export default class OrionCheckboxSetupService extends SharedFieldSetupService<O
 		}
 	}
 
-
 	constructor (
 		protected props: OrionCheckboxProps & typeof OrionCheckboxSetupService.defaultProps,
 		protected emits: OrionCheckboxEmits<VModelType>,

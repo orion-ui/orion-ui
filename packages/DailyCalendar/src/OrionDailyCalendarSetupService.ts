@@ -95,9 +95,7 @@ export default class OrionDailyCalendarSetupService extends SharedSetupService {
 		return tasksToReturn;
 	}
 
-	// @doc vModel/date the selected date.
-	// @doc/fr vModel/date la date sélectionnée.
-	constructor (protected props: OrionDailyCalendarProps & Omit<typeof OrionDailyCalendarSetupService.defaultProps, 'range'> & {range:  number[]},
+	constructor (protected props: OrionDailyCalendarProps & Omit<typeof OrionDailyCalendarSetupService.defaultProps, 'range'> & {range: number[]},
 		protected emits: OrionDailyCalendarEmits,
 		protected date: ModelRef<Date>) {
 		super();

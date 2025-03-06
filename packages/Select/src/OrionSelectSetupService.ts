@@ -235,8 +235,6 @@ export default class OrionSelectSetupService<
 		};
 	}
 
-	// @doc props/favoriteOptions your favorites options
-	// @doc/fr props/favoriteOptions options favoris du select, elles apparaissent avant les options
 	constructor (
 		protected props: OrionSelectProps<T, O, VKey, DKey> & Omit<typeof OrionSelectSetupService.defaultProps, 'options' | 'fetchInitialOptions'> & {
 			options: O[],

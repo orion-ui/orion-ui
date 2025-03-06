@@ -43,7 +43,6 @@ export default class OrionRadioSetupService extends SharedFieldSetupService<Orio
 		return this.vModel.value === this.props.inputValue;
 	}
 
-
 	constructor (
 		protected props: OrionRadioProps & typeof OrionRadioSetupService.defaultProps,
 		protected emits: OrionRadioEmits,

@@ -89,7 +89,6 @@ export default class OrionDateRangeSetupService extends SharedSetupService {
 		&& this.vModel.value.start?.getFullYear() === this.vModel.value.end?.getFullYear();
 	}
 
-
 	constructor (protected props: OrionDateRangeProps, protected emits: OrionDateRangeEmits, protected vModel: ModelRef<Nil<Orion.DateRange>>) {
 		super();
 	}

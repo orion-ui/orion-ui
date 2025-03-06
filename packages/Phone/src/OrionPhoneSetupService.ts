@@ -132,10 +132,6 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Orio
 		};
 	}
 
-	// @doc vModel/phoneCountryCode the country code string, isolated from its parent object
-	// @doc/fr vModel/phoneCountryCode le code pays, isolé de son objet parent
-	// @doc vModel/phoneNumber the phoneNumber string, isolated from its parent object
-	// @doc/fr vModel/phoneNumber le numéro de téléphone, isolé de son objet parent
 	constructor (
 		protected props: OrionPhoneProps & typeof OrionPhoneSetupService.defaultProps,
 		protected emits: OrionPhoneEmits,

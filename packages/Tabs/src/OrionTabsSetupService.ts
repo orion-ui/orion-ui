@@ -48,7 +48,6 @@ export default class OrionTabsSetupService extends SharedSetupService {
 		};
 	}
 
-
 	constructor (protected props: OrionTabsProps, protected emits: OrionTabsEmits, slots: Slots, protected vModel?: ModelRef<string | undefined>) {
 		super();
 		this.slots = slots;

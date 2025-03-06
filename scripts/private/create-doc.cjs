@@ -329,6 +329,7 @@ class VueFileScanner extends DocScanner {
 			events: this.getEvents(),
 			provide: this.getProvide(),
 			slots: this.getSlots(),
+			vModel: this.getVmodels(),
 		};
 	}
 
@@ -424,6 +425,44 @@ class VueFileScanner extends DocScanner {
 		});
 
 		return slots;
+	}
+
+	getVmodels () {
+		const modelRefs = this.file.getVariableDeclarations()?.map((variable) => {
+			const initializer = variable.getInitializer();
+			if (!initializer) return;
+
+			// Vérifier si c'est un appel à defineModel<T>()
+
+			if (!initializer.getText().startsWith('defineModel<')) return;
+			// Récupérer le type générique
+			const typeArgument = initializer.getTypeArguments()[0]?.getText() || 'unknown';
+
+			// Vérifier s'il y a un deuxième argument (objet d'options avec default)
+			let defaultValue = null;
+			const args = initializer.getArguments();
+			if (args.length > 1) {
+				const optionsArg = args[1];
+				if (optionsArg.getKind() === SyntaxKind.ObjectLiteralExpression) {
+					const defaultProp = optionsArg.getProperty('default');
+					if (defaultProp?.getKind() === SyntaxKind.PropertyAssignment) {
+						defaultValue = defaultProp.getInitializer()?.getText() || null;
+					}
+				}
+			}
+			return {
+				name: variable.getName(),
+				type: typeArgument,
+				desc: this.getvModelDesciption(variable.getName()),
+				defaultValue: defaultValue ?? 'undefined',
+			};
+		}).filter(x => !!x);
+
+		return modelRefs;
+	}
+
+	getvModelDesciption (/** @type {string} */ name) {
+		return this.getDoc(`^vModel\/${name} (.*)$`);
 	}
 
 	getSlotsDetails (/** @type {string} */ name, /** @type {string[]} */ bindings) {
@@ -724,7 +763,6 @@ class SetupServiceFileScanner extends DocScanner {
 		return resolvedProps;
 	}
 
-
 	extractPropsFromClassDeclaration (/** @type {import('ts-morph').ClassDeclaration} */ classDeclaration) {
 		const fileTypeAlias = this.file.getTypeAliasOrThrow(`Orion${this.pack}Props`);
 
@@ -794,6 +832,11 @@ class SetupServiceFileScanner extends DocScanner {
 
 	getPropsDesciption (/** @type {string} */ name) {
 		const desc = this.getDoc(`^props\/${name} (.*)$`);
+		return desc;
+	}
+
+	getvModelDesciption (/** @type {string} */ name) {
+		const desc = this.getDoc(`^vModel\/${name} (.*)$`);
 		return desc;
 	}
 }

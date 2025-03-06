@@ -33,6 +33,9 @@ const setup = new OrionDraggableSetupService(props, emits, disabled, _droppable,
 defineExpose(setup.publicInstance);
 
 /** Doc
+ * @doc vModel/disabled if set, the item will not be draggable
+ * @doc/fr vModel/disabled si défini, l'élément ne sera pas déplaçable
+ *
  * @doc slot/default the content of the draggable component
  * @doc/fr slot/default contenu de l'élément
  */

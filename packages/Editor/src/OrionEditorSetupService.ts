@@ -68,8 +68,6 @@ export default class OrionEditorSetupService extends SharedFieldSetupService<Ori
 		return this.sanitizeHtml(this.vModel?.value).length > 0;
 	}
 
-	// @doc vModel/json the json format of the editor value
-	// @doc/fr vModel/json valeur de l'éditeur au format JSON
 	constructor (
 		protected props: OrionEditorProps
 			& Omit<typeof OrionEditorSetupService.defaultProps, 'disableFeatures' | 'imgFileTypes'>

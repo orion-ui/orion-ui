@@ -78,7 +78,6 @@ export default class OrionPaginateSetupService extends SharedSetupService {
 		return Math.ceil(this.props.total / this.props.size);
 	}
 
-
 	constructor (protected props: OrionPaginateProps, protected emits: OrionPaginateEmits, protected vModel: ModelRef<number>) {
 		super();
 	}

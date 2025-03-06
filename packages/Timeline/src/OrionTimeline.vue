@@ -48,17 +48,20 @@ const jsxTimeline = () => {
 
 
 	return (
-			<div class={{
-				'orion-timeline': true,
-				'orion-timeline--horizontal': props.horizontal,
-				'orion-timeline--vertical': !props.horizontal,
-			}}>
-				{[ pills, content ]}
-			</div>
+		<div class={{
+			'orion-timeline': true,
+			'orion-timeline--horizontal': props.horizontal,
+			'orion-timeline--vertical': !props.horizontal,
+		}}>
+			{[ pills, content ]}
+		</div>
 	);
 };
 
 /** Doc
+ * @doc vModel/vModel component's vModel
+ * @doc/fr vModel/vModel vModel du composant
+ *
  * @doc event/input/desc emitted when the value of the timeline changes
  * @doc/fr event/input/desc émis quand la valeur de la timeline change
  *

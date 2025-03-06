@@ -75,4 +75,9 @@ const vModel = defineModel<Undef<Orion.DateRange>>();
 const props = withDefaults(defineProps<OrionDateWeekProps>(), OrionDateWeekSetupService.defaultProps);
 const setup = new OrionDateWeekSetupService(props, emits, vModel);
 defineExpose(setup.publicInstance);
+
+/** Doc
+ * @doc vModel/vModel component's vModel
+ * @doc/fr vModel/vModel vModel du composant
+*/
 </script>

@@ -82,7 +82,6 @@ export default class OrionUploadSetupService extends SharedFieldSetupService<Ori
 		return this.vModel.value !== null && this.vModel.value !== undefined && !!this.vModel.length;
 	}
 
-
 	constructor (
 		protected props: OrionUploadProps & Omit<typeof OrionUploadSetupService.defaultProps, 'fileTypes'> & { fileTypes: string[]},
 		protected emits: OrionUploadEmits,

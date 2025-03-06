@@ -170,6 +170,13 @@ const setup = new OrionDateTableSetupService(props, emits, vModel, range, multip
 defineExpose(setup.publicInstance);
 
 /** Doc
+ * @doc vModel/range the vModel if the type is set to `range`
+ * @doc/fr vModel/range vModel du composant si la prop `type` est `range`
+ * @doc vModel/multiple the vModel if the type is set to `multiple`
+ * @doc/fr vModel/multiple vModel du composant si la prop `type` est `multiple`
+ * @doc vModel/dayHover the value of the hovered day
+ * @doc/fr vModel/dayHover valeur du jour survolé
+ *
  * @doc event/update:range/desc emitted to update the range value
  * @doc/fr event/update:range/desc émis pour mettre à jour le vModel dans le cas ou il est de type `range`
  *

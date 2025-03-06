@@ -241,6 +241,13 @@ const setup = new OrionDatepickerSetupService(props, emits, slots, vModel, range
 defineExpose(setup.publicInstance);
 
 /** Doc
+ * @doc vModel/vModel the vModel if the type is set to `date`
+ * @doc/fr vModel/vModel le vModel si le type est défini à `date`
+ * @doc vModel/multiple the vModel if the type is set to `multiple`
+ * @doc/fr vModel/multiple le vModel si le type est défini à `multiple`
+ * @doc vModel/range the vModel if the type is set to `range`
+ * @doc/fr vModel/range le vModel si le type est défini à `range`
+ *
  * @doc slot/multipleDisplay if type is `multiple`, the content inside the input
  * @doc/fr slot/multipleDisplay si le type est `multiple`, il s'agit du contenu de l'input
  * @doc slot/multipleDisplay/datas/type Date[]

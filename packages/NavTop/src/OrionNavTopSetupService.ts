@@ -29,7 +29,7 @@ export default class OrionNavTopSetupService extends SharedNavSetupService {
 
 
 	constructor (
-		protected props: OrionNavTopProps & Omit<typeof OrionNavTopSetupService.defaultProps, 'items'> & {items:  Orion.NavItem[]},
+		protected props: OrionNavTopProps & Omit<typeof OrionNavTopSetupService.defaultProps, 'items'> & {items: Orion.NavItem[]},
 		protected emits: OrionNavTopEmits) {
 		super();
 	}

@@ -26,9 +26,7 @@ export type OrionCarouselProps = {
 type Slots = ReturnType<typeof useSlots>;
 
 export default class OrionCarouselSetupService extends SharedSetupService {
-	static readonly defaultProps = {
-		color: 'brand' as Orion.ColorExtended,
-	};
+	static readonly defaultProps = { color: 'brand' as Orion.ColorExtended };
 
 	private slots: Slots;
 	private timer?: NodeJS.Timeout;
@@ -92,11 +90,9 @@ export default class OrionCarouselSetupService extends SharedSetupService {
 		};
 	}
 
-	// @doc props/vModel refers to the active step's **name** prop
-	// @doc/fr props/vModel correspond à la prop **name** de l'élément actif
 	constructor (
-		protected props: OrionCarouselProps & typeof OrionCarouselSetupService.defaultProps, 
-		protected emits: OrionCarouselEmits, 
+		protected props: OrionCarouselProps & typeof OrionCarouselSetupService.defaultProps,
+		protected emits: OrionCarouselEmits,
 		protected vModel: ModelRef<Undef<number | string>>,
 		slots: Slots,
 	) {

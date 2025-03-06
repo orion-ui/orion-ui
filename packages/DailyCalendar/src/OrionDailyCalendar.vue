@@ -90,4 +90,9 @@ const props = withDefaults(defineProps<OrionDailyCalendarProps>(), OrionDailyCal
 const setup = new OrionDailyCalendarSetupService(props, emits, date);
 defineExpose(setup.publicInstance);
 
+/** Doc
+ * @doc vModel/date the selected date.
+ * @doc/fr vModel/date la date sélectionnée.
+ */
 </script>
+

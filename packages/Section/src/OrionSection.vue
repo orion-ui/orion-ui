@@ -60,6 +60,9 @@ const setup = new OrionSectionSetupService(props, emits, collapsed);
 defineExpose(setup.publicInstance);
 
 /** Doc
+ * @doc vModel/collapsed if the prop `collapsible` is set to `true`, defines this initial state
+ * @doc/fr vModel/collapsed si la prop `collapsible` est à `true`, déinit l'état initial
+ *
  * @doc slot/default the content of the section
  * @doc/fr slot/default contenu de la section
  *

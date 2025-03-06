@@ -22,6 +22,7 @@ const packagesDocData = new Map([
 				},
 				'bindings': [],
 			}],
+			vModel: [],
 			props: [{
 				'name': 'center',
 				'type': 'boolean',
@@ -29,7 +30,6 @@ const packagesDocData = new Map([
 					'en': 'Defines if the content must be centered in the component',
 					'fr': 'Défini si le contenu doit être centré dans le composant',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'close',
 				'type': 'boolean',
@@ -37,7 +37,6 @@ const packagesDocData = new Map([
 					'en': 'Defines if the alert can be closed',
 					'fr': 'Si défini, une croix permet de fermer l\'alert',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'color',
 				'type': 'Orion.Color',
@@ -123,6 +122,7 @@ const packagesDocData = new Map([
 					},
 				}],
 			}],
+			vModel: [],
 			props: [{
 				'name': 'display',
 				'type': 'boolean',
@@ -197,6 +197,7 @@ const packagesDocData = new Map([
 			events: [],
 			provide: [],
 			slots: [],
+			vModel: [],
 			props: [{
 				'name': 'avatar',
 				'type': 'string | number | { id: number; }',
@@ -219,7 +220,6 @@ const packagesDocData = new Map([
 					'en': 'adapts the size of the image to fit into the container',
 					'fr': 'adapte la taille de l\'image pour s\'adapter à son conteneur',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'name',
 				'type': 'string',
@@ -259,7 +259,6 @@ const packagesDocData = new Map([
 					'en': 'defines if the avatar is square-shaped (circle otherwise)',
 					'fr': 'Définit la forme de l\'avatar (ronde par défaut)',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'tooltip',
 				'type': 'string',
@@ -292,6 +291,7 @@ const packagesDocData = new Map([
 				},
 				'bindings': [],
 			}],
+			vModel: [],
 			props: [{
 				'name': 'autofocus',
 				'type': 'boolean',
@@ -299,7 +299,6 @@ const packagesDocData = new Map([
 					'en': 'if set, focus the button',
 					'fr': 'si défini, le focus sera placé sur le bouton',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'block',
 				'type': 'boolean',
@@ -307,7 +306,6 @@ const packagesDocData = new Map([
 					'en': 'defines the button\'s width to 100%',
 					'fr': 'définie la largeur du bouton à 100%',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'color',
 				'type': 'Orion.Color',
@@ -323,7 +321,6 @@ const packagesDocData = new Map([
 					'en': 'determines if the button is disabled',
 					'fr': 'désactive le bouton',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'loading',
 				'type': 'boolean',
@@ -331,7 +328,6 @@ const packagesDocData = new Map([
 					'en': 'adds a loading icon and disables the button',
 					'fr': 'ajoute une icône de chargement et désactive le bouton',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'nude',
 				'type': 'boolean',
@@ -339,7 +335,6 @@ const packagesDocData = new Map([
 					'en': 'removes the background color',
 					'fr': 'masque la couleur en arrière plan',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'outline',
 				'type': 'boolean',
@@ -347,7 +342,6 @@ const packagesDocData = new Map([
 					'en': 'adds an outline on the button',
 					'fr': 'ajoute un contraste sur le bouton',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'prefixFontIcon',
 				'type': 'string',
@@ -423,6 +417,7 @@ const packagesDocData = new Map([
 				},
 				'bindings': [],
 			}],
+			vModel: [],
 			props: [{
 				'name': 'actionsLine',
 				'type': 'boolean',
@@ -430,7 +425,6 @@ const packagesDocData = new Map([
 					'en': 'displays a line between the body and the actions of the card',
 					'fr': 'affiche une line de sépération entre les slots `default` et `actions` de la carte',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'gradient',
 				'type': 'string',
@@ -445,7 +439,6 @@ const packagesDocData = new Map([
 					'en': 'displays a line between the header and the body of the card',
 					'fr': 'affiche une line de sépération entre les slots `header` et `default` de la carte',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'hoverElevation',
 				'type': 'number',
@@ -461,7 +454,6 @@ const packagesDocData = new Map([
 					'en': 'adds a selected style on the card',
 					'fr': 'ajoute le style `selected` sur la carte',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'selectedColor',
 				'type': 'Orion.Color',
@@ -639,6 +631,15 @@ const packagesDocData = new Map([
 					},
 				}],
 			}],
+			vModel: [{
+				'name': 'vModel',
+				'type': 'Undef<number | string>',
+				'desc': {
+					'en': 'refers to the active step\'s **name** prop',
+					'fr': 'correspond à la prop **name** de l\'élément actif',
+				},
+				'defaultValue': 'undefined',
+			}],
 			props: [{
 				'name': 'color',
 				'type': 'any',
@@ -734,6 +735,7 @@ const packagesDocData = new Map([
 					},
 				}],
 			}],
+			vModel: [],
 			props: [{
 				'name': 'lazy',
 				'type': 'boolean',
@@ -741,7 +743,6 @@ const packagesDocData = new Map([
 					'en': 'the content of the item is mounted each time the item becomes active',
 					'fr': 'le contenu de l\'élément est monté à chaque fois qu\'il devient actif',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'lazyOnce',
 				'type': 'boolean',
@@ -749,7 +750,6 @@ const packagesDocData = new Map([
 					'en': 'the content of the item is only mounted once, the first time the item is active',
 					'fr': 'le contenu de l\'élément est uniquement monté une fois, la première fois qu\'il est actif',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'name',
 				'type': 'string | number',
@@ -817,6 +817,7 @@ const packagesDocData = new Map([
 					},
 				}],
 			}],
+			vModel: [],
 			props: [{
 				'name': 'chat',
 				'type': 'import("services/ChatService").ChatService',
@@ -838,7 +839,6 @@ const packagesDocData = new Map([
 					'en': 'focused the input field chat the chat opens',
 					'fr': 'place le focus sur la zone de texte quand le chat s\'ouvre',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'hideSearch',
 				'type': 'boolean',
@@ -846,7 +846,6 @@ const packagesDocData = new Map([
 					'en': 'hides the research field on the top of the chat',
 					'fr': 'masque le champ de recherche en haut du chat',
 				},
-				'defaultValue': 'false',
 			}],
 			publicInstance: [{
 				'name': 'checkUnreadMessagesInDom',
@@ -902,6 +901,7 @@ const packagesDocData = new Map([
 				},
 				'bindings': [],
 			}],
+			vModel: [],
 			props: [{
 				'name': 'chat',
 				'type': 'import("services/ChatService").ChatService',
@@ -920,6 +920,7 @@ const packagesDocData = new Map([
 			events: [],
 			provide: [],
 			slots: [],
+			vModel: [],
 			props: [{
 				'name': 'chat',
 				'type': 'import("services/ChatService").ChatService',
@@ -929,14 +930,14 @@ const packagesDocData = new Map([
 				},
 			}, {
 				'name': 'discussion',
-				'type': 'import("/Users/bacquetmaxence/Projects/Orion/orion-ui/packages/Chat/src/OrionChatEntity").default',
+				'type': 'import("/Users/julie/Documents/projet/orion-github/packages/Chat/src/OrionChatEntity").default',
 				'desc': {
 					'en': 'the discussion related to the message',
 					'fr': 'discussion relative au message',
 				},
 			}, {
 				'name': 'message',
-				'type': 'import("/Users/bacquetmaxence/Projects/Orion/orion-ui/packages/ChatMessage/src/OrionChatMessageEntity").default',
+				'type': 'import("/Users/julie/Documents/projet/orion-github/packages/ChatMessage/src/OrionChatMessageEntity").default',
 				'desc': {
 					'en': 'message object',
 					'fr': 'Objet représentant le message',
@@ -959,6 +960,15 @@ const packagesDocData = new Map([
 				},
 				'bindings': [],
 			}],
+			vModel: [{
+				'name': 'vModel',
+				'type': 'any[] | boolean | null | undefined',
+				'desc': {
+					'en': 'component\'s vModel',
+					'fr': 'vModel du composant',
+				},
+				'defaultValue': 'undefined',
+			}],
 			props: [{
 				'name': 'autofocus',
 				'type': 'boolean',
@@ -966,7 +976,6 @@ const packagesDocData = new Map([
 					'en': 'autofocus the field when mounted.',
 					'fr': 'focus automatiquement le champ lorsqu\'il est monté.',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'clearable',
 				'type': 'boolean',
@@ -974,7 +983,6 @@ const packagesDocData = new Map([
 					'en': 'defines if the field can be cleared.',
 					'fr': 'définit si le champ peut être vidé.',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'clearToNull',
 				'type': 'boolean',
@@ -982,7 +990,6 @@ const packagesDocData = new Map([
 					'en': 'sets the value to null when the field is cleared',
 					'fr': 'lorsque que le champ est vidé, sa valeur vaut `null`',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'color',
 				'type': 'Orion.Color',
@@ -998,7 +1005,6 @@ const packagesDocData = new Map([
 					'en': 'disables the field',
 					'fr': 'désactive le champ',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'donetyping',
 				'type': 'number',
@@ -1006,7 +1012,6 @@ const packagesDocData = new Map([
 					'en': 'define the debounce duration before updating the value (useful for search field)',
 					'fr': 'défini la durée du debounce avant de mettre à jour la valeur (utile pour les champs de recherche)',
 				},
-				'defaultValue': '0',
 			}, {
 				'name': 'forceLabelFloating',
 				'type': 'boolean',
@@ -1014,7 +1019,6 @@ const packagesDocData = new Map([
 					'en': 'allows floating label',
 					'fr': 'permet au label de se placer au dessus du champ lorsqu\'il possède une valeur',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'iconCheck',
 				'type': 'Orion.Icon',
@@ -1029,7 +1033,6 @@ const packagesDocData = new Map([
 					'en': 'defines if the validation comes from its parent',
 					'fr': 'définit si la validation provient du parent',
 				},
-				'defaultValue': 'undefined as SharedFieldSetupServiceProps[\'inheritValidationState\']',
 			}, {
 				'name': 'inline',
 				'type': 'boolean',
@@ -1037,7 +1040,6 @@ const packagesDocData = new Map([
 					'en': 'set the property `display` on `inline-flex` instead of `flex`',
 					'fr': 'défini la propriété `display` à `inline-flex` à la place `flex`',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'inputValue',
 				'type': 'string | number | boolean | Object | any[] | Date',
@@ -1059,7 +1061,6 @@ const packagesDocData = new Map([
 					'en': 'allows to select multiples checkbox values, related to v-model array',
 					'fr': 'permet de selectionner plusieurs cases à cocher, dans le cas où le v-model est un tableau',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'placeholder',
 				'type': 'string',
@@ -1088,7 +1089,6 @@ const packagesDocData = new Map([
 					'en': 'sets the field to read-only mode',
 					'fr': 'définit le champ comme étant en lecture seule',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'required',
 				'type': 'boolean',
@@ -1096,7 +1096,6 @@ const packagesDocData = new Map([
 					'en': 'sets the field required',
 					'fr': 'indique que le champ est obligatoire',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'reverse',
 				'type': 'boolean',
@@ -1104,7 +1103,6 @@ const packagesDocData = new Map([
 					'en': 'displays the label first',
 					'fr': 'affiche d\'abord le label puis la case à cocher',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'selectOnFocus',
 				'type': 'boolean',
@@ -1112,7 +1110,6 @@ const packagesDocData = new Map([
 					'en': 'select the field content when focused.',
 					'fr': 'sélectionne le contenu du champ lorsqu\'il est focus.',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'size',
 				'type': 'Orion.Size',
@@ -1209,6 +1206,7 @@ const packagesDocData = new Map([
 				},
 				'bindings': [],
 			}],
+			vModel: [],
 			props: [{
 				'name': 'close',
 				'type': 'boolean',
@@ -1250,6 +1248,15 @@ const packagesDocData = new Map([
 			events: [],
 			provide: [],
 			slots: [],
+			vModel: [{
+				'name': 'vModel',
+				'type': 'Nil<string>',
+				'desc': {
+					'en': 'component\'s vModel',
+					'fr': 'vModel du composant',
+				},
+				'defaultValue': 'undefined',
+			}],
 			props: [{
 				'name': 'autofocus',
 				'type': 'boolean',
@@ -1257,7 +1264,6 @@ const packagesDocData = new Map([
 					'en': 'autofocus the field when mounted.',
 					'fr': 'focus automatiquement le champ lorsqu\'il est monté.',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'clearable',
 				'type': 'boolean',
@@ -1265,7 +1271,6 @@ const packagesDocData = new Map([
 					'en': 'defines if the field can be cleared.',
 					'fr': 'définit si le champ peut être vidé.',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'clearToNull',
 				'type': 'boolean',
@@ -1273,7 +1278,6 @@ const packagesDocData = new Map([
 					'en': 'sets the value to null when the field is cleared',
 					'fr': 'lorsque que le champ est vidé, sa valeur vaut `null`',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'debounce',
 				'type': 'number',
@@ -1289,7 +1293,6 @@ const packagesDocData = new Map([
 					'en': 'disables the field',
 					'fr': 'désactive le champ',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'donetyping',
 				'type': 'number',
@@ -1297,7 +1300,6 @@ const packagesDocData = new Map([
 					'en': 'define the debounce duration before updating the value (useful for search field)',
 					'fr': 'défini la durée du debounce avant de mettre à jour la valeur (utile pour les champs de recherche)',
 				},
-				'defaultValue': '0',
 			}, {
 				'name': 'forceLabelFloating',
 				'type': 'boolean',
@@ -1305,7 +1307,6 @@ const packagesDocData = new Map([
 					'en': 'allows floating label',
 					'fr': 'permet au label de se placer au dessus du champ lorsqu\'il possède une valeur',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'format',
 				'type': 'ColorFormat',
@@ -1321,7 +1322,6 @@ const packagesDocData = new Map([
 					'en': 'hides the hexadecimal value',
 					'fr': 'masque la valeur hexadécimale',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'hideRgba',
 				'type': 'boolean',
@@ -1329,7 +1329,6 @@ const packagesDocData = new Map([
 					'en': 'hides the rgba value',
 					'fr': 'masque la valeur rgba',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'inheritValidationState',
 				'type': 'boolean',
@@ -1337,7 +1336,6 @@ const packagesDocData = new Map([
 					'en': 'defines if the validation comes from its parent',
 					'fr': 'définit si la validation provient du parent',
 				},
-				'defaultValue': 'undefined as SharedFieldSetupServiceProps[\'inheritValidationState\']',
 			}, {
 				'name': 'label',
 				'type': 'string',
@@ -1373,7 +1371,6 @@ const packagesDocData = new Map([
 					'en': 'sets the field to read-only mode',
 					'fr': 'définit le champ comme étant en lecture seule',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'required',
 				'type': 'boolean',
@@ -1381,7 +1378,6 @@ const packagesDocData = new Map([
 					'en': 'sets the field required',
 					'fr': 'indique que le champ est obligatoire',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'selectOnFocus',
 				'type': 'boolean',
@@ -1389,7 +1385,6 @@ const packagesDocData = new Map([
 					'en': 'select the field content when focused.',
 					'fr': 'sélectionne le contenu du champ lorsqu\'il est focus.',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'size',
 				'type': 'Orion.Size',
@@ -1426,7 +1421,6 @@ const packagesDocData = new Map([
 					'en': 'type of the input',
 					'fr': 'type of the input',
 				},
-				'defaultValue': '\'text\'',
 			}, {
 				'name': 'validation',
 				'type': 'any',
@@ -1479,6 +1473,7 @@ const packagesDocData = new Map([
 			events: [],
 			provide: [],
 			slots: [],
+			vModel: [],
 			props: [{
 				'name': 'circle',
 				'type': 'boolean',
@@ -1486,7 +1481,6 @@ const packagesDocData = new Map([
 					'en': 'define if the shape of the cropper is a circle (otherwise a square)',
 					'fr': 'définit si le recadrage prend la forme d\'unn cercle (un rectangle sinon)',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'cropHeight',
 				'type': 'number',
@@ -1558,6 +1552,15 @@ const packagesDocData = new Map([
 			events: [],
 			provide: [],
 			slots: [],
+			vModel: [{
+				'name': 'date',
+				'type': 'Date',
+				'desc': {
+					'en': 'the selected date.',
+					'fr': 'la date sélectionnée.',
+				},
+				'defaultValue': 'undefined',
+			}],
 			props: [{
 				'name': 'dayTasks',
 				'type': 'Orion.DailyCalendarTask[]',
@@ -1584,6 +1587,39 @@ const packagesDocData = new Map([
 			events: [],
 			provide: [],
 			slots: [],
+			vModel: [{
+				'name': 'vModel',
+				'type': 'Nil<Date>',
+				'desc': {
+					'en': 'Missing @doc',
+					'fr': 'Missing @doc',
+				},
+				'defaultValue': 'undefined',
+			}, {
+				'name': 'range',
+				'type': 'Nil<Orion.DateRange>',
+				'desc': {
+					'en': 'the vModel if the type is set to `range`',
+					'fr': 'vModel du composant si la prop `type` est `range`',
+				},
+				'defaultValue': 'undefined',
+			}, {
+				'name': 'multiple',
+				'type': 'Nil<Date[]>',
+				'desc': {
+					'en': 'the vModel if the type is set to `multiple`',
+					'fr': 'vModel du composant si la prop `type` est `multiple`',
+				},
+				'defaultValue': 'undefined',
+			}, {
+				'name': 'dayHover',
+				'type': 'Nil<Date>',
+				'desc': {
+					'en': 'the value of the hovered day',
+					'fr': 'valeur du jour survolé',
+				},
+				'defaultValue': 'undefined',
+			}],
 			props: [{
 				'name': 'canGoNextMonth',
 				'type': 'boolean',
@@ -1621,7 +1657,6 @@ const packagesDocData = new Map([
 					'en': 'disabled month and year selection on top',
 					'fr': 'désactive la sélection du mois et de l\'année en haut du calendrier',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'displayWeekNumber',
 				'type': 'boolean',
@@ -1629,7 +1664,6 @@ const packagesDocData = new Map([
 					'en': 'if true, displays week number on each row',
 					'fr': 'si true, affiche le numéro de semaine sur chaque ligne',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'maxDate',
 				'type': 'Date',
@@ -1651,7 +1685,6 @@ const packagesDocData = new Map([
 					'en': 'if set, displays only months',
 					'fr': 'si défini, affiche uniquement les mois',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'periods',
 				'type': 'Orion.Period[]',
@@ -1666,7 +1699,6 @@ const packagesDocData = new Map([
 					'en': 'if set, defines the range end value as the current value',
 					'fr': 'si définie, la date selectionnée est la fin de la période',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'rangeStart',
 				'type': 'boolean',
@@ -1674,7 +1706,6 @@ const packagesDocData = new Map([
 					'en': 'if set, defines the range start value as the current value',
 					'fr': 'si définie, la date sélectionnée est le début de la période',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'type',
 				'type': 'Orion.DateTableType',
@@ -1740,6 +1771,31 @@ const packagesDocData = new Map([
 				},
 				'bindings': [],
 			}],
+			vModel: [{
+				'name': 'vModel',
+				'type': 'Nil<Date>',
+				'desc': {
+					'en': 'the vModel if the type is set to `date`',
+					'fr': 'le vModel si le type est défini à `date`',
+				},
+				'defaultValue': 'undefined',
+			}, {
+				'name': 'range',
+				'type': 'Nil<Orion.DateRange>',
+				'desc': {
+					'en': 'the vModel if the type is set to `range`',
+					'fr': 'le vModel si le type est défini à `range`',
+				},
+				'defaultValue': 'undefined',
+			}, {
+				'name': 'multiple',
+				'type': 'Nil<Date[]>',
+				'desc': {
+					'en': 'the vModel if the type is set to `multiple`',
+					'fr': 'le vModel si le type est défini à `multiple`',
+				},
+				'defaultValue': 'undefined',
+			}],
 			props: [{
 				'name': 'autofocus',
 				'type': 'boolean',
@@ -1747,7 +1803,6 @@ const packagesDocData = new Map([
 					'en': 'autofocus the field when mounted.',
 					'fr': 'focus automatiquement le champ lorsqu\'il est monté.',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'clearable',
 				'type': 'boolean',
@@ -1755,7 +1810,6 @@ const packagesDocData = new Map([
 					'en': 'defines if the field can be cleared.',
 					'fr': 'définit si le champ peut être vidé.',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'clearToNull',
 				'type': 'boolean',
@@ -1763,7 +1817,6 @@ const packagesDocData = new Map([
 					'en': 'sets the value to null when the field is cleared',
 					'fr': 'lorsque que le champ est vidé, sa valeur vaut `null`',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'disabled',
 				'type': 'boolean',
@@ -1771,7 +1824,6 @@ const packagesDocData = new Map([
 					'en': 'disables the field',
 					'fr': 'désactive le champ',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'disablePopover',
 				'type': 'boolean',
@@ -1779,7 +1831,6 @@ const packagesDocData = new Map([
 					'en': 'if you don\'t want to use the calendar popover',
 					'fr': 'si vous ne souhaitez pas utiliser la popover avec le calendrier',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'displayWeekNumber',
 				'type': 'boolean',
@@ -1787,7 +1838,6 @@ const packagesDocData = new Map([
 					'en': 'if true, displays week number on each row',
 					'fr': 'si true, affiche le numéro de semaine sur chaque ligne',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'donetyping',
 				'type': 'number',
@@ -1795,7 +1845,6 @@ const packagesDocData = new Map([
 					'en': 'define the debounce duration before updating the value (useful for search field)',
 					'fr': 'défini la durée du debounce avant de mettre à jour la valeur (utile pour les champs de recherche)',
 				},
-				'defaultValue': '0',
 			}, {
 				'name': 'forceLabelFloating',
 				'type': 'boolean',
@@ -1803,7 +1852,6 @@ const packagesDocData = new Map([
 					'en': 'allows floating label',
 					'fr': 'permet au label de se placer au dessus du champ lorsqu\'il possède une valeur',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'hideDisabled',
 				'type': 'boolean',
@@ -1811,7 +1859,6 @@ const packagesDocData = new Map([
 					'en': 'hide disabled dates (currently for type="week" only)',
 					'fr': 'cache les dates désactivées (actuellement uniquement avec type="week")',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'inheritValidationState',
 				'type': 'boolean',
@@ -1819,7 +1866,6 @@ const packagesDocData = new Map([
 					'en': 'defines if the validation comes from its parent',
 					'fr': 'définit si la validation provient du parent',
 				},
-				'defaultValue': 'undefined as SharedFieldSetupServiceProps[\'inheritValidationState\']',
 			}, {
 				'name': 'label',
 				'type': 'string',
@@ -1877,7 +1923,6 @@ const packagesDocData = new Map([
 					'en': 'keep the current time value when changing date',
 					'fr': 'conserve la valeur actuelle de l\'heure lors du changement de date',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'readonly',
 				'type': 'boolean',
@@ -1885,7 +1930,6 @@ const packagesDocData = new Map([
 					'en': 'sets the field to read-only mode',
 					'fr': 'définit le champ comme étant en lecture seule',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'required',
 				'type': 'boolean',
@@ -1893,7 +1937,6 @@ const packagesDocData = new Map([
 					'en': 'sets the field required',
 					'fr': 'indique que le champ est obligatoire',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'selectOnFocus',
 				'type': 'boolean',
@@ -1901,7 +1944,6 @@ const packagesDocData = new Map([
 					'en': 'select the field content when focused.',
 					'fr': 'sélectionne le contenu du champ lorsqu\'il est focus.',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'size',
 				'type': 'Orion.Size',
@@ -1931,7 +1973,6 @@ const packagesDocData = new Map([
 					'en': 'displays also hours/minutes',
 					'fr': 'affiche aussi les heures/minutes',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'type',
 				'type': 'any',
@@ -1956,7 +1997,7 @@ const packagesDocData = new Map([
 				},
 			}, {
 				'name': 'valueDisplayFormat',
-				'type': 'Function',
+				'type': '(val: Date) => string',
 				'desc': {
 					'en': 'function to customize the display format',
 					'fr': 'fonction pour personnaliser l\'affichage',
@@ -2006,6 +2047,15 @@ const packagesDocData = new Map([
 				},
 				'bindings': [],
 			}],
+			vModel: [{
+				'name': 'disabled',
+				'type': 'boolean',
+				'desc': {
+					'en': 'if set, the item will not be draggable',
+					'fr': 'si défini, l\'élément ne sera pas déplaçable',
+				},
+				'defaultValue': 'false',
+			}],
 			props: [{
 				'name': 'data',
 				'type': 'Orion.DndData',
@@ -2042,6 +2092,15 @@ const packagesDocData = new Map([
 				},
 				'bindings': [],
 			}],
+			vModel: [{
+				'name': 'datalist',
+				'type': 'Undef<DataListItem[]>',
+				'desc': {
+					'en': 'datas of the component',
+					'fr': 'liste d\'objets du composant',
+				},
+				'defaultValue': 'undefined',
+			}],
 			props: [{
 				'name': 'tag',
 				'type': 'string',
@@ -2074,6 +2133,23 @@ const packagesDocData = new Map([
 			events: [],
 			provide: [],
 			slots: [],
+			vModel: [{
+				'name': 'vModel',
+				'type': 'Nil<string>',
+				'desc': {
+					'en': 'Missing @doc',
+					'fr': 'Missing @doc',
+				},
+				'defaultValue': 'undefined',
+			}, {
+				'name': 'json',
+				'type': 'JSONContent | undefined',
+				'desc': {
+					'en': 'the json format of the editor value',
+					'fr': 'valeur de l\'éditeur au format JSON',
+				},
+				'defaultValue': 'undefined',
+			}],
 			props: [{
 				'name': 'autofocus',
 				'type': 'boolean',
@@ -2081,7 +2157,6 @@ const packagesDocData = new Map([
 					'en': 'autofocus the field when mounted.',
 					'fr': 'focus automatiquement le champ lorsqu\'il est monté.',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'clearable',
 				'type': 'boolean',
@@ -2089,7 +2164,6 @@ const packagesDocData = new Map([
 					'en': 'defines if the field can be cleared.',
 					'fr': 'définit si le champ peut être vidé.',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'clearToNull',
 				'type': 'boolean',
@@ -2097,7 +2171,6 @@ const packagesDocData = new Map([
 					'en': 'sets the value to null when the field is cleared',
 					'fr': 'lorsque que le champ est vidé, sa valeur vaut `null`',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'disabled',
 				'type': 'boolean',
@@ -2105,7 +2178,6 @@ const packagesDocData = new Map([
 					'en': 'disables the field',
 					'fr': 'désactive le champ',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'disableFeatures',
 				'type': 'EditorFeature[]',
@@ -2121,7 +2193,6 @@ const packagesDocData = new Map([
 					'en': 'define the debounce duration before updating the value (useful for search field)',
 					'fr': 'défini la durée du debounce avant de mettre à jour la valeur (utile pour les champs de recherche)',
 				},
-				'defaultValue': '0',
 			}, {
 				'name': 'forceLabelFloating',
 				'type': 'boolean',
@@ -2129,7 +2200,6 @@ const packagesDocData = new Map([
 					'en': 'allows floating label',
 					'fr': 'permet au label de se placer au dessus du champ lorsqu\'il possède une valeur',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'imgFileTypes',
 				'type': 'string[]',
@@ -2153,7 +2223,6 @@ const packagesDocData = new Map([
 					'en': 'defines if the validation comes from its parent',
 					'fr': 'définit si la validation provient du parent',
 				},
-				'defaultValue': 'undefined as SharedFieldSetupServiceProps[\'inheritValidationState\']',
 			}, {
 				'name': 'label',
 				'type': 'string',
@@ -2189,7 +2258,6 @@ const packagesDocData = new Map([
 					'en': 'sets the field to read-only mode',
 					'fr': 'définit le champ comme étant en lecture seule',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'required',
 				'type': 'boolean',
@@ -2197,7 +2265,6 @@ const packagesDocData = new Map([
 					'en': 'sets the field required',
 					'fr': 'indique que le champ est obligatoire',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'selectOnFocus',
 				'type': 'boolean',
@@ -2205,7 +2272,6 @@ const packagesDocData = new Map([
 					'en': 'select the field content when focused.',
 					'fr': 'sélectionne le contenu du champ lorsqu\'il est focus.',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'size',
 				'type': 'Orion.Size',
@@ -2235,7 +2301,6 @@ const packagesDocData = new Map([
 					'en': 'type of the input',
 					'fr': 'type of the input',
 				},
-				'defaultValue': '\'text\'',
 			}, {
 				'name': 'validation',
 				'type': 'any',
@@ -2295,6 +2360,7 @@ const packagesDocData = new Map([
 				},
 				'bindings': [],
 			}],
+			vModel: [],
 			props: [{
 				'name': 'title',
 				'type': 'string',
@@ -2309,7 +2375,6 @@ const packagesDocData = new Map([
 					'en': 'if set, displays the footer',
 					'fr': 'si défini, affiche le composant',
 				},
-				'defaultValue': 'false',
 			}],
 			publicInstance: undefined,
 		},
@@ -2328,6 +2393,7 @@ const packagesDocData = new Map([
 				},
 				'bindings': [],
 			}],
+			vModel: [],
 			props: [{
 				'name': 'dropShadow',
 				'type': 'boolean',
@@ -2335,7 +2401,6 @@ const packagesDocData = new Map([
 					'en': 'if set, hides the shadow on the extremities of the scroll',
 					'fr': 'si défini, masque l\'ombre aux extrémités du composant',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'hideButton',
 				'type': 'boolean',
@@ -2343,7 +2408,6 @@ const packagesDocData = new Map([
 					'en': 'if set, hides the buttons to slide left or right',
 					'fr': 'si défini, masque les bouttons permettant de glisser vers gauche ou vers la droite.',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'scrollStep',
 				'type': '() => number | HTMLElement[]',
@@ -2385,6 +2449,7 @@ const packagesDocData = new Map([
 			events: [],
 			provide: [],
 			slots: [],
+			vModel: [],
 			props: [{
 				'name': 'button',
 				'type': 'Orion.Color',
@@ -2413,7 +2478,6 @@ const packagesDocData = new Map([
 					'en': 'if set, blocks the click on the icon',
 					'fr': 'si défini, bloque le click sur l\'icône',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'marker',
 				'type': 'number | boolean',
@@ -2470,6 +2534,7 @@ const packagesDocData = new Map([
 				},
 				'bindings': [],
 			}],
+			vModel: [],
 			props: [{
 				'name': 'center',
 				'type': 'boolean',
@@ -2477,7 +2542,6 @@ const packagesDocData = new Map([
 					'en': 'centers the content',
 					'fr': 'centre le contenu',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'fontIcon',
 				'type': 'string',
@@ -2510,6 +2574,15 @@ const packagesDocData = new Map([
 			events: [],
 			provide: [],
 			slots: [],
+			vModel: [{
+				'name': 'vModel',
+				'type': 'Nil<string | number>',
+				'desc': {
+					'en': 'component\'s vModel',
+					'fr': 'vModel du composant',
+				},
+				'defaultValue': 'undefined',
+			}],
 			props: [{
 				'name': 'allowNegative',
 				'type': 'boolean',
@@ -2517,7 +2590,6 @@ const packagesDocData = new Map([
 					'en': 'allow negative values',
 					'fr': 'autorise les valeurs négatives',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'autocomplete',
 				'type': 'string',
@@ -2532,7 +2604,6 @@ const packagesDocData = new Map([
 					'en': 'autofocus the field when mounted.',
 					'fr': 'focus automatiquement le champ lorsqu\'il est monté.',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'clearable',
 				'type': 'boolean',
@@ -2540,21 +2611,12 @@ const packagesDocData = new Map([
 					'en': 'defines if the field can be cleared.',
 					'fr': 'définit si le champ peut être vidé.',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'clearToNull',
 				'type': 'boolean',
 				'desc': {
 					'en': 'sets the value to null when the field is cleared',
 					'fr': 'lorsque que le champ est vidé, sa valeur vaut `null`',
-				},
-				'defaultValue': 'false',
-			}, {
-				'name': 'cleave',
-				'type': 'Cleave',
-				'desc': {
-					'en': 'Missing @doc',
-					'fr': 'Missing @doc',
 				},
 			}, {
 				'name': 'disabled',
@@ -2563,7 +2625,6 @@ const packagesDocData = new Map([
 					'en': 'disables the field',
 					'fr': 'désactive le champ',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'donetyping',
 				'type': 'number',
@@ -2571,7 +2632,6 @@ const packagesDocData = new Map([
 					'en': 'define the debounce duration before updating the value (useful for search field)',
 					'fr': 'défini la durée du debounce avant de mettre à jour la valeur (utile pour les champs de recherche)',
 				},
-				'defaultValue': '0',
 			}, {
 				'name': 'forceLabelFloating',
 				'type': 'boolean',
@@ -2579,7 +2639,6 @@ const packagesDocData = new Map([
 					'en': 'allows floating label',
 					'fr': 'permet au label de se placer au dessus du champ lorsqu\'il possède une valeur',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'inheritValidationState',
 				'type': 'boolean',
@@ -2587,7 +2646,6 @@ const packagesDocData = new Map([
 					'en': 'defines if the validation comes from its parent',
 					'fr': 'définit si la validation provient du parent',
 				},
-				'defaultValue': 'undefined as SharedFieldSetupServiceProps[\'inheritValidationState\']',
 			}, {
 				'name': 'label',
 				'type': 'string',
@@ -2601,13 +2659,6 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'the mask applied on the input',
 					'fr': 'masque appliqué sur le champ',
-				},
-			}, {
-				'name': 'maskFormat',
-				'type': 'string',
-				'desc': {
-					'en': 'Missing @doc',
-					'fr': 'Missing @doc',
 				},
 			}, {
 				'name': 'maskHourFormat',
@@ -2674,7 +2725,6 @@ const packagesDocData = new Map([
 					'en': 'sets the field to read-only mode',
 					'fr': 'définit le champ comme étant en lecture seule',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'required',
 				'type': 'boolean',
@@ -2682,7 +2732,6 @@ const packagesDocData = new Map([
 					'en': 'sets the field required',
 					'fr': 'indique que le champ est obligatoire',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'selectOnFocus',
 				'type': 'boolean',
@@ -2690,7 +2739,6 @@ const packagesDocData = new Map([
 					'en': 'select the input value on focus',
 					'fr': 'sélectionne la valeur du champ au focus',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'size',
 				'type': 'Orion.Size',
@@ -2699,6 +2747,14 @@ const packagesDocData = new Map([
 					'fr': 'définit la taille',
 				},
 				'defaultValue': '\'md\' ',
+			}, {
+				'name': 'staticMask',
+				'type': 'boolean',
+				'desc': {
+					'en': 'Determines if the mask should be present all the time, even if the field is empty',
+					'fr': 'Détermine si le masque doit être présent en permanence, même si le champ est vide',
+				},
+				'defaultValue': 'true',
 			}, {
 				'name': 'suffixFontIcon',
 				'type': 'string',
@@ -2720,7 +2776,6 @@ const packagesDocData = new Map([
 					'en': 'type of the input',
 					'fr': 'type of the input',
 				},
-				'defaultValue': '\'text\'',
 			}, {
 				'name': 'validation',
 				'type': 'any',
@@ -2737,6 +2792,9 @@ const packagesDocData = new Map([
 				},
 			}],
 			publicInstance: [{
+				'name': 'valueDisplay',
+				'type': '() => string',
+			}, {
 				'name': 'hasBeenFocus',
 				'type': '() => boolean',
 			}, {
@@ -2773,6 +2831,15 @@ const packagesDocData = new Map([
 			events: [],
 			provide: [],
 			slots: [],
+			vModel: [{
+				'name': 'vModel',
+				'type': 'number | number[]',
+				'desc': {
+					'en': 'component\'s vModel',
+					'fr': 'vModel du composant',
+				},
+				'defaultValue': 'undefined',
+			}],
 			props: [{
 				'name': 'autofocus',
 				'type': 'boolean',
@@ -2780,7 +2847,6 @@ const packagesDocData = new Map([
 					'en': 'autofocus the field when mounted.',
 					'fr': 'focus automatiquement le champ lorsqu\'il est monté.',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'clearable',
 				'type': 'boolean',
@@ -2788,7 +2854,6 @@ const packagesDocData = new Map([
 					'en': 'defines if the field can be cleared.',
 					'fr': 'définit si le champ peut être vidé.',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'clearToNull',
 				'type': 'boolean',
@@ -2796,7 +2861,6 @@ const packagesDocData = new Map([
 					'en': 'sets the value to null when the field is cleared',
 					'fr': 'lorsque que le champ est vidé, sa valeur vaut `null`',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'color',
 				'type': 'Orion.Color',
@@ -2812,7 +2876,6 @@ const packagesDocData = new Map([
 					'en': 'disables the field',
 					'fr': 'désactive le champ',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'donetyping',
 				'type': 'number',
@@ -2820,7 +2883,6 @@ const packagesDocData = new Map([
 					'en': 'define the debounce duration before updating the value (useful for search field)',
 					'fr': 'défini la durée du debounce avant de mettre à jour la valeur (utile pour les champs de recherche)',
 				},
-				'defaultValue': '0',
 			}, {
 				'name': 'forceLabelFloating',
 				'type': 'boolean',
@@ -2828,7 +2890,6 @@ const packagesDocData = new Map([
 					'en': 'allows floating label',
 					'fr': 'permet au label de se placer au dessus du champ lorsqu\'il possède une valeur',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'inheritValidationState',
 				'type': 'boolean',
@@ -2836,7 +2897,6 @@ const packagesDocData = new Map([
 					'en': 'defines if the validation comes from its parent',
 					'fr': 'définit si la validation provient du parent',
 				},
-				'defaultValue': 'undefined as SharedFieldSetupServiceProps[\'inheritValidationState\']',
 			}, {
 				'name': 'label',
 				'type': 'string',
@@ -2888,7 +2948,6 @@ const packagesDocData = new Map([
 					'en': 'sets the field to read-only mode',
 					'fr': 'définit le champ comme étant en lecture seule',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'required',
 				'type': 'boolean',
@@ -2896,7 +2955,6 @@ const packagesDocData = new Map([
 					'en': 'sets the field required',
 					'fr': 'indique que le champ est obligatoire',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'selectOnFocus',
 				'type': 'boolean',
@@ -2904,7 +2962,6 @@ const packagesDocData = new Map([
 					'en': 'select the field content when focused.',
 					'fr': 'sélectionne le contenu du champ lorsqu\'il est focus.',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'size',
 				'type': 'Orion.Size',
@@ -2942,7 +2999,6 @@ const packagesDocData = new Map([
 					'en': 'type of the input',
 					'fr': 'type of the input',
 				},
-				'defaultValue': '\'text\'',
 			}, {
 				'name': 'validation',
 				'type': 'any',
@@ -3002,6 +3058,7 @@ const packagesDocData = new Map([
 				},
 				'bindings': [],
 			}],
+			vModel: [],
 			props: [{
 				'name': 'color',
 				'type': 'Orion.ColorExtendedAndGreys',
@@ -3017,7 +3074,6 @@ const packagesDocData = new Map([
 					'en': 'adds an outline style on the label',
 					'fr': 'ajoute un contraste sur le label',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'size',
 				'type': 'Orion.Size',
@@ -3086,6 +3142,7 @@ const packagesDocData = new Map([
 				},
 				'bindings': [],
 			}],
+			vModel: [],
 			props: [{
 				'name': 'navMain',
 				'type': 'OrionNavMain.Props',
@@ -3138,6 +3195,23 @@ const packagesDocData = new Map([
 					'fr': 'actions affichées dans le footer de sélection',
 				},
 				'bindings': [],
+			}],
+			vModel: [{
+				'name': 'page',
+				'type': 'Orion.ListPage',
+				'desc': {
+					'en': 'configuration of the list\'s pagination (size: number of items per page, index: current page)',
+					'fr': 'configuration de la pagination de la liste (size: nombre d\'éléments par page, index: page actuelle)',
+				},
+				'defaultValue': '{\n\t\tsize: 20,\n\t\tindex: 1,\n\t}',
+			}, {
+				'name': 'selected',
+				'type': 'T[]',
+				'desc': {
+					'en': 'array of the selected items',
+					'fr': 'tableau contenant les élements sélectionnés',
+				},
+				'defaultValue': '(): T[] => []',
 			}],
 			props: [{
 				'name': 'bindRouter',
@@ -3215,7 +3289,6 @@ const packagesDocData = new Map([
 					'en': 'use OrionList\'s pagination system. Useful if you pass the full list in props',
 					'fr': 'utilise le système de pagination d\'OrionList. Utile si vous pasez la liste compl!te en props',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'useFooterSelected',
 				'type': 'boolean',
@@ -3251,6 +3324,7 @@ const packagesDocData = new Map([
 			events: [],
 			provide: [],
 			slots: [],
+			vModel: [],
 			props: [{
 				'name': 'color',
 				'type': 'Orion.Color',
@@ -3266,7 +3340,6 @@ const packagesDocData = new Map([
 					'en': 'displays a fullpage loader',
 					'fr': 'affiche un loader sur toute la page',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'message',
 				'type': 'string',
@@ -3289,7 +3362,6 @@ const packagesDocData = new Map([
 					'en': 'if set, shows the loader',
 					'fr': 'si défini, affiche le loader',
 				},
-				'defaultValue': 'false',
 			}],
 			publicInstance: [{
 				'name': 'show',
@@ -3341,6 +3413,7 @@ const packagesDocData = new Map([
 					},
 				}],
 			}],
+			vModel: [],
 			props: [{
 				'name': 'display',
 				'type': 'boolean',
@@ -3409,6 +3482,7 @@ const packagesDocData = new Map([
 				'data': 'publicInstance',
 			}],
 			slots: [],
+			vModel: [],
 			props: [{
 				'name': 'display',
 				'type': 'boolean',
@@ -3416,7 +3490,6 @@ const packagesDocData = new Map([
 					'en': 'if set, displays the component',
 					'fr': 'Missing @doc',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'options',
 				'type': 'any',
@@ -3475,6 +3548,7 @@ const packagesDocData = new Map([
 			events: [],
 			provide: [],
 			slots: [],
+			vModel: [],
 			props: [{
 				'name': 'dataType',
 				'type': '"number" | "text"',
@@ -3531,6 +3605,7 @@ const packagesDocData = new Map([
 			events: [],
 			provide: [],
 			slots: [],
+			vModel: [],
 			props: [{
 				'name': 'global',
 				'type': 'boolean',
@@ -3538,7 +3613,6 @@ const packagesDocData = new Map([
 					'en': 'defines if the overlay is fullpage',
 					'fr': 'Missing @doc',
 				},
-				'defaultValue': 'false',
 			}],
 			publicInstance: [{
 				'name': 'show',
@@ -3580,6 +3654,7 @@ const packagesDocData = new Map([
 				},
 				'bindings': [],
 			}],
+			vModel: [],
 			props: [{
 				'name': 'stickySubactions',
 				'type': 'boolean',
@@ -3587,7 +3662,6 @@ const packagesDocData = new Map([
 					'en': 'make the subactions div sticky when scrolling for easy access',
 					'fr': 'rend les actions secondaires sticky lors du scroll pour y faciliter l\'accès',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'subtitle',
 				'type': 'string',
@@ -3602,7 +3676,6 @@ const packagesDocData = new Map([
 					'en': 'adds an ellipsis on the subtitle if it is too long',
 					'fr': 'aajoute une ellipse au niveau du sous-titre s\'il est trop long',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'title',
 				'type': 'string',
@@ -3617,7 +3690,6 @@ const packagesDocData = new Map([
 					'en': 'adds an ellipsis on the title if the title is too long',
 					'fr': 'ajoute une ellipse au niveau du titre s\'il est trop long',
 				},
-				'defaultValue': 'false',
 			}],
 			publicInstance: undefined,
 		},
@@ -3629,6 +3701,15 @@ const packagesDocData = new Map([
 			events: [],
 			provide: [],
 			slots: [],
+			vModel: [{
+				'name': 'vModel',
+				'type': 'number',
+				'desc': {
+					'en': 'component\'s vModel',
+					'fr': 'vModel du composant',
+				},
+				'defaultValue': 'undefined',
+			}],
 			props: [{
 				'name': 'bindRouter',
 				'type': 'string',
@@ -3662,6 +3743,15 @@ const packagesDocData = new Map([
 			events: [],
 			provide: [],
 			slots: [],
+			vModel: [{
+				'name': 'vModel',
+				'type': 'Nil<string>',
+				'desc': {
+					'en': 'component\'s vModel',
+					'fr': 'vModel du composant',
+				},
+				'defaultValue': 'undefined',
+			}],
 			props: [{
 				'name': 'autofocus',
 				'type': 'boolean',
@@ -3669,7 +3759,6 @@ const packagesDocData = new Map([
 					'en': 'autofocus the field when mounted.',
 					'fr': 'focus automatiquement le champ lorsqu\'il est monté.',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'clearable',
 				'type': 'boolean',
@@ -3677,7 +3766,6 @@ const packagesDocData = new Map([
 					'en': 'defines if the field can be cleared.',
 					'fr': 'définit si le champ peut être vidé.',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'clearToNull',
 				'type': 'boolean',
@@ -3685,7 +3773,6 @@ const packagesDocData = new Map([
 					'en': 'sets the value to null when the field is cleared',
 					'fr': 'lorsque que le champ est vidé, sa valeur vaut `null`',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'disabled',
 				'type': 'boolean',
@@ -3693,7 +3780,6 @@ const packagesDocData = new Map([
 					'en': 'disables the field',
 					'fr': 'désactive le champ',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'donetyping',
 				'type': 'number',
@@ -3701,7 +3787,6 @@ const packagesDocData = new Map([
 					'en': 'define the debounce duration before updating the value (useful for search field)',
 					'fr': 'défini la durée du debounce avant de mettre à jour la valeur (utile pour les champs de recherche)',
 				},
-				'defaultValue': '0',
 			}, {
 				'name': 'forceLabelFloating',
 				'type': 'boolean',
@@ -3709,7 +3794,6 @@ const packagesDocData = new Map([
 					'en': 'allows floating label',
 					'fr': 'permet au label de se placer au dessus du champ lorsqu\'il possède une valeur',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'inheritValidationState',
 				'type': 'boolean',
@@ -3717,7 +3801,6 @@ const packagesDocData = new Map([
 					'en': 'defines if the validation comes from its parent',
 					'fr': 'définit si la validation provient du parent',
 				},
-				'defaultValue': 'undefined as SharedFieldSetupServiceProps[\'inheritValidationState\']',
 			}, {
 				'name': 'label',
 				'type': 'string',
@@ -3739,7 +3822,6 @@ const packagesDocData = new Map([
 					'en': 'shows the tooltip with the password\'s rules',
 					'fr': 'affiche la une tooltip avec les règles à respecter',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'placeholder',
 				'type': 'string',
@@ -3768,7 +3850,6 @@ const packagesDocData = new Map([
 					'en': 'sets the field to read-only mode',
 					'fr': 'définit le champ comme étant en lecture seule',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'required',
 				'type': 'boolean',
@@ -3776,7 +3857,6 @@ const packagesDocData = new Map([
 					'en': 'sets the field required',
 					'fr': 'indique que le champ est obligatoire',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'selectOnFocus',
 				'type': 'boolean',
@@ -3784,7 +3864,6 @@ const packagesDocData = new Map([
 					'en': 'select the field content when focused.',
 					'fr': 'sélectionne le contenu du champ lorsqu\'il est focus.',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'size',
 				'type': 'Orion.Size',
@@ -3867,6 +3946,31 @@ const packagesDocData = new Map([
 			events: [],
 			provide: [],
 			slots: [],
+			vModel: [{
+				'name': 'vModel',
+				'type': 'VModelType',
+				'desc': {
+					'en': 'component\'s vModel',
+					'fr': 'vModel du composant',
+				},
+				'defaultValue': 'undefined',
+			}, {
+				'name': 'phoneCountryCode',
+				'type': 'string | undefined',
+				'desc': {
+					'en': 'the country code string, isolated from its parent object',
+					'fr': 'le code pays, isolé de son objet parent',
+				},
+				'defaultValue': 'undefined',
+			}, {
+				'name': 'phoneNumber',
+				'type': 'string | undefined',
+				'desc': {
+					'en': 'the phoneNumber string, isolated from its parent object',
+					'fr': 'le numéro de téléphone, isolé de son objet parent',
+				},
+				'defaultValue': 'undefined',
+			}],
 			props: [{
 				'name': 'autofocus',
 				'type': 'boolean',
@@ -3874,7 +3978,6 @@ const packagesDocData = new Map([
 					'en': 'autofocus the field when mounted.',
 					'fr': 'focus automatiquement le champ lorsqu\'il est monté.',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'clearable',
 				'type': 'boolean',
@@ -3882,7 +3985,6 @@ const packagesDocData = new Map([
 					'en': 'defines if the field can be cleared.',
 					'fr': 'définit si le champ peut être vidé.',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'clearToNull',
 				'type': 'boolean',
@@ -3890,7 +3992,6 @@ const packagesDocData = new Map([
 					'en': 'sets the value to null when the field is cleared',
 					'fr': 'lorsque que le champ est vidé, sa valeur vaut `null`',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'disabled',
 				'type': 'boolean',
@@ -3898,7 +3999,6 @@ const packagesDocData = new Map([
 					'en': 'disables the field',
 					'fr': 'désactive le champ',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'donetyping',
 				'type': 'number',
@@ -3906,7 +4006,6 @@ const packagesDocData = new Map([
 					'en': 'define the debounce duration before updating the value (useful for search field)',
 					'fr': 'défini la durée du debounce avant de mettre à jour la valeur (utile pour les champs de recherche)',
 				},
-				'defaultValue': '0',
 			}, {
 				'name': 'flag',
 				'type': 'boolean',
@@ -3914,7 +4013,6 @@ const packagesDocData = new Map([
 					'en': 'Allow to display or not the flag of the selected country',
 					'fr': 'Permet d\'afficher le drapeau du pays choisi',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'forceLabelFloating',
 				'type': 'boolean',
@@ -3922,7 +4020,6 @@ const packagesDocData = new Map([
 					'en': 'allows floating label',
 					'fr': 'permet au label de se placer au dessus du champ lorsqu\'il possède une valeur',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'inheritValidationState',
 				'type': 'boolean',
@@ -3930,7 +4027,6 @@ const packagesDocData = new Map([
 					'en': 'defines if the validation comes from its parent',
 					'fr': 'définit si la validation provient du parent',
 				},
-				'defaultValue': 'undefined as SharedFieldSetupServiceProps[\'inheritValidationState\']',
 			}, {
 				'name': 'label',
 				'type': 'string',
@@ -3945,7 +4041,6 @@ const packagesDocData = new Map([
 					'en': 'defines if the number is a mobile phone',
 					'fr': 'définit si le numéro correspond à un portable',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'placeholder',
 				'type': 'string',
@@ -3974,7 +4069,6 @@ const packagesDocData = new Map([
 					'en': 'sets the field to read-only mode',
 					'fr': 'définit le champ comme étant en lecture seule',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'required',
 				'type': 'boolean',
@@ -3982,7 +4076,6 @@ const packagesDocData = new Map([
 					'en': 'sets the field required',
 					'fr': 'indique que le champ est obligatoire',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'selectOnFocus',
 				'type': 'boolean',
@@ -3990,7 +4083,6 @@ const packagesDocData = new Map([
 					'en': 'select the field content when focused.',
 					'fr': 'sélectionne le contenu du champ lorsqu\'il est focus.',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'size',
 				'type': 'Orion.Size',
@@ -4037,11 +4129,14 @@ const packagesDocData = new Map([
 				},
 			}],
 			publicInstance: [{
+				'name': 'isValidMobile',
+				'type': '() => boolean',
+			}, {
 				'name': '_country',
 				'type': '() => {\n\tgetSearchTerm: () => string | undefined;\n\tsetSearchTerm: (val?: string) => string | undefined;\n\tsetFavoritesOptions: (val: unknown[]) => unknown[];\n\ttriggerSearchAsync: (term?: string) => Promise<void>;\n\tblur: import("lodash").DebouncedFuncLeading<(e?: FocusEvent, selection?: boolean) => false | undefined>;\n\thasBeenFocus: () => boolean;\n\tisFocus: () => boolean;\n\tfocus: () => void;\n\tclear: () => void;\n\tsetHasBeenFocus: (value: boolean) => void;\n\tisValid: () => boolean;\n\t_input: () => HTMLInputElement | undefined;\n\tsharedState: () => {\n\t\thasBeenFocus: boolean;\n\t\tisFocus: boolean;\n\t\tisAutoFilled: boolean;\n\t};\n} | undefined',
 			}, {
 				'name': '_orionInput',
-				'type': '() => (HTMLInputElement & {\n\thasBeenFocus: () => boolean;\n\tisFocus: () => boolean;\n\tfocus: () => void;\n\tblur: import("lodash").DebouncedFuncLeading<() => void>;\n\tclear: () => void;\n\tsetHasBeenFocus: (value: boolean) => void;\n\tisValid: () => boolean;\n\t_input: () => HTMLInputElement | undefined;\n\tsharedState: () => {\n\t\thasBeenFocus: boolean;\n\t\tisFocus: boolean;\n\t\tisAutoFilled: boolean;\n\t};\n}) | undefined',
+				'type': '() => (HTMLInputElement & {\n\tvalueDisplay: () => string;\n\thasBeenFocus: () => boolean;\n\tisFocus: () => boolean;\n\tfocus: () => void;\n\tblur: import("lodash").DebouncedFuncLeading<() => void>;\n\tclear: () => void;\n\tsetHasBeenFocus: (value: boolean) => void;\n\tisValid: () => boolean;\n\t_input: () => HTMLInputElement | undefined;\n\tsharedState: () => {\n\t\thasBeenFocus: boolean;\n\t\tisFocus: boolean;\n\t\tisAutoFilled: boolean;\n\t};\n}) | undefined',
 			}, {
 				'name': 'hasBeenFocus',
 				'type': '() => boolean',
@@ -4121,6 +4216,7 @@ const packagesDocData = new Map([
 					},
 				}],
 			}],
+			vModel: [],
 			props: [{
 				'name': 'title',
 				'type': 'string',
@@ -4146,6 +4242,7 @@ const packagesDocData = new Map([
 				},
 				'bindings': [],
 			}],
+			vModel: [],
 			props: [{
 				'name': 'color',
 				'type': 'Orion.Color',
@@ -4195,6 +4292,7 @@ const packagesDocData = new Map([
 				},
 				'bindings': [],
 			}],
+			vModel: [],
 			props: [{
 				'name': 'color',
 				'type': 'Orion.Color',
@@ -4260,6 +4358,15 @@ const packagesDocData = new Map([
 				},
 				'bindings': [],
 			}],
+			vModel: [{
+				'name': 'vModel',
+				'type': 'VModelType',
+				'desc': {
+					'en': 'component\'s vModel',
+					'fr': 'vModel du composant',
+				},
+				'defaultValue': 'undefined',
+			}],
 			props: [{
 				'name': 'autofocus',
 				'type': 'boolean',
@@ -4267,7 +4374,6 @@ const packagesDocData = new Map([
 					'en': 'autofocus the field when mounted.',
 					'fr': 'focus automatiquement le champ lorsqu\'il est monté.',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'clearable',
 				'type': 'boolean',
@@ -4275,7 +4381,6 @@ const packagesDocData = new Map([
 					'en': 'defines if the field can be cleared.',
 					'fr': 'définit si le champ peut être vidé.',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'clearToNull',
 				'type': 'boolean',
@@ -4283,7 +4388,6 @@ const packagesDocData = new Map([
 					'en': 'sets the value to null when the field is cleared',
 					'fr': 'lorsque que le champ est vidé, sa valeur vaut `null`',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'color',
 				'type': 'Orion.Color',
@@ -4299,7 +4403,6 @@ const packagesDocData = new Map([
 					'en': 'disables the field',
 					'fr': 'désactive le champ',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'donetyping',
 				'type': 'number',
@@ -4307,7 +4410,6 @@ const packagesDocData = new Map([
 					'en': 'define the debounce duration before updating the value (useful for search field)',
 					'fr': 'défini la durée du debounce avant de mettre à jour la valeur (utile pour les champs de recherche)',
 				},
-				'defaultValue': '0',
 			}, {
 				'name': 'forceLabelFloating',
 				'type': 'boolean',
@@ -4315,7 +4417,6 @@ const packagesDocData = new Map([
 					'en': 'allows floating label',
 					'fr': 'permet au label de se placer au dessus du champ lorsqu\'il possède une valeur',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'iconCheck',
 				'type': 'Orion.Icon',
@@ -4330,7 +4431,6 @@ const packagesDocData = new Map([
 					'en': 'defines if the validation comes from its parent',
 					'fr': 'définit si la validation provient du parent',
 				},
-				'defaultValue': 'undefined as SharedFieldSetupServiceProps[\'inheritValidationState\']',
 			}, {
 				'name': 'inline',
 				'type': 'boolean',
@@ -4338,7 +4438,6 @@ const packagesDocData = new Map([
 					'en': 'set the property `display` on `inline-flex` instead of `flex`',
 					'fr': 'défini la propriété `display` à `inline-flex` à la place `flex`',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'inputValue',
 				'type': 'string | number | boolean | string[]',
@@ -4381,7 +4480,6 @@ const packagesDocData = new Map([
 					'en': 'sets the field to read-only mode',
 					'fr': 'définit le champ comme étant en lecture seule',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'required',
 				'type': 'boolean',
@@ -4389,7 +4487,6 @@ const packagesDocData = new Map([
 					'en': 'sets the field required',
 					'fr': 'indique que le champ est obligatoire',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'reverse',
 				'type': 'boolean',
@@ -4397,7 +4494,6 @@ const packagesDocData = new Map([
 					'en': 'displays the label first',
 					'fr': 'affiche en premier le label',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'selectOnFocus',
 				'type': 'boolean',
@@ -4405,7 +4501,6 @@ const packagesDocData = new Map([
 					'en': 'select the field content when focused.',
 					'fr': 'sélectionne le contenu du champ lorsqu\'il est focus.',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'size',
 				'type': 'Orion.Size',
@@ -4502,6 +4597,15 @@ const packagesDocData = new Map([
 					},
 				}],
 			}],
+			vModel: [{
+				'name': 'vModel',
+				'type': 'number',
+				'desc': {
+					'en': 'component\'s vModel',
+					'fr': 'vModel du composant',
+				},
+				'defaultValue': 'undefined',
+			}],
 			props: [{
 				'name': 'color',
 				'type': 'Orion.Color',
@@ -4517,7 +4621,6 @@ const packagesDocData = new Map([
 					'en': 'If set, make the component read-only.',
 					'fr': 'si défini, le composant sera en lecture seule',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'fontIcon',
 				'type': 'string',
@@ -4565,6 +4668,15 @@ const packagesDocData = new Map([
 				},
 				'bindings': [],
 			}],
+			vModel: [{
+				'name': 'collapsed',
+				'type': 'boolean',
+				'desc': {
+					'en': 'if the prop `collapsible` is set to `true`, defines this initial state',
+					'fr': 'si la prop `collapsible` est à `true`, déinit l\'état initial',
+				},
+				'defaultValue': 'false',
+			}],
 			props: [{
 				'name': 'align',
 				'type': '"left" | "center" | "right" | "stretch"',
@@ -4579,7 +4691,6 @@ const packagesDocData = new Map([
 					'en': 'defines if the section can be collapsed',
 					'fr': 'définit si la section peut se rétracter',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'gap',
 				'type': 'Orion.Size',
@@ -4725,6 +4836,23 @@ const packagesDocData = new Map([
 					},
 				}],
 			}],
+			vModel: [{
+				'name': 'vModel',
+				'type': 'VModelType<T>',
+				'desc': {
+					'en': 'component\'s vModel',
+					'fr': 'vModel du composant',
+				},
+				'defaultValue': 'undefined',
+			}, {
+				'name': 'favoritesOptions',
+				'type': 'O[]',
+				'desc': {
+					'en': 'your favorites options',
+					'fr': 'options favorites du select, elles apparaissent avant les options',
+				},
+				'defaultValue': '[] as O[]',
+			}],
 			props: [{
 				'name': 'autocomplete',
 				'type': 'boolean',
@@ -4732,7 +4860,6 @@ const packagesDocData = new Map([
 					'en': 'adds the possibility to write in the select field',
 					'fr': 'permet à l\'utilisateur d\'écrire dans le champ',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'autofocus',
 				'type': 'boolean',
@@ -4740,7 +4867,6 @@ const packagesDocData = new Map([
 					'en': 'autofocus the field when mounted.',
 					'fr': 'focus automatiquement le champ lorsqu\'il est monté.',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'clearable',
 				'type': 'boolean',
@@ -4748,7 +4874,6 @@ const packagesDocData = new Map([
 					'en': 'defines if the field can be cleared.',
 					'fr': 'définit si le champ peut être vidé.',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'clearToNull',
 				'type': 'boolean',
@@ -4756,7 +4881,6 @@ const packagesDocData = new Map([
 					'en': 'sets the value to null when the field is cleared',
 					'fr': 'lorsque que le champ est vidé, sa valeur vaut `null`',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'customFetch',
 				'type': '(searchTerm?: string) => Promise<O[]>',
@@ -4778,7 +4902,6 @@ const packagesDocData = new Map([
 					'en': 'disables the field',
 					'fr': 'désactive le champ',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'disabledKey',
 				'type': 'string',
@@ -4855,7 +4978,6 @@ const packagesDocData = new Map([
 					'en': 'allows floating label',
 					'fr': 'permet au label de se placer au dessus du champ lorsqu\'il possède une valeur',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'inheritValidationState',
 				'type': 'boolean',
@@ -4863,7 +4985,6 @@ const packagesDocData = new Map([
 					'en': 'defines if the validation comes from its parent',
 					'fr': 'définit si la validation provient du parent',
 				},
-				'defaultValue': 'undefined as SharedFieldSetupServiceProps[\'inheritValidationState\']',
 			}, {
 				'name': 'label',
 				'type': 'string',
@@ -4878,7 +4999,6 @@ const packagesDocData = new Map([
 					'en': 'defines if multiple values can be select in the select',
 					'fr': 'définit si plusieurs valeurs peuvent être sélectionnées',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'options',
 				'type': 'O[]',
@@ -4922,7 +5042,6 @@ const packagesDocData = new Map([
 					'en': 'sets the field to read-only mode',
 					'fr': 'définit le champ comme étant en lecture seule',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'required',
 				'type': 'boolean',
@@ -4930,7 +5049,6 @@ const packagesDocData = new Map([
 					'en': 'sets the field required',
 					'fr': 'indique que le champ est obligatoire',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'searchable',
 				'type': 'boolean',
@@ -4938,7 +5056,6 @@ const packagesDocData = new Map([
 					'en': 'adds a search tooltip',
 					'fr': 'ajoute un champ de recherche',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'selectOnFocus',
 				'type': 'boolean',
@@ -4946,7 +5063,6 @@ const packagesDocData = new Map([
 					'en': 'select the field content when focused.',
 					'fr': 'sélectionne le contenu du champ lorsqu\'il est focus.',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'showFavoriteIcon',
 				'type': 'boolean',
@@ -4954,7 +5070,6 @@ const packagesDocData = new Map([
 					'en': 'key used to display or not an icon new to the favorites options',
 					'fr': 'clé qui permet ou non d\'afficher un icône pour les favoris',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'size',
 				'type': 'Orion.Size',
@@ -4992,7 +5107,6 @@ const packagesDocData = new Map([
 					'en': 'type of the input',
 					'fr': 'type of the input',
 				},
-				'defaultValue': '\'text\'',
 			}, {
 				'name': 'validation',
 				'type': 'any',
@@ -5085,6 +5199,7 @@ const packagesDocData = new Map([
 				},
 				'bindings': [],
 			}],
+			vModel: [],
 			props: [{
 				'name': 'hideActions',
 				'type': 'boolean',
@@ -5154,6 +5269,7 @@ const packagesDocData = new Map([
 				},
 				'bindings': [],
 			}],
+			vModel: [],
 			props: [{
 				'name': 'direction',
 				'type': 'SwipeDirection',
@@ -5180,6 +5296,7 @@ const packagesDocData = new Map([
 				},
 				'bindings': [],
 			}],
+			vModel: [],
 			props: [{
 				'name': 'disabled',
 				'type': 'boolean',
@@ -5187,7 +5304,6 @@ const packagesDocData = new Map([
 					'en': 'disabled the pane',
 					'fr': 'désactive le panneau',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'fontIcon',
 				'type': 'string',
@@ -5216,7 +5332,6 @@ const packagesDocData = new Map([
 					'en': 'the content of the tab is mounted each time the tab becomes active',
 					'fr': 'le contenu de l\'onglet est monté à chaque fois qu\'il devient actif',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'lazyOnce',
 				'type': 'boolean',
@@ -5224,7 +5339,6 @@ const packagesDocData = new Map([
 					'en': 'the content of the tab is only mounted once, the first time the tab is active',
 					'fr': 'le contenu de l\'onglet est uniquement monté une fois, la première fois qu\'il est actif',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'marker',
 				'type': 'number | boolean',
@@ -5265,11 +5379,9 @@ const packagesDocData = new Map([
 		{
 			localTypes: {},
 			events: [],
-			provide: [{
-				'name': '_tabs',
-				'data': 'publicInstance',
-			}],
+			provide: [],
 			slots: [],
+			vModel: [],
 			props: [{
 				'name': 'loader',
 				'type': 'string | boolean',
@@ -5291,7 +5403,6 @@ const packagesDocData = new Map([
 					'en': 'connect the tabs to the router to bind active tab to current route and use `<router-view/>` component',
 					'fr': 'connecte les tabs au router pour synchroniser la tab active avec la router actuelle et utiliser le composant `<router-view/>`',
 				},
-				'defaultValue': 'false',
 			}],
 			publicInstance: [{
 				'name': '_loader',
@@ -5318,6 +5429,15 @@ const packagesDocData = new Map([
 			events: [],
 			provide: [],
 			slots: [],
+			vModel: [{
+				'name': 'vModel',
+				'type': 'Nil<string>',
+				'desc': {
+					'en': 'component\'s vModel',
+					'fr': 'vModel du composant',
+				},
+				'defaultValue': 'undefined',
+			}],
 			props: [{
 				'name': 'autofocus',
 				'type': 'boolean',
@@ -5325,7 +5445,6 @@ const packagesDocData = new Map([
 					'en': 'autofocus the field when mounted.',
 					'fr': 'focus automatiquement le champ lorsqu\'il est monté.',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'clearable',
 				'type': 'boolean',
@@ -5333,7 +5452,6 @@ const packagesDocData = new Map([
 					'en': 'defines if the field can be cleared.',
 					'fr': 'définit si le champ peut être vidé.',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'clearToNull',
 				'type': 'boolean',
@@ -5341,7 +5459,6 @@ const packagesDocData = new Map([
 					'en': 'sets the value to null when the field is cleared',
 					'fr': 'lorsque que le champ est vidé, sa valeur vaut `null`',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'disabled',
 				'type': 'boolean',
@@ -5349,7 +5466,6 @@ const packagesDocData = new Map([
 					'en': 'disables the field',
 					'fr': 'désactive le champ',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'donetyping',
 				'type': 'number',
@@ -5357,7 +5473,6 @@ const packagesDocData = new Map([
 					'en': 'define the debounce duration before updating the value (useful for search field)',
 					'fr': 'défini la durée du debounce avant de mettre à jour la valeur (utile pour les champs de recherche)',
 				},
-				'defaultValue': '0',
 			}, {
 				'name': 'forceLabelFloating',
 				'type': 'boolean',
@@ -5365,7 +5480,6 @@ const packagesDocData = new Map([
 					'en': 'allows floating label',
 					'fr': 'permet au label de se placer au dessus du champ lorsqu\'il possède une valeur',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'inheritValidationState',
 				'type': 'boolean',
@@ -5373,7 +5487,6 @@ const packagesDocData = new Map([
 					'en': 'defines if the validation comes from its parent',
 					'fr': 'définit si la validation provient du parent',
 				},
-				'defaultValue': 'undefined as SharedFieldSetupServiceProps[\'inheritValidationState\']',
 			}, {
 				'name': 'label',
 				'type': 'string',
@@ -5416,7 +5529,6 @@ const packagesDocData = new Map([
 					'en': 'sets the field to read-only mode',
 					'fr': 'définit le champ comme étant en lecture seule',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'required',
 				'type': 'boolean',
@@ -5424,7 +5536,6 @@ const packagesDocData = new Map([
 					'en': 'sets the field required',
 					'fr': 'indique que le champ est obligatoire',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'selectOnFocus',
 				'type': 'boolean',
@@ -5432,7 +5543,6 @@ const packagesDocData = new Map([
 					'en': 'select the field content when focused.',
 					'fr': 'sélectionne le contenu du champ lorsqu\'il est focus.',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'showLength',
 				'type': 'boolean',
@@ -5440,7 +5550,6 @@ const packagesDocData = new Map([
 					'en': 'show input\'s value length',
 					'fr': 'affiche le nombre de caractères',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'size',
 				'type': 'Orion.Size',
@@ -5470,7 +5579,6 @@ const packagesDocData = new Map([
 					'en': 'type of the input',
 					'fr': 'type of the input',
 				},
-				'defaultValue': '\'text\'',
 			}, {
 				'name': 'validation',
 				'type': 'any',
@@ -5521,11 +5629,9 @@ const packagesDocData = new Map([
 		{
 			localTypes: {},
 			events: [],
-			provide: [{
-				'name': '_timeline',
-				'data': 'publicInstance',
-			}],
+			provide: [],
 			slots: [],
+			vModel: [],
 			props: [{
 				'name': 'centeredPill',
 				'type': 'boolean',
@@ -5533,7 +5639,6 @@ const packagesDocData = new Map([
 					'en': 'centers the pill and the #after slot',
 					'fr': 'centre la vignette et le slot #after',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'horizontal',
 				'type': 'boolean',
@@ -5541,7 +5646,6 @@ const packagesDocData = new Map([
 					'en': 'the orientation of the component',
 					'fr': 'l\'orientation du composant',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'loader',
 				'type': 'string | boolean',
@@ -5556,7 +5660,6 @@ const packagesDocData = new Map([
 					'en': 'displays an horizontal scroll on the timeline pills if it does not fit in its container',
 					'fr': 'affiche un scroll horizontal au niveau de la timeline si elle dépasse de son conteneur.',
 				},
-				'defaultValue': 'false',
 			}],
 			publicInstance: [{
 				'name': '_loader',
@@ -5593,6 +5696,7 @@ const packagesDocData = new Map([
 				},
 				'bindings': [],
 			}],
+			vModel: [],
 			props: [{
 				'name': 'centeredPill',
 				'type': 'boolean',
@@ -5600,7 +5704,6 @@ const packagesDocData = new Map([
 					'en': 'centers the pill and the #after slot',
 					'fr': 'centre la vignette et le slot #after',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'complete',
 				'type': 'boolean',
@@ -5615,7 +5718,6 @@ const packagesDocData = new Map([
 					'en': 'disables the pane',
 					'fr': 'désactive le panneau',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'fontIcon',
 				'type': 'string',
@@ -5637,7 +5739,6 @@ const packagesDocData = new Map([
 					'en': 'the content of the pane is only loaded when the tab is active',
 					'fr': 'le contenu du panneau est seulement chargé quand il est actif',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'lazyOnce',
 				'type': 'boolean',
@@ -5645,7 +5746,6 @@ const packagesDocData = new Map([
 					'en': 'the content of the pane is only loading once, the first time the pane is active',
 					'fr': 'le contenu du panneau est seulement chargé une fois, la première fois que le panneau est actif',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'marker',
 				'type': 'number | boolean',
@@ -5702,6 +5802,15 @@ const packagesDocData = new Map([
 				},
 				'bindings': [],
 			}],
+			vModel: [{
+				'name': 'vModel',
+				'type': 'boolean',
+				'desc': {
+					'en': 'component\'s vModel',
+					'fr': 'vModel du composant',
+				},
+				'defaultValue': 'undefined',
+			}],
 			props: [{
 				'name': 'autofocus',
 				'type': 'boolean',
@@ -5709,7 +5818,6 @@ const packagesDocData = new Map([
 					'en': 'autofocus the field when mounted.',
 					'fr': 'focus automatiquement le champ lorsqu\'il est monté.',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'clearable',
 				'type': 'boolean',
@@ -5717,7 +5825,6 @@ const packagesDocData = new Map([
 					'en': 'defines if the field can be cleared.',
 					'fr': 'définit si le champ peut être vidé.',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'clearToNull',
 				'type': 'boolean',
@@ -5725,7 +5832,6 @@ const packagesDocData = new Map([
 					'en': 'sets the value to null when the field is cleared',
 					'fr': 'lorsque que le champ est vidé, sa valeur vaut `null`',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'color',
 				'type': 'Orion.Color',
@@ -5741,7 +5847,6 @@ const packagesDocData = new Map([
 					'en': 'disables the field',
 					'fr': 'désactive le champ',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'donetyping',
 				'type': 'number',
@@ -5749,7 +5854,6 @@ const packagesDocData = new Map([
 					'en': 'define the debounce duration before updating the value (useful for search field)',
 					'fr': 'défini la durée du debounce avant de mettre à jour la valeur (utile pour les champs de recherche)',
 				},
-				'defaultValue': '0',
 			}, {
 				'name': 'forceLabelFloating',
 				'type': 'boolean',
@@ -5757,7 +5861,6 @@ const packagesDocData = new Map([
 					'en': 'allows floating label',
 					'fr': 'permet au label de se placer au dessus du champ lorsqu\'il possède une valeur',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'inheritValidationState',
 				'type': 'boolean',
@@ -5765,7 +5868,6 @@ const packagesDocData = new Map([
 					'en': 'defines if the validation comes from its parent',
 					'fr': 'définit si la validation provient du parent',
 				},
-				'defaultValue': 'undefined as SharedFieldSetupServiceProps[\'inheritValidationState\']',
 			}, {
 				'name': 'inline',
 				'type': 'boolean',
@@ -5773,7 +5875,6 @@ const packagesDocData = new Map([
 					'en': 'set the property `display` on `inline-flex` instead of `flex`',
 					'fr': 'défini la propriété `display` à `inline-flex` à la place `flex`',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'label',
 				'type': 'string',
@@ -5809,7 +5910,6 @@ const packagesDocData = new Map([
 					'en': 'sets the field to read-only mode',
 					'fr': 'définit le champ comme étant en lecture seule',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'required',
 				'type': 'boolean',
@@ -5817,7 +5917,6 @@ const packagesDocData = new Map([
 					'en': 'sets the field required',
 					'fr': 'indique que le champ est obligatoire',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'reverse',
 				'type': 'boolean',
@@ -5825,7 +5924,6 @@ const packagesDocData = new Map([
 					'en': 'displays the label first',
 					'fr': 'affiche d\'abord le label',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'selectOnFocus',
 				'type': 'boolean',
@@ -5833,7 +5931,6 @@ const packagesDocData = new Map([
 					'en': 'select the field content when focused.',
 					'fr': 'sélectionne le contenu du champ lorsqu\'il est focus.',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'size',
 				'type': 'Orion.Size',
@@ -5885,7 +5982,6 @@ const packagesDocData = new Map([
 					'en': 'value of the toggle',
 					'fr': 'valeur du toggle',
 				},
-				'defaultValue': 'false',
 			}],
 			publicInstance: [{
 				'name': 'hasBeenFocus',
@@ -5922,11 +6018,9 @@ const packagesDocData = new Map([
 		{
 			localTypes: {},
 			events: [],
-			provide: [{
-				'name': '_tour',
-				'data': 'publicInstance',
-			}],
+			provide: [],
 			slots: [],
+			vModel: [],
 			props: [{
 				'name': 'callback',
 				'type': 'Function',
@@ -5944,7 +6038,7 @@ const packagesDocData = new Map([
 			}],
 			publicInstance: [{
 				'name': 'steps',
-				'type': '{\n\tprops: {\n\t\tend?: {\n\t\t\tlabel?: string | undefined;\n\t\t\tcallback?: (() => any) | undefined;\n\t\t\tclean?: (() => any) | undefined;\n\t\t} | undefined;\n\t\ttitle?: string | undefined;\n\t\ttarget?: (string | Function | boolean) | undefined;\n\t\tsize?: string | undefined;\n\t\tnext?: {\n\t\t\tlabel?: string | undefined;\n\t\t\tcallback?: (() => any) | undefined;\n\t\t\tclean?: (() => any) | undefined;\n\t\t} | undefined;\n\t\ttimeout?: number | undefined;\n\t\tprevious?: {\n\t\t\tlabel?: string | undefined;\n\t\t\tcallback?: (() => any) | undefined;\n\t\t\tclean?: (() => any) | undefined;\n\t\t} | undefined;\n\t\tclickable?: (boolean | Function) | undefined;\n\t\tclosable?: boolean | undefined;\n\t\thideFinish?: boolean | undefined;\n\t};\n}[]',
+				'type': '{\n\tprops: {\n\t\tclickable?: (boolean | Function) | undefined;\n\t\tclosable?: boolean | undefined;\n\t\tend?: {\n\t\t\tlabel?: string | undefined;\n\t\t\tcallback?: (() => any) | undefined;\n\t\t\tclean?: (() => any) | undefined;\n\t\t} | undefined;\n\t\thideFinish?: boolean | undefined;\n\t\tnext?: {\n\t\t\tlabel?: string | undefined;\n\t\t\tcallback?: (() => any) | undefined;\n\t\t\tclean?: (() => any) | undefined;\n\t\t} | undefined;\n\t\tprevious?: {\n\t\t\tlabel?: string | undefined;\n\t\t\tcallback?: (() => any) | undefined;\n\t\t\tclean?: (() => any) | undefined;\n\t\t} | undefined;\n\t\tsize?: string | undefined;\n\t\ttarget?: (string | Function | boolean) | undefined;\n\t\ttimeout?: number | undefined;\n\t\ttitle?: string | undefined;\n\t};\n}[]',
 			}, {
 				'name': 'getCurrentIndex',
 				'type': '() => number',
@@ -6001,6 +6095,7 @@ const packagesDocData = new Map([
 					},
 				}],
 			}],
+			vModel: [],
 			props: [{
 				'name': 'clickable',
 				'type': 'boolean | Function',
@@ -6030,7 +6125,6 @@ const packagesDocData = new Map([
 					'en': 'hides the Finish button',
 					'fr': 'masque le bouton pour terminer le tour',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'next',
 				'type': 'Orion.Tour.TourObject',
@@ -6060,7 +6154,6 @@ const packagesDocData = new Map([
 					'en': 'possibility to target a DOM element. If it is a `string`, it must represent an `id` in the DOM. If `false`, no target will be selected',
 					'fr': 'Permet de cibler un élément dans le DOM. S\'il s\'agit d\'une string, elle doit correspondre à l\'id de cet élément. Si elle est définie à `false` l\'étape se placera au centre de la page, sans cible.',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'timeout',
 				'type': 'number',
@@ -6106,6 +6199,15 @@ const packagesDocData = new Map([
 				},
 				'bindings': [],
 			}],
+			vModel: [{
+				'name': 'vModel',
+				'type': 'File[] | undefined',
+				'desc': {
+					'en': 'component\'s vModel',
+					'fr': 'vModel du composant',
+				},
+				'defaultValue': 'undefined',
+			}],
 			props: [{
 				'name': 'autofocus',
 				'type': 'boolean',
@@ -6113,7 +6215,6 @@ const packagesDocData = new Map([
 					'en': 'autofocus the field when mounted.',
 					'fr': 'focus automatiquement le champ lorsqu\'il est monté.',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'clearable',
 				'type': 'boolean',
@@ -6121,7 +6222,6 @@ const packagesDocData = new Map([
 					'en': 'defines if the field can be cleared.',
 					'fr': 'définit si le champ peut être vidé.',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'clearToNull',
 				'type': 'boolean',
@@ -6129,7 +6229,6 @@ const packagesDocData = new Map([
 					'en': 'sets the value to null when the field is cleared',
 					'fr': 'lorsque que le champ est vidé, sa valeur vaut `null`',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'disabled',
 				'type': 'boolean',
@@ -6137,7 +6236,6 @@ const packagesDocData = new Map([
 					'en': 'disables the field',
 					'fr': 'désactive le champ',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'donetyping',
 				'type': 'number',
@@ -6145,7 +6243,6 @@ const packagesDocData = new Map([
 					'en': 'define the debounce duration before updating the value (useful for search field)',
 					'fr': 'défini la durée du debounce avant de mettre à jour la valeur (utile pour les champs de recherche)',
 				},
-				'defaultValue': '0',
 			}, {
 				'name': 'fileMaxSize',
 				'type': 'number',
@@ -6169,7 +6266,6 @@ const packagesDocData = new Map([
 					'en': 'allows floating label',
 					'fr': 'permet au label de se placer au dessus du champ lorsqu\'il possède une valeur',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'inheritValidationState',
 				'type': 'boolean',
@@ -6177,7 +6273,6 @@ const packagesDocData = new Map([
 					'en': 'defines if the validation comes from its parent',
 					'fr': 'définit si la validation provient du parent',
 				},
-				'defaultValue': 'undefined as SharedFieldSetupServiceProps[\'inheritValidationState\']',
 			}, {
 				'name': 'label',
 				'type': 'string',
@@ -6192,7 +6287,6 @@ const packagesDocData = new Map([
 					'en': 'allows multiple files upload.',
 					'fr': 'permet le chargement de plusieurs fichiers.',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'placeholder',
 				'type': 'string',
@@ -6221,7 +6315,6 @@ const packagesDocData = new Map([
 					'en': 'sets the field to read-only mode',
 					'fr': 'définit le champ comme étant en lecture seule',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'required',
 				'type': 'boolean',
@@ -6229,7 +6322,6 @@ const packagesDocData = new Map([
 					'en': 'sets the field required',
 					'fr': 'indique que le champ est obligatoire',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'selectOnFocus',
 				'type': 'boolean',
@@ -6237,7 +6329,6 @@ const packagesDocData = new Map([
 					'en': 'select the field content when focused.',
 					'fr': 'sélectionne le contenu du champ lorsqu\'il est focus.',
 				},
-				'defaultValue': 'false',
 			}, {
 				'name': 'showPreview',
 				'type': 'boolean',
@@ -6275,7 +6366,6 @@ const packagesDocData = new Map([
 					'en': 'type of the input',
 					'fr': 'type of the input',
 				},
-				'defaultValue': '\'text\'',
 			}, {
 				'name': 'validation',
 				'type': 'any',

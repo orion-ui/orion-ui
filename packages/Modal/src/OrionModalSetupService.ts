@@ -17,9 +17,7 @@ export type OrionModalProps = SharedPopableSetupServiceProps & {
 };
 
 export default class OrionModalSetupService extends SharedPopableSetupService {
-	static readonly defaultProps = {
-		...SharedPopableSetupService.defaultProps,
-	};
+	static readonly defaultProps = { ...SharedPopableSetupService.defaultProps };
 
 	protected name = 'OrionModal' as const;
 

@@ -75,7 +75,6 @@ export default class OrionPasswordSetupService extends SharedFieldSetupService<O
 		return this.state.reveal;
 	}
 
-
 	constructor (
 		protected props: OrionPasswordProps & typeof OrionPasswordSetupService.defaultProps,
 		protected emits: OrionPasswordEmits,

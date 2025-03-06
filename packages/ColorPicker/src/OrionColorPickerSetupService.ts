@@ -60,7 +60,6 @@ export default class OrionColorPickerSetupService extends SharedFieldSetupServic
 		return this.state.color;
 	}
 
-
 	constructor (
 		protected props: OrionColorPickerProps & typeof OrionColorPickerSetupService.defaultProps,
 		protected emits: OrionColorPickerEmits,

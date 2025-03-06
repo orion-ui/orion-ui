@@ -251,6 +251,11 @@ type ObjectKeyValidator<
 	: O[D];
 
 /** Doc
+ * @doc vModel/vModel component's vModel
+ * @doc/fr vModel/vModel vModel du composant
+ * @doc vModel/favoritesOptions your favorites options
+ * @doc/fr vModel/favoritesOptions options favorites du select, elles apparaissent avant les options
+ *
  * @doc slot/value The selected value if single select, each value if multiple select
  * @doc/fr slot/value La valeur sélectionnée s'il s'agit d'un select simple, sinon chaque valeur s'il s'agit d'un select multiple
  * @doc slot/value/item/desc The selected item, typed any to avoid linter errors

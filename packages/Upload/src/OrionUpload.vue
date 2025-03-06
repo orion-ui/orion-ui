@@ -169,6 +169,9 @@ const setup = new OrionUploadSetupService(props, emits, vModel);
 defineExpose(setup.publicInstance);
 
 /** Doc
+ * @doc vModel/vModel component's vModel
+ * @doc/fr vModel/vModel vModel du composant
+ *
  * @doc slot/default the label displayed in the drop area
  * @doc/fr slot/default contenu pour remplacer le label par défaut
  *

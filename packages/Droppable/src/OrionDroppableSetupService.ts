@@ -100,8 +100,6 @@ export default class OrionDroppableSetupService extends SharedSetupService {
 		return false;
 	}
 
-	// @doc vModel/datalist datas of the component
-	// @doc/fr vModel/datalist liste d'objets du composant
 	constructor (
 		protected props: OrionDroppableProps,
 		protected emits: OrionDroppableEmits,

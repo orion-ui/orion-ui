@@ -57,7 +57,6 @@ export default class OrionTimelineSetupService extends SharedSetupService {
 		};
 	}
 
-
 	constructor (protected props: OrionTimelineProps, protected emits: OrionTimelineEmits, slots: Slots, protected vModel?: ModelRef<Undef<string | number>>) {
 		super();
 		this.state.current = vModel?.value;

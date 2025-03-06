@@ -16,7 +16,7 @@ export type OrionChipsProps =
 export default class OrionChipsSetupService extends SharedSetupService {
 	static readonly defaultProps = {
 		...SharedProps.colorExtendedAndGreys,
-		...SharedProps.size
+		...SharedProps.size,
 	};
 
 	constructor (

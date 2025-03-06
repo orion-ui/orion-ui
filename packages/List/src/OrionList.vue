@@ -81,6 +81,11 @@ const setup = new OrionListSetupService(props, emits, page, selected);
 defineExpose(setup.publicInstance);
 
 /** Doc
+ * @doc vModel/page configuration of the list's pagination (size: number of items per page, index: current page)
+ * @doc/fr vModel/page configuration de la pagination de la liste (size: nombre d'éléments par page, index: page actuelle)
+ * @doc vModel/selected array of the selected items
+ * @doc/fr vModel/selected tableau contenant les élements sélectionnés
+ *
  * @doc event/update:page/desc emitted to update the page of the list
  * @doc/fr event/update:page/desc émis pour mettre à jour l'élément `page` de la liste
  *

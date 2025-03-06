@@ -104,7 +104,6 @@ export default class OrionInputRangeSetupService extends SharedFieldSetupService
 		}
 	}
 
-
 	constructor (
 		protected props: OrionInputRangeProps & typeof OrionInputRangeSetupService.defaultProps,
 		protected emits: OrionInputRangeEmits,

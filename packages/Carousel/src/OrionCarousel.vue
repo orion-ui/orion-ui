@@ -113,6 +113,9 @@ provide('_carousel', setup.publicInstance);
 defineExpose(setup.publicInstance);
 
 /** Doc
+ * @doc vModel/vModel refers to the active step's **name** prop
+ * @doc/fr vModel/vModel correspond à la prop **name** de l'élément actif
+ *
  * @doc slot/poster fixed placeholder no matter what slide is active
  * @doc/fr slot/poster emplacement fixe peu importe le slide actif
  * @doc slot/poster/step/type number | string | undefined

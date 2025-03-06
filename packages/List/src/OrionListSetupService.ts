@@ -84,10 +84,6 @@ export default class OrionListSetupService<T extends Record<string, any>> extend
 			: this.props.list;
 	}
 
-	// @doc vModel/page configuration of the list's pagination (size: number of items per page, index: current page)
-	// @doc/fr vModel/page configuration de la pagination de la liste (size: nombre d'éléments par page, index: page actuelle)
-	// @doc vModel/selected array of the selected items
-	// @doc/fr vModel/selected tableau contenant les élements sélectionnés
 	constructor (
 		protected props: OrionListProps<T> & Omit<typeof OrionListSetupService.defaultProps, 'list'> & {list: T[]},
 		protected emits: OrionListEmits,

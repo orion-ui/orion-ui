@@ -7,7 +7,7 @@
 			:ref="setup._start"
 			v-model="setup.vModelProxy.start"
 			v-model:range="setup.vModelProxy"
-			v-model:dayHover="setup.dayHover"
+			v-model:day-hover="setup.dayHover"
 			type="range"
 			range-start
 			disable-month-and-year
@@ -23,7 +23,7 @@
 			:ref="setup._end"
 			v-model="setup.vModelProxy.end"
 			v-model:range="setup.vModelProxy"
-			v-model:dayHover="setup.dayHover"
+			v-model:day-hover="setup.dayHover"
 			type="range"
 			range-end
 			disable-month-and-year
@@ -46,4 +46,9 @@ const vModel = defineModel<Nil<Orion.DateRange>>();
 const props = withDefaults(defineProps<OrionDateRangeProps>(), OrionDateRangeSetupService.defaultProps);
 const setup = new OrionDateRangeSetupService(props, emits, vModel);
 defineExpose(setup.publicInstance);
+
+/** Doc
+ * @doc vModel/vModel component's vModel
+ * @doc/fr vModel/vModel vModel du composant
+*/
 </script>

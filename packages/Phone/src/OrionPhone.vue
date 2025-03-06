@@ -77,6 +77,13 @@ const setup = new OrionPhoneSetupService(props, emits, vModel, phoneCountryCode,
 defineExpose(setup.publicInstance);
 
 /** Doc
+ * @doc vModel/vModel component's vModel
+ * @doc/fr vModel/vModel vModel du composant
+ * @doc vModel/phoneCountryCode the country code string, isolated from its parent object
+ * @doc/fr vModel/phoneCountryCode le code pays, isolé de son objet parent
+ * @doc vModel/phoneNumber the phoneNumber string, isolated from its parent object
+ * @doc/fr vModel/phoneNumber le numéro de téléphone, isolé de son objet parent
+ *
  * @doc event/focus/desc emitted on focus
  * @doc/fr event/focus/desc émis lors du focus
  *

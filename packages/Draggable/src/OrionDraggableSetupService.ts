@@ -47,8 +47,6 @@ export default class OrionDraggableSetupService extends SharedSetupService {
 		return this.document?.getElementById(`orion-draggable-${this.uid}`);
 	}
 
-	// @doc props/disabled if set, the item will not be draggable
-	// @doc/fr props/disabled si défini, l'élément ne sera pas déplaçable
 	constructor (
 		protected props: OrionDraggableProps,
 		protected emits: OrionDraggableEmits,

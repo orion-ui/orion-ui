@@ -90,7 +90,6 @@ export default class OrionToggleSetupService extends SharedFieldSetupService<Ori
 		};
 	}
 
-
 	constructor (
 		protected props: OrionToggleProps & typeof OrionToggleSetupService.defaultProps,
 		protected emits: OrionToggleEmits,

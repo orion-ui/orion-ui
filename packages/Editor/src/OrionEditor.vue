@@ -223,6 +223,9 @@ const setup = new OrionEditorSetupService(props, emits, vModel, json);
 defineExpose(setup.publicInstance);
 
 /** Doc
+ * @doc vModel/json the json format of the editor value
+ * @doc/fr vModel/json valeur de l'éditeur au format JSON
+ *
  * @doc event/focus/desc emitted on focus
  * @doc/fr event/focus/desc émis lors du focus
  *

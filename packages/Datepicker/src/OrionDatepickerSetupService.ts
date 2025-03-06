@@ -172,12 +172,6 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 		this.range.value = val;
 	}
 
-	// @doc props/vModel the vModel if the type is set to `date`
-	// @doc/fr props/vModel le vModel si le type est défini à `date`
-	// @doc props/multiple the vModel if the type is set to `multiple`
-	// @doc/fr props/multiple le vModel si le type est défini à `multiple`
-	// @doc props/range the vModel if the type is set to `range`
-	// @doc/fr props/range le vModel si le type est défini à `range`
 	constructor (
 		protected props: OrionDatepickerProps & typeof OrionDatepickerSetupService.defaultProps,
 		protected emits: OrionDatepickerEmits,

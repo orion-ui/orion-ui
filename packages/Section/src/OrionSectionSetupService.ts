@@ -26,8 +26,6 @@ export default class OrionSectionSetupService extends SharedSetupService {
 	readonly _content = ref<RefDom>();
 	readonly _el = ref<HTMLDetailsElement>();
 
-	// @doc vModel/collapsed if the prop `collapsible` is set to `true`, defines this initial state
-	// @doc/fr vModel/collapsed si la prop `collapsible` est à `true`, déinit l'état initial
 	constructor (
 		protected props: OrionSectionProps & typeof OrionSectionSetupService.defaultProps,
 		protected emits: OrionSectionEmits, protected collapsed: ModelRef<boolean>) {
