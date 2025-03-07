@@ -1,4 +1,4 @@
-import { ModelRef, nextTick, reactive, watch } from 'vue';
+import { ModelRef, nextTick, reactive } from 'vue';
 import { isString } from 'lodash-es';
 
 import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetupServiceProps } from '../../Shared/SharedFieldSetupService';
@@ -47,11 +47,6 @@ type InputMask = 'integer' | 'decimal' | 'hour' | {
 	value: (val: any) => VModelType;
 	display: (val: any) => VModelType;
 };
-
-type PatternArray = {
-	type: RegExp | 'mask',
-	value?: string | number,
-}
 
 type VmodelArray = {
 	value?: Undef<string>,
