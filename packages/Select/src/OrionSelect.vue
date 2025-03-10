@@ -221,6 +221,9 @@ const setup = new OrionSelectSetupService(props, emit);
 defineExpose(setup.publicInstance);
 
 /** Doc
+ * @doc slot/default Can be used to display a custom container for the select popper
+ * @doc/fr slot/default Permet d'afficher un conteneur personnalisé pour le popper du select
+ *
  * @doc slot/value The selected value if single select, each value if multiple select
  * @doc/fr slot/value La valeur sélectionnée s'il s'agit d'un select simple, sinon chaque valeur s'il s'agit d'un select multiple
  * @doc slot/value/item/desc The selected item, typed any to avoid linter errors
