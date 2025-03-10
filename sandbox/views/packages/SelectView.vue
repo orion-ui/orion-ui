@@ -435,13 +435,8 @@
 
 				<div class="col-sm-6">
 					<div
+						ref="_chip"
 						class="chip-style">
-						<o-chips
-							ref="_chip"
-							class="tytyty"
-							@click="_selectWithTrigger?.triggerPopover()">
-							Click me!
-						</o-chips>
 						<o-select
 							v-if="_chip"
 							ref="_selectWithTrigger"
@@ -449,10 +444,15 @@
 							class="hide-select"
 							display-key="email"
 							:dropdown-options="{
-								container: '.chip-style',
-								placement: 'bottom-start',
+								placement: 'top-start',
 							}"
-							:options="data.fieldSelect.options"/>
+							:options="data.fieldSelect.options">
+							<o-chips
+								class="tytyty"
+								@click="_selectWithTrigger?.triggerPopover()">
+								Click me!
+							</o-chips>
+						</o-select>
 					</div>
 				</div>
 			</div>
@@ -481,7 +481,7 @@ import { inject, reactive, ref } from 'vue';
 
 const _modalSelect = ref<OrionModal>();
 const multiple = ref<OrionSelect>();
-const _chip = ref<OrionSelect>();
+const _chip = ref<HTMLElement>();
 const _selectWithTrigger = ref<OrionSelect>();
 const test = ref('');
 
@@ -633,8 +633,9 @@ function cb () {
 .chip-style {
 	position: relative;
 	width: fit-content;
+	background: red;
 }
 .hide-select {
-	visibility: hidden;
+	//visibility: hidden;
 }
 </style>

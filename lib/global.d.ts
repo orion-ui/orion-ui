@@ -189,7 +189,6 @@ declare global {
 		}
 
 		type VDropdown = {
-			container?: HTMLElement | string;
 			placement?: string;
 		}
 

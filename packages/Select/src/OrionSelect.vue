@@ -5,12 +5,12 @@
 		:positioning-disabled="setup.responsive.onPhone"
 		:triggers="[]"
 		:shown="setup.showPopover"
-		:auto-hide="!!setup.dropDownOptions.container"
+		:auto-hide="!!$slots.default"
 		v-bind="setup.dropDownOptions"
 		@hide="setup.handleBlur()"
 		@apply-show="setup.handlePopoverShow()">
 		<orion-field
-			v-if="!setup.dropDownOptions.container"
+			v-if="!!!$slots.default"
 			v-bind="setup.orionFieldBinding"
 			:placeholder="(setup.valueToSearch?.length && !setup._optionssearchinput || setup.labelIsFloating) ? undefined : placeholder"
 			:label-is-floating="setup.labelIsFloating"
@@ -90,6 +90,8 @@
 				class="orion-input__error-message"
 				v-html="setup.validationHtmlMessages"/>
 		</orion-field>
+
+		<slot/>
 
 		<template #popper>
 			<div
