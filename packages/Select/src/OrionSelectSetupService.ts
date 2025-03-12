@@ -239,8 +239,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 	get showPopover () {
 		return (!this.props.autocomplete && this.state.isFocus)
 			|| (this.props.autocomplete && this.state.isFocus)
-			|| (this.props.autocomplete && this.responsive.onPhone && this.state.isFocus)
-			|| this.state.showPopover;
+			|| (this.props.autocomplete && this.responsive.onPhone && this.state.isFocus);
 	}
 
 	get showPopoverSearch () {
@@ -258,10 +257,15 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 			getSearchTerm: () => this.state.valueToSearch,
 			setSearchTerm: (val?: string) => this.valueToSearch = val,
 			triggerSearchAsync: async (term?: string) => await this.fetchSearchAsync(term),
-			triggerPopover: () => this.state.showPopover = true,
+			triggerPopover: this.trigger.bind(this),
 			blur: this.handleBlur.bind(this),
 			popoverIsShown: () => this.state.showPopover,
 		};
+	}
+
+	trigger () {
+		this.handleInputMousedown();
+		this.state.isFocus = true;
 	}
 
 
@@ -516,17 +520,12 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 		nextTick(() => {
 			this._autocomplete.value?.focus();
 			this._optionssearchinput.value?.focus();
-			this._defaultSlot.value?.focus();
 		});
 	}
 
 	handleFocus (e: FocusEvent) {
-		console.log('handle focus');
-
 		super.handleFocus(e);
 		nextTick(() => {
-
-			this._optionscontainer.value?.focus();
 			this._autocomplete.value?.focus();
 		});
 	}
@@ -562,12 +561,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 		trailing: false,
 	});
 
-	test () {
-		console.log('test');
-	}
-
 	handleKeydown (direction: 'down' | 'up') {
-		console.log('handle keydown');
 		const popoverInner = this._popoverinner.value;
 		const optionsHtml = this._optionscontainer.value;
 		if (!optionsHtml || !popoverInner) return;
@@ -613,7 +607,10 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 
 	handleInputMousedown () {
 		if (this.showPopover) {
-			setTimeout(() => this._input.value?.blur(), 50);
+			setTimeout(() => {
+				this._input.value?.blur();
+				this._defaultSlot.value?.blur();
+			}, 50);
 		}
 	}
 

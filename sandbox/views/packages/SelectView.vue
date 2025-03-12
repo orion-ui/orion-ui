@@ -146,10 +146,12 @@
 
 		<o-section title="orion-select | simple | options -> Object table">
 			<div class="row row--gutter">
+				<o-button @click="testt?.triggerPopover()">test</o-button>
 				<div class="col-sm-6">
 					<div class="row row--gutter">
 						<div class="col-sm-6">
 							<o-select
+								ref="testt"
 								v-model="data.fieldSelectObject.value"
 								:label="`Simple`"
 								display-key="label"
@@ -441,16 +443,15 @@
 							v-if="_chip"
 							ref="_selectWithTrigger"
 							v-model="data.ajaxSingle"
-							class="hide-select"
-							display-key="email"
 							:dropdown-options="{
 								placement: 'top-start',
 							}"
 							:options="data.fieldSelect.options">
 							<o-chips
 								class="tytyty"
-								@click="_selectWithTrigger?.triggerPopover()">
-								Click me!
+								@keydown.enter="_selectWithTrigger?.triggerPopover()"
+								@keydown.space="_selectWithTrigger?.triggerPopover()">
+								{{ data.ajaxSingle ? data.ajaxSingle : 'Click me' }}
 							</o-chips>
 						</o-select>
 					</div>
@@ -481,6 +482,7 @@ import { inject, reactive, ref } from 'vue';
 
 const _modalSelect = ref<OrionModal>();
 const multiple = ref<OrionSelect>();
+const testt = ref<OrionSelect>();
 const _chip = ref<HTMLElement>();
 const _selectWithTrigger = ref<OrionSelect>();
 const test = ref('');
@@ -630,10 +632,14 @@ function cb () {
 
 <style lang="less">
 
+.tytyty {
+	margin: 1rem;
+}
+
 .chip-style {
-	position: relative;
 	width: fit-content;
 	background: red;
+	position: relative;
 }
 .hide-select {
 	//visibility: hidden;

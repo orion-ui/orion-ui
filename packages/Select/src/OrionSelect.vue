@@ -3,10 +3,11 @@
 		:ref="setup._popover"
 		:theme="setup.showPopoverSearch ? 'orion-select-searchable' : 'orion-select'"
 		:positioning-disabled="setup.responsive.onPhone"
-		:triggers="[]"
+		:triggers="$slots.default ? ['click'] : []"
 		:shown="setup.showPopover"
 		:auto-hide="!!$slots.default"
 		v-bind="dropdownOptions"
+		:container="$slots.default ? setup._defaultSlot.value : setup._input.value"
 		@hide="setup.handleBlur()"
 		@apply-show="setup.handlePopoverShow()">
 		<orion-field
@@ -91,13 +92,23 @@
 				v-html="setup.validationHtmlMessages"/>
 		</orion-field>
 
-		<slot/>
-
+		<div
+			v-if="$slots.default"
+			:ref="setup._defaultSlot"
+			@mousedown="setup.handleInputMousedown()"
+			@keydown.esc="setup.handleBlur()"
+			@keydown.down.prevent="setup.handleKeydown('down')"
+			@keydown.up.prevent="setup.handleKeydown('up')"
+			@keydown.enter="setup.selectItemFromEnter()"
+			@blur="setup.handleBlur($event)">
+			<slot/>
+		</div>
 
 		<template #popper>
 			<div
 				:ref="setup._popoverinner"
 				class="orion-select__popover"
+
 				:class="{ 'orion-select-multiple__popover': setup.props.multiple }"
 				@touchmove.stop="setup.handleScroll()"
 				@mousedown="setup.handleMousedownOnPopper($event)"
