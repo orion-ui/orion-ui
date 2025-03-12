@@ -6,11 +6,11 @@
 		:triggers="[]"
 		:shown="setup.showPopover"
 		:auto-hide="!!$slots.default"
-		v-bind="setup.dropDownOptions"
+		v-bind="dropdownOptions"
 		@hide="setup.handleBlur()"
 		@apply-show="setup.handlePopoverShow()">
 		<orion-field
-			v-if="!!!$slots.default"
+			v-if="!$slots.default"
 			v-bind="setup.orionFieldBinding"
 			:placeholder="(setup.valueToSearch?.length && !setup._optionssearchinput || setup.labelIsFloating) ? undefined : placeholder"
 			:label-is-floating="setup.labelIsFloating"
@@ -92,6 +92,7 @@
 		</orion-field>
 
 		<slot/>
+
 
 		<template #popper>
 			<div

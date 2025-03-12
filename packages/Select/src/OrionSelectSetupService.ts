@@ -158,16 +158,10 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 		fetchResult: [] as BaseVModelType[],
 	});
 
-	protected baseDropdownOptions : Orion.VDropdown = {
-		placement: 'bottom-start',
-		container: undefined,
-	};
-
-	dropDownOptions = reactive<Orion.VDropdown>({ ...this.baseDropdownOptions });
-
 	readonly _popover = ref<InstanceType<typeof Dropdown>>();
 	readonly _popoverinner = ref<RefDom>();
 	readonly _optionscontainer = ref<RefDom>();
+	readonly _defaultSlot = ref<RefDom>();
 	readonly _autocomplete = ref<RefDom<HTMLInputElement>>();
 	readonly _optionssearchinput = ref<OrionInput>();
 	readonly _items = ref<(Element | ComponentPublicInstance)[]>([]);
@@ -266,6 +260,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 			triggerSearchAsync: async (term?: string) => await this.fetchSearchAsync(term),
 			triggerPopover: () => this.state.showPopover = true,
 			blur: this.handleBlur.bind(this),
+			popoverIsShown: () => this.state.showPopover,
 		};
 	}
 
@@ -273,8 +268,6 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 	constructor (props: Props, emit: SelectEmit) {
 		super(props, emit);
 		this.emit = emit;
-
-		Object.assign(this.dropDownOptions, props.dropdownOptions);
 
 		this.bus.on('*', (type, e) => this.emit(type as any, e as any));
 
@@ -515,7 +508,6 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 
 	handlePopoverShow () {
 		addPopoverBackdropCloseAbility(this._popover, () => this.handleBlur(undefined, true));
-
 		if (isArray(this._items.value)) {
 			this.state.indexNav = this._items.value.findIndex(x => (x as HTMLElement).classList.contains('selected'));
 			this.animate();
@@ -524,12 +516,17 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 		nextTick(() => {
 			this._autocomplete.value?.focus();
 			this._optionssearchinput.value?.focus();
+			this._defaultSlot.value?.focus();
 		});
 	}
 
 	handleFocus (e: FocusEvent) {
+		console.log('handle focus');
+
 		super.handleFocus(e);
 		nextTick(() => {
+
+			this._optionscontainer.value?.focus();
 			this._autocomplete.value?.focus();
 		});
 	}
@@ -565,7 +562,12 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 		trailing: false,
 	});
 
+	test () {
+		console.log('test');
+	}
+
 	handleKeydown (direction: 'down' | 'up') {
+		console.log('handle keydown');
 		const popoverInner = this._popoverinner.value;
 		const optionsHtml = this._optionscontainer.value;
 		if (!optionsHtml || !popoverInner) return;
