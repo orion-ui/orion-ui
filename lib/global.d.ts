@@ -193,6 +193,9 @@ declare global {
 
 		type VDropdown = {
 			placement?: VDropdownPlacement;
+			distance?: number;
+			skidding?: number;
+			arrowPadding?: number;
 		}
 
 		namespace Popable {

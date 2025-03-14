@@ -1,6 +1,6 @@
 import { ComponentPublicInstance, nextTick, PropType, reactive, ref, watch } from 'vue';
 import { cloneDeep, debounce, get, isArray, isEmpty, isNil, isObject, upperFirst } from 'lodash-es';
-import { Dropdown } from 'floating-vue';
+import { Dropdown, recomputeAllPoppers } from 'floating-vue';
 import mitt from 'mitt';
 import anime from 'animejs';
 
@@ -8,7 +8,7 @@ import SharedFieldSetupService, { FieldEmit } from '../../Shared/SharedFieldSetu
 import Log from 'utils/Log';
 import useNotif from 'services/NotifService';
 import useMonkey from 'services/MonkeyService';
-import { addPopoverBackdropCloseAbility } from 'utils/tools';
+import { addPopoverBackdropCloseAbility } from 'lib';
 
 type Props = SetupProps<typeof OrionSelectSetupService.props>
 type BaseVModelType = string | number | boolean | Record<string, any>;
@@ -154,7 +154,6 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 		lastValue: undefined as Nil<VModelType>,
 		indexNav: -1,
 		isFetching: false,
-		showPopover: false,
 		fetchResult: [] as BaseVModelType[],
 	});
 
@@ -257,15 +256,10 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 			getSearchTerm: () => this.state.valueToSearch,
 			setSearchTerm: (val?: string) => this.valueToSearch = val,
 			triggerSearchAsync: async (term?: string) => await this.fetchSearchAsync(term),
-			triggerPopover: this.trigger.bind(this),
+			togglePopover: this.togglePopover.bind(this),
 			blur: this.handleBlur.bind(this),
-			popoverIsShown: () => this.state.showPopover,
+			popoverIsShown: () => this.showPopover,
 		};
-	}
-
-	trigger () {
-		this.handleInputMousedown();
-		this.state.isFocus = true;
 	}
 
 
@@ -517,10 +511,15 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 			this.animate();
 		}
 
-		nextTick(() => {
-			this._autocomplete.value?.focus();
-			this._optionssearchinput.value?.focus();
-		});
+		setTimeout(() => {
+			if (this._defaultSlot.value) {
+				this._defaultSlot.value?.focus();
+				this._optionssearchinput.value?.focus();
+			} else {
+				this._autocomplete.value?.focus();
+				this._optionssearchinput.value?.focus();
+			}
+		}, 100);
 	}
 
 	handleFocus (e: FocusEvent) {
@@ -534,8 +533,14 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 		e.preventDefault();
 	}
 
+	togglePopover () {
+		const targetFocusState = !this.state.isFocus;
+		setTimeout(() => {
+			this.state.isFocus = targetFocusState;
+		}, 100);
+	}
+
 	handleBlur = debounce((e?: FocusEvent, selection?: boolean) => {
-		this.state.showPopover = false;
 		if (e?.relatedTarget) {
 			const el = e.relatedTarget as HTMLElement;
 			if (el.parentElement?.classList.contains('orion-select__popover-search-input')
@@ -609,7 +614,6 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 		if (this.showPopover) {
 			setTimeout(() => {
 				this._input.value?.blur();
-				this._defaultSlot.value?.blur();
 			}, 50);
 		}
 	}
@@ -624,6 +628,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 			} else {
 				this.bus.emit('add', value);
 			}
+			recomputeAllPoppers();
 		} else {
 			this.bus.emit('select', value);
 			this.valueToSearch = undefined;

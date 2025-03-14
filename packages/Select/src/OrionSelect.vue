@@ -3,11 +3,11 @@
 		:ref="setup._popover"
 		:theme="setup.showPopoverSearch ? 'orion-select-searchable' : 'orion-select'"
 		:positioning-disabled="setup.responsive.onPhone"
-		:triggers="$slots.default ? ['click'] : []"
+		:triggers="[]"
 		:shown="setup.showPopover"
 		:auto-hide="!!$slots.default"
 		v-bind="dropdownOptions"
-		:container="$slots.default ? setup._defaultSlot.value : setup._input.value"
+		:container="setup._defaultSlot.value"
 		@hide="setup.handleBlur()"
 		@apply-show="setup.handlePopoverShow()">
 		<orion-field
@@ -95,12 +95,13 @@
 		<div
 			v-if="$slots.default"
 			:ref="setup._defaultSlot"
-			@mousedown="setup.handleInputMousedown()"
+			class="orion-select orion-select--default-slot"
+			:tabindex="setup.props.disabled ? undefined : 0"
+			@mousedown="setup.togglePopover()"
 			@keydown.esc="setup.handleBlur()"
 			@keydown.down.prevent="setup.handleKeydown('down')"
 			@keydown.up.prevent="setup.handleKeydown('up')"
-			@keydown.enter="setup.selectItemFromEnter()"
-			@blur="setup.handleBlur($event)">
+			@keydown.enter="setup.selectItemFromEnter()">
 			<slot/>
 		</div>
 
@@ -108,10 +109,9 @@
 			<div
 				:ref="setup._popoverinner"
 				class="orion-select__popover"
-
 				:class="{ 'orion-select-multiple__popover': setup.props.multiple }"
 				@touchmove.stop="setup.handleScroll()"
-				@mousedown="setup.handleMousedownOnPopper($event)"
+				@mousedown.self="setup.handleMousedownOnPopper($event)"
 				@scroll.stop>
 				<orion-input
 					v-if="setup.showPopoverSearch"
@@ -155,7 +155,7 @@
 							'hover' : setup.indexNav === i,
 							'disabled' : !!setup.props.disabledKey && !!setup.get(option, setup.props.disabledKey, false),
 						}"
-						@mousedown.prevent="setup.selectItem(option)">
+						@mousedown.prevent.stop="setup.selectItem(option)">
 						<slot
 							name="option"
 							:item="option"

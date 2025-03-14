@@ -146,7 +146,7 @@
 
 		<o-section title="orion-select | simple | options -> Object table">
 			<div class="row row--gutter">
-				<o-button @click="testt?.triggerPopover()">test</o-button>
+				<o-button @click="testt?.togglePopover()">test</o-button>
 				<div class="col-sm-6">
 					<div class="row row--gutter">
 						<div class="col-sm-6">
@@ -430,31 +430,37 @@
 		<o-section title="orion-select | dropdownOptions | triggerPopover">
 			<div class="row row--gutter mb-xl">
 				<div class="col-sm-6">
-					<o-button @click="_selectWithTrigger?.triggerPopover()">
+					<o-button @click="_selectWithTrigger?.togglePopover()">
 						trigger popover
 					</o-button>
 				</div>
 
 				<div class="col-sm-6">
-					<div
-						ref="_chip"
-						class="chip-style">
-						<o-select
-							v-if="_chip"
-							ref="_selectWithTrigger"
-							v-model="data.ajaxSingle"
-							:dropdown-options="{
-								placement: 'top-start',
-							}"
-							:options="data.fieldSelect.options">
-							<o-chips
-								class="tytyty"
-								@keydown.enter="_selectWithTrigger?.triggerPopover()"
-								@keydown.space="_selectWithTrigger?.triggerPopover()">
-								{{ data.ajaxSingle ? data.ajaxSingle : 'Click me' }}
-							</o-chips>
-						</o-select>
-					</div>
+					<o-select
+						ref="_selectWithTrigger"
+						v-model="data.ajaxSingle"
+						:dropdown-options="{
+							placement: 'right',
+						}"
+						:options="data.fieldSelect.options">
+						<o-chips
+							class="tytyty">
+							{{ data.ajaxSingle ? data.ajaxSingle : 'Chips slot' }}
+						</o-chips>
+					</o-select>
+					<o-select
+						v-model="data.ajaxSingle"
+						multiple
+						searchable
+						:dropdown-options="{
+							placement: 'right',
+						}"
+						:options="data.fieldSelect.options">
+						<div
+							class="tytyty">
+							{{ data.ajaxSingle ? data.ajaxSingle : 'Div slot' }}
+						</div>
+					</o-select>
 				</div>
 			</div>
 		</o-section>
@@ -484,6 +490,7 @@ const _modalSelect = ref<OrionModal>();
 const multiple = ref<OrionSelect>();
 const testt = ref<OrionSelect>();
 const _chip = ref<HTMLElement>();
+const _tututu = ref<OrionChips>();
 const _selectWithTrigger = ref<OrionSelect>();
 const test = ref('');
 
@@ -634,10 +641,12 @@ function cb () {
 
 .tytyty {
 	margin: 1rem;
+	//width: 10rem;
+	position:relative
 }
 
 .chip-style {
-	width: fit-content;
+	//width: fit-content;
 	background: red;
 	position: relative;
 }
