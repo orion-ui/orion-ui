@@ -52,14 +52,14 @@
 				class="orion-upload__files-list">
 				<div
 					v-for="(file, i) in setup.vModel"
-					:key="i"
+					:key="setup.vModel.length"
 					:ref="el => setup.setFilePreviewRef(el)"
 					class="orion-upload__files-list-item">
 					<div
 						v-if="showPreview"
 						class="orion-upload__files-list-item-preview">
 						<svg
-							v-if="setup.vModel.length === 1 && setup.vModel[0].type === 'application/pdf'"
+							v-if="file.type === 'application/pdf'"
 							viewBox="0 0 80 80"
 							version="1.1"
 							xmlns="http://www.w3.org/2000/svg"
