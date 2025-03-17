@@ -443,8 +443,7 @@
 							placement: 'right',
 						}"
 						:options="data.fieldSelect.options">
-						<o-chips
-							class="tytyty">
+						<o-chips>
 							{{ data.ajaxSingle ? data.ajaxSingle : 'Chips slot' }}
 						</o-chips>
 					</o-select>
@@ -642,12 +641,13 @@ function cb () {
 .tytyty {
 	margin: 1rem;
 	//width: 10rem;
-	position:relative
+	position:relative;
+	background: red;
 }
 
 .chip-style {
 	//width: fit-content;
-	background: red;
+
 	position: relative;
 }
 .hide-select {
