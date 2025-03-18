@@ -463,6 +463,61 @@
 				</div>
 			</div>
 		</o-section>
+
+		<o-section title="orion-select | dropdownOptions | triggerPopover">
+			<div class="search-header__filters-item">
+				<div>
+					<o-select
+						ref="oSelect2"
+						v-model="data.ajaxSingle"
+						label="test"
+						class="hide-select"
+						display-key="email"
+						:dropdown-options="{
+							placement: 'bottom-start',
+						}"
+						:options="data.fieldSelect.options">
+						<template #default>
+							<div class="search-filter__label">{{ "Select 'simple' :" }}</div>
+							<div>Autre ligne de texte</div>
+						</template>
+					</o-select>
+				</div>
+			</div>
+
+			<div class="search-header__filters-item">
+				<div>
+					<o-select
+						ref="oSelectMultiple"
+						v-model="data.ajaxSingle"
+						label="test"
+						multiple
+						class="hide-select"
+						display-key="email"
+						:dropdown-options="{
+							placement: 'bottom-start',
+						}"
+						:options="data.fieldSelect.options">
+						<div class="search-filter__label">{{ "Shared multiple : " + data.ajaxSingle }}</div>
+
+						<template #option="{ item }">
+							{{ item }}
+						</template>
+						<template #value="{ item }">
+							{{ item }}
+						</template>
+
+						<template #before-options="{ }">
+							je suis un before options
+						</template>
+
+						<template #after-options="{ }">
+							je suis un after options
+						</template>
+					</o-select>
+				</div>
+			</div>
+		</o-section>
 	</o-page>
 
 	<o-modal

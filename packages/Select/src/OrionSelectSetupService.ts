@@ -519,7 +519,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 				this._autocomplete.value?.focus();
 				this._optionssearchinput.value?.focus();
 			}
-		}, 100);
+		}, 400);
 	}
 
 	handleFocus (e: FocusEvent) {
@@ -537,7 +537,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 		const targetFocusState = !this.state.isFocus;
 		setTimeout(() => {
 			this.state.isFocus = targetFocusState;
-		}, 100);
+		}, 400);
 	}
 
 	handleBlur = debounce((e?: FocusEvent, selection?: boolean) => {
