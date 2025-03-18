@@ -48,18 +48,18 @@
 
 			<div
 				v-else-if="setup.vModel.length"
-				key="filledFiles"
 				class="orion-upload__files-list">
 				<div
 					v-for="(file, i) in setup.vModel"
-					:key="i"
-					:ref="el => setup.setFilePreviewRef(el)"
+					:key="file.name"
+					:ref="setup._filePreview"
 					class="orion-upload__files-list-item">
 					<div
 						v-if="showPreview"
 						class="orion-upload__files-list-item-preview">
 						<svg
-							v-if="setup.vModel.length === 1 && setup.vModel[0].type === 'application/pdf'"
+							v-if="file.type === 'application/pdf'"
+							:key="file.name"
 							viewBox="0 0 80 80"
 							version="1.1"
 							xmlns="http://www.w3.org/2000/svg"
