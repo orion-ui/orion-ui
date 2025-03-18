@@ -1,6 +1,6 @@
 import { ComponentPublicInstance, nextTick, PropType, reactive, ref, watch } from 'vue';
 import { cloneDeep, debounce, get, isArray, isEmpty, isNil, isObject, upperFirst } from 'lodash-es';
-import { Dropdown } from 'floating-vue';
+import { Dropdown, recomputeAllPoppers } from 'floating-vue';
 import mitt from 'mitt';
 import anime from 'animejs';
 
@@ -8,7 +8,7 @@ import SharedFieldSetupService, { FieldEmit } from '../../Shared/SharedFieldSetu
 import Log from 'utils/Log';
 import useNotif from 'services/NotifService';
 import useMonkey from 'services/MonkeyService';
-import { addPopoverBackdropCloseAbility } from 'utils/tools';
+import { addPopoverBackdropCloseAbility } from 'lib';
 
 type Props = SetupProps<typeof OrionSelectSetupService.props>
 type BaseVModelType = string | number | boolean | Record<string, any>;
@@ -127,6 +127,13 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 			type: String,
 			default: undefined,
 		},
+		/* eslint-disable max-len */
+		// @doc props/dropdownOptions options to configure the dropdown [(go to Floating Vue doc for more details)](https://floating-vue.starpad.dev/api/#component-props)
+		// @doc/fr props/dropdownOptions options pour configurer la dropdown [(Voir la documentation de Floating Vue pour plus de détails)](https://floating-vue.starpad.dev/api/#component-props)
+		dropdownOptions: {
+			type: Object as PropType<Partial<Orion.VDropdown>>,
+			default: undefined,
+		},
 	};
 
 	private bus = mitt<{
@@ -153,6 +160,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 	readonly _popover = ref<InstanceType<typeof Dropdown>>();
 	readonly _popoverinner = ref<RefDom>();
 	readonly _optionscontainer = ref<RefDom>();
+	readonly _defaultSlot = ref<RefDom>();
 	readonly _autocomplete = ref<RefDom<HTMLInputElement>>();
 	readonly _optionssearchinput = ref<OrionInput>();
 	readonly _items = ref<(Element | ComponentPublicInstance)[]>([]);
@@ -248,7 +256,9 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 			getSearchTerm: () => this.state.valueToSearch,
 			setSearchTerm: (val?: string) => this.valueToSearch = val,
 			triggerSearchAsync: async (term?: string) => await this.fetchSearchAsync(term),
+			togglePopover: this.togglePopover.bind(this),
 			blur: this.handleBlur.bind(this),
+			popoverIsShown: () => this.showPopover,
 		};
 	}
 
@@ -496,16 +506,20 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 
 	handlePopoverShow () {
 		addPopoverBackdropCloseAbility(this._popover, () => this.handleBlur(undefined, true));
-
 		if (isArray(this._items.value)) {
 			this.state.indexNav = this._items.value.findIndex(x => (x as HTMLElement).classList.contains('selected'));
 			this.animate();
 		}
 
-		nextTick(() => {
-			this._autocomplete.value?.focus();
-			this._optionssearchinput.value?.focus();
-		});
+		setTimeout(() => {
+			if (this._defaultSlot.value) {
+				this._defaultSlot.value?.focus();
+				this._optionssearchinput.value?.focus();
+			} else {
+				this._autocomplete.value?.focus();
+				this._optionssearchinput.value?.focus();
+			}
+		}, 400);
 	}
 
 	handleFocus (e: FocusEvent) {
@@ -517,6 +531,13 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 
 	handleMousedownOnPopper (e: MouseEvent) {
 		e.preventDefault();
+	}
+
+	togglePopover () {
+		const targetFocusState = !this.state.isFocus;
+		setTimeout(() => {
+			this.state.isFocus = targetFocusState;
+		}, 400);
 	}
 
 	handleBlur = debounce((e?: FocusEvent, selection?: boolean) => {
@@ -591,7 +612,9 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 
 	handleInputMousedown () {
 		if (this.showPopover) {
-			setTimeout(() => this._input.value?.blur(), 50);
+			setTimeout(() => {
+				this._input.value?.blur();
+			}, 50);
 		}
 	}
 
@@ -605,6 +628,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 			} else {
 				this.bus.emit('add', value);
 			}
+			recomputeAllPoppers();
 		} else {
 			this.bus.emit('select', value);
 			this.valueToSearch = undefined;
