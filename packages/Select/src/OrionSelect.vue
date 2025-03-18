@@ -1,14 +1,17 @@
 <template>
 	<v-dropdown
 		:ref="setup._popover"
-		placement="bottom-start"
 		:theme="setup.showPopoverSearch ? 'orion-select-searchable' : 'orion-select'"
 		:positioning-disabled="setup.responsive.onPhone"
 		:triggers="[]"
 		:shown="setup.showPopover"
-		:auto-hide="false"
+		:auto-hide="!!$slots.default"
+		v-bind="dropdownOptions"
+		:container="setup._defaultSlot.value"
+		@hide="setup.handleBlur()"
 		@apply-show="setup.handlePopoverShow()">
 		<orion-field
+			v-if="!$slots.default"
 			v-bind="setup.orionFieldBinding"
 			:placeholder="(setup.valueToSearch?.length && !setup._optionssearchinput || setup.labelIsFloating) ? undefined : placeholder"
 			:label-is-floating="setup.labelIsFloating"
@@ -89,13 +92,26 @@
 				v-html="setup.validationHtmlMessages"/>
 		</orion-field>
 
+		<div
+			v-if="$slots.default"
+			:ref="setup._defaultSlot"
+			class="orion-select orion-select--default-slot"
+			:tabindex="setup.props.disabled ? undefined : 0"
+			@mousedown="setup.togglePopover()"
+			@keydown.esc="setup.handleBlur()"
+			@keydown.down.prevent="setup.handleKeydown('down')"
+			@keydown.up.prevent="setup.handleKeydown('up')"
+			@keydown.enter="setup.selectItemFromEnter()">
+			<slot/>
+		</div>
+
 		<template #popper>
 			<div
 				:ref="setup._popoverinner"
 				class="orion-select__popover"
 				:class="{ 'orion-select-multiple__popover': setup.props.multiple }"
 				@touchmove.stop="setup.handleScroll()"
-				@mousedown="setup.handleMousedownOnPopper($event)"
+				@mousedown.self="setup.handleMousedownOnPopper($event)"
 				@scroll.stop>
 				<orion-input
 					v-if="setup.showPopoverSearch"
@@ -139,7 +155,7 @@
 							'hover' : setup.indexNav === i,
 							'disabled' : !!setup.props.disabledKey && !!setup.get(option, setup.props.disabledKey, false),
 						}"
-						@mousedown.prevent="setup.selectItem(option)">
+						@mousedown.prevent.stop="setup.selectItem(option)">
 						<slot
 							name="option"
 							:item="option"
@@ -217,6 +233,9 @@ const setup = new OrionSelectSetupService(props, emit);
 defineExpose(setup.publicInstance);
 
 /** Doc
+ * @doc slot/default Can be used to display a custom container for the select popper
+ * @doc/fr slot/default Permet d'afficher un conteneur personnalisé pour le popper du select
+ *
  * @doc slot/value The selected value if single select, each value if multiple select
  * @doc/fr slot/value La valeur sélectionnée s'il s'agit d'un select simple, sinon chaque valeur s'il s'agit d'un select multiple
  * @doc slot/value/item/desc The selected item, typed any to avoid linter errors

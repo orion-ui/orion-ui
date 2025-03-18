@@ -155,6 +155,11 @@ const globalTypesDocData = {
 		'type': 'NavSection',
 		'generic': '',
 		'description': '{ \n\t\t\tslug: string; \n\t\t\titems: NavItem[]; \n\t\t\tif?: boolean | (() => boolean); \n\t\t} \n',
+	}, {
+		'ns': 'Orion',
+		'type': 'VDropdown',
+		'generic': '',
+		'description': '{ \n\t\t\tcontainer?: HTMLElement | string; \n\t\t\tplacement?: string; \n\t\t} \n',
 	}],
 
 	'Orion.Popable': [{

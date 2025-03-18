@@ -347,7 +347,7 @@ const packagesDocData = new Map([
 			localTypes: {},
 			events: [{
 				'name': 'click',
-				'payload': 'undefined',
+				'payload': 'MouseEvent',
 				'optional': false,
 				'desc': {
 					'en': 'emitted on button click',
@@ -5526,7 +5526,7 @@ const packagesDocData = new Map([
 			}],
 			publicInstance: [{
 				'name': '_country',
-				'type': '() => {\n\tgetSearchTerm: () => string | undefined;\n\tsetSearchTerm: (val?: string | undefined) => string | undefined;\n\ttriggerSearchAsync: (term?: string | undefined) => Promise<void>;\n\thasBeenFocus: () => boolean;\n\tisFocus: () => boolean;\n\tfocus: () => void;\n\tblur: import("lodash").DebouncedFuncLeading<() => void>;\n\tclear: () => void;\n\tsetHasBeenFocus: (value: boolean) => void;\n\tisValid: () => boolean;\n\t_input: () => HTMLInputElement | undefined;\n} | undefined',
+				'type': '() => {\n\tgetSearchTerm: () => string | undefined;\n\tsetSearchTerm: (val?: string | undefined) => string | undefined;\n\ttriggerSearchAsync: (term?: string | undefined) => Promise<void>;\n\ttriggerPopover: () => boolean;\n\tblur: import("lodash").DebouncedFuncLeading<(e?: FocusEvent | undefined, selection?: boolean | undefined) => false | undefined>;\n\thasBeenFocus: () => boolean;\n\tisFocus: () => boolean;\n\tfocus: () => void;\n\tclear: () => void;\n\tsetHasBeenFocus: (value: boolean) => void;\n\tisValid: () => boolean;\n\t_input: () => HTMLInputElement | undefined;\n} | undefined',
 			}, {
 				'name': '_orionInput',
 				'type': '() => (HTMLInputElement & {\n\thasBeenFocus: () => boolean;\n\tisFocus: () => boolean;\n\tfocus: () => void;\n\tblur: import("lodash").DebouncedFuncLeading<() => void>;\n\tclear: () => void;\n\tsetHasBeenFocus: (value: boolean) => void;\n\tisValid: () => boolean;\n\t_input: () => HTMLInputElement | undefined;\n}) | undefined',
@@ -6587,6 +6587,15 @@ const packagesDocData = new Map([
 					'fr': 'indique après combien de temps après la dernière frappe, la fonction de récupération des options est appelée',
 				},
 			}, {
+				'name': 'dropdownOptions',
+				'defaultValue': 'undefined',
+				'type': 'Partial<Orion.VDropdown>',
+				'required': false,
+				'desc': {
+					'en': 'options to configure the dropdown [go to Floating Vue doc for more details](https://floating-vue.starpad.dev/api/#component-props)',
+					'fr': 'options pour configurer la dropdown [Voir la documentation de Floating Vue pour plus de détails](https://floating-vue.starpad.dev/api/#component-props)',
+				},
+			}, {
 				'name': 'fetchInitialOptions',
 				'defaultValue': '() => []',
 				'type': 'Array',
@@ -6836,6 +6845,12 @@ const packagesDocData = new Map([
 				'name': 'triggerSearchAsync',
 				'type': '(term?: string) => Promise<void>',
 			}, {
+				'name': 'triggerPopover',
+				'type': '() => boolean',
+			}, {
+				'name': 'blur',
+				'type': 'Lodash.debounce',
+			}, {
 				'name': 'hasBeenFocus',
 				'type': '() => boolean',
 			}, {
@@ -6844,9 +6859,6 @@ const packagesDocData = new Map([
 			}, {
 				'name': 'focus',
 				'type': '() => void',
-			}, {
-				'name': 'blur',
-				'type': 'Lodash.debounce',
 			}, {
 				'name': 'clear',
 				'type': '() => void',
@@ -7971,15 +7983,6 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'the error message displayed after input\'s validation.',
 					'fr': 'le message d\'erreur affiché en cas d\'erreur lors de la validation',
-				},
-			}, {
-				'name': 'value',
-				'defaultValue': false,
-				'type': 'boolean',
-				'required': false,
-				'desc': {
-					'en': 'value of the toggle',
-					'fr': 'valeur du toggle',
 				},
 			}],
 			publicInstance: [{
