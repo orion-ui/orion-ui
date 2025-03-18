@@ -2,8 +2,8 @@
 	<o-page title="Upload">
 		<o-upload
 			v-model="testValidation.files"
-			:file-max-size="2"
-			:file-types="['application/pdf']"
+			:file-max-size="20"
+			:file-types="['application/pdf', 'image/jpeg']"
 			multiple
 			required
 			:validation="validator.rule('files')"/>

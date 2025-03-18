@@ -1,6 +1,6 @@
-import { ComponentPublicInstance, nextTick, ref, watch } from 'vue';
+import { ComponentPublicInstance, nextTick, PropType, ref, watch } from 'vue';
 import { cloneDeep, debounce, DebouncedFunc, get, isArray, isEmpty, isNil, isObject, upperFirst } from 'lodash-es';
-import { Dropdown } from 'floating-vue';
+import { Dropdown, recomputeAllPoppers } from 'floating-vue';
 import mitt from 'mitt';
 import anime from 'animejs';
 
@@ -46,6 +46,10 @@ export type OrionSelectProps<T, O, VKey extends keyof O, DKey extends keyof O = 
 	// @doc props/donetyping the duration to trigger the fetch
 	// @doc/fr props/donetyping indique après combien de temps après la dernière frappe, la fonction de récupération des options est appelée
 	donetyping?: number,
+	/* eslint-disable max-len */
+		// @doc props/dropdownOptions options to configure the dropdown [(go to Floating Vue doc for more details)](https://floating-vue.starpad.dev/api/#component-props)
+		// @doc/fr props/dropdownOptions options pour configurer la dropdown [(Voir la documentation de Floating Vue pour plus de détails)](https://floating-vue.starpad.dev/api/#component-props)
+	dropdownOptions?: Partial<Orion.VDropdown>
 	// @doc props/favoriteIcon key used to choice the favorite icon
 	// @doc/fr props/favoriteIcon clé qui permet de choisir l'icône des favoris
 	favoriteIcon?: Orion.Icon,
@@ -125,6 +129,7 @@ export default class OrionSelectSetupService<
 	readonly _popover = ref<InstanceType<typeof Dropdown>>();
 	readonly _popoverinner = ref<RefDom>();
 	readonly _optionscontainer = ref<RefDom>();
+	readonly _defaultSlot = ref<RefDom>();
 	readonly _favoritesoptionscontainer = ref<RefDom>();
 	readonly _autocomplete = ref<RefDom<HTMLInputElement>>();
 	readonly _optionssearchinput = ref<OrionInput>();
@@ -232,7 +237,9 @@ export default class OrionSelectSetupService<
 			setSearchTerm: (val?: string) => this.valueToSearch = val,
 			setFavoritesOptions: (val: O[]) => this.state.favoritesOptions = [...val],
 			triggerSearchAsync: async (term?: string) => await this.fetchSearchAsync(term),
+			togglePopover: this.togglePopover.bind(this),
 			blur: this.handleBlur.bind(this),
+			popoverIsShown: () => this.showPopover,
 		};
 	}
 
@@ -495,16 +502,20 @@ export default class OrionSelectSetupService<
 
 	handlePopoverShow () {
 		addPopoverBackdropCloseAbility(this._popover, () => this.handleBlur(undefined, true));
-
 		if (isArray(this._items.value)) {
 			this.state.indexNav = this._items.value.findIndex(x => (x as HTMLElement).classList.contains('selected'));
 			this.animate();
 		}
 
-		nextTick(() => {
-			this._autocomplete.value?.focus();
-			this._optionssearchinput.value?.focus();
-		});
+		setTimeout(() => {
+			if (this._defaultSlot.value) {
+				this._defaultSlot.value?.focus();
+				this._optionssearchinput.value?.focus();
+			} else {
+				this._autocomplete.value?.focus();
+				this._optionssearchinput.value?.focus();
+			}
+		}, 400);
 	}
 
 	handleFocus (e: FocusEvent) {
@@ -516,6 +527,13 @@ export default class OrionSelectSetupService<
 
 	handleMousedownOnPopper (e: MouseEvent) {
 		e.preventDefault();
+	}
+
+	togglePopover () {
+		const targetFocusState = !this.state.isFocus;
+		setTimeout(() => {
+			this.state.isFocus = targetFocusState;
+		}, 200);
 	}
 
 	handleBlur = debounce((e?: FocusEvent, selection?: boolean) => {
@@ -590,7 +608,9 @@ export default class OrionSelectSetupService<
 
 	handleInputMousedown () {
 		if (this.showPopover) {
-			setTimeout(() => this._input.value?.blur(), 50);
+			setTimeout(() => {
+				this._input.value?.blur();
+			}, 50);
 		}
 	}
 
@@ -604,6 +624,7 @@ export default class OrionSelectSetupService<
 			} else {
 				this.bus.emit('add', value);
 			}
+			recomputeAllPoppers();
 		} else {
 			this.bus.emit('select', value);
 			this.valueToSearch = undefined;

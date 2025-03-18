@@ -85,6 +85,9 @@ declare global {
 
 		type ListLayout = 'grid' | 'row';
 
+		// eslint-disable-next-line max-len
+		type VDropdownPlacement = 'auto' | 'auto-start' | 'auto-end' | 'top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'left' | 'left-start' | 'left-end' | 'right' | 'right-start' | 'right-end';
+
 		type Phone = {
 			phoneNumber?: Nil<string>;
 			phoneCountryCode?: Nil<Orion.Country['code']>;
@@ -189,6 +192,13 @@ declare global {
 			slug: string;
 			items: NavItem[];
 			if?: boolean | (() => boolean);
+		}
+
+		type VDropdown = {
+			placement?: VDropdownPlacement;
+			distance?: number;
+			skidding?: number;
+			arrowPadding?: number;
 		}
 
 		namespace Popable {

@@ -95,7 +95,7 @@ export default class OrionUploadSetupService extends SharedFieldSetupService<Ori
 	}
 
 	protected onMounted () {
-		this.vModel.value?.forEach((file: File, index: number) => this.getFilePreview(file, index));
+		this.vModel.value?.forEach(file => this.getFilePreview(file));
 
 		this.window?.addEventListener('dragover', this.preventDrop);
 		this.window?.addEventListener('drop', this.preventDrop);
@@ -124,42 +124,35 @@ export default class OrionUploadSetupService extends SharedFieldSetupService<Ori
 		if (!this.props.multiple && this.vModel.value.length > 1) {
 			this.vModel.value.splice(1, this.vModel.value.length);
 		}
-		this.vModel.value.forEach((file: File, index: number) => this.getFilePreview(file, index));
+		this.vModel.value.forEach(file => this.getFilePreview(file));
 		this.emits('change', this.vModel.value);
 	}
 
-	private getFilePreview (file: File, index: number) {
+	private getFilePreview (file: File) {
 		if (!this.props.showPreview) return;
 		const delay = this._illustration.value ? 600 : 0;
+		// setTimeout à cause de la transition css
+		setTimeout(() => {
+			if (this.imgFileType.includes(file.type)) {
+				const reader = new FileReader();
 
-		nextTick(() => {
-			// setTimeout à cause de la transition css
-			setTimeout(() => {
-				if (this.imgFileType.includes(file.type)) {
-					const reader = new FileReader();
+				reader.addEventListener('load', () => {
+					const target = this._filePreview.value.find(x => x.__vnode.key === file.name)?.firstChild as HTMLElement;
+					if (target) target.style.backgroundImage = `url(${reader.result})`;
+				}, false);
 
-					reader.addEventListener('load', () => {
-						const target = this._filePreview.value[index]?.firstChild as HTMLElement;
-						if (target) target.style.backgroundImage = `url(${reader.result})`;
-					}, false);
+				reader.readAsDataURL(file);
+			}
+		}, delay);
 
-					reader.readAsDataURL(file);
-				}
-			}, delay);
-		});
 	}
 
 	clear () {
 		if (this.vModel.value)
 			this.vModel.value.length = 0;
+
 		this.emits('change', []);
 		this.emits('clear');
-	}
-
-	setFilePreviewRef (el: ComponentPublicInstance | Element | null) {
-		if (el) {
-			this._filePreview.value.push(el as HTMLElement);
-		}
 	}
 
 	handleDragEnter (e: DragEvent) {

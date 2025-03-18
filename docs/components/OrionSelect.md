@@ -6,6 +6,7 @@ title: Select
 # OrionSelect
 
 `<o-select>` displays a customizable dropdown field.
+
 ## Usage
 
 ::: demo:Select
@@ -14,8 +15,8 @@ SelectFormat
 SelectFetch
 SelectSlot
 SelectFavorite
+SelectContainer
 SelectPlayground
 :::
 
 <attribute-table/>
-

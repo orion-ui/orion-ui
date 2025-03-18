@@ -1,14 +1,17 @@
 <template>
 	<v-dropdown
 		:ref="setup._popover"
-		placement="bottom-start"
 		:theme="setup.showPopoverSearch ? 'orion-select-searchable' : 'orion-select'"
 		:positioning-disabled="setup.responsive.onPhone"
 		:triggers="[]"
 		:shown="setup.showPopover"
-		:auto-hide="false"
+		:auto-hide="!!$slots.default"
+		v-bind="dropdownOptions"
+		:container="setup._defaultSlot.value"
+		@hide="setup.handleBlur()"
 		@apply-show="setup.handlePopoverShow()">
 		<orion-field
+			v-if="!$slots.default"
 			v-bind="setup.orionFieldBinding"
 			:placeholder="(setup.valueToSearch?.length && !setup._optionssearchinput || setup.labelIsFloating) ? undefined : placeholder"
 			:label-is-floating="setup.labelIsFloating"
@@ -89,13 +92,26 @@
 				v-html="setup.validationHtmlMessages"/>
 		</orion-field>
 
+		<div
+			v-if="$slots.default"
+			:ref="setup._defaultSlot"
+			class="orion-select orion-select--default-slot"
+			:tabindex="disabled ? undefined : 0"
+			@mousedown="setup.togglePopover()"
+			@keydown.esc="setup.handleBlur()"
+			@keydown.down.prevent="setup.handleKeydown('down')"
+			@keydown.up.prevent="setup.handleKeydown('up')"
+			@keydown.enter="setup.selectItemFromEnter()">
+			<slot/>
+		</div>
+
 		<template #popper>
 			<div
 				:ref="setup._popoverinner"
 				class="orion-select__popover"
 				:class="{ 'orion-select-multiple__popover': multiple }"
 				@touchmove.stop="setup.handleScroll()"
-				@mousedown="setup.handleMousedownOnPopper($event)"
+				@mousedown.self="setup.handleMousedownOnPopper($event)"
 				@scroll.stop>
 				<orion-input
 					v-if="setup.showPopoverSearch"
@@ -142,7 +158,7 @@
 								'favorite' : i < (setup.favoritesOptions ? setup.favoritesOptions.length : 0),
 								'favorite--last': setup.favoritesOptions && i + 1 === setup.favoritesOptions.length,
 							}"
-							@mousedown.prevent="setup.selectItem(option)">
+							@mousedown.prevent.stop="setup.selectItem(option)">
 							<slot
 								name="option"
 								:item="option"
@@ -151,7 +167,7 @@
 								<span
 									v-html="setup.itemIsObject(option) && displayKey
 										? setup.markedSearch(option[displayKey])
-										: setup.markedSearch(String(option))"/>
+										: setup.markedSearch(option)"/>
 							</slot>
 							<template v-if="multiple">
 								<orion-icon
@@ -220,6 +236,7 @@ const props = withDefaults(defineProps<OrionSelectProps<T, O, VKey, DKey>>(), Or
 const setup = new OrionSelectSetupService(props, emits, vModel);
 
 defineSlots<{
+	'default'(): void
 	'multiple-value'(props: { value: T[] }): void
 	'before-options'(props: { options: O[] }): void
 	'after-options'(props: { options: O[] }): void
@@ -250,9 +267,6 @@ type ObjectKeyValidator<
 	: O[D];
 
 /** Doc
- * @doc vModel/vModel component's vModel
- * @doc/fr vModel/vModel vModel du composant
- *
  * @doc slot/value The selected value if single select, each value if multiple select
  * @doc/fr slot/value La valeur sélectionnée s'il s'agit d'un select simple, sinon chaque valeur s'il s'agit d'un select multiple
  * @doc slot/value/item/desc The selected item, typed any to avoid linter errors

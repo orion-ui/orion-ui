@@ -4933,6 +4933,15 @@ const packagesDocData = new Map([
 				},
 				'defaultValue': '\'star\' ',
 			}, {
+				'name': 'dropdownOptions',
+				'defaultValue': 'undefined',
+				'type': 'Partial<Orion.VDropdown>',
+				'required': false,
+				'desc': {
+					'en': 'options to configure the dropdown [go to Floating Vue doc for more details](https://floating-vue.starpad.dev/api/#component-props)',
+					'fr': 'options pour configurer la dropdown [Voir la documentation de Floating Vue pour plus de détails](https://floating-vue.starpad.dev/api/#component-props)',
+				},
+			}, {
 				'name': 'fetchInitialOptions',
 				'type': 'O[]',
 				'desc': {

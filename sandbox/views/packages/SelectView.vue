@@ -148,10 +148,12 @@
 
 		<o-section title="orion-select | simple | options -> Object table">
 			<div class="row row--gutter">
+				<o-button @click="testt?.togglePopover()">test</o-button>
 				<div class="col-sm-6">
 					<div class="row row--gutter">
 						<div class="col-sm-6">
 							<o-select
+								ref="testt"
 								v-model="data.fieldSelectObject.value"
 								:label="`Simple`"
 								display-key="label"
@@ -426,6 +428,98 @@
 				</div>
 			</div>
 		</o-section>
+
+		<o-section title="orion-select | dropdownOptions | triggerPopover">
+			<div class="row row--gutter mb-xl">
+				<div class="col-sm-6">
+					<o-button @click="_selectWithTrigger?.togglePopover()">
+						trigger popover
+					</o-button>
+				</div>
+
+				<div class="col-sm-6">
+					<o-select
+						ref="_selectWithTrigger"
+						v-model="data.ajaxSingle"
+						:dropdown-options="{
+							placement: 'right',
+						}"
+						:options="data.fieldSelect.options">
+						<o-chips>
+							{{ data.ajaxSingle ? data.ajaxSingle : 'Chips slot' }}
+						</o-chips>
+					</o-select>
+					<o-select
+						v-model="data.ajaxSingle"
+						multiple
+						searchable
+						:dropdown-options="{
+							placement: 'right',
+						}"
+						:options="data.fieldSelect.options">
+						<div
+							class="tytyty">
+							{{ data.ajaxSingle ? data.ajaxSingle : 'Div slot' }}
+						</div>
+					</o-select>
+				</div>
+			</div>
+		</o-section>
+
+		<o-section title="orion-select | dropdownOptions | triggerPopover">
+			<div class="search-header__filters-item">
+				<div>
+					<o-select
+						ref="oSelect2"
+						v-model="data.ajaxSingle"
+						label="test"
+						class="hide-select"
+						display-key="email"
+						:dropdown-options="{
+							placement: 'bottom-start',
+						}"
+						:options="data.fieldSelect.options">
+						<template #default>
+							<div class="search-filter__label">{{ "Select 'simple' :" }}</div>
+							<div>Autre ligne de texte</div>
+						</template>
+					</o-select>
+				</div>
+			</div>
+
+			<div class="search-header__filters-item">
+				<div>
+					<o-select
+						ref="oSelectMultiple"
+						v-model="data.ajaxSingle"
+						label="test"
+						multiple
+						class="hide-select"
+						display-key="email"
+						:dropdown-options="{
+							placement: 'bottom-start',
+						}"
+						:options="data.fieldSelect.options">
+						<div class="search-filter__label">{{ "Shared multiple : " + data.ajaxSingle }}</div>
+
+						<template #option="{ item }">
+							{{ item }}
+						</template>
+						<template #value="{ item }">
+							{{ item }}
+						</template>
+
+						<template #before-options="{ }">
+							je suis un before options
+						</template>
+
+						<template #after-options="{ }">
+							je suis un after options
+						</template>
+					</o-select>
+				</div>
+			</div>
+		</o-section>
 		<o-section title="orion-select | favorites options">
 			<div class="row row--gutter">
 				<div class="col-sm-6">
@@ -509,6 +603,10 @@ import { inject, reactive, ref } from 'vue';
 
 const _modalSelect = ref<OrionModal>();
 const _test = ref<OrionSelect>();
+const testt = ref<OrionSelect>();
+const _chip = ref<HTMLElement>();
+const _tututu = ref<OrionChips>();
+const _selectWithTrigger = ref<OrionSelect>();
 const search =ref('');
 
 function tutu () {
@@ -655,3 +753,22 @@ function cb () {
 }
 // #endregion
 </script>
+
+<style lang="less">
+
+.tytyty {
+	margin: 1rem;
+	//width: 10rem;
+	position:relative;
+	background: red;
+}
+
+.chip-style {
+	//width: fit-content;
+
+	position: relative;
+}
+.hide-select {
+	//visibility: hidden;
+}
+</style>
