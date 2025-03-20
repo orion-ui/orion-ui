@@ -1,4 +1,4 @@
-import { ComponentPublicInstance, ModelRef, nextTick, reactive, ref } from 'vue';
+import { ModelRef, reactive, ref, useTemplateRef } from 'vue';
 import anime from 'animejs';
 import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetupServiceProps } from '../../Shared/SharedFieldSetupService';
 import useNotif from 'services/NotifService';
@@ -30,7 +30,8 @@ export default class OrionUploadSetupService extends SharedFieldSetupService<Ori
 	_input = ref<HTMLInputElement>();
 	_bubble = ref<RefDom>();
 	_illustration = ref<RefDom>();
-	_filePreview = ref<RefDom[]>([]);
+	//_filePreview = ref<RefDom[]>([]);
+	_filePreview = useTemplateRef<HTMLElement[]>('previews');
 
 	uid = this.getUid();
 
@@ -91,11 +92,12 @@ export default class OrionUploadSetupService extends SharedFieldSetupService<Ori
 	}
 
 	protected onBeforeUpdate () {
-		this._filePreview.value.length = 0;
+		if (this._filePreview.value)
+			this._filePreview.value.length = 0;
 	}
 
 	protected onMounted () {
-		this.vModel.value?.forEach(file => this.getFilePreview(file));
+		this.vModel.value?.forEach((file, index) => this.getFilePreview(file, index));
 
 		this.window?.addEventListener('dragover', this.preventDrop);
 		this.window?.addEventListener('drop', this.preventDrop);
@@ -124,20 +126,19 @@ export default class OrionUploadSetupService extends SharedFieldSetupService<Ori
 		if (!this.props.multiple && this.vModel.value.length > 1) {
 			this.vModel.value.splice(1, this.vModel.value.length);
 		}
-		this.vModel.value.forEach(file => this.getFilePreview(file));
+		this.vModel.value.forEach((file, index) => this.getFilePreview(file, index));
 		this.emits('change', this.vModel.value);
 	}
 
-	private getFilePreview (file: File) {
+	private getFilePreview (file: File, index: number) {
 		if (!this.props.showPreview) return;
 		const delay = this._illustration.value ? 600 : 0;
 		// setTimeout à cause de la transition css
 		setTimeout(() => {
 			if (this.imgFileType.includes(file.type)) {
 				const reader = new FileReader();
-
 				reader.addEventListener('load', () => {
-					const target = this._filePreview.value.find(x => x.__vnode.key === file.name)?.firstChild as HTMLElement;
+					const target = this._filePreview.value?.[index]?.firstChild as HTMLElement;
 					if (target) target.style.backgroundImage = `url(${reader.result})`;
 				}, false);
 
@@ -198,7 +199,8 @@ export default class OrionUploadSetupService extends SharedFieldSetupService<Ori
 
 	deleteFile (index: number) {
 		if (!this.vModel.value) return;
-		this._filePreview.value.length = 0;
+
+
 		if (this._input.value) this._input.value.value = '';
 		this.vModel.value.splice(index, 1);
 		this.emitInput();

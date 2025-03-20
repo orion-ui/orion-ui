@@ -53,7 +53,7 @@
 				<div
 					v-for="(file, i) in vModel"
 					:key="file.name"
-					:ref="setup._filePreview"
+					ref="previews"
 					class="orion-upload__files-list-item">
 					<div
 						v-if="showPreview"
