@@ -28,9 +28,10 @@ export type OrionFieldProps = {
 }
 
 export default class OrionFieldSetupService extends SharedSetupService {
-	static readonly defaultProps = { 
+	static readonly defaultProps = {
 		...SharedProps.size,
-		inputType: 'input' };
+		inputType: 'input',
+	};
 
 	readonly _el = ref<RefDom>();
 	readonly _suffixPictos = ref<RefDom>();
@@ -41,7 +42,6 @@ export default class OrionFieldSetupService extends SharedSetupService {
 
 	get additionalClass () {
 		const cls = [`${this.baseClass}--${this.props.size}`];
-
 		if (this.props.showError) cls.push(`${this.baseClass}--error`);
 		if (this.props.showWarning) cls.push(`${this.baseClass}--warning`);
 		if (this.props.showSuccess) cls.push(`${this.baseClass}--success`);
