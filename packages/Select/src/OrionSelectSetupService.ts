@@ -442,13 +442,14 @@ export default class OrionSelectSetupService<
 
 	valueDisplay (item?: Nil<T>): { item: Nil<T> | Nil<O>, display: any } {
 		const optionsToSearchIn = (this.props.fetchUrl || this.props.customFetch) ? this.fetchOptions : this.props.options;
+
 		const currentValue = optionsToSearchIn.find((x) => {
 			return this.itemIsObject(x)
 				&& this.props.valueKey
 				&& x[this.props.valueKey] === item;
 		});
 
-		if (!currentValue) return {
+		if (!currentValue && this.fetchOptions.length) return {
 			display: item,
 			item,
 		};

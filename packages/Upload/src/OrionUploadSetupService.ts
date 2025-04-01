@@ -30,7 +30,6 @@ export default class OrionUploadSetupService extends SharedFieldSetupService<Ori
 	_input = ref<HTMLInputElement>();
 	_bubble = ref<RefDom>();
 	_illustration = ref<RefDom>();
-	//_filePreview = ref<RefDom[]>([]);
 	_filePreview = useTemplateRef<HTMLElement[]>('previews');
 
 	uid = this.getUid();
