@@ -26,7 +26,7 @@ import { getUid } from 'lib';
 
 type item = {
 	id: number,
-	name: string, 
+	name: string,
 	lastname: string
 }
 
@@ -40,7 +40,7 @@ const selectedItems = reactive<item[]>([]);
 
 const list = computed(() => fullList.slice(page.size * (page.index - 1), page.size * page.index));
 
-function seedList (qty = 50) {
+function seedList (qty = 100) {
 	const items: item[] = [];
 	for (let index = 0; index < qty; index++) {
 		items.push({

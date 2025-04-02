@@ -1,5 +1,7 @@
 import { ModelRef } from 'vue';
 import SharedSetupService from '../../Shared/SharedSetupService';
+import { Reactive } from 'utils/decorators';
+import { debounce } from 'lodash-es';
 
 export type OrionPaginateEmits = {
 	(e: 'paginate', payload: number): void;
@@ -18,7 +20,23 @@ export type OrionPaginateProps = {
 };
 
 export default class OrionPaginateSetupService extends SharedSetupService {
+
 	static readonly defaultProps = {};
+
+	@Reactive protected readonly state = { pageInput: undefined as Undef<number> };
+
+	debouncedUpdate = debounce((val) => {
+		this.index = +val;
+	}, 500);
+
+	get pageInput () { return this.state.pageInput; }
+	set pageInput (val) {
+		this.state.pageInput = val;
+		if (val) {
+			this.debouncedUpdate(val);
+		}
+
+	}
 
 	get index () {
 		if (this.props.bindRouter && this.router.currentRoute.value.query[this.props.bindRouter]) {
@@ -41,6 +59,9 @@ export default class OrionPaginateSetupService extends SharedSetupService {
 				},
 			});
 		}
+
+		this.state.pageInput = undefined;
+
 	}
 
 	get pagesArray () {
@@ -53,28 +74,35 @@ export default class OrionPaginateSetupService extends SharedSetupService {
 				a.push('...');
 				a.push(this.pagesLength);
 			}
-		} else if (this.vModel.value > this.pagesLength - 4) {
+		} else if (this.vModel.value > this.pagesLength - 1 && this.vModel.value !== this.pagesLength) {
 			a.push(1);
 			a.push('...');
 			const indexFor = this.pagesLength - 3;
-			for (let index = indexFor; index <= this.pagesLength; index++) {
+			for (let index = indexFor; index < this.pagesLength -2; index++) {
 				a.push(index);
 			}
 		} else {
 			a.push(1);
 			a.push('...');
-			const indexFor = this.vModel.value - 2;
-			for (let index = indexFor; index <= this.vModel.value + 2; index++) {
-				a.push(index);
+			if (this.vModel.value !== this.pagesLength) {
+				const indexFor = this.vModel.value - 2;
+				for (let index = indexFor; index <= (this.vModel.value + 2 > this.pagesLength -1 ? this.pagesLength -1 : this.vModel.value + 2); index++) {
+					a.push(index);
+				}
+			} else {
+				const indexFor = this.vModel.value - 3;
+				for (let index = indexFor; index < this.vModel.value; index++) {
+					a.push(index);
+				}
 			}
+
 			a.push('...');
 			a.push(this.pagesLength);
 		}
-
 		return a;
 	}
 
-	protected get pagesLength () {
+	get pagesLength () {
 		return Math.ceil(this.props.total / this.props.size);
 	}
 
