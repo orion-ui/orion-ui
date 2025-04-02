@@ -228,7 +228,7 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 	}
 
 	setCursorPosition (event?: MouseEvent | KeyboardEvent) {
-
+		if (!this.vmodelArray.length) return;
 		const start = (event?.target as HTMLInputElement)?.selectionStart ?? this._input.value?.selectionStart;
 		const end = (event?.target as HTMLInputElement)?.selectionEnd ?? this._input.value?.selectionEnd;
 
