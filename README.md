@@ -17,6 +17,7 @@ git checkout -b hotfix/1.x.x
 #... back merge into legacy/v1
 git checkout legacy/v1
 git merge hotfix/1.x.x
+git tag 1.x.x
 ```
 
 ##### For gitflow users :
@@ -33,8 +34,7 @@ git flow hotfix finish
 Once changes have been back merged, tag your commit
 
 ```sh
-#... use the right version number based on latest legacy tag
-git tag 1.x.x
+git push
 git push origin 1.x.x
 ```
 
