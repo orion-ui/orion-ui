@@ -1,11 +1,15 @@
+# Orion - Another simple yet powerful UI framework
+
+![GitHub Release](https://img.shields.io/github/v/release/orion-ui/orion-ui?style=for-the-badge)
+
 [![Build & Publish for production](https://github.com/orion-ui/orion-ui/actions/workflows/build-publish-production.yml/badge.svg)](https://github.com/orion-ui/orion-ui/actions/workflows/build-publish-production.yml)
+
+> 🎉 **Orion v2 has been released !** Heads up to the [release note](https://github.com/orion-ui/orion-ui/releases) for more details on breaking changes and migration process.
 
 ![Orion UI](https://repository-images.githubusercontent.com/616359964/fad1ee21-1781-452f-843d-43af9eda0802)
 
-# Orion - Another simple yet powerful UI framework
-
-Orion aims at being as simple as possible, but still provides rich features out-of-the-box.\
-It's written in TypeScript, fully typed, because we care about DX.\
+**Orion** aims at being as simple as possible, but still provides rich features out-of-the-box.\
+It's written in TypeScript, fully typed, because **we care about DX**.\
 Based on Vue 3 and Vite, it's customizable and well documented.
 
 ## Full documentation
