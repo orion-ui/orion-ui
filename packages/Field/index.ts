@@ -1,6 +1,7 @@
 import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
 import OrionField from './src/OrionField.vue';
+import type { OrionFieldEmits, OrionFieldProps } from './src/OrionFieldSetupService';
 import OrionFieldSetupService from './src/OrionFieldSetupService';
 
 export const OrionFieldPlugin: Plugin = {
@@ -9,4 +10,4 @@ export const OrionFieldPlugin: Plugin = {
 	},
 };
 
-export { OrionField, OrionFieldSetupService };
+export { OrionField, OrionFieldSetupService, OrionFieldEmits, OrionFieldProps };

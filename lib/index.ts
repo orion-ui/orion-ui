@@ -1,4 +1,5 @@
 /// <reference path="global.d.ts"/>
+/// <reference path="private.d.ts"/>
 
 import type { App, Plugin } from 'vue';
 

@@ -50,13 +50,10 @@ import './OrionPopConfirm.less';
 import { OrionButton } from 'packages/Button';
 import { OrionIcon } from 'packages/Icon';
 import OrionPopConfirmSetupService from './OrionPopConfirmSetupService';
-type PopConfirmEmit = {
-	(e: 'confirm'): void;
-	(e: 'cancel'): void;
-}
-const emit = defineEmits<PopConfirmEmit>();
-const props = defineProps(OrionPopConfirmSetupService.props);
-const setup = new OrionPopConfirmSetupService(props, emit);
+import type { OrionPopConfirmProps, OrionPopConfirmEmits } from './OrionPopConfirmSetupService';
+const emits = defineEmits<OrionPopConfirmEmits>() as OrionPopConfirmEmits;
+const props = withDefaults(defineProps<OrionPopConfirmProps>(), OrionPopConfirmSetupService.defaultProps);
+const setup = new OrionPopConfirmSetupService(props, emits);
 defineExpose(setup.publicInstance);
 
 /** Doc

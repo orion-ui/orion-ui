@@ -40,7 +40,7 @@ export const mdDemoPlugin = (md: MardownIt, App: App, supportedLanguages: string
 					.map(x => x.content);
 
 				return `<div class="oriondoc-demos">${
-					demos?.map(demo => {
+					demos?.map((demo: string) => {
 
 						const targetPath = demoIsService
 							? `services/docs/${demo}.vue`

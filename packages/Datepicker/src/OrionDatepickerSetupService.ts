@@ -1,84 +1,53 @@
-import { nextTick, PropType, reactive, ref, useSlots, watchEffect } from 'vue';
+import { ModelRef, nextTick, reactive, ref, Slots, watchEffect } from 'vue';
 import { debounce, isNil, throttle } from 'lodash-es';
 import { Dropdown } from 'floating-vue';
-import SharedFieldSetupService, { FieldEmit } from '../../Shared/SharedFieldSetupService';
+import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetupServiceProps } from '../../Shared/SharedFieldSetupService';
 import useMonkey from 'services/MonkeyService';
 import { getAppLang } from 'services/LangService';
 import { addPopoverBackdropCloseAbility } from 'utils/tools';
 
-type Props = SetupProps<typeof OrionDatepickerSetupService.props>
-type Slots = ReturnType<typeof useSlots>;
-type DatepickerEmit = FieldEmit<Nil<Date>> & {
-	(e: 'update:range', payload: Nil<Orion.DateRange>): void;
-	(e: 'update:multiple', payload: Date[]): void;
-}
+export type OrionDatepickerEmits = SharedFieldSetupServiceEmits<Nil<Date>> & {}
+export type OrionDatepickerProps = SharedFieldSetupServiceProps & {
+	// @doc props/disablePopover if you don't want to use the calendar popover
+	// @doc/fr props/disablePopover si vous ne souhaitez pas utiliser la popover avec le calendrier
+	disablePopover?: boolean,
+	// @doc props/displayWeekNumber if true, displays week number on each row
+	// @doc/fr props/displayWeekNumber si true, affiche le numéro de semaine sur chaque ligne
+	displayWeekNumber?: boolean,
+	// @doc props/hideDisabled hide disabled dates (currently for type="week" only)
+	// @doc/fr props/hideDisabled cache les dates désactivées (actuellement uniquement avec type="week")
+	hideDisabled?: boolean,
+	// @doc props/maxDate the maximum date which can be selected
+	// @doc/fr props/maxDate la date maximum qui peut être sélectionnée
+	maxDate?: Date,
+	// @doc props/minDate the minimum date which can be selected
+	// @doc/fr props/minDate la date minimum qui peut être sélectionnée
+	minDate?: Date,
+	// @doc props/multipleLabelColor color of the displayed dates is the type is set to `multiple`
+	// @doc/fr props/multipleLabelColor couleurs des dates affichées si le type est défini à `multiple`
+	multipleLabelColor?: Orion.ColorExtendedAndGreys,
+	// @doc props/preserveTime keep the current time value when changing date
+	// @doc/fr props/preserveTime conserve la valeur actuelle de l'heure lors du changement de date
+	preserveTime?: boolean,
+	// @doc props/time displays also hours/minutes
+	// @doc/fr props/time affiche aussi les heures/minutes
+	time?: boolean,
+	// @doc props/type the type of the vModel
+	// @doc/fr props/type le type de vModel
+	type?: Orion.DatepickerType,
+	// @doc props/valueDisplayFormat function to customize the display format
+	// @doc/fr props/valueDisplayFormat fonction pour personnaliser l'affichage
+	valueDisplayFormat?: (val: Nil<Date> | Nil<Orion.DateRange>) => string,
+};
 
-export default class OrionDatepickerSetupService extends SharedFieldSetupService<Props, Nil<Date>> {
-	static props = {
-		...SharedFieldSetupService.props,
-		// @doc props/preserveTime keep the current time value when changing date
-		// @doc/fr props/preserveTime conserve la valeur actuelle de l'heure lors du changement de date
-		preserveTime: Boolean,
-		// @doc props/time displays also hours/minutes
-		// @doc/fr props/time affiche aussi les heures/minutes
-		time: Boolean,
-		// @doc props/hideDisabled hide disabled dates (currently for type="week" only)
-		// @doc/fr props/hideDisabled cache les dates désactivées (actuellement uniquement avec type="week")
-		hideDisabled: Boolean,
-		// @doc props/disablePopover if you don't want to use the calendar popover
-		// @doc/fr props/disablePopover si vous ne souhaitez pas utiliser la popover avec le calendrier
-		disablePopover: Boolean,
-		// @doc props/displayWeekNumber if true, displays week number on each row
-		// @doc/fr props/displayWeekNumber si true, affiche le numéro de semaine sur chaque ligne
-		displayWeekNumber: Boolean,
-		// @doc props/range the modelValue if the type is set to `range`
-		// @doc/fr props/range le modelValue si le type est défini à `range`
-		range: {
-			type: Object as PropType<Undef<Orion.DateRange>>,
-			default: undefined,
-		},
-		// @doc props/multiple the modelValue if the type is set to `multiple`
-		// @doc/fr props/multiple le modelValue si le type est défini à `multiple`
-		multiple: {
-			type: Array as PropType<Date[]>,
-			default: () => [],
-		},
-		// @doc props/multipleLabelColor color of the displayed dates is the type is set to `multiple`
-		// @doc/fr props/multipleLabelColor couleurs des dates affichées si le type est défini à `multiple`
-		multipleLabelColor: {
-			type: String as PropType<Orion.ColorExtendedAndGreys>,
-			default: 'default',
-		},
-		// @doc props/minDate the minimum date which can be selected
-		// @doc/fr props/minDate la date minimum qui peut être sélectionnée
-		minDate: {
-			type: Date as PropType<Undef<Date>>,
-			default: undefined,
-		},
-		// @doc props/maxDate the maximum date which can be selected
-		// @doc/fr props/maxDate la date maximum qui peut être sélectionnée
-		maxDate: {
-			type: Date as PropType<Undef<Date>>,
-			default: undefined,
-		},
-		// @doc props/type the type of the model value
-		// @doc/fr props/type le type de modelValue
-		type: {
-			type: String as PropType<Orion.DatepickerType>,
-			default: 'date',
-			validator: (val: Orion.DatepickerType) => ['date', 'range', 'week', 'multiple', 'month'].includes(val),
-		},
-		// @doc props/valueDisplayFormat function to customize the display format
-		// @doc/fr props/valueDisplayFormat fonction pour personnaliser l'affichage
-		valueDisplayFormat: {
-			type: Function,
-			default: undefined,
-		},
+export default class OrionDatepickerSetupService extends SharedFieldSetupService<OrionDatepickerProps, Nil<Date>> {
+	static readonly defaultProps = {
+		...SharedFieldSetupService.defaultProps,
+		multipleLabelColor: 'default' as Orion.ColorExtendedAndGreys,
+		type: 'date' as Orion.DatepickerType,
 	};
 
 	private focusedWithMouse = false;
-
-	protected emit: DatepickerEmit;
 
 	readonly _popover = ref<InstanceType<typeof Dropdown>>();
 	readonly _options = ref<OrionDateWeek | OrionDateRange | OrionDateTable>();
@@ -112,18 +81,18 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 
 	get displayDateSelected () {
 		if (this.props.type === 'range' || this.props.type === 'week') {
-			if (this.range?.start instanceof Date && this.range?.end instanceof Date) {
+			if (this.range.value?.start instanceof Date && this.range.value?.end instanceof Date) {
 				return this.lang.DATE_FROM_TO
-					.replace('$start', useMonkey(this.range.start).toReadable())
-					.replace('$end', useMonkey(this.range.end).toReadable());
+					.replace('$start', useMonkey(this.range.value.start).toReadable())
+					.replace('$end', useMonkey(this.range.value.end).toReadable());
 			}
 		} else if (this.props.type === 'month') {
-			if (this.range?.start instanceof Date) {
-				return useMonkey(this.range?.start)?.toReadable('$MMMM');
+			if (this.range.value?.start instanceof Date) {
+				return useMonkey(this.range.value?.start)?.toReadable('$MMMM');
 			}
 		} else {
-			if (this.vModel instanceof Date) {
-				return this.props.valueDisplayFormat ? this.props.valueDisplayFormat(this.vModel) : this.inputValueFormat(this.vModel);
+			if (this.vModel.value instanceof Date) {
+				return this.props.valueDisplayFormat ? this.props.valueDisplayFormat(this.vModel.value) : this.inputValueFormat(this.vModel.value);
 			} else if (this.state.isFocus) {
 				return this.dateformat.replaceAll('$', '').toLowerCase();
 			}
@@ -138,13 +107,13 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 	}
 
 	get hasValue () {
-		if (['range', 'week', 'month'].includes(this.props.type) && !!this.props.range) {
-			return !!this.props.range.start && !!this.props.range.end;
+		if (['range', 'week', 'month'].includes(this.props.type) && !!this.range.value) {
+			return !!this.range.value.start && !!this.range.value.end;
 		}
 		if (this.props.type === 'multiple') {
-			return this.props.multiple.length > 0;
+			return !!this.multiple.value && (this.multiple.value.length > 0);
 		} else {
-			return !isNil(this.vModel);
+			return !isNil(this.vModel?.value);
 		}
 	}
 
@@ -168,12 +137,10 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 		return this.displayDateSelected.includes('PM');
 	}
 
-	get vModel () {
-		return this.props.modelValue as Nil<Date>;
-	}
+	get vModelProxy () { return this.vModel.value;}
 
-	set vModel (val) {
-		const currentValue = this.vModel;
+	set vModelProxy (val) {
+		const currentValue = this.vModel.value;
 		const dateUnchanged = (val?.getDate() === currentValue?.getDate())
 			&& (val?.getMonth() === currentValue?.getMonth())
 			&& (val?.getFullYear() === currentValue?.getFullYear());
@@ -193,11 +160,8 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 			}
 		}
 
-		this.emit('update:modelValue', val);
-		this.emit('input', val);
+		this.vModel.value = val;
 	}
-
-	get range () { return this.props.range; }
 
 	get rangeBuffer () { return this.state.rangeBuffer; }
 	set rangeBuffer (val) {
@@ -205,23 +169,21 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 
 		if (!!val?.selecting) return;
 		if (!!val?.start && !val.end) return;
-		this.emit('update:range', val);
+		this.range.value = val;
 	}
 
-	get multiple () {
-		return this.props.multiple;
-	}
+	constructor (
+		protected props: OrionDatepickerProps & typeof OrionDatepickerSetupService.defaultProps,
+		protected emits: OrionDatepickerEmits,
+		private slots: Slots,
+		protected vModel: ModelRef<Nil<Date>>,
+		protected range: ModelRef<Nil<Orion.DateRange>>,
+		protected multiple: ModelRef<Nil<Date[]>>,
+	) {
+		super(props, emits, vModel);
 
-	set multiple (val) {
-		this.emit('update:multiple', val);
-	}
 
-
-	constructor (props: Props, emit: DatepickerEmit, private slots: Slots) {
-		super(props, emit);
-		this.emit = emit;
-
-		watchEffect(() => this.state.rangeBuffer = { ...this.props.range });
+		watchEffect(() => this.state.rangeBuffer = { ...range.value });
 
 		if (this.props.clearToNull && this.props.type === 'multiple') {
 			// eslint-disable-next-line no-console
@@ -384,70 +346,70 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 	}
 
 	private toggleYear (key: 'ArrowUp' | 'ArrowDown') {
-		if (!this.vModel) return;
+		if (!this.vModel.value) return;
 
-		const dateToSet = new Date(this.vModel);
+		const dateToSet = new Date(this.vModel.value);
 		dateToSet.setFullYear(dateToSet.getFullYear() + (key === 'ArrowUp' ? 1 : -1));
 
-		this.vModel = dateToSet;
+		this.vModel.value = dateToSet;
 	}
 
 	private toggleMonth (key: 'ArrowUp' | 'ArrowDown') {
-		if (!this.vModel) return;
+		if (!this.vModel.value) return;
 
-		const dateToSet = new Date(this.vModel);
+		const dateToSet = new Date(this.vModel.value);
 		dateToSet.setMonth(dateToSet.getMonth() + (key === 'ArrowUp' ? 1 : -1));
 
-		this.vModel = dateToSet;
+		this.vModel.value = dateToSet;
 	}
 
 	private toggleDay (key: 'ArrowUp' | 'ArrowDown') {
-		if (!this.vModel) return;
+		if (!this.vModel.value) return;
 
-		const dateToSet = new Date(this.vModel);
+		const dateToSet = new Date(this.vModel.value);
 		dateToSet.setDate(dateToSet.getDate() + (key === 'ArrowUp' ? 1 : -1));
 
-		this.vModel = dateToSet;
+		this.vModel.value = dateToSet;
 	}
 
 	private toggleHour (key: 'ArrowUp' | 'ArrowDown') {
-		if (!this.vModel) return;
+		if (!this.vModel.value) return;
 
-		const dateToSet = new Date(this.vModel);
+		const dateToSet = new Date(this.vModel.value);
 		dateToSet.setHours(dateToSet.getHours() + (key === 'ArrowUp' ? 1 : -1));
 
-		this.vModel = dateToSet;
+		this.vModel.value = dateToSet;
 	}
 
 	private toggleMinute (key: 'ArrowUp' | 'ArrowDown') {
-		if (!this.vModel) return;
+		if (!this.vModel.value) return;
 
-		const dateToSet = new Date(this.vModel);
+		const dateToSet = new Date(this.vModel.value);
 		dateToSet.setMinutes(dateToSet.getMinutes() + (key === 'ArrowUp' ? 1 : -1));
 
-		this.vModel = dateToSet;
+		this.vModel.value = dateToSet;
 	}
 
 	private toggleAmPm (key: 'ArrowUp' | 'ArrowDown') {
-		if (!this.vModel) return;
+		if (!this.vModel.value) return;
 
-		const dateToSet = new Date(this.vModel);
+		const dateToSet = new Date(this.vModel.value);
 		dateToSet.setHours(dateToSet.getHours() + (key === 'ArrowUp' ? 12 : -12));
 
-		this.vModel = dateToSet;
+		this.vModel.value = dateToSet;
 	}
 
 	setAmPm (key: 'A' | 'a' | 'P' | 'p') {
-		if (!this.vModel) return;
+		if (!this.vModel.value) return;
 		const { isPM } = this.getEventData();
 
 		if (isPM && ['P', 'p'].includes(key)) return;
 		if (!isPM && ['A', 'a'].includes(key)) return;
 
-		const dateToSet = new Date(this.vModel);
+		const dateToSet = new Date(this.vModel.value);
 		dateToSet.setHours(dateToSet.getHours() + (['P', 'p'].includes(key) ? 12 : -12));
 
-		this.vModel = dateToSet;
+		this.vModel.value = dateToSet;
 	}
 
 	private setInputStringValue (year: string, month: string, day: string, hour = 'hh', minute = 'mm') {
@@ -467,7 +429,7 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 		if (dateValue) {
 			if (isTwelveHours && +hour < 13 && isPM && hour !== '12') dateValue.setHours(+hour + 12);
 			if (isTwelveHours && +hour < 13 && !isPM && hour === '12') dateValue.setHours(0);
-			this.vModel = dateValue;
+			this.vModel.value = dateValue;
 		} else {
 			day = numRegex.test(day) ? day.padStart(2, '0') : day;
 			month = numRegex.test(month) ? month.padStart(2, '0') : month;
@@ -554,7 +516,7 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 			return;
 		};
 
-		if (this.props.disabled || this.props.readonly) {
+		if (this.props.disabled || this.props.readonly || this.props.valueDisplayFormat) {
 			return;
 		}
 
@@ -566,7 +528,7 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 		setTimeout(() => {
 			if (this.props.selectOnFocus && this.hasValue) return;
 
-			if (this.vModel) {
+			if (this.vModel.value) {
 				if (selectionIsOnYear) this.setSelectionToYear();
 				if (selectionIsOnMonth) this.setSelectionToMonth();
 				if (selectionIsOnDay) this.setSelectionToDay();
@@ -586,7 +548,12 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 	}
 
 	handleFocus (e: FocusEvent) {
-		if (!this.focusedWithMouse && this.props.type === 'date' && !this.responsive.onPhone && !this.props.selectOnFocus) {
+		if (!this.focusedWithMouse
+			&& this.props.type === 'date'
+			&& !this.responsive.onPhone
+			&& !this.props.selectOnFocus
+			&& !this.props.valueDisplayFormat
+		) {
 			setTimeout(() => {
 				const { input, firstSeparatorIndex } = this.getEventData();
 				input.setSelectionRange(0, firstSeparatorIndex);
@@ -600,16 +567,14 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 		if (!!this.slots.popper) return;
 		if (this.responsive.onPhone && !force) return;
 
-		if (this.props.minDate && this.vModel && this.vModel.valueOf() < this.props.minDate.valueOf()) {
-			this.emit('update:modelValue', this.props.minDate);
-			this.emit('input', this.props.minDate);
+		if (this.props.minDate && this.vModel.value && this.vModel.value.valueOf() < this.props.minDate.valueOf()) {
+			this.vModel.value = this.props.minDate;
+			this.emits('input', this.props.minDate);
 		}
-		if (this.props.maxDate && this.vModel && this.vModel.valueOf() > this.props.maxDate.valueOf()) {
-			this.emit('update:modelValue', this.props.maxDate);
-			this.emit('input', this.props.maxDate);
+		if (this.props.maxDate && this.vModel.value && this.vModel.value.valueOf() > this.props.maxDate.valueOf()) {
+			this.vModel.value = this.props.maxDate;
+			this.emits('input', this.props.maxDate);
 		}
-
-
 
 		this.focusedWithMouse = false;
 		super.handleBlur(e);
@@ -620,19 +585,18 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 
 		if (this.props.disabled || this.props.readonly) return;
 		if (this.props.type === 'range' || this.props.type === 'week' || this.props.type === 'month') {
-			this.emit('update:range', clearTo);
+			this.range.value = clearTo;
 		} else if (this.props.type === 'multiple') {
-			this.emit('update:multiple', []);
+			this.multiple.value = [];
 		} else {
-			this.emit('update:modelValue', clearTo);
+			this.vModel.value = clearTo;
 		}
-		this.emit('input', clearTo);
-		this.emit('change', clearTo);
-		this.emit('clear');
+		this.emits('change', clearTo);
+		this.emits('clear');
 	}
 
 	handleKeydownGuard (e: KeyboardEvent) {
-		if (this.props.disabled || this.props.readonly) {
+		if (this.props.disabled || this.props.readonly || this.props.valueDisplayFormat) {
 			e.preventDefault();
 			return;
 		}
@@ -940,11 +904,11 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 			this.computeTimeItemsStyle('minutes');
 
 			nextTick(() => {
-				if (this.vModel) {
-					this.scrollCurrentTimeItem('minutes', this.vModel.getMinutes());
-					this.scrollCurrentTimeItem('hours', this.appLang === 'en' && this.vModel.getHours() > 12
-						? this.vModel.getHours() - 12
-						: this.vModel.getHours(),
+				if (this.vModel.value) {
+					this.scrollCurrentTimeItem('minutes', this.vModel.value.getMinutes());
+					this.scrollCurrentTimeItem('hours', this.appLang === 'en' && this.vModel.value.getHours() > 12
+						? this.vModel.value.getHours() - 12
+						: this.vModel.value.getHours(),
 					);
 				}
 			});
@@ -966,7 +930,7 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 		}
 
 		if (this.props.type === 'range' && this.state.rangeBuffer?.selecting) {
-			this.state.rangeBuffer = { ...this.props.range };
+			this.state.rangeBuffer = { ...this.range.value };
 		}
 	}
 
@@ -978,7 +942,7 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 	handleTimeItemScrollThrottled = throttle((container: 'hours' | 'minutes') => this.computeTimeItemsStyle(container), 16);
 
 	handleTimeScrollDebounced = debounce(() => {
-		const dateToEmit = new Date(this.vModel ?? Date.now());
+		const dateToEmit = new Date(this.vModel.value ?? Date.now());
 
 		dateToEmit.setMinutes(this.state.mobileMinutesValue);
 
@@ -988,11 +952,12 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 			dateToEmit.setHours(this.state.mobileHoursValue);
 		}
 
-		this.vModel = dateToEmit;
+		this.vModel.value = dateToEmit;
 	}, 200);
 
 	removeDate (date: Date) {
-		this.multiple = useMonkey(this.multiple).toggle(date);
+		if (this.multiple.value)
+			this.multiple.value = useMonkey(this.multiple.value).toggle(date);
 	}
 
 	closePopperSlot () {

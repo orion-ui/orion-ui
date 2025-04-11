@@ -1,44 +1,34 @@
-import { Component, reactive, ref, Slots, VNode, watch } from 'vue';
+import { Component, ModelRef, reactive, ref, Slots, VNode, watch } from 'vue';
 import { isArray } from 'lodash-es';
 import { isDefineOrTrue } from 'utils/tools';
 import SharedSetupService from '../../Shared/SharedSetupService';
+import { Private } from 'lib/private';
 
-type Props = SetupProps<typeof OrionTabsSetupService.props>
-type TabsEmit = {
-	(e: 'input', payload: string): void
+export type OrionTabsEmits = {
 	(e: 'tab-click', ...payload: [OrionTabPane, MouseEvent]): void
-	(e: 'update:modelValue', payload: string): void
 }
 
-export default class OrionTabsSetupService extends SharedSetupService<Props> {
-	static props = {
-		// @doc props/useRouter connect the tabs to the router to bind active tab to current route and use `<router-view/>` component
-		// @doc/fr props/useRouter connecte les tabs au router pour synchroniser la tab active avec la router actuelle et utiliser le composant `<router-view/>`
-		useRouter: Boolean,
-		// @doc props/routerViewName the name of the `<router-view/>` when using `use-router` prop
-		// @doc/fr props/routerViewName le nom du `<router-view/>` lors de l'utilisation de la prop `use-router`
-		routerViewName: {
-			type: String,
-			default: undefined,
-		},
-		// @doc props/modelValue model value
-		// @doc/fr props/modelValue modelValue du composant
-		modelValue: {
-			type: String,
-			default: undefined,
-		},
-		// @doc props/loader adds a loader on the tab
-		// @doc/fr props/loader ajoute une icône de chargement sur l'onglet
-		loader: {
-			type: [String, Boolean],
-			default: undefined,
-		},
-	};
+export type OrionTabsProps = {
+	// @doc props/loader adds a loader on the tab
+	// @doc/fr props/loader ajoute une icône de chargement sur l'onglet
+	loader?: string | boolean,
+	// @doc props/routerViewName the name of the `<router-view/>` when using `use-router` prop
+	// @doc/fr props/routerViewName le nom du `<router-view/>` lors de l'utilisation de la prop `use-router`
+	routerViewName?: string,
+	// @doc props/useRouter connect the tabs to the router to bind active tab to current route and use `<router-view/>` component
+	// @doc/fr props/useRouter connecte les tabs au router pour synchroniser la tab active avec la router actuelle et utiliser le composant `<router-view/>`
+	useRouter?: boolean,
+
+
+};
+
+export default class OrionTabsSetupService extends SharedSetupService {
+	static readonly defaultProps = {};
 
 	_loader = ref<OrionLoader>();
 	private slots: Slots;
-	private emit: TabsEmit;
-	private state = reactive({ panes: [] as Orion.Private.TsxTabPane[] });
+
+	private state = reactive({ panes: [] as Private.TsxTabPane[] });
 
 	private get content () {
 		return this.slots.default?.();
@@ -52,17 +42,16 @@ export default class OrionTabsSetupService extends SharedSetupService<Props> {
 		return {
 			...super.publicInstance,
 			_loader: () => this._loader.value,
-			panes: this.state.panes as Orion.Private.TsxTabPane[],
-			getValue: () => this.props.modelValue,
+			panes: this.state.panes as Private.TsxTabPane[],
+			getValue: () => this.vModel?.value,
 			useRouter: this.props.useRouter,
 		};
 	}
 
-
-	constructor (props: Props, slots: Slots, emit: TabsEmit) {
-		super(props);
+	constructor (protected props: OrionTabsProps, protected emits: OrionTabsEmits, slots: Slots, protected vModel?: ModelRef<string | undefined>) {
+		super();
 		this.slots = slots;
-		this.emit = emit;
+
 
 		watch(() => this.content, () => this.calcPaneInstances());
 	}
@@ -101,7 +90,7 @@ export default class OrionTabsSetupService extends SharedSetupService<Props> {
 				const pane = {
 					props: x.props,
 					children: x.children,
-				} as Orion.Private.TsxTabPane;
+				} as Private.TsxTabPane;
 
 				return pane;
 			}));
@@ -113,11 +102,10 @@ export default class OrionTabsSetupService extends SharedSetupService<Props> {
 
 		if (this.props.useRouter && this.router.currentRoute.value.name !== pane.name) {
 			this.router.push({ name: pane.name });
-		} else if (this.props.modelValue !== pane.name) {
-			this.emit('update:modelValue', pane.name);
-			this.emit('input', pane.name);
+		} else if (this.vModel?.value !== pane.name && this.vModel?.value) {
+			this.vModel.value = pane.name;
 		}
 
-		this.emit('tab-click', pane, event);
+		this.emits('tab-click', pane, event);
 	}
 }

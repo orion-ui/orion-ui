@@ -1,6 +1,7 @@
 import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
 import OrionNavMainItem from './src/OrionNavMainItem.vue';
+import type { OrionNavMainItemEmits, OrionNavMainItemProps } from './src/OrionNavMainItemSetupService';
 import OrionNavMainItemSetupService from './src/OrionNavMainItemSetupService';
 
 export const OrionNavMainItemPlugin: Plugin = {
@@ -9,4 +10,4 @@ export const OrionNavMainItemPlugin: Plugin = {
 	},
 };
 
-export { OrionNavMainItem, OrionNavMainItemSetupService };
+export { OrionNavMainItem, OrionNavMainItemSetupService, OrionNavMainItemEmits, OrionNavMainItemProps };

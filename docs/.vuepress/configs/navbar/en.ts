@@ -1,6 +1,6 @@
-import type { NavbarConfig } from '@vuepress/theme-default';
+import { NavbarOptions } from '@vuepress/theme-default';
 
-export const en: NavbarConfig = [
+export const en: NavbarOptions = [
 	`/guide/quick-start.md`,
 	{
 		text: `Components`,

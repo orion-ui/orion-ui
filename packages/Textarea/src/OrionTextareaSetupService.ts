@@ -1,43 +1,31 @@
-import SharedFieldSetupService, { FieldEmit } from '../../Shared/SharedFieldSetupService';
+import { ModelRef } from 'vue';
+import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetupServiceProps } from '../../Shared/SharedFieldSetupService';
 import { nextTick, ref } from 'vue';
 
-type Props = SetupProps<typeof OrionTextareaSetupService.props>
+export type OrionTextareaEmits = SharedFieldSetupServiceEmits<Nil<string>> & { (e: 'submit', payload: Nil<string>): void;}
+export type OrionTextareaProps = SharedFieldSetupServiceProps & {
+	// @doc props/maxLength maximal length of the input
+	// @doc/fr props/maxLength taille maximale de l'entrée
+	maxLength?: number,
+	// @doc props/showLength show input's value length
+	// @doc/fr props/showLength affiche le nombre de caractères
+	showLength?: boolean,
+};
 
-export default class OrionTextareaSetupService extends SharedFieldSetupService<Props, string | null | undefined> {
-	static props = {
-		...SharedFieldSetupService.props,
-		// @doc props/showLength show input's value length
-		// @doc/fr props/showLength affiche le nombre de caractères
-		showLength: Boolean,
-		// @doc props/maxLength maximal length of the input
-		// @doc/fr props/maxLength taille maximale de l'entrée
-		maxLength: {
-			type: Number,
-			default: undefined,
-		},
-	};
+export default class OrionTextareaSetupService extends SharedFieldSetupService<OrionTextareaProps, string | null | undefined> {
+	static readonly defaultProps = { ...SharedFieldSetupService.defaultProps };
 
 	_input = ref<HTMLInputElement & HTMLTextAreaElement>();
 	private _modal?: OrionModal;
 	private _aside?: OrionAside;
 
-	get vModel () {
-		if (this.props.maxLength) {
-			return (this.props.modelValue as string)?.slice(0, this.props.maxLength);
-		}
-		return this.props.modelValue as string;
-	}
-
-	set vModel (value) {
-		this.handleInputDebounce(() => {
-			this.emit(`update:modelValue`, value);
-			this.emit('input', value);
-		});
-	}
-
-
-	constructor (props: Props, emit: FieldEmit<string>, _modal?: OrionModal, _aside?: OrionAside) {
-		super(props, emit);
+	constructor (
+		protected props: OrionTextareaProps & typeof OrionTextareaSetupService.defaultProps,
+		protected emits: OrionTextareaEmits,
+		protected vModel: ModelRef<Nil<string>>,
+		_modal?: OrionModal,
+		_aside?: OrionAside) {
+		super(props, emits, vModel);
 		this._modal = _modal;
 		this._aside = _aside;
 	}

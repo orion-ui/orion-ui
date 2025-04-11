@@ -92,18 +92,10 @@ import { OrionButton } from 'packages/Button';
 import { OrionLoader } from 'packages/Loader';
 import { OrionSection } from 'packages/Section';
 import OrionModalSetupService from './OrionModalSetupService';
-
-type ModalEmit = {
-	(e: 'enter-start'): void;
-	(e: 'enter-end'): void;
-	(e: 'leave-start'): void;
-	(e: 'leave-end'): void;
-	(e: 'cancel'): void;
-	(e: 'confirm'): void;
-}
-const emit = defineEmits<ModalEmit>();
-const props = defineProps(OrionModalSetupService.props);
-const setup = new OrionModalSetupService(props, emit);
+import type { OrionModalProps, OrionModalEmits } from './OrionModalSetupService';
+const emits = defineEmits<OrionModalEmits>() as OrionModalEmits;
+const props = withDefaults(defineProps<OrionModalProps>(), OrionModalSetupService.defaultProps);
+const setup = new OrionModalSetupService(props, emits);
 provide('_modal', setup.publicInstance);
 defineExpose(setup.publicInstance);
 

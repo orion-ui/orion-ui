@@ -1,8 +1,8 @@
-import type { SidebarConfig } from '@vuepress/theme-default';
+import type { SidebarOptions } from '@vuepress/theme-default';
 import { readdirSync } from 'fs';
 import path from 'path';
 
-export const en: SidebarConfig = [
+export const en: SidebarOptions = [
 	{
 		text: 'Guide',
 		collapsible: true,
@@ -69,10 +69,10 @@ export const en: SidebarConfig = [
 				text: 'Feedback',
 				children: [
 					`/components/OrionAlert.md`,
-					`/components/OrionLoader.md`,
-					`/components/OrionNotif.md`,
 					`/components/OrionAside.md`,
+					`/components/OrionLoader.md`,
 					`/components/OrionModal.md`,
+					`/components/OrionNotif.md`,
 					`/components/OrionPopConfirm.md`,
 				]
 			},

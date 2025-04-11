@@ -1,4 +1,4 @@
-import SharedEntity from 'packages/Shared/SharedEntity';
+import SharedEntity from '../../Shared/SharedEntity';
 import useMonkey from 'services/MonkeyService';
 import type OrionChatEntity from '../../Chat/src/OrionChatEntity';
 

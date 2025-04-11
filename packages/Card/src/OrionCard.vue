@@ -3,12 +3,12 @@
 		:ref="setup._el"
 		class="orion-card"
 		:class="[
-			`orion-card--${setup.props.size}`,
-			`orion-card--selected-${setup.props.selectedColor}`,
+			`orion-card--${size}`,
+			`orion-card--selected-${selectedColor}`,
 			{ 'orion-card--clickable': !!$attrs.onClick },
-			{ 'orion-card--selected': setup.props.selected },
+			{ 'orion-card--selected': selected },
 			{ 'orion-card--no-elevation': hoverElevation <= 0 },
-			( setup.props.gradient ? `orion-card--gradient-${setup.props.gradient}` : '' ),
+			( gradient ? `orion-card--gradient-${gradient}` : '' ),
 		]"
 		:style="`--hoverElevation: ${hoverElevation}`">
 		<div
@@ -18,23 +18,23 @@
 		</div>
 
 		<div
-			v-if="$slots.header || setup.props.title"
+			v-if="$slots.header || title"
 			class="orion-card__header"
 			:class="[
-				{ 'orion-card__header--lined': setup.props.headerLine },
+				{ 'orion-card__header--lined': headerLine },
 			]"
-			@click="$emit('header-click')">
+			@click="emits('header-click')">
 			<h4
-				v-if="setup.props.title"
+				v-if="title"
 				class="orion-card__title">
-				{{ setup.props.title }}
+				{{ title }}
 			</h4>
 			<slot name="header"/>
 		</div>
 
 		<div
 			class="orion-card__body"
-			@click="$emit('body-click')">
+			@click="emits('body-click')">
 			<slot/>
 		</div>
 
@@ -42,7 +42,7 @@
 			v-if="$slots.actions"
 			class="orion-card__actions"
 			:class="[
-				{ 'orion-card__actions--lined': setup.props.actionsLine },
+				{ 'orion-card__actions--lined': actionsLine },
 			]">
 			<slot name="actions"/>
 		</div>
@@ -68,13 +68,10 @@
 <script setup lang="ts">
 import './OrionCard.less';
 import OrionCardSetupService from './OrionCardSetupService';
-const props = defineProps(OrionCardSetupService.props);
-const setup = new OrionCardSetupService(props);
-// eslint-disable-next-line func-call-spacing
-defineEmits<{
-	(e: 'header-click'): void,
-	(e: 'body-click'): void,
-}>();
+import type { OrionCardProps, OrionCardEmits } from './OrionCardSetupService';
+const emits = defineEmits<OrionCardEmits>() as OrionCardEmits;
+const props = withDefaults(defineProps<OrionCardProps>(), OrionCardSetupService.defaultProps);
+const setup = new OrionCardSetupService(props, emits);
 defineExpose(setup.publicInstance);
 
 /** Doc

@@ -1,6 +1,7 @@
 import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
 import OrionCard from './src/OrionCard.vue';
+import type { OrionCardEmits, OrionCardProps } from './src/OrionCardSetupService';
 import OrionCardSetupService from './src/OrionCardSetupService';
 
 export const OrionCardPlugin: Plugin = {
@@ -9,4 +10,4 @@ export const OrionCardPlugin: Plugin = {
 	},
 };
 
-export { OrionCard, OrionCardSetupService };
+export { OrionCard, OrionCardSetupService, OrionCardEmits, OrionCardProps  };

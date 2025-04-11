@@ -3,8 +3,8 @@
 		id="layout"
 		:ref="setup._el">
 		<orion-nav-main
-			v-if="setup.responsive.onTabletLandscape && setup.props.navMain"
-			v-bind="setup.props.navMain">
+			v-if="setup.responsive.onTabletLandscape && navMain"
+			v-bind="navMain">
 			<template #prepend="{ item }">
 				<slot
 					name="nav-main-item-prepend"
@@ -22,9 +22,9 @@
 
 		<orion-nav-tabs
 			v-else
-			v-bind="setup.props.navTabs"/>
+			v-bind="navTabs"/>
 
-		<orion-nav-top v-bind="setup.props.navTop">
+		<orion-nav-top v-bind="navTop">
 			<template
 				v-if="$slots['nav-top-left']"
 				#nav-top-left>
@@ -62,8 +62,10 @@ import { OrionNavMain } from 'packages/NavMain';
 import { OrionNavTop } from 'packages/NavTop';
 import { OrionNavTabs } from 'packages/NavTabs';
 import OrionLayoutSetupService from './OrionLayoutSetupService';
-const props = defineProps(OrionLayoutSetupService.props);
-const setup = new OrionLayoutSetupService(props);
+import type { OrionLayoutProps, OrionLayoutEmits } from './OrionLayoutSetupService';
+const emits = defineEmits<OrionLayoutEmits>() as OrionLayoutEmits;
+const props = withDefaults(defineProps<OrionLayoutProps>(), OrionLayoutSetupService.defaultProps);
+const setup = new OrionLayoutSetupService(props, emits);
 defineExpose(setup.publicInstance);
 
 /** Doc

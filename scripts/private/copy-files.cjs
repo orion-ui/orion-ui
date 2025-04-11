@@ -83,5 +83,13 @@ class CopyFilesService {
 			path.resolve(this.rootPath, 'lib/packages.d.ts'),
 			path.resolve(this.rootPath, 'dist/types/lib/packages.d.ts'),
 		);
+		await fs.copy(
+			path.resolve(this.rootPath, 'lib/global.d.ts'),
+			path.resolve(this.rootPath, 'dist/types/lib/global.d.ts'),
+		);
+		await fs.copy(
+			path.resolve(this.rootPath, 'lib/private.d.ts'),
+			path.resolve(this.rootPath, 'dist/types/lib/private.d.ts'),
+		);
 	}
 }

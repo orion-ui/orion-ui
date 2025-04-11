@@ -16,12 +16,12 @@
 			:placeholder="(setup.valueToSearch?.length && !setup._optionssearchinput || setup.labelIsFloating) ? undefined : placeholder"
 			:label-is-floating="setup.labelIsFloating"
 			class="orion-select"
-			:class="[{ 'orion-select--multiple': setup.props.multiple }, $attrs.class]"
+			:class="[{ 'orion-select--multiple': multiple }, $attrs.class]"
 			@clear="setup.clear()">
 			<div
 				:ref="setup._input"
 				class="orion-input__input"
-				:tabindex="setup.props.disabled ? undefined : 0"
+				:tabindex="disabled ? undefined : 0"
 				@focus="setup.handleFocus($event)"
 				@blur="setup.handleBlur($event)"
 				@mousedown="setup.handleInputMousedown()"
@@ -29,19 +29,19 @@
 				@keydown.down.prevent="setup.handleKeydown('down')"
 				@keydown.up.prevent="setup.handleKeydown('up')"
 				@keydown.enter="setup.selectItemFromEnter()">
-				<div v-if="multiple && setup.isArray(setup.vModel) && setup.vModel?.length && !$slots['multiple-value']">
+				<div v-if="multiple && setup.isArray(vModel) && vModel?.length && !$slots['multiple-value']">
 					<span
-						v-for="(item, i) in setup.vModel"
+						v-for="(item, i) in vModel"
 						:key="Number(i)"
 						class="orion-select__selected-item">
 						<slot
-							v-if="setup.valueDisplay()"
+							v-if="setup.valueDisplay(item)"
 							name="value"
 							v-bind="setup.valueDisplay(item)">
-							{{ setup.valueDisplay(item).display }}
+							{{ setup.valueDisplay(item)!.display }}
 						</slot>
 						<span
-							v-if="!setup.props.readonly && !setup.props.disabled"
+							v-if="!readonly && !disabled"
 							class="orion-select__selected-item-remove"
 							@mousedown.prevent="setup.removeIndex(i)">
 							&times;
@@ -49,26 +49,26 @@
 					</span>
 				</div>
 				<slot
-					v-else-if="!setup.props.multiple && !setup.isArray(setup.vModel) && setup.valueDisplay()"
+					v-else-if="!multiple && !setup.isArray(vModel) && setup.valueDisplay()"
 					name="value"
-					v-bind="setup.valueDisplay(setup.vModel)">
-					{{ setup.valueDisplay(setup.vModel).display }}
+					v-bind="setup.valueDisplay(vModel)">
+					{{ setup.valueDisplay(vModel).display }}
 				</slot>
 				<slot
-					v-else-if="$slots['multiple-value']"
+					v-else-if="$slots['multiple-value'] && vModel && setup.isArray(vModel)"
 					name="multiple-value"
-					:value="setup.vModel"/>
+					:value="vModel"/>
 
 
 				<input
-					v-if="setup.props.autocomplete && (!setup.hasValue || (setup.hasValue && setup.isFocus))"
+					v-if="autocomplete && (!setup.hasValue || (setup.hasValue && setup.isFocus))"
 					:ref="setup._autocomplete"
 					v-model="setup.valueToSearch"
 					type="text"
 					class="orion-input__input orion-select__autocomplete"
 					:class="{
-						'orion-select__autocomplete--single': !setup.props.multiple,
-						'orion-select__autocomplete--multiple': setup.props.multiple,
+						'orion-select__autocomplete--single': !multiple,
+						'orion-select__autocomplete--multiple': multiple,
 					}"
 					@focus="setup.handleFocus($event)"
 					@blur="setup.handleBlur($event)">
@@ -76,8 +76,8 @@
 
 			<template #icon-suffix>
 				<orion-icon
-					v-show="!setup.props.autocomplete &&
-						(!setup.props.clearable || (setup.props.clearable && !setup.hasValue))"
+					v-show="!autocomplete &&
+						(!clearable || (clearable && !setup.hasValue))"
 					class="orion-input__icon orion-select__carret orion-select__icon--internal"
 					icon="chevron_down"
 					:class="{ 'open' : setup.isFocus }"
@@ -96,7 +96,7 @@
 			v-if="$slots.default"
 			:ref="setup._defaultSlot"
 			class="orion-select orion-select--default-slot"
-			:tabindex="setup.props.disabled ? undefined : 0"
+			:tabindex="disabled ? undefined : 0"
 			@mousedown="setup.togglePopover()"
 			@keydown.esc="setup.handleBlur()"
 			@keydown.down.prevent="setup.handleKeydown('down')"
@@ -109,7 +109,7 @@
 			<div
 				:ref="setup._popoverinner"
 				class="orion-select__popover"
-				:class="{ 'orion-select-multiple__popover': setup.props.multiple }"
+				:class="{ 'orion-select-multiple__popover': multiple }"
 				@touchmove.stop="setup.handleScroll()"
 				@mousedown.self="setup.handleMousedownOnPopper($event)"
 				@scroll.stop>
@@ -145,36 +145,47 @@
 					:ref="setup._optionscontainer"
 					@mousemove="setup.indexNav = -1"
 					@touchmove="setup.indexNav = -1">
-					<div
+					<template
 						v-for="(option, i) in setup.optionsDisplay"
-						:key="i"
-						:ref="el => { if (!!el) setup._items.value.push(el) }"
-						class="orion-select__popover-item"
-						:class="{
-							'selected' : setup.optionIsSelected(option),
-							'hover' : setup.indexNav === i,
-							'disabled' : !!setup.props.disabledKey && !!setup.get(option, setup.props.disabledKey, false),
-						}"
-						@mousedown.prevent.stop="setup.selectItem(option)">
-						<slot
-							name="option"
-							:item="option"
-							:index="i"
-							:marked-search="setup.markedSearch.bind(setup)">
-							<span
-								v-html="setup.itemIsObject(option) && setup.props.displayKey
-									? setup.markedSearch(option[setup.props.displayKey])
-									: setup.markedSearch(option)"/>
-						</slot>
-						<template v-if="multiple">
+						:key="i">
+						<div
+							:ref="el => { if (!!el) setup._items.value.push(el) }"
+							class="orion-select__popover-item"
+							:class="{
+								'selected' : setup.optionIsSelected(option),
+								'hover' : setup.indexNav === i,
+								'disabled' : !!disabledKey && !!setup.get(option, disabledKey, false),
+								'favorite' : i < (setup.favoritesOptions ? setup.favoritesOptions.length : 0),
+								'favorite--last': setup.favoritesOptions && i + 1 === setup.favoritesOptions.length,
+							}"
+							@mousedown.prevent.stop="setup.selectItem(option)">
+							<slot
+								name="option"
+								:item="option"
+								:index="i"
+								:marked-search="setup.markedSearch.bind(setup)">
+								<span
+									v-html="setup.itemIsObject(option) && displayKey
+										? setup.markedSearch(option[displayKey])
+										: setup.markedSearch(option)"/>
+							</slot>
+							<template v-if="multiple">
+								<orion-icon
+									icon="check"
+									class="icon--selected orion-select__icon--internal"/>
+								<orion-icon
+									icon="trash_full"
+									class="icon--delete orion-select__icon--internal"/>
+							</template>
 							<orion-icon
-								icon="check"
-								class="icon--selected orion-select__icon--internal"/>
-							<orion-icon
-								icon="trash_full"
-								class="icon--delete orion-select__icon--internal"/>
-						</template>
-					</div>
+								v-if="favoriteIcon && !setup.optionIsSelected(option)"
+								:icon="favoriteIcon"
+								class="favorite-icon"/>
+						</div>
+						<hr
+							v-if="setup.favoritesOptions && i === (setup.favoritesOptions.length - 1)"
+							class="favorite-separator">
+					</template>
 				</div>
 
 				<slot
@@ -202,7 +213,15 @@
 	</v-dropdown>
 </template>
 
-<script setup lang="ts">
+<script
+	setup
+	lang="ts"
+	generic="
+		T,
+		O,
+		VKey extends keyof O = never,
+		DKey extends keyof O = VKey,
+	">
 import './OrionSelect.less';
 import { OrionButton } from 'packages/Button';
 import { OrionIcon } from 'packages/Icon';
@@ -210,32 +229,44 @@ import { OrionInput } from 'packages/Input';
 import { OrionLoader } from 'packages/Loader';
 import { OrionField } from 'packages/Field';
 import OrionSelectSetupService from './OrionSelectSetupService';
-type BaseVModelType = string | number | boolean | Record<string, any>;
-type VModelType = BaseVModelType | BaseVModelType[] | null | undefined;
-type SelectEmit = {
-  (e: 'focus', payload: FocusEvent): void;
-  (e: 'blur', payload?: FocusEvent): void;
-  (e: 'input', payload: VModelType): void;
-  (e: 'input-keydown-tab'): void;
-  (e: 'change', val?: VModelType): void;
-  (e: 'update:modelValue', payload: VModelType): void;
-  (e: 'clear'): void;
-	(e: 'add', payload: BaseVModelType): void;
-	(e: 'remove', payload: BaseVModelType): void;
-	(e: 'select', payload: BaseVModelType): void;
-	(e: 'fetch-start', payload?: string): void;
-	(e: 'fetch-end', payload: BaseVModelType[]): void;
-	(e: 'fetch-search-clear'): void;
-}
-const emit = defineEmits<SelectEmit>();
-const props = defineProps(OrionSelectSetupService.props);
-const setup = new OrionSelectSetupService(props, emit);
+import type { OrionSelectProps, OrionSelectEmits, VModelType } from './OrionSelectSetupService';
+const emits = defineEmits<OrionSelectEmits<T, O>>();
+const vModel = defineModel<VModelType<T>>();
+const props = withDefaults(defineProps<OrionSelectProps<T, O, VKey, DKey>>(), OrionSelectSetupService.defaultProps);
+const setup = new OrionSelectSetupService(props, emits, vModel);
+
+defineSlots<{
+	'default'(): void
+	'multiple-value'(props: { value: T[] }): void
+	'before-options'(props: { options: O[] }): void
+	'after-options'(props: { options: O[] }): void
+  'option'(props: {
+			item: O,
+			index: number,
+			markedSearch:(content: string) => string | undefined
+		}): void
+	'value'(props: {
+			item: ReturnType<OrionSelectSetupService<T, O, VKey, DKey>['valueDisplay']>['item'],
+			display: ObjectKeyValidator<O, DKey, VKey> extends never
+				? O
+				: DKey extends keyof O
+					? O[DKey]
+					: O | undefined;
+		}): void
+}>();
+
 defineExpose(setup.publicInstance);
 
+
+type ObjectKeyValidator<
+	O,
+	D extends keyof O,
+	V extends keyof O
+> = D extends never
+	? (V extends never ? O : O[V])
+	: O[D];
+
 /** Doc
- * @doc slot/default Can be used to display a custom container for the select popper
- * @doc/fr slot/default Permet d'afficher un conteneur personnalisé pour le popper du select
- *
  * @doc slot/value The selected value if single select, each value if multiple select
  * @doc/fr slot/value La valeur sélectionnée s'il s'agit d'un select simple, sinon chaque valeur s'il s'agit d'un select multiple
  * @doc slot/value/item/desc The selected item, typed any to avoid linter errors
@@ -285,8 +316,6 @@ defineExpose(setup.publicInstance);
  * @doc/fr event/input-keydown-tab/desc émis lors de l'appui sur la touche Tab depuis le champ de recherche
  * @doc event/change/desc emitted when the value of the field changes
  * @doc/fr event/change/desc émis lorsque la valeur est modifiée
- * @doc event/update:modelValue/desc emitted to update the field value
- * @doc/fr event/update:modelValue/desc émis pour mettre à jour la valeur
  * @doc event/clear/desc emitted when the field is cleared
  * @doc/fr event/clear/desc émis quand le champ est vidé
  *

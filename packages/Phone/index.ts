@@ -1,6 +1,7 @@
 import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
 import OrionPhone from './src/OrionPhone.vue';
+import type { OrionPhoneEmits, OrionPhoneProps } from './src/OrionPhoneSetupService';
 import OrionPhoneSetupService from './src/OrionPhoneSetupService';
 
 export const OrionPhonePlugin: Plugin = {
@@ -9,4 +10,4 @@ export const OrionPhonePlugin: Plugin = {
 	},
 };
 
-export { OrionPhone, OrionPhoneSetupService };
+export { OrionPhone, OrionPhoneSetupService, OrionPhoneEmits, OrionPhoneProps };

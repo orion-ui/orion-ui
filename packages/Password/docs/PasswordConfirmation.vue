@@ -21,8 +21,8 @@ import { reactive } from 'vue';
 
 
 const state = reactive({
-	value: null,
-	passwordToConfirm: null,
+	value: undefined,
+	passwordToConfirm: undefined,
 });
 </script>
 

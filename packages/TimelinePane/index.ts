@@ -1,6 +1,7 @@
 import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
 import OrionTimelinePane from './src/OrionTimelinePane.vue';
+import type { OrionTimelinePaneEmits, OrionTimelinePaneProps } from './src/OrionTimelinePaneSetupService';
 import OrionTimelinePaneSetupService from './src/OrionTimelinePaneSetupService';
 
 export const OrionTimelinePanePlugin: Plugin = {
@@ -9,4 +10,4 @@ export const OrionTimelinePanePlugin: Plugin = {
 	},
 };
 
-export { OrionTimelinePane, OrionTimelinePaneSetupService };
+export { OrionTimelinePane, OrionTimelinePaneSetupService, OrionTimelinePaneEmits, OrionTimelinePaneProps };

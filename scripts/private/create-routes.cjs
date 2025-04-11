@@ -64,7 +64,7 @@ class RouteFactory {
 			return `{
 		label: '${x}',
 		to: { name: '${this.viewName(x)}' },
-		icon: 'black_lives_matter',
+		icon: 'bookmark',
 	},`;
 		}).join('\n\t'));
 

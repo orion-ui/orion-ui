@@ -50,7 +50,9 @@ import { OrionButton } from 'packages/Button';
 import { OrionNavAside } from 'packages/NavAside';
 import { OrionAside } from 'packages/Aside';
 import OrionNavTabsSetupService from './OrionNavTabsSetupService';
-const props = defineProps(OrionNavTabsSetupService.props);
-const setup = new OrionNavTabsSetupService(props);
+import type { OrionNavTabsProps, OrionNavTabsEmits } from './OrionNavTabsSetupService';
+const emits = defineEmits<OrionNavTabsEmits>() as OrionNavTabsEmits;
+const props = withDefaults(defineProps<OrionNavTabsProps>(), OrionNavTabsSetupService.defaultProps);
+const setup = new OrionNavTabsSetupService(props, emits);
 defineExpose(setup.publicInstance);
 </script>

@@ -64,7 +64,7 @@ node cli.cjs
 Choisissez l'option `package`.
 
 ```:no-line-numbers{3}
-┌  
+┌
 🥨 --> Welcome to Orion CLI
 │
 ◆  Select what you want to do
@@ -83,7 +83,7 @@ Choisissez l'option `package`.
 Entrez ensuite le nom de votre paquet.
 
 ```:no-line-numbers{2}
-┌  
+┌
 🥨 --> Welcome to Orion CLI
 │
 ◇  Select what you want to do
@@ -100,7 +100,7 @@ Il sera automatiquement converti en **PascalCase** et préfixé avec _Orion_.
 :::
 
 ```:no-line-numbers{2}
-┌  
+┌
 🥨 --> Welcome to Orion CLI
 │
 ◇  Select what you want to do
@@ -143,8 +143,8 @@ La structure des dossiers suivante sera générée avec la commande `package`.
 Il s'agit des 3 principeux fichiers dans lesquels vous allez écrire votre code.
 :::
 
-:::: code-group
-::: code-group-item OrionDraft.vue
+::: code-tabs
+@tab OrionDraft.vue
 
 ```vue
 <template>
@@ -160,9 +160,7 @@ defineExpose(setup.publicInstance);
 </script>
 ```
 
-:::
-
-::: code-group-item OrionDraftSetupService.ts
+@tab OrionDraftSetupService.ts
 
 ```ts
 import SharedSetupService from '../../Shared/SharedSetupService';
@@ -179,9 +177,7 @@ export default class OrionDraftSetupService extends SharedSetupService<Props> {
 }
 ```
 
-:::
-
-::: code-group-item OrionDraft.less
+@tab OrionDraft.less
 
 ```less
 @import '../../Shared/styles/variables.less';
@@ -192,7 +188,6 @@ export default class OrionDraftSetupService extends SharedSetupService<Props> {
 ```
 
 :::
-::::
 
 ### Structure des paquets
 

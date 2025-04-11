@@ -4,7 +4,7 @@
 		class="orion-avatar"
 		:style="setup.avatarStyle"
 		:class="[
-			`orion-avatar--${setup.props.color}`,
+			`orion-avatar--${color}`,
 			...setup.additionalClass,
 		]">
 		<span
@@ -22,7 +22,7 @@
 				v-tooltip="setup.tooltip"
 				icon="cloud_upload"
 				ripple="info"
-				@click="setup.props.updateFunction?.()"/>
+				@click="updateFunction?.()"/>
 		</div>
 	</div>
 </template>
@@ -31,7 +31,9 @@
 import './OrionAvatar.less';
 import { OrionIcon } from 'packages/Icon';
 import OrionAvatarSetupService from './OrionAvatarSetupService';
-const props = defineProps(OrionAvatarSetupService.props);
-const setup = new OrionAvatarSetupService(props);
+import type { OrionAvatarProps, OrionAvatarEmits } from './OrionAvatarSetupService';
+const emits = defineEmits<OrionAvatarEmits>() as OrionAvatarEmits;
+const props = withDefaults(defineProps<OrionAvatarProps>(), OrionAvatarSetupService.defaultProps);
+const setup = new OrionAvatarSetupService(props, emits);
 defineExpose(setup.publicInstance);
 </script>

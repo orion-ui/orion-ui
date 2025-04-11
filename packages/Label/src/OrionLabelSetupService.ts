@@ -1,18 +1,22 @@
 import SharedSetupService from '../../Shared/SharedSetupService';
-import SharedProps from '../../Shared/SharedProps';
+import SharedProps, { SharedPropsColorExtentedAndGreys, SharedPropsSize } from '../../Shared/SharedProps';
 
-type Props = SetupProps<typeof OrionLabelSetupService.props>
+export type OrionLabelEmits = {}
+export type OrionLabelProps =
+	SharedPropsSize &
+	SharedPropsColorExtentedAndGreys & {
+	// @doc props/outline adds an outline style on the label
+	// @doc/fr props/outline ajoute un contraste sur le label
+	outline?: boolean,
+};
 
-export default class OrionLabelSetupService extends SharedSetupService<Props> {
-	static props = {
-		...SharedProps.size(),
-		...SharedProps.colorExtendedAndGreys(),
-		// @doc props/outline adds an outline style on the label
-		// @doc/fr props/outline ajoute un contraste sur le label
-		outline: Boolean,
+export default class OrionLabelSetupService extends SharedSetupService {
+	static readonly defaultProps = {
+		...SharedProps.colorExtendedAndGreys,
+		...SharedProps.size,
 	};
 
-	constructor (props: Props) {
-		super(props);
+	constructor (protected props: OrionLabelProps, protected emits: OrionLabelEmits) {
+		super();
 	}
 }

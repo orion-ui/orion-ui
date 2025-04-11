@@ -10,6 +10,9 @@
 		</template>
 
 		<o-section title="orion-select | multiple | options -> fetch">
+			<o-input
+				:model-value="search"
+				@input="setting($event)"/>
 			<div class="row row--grid">
 				<div class="col-sm-4">
 					<o-select
@@ -19,6 +22,7 @@
 						track-key="id"
 						label="Label"
 						display-key="email"
+						disabled
 						value-key="id"
 						:custom-fetch="customFetch"
 						:fetch-min-search="2"
@@ -35,20 +39,16 @@
 				</div>
 
 				<div class="col-sm-4">
-					<o-input
-						v-model="test"
-						label="Test searchTerm"
-						@input="update($event)"/>
 					<o-select
-						ref="multiple"
+						ref="_test"
 						v-model="data.ajaxMultiple"
 						track-key="id"
 						display-key="email"
 						fetch-url="https://jsonplaceholder.typicode.com/users"
-						:placeholder="`Multiple`"
+						:label="`Multiple`"
 						multiple>
 						<template #before-options>
-							<o-button @click="trigger">trigger</o-button>
+							<o-button @click="tutu()">Reload</o-button>
 						</template>
 					</o-select>
 				</div>
@@ -126,6 +126,8 @@
 								<template #before-options="{ options }">
 									turltutu {{ options.length }}
 								</template>
+								<template #value="{ item }">{{ item }}</template>
+								<template #option="{ item }"> {{ item }}</template>
 							</o-select>
 						</div>
 						<div class="col-sm-6">
@@ -201,17 +203,17 @@
 				<div class="col-sm-6">
 					<div class="row row--gutter">
 						<div class="col-sm-6">
+							<pre>{{ data.fieldSelectValueKey }}</pre>
 							<o-select
 								v-model="data.fieldSelectValueKey"
-								:label="`Simple`"
+								:label="`Simple----`"
 								placeholder="placeholder"
-								display-key="display"
-								track-key="id"
-								value-key="label"
 								clearable
+								value-key="id"
+								display-key="label"
 								:options="data.fieldSelectObject.options">
-								<template #value="{ item }">
-									{{ item?.label }}
+								<template #value="{ item, display }">
+									{{ display }} - {{ item }}
 								</template>
 								<template #option="{ item, index }">
 									{{ `${index} -- ${item.label}` }}
@@ -275,8 +277,8 @@
 								multiple
 								:options="data.fieldSelectMultiple.options"
 								prefix-icon="camera">
-								<template #multiple-value>
-									eee {{ data.fieldSelectMultiple.value }}
+								<template #multiple-value="{ value }">
+									{{ value[0]?.toUpperCase() }}
 								</template>
 							</o-select>
 						</div>
@@ -318,7 +320,7 @@
 								multiple
 								:options="data.fieldSelectObjectMultiple.options">
 								<template #multiple-value="{ value }">
-									{{ value }}
+									ici {{ value }}
 								</template>
 							</o-select>
 						</div>
@@ -374,13 +376,13 @@
 								value-key="label"
 								multiple
 								:options="data.fieldSelectObjectMultiple.options">
-								<template #value="{ display }">
+								<template #multiple-value="{ value }">
 									<!-- {{ item?.label }} - {{ item.id }} -->
-									{{ display }} heho
+									{{ value }} heho
 								</template>
 								<template #option="{ item, index }">
 									<div>
-										<o-icon icon="camera"/>{{ `${index} -- ${item.label}` }}
+										<o-icon icon="camera"/>{{ `${index} -- ${item}` }}
 									</div>
 								</template>
 							</o-select>
@@ -518,6 +520,65 @@
 				</div>
 			</div>
 		</o-section>
+		<o-section title="orion-select | favorites options">
+			<div class="row row--gutter">
+				<div class="col-sm-6">
+					<div class="row row--gutter">
+						<div class="col-sm-6">
+							<o-select
+								v-model="data.fieldSelectMulitpleValueKey"
+								:label="`Favorite`"
+								track-key="id"
+								display-key="label"
+								value-key="label"
+								multiple
+								:options="data.fieldSelectObjectMultiple.options"
+								:favorites-options="data.fieldSelectObjectMultiple.options.slice(3, 5)">
+								<template #value="{ display }">
+									<!-- {{ item?.label }} - {{ item.id }} -->
+									{{ display }} heho
+								</template>
+								<template #option="{ item, index }">
+									<div>
+										<o-icon icon="camera"/>{{ `${index} -- ${item.label}` }}
+									</div>
+								</template>
+							</o-select>
+						</div>
+						<div class="col-sm-6">
+							<o-select
+								v-model="data.fieldSelectMulitpleValueKey"
+								:label="`Favorite with icon`"
+								track-key="id"
+								display-key="label"
+								value-key="label"
+								multiple
+								:options="data.fieldSelectObjectMultiple.options"
+								:favorites-options="data.fieldSelectObjectMultiple.options.slice(3, 5)"
+								show-favorite-icon
+								prefix-icon="camera"/>
+						</div>
+						<div class="col-sm-6">
+							<o-select
+								v-model="data.fieldSelectMulitpleValueKey"
+								:label="`Favorite icon set`"
+								track-key="id"
+								display-key="label"
+								value-key="label"
+								multiple
+								:options="data.fieldSelectObjectMultiple.options"
+								:favorites-options="data.fieldSelectObjectMultiple.options.slice(3, 5)"
+								:favorite-icon="'add_column'"
+								show-favorite-icon
+								prefix-icon="camera"/>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<pre>{{ data.fieldSelectMulitpleValueKey }}</pre>
+				</div>
+			</div>
+		</o-section>
 	</o-page>
 
 	<o-modal
@@ -541,19 +602,20 @@
 import { inject, reactive, ref } from 'vue';
 
 const _modalSelect = ref<OrionModal>();
-const multiple = ref<OrionSelect>();
+const _test = ref<OrionSelect>();
 const testt = ref<OrionSelect>();
 const _chip = ref<HTMLElement>();
 const _tututu = ref<OrionChips>();
 const _selectWithTrigger = ref<OrionSelect>();
-const test = ref('');
+const search =ref('');
 
-function update (val: string) {
-	multiple.value?.setSearchTerm(val);
+function tutu () {
+	_test.value?.setSearchTerm('b');
+	_test.value?.triggerSearchAsync();
 }
 
-function trigger () {
-	multiple.value?.triggerSearchAsync();
+function setting (val: Nil<string | number>) {
+	_test.value?.setSearchTerm(String(val));
 }
 
 // #region Data
@@ -591,7 +653,7 @@ const data = reactive({
 		value: ['toto', 'tutu'],
 		options: ['toto', 'tutu', 'titi', 'tata', 'dodo', 'dudu', 'didi', 'dada'],
 	},
-	fieldSelectValueKey: null,
+	fieldSelectValueKey: null as string | null,
 	fieldSelectMulitpleValueKey: ['toto', 'titi'],
 	fieldSelectObject: {
 		value: {
@@ -679,6 +741,7 @@ const commonBind = inject<Record<string, any>>('commonBind');
 
 // #region Methods
 async function customFetch (term?: string): Promise<any[]> {
+	// eslint-disable-next-line no-console
 	console.log(`customFetch term:`, term);
 	const resp = await fetch(`https://jsonplaceholder.typicode.com/users`);
 	return await resp.json();

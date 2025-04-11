@@ -1,15 +1,14 @@
-import { PropType } from 'vue';
 import SharedNavSetupService from '../../Shared/SharedNavSetupService';
 
-type Props = SetupProps<typeof OrionNavMainItemSetupService.props>
+export type OrionNavMainItemEmits = {
+	(e: 'click-label', val: [Orion.NavItem, MouseEvent]): void
+}
+export type OrionNavMainItemProps = {
+	item: Orion.NavItem
+}
 
-export default class OrionNavMainItemSetupService extends SharedNavSetupService<Props> {
-	static props = {
-		item: {
-			type: Object as PropType<Orion.NavItem>,
-			required: true as const,
-		},
-	};
+export default class OrionNavMainItemSetupService extends SharedNavSetupService {
+	static readonly defaultProps = {};
 
 	readonly baseClass = 'orion-nav-main';
 
@@ -24,7 +23,7 @@ export default class OrionNavMainItemSetupService extends SharedNavSetupService<
 	}
 
 
-	constructor (props: Props) {
-		super(props);
+	constructor (protected props: OrionNavMainItemProps, protected emits: OrionNavMainItemEmits) {
+		super();
 	}
 }

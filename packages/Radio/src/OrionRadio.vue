@@ -3,10 +3,10 @@
 		v-bind="setup.orionFieldBinding"
 		:label-is-floating="false"
 		:class="[
-			`orion-radio--${setup.props.color}`,
+			`orion-radio--${color}`,
 			{ 'orion-radio--checked': setup.isChecked },
-			{ 'orion-radio--reverse': setup.props.reverse },
-			{ 'orion-radio--inline': setup.props.inline },
+			{ 'orion-radio--reverse': reverse },
+			{ 'orion-radio--inline': inline },
 		]"
 		input-type="radio"
 		@click="setup.handleClick()">
@@ -16,14 +16,14 @@
 			:ref="setup._input"
 			class="orion-radio__input"
 			type="radio"
-			:value="setup.props.inputValue"
+			:value="inputValue"
 			:checked="setup.isChecked"
-			v-bind="{ ...$attrs, disabled: setup.props.disabled }">
+			v-bind="{ ...$attrs, disabled: disabled }">
 
 		<span class="orion-radio__check-container">
 			<orion-icon
-				v-if="setup.props.iconCheck"
-				:icon="setup.props.iconCheck"
+				v-if="iconCheck"
+				:icon="iconCheck"
 				@click="setup.handleClick()"/>
 			<span
 				v-else
@@ -37,21 +37,17 @@ import './OrionRadio.less';
 import { OrionField } from 'packages/Field';
 import { OrionIcon } from 'packages/Icon';
 import OrionRadioSetupService from './OrionRadioSetupService';
-type VModelType = Nil<any[] | boolean | number | Record<string, any> | string>;
-type FieldEmit = {
-  (e: 'focus', payload: FocusEvent): void;
-  (e: 'blur', payload?: FocusEvent): void;
-  (e: 'input', payload: VModelType): void;
-  (e: 'change', val?: VModelType): void;
-  (e: 'update:modelValue', payload: VModelType): void;
-  (e: 'clear'): void;
-}
-const emit = defineEmits<FieldEmit>();
-const props = defineProps(OrionRadioSetupService.props);
-const setup = new OrionRadioSetupService(props, emit);
+import type { OrionRadioProps, OrionRadioEmits, VModelType } from './OrionRadioSetupService';
+const emits = defineEmits<OrionRadioEmits>() as OrionRadioEmits;
+const vModel = defineModel<VModelType>();
+const props = withDefaults(defineProps<OrionRadioProps>(), OrionRadioSetupService.defaultProps);
+const setup = new OrionRadioSetupService(props, emits, vModel);
 defineExpose(setup.publicInstance);
 
 /** Doc
+ * @doc vModel/vModel component's vModel
+ * @doc/fr vModel/vModel vModel du composant
+ *
  * @doc event/focus/desc emitted on focus
  * @doc/fr event/focus/desc émis lors du focus
  *
@@ -63,9 +59,6 @@ defineExpose(setup.publicInstance);
  *
  * @doc event/change/desc emitted when the value of the field changes
  * @doc/fr event/change/desc émis lorsque la valeur est modifiée
- *
- * @doc event/update:modelValue/desc emitted to update the field value
- * @doc/fr event/update:modelValue/desc émis pour mettre à jour la valeur
  *
  * @doc event/clear/desc emitted when the field is cleared
  * @doc/fr event/clear/desc émis quand le champ est vidé

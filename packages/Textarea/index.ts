@@ -1,6 +1,7 @@
 import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
 import OrionTextarea from './src/OrionTextarea.vue';
+import type { OrionTextareaEmits, OrionTextareaProps } from './src/OrionTextareaSetupService';
 import OrionTextareaSetupService from './src/OrionTextareaSetupService';
 
 export const OrionTextareaPlugin: Plugin = {
@@ -9,4 +10,4 @@ export const OrionTextareaPlugin: Plugin = {
 	},
 };
 
-export { OrionTextarea, OrionTextareaSetupService };
+export { OrionTextarea, OrionTextareaSetupService, OrionTextareaEmits, OrionTextareaProps };

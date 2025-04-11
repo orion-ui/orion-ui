@@ -3,10 +3,10 @@
 		:ref="setup._el"
 		class="orion-chips"
 		:class="[
-			`orion-chips--${setup.props.color}`,
-			`orion-chips--${setup.props.size}`,
-			{ 'orion-chips--outline' : setup.props.outline },
-			{ 'orion-chips--closable' : setup.props.close },
+			`orion-chips--${color}`,
+			`orion-chips--${size}`,
+			{ 'orion-chips--outline' : outline },
+			{ 'orion-chips--closable' : close },
 			{ 'orion-chips--dual' : !!$slots.dual },
 		]">
 		<span class="orion-chips__main">
@@ -22,19 +22,21 @@
 		</span>
 
 		<span
-			v-if="setup.props.close"
+			v-if="close"
 			class="orion-chips__close"
-			@click="$emit('close')"
-			@touchend.prevent.stop="$emit('close')"/>
+			@click="emits('close')"
+			@touchend.prevent.stop="emits('close')"/>
 	</span>
 </template>
 
 <script setup lang="ts">
 import './OrionChips.less';
 import OrionChipsSetupService from './OrionChipsSetupService';
-const props = defineProps(OrionChipsSetupService.props);
-const setup = new OrionChipsSetupService(props);
-defineEmits<{(e: 'close'): void}>();
+import type { OrionChipsProps, OrionChipsEmits } from './OrionChipsSetupService';
+const emits = defineEmits<OrionChipsEmits>() as OrionChipsEmits;
+const props = withDefaults(defineProps<OrionChipsProps>(), OrionChipsSetupService.defaultProps);
+const setup = new OrionChipsSetupService(props, emits);
+
 defineExpose(setup.publicInstance);
 
 /** Doc

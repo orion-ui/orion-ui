@@ -10,8 +10,7 @@ import useResponsive from 'services/ResponsiveService';
 import useWindow from 'services/WindowService';
 import useUi from 'services/UiService';
 
-export default abstract class SharedSetupService<P> {
-	props = {} as P;
+export default abstract class SharedSetupService {
 
 	private defaultRouter = useRouter();
 	readonly responsive = useResponsive();
@@ -32,8 +31,7 @@ export default abstract class SharedSetupService<P> {
 	}
 
 
-	constructor (props?: P) {
-		this.props = props ?? {} as P;
+	constructor () {
 
 		onBeforeMount(() => {
 			this.onBeforeMount();

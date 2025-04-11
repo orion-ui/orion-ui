@@ -23,9 +23,10 @@ You can see an example with a custom prefix [below](#custom-prefix).
 
 This command will create a `orion-volar.d.ts` file with the appropriate content.
 
-:::: code-group
-::: code-group-item orion-volar.d.ts
-``` ts
+::: code-tabs
+@tab orion-volar.d.ts
+
+```ts
 declare module 'vue' {
 	export interface GlobalComponents {
 		OAlert: typeof import('@orion.ui/orion/dist/types/packages')['OrionAlert'];
@@ -39,8 +40,8 @@ declare module 'vue' {
 
 export {};
 ```
+
 :::
-::::
 
 ## Custom prefix
 
@@ -48,24 +49,25 @@ export {};
 If you've configured **Orion** with a custom prefix for the components, you can add the `--prefix` option to this command.
 :::
 
-:::: code-group
-::: code-group-item main.ts
+::: code-tabs
+@tab main.ts
+
 ```ts{2}
 createApp(App)
   .use(Orion, { prefix: 'abc' } as Orion.Config)
   .mount('#app')
 ```
+
 :::
-::::
 
 ![Orion CLI](./orion-cli-project-volar.png)
 
 ![Orion CLI](./orion-cli-project-volar-prompt.png)
 
+::: code-tabs
+@tab orion-volar.d.ts
 
-:::: code-group
-::: code-group-item orion-volar.d.ts
-``` ts{3,4,6}
+```ts{3,4,6}
 declare module 'vue' {
 	export interface GlobalComponents {
 		AbcAlert: typeof import('@orion.ui/orion/dist/types/packages')['OrionAlert'];
@@ -79,5 +81,5 @@ declare module 'vue' {
 
 export {};
 ```
+
 :::
-::::

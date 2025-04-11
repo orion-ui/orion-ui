@@ -23,9 +23,9 @@
 import './OrionOtp.less';
 import OrionInput from 'packages/Input/src/OrionInput.vue';
 import OrionOtpSetupService from './OrionOtpSetupService';
-type Emits = {(e: 'filled', val: string): void}
-const emits = defineEmits<Emits>();
-const props = defineProps(OrionOtpSetupService.props);
+const emits = defineEmits<OrionOtpEmits>() as OrionOtpEmits;
+import type { OrionOtpProps, OrionOtpEmits } from './OrionOtpSetupService';
+const props = withDefaults(defineProps<OrionOtpProps>(), OrionOtpSetupService.defaultProps);
 const setup = new OrionOtpSetupService(props, emits);
 defineExpose(setup.publicInstance);
 

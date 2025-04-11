@@ -9,7 +9,7 @@
 		<div class="orion-date-table__header">
 			<orion-icon
 				class="orion-date-table__header-carret"
-				:class="{ 'disable' : !setup.props.canGoPrevMonth }"
+				:class="{ 'disable' : !canGoPrevMonth }"
 				icon="chevron_left"
 				@click="setup.switchPeriod(-1)"/>
 
@@ -17,12 +17,12 @@
 				<span
 					v-show="!setup.viewMonth && !setup.viewYears && !month"
 					class="orion-date-table__header-current-month"
-					:class="{ 'disabled': setup.props.disableMonthAndYear }"
+					:class="{ 'disabled': disableMonthAndYear }"
 					@click="setup.showMonths">{{ setup.monthName }} </span>
 				<span
 					v-if="!setup.viewYears"
 					class="orion-date-table__header-current-year"
-					:class="{ 'disabled': setup.props.disableMonthAndYear }"
+					:class="{ 'disabled': disableMonthAndYear }"
 					@click="setup.showYears">{{ setup.currentYear }}</span>
 				<span
 					v-else
@@ -33,7 +33,7 @@
 
 			<orion-icon
 				class="orion-date-table__header-carret"
-				:class="{ 'disable' : !setup.props.canGoNextMonth }"
+				:class="{ 'disable' : !canGoNextMonth }"
 				icon="chevron_right"
 				@click="setup.switchPeriod(1)"/>
 		</div>
@@ -159,57 +159,29 @@
 import './OrionDateTable.less';
 import { OrionIcon } from 'packages/Icon';
 import OrionDateTableSetupService from './OrionDateTableSetupService';
-type Period = {
-	isStart?: boolean;
-	isEnd?: boolean;
-	start: Date;
-	end: Date;
-	label: string;
-	color: Orion.Color;
-	callback?: () => void;
-	specific?: {
-		color: Orion.Color;
-		date: Date;
-		exclude: boolean;
-	}[];
-}
-type PeriodDay = {
-	color?: Orion.Color;
-	date: Date;
-	isStart: boolean;
-	isEnd: boolean;
-	isSelected: boolean;
-	exclude: boolean;
-	number: number;
-	month: number;
-	year: number;
-	period: Period[];
-	callback?: () => void;
-}
-type DateTableEmit = {
-	(e: 'update:modelValue', payload: Nil<Date>): void;
-	(e: 'update:range', payload: Nil<Orion.DateRange>): void;
-	(e: 'update:multiple', payload: Nil<Date[]>): void;
-	(e: 'update:dayHover', payload: Nil<Date>): void;
-	(e: 'change-month', payload: { month: number, year: number }): void;
-	(e: 'select-specific', payload: Period | PeriodDay): void;
-	(e: 'select-period', payload: Period[]): void;
-	(e: 'select-day', payload: Period | PeriodDay): void;
-}
-const emit = defineEmits<DateTableEmit>();
-const props = defineProps(OrionDateTableSetupService.props);
-const setup = new OrionDateTableSetupService(props, emit);
+import type { OrionDateTableProps, OrionDateTableEmits } from './OrionDateTableSetupService';
+const vModel = defineModel< Nil<Date>>();
+const range = defineModel<Nil<Orion.DateRange>>('range');
+const multiple = defineModel<Nil<Date[]>>('multiple');
+const dayHover = defineModel<Nil<Date>>('dayHover');
+const emits = defineEmits<OrionDateTableEmits>() as OrionDateTableEmits;
+const props = withDefaults(defineProps<OrionDateTableProps>(), OrionDateTableSetupService.defaultProps);
+const setup = new OrionDateTableSetupService(props, emits, vModel, range, multiple, dayHover);
 defineExpose(setup.publicInstance);
 
 /** Doc
- * @doc event/update:modelValue/desc emitted to update the modelValue
- * @doc/fr event/update:modelValue/desc émis pour mettre à jour le modelValue
+ * @doc vModel/range the vModel if the type is set to `range`
+ * @doc/fr vModel/range vModel du composant si la prop `type` est `range`
+ * @doc vModel/multiple the vModel if the type is set to `multiple`
+ * @doc/fr vModel/multiple vModel du composant si la prop `type` est `multiple`
+ * @doc vModel/dayHover the value of the hovered day
+ * @doc/fr vModel/dayHover valeur du jour survolé
  *
  * @doc event/update:range/desc emitted to update the range value
- * @doc/fr event/update:range/desc émis pour mettre à jour le modelValue dans le cas ou il est de type `range`
+ * @doc/fr event/update:range/desc émis pour mettre à jour le vModel dans le cas ou il est de type `range`
  *
  * @doc event/update:multiple/desc emitted to update the multiple value
- * @doc/fr event/update:multiple/desc émis pour mettre à jour le modelValue dans le cas ou il est de type `multiple`
+ * @doc/fr event/update:multiple/desc émis pour mettre à jour le vModel dans le cas ou il est de type `multiple`
  *
  * @doc event/update:dayHover/desc emitted to update the dayHover value
  * @doc/fr event/update:dayHover/desc émis pour mettre à jour la valeur de `dayHover`

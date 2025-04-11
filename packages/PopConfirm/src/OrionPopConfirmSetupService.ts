@@ -2,27 +2,23 @@ import SharedSetupService from '../../Shared/SharedSetupService';
 import { PopperMethods } from 'floating-vue';
 import { reactive, ref } from 'vue';
 
-type Props = SetupProps<typeof OrionPopConfirmSetupService.props>
-type PopConfirmEmit = {
+export type OrionPopConfirmEmits = {
 	(e: 'confirm'): void;
 	(e: 'cancel'): void;
 }
+export type OrionPopConfirmProps = {
+	// @doc props/title title of the confirm popup
+	// @doc/fr props/title titre de la popup de confirmation
+	title?: string,
+};
 
-export default class OrionPopConfirmSetupService extends SharedSetupService<Props> {
-	static props = {
-		// @doc props/title title of the confirm popup
-		// @doc/fr props/title titre de la popup de confirmation
-		// @doc props/title/default depends on the selected language
-		title: {
-			type: String,
-			default: undefined,
-		},
-	};
+export default class OrionPopConfirmSetupService extends SharedSetupService {
+	static readonly defaultProps = {};
 
 	_popper = ref<typeof PopperMethods['methods']>();
 	_actions = ref<RefDom>();
 
-	private emit: PopConfirmEmit;
+
 	private state = reactive({ isVisible: false });
 
 
@@ -35,22 +31,21 @@ export default class OrionPopConfirmSetupService extends SharedSetupService<Prop
 	}
 
 
-	constructor (props: Props, emit: PopConfirmEmit) {
-		super(props);
-		this.emit = emit;
+	constructor (protected props: OrionPopConfirmProps, protected emits: OrionPopConfirmEmits) {
+		super();
 	}
 
 
 	confirm () {
 		if (this.state.isVisible) {
-			this.emit('confirm');
+			this.emits('confirm');
 			this.close();
 		}
 	}
 
 	cancel (e?: Event) {
 		if (this.state.isVisible) {
-			this.emit('cancel');
+			this.emits('cancel');
 			if (!e) this.close();
 		}
 	}

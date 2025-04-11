@@ -3,6 +3,7 @@
 		<div class="row row--gutter">
 			<div class="col-sm-6">
 				<o-phone
+					ref="_phoneOne"
 					v-model:phone-number="test2.phoneNumber"
 					v-model:phone-country-code="test2.phoneCountryCode"
 					:label="phone.label"
@@ -29,8 +30,20 @@
 
 <script setup lang="ts">
 import { CountryCode } from 'libphonenumber-js';
-import { reactive } from 'vue';
-import { displayPhone } from 'lib';
+import { reactive, ref } from 'vue';
+
+const _phoneOne = ref<OrionPhone>();
+
+const favorites = [{
+	code: 'FR',
+	name: 'France',
+	areaCode: '33',
+}];
+
+setTimeout(() => {
+	_phoneOne.value?._country()?.setFavoritesOptions(favorites);
+}, 1000);
+
 
 const test = reactive({
 	phoneNumber: undefined,
@@ -44,7 +57,7 @@ const test2 = reactive({
 const test3 = reactive({
 	phone: {
 		phoneNumber: undefined,
-		phoneCountryCode: 'FR',
+		phoneCountryCode: 'FR' as CountryCode,
 	},
 });
 
@@ -52,7 +65,7 @@ const phone = reactive({
 	value: null,
 	valueFilled: {
 		phoneNumber: '0607944218',
-		phoneCountryCode: 'FR',
+		phoneCountryCode: 'FR' as CountryCode,
 	},
 	label: 'Phone',
 });

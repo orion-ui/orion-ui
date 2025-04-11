@@ -15,7 +15,7 @@
 import { ref } from 'vue';
 
 
-const data = ref('');
+const data = ref(null);
 const options = [
 	'option 1',
 	'option 2',

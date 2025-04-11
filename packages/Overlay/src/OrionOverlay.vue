@@ -4,7 +4,7 @@
 		:style="{ zIndex: setup.zIndex }"
 		class="orion-overlay"
 		:class="{
-			'orion-overlay--global': setup.props.global,
+			'orion-overlay--global': global,
 			'orion-overlay--visible': setup.visible,
 		}"
 		@click="setup.handleClick()">
@@ -15,7 +15,9 @@
 <script setup lang="ts">
 import './OrionOverlay.less';
 import OrionOverlaySetupService from './OrionOverlaySetupService';
-const props = defineProps(OrionOverlaySetupService.props);
-const setup = new OrionOverlaySetupService(props);
+import type { OrionOverlayProps, OrionOverlayEmits } from './OrionOverlaySetupService';
+const emits = defineEmits<OrionOverlayEmits>() as OrionOverlayEmits;
+const props = withDefaults(defineProps<OrionOverlayProps>(), OrionOverlaySetupService.defaultProps);
+const setup = new OrionOverlaySetupService(props, emits);
 defineExpose(setup.publicInstance);
 </script>

@@ -1,70 +1,66 @@
-import { PropType } from 'vue';
 import { isArray } from 'lodash-es';
-import SharedFieldSetupService, { FieldEmit } from '../../Shared/SharedFieldSetupService';
-import SharedProps from '../../Shared/SharedProps';
+import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetupServiceProps } from '../../Shared/SharedFieldSetupService';
+import { ModelRef } from 'vue';
+import SharedProps, { SharedPropsColor } from '../../Shared/SharedProps';
 
-type Props = SetupProps<typeof OrionCheckboxSetupService.props>
+export type OrionCheckboxEmits<T> = SharedFieldSetupServiceEmits<T> & {}
+export type OrionCheckboxProps = SharedFieldSetupServiceProps &
+	SharedPropsColor & {
+	// @doc props/iconCheck the icon when the checkbox is checked
+	// @doc/fr props/iconCheck l'icône lorsque la case est cochée
+	iconCheck?: Orion.Icon,
+	// @doc props/inline set the property `display` on `inline-flex` instead of `flex`
+	// @doc/fr props/inline défini la propriété `display` à `inline-flex` à la place `flex`
+	inline?: boolean,
+	// @doc props/inputValue the value of the checkbox
+	// @doc/fr props/inputValue valeur de la case à cocher
+	inputValue?: string | boolean | number | Object | any[] | Date | undefined,
+	// @doc props/multiple allows to select multiples checkbox values, related to v-model array
+	// @doc/fr props/multiple permet de selectionner plusieurs cases à cocher, dans le cas où le v-model est un tableau
+	multiple?: boolean,
+	// @doc props/reverse displays the label first
+	// @doc/fr props/reverse affiche d'abord le label puis la case à cocher
+	reverse?: boolean,
+	// @doc props/type the type of the input
+	// @doc/fr props/type type du champ
+	type?: string,
+};
 type VModelType = any[] | boolean | null | undefined;
 
-export default class OrionCheckboxSetupService extends SharedFieldSetupService<Props, VModelType> {
-	static props = {
-		...SharedFieldSetupService.props,
-		...SharedProps.color(),
-		// @doc props/inline set the property `display` on `inline-flex` instead of `flex`
-		// @doc/fr props/inline défini la propriété `display` à `inline-flex` à la place `flex`
-		inline: Boolean,
-		// @doc props/reverse displays the label first
-		// @doc/fr props/reverse affiche d'abord le label puis la case à cocher
-		reverse: Boolean,
-		// @doc props/multiple allows to select multiples checkbox values, related to v-model array
-		// @doc/fr props/multiple permet de selectionner plusieurs cases à cocher, dans le cas où le v-model est un tableau
-		multiple: Boolean,
-		// @doc props/inputValue the value of the checkbox
-		// @doc/fr props/inputValue valeur de la case à cocher
-		inputValue: {
-			// eslint-disable-next-line max-len
-			type: [String, Boolean, Number, Object, Array, Date] as PropType<string | boolean | number | Object | any[] | Date | undefined>,
-			default: undefined,
-		},
-		// @doc props/iconCheck the icon when the checkbox is checked
-		// @doc/fr props/iconCheck l'icône lorsque la case est cochée
-		iconCheck: {
-			type: String as PropType<Orion.Icon>,
-			default: undefined,
-		},
-		// @doc props/type the type of the input
-		// @doc/fr props/type type du champ
-		type: {
-			type: String,
-			default: 'checkbox',
-		},
+export default class OrionCheckboxSetupService extends SharedFieldSetupService<OrionCheckboxProps, VModelType, OrionCheckboxEmits<VModelType>> {
+	static readonly defaultProps = {
+		...SharedFieldSetupService.defaultProps,
+		...SharedProps.color,
+		type: 'checkbox',
 	};
 
 	protected inputType = 'checkbox';
 
 	protected get isValidCustom () {
 		if (this.props.required) {
-			return !!this.props.modelValue;
+			return !!this.vModel?.value;
 		}
 		return true;
 	}
 
 	get hasValue () {
-		if (isArray(this.vModel)) return !!this.vModel.length;
-		return !!this.vModel;
+		if (isArray(this.vModel?.value)) return !!this.vModel?.value.length;
+		return !!this.vModel?.value;
 	}
 
 	get isChecked () {
 		if (this.props.multiple) {
-			return isArray(this.vModel) && this.vModel.includes(this.props.inputValue);
+			return isArray(this.vModel?.value) && this.vModel.value?.includes(this.props.inputValue);
 		} else {
-			return !!this.vModel;
+			return !!this.vModel?.value;
 		}
 	}
 
-
-	constructor (props: Props, emit: FieldEmit<VModelType>) {
-		super(props, emit);
+	constructor (
+		protected props: OrionCheckboxProps & typeof OrionCheckboxSetupService.defaultProps,
+		protected emits: OrionCheckboxEmits<VModelType>,
+		protected vModel: ModelRef<VModelType>) {
+		super(props, emits, vModel);
 	}
 
 
@@ -72,17 +68,15 @@ export default class OrionCheckboxSetupService extends SharedFieldSetupService<P
 		if (!this.props.disabled && !this.props.readonly) {
 			this.state.hasBeenFocus = true;
 
-			if (this.props.multiple && isArray(this.vModel)) {
-				if (this.vModel.includes(this.props.inputValue)) {
-					this.vModel.splice(this.vModel.indexOf(this.props.inputValue), 1);
+			if (this.props.multiple && isArray(this.vModel?.value)) {
+				if (this.vModel?.value.includes(this.props.inputValue)) {
+					this.vModel?.value.splice(this.vModel.value.indexOf(this.props.inputValue), 1);
 				} else {
-					this.vModel.push(this.props.inputValue);
+					this.vModel?.value.push(this.props.inputValue);
 				}
 			} else {
-				this.vModel = !this.vModel;
+				this.vModel.value = !this.vModel.value;
 			}
-
-			this.emit('input', this.vModel);
 		}
 	}
 }

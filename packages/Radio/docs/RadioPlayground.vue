@@ -34,15 +34,25 @@
 	</div>
 
 	<div class="row row--grid row--toggles">
-		<div class="col-sm-4">
+		<div class="col-sm-3">
 			<o-toggle
 				v-model="state.inline"
 				label="Inline"/>
 		</div>
-		<div class="col-sm-4">
+		<div class="col-sm-3">
 			<o-toggle
 				v-model="state.reverse"
 				label="Reverse"/>
+		</div>
+		<div class="col-sm-3">
+			<o-toggle
+				v-model="state.readonly"
+				label="readonly"/>
+		</div>
+		<div class="col-sm-3">
+			<o-toggle
+				v-model="state.disabled"
+				label="disabled"/>
 		</div>
 	</div>
 </template>
@@ -55,6 +65,8 @@ const state = reactive({
 	value: [],
 	inline: false,
 	reverse: false,
+	readonly: false,
+	disabled: false,
 	inputValue: 'option1',
 	iconCheck: undefined,
 	label: 'Option 1',

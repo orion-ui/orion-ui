@@ -8,7 +8,7 @@ const { sleep } = require('radash');
 const { log, note, spinner } = require('@clack/prompts');
 
 // https://github.com/vuejs/core/issues/8301
-// require('@vue/compiler-sfc').registerTS(() => require('typescript')); // TODO:
+require('@vue/compiler-sfc').registerTS(() => require('typescript')); // TODO:
 
 // const setupServiceImportRegex = /^import (\w+SetupService) from .+\n/gm;
 const lessImportRegex = /^import .+.less.+\n/gm;
@@ -37,11 +37,13 @@ class TypesDeclarationFilesFactory {
 	config = {
 		requiredFiles: [
 			'lib/global.d.ts',
+			'lib/private.d.ts',
 		],
 		dtsFilesNeededForBuild: [
 			'shims-env.d.ts',
 			'lib/packages.d.ts',
 			'lib/global.d.ts',
+			'lib/private.d.ts',
 			'packages/packages-shims.d.ts',
 		],
 		input: [
@@ -97,8 +99,13 @@ class TypesDeclarationFilesFactory {
 				// noEmitOnError: true,
 				allowJs: true,
 				declaration: true,
-				emitDeclarationOnly: true,
+				strict: true,
+				noImplicitAny: true,
 				outDir: this.typesPath,
+				useDefineForClassFields: true,
+				exactOptionalPropertyTypes: true,
+				resolveJsonModule: true,
+				esModuleInterop: true
 			},
 			tsConfigFilePath,
 			skipAddingFilesFromTsConfig: true,
@@ -124,7 +131,7 @@ class TypesDeclarationFilesFactory {
 		for await (const file of files) {
 			if (/\.vue$/.test(file)) {
 				const content = fs.readFileSync(file, 'utf8');
-				const sfc = parse(content);
+				const sfc = parse(content, { filename: file});
 				const { script, scriptSetup } = sfc.descriptor;
 				const tsLang = ['ts', 'tsx'];
 
@@ -134,6 +141,16 @@ class TypesDeclarationFilesFactory {
 					let isTSX = false;
 
 					if (scriptSetup) {
+						//https://github.com/parcel-bundler/parcel/issues/9565 handle [@vue/compiler-sfc] No fs option provided to `compileScript` in non-Node environment.
+
+						/* if (sfc.descriptor.scriptSetup) {
+							sfc.descriptor.scriptSetup.content = scriptSetup.content
+								.replace(
+									/(import type .* from ')(\..*)(?<orion>\/Orion)(?<packageName>\w*)(?<setup>SetupService';)/gm, // good luck
+									'$1packages/$<packageName>/src$<orion>$<packageName>$<setup>'
+								);
+						}  */
+						
 						const compiled = compileScript(sfc.descriptor, { id: 'xxx' });
 						content += compiled.content;
 						if (scriptSetup.lang && tsLang.includes(scriptSetup.lang)) isTS = true;
@@ -170,7 +187,6 @@ class TypesDeclarationFilesFactory {
 		if (!this.project) return;
 
 		await this.scanFiles(files);
-
 		/* const diagnostics = this.project.getPreEmitDiagnostics();
 		log.message(this.project.formatDiagnosticsWithColorAndContext(diagnostics)); */
 
@@ -183,7 +199,7 @@ class TypesDeclarationFilesFactory {
 
 		for (const sourceFile of this.sourceFiles) {
 			const emitOutput = sourceFile.getEmitOutput();
-			const fileRelativePath = sourceFile.getFilePath().split(this.rootPath)[1].slice(1);
+			const fileRelativePath = sourceFile.getFilePath().split(this.rootPath)[1]?.slice(1);
 			const isLibIndex = fileRelativePath === 'lib/index.ts';
 			const isPackageIndex = /^packages(\/\w+\/)(?!src\/)/.test(fileRelativePath);
 

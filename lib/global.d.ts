@@ -1,14 +1,15 @@
 /// <reference path="packages.d.ts"/>
 
-import { Component, Slot } from 'vue';
+import { Component } from 'vue';
 import { RouteLocationRaw, Router } from 'vue-router';
 import { coolicons } from '../assets/fonts/coolicons';
 import OrionChatEntity from '../packages/Chat/src/OrionChatEntity';
 import OrionChatMessageEntity from '../packages/ChatMessage/src/OrionChatMessageEntity';
-import type { OrionAsideSetupService, OrionModalSetupService, OrionNotifSetupService } from '../packages';
+import type { OrionAsideSetupService, OrionListProps, OrionModalSetupService, OrionNotifSetupService } from '../packages';
 import useValidation from '../services/ValidationService';
 import { Validator as ValidatorClass } from '../utils/Validator';
 import { CountryCode } from 'libphonenumber-js';
+import { OrionAvatarProps } from 'packages/Avatar/src/OrionAvatarSetupService';
 
 declare global {
 	type Nullable<T> = T | null;
@@ -82,6 +83,8 @@ declare global {
 
 		type DateTableType = 'date' | 'range' | 'multiple' | 'month';
 
+		type ListLayout = 'grid' | 'row';
+
 		// eslint-disable-next-line max-len
 		type VDropdownPlacement = 'auto' | 'auto-start' | 'auto-end' | 'top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'left' | 'left-start' | 'left-end' | 'right' | 'right-start' | 'right-end';
 
@@ -150,7 +153,7 @@ declare global {
 			navTabs?: OrionNavTabs.Props;
 		}
 
-		type List<T> = Omit<OrionList.Props, 'list' | 'selected'> & {
+		type List<T extends Record<string, any>> = Omit<OrionListProps<T>, 'list' | 'selected'> & {
 			list: T[];
 			selected?: T[];
 		}
@@ -304,7 +307,7 @@ declare global {
 				id: number;
 				name: string;
 				avatar: string;
-				avatarProps?: Record<string, any>;
+				avatarProps?: Partial<OrionAvatarProps>;
 			};
 
 			type Discussion = {
@@ -335,6 +338,14 @@ declare global {
 			}
 		}
 
+		namespace Tour {
+			type TourObject = {
+				label?: string,
+				callback?: () => any;
+				clean?: () => any
+			}
+		}
+
 		namespace Validation {
 			type Rule = ReturnType<ReturnType<typeof useValidation<any, any>>['rule']>;
 			type RuleResult<T> = string | boolean | ((val: T) => boolean | Validator.RuleResult) | ValidatorClass<T>;
@@ -354,40 +365,5 @@ declare global {
 			}
 		}
 
-		namespace Private {
-			type Number = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
-
-			type Letter = 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i'
-				| 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r'
-				| 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z';
-
-			type TsxTabPane = {
-				props: OrionTabPane.Props & {
-					'font-icon': string;
-					'marker-color': string;
-				};
-				children: {
-					default: Slot;
-					label?: Slot;
-				};
-			}
-
-			type TsxTimelinePane = {
-				props: OrionTimelinePane.Props & {
-					'font-icon': string;
-					'marker-color': string;
-					'centered-pill': string;
-				};
-				children: {
-					default: Slot;
-					after?: Slot;
-					before?: Slot;
-				};
-			}
-
-			type TsxTourStep = {
-				props : OrionTourStep.Props
-			}
-		}
 	}
 }

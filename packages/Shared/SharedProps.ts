@@ -1,101 +1,68 @@
-import { PropType } from 'vue';
+export type SharedPropsIcon = {
+	// @doc props/icon the icon of the component
+	// @doc/fr props/icon définit l'icône
+	icon?: Orion.Icon,
+	// @doc props/fontIcon the icon of the component, from the imported font library
+	// @doc/fr props/fontIcon l'icône du composant, de la librairie de police importée
+	fontIcon?: string
+}
+
+export type SharedPropsPrefixIcon = {
+	// @doc props/prefixIcon the prefix icon
+	// @doc/fr props/prefixIcon définit l'icône de préfixe
+	prefixIcon?: Orion.Icon,
+	// @doc props/prefixFontIcon the prefix icon from the imported font library
+	// @doc/fr props/prefixFontIcon définit l'icône de préfixe à partir de la librairie de police importée
+	prefixFontIcon?: string
+}
+export type SharedPropsSuffixIcon = {
+	// @doc props/suffixIcon the suffix icon
+		// @doc/fr props/suffixIcon définit l'icône de suffixe
+	suffixIcon?: Orion.Icon,
+	// @doc props/suffixFontIcon the suffix icon from the imported font library
+	// @doc props/suffixFontIcon définit l'icône de suffixe à partir de la librairie de police importée
+	suffixFontIcon?: string
+}
+
+export type SharedPropsColor = {
+	// @doc props/color defines the color
+	// @doc/fr props/color définit la couleur
+	color?: Orion.Color
+}
+
+export type SharedPropsColorExtended = {
+	// @doc props/color defines the color
+	// @doc/fr props/color définit la couleur
+	color?: Orion.ColorExtended
+}
+
+export type SharedPropsColorExtentedAndGreys = {
+	// @doc props/color defines the color
+	// @doc/fr props/color définit la couleur
+	color?: Orion.ColorExtendedAndGreys
+}
+
+export type SharedPropsSize = {
+	// @doc props/size define the size
+	// @doc/fr props/size définit la taille
+	size?: Orion.Size
+}
+
+export type SharedPropsNav = {
+	items?: Orion.NavItem[]
+}
+
 
 export default class SharedProps {
-	static vModel = <T>(defaultValue?: T | (() => T)) => ({
-		// @doc props/modelValue modelValue of the component
-		// @doc/fr props/modelValue modelValue du composant
-		modelValue: {
-			type: [String, Number, Array, Object, Date] as PropType<T>,
-			default: defaultValue,
-		},
-	});
 
-	static color = (defaultValue: Orion.Color = 'default') => ({
-		// @doc props/color defines the color
-		// @doc/fr props/color définit la couleur
-		color: {
-			type: String as PropType<Orion.Color>,
-			default: defaultValue,
-		},
-	});
+	static readonly color = { color: 'default' as Orion.Color };
 
-	static colorExtended = (defaultValue: Orion.ColorExtended = 'default') => ({
-		// @doc props/color defines the color
-		// @doc/fr props/color définit la couleur
-		color: {
-			type: String as PropType<Orion.ColorExtended>,
-			default: defaultValue,
-		},
-	});
+	static readonly colorExtented : SharedPropsColorExtended = { color: 'default' as Orion.ColorExtended };
 
-	static colorExtendedAndGreys = (defaultValue: Orion.ColorExtendedAndGreys = 'default') => ({
-		// @doc props/color defines the color
-		// @doc/fr props/color définit la couleur
-		color: {
-			type: String as PropType<Orion.ColorExtendedAndGreys>,
-			default: defaultValue,
-		},
-	});
+	static readonly colorExtendedAndGreys = { color: 'default' as Orion.ColorExtendedAndGreys };
 
-	static size = (defaultValue: Orion.Size = 'md') => ({
-		// @doc props/size define the size
-		// @doc/fr props/size définit la taille
-		size: {
-			type: String as PropType<Orion.Size>,
-			default: defaultValue,
-		},
-	});
+	static readonly size = { size: 'md' as Orion.Size };
 
-	static icon = (defaultValue?: Orion.Icon) => ({
-		// @doc props/icon the icon of the component
-		// @doc/fr props/icon définit l'icône
-		icon: {
-			type: String as PropType<Orion.Icon>,
-			default: defaultValue,
-		},
-		// @doc props/fontIcon the icon of the component, from the imported font library
-		// @doc/fr props/fontIcon l'icône du composant, de la librairie de police importée
-		fontIcon: {
-			type: String,
-			default: undefined,
-		},
-	});
-
-	static prefixIcon = (defaultValue?: Orion.Icon) => ({
-		// @doc props/prefixIcon the prefix icon
-		// @doc/fr props/prefixIcon définit l'icône de préfixe
-		prefixIcon: {
-			type: String as PropType<Orion.Icon>,
-			default: defaultValue,
-		},
-		// @doc props/prefixFontIcon the prefix icon from the imported font library
-		// @doc/fr props/prefixFontIcon définit l'icône de préfixe à partir de la librairie de police importée
-		prefixFontIcon: {
-			type: String,
-			default: undefined,
-		},
-	});
-
-	static suffixIcon = (defaultValue?: Orion.Icon) => ({
-		// @doc props/suffixIcon the suffix icon
-		// @doc/fr props/suffixIcon définit l'icône de suffixe
-		suffixIcon: {
-			type: String as PropType<Orion.Icon>,
-			default: defaultValue,
-		},
-		// @doc props/suffixFontIcon the suffix icon from the imported font library
-		// @doc props/suffixFontIcon définit l'icône de suffixe à partir de la librairie de police importée
-		suffixFontIcon: {
-			type: String,
-			default: undefined,
-		},
-	});
-
-	static nav = () => ({
-		items: {
-			type: Array as PropType<Orion.NavItem[]>,
-			default: () => [],
-		},
-	});
+	static readonly navDefault = { items: () => [] as Orion.NavItem[] };
 }
 

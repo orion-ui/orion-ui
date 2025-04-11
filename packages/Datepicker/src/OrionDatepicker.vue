@@ -12,14 +12,14 @@
 			v-bind="setup.orionFieldBinding"
 			class="orion-datepicker"
 			:has-value="setup.hasValue"
-			:label-is-floating="setup.hasValue || (setup.props.type === 'date' && setup.isFocus)"
+			:label-is-floating="setup.hasValue || (type === 'date' && setup.isFocus)"
 			:class="[
-				{ 'orion-datepicker--range' : setup.props.type === 'range' },
-				{ 'orion-datepicker-multiple' : setup.props.type === 'multiple' },
+				{ 'orion-datepicker--range' : type === 'range' },
+				{ 'orion-datepicker-multiple' : type === 'multiple' },
 			]"
 			@clear="setup.handleClear()">
 			<input
-				v-if="setup.props.type === 'date'"
+				v-if="type === 'date'"
 				:ref="setup._input"
 				class="orion-input__input"
 				:value="setup.displayDateSelected"
@@ -70,18 +70,18 @@
 				tabindex="0"
 				@focus="setup.handleFocus($event)"
 				@blur="setup.handleBlur($event)">
-				<span v-if="setup.props.type === 'week' && setup.range?.weekNumber">
+				<span v-if="type === 'week' && range?.weekNumber">
 					<div
-						v-if="setup.props.valueDisplayFormat"
-						v-html="setup.props.valueDisplayFormat(setup.range)"/>
+						v-if="valueDisplayFormat"
+						v-html="valueDisplayFormat(range)"/>
 					<template v-else>
-						{{ `${setup.lang.WEEK} ${setup.range.weekNumber}` }}
+						{{ `${setup.lang.WEEK} ${range.weekNumber}` }}
 					</template>
 				</span>
 				<span v-else>
 					<div
-						v-if="setup.props.valueDisplayFormat"
-						v-html="setup.props.valueDisplayFormat(setup.vModel ?? setup.range)"/>
+						v-if="valueDisplayFormat"
+						v-html="valueDisplayFormat(setup.vModelProxy ?? range)"/>
 					<template v-else>
 						{{ setup.displayDateSelected }}
 					</template>
@@ -101,9 +101,9 @@
 				name="popper"
 				v-bind="{ closePopperSlot: setup.closePopperSlot.bind(setup) }">
 				<orion-date-table
-					v-if="setup.props.type === 'date'"
+					v-if="type === 'date'"
 					:ref="setup._options"
-					v-model="setup.vModel"
+					v-model="setup.vModelProxy"
 					:min-date="setup.minDate"
 					:max-date="setup.maxDate"
 					:display-week-number="displayWeekNumber"
@@ -112,9 +112,9 @@
 						: setup.handleBlur(undefined, setup.responsive.onPhone && !time)
 					"/>
 				<orion-date-table
-					v-if="setup.props.type === 'multiple'"
+					v-if="type === 'multiple'"
 					:ref="setup._options"
-					v-model:multiple="setup.multiple"
+					v-model:multiple="multiple"
 					:type="type === 'multiple' ? 'multiple' : undefined"
 					:min-date="setup.minDate"
 					:max-date="setup.maxDate"
@@ -124,7 +124,7 @@
 						: setup.handleBlur(undefined, setup.responsive.onPhone && !time)
 					"/>
 				<orion-date-range
-					v-else-if="setup.props.type === 'range'"
+					v-else-if="type === 'range'"
 					:ref="setup._options"
 					v-model="setup.rangeBuffer"
 					:min-date="setup.minDate"
@@ -132,7 +132,7 @@
 					:display-week-number="displayWeekNumber"
 					@select-range="setup.handleBlur(undefined, true)"/>
 				<orion-date-week
-					v-else-if="setup.props.type === 'week'"
+					v-else-if="type === 'week'"
 					:ref="setup._options"
 					v-model="setup.rangeBuffer"
 					:min-date="setup.minDate"
@@ -140,7 +140,7 @@
 					:hide-disabled="hideDisabled"
 					@update:model-value="setup.handleBlur()"/>
 				<orion-date-table
-					v-if="setup.props.type === 'month'"
+					v-if="type === 'month'"
 					:ref="setup._options"
 					v-model:range="setup.rangeBuffer"
 					:min-date="setup.minDate"
@@ -230,25 +230,24 @@ import { OrionDateWeek } from 'packages/DateWeek';
 import { OrionField } from 'packages/Field';
 import { OrionLabel } from 'packages/Label';
 import OrionDatepickerSetupService from './OrionDatepickerSetupService';
-import { useSlots } from 'vue';
-type VModelType = Nil<Date>;
-type FieldEmit = {
-  (e: 'focus', payload: FocusEvent): void;
-  (e: 'blur', payload?: FocusEvent): void;
-  (e: 'input', payload: VModelType): void;
-  (e: 'change', val?: VModelType): void;
-  (e: 'update:modelValue', payload: VModelType): void;
-  (e: 'clear'): void;
-	(e: 'update:range', payload: Nil<Orion.DateRange>): void;
-	(e: 'update:multiple', payload: Date[]): void;
-}
-const slots = useSlots();
-const emit = defineEmits<FieldEmit>();
-const props = defineProps(OrionDatepickerSetupService.props);
-const setup = new OrionDatepickerSetupService(props, emit, slots);
+import type { OrionDatepickerProps, OrionDatepickerEmits } from './OrionDatepickerSetupService';
+const slots = defineSlots();
+const vModel = defineModel<Nil<Date>>();
+const range = defineModel<Nil<Orion.DateRange>>('range');
+const multiple = defineModel<Nil<Date[]>>('multiple');
+const emits = defineEmits<OrionDatepickerEmits>() as OrionDatepickerEmits;
+const props = withDefaults(defineProps<OrionDatepickerProps>(), OrionDatepickerSetupService.defaultProps);
+const setup = new OrionDatepickerSetupService(props, emits, slots, vModel, range, multiple);
 defineExpose(setup.publicInstance);
 
 /** Doc
+ * @doc vModel/vModel the vModel if the type is set to `date`
+ * @doc/fr vModel/vModel le vModel si le type est défini à `date`
+ * @doc vModel/multiple the vModel if the type is set to `multiple`
+ * @doc/fr vModel/multiple le vModel si le type est défini à `multiple`
+ * @doc vModel/range the vModel if the type is set to `range`
+ * @doc/fr vModel/range le vModel si le type est défini à `range`
+ *
  * @doc slot/multipleDisplay if type is `multiple`, the content inside the input
  * @doc/fr slot/multipleDisplay si le type est `multiple`, il s'agit du contenu de l'input
  * @doc slot/multipleDisplay/datas/type Date[]
@@ -269,15 +268,6 @@ defineExpose(setup.publicInstance);
  *
  * @doc event/change/desc emitted when the value of the field changes
  * @doc/fr event/change/desc émis lorsque la valeur est modifiée
- *
- * @doc event/update:modelValue/desc emitted to update the field value
- * @doc/fr event/update:modelValue/desc émis pour mettre à jour la valeur
- *
- * @doc event/update:range/desc emitted to update the modelValue when the type is `range`
- * @doc/fr event/update:range/desc émis pour mettre à jour la valeur quand le type est `range`
- *
- * @doc event/update:multiple/desc emitted to update the field value when the type is `multiple`
- * @doc/fr event/update:multiple/desc émis pour mettre à jour la valeur quand le type est `multiple`
  *
  * @doc event/clear/desc emitted when the field is cleared
  * @doc/fr event/clear/desc émis quand le champ est vidé

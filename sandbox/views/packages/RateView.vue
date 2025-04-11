@@ -1,7 +1,7 @@
 <template>
 	<o-page title="Rate">
 		<o-card>
-			classic
+			classic {{ value }}
 			<o-rate
 				v-model="value"/>
 			disabled
@@ -9,12 +9,14 @@
 				v-model="value"
 				color="info"
 				:number-of-rates="2"/>
+			laa{{ value }}
 			number of rates
 			<o-rate
 				v-model="value"
 				color="pink"
 				disabled/>
 			number of rates
+
 			<o-rate
 				v-model="value"
 				disabled

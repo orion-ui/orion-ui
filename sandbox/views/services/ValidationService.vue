@@ -35,7 +35,8 @@
 						v-model="user.required"
 						class="grid-input"
 						label="required only"
-						required/>
+						required
+						type="email"/>
 					<o-input
 						v-model="user.customRuleInTemplate"
 						class="grid-input"
@@ -80,6 +81,13 @@
 						class="grid-input"
 						label="Test validation (string) required and length"
 						validation="required:|length:3,5"/>
+					<o-phone
+						ref="refPhone"
+						v-model="user.phone"
+						label="téléphone"
+						:validation="validator.rule('phone')"
+						mobile/>
+					<pre>{{ user.phone }}</pre>
 					<!-- <o-input
 						v-model="user.emailRequired"
 						type="email"
@@ -87,12 +95,6 @@
 						label="Test validation email"
 						validation-error-message="Email invalide"
 						:validation="validator.rule('emailRequired')"/>
-
-					<o-phone
-						v-model="user.phone"
-						label="téléphone"
-						:validation="validator.rule('phone')"
-						mobile/>
 					<o-password
 						v-model="user.password"
 						label="Mot de passe"
@@ -212,6 +214,7 @@ import { Validator } from 'utils/Validator';
 
 // eslint-disable-next-line max-len, @typescript-eslint/no-unused-vars
 const testLongErrorMessage = 'Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Donec sed odio dui. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.';
+const refPhone = ref<OrionPhone>();
 
 let user = reactive({
 	required: undefined as Undef<string>,
@@ -227,7 +230,7 @@ let user = reactive({
 	emailRequired: undefined as Undef<string>,
 	date: undefined as Undef<Date>,
 	phone: {
-		phoneCountryCode: 'FR',
+		phoneCountryCode: 'FR' as Orion.Country['code'],
 		phoneNumber: undefined as Undef<string>,
 	},
 	password: undefined,
@@ -307,14 +310,15 @@ const validator = useValidation(user, {
 		}
 		return true;
 	},
-	/* phone: new Validator<typeof user.phone>([
-		{
+	phone: new Validator<typeof user.phone>([
+		Validator.rules.required(),
+		() => ({
+			result: refPhone.value?.isValidMobile() ?? false,
+			message: 'phone number must be mobile phone',
 			level: 'error',
-			rule: value => value?.phoneCountryCode === 'DE',
-			message: 'phone should be german',
-		},
+		}),
 	]),
-	choice: Validator.rules.required(),
+	/* choice: Validator.rules.required(),
 	radio: Validator.rules.required(),
 	toggleRequired: Validator.rules.required(),
 	datePicker: Validator.rules.required(),
@@ -337,7 +341,6 @@ const validator = useValidation(user, {
 
 function checkForm () : void {
 	result = validator.validateAndShowState();
-	console.log('result', validator.getResults());
 	if (result) {
 		resultColor.value = 'brand';
 		// validator.showValidationState();

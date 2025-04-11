@@ -69,7 +69,8 @@
 
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
-import { useValidation, Validator } from '../../lib';
+import { useValidation, Validator } from 'lib';
+import { CountryCode } from 'libphonenumber-js';
 
 let result = ref(false);
 const resultColor = ref<Orion.Color>('default');
@@ -80,8 +81,8 @@ let user = reactive({
 	radio: undefined as undefined | string,
 	password: undefined as undefined | string,
 	phone: {
-		phoneCountryCode: 'FR',
-		phoneNumber: undefined as undefined | string,
+		phoneCountryCode: 'FR' as CountryCode, 
+		phoneNumber: undefined as Nil<string>,
 	},
 });
 

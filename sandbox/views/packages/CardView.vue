@@ -31,7 +31,8 @@
 						:selected-color="color"
 						:title="color"
 						:hover-elevation="index * 1"
-						v-bind="state">
+						v-bind="state"
+						@header-click="notify()">
 						<pre style="color:black">{{ color }}</pre>
 						Etiam porta sem malesuada magna mollis euismod.
 					</o-card>
@@ -81,7 +82,7 @@ const state = reactive({
 
 function notify () {
 	console.log(theOne.value);
-	console.log(theOne.value?._el());
+	console.log(theOne.value?._el?.());
 
 	useNotif.info('dsmldkj');
 }

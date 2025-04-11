@@ -31,25 +31,35 @@
 				clearable
 				:options="icons"/>
 		</div>
-		<div class="col-sm-3">
+		<div class="col-sm-4">
 			<o-toggle
 				v-model="state.autocomplete"
 				label="Autocomplete"/>
 		</div>
-		<div class="col-sm-3">
+		<div class="col-sm-4">
 			<o-toggle
 				v-model="state.searchable"
 				label="Searchable"/>
 		</div>
-		<div class="col-sm-3">
+		<div class="col-sm-4">
 			<o-toggle
 				v-model="state.multiple"
 				label="Multiple"/>
 		</div>
-		<div class="col-sm-3">
+		<div class="col-sm-4">
 			<o-toggle
 				v-model="state.clearable"
 				label="Clearable"/>
+		</div>
+		<div class="col-sm-4">
+			<o-toggle
+				v-model="state.disabled"
+				label="disabled"/>
+		</div>
+		<div class="col-sm-4">
+			<o-toggle
+				v-model="state.readonly"
+				label="readonly"/>
 		</div>
 	</div>
 </template>
@@ -65,6 +75,8 @@ const state = reactive({
 	searchable: false,
 	multiple: false,
 	clearable: false,
+	disabled: false,
+	readonly: false,
 	trackKey: 'id',
 	displayKey: 'label',
 	valueKey: 'label',

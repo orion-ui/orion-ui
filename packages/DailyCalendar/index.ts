@@ -1,6 +1,7 @@
 import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
 import OrionDailyCalendar from './src/OrionDailyCalendar.vue';
+import type { OrionDailyCalendarEmits, OrionDailyCalendarProps } from './src/OrionDailyCalendarSetupService';
 import OrionDailyCalendarSetupService from './src/OrionDailyCalendarSetupService';
 
 export const OrionDailyCalendarPlugin: Plugin = {
@@ -9,4 +10,4 @@ export const OrionDailyCalendarPlugin: Plugin = {
 	},
 };
 
-export { OrionDailyCalendar, OrionDailyCalendarSetupService };
+export { OrionDailyCalendar, OrionDailyCalendarSetupService, OrionDailyCalendarEmits, OrionDailyCalendarProps };

@@ -2,9 +2,9 @@
 	<o-page title="Input">
 		<pre>{{ fields.input }}</pre>
 		<div class="row row--gutter">
+			
 			<div class="col-sm-3">
 				<o-input
-					v-model="fields.input.value"
 					label="Simple input with donetyping"
 					placeholder="Placeholder"
 					v-bind="commonBind"
@@ -68,6 +68,25 @@
 					type="email"
 					v-bind="commonBind"/>
 			</div>
+			<div class="col-sm-6">
+				<o-input
+					v-model="inputMaskStatic"
+					label="Static mask - $d$d##$d$w%#&"
+					v-bind="commonBind"
+					mask="$d$d##$d$w%#&"
+					clear-to-null
+					@keydown:enter="cb('tto')"/>
+			</div>
+			<div class="col-sm-6">
+			<o-input
+				v-model="inputMask"
+				:static-mask="false"
+				label="As you type mask - $d$d##$d$w%#&"
+				v-bind="commonBind"
+				mask="$d$d##$d$w%#&"
+				clear-to-null
+				@keydown:enter="cb('tto')"/>
+			</div>
 		</div>
 	</o-page>
 </template>
@@ -82,6 +101,8 @@ const commonBind = reactive({
 	disabled: false,
 });
 const email = ref<string>();
+const inputMask = ref<string>('');
+const inputMaskStatic = ref<string>('');
 
 const fields = reactive({
 	showError: false,

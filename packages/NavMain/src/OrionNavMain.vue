@@ -48,7 +48,9 @@
 import './OrionNavMain.less';
 import { OrionNavMainItem } from 'packages/NavMainItem';
 import OrionNavMainSetupService from './OrionNavMainSetupService';
-const props = defineProps(OrionNavMainSetupService.props);
-const setup = new OrionNavMainSetupService(props);
+import type { OrionNavMainProps, OrionNavMainEmits } from './OrionNavMainSetupService';
+const emits = defineEmits<OrionNavMainEmits>() as OrionNavMainEmits;
+const props = withDefaults(defineProps<OrionNavMainProps>(), OrionNavMainSetupService.defaultProps);
+const setup = new OrionNavMainSetupService(props, emits);
 defineExpose(setup.publicInstance);
 </script>

@@ -64,7 +64,7 @@ const dateRange = reactive({
 @lang:en
 ### Type
 
-Define the type of the model value.
+Define the type of the vModel.
 
 :::warning
 If you use the **range**, **week** or **month** `type`, you have to use `v-model:range` instead of `v-model`.\

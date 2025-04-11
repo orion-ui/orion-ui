@@ -6,7 +6,7 @@
 			:is="setup.itemIs(item)"
 			v-if="item"
 			v-bind="setup.itemData(item)"
-			@click.stop="$emit('click-label', [item, $event])">
+			@click.stop="emits('click-label', [item, $event])">
 			<orion-icon
 				v-if="item.icon || item.fontIcon"
 				class="orion-nav-main__item-main-icon"
@@ -65,8 +65,9 @@
 import './OrionNavMainItem.less';
 import { OrionIcon } from 'packages/Icon';
 import OrionNavMainItemSetupService from './OrionNavMainItemSetupService';
-defineEmits<{(e: 'click-label', val: [Orion.NavItem, MouseEvent]): void}>();
-const props = defineProps(OrionNavMainItemSetupService.props);
-const setup = new OrionNavMainItemSetupService(props);
+import type { OrionNavMainItemProps, OrionNavMainItemEmits } from './OrionNavMainItemSetupService';
+const emits = defineEmits<OrionNavMainItemEmits>() as OrionNavMainItemEmits;
+const props = withDefaults(defineProps<OrionNavMainItemProps>(), OrionNavMainItemSetupService.defaultProps);
+const setup = new OrionNavMainItemSetupService(props, emits);
 defineExpose(setup.publicInstance);
 </script>

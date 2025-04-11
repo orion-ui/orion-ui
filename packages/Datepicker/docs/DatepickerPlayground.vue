@@ -5,7 +5,6 @@
 				v-model="state.date"
 				v-model:range="state.daterange"
 				v-model:multiple="state.dates"
-				clearable
 				label="Date"
 				v-bind="state"/>
 		</div>
@@ -43,17 +42,35 @@
 		</div>
 	</div>
 	<div class="row row--grid row--toggles">
-		<div class="col-sm-6">
+		<div class="col-sm-4">
 			<o-toggle
 				v-model="state.time"
 				clearable
 				label="Display Time"/>
 		</div>
-		<div class="col-sm-6">
+		<div class="col-sm-4">
 			<o-toggle
 				v-model="state.preserveTime"
 				clearable
 				label="Preserve time on date change"/>
+		</div>
+	</div>
+
+	<div class="row row--grid row--toggles">
+		<div class="col-sm-4">
+			<o-toggle
+				v-model="state.disabled"
+				label="Disabled"/>
+		</div>
+		<div class="col-sm-4">
+			<o-toggle
+				v-model="state.readonly"
+				label="Readonly"/>
+		</div>
+		<div class="col-sm-4">
+			<o-toggle
+				v-model="state.clearable"
+				label="Clearable"/>
 		</div>
 	</div>
 </template>
@@ -73,11 +90,14 @@ const state = reactive({
 	type: 'date' as Orion.DatepickerType,
 	date: new Date(),
 	dates: [],
-	daterange: null,
-	minDate: null,
-	maxDate: null,
+	daterange: undefined,
+	minDate: undefined,
+	maxDate: undefined,
 	preserveTime: false,
 	time: false,
+	disabled: false,
+	readonly: false,
+	clearable: false,
 });
 </script>
 

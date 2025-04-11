@@ -1,11 +1,37 @@
 @import '../../../packages/Shared/styles/variables.less';
 
-.sidebar {
+.vp-sidebar {
 	font-size: 1rem;
 	transition: transform var(--t-transform), box-shadow var(--t-transform);
 	scrollbar-color: var(--c-brand) transparent;
 	border-right: none;
 	background: linear-gradient(to bottom, var(--c-bg), var(--grey-lighter));
+
+	[data-orion-theme='dark'] & {
+		background: rgba(34, 39, 46, 0.7);
+	}
+	
+	&-item {
+
+		p&:not(.vp-sidebar-heading)& {
+			color: var(--grey-darker);
+			text-transform: uppercase;
+			font-weight: 700 !important;
+			font-size: .75rem !important;
+		}
+
+		&.active {
+			color: var(--c-brand) !important;
+
+			&:not(p.vp-sidebar-heading) {
+				border-left-color: var(--c-brand);
+			}
+		}
+
+		&:hover {
+			color: var(--c-brand) !important;
+		}
+	}
 
 	@media @phone, @tabletOnly {
 		top: 0;
@@ -22,7 +48,12 @@
 	}
 }
 
-.navbar {
+.vp-back-to-top-button {
+	color: var(--c-brand);
+}
+	
+
+.vp-navbar {
 	display: flex;
 	align-items: center;
 	vertical-align: middle;
@@ -35,6 +66,39 @@
 
 	[data-orion-theme='dark'] & {
 		background: rgba(34, 39, 46, 0.7);
+	}
+
+	&-item {
+		&:hover {
+			color: var(--c-brand);
+		}
+
+
+		a.route-link {
+			color: var(--grey-dark);
+
+			&:hover {
+				color: var(--c-brand);
+			}
+		}
+
+
+		a.route-link-active {
+			color: var(--c-brand);
+			border-color: 2px solid var(--c-brand);
+
+
+			&::after {
+				border-left: 5px solid var(--c-brand);
+			}
+		}
+
+		> a:hover, .vp-navbar-item > a.route-link-active {
+			&:hover {
+				color: var(--c-brand);
+				border-bottom: 2px solid var(--c-brand);
+			}
+		}
 	}
 
 	.navbar-items-wrapper {
@@ -85,7 +149,7 @@
 		}
 	}
 
-	.toggle-sidebar-button {
+	.vp-toggle-sidebar-button {
 		.doc-content-wrapper--home & {
 			display: none;
 		}
@@ -94,9 +158,24 @@
 	.site-name {
 		white-space: nowrap;
 	}
+
+	&-dropdown {
+		&-item {
+			.route-link-active {
+				color: var(--c-brand);
+			}
+		}
+	}
+
+
+	&.DocSearch {
+		[data-orion-theme='dark'] & {
+			background: rgba(34, 39, 46, 0.7);
+		}
+	}
 }
 
-.toggle-sidebar-button {
+.vp-toggle-sidebar-button {
 	position: relative;
 	top: unset;
 	left: unset;
@@ -193,13 +272,13 @@
 		}
 	}
 
-	.page-nav {
+	.vp-page-nav {
 		margin-top: 2rem;
 		padding-left: 0;
 		padding-right: 0;
 	}
 
-	.page-meta {
+	.vp-page-meta {
 		padding: 0;
 		margin-top: 2rem;
 

@@ -1,40 +1,31 @@
-import { nextTick, PropType, reactive, ref, watch } from 'vue';
+import { nextTick, reactive, ref, watch } from 'vue';
 import { ChatService } from 'services/ChatService';
 import { isMac } from 'utils/tools';
 import usePluralize from 'services/PluralizeService';
 import useMonkey from 'services/MonkeyService';
 import SharedSetupService from '../../Shared/SharedSetupService';
 
-type Props = SetupProps<typeof OrionChatSetupService.props>
+export type OrionChatEmits = {(e: 'new-message', payload: Orion.Chat.NewMessage): void;}
+export type OrionChatProps = {
+	// @doc props/chat instance of the chat service
+	// @doc/fr props/chat instance du service `chat`
+	chat: ChatService,
+	// @doc props/discussionId id of the discussion
+	// @doc/fr props/discussionId id de la discussion
+	discussionId: number,
+	// @doc props/focusOnOpen focused the input field chat the chat opens
+	// @doc/fr props/focusOnOpen place le focus sur la zone de texte quand le chat s'ouvre
+	focusOnOpen?: boolean,
+	// @doc props/hideSearch hides the research field on the top of the chat
+	// @doc/fr props/hideSearch masque le champ de recherche en haut du chat
+	hideSearch?: boolean,
+};
 
-type ChatEmit = {
-  (e: 'new-message', payload: Orion.Chat.NewMessage): void;
-}
-
-export default class OrionChatSetupService extends SharedSetupService<Props> {
-	static props = {
-		// @doc props/hideSearch hides the research field on the top of the chat
-		// @doc/fr props/hideSearch masque le champ de recherche en haut du chat
-		hideSearch: Boolean,
-		// @doc props/focusOnOpen focused the input field chat the chat opens
-		// @doc/fr props/focusOnOpen place le focus sur la zone de texte quand le chat s'ouvre
-		focusOnOpen: Boolean,
-		// @doc props/chat instance of the chat service
-		// @doc/fr props/chat instance du service `chat`
-		chat: {
-			type: Object as PropType<ChatService>,
-			required: true as const,
-		},
-		// @doc props/discussionId id of the discussion
-		// @doc/fr props/discussionId id de la discussion
-		discussionId: {
-			type: Number,
-			required: true as const,
-		},
-	};
+export default class OrionChatSetupService extends SharedSetupService {
+	static readonly defaultProps = {};
 
 	private observer = null as Nullable<IntersectionObserver>;
-	protected emit: ChatEmit;
+
 	private state = reactive({
 		preventScroll: false,
 		isLoading: false,
@@ -94,9 +85,11 @@ export default class OrionChatSetupService extends SharedSetupService<Props> {
 	}
 
 
-	constructor (props: Props, emit: ChatEmit) {
-		super(props);
-		this.emit = emit;
+	constructor (
+		protected props: OrionChatProps & typeof OrionChatSetupService.defaultProps,
+		protected emits: OrionChatEmits) {
+		super();
+
 
 		watch(() => this.props.discussionId, () => {
 			nextTick(() => {
@@ -260,7 +253,7 @@ export default class OrionChatSetupService extends SharedSetupService<Props> {
 
 			await discussion.addNewMessageAsync(message);
 
-			this.emit('new-message', {
+			this.emits('new-message', {
 				message: message,
 				discussionId: discussion.id,
 			});

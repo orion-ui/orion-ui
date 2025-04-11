@@ -146,10 +146,9 @@ const privateChoices = [
 			break;
 		case 'doc':
 			await require('./scripts/private/create-lib.cjs')(options);
-			await require('./scripts/private/create-doc.cjs')(options);
+			await require('./scripts/private/create-doc.cjs').default(options);
 			break;
 		}
-
 	} catch (e) {
 		if (e === '__private-guard__') {
 			log.error(`🚨 This command can only be executed inside Orion project`);

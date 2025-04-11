@@ -13,7 +13,7 @@
 				<span
 					v-if="!setup.viewYears"
 					class="orion-date-week__header-current-year"
-					:class="{ 'disable': setup.props.disableMonthAndYear }"
+					:class="{ 'disable': disableMonthAndYear }"
 					@click="setup.showYears()">{{ setup.year }}</span>
 				<span
 					v-else
@@ -69,9 +69,15 @@
 import './OrionDateWeek.less';
 import { OrionIcon } from 'packages/Icon';
 import OrionDateWeekSetupService from './OrionDateWeekSetupService';
-type DateWeekEmit = { (e: 'update:modelValue', payload: Nil<Orion.DateRange>): void }
-const emit = defineEmits<DateWeekEmit>();
-const props = defineProps(OrionDateWeekSetupService.props);
-const setup = new OrionDateWeekSetupService(props, emit);
+import type { OrionDateWeekProps, OrionDateWeekEmits } from './OrionDateWeekSetupService';
+const emits = defineEmits<OrionDateWeekEmits>() as OrionDateWeekEmits;
+const vModel = defineModel<Undef<Orion.DateRange>>();
+const props = withDefaults(defineProps<OrionDateWeekProps>(), OrionDateWeekSetupService.defaultProps);
+const setup = new OrionDateWeekSetupService(props, emits, vModel);
 defineExpose(setup.publicInstance);
+
+/** Doc
+ * @doc vModel/vModel component's vModel
+ * @doc/fr vModel/vModel vModel du composant
+*/
 </script>

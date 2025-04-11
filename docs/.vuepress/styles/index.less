@@ -23,12 +23,42 @@ body.oriondoc {
 	overflow-x: hidden;
 	scroll-padding-top: 4.75rem;
 	background: var(--c-bg);
+
+	[data-orion-theme='dark'] & {
+		background: rgba(34, 39, 46, 0.7);
+	}
 }
 
-header.navbar {
+.external-link {
+	display: flex !important;
+	align-items: center;
+
+	&::after {
+		content: '↗';
+		display: inline-block;
+		flex-shrink: 0;
+		width: 11px;
+		height: 11px;
+		margin-top: -1px;
+		margin-left: 4px;
+		background: var(--external-link-c-icon);
+		-webkit-mask-image: var(--external-link-icon);
+		mask-image: var(--external-link-icon);
+	}
+}
+
+header.vp-navbar {
 	> span > a {
 		display: flex;
 	}
+}
+
+.vp-navbar-items-wrapper {
+	align-items: center;
+}
+
+.vp-page-nav .route-link {
+	border: unset;
 }
 
 h1,

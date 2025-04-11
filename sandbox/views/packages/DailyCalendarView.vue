@@ -34,6 +34,6 @@ const dayTasks = ref([
 		color: 'danger',
 		callback: () => {useNotif.success('task callback');},
 	},
-]);
+] as Orion.DailyCalendarTask[]);
 const selectedDay = ref(new Date());
 </script>

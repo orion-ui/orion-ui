@@ -1,29 +1,26 @@
-import { PropType, reactive, ref } from 'vue';
+import { reactive, ref } from 'vue';
 import anime from 'animejs';
-import SharedPopableSetupService, { PopableEmit } from '../../Shared/SharedPopableSetupService';
+import SharedPopableSetupService, { SharedPopableSetupServiceProps, SharedPopableSetupServiceEmits } from '../../Shared/SharedPopableSetupService';
 import orionAppService from 'utils/Orion';
-import { sleep } from 'utils/tools';
 
-type Props = SetupProps<typeof OrionModalSetupService.props>
-
-type ModalEmit = PopableEmit & {
+export type OrionModalEmits = SharedPopableSetupServiceEmits & {
 	(e: 'cancel'): void;
 	(e: 'confirm'): void;
 }
+export type OrionModalProps = SharedPopableSetupServiceProps & {
+	// @doc props/display if set, displays the component
+	// @doc/fr props/display Missing @doc
+	display?: boolean,
+	// @doc props/options options of the modal
+	// @doc/fr props/options options de la modal
+	options?: Partial<Orion.Modal.Options>,
+};
 
-export default class OrionModalSetupService extends SharedPopableSetupService<Props> {
-	static props = {
-		...SharedPopableSetupService.props,
-		// @doc props/options options of the modal
-		// @doc/fr props/options options de la modal
-		options: {
-			type: Object as PropType<Partial<Orion.Modal.Options>>,
-			default: () => {},
-		},
-	};
+export default class OrionModalSetupService extends SharedPopableSetupService {
+	static readonly defaultProps = { ...SharedPopableSetupService.defaultProps };
 
 	protected name = 'OrionModal' as const;
-	protected emit: ModalEmit;
+
 
 	readonly _prompt = ref<RefDom>();
 
@@ -50,9 +47,11 @@ export default class OrionModalSetupService extends SharedPopableSetupService<Pr
 	}
 
 
-	constructor (props: Props, emit: ModalEmit) {
-		super(props);
-		this.emit = emit;
+	constructor (
+		protected props: OrionModalProps & Omit<typeof OrionModalSetupService.defaultProps, 'options'> & {options: Partial<Orion.Popable.Options>},
+		protected emits: OrionModalEmits) {
+		super(props, emits);
+
 		Object.assign(this.options, props.options);
 	}
 
@@ -72,14 +71,14 @@ export default class OrionModalSetupService extends SharedPopableSetupService<Pr
 					easing: 'easeOutCubic',
 					begin: async () => {
 						await orionAppService.popableAnimationHooks.modalEnterStart?.(this.publicInstance);
-						this.emit('enter-start');
+						this.emits('enter-start');
 						this.trigger('enter-start');
 					},
 					complete: async () => {
 						await orionAppService.popableAnimationHooks.modalEnterEnd?.(this.publicInstance);
 						resolve();
 						this.promptAutoFocus();
-						this.emit('enter-end');
+						this.emits('enter-end');
 						this.trigger('enter-end');
 					},
 				});
@@ -94,14 +93,14 @@ export default class OrionModalSetupService extends SharedPopableSetupService<Pr
 					easing: 'easeOutCubic',
 					begin: async () => {
 						await orionAppService.popableAnimationHooks.modalLeaveStart?.(this.publicInstance);
-						this.emit('leave-start');
+						this.emits('leave-start');
 						this.trigger('leave-start');
 					},
 					complete: async () => {
 						this.state.visible = false;
 						await orionAppService.popableAnimationHooks.modalLeaveEnd?.(this.publicInstance);
 						resolve();
-						this.emit('leave-end');
+						this.emits('leave-end');
 						this.trigger('leave-end');
 					},
 				});
@@ -112,7 +111,7 @@ export default class OrionModalSetupService extends SharedPopableSetupService<Pr
 	handlePromptEnter (e: KeyboardEvent) {
 		if (this.prompt?.type === 'input' || this.prompt?.type === 'password') {
 			e.preventDefault();
-			this.emit('confirm');
+			this.emits('confirm');
 			this.trigger('confirm');
 		}
 	}

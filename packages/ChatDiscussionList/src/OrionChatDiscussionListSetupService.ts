@@ -3,24 +3,22 @@ import { nextTick, PropType, reactive, ref, watch } from 'vue';
 import useMonkey from 'services/MonkeyService';
 import SharedSetupService from '../../Shared/SharedSetupService';
 
-type Props = SetupProps<typeof OrionChatDiscussionListSetupService.props>
-type Emits = {
+export type OrionChatDiscussionListEmits = {
 	(e: 'new-discussion'): void;
 	(e: 'select-discussion', payload: number): void;
 }
 
-export default class OrionChatDiscussionListSetupService extends SharedSetupService<Props> {
-	static props = {
-		// @doc props/chat instance of the chat service
-		// @doc/fr props/chat instance du service `chat`
-		chat: {
-			type: Object as PropType<ChatService>,
-			required: true as const,
-		},
-	};
+export type OrionChatDiscussionListProps = {
+	// @doc props/chat instance of the chat service
+	// @doc/fr props/chat instance du service `chat`
+	chat: ChatService,
+};
+
+export default class OrionChatDiscussionListSetupService extends SharedSetupService {
+	static readonly defaultProps = {};
 
 	private intersectionObserver = undefined as Undef<IntersectionObserver>;
-	private emits: Emits;
+
 	private state = reactive({
 		searchTerm: undefined as Undef<string>,
 		contentHasScroll: true,
@@ -53,9 +51,8 @@ export default class OrionChatDiscussionListSetupService extends SharedSetupServ
 	}
 
 
-	constructor (props: Props, emits: Emits) {
-		super(props);
-		this.emits = emits;
+	constructor (protected props: OrionChatDiscussionListProps, protected emits: OrionChatDiscussionListEmits) {
+		super();
 
 		watch(() => this.discussions.length, () => {
 			setTimeout(this.checkContentScroll, 300);

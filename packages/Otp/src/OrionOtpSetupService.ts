@@ -1,40 +1,31 @@
 import SharedSetupService from '../../Shared/SharedSetupService';
-import { PropType, reactive, ref } from 'vue';
+import { reactive, ref } from 'vue';
 
-type Props = SetupProps<typeof OrionOtpSetupService.props>
-type Emits = {(e: 'filled', val: string): void}
+export type OrionOtpEmits = { (e: 'filled', val: string): void }
+export type OrionOtpProps = {
+	// @doc props/dataType defines the type of the code
+	// @doc/fr props/dataType definit le type du code
+	dataType?: 'number' | 'text',
+	// @doc props/readonly if set, the code will be on read-only mode
+	// @doc/fr props/readonly si défini, le code sera en mode read-only
+	readonly?: boolean,
+	// @doc props/size defines the size of the code
+	// @doc/fr props/size définit la taille du code
+	size?: number,
+	// @doc props/value the string value of the code, if it is prefilled
+	// @doc/fr props/value valeur du code sous forme de chaîne de caractères, s'il est pré-rempli
+	value?: string,
+};
+
 type Code = {[key: number]: string }
-
-export default class OrionOtpSetupService extends SharedSetupService<Props> {
-	static props = {
-		// @doc props/readonly if set, the code will be on read-only mode
-		// @doc/fr props/readonly si défini, le code sera en mode read-only
-		readonly: Boolean,
-		// @doc props/size defines the size of the code
-		// @doc/fr props/size définit la taille du code
-		size: {
-			type: Number,
-			default: 4,
-		},
-		// @doc props/dataType defines the type of the code
-		// @doc/fr props/dataType definit le type du code
-		dataType: {
-			type: String as PropType<'number' | 'text'>,
-			default: 'text',
-		},
-		// @doc props/value the string value of the code, if it is prefilled
-		// @doc/fr props/value valeur du code sous forme de chaîne de caractères, s'il est pré-rempli
-		value: {
-			type: String,
-			default: undefined,
-		},
+export default class OrionOtpSetupService extends SharedSetupService {
+	static readonly defaultProps = {
+		dataType: 'text' as OrionOtpProps['dataType'],
+		size: 4,
 	};
 
 	readonly _inputs = ref<OrionInput[]>();
 
-	tutu = ref('');
-
-	private emits: Emits;
 	private state = reactive({
 		code: {} as Code,
 		validated: false,
@@ -60,10 +51,10 @@ export default class OrionOtpSetupService extends SharedSetupService<Props> {
 	}
 
 
-	constructor (props: Props, emits: Emits) {
-		super(props);
-		this.emits = emits;
-
+	constructor (
+		protected props: OrionOtpProps & typeof OrionOtpSetupService.defaultProps,
+		protected emits: OrionOtpEmits) {
+		super();
 	}
 
 	onMounted () {

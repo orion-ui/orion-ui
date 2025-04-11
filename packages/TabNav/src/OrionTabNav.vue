@@ -8,13 +8,15 @@ import { inject } from 'vue';
 import { isDefineOrTrue } from 'utils/tools';
 import { OrionIcon } from 'packages/Icon';
 import OrionTabNavSetupService from './OrionTabNavSetupService';
+import type { OrionTabNavProps, OrionTabNavEmits } from './OrionTabNavSetupService';
+const emits = defineEmits<OrionTabNavEmits>() as OrionTabNavEmits;
+const props = withDefaults(defineProps<OrionTabNavProps>(), OrionTabNavSetupService.defaultProps);
 const _tabs = inject<OrionTabs>('_tabs');
-const props = defineProps(OrionTabNavSetupService.props);
-const setup = new OrionTabNavSetupService(props);
+const setup = new OrionTabNavSetupService(props, emits);
 defineExpose(setup.publicInstance);
 
 const jsxTabNav = () => {
-	const tabs = (setup.props.panes).map((pane) => {
+	const tabs = (props.panes).map((pane) => {
 		const icon = pane.props.icon || pane.props['font-icon']
 			? (<OrionIcon class="orion-tab-nav__icon" icon={ pane.props.icon } fontIcon={pane.props['font-icon']}/>)
 			: null;
@@ -42,11 +44,11 @@ const jsxTabNav = () => {
 				class={{
 					'orion-tab-nav': true,
 					'orion-tab-nav--disabled': isDefineOrTrue(pane.props.disabled),
-					'orion-tab-nav--active': setup.props.value === pane.props.name ||
+					'orion-tab-nav--active': props.value === pane.props.name ||
 						(_tabs?.useRouter && setup.router.currentRoute.value.name === pane.props.name),
 				}}
 				key={`orion-tab-${pane.props.name}`}
-				onClick={ (ev: MouseEvent) => setup.props.onTabClick(pane.props as unknown as OrionTabPane, ev) }>
+				onClick={ (ev: MouseEvent) => props.onTabClick(pane.props as unknown as OrionTabPane, ev) }>
 				<div class="orion-tab-nav__content">
 					{[ icon, label, marker ]}
 				</div>

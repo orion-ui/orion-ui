@@ -1,6 +1,7 @@
 import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
 import OrionLayout from './src/OrionLayout.vue';
+import type { OrionLayoutEmits, OrionLayoutProps } from './src/OrionLayoutSetupService';
 import OrionLayoutSetupService from './src/OrionLayoutSetupService';
 
 export const OrionLayoutPlugin: Plugin = {
@@ -9,4 +10,4 @@ export const OrionLayoutPlugin: Plugin = {
 	},
 };
 
-export { OrionLayout, OrionLayoutSetupService };
+export { OrionLayout, OrionLayoutSetupService, OrionLayoutEmits, OrionLayoutProps };

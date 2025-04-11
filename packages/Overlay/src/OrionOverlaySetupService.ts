@@ -4,14 +4,15 @@ import SharedSetupService from '../../Shared/SharedSetupService';
 import useOverlay from 'services/OverlayService';
 import usePopableQueueService from 'services/PopableQueueService';
 
-type Props = SetupProps<typeof OrionOverlaySetupService.props>
+export type OrionOverlayEmits = {}
+export type OrionOverlayProps = {
+	// @doc props/global defines if the overlay is fullpage
+	// @doc/fr props/global Missing @doc
+	global?: boolean,
+};
 
-export default class OrionOverlaySetupService extends SharedSetupService<Props> {
-	static props = {
-		// @doc props/global defines if the overlay is fullpage
-		// @doc props/global définit si le contraste doit être sur toute la page
-		global: Boolean,
-	};
+export default class OrionOverlaySetupService extends SharedSetupService {
+	static readonly defaultProps = {};
 
 	private state = reactive({
 		visible: false,
@@ -46,8 +47,8 @@ export default class OrionOverlaySetupService extends SharedSetupService<Props> 
 	}
 
 
-	constructor (props: Props) {
-		super(props);
+	constructor (protected props: OrionOverlayProps, protected emits: OrionOverlayEmits) {
+		super();
 
 		if (this.props.global) {
 			useOverlay().setGlobalOverlay(this.publicInstance);

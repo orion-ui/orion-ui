@@ -3,20 +3,20 @@
 		:ref="setup._el"
 		class="orion-alert"
 		:class="[
-			`orion-alert--${setup.props.color}`,
-			{ 'orion-alert--center': setup.props.center },
+			`orion-alert--${color}`,
+			{ 'orion-alert--center': center },
 		]">
 		<h5
-			v-if="setup.props.title"
+			v-if="title"
 			class="orion-alert__title">
-			{{ setup.props.title }}
+			{{ title }}
 		</h5>
 
 		<span
-			v-if="setup.props.close"
+			v-if="close"
 			class="orion-alert__close"
-			@click="$emit('close')"
-			@touchend.prevent.stop="$emit('close')"/>
+			@click="emits('close')"
+			@touchend.prevent.stop="emits('close')"/>
 
 		<div class="orion-alert__contrast">
 			<slot/>
@@ -27,9 +27,13 @@
 <script setup lang="ts">
 import './OrionAlert.less';
 import OrionAlertSetupService from './OrionAlertSetupService';
-const props = defineProps(OrionAlertSetupService.props);
-const setup = new OrionAlertSetupService(props);
-defineEmits<{(e: 'close'): void}>();
+import type { OrionAlertProps, OrionAlertEmits } from './OrionAlertSetupService';
+const emits = defineEmits<OrionAlertEmits>() as OrionAlertEmits;
+
+const props = withDefaults(defineProps<OrionAlertProps>(), OrionAlertSetupService.defaultProps);
+
+const setup = new OrionAlertSetupService(props, emits);
+
 defineExpose(setup.publicInstance);
 
 /** Doc
