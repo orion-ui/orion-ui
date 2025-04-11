@@ -11,7 +11,7 @@ import { computed, defineAsyncComponent } from 'vue';
 import { useRoute } from 'vue-router';
 
 const route = useRoute();
-const targetComponent = computed(() => defineAsyncComponent(() => import(/* @vite-ignore */ `./sandbox-${route.params.sandbox}/HomeView.vue`)));
+const targetComponent = computed(() => defineAsyncComponent(() => import(`./sandbox-${route.params.sandbox}/HomeView.vue`)));
 </script>
 
 <style scoped lang="less">

@@ -52,7 +52,9 @@
 import './OrionChatMessage.less';
 import { OrionAvatar } from 'packages/Avatar';
 import OrionChatMessageSetupService from './OrionChatMessageSetupService';
-const props = defineProps(OrionChatMessageSetupService.props);
-const setup = new OrionChatMessageSetupService(props);
+import type { OrionChatMessageProps, OrionChatMessageEmits } from './OrionChatMessageSetupService';
+const emits = defineEmits<OrionChatMessageEmits>() as OrionChatMessageEmits;
+const props = withDefaults(defineProps<OrionChatMessageProps>(), OrionChatMessageSetupService.defaultProps);
+const setup = new OrionChatMessageSetupService(props, emits);
 defineExpose(setup.publicInstance);
 </script>

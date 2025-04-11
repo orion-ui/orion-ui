@@ -1,13 +1,13 @@
 <template>
 	<div
-		v-if="setup.vModel"
+		v-if="setup.vModelProxy"
 		:ref="setup._el"
 		class="orion-date-range">
 		<orion-date-table
 			:ref="setup._start"
-			v-model="setup.vModel.start"
-			v-model:range="setup.vModel"
-			v-model:dayHover="setup.dayHover"
+			v-model="setup.vModelProxy.start"
+			v-model:range="setup.vModelProxy"
+			v-model:day-hover="setup.dayHover"
 			type="range"
 			range-start
 			disable-month-and-year
@@ -21,9 +21,9 @@
 
 		<orion-date-table
 			:ref="setup._end"
-			v-model="setup.vModel.end"
-			v-model:range="setup.vModel"
-			v-model:dayHover="setup.dayHover"
+			v-model="setup.vModelProxy.end"
+			v-model:range="setup.vModelProxy"
+			v-model:day-hover="setup.dayHover"
 			type="range"
 			range-end
 			disable-month-and-year
@@ -40,12 +40,15 @@
 import './OrionDateRange.less';
 import { OrionDateTable } from 'packages/DateTable';
 import OrionDateRangeSetupService from './OrionDateRangeSetupService';
-type DateRangeEmit = {
-	(e: 'update:modelValue', payload: Nil<Orion.DateRange>): void
-	(e: 'select-range', payload: Orion.DateRange): void
-}
-const emit = defineEmits<DateRangeEmit>();
-const props = defineProps(OrionDateRangeSetupService.props);
-const setup = new OrionDateRangeSetupService(props, emit);
+import type { OrionDateRangeProps, OrionDateRangeEmits } from './OrionDateRangeSetupService';
+const emits = defineEmits<OrionDateRangeEmits>() as OrionDateRangeEmits;
+const vModel = defineModel<Nil<Orion.DateRange>>();
+const props = withDefaults(defineProps<OrionDateRangeProps>(), OrionDateRangeSetupService.defaultProps);
+const setup = new OrionDateRangeSetupService(props, emits, vModel);
 defineExpose(setup.publicInstance);
+
+/** Doc
+ * @doc vModel/vModel component's vModel
+ * @doc/fr vModel/vModel vModel du composant
+*/
 </script>

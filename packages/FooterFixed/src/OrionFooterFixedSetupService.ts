@@ -1,23 +1,23 @@
 import { watch } from 'vue';
 import SharedSetupService from '../../Shared/SharedSetupService';
 
-type Props = SetupProps<typeof OrionFooterFixedSetupService.props>
+export type OrionFooterFixedEmits = {}
+export type OrionFooterFixedProps = {
+	// @doc props/title title of the footer
+	// @doc/fr props/title Missing @doc
+	title?: string,
+	// @doc props/visible if set, displays the footer
+	// @doc/fr props/visible si défini, affiche le composant
+	visible?: boolean,
+};
 
-export default class OrionFooterFixedSetupService extends SharedSetupService<Props> {
-	static props = {
-		// @doc props/visible if set, displays the footer
-		// @doc/fr props/visible si défini, affiche le composant
-		visible: Boolean,
-		// @doc props/title title of the footer
-		// @doc props/title titre du pied de page
-		title: {
-			type: String,
-			default: undefined,
-		},
-	};
+export default class OrionFooterFixedSetupService extends SharedSetupService {
+	static readonly defaultProps = {};
 
-	constructor (props: Props) {
-		super(props);
+	constructor (
+		protected props: OrionFooterFixedProps & typeof OrionFooterFixedSetupService.defaultProps,
+		protected emits: OrionFooterFixedEmits) {
+		super();
 
 		watch(() => this.props.visible, (val) => {
 			if (val) {

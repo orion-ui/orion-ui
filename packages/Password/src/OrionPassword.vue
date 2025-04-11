@@ -10,7 +10,7 @@
 			@clear="setup.clear()">
 			<input
 				:ref="setup._input"
-				v-model="setup.vModel"
+				v-model="vModel"
 				class="orion-input__input"
 				:type="setup.reveal ? 'text' : 'password'"
 				:disabled="disabled"
@@ -57,21 +57,17 @@ import './OrionPassword.less';
 import { OrionField } from 'packages/Field';
 import { OrionIcon } from 'packages/Icon';
 import OrionPasswordSetupService from './OrionPasswordSetupService';
-type VModelType = Nil<string>;
-type FieldEmit = {
-  (e: 'focus', payload: FocusEvent): void;
-  (e: 'blur', payload?: FocusEvent): void;
-  (e: 'input', payload: VModelType): void;
-  (e: 'change', val?: VModelType): void;
-  (e: 'update:modelValue', payload: VModelType): void;
-  (e: 'clear'): void;
-}
-const emit = defineEmits<FieldEmit>();
-const props = defineProps(OrionPasswordSetupService.props);
-const setup = new OrionPasswordSetupService(props, emit);
+import type { OrionPasswordProps, OrionPasswordEmits } from './OrionPasswordSetupService';
+const vModel = defineModel<Nil<string>>();
+const emits = defineEmits<OrionPasswordEmits>() as OrionPasswordEmits;
+const props = withDefaults(defineProps<OrionPasswordProps>(), OrionPasswordSetupService.defaultProps);
+const setup = new OrionPasswordSetupService(props, emits, vModel);
 defineExpose(setup.publicInstance);
 
 /** Doc
+ * @doc vModel/vModel component's vModel
+ * @doc/fr vModel/vModel vModel du composant
+ *
  * @doc event/focus/desc emitted on focus
  * @doc/fr event/focus/desc émis lors du focus
  *
@@ -83,9 +79,6 @@ defineExpose(setup.publicInstance);
  *
  * @doc event/change/desc emitted when the value of the field changes
  * @doc/fr event/change/desc émis lorsque la valeur est modifiée
- *
- * @doc event/update:modelValue/desc emitted to update the field value
- * @doc/fr event/update:modelValue/desc émis pour mettre à jour la valeur
  *
  * @doc event/clear/desc emitted when the field is cleared
  * @doc/fr event/clear/desc émis quand le champ est vidé

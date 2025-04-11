@@ -1,32 +1,21 @@
-import { reactive } from 'vue';
+import { ModelRef, reactive } from 'vue';
 import SharedSetupService from '../../Shared/SharedSetupService';
 import useDragNDrop from 'services/DragNDropService';
 import useMonkey from 'services/MonkeyService';
 import { toggleGlobalListener } from 'utils/tools';
 
-type Props = SetupProps<typeof OrionDraggableSetupService.props>
-type DraggableEmit = {
-	(e: 'update:disabled', payload: boolean): void;
-}
+export type OrionDraggableEmits = {}
+export type OrionDraggableProps = {
+	// @doc props/data datas of the draggable item
+	// @doc/fr props/data données de l'élément
+	data?: Orion.DndData['data'],
+	// @doc props/tag the tag or component of the draggable item
+	// @doc/fr props/tag tag ou composant qui réprésentera l'élément
+	tag?: string,
+};
 
-export default class OrionDraggableSetupService extends SharedSetupService<Props> {
-	static props = {
-		// @doc props/disabled if set, the item will not be draggable
-		// @doc/fr props/disabled si défini, l'élément ne sera pas déplaçable
-		disabled: Boolean,
-		// @doc props/tag the tag or component of the draggable item
-		// @doc/fr props/tag tag ou composant qui réprésentera l'élément
-		tag: {
-			type: String,
-			default: 'div',
-		},
-		// @doc props/data datas of the draggable item
-		// @doc/fr props/data données de l'élément
-		data: {
-			type: Object,
-			default: null,
-		},
-	};
+export default class OrionDraggableSetupService extends SharedSetupService {
+	static readonly defaultProps = { tag: 'div' };
 
 	private _droppable? : OrionDroppable;
 	private state = reactive({ isDragging: false });
@@ -44,17 +33,8 @@ export default class OrionDraggableSetupService extends SharedSetupService<Props
 
 	uid = this.getUid();
 	private __uid = this.getUid();
-	private emit: DraggableEmit;
 
 	private dnd = useDragNDrop();
-
-	get disabled () {
-		return this.props.disabled;
-	}
-
-	set disabled (val) {
-		this.emit('update:disabled', val);
-	}
 
 	get tag () {
 		return this.props.tag;
@@ -67,14 +47,19 @@ export default class OrionDraggableSetupService extends SharedSetupService<Props
 		return this.document?.getElementById(`orion-draggable-${this.uid}`);
 	}
 
-	constructor (props: Props, emit: DraggableEmit, _droppable?: OrionDroppable, _aside?: OrionAside, _modal?: OrionModal) {
-		super(props);
+	constructor (
+		protected props: OrionDraggableProps,
+		protected emits: OrionDraggableEmits,
+		protected disabled: ModelRef<boolean>,
+		_droppable?: OrionDroppable,
+		_aside?: OrionAside,
+		_modal?: OrionModal) {
+
+		super();
 
 		this._droppable = _droppable;
 		this._aside = _aside;
 		this._modal = _modal;
-		this.emit = emit;
-
 	}
 
 	startGlobalEvent () {
@@ -113,10 +98,10 @@ export default class OrionDraggableSetupService extends SharedSetupService<Props
 	};
 
 	handleMouseDown (event: MouseEvent | TouchEvent) {
-		if (!this.document || this.dnd.registry.isDragging || this.props.disabled) return;
+		if (!this.document || this.dnd.registry.isDragging || this.disabled.value) return;
 
 		this.document.body.classList.add('body--orion-dragging');
-		if (this.props.disabled) return;
+		if (this.disabled.value) return;
 		if (event instanceof MouseEvent) {
 			this.document.addEventListener('mousemove', this.handleDragStart, {
 				once: true,
@@ -131,7 +116,7 @@ export default class OrionDraggableSetupService extends SharedSetupService<Props
 	};
 
 	handleMouseUp () {
-		if (!this.document || this.props.disabled) return;
+		if (!this.document || this.disabled.value) return;
 
 		this.document.removeEventListener('mousemove', this.handleDragStart);
 		this.document.removeEventListener('touchmove', this.handleDragStart);
@@ -260,7 +245,7 @@ export default class OrionDraggableSetupService extends SharedSetupService<Props
 
 	goToInitialPlace (payload: Orion.DndData | undefined) {
 		if (payload)
-			if (payload.data.__uid === this.props.data.__uid) {
+			if (payload.data.__uid === this.props.data?.__uid) {
 				const ghost = document?.querySelector('.orion-dragging:not(.orion-draggable-clone)');
 				if (ghost) {
 					this.anchor?.parentNode?.insertBefore(ghost, this.anchor);

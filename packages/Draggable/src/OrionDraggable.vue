@@ -7,7 +7,7 @@
 		class="orion-draggable"
 		:class="{
 			'orion-dragging': setup.isDragging,
-			'orion-draggable--disabled': setup.disabled,
+			'orion-draggable--disabled': disabled,
 		}"
 		@touchstart="setup.handleMouseDown($event)"
 		@touchend="setup.handleMouseUp()"
@@ -21,20 +21,21 @@
 import { inject } from 'vue';
 import './OrionDraggable.less';
 import OrionDraggableSetupService from './OrionDraggableSetupService';
-
-type DraggableEmit = {
-	(e: 'update:disabled', payload: boolean): void;
-}
-
-const props = defineProps(OrionDraggableSetupService.props);
+import type { OrionDraggableProps, OrionDraggableEmits } from './OrionDraggableSetupService';
+const emits = defineEmits<OrionDraggableEmits>() as OrionDraggableEmits;
+const props = withDefaults(defineProps<OrionDraggableProps>(), OrionDraggableSetupService.defaultProps);
+const disabled = defineModel<boolean>('disabled', { default: false });
 const _aside = inject<OrionAside>('_aside');
 const _modal = inject<OrionAside>('_modal');
 const _droppable = inject<OrionDroppable>('_droppable');
-const emit = defineEmits<DraggableEmit>();
-const setup = new OrionDraggableSetupService(props, emit, _droppable, _aside, _modal);
+
+const setup = new OrionDraggableSetupService(props, emits, disabled, _droppable, _aside, _modal);
 defineExpose(setup.publicInstance);
 
 /** Doc
+ * @doc vModel/disabled if set, the item will not be draggable
+ * @doc/fr vModel/disabled si défini, l'élément ne sera pas déplaçable
+ *
  * @doc slot/default the content of the draggable component
  * @doc/fr slot/default contenu de l'élément
  */

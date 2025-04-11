@@ -1,46 +1,37 @@
-import { Component, reactive, ref, Slots, VNode, watch } from 'vue';
+import { Component, ModelRef, reactive, ref, Slots, VNode, watch } from 'vue';
 import SharedSetupService from '../../Shared/SharedSetupService';
 import { isDefineOrTrue } from 'utils/tools';
 import { isArray } from 'lodash-es';
+import { Private } from 'lib/private';
 
-type Props = SetupProps<typeof OrionTimelineSetupService.props>
-type TimelineEmit = {
+export type OrionTimelineEmits = {
 	(e: 'input', payload: string | number): void
 	(e: 'pill-click', ...payload: [OrionTimelinePane, MouseEvent]): void
-	(e: 'update:modelValue', payload: string | number): void
 }
 
-export default class OrionTimelineSetupService extends SharedSetupService<Props> {
-	static props = {
-		// @doc props/horizontal the orientation of the component
-		// @doc/fr props/horizontal l'orientation du composant
-		horizontal: Boolean,
-		// @doc props/scrollable displays an horizontal scroll on the timeline pills if it does not fit in its container
-		// @doc/fr props/scrollable affiche un scroll horizontal au niveau de la timeline si elle dépasse de son conteneur.
-		scrollable: Boolean,
-		// @doc props/centeredPill centers the pill and the #after slot
-		// @doc/fr props/centeredPill centre la vignette et le slot #after
-		centeredPill: Boolean,
-		// @doc props/modelValue the model value
-		// @doc/fr props/modelValue le modelValue
-		modelValue: {
-			type: [String, Number],
-			default: undefined,
-		},
-		// @doc props/loader displays a loader on the timeline
-		// @doc/fr props/loader affiche un loader sur la timeline
-		loader: {
-			type: [String, Boolean],
-			default: undefined,
-		},
-	};
+export type OrionTimelineProps = {
+	// @doc props/centeredPill centers the pill and the #after slot
+	// @doc/fr props/centeredPill centre la vignette et le slot #after
+	centeredPill?: boolean,
+	// @doc props/horizontal the orientation of the component
+	// @doc/fr props/horizontal l'orientation du composant
+	horizontal?: boolean,
+	// @doc props/loader displays a loader on the timeline
+	// @doc/fr props/loader affiche un loader sur la timeline
+	loader?: string | boolean,
+	// @doc props/scrollable displays an horizontal scroll on the timeline pills if it does not fit in its container
+	// @doc/fr props/scrollable affiche un scroll horizontal au niveau de la timeline si elle dépasse de son conteneur.
+	scrollable?: boolean,
+};
+export default class OrionTimelineSetupService extends SharedSetupService {
+	static readonly defaultProps = {};
 
 	_loader = ref<OrionLoader>();
 	private slots: Slots;
-	private emit: TimelineEmit;
+
 	private state = reactive({
-		current: this.props.modelValue,
-		panes: [] as Orion.Private.TsxTimelinePane[],
+		current: '' as Undef<number | string>,
+		panes: [] as Private.TsxTimelinePane[],
 	});
 
 	private get content () {
@@ -59,20 +50,20 @@ export default class OrionTimelineSetupService extends SharedSetupService<Props>
 		return {
 			...super.publicInstance,
 			_loader: () => this._loader.value,
-			panes: this.state.panes as Orion.Private.TsxTimelinePane[],
-			getValue: () => this.props.modelValue,
+			panes: this.state.panes as Private.TsxTimelinePane[],
+			getValue: () => this.vModel?.value,
 			getCurrent: () => this.state.current,
 			setCurrent: this.setCurrent.bind(this),
 		};
 	}
 
-
-	constructor (props: Props, slots: Slots, emit: TimelineEmit) {
-		super(props);
+	constructor (protected props: OrionTimelineProps, protected emits: OrionTimelineEmits, slots: Slots, protected vModel?: ModelRef<Undef<string | number>>) {
+		super();
+		this.state.current = vModel?.value;
 		this.slots = slots;
-		this.emit = emit;
 
-		watch(() => this.props.modelValue, (val) => {
+
+		watch(() => this.vModel?.value, (val) => {
 			if (!!val) this.setOrigin(val);
 		});
 
@@ -114,7 +105,7 @@ export default class OrionTimelineSetupService extends SharedSetupService<Props>
 				const pane = {
 					props: x.props,
 					children: x.children,
-				} as Orion.Private.TsxTimelinePane;
+				} as Private.TsxTimelinePane;
 
 				return pane;
 			}));
@@ -125,16 +116,16 @@ export default class OrionTimelineSetupService extends SharedSetupService<Props>
 		if (isDefineOrTrue(pane.disabled)) return;
 
 		this.setCurrent(pane.name);
-		this.emit('pill-click', pane, event);
+		this.emits('pill-click', pane, event);
 	}
 
-	setCurrent (name: string | number) {
+	setCurrent (name?: string | number) {
 		this.state.current = name;
 	}
 
 	private setOrigin (val: string | number) {
-		this.emit('update:modelValue', val);
-		this.emit('input', val);
+		if (this.vModel?.value)
+			this.vModel.value = val;
 		this.setCurrent(val);
 	}
 }

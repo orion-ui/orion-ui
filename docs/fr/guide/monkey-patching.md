@@ -21,8 +21,8 @@ Il est installé par défaut lorsque la librairie est utilisé entièrement, mai
 Pour que tout le monde puisse profiter des avantages de notre Monkey Patching, nous fournissons un service (ou composable) **useMonkey** qui déduit à partir du type les méthodes disponibles.
 :::
 
-:::: code-group
-::: code-group-item With MonkeyPatching
+::: code-tabs
+@tab With MonkeyPatching
 
 ```ts {5,8,12}
 import { createApp } from 'vue';
@@ -43,9 +43,7 @@ console.log(readableDate);
 // sortie -> "2022 - 09 - 05"
 ```
 
-:::
-
-::: code-group-item With useMonkey service
+@tab With useMonkey service
 
 ```ts {3,8,14-15}
 import { createApp } from 'vue';
@@ -69,4 +67,3 @@ console.log(readableDate);
 ```
 
 :::
-::::

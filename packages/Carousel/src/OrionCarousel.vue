@@ -99,19 +99,23 @@
 </template>
 
 <script setup lang="ts">
-import { useSlots, provide } from 'vue';
+import { provide } from 'vue';
 import './OrionCarousel.less';
 import OrionCarouselSetupService from './OrionCarouselSetupService';
 import OrionButton from 'packages/Button/src/OrionButton.vue';
-type Emits = {(e: 'update:modelValue', val?: number | string): void}
-const slots = useSlots();
-const emits = defineEmits<Emits>();
-const props = defineProps(OrionCarouselSetupService.props);
-const setup = new OrionCarouselSetupService(props, emits, slots);
+import type { OrionCarouselProps, OrionCarouselEmits } from './OrionCarouselSetupService';
+const slots = defineSlots();
+const vModel = defineModel<Undef<number | string>>({ required: true });
+const emits = defineEmits<OrionCarouselEmits>() as OrionCarouselEmits;
+const props = withDefaults(defineProps<OrionCarouselProps>(), OrionCarouselSetupService.defaultProps);
+const setup = new OrionCarouselSetupService(props, emits, vModel, slots);
 provide('_carousel', setup.publicInstance);
 defineExpose(setup.publicInstance);
 
 /** Doc
+ * @doc vModel/vModel refers to the active step's **name** prop
+ * @doc/fr vModel/vModel correspond à la prop **name** de l'élément actif
+ *
  * @doc slot/poster fixed placeholder no matter what slide is active
  * @doc/fr slot/poster emplacement fixe peu importe le slide actif
  * @doc slot/poster/step/type number | string | undefined

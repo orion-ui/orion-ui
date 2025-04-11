@@ -40,8 +40,10 @@
 <script setup lang="ts">
 import './OrionProgressCircle.less';
 import OrionProgressCircleSetupService from './OrionProgressCircleSetupService';
-const props = defineProps(OrionProgressCircleSetupService.props);
-const setup = new OrionProgressCircleSetupService(props);
+const emits = defineEmits<OrionProgressCircleEmits>() as OrionProgressCircleEmits;
+import type { OrionProgressCircleProps, OrionProgressCircleEmits } from './OrionProgressCircleSetupService';
+const props = withDefaults(defineProps<OrionProgressCircleProps>(), OrionProgressCircleSetupService.defaultProps);
+const setup = new OrionProgressCircleSetupService(props, emits);
 defineExpose(setup.publicInstance);
 
 /** Doc

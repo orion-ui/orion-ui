@@ -4,7 +4,7 @@ import { filename } from 'pathe/utils';
 export class DynamicFlagService {
 
 	readonly glob = import.meta.glob('assets/flag/*.svg', { eager: true });
-	readonly flags = Object.fromEntries(Object.entries(this.glob).map(([key, value]) => [filename(key), value.default]));
+	readonly flags = Object.fromEntries(Object.entries(this.glob).map(([key, value]) => [filename(key), (value as any).default]));
 
 
 	getImageFromSlug (slug: CountryCode) {

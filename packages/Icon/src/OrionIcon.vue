@@ -3,15 +3,15 @@
 		:ref="setup._el"
 		class="orion-icon icon"
 		:class="[
-			setup.props.loading ? null : `${setup.props.icon ? `ci-${setup.props.icon}` : ``} ${setup.props.fontIcon ?? ``}`,
-			setup.props.ripple ? `orion-icon--ripple orion-icon--ripple-${setup.props.ripple}` : '',
-			setup.props.button ? `orion-icon--button orion-icon--button-${setup.props.button}` : '',
+			loading ? null : `${icon ? `ci-${icon}` : ``} ${fontIcon ?? ``}`,
+			ripple ? `orion-icon--ripple orion-icon--ripple-${ripple}` : '',
+			button ? `orion-icon--button orion-icon--button-${button}` : '',
 			{ 'orion-icon--clickable': setup.isClickable },
 		]"
 		@click="setup.handleClick($event)"
 		@touchend="setup.handleClick($event)">
 		<svg
-			v-if="setup.props.loading"
+			v-if="loading"
 			:ref="setup._elSpinner"
 			class="orion-icon__loading"
 			xmlns="http://www.w3.org/2000/svg"
@@ -72,25 +72,25 @@
 			</g>
 		</svg>
 		<span
-			v-if="setup.props.ripple"
+			v-if="ripple"
 			:ref="setup._elRipple"
 			class="orion-icon__ripple">
 			<span class="ripple__wave"/>
 		</span>
 		<span
-			v-if="setup.props.button"
+			v-if="button"
 			class="orion-icon__button"/>
 		<span
-			v-if="setup.props.marker"
+			v-if="marker"
 			class="orion-icon__marker"
 			:class="[
-				`orion-icon__marker--${setup.props.markerColor}`,
-				{ 'orion-icon__marker--number': typeof setup.props.marker === 'number' },
+				`orion-icon__marker--${markerColor}`,
+				{ 'orion-icon__marker--number': typeof marker === 'number' },
 				{ 'orion-icon__marker--clickable': !!setup.onMarkerClick },
 				setup.positionClass,
 			]"
 			@click="setup.handleMarkerClick($event)">
-			{{ typeof setup.props.marker === 'number' ? setup.props.marker : null }}
+			{{ typeof marker === 'number' ? marker : null }}
 		</span>
 	</i>
 </template>
@@ -99,10 +99,12 @@
 import { useAttrs } from 'vue';
 import './OrionIcon.less';
 import OrionIconSetupService from './OrionIconSetupService';
+import type { OrionIconProps, OrionIconEmits } from './OrionIconSetupService';
 const attrs = useAttrs();
-const props = defineProps(OrionIconSetupService.props);
-const setup = new OrionIconSetupService(props, attrs);
-defineEmits<{(e: 'marker-click'): void}>();
+const emits = defineEmits<OrionIconEmits>() as OrionIconEmits;
+const props = withDefaults(defineProps<OrionIconProps>(), OrionIconSetupService.defaultProps);
+const setup = new OrionIconSetupService(props, emits, attrs);
+
 defineExpose(setup.publicInstance);
 
 /** Doc

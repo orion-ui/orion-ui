@@ -18,7 +18,7 @@
 		:disabled="disabled || loading"
 		:autofocus="autofocus"
 		@click.left="setup.visualClick($event)"
-		@click="$emit('click', $event)">
+		@click="emits('click', $event)">
 		<orion-icon
 			v-if="prefixIcon || prefixFontIcon || loading"
 			class="orion-button__icon orion-button__icon--prefix"
@@ -46,9 +46,10 @@
 import './OrionButton.less';
 import { OrionIcon } from 'packages/Icon';
 import OrionButtonSetupService from './OrionButtonSetupService';
-const props = defineProps(OrionButtonSetupService.props);
-const setup = new OrionButtonSetupService(props);
-defineEmits<{(e: 'click', event: MouseEvent): void }>();
+import type { OrionButtonProps, OrionButtonEmits } from './OrionButtonSetupService';
+const emits = defineEmits<OrionButtonEmits>() as OrionButtonEmits;
+const props = withDefaults(defineProps<OrionButtonProps>(), OrionButtonSetupService.defaultProps);
+const setup = new OrionButtonSetupService(props, emits);
 defineExpose(setup.publicInstance);
 
 /** Doc

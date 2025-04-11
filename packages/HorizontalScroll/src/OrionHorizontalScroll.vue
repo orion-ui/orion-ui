@@ -84,8 +84,10 @@
 import './OrionHorizontalScroll.less';
 import { OrionIcon } from 'packages/Icon';
 import OrionHorizontalScrollSetupService from './OrionHorizontalScrollSetupService';
-const props = defineProps(OrionHorizontalScrollSetupService.props);
-const setup = new OrionHorizontalScrollSetupService(props);
+const emits = defineEmits<OrionHorizontalScrollEmits>() as OrionHorizontalScrollEmits;
+import type { OrionHorizontalScrollProps, OrionHorizontalScrollEmits } from './OrionHorizontalScrollSetupService';
+const props = withDefaults(defineProps<OrionHorizontalScrollProps>(), OrionHorizontalScrollSetupService.defaultProps);
+const setup = new OrionHorizontalScrollSetupService(props, emits);
 
 /** Doc
  * @doc slot/default The content of the scroll

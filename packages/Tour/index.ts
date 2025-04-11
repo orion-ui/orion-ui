@@ -1,6 +1,7 @@
 import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
 import OrionTour from './src/OrionTour.vue';
+import type { OrionTourEmits, OrionTourProps } from './src/OrionTourSetupService';
 import OrionTourSetupService from './src/OrionTourSetupService';
 
 export const OrionTourPlugin: Plugin = {
@@ -9,4 +10,4 @@ export const OrionTourPlugin: Plugin = {
 	},
 };
 
-export { OrionTour, OrionTourSetupService };
+export { OrionTour, OrionTourSetupService, OrionTourEmits, OrionTourProps };

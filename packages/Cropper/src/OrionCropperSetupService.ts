@@ -1,58 +1,44 @@
 import { Cropper } from 'vue-advanced-cropper';
 import SharedSetupService from '../../Shared/SharedSetupService';
-import { PropType, reactive, ref } from 'vue';
+import { reactive, ref } from 'vue';
 import { throttle } from 'lodash-es';
 
-type Props = SetupProps<typeof OrionCropperSetupService.props>
+export type OrionCropperEmits = {}
+export type OrionCropperProps = {
+	// @doc props/circle define if the shape of the cropper is a circle (otherwise a square)
+	// @doc/fr props/circle définit si le recadrage prend la forme d'unn cercle (un rectangle sinon)
+	circle?: boolean,
+	// @doc props/cropHeight the height of the cropped image
+	// @doc/fr props/cropHeight la hauteur de l'image recadrée
+	cropHeight?: number,
+	// @doc props/cropWidth the width of the cropped image
+	// @doc/fr props/cropWidth la largeur de l'image recadrée
+	cropWidth?: number,
+	// @doc props/file the file
+	// @doc/fr props/file le fichier à recadrer
+	file?: File,
+	// @doc props/options options of the cropper
+	// @doc/fr props/options les options du cropper
+	options?: Object,
+	// @doc props/zoomMax the maximum zoom
+	// @doc/fr props/zoomMax le zoom maximum
+	zoomMax?: number,
+	// @doc props/zoomMin the minimal zoom
+	// @doc/fr props/zoomMin le zoom minimum
+	zoomMin?: number,
+	// @doc props/zoomStep the step of the zoom
+	// @doc/fr props/zoomStep le pas du zoom
+	zoomStep?: number,
+};
 type CropperType = InstanceType<typeof Cropper> & { coefficient: number };
 
-export default class OrionCropperSetupService extends SharedSetupService<Props> {
-	static props = {
-		// @doc props/circle define if the shape of the cropper is a circle (otherwise a square)
-		// @doc/fr props/circle définit si le recadrage prend la forme d'unn cercle (un rectangle sinon)
-		circle: Boolean,
-		// @doc props/file the file
-		// @doc/fr props/file le fichier à recadrer
-		file: {
-			type: Object as PropType<File>,
-			default: undefined,
-		},
-		// @doc props/zoomMin the minimal zoom
-		// @doc/fr props/zoomMin le zoom minimum
-		zoomMin: {
-			type: Number,
-			default: 0.01,
-		},
-		// @doc props/zoomMax the maximum zoom
-		// @doc/fr props/zoomMax le zoom maximum
-		zoomMax: {
-			type: Number,
-			default: 3,
-		},
-		// @doc props/zoomStep the step of the zoom
-		// @doc/fr props/zoomStep le pas du zoom
-		zoomStep: {
-			type: Number,
-			default: 0.01,
-		},
-		// @doc props/options options of the cropper
-		// @doc/fr props/options les options du cropper
-		options: {
-			type: Object,
-			default: undefined,
-		},
-		// @doc props/cropHeight the height of the cropped image
-		// @doc/fr props/cropHeight la hauteur de l'image recadrée
-		cropHeight: {
-			type: Number,
-			default: 300,
-		},
-		// @doc props/cropWidth the width of the cropped image
-		// @doc/fr props/cropWidth la largeur de l'image recadrée
-		cropWidth: {
-			type: Number,
-			default: 300,
-		},
+export default class OrionCropperSetupService extends SharedSetupService {
+	static readonly defaultProps = {
+		cropHeight: 300,
+		cropWidth: 300,
+		zoomMax: 3,
+		zoomMin: 0.01,
+		zoomStep: 0.01,
 	};
 
 	_cropper = ref<CropperType>();
@@ -101,8 +87,10 @@ export default class OrionCropperSetupService extends SharedSetupService<Props> 
 	}
 
 
-	constructor (props: Props) {
-		super(props);
+	constructor (
+		protected props: OrionCropperProps & typeof OrionCropperSetupService.defaultProps,
+		protected emits: OrionCropperEmits) {
+		super();
 	}
 
 	protected async onBeforeMount () {

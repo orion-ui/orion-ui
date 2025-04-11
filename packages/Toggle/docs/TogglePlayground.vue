@@ -21,21 +21,31 @@
 	</div>
 
 	<div class="row row--grid row--toggles">
-		<div class="col-sm-4">
+		<div class="col-sm-3">
 			<o-toggle
 				v-model="state.inline"
 				label="inline"/>
 		</div>
-		<div class="col-sm-4">
+		<div class="col-sm-3">
 			<o-toggle
 				v-model="state.reverse"
 				label="reverse"/>
+		</div>
+		<div class="col-sm-3">
+			<o-toggle
+				v-model="state.readonly"
+				label="readonly"/>
+		</div>
+		<div class="col-sm-3">
+			<o-toggle
+				v-model="state.disabled"
+				label="disabled"/>
 		</div>
 	</div>
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { reactive, readonly } from 'vue';
 
 const state = reactive({
 	value: true,
@@ -43,6 +53,8 @@ const state = reactive({
 	color: 'info' as Orion.Color,
 	inline: true,
 	reverse: false,
+	disabled: false,
+	readonly: false,
 	size: 'md' as Orion.Size,
 });
 </script>

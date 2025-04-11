@@ -1,6 +1,7 @@
 import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
 import OrionDroppable from './src/OrionDroppable.vue';
+import type { OrionDroppableEmits, OrionDroppableProps } from './src/OrionDroppableSetupService';
 import OrionDroppableSetupService from './src/OrionDroppableSetupService';
 
 export const OrionDroppablePlugin: Plugin = {
@@ -9,4 +10,4 @@ export const OrionDroppablePlugin: Plugin = {
 	},
 };
 
-export { OrionDroppable, OrionDroppableSetupService };
+export { OrionDroppable, OrionDroppableSetupService, OrionDroppableEmits, OrionDroppableProps };

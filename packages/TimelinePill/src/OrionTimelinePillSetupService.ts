@@ -1,32 +1,21 @@
-import { PropType } from 'vue';
+import { Private } from 'lib/private';
 import SharedSetupService from '../../Shared/SharedSetupService';
 
-type Props = SetupProps<typeof OrionTimelinePillSetupService.props>
+export type OrionTimelinePillEmits = {}
+export type OrionTimelinePillProps = {
+	disabled?: boolean,
+	centeredPill?: boolean,
+	scrollable?: boolean,
+	value?: string | number,
+	current?: string | number,
+	panes?: Private.TsxTimelinePane[],
+	onPillClick: (...val: [Private.TsxTimelinePane['props'], MouseEvent]) => void,
+}
 
-export default class OrionTimelinePillSetupService extends SharedSetupService<Props> {
-	static props = {
-		disabled: Boolean,
-		centeredPill: Boolean,
-		scrollable: Boolean,
-		value: {
-			type: [String, Number],
-			default: undefined,
-		},
-		current: {
-			type: [String, Number],
-			default: undefined,
-		},
-		panes: {
-			type: Array as PropType<Orion.Private.TsxTimelinePane[]>,
-			default: () => [],
-		},
-		onPillClick: {
-			type: Function as PropType<(...val: [OrionTimelinePane, MouseEvent]) => void>,
-			required: true as const,
-		},
-	};
+export default class OrionTimelinePillSetupService extends SharedSetupService {
+	static readonly defaultProps = { panes: () => [] as Private.TsxTimelinePane[] };
 
-	constructor (props: Props) {
-		super(props);
+	constructor (protected props: OrionTimelinePillProps, protected emits: OrionTimelinePillEmits) {
+		super();
 	}
 }

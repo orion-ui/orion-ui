@@ -1,7 +1,5 @@
-import MardownIt from "markdown-it";
+import MardownIt, { Renderer, Token } from "markdown-it";
 import mdContainer from 'markdown-it-container'
-import type Token from 'markdown-it/lib/token'
-import type Renderer from 'markdown-it/lib/renderer'
 import { App } from "vuepress";
 import globalTypesDocData from '../../global-types-doc-data';
 

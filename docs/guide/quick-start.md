@@ -7,19 +7,22 @@ pageClass: 'no-toc'
 # Quick Start
 
 ## Create a new project
+
 If you want a fresh start you can use **Orion CLI** to scafflod a **new clean project**.\
 Go to the [Creating a new project section](installation.md#creating-a-new-project) of the [installation page](installation.md).
 
 ## Installation in an existing project
+
 If you're not familiar with **npm** you can refer to the [installation page](installation.md).\
 If you want to install **Orion** in an **existing project**, follow below steps.
 
-``` sh:no-line-numbers
+```sh:no-line-numbers
 npm install --save @orion.ui/orion
 ```
 
-:::: code-group
-::: code-group-item Full library
+::: code-tabs
+@tab Full library
+
 ```ts {4,5,6,9}
 import { createApp } from 'vue';
 import App from './App.vue';
@@ -28,13 +31,11 @@ import Orion from '@orion.ui/orion'; // Import library
 import '@orion.ui/orion/dist/style.css'; // Import styles
 import '@orion.ui/orion/dist/monkey-patching'; // Import Monkey Patching definition file
 
-createApp(App)
-  .use(Orion)
-  .mount('#app');
+createApp(App).use(Orion).mount('#app');
 ```
-:::
 
-::: code-group-item With options
+@tab With options
+
 ```ts{8-12}
 import { createApp } from 'vue';
 import App from './App.vue';
@@ -50,8 +51,8 @@ createApp(App)
   } as Orion.Config)
   .mount('#app')
 ```
+
 :::
-::::
 
 ## Configuration options
 

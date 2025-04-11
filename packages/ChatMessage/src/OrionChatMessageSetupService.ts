@@ -1,32 +1,23 @@
-import { PropType } from 'vue';
 import OrionChatEntity from '../../Chat/src/OrionChatEntity';
 import SharedSetupService from '../../Shared/SharedSetupService';
 import OrionChatMessageEntity from './OrionChatMessageEntity';
 import { ChatService } from '../../../services/ChatService';
 
-type Props = SetupProps<typeof OrionChatMessageSetupService.props>
+export type OrionChatMessageEmits = {}
+export type OrionChatMessageProps = {
+	// @doc props/chat instance of the chat
+	// @doc/fr props/chat instance du service `chat`
+	chat: ChatService,
+	// @doc props/discussion the discussion related to the message
+	// @doc/fr props/discussion discussion relative au message
+	discussion: OrionChatEntity,
+	// @doc props/message message object
+	// @doc/fr props/message Objet représentant le message
+	message: OrionChatMessageEntity,
+};
 
-export default class OrionChatMessageSetupService extends SharedSetupService<Props> {
-	static props = {
-		// @doc props/message message object
-		// @doc/fr props/message Objet représentant le message
-		message: {
-			type: Object as PropType<OrionChatMessageEntity>,
-			required: true as const,
-		},
-		// @doc props/discussion the discussion related to the message
-		// @doc/fr props/discussion discussion relative au message
-		discussion: {
-			type: Object as PropType<OrionChatEntity>,
-			required: true as const,
-		},
-		// @doc props/chat instance of the chat
-		// @doc/fr props/chat instance du service `chat`
-		chat: {
-			type: Object as PropType<ChatService>,
-			required: true as const,
-		},
-	};
+export default class OrionChatMessageSetupService extends SharedSetupService {
+	static readonly defaultProps = {};
 
 	get message () {
 		return this.props.message;
@@ -36,8 +27,7 @@ export default class OrionChatMessageSetupService extends SharedSetupService<Pro
 		return this.props.chat.config.allowMessageStatus;
 	}
 
-
-	constructor (props: Props) {
-		super(props);
+	constructor (protected props: OrionChatMessageProps, protected emits: OrionChatMessageEmits) {
+		super();
 	}
 }

@@ -62,10 +62,11 @@ class PackagesIndexFactory {
 	}
 
 	async createPackageDtsFile () {
-		const importTemplate = `import { Orion{ComponentName}SetupService } from '../packages/index';`;
+		const importTemplate = `import { Orion{ComponentName}SetupService, Orion{ComponentName}Props, Orion{ComponentName}Emits } from '../packages/index';`;
 		const declarationTemplate = `type Orion{ComponentName} = InstanceType<typeof Orion{ComponentName}SetupService>['publicInstance'];
 	namespace Orion{ComponentName} {
-		type Props = ExtractPropTypes<typeof Orion{ComponentName}SetupService.props>
+		type Props = Orion{ComponentName}Props
+		type Emits = Orion{ComponentName}Emits
 	}`;
 
 		let content = await readFile(path.resolve(__dirname, 'templates/packages.d.tstemplate'), { encoding: 'utf-8' });

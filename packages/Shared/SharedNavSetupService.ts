@@ -6,7 +6,7 @@ type ItemTemplateData = {
 	class: string[];
 }
 
-export default abstract class SharedNavSetupService<P> extends SharedSetupService<P> {
+export default abstract class SharedNavSetupService extends SharedSetupService {
 	abstract baseClass: string;
 	abstract get items (): Orion.NavItem[];
 
@@ -16,8 +16,8 @@ export default abstract class SharedNavSetupService<P> extends SharedSetupServic
 	}
 
 
-	constructor (props?: P) {
-		super(props);
+	constructor () {
+		super();
 	}
 
 

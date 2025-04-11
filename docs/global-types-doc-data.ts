@@ -97,6 +97,11 @@ const globalTypesDocData = {
 		'description': '\'date\' | \'range\' | \'multiple\' | \'month\'; \n',
 	}, {
 		'ns': 'Orion',
+		'type': 'ListLayout',
+		'generic': '',
+		'description': '\'grid\' | \'row\'; \n',
+	}, {
+		'ns': 'Orion',
 		'type': 'Phone',
 		'generic': '',
 		'description': '{ \n\t\t\tphoneNumber?: Nil<string>; \n\t\t\tphoneCountryCode?: Nil<Orion.Country[\'code\']>; \n\t\t} \n',
@@ -138,8 +143,8 @@ const globalTypesDocData = {
 	}, {
 		'ns': 'Orion',
 		'type': 'List',
-		'generic': 'T',
-		'description': 'Omit<OrionList.Props, \'list\' | \'selected\'> & { \n\t\t\tlist: T[]; \n\t\t\tselected?: T[]; \n\t\t} \n',
+		'generic': 'T extends Record<string, any>',
+		'description': 'Omit<OrionListProps<T>, \'list\' | \'selected\'> & { \n\t\t\tlist: T[]; \n\t\t\tselected?: T[]; \n\t\t} \n',
 	}, {
 		'ns': 'Orion',
 		'type': 'ListPage',
@@ -234,7 +239,7 @@ const globalTypesDocData = {
 		'ns': 'Orion.Chat',
 		'type': 'User',
 		'generic': '',
-		'description': '{ \n\t\t\t\tid: number; \n\t\t\t\tname: string; \n\t\t\t\tavatar: string; \n\t\t\t\tavatarProps?: Record<string, any>; \n\t\t\t}; \n',
+		'description': '{ \n\t\t\t\tid: number; \n\t\t\t\tname: string; \n\t\t\t\tavatar: string; \n\t\t\t\tavatarProps?: Partial<OrionAvatarProps>; \n\t\t\t}; \n',
 	}, {
 		'ns': 'Orion.Chat',
 		'type': 'Discussion',
@@ -250,6 +255,13 @@ const globalTypesDocData = {
 		'type': 'NewMessage',
 		'generic': '',
 		'description': '{ \n\t\t\t\tmessage: string; \n\t\t\t\tdiscussionId: number; \n\t\t\t}',
+	}],
+
+	'Orion.Tour': [{
+		'ns': 'Orion.Tour',
+		'type': 'TourObject',
+		'generic': '',
+		'description': '{ \n\t\t\t\tlabel?: string, \n\t\t\t\tcallback?: () => any; \n\t\t\t\tclean?: () => any \n\t\t\t}',
 	}],
 
 	'Orion.Validation': [{
@@ -276,31 +288,21 @@ const globalTypesDocData = {
 		'description': '{ \n\t\t\t\tresult: boolean \n\t\t\t\tlevel: \'warning\' | \'error\' \n\t\t\t\tmessage?: string \n\t\t\t\tmeta?: any, \n\t\t\t}',
 	}],
 
-	'Orion.Private': [{
-		'ns': 'Orion.Private',
-		'type': 'Number',
-		'generic': '',
-		'description': '0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9; \n',
-	}, {
-		'ns': 'Orion.Private',
-		'type': 'Letter',
-		'generic': '',
-		'description': '\'a\' | \'b\' | \'c\' | \'d\' | \'e\' | \'f\' | \'g\' | \'h\' | \'i\' \n\t\t\t\t| \'j\' | \'k\' | \'l\' | \'m\' | \'n\' | \'o\' | \'p\' | \'q\' | \'r\' \n\t\t\t\t| \'s\' | \'t\' | \'u\' | \'v\' | \'w\' | \'x\' | \'y\' | \'z\'; \n',
-	}, {
-		'ns': 'Orion.Private',
+	'Private': [{
+		'ns': 'Private',
 		'type': 'TsxTabPane',
 		'generic': '',
-		'description': '{ \n\t\t\t\tprops: OrionTabPane.Props & { \n\t\t\t\t\t\'font-icon\': string; \n\t\t\t\t\t\'marker-color\': string; \n\t\t\t\t}; \n\t\t\t\tchildren: { \n\t\t\t\t\tdefault: Slot; \n\t\t\t\t\tlabel?: Slot; \n\t\t\t\t}; \n\t\t\t} \n',
+		'description': '{ \n\t\tprops: OrionTabPane.Props & { \n\t\t\t\'font-icon\': string; \n\t\t\t\'marker-color\': string; \n\t\t}; \n\t\tchildren: { \n\t\t\tdefault: Slot; \n\t\t\tlabel?: Slot; \n\t\t}; \n\t} \n',
 	}, {
-		'ns': 'Orion.Private',
+		'ns': 'Private',
 		'type': 'TsxTimelinePane',
 		'generic': '',
-		'description': '{ \n\t\t\t\tprops: OrionTimelinePane.Props & { \n\t\t\t\t\t\'font-icon\': string; \n\t\t\t\t\t\'marker-color\': string; \n\t\t\t\t\t\'centered-pill\': string; \n\t\t\t\t}; \n\t\t\t\tchildren: { \n\t\t\t\t\tdefault: Slot; \n\t\t\t\t\tafter?: Slot; \n\t\t\t\t\tbefore?: Slot; \n\t\t\t\t}; \n\t\t\t} \n',
+		'description': '{ \n\t\tprops: OrionTimelinePaneProps & { \n\t\t\t\'font-icon\': string; \n\t\t\t\'marker-color\': string; \n\t\t\t\'centered-pill\': string; \n\t\t}; \n\t\tchildren: { \n\t\t\tdefault: Slot; \n\t\t\tafter?: Slot; \n\t\t\tbefore?: Slot; \n\t\t}; \n\t} \n',
 	}, {
-		'ns': 'Orion.Private',
+		'ns': 'Private',
 		'type': 'TsxTourStep',
 		'generic': '',
-		'description': '{ \n\t\t\t\tprops : OrionTourStep.Props \n\t\t\t}',
+		'description': '{ \n\t\tprops : OrionTourStep.Props \n\t}',
 	}],
 };
 

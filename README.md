@@ -1,3 +1,5 @@
+[![Build & Publish for production](https://github.com/orion-ui/orion-ui/actions/workflows/build-publish-production.yml/badge.svg)](https://github.com/orion-ui/orion-ui/actions/workflows/build-publish-production.yml)
+
 ![Orion UI](https://repository-images.githubusercontent.com/616359964/fad1ee21-1781-452f-843d-43af9eda0802)
 
 # Orion - Another simple yet powerful UI framework
@@ -27,14 +29,9 @@ import '@orion.ui/orion/dist/style.css';
 // Import Monkey Patching definition file (if you chose to use our monkeyPatching)
 import '@orion.ui/orion/dist/monkey-patching';
 
-createApp(App)
-  .use(Orion)
-  .mount('#app');
-
+createApp(App).use(Orion).mount('#app');
 ```
 
-## License 
+## License
 
 [MIT](https://opensource.org/licenses/MIT) Copyright (c) 2023-present Orion UI
-
-

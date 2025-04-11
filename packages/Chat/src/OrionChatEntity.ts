@@ -3,7 +3,7 @@ import { groupBy } from 'lodash-es';
 import { Reactive } from 'utils/decorators';
 import useMonkey from 'services/MonkeyService';
 
-import SharedEntity from 'packages/Shared/SharedEntity';
+import SharedEntity from '../../Shared/SharedEntity';
 import OrionChatMessageEntity from '../../ChatMessage/src/OrionChatMessageEntity';
 import type { ChatService } from '../../../services/ChatService';
 

@@ -1,12 +1,27 @@
-import { PropType, reactive, watch } from 'vue';
+import { ModelRef, reactive, watch } from 'vue';
 import { debounce, DebouncedFunc } from 'lodash-es';
-import SharedFieldSetupService, { FieldEmit } from '../../Shared/SharedFieldSetupService';
+import SharedFieldSetupService, { SharedFieldSetupServiceProps, SharedFieldSetupServiceEmits } from '../../Shared/SharedFieldSetupService';
 
-type Props = SetupProps<typeof OrionColorPickerSetupService.props>
-
-type ColorPickerEmit = FieldEmit<string> & {
+export type OrionColorPickerEmits = SharedFieldSetupServiceEmits<Nil<string>> & {
 	(e: 'picked', payload: ColorValue): void;
 }
+export type OrionColorPickerProps = SharedFieldSetupServiceProps & {
+	// @doc props/debounce the debounce interval
+	// @doc/fr props/debounce définits la durée selon laquelle la valeur va se mettre à jour
+	debounce?: number,
+	// @doc props/format the format of the color definition
+	// @doc/fr props/format format de la couleur
+	format?: ColorFormat,
+	// @doc props/hideHex hides the hexadecimal value
+	// @doc/fr props/hideHex masque la valeur hexadécimale
+	hideHex?: boolean,
+	// @doc props/hideRgba hides the rgba value
+	// @doc/fr props/hideRgba masque la valeur rgba
+	hideRgba?: boolean,
+	// @doc props/startValue the default value
+	// @doc/fr props/startValue la valeur par défaut
+	startValue?: string,
+};
 
 type ColorFormat = 'rgba' | 'hsv' | 'hex';
 
@@ -25,37 +40,14 @@ type ColorValue = {
   hex: string;
 }
 
-export default class OrionColorPickerSetupService extends SharedFieldSetupService<Props, string> {
-	static props = {
-		...SharedFieldSetupService.props,
-		// @doc props/hideHex hides the hexadecimal value
-		// @doc/fr props/hideHex masque la valeur hexadécimale
-		hideHex: Boolean,
-		// @doc props/hideRgba hides the rgba value
-		// @doc/fr props/hideRgba masque la valeur rgba
-		hideRgba: Boolean,
-		// @doc props/startValue the default value
-		// @doc/fr props/startValue la valeur par défaut
-		startValue: {
-			type: String,
-			default: undefined,
-		},
-		// @doc props/format the format of the color definition
-		// @doc/fr props/format format de la couleur
-		format: {
-			type: String as PropType<ColorFormat>,
-			default: 'hex',
-			validator: (val: string) => ['hex', 'rgba', 'hsl'].includes(val),
-		},
-		// @doc props/debounce the debounce interval
-		// @doc/fr props/debounce définits la durée selon laquelle la valeur va se mettre à jour
-		debounce: {
-			type: Number,
-			default: 300,
-		},
+export default class OrionColorPickerSetupService extends SharedFieldSetupService<OrionColorPickerProps, string> {
+	static readonly defaultProps = {
+		...SharedFieldSetupService.defaultProps,
+		debounce: 300,
+		format: 'hex' as ColorFormat,
 	};
 
-	protected emit: ColorPickerEmit;
+
 	protected state = reactive({
 		...this.sharedState,
 		color: '',
@@ -68,10 +60,12 @@ export default class OrionColorPickerSetupService extends SharedFieldSetupServic
 		return this.state.color;
 	}
 
+	constructor (
+		protected props: OrionColorPickerProps & typeof OrionColorPickerSetupService.defaultProps,
+		protected emits: OrionColorPickerEmits,
+		protected vModel: ModelRef<Nil<string>>) {
+		super(props, emits, vModel);
 
-	constructor (props: Props, emit: ColorPickerEmit) {
-		super(props, emit);
-		this.emit = emit;
 		this.changeColor = this.init();
 
 		watch(() => this.props.debounce, () => this.changeColor = this.init());
@@ -82,7 +76,7 @@ export default class OrionColorPickerSetupService extends SharedFieldSetupServic
 	}
 
 	protected async onBeforeMount () {
-		this.state.color = this.props.startValue ?? this.vModel ?? '';
+		this.state.color = this.props.startValue ?? this.vModel?.value ?? '';
 	}
 
 
@@ -102,8 +96,9 @@ export default class OrionColorPickerSetupService extends SharedFieldSetupServic
 				this.state.color = pickedColor.hex;
 			}
 
-			this.vModel = this.state.color;
-			this.emit('picked', pickedColor);
+			if (this.vModel?.value)
+				this.vModel.value = this.state.color;
+			this.emits('picked', pickedColor);
 		}, this.props.debounce);
 	}
 }

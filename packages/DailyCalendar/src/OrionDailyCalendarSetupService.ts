@@ -1,40 +1,25 @@
 import SharedSetupService from '../../Shared/SharedSetupService';
-import { nextTick, PropType, reactive, ref, watch } from 'vue';
+import { ModelRef, nextTick, reactive, ref, watch } from 'vue';
 import { cloneDeep } from 'lodash-es';
 import useMonkey from 'services/MonkeyService';
 import { useLang } from 'services';
 
-type Props = SetupProps<typeof OrionDailyCalendarSetupService.props>
-type DailyCalendarEmit = {
-	(e: 'update:date', payload: Date): void;
-}
-
-export default class OrionDailyCalendarSetupService extends SharedSetupService<Props> {
-	static props = {
-		// @doc props/date the selected date.
-		// @doc/fr props/date la date sélectionnée.
-		date: {
-			type: Date,
-			default: null,
-		},
-		// @doc props/range hour range displayed.
-		// @doc/fr props/range la plage horaire affichée.
-		range: {
-			type: Array as PropType<number[]>,
-			default: () => ([
-				8,
-				18,
-			]),
-		},
-		// @doc props/dayTasks tasks array
-		// @doc/fr props/dayTasks le tableau de qui contient les tâches du jour
-		dayTasks: {
-			type: Array as PropType<Orion.DailyCalendarTask[]>,
-			default: null,
-		},
+export type OrionDailyCalendarEmits = {}
+export type OrionDailyCalendarProps = {
+	// @doc props/dayTasks tasks array
+	// @doc/fr props/dayTasks le tableau de qui contient les tâches du jour
+	dayTasks?: Orion.DailyCalendarTask[],
+	// @doc props/range hour range displayed.
+	// @doc/fr props/range la plage horaire affichée.
+	range?: number[],
+};
+export default class OrionDailyCalendarSetupService extends SharedSetupService {
+	static readonly defaultProps = {
+		range: () => ([
+			8,
+			18,
+		]),
 	};
-
-	protected emit: DailyCalendarEmit;
 
 	_calendar = ref<RefDom>();
 
@@ -46,10 +31,6 @@ export default class OrionDailyCalendarSetupService extends SharedSetupService<P
 		elementsAreHidden: false as Nullable<boolean>,
 	});
 
-	get date () {
-		return this.props.date;
-	}
-
 	get hourNow () { return this.state.hourNow; }
 	set hourNow (val) { this.state.hourNow = val; }
 
@@ -60,17 +41,16 @@ export default class OrionDailyCalendarSetupService extends SharedSetupService<P
 	set elementsAreHidden (val) { this.state.elementsAreHidden = val; }
 
 	get today () {
-		const date = cloneDeep(this.props.date);
-		return useMonkey(new Date(date)).toMidnight().valueOf() === useMonkey(new Date()).toMidnight().valueOf();
+		return useMonkey(new Date(this.date.value)).toMidnight().valueOf() === useMonkey(new Date()).toMidnight().valueOf();
 	}
 
 	get readableDate () {
-		return useMonkey(this.date).toReadable();
+		return useMonkey(this.date.value).toReadable();
 	}
 
 	get taskOfTheDay () {
 		const taskOfTheDay = this.props.dayTasks?.filter(
-			task => useMonkey(task.start).toReadable() === useMonkey(new Date(this.props.date)).toReadable());
+			task => useMonkey(task.start).toReadable() === useMonkey(new Date(this.date.value)).toReadable());
 
 		const tasksToReturn: Orion.DailyCalendarTask[] = [];
 		const tasksBufferArray: Orion.DailyCalendarTask[][] = [];
@@ -84,6 +64,7 @@ export default class OrionDailyCalendarSetupService extends SharedSetupService<P
 			return arr.findIndex(arrTask => tasksAreIntersecting(arrTask, task)) > -1;
 		}
 
+		if (!taskOfTheDay) return;
 		for (const task of taskOfTheDay) {
 			if (!tasksBufferArray.length) {
 				tasksBufferArray.push([task]);
@@ -114,11 +95,10 @@ export default class OrionDailyCalendarSetupService extends SharedSetupService<P
 		return tasksToReturn;
 	}
 
-
-	constructor (props: Props, emit: DailyCalendarEmit) {
-		super(props);
-
-		this.emit = emit;
+	constructor (protected props: OrionDailyCalendarProps & Omit<typeof OrionDailyCalendarSetupService.defaultProps, 'range'> & {range: number[]},
+		protected emits: OrionDailyCalendarEmits,
+		protected date: ModelRef<Date>) {
+		super();
 
 		watch(() => this.taskOfTheDay, () => {
 			nextTick(() => {
@@ -170,7 +150,7 @@ export default class OrionDailyCalendarSetupService extends SharedSetupService<P
 
 	setCalendarRange () {
 		this.calendarRange = cloneDeep(this.props.range);
-		this.props.dayTasks.forEach((task) => {
+		this.props.dayTasks?.forEach((task) => {
 			const start = new Date(task.start).getHours();
 			const end = new Date(task.end).getHours();
 			const first = useMonkey(this.calendarRange).first();
@@ -215,13 +195,13 @@ export default class OrionDailyCalendarSetupService extends SharedSetupService<P
 	};
 
 	getNextDay () {
-		const date = new Date(this.props.date);
-		this.emit('update:date', new Date(date.setDate(date.getDate() + 1)));
+		const date = new Date(this.date.value);
+		this.date.value = new Date(date.setDate(date.getDate() + 1));
 	};
 
 	getPreviousDay () {
-		const date = new Date(this.props.date);
-		this.emit('update:date', new Date(date.setDate(date.getDate() - 1)));
+		const date = new Date(this.date.value);
+		this.date.value = new Date(date.setDate(date.getDate() - 1));
 	};
 
 	isNearFromNow (hour: number) {
@@ -241,7 +221,9 @@ export default class OrionDailyCalendarSetupService extends SharedSetupService<P
 		const startHour = new Date(task.start).getHours().toString().padStart(2, '0') + ':' + new Date(task.start).getMinutes().toString().padStart(2, '0');
 		const taskGroupNumber = task.column ?? 0;
 		const taskHoursNumber = (task.end.valueOf() - task.start.valueOf()) / (60*60*1000);
-		const last = useMonkey(this.taskOfTheDay).last();
+		let last = undefined;
+		if (this.taskOfTheDay)
+			last = useMonkey(this.taskOfTheDay).last();
 		let numberOfColumn = 0;
 
 		if (last) numberOfColumn = (last.column ?? 0) + 1;

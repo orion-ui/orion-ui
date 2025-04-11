@@ -30,8 +30,7 @@
 					:color="color"
 					:size="avatarSize"
 					:square="avatarSquare"
-					:update-function="update"
-					name="JB"/>
+					name="j"/>
 			</div>
 			<br>
 			<div class="row row--grid">

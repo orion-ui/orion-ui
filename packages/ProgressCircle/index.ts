@@ -1,6 +1,7 @@
 import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
 import OrionProgressCircle from './src/OrionProgressCircle.vue';
+import type { OrionProgressCircleEmits, OrionProgressCircleProps } from './src/OrionProgressCircleSetupService';
 import OrionProgressCircleSetupService from './src/OrionProgressCircleSetupService';
 
 export const OrionProgressCirclePlugin: Plugin = {
@@ -9,4 +10,4 @@ export const OrionProgressCirclePlugin: Plugin = {
 	},
 };
 
-export { OrionProgressCircle, OrionProgressCircleSetupService };
+export { OrionProgressCircle, OrionProgressCircleSetupService, OrionProgressCircleEmits, OrionProgressCircleProps };

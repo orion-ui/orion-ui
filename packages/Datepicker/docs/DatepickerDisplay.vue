@@ -12,16 +12,18 @@
 </template>
 
 <script setup lang="ts">
+import { useMonkey } from 'services';
 import { reactive } from 'vue';
 
 const dateRange = reactive({ week: null });
 
 function customValueDisplay (val: Orion.DateRange) {
-	if (val) return `Week 
+	if (val?.start) return `Week 
 	<em>number</em> 
-	<strong class="text--warning">${val.weekNumber}</strong>
-	starting the ${val.start?.toReadable()}
+	<strong class="text--warning">${val?.weekNumber}</strong>
+	starting the ${ useMonkey(val.start)?.toReadable()}
 	`;
+	else return '';
 }
 </script>
 

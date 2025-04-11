@@ -1,43 +1,24 @@
-import { nextTick, PropType, reactive, ref } from 'vue';
+import { ModelRef, nextTick, reactive, ref } from 'vue';
 import useMonkey from 'services/MonkeyService';
 import SharedSetupService from '../../Shared/SharedSetupService';
 
-type Props = SetupProps<typeof OrionDateWeekSetupService.props>
-type DateWeekEmit = { (e: 'update:modelValue', payload: Nil<Orion.DateRange>): void }
+export type OrionDateWeekEmits = {}
+export type OrionDateWeekProps = {
+	disableMonthAndYear?: boolean,
+	hideDisabled?: boolean,
+	minDate?: Date,
+	maxDate?: Date
+}
 
-export default class OrionDateWeekSetupService extends SharedSetupService<Props> {
-	static props = {
-		disableMonthAndYear: Boolean,
-		hideDisabled: Boolean,
-		modelValue: {
-			type: Object as PropType<Nil<Orion.DateRange>>,
-			default: undefined,
-		},
-		minDate: {
-			type: Date as PropType<Nil<Date>>,
-			default: undefined,
-		},
-		maxDate: {
-			type: Date as PropType<Nil<Date>>,
-			default: undefined,
-		},
-	};
+export default class OrionDateWeekSetupService extends SharedSetupService {
+	static defaultProps = {};
 
-	private emit: DateWeekEmit;
 	private state = reactive({
 		year: new Date().getFullYear(),
 		viewYears: false,
 	});
 
 	_weekPicker = ref<RefDom>();
-
-	get vModel () {
-		return this.props.modelValue;
-	}
-
-	private set vModel (val) {
-		this.emit('update:modelValue', val);
-	}
 
 	get weekOptions () {
 		const weekOptions = [];
@@ -109,19 +90,21 @@ export default class OrionDateWeekSetupService extends SharedSetupService<Props>
 		};
 	}
 
-
-	constructor (props: Props, emit: DateWeekEmit) {
-		super(props);
-		this.emit = emit;
+	constructor (
+		protected props: OrionDateWeekProps,
+		protected emits: OrionDateWeekEmits,
+		protected vModel: ModelRef<Undef<Orion.DateRange>>,
+	) {
+		super();
 	}
 
 	protected onMounted () {
-		if (this.vModel?.year) {
-			this.state.year = this.vModel.year;
+		if (this.vModel.value?.year) {
+			this.state.year = this.vModel.value?.year;
 		}
 
 		nextTick(() => {
-			const target = this.vModel?.weekNumber && this.vModel?.year === this.state.year
+			const target = this.vModel.value?.weekNumber && this.vModel.value?.year === this.state.year
 				? this._weekPicker.value?.getElementsByClassName('calendar__week-row--active').item(0)
 				: this._weekPicker.value?.querySelector('div.calendar__week-row:not(.calendar__week-row--disabled)');
 
@@ -164,7 +147,7 @@ export default class OrionDateWeekSetupService extends SharedSetupService<Props>
 	selectWeek (week: Orion.DateRange) {
 		if (this.props.minDate && week.start && week.start.valueOf() < this.props.minDate.valueOf()) return;
 		if (this.props.maxDate && week.end && week.end.valueOf() > this.props.maxDate.valueOf()) return;
-		this.vModel = { ...week };
+		this.vModel.value = { ...week };
 	}
 
 	readableWeek (week: Orion.DateRange) {
@@ -181,7 +164,7 @@ export default class OrionDateWeekSetupService extends SharedSetupService<Props>
 	}
 
 	weekIsActive (week: Orion.DateRange) {
-		return this.vModel?.weekNumber === week.weekNumber
-			&& this.vModel?.year === this.year;
+		return this.vModel.value?.weekNumber === week.weekNumber
+			&& this.vModel.value?.year === this.year;
 	}
 }

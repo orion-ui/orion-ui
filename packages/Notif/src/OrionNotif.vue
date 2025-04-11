@@ -61,15 +61,10 @@ import { provide } from 'vue';
 import { OrionIcon } from 'packages/Icon';
 import { OrionLoader } from 'packages/Loader';
 import OrionNotifSetupService from './OrionNotifSetupService';
-type NotifEmit = {
-	(e: 'enter-start'): void,
-	(e: 'enter-end'): void,
-	(e: 'leave-start'): void,
-	(e: 'leave-end'): void,
-}
-const emit = defineEmits<NotifEmit>();
-const props = defineProps(OrionNotifSetupService.props);
-const setup = new OrionNotifSetupService(props, emit);
+import type { OrionNotifProps, OrionNotifEmits } from './OrionNotifSetupService';
+const emits = defineEmits<OrionNotifEmits>() as OrionNotifEmits;
+const props = withDefaults(defineProps<OrionNotifProps>(), OrionNotifSetupService.defaultProps);
+const setup = new OrionNotifSetupService(props, emits);
 provide('_notif', setup.publicInstance);
 defineExpose(setup.publicInstance);
 

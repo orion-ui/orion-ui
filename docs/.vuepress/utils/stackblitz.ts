@@ -7,7 +7,8 @@ export const files = {
 	},
 	"dependencies": {
 		"@orion.ui/orion": "latest",
-		"vue": "^3.2.45"
+		"vue": "^3.2.45",
+		"@faker-js/faker": "^8.4.0"
 	},
 	"devDependencies": {
 		"@vitejs/plugin-vue": "^4.0.0",

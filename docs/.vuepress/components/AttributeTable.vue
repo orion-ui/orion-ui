@@ -32,11 +32,11 @@
 				</div>
 
 				<div v-for="(item, index) in data" :key="index" class="row data-type-table__row">
-					<div :class="dataType === 'props' ? `col-sm-12` : `col-sm-6`">
+					<div :class="dataType === 'props' || dataType === 'vModels' ? `col-sm-12` : `col-sm-6`">
 						<div class="data">
 							<div class="data__name data__name--typed">
 								<span class="data__name-only">{{ item.name }}</span>
-								<code v-if="dataType === 'props'">
+								<code v-if="dataType === 'props' || dataType === 'vModels'">
 									<template v-if="itemHas(item, 'type')">
 										{{ item.type }}
 									</template>
@@ -53,7 +53,7 @@
 								class="data__description"/>
 						</div>
 					</div>
-					<div class="col-sm-6" v-if="dataType !== 'props'">
+					<div class="col-sm-6" v-if="dataType !== 'props' && dataType !== 'vModels'">
 						<div class="data">
 							<template v-if="itemHas(item, 'type') || itemHas(item, 'payload') || itemHas(item, 'data')">
 								<code :class="`code--${dataType}`">
@@ -108,6 +108,7 @@ const frontmatter = usePageFrontmatter()
 const packageData = usePackageData(props.package);
 // To define order of appearence
 const packageDataToDisplay = {
+	vModels: packageData?.vModel,
 	props: packageData?.props,
 	events: packageData?.events,
 	slots: packageData?.slots,

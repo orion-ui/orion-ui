@@ -1,177 +1,148 @@
-import { ComponentPublicInstance, nextTick, PropType, reactive, ref, watch } from 'vue';
-import { cloneDeep, debounce, get, isArray, isEmpty, isNil, isObject, upperFirst } from 'lodash-es';
+import { ComponentPublicInstance, nextTick, PropType, ref, watch } from 'vue';
+import { cloneDeep, debounce, DebouncedFunc, get, isArray, isEmpty, isNil, isObject, upperFirst } from 'lodash-es';
 import { Dropdown, recomputeAllPoppers } from 'floating-vue';
 import mitt from 'mitt';
 import anime from 'animejs';
 
-import SharedFieldSetupService, { FieldEmit } from '../../Shared/SharedFieldSetupService';
+import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetupServiceProps } from '../../Shared/SharedFieldSetupService';
 import Log from 'utils/Log';
 import useNotif from 'services/NotifService';
 import useMonkey from 'services/MonkeyService';
-import { addPopoverBackdropCloseAbility } from 'lib';
+import { addPopoverBackdropCloseAbility } from 'utils/tools';
+import { ModelRef } from 'vue';
+import { Reactive } from 'utils/decorators';
 
-type Props = SetupProps<typeof OrionSelectSetupService.props>
-type BaseVModelType = string | number | boolean | Record<string, any>;
-type VModelType = BaseVModelType | BaseVModelType[] | null | undefined;
-type SelectEmit = FieldEmit<VModelType> & {
-  (e: 'focus', payload: FocusEvent): void;
+export type OrionSelectEmits<T, O> = SharedFieldSetupServiceEmits<VModelType<T>> & {
+	(e: 'focus', payload: FocusEvent): void;
   (e: 'blur', payload?: FocusEvent): void;
-  (e: 'input', payload: VModelType): void;
+  (e: 'input', payload: VModelType<T>): void;
   (e: 'input-keydown-tab'): void;
-  (e: 'change', val?: VModelType): void;
-  (e: 'update:modelValue', payload: VModelType): void;
+  (e: 'change', val?: VModelType<T>): void;
   (e: 'clear'): void;
-	(e: 'add', payload: BaseVModelType): void;
-	(e: 'remove', payload: BaseVModelType): void;
-	(e: 'select', payload: BaseVModelType): void;
+	(e: 'add', payload: O): void;
+	(e: 'remove', payload: O): void;
+	(e: 'select', payload: O): void;
 	(e: 'fetch-start', payload?: string): void;
-	(e: 'fetch-end', payload: BaseVModelType[]): void;
+	(e: 'fetch-end', payload: O[]): void;
 	(e: 'fetch-search-clear'): void;
-
 }
-
-export default class OrionSelectSetupService extends SharedFieldSetupService<Props, VModelType> {
-	static props = {
-		...SharedFieldSetupService.props,
-		// @doc props/autocomplete adds the possibility to write in the select field
-		// @doc/fr props/autocomplete permet à l'utilisateur d'écrire dans le champ
-		autocomplete: Boolean,
-		// @doc props/searchable adds a search tooltip
-		// @doc/fr props/searchable ajoute un champ de recherche
-		searchable: Boolean,
-		// @doc props/multiple defines if multiple values can be select in the select
-		// @doc/fr props/multiple définit si plusieurs valeurs peuvent être sélectionnées
-		multiple: Boolean,
-		// @doc props/options options of the select
-		// @doc/fr props/options options du select
-		options: {
-			type: Array as PropType<BaseVModelType[]>,
-			default: () => [],
-		},
-		// @doc props/trackKey unique key item
-		// @doc/fr props/trackKey clé unique qui va différencier les options
-		trackKey: {
-			type: String,
-			default: 'id',
-		},
-		// @doc props/displayKey key used to display the value in the field
-		// @doc/fr props/displayKey clé qui sera affiché au niveau du champ
-		displayKey: {
-			type: String,
-			default: undefined,
-		},
-		// @doc props/valueKey key used as field value
-		// @doc/fr props/valueKey clé qui réprésente la valeur d'un élément
-		valueKey: {
-			type: String,
-			default: undefined,
-		},
-		// @doc props/disabledKey disables the selection of the value
-		// @doc/fr props/disabledKey empêche la sélection d'un élément s'il possède cette clé
-		disabledKey: {
-			type: String,
-			default: undefined,
-		},
-		// @doc props/customSearch allows you to custom the search function
-		// @doc/fr props/customSearch permet de personnaliser la fonction de recherche
-		customSearch: {
-			type: Function,
-			default: undefined,
-		},
-		// @doc props/fetchMethod Method used to fetch the options
-		// @doc/fr props/fetchMethod Méthode utilisée pour récupérer les options
-		fetchMethod: {
-			type: String as PropType<'GET' | 'POST'>,
-			default: 'GET',
-			validator: (val: 'GET' | 'POST') => ['GET', 'POST'].includes(val),
-		},
-		// @doc props/fetchUrl URL to fetch the options
-		// @doc/fr props/fetchUrl URL pour récupérer les options
-		fetchUrl: {
-			type: String,
-			default: undefined,
-		},
-		// @doc props/fetchKey key used to pass the research field value as a parameter to fetch the options
-		// @doc/fr props/fetchKey clé utilisée pour passer la valeur du champ de recherche comme paramètre pour récupérer les options
-		fetchKey: {
-			type: String,
-			default: 'search',
-		},
-		// @doc props/fetchMinSearch minimum number of caracters to trigger the fetch
-		// @doc/fr props/fetchMinSearch nombre de caractères nécessaire pour déclencher l'appel pour récupérer les options
-		fetchMinSearch: {
-			type: Number,
-			default: 1,
-		},
-		// @doc props/fetchInitialOptions initial options before first fetch (when using fetch mecanism)
-		// @doc/fr props/fetchInitialOptions options intiales avant le premier fetch (lors de l'utilisation du mécanisme de fetch des options)
-		fetchInitialOptions: {
-			type: Array,
-			default: () => [],
-		},
-		// @doc props/customFetch allows you to custom the fetch function
-		// @doc/fr props/customFetch permet de personnaliser la fonction de récupération des options
-		customFetch: {
-			type: Function as PropType<(searchTerm?: string) => Promise<BaseVModelType[]>>,
-			default: undefined,
-		},
-		// @doc props/donetyping the duration to trigger the fetch
-		// @doc/fr props/donetyping indique après combien de temps après la dernière frappe, la fonction de récupération des options est appelée
-		donetyping: {
-			type: Number,
-			default: 600,
-		},
-		// @doc props/prefillSearch prefill the search field
-		// @doc/fr props/prefillSearch pré-rempli le champ de recherche
-		prefillSearch: {
-			type: String,
-			default: undefined,
-		},
-		/* eslint-disable max-len */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export type OrionSelectProps<T, O, VKey extends keyof O, DKey extends keyof O = VKey> = SharedFieldSetupServiceProps & {
+	// @doc props/autocomplete adds the possibility to write in the select field
+	// @doc/fr props/autocomplete permet à l'utilisateur d'écrire dans le champ
+	autocomplete?: boolean,
+	// @doc props/customFetch allows you to custom the fetch function
+	// @doc/fr props/customFetch permet de personnaliser la fonction de récupération des options
+	customFetch?: (searchTerm?: string) => Promise<O[]>,
+	// @doc props/customSearch allows you to custom the search function
+	// @doc/fr props/customSearch permet de personnaliser la fonction de recherche
+	customSearch?: Function,
+	// @doc props/disabledKey disables the selection of the value
+	// @doc/fr props/disabledKey empêche la sélection d'un élément s'il possède cette clé
+	disabledKey?: string,
+	// @doc props/displayKey key used to display the value in the field
+	// @doc/fr props/displayKey clé qui sera affiché au niveau du champ
+	displayKey?: DKey | keyof O,
+	// @doc props/donetyping the duration to trigger the fetch
+	// @doc/fr props/donetyping indique après combien de temps après la dernière frappe, la fonction de récupération des options est appelée
+	donetyping?: number,
+	/* eslint-disable max-len */
 		// @doc props/dropdownOptions options to configure the dropdown [(go to Floating Vue doc for more details)](https://floating-vue.starpad.dev/api/#component-props)
 		// @doc/fr props/dropdownOptions options pour configurer la dropdown [(Voir la documentation de Floating Vue pour plus de détails)](https://floating-vue.starpad.dev/api/#component-props)
-		dropdownOptions: {
-			type: Object as PropType<Partial<Orion.VDropdown>>,
-			default: undefined,
-		},
+	dropdownOptions?: Partial<Orion.VDropdown>
+	// @doc props/favoriteIcon key used to choice the favorite icon
+	// @doc/fr props/favoriteIcon clé qui permet de choisir l'icône des favoris
+	favoriteIcon?: Orion.Icon,
+	// @doc props/fetchInitialOptions initial options before first fetch (when using fetch mecanism)
+	// @doc/fr props/fetchInitialOptions options intiales avant le premier fetch (lors de l'utilisation du mécanisme de fetch des options)
+	favoritesOptions?: O[],
+	fetchInitialOptions?: O[],
+	// @doc props/fetchKey key used to pass the research field value as a parameter to fetch the options
+	// @doc/fr props/fetchKey clé utilisée pour passer la valeur du champ de recherche comme paramètre pour récupérer les options
+	fetchKey?: string,
+	// @doc props/fetchMethod Method used to fetch the options
+	// @doc/fr props/fetchMethod Méthode utilisée pour récupérer les options
+	fetchMethod?: 'GET' | 'POST',
+	// @doc props/fetchMinSearch minimum number of caracters to trigger the fetch
+	// @doc/fr props/fetchMinSearch nombre de caractères nécessaire pour déclencher l'appel pour récupérer les options
+	fetchMinSearch?: number,
+	// @doc props/fetchUrl URL to fetch the options
+	// @doc/fr props/fetchUrl URL pour récupérer les options
+	fetchUrl?: string,
+	// @doc props/multiple defines if multiple values can be select in the select
+	// @doc/fr props/multiple définit si plusieurs valeurs peuvent être sélectionnées
+	multiple?: boolean,
+	// @doc props/options options of the select
+	// @doc/fr props/options options du select
+	options?: O[],
+	// @doc props/prefillSearch prefill the search field
+	// @doc/fr props/prefillSearch pré-rempli le champ de recherche
+	prefillSearch?: string,
+	// @doc props/searchable adds a search tooltip
+	// @doc/fr props/searchable ajoute un champ de recherche
+	searchable?: boolean,
+	// @doc props/trackKey unique key item
+	// @doc/fr props/trackKey clé unique qui va différencier les options
+	trackKey?: keyof O,
+	// @doc props/valueKey key used as field value
+	// @doc/fr props/valueKey clé qui réprésente la valeur d'un élément
+	valueKey?: VKey,
+};
+
+export type VModelType<T> = T | T[] | undefined | null;
+
+export default class OrionSelectSetupService<
+	T, O, VKey extends keyof O, DKey extends keyof O = VKey
+> extends SharedFieldSetupService<OrionSelectProps<T, O, VKey, DKey>, VModelType<T>> {
+	static readonly defaultProps = {
+		...SharedFieldSetupService.defaultProps,
+		donetyping: 600,
+		fetchInitialOptions: () => [],
+		fetchKey: 'search',
+		fetchMethod: 'GET' as OrionSelectProps<any, any, any>['fetchMethod'],
+		fetchMinSearch: 1,
+		options: () => [],
+		favoritesOptions: () => [],
+		trackKey: 'id' as any, // avoid typing error in OrionSelect.vue
+		favoriteIcon: 'star' as Orion.Icon,
 	};
 
 	private bus = mitt<{
-		input: BaseVModelType;
-		select: BaseVModelType;
-		add: BaseVModelType;
-		remove: BaseVModelType;
+		input: T;
+		select: O;
+		add: O;
+		remove: T | O;
 	}>();
 
-	private fetchSearchDebounce = debounce((term?: string) => {
-		this.fetchSearchAsync(term);
-	}, this.props.donetyping);
+	private fetchSearchDebounce: DebouncedFunc<(term?: string) => void>;
 
-	protected emit: SelectEmit;
-	protected state = reactive({
+	@Reactive protected readonly state = {
 		...this.sharedState,
 		valueToSearch: undefined as string | undefined,
-		lastValue: undefined as Nil<VModelType>,
+		lastValue: undefined as Nil<VModelType<T>>,
 		indexNav: -1,
 		isFetching: false,
-		fetchResult: [] as BaseVModelType[],
-	});
+		fetchResult: [] as O[],
+		favoritesOptions: [] as O[],
+	};
 
 	readonly _popover = ref<InstanceType<typeof Dropdown>>();
 	readonly _popoverinner = ref<RefDom>();
 	readonly _optionscontainer = ref<RefDom>();
 	readonly _defaultSlot = ref<RefDom>();
+	readonly _favoritesoptionscontainer = ref<RefDom>();
 	readonly _autocomplete = ref<RefDom<HTMLInputElement>>();
 	readonly _optionssearchinput = ref<OrionInput>();
 	readonly _items = ref<(Element | ComponentPublicInstance)[]>([]);
 	readonly isArray = isArray;
 	readonly get = get;
 
+	get favoritesOptions () { return this.state.favoritesOptions; }
 	get valueToSearch () { return this.state.valueToSearch; }
 	set valueToSearch (value) {
 		this.state.valueToSearch = value;
 		if (!value?.length) {
-			this.emit('fetch-search-clear');
+			this.emits('fetch-search-clear');
 		}
 
 		if (this.props.fetchUrl || this.props.customFetch) {
@@ -188,37 +159,46 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 		return this.state.isFetching;
 	}
 
-	get optionsDisplay (): any[] { // force return type to any[] to prevent linter error in templates when using slots
+	get optionsDisplay (): O[] {
 		this._items.value.length = 0;
 		if (this.props.fetchUrl || this.props.customFetch) {
 			return this.fetchOptions;
-		} else if ((this.props.searchable || this.props.autocomplete) && !isEmpty(this.state.valueToSearch)) {
-			if (this.props.customSearch) {
-				return this.props.options.filter(x => this.props.customSearch?.(x, this.state.valueToSearch));
-			} else {
-				return this.props.options.filter((x: any) => {
-					if (!this.state.valueToSearch) return true;
-					const target = this.itemIsObject(x) && this.props.displayKey ? x[this.props.displayKey] : x;
-					return this.normalizeString(target).indexOf(this.normalizeString(this.state.valueToSearch)) !== -1;
-				});
-			}
 		} else {
-			return this.props.options;
+			let options = [];
+			if (this.favoritesOptions && this.favoritesOptions.length > 0) {
+				options = [...this.favoritesOptions, ...this.props.options]
+					.filter((obj, index, self) => index === self.findIndex(o => JSON.stringify(o) === JSON.stringify(obj)));
+			} else {
+				options = this.props.options;
+			}
+			if ((this.props.searchable || this.props.autocomplete) && !isEmpty(this.state.valueToSearch)) {
+				if (this.props.customSearch) {
+					return options.filter(x => this.props.customSearch?.(x, this.state.valueToSearch));
+				} else {
+					return options.filter((x: any) => {
+						if (!this.state.valueToSearch) return true;
+						const target = this.itemIsObject(x) && this.props.displayKey ? x[this.props.displayKey] : x;
+						return this.normalizeString(target).indexOf(this.normalizeString(this.state.valueToSearch)) !== -1;
+					});
+				}
+			} else {
+				return options;
+			}
 		}
 	}
 
-	get fetchOptions (): any[] {
+	get fetchOptions (): O[] {
 		return !!this.state.fetchResult.length
-			? this.state.fetchResult
-			: this.props.fetchInitialOptions;
+			? this.state.fetchResult as O[]
+			: this.props.fetchInitialOptions as O[];
 	}
 
 	get hasValue () {
-		return this.vModel !== ''
+		return !!(this.vModel.value !== ''
 			&& (
-				(!this.props.multiple && !isNil(this.vModel))
-				|| (this.props.multiple && isArray(this.vModel) && !!this.vModel.length)
-			);
+				(!this.props.multiple && !isNil(this.vModel.value))
+				|| (this.props.multiple && isArray(this.vModel.value) && !!this.vModel.value.length)
+			));
 	}
 
 	get labelIsFloating () {
@@ -229,8 +209,8 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 	}
 
 	get isObjectType () {
-		return (!isArray(this.vModel) && isObject(this.vModel))
-			|| (isArray(this.vModel) && isObject(this.vModel[0]))
+		return (!isArray(this.vModel.value) && isObject(this.vModel.value))
+			|| (isArray(this.vModel.value) && isObject(this.vModel.value[0]))
 			|| (isArray(this.props.options) && isObject(this.props.options[0]))
 			|| (isArray(this.fetchOptions) && isObject(this.fetchOptions[0]));
 	}
@@ -255,6 +235,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 			...super.publicInstance,
 			getSearchTerm: () => this.state.valueToSearch,
 			setSearchTerm: (val?: string) => this.valueToSearch = val,
+			setFavoritesOptions: (val: O[]) => this.state.favoritesOptions = [...val],
 			triggerSearchAsync: async (term?: string) => await this.fetchSearchAsync(term),
 			togglePopover: this.togglePopover.bind(this),
 			blur: this.handleBlur.bind(this),
@@ -262,12 +243,21 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 		};
 	}
 
-
-	constructor (props: Props, emit: SelectEmit) {
-		super(props, emit);
-		this.emit = emit;
-
-		this.bus.on('*', (type, e) => this.emit(type as any, e as any));
+	constructor (
+		protected props: OrionSelectProps<T, O, VKey, DKey>
+		& Omit<typeof OrionSelectSetupService.defaultProps, 'options' | 'fetchInitialOptions' | 'favoritesOptions'> & {
+			options: O[],
+			fetchInitialOptions: O[]
+			favoritesOptions: O[]
+		},
+		protected emits: OrionSelectEmits<T, O>,
+		protected vModel: ModelRef<VModelType<T>>) {
+		super(props, emits, vModel);
+		this.state.favoritesOptions = [...this.props.favoritesOptions];
+		this.bus.on('*', (type, e) => this.emits(type as any, e as any));
+		this.fetchSearchDebounce = debounce((term?: string) => {
+			this.fetchSearchAsync(term);
+		}, this.props.donetyping);
 
 		watch(() => this.isObjectType, () => {
 			this.checkProps();
@@ -285,9 +275,9 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 
 
 	private checkProps () {
-		if (this.props.multiple && !isNil(this.vModel) && !isArray(this.vModel)) {
+		if (this.props.multiple && !isNil(this.vModel.value) && !isArray(this.vModel.value)) {
 			// eslint-disable-next-line max-len
-			Log.error(`orion-select - prop "multiple" on orion-select requires a v-model of type Array, type ${upperFirst(typeof this.vModel)} detected`);
+			Log.error(`orion-select - prop "multiple" on orion-select requires a v-model of type Array, type ${upperFirst(typeof this.vModel.value)} detected`);
 		}
 
 		if (this.isObjectType && !this.props.trackKey) {
@@ -296,7 +286,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 		}
 	}
 
-	private itemMatchOption (option: BaseVModelType, item: BaseVModelType) {
+	private itemMatchOption (option: O, item: T) {
 		if (this.isObjectType && this.itemIsObject(option)) {
 			if (this.props.valueKey) {
 				return !isNil(item)
@@ -308,7 +298,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 					: false;
 			}
 		} else {
-			return item === option;
+			return item as any === option;
 		}
 	}
 
@@ -320,7 +310,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 		) return;
 
 		this.state.isFetching = true;
-		this.emit('fetch-start', term);
+		this.emits('fetch-start', term);
 
 		if (this.props.fetchUrl) {
 			const params: Record<string, any> = {};
@@ -348,7 +338,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 		}
 
 		this.state.isFetching = false;
-		this.emit('fetch-end', this.state.fetchResult);
+		this.emits('fetch-end', this.state.fetchResult);
 
 		nextTick(this.animate.bind(this));
 	}
@@ -357,7 +347,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 		this.bus.on('select', (val) => {
 			!!val && this.itemIsObject(val) && this.props.valueKey
 				? this.emitValue(val[this.props.valueKey])
-				: this.emitValue(val);
+				: this.emitValue(val as any);
 
 			if (this.props.autocomplete) {
 				nextTick(() => {
@@ -367,10 +357,10 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 		});
 
 		this.bus.on('add', (val) => {
-			let valueToEmit = cloneDeep(this.vModel);
+			let valueToEmit = cloneDeep(this.vModel.value);
 
 			if (!isArray(valueToEmit)) valueToEmit = [];
-			valueToEmit.push(
+			(valueToEmit as any[]).push(
 				this.props.valueKey && this.itemIsObject(val)
 					? val[this.props.valueKey]
 					: val,
@@ -384,7 +374,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 		});
 
 		this.bus.on('remove', (val) => {
-			let valueToEmit = cloneDeep(this.vModel as BaseVModelType[]);
+			let valueToEmit = cloneDeep(this.vModel.value as T[]);
 			let index;
 
 			if (this.props.valueKey && this.itemIsObject(val)) {
@@ -395,12 +385,12 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 				valueToEmit = [];
 			} else {
 				if (this.isObjectType && !this.props.valueKey) {
-					index = valueToEmit.findIndex((x: BaseVModelType) =>
+					index = valueToEmit.findIndex((x: VModelType<T>) =>
 						this.itemIsObject(x) &&
 						this.itemIsObject(val) &&
 						x[this.props.trackKey] === val[this.props.trackKey]);
 				} else {
-					index = valueToEmit.findIndex((x: BaseVModelType) => x === val);
+					index = valueToEmit.findIndex((x: VModelType<T>) => x === val);
 				}
 
 				if (index > -1) {
@@ -414,9 +404,9 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 		});
 	}
 
-	private emitValue (valueToEmit: BaseVModelType) {
+	private emitValue (valueToEmit: Nil<VModelType<T>>) {
 		this.state.lastValue = valueToEmit;
-		this.vModel = valueToEmit;
+		this.vModel.value = valueToEmit;
 	}
 
 	private animate () {
@@ -446,23 +436,29 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 		}
 	}
 
-	itemIsObject (item: BaseVModelType): item is Record<string, any> {
-		return isObject(item);
+	itemIsObject (item: O | VModelType<T>): item is Extract<O, Record<string, any>> {
+		return typeof item === 'object' && item !== null;
 	}
 
-	valueDisplay (item?: BaseVModelType | null): { display: any, item?: any } {
+	valueDisplay (item?: Nil<T>): { item: Nil<T> | Nil<O>, display: any } {
 		const optionsToSearchIn = (this.props.fetchUrl || this.props.customFetch) ? this.fetchOptions : this.props.options;
+
 		const currentValue = optionsToSearchIn.find((x) => {
 			return this.itemIsObject(x)
 				&& this.props.valueKey
 				&& x[this.props.valueKey] === item;
 		});
 
+		if (!currentValue && this.fetchOptions.length) return {
+			display: item,
+			item,
+		};
+
 		if (this.props.valueKey && this.props.displayKey) {
-			return currentValue && this.itemIsObject(currentValue) && currentValue[this.props.displayKey]
+			return this.itemIsObject(currentValue) && currentValue[this.props.displayKey]
 				? {
 					display: currentValue[this.props.displayKey],
-					item: currentValue,
+					item: currentValue as Nil<O>,
 				} : {
 					display: item,
 					item,
@@ -471,34 +467,35 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 			return item && this.itemIsObject(item) && item[this.props.displayKey]
 				? {
 					display: item[this.props.displayKey],
-					item,
+					item: item as Nil<T>,
 				} : {
 					display: item,
-					item: currentValue,
+					item: currentValue as Nil<O>,
 				};
 		} else {
 			return item && this.props.valueKey
 				? {
-					display: currentValue[this.props.valueKey],
-					item: currentValue,
-				}
-				: {
+					display: this.itemIsObject(currentValue) && currentValue[this.props.valueKey]
+						? currentValue[this.props.valueKey]
+						: undefined as Nil<T>,
+					item: currentValue as Nil<O>,
+				} : {
 					display: item,
 					item,
 				};
 		}
 	}
 
-	optionIsSelected (option: BaseVModelType) {
+	optionIsSelected (option: O) {
 		let isSelect = false;
 
 		if (this.props.multiple) {
-			if (isArray(this.vModel)) {
-				const index = this.vModel.findIndex(item => this.itemMatchOption(option, item));
+			if (isArray(this.vModel.value)) {
+				const index = this.vModel.value.findIndex(item => this.itemMatchOption(option, item));
 				isSelect = index > -1;
 			}
 		} else {
-			isSelect = this.itemMatchOption(option, this.vModel as BaseVModelType);
+			isSelect = this.itemMatchOption(option, this.vModel.value as T);
 		}
 
 		return isSelect;
@@ -537,7 +534,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 		const targetFocusState = !this.state.isFocus;
 		setTimeout(() => {
 			this.state.isFocus = targetFocusState;
-		}, 400);
+		}, 200);
 	}
 
 	handleBlur = debounce((e?: FocusEvent, selection?: boolean) => {
@@ -605,7 +602,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 	}
 
 	handleTabEvent () {
-		this.emit('input-keydown-tab');
+		this.emits('input-keydown-tab');
 		if (this.props.searchable || this.props.fetchUrl)
 			this._input.value?.focus();
 	}
@@ -618,7 +615,7 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 		}
 	}
 
-	selectItem (value: BaseVModelType) {
+	selectItem (value: O) {
 		if (this.props.readonly) return;
 		if (this.props.disabledKey && !!get(value, this.props.disabledKey, false)) return;
 
@@ -655,14 +652,14 @@ export default class OrionSelectSetupService extends SharedFieldSetupService<Pro
 	}
 
 	removeIndex (index: number) {
-		if (isArray(this.vModel)) {
-			const removedValue = this.vModel[index];
+		if (isArray(this.vModel.value)) {
+			const removedValue = this.vModel.value[index];
 			this.bus.emit('remove', removedValue);
 		}
 	}
 
 	markedSearch (content?: string) {
-		if (!this.state.valueToSearch || !content || typeof content !== 'string') return content;
+		if (!this.state.valueToSearch || !content || typeof content !== 'string') return content;
 		return useMonkey(content).mark(this.state.valueToSearch) as string;
 	}
 

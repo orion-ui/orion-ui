@@ -2,29 +2,25 @@ import { Component, reactive, Slots, VNode, watch } from 'vue';
 import SharedSetupService from '../../Shared/SharedSetupService';
 import { isArray } from 'lodash-es';
 import type { OrionTourStepSetupService } from 'packages/TourStep';
+import { Private } from 'lib/private';
 
-type Props = SetupProps<typeof OrionTourSetupService.props>
+export type OrionTourEmits = {}
+export type OrionTourProps = {
+	// @doc props/callback function executed when the tour is stopped
+	// @doc/fr props/callback fonction exécutée quand le tour est arrêté
+	callback?: Function,
+	// @doc props/value current step index of the tour
+	// @doc/fr props/value index courant du tour
+	value?: number,
+};
 
-export default class OrionTourSetupService extends SharedSetupService<Props> {
-	static props = {
-		// @doc props/value current step index of the tour
-		// @doc/fr props/value index courant du tour
-		value: {
-			type: Number,
-			default: undefined,
-		},
-		// @doc props/callback function executed when the tour is stopped
-		// @doc/fr props/callback fonction exécutée quand le tour est arrêté
-		callback: {
-			type: Function,
-			default: undefined,
-		},
-	};
+export default class OrionTourSetupService extends SharedSetupService {
+	static readonly defaultProps = {};
 
 	private slots: Slots;
 	private state = reactive({
-		steps: [] as Orion.Private.TsxTourStep[],
-		tourStep: [] as Orion.Private.TsxTourStep[],
+		steps: [] as Private.TsxTourStep[],
+		tourStep: [] as Private.TsxTourStep[],
 		currentIndex: -1,
 		currentStepPublicInstance: undefined as Undef<OrionTourStepSetupService['publicInstance']>,
 	});
@@ -53,8 +49,8 @@ export default class OrionTourSetupService extends SharedSetupService<Props> {
 		};
 	}
 
-	constructor (props: Props, slots: Slots) {
-		super(props);
+	constructor (protected props: OrionTourProps, protected emits: OrionTourEmits, slots: Slots) {
+		super();
 		this.slots = slots;
 
 		watch(() => this.content, () => this.calcStepInstances());
@@ -99,7 +95,7 @@ export default class OrionTourSetupService extends SharedSetupService<Props> {
 				});
 
 			this.state.steps.push(...stepSlots.map((x) => {
-				const step = { props: x.props } as Orion.Private.TsxTourStep;
+				const step = { props: x.props } as Private.TsxTourStep;
 				return step;
 			}));
 		}

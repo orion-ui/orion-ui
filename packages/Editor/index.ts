@@ -1,6 +1,7 @@
 import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
 import OrionEditor from './src/OrionEditor.vue';
+import type { OrionEditorEmits, OrionEditorProps } from './src/OrionEditorSetupService';
 import OrionEditorSetupService from './src/OrionEditorSetupService';
 
 export const OrionEditorPlugin: Plugin = {
@@ -9,4 +10,4 @@ export const OrionEditorPlugin: Plugin = {
 	},
 };
 
-export { OrionEditor, OrionEditorSetupService };
+export { OrionEditor, OrionEditorSetupService, OrionEditorEmits, OrionEditorProps };

@@ -61,6 +61,8 @@ const themeOrion = (options?: DefaultThemeOptions): Theme => {
 						sidebar: sidebar.fr,
 						sidebarDepth: 0,
 						//custom container
+						prev: 'Précédent',
+						next: 'Suivant',
 						tip: 'Astuce',
 						warning: 'Attention'
 					},

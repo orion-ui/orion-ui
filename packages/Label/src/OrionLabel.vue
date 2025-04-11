@@ -3,9 +3,9 @@
 		:ref="setup._el"
 		class="orion-label"
 		:class="[
-			`orion-label--${setup.props.color}`,
-			`orion-label--${setup.props.size}`,
-			{ 'orion-label--outline' : setup.props.outline },
+			`orion-label--${color}`,
+			`orion-label--${size}`,
+			{ 'orion-label--outline' : outline },
 		]">
 		<div class="orion-label__content">
 			<slot/>
@@ -16,8 +16,10 @@
 <script setup lang="ts">
 import './OrionLabel.less';
 import OrionLabelSetupService from './OrionLabelSetupService';
-const props = defineProps(OrionLabelSetupService.props);
-const setup = new OrionLabelSetupService(props);
+import type { OrionLabelProps, OrionLabelEmits } from './OrionLabelSetupService';
+const emits = defineEmits<OrionLabelEmits>() as OrionLabelEmits;
+const props = withDefaults(defineProps<OrionLabelProps>(), OrionLabelSetupService.defaultProps);
+const setup = new OrionLabelSetupService(props, emits);
 defineExpose(setup.publicInstance);
 
 /** Doc

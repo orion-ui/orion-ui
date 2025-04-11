@@ -1,6 +1,7 @@
 import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
 import OrionToggle from './src/OrionToggle.vue';
+import type { OrionToggleEmits, OrionToggleProps } from './src/OrionToggleSetupService';
 import OrionToggleSetupService from './src/OrionToggleSetupService';
 
 export const OrionTogglePlugin: Plugin = {
@@ -9,4 +10,4 @@ export const OrionTogglePlugin: Plugin = {
 	},
 };
 
-export { OrionToggle, OrionToggleSetupService };
+export { OrionToggle, OrionToggleSetupService, OrionToggleEmits, OrionToggleProps };

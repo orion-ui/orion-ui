@@ -1,5 +1,6 @@
 <template>
 	<o-input
+		:key="state.mask"
 		v-model="value"
 		v-bind="state"/>
 
@@ -99,11 +100,20 @@
 					label="Mask hour separator"/>
 			</div>
 		</div>
+		<div class="row row--grid-xs row--toggles">
+			<div class="col-sm-3">
+				<o-input label="Custom mask value" v-model="state.customMaskValue"/>
+			</div>
+			<div class="col-sm-3 flex ai-c">
+				<o-toggle label="Static mask" 
+					v-model="state.staticMask"/>
+			</div>
+		</div>
 	</div>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed } from 'vue';
+import { ref, reactive, computed, watch } from 'vue';
 import { coolicons } from 'lib';
 
 const value = ref();
@@ -118,6 +128,8 @@ const state = reactive({
 	type: 'text',
 	allowNegative: false,
 	mask: '',
+	customMaskValue: '$w$d-$d{3}.',
+	staticMask: true,
 	maskHourFormat: '24h',
 	maskHourSeparator: ':',
 	maxLength: undefined,
@@ -134,7 +146,13 @@ const maskOptions = [
 	'integer',
 	'decimal',
 	'hour',
+	state.customMaskValue,
 ];
+
+
+watch(() => state.customMaskValue, (val) => {
+	maskOptions[3] = val;
+})
 </script>
 
 ### Playground

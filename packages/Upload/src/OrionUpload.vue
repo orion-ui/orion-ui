@@ -19,7 +19,7 @@
 			name="scale"
 			mode="out-in">
 			<div
-				v-if="!setup.vModel?.length"
+				v-if="!vModel?.length"
 				:ref="setup._illustration"
 				key="emptyFiles"
 				class="orion-upload__wrapper">
@@ -47,12 +47,13 @@
 			</div>
 
 			<div
-				v-else-if="setup.vModel.length"
+				v-else-if="vModel.length"
+				key="filledFiles"
 				class="orion-upload__files-list">
 				<div
-					v-for="(file, i) in setup.vModel"
+					v-for="(file, i) in vModel"
 					:key="file.name"
-					:ref="setup._filePreview"
+					ref="previews"
 					class="orion-upload__files-list-item">
 					<div
 						v-if="showPreview"
@@ -161,21 +162,17 @@ import { OrionButton } from 'packages/Button';
 import { OrionIcon } from 'packages/Icon';
 import { OrionLoader } from 'packages/Loader';
 import OrionUploadSetupService from './OrionUploadSetupService';
-type VModelType = Nil<File[]>;
-type FieldEmit = {
-  (e: 'focus', payload: FocusEvent): void;
-  (e: 'blur', payload?: FocusEvent): void;
-  (e: 'input', payload: VModelType): void;
-  (e: 'change', val?: VModelType): void;
-  (e: 'update:modelValue', payload: VModelType): void;
-  (e: 'clear'): void;
-}
-const emit = defineEmits<FieldEmit>();
-const props = defineProps(OrionUploadSetupService.props);
-const setup = new OrionUploadSetupService(props, emit);
+import type { OrionUploadProps, OrionUploadEmits } from './OrionUploadSetupService';
+const vModel = defineModel<File[] | undefined>();
+const emits = defineEmits<OrionUploadEmits>() as OrionUploadEmits;
+const props = withDefaults(defineProps<OrionUploadProps>(), OrionUploadSetupService.defaultProps);
+const setup = new OrionUploadSetupService(props, emits, vModel);
 defineExpose(setup.publicInstance);
 
 /** Doc
+ * @doc vModel/vModel component's vModel
+ * @doc/fr vModel/vModel vModel du composant
+ *
  * @doc slot/default the label displayed in the drop area
  * @doc/fr slot/default contenu pour remplacer le label par défaut
  *
@@ -190,9 +187,6 @@ defineExpose(setup.publicInstance);
  *
  * @doc event/change/desc emitted when the value of the field changes
  * @doc/fr event/change/desc émis lorsque la valeur est modifiée
- *
- * @doc event/update:modelValue/desc emitted to update the field value
- * @doc/fr event/update:modelValue/desc émis pour mettre à jour la valeur
  *
  * @doc event/clear/desc emitted when the field is cleared
  * @doc/fr event/clear/desc émis quand le champ est vidé

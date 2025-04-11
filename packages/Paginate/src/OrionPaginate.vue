@@ -8,21 +8,34 @@
 			prefix-icon="chevron_left"
 			@click="setup.index -= 1"/>
 
-		<div class="orion-paginate__wrapper">
-			<orion-button
+		<div
+			class="orion-paginate__wrapper">
+			<template
 				v-for="(page, i) in setup.pagesArray"
-				:key="i"
-				:class="[
-					{ 'orion-paginate__index-active': setup.isActive(Number(page)) },
-					{ 'orion-paginate__ellipsis': page === '...' },
-				]"
-				:color="setup.isActive(Number(page)) ? 'info' : 'default'"
-				:disabled="page === '...'"
-				nude
-				class="orion-paginate__index"
-				@click="setup.index = Number(page)">
-				{{ page }}
-			</orion-button>
+				:key="i">
+				<orion-button
+					v-if="page !== '...' || (page === '...' && i === 1 )"
+					:class="[
+						{ 'orion-paginate__index-active': setup.isActive(Number(page)) },
+						{ 'orion-paginate__ellipsis': page === '...' },
+					]"
+					:color="setup.isActive(Number(page)) ? 'info' : 'default'"
+					:disabled="page === '...'"
+					nude
+					class="orion-paginate__index"
+					@click="setup.index = Number(page)">
+					{{ page }}
+				</orion-button>
+				<o-input
+					v-else
+					v-model="setup.pageInput"
+					placeholder="..."
+					type="number"
+					:max-value="setup.pagesLength"
+					:min-value="1"
+					size="sm"
+					class="orion-paginate__input"/>
+			</template>
 		</div>
 
 		<orion-button
@@ -37,18 +50,16 @@
 import './OrionPaginate.less';
 import { OrionButton } from 'packages/Button';
 import OrionPaginateSetupService from './OrionPaginateSetupService';
-// eslint-disable-next-line func-call-spacing
-const emit = defineEmits<{
-	(e: 'update:modelValue', payload: number): void;
-	(e: 'paginate', payload: number): void;
-}>();
-const props = defineProps(OrionPaginateSetupService.props);
-const setup = new OrionPaginateSetupService(props, emit);
+import type { OrionPaginateProps, OrionPaginateEmits } from './OrionPaginateSetupService';
+const emits = defineEmits<OrionPaginateEmits>() as OrionPaginateEmits;
+const props = withDefaults(defineProps<OrionPaginateProps>(), OrionPaginateSetupService.defaultProps);
+const vModel = defineModel<number>({ required: true });
+const setup = new OrionPaginateSetupService(props, emits, vModel);
 defineExpose(setup.publicInstance);
 
 /** Doc
- * @doc event/update:modelValue/desc emitted to update the active page index
- * @doc/fr event/update:modelValue/desc émis pour mettre à jour l'index de la page active
+ * @doc vModel/vModel component's vModel
+ * @doc/fr vModel/vModel vModel du composant
  *
  * @doc event/paginate/desc emitted on page changement
  * @doc/fr event/paginate/desc émis au changement de page

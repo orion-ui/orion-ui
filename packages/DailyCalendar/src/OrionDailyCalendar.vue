@@ -3,7 +3,7 @@
 		:id="`calendar-` + setup.uid"
 		:ref="setup._calendar"
 		class="calendar"
-		:style="`max-height: calc(${(setup.props.range[1] - setup.props.range[0] + 1)*50 + 60}rem / 16); overflow-y: scroll; overflow-x: hidden`"
+		:style="`max-height: calc(${(range[1] - range[0] + 1)*50 + 60}rem / 16); overflow-y: scroll; overflow-x: hidden`"
 		@scroll="setup.observeHiddenTasks()">
 		<div class="orion-daily-calendar">
 			<div class="orion-daily-calendar__header">
@@ -83,17 +83,16 @@ import { OrionLoader } from 'packages/Loader';
 import { OrionCard } from 'packages/Card';
 import { OrionButton } from 'packages/Button';
 import OrionDailyCalendarSetupService from './OrionDailyCalendarSetupService';
-
-type DailyCalendarEmit = {
-	(e: 'update:date', payload: Date): void;
-}
-const emit = defineEmits<DailyCalendarEmit>();
-const props = defineProps(OrionDailyCalendarSetupService.props);
-const setup = new OrionDailyCalendarSetupService(props, emit);
+import type { OrionDailyCalendarProps, OrionDailyCalendarEmits } from './OrionDailyCalendarSetupService';
+const date = defineModel<Date>('date', { required: true });
+const emits = defineEmits<OrionDailyCalendarEmits>() as OrionDailyCalendarEmits;
+const props = withDefaults(defineProps<OrionDailyCalendarProps>(), OrionDailyCalendarSetupService.defaultProps);
+const setup = new OrionDailyCalendarSetupService(props, emits, date);
 defineExpose(setup.publicInstance);
 
 /** Doc
- * @doc event/update:date/desc Event to update the modelValue
- * @doc/fr event/update:date/desc évènement pour mettre à jour la modelValue
+ * @doc vModel/date the selected date.
+ * @doc/fr vModel/date la date sélectionnée.
  */
 </script>
+

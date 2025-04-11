@@ -4,21 +4,24 @@
 		@clear="setup.clear()">
 		<input
 			:ref="setup._input"
-			v-model="setup.vModel"
-			v-cleave="setup.props.cleave"
+			v-model="setup.vModelProxy"
 			class="orion-input__input"
-			:maxlength="setup.props.maxLength"
+			:maxlength="maxLength"
 			v-bind="{
 				...$attrs,
-				type: setup.props.type,
-				disabled: setup.props.disabled,
-				readonly: setup.props.readonly,
+				type: type,
+				disabled: disabled,
+				readonly: readonly,
 				autocomplete: autocomplete,
 			}"
 			@keydown="setup.handleKeydownGuard($event)"
 			@change="setup.handleChange()"
+			@paste="setup.setVModelArray($event.clipboardData?.getData('text'))"
 			@focus="setup.handleFocus($event)"
-			@mousedown.right="$emit('mousedown-right', $event)"
+			@mousedown.right="emits('mousedown-right', $event)"
+			@mouseup.left="setup.setCursorPosition($event)"
+			@keyup.left="setup.setCursorPosition($event)"
+			@keyup.right="setup.setCursorPosition($event)"
 			@blur="setup.handleBlurCustom($event)">
 
 		<div
@@ -34,23 +37,17 @@
 import './OrionInput.less';
 import { OrionField } from 'packages/Field';
 import OrionInputSetupService from './OrionInputSetupService';
-type VModelType = Nil<string | number>;
-type FieldEmit = {
-  (e: 'focus', payload: FocusEvent): void;
-  (e: 'blur', payload?: FocusEvent): void;
-  (e: 'input', payload: VModelType): void;
-  (e: 'mousedown-right', payload: MouseEvent): void;
-  (e: 'change', val?: VModelType): void;
-  (e: 'update:modelValue', payload: VModelType): void;
-  (e: 'clear'): void;
-}
-const emit = defineEmits<FieldEmit>();
-const props = defineProps(OrionInputSetupService.props);
-const setup = new OrionInputSetupService(props, emit);
-const vCleave = OrionInputSetupService.cleaveDirective;
+import type { OrionInputProps, OrionInputEmits } from './OrionInputSetupService';
+const emits = defineEmits<OrionInputEmits>() as OrionInputEmits;
+const vModel = defineModel<Nil<string | number>>();
+const props = withDefaults(defineProps<OrionInputProps>(), OrionInputSetupService.defaultProps);
+const setup = new OrionInputSetupService(props, emits, vModel);
 defineExpose(setup.publicInstance);
 
 /** Doc
+ * @doc vModel/vModel component's vModel
+ * @doc/fr vModel/vModel vModel du composant
+ *
  * @doc event/focus/desc emitted on focus
  * @doc/fr event/focus/desc émis lors du focus
  *
@@ -62,9 +59,6 @@ defineExpose(setup.publicInstance);
  *
  * @doc event/change/desc emitted when the value of the field changes
  * @doc/fr event/change/desc émis lorsque la valeur est modifiée
- *
- * @doc event/update:modelValue/desc emitted to update the field value
- * @doc/fr event/update:modelValue/desc émis pour mettre à jour la valeur
  *
  * @doc event/clear/desc emitted when the field is cleared
  * @doc/fr event/clear/desc émis quand le champ est vidé

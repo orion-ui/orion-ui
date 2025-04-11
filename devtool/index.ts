@@ -1,5 +1,5 @@
 import { setupDevtoolsPlugin } from '@vue/devtools-api';
-import { DevtoolsPluginApi, ExtractSettingsTypes, PluginSettingsItem } from '@vue/devtools-api';
+import type { DevtoolsPluginApi, ExtractSettingsTypes, PluginSettingsItem } from '@vue/devtools-api';
 
 import { getThemeMode, isIpad, isMac, isTouch, isWindows } from 'utils/tools';
 import { OrionAppService } from 'utils/Orion';

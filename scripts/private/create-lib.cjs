@@ -7,12 +7,13 @@
  */
 
 module.exports = async (/** @type {Options} */ options) => {
-	await require('./create-types-declaration-files.cjs')(options);
+	await require('./vue-tsc.cjs')();
 	await require('./copy-files.cjs')({
 		...options,
 		less: true,
 		cli: true,
 		dts: true,
 	});
+	await require('./clean-generic-components-type.cjs')();
 };
 

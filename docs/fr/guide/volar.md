@@ -23,8 +23,8 @@ Vous pouvez voir un exemple de préfix personnalisé [ci-dessous](#prefix-person
 
 Cette commande va créer un fichier `orion-volar.d.ts` avec le contenu correspondant.
 
-:::: code-group
-::: code-group-item orion-volar.d.ts
+::: code-tabs
+@tab orion-volar.d.ts
 
 ```ts
 declare module 'vue' {
@@ -42,7 +42,6 @@ export {};
 ```
 
 :::
-::::
 
 ## Préfix personnalisé
 
@@ -50,8 +49,8 @@ export {};
 Si vous avez configuré **Orion** avec un préfix personnalisé pour les composants, vous pouvez ajouter l'option `--prefix` à cette commande.
 :::
 
-:::: code-group
-::: code-group-item main.ts
+::: code-tabs
+@tab main.ts
 
 ```ts{2}
 createApp(App)
@@ -59,15 +58,12 @@ createApp(App)
   .mount('#app')
 ```
 
-:::
-::::
-
 ![Orion CLI](../../guide/orion-cli-project-volar.png)
 
 ![Orion CLI](../../guide/orion-cli-project-volar-prompt.png)
 
-:::: code-group
-::: code-group-item orion-volar.d.ts
+::: code-tabs
+@tab orion-volar.d.ts
 
 ```ts{3,4,6}
 declare module 'vue' {
@@ -85,4 +81,3 @@ export {};
 ```
 
 :::
-::::

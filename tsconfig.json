@@ -6,24 +6,39 @@
 		"moduleResolution": "node",
 		"strict": true,
 		"jsx": "preserve",
+		"jsxImportSource": "vue",
 		"sourceMap": true,
 		"resolveJsonModule": true,
 		"esModuleInterop": true,
 		"allowSyntheticDefaultImports": true,
 		"baseUrl": ".",
-		"types": ["node", "vite/client"],
-		"lib": ["esnext", "dom", "dom.iterable", "scripthost"],
+		"types": [
+			"node",
+			"vite/client"
+		],
+		"lib": [
+			"esnext",
+			"dom",
+			"dom.iterable",
+			"scripthost"
+		],
 		"outDir": "dist"
 	},
-	"exclude": ["node_modules", "dist", "docs", "lib/monkey-patching.d.ts"],
+	"exclude": [
+		"node_modules",
+		"dist",
+		"docs",
+		"lib/monkey-patching.d.ts"
+	],
 	"include": [
-		"devtool",
 		"lang",
 		"lib",
-		"packages",
-		"sandbox",
-		"scripts",
+		"assets",
 		"services",
-		"utils"
-	]
+		"styles",
+		"sandbox",
+		"packages",
+		"utils",
+		"scripts/public"
+	],
 }

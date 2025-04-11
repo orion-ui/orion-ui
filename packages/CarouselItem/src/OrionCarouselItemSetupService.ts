@@ -1,23 +1,21 @@
 import { reactive, watch } from 'vue';
 import SharedSetupService from '../../Shared/SharedSetupService';
 
-type Props = SetupProps<typeof OrionCarouselItemSetupService.props>
+export type OrionCarouselItemEmits = {}
+export type OrionCarouselItemProps = {
+	// @doc props/lazy the content of the item is mounted each time the item becomes active
+	// @doc/fr props/lazy le contenu de l'élément est monté à chaque fois qu'il devient actif
+	lazy?: boolean,
+	// @doc props/lazyOnce the content of the item is only mounted once, the first time the item is active
+	// @doc/fr props/lazyOnce le contenu de l'élément est uniquement monté une fois, la première fois qu'il est actif
+	lazyOnce?: boolean,
+	// @doc props/name step identifier
+	// @doc/fr props/name identifiant de l'élément
+	name?: number | string,
+};
 
-export default class OrionCarouselItemSetupService extends SharedSetupService<Props> {
-	static props = {
-		// @doc props/lazy the content of the item is mounted each time the item becomes active
-		// @doc/fr props/lazy le contenu de l'élément est monté à chaque fois qu'il devient actif
-		lazy: Boolean,
-		// @doc props/lazyOnce the content of the item is only mounted once, the first time the item is active
-		// @doc/fr props/lazyOnce le contenu de l'élément est uniquement monté une fois, la première fois qu'il est actif
-		lazyOnce: Boolean,
-		// @doc props/name step identifier
-		// @doc/fr props/name identifiant de l'élément
-		name: {
-			type: [Number, String],
-			required: true as const,
-		},
-	};
+export default class OrionCarouselItemSetupService extends SharedSetupService {
+	static readonly defaultProps = {};
 
 	private _carousel?: OrionCarousel;
 	private state = reactive({ hasBeenActive: false });
@@ -33,8 +31,11 @@ export default class OrionCarouselItemSetupService extends SharedSetupService<Pr
 		}
 	}
 
-	constructor (props: Props, _carousel?: OrionCarousel) {
-		super(props);
+	constructor (
+		protected props: OrionCarouselItemProps & typeof OrionCarouselItemSetupService.defaultProps,
+		protected emits: OrionCarouselItemEmits,
+		_carousel?: OrionCarousel) {
+		super();
 		this._carousel = _carousel;
 
 		watch(() => this.isActive, (val) => {

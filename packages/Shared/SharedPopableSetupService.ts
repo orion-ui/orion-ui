@@ -1,4 +1,4 @@
-import { nextTick, PropType, reactive, ref, render, watch } from 'vue';
+import { nextTick, reactive, ref, render, watch } from 'vue';
 import mitt from 'mitt';
 import anime from 'animejs';
 
@@ -10,30 +10,28 @@ import { devtool } from 'devtool';
 import orionAppService from 'utils/Orion';
 import { Reactive } from 'utils/decorators';
 
-type Props = SetupProps<typeof SharedPopableSetupService.props>
+
 type Popable = OrionAside | OrionNotif | OrionModal;
 
-export type PopableEmit = {
+export type SharedPopableSetupServiceEmits = {
 	(e: 'enter-start'): void;
 	(e: 'enter-end'): void;
 	(e: 'leave-start'): void;
 	(e: 'leave-end'): void;
 }
 
+export type SharedPopableSetupServiceProps = {
+	// @doc props/display if set, displays the component
+	display?: boolean,
+	// @doc props/options options of the component
+	options?: Partial<Orion.Popable.Options>
+}
 
-export default abstract class SharedPopableSetupService<P extends Props> extends SharedSetupService<P> {
-	static props = {
-		// @doc props/display if set, displays the component
-		display: Boolean,
-		// @doc props/options options of the component
-		options: {
-			type: Object as PropType<Partial<Orion.Popable.Options>>,
-			default: () => {},
-		},
-	};
+
+export default abstract class SharedPopableSetupService extends SharedSetupService {
+	static readonly defaultProps = { options: () => ({}) as Partial<Orion.Popable.Options> };
 
 	protected abstract name: Orion.Popable.Name;
-	protected abstract emit: ReturnType<typeof defineEmits>;
 
 	_el = ref<RefDom>();
 	_loader = ref<OrionLoader>();
@@ -97,10 +95,14 @@ export default abstract class SharedPopableSetupService<P extends Props> extends
 	}
 
 
-	constructor (props: P) {
-		super(props);
+	constructor (
+		protected props: SharedPopableSetupServiceProps
+			& Omit<typeof SharedPopableSetupService.defaultProps, 'options'>
+			& {options: Partial<Orion.Popable.Options>},
+		protected emits: SharedPopableSetupServiceEmits) {
+		super();
 
-		Object.assign(this.options, props.options);
+		Object.assign(this.options, this.options);
 
 		usePopableQueueService().register(this.options.uid, this.publicInstance as Orion.Popable.PublicIntance);
 
@@ -155,9 +157,9 @@ export default abstract class SharedPopableSetupService<P extends Props> extends
 		toggleGlobalListener(this.uid);
 
 		if (this.options.programmatic) {
-			devtool?.on.visitComponentTree((payload) => {
+			devtool?.on.visitComponentTree((payload: any) => {
 				if (payload.treeNode.uid === orionAppService.appInstance?.uid) {
-					const index = payload.treeNode.children.findIndex(x => (x as any).orionUid === this.uid);
+					const index = payload.treeNode.children.findIndex((x: any) => (x as any).orionUid === this.uid);
 					if (index > -1) payload.treeNode.children.splice(index, 1);
 				}
 			});

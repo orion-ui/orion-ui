@@ -1,20 +1,18 @@
-import { PropType, reactive, ref } from 'vue';
+import { reactive, ref } from 'vue';
 import { _RouteLocationBase } from 'vue-router';
 import { concat } from 'lodash-es';
 
 import SharedNavSetupService from '../../Shared/SharedNavSetupService';
-import SharedProps from '../../Shared/SharedProps';
+import SharedProps, { SharedPropsNav } from '../../Shared/SharedProps';
 
-type Props = SetupProps<typeof OrionNavMainSetupService.props>
+export type OrionNavMainEmits = {}
 
-export default class OrionNavMainSetupService extends SharedNavSetupService<Props> {
-	static props = {
-		...SharedProps.nav(),
-		navTop: {
-			type: Object as PropType<OrionNavTop.Props>,
-			default: undefined,
-		},
-	};
+export type OrionNavMainProps = SharedPropsNav & {
+		navTop?: OrionNavTop.Props
+};
+
+export default class OrionNavMainSetupService extends SharedNavSetupService {
+	static readonly defaultProps = { ...SharedProps.navDefault };
 
 	readonly _el = ref<RefDom>();
 	readonly _wrapper = ref<RefDom>();
@@ -61,7 +59,7 @@ export default class OrionNavMainSetupService extends SharedNavSetupService<Prop
 	}
 
 	get itemsToDisplayTop () {
-		return this.props.navTop?.items?.filter((x) => {
+		return this.props.navTop?.items?.filter((x: Orion.NavItem) => {
 			return typeof x.if === 'function'
 				? x.if()
 				: x.if !== false;
@@ -69,8 +67,10 @@ export default class OrionNavMainSetupService extends SharedNavSetupService<Prop
 	}
 
 
-	constructor (props: Props) {
-		super(props);
+	constructor (
+		protected props: OrionNavMainProps & typeof OrionNavMainSetupService.defaultProps,
+		protected emits: OrionNavMainEmits) {
+		super();
 	}
 
 
@@ -79,7 +79,7 @@ export default class OrionNavMainSetupService extends SharedNavSetupService<Prop
 	}
 
 	protected onMounted () {
-		this.findActiveItem();
+		//this.findActiveItem();
 		this.Bus.on('navMain.refresh', this.findActiveItem.bind(this));
 	}
 

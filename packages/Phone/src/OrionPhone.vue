@@ -9,13 +9,13 @@
 				track-key="code"
 				display-key="areaCode"
 				searchable
-				:readonly="setup.props.readonly"
-				:disabled="setup.props.disabled"
+				:disabled
+				:readonly
 				:options="setup.countryList"
 				:custom-search="setup.customSearch.bind(setup)"
 				@input-keydown-tab="setup._input.value?.focus()"
 				@update:model-value="setup.changeAreaCode()">
-				<template #value="{ item }">
+				<template #value="{ item }: any">
 					<div class="flex ai-c">
 						<img
 							v-if="flag && setup.country"
@@ -26,26 +26,25 @@
 					</div>
 				</template>
 
-				<template #option="{ item }">
+				<template #option="{ item }: any">
 					{{ `${item.name} (+${item.areaCode})` }}
 				</template>
 			</orion-select>
 			<orion-input
 				:ref="setup._orionInput"
-				v-model="setup.phoneNumber"
+				v-model="setup.phoneNumberProxy"
 				type="tel"
 				:class="{ 'orion-input--warning': setup.showWarning }"
 				:validation="setup.isValid.value"
 				:inherit-validation-state="setup.showState"
 				v-bind="{
 					...$attrs,
-					label: setup.props.label,
-					disabled: setup.props.disabled,
-					readonly: setup.props.readonly,
-					clearable: setup.props.clearable,
+					label: label,
+					disabled: disabled,
+					clearable: clearable,
+					readonly,
 					required: setup.isRequired,
 				}"
-				force-label-floating
 				@keydown.self="setup.keydownGuard($event)"
 				@mousedown-right="setup.handleMouseEvent($event)"
 				@focus="setup.handleFocus($event)"
@@ -65,29 +64,26 @@ import './OrionPhone.less';
 import { OrionInput } from 'packages/Input';
 import { OrionSelect } from 'packages/Select';
 import OrionPhoneSetupService from './OrionPhoneSetupService';
+import type { OrionPhoneProps, OrionPhoneEmits, VModelType } from './OrionPhoneSetupService';
 // TODO: avoid code duplicate
 // https://github.com/vuejs/core/issues/8301
 // import OrionPhoneSetupService, { type OrionPhoneEmit } from './OrionPhoneSetupService';
-type VModelType = Nil<{
-  phoneNumber: Nil<string>;
-  phoneCountryCode: Nil<Orion.Country['code']>;
-}>;
-type OrionPhoneEmit = {
-  (e: 'focus', payload: FocusEvent): void;
-  (e: 'blur', payload?: FocusEvent): void;
-  (e: 'input', payload: VModelType): void;
-  (e: 'change', val?: VModelType): void;
-  (e: 'update:modelValue', payload: VModelType): void;
-  (e: 'update:phoneNumber', payload?: string): void;
-  (e: 'update:phoneCountryCode', payload?: Orion.Country['code']): void;
-  (e: 'clear'): void;
-}
-const emit = defineEmits<OrionPhoneEmit>();
-const props = defineProps(OrionPhoneSetupService.props);
-const setup = new OrionPhoneSetupService(props, emit);
+const emits = defineEmits<OrionPhoneEmits>() as OrionPhoneEmits;
+const vModel = defineModel<VModelType>();
+const phoneCountryCode = defineModel<string | undefined>('phoneCountryCode');
+const phoneNumber = defineModel<string | undefined>('phoneNumber');
+const props = withDefaults(defineProps<OrionPhoneProps>(), OrionPhoneSetupService.defaultProps);
+const setup = new OrionPhoneSetupService(props, emits, vModel, phoneCountryCode, phoneNumber);
 defineExpose(setup.publicInstance);
 
 /** Doc
+ * @doc vModel/vModel component's vModel
+ * @doc/fr vModel/vModel vModel du composant
+ * @doc vModel/phoneCountryCode the country code string, isolated from its parent object
+ * @doc/fr vModel/phoneCountryCode le code pays, isolé de son objet parent
+ * @doc vModel/phoneNumber the phoneNumber string, isolated from its parent object
+ * @doc/fr vModel/phoneNumber le numéro de téléphone, isolé de son objet parent
+ *
  * @doc event/focus/desc emitted on focus
  * @doc/fr event/focus/desc émis lors du focus
  *
@@ -99,9 +95,6 @@ defineExpose(setup.publicInstance);
  *
  * @doc event/change/desc emitted when the value of the field changes
  * @doc/fr event/change/desc émis lorsque la valeur est modifiée
- *
- * @doc event/update:modelValue/desc emitted to update the field value
- * @doc/fr event/update:modelValue/desc émis pour mettre à jour la valeur
  *
  * @doc event/clear/desc emitted when the field is cleared
  * @doc/fr event/clear/desc émis quand le champ est vidé

@@ -8,6 +8,7 @@
 
 	&__wrapper {
 		display: flex;
+		align-items: center;
 		max-width: calc(100% - (2.125rem * 2));
 	}
 
@@ -38,6 +39,40 @@
 
 		&--icon-only .icon {
 			font-size: 0.875rem;
+		}
+	}
+
+	&__input {
+
+		width: 2rem;
+		height: 2rem;
+		margin-top: 0;
+		margin-bottom: 0;
+
+		&.orion-input {
+
+		margin-left: 0.5rem;
+		margin-right: 0.5rem;
+			&__input {
+				padding: var(--fluid-5px) var(--fluid-5px);
+				text-align: center;
+			}
+			
+			.orion-input__label {
+				max-width: unset !important;
+				left: 0.75rem;
+			}
+		}
+
+		input::-webkit-outer-spin-button,
+		input::-webkit-inner-spin-button {
+			-webkit-appearance: none;
+			margin: 0;
+		}
+
+		/* Firefox */
+		input[type=number] {
+			-moz-appearance: textfield;
 		}
 	}
 }

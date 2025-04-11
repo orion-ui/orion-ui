@@ -28,7 +28,7 @@ export abstract class PopableService<T> {
 			vnode.component.parent = orionAppService.appInstance;
 			vnode.component.root = orionAppService.appInstance;
 
-			devtool?.on.visitComponentTree((payload) => {
+			devtool?.on.visitComponentTree((payload: any) => {
 				// Add custom type to the treeNode
 				type CustomComponentTreeNode = typeof payload.treeNode & { orionUid: number }
 
@@ -57,7 +57,7 @@ export abstract class PopableService<T> {
 
 	async notifyPopableUpdate (targetUid: number) {
 		const allInstances = await devtool?.getComponentInstances(orionAppService.app);
-		const instance = allInstances?.find(x => x.uid === targetUid);
+		const instance = allInstances?.find((x: any) => x.uid === targetUid);
 		devtool?.notifyComponentUpdate(instance);
 	}
 

@@ -1,46 +1,33 @@
-import { PropType, reactive, useSlots } from 'vue';
+import { ModelRef, reactive, useSlots } from 'vue';
 import SharedSetupService from '../../Shared/SharedSetupService';
 import { getUid } from 'utils/tools';
 
-type Props = SetupProps<typeof OrionCarouselSetupService.props>
+export type OrionCarouselEmits = {}
+export type OrionCarouselProps = {
+	// @doc props/color color of the dots at the carousel's bottom
+	// @doc/fr props/color couleur des points au bas du carrousel
+	color?: Orion.Color | Orion.ColorAlt,
+	// @doc props/hideNavigationButtons hide the navigation buttons around the dots
+	// @doc/fr props/hideNavigationButtons masque les boutons de navigation autour des points
+	hideNavigationButtons?: boolean,
+	// @doc props/hideNavigationDots hide the navigation dots
+	// @doc/fr props/hideNavigationDots masque les points de navigation
+	hideNavigationDots?: boolean,
+	// @doc props/loop enable the "loop" mode
+	// @doc/fr props/loop active le mode "en boucle"
+	loop?: boolean,
+	// @doc props/pauseOnHover pause timer when hovering the carousel
+	// @doc/fr props/pauseOnHover met au pause le minuteur lors du survol du carrousel
+	pauseOnHover?: boolean,
+	// @doc props/stepTimer apply a timer to automatically switch to the next item
+	// @doc/fr props/stepTimer applique un minuteur pour passer automatiquement à l'élément suivant
+	stepTimer?: number,
+};
 type Slots = ReturnType<typeof useSlots>;
-type Emits = {(e: 'update:modelValue', val?: number | string): void}
 
-export default class OrionCarouselSetupService extends SharedSetupService<Props> {
-	static props = {
-		// @doc props/loop enable the "loop" mode
-		// @doc/fr props/loop active le mode "en boucle"
-		loop: Boolean,
-		// @doc props/pauseOnHover pause timer when hovering the carousel
-		// @doc/fr props/pauseOnHover met au pause le minuteur lors du survol du carrousel
-		pauseOnHover: Boolean,
-		// @doc props/hideNavigationButtons hide the navigation buttons around the dots
-		// @doc/fr props/hideNavigationButtons masque les boutons de navigation autour des points
-		hideNavigationButtons: Boolean,
-		// @doc props/hideNavigationDots hide the navigation dots
-		// @doc/fr props/hideNavigationDots masque les points de navigation
-		hideNavigationDots: Boolean,
-		// @doc props/modelValue refers to the active step's **name** prop
-		// @doc/fr props/modelValue correspond à la prop **name** de l'élément actif
-		modelValue: {
-			type: [Number, String],
-			default: undefined,
-		},
-		// @doc props/stepTimer apply a timer to automatically switch to the next item
-		// @doc/fr props/stepTimer applique un minuteur pour passer automatiquement à l'élément suivant
-		stepTimer: {
-			type: Number,
-			default: undefined,
-		},
-		// @doc props/color color of the dots at the carousel's bottom
-		// @doc/fr props/color couleur des points au bas du carrousel
-		color: {
-			type: String as PropType<Orion.Color | Orion.ColorAlt>,
-			default: 'brand',
-		},
-	};
+export default class OrionCarouselSetupService extends SharedSetupService {
+	static readonly defaultProps = { color: 'brand' as Orion.ColorExtended };
 
-	private emits: Emits;
 	private slots: Slots;
 	private timer?: NodeJS.Timeout;
 
@@ -52,9 +39,9 @@ export default class OrionCarouselSetupService extends SharedSetupService<Props>
 
 	uid = this.getUid();
 
-	get step () { return this.props.modelValue; }
+	get step () { return this.vModel.value; }
 	set step (val) {
-		this.emits('update:modelValue', val);
+		this.vModel.value = val;
 		if (this.props.stepTimer) {
 			this.state.timerRemaining = this.props.stepTimer;
 			this.state.timerStart = new Date().valueOf();
@@ -67,7 +54,7 @@ export default class OrionCarouselSetupService extends SharedSetupService<Props>
 	get rgbColor () { return `var(--rgb-${this.props.color})`; }
 	get stepTimerForCss () { return this.props.stepTimer + 'ms'; }
 	get shouldLoop () { return !!this.props.stepTimer || this.props.loop; }
-	get stepIndex () { return this.steps.findIndex(x => x.name === this.props.modelValue); }
+	get stepIndex () { return this.steps.findIndex(x => x.name === this.vModel.value); }
 	get stepsLength () { return this.steps.length; }
 
 	get steps (): { name: string | number, uid: number }[] {
@@ -103,10 +90,13 @@ export default class OrionCarouselSetupService extends SharedSetupService<Props>
 		};
 	}
 
-
-	constructor (props: Props, emits: Emits, slots: Slots) {
-		super(props);
-		this.emits = emits;
+	constructor (
+		protected props: OrionCarouselProps & typeof OrionCarouselSetupService.defaultProps,
+		protected emits: OrionCarouselEmits,
+		protected vModel: ModelRef<Undef<number | string>>,
+		slots: Slots,
+	) {
+		super();
 		this.slots = slots;
 	}
 
