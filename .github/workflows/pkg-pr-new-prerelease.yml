@@ -47,6 +47,9 @@ jobs:
       - name: Build lib
         run: npm run build
 
+      - name: Build monkey-patching library
+        run: npm run build:monkey
+
       - name: Run post build script
         run: node scripts/ci-build-lib.cjs
 
