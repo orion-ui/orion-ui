@@ -34,6 +34,7 @@
 		"build": "vite build",
 		"build:lib": "vite build && node scripts/ci-build-lib.cjs",
 		"build:hard": "vue-tsc --noEmit && vite build && node scripts/ci-build-lib.cjs",
+		"build:monkey": "vite build --config vite.monkey.config.ts",
 		"docs:dev": "vuepress dev docs --port=9091",
 		"docs:build": "vuepress build docs"
 	},
