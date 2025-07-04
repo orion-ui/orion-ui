@@ -330,7 +330,7 @@ export default abstract class SharedFieldSetupService<P, T, E extends SharedFiel
 	}
 
 	clear () {
-		if (this.props.disabled || this.props.readonly || !this.vModel?.value) return;
+		if (this.props.disabled || this.props.readonly) return;
 		this.vModel.value = this.props.clearToNull ? null : undefined;
 		this.emits('input', this.props.clearToNull ? null : undefined);
 		this.emits('change', this.props.clearToNull ? null : undefined);
