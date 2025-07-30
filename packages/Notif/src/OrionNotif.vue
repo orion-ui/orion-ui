@@ -68,10 +68,4 @@ const setup = new OrionNotifSetupService(props, emits);
 provide('_notif', setup.publicInstance);
 defineExpose(setup.publicInstance);
 
-/** Doc
- * @doc event/enter-start/desc the notification begins its enter transition
- * @doc event/enter-end/desc the notification ends its enter transition
- * @doc event/leave-start/desc the notification begins its leave transition
- * @doc event/leave-end/desc the notification ends its leave transition
- */
 </script>

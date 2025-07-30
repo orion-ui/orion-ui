@@ -225,23 +225,5 @@ defineExpose(setup.publicInstance);
 /** Doc
  * @doc vModel/json the json format of the editor value
  * @doc/fr vModel/json valeur de l'éditeur au format JSON
- *
- * @doc event/focus/desc emitted on focus
- * @doc/fr event/focus/desc émis lors du focus
- *
- * @doc event/blur/desc emitted when the focus leaves the field
- * @doc/fr event/blur/desc émis quand le focus quitte le champ
- *
- * @doc event/input/desc emitted when the value of the field changes
- * @doc/fr event/input/desc émis lorsque la valeur est modifiée
- *
- * @doc event/change/desc emitted when the value of the field changes
- * @doc/fr event/change/desc émis lorsque la valeur est modifiée
- *
- * @doc event/clear/desc emitted when the field is cleared
- * @doc/fr event/clear/desc émis quand le champ est vidé
- *
- * @doc event/update:json/desc emitted to update the json value
- * @doc/fr event/update:json/desc émis pour mettre à jour la valeur JSON
  */
 </script>

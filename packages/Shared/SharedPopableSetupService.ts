@@ -14,9 +14,17 @@ import { Reactive } from 'utils/decorators';
 type Popable = OrionAside | OrionNotif | OrionModal;
 
 export type SharedPopableSetupServiceEmits = {
+	// @doc event/enter-start/desc the aside begins its enter transition
+	// @doc/fr event/enter-start/desc l'aside commence son animation d'arrivée
 	(e: 'enter-start'): void;
+	// @doc event/enter-end/desc the aside ends its enter transition
+	// @doc/fr event/enter-end/desc l'aside a fini son animation d'arrivée
 	(e: 'enter-end'): void;
+	// @doc event/leave-start/desc the aside begins its leave transition
+	// @doc/fr event/leave-start/desc l'aside commence sa transition de départ
 	(e: 'leave-start'): void;
+	// @doc event/leave-end/desc the aside ends its leave transition
+	// @doc/fr event/leave-end/desc l'aside a fini sa transition de départ
 	(e: 'leave-end'): void;
 }
 

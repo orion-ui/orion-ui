@@ -99,7 +99,12 @@ const globalTypesDocData = {
 		'ns': 'Orion',
 		'type': 'ListLayout',
 		'generic': '',
-		'description': '\'grid\' | \'row\'; \n',
+		'description': '\'grid\' | \'row\'; \n \n\t\t// eslint-disable-next-line max-len',
+	}, {
+		'ns': 'Orion',
+		'type': 'VDropdownPlacement',
+		'generic': '',
+		'description': '\'auto\' | \'auto-start\' | \'auto-end\' | \'top\' | \'top-start\' | \'top-end\' | \'bottom\' | \'bottom-start\' | \'bottom-end\' | \'left\' | \'left-start\' | \'left-end\' | \'right\' | \'right-start\' | \'right-end\'; \n',
 	}, {
 		'ns': 'Orion',
 		'type': 'Phone',
@@ -164,7 +169,7 @@ const globalTypesDocData = {
 		'ns': 'Orion',
 		'type': 'VDropdown',
 		'generic': '',
-		'description': '{ \n\t\t\tcontainer?: HTMLElement | string; \n\t\t\tplacement?: string; \n\t\t} \n',
+		'description': '{ \n\t\t\tplacement?: VDropdownPlacement; \n\t\t\tdistance?: number; \n\t\t\tskidding?: number; \n\t\t\tarrowPadding?: number; \n\t\t} \n',
 	}],
 
 	'Orion.Popable': [{

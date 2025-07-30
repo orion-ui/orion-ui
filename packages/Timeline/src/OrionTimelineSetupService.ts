@@ -5,7 +5,11 @@ import { isArray } from 'lodash-es';
 import { Private } from 'lib/private';
 
 export type OrionTimelineEmits = {
+	// @doc event/input/desc emitted when the value of the timeline changes
+	// @doc/fr event/input/desc émis quand la valeur de la timeline change
 	(e: 'input', payload: string | number): void
+	// @doc event/pill-click/desc emitted when a pill is clicked
+	// @doc/fr event/pill-click/desc émis au moment du click sur une vignette
 	(e: 'pill-click', ...payload: [OrionTimelinePane, MouseEvent]): void
 }
 

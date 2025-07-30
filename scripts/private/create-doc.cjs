@@ -326,7 +326,6 @@ class VueFileScanner extends DocScanner {
 
 		return {
 			localTypes: this.getLocalTypes(),
-			events: this.getEvents(),
 			provide: this.getProvide(),
 			slots: this.getSlots(),
 			vModel: this.getVmodels(),
@@ -353,24 +352,6 @@ class VueFileScanner extends DocScanner {
 		}
 
 		return this.localTypes;
-	}
-
-	getEvents () {
-		const events = this.cleanEventsType(this.file
-			.getDescendantsOfKind(SyntaxKind.CallExpression)
-			.filter(x => x.getText().includes('defineEmits'))
-			.map(x => x.getTypeArguments()?.[0])?.[0],
-		);
-
-		if (this.options?.verbose) {
-			if (Object.keys(events).length) {
-				note(events.join('\n'));
-			} else {
-				log.warn('No defineEmits has been found in vue file');
-			}
-		}
-
-		return events;
 	}
 
 	getProvide () {
@@ -485,53 +466,7 @@ class VueFileScanner extends DocScanner {
 			bindings,
 		};
 	}
-
-	cleanEventsType (/** @type {import('ts-morph').TypeNode} */ events) {
-		const cleanEmits = [];
-
-		const typeKind = events?.getKind();
-
-		if (!typeKind) return cleanEmits;
-
-		const typeText = typeKind === SyntaxKind.TypeLiteral
-			? events.getText()
-			: this.localTypes[events.getText()];
-
-		const typeTS = this.file.addTypeAlias({
-			name: 'typeTS',
-			type: typeText,
-		});
-
-		typeTS
-			.getChildrenOfKind(SyntaxKind.TypeLiteral)?.[0]
-			?.getChildrenOfKind(SyntaxKind.CallSignature)
-			?.forEach((x) => {
-				const paramsLength = x.getChildrenOfKind(SyntaxKind.Parameter).length;
-
-				const name = x
-					.getFirstChildByKind(SyntaxKind.Parameter)
-					?.getLastChild()
-					?.getText().replace(cleanString, '');
-
-				const payload = paramsLength === 1
-					? 'undefined'
-					: x.getLastChildByKind(SyntaxKind.Parameter)?.getLastChild().getText();
-
-				const optional = x.getLastChildByKind(SyntaxKind.Parameter)?.isOptional();
-				const desc = this.getDoc(`^event\/${name}\/desc (.*)$`);
-
-				cleanEmits.push({
-					name,
-					payload,
-					optional,
-					desc,
-				});
-			});
-
-		return cleanEmits;
-	}
 }
-
 
 class SetupServiceDtsFileScanner extends DocScanner {
 	packagesFolderPath = path.resolve(__dirname, '../../dist/types/packages');
@@ -663,13 +598,16 @@ class SetupServiceFileScanner extends DocScanner {
 		this.props = new Map();
 		this.addFileToTsMorphProject();
 		this.docFlags = this.extractDocFlags(this.fullText);
-
-		return this.extractPropsFromClassDeclaration(this.file.getClass(`Orion${this.pack}SetupService`));
+		const props = this.extractPropsFromClassDeclaration(this.file.getClass(`Orion${this.pack}SetupService`));
+		const events = this.extractEmitsFromClassDeclaration();
+		return {
+			props: props.props,
+			events: events,
+		};
 	}
 
 	resolveSpreadProps (expression) {
 		const resolvedProps = {};
-
 		if (Node.isPropertyAccessExpression(expression)) {
 			const className = expression.getExpression().getText();
 			const propertyName = expression.getName();
@@ -695,7 +633,6 @@ class SetupServiceFileScanner extends DocScanner {
 						initializer.getProperties().forEach((prop) => {
 							if (Node.isPropertyAssignment(prop)) {
 								const name = prop.getName();
-
 								const desc = this.getPropsDesciption(name);
 								const value = prop.getInitializer()?.getText().replace(/as Orion.*/, '');
 								const type = prop.getType().getText().replace(/as Orion.*/, '');
@@ -750,12 +687,6 @@ class SetupServiceFileScanner extends DocScanner {
 							resolvedProps[key] = spreadProps[key];
 						}
 					});
-
-					/* Object.keys(sharedProps).forEach((key) => {
-						if (!resolvedProps[key]) {
-							resolvedProps[key] = sharedProps[key];
-						}
-					}); */
 				}
 			});
 		}
@@ -768,16 +699,7 @@ class SetupServiceFileScanner extends DocScanner {
 
 		let type = fileTypeAlias.getType();
 
-		if (type.getAliasSymbol()) {
-			const resolvedType = type.getAliasSymbol()
-				? type.getAliasSymbol().getDeclaredType()
-				: type;
-		}
-
 		//HANDLE DEFAULT PROPS
-		const defaultPropsProperty = classDeclaration.getStaticPropertyOrThrow('defaultProps');
-		const initializer = defaultPropsProperty.getInitializer();
-
 		const defaultProps = this.parseDefaultProps();
 
 		const properties = {};
@@ -790,7 +712,7 @@ class SetupServiceFileScanner extends DocScanner {
 			let type = 'unknown';
 
 			if (valueDeclaration) {
-				type = valueDeclaration.getType().getText().replace(/as Orion.*/, '');
+				type = valueDeclaration.getTypeNode().getText().replace(/as Orion.*/, '');
 			} else {
 				const symbolType = prop.getTypeAtLocation(this.file);
 				type = symbolType.getText().replace(/as Orion.*/, '');
@@ -820,6 +742,38 @@ class SetupServiceFileScanner extends DocScanner {
 		return { props: Object.values(mergedProps).sort((a, b) => a.name.localeCompare(b.name)) };
 	}
 
+	extractEmitsFromClassDeclaration () {
+		const fileTypeAlias = this.file.getTypeAliasOrThrow(`Orion${this.pack}Emits`);
+		let type = fileTypeAlias.getType();
+
+		const callSignatures = type.getCallSignatures();
+
+		const events = [];
+
+		// PARSE EVENTS IN FILE
+		for (const signature of callSignatures) {
+			const params = signature.getParameters();
+
+			const [eventParam, payloadParam] = params;
+
+			const eventDecl = eventParam?.getDeclarations()[0];
+			const payloadDecl = payloadParam?.getDeclarations()[0];
+
+			const name = eventDecl?.getType().getLiteralValue?.(); // e.g. 'click'
+			const payloadTypeText = payloadDecl?.getType().getText();
+			if (typeof name === 'string') {
+				events.push({
+					name,
+					payload: payloadTypeText,
+					desc: this.getEventDescription(name),
+				});
+			}
+		}
+
+
+		return events;
+	}
+
 	getDesc (name) {
 		if (this.props.has(name)) {
 			let desc = this.props.get(name)?.desc;
@@ -837,6 +791,11 @@ class SetupServiceFileScanner extends DocScanner {
 
 	getvModelDesciption (/** @type {string} */ name) {
 		const desc = this.getDoc(`^vModel\/${name} (.*)$`);
+		return desc;
+	}
+
+	getEventDescription (/** @type {string} */ name) {
+		const desc = this.getDoc(`^event\/${name}/desc (.*)$`);
 		return desc;
 	}
 }

@@ -55,8 +55,5 @@ defineExpose(setup.publicInstance);
 /** Doc
  * @doc slot/default the content of the button
  * @doc/fr slot/default contenu du bouton
- *
- * @doc event/click/desc emitted on button click
- * @doc/fr event/click/desc émis lors du click sur le bouton
  */
 </script>

@@ -3,7 +3,11 @@ import { nextTick, ref, SetupContext, watch } from 'vue';
 import anime from 'animejs';
 import { SharedPropsIcon } from '../../Shared/SharedProps';
 
-export type OrionIconEmits = {}
+export type OrionIconEmits = {
+	// @doc event/marker-click/desc emitted on marker click
+	// @doc/fr event/marker-click/desc émis au moment du click sur le marqueur
+	(e: 'marker-click'): void;
+}
 export type OrionIconProps = SharedPropsIcon & {
 	// @doc props/button adds a background color
 	// @doc/fr props/button ajouter une couleur en arrière plan
@@ -20,8 +24,8 @@ export type OrionIconProps = SharedPropsIcon & {
 	// @doc props/markerPosition the position of the marker
 	// @doc/fr props/markerPosition position du marqueur
 	markerPosition?: string,
-	// @doc props/onMarkerClick Missing @doc
-	// @doc/fr props/onMarkerClick Missing @doc
+	// @doc props/onMarkerClick callback when the marker is clicked
+	// @doc/fr props/onMarkerClick callback au moment du click sur le marqueur
 	onMarkerClick?: (e: MouseEvent) => void,
 	// @doc props/ripple emits a wave on the click and adds an hover color
 	// @doc/fr props/ripple émet une onde au moment du click et ajoute un style au moment du survol
@@ -86,6 +90,7 @@ export default class OrionIconSetupService extends SharedSetupService {
 		if (this.isMarkerClickable) {
 			event.stopPropagation();
 			this.props.onMarkerClick?.(event);
+			this.emits('marker-click');
 		}
 	}
 

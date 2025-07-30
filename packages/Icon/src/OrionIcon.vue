@@ -107,8 +107,4 @@ const setup = new OrionIconSetupService(props, emits, attrs);
 
 defineExpose(setup.publicInstance);
 
-/** Doc
- * @doc event/marker-click/desc emitted on marker click
- * @doc/fr event/marker-click/desc émis au moment du click sur le marqueur
- */
 </script>

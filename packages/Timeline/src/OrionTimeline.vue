@@ -4,7 +4,7 @@
 
 <script setup lang="tsx">
 import './OrionTimeline.less';
-import { provide, useSlots } from 'vue';
+import { provide } from 'vue';
 import { OrionLoader } from 'packages/Loader';
 import { OrionTimelinePill } from 'packages/TimelinePill';
 import OrionTimelineSetupService from './OrionTimelineSetupService';
@@ -61,11 +61,5 @@ const jsxTimeline = () => {
 /** Doc
  * @doc vModel/vModel component's vModel
  * @doc/fr vModel/vModel vModel du composant
- *
- * @doc event/input/desc emitted when the value of the timeline changes
- * @doc/fr event/input/desc émis quand la valeur de la timeline change
- *
- * @doc event/pill-click/desc emitted when a pill is clicked
- * @doc/fr event/pill-click/desc émis au moment du click sur une vignette
  */
 </script>

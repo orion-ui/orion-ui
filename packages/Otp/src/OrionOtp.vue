@@ -29,8 +29,4 @@ const props = withDefaults(defineProps<OrionOtpProps>(), OrionOtpSetupService.de
 const setup = new OrionOtpSetupService(props, emits);
 defineExpose(setup.publicInstance);
 
-/** Doc
- * @doc event/filled/desc emitted when the code is completed
- * @doc/fr event/filled/desc émis lorsque le code est complété
- */
 </script>

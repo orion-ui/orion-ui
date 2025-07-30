@@ -62,11 +62,5 @@ const jsxTabs = () => {
 /** Doc
  * @doc vModel/vModel component's vModel
  * @doc/fr vModel/vModel vModel du composant
- *
- * @doc event/input/desc emitted when the value of the input changes
- * @doc/fr event/input/desc émis quand on change d'onglet
- *
- * @doc event/tab-click/desc emitted on tab click
- * @doc/fr event/tab-click/desc émis au moment du click sur un tab
  */
 </script>

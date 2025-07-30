@@ -12,7 +12,6 @@ const packagesDocData = new Map([
 		'Alert',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [{
 				'name': 'default',
@@ -53,6 +52,13 @@ const packagesDocData = new Map([
 					'fr': 'Titre de l\'alert',
 				},
 			}],
+			events: [{
+				'name': 'close',
+				'desc': {
+					'en': 'emitted when closing the alert',
+					'fr': 'émis lors de la fermeture de l\'alerte',
+				},
+			}],
 			publicInstance: undefined,
 		},
 	],
@@ -60,7 +66,6 @@ const packagesDocData = new Map([
 		'Aside',
 		{
 			localTypes: {},
-			events: [],
 			provide: [{
 				'name': '_aside',
 				'data': 'publicInstance',
@@ -132,12 +137,37 @@ const packagesDocData = new Map([
 				},
 			}, {
 				'name': 'options',
-				'type': 'any',
+				'type': 'Partial<Orion.Popable.Options> & Partial<Orion.Aside.Options>',
 				'desc': {
 					'en': 'options of the aside',
 					'fr': 'options de l\'aside',
 				},
 				'defaultValue': '() => ({}) as Partial<Orion.Popable.Options>',
+			}],
+			events: [{
+				'name': 'enter-start',
+				'desc': {
+					'en': 'the aside begins its enter transition',
+					'fr': 'l\'aside commence son animation d\'arrivée',
+				},
+			}, {
+				'name': 'enter-end',
+				'desc': {
+					'en': 'the aside ends its enter transition',
+					'fr': 'l\'aside a fini son animation d\'arrivée',
+				},
+			}, {
+				'name': 'leave-start',
+				'desc': {
+					'en': 'the aside begins its leave transition',
+					'fr': 'l\'aside commence sa transition de départ',
+				},
+			}, {
+				'name': 'leave-end',
+				'desc': {
+					'en': 'the aside ends its leave transition',
+					'fr': 'l\'aside a fini sa transition de départ',
+				},
 			}],
 			publicInstance: [{
 				'name': 'slotPoster',
@@ -194,13 +224,12 @@ const packagesDocData = new Map([
 		'Avatar',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [],
 			vModel: [],
 			props: [{
 				'name': 'avatar',
-				'type': 'string | number | { id: number; }',
+				'type': '{id: number} | number | string',
 				'desc': {
 					'en': 'the url of the image or an id (combined with root-url prop). More info in [Edges cases](#edge-cases) section.',
 					'fr': 'url de l\'image ou id (combiné avec la prop `root-url`). Plus d\'infos dans la section [Cas complexes](#cas-complexes).',
@@ -246,7 +275,7 @@ const packagesDocData = new Map([
 				'defaultValue': '\'/avatar/\'',
 			}, {
 				'name': 'size',
-				'type': 'any',
+				'type': 'number | Orion.Size',
 				'desc': {
 					'en': 'define the size',
 					'fr': 'définit la taille',
@@ -274,6 +303,7 @@ const packagesDocData = new Map([
 					'fr': 'fonction à appeler pour modifier l\'avatar',
 				},
 			}],
+			events: [],
 			publicInstance: undefined,
 		},
 	],
@@ -281,7 +311,6 @@ const packagesDocData = new Map([
 		'Button',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [{
 				'name': 'default',
@@ -379,6 +408,14 @@ const packagesDocData = new Map([
 					'fr': 'définit l\'icône de suffixe',
 				},
 			}],
+			events: [{
+				'name': 'click',
+				'payload': 'MouseEvent',
+				'desc': {
+					'en': 'emitted on button click',
+					'fr': 'émis lors du click sur le bouton',
+				},
+			}],
 			publicInstance: undefined,
 		},
 	],
@@ -386,7 +423,6 @@ const packagesDocData = new Map([
 		'Card',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [{
 				'name': 'poster',
@@ -478,6 +514,19 @@ const packagesDocData = new Map([
 					'fr': 'titre de la carte',
 				},
 			}],
+			events: [{
+				'name': 'header-click',
+				'desc': {
+					'en': 'emitted on header click',
+					'fr': 'émis lors du click sur l\'en-tête',
+				},
+			}, {
+				'name': 'body-click',
+				'desc': {
+					'en': 'emitted on body click',
+					'fr': 'émis lors du click sur le body de la carte',
+				},
+			}],
 			publicInstance: undefined,
 		},
 	],
@@ -485,7 +534,6 @@ const packagesDocData = new Map([
 		'Carousel',
 		{
 			localTypes: {},
-			events: [],
 			provide: [{
 				'name': '_carousel',
 				'data': 'publicInstance',
@@ -642,7 +690,7 @@ const packagesDocData = new Map([
 			}],
 			props: [{
 				'name': 'color',
-				'type': 'any',
+				'type': 'Orion.Color | Orion.ColorAlt',
 				'desc': {
 					'en': 'defines the color',
 					'fr': 'définit la couleur',
@@ -684,6 +732,7 @@ const packagesDocData = new Map([
 					'fr': 'applique un minuteur pour passer automatiquement à l\'élément suivant',
 				},
 			}],
+			events: [],
 			publicInstance: [{
 				'name': 'step',
 				'type': '() => Undef<string | number>',
@@ -718,7 +767,6 @@ const packagesDocData = new Map([
 		'CarouselItem',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [{
 				'name': 'default',
@@ -752,12 +800,13 @@ const packagesDocData = new Map([
 				},
 			}, {
 				'name': 'name',
-				'type': 'string | number',
+				'type': 'number | string',
 				'desc': {
 					'en': 'step identifier',
 					'fr': 'identifiant de l\'élément',
 				},
 			}],
+			events: [],
 			publicInstance: undefined,
 		},
 	],
@@ -765,7 +814,6 @@ const packagesDocData = new Map([
 		'Chat',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [{
 				'name': 'discussion-title',
@@ -820,7 +868,7 @@ const packagesDocData = new Map([
 			vModel: [],
 			props: [{
 				'name': 'chat',
-				'type': 'import("services/ChatService").ChatService',
+				'type': 'ChatService',
 				'desc': {
 					'en': 'instance of the chat service',
 					'fr': 'instance du service `chat`',
@@ -847,6 +895,14 @@ const packagesDocData = new Map([
 					'fr': 'masque le champ de recherche en haut du chat',
 				},
 			}],
+			events: [{
+				'name': 'new-message',
+				'payload': 'Orion.Chat.NewMessage',
+				'desc': {
+					'en': 'emitted when a new message is sent',
+					'fr': 'émis lorsqu\'un nouveau message est envoyé',
+				},
+			}],
 			publicInstance: [{
 				'name': 'checkUnreadMessagesInDom',
 				'type': '() => Promise<void>',
@@ -863,7 +919,6 @@ const packagesDocData = new Map([
 		'ChatDiscussionList',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [{
 				'name': 'append-discussion-list-header',
@@ -904,10 +959,24 @@ const packagesDocData = new Map([
 			vModel: [],
 			props: [{
 				'name': 'chat',
-				'type': 'import("services/ChatService").ChatService',
+				'type': 'ChatService',
 				'desc': {
 					'en': 'instance of the chat service',
 					'fr': 'instance du service `chat`',
+				},
+			}],
+			events: [{
+				'name': 'new-discussion',
+				'desc': {
+					'en': 'emitted when a new discussion is created',
+					'fr': 'émis lorsqu\'une nouvelle discussion est créée *',
+				},
+			}, {
+				'name': 'select-discussion',
+				'payload': 'number',
+				'desc': {
+					'en': 'emitted when a discussion is selected',
+					'fr': 'émis quand une discussion est séléctionnée',
 				},
 			}],
 			publicInstance: undefined,
@@ -917,32 +986,32 @@ const packagesDocData = new Map([
 		'ChatMessage',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [],
 			vModel: [],
 			props: [{
 				'name': 'chat',
-				'type': 'import("services/ChatService").ChatService',
+				'type': 'ChatService',
 				'desc': {
 					'en': 'instance of the chat',
 					'fr': 'instance du service `chat`',
 				},
 			}, {
 				'name': 'discussion',
-				'type': 'import("/Users/julie/Documents/projet/orion-github/packages/Chat/src/OrionChatEntity").default',
+				'type': 'OrionChatEntity',
 				'desc': {
 					'en': 'the discussion related to the message',
 					'fr': 'discussion relative au message',
 				},
 			}, {
 				'name': 'message',
-				'type': 'import("/Users/julie/Documents/projet/orion-github/packages/ChatMessage/src/OrionChatMessageEntity").default',
+				'type': 'OrionChatMessageEntity',
 				'desc': {
 					'en': 'message object',
 					'fr': 'Objet représentant le message',
 				},
 			}],
+			events: [],
 			publicInstance: undefined,
 		},
 	],
@@ -950,7 +1019,6 @@ const packagesDocData = new Map([
 		'Checkbox',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [{
 				'name': 'default',
@@ -1042,7 +1110,7 @@ const packagesDocData = new Map([
 				},
 			}, {
 				'name': 'inputValue',
-				'type': 'string | number | boolean | Object | any[] | Date',
+				'type': 'string | boolean | number | Object | any[] | Date | undefined',
 				'desc': {
 					'en': 'the value of the checkbox',
 					'fr': 'valeur de la case à cocher',
@@ -1134,7 +1202,7 @@ const packagesDocData = new Map([
 				},
 			}, {
 				'name': 'type',
-				'type': 'any',
+				'type': 'string',
 				'desc': {
 					'en': 'the type of the input',
 					'fr': 'type du champ',
@@ -1142,7 +1210,7 @@ const packagesDocData = new Map([
 				'defaultValue': '\'checkbox\'',
 			}, {
 				'name': 'validation',
-				'type': 'any',
+				'type': 'string | ((val: any) => boolean) | Orion.Validator.Rule | Orion.Validation.Rule | boolean',
 				'desc': {
 					'en': 'the validation for the field',
 					'fr': 'la validation du champ',
@@ -1153,6 +1221,41 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'the error message displayed after input\'s validation.',
 					'fr': 'le message d\'erreur affiché en cas d\'erreur lors de la validation',
+				},
+			}],
+			events: [{
+				'name': 'focus',
+				'payload': 'FocusEvent',
+				'desc': {
+					'en': 'emitted on field focus',
+					'fr': 'émis lors du focus',
+				},
+			}, {
+				'name': 'blur',
+				'payload': 'FocusEvent',
+				'desc': {
+					'en': 'emitted when the focus leaves the field',
+					'fr': 'émis quand le focus quitte la case à cocher',
+				},
+			}, {
+				'name': 'input',
+				'payload': 'T',
+				'desc': {
+					'en': 'emitted when the value of the field changes',
+					'fr': 'émis lorsque la valeur est modifiée',
+				},
+			}, {
+				'name': 'change',
+				'payload': 'T',
+				'desc': {
+					'en': 'emitted when the value of the field changes',
+					'fr': ' émis lorsque la valeur est modifiée',
+				},
+			}, {
+				'name': 'clear',
+				'desc': {
+					'en': 'emitted when the field is cleared',
+					'fr': 'Missing @doc',
 				},
 			}],
 			publicInstance: [{
@@ -1189,7 +1292,6 @@ const packagesDocData = new Map([
 		'Chips',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [{
 				'name': 'default',
@@ -1238,6 +1340,13 @@ const packagesDocData = new Map([
 				},
 				'defaultValue': '\'md\' ',
 			}],
+			events: [{
+				'name': 'close',
+				'desc': {
+					'en': 'Emitted when closing the chips',
+					'fr': 'Émis lors de la fermeture de la chips',
+				},
+			}],
 			publicInstance: undefined,
 		},
 	],
@@ -1245,7 +1354,6 @@ const packagesDocData = new Map([
 		'ColorPicker',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [],
 			vModel: [{
@@ -1416,14 +1524,14 @@ const packagesDocData = new Map([
 				},
 			}, {
 				'name': 'type',
-				'type': 'any',
+				'type': 'string | Orion.DatepickerType',
 				'desc': {
 					'en': 'type of the input',
 					'fr': 'type of the input',
 				},
 			}, {
 				'name': 'validation',
-				'type': 'any',
+				'type': 'string | ((val: any) => boolean) | Orion.Validator.Rule | Orion.Validation.Rule | boolean',
 				'desc': {
 					'en': 'the validation for the field',
 					'fr': 'la validation du champ',
@@ -1434,6 +1542,48 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'the error message displayed after input\'s validation.',
 					'fr': 'le message d\'erreur affiché en cas d\'erreur lors de la validation',
+				},
+			}],
+			events: [{
+				'name': 'focus',
+				'payload': 'FocusEvent',
+				'desc': {
+					'en': 'emitted on field focus',
+					'fr': 'émis lors du focus',
+				},
+			}, {
+				'name': 'blur',
+				'payload': 'FocusEvent',
+				'desc': {
+					'en': 'emitted when the focus leaves the field',
+					'fr': 'émis quand le focus quitte la case à cocher',
+				},
+			}, {
+				'name': 'input',
+				'payload': 'T',
+				'desc': {
+					'en': 'emitted when the value of the field changes',
+					'fr': 'émis lorsque la valeur est modifiée',
+				},
+			}, {
+				'name': 'change',
+				'payload': 'T',
+				'desc': {
+					'en': 'emitted when the value of the field changes',
+					'fr': ' émis lorsque la valeur est modifiée',
+				},
+			}, {
+				'name': 'clear',
+				'desc': {
+					'en': 'emitted when the field is cleared',
+					'fr': 'Missing @doc',
+				},
+			}, {
+				'name': 'picked',
+				'payload': 'ColorValue',
+				'desc': {
+					'en': 'emitted when a color is selected',
+					'fr': 'émis quand une couleur est selectionnée',
 				},
 			}],
 			publicInstance: [{
@@ -1470,7 +1620,6 @@ const packagesDocData = new Map([
 		'Cropper',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [],
 			vModel: [],
@@ -1536,6 +1685,7 @@ const packagesDocData = new Map([
 				},
 				'defaultValue': '0.01',
 			}],
+			events: [],
 			publicInstance: [{
 				'name': 'crop',
 				'type': '() => Promise<File>',
@@ -1549,7 +1699,6 @@ const packagesDocData = new Map([
 		'DailyCalendar',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [],
 			vModel: [{
@@ -1577,6 +1726,7 @@ const packagesDocData = new Map([
 				},
 				'defaultValue': '() => ([\n\t\t\t8,\n\t\t\t18,\n\t\t])',
 			}],
+			events: [],
 			publicInstance: undefined,
 		},
 	],
@@ -1584,7 +1734,6 @@ const packagesDocData = new Map([
 		'DateTable',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [],
 			vModel: [{
@@ -1715,6 +1864,35 @@ const packagesDocData = new Map([
 				},
 				'defaultValue': '\'date\' ',
 			}],
+			events: [{
+				'name': 'change-month',
+				'payload': '{ month: number; year: number; }',
+				'desc': {
+					'en': 'emitted to change the current month',
+					'fr': 'émis pour mettre à jour la valeur du mois courant',
+				},
+			}, {
+				'name': 'select-specific',
+				'payload': 'Orion.Period | PeriodDay',
+				'desc': {
+					'en': 'emitted on day click, to execute the associate callback if it exists',
+					'fr': 'émis au moment du click sur un jour spécifique, pour exécuter le callback correspondant s\'il est défini',
+				},
+			}, {
+				'name': 'select-period',
+				'payload': 'Orion.Period[]',
+				'desc': {
+					'en': 'emitted when a period is selected and executes its associated callbacks',
+					'fr': 'émis quand une période est sélectionnée et exécute le callback si défini',
+				},
+			}, {
+				'name': 'select-day',
+				'payload': 'Orion.Period | PeriodDay',
+				'desc': {
+					'en': 'emitted when a day is selected',
+					'fr': 'émis quand un jour est sélectioné',
+				},
+			}],
 			publicInstance: [{
 				'name': 'getCurrentDate',
 				'type': '() => Date',
@@ -1740,7 +1918,6 @@ const packagesDocData = new Map([
 		'Datepicker',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [{
 				'name': 'multipleDisplay',
@@ -1975,7 +2152,7 @@ const packagesDocData = new Map([
 				},
 			}, {
 				'name': 'type',
-				'type': 'any',
+				'type': '"date" | "range" | "week" | "multiple" | "month"',
 				'desc': {
 					'en': 'the type of the vModel',
 					'fr': 'le type de vModel',
@@ -1983,7 +2160,7 @@ const packagesDocData = new Map([
 				'defaultValue': '\'date\' ',
 			}, {
 				'name': 'validation',
-				'type': 'any',
+				'type': 'string | ((val: any) => boolean) | Orion.Validator.Rule | Orion.Validation.Rule | boolean',
 				'desc': {
 					'en': 'the validation for the field',
 					'fr': 'la validation du champ',
@@ -1997,10 +2174,45 @@ const packagesDocData = new Map([
 				},
 			}, {
 				'name': 'valueDisplayFormat',
-				'type': '(val: Date) => string',
+				'type': '(val: Nil<Date> | Nil<Orion.DateRange>) => string',
 				'desc': {
 					'en': 'function to customize the display format',
 					'fr': 'fonction pour personnaliser l\'affichage',
+				},
+			}],
+			events: [{
+				'name': 'focus',
+				'payload': 'FocusEvent',
+				'desc': {
+					'en': 'emitted on field focus',
+					'fr': 'émis lors du focus',
+				},
+			}, {
+				'name': 'blur',
+				'payload': 'FocusEvent',
+				'desc': {
+					'en': 'emitted when the focus leaves the field',
+					'fr': 'émis quand le focus quitte la case à cocher',
+				},
+			}, {
+				'name': 'input',
+				'payload': 'T',
+				'desc': {
+					'en': 'emitted when the value of the field changes',
+					'fr': 'émis lorsque la valeur est modifiée',
+				},
+			}, {
+				'name': 'change',
+				'payload': 'T',
+				'desc': {
+					'en': 'emitted when the value of the field changes',
+					'fr': ' émis lorsque la valeur est modifiée',
+				},
+			}, {
+				'name': 'clear',
+				'desc': {
+					'en': 'emitted when the field is cleared',
+					'fr': 'Missing @doc',
 				},
 			}],
 			publicInstance: [{
@@ -2037,7 +2249,6 @@ const packagesDocData = new Map([
 		'Draggable',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [{
 				'name': 'default',
@@ -2058,7 +2269,7 @@ const packagesDocData = new Map([
 			}],
 			props: [{
 				'name': 'data',
-				'type': 'Orion.DndData',
+				'type': 'Orion.DndData[\'data\']',
 				'desc': {
 					'en': 'datas of the draggable item',
 					'fr': 'données de l\'élément',
@@ -2072,6 +2283,7 @@ const packagesDocData = new Map([
 				},
 				'defaultValue': '\'div\'',
 			}],
+			events: [],
 			publicInstance: undefined,
 		},
 	],
@@ -2079,7 +2291,6 @@ const packagesDocData = new Map([
 		'Droppable',
 		{
 			localTypes: {},
-			events: [],
 			provide: [{
 				'name': '_droppable',
 				'data': 'publicInstance',
@@ -2117,6 +2328,40 @@ const packagesDocData = new Map([
 					'fr': 'permet d\'ajouter une validation avant de déposer un objet dans la zone',
 				},
 			}],
+			events: [{
+				'name': 'dropIn',
+				'payload': 'any',
+				'desc': {
+					'en': 'Emitted when the draggable item is dropped in a zone',
+					'fr': 'émis quand un élément est déposé dans une zone de drop',
+				},
+			}, {
+				'name': 'dragOver',
+				'desc': {
+					'en': 'Emitted when the draggable item enters in a droppable zone',
+					'fr': 'émis quand un élément entre dans une zone de drop',
+				},
+			}, {
+				'name': 'dragLeave',
+				'desc': {
+					'en': 'Emitted when the draggable item leaves a droppable zone',
+					'fr': 'émis quand un élément quitte une zone de drop',
+				},
+			}, {
+				'name': 'reorder',
+				'payload': 'any',
+				'desc': {
+					'en': 'Emitted when the draggable item is dropped in its origin area',
+					'fr': 'émis quand un élément est relaché dans la zone dont il provient',
+				},
+			}, {
+				'name': 'dropOut',
+				'payload': 'any',
+				'desc': {
+					'en': 'Emitted when the draggable item is droped outside a droppable zone',
+					'fr': 'émis quand un élément est laché en dehors d\'une zone de drop',
+				},
+			}],
 			publicInstance: [{
 				'name': 'uid',
 				'type': 'number',
@@ -2130,7 +2375,6 @@ const packagesDocData = new Map([
 		'Editor',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [],
 			vModel: [{
@@ -2296,14 +2540,14 @@ const packagesDocData = new Map([
 				},
 			}, {
 				'name': 'type',
-				'type': 'any',
+				'type': 'string | Orion.DatepickerType',
 				'desc': {
 					'en': 'type of the input',
 					'fr': 'type of the input',
 				},
 			}, {
 				'name': 'validation',
-				'type': 'any',
+				'type': 'string | ((val: any) => boolean) | Orion.Validator.Rule | Orion.Validation.Rule | boolean',
 				'desc': {
 					'en': 'the validation for the field',
 					'fr': 'la validation du champ',
@@ -2314,6 +2558,41 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'the error message displayed after input\'s validation.',
 					'fr': 'le message d\'erreur affiché en cas d\'erreur lors de la validation',
+				},
+			}],
+			events: [{
+				'name': 'focus',
+				'payload': 'FocusEvent',
+				'desc': {
+					'en': 'emitted on field focus',
+					'fr': 'émis lors du focus',
+				},
+			}, {
+				'name': 'blur',
+				'payload': 'FocusEvent',
+				'desc': {
+					'en': 'emitted when the focus leaves the field',
+					'fr': 'émis quand le focus quitte la case à cocher',
+				},
+			}, {
+				'name': 'input',
+				'payload': 'T',
+				'desc': {
+					'en': 'emitted when the value of the field changes',
+					'fr': 'émis lorsque la valeur est modifiée',
+				},
+			}, {
+				'name': 'change',
+				'payload': 'T',
+				'desc': {
+					'en': 'emitted when the value of the field changes',
+					'fr': ' émis lorsque la valeur est modifiée',
+				},
+			}, {
+				'name': 'clear',
+				'desc': {
+					'en': 'emitted when the field is cleared',
+					'fr': 'Missing @doc',
 				},
 			}],
 			publicInstance: [{
@@ -2350,7 +2629,6 @@ const packagesDocData = new Map([
 		'FooterFixed',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [{
 				'name': 'default',
@@ -2376,6 +2654,7 @@ const packagesDocData = new Map([
 					'fr': 'si défini, affiche le composant',
 				},
 			}],
+			events: [],
 			publicInstance: undefined,
 		},
 	],
@@ -2383,7 +2662,6 @@ const packagesDocData = new Map([
 		'HorizontalScroll',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [{
 				'name': 'default',
@@ -2410,7 +2688,7 @@ const packagesDocData = new Map([
 				},
 			}, {
 				'name': 'scrollStep',
-				'type': '() => number | HTMLElement[]',
+				'type': '() => number | Array<HTMLElement>',
 				'desc': {
 					'en': 'defines the targets of the scroll step',
 					'fr': 'défini le pas du scroll, ou un tableau d\'éléments dans le DOM pour le calculer automatiquement',
@@ -2425,7 +2703,7 @@ const packagesDocData = new Map([
 				'defaultValue': '\'grey-lighter\'',
 			}, {
 				'name': 'targets',
-				'type': '() => HTMLElement[]',
+				'type': '() => Array<HTMLElement>',
 				'desc': {
 					'en': 'if set, shows a preview of the items contained is the scroll. The function must return an array of DOM elements which are in the scroll area.',
 					'fr': 'si défini, affiche un aperçu des éléments contenus dans le scroll. Cette fonction doit renvoyer un tableau d\'éléments du DOM.',
@@ -2439,6 +2717,7 @@ const packagesDocData = new Map([
 				},
 				'defaultValue': '1',
 			}],
+			events: [],
 			publicInstance: undefined,
 		},
 	],
@@ -2446,7 +2725,6 @@ const packagesDocData = new Map([
 		'Icon',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [],
 			vModel: [],
@@ -2480,7 +2758,7 @@ const packagesDocData = new Map([
 				},
 			}, {
 				'name': 'marker',
-				'type': 'number | boolean',
+				'type': 'boolean | number',
 				'desc': {
 					'en': 'adds a visual marker, can be used as a notification marker',
 					'fr': 'ajoute un marqueur visuel, qui peut être utilisé comme un marqueur de notification',
@@ -2506,8 +2784,8 @@ const packagesDocData = new Map([
 				'name': 'onMarkerClick',
 				'type': '(e: MouseEvent) => void',
 				'desc': {
-					'en': 'Missing @doc',
-					'fr': 'Missing @doc',
+					'en': 'callback when the marker is clicked',
+					'fr': 'callback au moment du click sur le marqueur',
 				},
 			}, {
 				'name': 'ripple',
@@ -2517,6 +2795,13 @@ const packagesDocData = new Map([
 					'fr': 'émet une onde au moment du click et ajoute un style au moment du survol',
 				},
 			}],
+			events: [{
+				'name': 'marker-click',
+				'desc': {
+					'en': 'emitted on marker click',
+					'fr': 'émis au moment du click sur le marqueur',
+				},
+			}],
 			publicInstance: undefined,
 		},
 	],
@@ -2524,7 +2809,6 @@ const packagesDocData = new Map([
 		'IconSection',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [{
 				'name': 'default',
@@ -2564,6 +2848,7 @@ const packagesDocData = new Map([
 					'fr': 'titre de la section',
 				},
 			}],
+			events: [],
 			publicInstance: undefined,
 		},
 	],
@@ -2571,7 +2856,6 @@ const packagesDocData = new Map([
 		'Input',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [],
 			vModel: [{
@@ -2655,7 +2939,7 @@ const packagesDocData = new Map([
 				},
 			}, {
 				'name': 'mask',
-				'type': 'string | { value: (val: any) => Nil<string | number>; display: (val: any) => Nil<string | number>; }',
+				'type': 'string | InputMask',
 				'desc': {
 					'en': 'the mask applied on the input',
 					'fr': 'masque appliqué sur le champ',
@@ -2771,14 +3055,14 @@ const packagesDocData = new Map([
 				},
 			}, {
 				'name': 'type',
-				'type': 'any',
+				'type': 'string | Orion.DatepickerType',
 				'desc': {
 					'en': 'type of the input',
 					'fr': 'type of the input',
 				},
 			}, {
 				'name': 'validation',
-				'type': 'any',
+				'type': 'string | ((val: any) => boolean) | Orion.Validator.Rule | Orion.Validation.Rule | boolean',
 				'desc': {
 					'en': 'the validation for the field',
 					'fr': 'la validation du champ',
@@ -2789,6 +3073,48 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'the error message displayed after input\'s validation.',
 					'fr': 'le message d\'erreur affiché en cas d\'erreur lors de la validation',
+				},
+			}],
+			events: [{
+				'name': 'focus',
+				'payload': 'FocusEvent',
+				'desc': {
+					'en': 'emitted on field focus',
+					'fr': 'émis lors du focus',
+				},
+			}, {
+				'name': 'blur',
+				'payload': 'FocusEvent',
+				'desc': {
+					'en': 'emitted when the focus leaves the field',
+					'fr': 'émis quand le focus quitte la case à cocher',
+				},
+			}, {
+				'name': 'input',
+				'payload': 'T',
+				'desc': {
+					'en': 'emitted when the value of the field changes',
+					'fr': 'émis lorsque la valeur est modifiée',
+				},
+			}, {
+				'name': 'change',
+				'payload': 'T',
+				'desc': {
+					'en': 'emitted when the value of the field changes',
+					'fr': ' émis lorsque la valeur est modifiée',
+				},
+			}, {
+				'name': 'clear',
+				'desc': {
+					'en': 'emitted when the field is cleared',
+					'fr': 'émis lors du click droit',
+				},
+			}, {
+				'name': 'mousedown-right',
+				'payload': 'MouseEvent',
+				'desc': {
+					'en': 'emitted right-click',
+					'fr': 'Missing @doc',
 				},
 			}],
 			publicInstance: [{
@@ -2828,7 +3154,6 @@ const packagesDocData = new Map([
 		'InputRange',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [],
 			vModel: [{
@@ -2994,14 +3319,14 @@ const packagesDocData = new Map([
 				},
 			}, {
 				'name': 'type',
-				'type': 'any',
+				'type': 'string | Orion.DatepickerType',
 				'desc': {
 					'en': 'type of the input',
 					'fr': 'type of the input',
 				},
 			}, {
 				'name': 'validation',
-				'type': 'any',
+				'type': 'string | ((val: any) => boolean) | Orion.Validator.Rule | Orion.Validation.Rule | boolean',
 				'desc': {
 					'en': 'the validation for the field',
 					'fr': 'la validation du champ',
@@ -3012,6 +3337,41 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'the error message displayed after input\'s validation.',
 					'fr': 'le message d\'erreur affiché en cas d\'erreur lors de la validation',
+				},
+			}],
+			events: [{
+				'name': 'focus',
+				'payload': 'FocusEvent',
+				'desc': {
+					'en': 'emitted on field focus',
+					'fr': 'émis lors du focus',
+				},
+			}, {
+				'name': 'blur',
+				'payload': 'FocusEvent',
+				'desc': {
+					'en': 'emitted when the focus leaves the field',
+					'fr': 'émis quand le focus quitte la case à cocher',
+				},
+			}, {
+				'name': 'input',
+				'payload': 'T',
+				'desc': {
+					'en': 'emitted when the value of the field changes',
+					'fr': 'émis lorsque la valeur est modifiée',
+				},
+			}, {
+				'name': 'change',
+				'payload': 'T',
+				'desc': {
+					'en': 'emitted when the value of the field changes',
+					'fr': ' émis lorsque la valeur est modifiée',
+				},
+			}, {
+				'name': 'clear',
+				'desc': {
+					'en': 'emitted when the field is cleared',
+					'fr': 'Missing @doc',
 				},
 			}],
 			publicInstance: [{
@@ -3048,7 +3408,6 @@ const packagesDocData = new Map([
 		'Label',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [{
 				'name': 'default',
@@ -3083,6 +3442,7 @@ const packagesDocData = new Map([
 				},
 				'defaultValue': '\'md\' ',
 			}],
+			events: [],
 			publicInstance: undefined,
 		},
 	],
@@ -3090,7 +3450,6 @@ const packagesDocData = new Map([
 		'Layout',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [{
 				'name': 'nav-main-item-prepend',
@@ -3165,6 +3524,7 @@ const packagesDocData = new Map([
 					'fr': 'ces props seront passées au composant `<o-nav-top>` du layout',
 				},
 			}],
+			events: [],
 			publicInstance: undefined,
 		},
 	],
@@ -3172,7 +3532,6 @@ const packagesDocData = new Map([
 		'List',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [{
 				'name': 'default',
@@ -3314,6 +3673,20 @@ const packagesDocData = new Map([
 				},
 				'defaultValue': 'true',
 			}],
+			events: [{
+				'name': 'clear-selection',
+				'desc': {
+					'en': 'emitted to clear the selected items',
+					'fr': 'émis pour effacer la sélection des éléments',
+				},
+			}, {
+				'name': 'paginate',
+				'payload': 'number',
+				'desc': {
+					'en': 'emitted to update the page index of the list',
+					'fr': 'émis pour mettre à jour l\'index de la liste',
+				},
+			}],
 			publicInstance: undefined,
 		},
 	],
@@ -3321,7 +3694,6 @@ const packagesDocData = new Map([
 		'Loader',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [],
 			vModel: [],
@@ -3363,6 +3735,7 @@ const packagesDocData = new Map([
 					'fr': 'si défini, affiche le loader',
 				},
 			}],
+			events: [],
 			publicInstance: [{
 				'name': 'show',
 				'type': '(newText?: string) => void',
@@ -3379,7 +3752,6 @@ const packagesDocData = new Map([
 		'Modal',
 		{
 			localTypes: {},
-			events: [],
 			provide: [{
 				'name': '_modal',
 				'data': 'publicInstance',
@@ -3423,12 +3795,49 @@ const packagesDocData = new Map([
 				},
 			}, {
 				'name': 'options',
-				'type': 'any',
+				'type': 'Partial<Orion.Popable.Options> & Partial<Orion.Modal.Options>',
 				'desc': {
 					'en': 'options of the modal',
 					'fr': 'options de la modal',
 				},
 				'defaultValue': '() => ({}) as Partial<Orion.Popable.Options>',
+			}],
+			events: [{
+				'name': 'enter-start',
+				'desc': {
+					'en': 'the aside begins its enter transition',
+					'fr': 'l\'aside commence son animation d\'arrivée',
+				},
+			}, {
+				'name': 'enter-end',
+				'desc': {
+					'en': 'the aside ends its enter transition',
+					'fr': 'l\'aside a fini son animation d\'arrivée',
+				},
+			}, {
+				'name': 'leave-start',
+				'desc': {
+					'en': 'the aside begins its leave transition',
+					'fr': 'l\'aside commence sa transition de départ',
+				},
+			}, {
+				'name': 'leave-end',
+				'desc': {
+					'en': 'the aside ends its leave transition',
+					'fr': 'l\'aside a fini sa transition de départ',
+				},
+			}, {
+				'name': 'cancel',
+				'desc': {
+					'en': 'Missing @doc',
+					'fr': 'Missing @doc',
+				},
+			}, {
+				'name': 'confirm',
+				'desc': {
+					'en': 'Missing @doc',
+					'fr': 'Missing @doc',
+				},
 			}],
 			publicInstance: [{
 				'name': 'slotFooter',
@@ -3476,7 +3885,6 @@ const packagesDocData = new Map([
 		'Notif',
 		{
 			localTypes: {},
-			events: [],
 			provide: [{
 				'name': '_notif',
 				'data': 'publicInstance',
@@ -3492,12 +3900,37 @@ const packagesDocData = new Map([
 				},
 			}, {
 				'name': 'options',
-				'type': 'any',
+				'type': 'Partial<Orion.Popable.Options> & Partial<Orion.Notif.Options>',
 				'desc': {
 					'en': 'options of the notification',
 					'fr': 'Missing @doc',
 				},
 				'defaultValue': '() => ({}) as Partial<Orion.Popable.Options>',
+			}],
+			events: [{
+				'name': 'enter-start',
+				'desc': {
+					'en': 'the aside begins its enter transition',
+					'fr': 'l\'aside commence son animation d\'arrivée',
+				},
+			}, {
+				'name': 'enter-end',
+				'desc': {
+					'en': 'the aside ends its enter transition',
+					'fr': 'l\'aside a fini son animation d\'arrivée',
+				},
+			}, {
+				'name': 'leave-start',
+				'desc': {
+					'en': 'the aside begins its leave transition',
+					'fr': 'l\'aside commence sa transition de départ',
+				},
+			}, {
+				'name': 'leave-end',
+				'desc': {
+					'en': 'the aside ends its leave transition',
+					'fr': 'l\'aside a fini sa transition de départ',
+				},
 			}],
 			publicInstance: [{
 				'name': 'resetTimer',
@@ -3545,13 +3978,12 @@ const packagesDocData = new Map([
 		'Otp',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [],
 			vModel: [],
 			props: [{
 				'name': 'dataType',
-				'type': '"number" | "text"',
+				'type': '\'number\' | \'text\'',
 				'desc': {
 					'en': 'defines the type of the code',
 					'fr': 'definit le type du code',
@@ -3580,6 +4012,14 @@ const packagesDocData = new Map([
 					'fr': 'valeur du code sous forme de chaîne de caractères, s\'il est pré-rempli',
 				},
 			}],
+			events: [{
+				'name': 'filled',
+				'payload': 'string',
+				'desc': {
+					'en': 'emitted when the code is completed',
+					'fr': 'émis lorsque le code est complété',
+				},
+			}],
 			publicInstance: [{
 				'name': 'reset',
 				'type': '() => void',
@@ -3602,7 +4042,6 @@ const packagesDocData = new Map([
 		'Overlay',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [],
 			vModel: [],
@@ -3614,6 +4053,7 @@ const packagesDocData = new Map([
 					'fr': 'Missing @doc',
 				},
 			}],
+			events: [],
 			publicInstance: [{
 				'name': 'show',
 				'type': '() => void',
@@ -3630,7 +4070,6 @@ const packagesDocData = new Map([
 		'Page',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [{
 				'name': 'actions',
@@ -3691,6 +4130,7 @@ const packagesDocData = new Map([
 					'fr': 'ajoute une ellipse au niveau du titre s\'il est trop long',
 				},
 			}],
+			events: [],
 			publicInstance: undefined,
 		},
 	],
@@ -3698,7 +4138,6 @@ const packagesDocData = new Map([
 		'Paginate',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [],
 			vModel: [{
@@ -3733,6 +4172,14 @@ const packagesDocData = new Map([
 					'fr': 'nombre total d\'éléments',
 				},
 			}],
+			events: [{
+				'name': 'paginate',
+				'payload': 'number',
+				'desc': {
+					'en': 'emitted on page changement',
+					'fr': 'émis au changement de page',
+				},
+			}],
 			publicInstance: undefined,
 		},
 	],
@@ -3740,7 +4187,6 @@ const packagesDocData = new Map([
 		'Password',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [],
 			vModel: [{
@@ -3888,7 +4334,7 @@ const packagesDocData = new Map([
 				},
 			}, {
 				'name': 'type',
-				'type': 'any',
+				'type': 'string',
 				'desc': {
 					'en': 'type of the input',
 					'fr': 'type du champ',
@@ -3896,7 +4342,7 @@ const packagesDocData = new Map([
 				'defaultValue': '\'password\'',
 			}, {
 				'name': 'validation',
-				'type': 'any',
+				'type': 'string | ((val: any) => boolean) | Orion.Validator.Rule | Orion.Validation.Rule | boolean',
 				'desc': {
 					'en': 'the validation for the field',
 					'fr': 'la validation du champ',
@@ -3907,6 +4353,41 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'the error message displayed after input\'s validation.',
 					'fr': 'le message d\'erreur affiché en cas d\'erreur lors de la validation',
+				},
+			}],
+			events: [{
+				'name': 'focus',
+				'payload': 'FocusEvent',
+				'desc': {
+					'en': 'emitted on field focus',
+					'fr': 'émis lors du focus',
+				},
+			}, {
+				'name': 'blur',
+				'payload': 'FocusEvent',
+				'desc': {
+					'en': 'emitted when the focus leaves the field',
+					'fr': 'émis quand le focus quitte la case à cocher',
+				},
+			}, {
+				'name': 'input',
+				'payload': 'T',
+				'desc': {
+					'en': 'emitted when the value of the field changes',
+					'fr': 'émis lorsque la valeur est modifiée',
+				},
+			}, {
+				'name': 'change',
+				'payload': 'T',
+				'desc': {
+					'en': 'emitted when the value of the field changes',
+					'fr': ' émis lorsque la valeur est modifiée',
+				},
+			}, {
+				'name': 'clear',
+				'desc': {
+					'en': 'emitted when the field is cleared',
+					'fr': 'Missing @doc',
 				},
 			}],
 			publicInstance: [{
@@ -3943,7 +4424,6 @@ const packagesDocData = new Map([
 		'Phone',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [],
 			vModel: [{
@@ -4107,7 +4587,7 @@ const packagesDocData = new Map([
 				},
 			}, {
 				'name': 'type',
-				'type': 'any',
+				'type': 'string',
 				'desc': {
 					'en': 'the type of the input',
 					'fr': 'type du champ',
@@ -4115,7 +4595,7 @@ const packagesDocData = new Map([
 				'defaultValue': '\'tel\'',
 			}, {
 				'name': 'validation',
-				'type': 'any',
+				'type': 'string | ((val: any) => boolean) | Orion.Validator.Rule | Orion.Validation.Rule | boolean',
 				'desc': {
 					'en': 'the validation for the field',
 					'fr': 'la validation du champ',
@@ -4128,12 +4608,47 @@ const packagesDocData = new Map([
 					'fr': 'le message d\'erreur affiché en cas d\'erreur lors de la validation',
 				},
 			}],
+			events: [{
+				'name': 'focus',
+				'payload': 'FocusEvent',
+				'desc': {
+					'en': 'emitted on field focus',
+					'fr': 'émis lors du focus',
+				},
+			}, {
+				'name': 'blur',
+				'payload': 'FocusEvent',
+				'desc': {
+					'en': 'emitted when the focus leaves the field',
+					'fr': 'émis quand le focus quitte la case à cocher',
+				},
+			}, {
+				'name': 'input',
+				'payload': 'T',
+				'desc': {
+					'en': 'emitted when the value of the field changes',
+					'fr': 'émis lorsque la valeur est modifiée',
+				},
+			}, {
+				'name': 'change',
+				'payload': 'T',
+				'desc': {
+					'en': 'emitted when the value of the field changes',
+					'fr': ' émis lorsque la valeur est modifiée',
+				},
+			}, {
+				'name': 'clear',
+				'desc': {
+					'en': 'emitted when the field is cleared',
+					'fr': 'Missing @doc',
+				},
+			}],
 			publicInstance: [{
 				'name': 'isValidMobile',
 				'type': '() => boolean',
 			}, {
 				'name': '_country',
-				'type': '() => {\n\tgetSearchTerm: () => string | undefined;\n\tsetSearchTerm: (val?: string) => string | undefined;\n\tsetFavoritesOptions: (val: unknown[]) => unknown[];\n\ttriggerSearchAsync: (term?: string) => Promise<void>;\n\tblur: import("lodash").DebouncedFuncLeading<(e?: FocusEvent, selection?: boolean) => false | undefined>;\n\thasBeenFocus: () => boolean;\n\tisFocus: () => boolean;\n\tfocus: () => void;\n\tclear: () => void;\n\tsetHasBeenFocus: (value: boolean) => void;\n\tisValid: () => boolean;\n\t_input: () => HTMLInputElement | undefined;\n\tsharedState: () => {\n\t\thasBeenFocus: boolean;\n\t\tisFocus: boolean;\n\t\tisAutoFilled: boolean;\n\t};\n} | undefined',
+				'type': '() => {\n\tgetSearchTerm: () => string | undefined;\n\tsetSearchTerm: (val?: string) => string | undefined;\n\tsetFavoritesOptions: (val: unknown[]) => unknown[];\n\ttriggerSearchAsync: (term?: string) => Promise<void>;\n\ttogglePopover: () => void;\n\tblur: import("lodash").DebouncedFuncLeading<(e?: FocusEvent, selection?: boolean) => false | undefined>;\n\tpopoverIsShown: () => boolean | undefined;\n\thasBeenFocus: () => boolean;\n\tisFocus: () => boolean;\n\tfocus: () => void;\n\tclear: () => void;\n\tsetHasBeenFocus: (value: boolean) => void;\n\tisValid: () => boolean;\n\t_input: () => HTMLInputElement | undefined;\n\tsharedState: () => {\n\t\thasBeenFocus: boolean;\n\t\tisFocus: boolean;\n\t\tisAutoFilled: boolean;\n\t};\n} | undefined',
 			}, {
 				'name': '_orionInput',
 				'type': '() => (HTMLInputElement & {\n\tvalueDisplay: () => string;\n\thasBeenFocus: () => boolean;\n\tisFocus: () => boolean;\n\tfocus: () => void;\n\tblur: import("lodash").DebouncedFuncLeading<() => void>;\n\tclear: () => void;\n\tsetHasBeenFocus: (value: boolean) => void;\n\tisValid: () => boolean;\n\t_input: () => HTMLInputElement | undefined;\n\tsharedState: () => {\n\t\thasBeenFocus: boolean;\n\t\tisFocus: boolean;\n\t\tisAutoFilled: boolean;\n\t};\n}) | undefined',
@@ -4171,7 +4686,6 @@ const packagesDocData = new Map([
 		'PopConfirm',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [{
 				'name': 'default',
@@ -4225,6 +4739,19 @@ const packagesDocData = new Map([
 					'fr': 'titre de la popup de confirmation',
 				},
 			}],
+			events: [{
+				'name': 'confirm',
+				'desc': {
+					'en': 'emitted when the confirm button is clicked',
+					'fr': 'émis quand le bouton `confirm` est clické',
+				},
+			}, {
+				'name': 'cancel',
+				'desc': {
+					'en': 'emitted when the cancel button is clicked',
+					'fr': 'émis quand le bouton `cancel` est clické',
+				},
+			}],
 			publicInstance: [],
 		},
 	],
@@ -4232,7 +4759,6 @@ const packagesDocData = new Map([
 		'ProgressBar',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [{
 				'name': 'default',
@@ -4275,6 +4801,7 @@ const packagesDocData = new Map([
 				},
 				'defaultValue': '10',
 			}],
+			events: [],
 			publicInstance: undefined,
 		},
 	],
@@ -4282,7 +4809,6 @@ const packagesDocData = new Map([
 		'ProgressCircle',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [{
 				'name': 'default',
@@ -4341,6 +4867,7 @@ const packagesDocData = new Map([
 				},
 				'defaultValue': '4',
 			}],
+			events: [],
 			publicInstance: undefined,
 		},
 	],
@@ -4348,7 +4875,6 @@ const packagesDocData = new Map([
 		'Radio',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [{
 				'name': 'default',
@@ -4440,7 +4966,7 @@ const packagesDocData = new Map([
 				},
 			}, {
 				'name': 'inputValue',
-				'type': 'string | number | boolean | string[]',
+				'type': 'string | boolean | number | string[]',
 				'desc': {
 					'en': 'value of the radio button',
 					'fr': 'valeur du bouton radio',
@@ -4525,7 +5051,7 @@ const packagesDocData = new Map([
 				},
 			}, {
 				'name': 'type',
-				'type': 'any',
+				'type': 'string',
 				'desc': {
 					'en': 'type of the input',
 					'fr': 'type du champ',
@@ -4533,7 +5059,7 @@ const packagesDocData = new Map([
 				'defaultValue': '\'radio\'',
 			}, {
 				'name': 'validation',
-				'type': 'any',
+				'type': 'string | ((val: any) => boolean) | Orion.Validator.Rule | Orion.Validation.Rule | boolean',
 				'desc': {
 					'en': 'the validation for the field',
 					'fr': 'la validation du champ',
@@ -4544,6 +5070,41 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'the error message displayed after input\'s validation.',
 					'fr': 'le message d\'erreur affiché en cas d\'erreur lors de la validation',
+				},
+			}],
+			events: [{
+				'name': 'focus',
+				'payload': 'FocusEvent',
+				'desc': {
+					'en': 'emitted on field focus',
+					'fr': 'émis lors du focus',
+				},
+			}, {
+				'name': 'blur',
+				'payload': 'FocusEvent',
+				'desc': {
+					'en': 'emitted when the focus leaves the field',
+					'fr': 'émis quand le focus quitte la case à cocher',
+				},
+			}, {
+				'name': 'input',
+				'payload': 'T',
+				'desc': {
+					'en': 'emitted when the value of the field changes',
+					'fr': 'émis lorsque la valeur est modifiée',
+				},
+			}, {
+				'name': 'change',
+				'payload': 'T',
+				'desc': {
+					'en': 'emitted when the value of the field changes',
+					'fr': ' émis lorsque la valeur est modifiée',
+				},
+			}, {
+				'name': 'clear',
+				'desc': {
+					'en': 'emitted when the field is cleared',
+					'fr': 'Missing @doc',
 				},
 			}],
 			publicInstance: [{
@@ -4580,7 +5141,6 @@ const packagesDocData = new Map([
 		'Rate',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [{
 				'name': 'default',
@@ -4644,6 +5204,7 @@ const packagesDocData = new Map([
 					'fr': 'nombre total de votes',
 				},
 			}],
+			events: [],
 			publicInstance: undefined,
 		},
 	],
@@ -4651,7 +5212,6 @@ const packagesDocData = new Map([
 		'Section',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [{
 				'name': 'actions',
@@ -4679,7 +5239,7 @@ const packagesDocData = new Map([
 			}],
 			props: [{
 				'name': 'align',
-				'type': '"left" | "center" | "right" | "stretch"',
+				'type': '\'left\' | \'center\' | \'right\' | \'stretch\'',
 				'desc': {
 					'en': 'alignment of inside elements (convenient for buttons)',
 					'fr': 'alignement des éléments à l\'intérieur (pratique pour les boutons)',
@@ -4714,6 +5274,7 @@ const packagesDocData = new Map([
 					'fr': 'titre de la section',
 				},
 			}],
+			events: [],
 			publicInstance: undefined,
 		},
 	],
@@ -4721,7 +5282,6 @@ const packagesDocData = new Map([
 		'Select',
 		{
 			localTypes: { 'ObjectKeyValidator': '<' },
-			events: [],
 			provide: [],
 			slots: [{
 				'name': 'value',
@@ -4779,6 +5339,13 @@ const packagesDocData = new Map([
 						'fr': 'valeur du vModel',
 					},
 				}],
+			}, {
+				'name': 'default',
+				'desc': {
+					'en': 'Missing @doc',
+					'fr': 'Missing @doc',
+				},
+				'bindings': [],
 			}, {
 				'name': 'before-options',
 				'desc': {
@@ -4840,18 +5407,10 @@ const packagesDocData = new Map([
 				'name': 'vModel',
 				'type': 'VModelType<T>',
 				'desc': {
-					'en': 'component\'s vModel',
-					'fr': 'vModel du composant',
+					'en': 'Missing @doc',
+					'fr': 'Missing @doc',
 				},
 				'defaultValue': 'undefined',
-			}, {
-				'name': 'favoritesOptions',
-				'type': 'O[]',
-				'desc': {
-					'en': 'your favorites options',
-					'fr': 'options favorites du select, elles apparaissent avant les options',
-				},
-				'defaultValue': '[] as O[]',
 			}],
 			props: [{
 				'name': 'autocomplete',
@@ -4925,6 +5484,13 @@ const packagesDocData = new Map([
 				},
 				'defaultValue': '600',
 			}, {
+				'name': 'dropdownOptions',
+				'type': 'Partial<Orion.VDropdown>',
+				'desc': {
+					'en': 'options to configure the dropdown [(go to Floating Vue doc for more details)](https://floating-vue.starpad.dev/api/#component-props)',
+					'fr': 'options pour configurer la dropdown [(Voir la documentation de Floating Vue pour plus de détails)](https://floating-vue.starpad.dev/api/#component-props)',
+				},
+			}, {
 				'name': 'favoriteIcon',
 				'type': 'Orion.Icon',
 				'desc': {
@@ -4933,14 +5499,13 @@ const packagesDocData = new Map([
 				},
 				'defaultValue': '\'star\' ',
 			}, {
-				'name': 'dropdownOptions',
-				'defaultValue': 'undefined',
-				'type': 'Partial<Orion.VDropdown>',
-				'required': false,
+				'name': 'favoritesOptions',
+				'type': 'O[]',
 				'desc': {
-					'en': 'options to configure the dropdown [go to Floating Vue doc for more details](https://floating-vue.starpad.dev/api/#component-props)',
-					'fr': 'options pour configurer la dropdown [Voir la documentation de Floating Vue pour plus de détails](https://floating-vue.starpad.dev/api/#component-props)',
+					'en': 'Missing @doc',
+					'fr': 'Missing @doc',
 				},
+				'defaultValue': '() => []',
 			}, {
 				'name': 'fetchInitialOptions',
 				'type': 'O[]',
@@ -4959,7 +5524,7 @@ const packagesDocData = new Map([
 				'defaultValue': '\'search\'',
 			}, {
 				'name': 'fetchMethod',
-				'type': '"GET" | "POST"',
+				'type': '\'GET\' | \'POST\'',
 				'desc': {
 					'en': 'Method used to fetch the options',
 					'fr': 'Méthode utilisée pour récupérer les options',
@@ -5073,13 +5638,6 @@ const packagesDocData = new Map([
 					'fr': 'sélectionne le contenu du champ lorsqu\'il est focus.',
 				},
 			}, {
-				'name': 'showFavoriteIcon',
-				'type': 'boolean',
-				'desc': {
-					'en': 'key used to display or not an icon new to the favorites options',
-					'fr': 'clé qui permet ou non d\'afficher un icône pour les favoris',
-				},
-			}, {
 				'name': 'size',
 				'type': 'Orion.Size',
 				'desc': {
@@ -5111,14 +5669,14 @@ const packagesDocData = new Map([
 				'defaultValue': '\'id\' as any',
 			}, {
 				'name': 'type',
-				'type': 'any',
+				'type': 'string | Orion.DatepickerType',
 				'desc': {
 					'en': 'type of the input',
 					'fr': 'type of the input',
 				},
 			}, {
 				'name': 'validation',
-				'type': 'any',
+				'type': 'string | ((val: any) => boolean) | Orion.Validator.Rule | Orion.Validation.Rule | boolean',
 				'desc': {
 					'en': 'the validation for the field',
 					'fr': 'la validation du champ',
@@ -5138,6 +5696,88 @@ const packagesDocData = new Map([
 					'fr': 'clé qui réprésente la valeur d\'un élément',
 				},
 			}],
+			events: [{
+				'name': 'focus',
+				'payload': 'FocusEvent',
+				'desc': {
+					'en': 'emitted on field focus',
+					'fr': 'émis lors du focus',
+				},
+			}, {
+				'name': 'blur',
+				'payload': 'FocusEvent',
+				'desc': {
+					'en': 'emitted when the focus leaves the field',
+					'fr': 'émis quand le focus quitte la case à cocher',
+				},
+			}, {
+				'name': 'input',
+				'payload': 'T',
+				'desc': {
+					'en': 'emitted when the value of the field changes',
+					'fr': 'émis lorsque la valeur est modifiée',
+				},
+			}, {
+				'name': 'change',
+				'payload': 'T',
+				'desc': {
+					'en': 'emitted when the value of the field changes',
+					'fr': ' émis lorsque la valeur est modifiée',
+				},
+			}, {
+				'name': 'clear',
+				'desc': {
+					'en': 'emitted when the field is cleared',
+					'fr': 'Missing @doc',
+				},
+			}, {
+				'name': 'input-keydown-tab',
+				'desc': {
+					'en': 'emitted when pressing Tab key from the search field',
+					'fr': 'émis lors de l\'appui sur la touche Tab depuis le champ de recherche',
+				},
+			}, {
+				'name': 'add',
+				'payload': 'O',
+				'desc': {
+					'en': 'emitted when a value is added from a multiple select',
+					'fr': 'émis lorsqu\'une valeur est ajoutée à partir d\'un select multiple',
+				},
+			}, {
+				'name': 'remove',
+				'payload': 'O',
+				'desc': {
+					'en': 'emitted when a value is removed from a multiple select',
+					'fr': 'émis lorsqu\'une valeur est retirée à partir d\'un select multiple',
+				},
+			}, {
+				'name': 'select',
+				'payload': 'O',
+				'desc': {
+					'en': 'emitted when a value is selected from a simple select',
+					'fr': 'émis lorsqu\'une valeur est sélectionnée à partir d\'un select simple',
+				},
+			}, {
+				'name': 'fetch-start',
+				'payload': 'string',
+				'desc': {
+					'en': 'emitted when the fetch research starts',
+					'fr': 'émis lorsque la récupération des options commence',
+				},
+			}, {
+				'name': 'fetch-end',
+				'payload': 'O[]',
+				'desc': {
+					'en': 'emitted when the fetch research ends',
+					'fr': 'émis quand la récupération des options est finie',
+				},
+			}, {
+				'name': 'fetch-search-clear',
+				'desc': {
+					'en': 'emitted when the research field is cleared',
+					'fr': 'émis quand on efface le champ de recherche',
+				},
+			}],
 			publicInstance: [{
 				'name': 'getSearchTerm',
 				'type': '() => string | undefined',
@@ -5151,8 +5791,14 @@ const packagesDocData = new Map([
 				'name': 'triggerSearchAsync',
 				'type': '(term?: string) => Promise<void>',
 			}, {
+				'name': 'togglePopover',
+				'type': '() => void',
+			}, {
 				'name': 'blur',
 				'type': 'Lodash.debounce',
+			}, {
+				'name': 'popoverIsShown',
+				'type': '() => boolean | undefined',
 			}, {
 				'name': 'hasBeenFocus',
 				'type': '() => boolean',
@@ -5184,7 +5830,6 @@ const packagesDocData = new Map([
 		'Sticker',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [{
 				'name': 'thumbnail',
@@ -5254,6 +5899,7 @@ const packagesDocData = new Map([
 					'fr': 'titre du sticker',
 				},
 			}],
+			events: [],
 			publicInstance: undefined,
 		},
 	],
@@ -5261,7 +5907,6 @@ const packagesDocData = new Map([
 		'Swipe',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [{
 				'name': 'actions',
@@ -5288,6 +5933,7 @@ const packagesDocData = new Map([
 				},
 				'defaultValue': '\'left\' ',
 			}],
+			events: [],
 			publicInstance: undefined,
 		},
 	],
@@ -5295,7 +5941,6 @@ const packagesDocData = new Map([
 		'TabPane',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [{
 				'name': 'default',
@@ -5350,7 +5995,7 @@ const packagesDocData = new Map([
 				},
 			}, {
 				'name': 'marker',
-				'type': 'number | boolean',
+				'type': 'boolean | number',
 				'desc': {
 					'en': 'adds a visual marker, can be used as a notification marker',
 					'fr': 'ajoute un marqueur visuel, qui peut être utilisé comme marqueur de notification',
@@ -5371,6 +6016,7 @@ const packagesDocData = new Map([
 					'fr': 'le nom de l\'onglet',
 				},
 			}],
+			events: [],
 			publicInstance: [{
 				'name': 'disabled',
 				'type': 'boolean | undefined',
@@ -5387,7 +6033,6 @@ const packagesDocData = new Map([
 		'Tabs',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [],
 			vModel: [],
@@ -5413,6 +6058,14 @@ const packagesDocData = new Map([
 					'fr': 'connecte les tabs au router pour synchroniser la tab active avec la router actuelle et utiliser le composant `<router-view/>`',
 				},
 			}],
+			events: [{
+				'name': 'tab-click',
+				'payload': '[{ disabled: boolean; name: string; _el?: () => HTMLElement; }, MouseEvent]',
+				'desc': {
+					'en': 'emitted on tab click',
+					'fr': 'émis au moment du click sur un tab',
+				},
+			}],
 			publicInstance: [{
 				'name': '_loader',
 				'type': '() => OrionLoader',
@@ -5435,7 +6088,6 @@ const packagesDocData = new Map([
 		'Textarea',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [],
 			vModel: [{
@@ -5583,14 +6235,14 @@ const packagesDocData = new Map([
 				},
 			}, {
 				'name': 'type',
-				'type': 'any',
+				'type': 'string | Orion.DatepickerType',
 				'desc': {
 					'en': 'type of the input',
 					'fr': 'type of the input',
 				},
 			}, {
 				'name': 'validation',
-				'type': 'any',
+				'type': 'string | ((val: any) => boolean) | Orion.Validator.Rule | Orion.Validation.Rule | boolean',
 				'desc': {
 					'en': 'the validation for the field',
 					'fr': 'la validation du champ',
@@ -5601,6 +6253,48 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'the error message displayed after input\'s validation.',
 					'fr': 'le message d\'erreur affiché en cas d\'erreur lors de la validation',
+				},
+			}],
+			events: [{
+				'name': 'focus',
+				'payload': 'FocusEvent',
+				'desc': {
+					'en': 'emitted on field focus',
+					'fr': 'émis lors du focus',
+				},
+			}, {
+				'name': 'blur',
+				'payload': 'FocusEvent',
+				'desc': {
+					'en': 'emitted when the focus leaves the field',
+					'fr': 'émis quand le focus quitte la case à cocher',
+				},
+			}, {
+				'name': 'input',
+				'payload': 'T',
+				'desc': {
+					'en': 'emitted when the value of the field changes',
+					'fr': 'émis lorsque la valeur est modifiée',
+				},
+			}, {
+				'name': 'change',
+				'payload': 'T',
+				'desc': {
+					'en': 'emitted when the value of the field changes',
+					'fr': ' émis lorsque la valeur est modifiée',
+				},
+			}, {
+				'name': 'clear',
+				'desc': {
+					'en': 'emitted when the field is cleared',
+					'fr': 'Missing @doc',
+				},
+			}, {
+				'name': 'submit',
+				'payload': 'string',
+				'desc': {
+					'en': 'emitted when the enter key is pressed',
+					'fr': 'émis lorsque la touche `entrée` est appuyée',
 				},
 			}],
 			publicInstance: [{
@@ -5637,7 +6331,6 @@ const packagesDocData = new Map([
 		'Timeline',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [],
 			vModel: [],
@@ -5670,6 +6363,21 @@ const packagesDocData = new Map([
 					'fr': 'affiche un scroll horizontal au niveau de la timeline si elle dépasse de son conteneur.',
 				},
 			}],
+			events: [{
+				'name': 'input',
+				'payload': 'string | number',
+				'desc': {
+					'en': 'emitted when the value of the timeline changes',
+					'fr': 'émis quand la valeur de la timeline change',
+				},
+			}, {
+				'name': 'pill-click',
+				'payload': '[{ disabled: boolean; name: string | number; _el?: () => HTMLElement; }, MouseEvent]',
+				'desc': {
+					'en': 'emitted when a pill is clicked',
+					'fr': 'émis au moment du click sur une vignette',
+				},
+			}],
 			publicInstance: [{
 				'name': '_loader',
 				'type': '() => OrionLoader',
@@ -5695,7 +6403,6 @@ const packagesDocData = new Map([
 		'TimelinePane',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [{
 				'name': 'default',
@@ -5757,7 +6464,7 @@ const packagesDocData = new Map([
 				},
 			}, {
 				'name': 'marker',
-				'type': 'number | boolean',
+				'type': 'boolean | number',
 				'desc': {
 					'en': 'adds  visual marker which can be used as a notification marker',
 					'fr': 'ajoute un marqueur visuel, qui peut être utilisé comme marqueur de notification',
@@ -5785,6 +6492,7 @@ const packagesDocData = new Map([
 					'fr': 'contenu affiché sur la vignette',
 				},
 			}],
+			events: [],
 			publicInstance: [{
 				'name': 'disabled',
 				'type': 'boolean | undefined',
@@ -5801,7 +6509,6 @@ const packagesDocData = new Map([
 		'Toggle',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [{
 				'name': 'default',
@@ -5964,7 +6671,7 @@ const packagesDocData = new Map([
 				},
 			}, {
 				'name': 'type',
-				'type': 'any',
+				'type': 'string',
 				'desc': {
 					'en': 'type of the input',
 					'fr': 'type du champ',
@@ -5972,7 +6679,7 @@ const packagesDocData = new Map([
 				'defaultValue': '\'toggle\'',
 			}, {
 				'name': 'validation',
-				'type': 'any',
+				'type': 'string | ((val: any) => boolean) | Orion.Validator.Rule | Orion.Validation.Rule | boolean',
 				'desc': {
 					'en': 'the validation for the field',
 					'fr': 'la validation du champ',
@@ -5990,6 +6697,41 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'value of the toggle',
 					'fr': 'valeur du toggle',
+				},
+			}],
+			events: [{
+				'name': 'focus',
+				'payload': 'FocusEvent',
+				'desc': {
+					'en': 'emitted on field focus',
+					'fr': 'émis lors du focus',
+				},
+			}, {
+				'name': 'blur',
+				'payload': 'FocusEvent',
+				'desc': {
+					'en': 'emitted when the focus leaves the field',
+					'fr': 'émis quand le focus quitte la case à cocher',
+				},
+			}, {
+				'name': 'input',
+				'payload': 'T',
+				'desc': {
+					'en': 'emitted when the value of the field changes',
+					'fr': 'émis lorsque la valeur est modifiée',
+				},
+			}, {
+				'name': 'change',
+				'payload': 'T',
+				'desc': {
+					'en': 'emitted when the value of the field changes',
+					'fr': ' émis lorsque la valeur est modifiée',
+				},
+			}, {
+				'name': 'clear',
+				'desc': {
+					'en': 'emitted when the field is cleared',
+					'fr': 'Missing @doc',
 				},
 			}],
 			publicInstance: [{
@@ -6026,7 +6768,6 @@ const packagesDocData = new Map([
 		'Tour',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [],
 			vModel: [],
@@ -6045,6 +6786,7 @@ const packagesDocData = new Map([
 					'fr': 'index courant du tour',
 				},
 			}],
+			events: [],
 			publicInstance: [{
 				'name': 'steps',
 				'type': '{\n\tprops: {\n\t\tclickable?: (boolean | Function) | undefined;\n\t\tclosable?: boolean | undefined;\n\t\tend?: {\n\t\t\tlabel?: string | undefined;\n\t\t\tcallback?: (() => any) | undefined;\n\t\t\tclean?: (() => any) | undefined;\n\t\t} | undefined;\n\t\thideFinish?: boolean | undefined;\n\t\tnext?: {\n\t\t\tlabel?: string | undefined;\n\t\t\tcallback?: (() => any) | undefined;\n\t\t\tclean?: (() => any) | undefined;\n\t\t} | undefined;\n\t\tprevious?: {\n\t\t\tlabel?: string | undefined;\n\t\t\tcallback?: (() => any) | undefined;\n\t\t\tclean?: (() => any) | undefined;\n\t\t} | undefined;\n\t\tsize?: string | undefined;\n\t\ttarget?: (string | Function | boolean) | undefined;\n\t\ttimeout?: number | undefined;\n\t\ttitle?: string | undefined;\n\t};\n}[]',
@@ -6073,7 +6815,6 @@ const packagesDocData = new Map([
 		'TourStep',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [{
 				'name': 'default',
@@ -6158,7 +6899,7 @@ const packagesDocData = new Map([
 				'defaultValue': '\'md\'',
 			}, {
 				'name': 'target',
-				'type': 'string | boolean | Function',
+				'type': 'string | Function | boolean',
 				'desc': {
 					'en': 'possibility to target a DOM element. If it is a `string`, it must represent an `id` in the DOM. If `false`, no target will be selected',
 					'fr': 'Permet de cibler un élément dans le DOM. S\'il s\'agit d\'une string, elle doit correspondre à l\'id de cet élément. Si elle est définie à `false` l\'étape se placera au centre de la page, sans cible.',
@@ -6179,6 +6920,7 @@ const packagesDocData = new Map([
 					'fr': 'titre de l\'étape',
 				},
 			}],
+			events: [],
 			publicInstance: [{
 				'name': 'previous',
 				'type': '() => Promise<void>',
@@ -6198,7 +6940,6 @@ const packagesDocData = new Map([
 		'Upload',
 		{
 			localTypes: {},
-			events: [],
 			provide: [],
 			slots: [{
 				'name': 'default',
@@ -6370,14 +7111,14 @@ const packagesDocData = new Map([
 				},
 			}, {
 				'name': 'type',
-				'type': 'any',
+				'type': 'string | Orion.DatepickerType',
 				'desc': {
 					'en': 'type of the input',
 					'fr': 'type of the input',
 				},
 			}, {
 				'name': 'validation',
-				'type': 'any',
+				'type': 'string | ((val: any) => boolean) | Orion.Validator.Rule | Orion.Validation.Rule | boolean',
 				'desc': {
 					'en': 'the validation for the field',
 					'fr': 'la validation du champ',
@@ -6388,6 +7129,41 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'the error message displayed after input\'s validation.',
 					'fr': 'le message d\'erreur affiché en cas d\'erreur lors de la validation',
+				},
+			}],
+			events: [{
+				'name': 'focus',
+				'payload': 'FocusEvent',
+				'desc': {
+					'en': 'emitted on field focus',
+					'fr': 'émis lors du focus',
+				},
+			}, {
+				'name': 'blur',
+				'payload': 'FocusEvent',
+				'desc': {
+					'en': 'emitted when the focus leaves the field',
+					'fr': 'émis quand le focus quitte la case à cocher',
+				},
+			}, {
+				'name': 'input',
+				'payload': 'T',
+				'desc': {
+					'en': 'emitted when the value of the field changes',
+					'fr': 'émis lorsque la valeur est modifiée',
+				},
+			}, {
+				'name': 'change',
+				'payload': 'T',
+				'desc': {
+					'en': 'emitted when the value of the field changes',
+					'fr': ' émis lorsque la valeur est modifiée',
+				},
+			}, {
+				'name': 'clear',
+				'desc': {
+					'en': 'emitted when the field is cleared',
+					'fr': 'Missing @doc',
 				},
 			}],
 			publicInstance: [{

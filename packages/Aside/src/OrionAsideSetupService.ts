@@ -14,9 +14,7 @@ export type OrionAsideProps = SharedPopableSetupServiceProps & {
 };
 
 export default class OrionAsideSetupService extends SharedPopableSetupService {
-	static readonly defaultProps = {
-		...SharedPopableSetupService.defaultProps,
-	};
+	static readonly defaultProps = { ...SharedPopableSetupService.defaultProps };
 
 	protected name = 'OrionAside' as const;
 

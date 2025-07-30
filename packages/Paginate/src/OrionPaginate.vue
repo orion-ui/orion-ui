@@ -60,8 +60,5 @@ defineExpose(setup.publicInstance);
 /** Doc
  * @doc vModel/vModel component's vModel
  * @doc/fr vModel/vModel vModel du composant
- *
- * @doc event/paginate/desc emitted on page changement
- * @doc/fr event/paginate/desc émis au changement de page
  */
 </script>

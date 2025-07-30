@@ -261,13 +261,5 @@ defineExpose(setup.publicInstance);
  *
  * @doc slot/append-discussion-item the content under the discussion item
  * @doc/fr slot/append-discussion-item contenu situé juste après un élément de la liste
- *
- *
- *
- * @doc event/new-discussion/desc emitted when a new discussion is created
- * @doc/fr event/new-discussion/desc émis lorsqu'une nouvelle discussion est créée
- *
- * @doc event/select-discussion/desc emitted when a discussion is selected
- * @doc/fr event/select-discussion/desc émis quand une discussion est séléctionnée
  */
 </script>

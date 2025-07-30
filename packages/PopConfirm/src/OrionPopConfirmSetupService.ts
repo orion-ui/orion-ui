@@ -3,9 +3,14 @@ import { PopperMethods } from 'floating-vue';
 import { reactive, ref } from 'vue';
 
 export type OrionPopConfirmEmits = {
+	// @doc event/confirm/desc emitted when the confirm button is clicked
+	// @doc/fr event/confirm/desc émis quand le bouton `confirm` est clické
 	(e: 'confirm'): void;
+	// @doc event/cancel/desc emitted when the cancel button is clicked
+	// @doc/fr event/cancel/desc émis quand le bouton `cancel` est clické
 	(e: 'cancel'): void;
 }
+
 export type OrionPopConfirmProps = {
 	// @doc props/title title of the confirm popup
 	// @doc/fr props/title titre de la popup de confirmation

@@ -305,29 +305,5 @@ type ObjectKeyValidator<
  * @doc slot/after-options/options/desc Options available in the dropdown list
  * @doc/fr slot/after-options/options/desc Options disponibles dans la liste déroulante
  * @doc slot/after-options/options/type BaseVModelType[]
- *
- * @doc event/focus/desc emitted on focus
- * @doc/fr event/focus/desc émis lors du focus
- * @doc event/blur/desc emitted when the focus leaves the field
- * @doc/fr event/blur/desc émis quand le focus quitte le champ
- * @doc event/input/desc emitted when the value of the field changes
- * @doc/fr event/input/desc émis lorsque la valeur est modifiée
- * @doc event/input-keydown-tab/desc emitted when pressing Tab key from the search field
- * @doc/fr event/input-keydown-tab/desc émis lors de l'appui sur la touche Tab depuis le champ de recherche
- * @doc event/change/desc emitted when the value of the field changes
- * @doc/fr event/change/desc émis lorsque la valeur est modifiée
- * @doc event/clear/desc emitted when the field is cleared
- * @doc/fr event/clear/desc émis quand le champ est vidé
- *
- * @doc event/add/desc emitted when a value is added from a multiple select
- * @doc/fr event/add/desc émis lorsqu'une valeur est ajoutée à partir d'un select multiple
- * @doc event/remove/desc emitted when a value is removed from a multiple select
- * @doc/fr event/remove/desc émis lorsqu'une valeur est retirée à partir d'un select multiple
- * @doc event/select/desc emitted when a value is selected from a simple select
- * @doc/fr event/select/desc émis lorsqu'une valeur est sélectionnée à partir d'un select simple
- * @doc event/fetch-start/desc emitted when the fetch research starts
- * @doc/fr event/fetch-start/desc émis lorsque la récupération des options commence
- * @doc event/fetch-end/desc emitted when the fetch research ends
- * @doc/fr event/fetch-end/desc émis quand la récupération des options est finie
  */
 </script>

@@ -7,6 +7,8 @@ import { hoursToNumber } from 'utils/tools';
 import { useMonkey } from 'services';
 
 export type OrionInputEmits = SharedFieldSetupServiceEmits<Nil<string | number>> & {
+	// @doc event/mousedown-right/desc emitted right-click
+	// @doc/fr event/clear/desc émis lors du click droit
 	(e: 'mousedown-right', payload: MouseEvent): void;
 }
 export type OrionInputProps = SharedFieldSetupServiceProps & {

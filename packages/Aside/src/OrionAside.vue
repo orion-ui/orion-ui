@@ -105,15 +105,5 @@ defineExpose(setup.publicInstance);
  * @doc slot/footer/close/type function
  * @doc slot/footer/close/desc to close the aside
  * @doc/fr slot/footer/close/desc fonction pour fermer l'aside
- *
- * @doc event/enter-start/desc the aside begins its enter transition
- * @doc/fr event/enter-start/desc l'aside commence son animation d'arrivée
- * @doc event/enter-end/desc the aside ends its enter transition
- * @doc/fr event/enter-end/desc l'aside a fini son animation d'arrivée
- * @doc event/leave-start/desc the aside begins its leave transition
- * @doc/fr event/leave-start/desc l'aside commence sa transition de départ
- * @doc event/leave-end/desc the aside ends its leave transition
- * @doc/fr event/leave-end/desc l'aside a fini sa transition de départ
  */
 </script>
-

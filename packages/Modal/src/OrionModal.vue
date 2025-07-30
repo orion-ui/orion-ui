@@ -115,14 +115,5 @@ defineExpose(setup.publicInstance);
  * @doc slot/default/close/type () => void
  * @doc slot/default/close/desc to close the modal
  * @doc/fr slot/default/close/desc fonction pour fermer la modal
- *
- * @doc event/enter-start/desc the modal begins its enter transition
- * @doc/fr event/enter-start/desc la modal commence sa transition d'arrivée
- * @doc event/enter-end/desc the modal ends its enter transition
- * @doc/fr event/enter-end/desc la modal a fini sa transition d'entrée
- * @doc event/leave-start/desc the modal begins its leave transition
- * @doc/fr event/leave-start/desc la modal commence sa transition de départ
- * @doc event/leave-end/desc the modal ends its leave transition
- * @doc/fr event/leave-end/desc la modal a fini sa tansition de départ
  */
 </script>
