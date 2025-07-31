@@ -6,7 +6,7 @@ import orionAppService from 'utils/Orion';
 export type OrionAsideEmits = SharedPopableSetupServiceEmits & {}
 export type OrionAsideProps = SharedPopableSetupServiceProps & {
 	// @doc props/display if set, displays the component
-	// @doc/fr props/display Missing @doc
+	// @doc/fr props/display si défini, affiche le composant
 	display?: boolean,
 	// @doc props/options options of the aside
 	// @doc/fr props/options options de l'aside

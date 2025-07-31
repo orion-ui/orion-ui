@@ -30,8 +30,10 @@ export type SharedPopableSetupServiceEmits = {
 
 export type SharedPopableSetupServiceProps = {
 	// @doc props/display if set, displays the component
+	// @doc/fr props/display si défini, affiche le composant
 	display?: boolean,
 	// @doc props/options options of the component
+	// @doc/fr props/options options du composant
 	options?: Partial<Orion.Popable.Options>
 }
 
