@@ -2,9 +2,10 @@ name: Build documentation for production
 
 on:
   workflow_dispatch:
-  release:
-    types: [published]
-
+  push:
+    branches:
+      - 'hotfix/**'
+      
 jobs:
   build-lib-production:
     name: Build Lib
