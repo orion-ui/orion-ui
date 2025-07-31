@@ -9,7 +9,7 @@ export type OrionModalEmits = SharedPopableSetupServiceEmits & {
 }
 export type OrionModalProps = SharedPopableSetupServiceProps & {
 	// @doc props/display if set, displays the component
-	// @doc/fr props/display Missing @doc
+	// @doc/fr props/display si défini, affiche le composant
 	display?: boolean,
 	// @doc props/options options of the modal
 	// @doc/fr props/options options de la modal

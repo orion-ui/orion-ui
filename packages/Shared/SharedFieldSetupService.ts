@@ -7,19 +7,29 @@ import { Validator } from 'utils/Validator';
 import SharedProps, { SharedPropsPrefixIcon, SharedPropsSize, SharedPropsSuffixIcon } from './SharedProps';
 
 export type SharedFieldSetupServiceEmits<T = any | null | undefined> = {
+	// @doc event/focus/desc emitted on field focus
+	// @doc/fr event/focus/desc émis lors du focus
   (e: 'focus', payload: FocusEvent): void;
+	// @doc event/blur/desc emitted when the focus leaves the field
+	// @doc/fr event/blur/desc émis quand le focus quitte la case à cocher
   (e: 'blur', payload?: FocusEvent): void;
+	// @doc event/input/desc emitted when the value of the field changes
+	// @doc/fr event/input/desc émis lorsque la valeur est modifiée
   (e: 'input', payload: T): void;
+	// @doc event/change/desc emitted when the value of the field changes
+	// @doc/fr event/change/desc  émis lorsque la valeur est modifiée
   (e: 'change', val?: T): void;
+	// @doc event/clear/desc emitted when the field is cleared
+	// @doc/fr event/clear/desc
   (e: 'clear'): void;
 }
 
-export type SharedFieldSetupServiceProps = {
-	prefixIcon?: SharedPropsPrefixIcon['prefixIcon'],
-	prefixFontIcon?: SharedPropsPrefixIcon['prefixFontIcon'],
-	suffixIcon?: SharedPropsSuffixIcon['suffixIcon'],
-	suffixFontIcon?: SharedPropsSuffixIcon['suffixFontIcon'],
-	size?: SharedPropsSize['size'],
+export type SharedFieldSetupServiceProps =
+	SharedPropsPrefixIcon &
+	SharedPropsPrefixIcon &
+	SharedPropsSuffixIcon &
+	SharedPropsSuffixIcon &
+	SharedPropsSize & {
 	// @doc props/autofocus autofocus the field when mounted.
 	// @doc/fr props/autofocus focus automatiquement le champ lorsqu'il est monté.
 	autofocus?: boolean,

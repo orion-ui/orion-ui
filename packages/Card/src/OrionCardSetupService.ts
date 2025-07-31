@@ -2,9 +2,14 @@ import SharedSetupService from '../../Shared/SharedSetupService';
 import SharedProps, { SharedPropsSize } from '../../Shared/SharedProps';
 
 export type OrionCardEmits = {
+	// @doc event/header-click/desc emitted on header click
+	// @doc/fr event/header-click/desc émis lors du click sur l'en-tête
 	(e: 'header-click'): void
+	// @doc event/body-click/desc emitted on body click
+	// @doc/fr event/body-click/desc émis lors du click sur le body de la carte
 	(e: 'body-click'): void
 }
+
 export type OrionCardProps =
 	SharedPropsSize & {
 	// @doc props/actionsLine displays a line between the body and the actions of the card

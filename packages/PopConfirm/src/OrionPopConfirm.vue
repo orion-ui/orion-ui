@@ -76,10 +76,5 @@ defineExpose(setup.publicInstance);
  * @doc slot/actions/cancel/type function
  * @doc slot/actions/cancel/desc to cancel the action
  * @doc/fr slot/actions/cancel/desc pour annuler l'action
- *
- * @doc event/confirm/desc emitted when the confirm button is clicked
- * @doc/fr event/confirm/desc émis quand le bouton `confirm` est clické
- * @doc event/cancel/desc emitted when the cancel button is clicked
- * @doc/fr event/cancel/desc émis quand le bouton `cancel` est clické
  */
 </script>

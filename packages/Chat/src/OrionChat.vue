@@ -285,8 +285,5 @@ defineExpose(setup.publicInstance);
  * @doc slot/prepend-discussion-actions/showSearch/type boolean
  * @doc slot/prepend-discussion-actions/showSearch/desc `true` if the search field is displayed
  * @doc/fr slot/prepend-discussion-actions/showSearch/desc `true` si le champ de recherche est affiché
- *
- * @doc event/new-message/desc emitted when a new message is sent
- * @doc/fr event/new-message/desc émis lorsqu'un nouveau message est envoyé
  */
 </script>

@@ -45,8 +45,5 @@ defineExpose(setup.publicInstance);
  *
  * @doc slot/dual The content of the second half of the chips
  * @doc/fr slot/dual Contenu de la seconde partie de la chips
- *
- * @doc event/close/desc Emitted when closing the chips
- * @doc/fr event/close/desc Émis lors de la fermeture de la chips
  */
 </script>

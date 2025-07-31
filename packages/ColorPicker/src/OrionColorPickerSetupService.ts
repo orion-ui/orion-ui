@@ -3,6 +3,8 @@ import { debounce, DebouncedFunc } from 'lodash-es';
 import SharedFieldSetupService, { SharedFieldSetupServiceProps, SharedFieldSetupServiceEmits } from '../../Shared/SharedFieldSetupService';
 
 export type OrionColorPickerEmits = SharedFieldSetupServiceEmits<Nil<string>> & {
+	// @doc event/picked/desc emitted when a color is selected
+	// @doc/fr event/picked/desc émis quand une couleur est selectionnée
 	(e: 'picked', payload: ColorValue): void;
 }
 export type OrionColorPickerProps = SharedFieldSetupServiceProps & {

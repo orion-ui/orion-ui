@@ -86,18 +86,6 @@ defineExpose(setup.publicInstance);
  * @doc vModel/selected array of the selected items
  * @doc/fr vModel/selected tableau contenant les élements sélectionnés
  *
- * @doc event/update:page/desc emitted to update the page of the list
- * @doc/fr event/update:page/desc émis pour mettre à jour l'élément `page` de la liste
- *
- * @doc event/update:selected/desc emitted to update the selected items
- * @doc/fr event/update:selected/desc émis pour mettre à jour les éléments sélectionés
- *
- * @doc event/clear-selection/desc emitted to clear the selected items
- * @doc/fr event/clear-selection/desc émis pour effacer la sélection des éléments
- *
- * @doc event/paginate/desc emitted to update the page index of the list
- * @doc/fr event/paginate/desc émis pour mettre à jour l'index de la liste
- *
  * @doc slot/default content of each item of the list
  * @doc/fr slot/default le contenu de chaque élément de la liste
  *

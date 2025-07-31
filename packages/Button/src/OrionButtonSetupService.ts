@@ -3,8 +3,11 @@ import SharedSetupService from '../../Shared/SharedSetupService';
 import SharedProps, { SharedPropsColor, SharedPropsPrefixIcon, SharedPropsSize, SharedPropsSuffixIcon } from '../../Shared/SharedProps';
 
 export type OrionButtonEmits = {
+	// @doc event/click/desc emitted on button click
+	// @doc/fr event/click/desc émis lors du click sur le bouton
 	(e: 'click', event: MouseEvent): void
 }
+
 export type OrionButtonProps =
 SharedPropsSize &
 SharedPropsPrefixIcon &

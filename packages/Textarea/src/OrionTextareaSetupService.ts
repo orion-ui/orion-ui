@@ -2,7 +2,12 @@ import { ModelRef } from 'vue';
 import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetupServiceProps } from '../../Shared/SharedFieldSetupService';
 import { nextTick, ref } from 'vue';
 
-export type OrionTextareaEmits = SharedFieldSetupServiceEmits<Nil<string>> & { (e: 'submit', payload: Nil<string>): void;}
+export type OrionTextareaEmits = SharedFieldSetupServiceEmits<Nil<string>> & {
+	// @doc event/submit/desc emitted when the enter key is pressed
+	// @doc/fr event/submit/desc émis lorsque la touche `entrée` est appuyée
+	(e: 'submit', payload: Nil<string>): void;
+}
+
 export type OrionTextareaProps = SharedFieldSetupServiceProps & {
 	// @doc props/maxLength maximal length of the input
 	// @doc/fr props/maxLength taille maximale de l'entrée

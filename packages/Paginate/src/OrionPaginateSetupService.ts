@@ -4,6 +4,8 @@ import { Reactive } from 'utils/decorators';
 import { debounce } from 'lodash-es';
 
 export type OrionPaginateEmits = {
+	// @doc event/paginate/desc emitted on page changement
+	// @doc/fr event/paginate/desc émis au changement de page
 	(e: 'paginate', payload: number): void;
 }
 

@@ -5,7 +5,11 @@ import { getAppLang } from 'services/LangService';
 import { ModelRef } from 'vue';
 
 export type OrionListEmits = {
+	// @doc event/clear-selection/desc emitted to clear the selected items
+	// @doc/fr event/clear-selection/desc émis pour effacer la sélection des éléments
 	(e: 'clear-selection'): void;
+	// @doc event/paginate/desc emitted to update the page index of the list
+	// @doc/fr event/paginate/desc émis pour mettre à jour l'index de la liste
 	(e: 'paginate', payload: number): void;
 }
 

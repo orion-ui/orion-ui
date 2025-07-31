@@ -35,23 +35,5 @@ defineExpose(setup.publicInstance);
  *
  * @doc slot/default The content of the component
  * @doc/fr slot/default Contenu du composant
- *
- * @doc event/dropIn/desc Emitted when the draggable item is dropped in a zone
- * @doc/fr event/dropIn/desc émis quand un élément est déposé dans une zone de drop
- *
- * @doc event/dragOver/desc Emitted when the draggable item enters in a droppable zone
- * @doc/fr event/dragOver/desc émis quand un élément entre dans une zone de drop
- *
- * @doc event/dragLeave/desc Emitted when the draggable item leaves a droppable zone
- * @doc/fr event/dragLeave/desc émis quand un élément quitte une zone de drop
- *
- * @doc event/reorder/desc Emitted when the draggable item is dropped in its origin area
- * @doc/fr event/reorder/desc émis quand un élément est relaché dans la zone dont il provient
- *
- * @doc event/dropOut/desc Emitted when the draggable item is droped outside a droppable zone
- * @doc/fr event/dropOut/desc émis quand un élément est laché en dehors d'une zone de drop
- *
- * @doc event/update:datalist/desc Emitted to update the datalist
- * @doc/fr event/update:datalist/desc émis pour mettre à jour la liste d'élément du composant
  */
 </script>

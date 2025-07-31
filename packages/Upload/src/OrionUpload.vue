@@ -175,20 +175,5 @@ defineExpose(setup.publicInstance);
  *
  * @doc slot/default the label displayed in the drop area
  * @doc/fr slot/default contenu pour remplacer le label par défaut
- *
- * @doc event/focus/desc emitted on focus
- * @doc/fr event/focus/desc émis lors du focus
- *
- * @doc event/blur/desc emitted when the focus leaves the field
- * @doc/fr event/blur/desc émis quand le focus quitte le champ
- *
- * @doc event/input/desc emitted when the value of the field changes
- * @doc/fr event/input/desc émis lorsque la valeur est modifiée
- *
- * @doc event/change/desc emitted when the value of the field changes
- * @doc/fr event/change/desc émis lorsque la valeur est modifiée
- *
- * @doc event/clear/desc emitted when the field is cleared
- * @doc/fr event/clear/desc émis quand le champ est vidé
  */
 </script>

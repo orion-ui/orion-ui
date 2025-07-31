@@ -13,17 +13,26 @@ import { ModelRef } from 'vue';
 import { Reactive } from 'utils/decorators';
 
 export type OrionSelectEmits<T, O> = SharedFieldSetupServiceEmits<VModelType<T>> & {
-	(e: 'focus', payload: FocusEvent): void;
-  (e: 'blur', payload?: FocusEvent): void;
-  (e: 'input', payload: VModelType<T>): void;
+	// @doc event/input-keydown-tab/desc emitted when pressing Tab key from the search field
+	// @doc/fr event/input-keydown-tab/desc émis lors de l'appui sur la touche Tab depuis le champ de recherche
   (e: 'input-keydown-tab'): void;
-  (e: 'change', val?: VModelType<T>): void;
-  (e: 'clear'): void;
+	// @doc event/add/desc emitted when a value is added from a multiple select
+	// @doc/fr event/add/desc émis lorsqu'une valeur est ajoutée à partir d'un select multiple
 	(e: 'add', payload: O): void;
+	// @doc event/remove/desc emitted when a value is removed from a multiple select
+	// @doc/fr event/remove/desc émis lorsqu'une valeur est retirée à partir d'un select multiple
 	(e: 'remove', payload: O): void;
+	// @doc event/select/desc emitted when a value is selected from a simple select
+	// @doc/fr event/select/desc émis lorsqu'une valeur est sélectionnée à partir d'un select simple
 	(e: 'select', payload: O): void;
+	// @doc event/fetch-start/desc emitted when the fetch research starts
+	// @doc/fr event/fetch-start/desc émis lorsque la récupération des options commence
 	(e: 'fetch-start', payload?: string): void;
+	// @doc event/fetch-end/desc emitted when the fetch research ends
+	// @doc/fr event/fetch-end/desc émis quand la récupération des options est finie
 	(e: 'fetch-end', payload: O[]): void;
+	// @doc event/fetch-search-clear/desc emitted when the research field is cleared
+	// @doc/fr event/fetch-search-clear/desc émis quand on efface le champ de recherche
 	(e: 'fetch-search-clear'): void;
 }
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
