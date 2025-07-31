@@ -39,8 +39,5 @@ defineExpose(setup.publicInstance);
 /** Doc
  * @doc slot/default the content of the alert
  * @doc/fr slot/default contenu de l'alerte
- *
- * @doc event/close/desc emitted when closing the alert
- * @doc/fr event/close/desc émis lors de la fermeture de l'alerte
  */
 </script>

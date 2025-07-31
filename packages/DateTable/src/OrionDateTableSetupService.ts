@@ -4,9 +4,17 @@ import useMonkey from 'services/MonkeyService';
 import SharedSetupService from '../../Shared/SharedSetupService';
 
 export type OrionDateTableEmits = {
+	// @doc event/change-month/desc emitted to change the current month
+	// @doc/fr event/change-month/desc émis pour mettre à jour la valeur du mois courant
 	(e: 'change-month', payload: { month: number, year: number }): void;
+	// @doc event/select-specific/desc emitted on day click, to execute the associate callback if it exists
+	// @doc/fr event/select-specific/desc émis au moment du click sur un jour spécifique, pour exécuter le callback correspondant s'il est défini
 	(e: 'select-specific', payload: Orion.Period | PeriodDay): void;
+	// @doc event/select-period/desc emitted when a period is selected and executes its associated callbacks
+	// @doc/fr event/select-period/desc émis quand une période est sélectionnée et exécute le callback si défini
 	(e: 'select-period', payload: Orion.Period[]): void;
+	// @doc event/select-day/desc emitted when a day is selected
+	// @doc/fr event/select-day/desc émis quand un jour est sélectioné
 	(e: 'select-day', payload: Orion.Period | PeriodDay): void;
 }
 
@@ -131,7 +139,7 @@ export default class OrionDateTableSetupService extends SharedSetupService {
 			const days = [];
 
 			for (let d = 7; d >= 1; d--) {
-				const currentDay = i * 7 - d;
+				const currentDay = i;// 7 - d;
 				let day: PeriodDay = {
 					isStart: false,
 					isEnd: false,

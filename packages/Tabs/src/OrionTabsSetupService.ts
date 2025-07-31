@@ -5,6 +5,8 @@ import SharedSetupService from '../../Shared/SharedSetupService';
 import { Private } from 'lib/private';
 
 export type OrionTabsEmits = {
+	// @doc event/tab-click/desc emitted on tab click
+	// @doc/fr event/tab-click/desc émis au moment du click sur un tab
 	(e: 'tab-click', ...payload: [OrionTabPane, MouseEvent]): void
 }
 

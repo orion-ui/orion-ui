@@ -1,7 +1,12 @@
 import SharedSetupService from '../../Shared/SharedSetupService';
 import { reactive, ref } from 'vue';
 
-export type OrionOtpEmits = { (e: 'filled', val: string): void }
+export type OrionOtpEmits = {
+	// @doc event/filled/desc emitted when the code is completed
+	// @doc/fr event/filled/desc émis lorsque le code est complété
+	(e: 'filled', val: string): void
+}
+
 export type OrionOtpProps = {
 	// @doc props/dataType defines the type of the code
 	// @doc/fr props/dataType definit le type du code

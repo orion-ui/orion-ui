@@ -176,26 +176,5 @@ defineExpose(setup.publicInstance);
  * @doc/fr vModel/multiple vModel du composant si la prop `type` est `multiple`
  * @doc vModel/dayHover the value of the hovered day
  * @doc/fr vModel/dayHover valeur du jour survolé
- *
- * @doc event/update:range/desc emitted to update the range value
- * @doc/fr event/update:range/desc émis pour mettre à jour le vModel dans le cas ou il est de type `range`
- *
- * @doc event/update:multiple/desc emitted to update the multiple value
- * @doc/fr event/update:multiple/desc émis pour mettre à jour le vModel dans le cas ou il est de type `multiple`
- *
- * @doc event/update:dayHover/desc emitted to update the dayHover value
- * @doc/fr event/update:dayHover/desc émis pour mettre à jour la valeur de `dayHover`
- *
- * @doc event/change-month/desc emitted to change the current month
- * @doc/fr event/change-month/desc émis pour mettre à jour la valeur du mois courant
- *
- * @doc event/select-specific/desc emitted on day click, to execute the associate callback if it exists
- * @doc/fr event/select-specific/desc émis au moment du click sur un jour spécifique, pour exécuter le callback correspondant s'il est défini
- *
- * @doc event/select-period/desc emitted when a period is selected and executes its associated callbacks
- * @doc/fr event/select-period/desc émis quand une période est sélectionnée et exécute le callback si défini
- *
- * @doc event/select-day/desc emitted when a day is selected
- * @doc/fr event/select-day/desc émis quand un jour est sélectioné
  */
 </script>

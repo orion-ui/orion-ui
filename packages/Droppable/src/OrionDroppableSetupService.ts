@@ -6,10 +6,20 @@ import useMonkey from 'services/MonkeyService';
 import { toggleGlobalListener } from 'utils/tools';
 
 export type OrionDroppableEmits = {
-	(e: 'dropIn', payload: any): void ;
+	// @doc event/dropIn/desc Emitted when the draggable item is dropped in a zone
+	// @doc/fr event/dropIn/desc émis quand un élément est déposé dans une zone de drop
+	(e: 'dropIn', payload: any): void;
+	// @doc event/dragOver/desc Emitted when the draggable item enters in a droppable zone
+	// @doc/fr event/dragOver/desc émis quand un élément entre dans une zone de drop
 	(e: 'dragOver'): void ;
+	// @doc event/dragLeave/desc Emitted when the draggable item leaves a droppable zone
+	// @doc/fr event/dragLeave/desc émis quand un élément quitte une zone de drop
 	(e: 'dragLeave'): void ;
+	// @doc event/reorder/desc Emitted when the draggable item is dropped in its origin area
+	// @doc/fr event/reorder/desc émis quand un élément est relaché dans la zone dont il provient
 	(e: 'reorder', payload: any): void ;
+	// @doc event/dropOut/desc Emitted when the draggable item is droped outside a droppable zone
+	// @doc/fr event/dropOut/desc émis quand un élément est laché en dehors d'une zone de drop
 	(e: 'dropOut', payload: any): void ;
 }
 

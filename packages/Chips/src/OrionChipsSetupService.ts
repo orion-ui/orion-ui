@@ -1,7 +1,12 @@
 import SharedSetupService from '../../Shared/SharedSetupService';
 import SharedProps, { SharedPropsColorExtentedAndGreys, SharedPropsSize } from '../../Shared/SharedProps';
 
-export type OrionChipsEmits = {(e: 'close'): void}
+export type OrionChipsEmits = {
+	// @doc event/close/desc Emitted when closing the chips
+	// @doc/fr event/close/desc Émis lors de la fermeture de la chips
+	(e: 'close'): void
+}
+
 export type OrionChipsProps =
 	SharedPropsSize &
 	SharedPropsColorExtentedAndGreys & {

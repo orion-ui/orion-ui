@@ -50,21 +50,6 @@ defineExpose(setup.publicInstance);
  * @doc vModel/vModel component's vModel
  * @doc/fr vModel/vModel vModel du composant
  *
- * @doc event/focus/desc emitted on checkbox focus
- * @doc/fr event/focus/desc émis lors du focus
- *
- * @doc event/blur/desc emitted when the focus leaves the checkbox
- * @doc/fr event/blur/desc émis quand le focus quitte la case à cocher
- *
- * @doc event/input/desc emitted when the value of the checkbox changes
- * @doc/fr event/input/desc émis lorsque la valeur est modifiée
- *
- * @doc event/change/desc emitted when the value of the checkbox changes
- * @doc/fr event/change/desc  émis lorsque la valeur est modifiée
- *
- * @doc event/clear/desc emitted when the checkbox is cleared
- * @doc/fr event/clear/desc
- *
  * @doc slot/default content of the checkbox to replace the default label.
  * @doc slot/default contenu de la case à cocher qui va remplacer le label par défaut.
  */

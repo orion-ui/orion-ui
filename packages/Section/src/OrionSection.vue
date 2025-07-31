@@ -68,8 +68,5 @@ defineExpose(setup.publicInstance);
  *
  * @doc slot/actions actions of the section
  * @doc/fr slot/actions actions de la section
- *
- * @doc event/update:collapsed/desc update the v-model:collapse value
- * @doc/fr event/update:collapsed/desc met à jour la valeur de la prop v-model:collapse
  */
 </script>

@@ -2,7 +2,12 @@ import SharedProps from '../../Shared/SharedProps';
 import SharedSetupService from '../../Shared/SharedSetupService';
 import type { SharedPropsColor } from '../../Shared/SharedProps';
 
-export type OrionAlertEmits = { (e: 'close'): void;}
+export type OrionAlertEmits = {
+	// @doc event/close/desc emitted when closing the alert
+	// @doc/fr event/close/desc émis lors de la fermeture de l'alerte
+	(e: 'close'): void;
+}
+
 export type OrionAlertProps = SharedPropsColor & {
 	// @doc props/center Defines if the content must be centered in the component
 	// @doc/fr props/center Défini si le contenu doit être centré dans le composant

@@ -87,11 +87,5 @@ defineExpose(setup.publicInstance);
  *
  * @doc slot/default the content of the card
  * @doc/fr slot/default contenu de la carte
-
- *
- * @doc event/header-click/desc emitted on header click
- * @doc/fr event/header-click/desc émis lors du click sur l'en-tête
- * @doc event/body-click/desc emitted on body click
- * @doc/fr event/body-click/desc émis lors du click sur le body de la carte
  */
 </script>

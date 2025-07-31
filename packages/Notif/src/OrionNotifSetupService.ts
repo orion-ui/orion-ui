@@ -7,10 +7,10 @@ import orionAppService from 'utils/Orion';
 export type OrionNotifEmits = SharedPopableSetupServiceEmits & {}
 export type OrionNotifProps = SharedPopableSetupServiceProps & {
 	// @doc props/display if set, displays the component
-	// @doc/fr props/display Missing @doc
+	// @doc/fr props/display si défini, affiche le composant
 	display?: boolean,
 	// @doc props/options options of the notification
-	// @doc/fr props/options Missing @doc
+	// @doc/fr props/options options de la notification
 	options?: Partial<Orion.Notif.Options>,
 };
 

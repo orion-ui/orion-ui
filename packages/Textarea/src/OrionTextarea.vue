@@ -59,23 +59,5 @@ defineExpose(setup.publicInstance);
 /** Doc
  * @doc vModel/vModel component's vModel
  * @doc/fr vModel/vModel vModel du composant
- *
- * @doc event/focus/desc emitted on focus
- * @doc/fr event/focus/desc émis lors du focus
- *
- * @doc event/blur/desc emitted when the focus leaves the field
- * @doc/fr event/blur/desc émis quand le focus quitte le champ
- *
- * @doc event/input/desc emitted when the value of the field changes
- * @doc/fr event/input/desc émis lorsque la valeur est modifiée
- *
- * @doc event/change/desc emitted when the value of the field changes
- * @doc/fr event/change/desc émis lorsque la valeur est modifiée
- *
- * @doc event/clear/desc emitted when the field is cleared
- * @doc/fr event/clear/desc émis quand le champ est vidé
- *
- * @doc event/submit/desc emitted when the enter key is pressed
- * @doc/fr event/submit/desc émis lorsque la touche `entrée` est appuyée
  */
 </script>

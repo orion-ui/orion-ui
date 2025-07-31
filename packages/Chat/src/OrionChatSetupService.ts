@@ -5,7 +5,12 @@ import usePluralize from 'services/PluralizeService';
 import useMonkey from 'services/MonkeyService';
 import SharedSetupService from '../../Shared/SharedSetupService';
 
-export type OrionChatEmits = {(e: 'new-message', payload: Orion.Chat.NewMessage): void;}
+export type OrionChatEmits = {
+	// @doc event/new-message/desc emitted when a new message is sent
+	// @doc/fr event/new-message/desc émis lorsqu'un nouveau message est envoyé
+	(e: 'new-message', payload: Orion.Chat.NewMessage): void;
+}
+
 export type OrionChatProps = {
 	// @doc props/chat instance of the chat service
 	// @doc/fr props/chat instance du service `chat`
