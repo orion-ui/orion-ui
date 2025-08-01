@@ -49,6 +49,9 @@ jobs:
         with:
           name: orion-build
 
+      - name: Move dist to root
+        run: mv orion-build ./dist
+
       - name: Checkout
         uses: actions/checkout@v4
 
