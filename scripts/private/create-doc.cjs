@@ -1070,6 +1070,10 @@ class globalTypeFileScanner extends DocUtility {
 
 }
 
+if (require.main === module) {
+	module.exports.default({});
+}
+
 module.exports.scanner = {
 	SetupServiceFileScanner,
 	VueFileScanner,
