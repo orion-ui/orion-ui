@@ -112,8 +112,8 @@ export default abstract class SharedPopableSetupService extends SharedSetupServi
 		protected emits: SharedPopableSetupServiceEmits) {
 		super();
 
-		Object.assign(this.options, this.options);
 
+		Object.assign(this.options, props.options);
 		usePopableQueueService().register(this.options.uid, this.publicInstance as Orion.Popable.PublicIntance);
 
 		watch(() => this.props.display, (val) => {
