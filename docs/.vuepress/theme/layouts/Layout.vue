@@ -15,10 +15,11 @@
 			
 			<main class="doc-content">
 				<v-dropdown 
-					v-if="useResponsive().onPhone && shouldShowToc && !sidebarOpened"
+					v-if="responsiveService.onPhone && shouldShowToc && !sidebarOpened"
 					:arrow-padding="180"
 					class="show-toc-button" 
 					placement="bottom-end"
+					:aria-id="getUid()"
 					@apply-show="toggleTocIcon()"
 					@apply-hide="toggleTocIcon()">
 						<o-button 
@@ -61,7 +62,7 @@ import '../../styles/index.less';
 import { nextTick, onMounted, ref, watch, computed, type Component } from 'vue';
 import { useRouter } from 'vue-router';
 import { usePageFrontmatter, usePageLang } from 'vuepress/client';
-import { setThemeMode, setAppLang, useResponsive, Bus } from '@/lib';
+import { setThemeMode, setAppLang, useResponsive, Bus, getUid } from '@/lib';
 import { addCopyFeatureToCode } from '@utils/tools';
 import Sidebar from '@theme/VPSidebar.vue';
 import Navbar from '@theme/VPNavbar.vue';
@@ -80,6 +81,7 @@ const viewComponent: Record<string, Component> = {
 	Services,
 }
 
+const responsiveService = useResponsive()
 const sidebarOpened = ref(false);
 const tocOpened = ref(false);
 // navbar

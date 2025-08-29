@@ -59,17 +59,21 @@
 </template>
 
 <script setup lang="ts">
-import { computed, reactive } from 'vue';
+import { reactive } from 'vue';
 import { faker } from '@faker-js/faker';
 import { getUid } from 'lib';
 
 type Step = { id: number, img: string, caption: string };
 
 
-const steps = computed(() => {
+function getSteps () {
 	const fakeSteps: Step[] = [];
 	for (let index = 0; index < 5; index++) {
 		const id = getUid();
+
+		if (index === 0)
+			state.modelValue = id;
+
 		fakeSteps.push({
 			id,
 			img: `https://picsum.photos/640/360?random=${id}`,
@@ -77,7 +81,7 @@ const steps = computed(() => {
 		});
 	}
 	return fakeSteps;
-});
+};
 
 const state = reactive({
 	stepTimer: 0,
@@ -89,7 +93,7 @@ const state = reactive({
 	modelValue: 0,
 });
 
-state.modelValue = steps.value[0].id;
+const steps = getSteps();
 </script>
 
 <style scoped lang="less">

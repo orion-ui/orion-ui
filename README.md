@@ -39,3 +39,6 @@ createApp(App).use(Orion).mount('#app');
 ## License
 
 [MIT](https://opensource.org/licenses/MIT) Copyright (c) 2023-present Orion UI
+
+## Star History ✨
+![Star History](https://api.star-history.com/svg?repos=orion-ui/orion-ui&type=Date)
