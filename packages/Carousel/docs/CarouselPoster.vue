@@ -108,7 +108,7 @@ carouselStep.value = steps.value[0].id;
 	color: var(--grey-darker);
 
 	> .orion-input {
-		width: 300px;
+		width: 50%;
 		margin: 1rem auto;
 	}
 }

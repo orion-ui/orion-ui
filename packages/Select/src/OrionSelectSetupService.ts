@@ -1,4 +1,4 @@
-import { ComponentPublicInstance, nextTick, PropType, ref, watch } from 'vue';
+import { ComponentPublicInstance, nextTick, ref, watch } from 'vue';
 import { cloneDeep, debounce, DebouncedFunc, get, isArray, isEmpty, isNil, isObject, upperFirst } from 'lodash-es';
 import { Dropdown, recomputeAllPoppers } from 'floating-vue';
 import mitt from 'mitt';
