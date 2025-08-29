@@ -111,7 +111,7 @@
 				class="orion-select__popover"
 				:class="{ 'orion-select-multiple__popover': multiple }"
 				@touchmove.stop="setup.handleScroll()"
-				@mousedown.self="setup.handleMousedownOnPopper($event)"
+				@mousedown="setup.handleMousedownOnPopper($event)"
 				@scroll.stop>
 				<orion-input
 					v-if="setup.showPopoverSearch"
@@ -167,7 +167,7 @@
 								<span
 									v-html="setup.itemIsObject(option) && displayKey
 										? setup.markedSearch(option[displayKey])
-										: setup.markedSearch(option)"/>
+										: setup.markedSearch(String(option))"/>
 							</slot>
 							<template v-if="multiple">
 								<orion-icon
