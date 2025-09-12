@@ -14,7 +14,6 @@ export class OverlayService {
 	 * @return void
 	 */
 	setGlobalOverlay (overlayInstance: OrionOverlay) {
-		if (!!this.globalOverlay) throw `Orion global overlay already set`;
 		this.globalOverlay = overlayInstance;
 	}
 

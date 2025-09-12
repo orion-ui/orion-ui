@@ -114,6 +114,7 @@ export const en: SidebarOptions = [
 			'/tooling/validator.md',
 		],
 	},
+	'/customization.md',
 	'/globalTypes.md',
 	{
 		text: 'Contributing',
