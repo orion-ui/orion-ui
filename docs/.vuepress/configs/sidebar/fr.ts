@@ -119,6 +119,10 @@ export const fr: SidebarOptions = [
 		link:'/fr/globalTypes.md',
 	},
 	{
+		text: 'Personnalisation',
+		link:'/fr/customization.md',
+	},
+	{
 		text: 'Contribution',
 		collapsible: true,
 		children: [

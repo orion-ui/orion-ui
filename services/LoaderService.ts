@@ -14,7 +14,6 @@ export class LoaderService {
 	 * @return void
 	 */
 	setGlobalLoader (loaderInstance: OrionLoader) {
-		if (!!this.globalLoader) throw `Orion global loader already set`;
 		this.globalLoader = loaderInstance;
 	}
 
