@@ -36,6 +36,13 @@ export default defineConfig({
 			output: {
 				exports: 'named',
 				globals: { vue: 'Vue' },
+				assetFileNames: (assetInfo) => {
+					const fileName = assetInfo.names?.[0] || '';
+					if (fileName.endsWith('.css')) {
+						return 'style.css';
+					}
+					return assetInfo.names[0];
+				},
 			},
 			external: ['vue'],
 		},
