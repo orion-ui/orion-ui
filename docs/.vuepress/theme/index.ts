@@ -28,6 +28,9 @@ const themeOrion = (options?: DefaultThemeOptions): Theme => {
 									buttonText: 'Search',
 								},
 							},
+							searchParameters: {
+        				facetFilters: [['lang:en-US']],
+      				},
 						},
 						'/fr/': {
 							placeholder: 'Rechercher',
@@ -36,6 +39,9 @@ const themeOrion = (options?: DefaultThemeOptions): Theme => {
 									buttonText: 'Rechercher',
 								},
 							},
+							searchParameters: {
+        				facetFilters: [['lang:fr', 'lang:fr-FR']],
+      				},
 						},
 					},
 				}),
