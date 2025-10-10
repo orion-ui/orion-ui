@@ -139,7 +139,7 @@ export default class OrionDateTableSetupService extends SharedSetupService {
 			const days = [];
 
 			for (let d = 7; d >= 1; d--) {
-				const currentDay = i;// 7 - d;
+				const currentDay = i * 7 - d;
 				let day: PeriodDay = {
 					isStart: false,
 					isEnd: false,
@@ -151,7 +151,6 @@ export default class OrionDateTableSetupService extends SharedSetupService {
 					date: new Date(this.currentYear, this.currentMonth, dayInMonth),
 					period: [],
 				};
-
 				if (i === 1 && currentDay < firstDayOfMonth - 1) {
 					day.number = (prevMonthEnd - (firstDayOfMonth - 1) + (currentDay + 1));
 					day.month = this.currentMonth === 0 ? 11 : this.currentMonth - 1;
@@ -166,7 +165,6 @@ export default class OrionDateTableSetupService extends SharedSetupService {
 				}
 
 				day.date = new Date(day.year, day.month, day.number);
-
 				if (this.props.periods?.length) {
 					const dayDate = day.date;
 					const nextDayDate = new Date(day.year, day.month, day.number + 1);
@@ -211,6 +209,7 @@ export default class OrionDateTableSetupService extends SharedSetupService {
 			weeks.push(days);
 		}
 		return weeks;
+
 	}
 
 	get rangeYears () {
