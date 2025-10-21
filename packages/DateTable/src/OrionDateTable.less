@@ -72,6 +72,10 @@
 	&__body {
 		font-size: 0.8125rem;
 
+		&--horizontal {
+			display: flex;
+		}
+
 		&-dow {
 			display: flex;
 			justify-content: center;
@@ -187,6 +191,11 @@
 					[data-orion-theme='dark'] & {
 						background: var(--grey);
 					}
+				}
+
+				&--horizontal {
+					display: flex;
+					flex-direction: column;
 				}
 
 				&.day {
@@ -338,4 +347,72 @@
 			}
 		}
 	}
+
+	
+}
+
+.orion-horizontal-scroll {
+
+	&--drop-shadow::before {
+		background: none;
+	}
+
+	&__slider {
+		flex-direction: column;
+	}
+	.orion-date-table {
+
+		&__header {
+			justify-content: unset;
+			gap: 0.5rem;
+			position: absolute;
+
+			&-wrapper {
+				display: flex;
+				height: 3rem;;
+				position: static;
+			}
+
+			&-current-display {
+				width: 9rem;
+				justify-content: center;
+			}
+		}
+
+		&__body {
+			display: flex;
+		}
+
+		&__footer {
+			position: sticky;
+			left: 0;
+		}
+
+		&-row {
+
+			height: fit-content;
+
+			&__cell {
+				min-width: 2rem;
+				flex-direction: column;
+				height: fit-content;
+				display: grid;
+				width: 100%;
+				grid-template-rows: 1fr 1fr;
+
+				&-content {
+					height: 100%;
+					width: 100%;
+					position: relative;
+					padding: 0.25rem
+				}
+
+				.emphasis {
+					bottom: 0;
+					position: absolute;
+					left: 0;
+				}
+			}
+		}  
+	}	
 }

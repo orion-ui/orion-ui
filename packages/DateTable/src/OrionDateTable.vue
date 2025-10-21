@@ -1,46 +1,59 @@
 <template>
-	<div
-		:ref="setup._el"
+	<component
+		:is="horizontal ? OrionHorizontalScroll : 'div'"
+		:key="setup.currentMonth"
+		:ref="(el: HTMLElement | OrionHorizontalScroll) => (setup._el.value = el?.$el ?? el)"
+		hide-button
+		drop-shadow
 		:class="{
 			'orion-date-table': true,
 			'orion-date-table--with-week-number': displayWeekNumber,
 		}"
 		@mousedown.prevent>
-		<div class="orion-date-table__header">
-			<orion-icon
-				class="orion-date-table__header-carret"
-				:class="{ 'disable' : !canGoPrevMonth }"
-				icon="chevron_left"
-				@click="setup.switchPeriod(-1)"/>
+		<div class="orion-date-table__header-wrapper">
+			<div
+				v-for="i in Math.floor(weeksToDisplay / 4) "
+				:key="i"
+				class="orion-date-table__header"
+				:style="{ left: setup.getHeaderPosition(i) + 'px' }">
+				<orion-icon
+					class="orion-date-table__header-carret"
+					:class="{ 'disable' : !canGoPrevMonth }"
+					icon="chevron_left"
+					@click="setup.switchPeriod(-1)"/>
 
-			<div class="orion-date-table__header-current-display">
-				<span
-					v-show="!setup.viewMonth && !setup.viewYears && !month"
-					class="orion-date-table__header-current-month"
-					:class="{ 'disabled': disableMonthAndYear }"
-					@click="setup.showMonths">{{ setup.monthName }} </span>
-				<span
-					v-if="!setup.viewYears"
-					class="orion-date-table__header-current-year"
-					:class="{ 'disabled': disableMonthAndYear }"
-					@click="setup.showYears">{{ setup.currentYear }}</span>
-				<span
-					v-else
-					class="orion-date-table__header-current-range-years">
-					{{ `${setup.rangeYears[0]} - ${setup.rangeYears[setup.rangeYears.length - 1]}` }}
-				</span>
+				<div class="orion-date-table__header-current-display">
+					<span
+						v-show="!setup.viewMonth && !setup.viewYears && !month"
+						class="orion-date-table__header-current-month"
+						:class="{ 'disabled': disableMonthAndYear }"
+						@click="setup.showMonths">{{ setup.getMonthName(setup.currentMonth + i - 1) }} </span>
+					<span
+						v-if="!setup.viewYears"
+						class="orion-date-table__header-current-year"
+						:class="{ 'disabled': disableMonthAndYear }"
+						@click="setup.showYears">{{ setup.getYear(setup.currentMonth + i - 1) }}</span>
+					<span
+						v-else
+						class="orion-date-table__header-current-range-years">
+						{{ `${setup.rangeYears[0]} - ${setup.rangeYears[setup.rangeYears.length - 1]}` }}
+					</span>
+				</div>
+
+				<orion-icon
+					class="orion-date-table__header-carret"
+					:class="{ 'disable' : !canGoNextMonth }"
+					icon="chevron_right"
+					@click="setup.switchPeriod(1)"/>
 			</div>
-
-			<orion-icon
-				class="orion-date-table__header-carret"
-				:class="{ 'disable' : !canGoNextMonth }"
-				icon="chevron_right"
-				@click="setup.switchPeriod(1)"/>
 		</div>
 
-		<div class="orion-date-table__body">
+
+
+		<div
+			class="orion-date-table__body">
 			<div
-				v-show="!setup.viewMonth && !setup.viewYears && !month"
+				v-show="!setup.viewMonth && !setup.viewYears && !month && !horizontal"
 				class="orion-date-table__body-dow">
 				<span
 					v-if="displayWeekNumber"
@@ -58,7 +71,7 @@
 				v-show="!setup.viewMonth && !setup.viewYears && !month"
 				class="orion-date-table__body">
 				<div
-					v-for="i in 6"
+					v-for="i in weeksToDisplay"
 					:key="i"
 					class="orion-date-table-row">
 					<span
@@ -72,14 +85,18 @@
 						@click="setup.selectDate(day)"
 						@mouseover="setup.handleMouseOverDay(day)">
 
-						<span
-							v-for="(period, index) in day.period"
-							:key="index"
-							:class="setup.getClassForBackground(period)"/>
+						<span v-if="horizontal"> {{ setup.lang.DAY_NAME_SHORT[day.date.getDay()] }}</span>
 
-						<span
-							v-if="day.color"
-							:class="setup.getClassForBackground(day)"/>
+						<template v-if="!horizontal">
+							<span
+								v-for="(period, index) in day.period"
+								:key="index"
+								:class="setup.getClassForBackground(period)"/>
+
+							<span
+								v-if="day.color"
+								:class="setup.getClassForBackground(day)"/>
+						</template>
 
 						<div
 							v-if="day.period.length > 1"
@@ -89,36 +106,39 @@
 								:class="setup.getClassForNotification(day)"/>
 						</div>
 
-						<span
-							class="orion-date-table-row__cell-display"
-							:class="setup.getClassForDay(day)"
-							@click="setup.handleSpecificDayCallback(day)">
-							<span class="orion-date-table-row__cell-display-contrast">
-								{{ day.number }}
+
+
+						<div class="orion-date-table-row__cell-content">
+
+							<template v-if="horizontal">
+								<span
+									v-for="(period, index) in day.period"
+									:key="index"
+									:class="setup.getClassForBackground(period)"/>
+
+								<span
+									v-if="day.color"
+									:class="setup.getClassForBackground(day)"/>
+							</template>
+							<span
+								class="orion-date-table-row__cell-display"
+								:class="[
+									setup.getClassForDay(day),
+									{ 'orion-date-table-row__cell-display--horizontal': horizontal },
+								]"
+								@click="setup.handleSpecificDayCallback(day)">
+
+
+
+								<span class="orion-date-table-row__cell-display-contrast">
+									{{ day.number }}
+								</span>
 							</span>
-						</span>
+						</div>
+
+
 
 					</span>
-				</div>
-				<div
-					v-if="!!setup.labels.length"
-					class="orion-date-table__footer">
-					<div
-						v-for="(label, index) in setup.labels"
-						:key="index"
-						v-tooltip="setup.filter.includes(label.color)
-							? setup.lang.ACTIVATE
-							: setup.lang.DEACTIVATE"
-						class="orion-date-table__legend"
-						:class="setup.filter.includes(label.color)
-							? `text--${label.color} orion-date-table__legend--opacity`
-							: `text--${label.color} background`"
-						@click.prevent="setup.filterColorOnClick(label.color)"
-						@mouseenter="setup.filterColorOnHover(label.color)"
-						@mouseleave="setup.filterColorOnHover(label.color, true)">
-						<div :class="`legend legend--${label.color}`"/>
-						{{ label.label }}
-					</div>
 				</div>
 			</div>
 
@@ -152,12 +172,33 @@
 				</div>
 			</div>
 		</div>
-	</div>
+		<div
+			v-if="!!setup.labels.length"
+			class="orion-date-table__footer">
+			<div
+				v-for="(label, index) in setup.labels"
+				:key="index"
+				v-tooltip="setup.filter.includes(label.color)
+					? setup.lang.ACTIVATE
+					: setup.lang.DEACTIVATE"
+				class="orion-date-table__legend"
+				:class="setup.filter.includes(label.color)
+					? `text--${label.color} orion-date-table__legend--opacity`
+					: `text--${label.color} background`"
+				@click.prevent="setup.filterColorOnClick(label.color)"
+				@mouseenter="setup.filterColorOnHover(label.color)"
+				@mouseleave="setup.filterColorOnHover(label.color, true)">
+				<div :class="`legend legend--${label.color}`"/>
+				{{ label.label }}
+			</div>
+		</div>
+	</component>
 </template>
 
 <script setup lang="ts">
 import './OrionDateTable.less';
 import { OrionIcon } from 'packages/Icon';
+import { OrionHorizontalScroll } from 'packages/HorizontalScroll';
 import OrionDateTableSetupService from './OrionDateTableSetupService';
 import type { OrionDateTableProps, OrionDateTableEmits } from './OrionDateTableSetupService';
 const vModel = defineModel< Nil<Date>>();
