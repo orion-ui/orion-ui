@@ -1,6 +1,10 @@
 <template>
 	<o-date-table
 		v-model="date"
+		horizontal
+		:markers="markers"
+		:start-date="new Date(2025, 9, 20)"
+		:end-date="new Date(2025, 11, 20)"
 		:periods="periods"/>
 </template>
 
@@ -9,6 +13,18 @@ import { ref } from 'vue';
 
 const date = ref(new Date());
 const today = new Date();
+
+const markers = [
+	{
+		date: new Date(2025, 9, 23),
+		color: 'danger' as Orion.Color,
+		label: '2',
+	},
+	{
+		date: new Date(2025, 9, 30),
+		color: 'warning' as Orion.Color,
+	},
+];
 
 const periods: Orion.Period[] = [
 	{

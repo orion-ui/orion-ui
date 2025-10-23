@@ -20,6 +20,26 @@
 		padding: 0;
 	}
 
+	&__marker {
+		position: static;
+		min-width: 200px;
+		flex: 0 0 200px;
+		top: 0.25rem;
+		right: 0.125rem;
+		z-index: 10;
+		.circle(0.5rem);
+		background-color: var(--danger);
+		color: var(--white);
+
+		each(@colors, {
+			@color: ~"--@{value}";
+      &--@{value} {
+          background: var(@color);
+      
+      }
+    });
+	}
+
 	&__header {
 		display: flex;
 		align-items: center;
@@ -147,7 +167,8 @@
 			width: calc(100% / 7);
 			height: calc(40rem / 16);
 			cursor: pointer;
-			position: relative;
+				position: relative;
+				overflow-x: auto;
 
 			.orion-date-table--with-week-number & {
 				width: calc(100% / 8);
@@ -347,39 +368,56 @@
 			}
 		}
 	}
-
-	
 }
 
-.orion-horizontal-scroll {
+.orion-date-table--horizontal{
 
-	&--drop-shadow::before {
-		background: none;
+	.orion-horizontal-scroll {
+		&__slider {
+			flex-direction: column;
+		}
+
+		&--drop-shadow::before, &--drop-shadow::after {
+			background: none !important;
+		}
 	}
 
-	&__slider {
-		flex-direction: column;
-	}
 	.orion-date-table {
+		
+
+	&__carrets {
+			justify-content: flex-end;
+			width: 100%;
+			display: flex;
+			gap: var(--fluid-10px)
+		}
+		
 
 		&__header {
-			justify-content: unset;
-			gap: 0.5rem;
-			position: absolute;
-
-			&-wrapper {
-				display: flex;
-				height: 3rem;;
-				position: static;
-			}
+    position: absolute;
+    contain: layout paint;
+    background: var(--white);
+		
 
 			&-current-display {
 				width: 9rem;
 				justify-content: center;
+				background: white
 			}
 		}
 
-		&__body {
+		&__wrapper {
+				display: flex;
+				height: 3rem;;
+				position: relative;
+				align-items: flex-end;
+				width: 100%;
+				min-width: 100%;
+				overflow: visible;
+				justify-content: flex-end;	
+			}
+
+		&__body:not(.orion-date-table__body__months):not(.orion-date-table__body__years) {
 			display: flex;
 		}
 
@@ -407,6 +445,13 @@
 					padding: 0.25rem
 				}
 
+				&-day-name {
+					height: 100%;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+				}
+
 				.emphasis {
 					bottom: 0;
 					position: absolute;
@@ -414,5 +459,7 @@
 				}
 			}
 		}  
-	}	
 }
+}
+
+

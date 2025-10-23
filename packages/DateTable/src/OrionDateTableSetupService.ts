@@ -54,16 +54,19 @@ export type OrionDateTableProps = {
 	rangeStart?: boolean,
 	// @doc props/type the type of the vModel
 	// @doc/fr props/type le type de vModel
-	type?: Orion.DateTableType,
+	type?: Orion.DateTable.Type
 	// @doc props/dateRangeSameMonth when the component is used in a OrionDatepicker component with type 'range', specified if the daterange is in one month
 	// @doc/fr props/dateRangeSameMonth quand le composant est utilisé dans un OrionDatepicker de type 'range', défini si la période sélectionnée se situe sur un seul même mois.
 	dateRangeSameMonth?: boolean,
 	horizontal?: boolean,
 	weeksToDisplay?: number,
+	startDate?: Date,
+	endDate?: Date,
+	markers?: Orion.DateTable.Marker[]
 };
 
 type PeriodDay = {
-	color?: Orion.Color;
+	color?: Orion.ColorExtendedAndGreys;
 	date: Date;
 	isStart: boolean;
 	isEnd: boolean;
@@ -80,7 +83,7 @@ export default class OrionDateTableSetupService extends SharedSetupService {
 	static readonly defaultProps = {
 		canGoNextMonth: true,
 		canGoPrevMonth: true,
-		type: 'date' as Orion.DateTableType,
+		type: 'date' as Orion.DateTable.Type,
 		weeksToDisplay: 6,
 	};
 
@@ -107,7 +110,7 @@ export default class OrionDateTableSetupService extends SharedSetupService {
 
 	get currentDate () { return this.state.currentDate;}
 
- 	get currentMonth () {
+	get currentMonth () {
 		return this.props.dateRangeSameMonth ? (this.state.currentDate.getMonth()+1)%12 : this.state.currentDate.getMonth();
 	}
 
@@ -136,18 +139,22 @@ export default class OrionDateTableSetupService extends SharedSetupService {
 
 	get daysToDisplay () {
 		const weeks = [];
-		// Date de départ : premier jour affiché dans le tableau
 		let firstDayOfMonth = this.firstDayOfCurrentMonth;
 		if (firstDayOfMonth === 0) firstDayOfMonth = 7;
-		// Calcule le nombre de jours à soustraire pour commencer au bon jour
-		const startDate = new Date(this.currentYear, this.currentMonth, this.props.horizontal ? 1 : 1 - (firstDayOfMonth - 1));
 
-		for (let i = 0; i < this.props.weeksToDisplay - 1; i++) {
+		const startDate = new Date(this.currentYear, this.currentMonth, this.props.horizontal ? this.props.startDate?.getDate() : 1 - (firstDayOfMonth - 1));
+
+		const numberOfWeeks = this.props.endDate ? this.weeksBetween(startDate, this.props.endDate) : this.props.weeksToDisplay;
+		for (let i = 0; i < numberOfWeeks; i++) {
 			const days = [];
 			for (let d = 0; d < 7; d++) {
 				// Calcule la date courante à afficher
 				const currentDate = new Date(startDate);
 				currentDate.setDate(startDate.getDate() + i * 7 + d);
+
+				if (this.props.horizontal && this.props.endDate && currentDate.getTime() > this.props.endDate?.getTime()) {
+					continue;
+				}
 
 				let day: PeriodDay = {
 					isStart: false,
@@ -238,6 +245,18 @@ export default class OrionDateTableSetupService extends SharedSetupService {
 	get filter () { return this.state.filter;}
 	get selectedDates () { return this.state.selectedDates; }
 
+	get numberOfDisplayedMonths () {
+		if (!this.props.horizontal) {
+			return 1;
+		}
+
+		let firstDayOfMonth = this.firstDayOfCurrentMonth;
+		if (firstDayOfMonth === 0) firstDayOfMonth = 7;
+		const startDate = new Date(this.currentYear, this.currentMonth, this.props.horizontal ? this.props.startDate?.getDate() : 1 - (firstDayOfMonth - 1));
+		const endDate = this.props.endDate ? this.props.endDate : this.addWeeksToDate(new Date(startDate), this.props.weeksToDisplay);
+		return this.monthDiff(startDate, endDate) + 1;
+	}
+
 	get labels () {
 		if (this.props.periods?.length) {
 			return uniqBy(this.props.periods.map(x => ({
@@ -283,6 +302,16 @@ export default class OrionDateTableSetupService extends SharedSetupService {
 		if (this.props.month)
 			this.state.viewMonth = true;
 	}
+
+	addWeeksToDate (date: Date, numberOfWeeks: number) {
+		date.setDate(date.getDate()+ numberOfWeeks * 7);
+		return date;
+	}
+
+	private weeksBetween (startDate: Date, endDate: Date) {
+		return Math.ceil((endDate.getTime() - startDate.getTime()) / (7 * 24 * 60 * 60 * 1000));
+	}
+
 
 
 	private triggerSelectPeriod () {
@@ -386,7 +415,16 @@ export default class OrionDateTableSetupService extends SharedSetupService {
 					year: this.currentYear,
 				});
 			}
+
 		}
+	}
+
+	private monthDiff (startDate: Date, endDate: Date) {
+		let months;
+		months = (endDate.getFullYear() - startDate.getFullYear()) * 12;
+		months -= startDate.getMonth();
+		months += endDate.getMonth();
+		return months <= 0 ? 0 : months;
 	}
 
 	private selectPeriod (period: Orion.Period[]) {
@@ -447,8 +485,7 @@ export default class OrionDateTableSetupService extends SharedSetupService {
 
 	getCssClassForDayInRange (day: PeriodDay) {
 		const cssClass: string[] = [];
-
-		if (day.number === 1) {
+		if (day.number === 1 || day.date.getTime() === this.props.startDate?.getTime() || this.daysToDisplay[0][0].date.getTime() === day.date.getTime()) {
 			cssClass.push('first-of-month');
 		}
 
@@ -580,6 +617,7 @@ export default class OrionDateTableSetupService extends SharedSetupService {
 	}
 
 	selectYear (year: number) {
+		console.log(year);
 		this.state.currentDate = new Date(year, this.currentMonth, 1);
 		this.state.viewYears = false;
 	}
@@ -631,6 +669,7 @@ export default class OrionDateTableSetupService extends SharedSetupService {
 	getHeaderPosition (index: number) {
 		const headerEl = this._el.value?.getElementsByClassName('first-of-month').item(index-1);
 		if (!headerEl || !this._el.value) return 0;
+		console.log(headerEl.offsetLeft);
 		return headerEl.offsetLeft;
 	}
 }
