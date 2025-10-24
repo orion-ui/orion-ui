@@ -25,17 +25,17 @@
 				position: absolute;
 				top: 0;
 				z-index: 1;
-				color: var(--danger);
+				color: var(--background-danger-default);
 			}
 		}
 
 		.orion-toggle--xs & {
-			padding-left: var(--fluid-5px);
+			padding-left: var(--space-xs);
 			font-size: 0.7rem;
 		}
 
 		.orion-toggle--sm & {
-			padding-left: var(--fluid-8px);
+			padding-left: var(--space-sm);
 		}
 
 		.orion-toggle--lg & {
@@ -48,11 +48,11 @@
 
 		.orion-toggle--reverse & {
 			padding-left: 0;
-			padding-right: var(--fluid-10px);
+			padding-right: var(--space-sm);
 		}
 
 		.orion-toggle--disabled & {
-			color: var(--grey);
+			color: var(--background-neutral-moderate);
 			cursor: not-allowed;
 		}
 	}
@@ -69,7 +69,7 @@
 		outline: 0;
 		margin: 0;
 		margin-right: 0.5rem;
-		background-color: var(--grey-light);
+		background-color: var(--background-neutral-subtle);
 		user-select: none;
 
 		.orion-toggle--xs & {
@@ -86,7 +86,7 @@
 		}
 
 		[data-orion-theme='dark'] & {
-			background: var(--grey);
+			background: var(--background-neutral-moderate);
 		}
 
 		&-button {
@@ -101,7 +101,7 @@
 			background: white;
 
 			[data-orion-theme='dark'] & {
-				background: var(--grey-lighter);
+				background: var(--background-neutral-minimal);
 			}
 
 			&::before,
@@ -111,7 +111,7 @@
 				content: '';
 				display: block;
 				position: absolute;
-				background: var(--grey);
+				background: var(--background-neutral-moderate);
 				top: calc(50% - 0.0625rem);
 				left: calc(50% - 0.375rem);
 				width: 0.75rem;
@@ -196,17 +196,16 @@
 			> .orion-toggle__core,
 			> .orion-toggle__core > .orion-toggle__core-button::before,
 			> .orion-toggle__core > .orion-toggle__core-button::after {
-				background: var(--info);
+				background: var(--background-info-default);
 			}
 		}
 
 		each(@colors, {
-			@color: ~"--@{value}";
       &.orion-toggle--@{value} {
         > .orion-toggle__core,
         > .orion-toggle__core > .orion-toggle__core-button::before,
         > .orion-toggle__core > .orion-toggle__core-button::after {
-          background: var(@color);
+          background: var(~"--background-@{value}-default");
         }
       }
     });
@@ -215,7 +214,7 @@
 			> .orion-toggle__core,
 			> .orion-toggle__core > .orion-toggle__core-button::before,
 			> .orion-toggle__core > .orion-toggle__core-button::after {
-				background: var(--inverse);
+				background: var(--text-default-inverted);
 			}
 		}
 	}

@@ -4,14 +4,14 @@
 .orion-tour-overlay {
 	position: fixed;
 	z-index: 300;
-	background: rgba(var(--rgb-grey-darker), 0.7);
+	background: rgba(var(--text-default-default), 0.7);
 }
 
 .orion-tour-step-highlighter {
 	position: absolute;
 	border-radius: 0.25rem;
 	z-index: 90000;
-	border: 0.125rem solid var(--grey-darker);
+	border: 0.125rem solid var(--text-default-default);
 	pointer-events: none;
 }
 
@@ -22,10 +22,10 @@
 	border-radius: 0.25rem;
 	top:0;
 	left:0;
-	padding: var(--fluid-15px);
+	padding: var(--space-md);
 	opacity:0;
 	[data-orion-theme='dark'] & {
-		background: var(--grey-light);
+		background: var(--background-neutral-subtle);
 	}
 
 	&__arrow {
@@ -41,7 +41,7 @@
   .square(7px);
 
 		[data-orion-theme='dark'] & {
-			border-color: transparent transparent var(--grey-light) transparent;
+			border-color: transparent transparent var(--background-neutral-subtle) transparent;
 		}
 	}
 
@@ -53,9 +53,9 @@
 	}
 
 	&__title {
-		color: var(--grey-darker);
+		color: var(--text-default-default);
 		font-weight: 600;
-		padding-right: var(--fluid-15px);
+		padding-right: var(--space-md);
 		font-size: 1rem;
 
 		+ .orion-tour-tooltip__body {
@@ -96,7 +96,7 @@
 	}
 
 	&__counter {
-		color: var(--grey);
+		color: var(--background-neutral-moderate);
 		font-weight: 800;
 		margin-right: 0.5rem;
 		min-width: 2.5rem;
@@ -108,11 +108,11 @@
 		border-top: 0.0625rem solid;
 		border-image: linear-gradient(
 				to right,
-				rgba(var(--rgb-grey-light), 0),
-				var(--grey-light)
+				rgba(var(--background-neutral-minimal), 0),
+				var(--background-neutral-subtle)
 			)
 			1;
-		padding-top: var(--fluid-15px);
+		padding-top: var(--space-md);
 		justify-content: space-between;
 
 		&--sm {

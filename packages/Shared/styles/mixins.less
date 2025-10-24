@@ -48,8 +48,8 @@
 
 	&:hover {
 		opacity: 1;
-		color: var(--danger);
-		border-color: var(--danger);
+		color: var(--background-danger-default);
+		border-color: var(--background-danger-default);
 		transform: rotate(90deg);
 	}
 }
@@ -59,9 +59,8 @@
 	position: absolute;
 
 	each(@colors, {
-		@color: ~"--@{value}";
     &--@{value} {
-      background: var(@color);
+      background: var(~"--background-@{value}-default");
     }
   });
 }

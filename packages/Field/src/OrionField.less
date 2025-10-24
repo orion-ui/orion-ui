@@ -11,14 +11,14 @@ select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
 	box-shadow: 0 0 0 calc(30rem / 16) white inset !important;
-	-webkit-text-fill-color: var(--grey-darker) !important;
+	-webkit-text-fill-color: var(--text-default-default) !important;
 
 	+ .orion-input__pictos {
 		background: none;
 	}
 
 	[data-orion-theme='dark'] & {
-		box-shadow: 0 0 0 calc(30rem / 16) var(--grey-lighter) inset !important;
+		box-shadow: 0 0 0 calc(30rem / 16) var(--background-neutral-minimal) inset !important;
 	}
 }
 
@@ -50,7 +50,7 @@ select:-webkit-autofill:focus {
 				content: '*';
 				position: absolute;
 				z-index: 1;
-				color: var(--danger);
+				color: var(--background-danger-default);
 			}
 		}
 	}
@@ -68,7 +68,7 @@ select:-webkit-autofill:focus {
 		margin-top: calc(1rem / 16);
 		margin-right: 0.25rem;
 		border-radius: calc(3rem / 16);
-		border: 0.0625rem solid var(--grey-light);
+		border: 0.0625rem solid var(--background-neutral-subtle);
 		background: white;
 
 		[class*='--reverse'] > & {
@@ -77,12 +77,12 @@ select:-webkit-autofill:focus {
 		}
 
 		[data-orion-theme='dark'] & {
-			background: var(--grey);
-			border-color: rgba(var(--rgb-grey-dark), 0.5);
+			background: var(--background-neutral-moderate);
+			border-color:  color-mix(in oklab, var(--border-neutral-default) 50%, transparent);
 		}
 
 		.orion-checkbox--error & {
-			border-color: var(--danger);
+			border-color: var(--border-neutral-default);
 		}
 
 		.orion-radio & {
@@ -102,7 +102,7 @@ select:-webkit-autofill:focus {
 			stroke-dasharray: 1rem;
 			stroke-dashoffset: 1rem;
 			[data-orion-theme='dark'] & {
-				stroke: var(--grey-lighter);
+				stroke: var(--background-neutral-minimal);
 			}
 		}
 
@@ -111,7 +111,7 @@ select:-webkit-autofill:focus {
 			font-size: 0.75rem;
 
 			[data-orion-theme='dark'] & {
-				color: var(--grey);
+				color: var(--background-neutral-moderate);
 			}
 		}
 
@@ -135,47 +135,46 @@ select:-webkit-autofill:focus {
 		}
 
 		[data-orion-theme='dark'] & {
-			background: var(--grey);
+			background: var(--background-neutral-moderate);
 		}
 	}
-
+	
 	&--default {
 		&[class*='--checked'] > [class*='__check-container'] {
-			background: var(--info);
-			border-color: var(--info);
+			background: var(--background-brand-default);
+			border-color: var(--border-brand-default);
 		}
 
 		&:not([class*="--disabled"]):hover > [class*='__check-container'] {
-			border-color: var(--info);
+			border-color: var(--border-brand-default);
 		}
 	}
 
 	each(@colors, {
-		@color: ~"--@{value}";
 		&--@{value} {
 			&[class*="--checked"] > [class*="__check-container"] {
-				background: var(@color);
-				border-color: var(@color);
+				background: var(~"--background-@{value}-default");
+				border-color: var(~"--border-@{value}-default");
 			}
 
 			&:hover > [class*="__check-container"] {
-				border-color: var(@color);
+				border-color: var(~"--border-@{value}-default");
 			}
 		}
 	});
 
 	&--error {
 		&:not(.orion-radio--default) > [class*='__label'] {
-			color: var(--danger);
+			color: var(--background-danger-default);
 		}
 
 		&[class*='--checked'] > [class*='__check-container'] {
-			background: var(--danger);
-			border-color: var(--danger);
+			background: var(--background-danger-default);
+			border-color: var(--background-danger-default);
 		}
 
 		&:hover > [class*='__check-container'] {
-			border-color: var(--danger);
+			border-color: var(--background-danger-default);
 		}
 	}
 

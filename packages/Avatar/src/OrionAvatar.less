@@ -52,19 +52,18 @@
 		}
 
 		each(@colors, {
-			@color: ~"--@{value}";
 			.orion-avatar--@{value} > & {
-				background: var(@color);
+				background:  var(~"--background-@{value}-default");
 			}
 		});
 
 		.orion-avatar--default > & {
-			background: var(--grey-light);
-			color: var(--grey-darker);
+			background: var(--background-neutral-subtle);
+			color: var(--text-default-default);
 		}
 
 		.orion-avatar--inverse > & {
-			background: var(--grey-darker);
+			background: var(--text-default-default);
 		}
 	}
 
@@ -76,7 +75,7 @@
 		bottom: 0;
 		right: 0;
 		font-size: 1.25rem;
-		color: var(--grey-dark);
+		color: var(--border-default);
 		background: white;
 		cursor: pointer;
 
@@ -86,8 +85,8 @@
 		}
 
 		.orion-avatar--sm & {
-			bottom: calc(var(--fluid-5px) * -1);
-			right: calc(var(--fluid-5px) * -1);
+			bottom: calc(var(--space-xs) * -1);
+			right: calc(var(--space-xs) * -1);
 		}
 
 		.orion-avatar--xs & {
@@ -101,8 +100,8 @@
 
 		.orion-avatar--square & {
 			transform: translate3d(
-				calc(var(--fluid-5px) * -1),
-				calc(var(--fluid-5px) * -1),
+				calc(var(--space-xs) * -1),
+				calc(var(--space-xs) * -1),
 				0
 			);
 		}

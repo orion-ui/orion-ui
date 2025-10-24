@@ -57,7 +57,7 @@ details.orion-section summary::-webkit-details-marker {
 			font-size: 1.5rem;
 
 			&:not(:hover) {
-				color: var(--grey-dark);
+				color: var(--border-default);
 			}
 
 			@media @phone {
@@ -68,14 +68,14 @@ details.orion-section summary::-webkit-details-marker {
 
 	&__title {
 		margin: 0;
-		font-weight: var(--font-weight-section-title);
+		font-weight: var(--typography-weight-semibold);
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
 
 		.orion-section--actions & {
 			flex: 1 0 100%;
-			padding: var(--fluid-5px);
+			padding: var(--space-xs);
 		}
 
 		&-chevron {
@@ -85,8 +85,8 @@ details.orion-section summary::-webkit-details-marker {
 	}
 
 	&__subtitle {
-		font-weight: var(--font-weight-section-subtitle);
-		color: var(--grey-dark);
+		font-weight: var(--typography-weight-medium);
+		color: var(--border-default);
 		margin: 0.3rem 0 0;
 	}
 

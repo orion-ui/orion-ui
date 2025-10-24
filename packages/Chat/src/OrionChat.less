@@ -9,7 +9,7 @@
 	height: 100%;
 
 	[data-orion-theme='dark'] & {
-		background: var(--grey-light);
+		background: var(--background-neutral-subtle);
 	}
 
 	&__header {
@@ -20,13 +20,13 @@
 		align-items: center;
 		justify-content: space-between;
 		height: 4rem;
-		padding: var(--fluid-10px);
+		padding: var(--space-sm);
 		background: white;
-		border-bottom: 0.0625rem solid var(--grey-light);
+		border-bottom: 0.0625rem solid var(--background-neutral-subtle);
 
 		[data-orion-theme='dark'] & {
-			background: var(--grey-light);
-			border-bottom: 0.0625rem solid var(--grey-light);
+			background: var(--background-neutral-subtle);
+			border-bottom: 0.0625rem solid var(--background-neutral-subtle);
 		}
 	}
 
@@ -51,7 +51,7 @@
 			border: 0.125rem solid white;
 
 			[data-orion-theme='dark'] & {
-				background: var(--grey-light);
+				background: var(--background-neutral-subtle);
 			}
 
 			+ .orion-avatar {
@@ -114,13 +114,13 @@
 		gap: 0.3rem;
 		text-align: center;
 		background: white;
-		color: var(--info);
+		color: var(--background-info-default);
 		text-transform: uppercase;
 		font-weight: 600;
 		font-size: 0.75rem;
 
 		[data-orion-theme='dark'] & {
-			background: var(--grey-light);
+			background: var(--background-neutral-subtle);
 		}
 	}
 
@@ -169,17 +169,17 @@
 		text-align: center;
 		font-size: 0.8125rem;
 		font-weight: normal;
-		color: var(--grey-dark);
+		color: var(--border-default);
 		margin: 0 0 2.5rem;
 
 		> span {
 			position: relative;
 			display: inline-block;
-			padding: 0 var(--fluid-20px);
+			padding: 0 var(--space-lg);
 			background: white;
 
 			[data-orion-theme='dark'] & {
-				background: var(--grey-light);
+				background: var(--background-neutral-subtle);
 			}
 		}
 
@@ -192,10 +192,10 @@
 			height: 0.0625rem;
 			background: linear-gradient(
 				to right,
-				rgba(var(--rgb-grey-light), 0),
-				var(--grey-light) 30%,
-				var(--grey-light) 70%,
-				rgba(var(--rgb-grey-light), 0)
+				rgba(var(--background-neutral-minimal), 0),
+				var(--background-neutral-subtle) 30%,
+				var(--background-neutral-subtle) 70%,
+				rgba(var(--background-neutral-minimal), 0)
 			);
 		}
 	}
@@ -204,17 +204,17 @@
 		background: white;
 		position: sticky;
 		bottom: 0;
-		padding: var(--fluid-10px);
+		padding: var(--space-sm);
 
 		[data-orion-theme='dark'] & {
-			background: var(--grey-light);
+			background: var(--background-neutral-subtle);
 		}
 
 		> .orion-chat__send {
 			position: absolute;
 			top: calc(21rem / 16);
 			right: calc(21rem / 16);
-			color: var(--info);
+			color: var(--background-info-default);
 			font-size: 1.25rem;
 		}
 	}
@@ -223,7 +223,7 @@
 		margin: 0;
 
 		textarea {
-			padding-right: var(--fluid-40px);
+			padding-right: var(--space-lg);
 		}
 
 		.orion-input__input {

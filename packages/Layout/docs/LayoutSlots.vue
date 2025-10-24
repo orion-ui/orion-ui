@@ -24,7 +24,7 @@
 
 <style scoped lang="less">
 .nav-top {
-  background-color: var(--grey);
+  background-color: var(--background-neutral-moderate);
   height: 3rem;
   display: flex;
 
@@ -35,7 +35,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--grey-dark);
+    background-color: var(--border-default);
   }
   &__additional {
     justify-content: center;
@@ -44,7 +44,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--grey);
+    background-color: var(--background-neutral-moderate);
   }
   &__right {
     justify-content: center;
@@ -53,12 +53,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--grey-light);
+    background-color: var(--background-neutral-subtle);
   }
 }
 
 .nav-main {
-  background-color: var(--grey-dark);
+  background-color: var(--border-default);
 	flex: 6rem 0 0;
   display: flex;
   justify-content: center;
@@ -66,7 +66,7 @@
 }
 
 .nav-fullpage {
-  background-color: var(--grey-light);
+  background-color: var(--background-neutral-subtle);
   display: flex;
   height: 100%;
   justify-content: center;
@@ -78,7 +78,7 @@
     justify-content: center;
     align-items: center;
     display: flex;
-    background-color: var(--grey-lighter);
+    background-color: var(--background-neutral-minimal);
   }
 
 	&__after {
@@ -87,12 +87,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--grey);
+    background-color: var(--background-neutral-moderate);
   }
 }
 
 .nav-container {
-  background-color: var(--grey-light);
+  background-color: var(--background-neutral-subtle);
   width: 100%;
   display: flex;
   height: 100%;
@@ -109,7 +109,7 @@
 }
 
 .main {
-  background-color: var(--grey-lighter);
+  background-color: var(--background-neutral-minimal);
   display: flex;
   width: 100%;
   justify-content: center;
@@ -117,14 +117,14 @@
   height: 12.5rem
 }
 .footer {
-  background-color: var(--grey-light);
+  background-color: var(--background-neutral-subtle);
   display: flex;
   justify-content: center;
   align-items: center;
   height: 2rem
 }
 .nav-tabs {
-  background-color: var(--grey-dark);
+  background-color: var(--border-default);
   height: 3rem;
   display: flex;
   justify-content: center;

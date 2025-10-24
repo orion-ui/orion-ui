@@ -11,10 +11,10 @@
 	transition: box-shadow 0.3s;
 	// z-index: @zIndexOrionPopable;
 	position: fixed;
-	top: var(--fluid-20px);
-	right: var(--fluid-20px);
-	bottom: var(--fluid-20px);
-	border-radius: var(--radius-aside);
+	top: var(--space-lg);
+	right: var(--space-lg);
+	bottom: var(--space-lg);
+	border-radius: var(--radius-18);
 	max-width: calc(100vw - 2.5rem);
 	display: none;
 	flex-direction: column;
@@ -26,11 +26,11 @@
 	}
 
 	[data-orion-theme='dark'] & {
-		background: var(--grey-lighter);
+		background: var(--background-neutral-minimal);
 	}
 
 	> .orion-loader {
-		border-radius: var(--radius-aside);
+		border-radius: var(--radius-18);
 	}
 
 	&:focus {
@@ -39,7 +39,7 @@
 
 	&__poster {
 		flex: none;
-		border-radius: var(--radius-aside) var(--radius-aside) 0 0;
+		border-radius: var(--radius-18) var(--radius-18) 0 0;
 	}
 
 	&__header {
@@ -64,7 +64,7 @@
 		margin-right: unset;
 
 		[data-orion-theme='dark'] & {
-			background-color: var(--grey-lighter);
+			background-color: var(--background-neutral-minimal);
 			box-shadow: 0 0.0625rem 0.1875rem black;
 		}
 	}
@@ -92,13 +92,13 @@
 		order: 2;
 		position: relative;
 		flex: 1 1 auto;
-		border-radius: var(--radius-aside);
-		padding: var(--fluid-30px);
+		border-radius: var(--radius-18);
+		padding: var(--space-lg);
 		max-width: 100%;
 		max-height: 100%;
 
 		/* .orion-aside__footer:not(:empty) + & {
-			padding-bottom: var(--fluid-15px);
+			padding-bottom: var(--space-md);
 		} */
 
 		// #region Pure CSS scroll shadow
@@ -127,8 +127,8 @@
 
 		[data-orion-theme='dark'] & {
 			background:
-				linear-gradient(var(--grey-lighter) 30%, rgba(255, 255, 255, 0)),
-				linear-gradient(rgba(255, 255, 255, 0), var(--grey-lighter) 70%) 0 100%,
+				linear-gradient(var(--background-neutral-minimal) 30%, rgba(255, 255, 255, 0)),
+				linear-gradient(rgba(255, 255, 255, 0), var(--background-neutral-minimal) 70%) 0 100%,
 				radial-gradient(
 					farthest-side at 50% 0,
 					rgba(0, 0, 0, 0),
@@ -147,36 +147,36 @@
 				100% 0,
 				100% 0.5rem;
 			background-attachment: local, local, scroll, scroll;
-			background-color: var(--grey-lighter);
+			background-color: var(--background-neutral-minimal);
 		}
 		// #endregion
 
 		@media @tablet {
-			padding: var(--fluid-60px);
+			padding: var(--space-lg);
 		}
 
 		.orion-aside--sm & {
-			padding: var(--fluid-45px);
+			padding: var(--space-lg);
 		}
 		.orion-aside--xs & {
-			padding: var(--fluid-20px);
+			padding: var(--space-lg);
 		}
 	}
 
 	&__footer {
 		order: 3;
 		flex: 0 0 auto;
-		padding: var(--fluid-20px) var(--fluid-30px);
+		padding: var(--space-lg) var(--space-lg);
 
 		@media @tablet {
-			padding: var(--fluid-20px) var(--fluid-60px);
+			padding: var(--space-lg) var(--space-lg);
 		}
 
 		.orion-aside--sm & {
-			padding: var(--fluid-20px) var(--fluid-45px);
+			padding: var(--space-lg) var(--space-lg);
 		}
 		.orion-aside--xs & {
-			padding: var(--fluid-20px);
+			padding: var(--space-lg);
 		}
 
 		&:empty {
@@ -188,13 +188,13 @@
 		.close(1.5rem);
 		z-index: 1;
 		position: fixed;
-		top: var(--fluid-8px);
-		right: var(--fluid-8px);
-		background: var(--base);
+		top: var(--space-sm);
+		right: var(--space-sm);
+		background: var(--background-neutral-default);
 
 		@media @tablet {
-			top: var(--fluid-15px);
-			right: var(--fluid-15px);
+			top: var(--space-md);
+			right: var(--space-md);
 		}
 	}
 

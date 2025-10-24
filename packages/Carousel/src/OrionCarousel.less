@@ -56,17 +56,17 @@
 		width: 0.5rem;
 		border-radius: 0.25rem;
 		background: white;
-		border: 1px solid var(--grey);
+		border: 1px solid var(--background-neutral-moderate);
 		cursor: pointer;
 
 		&:hover {
-			border-color: rgb(var(--color));
+			border-color: rgb(var(--text-default-default));
 		}
 
 		&--active,
 		&--past {
 			border-color: transparent;
-			background-color: rgb(var(--color));
+			background-color: rgb(var(--text-default-default));
 		}
 
 		&--past {
@@ -75,7 +75,7 @@
 
 		&--active {
 			.orion-carousel--timer & {
-				background-color: rgba(var(--color), 0.2);
+				background-color: rgba(var(--text-default-default), 0.2);
 				width: 1.5rem;
 			}
 		}
@@ -86,7 +86,7 @@
 			bottom: 0;
 			left: 0;
 			right: 0;
-			background-color: rgb(var(--color));
+			background-color: rgb(var(--text-default-default));
 			transform: scale3d(0, 1, 1);
 			transform-origin: left;
 

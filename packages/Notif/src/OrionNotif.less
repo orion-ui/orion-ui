@@ -13,19 +13,19 @@
 	display: flex;
 	align-items: center;
 	background: white;
-	border-radius: var(--radius-notif);
-	padding: var(--fluid-10px) var(--fluid-40px) var(--fluid-10px)
-		var(--fluid-20px);
+	border-radius: var(--radius-4);
+	padding: var(--space-sm) var(--space-lg) var(--space-sm)
+		var(--space-lg);
 	font-size: 0.75rem;
-	color: var(--grey-dark);
-	border-left: calc(3rem / 16) solid var(--grey);
+	color: var(--border-default);
+	border-left: calc(3rem / 16) solid var(--background-neutral-moderate);
 	box-shadow: 0 0.5rem 0.5rem fade(black, 8), 0 1rem 1rem fade(black, 8),
 		0 2rem 2rem fade(black, 8), 0 3rem 3rem fade(black, 8),
 		0 4rem 4rem fade(black, 8);
 	backface-visibility: hidden;
 
 	[data-orion-theme='dark'] & {
-		background-color: var(--grey-light);
+		background-color: var(--background-neutral-subtle);
 	}
 
 	&__content {
@@ -34,8 +34,8 @@
 
 	&__title {
 		margin: 0;
-		padding: var(--fluid-5px) 0;
-		color: var(--grey-darker);
+		padding: var(--space-xs) 0;
+		color: var(--text-default-default);
 	}
 
 	&__message {
@@ -54,7 +54,7 @@
 		top: 0.75rem;
 		right: 0.5rem;
 		font-size: 0.75rem;
-		color: var(--grey);
+		color: var(--background-neutral-moderate);
 		cursor: pointer;
 
 		&-circle {
@@ -63,25 +63,25 @@
 			position: absolute;
 			top: 0;
 			left: 0;
-			border: calc(1rem / 16) solid var(--grey);
+			border: calc(1rem / 16) solid var(--background-neutral-moderate);
 			border-right-color: transparent !important;
 			border-left-color: transparent !important;
 			border-bottom-color: transparent !important;
 
 			.orion-notif--info & {
-				border-color: var(--info);
+				border-color: var(--background-info-default);
 			}
 
 			.orion-notif--success & {
-				border-color: var(--success);
+				border-color: var(--background-success-default);
 			}
 
 			.orion-notif--warning & {
-				border-color: var(--warning);
+				border-color: var(--background-warning-default);
 			}
 
 			.orion-notif--danger & {
-				border-color: var(--danger);
+				border-color: var(--background-danger-default);
 			}
 		}
 
@@ -101,40 +101,40 @@
 			}
 
 			.orion-notif--info & {
-				background-color: rgba(var(--rgb-info), 0.05);
+				background-color: rgba(var(--background-info-default), 0.05);
 			}
 
 			.orion-notif--success & {
-				background-color: rgba(var(--rgb-success), 0.05);
+				background-color: rgba(var(--background-success-default), 0.05);
 			}
 
 			.orion-notif--warning & {
-				background-color: rgba(var(--rgb-warning), 0.075);
+				background-color: rgba(var(--background-warning-default), 0.075);
 			}
 
 			.orion-notif--danger & {
-				background-color: rgba(var(--rgb-danger), 0.075);
+				background-color: rgba(var(--background-danger-default), 0.075);
 			}
 		}
 
 		.orion-notif--info & {
-			border-color: var(--info);
-			color: var(--info);
+			border-color: var(--background-info-default);
+			color: var(--background-info-default);
 		}
 
 		.orion-notif--success & {
-			border-color: var(--success);
-			color: var(--success);
+			border-color: var(--background-success-default);
+			color: var(--background-success-default);
 		}
 
 		.orion-notif--warning & {
-			border-color: var(--warning);
-			color: var(--warning);
+			border-color: var(--background-warning-default);
+			color: var(--background-warning-default);
 		}
 
 		.orion-notif--danger & {
-			border-color: var(--danger);
-			color: var(--danger);
+			border-color: var(--background-danger-default);
+			color: var(--background-danger-default);
 		}
 	}
 
@@ -146,34 +146,34 @@
 	}
 
 	&--info {
-		border-color: var(--info);
+		border-color: var(--background-info-default);
 
 		.orion-notif__icon {
-			color: var(--info);
+			color: var(--background-info-default);
 		}
 	}
 
 	&--success {
-		border-color: var(--success);
+		border-color: var(--background-success-default);
 
 		.orion-notif__icon {
-			color: var(--success);
+			color: var(--background-success-default);
 		}
 	}
 
 	&--warning {
-		border-color: var(--warning);
+		border-color: var(--background-warning-default);
 
 		.orion-notif__icon {
-			color: var(--warning);
+			color: var(--background-warning-default);
 		}
 	}
 
 	&--danger {
-		border-color: var(--danger);
+		border-color: var(--background-danger-default);
 
 		.orion-notif__icon {
-			color: var(--danger);
+			color: var(--background-danger-default);
 		}
 	}
 }

@@ -2,30 +2,30 @@
 	&__popper {
 		.v-popper__arrow {
 			[data-orion-theme='dark'] & {
-				border-color: var(--grey-light);
+				border-color: var(--background-neutral-subtle);
 			}
 
 			&-outer {
 				[data-orion-theme='dark'] & {
-					border-color: var(--grey);
+					border-color: var(--background-neutral-moderate);
 				}
 			}
 			&-inner {
 				[data-orion-theme='dark'] & {
-					border-color: var(--grey-light);
+					border-color: var(--background-neutral-subtle);
 				}
 			}
 		}
 
 		.v-popper__inner {
-			color: var(--grey-darker);
-			padding: var(--fluid-15px);
-			border-radius: var(--radius-popover);
+			color: var(--text-default-default);
+			padding: var(--space-md);
+			border-radius: var(--radius-8);
 
 			[data-orion-theme='dark'] & {
-				background: var(--grey-light);
-				color: var(--grey-darker);
-				border: 0.0625rem solid var(--grey);
+				background: var(--background-neutral-subtle);
+				color: var(--text-default-default);
+				border: 0.0625rem solid var(--background-neutral-moderate);
 			}
 		}
 
@@ -52,7 +52,7 @@
 
 			.v-popper__backdrop {
 				display: block;
-				background: rgba(var(--rgb-grey-darker), 0.7);
+				background: rgba(var(--text-default-default), 0.7);
 				bottom: -1px; // for parent overscroll-behavior
 				height: auto; // for parent overscroll-behavior
 
@@ -74,7 +74,7 @@
 	&-tooltip {
 		pointer-events: none;
 		.v-popper__inner {
-			padding: var(--fluid-8px) var(--fluid-15px);
+			padding: var(--space-sm) var(--space-md);
 			color: white;
 		}
 	}
@@ -91,22 +91,22 @@
 	&-orion-editor-toolbar {
 		.v-popper {
 			&__inner {
-				padding: var(--fluid-5px);
+				padding: var(--space-xs);
 
 				.orion-button {
 					box-shadow: none;
-					border: 0.0625rem solid rgba(var(--grey-light), 0.7);
+					border: 0.0625rem solid rgba(var(--background-neutral-subtle), 0.7);
 
 					[data-orion-theme='dark'] & {
 						border-color: rgba(var(--grey-dark, 0.4));
 					}
 
 					&.active {
-						border-color: var(--info);
+						border-color: var(--background-info-default);
 					}
 
 					+ .orion-button {
-						margin-left: var(--fluid-5px);
+						margin-left: var(--space-xs);
 					}
 				}
 			}
@@ -115,8 +115,8 @@
 
 	&-orion-select-searchable {
 		&.v-popper__popper--no-positioning .orion-select__popover {
-			height: calc(90vh - var(--fluid-30px)); // dvh support fallback
-			height: calc(90dvh - var(--fluid-30px));
+			height: calc(90vh - var(--space-lg)); // dvh support fallback
+			height: calc(90dvh - var(--space-lg));
 			max-height: none;
 		}
 	}

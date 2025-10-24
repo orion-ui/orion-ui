@@ -62,13 +62,13 @@
 						background: setup.visibilityValues[index].isHidingLeft
 							? `linear-gradient(
 								to left,
-								var(--info) ${setup.visibilityValues[index].visibility}%,
-								var(--grey) 0%
+								var(--background-info-default) ${setup.visibilityValues[index].visibility}%,
+								var(--background-neutral-moderate) 0%
 							)`
 							: `linear-gradient(
 								to right,
-								var(--info) ${setup.visibilityValues[index].visibility}%,
-								var(--grey) 0%
+								var(--background-info-default) ${setup.visibilityValues[index].visibility}%,
+								var(--background-neutral-moderate) 0%
 							)`,
 					}"
 					@click="setup.scrollTo(element)"/>

@@ -17,9 +17,9 @@
 
 	&__path > circle {
 		fill: none;
-		stroke: var(--grey-light);
+		stroke: var(--background-neutral-subtle);
 		[data-orion-theme='dark'] & {
-			stroke: var(--grey);
+			stroke: var(--background-neutral-moderate);
 		}
 	}
 
@@ -32,9 +32,8 @@
 			transition: stroke-dashoffset 0.5s ease;
 
 			each(@colors, {
-				@color: ~"--@{value}";
         .orion-progress-circle--@{value} & {
-          stroke: var(@color);
+          stroke: var(~"--border-@{value}-default");
         }
       });
 		}
@@ -48,13 +47,13 @@
 
 	&--default {
 		.orion-progress-circle__value > circle {
-			stroke: var(--grey-dark);
+			stroke: var(--border-default);
 		}
 	}
 
 	&--inverse {
 		.orion-progress-circle__value > circle {
-			stroke: var(--inverse);
+			stroke: var(--text-default-inverted);
 		}
 	}
 }

@@ -4,20 +4,20 @@
 .orion-upload {
 	transition: border 0.5s, background 0.5s;
 	position: relative;
-	padding: var(--fluid-5px);
+	padding: var(--space-xs);
 	margin: 0.5rem 0;
 	background: white;
-	border: 0.0625rem solid var(--grey-light);
-	border-radius: var(--radius-upload);
+	border: 0.0625rem solid var(--background-neutral-subtle);
+	border-radius: var(--radius-4);
 	text-align: center;
 
 	[data-orion-theme='dark'] & {
-		background-color: var(--grey-light);
-		border-color: var(--grey);
+		background-color: var(--background-neutral-subtle);
+		border-color: var(--background-neutral-moderate);
 	}
 
 	@media @phone {
-		padding: var(--fluid-10px);
+		padding: var(--space-sm);
 	}
 
 	&__input {
@@ -26,7 +26,7 @@
 
 	&__wrapper {
 		text-align: center;
-		color: var(--grey-dark);
+		color: var(--border-default);
 	}
 
 	&__or {
@@ -45,11 +45,11 @@
 			display: block;
 			width: 50%;
 			height: 0.125rem;
-			background: var(--grey-light);
+			background: var(--background-neutral-subtle);
 			margin: 0 1.25rem;
 
 			[data-orion-theme='dark'] & {
-				background-color: var(--grey);
+				background-color: var(--background-neutral-moderate);
 			}
 		}
 	}
@@ -78,7 +78,7 @@
 				overflow: hidden;
 				flex: 1 1 auto;
 				text-align: left;
-				padding: var(--fluid-5px);
+				padding: var(--space-xs);
 
 				> span {
 					display: inline-block;
@@ -94,14 +94,14 @@
 			&-type,
 			&-size {
 				font-size: 0.75rem;
-				color: var(--grey-dark);
+				color: var(--border-default);
 			}
 
 			&:hover {
-				background: var(--grey-lighter);
+				background: var(--background-neutral-minimal);
 
 				.orion-upload__delete-file {
-					color: var(--danger);
+					color: var(--background-danger-default);
 				}
 			}
 		}
@@ -130,7 +130,7 @@
 
 	&__content {
 		flex: 1;
-		padding: var(--fluid-10px);
+		padding: var(--space-sm);
 	}
 
 	&__bubble {
@@ -141,7 +141,7 @@
 		top: -1.5rem;
 		left: -1.5rem;
 		opacity: 0;
-		background: rgba(var(--rgb-info), 0.3);
+		background: rgba(var(--background-info-default), 0.3);
 
 		&::before,
 		&::after {
@@ -150,7 +150,7 @@
 			position: absolute;
 			top: calc(50% - 2rem);
 			left: calc(50% - 2rem);
-			background: rgba(var(--rgb-info), 0.3);
+			background: rgba(var(--background-info-default), 0.3);
 			animation: bloop 2s linear infinite;
 		}
 
@@ -185,8 +185,8 @@
 		position: absolute;
 		bottom: 2rem;
 		left: calc(50% - 2rem);
-		padding: var(--fluid-10px);
-		background: var(--info);
+		padding: var(--space-sm);
+		background: var(--background-info-default);
 		color: white;
 		font-size: 2rem;
 		transform: scale(0);
@@ -201,8 +201,8 @@
 	}
 
 	&--drag-over {
-		background: rgba(var(--rgb-info), 0.1);
-		border: 0.0625rem solid var(--rgb-info);
+		background: rgba(var(--background-info-default), 0.1);
+		border: 0.0625rem solid var(--background-info-default);
 
 		* {
 			pointer-events: none;
@@ -243,34 +243,34 @@
 	}
 
 	&--error {
-		border-color: var(--danger);
+		border-color: var(--background-danger-default);
 
 		.orion-upload__or::before,
 		.orion-upload__or::after {
-			background: rgba(var(--rgb-danger), 0.5);
+			background: rgba(var(--background-danger-default), 0.5);
 		}
 	}
 
 	&--warning {
-		border-color: var(--warning);
+		border-color: var(--background-warning-default);
 
 		.orion-upload__or::before,
 		.orion-upload__or::after {
-			background: rgba(var(--rgb-warning), 0.5);
+			background: rgba(var(--background-warning-default), 0.5);
 		}
 	}
 
 	&--success {
-		border-color: var(--success);
+		border-color: var(--background-success-default);
 
 		.orion-upload__or::before,
 		.orion-upload__or::after {
-			background: rgba(var(--rgb-success), 0.5);
+			background: rgba(var(--background-success-default), 0.5);
 		}
 	}
 
 	&:hover {
-		border-color: var(--info);
+		border-color: var(--background-info-default);
 
 		#file {
 			transition: transform 1s ease-out;
