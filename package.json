@@ -35,7 +35,9 @@
 		"build:lib": "vite build && node scripts/ci-build-lib.cjs",
 		"build:hard": "vue-tsc --noEmit && vite build && node scripts/ci-build-lib.cjs",
 		"docs:dev": "vuepress dev docs --port=9091",
-		"docs:build": "vuepress build docs"
+		"docs:build": "vuepress build docs",
+		"migrate:tokens": "ts-node scripts/migrate-tokens.ts packages",
+    "find:vars": "ts-node scripts/find-unknown-vars.ts packages --styles=packages/Shared/styles"
 	},
 	"dependencies": {
 		"@clack/prompts": "^0.8.2",
@@ -93,7 +95,8 @@
 		"prismjs": "^1.29.0",
 		"sass-embedded": "^1.82.0",
 		"ts-morph": "^24.0.0",
-		"typescript": "^5.7.2",
+		"ts-node": "^10.9.2",
+		"typescript": "^5.7.3",
 		"unplugin-turbo-console": "^1.10.6",
 		"vite": "^6.0.3",
 		"vite-plugin-babel": "^1.3.0",
