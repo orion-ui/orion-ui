@@ -181,7 +181,7 @@
 	each(@colors, {
 		&--@{value} {
 			
-			color: var(--text-default-inverted);
+			color: white;
 			stroke: white;
 
 			background: var(~"--background-@{value}-default");
@@ -228,13 +228,13 @@
 	}
 
 	&--inverse {
-		color: var(--text-default-minimal);
+		color: var(--text-default-inverted);
 		stroke: var(--border-neutral-inverted);
 		background: var(--background-neutral-highlight);
 		box-shadow: 0 0.3rem 1rem -0.3rem fade(black, 20);
 
 		&.orion-button--nude {
-			color: var(--text-default-inverted);
+			color: var(--text-default-default);
 			stroke: var(--text-default-inverted);
 		}
 

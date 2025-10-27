@@ -122,12 +122,12 @@ select:-webkit-autofill:focus {
 	
 	&--default {
 		&[class*='--checked'] > [class*='__check-container'] {
-			background: var(--background-brand-default);
-			border-color: var(--border-brand-default);
+			background: var(--background-primary-default);
+			border-color: var(--border-primary-default);
 		}
 
 		&:not([class*="--disabled"]):hover > [class*='__check-container'] {
-			border-color: var(--border-brand-default);
+			border-color: var(--border-primary-default);
 		}
 	}
 
@@ -145,9 +145,6 @@ select:-webkit-autofill:focus {
 	});
 
 	&--error {
-		&:not(.orion-radio--default) > [class*='__label'] {
-			color: var(--text-error-default);
-		}
 
 		&[class*='--checked'] > [class*='__check-container'] {
 			background: var(--background-danger-default);
@@ -157,6 +154,13 @@ select:-webkit-autofill:focus {
 		&:hover > [class*='__check-container'] {
 			border-color: var(--border-error-default);
 		}
+	}
+
+	
+	&--inverse {
+			.orion-toggle__check-marker, .orion-radio__check-marker, .orion-checkbox__check-marker {
+				background: var(--background-neutral-highlight);
+			}
 	}
 
 	&--reverse {
