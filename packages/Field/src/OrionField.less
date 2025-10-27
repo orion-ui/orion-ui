@@ -50,7 +50,7 @@ select:-webkit-autofill:focus {
 				content: '*';
 				position: absolute;
 				z-index: 1;
-				color: var(--background-danger-default);
+				color: var(--text-error-default);
 			}
 		}
 	}
@@ -111,7 +111,7 @@ select:-webkit-autofill:focus {
 			font-size: 0.75rem;
 
 			[data-orion-theme='dark'] & {
-				color: var(--background-neutral-moderate);
+				color: var(--text-neutral-moderate);
 			}
 		}
 
@@ -165,16 +165,16 @@ select:-webkit-autofill:focus {
 
 	&--error {
 		&:not(.orion-radio--default) > [class*='__label'] {
-			color: var(--background-danger-default);
+			color: var(--text-error-default);
 		}
 
 		&[class*='--checked'] > [class*='__check-container'] {
 			background: var(--background-danger-default);
-			border-color: var(--background-danger-default);
+			border-color: var(--border-error-default);
 		}
 
 		&:hover > [class*='__check-container'] {
-			border-color: var(--background-danger-default);
+			border-color: var(--border-error-default);
 		}
 	}
 

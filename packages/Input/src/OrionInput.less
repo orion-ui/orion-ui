@@ -16,7 +16,7 @@
 		z-index: 1;
 		max-width: calc(100% - 2rem);
 		pointer-events: none;
-		color: var(--background-neutral-moderate);
+		color: var(--text-neutral-moderate);
 
 		[data-orion-theme='dark'] & {
 			color: rgba(var(--background-neutral-moderate), 0.5);
@@ -50,7 +50,7 @@
 				top: 0;
 				right: 0;
 				z-index: 1;
-				color: var(--background-danger-default);
+				color: var(--text-error-default);
 			}
 		}
 
@@ -80,23 +80,23 @@
 			}
 
 			.orion-input--focused & {
-				color: var(--background-info-default);
+				color: var(--text-info-default);
 			}
 
 			.orion-input--error & {
-				color: var(--background-danger-default);
+				color: var(--text-error-default);
 			}
 
 			.orion-input--warning & {
-				color: var(--background-warning-default);
+				color: var(--text-warning-default);
 			}
 
 			.orion-input--success & {
-				color: var(--background-success-default);
+				color: var(--text-success-default);
 			}
 
 			.orion-input--disabled & {
-				color: var(--background-neutral-moderate);
+				color: var(--text-neutral-moderate);
 			}
 		}
 	}
@@ -146,20 +146,20 @@
 		}
 
 		.orion-input--error & {
-			border-color: var(--background-danger-default);
+			border-color: var(--border-error-default);
 		}
 
 		.orion-input--warning & {
-			border-color: var(--background-warning-default);
+			border-color: var(--border-warning-default);
 		}
 
 		.orion-input--success & {
-			border-color: var(--background-success-default);
+			border-color: var(--border-success-default);
 		}
 
 		.orion-input--disabled & {
 			background: var(--background-neutral-minimal);
-			border-color: var(--background-neutral-subtle);
+			border-color: var(--border-neutral-default);
 			cursor: not-allowed;
 		}
 
@@ -172,7 +172,7 @@
 
 	&__error-message {
 		margin-top: 0.25rem;
-		color: var(--background-danger-default);
+		color: var(--text-error-default);
 		font-size: 0.75rem;
 		line-height: 1.3;
 		padding: 0 0.25rem;
@@ -219,15 +219,15 @@
 		font-size: 1rem;
 
 		&--error {
-			color: var(--background-danger-default);
+			color: var(--text-error-default);
 		}
 
 		&--warning {
-			color: var(--background-warning-default);
+			color: var(--text-warning-default);
 		}
 
 		&--success {
-			color: var(--background-success-default);
+			color: var(--text-success-default);
 		}
 	}
 
@@ -262,7 +262,7 @@
 
 	&--disabled {
 		.icon {
-			color: var(--background-neutral-moderate);
+			color: var(--text-neutral-moderate);
 		}
 	}
 

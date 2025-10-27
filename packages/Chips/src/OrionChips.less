@@ -23,8 +23,8 @@
 			border-color: white !important;
 
 			[data-orion-theme='dark'] & {
-				color: var(--background-neutral-minimal) !important;
-				border-color: var(--background-neutral-minimal) !important;
+				color: var(--text-default-minimal) !important;
+				border-color: var(--border-neutral-default) !important;
 			}
 		}
 	}
@@ -114,21 +114,21 @@ each(@colorsAndGreys, {
 	&--default {
 		color: var(--text-default-default);
 		background: var(--background-neutral-subtle);
-		border-color: var(--background-neutral-subtle);
+		border-color: var(--border-neutral-default);
 
 		.orion-chips__close {
 			[data-orion-theme='light'] &,
 			[data-orion-theme='dark'] & {
 				color: var(--text-default-default) !important;
 				&:hover {
-					border-color: var(--text-default-default) !important;
+					border-color: var(--border-neutral-default) !important;
 				}
 			}
 		}
 
 		&.orion-chips--outline {
 			background: var(--background-neutral-minimal);
-			border-color: var(--background-neutral-minimal);
+			border-color: var(--border-neutral-default);
 
 			[data-orion-theme='dark'] & {
 				background: rgba(0, 0, 0, 0.7);
@@ -138,14 +138,14 @@ each(@colorsAndGreys, {
 
 		[data-orion-theme='dark'] & {
 			background: var(--background-neutral-moderate);
-			border-color: var(--background-neutral-moderate);
+			border-color: var(--border-neutral-default);
 		}
 	}
 
 	&--inverse {
-		color: var(--background-neutral-minimal);
-		background: var(--text-default-inverted);
-		border-color: var(--text-default-inverted);
+		color: var(--text-default-minimal);
+		background: var(--background-neutral-highlight);
+		border-color: var(--border-neutral-inverted);
 
 		.orion-chips__dual {
 			color: var(--text-default-inverted);
@@ -155,7 +155,7 @@ each(@colorsAndGreys, {
 			.orion-chips__close {
 				color: var(--text-default-inverted) !important;
 				&:hover {
-					border-color: var(--text-default-inverted) !important;
+					border-color: var(--border-neutral-inverted) !important;
 				}
 			}
 		}
@@ -169,7 +169,7 @@ each(@colorsAndGreys, {
 		&.orion-chips--outline {
 			color: var(--text-default-default);
 			background: var(--background-neutral-minimal);
-			border-color: var(--background-neutral-minimal);
+			border-color: var(--border-neutral-default);
 
 			[data-orion-theme='dark'] & {
 				background: rgba(0, 0, 0, 0.7);

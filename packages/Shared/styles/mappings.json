@@ -3,7 +3,7 @@
 		"--grey": "--background-neutral-moderate",
 		"--grey-light": "--background-neutral-subtle",
 		"--grey-lighter": "--background-neutral-minimal",
-		"--grey-dark": "--border-default",
+		"--grey-dark": "--background-neutral-highlight",
 		"--grey-darker": "--text-default-default",
 
 		"--info": "--background-info-default",
@@ -17,7 +17,7 @@
 
 		"--brand": "--background-primary-default",
 		"--brand-light": "--background-primary-minimal",
-		"--pink": "--background-info-default",
+		"--pink": "--background-secondary-default",
 
 		"--rgb-grey": "--background-neutral-default",
 		"--rgb-grey-light": "--background-neutral-minimal",
@@ -44,12 +44,12 @@
 		"--rgb-brand-alt": "--background-primary-subtle",
 		"--rgb-brand-dark": "--background-primary-moderate",
 		"--rgb-brand-light": "--background-primary-minimal",
-		"--rgb-pink": "--background-info-default",
-		"--rgb-pink-alt": "--background-info-subtle",
-		"--rgb-pink-dark": "--background-info-moderate",
-		"--rgb-pink-light": "--background-info-minimal",
+		"--rgb-pink": "--background-secondary-default",
+		"--rgb-pink-alt": "--background-secondary-subtle",
+		"--rgb-pink-dark": "--background-secondary-moderate",
+		"--rgb-pink-light": "--background-secondary-minimal",
 
-		"--inverse": "--text-default-inverted",
+		"--inverse": "--background-neutral-highlight",
 
 		"--radius-btn": "--radius-4",
 		"--radius-label": "--radius-4",
@@ -93,9 +93,9 @@
 		"--font-weight-section-subtitle": "--typography-weight-medium",
 		"--size-default": "--typography-size-base",
 
-		"--base": "--background-neutral-default",
+		"--base": "--background-primary-default",
 		"--color": "--text-default-default",
-		"--c-bg": "--background-neutral-default"
+		"--c-bg": "--background-neutral-minimal"
 	},
 
 	"Classes": {}

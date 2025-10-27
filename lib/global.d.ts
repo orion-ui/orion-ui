@@ -69,9 +69,9 @@ declare global {
 
 		type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
-		type Color = 'brand' | 'default' | 'info' | 'success' | 'warning' | 'danger' | 'inverse' | 'pink';
+		type Color = 'default' | 'info' | 'success' | 'warning' | 'inverse' | 'primary' | 'secondary' | 'neutral' | 'error';
 
-		type ColorAlt = 'brand-alt' | 'info-alt' | 'success-alt' | 'warning-alt' | 'danger-alt' | 'pink-alt';
+		type ColorAlt = 'primary-alt' | 'info-alt' | 'success-alt' | 'warning-alt' | 'error-alt' | 'secondary-alt';
 
 		type ColorExtended = Color | ColorAlt;
 

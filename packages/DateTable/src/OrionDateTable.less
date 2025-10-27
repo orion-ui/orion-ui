@@ -48,7 +48,7 @@
 				cursor: pointer;
 
 				&:hover {
-					color: var(--background-info-default);
+					color: var(--text-info-default);
 				}
 			}
 		}
@@ -59,7 +59,7 @@
 			cursor: pointer;
 
 			&:hover {
-				color: var(--background-info-default);
+				color: var(--text-info-default);
 			}
 
 			&.disable {
@@ -78,7 +78,7 @@
 			border-bottom: 0.0625rem solid var(--background-neutral-subtle);
 
 			[data-orion-theme='dark'] & {
-				border-color: var(--background-neutral-moderate);
+				border-color: var(--border-neutral-default);
 			}
 
 			> span {
@@ -123,7 +123,7 @@
 		width: calc(100% / 8);
 		height: calc(40rem / 16);
 		background-color: var(--background-neutral-minimal);
-		color: var(--border-default);
+		color: var(--text-default-default);
 		font-style: italic;
 		font-size: 0.7rem;
 
@@ -205,7 +205,7 @@
 
 				&.today {
 					font-weight: 600;
-					color: var(--background-info-default);
+					color: var(--text-info-default);
 					border: 0.0625rem solid var(--background-info-default);
 				}
 
@@ -226,13 +226,13 @@
 				}
 
 				&.disable {
-					color: var(--background-neutral-subtle);
+					color: var(--text-default-subtle);
 					cursor: not-allowed;
 					pointer-events: none;
 				}
 
 				&--grey {
-					color: var(--background-neutral-moderate);
+					color: var(--text-neutral-moderate);
 				}
 			}
 
@@ -244,7 +244,7 @@
 				border-radius: 0.25rem;
 
 				&:hover {
-					color: var(--background-info-default);
+					color: var(--text-info-default);
 					background: white !important;
 
 					[data-orion-theme='dark'] & {
@@ -253,12 +253,12 @@
 				}
 
 				&.selected {
-					color: var(--background-info-default);
+					color: var(--text-info-default);
 					background-color: var(--background-info-minimal);
 				}
 
 				&.disabled {
-					color: var(--background-neutral-subtle);
+					color: var(--text-default-subtle);
 					cursor: not-allowed;
 				}
 			}

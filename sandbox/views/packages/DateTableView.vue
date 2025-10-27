@@ -34,7 +34,7 @@ const periods = ref<OrionDateTable.Props['periods']>([
 	{
 		start: new Date(currentYear, currentMonth, 13),
 		end: new Date(currentYear, currentMonth, 20),
-		color: 'pink',
+		color: 'secondary',
 		label: 'tototo',
 		callback: () => console.log('sfldk'),
 	},

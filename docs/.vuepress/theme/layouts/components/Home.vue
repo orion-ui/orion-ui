@@ -145,7 +145,7 @@ const features = computed (() => {
 }
 
 .clip {
-	background: linear-gradient(to bottom right, var(--brand), var(--brand-alt));
+	background: linear-gradient(to bottom right, var(--background-primary-default), var(--brand-alt));
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	background-clip: text;
@@ -168,7 +168,7 @@ h2 {
 	border: none;
 	font-size: 2.5rem;
 	line-height: 1.1;
-	color: var(--grey-darker);
+	color: var(--text-neutral-default);
 	padding-top: 0 !important;
 	margin-top: 0 !important;
 	margin-bottom: 2rem;

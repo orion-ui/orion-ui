@@ -67,10 +67,10 @@
 
 .background {
 	each(@colorsAndGreys, {
-		@color: ~"--@{value}";
-		@colorAlt: ~"--@{value}-alt";
-		@colorDark: ~"--@{value}-dark";
-		@colorLight: ~"--@{value}-light";
+		@color:     ~"--background-@{value}-default";
+    @colorAlt:  ~"--background-@{value}-subtle";
+    @colorDark: ~"--background-@{value}-moderate";
+    @colorLight:~"--background-@{value}-minimal";
     &--@{value} {
       background-color: var(@color) !important;
     }
@@ -86,7 +86,7 @@
   });
 
 	&--inverse {
-		background: var(--text-default-inverted) !important;
+		background: var(--background-neutral-highlight) !important;
 	}
 }
 

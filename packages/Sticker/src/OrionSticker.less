@@ -15,7 +15,7 @@
 	padding: var(--space-lg);
 	border-radius: var(--radius-8);
 	background: white;
-	color: var(--border-default);
+	color: var(--text-default-default);
 	box-shadow: 0 0.0625rem 0.1875rem fade(black, 10);
 
 	[data-orion-theme='dark'] & {
@@ -52,7 +52,7 @@
 		flex: 0 1 auto;
 		flex-wrap: wrap;
 		margin: 1rem 0;
-		color: var(--border-default);
+		color: var(--text-default-default);
 
 		.icon {
 			position: relative;
@@ -64,7 +64,7 @@
 				.circle(0.375rem);
 				position: absolute;
 				bottom: 0;
-				background: var(--border-default);
+				background: var(--background-neutral-default);
 
 				&--info {
 					background: var(--background-info-default);
@@ -87,7 +87,7 @@
 			}
 
 			&:hover:not(.orion-icon--ripple) {
-				color: var(--background-info-default);
+				color: var(--text-info-default);
 			}
 		}
 	}
@@ -121,7 +121,7 @@
 		svg.marker {
 			.square(5.625rem);
 
-			.orion-sticker--selected-brand & {
+			.orion-sticker--selected-primary & {
 				fill: var(--background-primary-default);
 			}
 			.orion-sticker--selected-info & {
@@ -133,10 +133,10 @@
 			.orion-sticker--selected-warning & {
 				fill: var(--background-warning-default);
 			}
-			.orion-sticker--selected-danger & {
+			.orion-sticker--selected-error & {
 				fill: var(--background-danger-default);
 			}
-			.orion-sticker--selected-pink & {
+			.orion-sticker--selected-secondary & {
 				fill: var(--background-info-default);
 			}
 		}
@@ -208,7 +208,7 @@
 			left: 0.5rem;
 			height: 0.0625rem;
 
-			.orion-sticker--selected-brand & {
+			.orion-sticker--selected-primary & {
 				background: linear-gradient(
 					to right,
 					rgba(var(--background-primary-default), 0),
@@ -237,18 +237,18 @@
 					var(--background-warning-default)
 				);
 			}
-			.orion-sticker--selected-danger & {
+			.orion-sticker--selected-error & {
 				background: linear-gradient(
 					to right,
-					rgba(var(--background-danger-default), 0),
-					var(--background-danger-default)
+					rgba(var(--background-error-default), 0),
+					var(--background-error-default)
 				);
 			}
-			.orion-sticker--selected-pink & {
+			.orion-sticker--selected-secondary & {
 				background: linear-gradient(
 					to right,
-					rgba(var(--background-info-default), 0),
-					var(--background-info-default)
+					rgba(var(--background-secondary-default), 0),
+					var(--background-secondary-default)
 				);
 			}
 		}

@@ -4,7 +4,7 @@
 			v-model="carouselStep"
 			:step-timer="3000"
 			pause-on-hover
-			color="pink">
+			color="secondary">
 			<template #poster="{ stepIndex }">
 				<div
 					class="animated-poster"

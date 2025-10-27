@@ -68,6 +68,6 @@ const state = reactive({ loading: false });
 
 [data-orion-theme='dark']
 .demo-icon {
-	background: var(--grey-light);
+	background: var(--background-neutral-moderate);
 }
 </style>

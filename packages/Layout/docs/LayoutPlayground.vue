@@ -53,7 +53,7 @@
 	padding-top: 1rem;
 }
 .nav-tabs {
-  background-color: var(--border-default);
+  background-color: var(--background-neutral-default);
   height: 3rem;
   display: flex;
   justify-content: center;

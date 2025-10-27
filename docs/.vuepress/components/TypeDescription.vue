@@ -10,7 +10,7 @@
 
 <style scoped lang="less">
 .type-description {
-	border: 0.125rem solid var(--grey-lighter);
+	border: 0.125rem solid var(--border-neutral-minimal);
 	padding: var(--fluid-15px);
 	border-radius: 0.5rem;
 

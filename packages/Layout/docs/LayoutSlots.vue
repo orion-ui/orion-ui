@@ -35,7 +35,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--border-default);
+    background-color: var(--background-neutral-default);
   }
   &__additional {
     justify-content: center;
@@ -58,7 +58,7 @@
 }
 
 .nav-main {
-  background-color: var(--border-default);
+  background-color: var(--background-neutral-default);
 	flex: 6rem 0 0;
   display: flex;
   justify-content: center;
@@ -124,7 +124,7 @@
   height: 2rem
 }
 .nav-tabs {
-  background-color: var(--border-default);
+  background-color: var(--background-neutral-default);
   height: 3rem;
   display: flex;
   justify-content: center;

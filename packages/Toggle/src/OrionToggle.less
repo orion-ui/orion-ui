@@ -25,7 +25,7 @@
 				position: absolute;
 				top: 0;
 				z-index: 1;
-				color: var(--background-danger-default);
+				color: var(--text-error-default);
 			}
 		}
 
@@ -52,7 +52,7 @@
 		}
 
 		.orion-toggle--disabled & {
-			color: var(--background-neutral-moderate);
+			color: var(--text-neutral-moderate);
 			cursor: not-allowed;
 		}
 	}
@@ -69,7 +69,7 @@
 		outline: 0;
 		margin: 0;
 		margin-right: 0.5rem;
-		background-color: var(--background-neutral-subtle);
+		background-color: var(--background-neutral-moderate);
 		user-select: none;
 
 		.orion-toggle--xs & {
@@ -85,10 +85,6 @@
 			margin-left: 0.5rem;
 		}
 
-		[data-orion-theme='dark'] & {
-			background: var(--background-neutral-moderate);
-		}
-
 		&-button {
 			transition: transform 0.5s;
 			display: block;
@@ -99,10 +95,6 @@
 			overflow: hidden;
 			border-radius: 100%;
 			background: white;
-
-			[data-orion-theme='dark'] & {
-				background: var(--background-neutral-minimal);
-			}
 
 			&::before,
 			&::after {
@@ -192,13 +184,6 @@
 	}
 
 	&--checked {
-		&.orion-toggle--default {
-			> .orion-toggle__core,
-			> .orion-toggle__core > .orion-toggle__core-button::before,
-			> .orion-toggle__core > .orion-toggle__core-button::after {
-				background: var(--background-info-default);
-			}
-		}
 
 		each(@colors, {
       &.orion-toggle--@{value} {
@@ -210,11 +195,19 @@
       }
     });
 
+		&.orion-toggle--default {
+			> .orion-toggle__core,
+			> .orion-toggle__core > .orion-toggle__core-button::before,
+			> .orion-toggle__core > .orion-toggle__core-button::after {
+				background: var(--background-primary-default);
+			}
+		}
+
 		&.orion-toggle--inverse {
 			> .orion-toggle__core,
 			> .orion-toggle__core > .orion-toggle__core-button::before,
 			> .orion-toggle__core > .orion-toggle__core-button::after {
-				background: var(--text-default-inverted);
+				background: var(--background-neutral-highlight);
 			}
 		}
 	}

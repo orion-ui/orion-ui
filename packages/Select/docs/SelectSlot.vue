@@ -93,16 +93,16 @@ const selectValue = ref<FakeCompany>();
 		}
 
 		> div {
-			color: var(--background-info-default);
+			color: var(--text-info-default);
 			.selected > & {
-				color: var(--background-info-minimal);
+				color: var(--text-info-minimal);
 			}
 		}
 
 		> em {
-			color: var(--background-neutral-moderate);
+			color: var(--text-neutral-moderate);
 			.selected > & {
-				color: var(--background-info-subtle);
+				color: var(--text-info-subtle);
 			}
 		}
 	}
@@ -114,7 +114,7 @@ const selectValue = ref<FakeCompany>();
 		font-style: italic;
 		font-weight: 700;
 		font-size: 0.85rem;
-		color: var(--background-primary-default);
+		color: var(--text-primary-default);
 		border-radius: 0.25rem;
 		margin-top: 0.5rem;
 	}

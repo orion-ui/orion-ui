@@ -5,14 +5,16 @@
 	--hoverElevation: 1;
 	--elevation: calc(1rem * var(--hoverElevation));
 	--shadowColor: rgba(0, 0, 0, calc(0.03 * (1 + var(--hoverElevation) / 5)));
-	transition: box-shadow 0.3s, transform 0.3s;
+	transition:
+		box-shadow 0.3s,
+		transform 0.3s;
 	position: relative;
 	display: flex;
 	flex-direction: column;
 	background: white;
 	border-radius: var(--radius-8);
 	box-shadow: 0 0.0625rem 0.1875rem fade(black, 10);
-	color: var(--border-default);
+	color: var(--text-default-default);
 
 	[data-orion-theme='dark'] & {
 		background: var(--background-neutral-subtle);
@@ -59,18 +61,10 @@
 			border-bottom: 0.0625rem solid;
 			border-image: linear-gradient(
 					to right,
-					rgba(var(--background-neutral-minimal), 0),
-					var(--background-neutral-subtle)
-				)
-				1;
-			[data-orion-theme='dark'] & {
-				border-image: linear-gradient(
-						to right,
-						rgba(var(--background-neutral-minimal), 0),
-						rgba(var(--background-neutral-moderate), 0.3)
+					color-mix(in srgb, var(--border-neutral-default) 0%, transparent),
+					color-mix(in srgb, var(--border-neutral-default) 100%, transparent)			
 					)
-					1;
-			}
+				1;
 
 			.orion-card--xs & {
 				padding: var(--space-sm);
@@ -131,7 +125,7 @@
 		.flex-align();
 		position: relative;
 		flex-wrap: wrap-reverse;
-		color: var(--border-default);
+		color: var(--text-default-default);
 
 		&--right {
 			justify-content: flex-end;
@@ -152,7 +146,7 @@
 				.circle(0.5rem);
 				position: absolute;
 				bottom: 0;
-				background: var(--border-default);
+				background: var(--background-neutral-moderate);
 
 				&--info {
 					background: var(--background-info-default);
@@ -175,7 +169,7 @@
 			}
 
 			&:hover:not(.orion-icon--ripple) {
-				color: var(--background-info-default);
+				color: var(--text-info-default);
 			}
 		}
 
@@ -208,8 +202,8 @@
 			border-top: 0.0625rem solid;
 			border-image: linear-gradient(
 					to right,
-					rgba(var(--background-neutral-minimal), 0),
-					var(--background-neutral-subtle)
+					color-mix(in srgb, var(--border-neutral-default) 0%, transparent),
+					color-mix(in srgb, var(--border-neutral-default) 100%, transparent)	
 				)
 				1;
 
@@ -281,7 +275,7 @@
 			}
 
 			.orion-card--selected-inverse & {
-				fill: var(--text-default-default);
+				fill: var(--background-neutral-highlight);
 			}
 		}
 
@@ -319,25 +313,37 @@
 			width: 0.0625rem;
 
 			each(@colors, {
-				@rgbColor: ~"--rgb-@{value}";
+				@color: ~"--background-@{value}-default";
 				.orion-card--selected-@{value} & {
-					background: linear-gradient(to bottom, rgba(var(@rgbColor), 0), rgb(var(@rgbColor)));
+					background: linear-gradient(
+						to bottom,
+						color-mix(in srgb, var(@color) 0%, transparent),
+						color-mix(in srgb, var(@color) 100%, transparent)
+					);
 				}
 			});
 
 			.orion-card--selected-default & {
 				background: linear-gradient(
 					to bottom,
-					rgba(var(--background-neutral-default), 0),
-					rgb(var(--background-neutral-default))
+					color-mix(in srgb, var(--background-neutral-default) 0%, transparent),
+					color-mix(
+						in srgb,
+						var(--background-neutral-default) 100%,
+						transparent
+					)
 				);
 			}
 
 			.orion-card--selected-inverse & {
 				background: linear-gradient(
 					to bottom,
-					rgba(var(--text-default-default), 0),
-					rgb(var(--text-default-default))
+					color-mix(in srgb, var(--background-neutral-default) 0%, transparent),
+					color-mix(
+						in srgb,
+						var(--background-neutral-default) 100%,
+						transparent
+					)
 				);
 			}
 		}
@@ -347,25 +353,37 @@
 			height: 0.0625rem;
 
 			each(@colors, {
-				@rgbColor: ~"--rgb-@{value}";
+				@color: ~"--background-@{value}-default";
 				.orion-card--selected-@{value} & {
-					background: linear-gradient(to right, rgba(var(@rgbColor), 0), rgb(var(@rgbColor)));
+					background: linear-gradient(
+						to right,
+						color-mix(in srgb, var(@color) 0%, transparent),
+						color-mix(in srgb, var(@color) 100%, transparent)
+					);
 				}
 			});
 
 			.orion-card--selected-default & {
 				background: linear-gradient(
 					to right,
-					rgba(var(--background-neutral-default), 0),
-					rgb(var(--background-neutral-default))
+					color-mix(in srgb, var(--background-neutral-default) 0%, transparent),
+					color-mix(
+						in srgb,
+						var(--background-neutral-default) 100%,
+						transparent
+					)
 				);
 			}
 
 			.orion-card--selected-inverse & {
 				background: linear-gradient(
 					to right,
-					rgba(var(--text-default-default), 0),
-					rgb(var(--text-default-default))
+					color-mix(in srgb, var(--background-neutral-default) 0%, transparent),
+					color-mix(
+						in srgb,
+						var(--background-neutral-default) 100%,
+						transparent
+					)
 				);
 			}
 		}
@@ -393,16 +411,11 @@
 
 	each(@colors, {
 		&--gradient-@{value} {
-			[data-orion-theme="light"] &,
-			[data-orion-theme="dark"] & {
-				@color: ~"--@{value}";
-				@colorAlt: ~"--@{value}-alt";
-				background: linear-gradient(
-					to bottom right,
-					var(@color),
-					var(@colorAlt)
-				);
-			}
+			background: linear-gradient(
+						to bottom right,
+						var(~"--background-@{value}-default"),
+						var(~"--background-@{value}-subtle")
+					);
 		}
 	});
 
@@ -413,34 +426,36 @@
 			color: var(--text-default-default);
 		}
 
-		[data-orion-theme='light'] & {
-			background: linear-gradient(to bottom right, var(--background-neutral-subtle), white);
-		}
-		[data-orion-theme='dark'] & {
-			background: linear-gradient(to bottom right, var(--background-neutral-subtle), black);
-		}
+		background: linear-gradient(
+			to bottom right,
+			color-mix(in srgb, var(--background-neutral-default) 100%, transparent),
+						color-mix(in srgb, var(--background-neutral-moderate) 100%, transparent),
+
+		);
 	}
 
 	&--gradient-inverse.orion-card {
-		color: var(--background-neutral-minimal);
+		color: var(--text-default-default);
 
 		.orion-card__title {
-			color: var(--background-neutral-minimal);
+			color: var(--text-default-default);
 		}
 
-		[data-orion-theme='light'] & {
-			background: linear-gradient(to bottom right, var(--text-default-default), black);
-		}
-		[data-orion-theme='dark'] & {
-			background: linear-gradient(to bottom right, var(--text-default-default), white);
-		}
+			background: linear-gradient(
+				to bottom right,
+				color-mix(in srgb, var(--background-neutral-moderate) 100%, transparent),
+								color-mix(in srgb, var(--background-neutral-highlight) 100%, transparent),
+
+			);
+		
 	}
 
 	&:not(.orion-card--no-elevation):hover {
 		body:not(.istouch) & {
 			z-index: 1;
 			transform: translate3d(0, -0.125rem, 0);
-			box-shadow: 0 calc(var(--elevation) / 8) calc(var(--elevation) / 8)
+			box-shadow:
+				0 calc(var(--elevation) / 8) calc(var(--elevation) / 8)
 					var(--shadowColor),
 				0 calc(var(--elevation) / 4) calc(var(--elevation) / 4)
 					var(--shadowColor),

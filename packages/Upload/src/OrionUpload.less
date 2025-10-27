@@ -13,7 +13,7 @@
 
 	[data-orion-theme='dark'] & {
 		background-color: var(--background-neutral-subtle);
-		border-color: var(--background-neutral-moderate);
+		border-color: var(--border-neutral-default);
 	}
 
 	@media @phone {
@@ -26,7 +26,7 @@
 
 	&__wrapper {
 		text-align: center;
-		color: var(--border-default);
+		color: var(--text-default-default);
 	}
 
 	&__or {
@@ -94,14 +94,14 @@
 			&-type,
 			&-size {
 				font-size: 0.75rem;
-				color: var(--border-default);
+				color: var(--text-default-default);
 			}
 
 			&:hover {
 				background: var(--background-neutral-minimal);
 
 				.orion-upload__delete-file {
-					color: var(--background-danger-default);
+					color: var(--text-error-default);
 				}
 			}
 		}
@@ -243,7 +243,7 @@
 	}
 
 	&--error {
-		border-color: var(--background-danger-default);
+		border-color: var(--border-error-default);
 
 		.orion-upload__or::before,
 		.orion-upload__or::after {
@@ -252,7 +252,7 @@
 	}
 
 	&--warning {
-		border-color: var(--background-warning-default);
+		border-color: var(--border-warning-default);
 
 		.orion-upload__or::before,
 		.orion-upload__or::after {
@@ -261,7 +261,7 @@
 	}
 
 	&--success {
-		border-color: var(--background-success-default);
+		border-color: var(--border-success-default);
 
 		.orion-upload__or::before,
 		.orion-upload__or::after {
@@ -270,7 +270,7 @@
 	}
 
 	&:hover {
-		border-color: var(--background-info-default);
+		border-color: var(--border-info-default);
 
 		#file {
 			transition: transform 1s ease-out;
