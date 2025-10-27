@@ -1,211 +1,162 @@
 <template>
-	<component
-		:is="horizontal ? 'div' : 'div'"
+	<template v-if="horizontal">
+		<orion-date-table-horizontal
+			v-model="vModel"
+			v-bind="props"/>
+	</template>
+	<div
+		v-else
 		:key="setup.currentMonth"
-		:ref="(el: HTMLElement | OrionHorizontalScroll) => (setup._el.value = el?.$el ?? el)"
-		hide-button
-		drop-shadow
+		:ref="setup._el"
 		:class="{
 			'orion-date-table': true,
 			'orion-date-table--with-week-number': displayWeekNumber,
-			'orion-date-table--horizontal': horizontal,
 		}"
 		@mousedown.prevent>
-		<div class="orion-date-table__carrets">
+		<div
+			class="orion-date-table__header">
 			<orion-icon
-				v-if="horizontal"
 				class="orion-date-table__header-carret"
 				:class="{ 'disable' : !canGoPrevMonth }"
 				icon="chevron_left"
 				@click="setup.switchPeriod(-1)"/>
+
+			<div class="orion-date-table__header-current-display">
+				<span
+					v-show="!setup.viewMonth && !setup.viewYears && !month"
+					class="orion-date-table__header-current-month"
+					:class="{ 'disabled': disableMonthAndYear }"
+					@click="setup.showMonths">{{ setup.monthName }} </span>
+				<span
+					v-if="!setup.viewYears"
+					class="orion-date-table__header-current-year"
+					:class="{ 'disabled': disableMonthAndYear }"
+					@click="setup.showYears">{{ setup.currentYear }}</span>
+				<span
+					v-else
+					class="orion-date-table__header-current-range-years">
+					{{ `${setup.rangeYears[0]} - ${setup.rangeYears[setup.rangeYears.length - 1]}` }}
+				</span>
+			</div>
+
 			<orion-icon
-				v-if="horizontal"
 				class="orion-date-table__header-carret"
 				:class="{ 'disable' : !canGoNextMonth }"
 				icon="chevron_right"
 				@click="setup.switchPeriod(1)"/>
 		</div>
-		<component
-			:is="horizontal ? OrionHorizontalScroll : 'Fragment'"
-			hide-button
-			drop-shadow>
-			<div class="orion-date-table__wrapper">
-				<div
-					v-for="i in setup.numberOfDisplayedMonths "
-					:key="i"
-					class="orion-date-table__header"
-					:style="{ left: setup.getHeaderPosition(i) + 'px' }">
-					<orion-icon
-						v-if="!horizontal"
-						class="orion-date-table__header-carret"
-						:class="{ 'disable' : !canGoPrevMonth }"
-						icon="chevron_left"
-						@click="setup.switchPeriod(-1)"/>
 
 
-					<div class="orion-date-table__header-current-display">
-						<span
-							v-show="!setup.viewMonth && !setup.viewYears && !month"
-							class="orion-date-table__header-current-month"
-							:class="{ 'disabled': disableMonthAndYear }"
-							@click="setup.showMonths">{{ setup.getMonthName(setup.currentMonth + i - 1) }} </span>
-						<span
-							v-if="!setup.viewYears"
-							class="orion-date-table__header-current-year"
-							:class="{ 'disabled': disableMonthAndYear }"
-							@click="setup.showYears">{{ setup.getYear(setup.currentMonth + i - 1) }}</span>
-						<span
-							v-else
-							class="orion-date-table__header-current-range-years">
-							{{ `${setup.rangeYears[0]} - ${setup.rangeYears[setup.rangeYears.length - 1]}` }}
-						</span>
-					</div>
-
-					<orion-icon
-						v-if="!horizontal"
-						class="orion-date-table__header-carret"
-						:class="{ 'disable' : !canGoNextMonth }"
-						icon="chevron_right"
-						@click="setup.switchPeriod(1)"/>
-				</div>
+		<div
+			class="orion-date-table__body">
+			<div
+				v-show="!setup.viewMonth && !setup.viewYears && !month"
+				class="orion-date-table__body-dow">
+				<span
+					v-if="displayWeekNumber"
+					class="orion-date-table__week-number">{{ setup.lang.WEEK_NUMBER_LABEL }}</span>
+				<span>{{ setup.lang.DAY_NAME_SHORT[0] }}</span>
+				<span>{{ setup.lang.DAY_NAME_SHORT[1] }}</span>
+				<span>{{ setup.lang.DAY_NAME_SHORT[2] }}</span>
+				<span>{{ setup.lang.DAY_NAME_SHORT[3] }}</span>
+				<span>{{ setup.lang.DAY_NAME_SHORT[4] }}</span>
+				<span>{{ setup.lang.DAY_NAME_SHORT[5] }}</span>
+				<span>{{ setup.lang.DAY_NAME_SHORT[6] }}</span>
 			</div>
-
-
 
 			<div
+				v-show="!setup.viewMonth && !setup.viewYears && !month"
 				class="orion-date-table__body">
 				<div
-					v-show="!setup.viewMonth && !setup.viewYears && !month && !horizontal"
-					class="orion-date-table__body-dow">
+					v-for="i in setup.daysToDisplay.length"
+					:key="i"
+					class="orion-date-table-row">
 					<span
 						v-if="displayWeekNumber"
-						class="orion-date-table__week-number">{{ setup.lang.WEEK_NUMBER_LABEL }}</span>
-					<span>{{ setup.lang.DAY_NAME_SHORT[0] }}</span>
-					<span>{{ setup.lang.DAY_NAME_SHORT[1] }}</span>
-					<span>{{ setup.lang.DAY_NAME_SHORT[2] }}</span>
-					<span>{{ setup.lang.DAY_NAME_SHORT[3] }}</span>
-					<span>{{ setup.lang.DAY_NAME_SHORT[4] }}</span>
-					<span>{{ setup.lang.DAY_NAME_SHORT[5] }}</span>
-					<span>{{ setup.lang.DAY_NAME_SHORT[6] }}</span>
-				</div>
+						class="orion-date-table__week-number">{{ setup.getWeekNumber(setup.daysToDisplay[i - 1][0].date) }}</span>
+					<span
+						v-for="(day) in setup.daysToDisplay[i - 1]"
+						:key="`day-${day.number}`"
+						class="orion-date-table-row__cell"
+						:class="setup.getCssClassForDayInRange(day)"
+						@click="setup.selectDate(day)"
+						@mouseover="setup.handleMouseOverDay(day)">
 
-				<div
-					v-show="!setup.viewMonth && !setup.viewYears && !month"
-					class="orion-date-table__body">
-					<div
-						v-for="i in setup.daysToDisplay.length"
-						:key="i"
-						class="orion-date-table-row">
 						<span
-							v-if="displayWeekNumber"
-							class="orion-date-table__week-number">{{ setup.getWeekNumber(setup.daysToDisplay[i - 1][0].date) }}</span>
+							v-for="(period, index) in day.period"
+							:key="index"
+							:class="setup.getClassForBackground(period)"/>
+
 						<span
-							v-for="(day) in setup.daysToDisplay[i - 1]"
-							:key="`day-${day.number}`"
-							class="orion-date-table-row__cell"
-							:class="setup.getCssClassForDayInRange(day)"
-							@click="setup.selectDate(day)"
-							@mouseover="setup.handleMouseOverDay(day)">
+							v-if="day.color"
+							:class="setup.getClassForBackground(day)"/>
+
+
+						<div
+							v-if="day.period.length > 1"
+							class="orion-date-table-row__cell-notification">
+							<span
+								class="notification"
+								:class="setup.getClassForNotification(day)"/>
+						</div>
+
+						<div class="orion-date-table-row__cell-content">
 
 							<span
-								v-if="horizontal"
-								class="orion-date-table-row__cell-day-name">
-								{{ setup.lang.DAY_NAME_SHORT[day.date.getDay()] }}
-							</span>
+								v-if="markers?.map(m => m.date.getTime()).includes(day.date.getTime())"
+								class="orion-date-table__marker"
+								:class="[
+									`orion-date-table__marker--${markers.find(m => m.date.getTime() === day.date.getTime())?.color}`,
+								]"/>
 
-							<template v-if="!horizontal">
-								<span
-									v-for="(period, index) in day.period"
-									:key="index"
-									:class="setup.getClassForBackground(period)"/>
+							<span
+								class="orion-date-table-row__cell-display"
+								:class="[
+									setup.getClassForDay(day),
+									{ 'orion-date-table-row__cell-display--horizontal': horizontal },
+								]"
+								@click="setup.handleSpecificDayCallback(day)">
 
-								<span
-									v-if="day.color"
-									:class="setup.getClassForBackground(day)"/>
-							</template>
-
-							<div
-								v-if="day.period.length > 1"
-								class="orion-date-table-row__cell-notification">
-								<span
-									class="notification"
-									:class="setup.getClassForNotification(day)"/>
-							</div>
-
-
-
-							<div class="orion-date-table-row__cell-content">
-
-								<span
-									v-if="markers?.map(m => m.date.getTime()).includes(day.date.getTime())"
-									class="orion-date-table__marker"
-									:class="[
-										`orion-date-table__marker--${markers.find(m => m.date.getTime() === day.date.getTime())?.color}`,
-									]"/>
-
-								<template v-if="horizontal">
-									<span
-										v-for="(period, index) in day.period"
-										:key="index"
-										:class="setup.getClassForBackground(period)"/>
-
-									<span
-										v-if="day.color"
-										:class="setup.getClassForBackground(day)"/>
-								</template>
-								<span
-									class="orion-date-table-row__cell-display"
-									:class="[
-										setup.getClassForDay(day),
-										{ 'orion-date-table-row__cell-display--horizontal': horizontal },
-									]"
-									@click="setup.handleSpecificDayCallback(day)">
-
-
-
-									<span class="orion-date-table-row__cell-display-contrast">
-										{{ day.number }}
-									</span>
+								<span class="orion-date-table-row__cell-display-contrast">
+									{{ day.number }}
 								</span>
-							</div>
+							</span>
+						</div>
 
-
-
-						</span>
-					</div>
-				</div>
-
-				<div
-					v-show="(setup.viewMonth || month) && !setup.viewYears"
-					class="orion-date-table__body__months">
-					<div
-						v-for="i in 3"
-						:key="i"
-						class="orion-date-table-row">
-						<span
-							v-for="(month, index) in setup.lang.MONTH_NAME.slice((i - 1) * 4, i * 4)"
-							:key="`month-${month}`"
-							:class="setup.getCssClassForMonth(index + ((i - 1) * 4))"
-							@click="setup.selectMonth(index + ((i - 1) * 4))">{{ month }}</span>
-					</div>
-				</div>
-
-				<div
-					v-show="setup.viewYears"
-					class="orion-date-table__body__years">
-					<div
-						v-for="i in 3"
-						:key="i"
-						class="orion-date-table-row">
-						<span
-							v-for="year in setup.rangeYears.slice((i - 1) * 4, i * 4)"
-							:key="`year-${year}`"
-							class="orion-date-table-row__cell orion-date-table-row__cell--year"
-							@click="setup.selectYear(year)">{{ year }}</span>
-					</div>
+					</span>
 				</div>
 			</div>
-		</component>
+
+			<div
+				v-show="(setup.viewMonth || month) && !setup.viewYears"
+				class="orion-date-table__body__months">
+				<div
+					v-for="i in 3"
+					:key="i"
+					class="orion-date-table-row">
+					<span
+						v-for="(month, index) in setup.lang.MONTH_NAME.slice((i - 1) * 4, i * 4)"
+						:key="`month-${month}`"
+						:class="setup.getCssClassForMonth(index + ((i - 1) * 4))"
+						@click="setup.selectMonth(index + ((i - 1) * 4))">{{ month }}</span>
+				</div>
+			</div>
+
+			<div
+				v-show="setup.viewYears"
+				class="orion-date-table__body__years">
+				<div
+					v-for="i in 3"
+					:key="i"
+					class="orion-date-table-row">
+					<span
+						v-for="year in setup.rangeYears.slice((i - 1) * 4, i * 4)"
+						:key="`year-${year}`"
+						class="orion-date-table-row__cell orion-date-table-row__cell--year"
+						@click="setup.selectYear(year)">{{ year }}</span>
+				</div>
+			</div>
+		</div>
 		<div
 			v-if="!!setup.labels.length"
 			class="orion-date-table__footer">
@@ -226,13 +177,13 @@
 				{{ label.label }}
 			</div>
 		</div>
-	</component>
+	</div>
 </template>
 
 <script setup lang="ts">
 import './OrionDateTable.less';
 import { OrionIcon } from 'packages/Icon';
-import { OrionHorizontalScroll } from 'packages/HorizontalScroll';
+import { OrionDateTableHorizontal } from 'packages/DateTableHorizontal';
 import OrionDateTableSetupService from './OrionDateTableSetupService';
 import type { OrionDateTableProps, OrionDateTableEmits } from './OrionDateTableSetupService';
 const vModel = defineModel< Nil<Date>>();
