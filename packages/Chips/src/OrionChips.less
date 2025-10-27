@@ -52,12 +52,8 @@
 		
 		&--@{value} {
 			color: white;
-			background: var(@color);
-			border-color: var(@color);
-
-			[data-orion-theme="dark"] & {
-				color: black;
-			}
+			background: var(~"--background-@{value}-default");
+			border-color: var(~"--border-@{value}-default");
 
 			.orion-chips__dual {
 				color: var(@color);
