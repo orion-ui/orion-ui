@@ -6,15 +6,10 @@
 	position: relative;
 	padding: var(--space-xs);
 	margin: 0.5rem 0;
-	background: white;
+	background: var(--background-neutral-default);
 	border: 0.0625rem solid var(--background-neutral-subtle);
 	border-radius: var(--radius-4);
 	text-align: center;
-
-	[data-orion-theme='dark'] & {
-		background-color: var(--background-neutral-subtle);
-		border-color: var(--border-neutral-default);
-	}
 
 	@media @phone {
 		padding: var(--space-sm);
@@ -47,10 +42,6 @@
 			height: 0.125rem;
 			background: var(--background-neutral-subtle);
 			margin: 0 1.25rem;
-
-			[data-orion-theme='dark'] & {
-				background-color: var(--background-neutral-moderate);
-			}
 		}
 	}
 
@@ -187,7 +178,7 @@
 		left: calc(50% - 2rem);
 		padding: var(--space-sm);
 		background: var(--background-info-default);
-		color: white;
+		color: var(--text-default-inverted);
 		font-size: 2rem;
 		transform: scale(0);
 

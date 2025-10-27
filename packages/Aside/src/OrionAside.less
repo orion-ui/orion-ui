@@ -18,15 +18,11 @@
 	max-width: calc(100vw - 2.5rem);
 	display: none;
 	flex-direction: column;
-	background: white;
+	background: var(--background-neutral-default);
 	backface-visibility: hidden;
 
 	@media @tablet {
 		max-width: calc(100vw - 5.5rem);
-	}
-
-	[data-orion-theme='dark'] & {
-		background: var(--background-neutral-minimal);
 	}
 
 	> .orion-loader {
@@ -56,7 +52,7 @@
 		height: 6.25rem;
 		box-shadow: 0 0.0625rem 0.1875rem fade(black, 10);
 		border-radius: 0.5rem;
-		background: white;
+		background: var(--background-neutral-default);
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -64,7 +60,6 @@
 		margin-right: unset;
 
 		[data-orion-theme='dark'] & {
-			background-color: var(--background-neutral-minimal);
 			box-shadow: 0 0.0625rem 0.1875rem black;
 		}
 	}
@@ -117,7 +112,7 @@
 				)
 				0 100%;
 		background-repeat: no-repeat;
-		background-color: white;
+		background-color: var(--background-neutral-default);
 		background-size:
 			100% 2.5rem,
 			100% 2.5rem,

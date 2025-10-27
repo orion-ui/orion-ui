@@ -1,12 +1,12 @@
 <template>
 	<div class="flex g-xs">
 		<o-button
-			color="brand"
+			color="primary"
 			@click="checkForm">
 			Check form
 		</o-button>
 		<o-button
-			color="danger"
+			color="error"
 			outline
 			@click="validator.hideValidationState()">
 			Clear validation

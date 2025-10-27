@@ -12,11 +12,8 @@
 		width: 100%;
 		height: 0.5rem;
 		border-radius: var(--radius-8);
-		background: #dcdfe6;
+		background: var(--background-neutral-moderate);
 
-		[data-orion-theme='dark'] & {
-			background: var(--background-neutral-moderate);
-		}
 	}
 
 	&__input {
@@ -52,13 +49,9 @@
 			position: relative;
 			width: 1.25rem;
 			height: 1.25rem;
-			background: white;
+			background: var(--background-neutral-default);
 			border-radius: 100%;
 			z-index: 100;
-
-			[data-orion-theme='dark'] & {
-				background: var(--background-neutral-moderate);
-			}
 		}
 
 		each(@colors, {
@@ -94,15 +87,11 @@
 			-webkit-appearance: none;
 			width: 1.25rem;
 			height: 1.25rem;
-			background: white;
+			background: var(--background-neutral-default);
 			border: 0.125rem solid var(--background-primary-default);
 			border-radius: 100%;
 			z-index: 3;
 			top: -0.625rem;
-
-			[data-orion-theme='dark'] & {
-				background: var(--background-neutral-moderate);
-			}
 		}
 
 		each(@colors, {

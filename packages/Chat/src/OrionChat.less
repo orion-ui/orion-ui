@@ -5,12 +5,8 @@
 	position: relative;
 	display: flex;
 	flex-direction: column;
-	background: white;
+	background: var(--background-neutral-default);
 	height: 100%;
-
-	[data-orion-theme='dark'] & {
-		background: var(--background-neutral-subtle);
-	}
 
 	&__header {
 		position: sticky;
@@ -21,13 +17,8 @@
 		justify-content: space-between;
 		height: 4rem;
 		padding: var(--space-sm);
-		background: white;
+		background: var(--background-neutral-default);
 		border-bottom: 0.0625rem solid var(--background-neutral-subtle);
-
-		[data-orion-theme='dark'] & {
-			background: var(--background-neutral-subtle);
-			border-bottom: 0.0625rem solid var(--background-neutral-subtle);
-		}
 	}
 
 	&__title {
@@ -48,11 +39,7 @@
 
 		> .orion-avatar {
 			.circle(2.8125rem);
-			border: 0.125rem solid white;
-
-			[data-orion-theme='dark'] & {
-				background: var(--background-neutral-subtle);
-			}
+			border: 0.125rem solid var(--border-neutral-default);
 
 			+ .orion-avatar {
 				margin-left: -1.25rem;
@@ -113,15 +100,11 @@
 		justify-content: center;
 		gap: 0.3rem;
 		text-align: center;
-		background: white;
+		background: var(--background-neutral-default);
 		color: var(--text-info-default);
 		text-transform: uppercase;
 		font-weight: 600;
 		font-size: 0.75rem;
-
-		[data-orion-theme='dark'] & {
-			background: var(--background-neutral-subtle);
-		}
 	}
 
 	&__unread-top {
@@ -176,11 +159,7 @@
 			position: relative;
 			display: inline-block;
 			padding: 0 var(--space-lg);
-			background: white;
-
-			[data-orion-theme='dark'] & {
-				background: var(--background-neutral-subtle);
-			}
+			background: var(--background-neutral-default);
 		}
 
 		&::before {
@@ -201,14 +180,10 @@
 	}
 
 	&__footer {
-		background: white;
+		background: var(--background-neutral-default);
 		position: sticky;
 		bottom: 0;
 		padding: var(--space-sm);
-
-		[data-orion-theme='dark'] & {
-			background: var(--background-neutral-subtle);
-		}
 
 		> .orion-chat__send {
 			position: absolute;

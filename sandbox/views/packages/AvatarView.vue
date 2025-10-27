@@ -15,7 +15,7 @@
 
 		<o-section>
 			<o-avatar
-				color="brand"
+				color="primary"
 				:square="avatarSquare"
 				contain
 				avatar="https://picsum.photos/50/100"

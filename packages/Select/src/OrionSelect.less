@@ -23,11 +23,7 @@
 		padding-bottom: 0.125rem;
 		padding-left: calc(5px + 0.125rem); // 7px
 		margin: 0.125rem 0.25rem 0.125rem 0;
-		background: rgba(var(--background-neutral-minimal), 0.6);
-
-		[data-orion-theme='dark'] & {
-			background: var(--background-neutral-moderate);
-		}
+	background: color-mix(in srgb, var(--background-neutral-minimal) 60%, transparent);
 
 		.orion-input--disabled &,
 		.orion-input--readonly & {
@@ -49,7 +45,7 @@
 
 			body:not(.istouch) & {
 				&:hover {
-					background: rgba(var(--background-danger-default), 0.1);
+					background: color-mix(in srgb, var(--background-error-default) 10%, transparent);
 					color: var(--text-error-default);
 				}
 			}
@@ -144,7 +140,7 @@
 
 			&.selected {
 				background: var(--background-info-default);
-				color: white;
+				color: var(--text-default-inverted);
 
 				.orion-select-multiple__popover & {
 					color: var(--text-info-default);

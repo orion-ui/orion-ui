@@ -19,13 +19,8 @@
 
 		&:hover {
 			opacity: 1;
-			color: white !important;
-			border-color: white !important;
-
-			[data-orion-theme='dark'] & {
-				color: var(--text-default-minimal) !important;
-				border-color: var(--border-neutral-default) !important;
-			}
+			color: var(--text-default-inverted) !important;
+			border-color: var(--border-neutral-inverted) !important;
 		}
 	}
 
@@ -37,15 +32,12 @@
 	}
 
 	&__dual {
-		background: white;
-		[data-orion-theme='dark'] & {
-			background: var(--background-neutral-minimal);
-		}
+		background: var(--background-neutral-default);
 	}
 
 each(@colorsAndGreys, {
 		&--@{value} {
-			color: white;
+			color: var(--text-default-inverted);
 			background: var(~"--background-@{value}-default");
 			border-color: var(~"--border-@{value}-default");
 
@@ -75,7 +67,7 @@ each(@colorsAndGreys, {
 		}
 
 		&--@{value}-alt {
-			color: white;
+			color: var(--text-default-inverted);
 			background: var(~"--background-@{value}-active");
 			border-color: transparent;
 
@@ -117,38 +109,25 @@ each(@colorsAndGreys, {
 		border-color: var(--border-neutral-default);
 
 		.orion-chips__close {
-			[data-orion-theme='light'] &,
-			[data-orion-theme='dark'] & {
 				color: var(--text-default-default) !important;
 				&:hover {
 					border-color: var(--border-neutral-default) !important;
 				}
-			}
 		}
 
 		&.orion-chips--outline {
 			background: var(--background-neutral-minimal);
 			border-color: var(--border-neutral-default);
-
-			[data-orion-theme='dark'] & {
-				background: rgba(0, 0, 0, 0.7);
-				border-color: rgba(0, 0, 0, 0.7);
-			}
-		}
-
-		[data-orion-theme='dark'] & {
-			background: var(--background-neutral-moderate);
-			border-color: var(--border-neutral-default);
 		}
 	}
 
 	&--inverse {
-		color: var(--text-default-minimal);
+		color: var(--text-default-inverted);
 		background: var(--background-neutral-highlight);
 		border-color: var(--border-neutral-inverted);
 
 		.orion-chips__dual {
-			color: var(--text-default-inverted);
+			color: var(--text-default-default);
 		}
 
 		&.orion-chips--dual {
@@ -162,7 +141,7 @@ each(@colorsAndGreys, {
 	}
 
 	&--grey-light, &--grey-lighter {
-		color: var(--text-default-default);
+		color: var(--text-default-inverted);
 	}
 
 	&[class*='--grey'] {
@@ -170,10 +149,6 @@ each(@colorsAndGreys, {
 			color: var(--text-default-default);
 			background: var(--background-neutral-minimal);
 			border-color: var(--border-neutral-default);
-
-			[data-orion-theme='dark'] & {
-				background: rgba(0, 0, 0, 0.7);
-			}
 		}
 	} 
 

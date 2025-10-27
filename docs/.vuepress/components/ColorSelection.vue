@@ -87,7 +87,7 @@ const emit = defineEmits<{(e: 'update:modelValue', val?: Orion.Color | Orion.Gre
 				height: 0.5rem;
 				aspect-ratio: auto 1;
 				border-radius: 50%;
-				background: white;
+				background: var(--background-neutral-default);
 				border: 0.0625rem solid var(--border-neutral-default);
 
 				[data-orion-theme="dark"] & {

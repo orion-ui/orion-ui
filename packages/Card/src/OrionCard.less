@@ -11,14 +11,10 @@
 	position: relative;
 	display: flex;
 	flex-direction: column;
-	background: white;
+	background: var(--background-neutral-default);
 	border-radius: var(--radius-8);
 	box-shadow: 0 0.0625rem 0.1875rem fade(black, 10);
 	color: var(--text-default-default);
-
-	[data-orion-theme='dark'] & {
-		background: var(--background-neutral-subtle);
-	}
 
 	img {
 		max-width: 100%;
@@ -161,7 +157,7 @@
 					&::after {
 						font-family: var(--font-family);
 						content: attr(data-count);
-						color: white;
+						color: var(--text-default-inverted);
 						font-size: 0.5rem;
 						font-weight: bold;
 					}
@@ -393,7 +389,7 @@
 			bottom: 0.3rem;
 			right: 0.3rem;
 			font-size: 0.5rem;
-			color: white !important;
+			color: var(--text-default-inverted) !important;
 			margin: 0 !important;
 		}
 	}
@@ -403,9 +399,9 @@
 	}
 
 	&[class*='--gradient-'] {
-		color: white;
+		color: var(--text-default-inverted);
 		.orion-card__title {
-			color: white;
+			color: var(--text-default-inverted);
 		}
 	}
 

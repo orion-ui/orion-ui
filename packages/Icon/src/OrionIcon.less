@@ -146,26 +146,25 @@
 		&-default {
 			color: var(--text-default-default);
 			> .orion-icon__button {
-				background: white;
+				background: var(--background-neutral-default);
 				box-shadow: 0 0.3rem 1rem -0.3rem fade(black, 20);
-
-				[data-orion-theme='dark'] & {
-					background: var(--background-neutral-minimal);
-				}
 			}
 		}
 
 		each(@colors, {
-			@color: ~"--@{value}";
-			@rgbColor: ~"--rgb-@{value}";
-      &-@{value} {
-        color: white;
-        > .orion-icon__button {
-          background: var(@color);
-          box-shadow: 0 0.125rem 0.3rem -0.125rem rgba(var(@rgbColor), 0.8);
-        }
-      }
-    });
+			@bg: ~"--background-@{value}-default";
+			@shadow: ~"--background-@{value}-moderate";
+
+			&-@{value} {
+				color: var(--text-default-inverted);
+
+				> .orion-icon__button {
+					background: var(@bg);
+					box-shadow: 0 0.125rem 0.3rem -0.125rem
+						color-mix(in srgb, var(@shadow) 40%, transparent);
+				}
+			}
+		});
 
 		&:hover > .orion-icon__button {
 			box-shadow: none;

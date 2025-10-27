@@ -21,14 +21,9 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	// background: radial-gradient(circle, fade(white, 95) 40%, fade(white, 30));
-	// backdrop-filter: blur(2px);
-	background: fade(white, 85);
+	background: color-mix(in srgb, var(--background-neutral-default) 85%, transparent);
 	z-index: @zIndexOrionLoader;
 
-	[data-orion-theme='dark'] & {
-		background: rgba(var(--background-neutral-minimal), 0.9);
-	}
 
 	&__spinner {
 		.orion-loader--xs & {
@@ -50,7 +45,7 @@
 
 	&__text {
 		padding: var(--space-md) var(--space-sm) 0;
-		color: white;
+		color: var(--text-default-inverted);
 		font-size: 1rem;
 		text-align: center;
 
@@ -97,11 +92,7 @@
 	}
 
 	&--inverse {
-		background: rgba(var(--text-default-default), 0.9);
-
-		[data-orion-theme='dark'] & {
-			background: rgba(var(--text-default-default), 0.9);
-		}
+		background: color-mix(in srgb, var(--background-neutral-highlight) 90%, transparent);
 
 		.orion-icon__loading {
 			stroke: var(--background-neutral-minimal);

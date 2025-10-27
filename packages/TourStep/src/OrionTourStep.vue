@@ -51,7 +51,7 @@
 					<orion-button
 						v-if="setup.steps && setup.currentIndex !== setup.steps.length - 1"
 						id="nextButton"
-						color="brand"
+						color="primary"
 						size="xs"
 						@click="setup.goNextStep()">
 						{{ setup.nextButtonLabel }}

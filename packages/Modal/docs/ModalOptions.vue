@@ -36,7 +36,7 @@
 			<template #footer="{ close }">
 				<o-section align="right">
 					<o-button
-						color="danger"
+						color="error"
 						outline
 						@click="close">
 						Close modal

@@ -21,12 +21,6 @@
 			color: var(--text-default-default);
 			padding: var(--space-md);
 			border-radius: var(--radius-8);
-
-			[data-orion-theme='dark'] & {
-				background: var(--background-neutral-subtle);
-				color: var(--text-default-default);
-				border: 0.0625rem solid var(--background-neutral-moderate);
-			}
 		}
 
 		&--no-positioning {
@@ -52,7 +46,7 @@
 
 			.v-popper__backdrop {
 				display: block;
-				background: rgba(var(--text-default-default), 0.7);
+				background: color-mix(in srgb, var(--background-neutral-highlight) 70%, transparent);
 				bottom: -1px; // for parent overscroll-behavior
 				height: auto; // for parent overscroll-behavior
 
@@ -75,7 +69,7 @@
 		pointer-events: none;
 		.v-popper__inner {
 			padding: var(--space-sm) var(--space-md);
-			color: white;
+			color: var(--text-default-inverted);
 		}
 	}
 

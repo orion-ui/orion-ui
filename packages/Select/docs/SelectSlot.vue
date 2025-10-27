@@ -88,7 +88,7 @@ const selectValue = ref<FakeCompany>();
 		> strong {
 			color: var(--text-default-default);
 			.selected > & {
-				color: white;
+				color: var(--text-default-inverted);
 			}
 		}
 

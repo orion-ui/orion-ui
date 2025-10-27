@@ -19,7 +19,7 @@
 			title="Vulputate Elit"
 			subtitle="Purus Commodo Tortor Ligula">
 			<template #actions>
-				<o-button color="brand">
+				<o-button color="primary">
 					Action
 				</o-button>
 			</template>

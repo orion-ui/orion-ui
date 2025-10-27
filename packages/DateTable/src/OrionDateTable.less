@@ -5,14 +5,10 @@
 	min-width: calc(280rem / 16);
 	flex: 1;
 	padding: var(--space-sm);
-	background-color: white;
+	background-color: var(--background-neutral-default);
 
 	&--with-week-number {
 		padding: var(--space-xs);
-	}
-
-	[data-orion-theme='dark'] & {
-		background-color: var(--background-neutral-minimal);
 	}
 
 	.v-popper__popper & {
@@ -75,11 +71,8 @@
 		&-dow {
 			display: flex;
 			justify-content: center;
-			border-bottom: 0.0625rem solid var(--background-neutral-subtle);
+			border-bottom: 0.0625rem solid var(--border-neutral-default);
 
-			[data-orion-theme='dark'] & {
-				border-color: var(--border-neutral-default);
-			}
 
 			> span {
 				.flex-align();
@@ -169,7 +162,7 @@
 					}
 
 					&--white {
-						background-color: white;
+						background-color: var(--background-neutral-default);
 					}
 				}
 			}
@@ -183,9 +176,6 @@
 
 				&:hover:not(.selected) {
 					background: var(--background-neutral-subtle);
-					[data-orion-theme='dark'] & {
-						background: var(--background-neutral-moderate);
-					}
 				}
 
 				&.day {
@@ -210,7 +200,7 @@
 				}
 
 				&.selected {
-					color: white;
+					color: var(--text-default-inverted);
 					background: var(--background-info-default);
 
 					> .orion-date-table-row__cell-display-contrast {
@@ -245,11 +235,7 @@
 
 				&:hover {
 					color: var(--text-info-default);
-					background: white !important;
-
-					[data-orion-theme='dark'] & {
-						background: black !important;
-					}
+					background: var(--background-neutral-default) !important;
 				}
 
 				&.selected {
@@ -266,10 +252,6 @@
 			&.in-range {
 				background: var(--background-neutral-minimal);
 
-				[data-orion-theme='dark'] & {
-					background: var(--background-neutral-moderate);
-				}
-
 				&--border-left-radius {
 					border-top-left-radius: 1.5rem;
 					border-bottom-left-radius: 1.5rem;
@@ -283,7 +265,7 @@
 				&:hover {
 					.orion-date-table-row__day__display {
 						background: var(--background-info-default);
-						color: white;
+						color: var(--text-default-inverted);
 					}
 				}
 			}

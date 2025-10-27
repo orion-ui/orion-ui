@@ -19,7 +19,7 @@
 			<o-icon
 				style="font-size:1.5rem"
 				icon="camera"
-				button="brand"/>
+				button="primary"/>
 		</div>
 
 		<o-section>
@@ -57,17 +57,12 @@ const state = reactive({ loading: false });
 	flex-direction: column;
 	align-items: center;
 	gap: 15px;
-	background: white;
+	background: var(--background-neutral-default);
 	padding: 20px;
 
 	.orion-icon {
 		display: block;
 		font-size: 24px;
 	}
-}
-
-[data-orion-theme='dark']
-.demo-icon {
-	background: var(--background-neutral-moderate);
 }
 </style>

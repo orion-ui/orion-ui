@@ -10,11 +10,7 @@
 		border: 0.0625rem solid var(--background-neutral-subtle);
 
 		&.light {
-			background: white;
-
-			[data-orion-theme='dark'] & {
-				background: var(--background-neutral-moderate);
-			}
+			background: var(--background-neutral-default);
 		}
 
 		.v-popper--theme-orion-editor-toolbar & {
@@ -30,18 +26,6 @@
 		&.orion-color-picker--hide-rgba {
 			> div:nth-child(4) {
 				display: none;
-			}
-		}
-
-		.value {
-			[data-orion-theme='dark'] & {
-				background: var(--background-neutral-subtle);
-			}
-		}
-
-		.name {
-			[data-orion-theme='dark'] & {
-				background: var(--background-neutral-minimal);
 			}
 		}
 	}

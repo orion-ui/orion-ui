@@ -13,7 +13,7 @@
 
 	each(@colorsAndGreys, {	
 		&--@{value} {
-			color: white;
+			color: var(--text-default-inverted);
 			background: var(~"--background-@{value}-default");
 			
 			&.orion-label--outline {
@@ -23,7 +23,7 @@
 		}
 		
 		&--@{value}-alt {
-			color: white;
+			color: var(--text-default-inverted);
 			background: var(~"--background-@{value}-active");
 
 			&.orion-label--outline {
@@ -45,14 +45,6 @@
 
 		&.orion-label--outline {
 			background: var(--background-neutral-minimal);
-
-			[data-orion-theme='dark'] & {
-				background: rgba(0, 0, 0, 0.7);
-			}
-		}
-
-		[data-orion-theme='dark'] & {
-			background: var(--background-neutral-moderate);
 		}
 	}
 
@@ -69,10 +61,6 @@
 		&.orion-label--outline {
 			color: var(--text-default-default);
 			background: var(--background-neutral-minimal);
-
-			[data-orion-theme='dark'] & {
-				background: rgba(0, 0, 0, 0.7);
-			}
 		}
 	} 
 

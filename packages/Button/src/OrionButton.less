@@ -181,7 +181,7 @@
 	each(@colors, {
 		&--@{value} {
 			
-			color: white;
+			color: var(--text-default-inverted);
 			stroke: white;
 
 			background: var(~"--background-@{value}-default");
@@ -210,7 +210,7 @@
 	});
 
 	&--default {
-		background: white;
+		background: var(--background-neutral-default);
 		color: var(--text-default-default);
 		stroke: var(--border-neutral-default);
 		box-shadow: 0 0.3rem 1rem -0.3rem fade(black, 20);
@@ -270,10 +270,6 @@
 
 	&--nude:not(:hover):not(:focus) {
 		background: none;
-
-		[data-orion-theme='dark'] & {
-			background: none;
-		}
 	}
 
 	&--block {

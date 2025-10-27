@@ -12,7 +12,7 @@
 	min-height: 4rem;
 	display: flex;
 	align-items: center;
-	background: white;
+	background: var(--background-neutral-default);
 	border-radius: var(--radius-4);
 	padding: var(--space-sm) var(--space-lg) var(--space-sm)
 		var(--space-lg);
@@ -23,10 +23,6 @@
 		0 2rem 2rem fade(black, 8), 0 3rem 3rem fade(black, 8),
 		0 4rem 4rem fade(black, 8);
 	backface-visibility: hidden;
-
-	[data-orion-theme='dark'] & {
-		background-color: var(--background-neutral-subtle);
-	}
 
 	&__content {
 		flex: 1 0 0%;

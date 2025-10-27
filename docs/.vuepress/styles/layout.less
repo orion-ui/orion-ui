@@ -4,10 +4,6 @@
 	font-size: 1rem;
 	transition: transform var(--t-transform), box-shadow var(--t-transform);
 	scrollbar-color: var(--c-brand) transparent;
-
-	[data-orion-theme='dark'] & {
-		background: rgba(34, 39, 46, 1);
-	}
 	
 	&-item {
 
@@ -59,12 +55,8 @@
 		var(--fluid-15px);
 	gap: 0.5rem;
 	backdrop-filter: saturate(50%) blur(8px);
-	background: rgba(255, 255, 255, 0.7);
+	background: var(--background-neutral-moderate);
 	border-bottom: none;
-
-	[data-orion-theme='dark'] & {
-		background: rgba(34, 39, 46, 0.7);
-	}
 
 	&-item {
 		&:hover {
@@ -162,13 +154,6 @@
 			.route-link-active {
 				color: var(--c-brand);
 			}
-		}
-	}
-
-
-	&.DocSearch {
-		[data-orion-theme='dark'] & {
-			background: rgba(34, 39, 46, 0.7);
 		}
 	}
 }
@@ -308,7 +293,7 @@
 		top: 0.25rem;
 		left: calc(100% + 0.3125rem);
 		background: var(--background-primary-default);
-		color: white;
+		color: var(--text-default-inverted);
 		font-weight: 700;
 		padding: var(--fluid-5px) var(--fluid-10px);
 		border-radius: 0.25rem;
@@ -330,10 +315,6 @@
 	background: transparent;
 	white-space: nowrap;
 	width: 12.5rem;
-
-	[data-orion-theme='dark'] & {
-		background: rgba(34, 39, 46, 0.7);
-	}
 
 	@media @phone {
 		padding: 0.5rem;
@@ -357,10 +338,7 @@
 	z-index: 20;
 	justify-content: flex-end;
 	backdrop-filter: saturate(50%) blur(8px);
-	background: rgba(255, 255, 255, 0.7);
-	[data-orion-theme='dark'] & {
-		background: rgba(34, 39, 46, 0.7);
-	}
+	background: var(--background-neutral-default);
 }
 
 h2,

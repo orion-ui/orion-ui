@@ -43,10 +43,6 @@
 		white-space: pre-line;
 		word-break: break-word;
 
-		[data-orion-theme='dark'] & {
-			background: var(--background-neutral-minimal);
-		}
-
 		&::after {
 			content: '';
 			display: block;
@@ -63,11 +59,7 @@
 
 		.orion-chat-message--from-user & {
 			background: var(--background-info-default);
-			color: white;
-
-			[data-orion-theme='dark'] & {
-				color: var(--text-default-minimal);
-			}
+			color: var(--text-default-inverted);
 
 			&::after {
 				transform: translateX(100%);

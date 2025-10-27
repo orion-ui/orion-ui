@@ -18,10 +18,10 @@
 					</h2>
 
 					<o-section align="left">
-						<o-button v-if="frontmatter.lang === 'fr'" color="brand" @click="$router.push('/fr/guide/quick-start.md')">Démarrage</o-button>
-						<o-button v-else color="brand" @click="$router.push('/guide/quick-start.md')">Quick Start</o-button>
-						<o-button v-if="frontmatter.lang === 'fr'" color="brand" outline @click="$router.push('/fr/components/OrionAvatar.md')">Composants</o-button>
-						<o-button v-else color="brand" outline @click="$router.push('/components/OrionAvatar.md')">Components</o-button>
+						<o-button v-if="frontmatter.lang === 'fr'" color="primary" @click="$router.push('/fr/guide/quick-start.md')">Démarrage</o-button>
+						<o-button v-else color="primary" @click="$router.push('/guide/quick-start.md')">Quick Start</o-button>
+						<o-button v-if="frontmatter.lang === 'fr'" color="primary" outline @click="$router.push('/fr/components/OrionAvatar.md')">Composants</o-button>
+						<o-button v-else color="primary" outline @click="$router.push('/components/OrionAvatar.md')">Components</o-button>
 					</o-section>
 				</div>
 	

@@ -4,29 +4,25 @@
 .orion-tour-overlay {
 	position: fixed;
 	z-index: 300;
-	background: rgba(var(--text-default-default), 0.7);
-}
+background: color-mix(in srgb, var(--background-neutral-highlight) 70%, transparent);}
 
 .orion-tour-step-highlighter {
 	position: absolute;
 	border-radius: 0.25rem;
 	z-index: 90000;
-	border: 0.125rem solid var(--text-default-default);
+	border: 0.125rem solid var(--border-neutral-default);
 	pointer-events: none;
 }
 
 .orion-tour-tooltip {
 	position: fixed;
 	z-index: 99999;
-	background: white;
+	background: var(--background-neutral-default);
 	border-radius: 0.25rem;
 	top:0;
 	left:0;
 	padding: var(--space-md);
 	opacity:0;
-	[data-orion-theme='dark'] & {
-		background: var(--background-neutral-subtle);
-	}
 
 	&__arrow {
 		position: absolute;
@@ -36,13 +32,10 @@
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
   border-bottom: 5px solid white; */
-	color: white;
-	border:  5px solid white;
+	color: var(--text-default-inverted);
+	border:  5px solid var(--border-neutral-inverted);
   .square(7px);
 
-		[data-orion-theme='dark'] & {
-			border-color: transparent transparent var(--background-neutral-subtle) transparent;
-		}
 	}
 
 	&__close {

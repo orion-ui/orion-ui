@@ -1,7 +1,7 @@
 <template>
 	<o-page title="Carousel">
 		<o-button
-			color="brand"
+			color="primary"
 			@click="test = !test">
 			toggle first slide
 		</o-button>

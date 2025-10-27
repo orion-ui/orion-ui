@@ -71,13 +71,9 @@
 	font-family: var(--font-family);
 	font-size: calc(@size * 0.75);
 	font-weight: bold;
-	color: white;
+	color: var(--text-default-inverted);
 }
 
 .color-contrast() {
 	filter: saturate(150%);
-
-	[data-orion-theme='dark'] & {
-		filter: saturate(300%);
-	}
 }

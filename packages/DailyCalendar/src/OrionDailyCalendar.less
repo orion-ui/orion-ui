@@ -6,7 +6,7 @@
 
 	&__header {
 		position: sticky;
-		background: white;
+		background: var(--background-neutral-default);
 		top: 0;
 		right: 0;
 		left: 0;
@@ -16,9 +16,6 @@
 		padding: var(--space-lg);
 		z-index: 4;
 
-		[data-orion-theme='dark'] & {
-			background: var(--background-neutral-subtle);
-		}
 	}
 
 	&__title {
@@ -27,12 +24,6 @@
 
 	&__background {
 		position: relative;
-	}
-
-	&__icon {
-		[data-orion-theme='dark'] & {
-			color: white;
-		}
 	}
 
 	&__hour {
@@ -60,10 +51,6 @@
 			height: calc(1rem / 16);
 			background: var(--background-neutral-subtle);
 			width: 100%;
-
-			[data-orion-theme='dark'] & {
-				background: var(--background-neutral-moderate);
-			}
 
 			&--now {
 				position: relative;

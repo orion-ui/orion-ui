@@ -15,7 +15,7 @@
 	justify-content: center;
 	padding: var(--space-lg);
 	min-height: calc(105rem / 16);
-	background: white;
+	background: var(--background-neutral-default);
 	box-shadow: 0 0.3rem 1rem fade(black, 15);
 	transform: scale3d(1, 0, 1);
 	transform-origin: bottom;
@@ -23,10 +23,6 @@
 
 	&--without-nav {
 		bottom: 0;
-	}
-
-	[data-orion-theme='dark'] & {
-		background: var(--background-neutral-subtle);
 	}
 
 	@media @phone {

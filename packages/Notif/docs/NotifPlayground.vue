@@ -20,7 +20,7 @@
 				Warning notif
 			</o-button>
 			<o-button
-				color="danger"
+				color="error"
 				nude
 				@click="useNotif.danger(state)">
 				Danger notif
