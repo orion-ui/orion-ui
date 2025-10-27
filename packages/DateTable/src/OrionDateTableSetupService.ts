@@ -77,6 +77,7 @@ type PeriodDay = {
 	year: number;
 	period: Orion.Period[];
 	callback?: () => void;
+	customClass?: string;
 }
 
 export default class OrionDateTableSetupService extends SharedSetupService {
@@ -328,7 +329,13 @@ export default class OrionDateTableSetupService extends SharedSetupService {
 	getClassForBackground (period: Orion.Period | PeriodDay) {
 		if (!period) return;
 
+		if (period.customClass) {
+			return period.customClass;
+		}
+
 		const cssClass = ['emphasis', `emphasis--${period.color}`];
+
+
 
 		if (this.state.filterHover && this.state.filterHover !== period.color) {
 			cssClass.push('emphasis--opacity');

@@ -70,6 +70,12 @@
 										class="orion-date-table-row__cell-display"
 										:class="setup.getClassForDay(day)">
 										<span
+											v-if="markers?.map(m => m.date.getTime()).includes(day.date.getTime())"
+											class="orion-date-table__marker"
+											:class="[
+												`orion-date-table__marker--${markers.find(m => m.date.getTime() === day.date.getTime())?.color}`,
+											]"/>
+										<span
 											class="orion-date-table-row__cell-display-number">
 											{{ day.date.getDate() }}
 										</span>

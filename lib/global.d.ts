@@ -134,6 +134,7 @@ declare global {
 			label: string;
 			color: Orion.ColorExtendedAndGreys;
 			callback?: () => void;
+			customClass?: string;
 			specific: {
 				color: Orion.ColorExtendedAndGreys
 				date: Date;
