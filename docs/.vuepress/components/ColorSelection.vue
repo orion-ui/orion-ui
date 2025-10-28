@@ -61,7 +61,7 @@ const emit = defineEmits<{(e: 'update:modelValue', val?: Orion.Color | Orion.Gre
 		gap: 0.25rem;
 		min-height: 2.5rem;
 		height: auto;
-		padding: var(--fluid-10px);
+		padding: var(--space-xs);
 		width: fit-content;
 
 		[class*="col-"] > .color-selection > & {

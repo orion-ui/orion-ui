@@ -128,7 +128,7 @@ onUnmounted(() => {
 <style lang="less">
 .data-type-table {
 	&__row {
-		padding: var(--fluid-15px) 0;
+		padding: var(--space-sm) 0;
 		border-bottom: 0.125rem solid var(--border-neutral-default);
 
 		&--header {
@@ -140,7 +140,7 @@ onUnmounted(() => {
 			display: flex;
 			flex-direction: column;
 			gap: 0.25rem;
-			padding: 0 var(--fluid-15px);
+			padding: 0 var(--space-sm);
 
 			code {
 				align-self: flex-start;

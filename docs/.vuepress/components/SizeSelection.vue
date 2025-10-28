@@ -54,7 +54,7 @@ const emit = defineEmits<{(e: 'update:modelValue', val: Orion.Size): void}>();
 		gap: 0.25rem;
 		min-height: 2.5rem;
 		height: auto;
-		padding: var(--fluid-10px);
+		padding: var(--space-xs);
 		width: fit-content;
 
 		[class*="col-"] > .size-selection > & {
@@ -76,7 +76,7 @@ const emit = defineEmits<{(e: 'update:modelValue', val: Orion.Size): void}>();
 		text-transform: uppercase;
 		font-size: 0.75rem;
 		font-weight: 600;
-		padding: 0 var(--fluid-8px);
+		padding: 0 var(--space-xs);
 
 		&:hover {
 			border-color: var(--border-primary-default);
