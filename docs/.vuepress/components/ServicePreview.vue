@@ -134,13 +134,13 @@ onUnmounted(() => {
 		font-family: var(--font-family-code);
 		font-size: 0.75rem;
 		line-height: 1.25rem;
-		color: var(--grey-darker);
+		color: var(--text-neutral-default);
 		font-weight: 600;
 	}
 
 	&__details {
 		margin-left: 1rem;
-		border-left: 0.1875rem solid var(--grey-light);
+		border-left: 0.1875rem solid var(--border-neutral-subtle);
 		padding: 0 0 0.1875rem var(--fluid-10px);
 	}
 

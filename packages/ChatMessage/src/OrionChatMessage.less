@@ -26,7 +26,7 @@
 	&__author {
 		margin: 0 1rem;
 		font-size: 0.75rem;
-		color: var(--grey-dark);
+		color: var(--text-default-default);
 
 		.orion-chat-message--from-user & {
 			text-align: right;
@@ -35,17 +35,13 @@
 
 	&__message {
 		position: relative;
-		padding: var(--fluid-10px) var(--fluid-15px);
-		background: var(--grey-lighter);
-		color: var(--grey-dark);
+		padding: var(--space-sm) var(--space-md);
+		background: var(--background-neutral-minimal);
+		color: var(--text-default-default);
 		border-radius: 0.5rem;
 		font-size: 0.8125rem;
 		white-space: pre-line;
 		word-break: break-word;
-
-		[data-orion-theme='dark'] & {
-			background: var(--grey-lighter);
-		}
 
 		&::after {
 			content: '';
@@ -58,30 +54,26 @@
 			transform: translateX(-100%);
 			border-style: solid;
 			border-width: 0.3rem 0.375rem 0.3rem 0;
-			border-color: transparent var(--grey-lighter) transparent transparent;
+			border-color: transparent var(--background-neutral-minimal) transparent transparent;
 		}
 
 		.orion-chat-message--from-user & {
-			background: var(--info);
-			color: white;
-
-			[data-orion-theme='dark'] & {
-				color: var(--grey-lighter);
-			}
+			background: var(--background-info-default);
+			color: var(--text-default-inverted);
 
 			&::after {
 				transform: translateX(100%);
 				right: 0;
 				left: auto;
 				border-width: 0.3rem 0 0.3rem 0.375rem;
-				border-color: transparent transparent transparent var(--info);
+				border-color: transparent transparent transparent var(--background-info-default);
 			}
 		}
 	}
 
 	&__status {
 		font-size: 0.75rem;
-		color: var(--grey-dark);
+		color: var(--text-default-default);
 		text-align: right;
 		margin-right: calc(75rem / 16);
 	}
@@ -89,7 +81,7 @@
 	&--is-unread:not(&--from-user) {
 		.orion-chat-message__message {
 			font-weight: 600;
-			color: var(--grey-darker);
+			color: var(--text-default-default);
 		}
 	}
 }

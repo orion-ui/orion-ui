@@ -18,27 +18,27 @@
 
 			> span {
 				display: block;
-				padding: calc(1px + 0.125rem) var(--fluid-10px);
+				padding: calc(1px + 0.125rem) var(--space-sm);
 			}
 		}
 
 		&-current-year {
 			cursor: pointer;
-			border: 0.0625rem solid var(--grey-light);
+			border: 0.0625rem solid var(--background-neutral-subtle);
 			border-radius: 0.25rem;
 
 			&:hover {
-				color: var(--info);
+				color: var(--text-info-default);
 			}
 		}
 
 		&-carret {
 			font-size: 1.25rem;
-			color: var(--grey-darker);
+			color: var(--text-default-default);
 			cursor: pointer;
 
 			&:hover {
-				color: var(--info);
+				color: var(--text-info-default);
 			}
 
 			&.disable {
@@ -53,19 +53,19 @@
 			max-height: calc(240rem / 16);
 			overflow: auto;
 			margin-top: 1rem;
-			padding-right: var(--fluid-15px);
-			color: var(--grey-dark);
+			padding-right: var(--space-md);
+			color: var(--text-default-default);
 			font-size: 0.85rem;
 		}
 
 		&-row {
 			transition: background 0.3s;
-			padding: var(--fluid-5px) var(--fluid-10px);
+			padding: var(--space-xs) var(--space-sm);
 			cursor: pointer;
 			width: fit-content;
 
 			&:hover {
-				background: var(--grey-lighter);
+				background: var(--background-neutral-minimal);
 			}
 
 			&--disabled {
@@ -74,7 +74,7 @@
 			}
 
 			&--active > div {
-				color: var(--info);
+				color: var(--text-info-default);
 			}
 
 			@media @phone {
@@ -84,17 +84,13 @@
 
 		&-number {
 			font-weight: 600;
-			color: var(--grey-darker);
+			color: var(--text-default-default);
 		}
 
 		&-readable-days {
-			color: var(--grey);
+			color: var(--text-neutral-moderate);
 			font-size: 0.8125rem;
 			white-space: nowrap;
-
-			[data-orion-theme='dark'] & {
-				color: rgba(var(--rgb-grey-dark), 0.6);
-			}
 		}
 	}
 
@@ -114,7 +110,7 @@
 				margin: 0.25rem 0.5rem;
 
 				&:hover {
-					color: var(--info);
+					color: var(--text-info-default);
 					background: white !important;
 				}
 			}

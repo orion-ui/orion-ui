@@ -48,7 +48,7 @@
 
 <style lang="less" scoped>
   .orion-icon-section {
-    background-color: white;
+    background-color: var(--background-neutral-default);
 		padding: 0.75rem 0;
 		border-radius: 0.5rem;
 

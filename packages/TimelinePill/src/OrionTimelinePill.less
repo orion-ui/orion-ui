@@ -40,9 +40,9 @@
 		.flex-align();
 		order: 2;
 		position: relative;
-		border: 0.125rem solid var(--brand);
+		border: 0.125rem solid var(--border-primary-default);
 		opacity: 0.3;
-		color: var(--brand);
+		color: var(--text-primary-default);
 		font-size: 2rem;
 
 		> .orion-timeline-pill__core-text {
@@ -67,16 +67,13 @@
 
 		&--filled {
 			opacity: 1;
-			background: var(--brand);
+			background: var(--background-primary-default);
 			border: none;
-			color: white;
+			color: var(--text-default-inverted);
 
 			> .orion-icon,
 			> .orion-timeline-pill__core-text {
 				opacity: 0.6;
-				[data-orion-theme='dark'] & {
-					color: var(--grey-lighter);
-				}
 			}
 
 			&.orion-timeline-pill__core--active {
@@ -118,7 +115,7 @@
 		width: 0.25rem;
 		height: 2rem;
 		border-radius: 0.25rem;
-		background: var(--brand);
+		background: var(--background-primary-default);
 		margin: 0.5rem auto;
 		flex: 1 0 2rem;
 		opacity: 0.3;
@@ -143,7 +140,7 @@
 
 	&__before,
 	&__after {
-		padding: var(--fluid-10px) var(--fluid-15px);
+		padding: var(--space-sm) var(--space-md);
 	}
 
 	&__after {

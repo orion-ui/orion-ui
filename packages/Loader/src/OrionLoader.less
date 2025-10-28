@@ -21,14 +21,9 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	// background: radial-gradient(circle, fade(white, 95) 40%, fade(white, 30));
-	// backdrop-filter: blur(2px);
-	background: fade(white, 85);
+	background: color-mix(in srgb, var(--background-neutral-default) 85%, transparent);
 	z-index: @zIndexOrionLoader;
 
-	[data-orion-theme='dark'] & {
-		background: rgba(var(--rgb-grey-light), 0.9);
-	}
 
 	&__spinner {
 		.orion-loader--xs & {
@@ -49,23 +44,23 @@
 	}
 
 	&__text {
-		padding: var(--fluid-15px) var(--fluid-10px) 0;
-		color: white;
+		padding: var(--space-md) var(--space-sm) 0;
+		color: var(--text-default-inverted);
 		font-size: 1rem;
 		text-align: center;
 
 		.orion-loader--xs & {
-			padding: var(--fluid-10px) var(--fluid-5px) 0;
+			padding: var(--space-sm) var(--space-xs) 0;
 			font-size: 0.75rem;
 		}
 
 		.orion-loader--sm & {
-			padding: var(--fluid-10px) var(--fluid-5px) 0;
+			padding: var(--space-sm) var(--space-xs) 0;
 			font-size: 0.875rem;
 		}
 
 		.orion-loader--lg & {
-			padding: var(--fluid-20px) var(--fluid-10px) 0;
+			padding: var(--space-lg) var(--space-sm) 0;
 		}
 	}
 
@@ -75,41 +70,36 @@
 	}
 
 	each(@colors, {
-		@color: ~"--@{value}";
 		&--@{value} {
 			.orion-icon__loading {
-				stroke: var(@color);
+				stroke: var(~"--border-@{value}-default");
 			}
 
 			.orion-loader__text {
-				color: var(@color);
+				color: var(~"--text-@{value}-default");
 			}
 		}
 	});
 
 	&--default {
 		.orion-icon__loading {
-			stroke: var(--grey-darker);
+			stroke: var(--text-default-default);
 		}
 
 		.orion-loader__text {
-			color: var(--grey-darker);
+			color: var(--text-default-default);
 		}
 	}
 
 	&--inverse {
-		background: rgba(var(--rgb-grey-darker), 0.9);
-
-		[data-orion-theme='dark'] & {
-			background: rgba(var(--rgb-grey-darker), 0.9);
-		}
+		background: color-mix(in srgb, var(--background-neutral-highlight) 90%, transparent);
 
 		.orion-icon__loading {
-			stroke: var(--grey-lighter);
+			stroke: var(--background-neutral-minimal);
 		}
 
 		.orion-loader__text {
-			color: var(--grey-lighter);
+			color: var(--text-default-minimal);
 		}
 	}
 }

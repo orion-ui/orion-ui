@@ -77,7 +77,7 @@ const emit = defineEmits<{(e: 'update:modelValue', val?: Orion.Color | Orion.Gre
 		height: 1rem;
 		aspect-ratio: 1;
 		border-radius: 50%;
-		border: 0.03125rem solid var(--grey-darker);
+		border: 0.03125rem solid var(--border-neutral-default);
 		cursor: pointer;
 
 		&--selected {
@@ -87,11 +87,11 @@ const emit = defineEmits<{(e: 'update:modelValue', val?: Orion.Color | Orion.Gre
 				height: 0.5rem;
 				aspect-ratio: auto 1;
 				border-radius: 50%;
-				background: white;
-				border: 0.0625rem solid var(--grey-darker);
+				background: var(--background-neutral-default);
+				border: 0.0625rem solid var(--border-neutral-default);
 
 				[data-orion-theme="dark"] & {
-					background: var(--grey-lighter);
+					background: var(--background-neutral-minimal);
 				}
 			}
 		}

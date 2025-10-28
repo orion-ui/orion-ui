@@ -5,7 +5,7 @@
 			color="info"/>
 		<o-input-range
 			v-model="valueRange"
-			color="brand"/>
+			color="primary"/>
 	</div>
 </template>
 

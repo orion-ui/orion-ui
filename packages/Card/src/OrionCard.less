@@ -5,25 +5,23 @@
 	--hoverElevation: 1;
 	--elevation: calc(1rem * var(--hoverElevation));
 	--shadowColor: rgba(0, 0, 0, calc(0.03 * (1 + var(--hoverElevation) / 5)));
-	transition: box-shadow 0.3s, transform 0.3s;
+	transition:
+		box-shadow 0.3s,
+		transform 0.3s;
 	position: relative;
 	display: flex;
 	flex-direction: column;
-	background: white;
-	border-radius: var(--radius-card);
+	background: var(--background-neutral-default);
+	border-radius: var(--radius-8);
 	box-shadow: 0 0.0625rem 0.1875rem fade(black, 10);
-	color: var(--grey-dark);
-
-	[data-orion-theme='dark'] & {
-		background: var(--grey-light);
-	}
+	color: var(--text-default-default);
 
 	img {
 		max-width: 100%;
 	}
 
 	&__poster {
-		border-radius: var(--radius-card) var(--radius-card) 0 0;
+		border-radius: var(--radius-8) var(--radius-8) 0 0;
 		overflow: hidden;
 
 		> img {
@@ -35,23 +33,23 @@
 
 	&__header {
 		.orion-card--xs > & {
-			padding: var(--fluid-10px) var(--fluid-10px) 0;
+			padding: var(--space-sm) var(--space-sm) 0;
 		}
 
 		.orion-card--sm > & {
-			padding: var(--fluid-15px) var(--fluid-15px) 0;
+			padding: var(--space-md) var(--space-md) 0;
 		}
 
 		.orion-card--md > & {
-			padding: var(--fluid-20px) var(--fluid-20px) 0;
+			padding: var(--space-lg) var(--space-lg) 0;
 		}
 
 		.orion-card--lg > & {
-			padding: var(--fluid-30px) var(--fluid-30px) 0;
+			padding: var(--space-lg) var(--space-lg) 0;
 		}
 
 		.orion-card--xl > & {
-			padding: var(--fluid-45px) var(--fluid-45px) 0;
+			padding: var(--space-lg) var(--space-lg) 0;
 		}
 
 		&--lined {
@@ -59,37 +57,29 @@
 			border-bottom: 0.0625rem solid;
 			border-image: linear-gradient(
 					to right,
-					rgba(var(--rgb-grey-light), 0),
-					var(--grey-light)
-				)
-				1;
-			[data-orion-theme='dark'] & {
-				border-image: linear-gradient(
-						to right,
-						rgba(var(--rgb-grey-light), 0),
-						rgba(var(--rgb-grey-dark), 0.3)
+					color-mix(in srgb, var(--border-neutral-default) 0%, transparent),
+					color-mix(in srgb, var(--border-neutral-default) 100%, transparent)			
 					)
-					1;
-			}
+				1;
 
 			.orion-card--xs & {
-				padding: var(--fluid-10px);
+				padding: var(--space-sm);
 			}
 
 			.orion-card--sm & {
-				padding: var(--fluid-15px);
+				padding: var(--space-md);
 			}
 
 			.orion-card--md & {
-				padding: var(--fluid-20px);
+				padding: var(--space-lg);
 			}
 
 			.orion-card--lg & {
-				padding: var(--fluid-30px);
+				padding: var(--space-lg);
 			}
 
 			.orion-card--xl & {
-				padding: var(--fluid-45px);
+				padding: var(--space-lg);
 			}
 		}
 	}
@@ -98,23 +88,23 @@
 		flex: 1 0 0%;
 
 		.orion-card--xs > & {
-			padding: var(--fluid-10px);
+			padding: var(--space-sm);
 		}
 
 		.orion-card--sm > & {
-			padding: var(--fluid-15px);
+			padding: var(--space-md);
 		}
 
 		.orion-card--md > & {
-			padding: var(--fluid-20px);
+			padding: var(--space-lg);
 		}
 
 		.orion-card--lg > & {
-			padding: var(--fluid-30px);
+			padding: var(--space-lg);
 		}
 
 		.orion-card--xl > & {
-			padding: var(--fluid-45px);
+			padding: var(--space-lg);
 		}
 
 		&:empty {
@@ -123,7 +113,7 @@
 
 		> .orion-loader,
 		> .orion-overlay {
-			border-radius: var(--radius-card);
+			border-radius: var(--radius-8);
 		}
 	}
 
@@ -131,7 +121,7 @@
 		.flex-align();
 		position: relative;
 		flex-wrap: wrap-reverse;
-		color: var(--grey-dark);
+		color: var(--text-default-default);
 
 		&--right {
 			justify-content: flex-end;
@@ -152,10 +142,10 @@
 				.circle(0.5rem);
 				position: absolute;
 				bottom: 0;
-				background: var(--grey-dark);
+				background: var(--background-neutral-moderate);
 
 				&--info {
-					background: var(--info);
+					background: var(--background-info-default);
 				}
 
 				&--mobile {
@@ -167,7 +157,7 @@
 					&::after {
 						font-family: var(--font-family);
 						content: attr(data-count);
-						color: white;
+						color: var(--text-default-inverted);
 						font-size: 0.5rem;
 						font-weight: bold;
 					}
@@ -175,7 +165,7 @@
 			}
 
 			&:hover:not(.orion-icon--ripple) {
-				color: var(--info);
+				color: var(--text-info-default);
 			}
 		}
 
@@ -184,23 +174,23 @@
 		}
 
 		.orion-card--xs > & {
-			padding: 0 var(--fluid-10px) var(--fluid-10px);
+			padding: 0 var(--space-sm) var(--space-sm);
 		}
 
 		.orion-card--sm > & {
-			padding: var(--fluid-5px) var(--fluid-10px) var(--fluid-20px);
+			padding: var(--space-xs) var(--space-sm) var(--space-lg);
 		}
 
 		.orion-card--md > & {
-			padding: var(--fluid-10px) var(--fluid-15px) var(--fluid-30px);
+			padding: var(--space-sm) var(--space-md) var(--space-lg);
 		}
 
 		.orion-card--lg > & {
-			padding: var(--fluid-15px) var(--fluid-20px) var(--fluid-35px);
+			padding: var(--space-md) var(--space-lg) var(--space-lg);
 		}
 
 		.orion-card--xl > & {
-			padding: var(--fluid-20px) var(--fluid-25px) var(--fluid-45px);
+			padding: var(--space-lg) var(--space-lg) var(--space-lg);
 		}
 
 		&--lined {
@@ -208,36 +198,36 @@
 			border-top: 0.0625rem solid;
 			border-image: linear-gradient(
 					to right,
-					rgba(var(--rgb-grey-light), 0),
-					var(--grey-light)
+					color-mix(in srgb, var(--border-neutral-default) 0%, transparent),
+					color-mix(in srgb, var(--border-neutral-default) 100%, transparent)	
 				)
 				1;
 
 			.orion-card--xl > & {
-				padding: var(--fluid-10px);
+				padding: var(--space-sm);
 			}
 
 			.orion-card--xl > & {
-				padding: var(--fluid-15px);
+				padding: var(--space-md);
 			}
 
 			.orion-card--md > & {
-				padding: var(--fluid-20px);
+				padding: var(--space-lg);
 			}
 
 			.orion-card--lg > & {
-				padding: var(--fluid-20px) var(--fluid-30px);
+				padding: var(--space-lg) var(--space-lg);
 			}
 
 			.orion-card--xl > & {
-				padding: var(--fluid-20px) var(--fluid-45px);
+				padding: var(--space-lg) var(--space-lg);
 			}
 		}
 	}
 
 	&__title {
 		margin: 0;
-		color: var(--grey-darker);
+		color: var(--text-default-default);
 		font-weight: 600;
 	}
 
@@ -252,7 +242,7 @@
 		align-items: flex-end;
 		justify-content: flex-end;
 		pointer-events: none;
-		border-bottom-right-radius: var(--radius-card);
+		border-bottom-right-radius: var(--radius-8);
 		overflow: hidden;
 		transform-origin: bottom right;
 		transform: scale(0);
@@ -271,18 +261,17 @@
 			.square(5.625rem);
 
 			each(@colors, {
-				@color: ~"--@{value}";
 				.orion-card--selected-@{value} & {
-					fill: var(@color);
+					fill: var(~"--background-@{value}-default");
 				}
 			});
 
 			.orion-card--selected-default & {
-				fill: var(--grey);
+				fill: var(--background-neutral-moderate);
 			}
 
 			.orion-card--selected-inverse & {
-				fill: var(--grey-darker);
+				fill: var(--background-neutral-highlight);
 			}
 		}
 
@@ -320,25 +309,37 @@
 			width: 0.0625rem;
 
 			each(@colors, {
-				@rgbColor: ~"--rgb-@{value}";
+				@color: ~"--background-@{value}-default";
 				.orion-card--selected-@{value} & {
-					background: linear-gradient(to bottom, rgba(var(@rgbColor), 0), rgb(var(@rgbColor)));
+					background: linear-gradient(
+						to bottom,
+						color-mix(in srgb, var(@color) 0%, transparent),
+						color-mix(in srgb, var(@color) 100%, transparent)
+					);
 				}
 			});
 
 			.orion-card--selected-default & {
 				background: linear-gradient(
 					to bottom,
-					rgba(var(--rgb-grey), 0),
-					rgb(var(--rgb-grey))
+					color-mix(in srgb, var(--background-neutral-default) 0%, transparent),
+					color-mix(
+						in srgb,
+						var(--background-neutral-default) 100%,
+						transparent
+					)
 				);
 			}
 
 			.orion-card--selected-inverse & {
 				background: linear-gradient(
 					to bottom,
-					rgba(var(--rgb-grey-darker), 0),
-					rgb(var(--rgb-grey-darker))
+					color-mix(in srgb, var(--background-neutral-default) 0%, transparent),
+					color-mix(
+						in srgb,
+						var(--background-neutral-default) 100%,
+						transparent
+					)
 				);
 			}
 		}
@@ -348,25 +349,37 @@
 			height: 0.0625rem;
 
 			each(@colors, {
-				@rgbColor: ~"--rgb-@{value}";
+				@color: ~"--background-@{value}-default";
 				.orion-card--selected-@{value} & {
-					background: linear-gradient(to right, rgba(var(@rgbColor), 0), rgb(var(@rgbColor)));
+					background: linear-gradient(
+						to right,
+						color-mix(in srgb, var(@color) 0%, transparent),
+						color-mix(in srgb, var(@color) 100%, transparent)
+					);
 				}
 			});
 
 			.orion-card--selected-default & {
 				background: linear-gradient(
 					to right,
-					rgba(var(--rgb-grey), 0),
-					rgb(var(--rgb-grey))
+					color-mix(in srgb, var(--background-neutral-default) 0%, transparent),
+					color-mix(
+						in srgb,
+						var(--background-neutral-default) 100%,
+						transparent
+					)
 				);
 			}
 
 			.orion-card--selected-inverse & {
 				background: linear-gradient(
 					to right,
-					rgba(var(--rgb-grey-darker), 0),
-					rgb(var(--rgb-grey-darker))
+					color-mix(in srgb, var(--background-neutral-default) 0%, transparent),
+					color-mix(
+						in srgb,
+						var(--background-neutral-default) 100%,
+						transparent
+					)
 				);
 			}
 		}
@@ -376,7 +389,7 @@
 			bottom: 0.3rem;
 			right: 0.3rem;
 			font-size: 0.5rem;
-			color: white !important;
+			color: var(--text-default-inverted) !important;
 			margin: 0 !important;
 		}
 	}
@@ -386,62 +399,59 @@
 	}
 
 	&[class*='--gradient-'] {
-		color: white;
+		color: var(--text-default-inverted);
 		.orion-card__title {
-			color: white;
+			color: var(--text-default-inverted);
 		}
 	}
 
 	each(@colors, {
 		&--gradient-@{value} {
-			[data-orion-theme="light"] &,
-			[data-orion-theme="dark"] & {
-				@color: ~"--@{value}";
-				@colorAlt: ~"--@{value}-alt";
-				background: linear-gradient(
-					to bottom right,
-					var(@color),
-					var(@colorAlt)
-				);
-			}
+			background: linear-gradient(
+						to bottom right,
+						var(~"--background-@{value}-default"),
+						var(~"--background-@{value}-subtle")
+					);
 		}
 	});
 
 	&--gradient-default.orion-card {
-		color: var(--grey-darker);
+		color: var(--text-default-default);
 
 		.orion-card__title {
-			color: var(--grey-darker);
+			color: var(--text-default-default);
 		}
 
-		[data-orion-theme='light'] & {
-			background: linear-gradient(to bottom right, var(--grey-light), white);
-		}
-		[data-orion-theme='dark'] & {
-			background: linear-gradient(to bottom right, var(--grey-light), black);
-		}
+		background: linear-gradient(
+			to bottom right,
+			color-mix(in srgb, var(--background-neutral-default) 100%, transparent),
+						color-mix(in srgb, var(--background-neutral-moderate) 100%, transparent),
+
+		);
 	}
 
 	&--gradient-inverse.orion-card {
-		color: var(--grey-lighter);
+		color: var(--text-default-default);
 
 		.orion-card__title {
-			color: var(--grey-lighter);
+			color: var(--text-default-default);
 		}
 
-		[data-orion-theme='light'] & {
-			background: linear-gradient(to bottom right, var(--grey-darker), black);
-		}
-		[data-orion-theme='dark'] & {
-			background: linear-gradient(to bottom right, var(--grey-darker), white);
-		}
+			background: linear-gradient(
+				to bottom right,
+				color-mix(in srgb, var(--background-neutral-moderate) 100%, transparent),
+								color-mix(in srgb, var(--background-neutral-highlight) 100%, transparent),
+
+			);
+		
 	}
 
 	&:not(.orion-card--no-elevation):hover {
 		body:not(.istouch) & {
 			z-index: 1;
 			transform: translate3d(0, -0.125rem, 0);
-			box-shadow: 0 calc(var(--elevation) / 8) calc(var(--elevation) / 8)
+			box-shadow:
+				0 calc(var(--elevation) / 8) calc(var(--elevation) / 8)
 					var(--shadowColor),
 				0 calc(var(--elevation) / 4) calc(var(--elevation) / 4)
 					var(--shadowColor),

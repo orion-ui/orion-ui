@@ -69,9 +69,9 @@ const emit = defineEmits<{(e: 'update:modelValue', val: Orion.Size): void}>();
 		justify-content: center;
 		height: 1.125rem;
 		border-radius: 0.5rem;
-		background: var(--grey-light);
-		border: 0.0625rem solid var(--grey-light);
-		color: var(--grey-darker);
+		background: var(--background-neutral-moderate);
+		border: 0.0625rem solid var(--border-neutral-default);
+		color: var(--text-defaultd-default);
 		cursor: pointer;
 		text-transform: uppercase;
 		font-size: 0.75rem;
@@ -79,15 +79,15 @@ const emit = defineEmits<{(e: 'update:modelValue', val: Orion.Size): void}>();
 		padding: 0 var(--fluid-8px);
 
 		&:hover {
-			border-color: var(--info);
-			color: var(--info);
+			border-color: var(--border-primary-default);
+			color: var(--text-primary-default);
 			background: transparent;
 		}
 
 		&--selected, &--selected:hover {
-			border-color: var(--info);
-			background: var(--info);
-			color: white;
+			border-color: var(--border-primary-default);
+			background: var(--background-primary-default);
+			color: var(--text-default-inverted);
 		}
 	}
 }

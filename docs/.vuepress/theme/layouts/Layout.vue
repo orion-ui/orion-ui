@@ -26,7 +26,7 @@
 							outline 
 							nude 
 							:suffix-icon="tocOpened ? 'chevron_down' : 'chevron_right'"
-							color="brand">
+							color="primary">
 								{{ tocButtonLabel }}
 						</o-button>
 					<template #popper="{ hide }">

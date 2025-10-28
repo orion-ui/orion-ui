@@ -13,7 +13,7 @@
 			number of rates
 			<o-rate
 				v-model="value"
-				color="pink"
+				color="secondary"
 				disabled/>
 			number of rates
 

@@ -47,8 +47,8 @@ defineProps({
 	flex-direction: column;
 	gap: 0.25rem;
 	padding: var(--fluid-15px);
-	border-top: 0.125rem solid var(--grey-lighter);
-	border-bottom: 0.125rem solid var(--grey-lighter);
+	border-top: 0.125rem solid var(--border-neutral-minimal);
+	border-bottom: 0.125rem solid var(--border-neutral-minimal);
 
 	& + & {
 		margin-top: -0.125rem;
@@ -65,26 +65,26 @@ defineProps({
 	
 	&__name {
 		font-family: var(--font-family-code);
-		color: var(--info);
+		color: var(--text-info-default);
 
 		.prop-description--deprecated & {
-			color: var(--warning);
+			color: var(--text-warning-default);
 		}
 	}
 
 	&__value {
-		color: var(--grey-darker);
+		color: var(--text-neutral-default);
 	}
 	
 	&__description {
-		color: var(--grey-dark);
+		color: var(--text-neutral-default);
 
 		:deep(p) {
 			font-size: var(--size-default);
 		}
 		
 		:deep(strong) {
-			color: var(--grey-darker);
+			color: var(--text-neutral-default);
 		}
 
 		:deep(p:last-child) {
@@ -95,14 +95,14 @@ defineProps({
 	&__deprecated {
 		display: flex;
 		gap: 0.5rem;
-		color: var(--warning);
-		border: 1px solid var(--warning-light);
+		color: var(--text-warning-default);
+		border: 1px solid var(--border-warning-subtle);
 		border-radius: 0.25rem;
 		padding: 0.25rem;
 
 		code {
-			color: var(--warning);
-			background-color: var(--warning-light);
+			color: var(--text-warning-default);
+			background-color: var(--background-warning-subtle);
 		}
 	}
 }

@@ -64,12 +64,12 @@ const globalTypesDocData = {
 		'ns': 'Orion',
 		'type': 'Color',
 		'generic': '',
-		'description': '\'brand\' | \'default\' | \'info\' | \'success\' | \'warning\' | \'danger\' | \'inverse\' | \'pink\'; \n',
+		'description': '\'primary\' | \'default\' | \'info\' | \'success\' | \'warning\' | \'error\' | \'inverse\' | \'secondary\'; \n',
 	}, {
 		'ns': 'Orion',
 		'type': 'ColorAlt',
 		'generic': '',
-		'description': '\'brand-alt\' | \'info-alt\' | \'success-alt\' | \'warning-alt\' | \'danger-alt\' | \'pink-alt\'; \n',
+		'description': '\'primary-alt\' | \'info-alt\' | \'success-alt\' | \'warning-alt\' | \'error-alt\' | \'secondary-alt\'; \n',
 	}, {
 		'ns': 'Orion',
 		'type': 'ColorExtended',

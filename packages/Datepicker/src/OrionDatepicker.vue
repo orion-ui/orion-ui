@@ -210,7 +210,7 @@
 						<orion-button
 							block
 							outline
-							color="brand"
+							color="primary"
 							@click="setup.handleBlur(undefined, true)">
 							{{ setup.lang.VALIDATE }}
 						</orion-button>

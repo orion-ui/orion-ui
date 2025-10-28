@@ -18,7 +18,7 @@
 
 			<div class="flex jc-c">
 				<o-button
-					color="brand"
+					color="primary"
 					@click="cropAsync()">
 					Crop
 				</o-button>

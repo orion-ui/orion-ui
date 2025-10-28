@@ -19,13 +19,8 @@
 
 		&:hover {
 			opacity: 1;
-			color: white !important;
-			border-color: white !important;
-
-			[data-orion-theme='dark'] & {
-				color: var(--grey-lighter) !important;
-				border-color: var(--grey-lighter) !important;
-			}
+			color: var(--text-default-inverted) !important;
+			border-color: var(--border-neutral-inverted) !important;
 		}
 	}
 
@@ -37,94 +32,63 @@
 	}
 
 	&__dual {
-		background: white;
-		[data-orion-theme='dark'] & {
-			background: var(--grey-lighter);
-		}
+		background: var(--background-neutral-default);
 	}
 
-	each(@colorsAndGreys, {
-		@color: ~"--@{value}";
-		@colorLight: ~"--@{value}-light";
-		@colorDark: ~"--@{value}-dark";
-		@colorAlt: ~"--@{value}-alt";
-		@colorAltRgb: ~"--rgb-@{value}-alt";
-		
+each(@colorsAndGreys, {
 		&--@{value} {
 			color: white;
 			background: var(~"--background-@{value}-default");
 			border-color: var(~"--border-@{value}-default");
 
 			.orion-chips__dual {
-				color: var(@color);
+				color: var(~"--text-@{value}-default");
 			}
 
 			&.orion-chips--outline,
 			&.orion-chips--dual {
 				.orion-chips__close {
-					color: var(@color) !important;
+					color: var(~"--text-@{value}-default") !important;
 					&:hover {
-						border-color: var(@color) !important;
-					}
-
-					[data-orion-theme="dark"] & {
-						color: var(@colorLight) !important;
+						border-color: var(~"--border-@{value}-default") !important;
 					}
 				}
 			}
 			
 			&.orion-chips--outline {
-				color: var(@colorDark);
-				background: var(@colorLight);
-				border-color: var(@colorLight);
+				color: var(~"--text-@{value}-default");
+				background: var(~"--background-@{value}-minimal");
+				border-color: transparent;
 
 				.orion-chips__dual {
-					color: var(@colorDark);
-				}
-				
-				[data-orion-theme="dark"] & {
-					color: var(@colorLight);
-					background: var(@colorDark);
-					border-color: var(@colorDark);
-					
-					.orion-chips__dual {
-						color: var(@colorLight);
-					}
+					color: var(~"--text-@{value}-default");
 				}
 			}
 		}
 
 		&--@{value}-alt {
-			color: white;
-			background: var(@colorAlt);
-			border-color: var(@colorAlt);
-
-			[data-orion-theme="dark"] & {
-				color: black;
-			}
+			color: var(--text-default-inverted);
+			background: var(~"--background-@{value}-active");
+			border-color: transparent;
 
 			.orion-chips__dual {
-				color: var(@colorAlt);
+				color: var(~"--text-@{value}-subtle");
 			}
 
 			&.orion-chips--outline,
 			&.orion-chips--dual {
 				.orion-chips__close {
-					color: var(@colorAlt) !important;
+					color: var(~"--text-@{value}-subtle") !important;
 					&:hover {
-						border-color: var(@colorAlt) !important;
-					}
-
-					[data-orion-theme="dark"] & {
-						color: var(@colorAlt) !important;
+						border-color: var(~"--border-@{value}-default") !important;
 					}
 				}
 			}
 			
 			&.orion-chips--outline {
-				color: var(@colorAlt);
-				background: rgba(var(@colorAltRgb), 0.15);
-				border-color: rgba(var(@colorAltRgb), 0.15);
+				color: var(~"--text-@{value}-subtle");
+				background: color-mix(in oklab, var(~"--background-@{value}-active") 15%, transparent);
+				border-color: color-mix(in oklab, var(~"--border-@{value}-default") 15%, transparent);
 
 				&:not(.orion-chips--inverse):not(.orion-chips--default) > {
 					.orion-chips__main, .orion-chips__dual-content {
@@ -133,75 +97,58 @@
 				}
 
 				.orion-chips__dual {
-					color: var(@colorAlt);
+					color: var(~"--text-@{value}-subtle");
 				}
 			}
 		}
 	});
 
 	&--default {
-		color: var(--grey-darker);
-		background: var(--grey-light);
-		border-color: var(--grey-light);
+		color: var(--text-default-default);
+		background: var(--background-neutral-subtle);
+		border-color: var(--border-neutral-default);
 
 		.orion-chips__close {
-			[data-orion-theme='light'] &,
-			[data-orion-theme='dark'] & {
-				color: var(--grey-darker) !important;
+				color: var(--text-default-default) !important;
 				&:hover {
-					border-color: var(--grey-darker) !important;
+					border-color: var(--border-neutral-default) !important;
 				}
-			}
 		}
 
 		&.orion-chips--outline {
-			background: var(--grey-lighter);
-			border-color: var(--grey-lighter);
-
-			[data-orion-theme='dark'] & {
-				background: rgba(0, 0, 0, 0.7);
-				border-color: rgba(0, 0, 0, 0.7);
-			}
-		}
-
-		[data-orion-theme='dark'] & {
-			background: var(--grey);
-			border-color: var(--grey);
+			background: var(--background-neutral-minimal);
+			border-color: var(--border-neutral-default);
 		}
 	}
 
 	&--inverse {
-		color: var(--grey-lighter);
-		background: var(--inverse);
-		border-color: var(--inverse);
+		color: var(--text-default-inverted);
+		background: var(--background-neutral-highlight);
+		border-color: var(--border-neutral-inverted);
 
 		.orion-chips__dual {
-			color: var(--inverse);
+			color: var(--text-default-default);
 		}
 
 		&.orion-chips--dual {
 			.orion-chips__close {
-				color: var(--inverse) !important;
+				color: var(--text-default-inverted) !important;
 				&:hover {
-					border-color: var(--inverse) !important;
+					border-color: var(--border-neutral-inverted) !important;
 				}
 			}
 		}
 	}
 
 	&--grey-light, &--grey-lighter {
-		color: var(--grey-darker);
+		color: var(--text-default-inverted);
 	}
 
 	&[class*='--grey'] {
 		&.orion-chips--outline {
-			color: var(--grey-darker);
-			background: var(--grey-lighter);
-			border-color: var(--grey-lighter);
-
-			[data-orion-theme='dark'] & {
-				background: rgba(0, 0, 0, 0.7);
-			}
+			color: var(--text-default-default);
+			background: var(--background-neutral-minimal);
+			border-color: var(--border-neutral-default);
 		}
 	} 
 

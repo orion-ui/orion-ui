@@ -13,7 +13,7 @@
 
 		<o-section>
 			<o-button
-				color="brand"
+				color="primary"
 				@click="validateCrop()">
 				valider
 			</o-button>

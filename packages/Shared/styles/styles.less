@@ -2,6 +2,8 @@
 @import (css)
 	url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;1,200;1,300;1,400;1,600;1,700&display=swap');
 
+@import './tokens.less';
+
 @import './animations';
 @import './css-vars';
 @import './dependencies';
@@ -18,7 +20,7 @@
 * {
 	box-sizing: border-box;
 	scrollbar-width: thin;
-	scrollbar-color: var(--grey) transparent;
+	scrollbar-color: var(--background-neutral-moderate) transparent;
 }
 
 *::-webkit-scrollbar {
@@ -32,7 +34,7 @@
 }
 
 *::-webkit-scrollbar-thumb {
-	background-color: var(--grey);
+	background-color: var(--background-neutral-moderate);
 	border-radius: 20px;
 }
 
@@ -40,17 +42,17 @@ html,
 body {
 	margin: 0;
 	padding: 0;
-	background: var(--grey-lighter);
+	background: var(--background-neutral-minimal);
 }
 
 body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	font-family: var(--font-family);
-	font-size: var(--size-default);
+	font-size: var(--typography-size-base);
 	line-height: 1.5;
-	font-weight: var(--font-weight-default);
-	color: var(--grey-darker);
+	font-weight: var(--typography-weight-regular);
+	color: var(--text-default-default);
 }
 
 h1,
@@ -59,8 +61,8 @@ h3,
 h4,
 h5,
 h6 {
-	font-weight: var(--font-weight-title);
-	color: var(--grey-darker);
+	font-weight: var(--typography-weight-semibold);
+	color: var(--text-default-default);
 	line-height: 1.2;
 	margin: 0 0 max(0.6em, 10px);
 }
@@ -135,16 +137,16 @@ hr {
 	border-bottom: 0.0625rem solid;
 	border-image: linear-gradient(
 			to right,
-			rgba(var(--rgb-grey-light), 0),
-			var(--grey-light)
+			rgba(var(--background-neutral-minimal), 0),
+			var(--background-neutral-subtle)
 		)
 		1;
 
 	[data-orion-theme='dark'] & {
 		border-image: linear-gradient(
 				to right,
-				rgba(var(--rgb-grey-light), 0),
-				rgba(var(--rgb-grey-dark), 0.5)
+				rgba(var(--background-neutral-minimal), 0),
+				rgba(var(--background-neutral-moderate), 0.5)
 			)
 			1;
 	}
@@ -157,7 +159,7 @@ hr {
 .orion-highlighter {
 	transition: opacity 0.45s, transform 0.45s;
 	position: absolute;
-	border: 2px solid rgba(var(--rgb-info), 0.8);
+	border: 2px solid rgba(var(--background-info-default), 0.8);
 	border-radius: 0.5rem;
 	opacity: 0;
 	transform: scale(0.85);
@@ -165,5 +167,12 @@ hr {
 	&--visible {
 		opacity: 1;
 		transform: scale(1);
+	}
+}
+
+.v-popper {
+	&__inner {
+		background: var(--background-neutral-default);
+		border-color: var(--border-neutral-default);
 	}
 }

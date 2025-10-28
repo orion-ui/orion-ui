@@ -23,11 +23,7 @@
 		padding-bottom: 0.125rem;
 		padding-left: calc(5px + 0.125rem); // 7px
 		margin: 0.125rem 0.25rem 0.125rem 0;
-		background: rgba(var(--rgb-grey-light), 0.6);
-
-		[data-orion-theme='dark'] & {
-			background: var(--grey);
-		}
+	background: color-mix(in srgb, var(--background-neutral-minimal) 60%, transparent);
 
 		.orion-input--disabled &,
 		.orion-input--readonly & {
@@ -42,15 +38,15 @@
 			.flex-align();
 			font-size: 1rem;
 			margin-left: 0.125rem;
-			padding: 0 var(--fluid-5px);
+			padding: 0 var(--space-xs);
 			border-radius: 0 0.25rem 0.25rem 0;
-			color: var(--grey-dark);
+			color: var(--text-default-default);
 			cursor: pointer;
 
 			body:not(.istouch) & {
 				&:hover {
-					background: rgba(var(--rgb-danger), 0.1);
-					color: var(--danger);
+					background: color-mix(in srgb, var(--background-error-default) 10%, transparent);
+					color: var(--text-error-default);
 				}
 			}
 
@@ -65,7 +61,7 @@
 	&:not(.orion-select--multiple) {
 		.orion-input__input {
 			.ellipsis();
-			padding-right: var(--fluid-40px);
+			padding-right: var(--space-lg);
 		}
 	}
 
@@ -97,7 +93,7 @@
 		.favorite-separator{
 			margin: .5rem 0rem;
 			border-image: unset;
-			border-color: var(--grey);
+			border-color: var(--border-neutral-default);
 		}
 
 		&-item {
@@ -105,10 +101,10 @@
 			align-items: center;
 			justify-content: space-between;
 			gap: 1.25rem;
-			padding: var(--fluid-5px) var(--fluid-15px);
+			padding: var(--space-xs) var(--space-md);
 			font-size: 0.875rem;
 			transition: background 0.3s, color 0.3s;
-			color: var(--grey-dark);
+			color: var(--text-default-default);
 			cursor: pointer;
 
 			.orion-select__icon--internal {
@@ -128,14 +124,14 @@
 			body:not(.istouch) & {
 				&.hover,
 				&:hover {
-					color: var(--grey-darker);
-					background: var(--grey-lighter);
+					color: var(--text-default-default);
+					background: var(--background-neutral-minimal);
 				}
 			}
 
 			& .favorite-icon {
 				display: none;
-				color: var(--grey);
+				color: var(--text-neutral-moderate);
 			}
 
 			&.favorite > .favorite-icon {
@@ -143,12 +139,12 @@
 			}
 
 			&.selected {
-				background: var(--info);
-				color: white;
+				background: var(--background-info-default);
+				color: var(--text-default-inverted);
 
 				.orion-select-multiple__popover & {
-					color: var(--info);
-					background: rgba(var(--rgb-info), 0.1);
+					color: var(--text-info-default);
+					background: rgba(var(--background-info-default), 0.1);
 
 					.icon--selected {
 						display: block;
@@ -157,8 +153,8 @@
 					body:not(.istouch) & {
 						&.hover,
 						&:hover {
-							color: var(--danger);
-							background: rgba(var(--rgb-danger), 0.1);
+							color: var(--text-error-default);
+							background: rgba(var(--background-danger-default), 0.1);
 
 							.icon--selected {
 								display: none;
@@ -206,7 +202,7 @@
 			flex-wrap: wrap;
 			min-height: 2.5rem;
 			height: auto;
-			padding: 0.375rem var(--fluid-40px) 0.375rem var(--fluid-15px);
+			padding: 0.375rem var(--space-lg) 0.375rem var(--space-md);
 		}
 
 		.orion-select__autocomplete:not(:only-child) {

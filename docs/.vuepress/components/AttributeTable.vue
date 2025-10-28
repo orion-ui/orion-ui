@@ -42,7 +42,7 @@
 									</template>
 									= <span class="data__value">{{ itemHas(item, 'defaultValue') ? item.defaultValue : 'undefined' }}</span>
 								</code>
-								<o-label color="danger" outline v-if="itemHas(item, 'required') && item.required">
+								<o-label color="error" outline v-if="itemHas(item, 'required') && item.required">
 									Required
 								</o-label>
 							</div>
@@ -129,10 +129,10 @@ onUnmounted(() => {
 .data-type-table {
 	&__row {
 		padding: var(--fluid-15px) 0;
-		border-bottom: 0.125rem solid var(--grey-lighter);
+		border-bottom: 0.125rem solid var(--border-neutral-minimal);
 
 		&--header {
-			background: var(--grey-lighter);
+			background: var(--background-neutral-minimal);
 			font-weight: 800;
 		}
 
@@ -159,7 +159,7 @@ onUnmounted(() => {
 			}
 
 			&__name {
-				color: var(--info);
+				color: var(--text-info-default);
 				font-weight: 800;
 				font-size: 0.75rem;
 
@@ -171,16 +171,16 @@ onUnmounted(() => {
 			}
 
 			&__value {
-				color: var(--grey-darker);
+				color: var(--text-neutral-default);
 			}
 			
 			/* &__bind {
-				color: var(--brand);
+				color: var(--text-primary-default);
 			} */
 
 			&__description {
 				line-height: 1.25rem;
-				color: var(--grey-dark);
+				color: var(--text-neutral-default);
 				
 				p {
 					line-height: 1.5rem;
@@ -196,11 +196,11 @@ onUnmounted(() => {
 				}
 
 				a {
-					color: var(--brand);
+					color: var(--text-primary-default);
 				}
 
 				strong {
-					color: var(--grey-darker);
+					color: var(--text-neutral-default);
 				} 
 			}
 

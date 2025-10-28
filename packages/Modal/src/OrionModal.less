@@ -25,22 +25,18 @@
 		100vh - @positionTop - @positionBottom
 	); // dvh support fallback
 	max-height: calc(100dvh - @positionTop - @positionBottom);
-	background: white;
+	background: var(--background-neutral-default);
 	padding: 0;
 	margin: 0;
 	border: none;
-	border-radius: var(--radius-modal);
+	border-radius: var(--radius-18);
 	box-shadow: 0 2.5rem 7.5rem fade(black, 50);
 	overscroll-behavior: contain;
 	backface-visibility: hidden;
 	color: inherit;
 
-	[data-orion-theme='dark'] & {
-		background-color: var(--grey-lighter);
-	}
-
 	> .orion-loader {
-		border-radius: var(--radius-modal);
+		border-radius: var(--radius-18);
 	}
 
 	&:focus {
@@ -57,8 +53,8 @@
 	&__title {
 		flex: 1 0 0%;
 		margin: 0;
-		padding: var(--fluid-15px) var(--fluid-60px) var(--fluid-15px)
-			var(--fluid-20px);
+		padding: var(--space-md) var(--space-lg) var(--space-md)
+			var(--space-lg);
 		font-weight: 600;
 	}
 
@@ -71,11 +67,11 @@
 	&__body {
 		order: 1;
 		flex: 1 1 auto;
-		border-radius: var(--radius-modal);
-		padding: var(--fluid-30px);
+		border-radius: var(--radius-18);
+		padding: var(--space-lg);
 
 		.orion-modal__footer:not(:empty) + & {
-			padding-bottom: var(--fluid-10px);
+			padding-bottom: var(--space-sm);
 		}
 
 		// #region Pure CSS scroll shadow
@@ -94,7 +90,7 @@
 				)
 				0 100%;
 		background-repeat: no-repeat;
-		background-color: white;
+		background-color: var(--background-neutral-default);
 		background-size:
 			100% 2.5rem,
 			100% 2.5rem,
@@ -104,8 +100,8 @@
 
 		[data-orion-theme='dark'] & {
 			background:
-				linear-gradient(var(--grey-lighter) 30%, rgba(255, 255, 255, 0)),
-				linear-gradient(rgba(255, 255, 255, 0), var(--grey-lighter) 70%) 0 100%,
+				linear-gradient(var(--background-neutral-minimal) 30%, rgba(255, 255, 255, 0)),
+				linear-gradient(rgba(255, 255, 255, 0), var(--background-neutral-minimal) 70%) 0 100%,
 				radial-gradient(
 					farthest-side at 50% 0,
 					rgba(0, 0, 0, 0),
@@ -124,44 +120,44 @@
 				100% 0,
 				100% 0.5rem;
 			background-attachment: local, local, scroll, scroll;
-			background-color: var(--grey-lighter);
+			background-color: var(--background-neutral-minimal);
 		}
 		// #endregion
 
 		@media @tablet {
-			padding: var(--fluid-60px);
+			padding: var(--space-lg);
 
 			.orion-modal__footer:not(:empty) + & {
-				padding-bottom: var(--fluid-40px);
+				padding-bottom: var(--space-lg);
 
 				.orion-modal--xs & {
-					padding-bottom: var(--fluid-10px);
+					padding-bottom: var(--space-sm);
 				}
 			}
 		}
 
 		.orion-modal--sm & {
-			padding: var(--fluid-45px);
+			padding: var(--space-lg);
 		}
 		.orion-modal--xs & {
-			padding: var(--fluid-20px);
+			padding: var(--space-lg);
 		}
 	}
 
 	&__footer {
 		order: 2;
 		flex: 0 0 auto;
-		padding: var(--fluid-20px) var(--fluid-30px);
+		padding: var(--space-lg) var(--space-lg);
 
 		@media @tablet {
-			padding: var(--fluid-20px) var(--fluid-60px);
+			padding: var(--space-lg) var(--space-lg);
 		}
 
 		.orion-modal--sm & {
-			padding: var(--fluid-20px) var(--fluid-45px);
+			padding: var(--space-lg) var(--space-lg);
 		}
 		.orion-modal--xs & {
-			padding: var(--fluid-20px);
+			padding: var(--space-lg);
 		}
 
 		&:empty {

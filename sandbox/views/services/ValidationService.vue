@@ -3,12 +3,12 @@
 		<o-section title="Fields and form Validation">
 			<template #actions>
 				<o-button
-					color="brand"
+					color="primary"
 					@click="checkForm">
 					Vérifions ça !
 				</o-button>
 				<o-button
-					color="danger"
+					color="error"
 					outline
 					@click="validator.hideValidationState()">
 					Effaçons ça !
@@ -114,7 +114,7 @@
 					<!-- <o-checkbox
 						v-model="user.choice"
 						label="On coche ?"
-						color="brand"/>
+						color="primary"/>
 					<o-checkbox
 						v-model="user.choice"
 						label="On coche ?"
@@ -127,26 +127,26 @@
 							v-model="user.radio"
 							input-value="Oui"
 							label="Oui"
-							color="brand"
+							color="primary"
 							:validation="validator.rule('radio')"/>
 						<o-radio
 							v-model="user.radio"
 							input-value="Non"
 							label="Non"
-							color="brand"
+							color="primary"
 							:validation="validator.rule('radio')"/>
 						<o-radio
 							v-model="user.radio"
 							input-value="Peut être"
 							label="Peut être"
-							color="brand"
+							color="primary"
 							:validation="validator.rule('radio')"/>
 					</div>
 					<o-toggle
 						v-model="user.toggle"
 						label="Toggle"
 						size="xs"
-						color="brand"/>
+						color="primary"/>
 					<o-toggle
 						v-model="user.toggleRequired"
 						label="Required"

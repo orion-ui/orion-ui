@@ -69,13 +69,13 @@ const selectValue = ref<FakeCompany>();
 <style lang="less" scoped>
 .demo {
 	&__before-option {
-		background-color: var(--info-light);
+		background-color: var(--background-info-minimal);
 		padding: 0.5rem;
 		text-align: center;
 		text-transform: uppercase;
 		font-weight: 700;
 		font-size: 0.85rem;
-		color: var(--grey-darker);
+		color: var(--text-default-default);
 		border-radius: 0.25rem;
 		margin-bottom: 0.5rem;
 	}
@@ -86,35 +86,35 @@ const selectValue = ref<FakeCompany>();
 		gap: 0.125rem;
 
 		> strong {
-			color: var(--grey-darker);
+			color: var(--text-default-default);
 			.selected > & {
-				color: white;
+				color: var(--text-default-inverted);
 			}
 		}
 
 		> div {
-			color: var(--info);
+			color: var(--text-info-default);
 			.selected > & {
-				color: var(--info-light);
+				color: var(--text-info-minimal);
 			}
 		}
 
 		> em {
-			color: var(--grey);
+			color: var(--text-neutral-moderate);
 			.selected > & {
-				color: var(--info-alt);
+				color: var(--text-info-subtle);
 			}
 		}
 	}
 
 	&__after-option {
-		background-color: var(--brand-light);
+		background-color: var(--background-primary-minimal);
 		padding: 0.5rem;
 		text-align: center;
 		font-style: italic;
 		font-weight: 700;
 		font-size: 0.85rem;
-		color: var(--brand);
+		color: var(--text-primary-default);
 		border-radius: 0.25rem;
 		margin-top: 0.5rem;
 	}

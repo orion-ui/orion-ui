@@ -1,0 +1,1003 @@
+﻿{
+  "total": 201,
+  "vars": [
+    {
+      "name": "grey",
+      "count": 33,
+      "files": [
+        "packages\\Card\\src\\OrionCard.less",
+        "packages\\Carousel\\src\\OrionCarousel.less",
+        "packages\\ChatDiscussionList\\src\\OrionChatDiscussionList.less",
+        "packages\\Chips\\src\\OrionChips.less",
+        "packages\\ColorPicker\\src\\OrionColorPicker.less",
+        "packages\\DailyCalendar\\src\\OrionDailyCalendar.less",
+        "packages\\DateTable\\src\\OrionDateTable.less",
+        "packages\\DateWeek\\src\\OrionDateWeek.less",
+        "packages\\Field\\src\\OrionField.less",
+        "packages\\HorizontalScroll\\src\\OrionHorizontalScroll.less",
+        "packages\\HorizontalScroll\\src\\OrionHorizontalScroll.vue",
+        "packages\\InputRange\\src\\OrionInputRange.less",
+        "packages\\Input\\src\\OrionInput.less",
+        "packages\\Label\\src\\OrionLabel.less",
+        "packages\\Layout\\docs\\LayoutPlayground.vue",
+        "packages\\Layout\\docs\\LayoutSlots.vue",
+        "packages\\Layout\\src\\OrionLayout.less",
+        "packages\\NavMainItem\\src\\OrionNavMainItem.less",
+        "packages\\Notif\\src\\OrionNotif.less",
+        "packages\\Page\\src\\OrionPage.less",
+        "packages\\Phone\\src\\OrionPhone.less",
+        "packages\\ProgressBar\\src\\OrionProgressBar.less",
+        "packages\\ProgressCircle\\src\\OrionProgressCircle.less",
+        "packages\\Select\\docs\\SelectSlot.vue",
+        "packages\\Select\\src\\OrionSelect.less",
+        "packages\\Shared\\styles\\styles.less",
+        "packages\\Shared\\styles\\tooltip.less",
+        "packages\\TabNav\\src\\OrionTabNav.less",
+        "packages\\Textarea\\src\\OrionTextarea.less",
+        "packages\\Timeline\\docs\\TimelineMarker.vue",
+        "packages\\Toggle\\src\\OrionToggle.less",
+        "packages\\Tour\\src\\OrionTour.less",
+        "packages\\Upload\\src\\OrionUpload.less"
+      ]
+    },
+    {
+      "name": "grey-light",
+      "count": 33,
+      "files": [
+        "packages\\Alert\\src\\OrionAlert.less",
+        "packages\\Avatar\\src\\OrionAvatar.less",
+        "packages\\Card\\src\\OrionCard.less",
+        "packages\\ChatDiscussionList\\src\\OrionChatDiscussionList.less",
+        "packages\\Chat\\src\\OrionChat.less",
+        "packages\\Chips\\src\\OrionChips.less",
+        "packages\\ColorPicker\\src\\OrionColorPicker.less",
+        "packages\\DailyCalendar\\src\\OrionDailyCalendar.less",
+        "packages\\DateRange\\src\\OrionDateRange.less",
+        "packages\\DateTable\\src\\OrionDateTable.less",
+        "packages\\DateWeek\\src\\OrionDateWeek.less",
+        "packages\\Droppable\\docs\\DragNDropPlayground.vue",
+        "packages\\Droppable\\docs\\DroppableValidation.vue",
+        "packages\\Editor\\docs\\EditorPlayground.vue",
+        "packages\\Editor\\src\\OrionEditor.less",
+        "packages\\Field\\src\\OrionField.less",
+        "packages\\FooterFixed\\src\\OrionFooterFixed.less",
+        "packages\\IconSection\\src\\OrionIconSection.less",
+        "packages\\Input\\src\\OrionInput.less",
+        "packages\\Label\\src\\OrionLabel.less",
+        "packages\\Layout\\docs\\LayoutPlayground.vue",
+        "packages\\Layout\\docs\\LayoutSlots.vue",
+        "packages\\Notif\\src\\OrionNotif.less",
+        "packages\\ProgressBar\\src\\OrionProgressBar.less",
+        "packages\\ProgressCircle\\src\\OrionProgressCircle.less",
+        "packages\\Rate\\src\\OrionRate.less",
+        "packages\\Shared\\styles\\styles.less",
+        "packages\\Shared\\styles\\tooltip.less",
+        "packages\\Sticker\\src\\OrionSticker.less",
+        "packages\\TabNav\\src\\OrionTabNav.less",
+        "packages\\Toggle\\src\\OrionToggle.less",
+        "packages\\Tour\\src\\OrionTour.less",
+        "packages\\Upload\\src\\OrionUpload.less"
+      ]
+    },
+    {
+      "name": "grey-darker",
+      "count": 30,
+      "files": [
+        "packages\\Alert\\src\\OrionAlert.less",
+        "packages\\Avatar\\src\\OrionAvatar.less",
+        "packages\\Button\\src\\OrionButton.less",
+        "packages\\Card\\src\\OrionCard.less",
+        "packages\\Carousel\\docs\\CarouselPoster.vue",
+        "packages\\ChatDiscussionList\\src\\OrionChatDiscussionList.less",
+        "packages\\ChatMessage\\src\\OrionChatMessage.less",
+        "packages\\Chips\\src\\OrionChips.less",
+        "packages\\DailyCalendar\\src\\OrionDailyCalendar.less",
+        "packages\\DateTable\\src\\OrionDateTable.less",
+        "packages\\DateWeek\\src\\OrionDateWeek.less",
+        "packages\\Datepicker\\src\\OrionDatepicker.less",
+        "packages\\Field\\src\\OrionField.less",
+        "packages\\IconSection\\src\\OrionIconSection.less",
+        "packages\\Icon\\src\\OrionIcon.less",
+        "packages\\Input\\src\\OrionInput.less",
+        "packages\\Label\\src\\OrionLabel.less",
+        "packages\\Loader\\src\\OrionLoader.less",
+        "packages\\NavMainItem\\src\\OrionNavMainItem.less",
+        "packages\\NavTop\\src\\OrionNavTop.less",
+        "packages\\Notif\\src\\OrionNotif.less",
+        "packages\\Page\\src\\OrionPage.less",
+        "packages\\Select\\docs\\SelectSlot.vue",
+        "packages\\Select\\src\\OrionSelect.less",
+        "packages\\Shared\\styles\\css-vars.less",
+        "packages\\Shared\\styles\\styles.less",
+        "packages\\Shared\\styles\\tooltip.less",
+        "packages\\Sticker\\src\\OrionSticker.less",
+        "packages\\TabNav\\src\\OrionTabNav.less",
+        "packages\\Tour\\src\\OrionTour.less"
+      ]
+    },
+    {
+      "name": "fluid-10px",
+      "count": 26,
+      "files": [
+        "packages\\Alert\\src\\OrionAlert.less",
+        "packages\\Button\\src\\OrionButton.less",
+        "packages\\Card\\src\\OrionCard.less",
+        "packages\\ChatDiscussionList\\src\\OrionChatDiscussionList.less",
+        "packages\\ChatMessage\\src\\OrionChatMessage.less",
+        "packages\\Chat\\src\\OrionChat.less",
+        "packages\\DateTable\\src\\OrionDateTable.less",
+        "packages\\DateWeek\\src\\OrionDateWeek.less",
+        "packages\\Droppable\\docs\\DragNDropPlayground.vue",
+        "packages\\Droppable\\docs\\DroppableValidation.vue",
+        "packages\\Editor\\src\\OrionEditor.less",
+        "packages\\FooterFixed\\src\\OrionFooterFixed.less",
+        "packages\\Input\\src\\OrionInput.less",
+        "packages\\Label\\src\\OrionLabel.less",
+        "packages\\Loader\\src\\OrionLoader.less",
+        "packages\\Modal\\src\\OrionModal.less",
+        "packages\\NavTop\\src\\OrionNavTop.less",
+        "packages\\Notif\\src\\OrionNotif.less",
+        "packages\\Paginate\\src\\OrionPaginate.less",
+        "packages\\Swipe\\src\\OrionSwipe.less",
+        "packages\\TabNav\\src\\OrionTabNav.less",
+        "packages\\TabPane\\src\\OrionTabPane.less",
+        "packages\\Textarea\\src\\OrionTextarea.less",
+        "packages\\TimelinePill\\src\\OrionTimelinePill.less",
+        "packages\\Toggle\\src\\OrionToggle.less",
+        "packages\\Upload\\src\\OrionUpload.less"
+      ]
+    },
+    {
+      "name": "grey-dark",
+      "count": 26,
+      "files": [
+        "packages\\Avatar\\src\\OrionAvatar.less",
+        "packages\\Card\\src\\OrionCard.less",
+        "packages\\ChatDiscussionList\\src\\OrionChatDiscussionList.less",
+        "packages\\ChatMessage\\src\\OrionChatMessage.less",
+        "packages\\Chat\\src\\OrionChat.less",
+        "packages\\DateTable\\src\\OrionDateTable.less",
+        "packages\\DateWeek\\src\\OrionDateWeek.less",
+        "packages\\Datepicker\\src\\OrionDatepicker.less",
+        "packages\\IconSection\\src\\OrionIconSection.less",
+        "packages\\Icon\\src\\OrionIcon.less",
+        "packages\\InputRange\\src\\OrionInputRange.less",
+        "packages\\Layout\\docs\\LayoutPlayground.vue",
+        "packages\\Layout\\docs\\LayoutSlots.vue",
+        "packages\\NavMainItem\\src\\OrionNavMainItem.less",
+        "packages\\NavTabs\\src\\OrionNavTabs.less",
+        "packages\\NavTop\\src\\OrionNavTop.less",
+        "packages\\Notif\\src\\OrionNotif.less",
+        "packages\\Page\\src\\OrionPage.less",
+        "packages\\ProgressBar\\src\\OrionProgressBar.less",
+        "packages\\ProgressCircle\\src\\OrionProgressCircle.less",
+        "packages\\Rate\\src\\OrionRate.less",
+        "packages\\Section\\src\\OrionSection.less",
+        "packages\\Select\\src\\OrionSelect.less",
+        "packages\\Sticker\\src\\OrionSticker.less",
+        "packages\\TabNav\\src\\OrionTabNav.less",
+        "packages\\Upload\\src\\OrionUpload.less"
+      ]
+    },
+    {
+      "name": "grey-lighter",
+      "count": 26,
+      "files": [
+        "packages\\Alert\\src\\OrionAlert.less",
+        "packages\\Aside\\src\\OrionAside.less",
+        "packages\\Button\\src\\OrionButton.less",
+        "packages\\Card\\src\\OrionCard.less",
+        "packages\\ChatDiscussionList\\src\\OrionChatDiscussionList.less",
+        "packages\\ChatMessage\\src\\OrionChatMessage.less",
+        "packages\\Chips\\src\\OrionChips.less",
+        "packages\\ColorPicker\\src\\OrionColorPicker.less",
+        "packages\\DateTable\\src\\OrionDateTable.less",
+        "packages\\DateWeek\\src\\OrionDateWeek.less",
+        "packages\\Editor\\src\\OrionEditor.less",
+        "packages\\Field\\src\\OrionField.less",
+        "packages\\Icon\\src\\OrionIcon.less",
+        "packages\\Input\\src\\OrionInput.less",
+        "packages\\Label\\src\\OrionLabel.less",
+        "packages\\Layout\\docs\\LayoutPlayground.vue",
+        "packages\\Layout\\docs\\LayoutSlots.vue",
+        "packages\\Loader\\src\\OrionLoader.less",
+        "packages\\Modal\\src\\OrionModal.less",
+        "packages\\NavTop\\src\\OrionNavTop.less",
+        "packages\\Select\\src\\OrionSelect.less",
+        "packages\\Shared\\styles\\styles.less",
+        "packages\\Sticker\\src\\OrionSticker.less",
+        "packages\\TimelinePill\\src\\OrionTimelinePill.less",
+        "packages\\Toggle\\src\\OrionToggle.less",
+        "packages\\Upload\\src\\OrionUpload.less"
+      ]
+    },
+    {
+      "name": "info",
+      "count": 25,
+      "files": [
+        "packages\\Card\\src\\OrionCard.less",
+        "packages\\ChatDiscussionList\\src\\OrionChatDiscussionList.less",
+        "packages\\ChatMessage\\src\\OrionChatMessage.less",
+        "packages\\Chat\\src\\OrionChat.less",
+        "packages\\DailyCalendar\\src\\OrionDailyCalendar.less",
+        "packages\\DateTable\\src\\OrionDateTable.less",
+        "packages\\DateWeek\\src\\OrionDateWeek.less",
+        "packages\\Editor\\src\\OrionEditor.less",
+        "packages\\Field\\src\\OrionField.less",
+        "packages\\FooterFixed\\src\\OrionFooterFixed.less",
+        "packages\\HorizontalScroll\\src\\OrionHorizontalScroll.less",
+        "packages\\HorizontalScroll\\src\\OrionHorizontalScroll.vue",
+        "packages\\Input\\src\\OrionInput.less",
+        "packages\\Layout\\src\\OrionLayout.less",
+        "packages\\NavMainItem\\src\\OrionNavMainItem.less",
+        "packages\\NavTabs\\src\\OrionNavTabs.less",
+        "packages\\NavTop\\src\\OrionNavTop.less",
+        "packages\\Notif\\src\\OrionNotif.less",
+        "packages\\Select\\docs\\SelectSlot.vue",
+        "packages\\Select\\src\\OrionSelect.less",
+        "packages\\Shared\\styles\\tooltip.less",
+        "packages\\Sticker\\src\\OrionSticker.less",
+        "packages\\TabNav\\src\\OrionTabNav.less",
+        "packages\\Toggle\\src\\OrionToggle.less",
+        "packages\\Upload\\src\\OrionUpload.less"
+      ]
+    },
+    {
+      "name": "fluid-15px",
+      "count": 21,
+      "files": [
+        "packages\\Alert\\src\\OrionAlert.less",
+        "packages\\Aside\\src\\OrionAside.less",
+        "packages\\Button\\src\\OrionButton.less",
+        "packages\\Card\\src\\OrionCard.less",
+        "packages\\ChatDiscussionList\\src\\OrionChatDiscussionList.less",
+        "packages\\ChatMessage\\src\\OrionChatMessage.less",
+        "packages\\DateWeek\\src\\OrionDateWeek.less",
+        "packages\\Input\\src\\OrionInput.less",
+        "packages\\Label\\src\\OrionLabel.less",
+        "packages\\Layout\\src\\OrionLayout.less",
+        "packages\\Loader\\src\\OrionLoader.less",
+        "packages\\Modal\\src\\OrionModal.less",
+        "packages\\NavMain\\src\\OrionNavMain.less",
+        "packages\\NavTop\\src\\OrionNavTop.less",
+        "packages\\Select\\src\\OrionSelect.less",
+        "packages\\Shared\\styles\\tooltip.less",
+        "packages\\TabNav\\src\\OrionTabNav.less",
+        "packages\\TabPane\\src\\OrionTabPane.less",
+        "packages\\Textarea\\src\\OrionTextarea.less",
+        "packages\\TimelinePill\\src\\OrionTimelinePill.less",
+        "packages\\Tour\\src\\OrionTour.less"
+      ]
+    },
+    {
+      "name": "fluid-5px",
+      "count": 19,
+      "files": [
+        "packages\\Avatar\\src\\OrionAvatar.less",
+        "packages\\Button\\src\\OrionButton.less",
+        "packages\\Card\\src\\OrionCard.less",
+        "packages\\DailyCalendar\\src\\OrionDailyCalendar.less",
+        "packages\\DateTable\\src\\OrionDateTable.less",
+        "packages\\DateWeek\\src\\OrionDateWeek.less",
+        "packages\\Editor\\src\\OrionEditor.less",
+        "packages\\Input\\src\\OrionInput.less",
+        "packages\\Label\\src\\OrionLabel.less",
+        "packages\\Loader\\src\\OrionLoader.less",
+        "packages\\Notif\\src\\OrionNotif.less",
+        "packages\\Paginate\\src\\OrionPaginate.less",
+        "packages\\Password\\src\\OrionPassword.less",
+        "packages\\ProgressBar\\src\\OrionProgressBar.less",
+        "packages\\Section\\src\\OrionSection.less",
+        "packages\\Select\\src\\OrionSelect.less",
+        "packages\\Shared\\styles\\tooltip.less",
+        "packages\\Toggle\\src\\OrionToggle.less",
+        "packages\\Upload\\src\\OrionUpload.less"
+      ]
+    },
+    {
+      "name": "fluid-20px",
+      "count": 13,
+      "files": [
+        "packages\\Aside\\src\\OrionAside.less",
+        "packages\\Button\\src\\OrionButton.less",
+        "packages\\Card\\src\\OrionCard.less",
+        "packages\\ChatDiscussionList\\src\\OrionChatDiscussionList.less",
+        "packages\\Chat\\src\\OrionChat.less",
+        "packages\\DailyCalendar\\src\\OrionDailyCalendar.less",
+        "packages\\FooterFixed\\src\\OrionFooterFixed.less",
+        "packages\\Loader\\src\\OrionLoader.less",
+        "packages\\Modal\\src\\OrionModal.less",
+        "packages\\NavMain\\src\\OrionNavMain.less",
+        "packages\\Notif\\src\\OrionNotif.less",
+        "packages\\Sticker\\src\\OrionSticker.less",
+        "packages\\TabNav\\src\\OrionTabNav.less"
+      ]
+    },
+    {
+      "name": "danger",
+      "count": 12,
+      "files": [
+        "packages\\DailyCalendar\\src\\OrionDailyCalendar.less",
+        "packages\\Droppable\\docs\\DragNDropPlayground.vue",
+        "packages\\Droppable\\docs\\DroppableValidation.vue",
+        "packages\\Editor\\src\\OrionEditor.less",
+        "packages\\Field\\src\\OrionField.less",
+        "packages\\Input\\src\\OrionInput.less",
+        "packages\\Notif\\src\\OrionNotif.less",
+        "packages\\Select\\src\\OrionSelect.less",
+        "packages\\Shared\\styles\\mixins.less",
+        "packages\\Sticker\\src\\OrionSticker.less",
+        "packages\\Toggle\\src\\OrionToggle.less",
+        "packages\\Upload\\src\\OrionUpload.less"
+      ]
+    },
+    {
+      "name": "rgb-grey-dark",
+      "count": 11,
+      "files": [
+        "packages\\Button\\src\\OrionButton.less",
+        "packages\\Card\\src\\OrionCard.less",
+        "packages\\DateTable\\src\\OrionDateTable.less",
+        "packages\\DateWeek\\src\\OrionDateWeek.less",
+        "packages\\Field\\src\\OrionField.less",
+        "packages\\Icon\\src\\OrionIcon.less",
+        "packages\\Input\\src\\OrionInput.less",
+        "packages\\NavMain\\src\\OrionNavMain.less",
+        "packages\\Shared\\styles\\css-vars.less",
+        "packages\\Shared\\styles\\styles.less",
+        "packages\\Textarea\\src\\OrionTextarea.less"
+      ]
+    },
+    {
+      "name": "rgb-info",
+      "count": 11,
+      "files": [
+        "packages\\DailyCalendar\\src\\OrionDailyCalendar.less",
+        "packages\\DateTable\\src\\OrionDateTable.less",
+        "packages\\Droppable\\docs\\DragNDropPlayground.vue",
+        "packages\\Droppable\\docs\\DroppableValidation.vue",
+        "packages\\Editor\\src\\OrionEditor.less",
+        "packages\\Notif\\src\\OrionNotif.less",
+        "packages\\Select\\src\\OrionSelect.less",
+        "packages\\Shared\\styles\\css-vars.less",
+        "packages\\Shared\\styles\\styles.less",
+        "packages\\Sticker\\src\\OrionSticker.less",
+        "packages\\Upload\\src\\OrionUpload.less"
+      ]
+    },
+    {
+      "name": "fluid-30px",
+      "count": 8,
+      "files": [
+        "packages\\Aside\\src\\OrionAside.less",
+        "packages\\Button\\src\\OrionButton.less",
+        "packages\\Card\\src\\OrionCard.less",
+        "packages\\FooterFixed\\src\\OrionFooterFixed.less",
+        "packages\\Modal\\src\\OrionModal.less",
+        "packages\\NavTop\\src\\OrionNavTop.less",
+        "packages\\Shared\\styles\\tooltip.less",
+        "packages\\TabPane\\src\\OrionTabPane.less"
+      ]
+    },
+    {
+      "name": "inverse",
+      "count": 8,
+      "files": [
+        "packages\\Alert\\src\\OrionAlert.less",
+        "packages\\Button\\src\\OrionButton.less",
+        "packages\\Chips\\src\\OrionChips.less",
+        "packages\\Label\\src\\OrionLabel.less",
+        "packages\\ProgressBar\\src\\OrionProgressBar.less",
+        "packages\\ProgressCircle\\src\\OrionProgressCircle.less",
+        "packages\\Shared\\styles\\helpers.less",
+        "packages\\Toggle\\src\\OrionToggle.less"
+      ]
+    },
+    {
+      "name": "rgb-danger",
+      "count": 7,
+      "files": [
+        "packages\\Droppable\\docs\\DragNDropPlayground.vue",
+        "packages\\Droppable\\docs\\DroppableValidation.vue",
+        "packages\\Notif\\src\\OrionNotif.less",
+        "packages\\Select\\src\\OrionSelect.less",
+        "packages\\Shared\\styles\\css-vars.less",
+        "packages\\Sticker\\src\\OrionSticker.less",
+        "packages\\Upload\\src\\OrionUpload.less"
+      ]
+    },
+    {
+      "name": "rgb-grey-darker",
+      "count": 7,
+      "files": [
+        "packages\\Button\\src\\OrionButton.less",
+        "packages\\Card\\src\\OrionCard.less",
+        "packages\\Loader\\src\\OrionLoader.less",
+        "packages\\Overlay\\src\\OrionOverlay.less",
+        "packages\\Shared\\styles\\css-vars.less",
+        "packages\\Shared\\styles\\tooltip.less",
+        "packages\\Tour\\src\\OrionTour.less"
+      ]
+    },
+    {
+      "name": "rgb-grey-light",
+      "count": 7,
+      "files": [
+        "packages\\Card\\src\\OrionCard.less",
+        "packages\\Chat\\src\\OrionChat.less",
+        "packages\\Loader\\src\\OrionLoader.less",
+        "packages\\Select\\src\\OrionSelect.less",
+        "packages\\Shared\\styles\\css-vars.less",
+        "packages\\Shared\\styles\\styles.less",
+        "packages\\Tour\\src\\OrionTour.less"
+      ]
+    },
+    {
+      "name": "fluid-45px",
+      "count": 6,
+      "files": [
+        "packages\\Aside\\src\\OrionAside.less",
+        "packages\\Card\\src\\OrionCard.less",
+        "packages\\Modal\\src\\OrionModal.less",
+        "packages\\NavMainItem\\src\\OrionNavMainItem.less",
+        "packages\\NavMain\\src\\OrionNavMain.less",
+        "packages\\NavTop\\src\\OrionNavTop.less"
+      ]
+    },
+    {
+      "name": "rgb-grey-lighter",
+      "count": 6,
+      "files": [
+        "packages\\Button\\src\\OrionButton.less",
+        "packages\\NavMain\\src\\OrionNavMain.less",
+        "packages\\NavTop\\src\\OrionNavTop.less",
+        "packages\\Page\\docs\\PagePlayground.vue",
+        "packages\\Page\\src\\OrionPage.less",
+        "packages\\Shared\\styles\\css-vars.less"
+      ]
+    },
+    {
+      "name": "rgb-success",
+      "count": 6,
+      "files": [
+        "packages\\Droppable\\docs\\DragNDropPlayground.vue",
+        "packages\\Droppable\\docs\\DroppableValidation.vue",
+        "packages\\Notif\\src\\OrionNotif.less",
+        "packages\\Shared\\styles\\css-vars.less",
+        "packages\\Sticker\\src\\OrionSticker.less",
+        "packages\\Upload\\src\\OrionUpload.less"
+      ]
+    },
+    {
+      "name": "warning",
+      "count": 6,
+      "files": [
+        "packages\\Editor\\src\\OrionEditor.less",
+        "packages\\Input\\src\\OrionInput.less",
+        "packages\\Notif\\src\\OrionNotif.less",
+        "packages\\PopConfirm\\src\\OrionPopConfirm.less",
+        "packages\\Sticker\\src\\OrionSticker.less",
+        "packages\\Upload\\src\\OrionUpload.less"
+      ]
+    },
+    {
+      "name": "brand",
+      "count": 5,
+      "files": [
+        "packages\\Datepicker\\src\\OrionDatepicker.less",
+        "packages\\InputRange\\src\\OrionInputRange.less",
+        "packages\\Select\\docs\\SelectSlot.vue",
+        "packages\\Sticker\\src\\OrionSticker.less",
+        "packages\\TimelinePill\\src\\OrionTimelinePill.less"
+      ]
+    },
+    {
+      "name": "fluid-8px",
+      "count": 5,
+      "files": [
+        "packages\\Aside\\src\\OrionAside.less",
+        "packages\\Button\\src\\OrionButton.less",
+        "packages\\Shared\\styles\\tooltip.less",
+        "packages\\TabNav\\src\\OrionTabNav.less",
+        "packages\\Toggle\\src\\OrionToggle.less"
+      ]
+    },
+    {
+      "name": "font-family",
+      "count": 5,
+      "files": [
+        "packages\\Button\\src\\OrionButton.less",
+        "packages\\Card\\src\\OrionCard.less",
+        "packages\\Shared\\styles\\mixins.less",
+        "packages\\Shared\\styles\\styles.less",
+        "packages\\Sticker\\src\\OrionSticker.less"
+      ]
+    },
+    {
+      "name": "success",
+      "count": 5,
+      "files": [
+        "packages\\Editor\\src\\OrionEditor.less",
+        "packages\\Input\\src\\OrionInput.less",
+        "packages\\Notif\\src\\OrionNotif.less",
+        "packages\\Sticker\\src\\OrionSticker.less",
+        "packages\\Upload\\src\\OrionUpload.less"
+      ]
+    },
+    {
+      "name": "fluid-40px",
+      "count": 4,
+      "files": [
+        "packages\\Chat\\src\\OrionChat.less",
+        "packages\\Modal\\src\\OrionModal.less",
+        "packages\\Notif\\src\\OrionNotif.less",
+        "packages\\Select\\src\\OrionSelect.less"
+      ]
+    },
+    {
+      "name": "rgb-grey",
+      "count": 4,
+      "files": [
+        "packages\\Button\\src\\OrionButton.less",
+        "packages\\Card\\src\\OrionCard.less",
+        "packages\\NavMain\\src\\OrionNavMain.less",
+        "packages\\Shared\\styles\\css-vars.less"
+      ]
+    },
+    {
+      "name": "rgb-warning",
+      "count": 4,
+      "files": [
+        "packages\\Notif\\src\\OrionNotif.less",
+        "packages\\Shared\\styles\\css-vars.less",
+        "packages\\Sticker\\src\\OrionSticker.less",
+        "packages\\Upload\\src\\OrionUpload.less"
+      ]
+    },
+    {
+      "name": "fluid-12px",
+      "count": 3,
+      "files": [
+        "packages\\Button\\src\\OrionButton.less",
+        "packages\\Editor\\src\\OrionEditor.less",
+        "packages\\Paginate\\src\\OrionPaginate.less"
+      ]
+    },
+    {
+      "name": "fluid-18px",
+      "count": 3,
+      "files": [
+        "packages\\Button\\src\\OrionButton.less",
+        "packages\\Label\\src\\OrionLabel.less",
+        "packages\\TabPane\\src\\OrionTabPane.less"
+      ]
+    },
+    {
+      "name": "info-light",
+      "count": 3,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.less",
+        "packages\\Paginate\\src\\OrionPaginate.less",
+        "packages\\Select\\docs\\SelectSlot.vue"
+      ]
+    },
+    {
+      "name": "elevation",
+      "count": 2,
+      "files": [
+        "packages\\Card\\src\\OrionCard.less",
+        "packages\\Sticker\\src\\OrionSticker.less"
+      ]
+    },
+    {
+      "name": "fluid-25px",
+      "count": 2,
+      "files": [
+        "packages\\Button\\src\\OrionButton.less",
+        "packages\\Card\\src\\OrionCard.less"
+      ]
+    },
+    {
+      "name": "fluid-35px",
+      "count": 2,
+      "files": [
+        "packages\\Button\\src\\OrionButton.less",
+        "packages\\Card\\src\\OrionCard.less"
+      ]
+    },
+    {
+      "name": "fluid-60px",
+      "count": 2,
+      "files": [
+        "packages\\Aside\\src\\OrionAside.less",
+        "packages\\Modal\\src\\OrionModal.less"
+      ]
+    },
+    {
+      "name": "hoverElevation",
+      "count": 2,
+      "files": [
+        "packages\\Card\\src\\OrionCard.less",
+        "packages\\Sticker\\src\\OrionSticker.less"
+      ]
+    },
+    {
+      "name": "radius-card",
+      "count": 2,
+      "files": [
+        "packages\\Card\\src\\OrionCard.less",
+        "packages\\Sticker\\src\\OrionSticker.less"
+      ]
+    },
+    {
+      "name": "rgb-brand",
+      "count": 2,
+      "files": [
+        "packages\\Shared\\styles\\css-vars.less",
+        "packages\\Sticker\\src\\OrionSticker.less"
+      ]
+    },
+    {
+      "name": "rgb-pink",
+      "count": 2,
+      "files": [
+        "packages\\Shared\\styles\\css-vars.less",
+        "packages\\Sticker\\src\\OrionSticker.less"
+      ]
+    },
+    {
+      "name": "shadowColor",
+      "count": 2,
+      "files": [
+        "packages\\Card\\src\\OrionCard.less",
+        "packages\\Sticker\\src\\OrionSticker.less"
+      ]
+    },
+    {
+      "name": "space-md",
+      "count": 2,
+      "files": [
+        "packages\\ProgressCircle\\docs\\ProgressCircleStyle.vue",
+        "packages\\Shared\\styles\\grid.less"
+      ]
+    },
+    {
+      "name": "space-sm",
+      "count": 2,
+      "files": [
+        "packages\\ProgressCircle\\docs\\ProgressCircleStyle.vue",
+        "packages\\Shared\\styles\\grid.less"
+      ]
+    },
+    {
+      "name": "space-xs",
+      "count": 2,
+      "files": [
+        "packages\\Datepicker\\src\\OrionDatepicker.less",
+        "packages\\Shared\\styles\\grid.less"
+      ]
+    },
+    {
+      "name": "base",
+      "count": 1,
+      "files": [
+        "packages\\Aside\\src\\OrionAside.less"
+      ]
+    },
+    {
+      "name": "brand-light",
+      "count": 1,
+      "files": [
+        "packages\\Select\\docs\\SelectSlot.vue"
+      ]
+    },
+    {
+      "name": "c-bg",
+      "count": 1,
+      "files": [
+        "packages\\Icon\\docs\\IconList.vue"
+      ]
+    },
+    {
+      "name": "color",
+      "count": 1,
+      "files": [
+        "packages\\Carousel\\src\\OrionCarousel.less"
+      ]
+    },
+    {
+      "name": "factor",
+      "count": 1,
+      "files": [
+        "packages\\Datepicker\\src\\OrionDatepicker.less"
+      ]
+    },
+    {
+      "name": "font-weight-default",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\styles.less"
+      ]
+    },
+    {
+      "name": "font-weight-page-subtitle",
+      "count": 1,
+      "files": [
+        "packages\\Page\\src\\OrionPage.less"
+      ]
+    },
+    {
+      "name": "font-weight-page-title",
+      "count": 1,
+      "files": [
+        "packages\\Page\\src\\OrionPage.less"
+      ]
+    },
+    {
+      "name": "font-weight-section-subtitle",
+      "count": 1,
+      "files": [
+        "packages\\Section\\src\\OrionSection.less"
+      ]
+    },
+    {
+      "name": "font-weight-section-title",
+      "count": 1,
+      "files": [
+        "packages\\Section\\src\\OrionSection.less"
+      ]
+    },
+    {
+      "name": "font-weight-title",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\styles.less"
+      ]
+    },
+    {
+      "name": "info-alt",
+      "count": 1,
+      "files": [
+        "packages\\Select\\docs\\SelectSlot.vue"
+      ]
+    },
+    {
+      "name": "info-dark",
+      "count": 1,
+      "files": [
+        "packages\\Paginate\\src\\OrionPaginate.less"
+      ]
+    },
+    {
+      "name": "picker-height",
+      "count": 1,
+      "files": [
+        "packages\\Datepicker\\src\\OrionDatepicker.less"
+      ]
+    },
+    {
+      "name": "pink",
+      "count": 1,
+      "files": [
+        "packages\\Sticker\\src\\OrionSticker.less"
+      ]
+    },
+    {
+      "name": "radius-alert",
+      "count": 1,
+      "files": [
+        "packages\\Alert\\src\\OrionAlert.less"
+      ]
+    },
+    {
+      "name": "radius-aside",
+      "count": 1,
+      "files": [
+        "packages\\Aside\\src\\OrionAside.less"
+      ]
+    },
+    {
+      "name": "radius-btn",
+      "count": 1,
+      "files": [
+        "packages\\Button\\src\\OrionButton.less"
+      ]
+    },
+    {
+      "name": "radius-input",
+      "count": 1,
+      "files": [
+        "packages\\Input\\src\\OrionInput.less"
+      ]
+    },
+    {
+      "name": "radius-input-range",
+      "count": 1,
+      "files": [
+        "packages\\InputRange\\src\\OrionInputRange.less"
+      ]
+    },
+    {
+      "name": "radius-label",
+      "count": 1,
+      "files": [
+        "packages\\Label\\src\\OrionLabel.less"
+      ]
+    },
+    {
+      "name": "radius-modal",
+      "count": 1,
+      "files": [
+        "packages\\Modal\\src\\OrionModal.less"
+      ]
+    },
+    {
+      "name": "radius-notif",
+      "count": 1,
+      "files": [
+        "packages\\Notif\\src\\OrionNotif.less"
+      ]
+    },
+    {
+      "name": "radius-popover",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\tooltip.less"
+      ]
+    },
+    {
+      "name": "radius-sticker",
+      "count": 1,
+      "files": [
+        "packages\\Sticker\\src\\OrionSticker.less"
+      ]
+    },
+    {
+      "name": "radius-upload",
+      "count": 1,
+      "files": [
+        "packages\\Upload\\src\\OrionUpload.less"
+      ]
+    },
+    {
+      "name": "rgb-brand-alt",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\css-vars.less"
+      ]
+    },
+    {
+      "name": "rgb-brand-dark",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\css-vars.less"
+      ]
+    },
+    {
+      "name": "rgb-brand-light",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\css-vars.less"
+      ]
+    },
+    {
+      "name": "rgb-danger-alt",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\css-vars.less"
+      ]
+    },
+    {
+      "name": "rgb-danger-dark",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\css-vars.less"
+      ]
+    },
+    {
+      "name": "rgb-danger-light",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\css-vars.less"
+      ]
+    },
+    {
+      "name": "rgb-info-alt",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\css-vars.less"
+      ]
+    },
+    {
+      "name": "rgb-info-dark",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\css-vars.less"
+      ]
+    },
+    {
+      "name": "rgb-info-light",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\css-vars.less"
+      ]
+    },
+    {
+      "name": "rgb-pink-alt",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\css-vars.less"
+      ]
+    },
+    {
+      "name": "rgb-pink-dark",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\css-vars.less"
+      ]
+    },
+    {
+      "name": "rgb-pink-light",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\css-vars.less"
+      ]
+    },
+    {
+      "name": "rgb-success-alt",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\css-vars.less"
+      ]
+    },
+    {
+      "name": "rgb-success-dark",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\css-vars.less"
+      ]
+    },
+    {
+      "name": "rgb-success-light",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\css-vars.less"
+      ]
+    },
+    {
+      "name": "rgb-warning-alt",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\css-vars.less"
+      ]
+    },
+    {
+      "name": "rgb-warning-dark",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\css-vars.less"
+      ]
+    },
+    {
+      "name": "rgb-warning-light",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\css-vars.less"
+      ]
+    },
+    {
+      "name": "size-default",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\styles.less"
+      ]
+    },
+    {
+      "name": "space-lg",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\grid.less"
+      ]
+    }
+  ]
+}

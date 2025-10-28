@@ -26,7 +26,7 @@
 						cancel: setup.cancel.bind(setup),
 					}">
 					<orion-button
-						color="danger"
+						color="error"
 						outline
 						size="xs"
 						@click="setup.cancel()">

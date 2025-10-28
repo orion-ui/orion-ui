@@ -7,22 +7,15 @@
 	display: flex;
 	flex-direction: column;
 	align-items: stretch;
-	background: white;
+	background: var(--background-neutral-default);
 	height: 100%;
 
-	[data-orion-theme='dark'] & {
-		background: var(--grey-light);
-	}
 
 	&__header {
 		position: sticky;
-		padding: var(--fluid-10px);
+		padding: var(--space-sm);
 		z-index: 1;
-		background: white;
-
-		[data-orion-theme='dark'] & {
-			background: var(--grey-light);
-		}
+		background: var(--background-neutral-default);
 	}
 
 	&__subheader {
@@ -44,7 +37,7 @@
 	&__content {
 		flex: 1;
 		overflow: auto;
-		padding-bottom: var(--fluid-10px);
+		padding-bottom: var(--space-sm);
 	}
 
 	&__lazy-loader {
@@ -56,15 +49,11 @@
 	&__item {
 		transition: all 0.3s;
 		width: calc(100% - 1.25rem);
-		padding: var(--fluid-15px) var(--fluid-10px);
-		color: var(--grey-dark);
+		padding: var(--space-md) var(--space-sm);
+		color: var(--text-default-default);
 		cursor: pointer;
 		border-radius: 0.3rem;
 		margin: 0 0.5rem;
-
-		[data-orion-theme='dark'] & {
-			color: var(--grey-dark);
-		}
 
 		&-content {
 			display: flex;
@@ -136,13 +125,9 @@
 		&-interlocutor {
 			.ellipsis();
 			display: inline-block;
-			padding-right: var(--fluid-10px);
+			padding-right: var(--space-sm);
 			font-weight: 600;
-			color: var(--grey-darker);
-
-			[data-orion-theme='dark'] & {
-				color: var(--grey-dark);
-			}
+			color: var(--text-default-default);
 		}
 
 		&-last-message-datetime {
@@ -150,7 +135,7 @@
 			min-width: fit-content;
 
 			.orion-chat-discussion-list__item--unread & {
-				color: var(--info);
+				color: var(--text-info-default);
 			}
 		}
 
@@ -168,8 +153,8 @@
 		&-unread-count {
 			.circle(1.125rem);
 			display: none;
-			background: var(--info);
-			color: white;
+			background: var(--background-info-default);
+			color: var(--text-default-inverted);
 			margin-left: 0.3rem;
 			font-size: 0.75rem;
 			font-weight: 800;
@@ -180,16 +165,16 @@
 		}
 
 		&:hover:not(.orion-chat-discussion-list__item--active) {
-			background: var(--grey-lighter);
+			background: var(--background-neutral-minimal);
 		}
 
 		&--unread {
-			color: var(--grey-darker);
+			color: var(--text-default-default);
 			font-weight: 600;
 		}
 
 		&--active {
-			background: var(--grey-lighter);
+			background: var(--background-neutral-minimal);
 		}
 	}
 
@@ -200,7 +185,7 @@
 		justify-content: center;
 		gap: 2rem;
 		height: 100%;
-		padding: var(--fluid-20px) 0 var(--fluid-15px);
+		padding: var(--space-lg) 0 var(--space-md);
 
 		svg {
 			display: block;
@@ -209,7 +194,7 @@
 		}
 
 		&-label {
-			color: var(--grey);
+			color: var(--text-neutral-moderate);
 			font-style: italic;
 			font-size: 1rem;
 		}

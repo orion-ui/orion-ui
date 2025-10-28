@@ -22,7 +22,7 @@
 	&__star {
 		.square(1.125rem);
 		font-size: 1rem;
-		color: var(--grey-light);
+		color: var(--text-default-subtle);
 		cursor: pointer;
 
 		.orion-rate--disabled & {
@@ -32,10 +32,9 @@
 		&.half {
 			each(@colors, {
 				&--@{value} {
-					@color: ~"--@{value}";
 					&::before{
 						color: transparent;
-						background: linear-gradient(to right, var(@color), var(@color) 50%, var(--grey-light) 50%, var(--grey-light) );
+						background: linear-gradient(to right, var(~"--background-@{value}-default"), var(~"--background-@{value}-default") 50%, var(--background-neutral-minimal) 50%, var(--background-neutral-minimal) );
 						background-clip: text;
 						-webkit-background-clip: text;
 						-webkit-text-fill-color: transparent;
@@ -45,7 +44,7 @@
 				&--default {
 					&::before{
 						color: transparent;
-						background: linear-gradient(to right, var(--grey-dark), var(--grey-dark) 50%, var(--grey-light) 50%, var(--grey-light) );
+						background: linear-gradient(to right, var(--border-default), var(--border-default) 50%, var(--background-neutral-subtle) 50%, var(--background-neutral-subtle) );
 						background-clip: text;
 						-webkit-background-clip: text;
 						-webkit-text-fill-color: transparent;
@@ -56,7 +55,7 @@
 	}
 
 	&__number {
-		color: var(--grey-dark);
+		color: var(--text-default-default);
 		transform: translateY(-0.0625rem);
 	}
 
@@ -74,7 +73,7 @@
 			.orion-rate__wrapper:hover {
 				input ~ label {
 					background: unset;
-					color: var(--grey-light);
+					color: var(--text-default-subtle);
 				}
 				input ~ label:hover,
 				input ~ label:hover ~ label {
@@ -86,33 +85,33 @@
 
 		&--default {
 			input:checked ~ label {
-				color: var(--grey-dark);
+				color: var(--text-default-default);
 			}
 			.orion-rate__wrapper:hover {
 				input ~ label {
 					background: unset;
-					color: var(--grey-light);
+					color: var(--text-default-subtle);
 				}
 				input ~ label:hover,
 				input ~ label:hover ~ label {
 					background: unset;
-					color: var(--grey-dark) !important;
+					color: var(--text-default-default) !important;
 				}
 			}
 		}
 		&--inverse {
 			input:checked ~ label {
-				color: white;
+				color: var(--text-default-inverted);
 			}
 			.orion-rate__wrapper:hover {
 				input ~ label {
 					background: unset;
-					color: var(--grey-light);
+					color: var(--text-default-subtle);
 				}
 				input ~ label:hover,
 				input ~ label:hover ~ label {
 					background: unset;
-					color: white !important;
+					color: var(--text-default-inverted) !important;
 				}
 			}
 		}

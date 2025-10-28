@@ -11,12 +11,9 @@
 		position: absolute;
 		width: 100%;
 		height: 0.5rem;
-		border-radius: var(--radius-input-range);
-		background: #dcdfe6;
+		border-radius: var(--radius-8);
+		background: var(--background-neutral-moderate);
 
-		[data-orion-theme='dark'] & {
-			background: var(--grey);
-		}
 	}
 
 	&__input {
@@ -43,7 +40,7 @@
 			position: relative;
 			height: 100%;
 			border: none;
-			border-radius: var(--radius-input-range);
+			border-radius: var(--radius-8);
 			background: transparent;
 		}
 
@@ -52,27 +49,22 @@
 			position: relative;
 			width: 1.25rem;
 			height: 1.25rem;
-			background: white;
+			background: var(--background-neutral-default);
 			border-radius: 100%;
 			z-index: 100;
-
-			[data-orion-theme='dark'] & {
-				background: var(--grey);
-			}
 		}
 
 		each(@colors, {
-			@color: ~"--@{value}";
 			&--@{value} {
 				&::-moz-range-thumb {
-					border: 0.125rem solid var(@color);
+					border: 0.125rem solid var(~"--border-@{value}-default");
 				}
 			}
 		});
 
 		&--default {
 			&::-webkit-slider-thumb {
-				border-color: var(--grey-dark);
+				border-color: var(--border-default);
 			}
 		}
 
@@ -85,7 +77,7 @@
 		&::-webkit-slider-runnable-track {
 			height: 100%;
 			border: none;
-			border-radius: var(--radius-input-range);
+			border-radius: var(--radius-8);
 			background: transparent;
 		}
 
@@ -95,15 +87,11 @@
 			-webkit-appearance: none;
 			width: 1.25rem;
 			height: 1.25rem;
-			background: white;
-			border: 0.125rem solid var(--brand);
+			background: var(--background-neutral-default);
+			border: 0.125rem solid var(--background-primary-default);
 			border-radius: 100%;
 			z-index: 3;
 			top: -0.625rem;
-
-			[data-orion-theme='dark'] & {
-				background: var(--grey);
-			}
 		}
 
 		each(@colors, {
@@ -117,7 +105,7 @@
 
 		&--default {
 			&::-webkit-slider-thumb {
-				border-color: var(--grey-dark);
+				border-color: var(--border-default);
 			}
 		}
 	}
@@ -126,7 +114,7 @@
 		position: absolute;
 		height: 0.5rem;
 		width: 100%;
-		border-radius: var(--radius-input-range);
+		border-radius: var(--radius-8);
 		pointer-events: none;
 
 		each(@colors, {
@@ -137,7 +125,7 @@
     });
 
 		&--default {
-			background: var(--grey-dark);
+			background: var(--background-neutral-default);
 		}
 	}
 }
