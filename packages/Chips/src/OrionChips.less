@@ -50,10 +50,12 @@
 		@colorAlt: ~"--@{value}-alt";
 		@colorAltRgb: ~"--rgb-@{value}-alt";
 		
-		&--@{value} {
-			color: white;
-			background: var(~"--background-@{value}-default");
-			border-color: var(~"--border-@{value}-default");
+			background: var(@color);
+			border-color: var(@color);
+
+			[data-orion-theme="dark"] & {
+				color: black;
+			}
 
 			.orion-chips__dual {
 				color: var(@color);
