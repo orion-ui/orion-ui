@@ -47,8 +47,8 @@ defineProps({
 	flex-direction: column;
 	gap: 0.25rem;
 	padding: var(--fluid-15px);
-	border-top: 0.125rem solid var(--border-neutral-minimal);
-	border-bottom: 0.125rem solid var(--border-neutral-minimal);
+	border-top: 0.125rem solid var(--border-neutral-default);
+	border-bottom: 0.125rem solid var(--border-neutral-default);
 
 	& + & {
 		margin-top: -0.125rem;
@@ -73,18 +73,18 @@ defineProps({
 	}
 
 	&__value {
-		color: var(--text-neutral-default);
+		color: var(--text-default-default);
 	}
 	
 	&__description {
-		color: var(--text-neutral-default);
+		color: var(--text-default-default);
 
 		:deep(p) {
 			font-size: var(--size-default);
 		}
 		
 		:deep(strong) {
-			color: var(--text-neutral-default);
+			color: var(--text-default-default);
 		}
 
 		:deep(p:last-child) {
@@ -96,7 +96,7 @@ defineProps({
 		display: flex;
 		gap: 0.5rem;
 		color: var(--text-warning-default);
-		border: 1px solid var(--border-warning-subtle);
+		border: 1px solid var(--border-warning-default);
 		border-radius: 0.25rem;
 		padding: 0.25rem;
 

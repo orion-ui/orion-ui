@@ -129,7 +129,7 @@ onUnmounted(() => {
 .data-type-table {
 	&__row {
 		padding: var(--fluid-15px) 0;
-		border-bottom: 0.125rem solid var(--border-neutral-minimal);
+		border-bottom: 0.125rem solid var(--border-neutral-default);
 
 		&--header {
 			background: var(--background-neutral-minimal);
@@ -171,7 +171,7 @@ onUnmounted(() => {
 			}
 
 			&__value {
-				color: var(--text-neutral-default);
+				color: var(--text-default-default);
 			}
 			
 			/* &__bind {
@@ -180,7 +180,7 @@ onUnmounted(() => {
 
 			&__description {
 				line-height: 1.25rem;
-				color: var(--text-neutral-default);
+				color: var(--text-default-default);
 				
 				p {
 					line-height: 1.5rem;
@@ -200,7 +200,7 @@ onUnmounted(() => {
 				}
 
 				strong {
-					color: var(--text-neutral-default);
+					color: var(--text-default-default);
 				} 
 			}
 

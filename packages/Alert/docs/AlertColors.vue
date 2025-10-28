@@ -12,9 +12,9 @@
 
 <script setup lang="ts">
 const colors: Orion.Color[] = [
-	'info',
+	'primary',
 	'success',
-	'danger',
+	'error',
 	'warning',
 ];
 </script>

@@ -18,7 +18,7 @@
 			v-if="setup.showLeftShadow && !hideButton"
 			class="orion-horizontal-scroll__button orion-horizontal-scroll__button--left">
 			<orion-icon
-				:button="setup.dropShadow ? `default` : undefined"
+				:button="setup.dropShadow ? `neutral` : undefined"
 				icon="chevron_left"
 				@click="setup.slide('left')"/>
 		</div>
@@ -26,7 +26,7 @@
 			v-if="setup.showRightShadow && !hideButton"
 			class="orion-horizontal-scroll__button orion-horizontal-scroll__button--right">
 			<orion-icon
-				:button="setup.dropShadow ? `default` : undefined"
+				:button="setup.dropShadow ? `neutral` : undefined"
 				icon="chevron_right"
 				@click="setup.slide('right')"/>
 		</div>

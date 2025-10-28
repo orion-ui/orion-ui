@@ -8,7 +8,7 @@ const stylesDir = stylesDirArg
 	? stylesDirArg.split('=')[1]
 	: path.join('packages', 'Shared', 'styles');
 
-if (roots.length === 0) roots.push('packages'); // par défaut : tout le monorepo "packages"
+if (roots.length === 0) roots.push('packages'); // par défaut tout le dossier "packages"
 
 function readFileSafe (p: string) {
 	try {
@@ -57,9 +57,9 @@ for (const r of roots) if (fs.existsSync(r)) scan(r);
 
 const unknown = [...used.keys()].filter(v => !allowed.has(v));
 if (unknown.length === 0) {
-	console.log('✓ aucune variable inconnue');
+	console.log('✓ No unknown variables found.');
 } else {
-	console.log('Variables inconnues (à mapper ou aliaser) :');
+	console.log('Unknown variables (map/alias):');
 	for (const v of unknown) {
 		console.log('-', v);
 		for (const f of used.get(v)!) console.log('   •', f);

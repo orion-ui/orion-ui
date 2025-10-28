@@ -16,7 +16,7 @@
 		z-index: 1;
 		max-width: calc(100% - 2rem);
 		pointer-events: none;
-		color: var(--text-neutral-moderate);
+		color: var(--text-default-moderate);
 
 		&::before {
 			content: '';
@@ -88,7 +88,7 @@
 			}
 
 			.orion-input--disabled & {
-				color: var(--text-neutral-moderate);
+				color: var(--text-default-moderate);
 			}
 		}
 	}
@@ -103,7 +103,7 @@
 		padding: var(--space-sm) var(--space-md);
 		background-color: var(--background-neutral-default);
 		background-image: none;
-		border-radius: var(--radius-4);
+		border-radius: var(--radius-small);
 		border: 0.0625rem solid var(--background-neutral-subtle);
 		display: block;
 		font-family: inherit;
@@ -247,7 +247,7 @@
 
 	&--disabled {
 		.icon {
-			color: var(--text-neutral-moderate);
+			color: var(--text-default-moderate);
 		}
 	}
 

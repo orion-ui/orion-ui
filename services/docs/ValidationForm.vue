@@ -73,7 +73,7 @@ import { useValidation, Validator } from 'lib';
 import { CountryCode } from 'libphonenumber-js';
 
 let result = ref(false);
-const resultColor = ref<Orion.Color>('default');
+const resultColor = ref<Orion.Color>('neutral');
 
 let user = reactive({
 	name: undefined as undefined | string,
@@ -103,7 +103,7 @@ function checkForm () : void {
 		resultColor.value = 'success';
 		validator.showValidationState();
 	} else {
-		resultColor.value = 'danger';
+		resultColor.value = 'error';
 		validator.showValidationState();
 	}
 }

@@ -13,7 +13,7 @@
 	align-items: center;
 	gap: 1.25rem;
 	padding: var(--space-lg);
-	border-radius: var(--radius-8);
+	border-radius: var(--radius-medium);
 	background: var(--background-neutral-default);
 	color: var(--text-default-default);
 	box-shadow: 0 0.0625rem 0.1875rem fade(black, 10);
@@ -99,7 +99,7 @@
 		align-items: flex-end;
 		justify-content: flex-end;
 		pointer-events: none;
-		border-bottom-right-radius: var(--radius-8);
+		border-bottom-right-radius: var(--radius-medium);
 		overflow: hidden;
 		transform-origin: bottom right;
 		transform: scale(0);
@@ -130,7 +130,7 @@
 				fill: var(--background-warning-default);
 			}
 			.orion-sticker--selected-error & {
-				fill: var(--background-danger-default);
+				fill: var(--background-error-default);
 			}
 			.orion-sticker--selected-secondary & {
 				fill: var(--background-info-default);
@@ -194,8 +194,8 @@
 			.orion-sticker--selected-danger & {
 				background: linear-gradient(
 					to bottom,
-					rgba(var(--background-danger-default), 0),
-					var(--background-danger-default)
+					rgba(var(--background-error-default), 0),
+					var(--background-error-default)
 				);
 			}
 		}

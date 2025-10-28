@@ -243,7 +243,7 @@ let user = reactive({
 
 let result = false;
 
-const resultColor = ref<Orion.Color>('default');
+const resultColor = ref<Orion.Color>('neutral');
 
 const validator = useValidation(user, {
 	password: 'required|password',
@@ -342,10 +342,10 @@ const validator = useValidation(user, {
 function checkForm () : void {
 	result = validator.validateAndShowState();
 	if (result) {
-		resultColor.value = 'brand';
+		resultColor.value = 'primary';
 		// validator.showValidationState();
 	} else {
-		resultColor.value = 'danger';
+		resultColor.value = 'error';
 		// validator.showValidationState();
 	}
 }

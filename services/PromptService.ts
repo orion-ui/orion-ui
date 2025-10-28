@@ -77,7 +77,7 @@ class PromptService<T> {
 						callback: this.successCallback.bind(this),
 					},
 					{
-						color: 'danger',
+						color: 'error',
 						outline: true,
 						label: useLang().CANCEL,
 						callback: this.cancelCallback.bind(this),

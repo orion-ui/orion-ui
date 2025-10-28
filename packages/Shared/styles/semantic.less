@@ -107,13 +107,21 @@
 	--border-success-default: var(--colors-success-500);
 	--border-info-default: var(--colors-info-500);
 
+	/* Spaces */
+	--space-xs: var(--spacing-8);
+	--space-sm: var(--spacing-16);
+	--space-md: var(--spacing-32);
+	--space-lg: var(--spacing-48);
+	--space-xl: var(--spacing-72);
+	
 	/* Radius */
 	--radius-none: var(--radius-0);
-	--radius-default: var(--radius-8);
-	--radius-small: var(--sizing-4);
-	--radius-large: var(--sizing-16);
+	--radius-small: var(--radius-4);
+	--radius-medium: var(--radius-8);
+	--radius-large: var(--radius-12);
+	--radius-round: var(--radius-999);
 
-	--radius: var(--radius-default);
+	--radius: var(--radius-small);
 
 	/* Shadows */
 	--shadow-sm: 0 1px 2px rgba(0, 0, 0, var(--opacity-minimal-alpha));
@@ -151,21 +159,6 @@
 	--typography-weight-semibold: 600;
 	--typography-weight-bold: 700;
 	--typography-weight-extrabold: 800;
-
-	/* Family placeholders */
-	--typography-family--ignore-body: var(--typography-font-body);
-	--typography-family--ignore-title: var(--typography-font-title);
-	--typography-family--ignore-icon: var(
-		--typography-font-body,
-		ui-sans-serif,
-		system-ui,
-		-apple-system,
-		Segoe UI,
-		Roboto,
-		Inter,
-		Arial,
-		sans-serif
-	);
 
 	--layout-header-height: 3rem;
 	--layout-header-redirect-height: 3.5rem;
@@ -245,17 +238,13 @@
 	--border-neutral-disabled: var(--colors-neutral-800);
 }
 
+	/* =================================== DEPRECATED COLOR ALIASES =================================== */
+	// @deprecated: kept for backward compatibility
 :root {
-	--space-xs: var(--spacing-8);
-	--space-sm: var(--spacing-16);
-	--space-md: var(--spacing-32);
-	--space-lg: var(--spacing-48);
-	--space-xl: var(--spacing-72);
+	--radius-btn: var(--radius-small);
+	--radius-card: var(--radius-medium);
+	--radius-modal: var(--radius-large);
 
-	--radius-btn: var(--radius-4);
-	--radius-card: var(--radius-8);
-	--radius-modal: var(--radius-18);
-	/* ---- Alias de compatibilité entre anciens et nouveaux tokens ---- */
 	/* brand → primary */
 	--background-brand-default: var(--background-primary-default);
 	--background-brand-subtle: var(--background-primary-subtle);
@@ -369,9 +358,9 @@
 	--pink-dark: var(--background-secondary-moderate);
 	--pink-darker: var(--background-secondary-moderate);
 
-	--background-inverse-default: var(--background-neutral-inverted);
-  --background-inverse-hover:   var(--background-neutral-inverted);
-  --background-inverse-active:  var(--background-neutral-inverted);
+	--background-inverse-default: var(--background-neutral-highlight);
+  --background-inverse-hover:   var(--background-neutral-highlight);
+  --background-inverse-active:  var(--background-neutral-disabled);
   --border-inverse-default: var(--border-neutral-inverted);
   --text-inverse-default:  var(--text-default-inverted);
   --text-inverse-hover:    var(--text-default-inverted);

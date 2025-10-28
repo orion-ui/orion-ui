@@ -95,14 +95,14 @@ const selectValue = ref<FakeCompany>();
 		> div {
 			color: var(--text-info-default);
 			.selected > & {
-				color: var(--text-info-minimal);
+				color: var(--text-info-subtle);
 			}
 		}
 
 		> em {
-			color: var(--text-neutral-moderate);
+			color: var(--text-default-subtle);
 			.selected > & {
-				color: var(--text-info-subtle);
+				color: var(--text-default-moderate);
 			}
 		}
 	}

@@ -91,7 +91,7 @@ const right = ref([
 	}
 
 	&--forbidden {
-		background: rgba(var(--background-danger-default), 0.15);
+		background: rgba(var(--background-error-default), 0.15);
 	}
 
 	&--over {
@@ -99,7 +99,7 @@ const right = ref([
 	}
 
 	&--disabled{
-		border: calc(1rem / 16) solid var(--background-danger-default);
+		border: calc(1rem / 16) solid var(--background-error-default);
 		opacity: 0.2
 	}
 }

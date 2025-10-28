@@ -71,7 +71,7 @@ const emit = defineEmits<{(e: 'update:modelValue', val: Orion.Size): void}>();
 		border-radius: 0.5rem;
 		background: var(--background-neutral-moderate);
 		border: 0.0625rem solid var(--border-neutral-default);
-		color: var(--text-defaultd-default);
+		color: var(--text-default-default);
 		cursor: pointer;
 		text-transform: uppercase;
 		font-size: 0.75rem;
