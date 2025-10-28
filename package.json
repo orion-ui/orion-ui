@@ -36,8 +36,9 @@
 		"build:hard": "vue-tsc --noEmit && vite build && node scripts/ci-build-lib.cjs",
 		"docs:dev": "vuepress dev docs --port=9091",
 		"docs:build": "vuepress build docs",
-		"migrate:tokens": "ts-node scripts/migrate-tokens.ts packages",
-    "find:vars": "ts-node scripts/find-unknown-vars.ts packages --styles=packages/Shared/styles"
+		"find:vars": "ts-node scripts/find-unknown-vars.ts packages --styles=packages/Shared/styles",
+		"find:vars:docs": "ts-node scripts/find-unknown-vars.ts docs --styles=packages/Shared/styles",
+		"test:ds": "npm run find:vars && npm run find:vars:docs && npm run lint:styles"
 	},
 	"dependencies": {
 		"@clack/prompts": "^0.8.2",
