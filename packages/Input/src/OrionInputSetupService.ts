@@ -224,6 +224,12 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 		this.parsePattern();
 	}
 
+	protected onMounted (): void {
+		super.onMounted();
+
+		this.setVModelArray(this.vModel.value?.toString());
+	}
+
 	clear () {
 		this.parsePattern();
 		super.clear();
