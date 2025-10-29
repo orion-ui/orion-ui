@@ -227,7 +227,8 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 	protected onMounted (): void {
 		super.onMounted();
 
-		this.setVModelArray(this.vModel.value?.toString());
+		if (this.props.mask)
+			this.setVModelArray(this.vModel.value?.toString());
 	}
 
 	clear () {
@@ -648,9 +649,8 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 	setVModelArray (key?: string) {
 
 		if (!this.selection || !key) return;
-
 		if (this.selection.start === this.selection.end && key.length === 1) {
-			if (this.vmodelArray[this.selection.end].mask !== 'mask' && this.testKeyPattern(key, this.selection.start)) {
+			if (this.vmodelArray[this.selection.end]?.mask !== 'mask' && this.testKeyPattern(key, this.selection.start)) {
 				this.vmodelArray[this.selection.end].value = key;
 				this.vmodelArray[this.selection.end].isValid = true;
 
