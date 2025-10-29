@@ -222,7 +222,11 @@
 			&:hover,
 			&:focus {
 				background: rgba(var(--background-neutral-subtle), 0.6);
-				border-color:  color-mix(in oklab, var(--border-neutral-default) 60%, transparent);
+				border-color: color-mix(
+					in oklab,
+					var(--border-neutral-default) 60%,
+					transparent
+				);
 			}
 		}
 	}
@@ -238,9 +242,15 @@
 			stroke: var(--text-default-inverted);
 		}
 
-		&.orion-button--outline&:hover,
-		&.orion-button--outline&:focus {
-			border-color: var(--border-primary-default);
+		&.orion-button--outline {
+					color: var(--text-default-default);
+					stroke: var(--border-neutral-default);
+					background: var(--background-neutral-minimal);
+					
+			&.orion-button--inverse:hover,
+			&.orion-button--inverse:focus {
+				border-color: var(--border-neutral-default);
+			}
 		}
 
 		&.orion-button--nude&:hover,
