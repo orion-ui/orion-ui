@@ -180,9 +180,8 @@
 
 				&.day {
 					each(@colors, {
-						@color: ~"--@{value}";
 						&--@{value}{
-							color: var(@color);
+							color: var(~"--text-@{value}-default");
 							
 							&:not(.day--inverse):not(.day--default) > {
 								.orion-date-table-row__cell-display-contrast {
@@ -208,9 +207,8 @@
 					}
 
 					each(@colors, {
-						@color: ~"--@{value}";
 						&--@{value} {
-							background: var(@color);
+							background: var(~"--background-@{value}-default");
 						}
 					});
 				}

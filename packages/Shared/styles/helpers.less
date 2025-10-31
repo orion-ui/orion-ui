@@ -22,10 +22,10 @@
 
 .text {
 	each(@colorsAndGreys, {
-		@color: ~"--@{value}";
-		@colorAlt: ~"--@{value}-alt";
-		@colorDark: ~"--@{value}-dark";
-		@colorLight: ~"--@{value}-light";
+		@color:     ~"--text-@{value}-default";
+    @colorAlt:  ~"--text-@{value}-subtle";
+    @colorDark: ~"--text-@{value}-moderate";
+    @colorLight:~"--text-@{value}-minimal";
     &--@{value} {
       color: var(@color) !important;
     }

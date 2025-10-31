@@ -65,10 +65,9 @@
 
 	each(@colors, {
 		&--@{value} {
-			@color: ~"--@{value}";
 
 			input:checked ~ label {
-				color: var(@color);
+				color: var(~"--text-@{value}-default");
 			}
 			.orion-rate__wrapper:hover {
 				input ~ label {
@@ -78,7 +77,7 @@
 				input ~ label:hover,
 				input ~ label:hover ~ label {
 					background: unset;
-					color: var(@color) !important;
+					color: var(~"--text-@{value}-default") !important;
 				}
 			}
 		}

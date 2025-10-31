@@ -79,14 +79,14 @@ const emit = defineEmits<{(e: 'update:modelValue', val: Orion.Size): void}>();
 		padding: 0 var(--space-xs);
 
 		&:hover {
-			border-color: var(--border-primary-default);
-			color: var(--text-primary-default);
+			border-color: var(--border-info-default);
+			color: var(--text-info-default);
 			background: transparent;
 		}
 
 		&--selected, &--selected:hover {
-			border-color: var(--border-primary-default);
-			background: var(--background-primary-default);
+			border-color: var(--border-info-default);
+			background: var(--background-info-default);
 			color: var(--text-default-inverted);
 		}
 	}

@@ -137,19 +137,9 @@ hr {
 	border-bottom: 0.0625rem solid;
 	border-image: linear-gradient(
 			to right,
-			rgba(var(--background-neutral-minimal), 0),
-			var(--background-neutral-subtle)
-		)
-		1;
-
-	[data-orion-theme='dark'] & {
-		border-image: linear-gradient(
-				to right,
-				rgba(var(--background-neutral-minimal), 0),
-				rgba(var(--background-neutral-moderate), 0.5)
-			)
-			1;
-	}
+			var(--background-neutral-subtle),
+			var(--background-neutral-moderate)
+		)	1;
 
 	@media @desktop {
 		margin: 2rem auto;

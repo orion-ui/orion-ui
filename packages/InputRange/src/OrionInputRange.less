@@ -95,10 +95,9 @@
 		}
 
 		each(@colors, {
-      @color: ~"--@{value}";
       &--@{value} {
         &::-webkit-slider-thumb {
-          border-color: var(@color);
+          border-color: var(~"--border-@{value}-default");
         }
       }
     });
@@ -119,8 +118,7 @@
 
 		each(@colors, {
       &--@{value} {
-        @color: ~"--@{value}";
-        background: var(@color);
+        background: var(~"--background-@{value}-default");
       }
     });
 
