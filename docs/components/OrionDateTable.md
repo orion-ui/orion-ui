@@ -19,7 +19,8 @@ See the example below.
 DateTablePeriods
 DateTableMonthSwitch
 DateTableMultiple
+DateTableHorizontal
 DateTablePlayground
 :::
 
-<attribute-table/>
+<attribute-table package="DateTableHorizontal"/>

@@ -34,6 +34,12 @@ export type OrionDateTableProps = {
 	// @doc props/displayWeekNumber if true, displays week number on each row
 	// @doc/fr props/displayWeekNumber si true, affiche le numéro de semaine sur chaque ligne
 	displayWeekNumber?: boolean,
+	// @doc props/horizontal if true, displays the date table in a horizontal way
+	// @doc/fr props/horizontal si true, affiche le tableau des dates de manière horizontale
+	horizontal?: boolean,
+	// @doc props/markers markers to display on the table
+	// @doc/fr props/markers marqueurs à afficher sur le tableau
+	markers?: Orion.DateTable.Marker[]
 	// @doc props/maxDate the maximum date which can be selected
 	// @doc/fr props/maxDate la date maximum qui peut être sélectionnée
 	maxDate?: Date,
@@ -58,11 +64,6 @@ export type OrionDateTableProps = {
 	// @doc props/dateRangeSameMonth when the component is used in a OrionDatepicker component with type 'range', specified if the daterange is in one month
 	// @doc/fr props/dateRangeSameMonth quand le composant est utilisé dans un OrionDatepicker de type 'range', défini si la période sélectionnée se situe sur un seul même mois.
 	dateRangeSameMonth?: boolean,
-	horizontal?: boolean,
-	weeksToDisplay?: number,
-	startDate?: Date,
-	endDate?: Date,
-	markers?: Orion.DateTable.Marker[]
 };
 
 type PeriodDay = {
@@ -85,7 +86,6 @@ export default class OrionDateTableSetupService extends SharedSetupService {
 		canGoNextMonth: true,
 		canGoPrevMonth: true,
 		type: 'date' as Orion.DateTable.Type,
-		weeksToDisplay: 6,
 	};
 
 	readonly _el = ref<HTMLElement | undefined>();
@@ -136,20 +136,14 @@ export default class OrionDateTableSetupService extends SharedSetupService {
 		let firstDayOfMonth = this.firstDayOfCurrentMonth;
 		if (firstDayOfMonth === 0) firstDayOfMonth = 7;
 
-		const startDate = new Date(this.currentYear, this.currentMonth, this.props.horizontal ? this.props.startDate?.getDate() : 1 - (firstDayOfMonth - 1));
+		const startDate = new Date(this.currentYear, this.currentMonth, 1 - (firstDayOfMonth - 1));
 		startDate.setHours(0, 0, 0, 0);
 
-		const numberOfWeeks = this.props.endDate ? this.weeksBetween(startDate, this.props.endDate) : this.props.weeksToDisplay;
-		for (let i = 0; i < numberOfWeeks; i++) {
+		for (let i = 0; i < 6; i++) {
 			const days = [];
 			for (let d = 0; d < 7; d++) {
-				// Calcule la date courante à afficher
 				const currentDate = new Date(startDate);
 				currentDate.setDate(startDate.getDate() + i * 7 + d);
-
-				if (this.props.horizontal && this.props.endDate && currentDate.getTime() > this.props.endDate?.getTime()) {
-					continue;
-				}
 
 				let day: PeriodDay = {
 					isStart: false,
@@ -183,7 +177,6 @@ export default class OrionDateTableSetupService extends SharedSetupService {
 							const isStart = dayDate.valueOf() === useMonkey(period.start).toMidnight().valueOf() || prevDayIsExclude;
 							const isEnd = dayDate.valueOf() === useMonkey(period.end).toMidnight().valueOf() || nextDayIsExclude;
 
-							// Si le jour traité est un jour specific
 							if (period.specific?.map(x => useMonkey(x.date).toMidnight().valueOf()).includes(dayDate.valueOf())) {
 								const specificDay = period.specific.find(x => useMonkey(x.date).toMidnight().valueOf() === dayDate.valueOf());
 								day = {
@@ -245,6 +238,7 @@ export default class OrionDateTableSetupService extends SharedSetupService {
 			getCurrentDate: () => this.state.currentDate as Date,
 			getCurrentMonth: () => this.currentMonth,
 			getCurrentYear: () => this.currentYear,
+			switchPeriod: this.switchPeriod.bind(this),
 			selectMonth: this.selectMonth.bind(this),
 			selectYear: this.selectYear.bind(this),
 		};
@@ -463,9 +457,6 @@ export default class OrionDateTableSetupService extends SharedSetupService {
 
 	getCssClassForDayInRange (day: PeriodDay) {
 		const cssClass: string[] = [];
-		if (day.number === 1 || day.date.getTime() === this.props.startDate?.getTime() || this.daysToDisplay[0][0].date.getTime() === day.date.getTime()) {
-			cssClass.push('first-of-month');
-		}
 
 		if (!this.rangeStartValue) return cssClass;
 

@@ -1,10 +1,18 @@
 import { useMonkey } from 'services';
 import OrionDateTableSetupService, { OrionDateTableEmits, OrionDateTableProps } from '../../DateTable/src/OrionDateTableSetupService';
 import { groupBy } from 'lodash-es';
+import { ModelRef } from 'vue';
 
 export type OrionDateTableHorizontalEmits = OrionDateTableEmits
 
-export type OrionDateTableHorizontalProps = OrionDateTableProps
+export type OrionDateTableHorizontalProps = OrionDateTableProps & {
+	// @doc props/startDate the start date to display when horizontal is true
+	// @doc/fr props/startDate la date de début à afficher lorsque horizontal est vrai
+	startDate?: Date,
+	// @doc props/endDate the end date to display when horizontal is true
+	// @doc/fr props/endDate la date de fin à afficher lorsque horizontal est vrai
+	endDate?: Date,
+}
 
 type PeriodDay = {
 	color?: Orion.ColorExtendedAndGreys;
@@ -25,8 +33,11 @@ export default class OrionDateTableHorizontalSetupService extends OrionDateTable
 		canGoNextMonth: true,
 		canGoPrevMonth: true,
 		type: 'date' as Orion.DateTable.Type,
-		weeksToDisplay: 6,
 	};
+
+	get publicInstance () {
+		return { ...super.publicInstance };
+	}
 
 	get daysToDisplay () {
 		let firstDayOfMonth = this.firstDayOfCurrentMonth;
@@ -34,7 +45,6 @@ export default class OrionDateTableHorizontalSetupService extends OrionDateTable
 
 		const startDate = new Date(this.currentYear, this.currentMonth, this.props.startDate?.getDate() ?? 1);
 		const endDate = new Date(this.currentYear, this.currentMonth + 2, this.props.endDate?.getDate() ?? 0);
-		// remove time portion
 		startDate.setHours(0, 0, 0, 0);
 		endDate.setHours(0, 0, 0, 0);
 
@@ -99,6 +109,17 @@ export default class OrionDateTableHorizontalSetupService extends OrionDateTable
 		return Object.values(groupBy(dates, date => `${date.year}-${date.month}`));
 	}
 
+	constructor (
+			protected props: OrionDateTableHorizontalProps & typeof OrionDateTableHorizontalSetupService.defaultProps,
+			protected emits: OrionDateTableEmits,
+			protected vModel: ModelRef<Nil<Date>>,
+			protected range: ModelRef<Nil<Orion.DateRange>>,
+			protected multiple: ModelRef<Nil<Date[]>>,
+			protected dayHover: ModelRef<Nil<Date>>) {
+
+		super(props, emits, vModel, range, multiple, dayHover);
+	}
+
 	getClassForDay (day: PeriodDay) {
 		const classes = super.getClassForDay(day);
 		const dayDate = day.date;
@@ -120,6 +141,16 @@ export default class OrionDateTableHorizontalSetupService extends OrionDateTable
 		}
 
 		return classes;
+	}
+
+	getCssClassForDayInRange (day: PeriodDay) {
+		const cssClass = super.getCssClassForDayInRange(day);
+
+		if (day.number === 1 || day.date.getTime() === this.props.startDate?.getTime() || this.daysToDisplay[0][0].date.getTime() === day.date.getTime()) {
+			cssClass.push('first-of-month');
+		}
+
+		return cssClass;
 	}
 
 }
