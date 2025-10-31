@@ -1,4 +1,4 @@
-import { ModelRef, nextTick, reactive } from 'vue';
+import { ModelRef, nextTick, reactive, watch } from 'vue';
 import { isString } from 'lodash-es';
 
 import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetupServiceProps } from '../../Shared/SharedFieldSetupService';
@@ -222,6 +222,18 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 		super(props, emits, vModel);
 
 		this.parsePattern();
+		watch(() => vModel.value, (newValue) => {
+			if (this.props.mask) {
+				this.parsePattern();
+				if (newValue) {
+					this.state.selection = {
+						start: 0,
+						end: 0,
+					};
+					this.setVModelArray(newValue.toString());
+				}
+			}
+		});
 	}
 
 	protected onMounted (): void {
@@ -647,8 +659,14 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 	}
 
 	setVModelArray (key?: string) {
+		if (!this.props.mask) return;
 
-		if (!this.selection || !key) return;
+		if (!key) {
+			this.parsePattern();
+			return;
+		}
+
+		if (!this.selection) return;
 		if (this.selection.start === this.selection.end && key.length === 1) {
 			if (this.vmodelArray[this.selection.end]?.mask !== 'mask' && this.testKeyPattern(key, this.selection.start)) {
 				this.vmodelArray[this.selection.end].value = key;
@@ -672,6 +690,7 @@ export default class OrionInputSetupService extends SharedFieldSetupService<Orio
 
 			while (key.length > 0) {
 				if (!this.vmodelArray[i]) break;
+
 				if (this.vmodelArray[i].mask !== 'mask' && this.testKeyPattern(key[0], i)) {
 					this.vmodelArray[i].value = key[0];
 					this.vmodelArray[i].isValid = true;
