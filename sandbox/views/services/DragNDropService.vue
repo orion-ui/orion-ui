@@ -195,23 +195,23 @@ const middle = ref([
 	position: relative;
 	padding: 10px;
 	border-radius: 10px;
-	background: fade(grey, 50);
+	background: var(--background-neutral-subtle);
 
 	&--allowed {
-		background: fade(lightgreen, 15);
+		background: var(--background-success-subtle);
 	}
 
 	&--forbidden {
-		background: fade(red, 15);
+		background: var(--background-danger-subtle);
 	}
 
 	&--over {
-		background: fade(blue, 15);
+		background: var(--background-info-subtle);
 	}
 
 	&--disabled{
-		border: 1px solid red;
-		opacity: 0.2
+		border: 1px solid var(--background-danger-default);
+		opacity: 0.2;
 	}
 }
 </style>
