@@ -55,7 +55,7 @@ function seedOptions (qty = 10) {
 			id: getUid(),
 			name: faker.company.name(),
 			catchPhrase: faker.company.catchPhrase(),
-			city: faker.address.cityName(),
+			city: faker.location.city(),
 		});
 	}
 
