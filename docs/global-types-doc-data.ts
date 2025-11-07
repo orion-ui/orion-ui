@@ -169,7 +169,7 @@ const globalTypesDocData = {
 		'ns': 'Orion',
 		'type': 'VDropdown',
 		'generic': '',
-		'description': '{ \n\t\t\tplacement?: VDropdownPlacement; \n\t\t\tdistance?: number; \n\t\t\tskidding?: number; \n\t\t\tarrowPadding?: number; \n\t\t} \n',
+		'description': '{ \n\t\t\tplacement?: VDropdownPlacement; \n\t\t\tdistance?: number; \n\t\t\tskidding?: number; \n\t\t\ttriggers?: (\'click\' | \'hover\' | \'focus\' | \'touch\')[]; \n\t\t\tarrowPadding?: number; \n\t\t} \n',
 	}],
 
 	'Orion.Popable': [{

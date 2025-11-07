@@ -198,6 +198,7 @@ declare global {
 			placement?: VDropdownPlacement;
 			distance?: number;
 			skidding?: number;
+			triggers?: ('click' | 'hover' | 'focus' | 'touch')[];
 			arrowPadding?: number;
 		}
 

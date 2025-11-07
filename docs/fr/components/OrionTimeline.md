@@ -23,5 +23,6 @@ TimelinePlayground
 ::: demo:Timeline
 TimelineMarker
 TimelineStyle
+TimelinePillsOnly
 :::
 <attribute-table package="TimelinePane"/>
