@@ -1,0 +1,10 @@
+name: Run Vitest on Feature Branch
+
+on:
+  push:
+    branches:
+      - 'feature/add-unit-test'
+
+jobs:
+  test-frontend:
+    uses: ./.github/workflows/reusable-tests-vitest.yml
