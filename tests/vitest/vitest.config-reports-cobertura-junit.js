@@ -34,7 +34,7 @@ export default defineConfig({
       console.log('Vitest config:', config);
     },
     include: ['test-src/{utils,services}/**/*.test.ts'],
-    includeSource: [path.resolve(__dirname, '../../{utils,services,devtool,packages,lib,assets}/**/*.ts').replace(/\\/g, '/')],
+    includeSource: [path.resolve(__dirname, '../../{utils,services,devtool,assets}/**/*.ts').replace(/\\/g, '/')],
     environment: 'jsdom',
     globals: true,
     verbose: true,
@@ -55,7 +55,7 @@ export default defineConfig({
       reporter: ['cobertura'],
       reportsDirectory: './coverage/cobertura',
       exclude: [],
-      include: [path.resolve(__dirname, '../../{utils,services,devtool,packages,lib,assets}/**/*.ts').replace(/\\/g, '/')],
+      include: [path.resolve(__dirname, '../../{utils,services,devtool,assets}/**/*.ts').replace(/\\/g, '/')],
       allowExternal: true,
       all: true,
       clean: true,
