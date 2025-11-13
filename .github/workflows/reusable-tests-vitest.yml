@@ -36,3 +36,14 @@ jobs:
         with:
           name: cobertura-coverage
           path: tests/vitest/coverage/cobertura/
+      - name: Test Report
+        uses: dorny/test-reporter@v2.1.1
+        if : always()
+        with:
+          name: Vitest Tests
+          path: tests/vitest/test-results/junit-report.xml
+      - name: Coverage Test Report
+        uses: j0hnlam/cobertura-action@v16
+        if: always()
+        with:
+          path: tests/vitest/coverage/cobertura/cobertura-coverage.xml
