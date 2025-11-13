@@ -49,5 +49,7 @@ jobs:
         if: always()
         with:
           path: tests/vitest/coverage/cobertura/cobertura-coverage.xml
-          minimum_coverage: 10
+          minimum_coverage: 50
           skip_covered: false
+          show_line: true
+          show_branch: true
