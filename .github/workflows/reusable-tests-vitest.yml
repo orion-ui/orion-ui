@@ -42,8 +42,10 @@ jobs:
         with:
           name: Vitest Tests
           path: tests/vitest/test-results/junit-report.xml
+          reporter: java-junit
       - name: Coverage Test Report
         uses: j0hnlam/cobertura-action@v16
         if: always()
         with:
           path: tests/vitest/coverage/cobertura/cobertura-coverage.xml
+          minimum-coverage: 10
