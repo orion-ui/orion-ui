@@ -1,7 +1,7 @@
 .DS_Store
 node_modules
 dist
-test/vitest/coverage
+tests/vitest/coverage
 sandbox/views/sandbox-*
 
 
