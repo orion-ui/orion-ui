@@ -70,7 +70,7 @@ jobs:
             
             // Test results
             let testResults = '';
-            const testPath = './tests/vitest/test-results.json';
+            const testPath = './tests/vitest/coverage/test-results.json';
             if (fs.existsSync(testPath)) {
               const tests = JSON.parse(fs.readFileSync(testPath));
               const totalTests = tests.numTotalTests || 0;
@@ -113,16 +113,17 @@ jobs:
 
               coverageResults = `
               ## 📈 Coverage Report
+              
+              🧩 **Minimum required:** 85%
+              
+              ![Coverage Badge](${badgeUrl})
+              
               | Metric | Coverage |
               |---------|-----------|
               | Lines | ${lines}% |
               | Statements | ${statements}% |
               | Functions | ${functions}% |
               | Branches | ${branches}% |
-
-              🧩 **Minimum required:** 85%
-              
-              ![Coverage Badge](${badgeUrl})
               `;
             }
 
@@ -141,7 +142,7 @@ jobs:
           echo "## 📊 Test Results & Coverage Summary" >> $GITHUB_STEP_SUMMARY
           
           # Test Results
-          if [ -f "./tests/vitest/coverage/test-results.json" ]; then
+          if [ -f "./tests/vitest/test-results.json" ]; then
             TOTAL_TESTS=$(cat ./tests/vitest/test-results.json | jq -r '.numTotalTests // 0')
             PASSED_TESTS=$(cat ./tests/vitest/test-results.json | jq -r '.numPassedTests // 0')
             FAILED_TESTS=$(cat ./tests/vitest/test-results.json | jq -r '.numFailedTests // 0')
@@ -159,13 +160,7 @@ jobs:
           fi
           
           # Coverage Results
-          echo "🧩 **Minimum required:** 85%" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "![Coverage Badge](https://img.shields.io/badge/coverage-${LINES}%25-${COLOR}?style=flat)" >> $GITHUB_STEP_SUMMARY
-
           echo "### 📈 Coverage Report" >> $GITHUB_STEP_SUMMARY
-          echo "| Metric | Coverage |" >> $GITHUB_STEP_SUMMARY  
-          echo "|---------|-----------|" >> $GITHUB_STEP_SUMMARY
           if [ -f "./tests/vitest/coverage/coverage-summary.json" ]; then
             LINES=$(cat ./tests/vitest/coverage/coverage-summary.json | jq -r '.total.lines.pct')
             STATEMENTS=$(cat ./tests/vitest/coverage/coverage-summary.json | jq -r '.total.statements.pct') 
@@ -183,10 +178,15 @@ jobs:
               COLOR="red"
             fi
             
+            echo "🧩 **Minimum required:** 85%" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "![Coverage Badge](https://img.shields.io/badge/coverage-${LINES}%25-${COLOR}?style=flat)" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "| Metric | Coverage |" >> $GITHUB_STEP_SUMMARY  
+            echo "|---------|-----------|" >> $GITHUB_STEP_SUMMARY
             echo "| Lines | ${LINES}% |" >> $GITHUB_STEP_SUMMARY
             echo "| Statements | ${STATEMENTS}% |" >> $GITHUB_STEP_SUMMARY
             echo "| Functions | ${FUNCTIONS}% |" >> $GITHUB_STEP_SUMMARY
             echo "| Branches | ${BRANCHES}% |" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
-          
           fi
