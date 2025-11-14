@@ -61,15 +61,6 @@ jobs:
           name: coverage-badge
           path: tests/vitest/coverage/badge.svg
 
-      - name: Commit badge to repository
-        if: github.event_name == 'push'
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add tests/vitest/coverage/badge.svg
-          git diff --staged --quiet || git commit -m "🤖 Update coverage badge [skip ci]"
-          git push
-
       - name: Comment coverage summary on PR
         if: github.event_name == 'pull_request'
         uses: actions/github-script@v7
@@ -108,6 +99,17 @@ jobs:
               const statements = summary.total.statements.pct;
               const functions = summary.total.functions.pct;
               const branches = summary.total.branches.pct;
+              
+              // Generate color based on coverage percentage
+              const getColor = (pct) => {
+                if (pct >= 85) return 'brightgreen';
+                if (pct >= 70) return 'yellow';
+                if (pct >= 50) return 'orange';
+                return 'red';
+              };
+              
+              const color = getColor(lines);
+              const badgeUrl = `https://img.shields.io/badge/coverage-${lines}%25-${color}?style=flat`;
 
               coverageResults = `
               ## 📈 Coverage Report
@@ -120,7 +122,7 @@ jobs:
 
               🧩 **Minimum required:** 85%
               
-              ![Coverage Badge](https://raw.githubusercontent.com/orion-ui/orion-ui/${context.sha}/tests/vitest/coverage/badge.svg)
+              ![Coverage Badge](${badgeUrl})
               `;
             }
 
@@ -165,10 +167,24 @@ jobs:
             STATEMENTS=$(cat ./tests/vitest/coverage/coverage-summary.json | jq -r '.total.statements.pct') 
             FUNCTIONS=$(cat ./tests/vitest/coverage/coverage-summary.json | jq -r '.total.functions.pct')
             BRANCHES=$(cat ./tests/vitest/coverage/coverage-summary.json | jq -r '.total.branches.pct')
+            
+            # Generate color for badge
+            if (( $(echo "$LINES >= 85" | bc -l) )); then
+              COLOR="brightgreen"
+            elif (( $(echo "$LINES >= 70" | bc -l) )); then
+              COLOR="yellow"
+            elif (( $(echo "$LINES >= 50" | bc -l) )); then
+              COLOR="orange"
+            else
+              COLOR="red"
+            fi
+            
             echo "| Lines | ${LINES}% |" >> $GITHUB_STEP_SUMMARY
             echo "| Statements | ${STATEMENTS}% |" >> $GITHUB_STEP_SUMMARY
             echo "| Functions | ${FUNCTIONS}% |" >> $GITHUB_STEP_SUMMARY
             echo "| Branches | ${BRANCHES}% |" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
-            echo "🎯 Badge updated and committed to repository" >> $GITHUB_STEP_SUMMARY
+            echo "🧩 **Minimum required:** 85%" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "![Coverage Badge](https://img.shields.io/badge/coverage-${LINES}%25-${COLOR}?style=flat)" >> $GITHUB_STEP_SUMMARY
           fi
