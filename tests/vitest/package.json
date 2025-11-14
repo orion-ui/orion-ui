@@ -1,0 +1,33 @@
+{
+    "name": "test vitest front",
+    "version": "1.0.0",
+    "description": "demo de test front vitest",
+    "type": "module",
+    "private": true,
+    "devDependencies": {
+        "@vitejs/plugin-vue": "^6.0.1",
+        "@vitest/coverage-istanbul": "^3.2.4",
+        "@vitest/coverage-v8": "^3.2.4",
+        "@vitest/runner": "^3.2.4",
+        "@vitest/ui": "^3.2.4",
+        "allure-vitest": "^3.4.1",
+        "coverage-badges": "^1.0.7",
+        "jsdom": "^24.0.0",
+        "lodash-es": "^4.17.21",
+        "typescript": "^5.4.0",
+        "vitest": "^3.2.4"
+    },
+    "scripts": {
+        "test": "vitest run --config ./vitest.config.js",
+        "posttest": "node generate-badge.cjs",
+        "test:old": "vitest run --config ./vitest.config.js",
+        "test:coverage": "vitest run --config ./vitest.config-coverage.js --coverage",
+        "test:coverage:badge": "npm run test:coverage && node generate-badge.cjs",
+        "test:reports:cobertura": "vitest run --config ./vitest.config-reports-cobertura-junit.js",
+        "test:reports:summary": "node cobertura-summary.js coverage/cobertura/cobertura-coverage.xml",
+        "badge": "node generate-badge.cjs"
+    },
+    "dependencies": {
+        "vite-tsconfig-paths": "^5.1.4"
+    }
+}

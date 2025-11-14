@@ -1,0 +1,8 @@
+{
+  "badgeStyle": "flat",
+  "coverageType": "lines",
+  "thresholds": {
+    "high": 90,
+    "medium": 80
+  }
+}

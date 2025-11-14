@@ -1,0 +1,129 @@
+name: Tests and Coverage
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'develop'
+      - 'feature/**'
+      - 'hotfix/**'
+      - 'release/**'
+      - '!main'
+    paths:
+      - '.github/workflows/**'
+      - 'assets/**'
+      - 'devtool/**'
+      - 'lang/**'
+      - 'lib/**'
+      - 'packages/*/src/**'
+      - 'packages/*/index.ts'
+      - 'scripts/**'
+      - 'services/**'
+      - 'utils/**'
+      - 'tests/**'
+      - 'cli.cjs'
+      - 'vite.config.ts'
+      - 'build-lib-prerelease.yml'
+
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install test dependencies
+        working-directory: ./tests/vitest
+        run: npm ci
+
+      - name: Run tests with coverage
+        working-directory: ./tests/vitest
+        run: npm run test:coverage
+
+      - name: Generate coverage badge
+        working-directory: ./tests/vitest
+        run: npm run badge
+
+      - name: Upload badge artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-badge
+          path: tests/vitest/coverage/badge.svg
+
+      - name: Commit badge to repository
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main')
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add tests/vitest/coverage/badge.svg
+          git diff --staged --quiet || git commit -m "🤖 Update coverage badge [skip ci]"
+          git push
+
+      - name: Comment coverage summary on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = './tests/vitest/coverage/coverage-summary.json';
+            if (!fs.existsSync(path)) {
+              console.log('Coverage summary not found');
+              return;
+            }
+            const summary = JSON.parse(fs.readFileSync(path));
+            const lines = summary.total.lines.pct;
+            const statements = summary.total.statements.pct;
+            const functions = summary.total.functions.pct;
+            const branches = summary.total.branches.pct;
+
+            const body = `
+            ## ✅ Vitest Coverage Report
+            | Metric | Coverage |
+            |---------|-----------|
+            | Lines | ${lines}% |
+            | Statements | ${statements}% |
+            | Functions | ${functions}% |
+            | Branches | ${branches}% |
+
+            🧩 **Minimum required:** 85%
+            
+            ![Coverage Badge](https://raw.githubusercontent.com/orion-ui/orion-ui/${context.sha}/tests/vitest/coverage/badge.svg)
+            `;
+
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body
+            });
+
+      - name: Create coverage summary for commits
+        if: github.event_name == 'push'
+        run: |
+          echo "## 📊 Coverage Summary" >> $GITHUB_STEP_SUMMARY
+          echo "| Metric | Coverage |" >> $GITHUB_STEP_SUMMARY  
+          echo "|---------|-----------|" >> $GITHUB_STEP_SUMMARY
+          if [ -f "./tests/vitest/coverage/coverage-summary.json" ]; then
+            LINES=$(cat ./tests/vitest/coverage/coverage-summary.json | jq -r '.total.lines.pct')
+            STATEMENTS=$(cat ./tests/vitest/coverage/coverage-summary.json | jq -r '.total.statements.pct') 
+            FUNCTIONS=$(cat ./tests/vitest/coverage/coverage-summary.json | jq -r '.total.functions.pct')
+            BRANCHES=$(cat ./tests/vitest/coverage/coverage-summary.json | jq -r '.total.branches.pct')
+            echo "| Lines | ${LINES}% |" >> $GITHUB_STEP_SUMMARY
+            echo "| Statements | ${STATEMENTS}% |" >> $GITHUB_STEP_SUMMARY
+            echo "| Functions | ${FUNCTIONS}% |" >> $GITHUB_STEP_SUMMARY
+            echo "| Branches | ${BRANCHES}% |" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "🎯 Badge updated and committed to repository" >> $GITHUB_STEP_SUMMARY
+          fi
