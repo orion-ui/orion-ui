@@ -62,7 +62,7 @@ jobs:
           path: tests/vitest/coverage/badge.svg
 
       - name: Commit badge to repository
-        if: github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main')
+        if: github.event_name == 'push'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
@@ -76,30 +76,55 @@ jobs:
         with:
           script: |
             const fs = require('fs');
-            const path = './tests/vitest/coverage/coverage-summary.json';
-            if (!fs.existsSync(path)) {
-              console.log('Coverage summary not found');
-              return;
-            }
-            const summary = JSON.parse(fs.readFileSync(path));
-            const lines = summary.total.lines.pct;
-            const statements = summary.total.statements.pct;
-            const functions = summary.total.functions.pct;
-            const branches = summary.total.branches.pct;
-
-            const body = `
-            ## ✅ Vitest Coverage Report
-            | Metric | Coverage |
-            |---------|-----------|
-            | Lines | ${lines}% |
-            | Statements | ${statements}% |
-            | Functions | ${functions}% |
-            | Branches | ${branches}% |
-
-            🧩 **Minimum required:** 85%
             
-            ![Coverage Badge](https://raw.githubusercontent.com/orion-ui/orion-ui/${context.sha}/tests/vitest/coverage/badge.svg)
-            `;
+            // Test results
+            let testResults = '';
+            const testPath = './tests/vitest/test-results.json';
+            if (fs.existsSync(testPath)) {
+              const tests = JSON.parse(fs.readFileSync(testPath));
+              const totalTests = tests.numTotalTests || 0;
+              const passedTests = tests.numPassedTests || 0;
+              const failedTests = tests.numFailedTests || 0;
+              const testFiles = tests.numTotalTestSuites || 0;
+              
+              testResults = `
+              ## 🧪 Test Results
+              | Metric | Count |
+              |---------|-------|
+              | Total Tests | ${totalTests} |
+              | Passed | ✅ ${passedTests} |
+              | Failed | ❌ ${failedTests} |
+              | Test Files | 📁 ${testFiles} |
+              
+              `;
+            }
+            
+            // Coverage results
+            let coverageResults = '';
+            const coveragePath = './tests/vitest/coverage/coverage-summary.json';
+            if (fs.existsSync(coveragePath)) {
+              const summary = JSON.parse(fs.readFileSync(coveragePath));
+              const lines = summary.total.lines.pct;
+              const statements = summary.total.statements.pct;
+              const functions = summary.total.functions.pct;
+              const branches = summary.total.branches.pct;
+
+              coverageResults = `
+              ## 📈 Coverage Report
+              | Metric | Coverage |
+              |---------|-----------|
+              | Lines | ${lines}% |
+              | Statements | ${statements}% |
+              | Functions | ${functions}% |
+              | Branches | ${branches}% |
+
+              🧩 **Minimum required:** 85%
+              
+              ![Coverage Badge](https://raw.githubusercontent.com/orion-ui/orion-ui/${context.sha}/tests/vitest/coverage/badge.svg)
+              `;
+            }
+
+            const body = testResults + coverageResults;
 
             await github.rest.issues.createComment({
               issue_number: context.issue.number,
@@ -111,7 +136,28 @@ jobs:
       - name: Create coverage summary for commits
         if: github.event_name == 'push'
         run: |
-          echo "## 📊 Coverage Summary" >> $GITHUB_STEP_SUMMARY
+          echo "## 📊 Test Results & Coverage Summary" >> $GITHUB_STEP_SUMMARY
+          
+          # Test Results
+          if [ -f "./tests/vitest/test-results.json" ]; then
+            TOTAL_TESTS=$(cat ./tests/vitest/test-results.json | jq -r '.numTotalTests // 0')
+            PASSED_TESTS=$(cat ./tests/vitest/test-results.json | jq -r '.numPassedTests // 0')
+            FAILED_TESTS=$(cat ./tests/vitest/test-results.json | jq -r '.numFailedTests // 0')
+            TEST_FILES=$(cat ./tests/vitest/test-results.json | jq -r '.numTotalTestSuites // 0')
+            
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "### 🧪 Test Results" >> $GITHUB_STEP_SUMMARY
+            echo "| Metric | Count |" >> $GITHUB_STEP_SUMMARY
+            echo "|---------|-------|" >> $GITHUB_STEP_SUMMARY
+            echo "| Total Tests | ${TOTAL_TESTS} |" >> $GITHUB_STEP_SUMMARY
+            echo "| Passed | ✅ ${PASSED_TESTS} |" >> $GITHUB_STEP_SUMMARY
+            echo "| Failed | ❌ ${FAILED_TESTS} |" >> $GITHUB_STEP_SUMMARY
+            echo "| Test Files | 📁 ${TEST_FILES} |" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          # Coverage Results
+          echo "### 📈 Coverage Report" >> $GITHUB_STEP_SUMMARY
           echo "| Metric | Coverage |" >> $GITHUB_STEP_SUMMARY  
           echo "|---------|-----------|" >> $GITHUB_STEP_SUMMARY
           if [ -f "./tests/vitest/coverage/coverage-summary.json" ]; then
