@@ -35,7 +35,7 @@ export default defineConfig({
 		setupFiles: ['./src/vitest.setup.ts'],
 		reporters: [
 			'default',
-			'json',
+			['json', { outputFile: './coverage/test-results.json' }],
 		],
 		coverage: {
 			enabled: true,
