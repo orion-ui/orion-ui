@@ -24,12 +24,11 @@
 		
 		&--@{value}-alt {
 			color: var(--text-default-inverted);
-			background: var(~"--background-@{value}-active");
+			background: var(~"--background-@{value}-alt");
 
 			&.orion-label--outline {
-				color: var(~"--text-@{value}-subtle");
-				background: color-mix(in oklab, var(~"--background-@{value}-active") 15%, transparent);
-
+				color: var(~"--text-@{value}-alt");
+				background: color-mix(in oklab, var(~"--background-@{value}-alt") 15%, transparent);
 				&:not(.orion-label--inverse):not(.orion-label--default) > {
 					.orion-label__content {
 						filter: saturate(90%);

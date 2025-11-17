@@ -147,19 +147,19 @@ const middle = ref([
 	background: var(--background-neutral-subtle);
 
 	&--allowed {
-		background: rgba(var(--background-success-default), 0.15);
+		background: color-mix(in srgb, var(--background-success-default) 15%, transparent 85%);
 	}
 
 	&--forbidden {
-		background: rgba(var(--background-error-default), 0.15);
+		background: color-mix(in srgb, var(--background-error-default) 15%, transparent 85%);
 	}
 
 	&--over {
-		background: rgba(var(--background-info-default), 0.15);
+		background: color-mix(in srgb, var(--background-info-default) 15%, transparent 85%);
 	}
 
 	&--disabled{
-		border: calc(1rem / 16) solid var(--background-error-default);
+		border: 1px solid var(--background-error-default);
 		opacity: 0.2
 	}
 }

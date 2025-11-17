@@ -28,12 +28,10 @@ function stateOf (name: string, channel: Channel): string {
 	const lighter = /-lighter$/.test(name);
 	const dark = /-dark$/.test(name);
 	const darker = /-darker$/.test(name);
-	const alt = /-alt$/.test(name);
 
 	if (channel === 'background') {
 		if (lighter) return 'minimal';
 		if (light) return 'subtle';
-		if (alt) return 'subtle';
 		if (dark) return 'moderate';
 		if (darker) return 'highlight';
 		return 'default';
@@ -41,7 +39,6 @@ function stateOf (name: string, channel: Channel): string {
 	if (channel === 'border') {
 		if (lighter) return 'minimal';
 		if (light) return 'subtle';
-		if (alt) return 'subtle';
 		if (dark) return 'default';
 		if (darker) return 'default';
 		return 'default';
@@ -49,7 +46,6 @@ function stateOf (name: string, channel: Channel): string {
 	// channel === "text"
 	if (lighter) return 'minimal';
 	if (light) return 'subtle';
-	if (alt) return 'subtle';
 	if (dark) return 'default';
 	if (darker) return 'default';
 	if (name.startsWith('grey')) return 'subtle';

@@ -64,40 +64,40 @@ each(@colorsAndGreys, {
 					color: var(~"--text-@{value}-default");
 				}
 			}
-		}
 
-		&--@{value}-alt {
-			color: var(--text-default-inverted);
-			background: var(~"--background-@{value}-active");
-			border-color: transparent;
-
-			.orion-chips__dual {
-				color: var(~"--text-@{value}-subtle");
-			}
-
-			&.orion-chips--outline,
-			&.orion-chips--dual {
-				.orion-chips__close {
-					color: var(~"--text-@{value}-subtle") !important;
-					&:hover {
-						border-color: var(~"--border-@{value}-default") !important;
-					}
-				}
-			}
-			
-			&.orion-chips--outline {
-				color: var(~"--text-@{value}-subtle");
-				background: color-mix(in oklab, var(~"--background-@{value}-active") 15%, transparent);
-				border-color: color-mix(in oklab, var(~"--border-@{value}-default") 15%, transparent);
-
-				&:not(.orion-chips--inverse):not(.orion-chips--default) > {
-					.orion-chips__main, .orion-chips__dual-content {
-						filter: saturate(90%);
-					}
-				}
+			&-alt {
+				color: var(--text-default-inverted);
+				background: var(~"--background-@{value}-alt");
+				border-color: transparent;
 
 				.orion-chips__dual {
-					color: var(~"--text-@{value}-subtle");
+					color: var(~"--text-@{value}-alt");
+				}
+
+				&.orion-chips--outline,
+				&.orion-chips--dual {
+					.orion-chips__close {
+						color: var(~"--text-@{value}-alt") !important;
+						&:hover {
+							border-color: var(~"--border-@{value}-alt") !important;
+						}
+					}
+				}
+				
+				&.orion-chips--outline {
+					color: var(~"--text-@{value}-alt");
+					background: color-mix(in oklab, var(~"--background-@{value}-alt") 15%, transparent);
+					border-color: color-mix(in oklab, var(~"--border-@{value}-alt") 15%, transparent);
+
+					&:not(.orion-chips--inverse):not(.orion-chips--default) > {
+						.orion-chips__main, .orion-chips__dual-content {
+							filter: saturate(90%);
+						}
+					}
+
+					.orion-chips__dual {
+						color: var(~"--text-@{value}-alt");
+					}
 				}
 			}
 		}
