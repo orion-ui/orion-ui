@@ -12,7 +12,7 @@
 			<o-button
 				v-if="state.display"
 				v-tooltip="`Remove an action`"
-				color="danger"
+				color="error"
 				prefix-icon="remove_minus"
 				@click="removeButton()"/>
 		</template>

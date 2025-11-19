@@ -19,7 +19,7 @@
 						{ 'orion-paginate__index-active': setup.isActive(Number(page)) },
 						{ 'orion-paginate__ellipsis': page === '...' },
 					]"
-					:color="setup.isActive(Number(page)) ? 'info' : 'default'"
+					:color="setup.isActive(Number(page)) ? 'primary' : 'neutral'"
 					:disabled="page === '...'"
 					nude
 					class="orion-paginate__index"

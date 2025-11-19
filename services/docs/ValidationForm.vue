@@ -1,12 +1,12 @@
 <template>
 	<div class="flex g-xs">
 		<o-button
-			color="brand"
+			color="primary"
 			@click="checkForm">
 			Check form
 		</o-button>
 		<o-button
-			color="danger"
+			color="error"
 			outline
 			@click="validator.hideValidationState()">
 			Clear validation
@@ -73,7 +73,7 @@ import { useValidation, Validator } from 'lib';
 import { CountryCode } from 'libphonenumber-js';
 
 let result = ref(false);
-const resultColor = ref<Orion.Color>('default');
+const resultColor = ref<Orion.Color>('neutral');
 
 let user = reactive({
 	name: undefined as undefined | string,
@@ -103,7 +103,7 @@ function checkForm () : void {
 		resultColor.value = 'success';
 		validator.showValidationState();
 	} else {
-		resultColor.value = 'danger';
+		resultColor.value = 'error';
 		validator.showValidationState();
 	}
 }

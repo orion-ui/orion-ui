@@ -38,7 +38,7 @@
 		<o-aside ref="_asideB">
 			<template #footer>
 				<o-alert
-					color="brand"
+					color="primary"
 					center
 					title="Aside footer slot">
 					Here comes your footer content

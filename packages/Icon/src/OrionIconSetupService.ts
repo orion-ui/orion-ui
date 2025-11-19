@@ -35,7 +35,7 @@ export type OrionIconProps = SharedPropsIcon & {
 export default class OrionIconSetupService extends SharedSetupService {
 	static readonly defaultProps = {
 		marker: false as OrionIconProps['marker'],
-		markerColor: 'danger' as Orion.Color,
+		markerColor: 'error' as Orion.Color,
 		markerPosition: 'top right',
 	};
 

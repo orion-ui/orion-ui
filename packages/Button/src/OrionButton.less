@@ -8,14 +8,18 @@
 }
 
 .orion-button {
-	transition: box-shadow 0.3s, background 0.3s, opacity 0.3s, transform 0.3s,
+	transition:
+		box-shadow 0.3s,
+		background 0.3s,
+		opacity 0.3s,
+		transform 0.3s,
 		border-color 0.2s;
 	position: relative;
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
 	vertical-align: middle;
-	border-radius: var(--radius-btn);
+	border-radius: var(--radius-small);
 	border: none;
 	appearance: none;
 	outline: none;
@@ -82,7 +86,7 @@
 
 	&--xs {
 		gap: 0.5rem;
-		padding: var(--fluid-5px) var(--fluid-15px);
+		padding: var(--space-xs) var(--space-md);
 		font-size: 0.65rem;
 		min-height: 2rem;
 
@@ -92,17 +96,17 @@
 
 		&.orion-button--prefix-icon,
 		&.orion-button--loading {
-			padding-left: var(--fluid-10px);
+			padding-left: var(--space-sm);
 		}
 
 		&.orion-button--suffix-icon {
-			padding-right: var(--fluid-10px);
+			padding-right: var(--space-sm);
 		}
 	}
 
 	&--sm {
 		gap: 0.65rem;
-		padding: var(--fluid-5px) var(--fluid-20px);
+		padding: var(--space-xs) var(--space-lg);
 		font-size: 0.75rem;
 		min-height: 2.25rem;
 
@@ -112,59 +116,59 @@
 
 		&.orion-button--prefix-icon,
 		&.orion-button--loading {
-			padding-left: var(--fluid-12px);
+			padding-left: var(--space-md);
 		}
 
 		&.orion-button--suffix-icon {
-			padding-right: var(--fluid-12px);
+			padding-right: var(--space-md);
 		}
 	}
 
 	&--md {
 		gap: 0.7rem;
-		padding: var(--fluid-8px) var(--fluid-25px);
+		padding: var(--space-sm) var(--space-lg);
 		font-size: 0.8125rem;
 		min-height: 2.5rem;
 
 		&.orion-button--prefix-icon,
 		&.orion-button--loading {
-			padding-left: var(--fluid-15px);
+			padding-left: var(--space-md);
 		}
 
 		&.orion-button--suffix-icon {
-			padding-right: var(--fluid-15px);
+			padding-right: var(--space-md);
 		}
 	}
 
 	&--lg {
 		gap: 1rem;
-		padding: var(--fluid-10px) var(--fluid-30px);
+		padding: var(--space-sm) var(--space-lg);
 		font-size: 0.9rem;
 		min-height: 2.75rem;
 
 		&.orion-button--prefix-icon,
 		&.orion-button--loading {
-			padding-left: var(--fluid-18px);
+			padding-left: var(--space-lg);
 		}
 
 		&.orion-button--suffix-icon {
-			padding-right: var(--fluid-18px);
+			padding-right: var(--space-lg);
 		}
 	}
 
 	&--xl {
 		gap: 1.1rem;
-		padding: var(--fluid-10px) var(--fluid-35px);
+		padding: var(--space-sm) var(--space-lg);
 		font-size: 1rem;
 		min-height: 3rem;
 
 		&.orion-button--prefix-icon,
 		&.orion-button--loading {
-			padding-left: var(--fluid-20px);
+			padding-left: var(--space-lg);
 		}
 
 		&.orion-button--suffix-icon {
-			padding-right: var(--fluid-20px);
+			padding-right: var(--space-lg);
 		}
 	}
 
@@ -176,106 +180,82 @@
 
 	each(@colors, {
 		&--@{value} {
-			@color: ~"--@{value}";
-			@rgbColor: ~"--rgb-@{value}";
-			@colorLight: ~"--@{value}-light";
-			@rgbColorLight: ~"--rgb-@{value}-light";
-			@colorDark: ~"--@{value}-dark";
-			@rgbColorDark: ~"--rgb-@{value}-dark";
 			
 			color: white;
 			stroke: white;
-			background: var(@color);
-			box-shadow: 0 0.3rem 1rem -0.3rem rgba(var(@rgbColor), 0.8);
 
-			[data-orion-theme="dark"] & {
-				color: black;
-				stroke: black;
-			}
+			background: var(~"--background-@{value}-default");
+			box-shadow:
+      0 0.3rem 1rem -0.3rem
+      color-mix(in oklab, var(~"--background-@{value}-default") 80%, transparent);
+
 
 			&.orion-button--outline, &.orion-button--nude {
-				color: var(@colorDark);
-				stroke: var(@colorDark);
-				background: var(@colorLight);
-
-				[data-orion-theme="dark"] & {
-					color: var(@colorLight);
-					stroke: var(@colorLight);
-					background: var(@colorDark);
-				}
+				color: var(~"--text-@{value}-default");
+				stroke: var(~"--border-@{value}-default");
+				background: var(~"--background-@{value}-minimal");
 			}
 			
 			&.orion-button--outline&:hover,
 			&.orion-button--outline&:focus {
-				border-color: rgba(var(@rgbColor), 0.5);
+				border-color:  color-mix(in oklab, var(~"--border-@{value}-default") 50%, transparent);
 			}
 
 			&.orion-button--nude&:hover,
 			&.orion-button--nude&:focus {
-				background: var(@colorLight);
+				background: var(~"--background-@{value}-minimal");
 
-				[data-orion-theme="dark"] & {
-					background: var(@colorDark);
-				}
 			}
 		}
 	});
 
 	&--default {
-		background: white;
-		color: var(--grey-darker);
-		stroke: var(--grey-darker);
+		background: var(--background-neutral-default);
+		color: var(--text-default-default);
+		stroke: var(--border-neutral-default);
 		box-shadow: 0 0.3rem 1rem -0.3rem fade(black, 20);
 
 		&.orion-button--outline,
 		&.orion-button--nude {
-			background: var(--grey-lighter);
-
-			[data-orion-theme='dark'] & {
-				background: rgba(0, 0, 0, 0.7);
-			}
+			background: var(--background-neutral-minimal);
 
 			&:hover,
 			&:focus {
-				background: rgba(var(--rgb-grey-lighter), 0.6);
-				border-color: rgba(var(--rgb-grey), 0.6);
-
-				[data-orion-theme='dark'] & {
-					border-color: rgba(var(--rgb-grey-dark), 0.5);
-					background: rgba(0, 0, 0, 0.7);
-				}
+				background: rgba(var(--background-neutral-subtle), 0.6);
+				border-color: color-mix(
+					in oklab,
+					var(--border-neutral-default) 60%,
+					transparent
+				);
 			}
-		}
-
-		[data-orion-theme='dark'] & {
-			background: rgba(var(--rgb-grey-darker), 0.1);
 		}
 	}
 
 	&--inverse {
-		color: var(--grey-lighter);
-		stroke: var(--grey-lighter);
-		background: var(--inverse);
+		color: var(--text-default-inverted);
+		stroke: var(--border-neutral-inverted);
+		background: var(--background-neutral-highlight);
 		box-shadow: 0 0.3rem 1rem -0.3rem fade(black, 20);
 
-		[data-orion-theme='dark'] & {
-			color: black;
-			stroke: black;
-		}
-
 		&.orion-button--nude {
-			color: var(--inverse);
-			stroke: var(--inverse);
+			color: var(--text-default-default);
+			stroke: var(--text-default-inverted);
 		}
 
-		&.orion-button--outline&:hover,
-		&.orion-button--outline&:focus {
-			border-color: var(--inverse);
+		&.orion-button--outline {
+					color: var(--text-default-default);
+					stroke: var(--border-neutral-default);
+					background: var(--background-neutral-minimal);
+					
+			&.orion-button--inverse:hover,
+			&.orion-button--inverse:focus {
+				border-color: var(--border-neutral-default);
+			}
 		}
 
 		&.orion-button--nude&:hover,
 		&.orion-button--nude&:focus {
-			background: var(--grey-lighter);
+			background: var(--border-info-default);
 		}
 	}
 
@@ -300,10 +280,6 @@
 
 	&--nude:not(:hover):not(:focus) {
 		background: none;
-
-		[data-orion-theme='dark'] & {
-			background: none;
-		}
 	}
 
 	&--block {

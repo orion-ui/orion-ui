@@ -256,23 +256,23 @@ Ces variables utilisent les valeurs RGB pour créer des couleurs CSS utilisables
 
 ### Fluid
 
-Les variables `--fluid-*` sont utilisées pour définir des padding et rester cohérent dans toute l'application.
+Les variables `--space-*` sont utilisées pour définir des padding et rester cohérent dans toute l'application.
 
 | Variable          | Valeur par défaut         |
 |--------------------|------------------------------|
-| `--fluid-5px`      | `calc(3px + 0.125rem)`       |
-| `--fluid-8px`      | `calc(5px + 0.1875rem)`      |
-| `--fluid-10px`     | `calc(5px + 0.3125rem)`      |
-| `--fluid-12px`     | `calc(8px + 0.25rem)`        |
-| `--fluid-15px`     | `calc(10px + 0.3rem)`        |
-| `--fluid-18px`     | `calc(10px + 0.5rem)`        |
-| `--fluid-20px`     | `calc(12px + 0.5rem)`        |
-| `--fluid-25px`     | `calc(13px + 0.75rem)`       |
-| `--fluid-30px`     | `calc(14px + 1rem)`          |
-| `--fluid-35px`     | `calc(19px + 1rem)`          |
-| `--fluid-40px`     | `calc(24px + 1rem)`          |
-| `--fluid-45px`     | `calc(25px + 1.25rem)`       |
-| `--fluid-60px`     | `calc(36px + 1.5rem)`         |
+| `--space-xs`      | `calc(3px + 0.125rem)`       |
+| `--space-xs`      | `calc(5px + 0.1875rem)`      |
+| `--space-xs`     | `calc(5px + 0.3125rem)`      |
+| `--space-xs`     | `calc(8px + 0.25rem)`        |
+| `--space-sm`     | `calc(10px + 0.3rem)`        |
+| `--space-sm`     | `calc(10px + 0.5rem)`        |
+| `--space-sm`     | `calc(12px + 0.5rem)`        |
+| `--space-sm`     | `calc(13px + 0.75rem)`       |
+| `--space-md`     | `calc(14px + 1rem)`          |
+| `--space-md`     | `calc(19px + 1rem)`          |
+| `--space-md`     | `calc(24px + 1rem)`          |
+| `--space-lg`     | `calc(25px + 1.25rem)`       |
+| `--space-xl`     | `calc(36px + 1.5rem)`         |
 
 
 

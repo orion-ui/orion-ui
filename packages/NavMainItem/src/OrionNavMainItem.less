@@ -8,11 +8,11 @@
 	align-items: center;
 	gap: 0.75rem;
 	min-height: 2rem;
-	padding-left: var(--fluid-45px);
+	padding-left: var(--space-lg);
 	font-weight: bold;
 	text-transform: uppercase;
 	text-decoration: none;
-	color: var(--grey-darker);
+	color: var(--text-default-default);
 	font-size: 0.75rem;
 	line-height: 1.25;
 	cursor: pointer;
@@ -26,7 +26,7 @@
 		top: calc(50% - 0.0625rem);
 		height: 0.125rem;
 		width: 2rem;
-		background: var(--info);
+		background: var(--background-info-default);
 		transform: scale3d(0, 1, 1);
 		transform-origin: left;
 	}
@@ -35,7 +35,7 @@
 	&.router-link-active:not(.orion-nav-main__item--root):not(
 			.active-when-exact
 		) {
-		color: var(--info);
+		color: var(--text-info-default);
 
 		&::before {
 			transform: scale3d(1, 1, 1);
@@ -64,7 +64,7 @@
 
 	body:not(.istouch) & {
 		&:hover:not(.router-link-active) {
-			color: var(--grey-dark);
+			color: var(--text-default-default);
 		}
 
 		&:hover .icon--children-indicator {
@@ -74,17 +74,13 @@
 	}
 
 	&--section-title {
-		color: var(--grey);
+		color: var(--text-default-moderate);
 		cursor: default;
 		pointer-events: none;
 		font-size: 1.5rem;
 		line-height: 1.66;
 		font-weight: 200;
 		text-transform: none;
-
-		[data-orion-theme='dark'] & {
-			color: var(--grey-dark);
-		}
 
 		.icon {
 			font-size: calc(26rem / 16);

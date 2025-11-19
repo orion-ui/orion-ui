@@ -82,24 +82,24 @@ const right = ref([
 
 .orion-droppable {
 	position: relative;
-	padding: var(--fluid-10px);
+	padding: var(--space-sm);
 	border-radius: 0.5rem;
-	background: var(--grey-light);
+	background: var(--background-neutral-subtle);
 
 	&--allowed {
-		background: rgba(var(--rgb-success), 0.15);
+		background: rgba(var(--background-success-default), 0.15);
 	}
 
 	&--forbidden {
-		background: rgba(var(--rgb-danger), 0.15);
+		background: rgba(var(--background-error-default), 0.15);
 	}
 
 	&--over {
-		background: rgba(var(--rgb-info), 0.15);
+		background: rgba(var(--background-info-default), 0.15);
 	}
 
 	&--disabled{
-		border: calc(1rem / 16) solid var(--danger);
+		border: calc(1rem / 16) solid var(--background-error-default);
 		opacity: 0.2
 	}
 }

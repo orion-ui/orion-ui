@@ -4,15 +4,11 @@
 	font-size: 1rem;
 	transition: transform var(--t-transform), box-shadow var(--t-transform);
 	scrollbar-color: var(--c-brand) transparent;
-
-	[data-orion-theme='dark'] & {
-		background: rgba(34, 39, 46, 1);
-	}
 	
 	&-item {
 
 		p&:not(.vp-sidebar-heading)& {
-			color: var(--grey-darker);
+			color: var(--text-default-default);
 			text-transform: uppercase;
 			font-weight: 700 !important;
 			font-size: .75rem !important;
@@ -55,16 +51,12 @@
 	display: flex;
 	align-items: center;
 	vertical-align: middle;
-	padding: var(--fluid-10px) var(--fluid-20px) var(--fluid-10px)
-		var(--fluid-15px);
+	padding: var(--space-xs) var(--space-sm) var(--space-xs)
+		var(--space-sm);
 	gap: 0.5rem;
 	backdrop-filter: saturate(50%) blur(8px);
-	background: rgba(255, 255, 255, 0.7);
+	background: var(--background-neutral-subtle);
 	border-bottom: none;
-
-	[data-orion-theme='dark'] & {
-		background: rgba(34, 39, 46, 0.7);
-	}
 
 	&-item {
 		&:hover {
@@ -73,7 +65,7 @@
 
 
 		a.route-link {
-			color: var(--grey-dark);
+			color: var(--text-default-default);
 
 			&:hover {
 				color: var(--c-brand);
@@ -111,14 +103,14 @@
 		display: flex;
 		order: 5;
 		background-color: transparent;
-		color: var(--grey-dark);
+		color: var(--text-default-default);
 		cursor: pointer;
 		margin-left: 0.5rem;
-		border: 0.0625rem solid var(--grey);
+		border: 0.0625rem solid var(--border-neutral-default);
 		border-radius: 0.25rem;
 		height: 2rem;
 		vertical-align: middle;
-		padding: 0 var(--fluid-5px);
+		padding: 0 var(--space-xs);
 
 		@media @phone, @tabletOnly {
 			display: none;
@@ -128,7 +120,7 @@
 	.navbar-search-buttonKey {
 		font-size: 0.75rem;
 		background-color: transparent;
-		color: var(--grey-dark);
+		color: var(--text-default-default);
 		border-color: transparent;
 		height: inherit;
 		display: flex;
@@ -137,7 +129,7 @@
 	}
 
 	.navbar-search-buttons:hover {
-		border-color: var(--brand);
+		border-color: var(--border-primary-default);
 	}
 
 	.search-box {
@@ -162,13 +154,6 @@
 			.route-link-active {
 				color: var(--c-brand);
 			}
-		}
-	}
-
-
-	&.DocSearch {
-		[data-orion-theme='dark'] & {
-			background: rgba(34, 39, 46, 0.7);
 		}
 	}
 }
@@ -236,7 +221,7 @@
 .doc-content {
 	max-width: var(--content-width);
 	width: 100%;
-	padding: var(--fluid-45px) 0;
+	padding: var(--space-lg) 0;
 
 	p {
 		font-size: 1rem;
@@ -253,11 +238,11 @@
 	}
 
 	@media @phone {
-		padding: var(--fluid-20px) var(--fluid-15px);
+		padding: var(--space-sm) var(--space-sm);
 	}
 
 	@media @tabletPortrait {
-		padding: var(--fluid-30px) var(--fluid-30px);
+		padding: var(--space-md) var(--space-md);
 	}
 
 	h2,
@@ -281,7 +266,7 @@
 		margin-top: 2rem;
 
 		.meta-item-info {
-			color: var(--grey-darker);
+			color: var(--text-default-default);
 		}
 	}
 
@@ -292,7 +277,7 @@
 		font-size: 1.25rem;
 		top: 0.5rem;
 		z-index: 5;
-		color: var(--grey);
+		color: var(--text-neutral-subtle);
 
 		@media @phone {
 			display: none;
@@ -300,17 +285,17 @@
 	}
 
 	* .copy-icon:hover {
-		color: var(--brand);
+		color: var(--text-primary-default);
 	}
 
 	.tooltip-prog {
 		position: absolute;
 		top: 0.25rem;
 		left: calc(100% + 0.3125rem);
-		background: var(--brand);
-		color: white;
+		background: var(--background-primary-default);
+		color: var(--text-default-inverted);
 		font-weight: 700;
-		padding: var(--fluid-5px) var(--fluid-10px);
+		padding: var(--space-xs) var(--space-xs);
 		border-radius: 0.25rem;
 		pointer-events: none;
 		white-space: nowrap;
@@ -318,7 +303,7 @@
 	}
 
 	.global-type {
-		color: var(--brand);
+		color: var(--text-primary-default);
 		cursor: pointer;
 	}
 }
@@ -326,14 +311,10 @@
 .toc-content {
 	position: sticky;
 	top: 4rem;
-	padding: var(--fluid-30px);
+	padding: var(--space-md);
 	background: transparent;
 	white-space: nowrap;
 	width: 12.5rem;
-
-	[data-orion-theme='dark'] & {
-		background: rgba(34, 39, 46, 0.7);
-	}
 
 	@media @phone {
 		padding: 0.5rem;
@@ -342,7 +323,7 @@
 }
 
 .toc-list__item a {
-	color: var(--grey-dark);
+	color: var(--text-default-default);
 
 	&.active {
 		font-weight: bold;
@@ -357,10 +338,7 @@
 	z-index: 20;
 	justify-content: flex-end;
 	backdrop-filter: saturate(50%) blur(8px);
-	background: rgba(255, 255, 255, 0.7);
-	[data-orion-theme='dark'] & {
-		background: rgba(34, 39, 46, 0.7);
-	}
+	background: var(--background-neutral-default);
 }
 
 h2,
@@ -373,10 +351,10 @@ h4 {
 
 .footer {
 	margin: 3rem 2rem;
-	border-top: 0.0625rem solid var(--grey-light);
+	border-top: 0.0625rem solid var(--border-neutral-default);
 	display: flex;
 	justify-content: center;
-	padding: var(--fluid-30px);
+	padding: var(--space-md);
 }
 
 code {

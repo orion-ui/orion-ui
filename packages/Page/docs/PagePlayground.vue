@@ -105,7 +105,7 @@ function triggerSearch () {
 <style lang="less" scoped>
 :deep(.orion-page__subactions) {
 	&--sticky {
-		background-color: rgba(var(--rgb-grey-lighter), 0.7);
+		background-color: rgba(var(--background-neutral-subtle), 0.7);
 		backdrop-filter: blur(2px);
 		margin: 0 -0.5rem;
 		padding: 0.5rem;

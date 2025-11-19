@@ -58,7 +58,7 @@
 			cursor: pointer;
 
 			&:hover {
-				color: var(--info);
+				color: var(--text-info-default);
 			}
 		}
 
@@ -75,7 +75,7 @@
 		}
 
 		&-path {
-			background: var(--grey);
+			background: var(--background-neutral-moderate);
 			border-radius: 1rem;
 			height: 0.25rem;
 			position: relative;
@@ -109,20 +109,28 @@
 	}
 
 	each(@colorsAndGreys, {
-		@color: ~"--@{value}";
-		@rgbColor: ~"--rgb-@{value}";
+		@bg: ~"--background-@{value}-default";
 
-    &--@{value} {
-      &::before {
-        left: 0;
-        background: linear-gradient(to right, var(@color) 60%, rgba(var(@rgbColor), 0)) !important;
-      }
-      &::after {
-        right: 0;
-        background: linear-gradient(to left, var(@color) 60%, rgba(var(@rgbColor), 0)) !important;
-      }
-    }
-  });
+		&--@{value} {
+			&::before {
+				left: 0;
+				background: linear-gradient(
+					to right,
+					color-mix(in srgb, var(@bg) 100%, transparent) 60%,
+					transparent
+				) !important;
+			}
+
+			&::after {
+				right: 0;
+				background: linear-gradient(
+					to left,
+					color-mix(in srgb, var(@bg) 100%, transparent) 60%,
+					transparent
+				) !important;
+			}
+		}
+	});
 
 	&--white {
 		&::before {

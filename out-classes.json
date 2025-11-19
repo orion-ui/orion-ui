@@ -1,0 +1,6855 @@
+{
+  "defined": [
+    {
+      "name": "icon",
+      "count": 11,
+      "files": [
+        "packages\\Card\\src\\OrionCard.less",
+        "packages\\Field\\src\\OrionField.less",
+        "packages\\Input\\src\\OrionInput.less",
+        "packages\\NavMainItem\\src\\OrionNavMainItem.less",
+        "packages\\NavTabs\\src\\OrionNavTabs.less",
+        "packages\\NavTop\\src\\OrionNavTop.less",
+        "packages\\Page\\src\\OrionPage.less",
+        "packages\\Paginate\\src\\OrionPaginate.less",
+        "packages\\Shared\\styles\\tooltip.less",
+        "packages\\Sticker\\src\\OrionSticker.less",
+        "packages\\Upload\\src\\OrionUpload.less"
+      ]
+    },
+    {
+      "name": "orion-button",
+      "count": 10,
+      "files": [
+        "packages\\Aside\\src\\OrionAside.less",
+        "packages\\Button\\src\\OrionButton.less",
+        "packages\\Card\\src\\OrionCard.less",
+        "packages\\Editor\\src\\OrionEditor.less",
+        "packages\\FooterFixed\\src\\OrionFooterFixed.less",
+        "packages\\Paginate\\src\\OrionPaginate.less",
+        "packages\\Section\\src\\OrionSection.less",
+        "packages\\Select\\src\\OrionSelect.less",
+        "packages\\Shared\\styles\\tooltip.less",
+        "packages\\Swipe\\src\\OrionSwipe.less"
+      ]
+    },
+    {
+      "name": "orion-icon",
+      "count": 6,
+      "files": [
+        "packages\\Chat\\src\\OrionChat.less",
+        "packages\\Icon\\src\\OrionIcon.less",
+        "packages\\Password\\src\\OrionPassword.less",
+        "packages\\PopConfirm\\src\\OrionPopConfirm.less",
+        "packages\\Section\\src\\OrionSection.less",
+        "packages\\TimelinePill\\src\\OrionTimelinePill.less"
+      ]
+    },
+    {
+      "name": "orion-input",
+      "count": 6,
+      "files": [
+        "packages\\Chat\\src\\OrionChat.less",
+        "packages\\Input\\src\\OrionInput.less",
+        "packages\\Paginate\\src\\OrionPaginate.less",
+        "packages\\Phone\\src\\OrionPhone.less",
+        "packages\\Section\\src\\OrionSection.less",
+        "packages\\Select\\src\\OrionSelect.less"
+      ]
+    },
+    {
+      "name": "orion-input__input",
+      "count": 5,
+      "files": [
+        "packages\\Chat\\src\\OrionChat.less",
+        "packages\\Datepicker\\src\\OrionDatepicker.less",
+        "packages\\Phone\\src\\OrionPhone.less",
+        "packages\\Select\\src\\OrionSelect.less",
+        "packages\\Textarea\\src\\OrionTextarea.less"
+      ]
+    },
+    {
+      "name": "orion-loader",
+      "count": 4,
+      "files": [
+        "packages\\Aside\\src\\OrionAside.less",
+        "packages\\Card\\src\\OrionCard.less",
+        "packages\\Loader\\src\\OrionLoader.less",
+        "packages\\Modal\\src\\OrionModal.less"
+      ]
+    },
+    {
+      "name": "active",
+      "count": 3,
+      "files": [
+        "packages\\Datepicker\\src\\OrionDatepicker.less",
+        "packages\\Editor\\src\\OrionEditor.less",
+        "packages\\Shared\\styles\\tooltip.less"
+      ]
+    },
+    {
+      "name": "orion-avatar",
+      "count": 3,
+      "files": [
+        "packages\\Avatar\\src\\OrionAvatar.less",
+        "packages\\ChatDiscussionList\\src\\OrionChatDiscussionList.less",
+        "packages\\Chat\\src\\OrionChat.less"
+      ]
+    },
+    {
+      "name": "orion-input__pictos",
+      "count": 3,
+      "files": [
+        "packages\\Datepicker\\src\\OrionDatepicker.less",
+        "packages\\Field\\src\\OrionField.less",
+        "packages\\Textarea\\src\\OrionTextarea.less"
+      ]
+    },
+    {
+      "name": "orion-nav-main",
+      "count": 3,
+      "files": [
+        "packages\\Layout\\src\\OrionLayout.less",
+        "packages\\NavMainItem\\src\\OrionNavMainItem.less",
+        "packages\\NavMain\\src\\OrionNavMain.less"
+      ]
+    },
+    {
+      "name": "router-link-exact-active",
+      "count": 3,
+      "files": [
+        "packages\\NavMainItem\\src\\OrionNavMainItem.less",
+        "packages\\NavTabs\\src\\OrionNavTabs.less",
+        "packages\\NavTop\\src\\OrionNavTop.less"
+      ]
+    },
+    {
+      "name": "check",
+      "count": 2,
+      "files": [
+        "packages\\Card\\src\\OrionCard.less",
+        "packages\\Sticker\\src\\OrionSticker.less"
+      ]
+    },
+    {
+      "name": "disable",
+      "count": 2,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.less",
+        "packages\\DateWeek\\src\\OrionDateWeek.less"
+      ]
+    },
+    {
+      "name": "disabled",
+      "count": 2,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.less",
+        "packages\\Select\\src\\OrionSelect.less"
+      ]
+    },
+    {
+      "name": "marker",
+      "count": 2,
+      "files": [
+        "packages\\Card\\src\\OrionCard.less",
+        "packages\\Sticker\\src\\OrionSticker.less"
+      ]
+    },
+    {
+      "name": "orion-button--disabled",
+      "count": 2,
+      "files": [
+        "packages\\Button\\src\\OrionButton.less",
+        "packages\\Carousel\\src\\OrionCarousel.less"
+      ]
+    },
+    {
+      "name": "orion-card",
+      "count": 2,
+      "files": [
+        "packages\\Card\\src\\OrionCard.less",
+        "packages\\IconSection\\src\\OrionIconSection.less"
+      ]
+    },
+    {
+      "name": "orion-checkbox",
+      "count": 2,
+      "files": [
+        "packages\\Checkbox\\src\\OrionCheckbox.less",
+        "packages\\Field\\src\\OrionField.less"
+      ]
+    },
+    {
+      "name": "orion-datepicker",
+      "count": 2,
+      "files": [
+        "packages\\Datepicker\\src\\OrionDatepicker.less",
+        "packages\\Input\\src\\OrionInput.less"
+      ]
+    },
+    {
+      "name": "orion-icon__loading",
+      "count": 2,
+      "files": [
+        "packages\\Button\\src\\OrionButton.less",
+        "packages\\Loader\\src\\OrionLoader.less"
+      ]
+    },
+    {
+      "name": "orion-input--disabled",
+      "count": 2,
+      "files": [
+        "packages\\Input\\src\\OrionInput.less",
+        "packages\\Select\\src\\OrionSelect.less"
+      ]
+    },
+    {
+      "name": "orion-label",
+      "count": 2,
+      "files": [
+        "packages\\Datepicker\\src\\OrionDatepicker.less",
+        "packages\\Label\\src\\OrionLabel.less"
+      ]
+    },
+    {
+      "name": "orion-overlay",
+      "count": 2,
+      "files": [
+        "packages\\Card\\src\\OrionCard.less",
+        "packages\\Overlay\\src\\OrionOverlay.less"
+      ]
+    },
+    {
+      "name": "orion-paginate",
+      "count": 2,
+      "files": [
+        "packages\\List\\src\\OrionList.less",
+        "packages\\Paginate\\src\\OrionPaginate.less"
+      ]
+    },
+    {
+      "name": "orion-radio",
+      "count": 2,
+      "files": [
+        "packages\\Field\\src\\OrionField.less",
+        "packages\\Radio\\src\\OrionRadio.less"
+      ]
+    },
+    {
+      "name": "orion-select",
+      "count": 2,
+      "files": [
+        "packages\\Input\\src\\OrionInput.less",
+        "packages\\Select\\src\\OrionSelect.less"
+      ]
+    },
+    {
+      "name": "orion-textarea",
+      "count": 2,
+      "files": [
+        "packages\\Chat\\src\\OrionChat.less",
+        "packages\\Textarea\\src\\OrionTextarea.less"
+      ]
+    },
+    {
+      "name": "orion-toggle",
+      "count": 2,
+      "files": [
+        "packages\\Field\\src\\OrionField.less",
+        "packages\\Toggle\\src\\OrionToggle.less"
+      ]
+    },
+    {
+      "name": "router-link-active",
+      "count": 2,
+      "files": [
+        "packages\\NavMainItem\\src\\OrionNavMainItem.less",
+        "packages\\NavTop\\src\\OrionNavTop.less"
+      ]
+    },
+    {
+      "name": "selected",
+      "count": 2,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.less",
+        "packages\\Select\\src\\OrionSelect.less"
+      ]
+    },
+    {
+      "name": "v-popper",
+      "count": 2,
+      "files": [
+        "packages\\Phone\\src\\OrionPhone.less",
+        "packages\\Shared\\styles\\tooltip.less"
+      ]
+    },
+    {
+      "name": "_LG",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\grid.less"
+      ]
+    },
+    {
+      "name": "_MD",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\grid.less"
+      ]
+    },
+    {
+      "name": "_SM",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\grid.less"
+      ]
+    },
+    {
+      "name": "_XL",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\grid.less"
+      ]
+    },
+    {
+      "name": "_XS",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\grid.less"
+      ]
+    },
+    {
+      "name": "active-when-exact",
+      "count": 1,
+      "files": [
+        "packages\\NavMainItem\\src\\OrionNavMainItem.less"
+      ]
+    },
+    {
+      "name": "ai-c",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\helpers.less"
+      ]
+    },
+    {
+      "name": "ai-fe",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\helpers.less"
+      ]
+    },
+    {
+      "name": "ai-fs",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\helpers.less"
+      ]
+    },
+    {
+      "name": "ai-s",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\helpers.less"
+      ]
+    },
+    {
+      "name": "arrow",
+      "count": 1,
+      "files": [
+        "packages\\Chat\\src\\OrionChat.less"
+      ]
+    },
+    {
+      "name": "asp",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\helpers.less"
+      ]
+    },
+    {
+      "name": "background",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\helpers.less"
+      ]
+    },
+    {
+      "name": "body--orion-dragging",
+      "count": 1,
+      "files": [
+        "packages\\Draggable\\src\\OrionDraggable.less"
+      ]
+    },
+    {
+      "name": "bunny",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\styles.less"
+      ]
+    },
+    {
+      "name": "chat-message",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\transitions.less"
+      ]
+    },
+    {
+      "name": "col",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\grid.less"
+      ]
+    },
+    {
+      "name": "col-xl",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\grid.less"
+      ]
+    },
+    {
+      "name": "color-contrast",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\helpers.less"
+      ]
+    },
+    {
+      "name": "colors",
+      "count": 1,
+      "files": [
+        "packages\\ColorPicker\\src\\OrionColorPicker.less"
+      ]
+    },
+    {
+      "name": "day",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.less"
+      ]
+    },
+    {
+      "name": "emphasis",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.less"
+      ]
+    },
+    {
+      "name": "fade",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\transitions.less"
+      ]
+    },
+    {
+      "name": "fade-slide-down-to-down",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\transitions.less"
+      ]
+    },
+    {
+      "name": "fade-slide-left-to-left",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\transitions.less"
+      ]
+    },
+    {
+      "name": "fade-slide-left-to-right",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\transitions.less"
+      ]
+    },
+    {
+      "name": "fade-slide-right-to-left",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\transitions.less"
+      ]
+    },
+    {
+      "name": "fade-slide-up-to-down",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\transitions.less"
+      ]
+    },
+    {
+      "name": "favorite",
+      "count": 1,
+      "files": [
+        "packages\\Select\\src\\OrionSelect.less"
+      ]
+    },
+    {
+      "name": "favorite-icon",
+      "count": 1,
+      "files": [
+        "packages\\Select\\src\\OrionSelect.less"
+      ]
+    },
+    {
+      "name": "favorite-separator",
+      "count": 1,
+      "files": [
+        "packages\\Select\\src\\OrionSelect.less"
+      ]
+    },
+    {
+      "name": "fd-c",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\helpers.less"
+      ]
+    },
+    {
+      "name": "fd-cr",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\helpers.less"
+      ]
+    },
+    {
+      "name": "fd-rr",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\helpers.less"
+      ]
+    },
+    {
+      "name": "flex",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\helpers.less"
+      ]
+    },
+    {
+      "name": "fw-w",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\helpers.less"
+      ]
+    },
+    {
+      "name": "googleapis",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\styles.less"
+      ]
+    },
+    {
+      "name": "half",
+      "count": 1,
+      "files": [
+        "packages\\Rate\\src\\OrionRate.less"
+      ]
+    },
+    {
+      "name": "hidden-scroll",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\helpers.less"
+      ]
+    },
+    {
+      "name": "hover",
+      "count": 1,
+      "files": [
+        "packages\\Select\\src\\OrionSelect.less"
+      ]
+    },
+    {
+      "name": "hu-color-picker",
+      "count": 1,
+      "files": [
+        "packages\\ColorPicker\\src\\OrionColorPicker.less"
+      ]
+    },
+    {
+      "name": "icon--children-indicator",
+      "count": 1,
+      "files": [
+        "packages\\NavMainItem\\src\\OrionNavMainItem.less"
+      ]
+    },
+    {
+      "name": "icon--delete",
+      "count": 1,
+      "files": [
+        "packages\\Select\\src\\OrionSelect.less"
+      ]
+    },
+    {
+      "name": "icon--selected",
+      "count": 1,
+      "files": [
+        "packages\\Select\\src\\OrionSelect.less"
+      ]
+    },
+    {
+      "name": "in-range",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.less"
+      ]
+    },
+    {
+      "name": "item",
+      "count": 1,
+      "files": [
+        "packages\\ColorPicker\\src\\OrionColorPicker.less"
+      ]
+    },
+    {
+      "name": "jc-c",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\helpers.less"
+      ]
+    },
+    {
+      "name": "jc-fe",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\helpers.less"
+      ]
+    },
+    {
+      "name": "jc-fs",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\helpers.less"
+      ]
+    },
+    {
+      "name": "jc-s",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\helpers.less"
+      ]
+    },
+    {
+      "name": "jc-sa",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\helpers.less"
+      ]
+    },
+    {
+      "name": "jc-sb",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\helpers.less"
+      ]
+    },
+    {
+      "name": "jc-se",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\helpers.less"
+      ]
+    },
+    {
+      "name": "legend",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.less"
+      ]
+    },
+    {
+      "name": "light",
+      "count": 1,
+      "files": [
+        "packages\\ColorPicker\\src\\OrionColorPicker.less"
+      ]
+    },
+    {
+      "name": "mb-a",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\helpers.less"
+      ]
+    },
+    {
+      "name": "ml-a",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\helpers.less"
+      ]
+    },
+    {
+      "name": "mr-a",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\helpers.less"
+      ]
+    },
+    {
+      "name": "mt-a",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\helpers.less"
+      ]
+    },
+    {
+      "name": "name",
+      "count": 1,
+      "files": [
+        "packages\\ColorPicker\\src\\OrionColorPicker.less"
+      ]
+    },
+    {
+      "name": "notification",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.less"
+      ]
+    },
+    {
+      "name": "open",
+      "count": 1,
+      "files": [
+        "packages\\Select\\src\\OrionSelect.less"
+      ]
+    },
+    {
+      "name": "orion-alert",
+      "count": 1,
+      "files": [
+        "packages\\Alert\\src\\OrionAlert.less"
+      ]
+    },
+    {
+      "name": "orion-alert__contrast",
+      "count": 1,
+      "files": [
+        "packages\\Alert\\src\\OrionAlert.less"
+      ]
+    },
+    {
+      "name": "orion-alert__title",
+      "count": 1,
+      "files": [
+        "packages\\Alert\\src\\OrionAlert.less"
+      ]
+    },
+    {
+      "name": "orion-aside",
+      "count": 1,
+      "files": [
+        "packages\\Aside\\src\\OrionAside.less"
+      ]
+    },
+    {
+      "name": "orion-aside__footer",
+      "count": 1,
+      "files": [
+        "packages\\Aside\\src\\OrionAside.less"
+      ]
+    },
+    {
+      "name": "orion-aside--sm",
+      "count": 1,
+      "files": [
+        "packages\\Aside\\src\\OrionAside.less"
+      ]
+    },
+    {
+      "name": "orion-aside--xs",
+      "count": 1,
+      "files": [
+        "packages\\Aside\\src\\OrionAside.less"
+      ]
+    },
+    {
+      "name": "orion-avatar__image",
+      "count": 1,
+      "files": [
+        "packages\\Avatar\\src\\OrionAvatar.less"
+      ]
+    },
+    {
+      "name": "orion-avatar--default",
+      "count": 1,
+      "files": [
+        "packages\\Avatar\\src\\OrionAvatar.less"
+      ]
+    },
+    {
+      "name": "orion-avatar--inverse",
+      "count": 1,
+      "files": [
+        "packages\\Avatar\\src\\OrionAvatar.less"
+      ]
+    },
+    {
+      "name": "orion-avatar--lg",
+      "count": 1,
+      "files": [
+        "packages\\Avatar\\src\\OrionAvatar.less"
+      ]
+    },
+    {
+      "name": "orion-avatar--md",
+      "count": 1,
+      "files": [
+        "packages\\Avatar\\src\\OrionAvatar.less"
+      ]
+    },
+    {
+      "name": "orion-avatar--sm",
+      "count": 1,
+      "files": [
+        "packages\\Avatar\\src\\OrionAvatar.less"
+      ]
+    },
+    {
+      "name": "orion-avatar--square",
+      "count": 1,
+      "files": [
+        "packages\\Avatar\\src\\OrionAvatar.less"
+      ]
+    },
+    {
+      "name": "orion-avatar--xl",
+      "count": 1,
+      "files": [
+        "packages\\Avatar\\src\\OrionAvatar.less"
+      ]
+    },
+    {
+      "name": "orion-avatar--xs",
+      "count": 1,
+      "files": [
+        "packages\\Avatar\\src\\OrionAvatar.less"
+      ]
+    },
+    {
+      "name": "orion-button__icon",
+      "count": 1,
+      "files": [
+        "packages\\Button\\src\\OrionButton.less"
+      ]
+    },
+    {
+      "name": "orion-button__text",
+      "count": 1,
+      "files": [
+        "packages\\Button\\src\\OrionButton.less"
+      ]
+    },
+    {
+      "name": "orion-button--default",
+      "count": 1,
+      "files": [
+        "packages\\Button\\src\\OrionButton.less"
+      ]
+    },
+    {
+      "name": "orion-button--loading",
+      "count": 1,
+      "files": [
+        "packages\\Button\\src\\OrionButton.less"
+      ]
+    },
+    {
+      "name": "orion-button--nude",
+      "count": 1,
+      "files": [
+        "packages\\Button\\src\\OrionButton.less"
+      ]
+    },
+    {
+      "name": "orion-button--outline",
+      "count": 1,
+      "files": [
+        "packages\\Button\\src\\OrionButton.less"
+      ]
+    },
+    {
+      "name": "orion-button--prefix-icon",
+      "count": 1,
+      "files": [
+        "packages\\Button\\src\\OrionButton.less"
+      ]
+    },
+    {
+      "name": "orion-button--suffix-icon",
+      "count": 1,
+      "files": [
+        "packages\\Button\\src\\OrionButton.less"
+      ]
+    },
+    {
+      "name": "orion-card__title",
+      "count": 1,
+      "files": [
+        "packages\\Card\\src\\OrionCard.less"
+      ]
+    },
+    {
+      "name": "orion-card--lg",
+      "count": 1,
+      "files": [
+        "packages\\Card\\src\\OrionCard.less"
+      ]
+    },
+    {
+      "name": "orion-card--md",
+      "count": 1,
+      "files": [
+        "packages\\Card\\src\\OrionCard.less"
+      ]
+    },
+    {
+      "name": "orion-card--selected",
+      "count": 1,
+      "files": [
+        "packages\\Card\\src\\OrionCard.less"
+      ]
+    },
+    {
+      "name": "orion-card--selected-default",
+      "count": 1,
+      "files": [
+        "packages\\Card\\src\\OrionCard.less"
+      ]
+    },
+    {
+      "name": "orion-card--selected-inverse",
+      "count": 1,
+      "files": [
+        "packages\\Card\\src\\OrionCard.less"
+      ]
+    },
+    {
+      "name": "orion-card--sm",
+      "count": 1,
+      "files": [
+        "packages\\Card\\src\\OrionCard.less"
+      ]
+    },
+    {
+      "name": "orion-card--xl",
+      "count": 1,
+      "files": [
+        "packages\\Card\\src\\OrionCard.less"
+      ]
+    },
+    {
+      "name": "orion-card--xs",
+      "count": 1,
+      "files": [
+        "packages\\Card\\src\\OrionCard.less"
+      ]
+    },
+    {
+      "name": "orion-carousel",
+      "count": 1,
+      "files": [
+        "packages\\Carousel\\src\\OrionCarousel.less"
+      ]
+    },
+    {
+      "name": "orion-carousel--timer",
+      "count": 1,
+      "files": [
+        "packages\\Carousel\\src\\OrionCarousel.less"
+      ]
+    },
+    {
+      "name": "orion-carousel-item",
+      "count": 1,
+      "files": [
+        "packages\\CarouselItem\\src\\OrionCarouselItem.less"
+      ]
+    },
+    {
+      "name": "orion-chat",
+      "count": 1,
+      "files": [
+        "packages\\Chat\\src\\OrionChat.less"
+      ]
+    },
+    {
+      "name": "orion-chat__actions",
+      "count": 1,
+      "files": [
+        "packages\\Chat\\src\\OrionChat.less"
+      ]
+    },
+    {
+      "name": "orion-chat__send",
+      "count": 1,
+      "files": [
+        "packages\\Chat\\src\\OrionChat.less"
+      ]
+    },
+    {
+      "name": "orion-chat-discussion-list",
+      "count": 1,
+      "files": [
+        "packages\\ChatDiscussionList\\src\\OrionChatDiscussionList.less"
+      ]
+    },
+    {
+      "name": "orion-chat-discussion-list__item--unread",
+      "count": 1,
+      "files": [
+        "packages\\ChatDiscussionList\\src\\OrionChatDiscussionList.less"
+      ]
+    },
+    {
+      "name": "orion-chat-message",
+      "count": 1,
+      "files": [
+        "packages\\ChatMessage\\src\\OrionChatMessage.less"
+      ]
+    },
+    {
+      "name": "orion-chat-message__message",
+      "count": 1,
+      "files": [
+        "packages\\ChatMessage\\src\\OrionChatMessage.less"
+      ]
+    },
+    {
+      "name": "orion-chat-message--from-user",
+      "count": 1,
+      "files": [
+        "packages\\ChatMessage\\src\\OrionChatMessage.less"
+      ]
+    },
+    {
+      "name": "orion-checkbox--error",
+      "count": 1,
+      "files": [
+        "packages\\Field\\src\\OrionField.less"
+      ]
+    },
+    {
+      "name": "orion-checkbox--required",
+      "count": 1,
+      "files": [
+        "packages\\Field\\src\\OrionField.less"
+      ]
+    },
+    {
+      "name": "orion-chips",
+      "count": 1,
+      "files": [
+        "packages\\Chips\\src\\OrionChips.less"
+      ]
+    },
+    {
+      "name": "orion-chips__close",
+      "count": 1,
+      "files": [
+        "packages\\Chips\\src\\OrionChips.less"
+      ]
+    },
+    {
+      "name": "orion-chips__dual",
+      "count": 1,
+      "files": [
+        "packages\\Chips\\src\\OrionChips.less"
+      ]
+    },
+    {
+      "name": "orion-chips__dual-content",
+      "count": 1,
+      "files": [
+        "packages\\Chips\\src\\OrionChips.less"
+      ]
+    },
+    {
+      "name": "orion-chips__main",
+      "count": 1,
+      "files": [
+        "packages\\Chips\\src\\OrionChips.less"
+      ]
+    },
+    {
+      "name": "orion-chips--closable",
+      "count": 1,
+      "files": [
+        "packages\\Chips\\src\\OrionChips.less"
+      ]
+    },
+    {
+      "name": "orion-chips--dual",
+      "count": 1,
+      "files": [
+        "packages\\Chips\\src\\OrionChips.less"
+      ]
+    },
+    {
+      "name": "orion-chips--outline",
+      "count": 1,
+      "files": [
+        "packages\\Chips\\src\\OrionChips.less"
+      ]
+    },
+    {
+      "name": "orion-color-picker",
+      "count": 1,
+      "files": [
+        "packages\\ColorPicker\\src\\OrionColorPicker.less"
+      ]
+    },
+    {
+      "name": "orion-color-picker--hide-hex",
+      "count": 1,
+      "files": [
+        "packages\\ColorPicker\\src\\OrionColorPicker.less"
+      ]
+    },
+    {
+      "name": "orion-color-picker--hide-rgba",
+      "count": 1,
+      "files": [
+        "packages\\ColorPicker\\src\\OrionColorPicker.less"
+      ]
+    },
+    {
+      "name": "orion-cropper",
+      "count": 1,
+      "files": [
+        "packages\\Cropper\\src\\OrionCropper.less"
+      ]
+    },
+    {
+      "name": "orion-daily-calendar",
+      "count": 1,
+      "files": [
+        "packages\\DailyCalendar\\src\\OrionDailyCalendar.less"
+      ]
+    },
+    {
+      "name": "orion-date-range",
+      "count": 1,
+      "files": [
+        "packages\\DateRange\\src\\OrionDateRange.less"
+      ]
+    },
+    {
+      "name": "orion-date-table",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.less"
+      ]
+    },
+    {
+      "name": "orion-date-table__body-dow",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.less"
+      ]
+    },
+    {
+      "name": "orion-date-table--with-week-number",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.less"
+      ]
+    },
+    {
+      "name": "orion-date-table-row__cell-display-contrast",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.less"
+      ]
+    },
+    {
+      "name": "orion-date-table-row__day__display",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.less"
+      ]
+    },
+    {
+      "name": "orion-date-week",
+      "count": 1,
+      "files": [
+        "packages\\DateWeek\\src\\OrionDateWeek.less"
+      ]
+    },
+    {
+      "name": "orion-datepicker-timepicker",
+      "count": 1,
+      "files": [
+        "packages\\Datepicker\\src\\OrionDatepicker.less"
+      ]
+    },
+    {
+      "name": "orion-datepicker-timepicker-actions",
+      "count": 1,
+      "files": [
+        "packages\\Datepicker\\src\\OrionDatepicker.less"
+      ]
+    },
+    {
+      "name": "orion-draggable",
+      "count": 1,
+      "files": [
+        "packages\\Draggable\\src\\OrionDraggable.less"
+      ]
+    },
+    {
+      "name": "orion-draggable-clone",
+      "count": 1,
+      "files": [
+        "packages\\Draggable\\src\\OrionDraggable.less"
+      ]
+    },
+    {
+      "name": "orion-dragging",
+      "count": 1,
+      "files": [
+        "packages\\Draggable\\src\\OrionDraggable.less"
+      ]
+    },
+    {
+      "name": "orion-droppable",
+      "count": 1,
+      "files": [
+        "packages\\Droppable\\src\\OrionDroppable.less"
+      ]
+    },
+    {
+      "name": "orion-editor",
+      "count": 1,
+      "files": [
+        "packages\\Editor\\src\\OrionEditor.less"
+      ]
+    },
+    {
+      "name": "orion-footer-fixed",
+      "count": 1,
+      "files": [
+        "packages\\FooterFixed\\src\\OrionFooterFixed.less"
+      ]
+    },
+    {
+      "name": "orion-footer-selected",
+      "count": 1,
+      "files": [
+        "packages\\FooterFixed\\src\\OrionFooterFixed.less"
+      ]
+    },
+    {
+      "name": "orion-highlighter",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\styles.less"
+      ]
+    },
+    {
+      "name": "orion-horizontal-scroll",
+      "count": 1,
+      "files": [
+        "packages\\HorizontalScroll\\src\\OrionHorizontalScroll.less"
+      ]
+    },
+    {
+      "name": "orion-icon__button",
+      "count": 1,
+      "files": [
+        "packages\\Icon\\src\\OrionIcon.less"
+      ]
+    },
+    {
+      "name": "orion-icon__marker",
+      "count": 1,
+      "files": [
+        "packages\\Icon\\src\\OrionIcon.less"
+      ]
+    },
+    {
+      "name": "orion-icon__marker--left",
+      "count": 1,
+      "files": [
+        "packages\\Icon\\src\\OrionIcon.less"
+      ]
+    },
+    {
+      "name": "orion-icon__marker--right",
+      "count": 1,
+      "files": [
+        "packages\\Icon\\src\\OrionIcon.less"
+      ]
+    },
+    {
+      "name": "orion-icon__ripple",
+      "count": 1,
+      "files": [
+        "packages\\Icon\\src\\OrionIcon.less"
+      ]
+    },
+    {
+      "name": "orion-icon--clickable",
+      "count": 1,
+      "files": [
+        "packages\\Input\\src\\OrionInput.less"
+      ]
+    },
+    {
+      "name": "orion-icon-section",
+      "count": 1,
+      "files": [
+        "packages\\IconSection\\src\\OrionIconSection.less"
+      ]
+    },
+    {
+      "name": "orion-icon-section__icon",
+      "count": 1,
+      "files": [
+        "packages\\IconSection\\src\\OrionIconSection.less"
+      ]
+    },
+    {
+      "name": "orion-input__label",
+      "count": 1,
+      "files": [
+        "packages\\Paginate\\src\\OrionPaginate.less"
+      ]
+    },
+    {
+      "name": "orion-input__textarea-counter",
+      "count": 1,
+      "files": [
+        "packages\\Textarea\\src\\OrionTextarea.less"
+      ]
+    },
+    {
+      "name": "orion-input--error",
+      "count": 1,
+      "files": [
+        "packages\\Input\\src\\OrionInput.less"
+      ]
+    },
+    {
+      "name": "orion-input--focused",
+      "count": 1,
+      "files": [
+        "packages\\Input\\src\\OrionInput.less"
+      ]
+    },
+    {
+      "name": "orion-input--prefix-icon",
+      "count": 1,
+      "files": [
+        "packages\\Input\\src\\OrionInput.less"
+      ]
+    },
+    {
+      "name": "orion-input--readonly",
+      "count": 1,
+      "files": [
+        "packages\\Select\\src\\OrionSelect.less"
+      ]
+    },
+    {
+      "name": "orion-input--required",
+      "count": 1,
+      "files": [
+        "packages\\Input\\src\\OrionInput.less"
+      ]
+    },
+    {
+      "name": "orion-input--success",
+      "count": 1,
+      "files": [
+        "packages\\Input\\src\\OrionInput.less"
+      ]
+    },
+    {
+      "name": "orion-input--warning",
+      "count": 1,
+      "files": [
+        "packages\\Input\\src\\OrionInput.less"
+      ]
+    },
+    {
+      "name": "orion-input--xs",
+      "count": 1,
+      "files": [
+        "packages\\Input\\src\\OrionInput.less"
+      ]
+    },
+    {
+      "name": "orion-input-group",
+      "count": 1,
+      "files": [
+        "packages\\Phone\\src\\OrionPhone.less"
+      ]
+    },
+    {
+      "name": "orion-input-range",
+      "count": 1,
+      "files": [
+        "packages\\InputRange\\src\\OrionInputRange.less"
+      ]
+    },
+    {
+      "name": "orion-input-range--disabled",
+      "count": 1,
+      "files": [
+        "packages\\InputRange\\src\\OrionInputRange.less"
+      ]
+    },
+    {
+      "name": "orion-input-range--readonly",
+      "count": 1,
+      "files": [
+        "packages\\InputRange\\src\\OrionInputRange.less"
+      ]
+    },
+    {
+      "name": "orion-label__content",
+      "count": 1,
+      "files": [
+        "packages\\Label\\src\\OrionLabel.less"
+      ]
+    },
+    {
+      "name": "orion-label--outline",
+      "count": 1,
+      "files": [
+        "packages\\Label\\src\\OrionLabel.less"
+      ]
+    },
+    {
+      "name": "orion-list",
+      "count": 1,
+      "files": [
+        "packages\\List\\src\\OrionList.less"
+      ]
+    },
+    {
+      "name": "orion-list__row",
+      "count": 1,
+      "files": [
+        "packages\\List\\src\\OrionList.less"
+      ]
+    },
+    {
+      "name": "orion-loader__text",
+      "count": 1,
+      "files": [
+        "packages\\Loader\\src\\OrionLoader.less"
+      ]
+    },
+    {
+      "name": "orion-loader--lg",
+      "count": 1,
+      "files": [
+        "packages\\Loader\\src\\OrionLoader.less"
+      ]
+    },
+    {
+      "name": "orion-loader--md",
+      "count": 1,
+      "files": [
+        "packages\\Loader\\src\\OrionLoader.less"
+      ]
+    },
+    {
+      "name": "orion-loader--sm",
+      "count": 1,
+      "files": [
+        "packages\\Loader\\src\\OrionLoader.less"
+      ]
+    },
+    {
+      "name": "orion-loader--xl",
+      "count": 1,
+      "files": [
+        "packages\\Loader\\src\\OrionLoader.less"
+      ]
+    },
+    {
+      "name": "orion-loader--xs",
+      "count": 1,
+      "files": [
+        "packages\\Loader\\src\\OrionLoader.less"
+      ]
+    },
+    {
+      "name": "orion-modal",
+      "count": 1,
+      "files": [
+        "packages\\Modal\\src\\OrionModal.less"
+      ]
+    },
+    {
+      "name": "orion-modal__body",
+      "count": 1,
+      "files": [
+        "packages\\Modal\\src\\OrionModal.less"
+      ]
+    },
+    {
+      "name": "orion-modal__footer",
+      "count": 1,
+      "files": [
+        "packages\\Modal\\src\\OrionModal.less"
+      ]
+    },
+    {
+      "name": "orion-modal--sm",
+      "count": 1,
+      "files": [
+        "packages\\Modal\\src\\OrionModal.less"
+      ]
+    },
+    {
+      "name": "orion-modal--xs",
+      "count": 1,
+      "files": [
+        "packages\\Modal\\src\\OrionModal.less"
+      ]
+    },
+    {
+      "name": "orion-nav-aside",
+      "count": 1,
+      "files": [
+        "packages\\NavAside\\src\\OrionNavAside.less"
+      ]
+    },
+    {
+      "name": "orion-nav-fullpage__wrapper",
+      "count": 1,
+      "files": [
+        "packages\\Layout\\src\\OrionLayout.less"
+      ]
+    },
+    {
+      "name": "orion-nav-main__children",
+      "count": 1,
+      "files": [
+        "packages\\NavMain\\src\\OrionNavMain.less"
+      ]
+    },
+    {
+      "name": "orion-nav-main__item",
+      "count": 1,
+      "files": [
+        "packages\\NavMainItem\\src\\OrionNavMainItem.less"
+      ]
+    },
+    {
+      "name": "orion-nav-main__item-main-icon",
+      "count": 1,
+      "files": [
+        "packages\\NavMainItem\\src\\OrionNavMainItem.less"
+      ]
+    },
+    {
+      "name": "orion-nav-main__wrapper",
+      "count": 1,
+      "files": [
+        "packages\\NavMain\\src\\OrionNavMain.less"
+      ]
+    },
+    {
+      "name": "orion-nav-main-item",
+      "count": 1,
+      "files": [
+        "packages\\NavMainItem\\src\\OrionNavMainItem.less"
+      ]
+    },
+    {
+      "name": "orion-nav-main-item__children",
+      "count": 1,
+      "files": [
+        "packages\\NavMainItem\\src\\OrionNavMainItem.less"
+      ]
+    },
+    {
+      "name": "orion-nav-tabs",
+      "count": 1,
+      "files": [
+        "packages\\NavTabs\\src\\OrionNavTabs.less"
+      ]
+    },
+    {
+      "name": "orion-nav-top",
+      "count": 1,
+      "files": [
+        "packages\\NavTop\\src\\OrionNavTop.less"
+      ]
+    },
+    {
+      "name": "orion-nav-top__item",
+      "count": 1,
+      "files": [
+        "packages\\NavTop\\src\\OrionNavTop.less"
+      ]
+    },
+    {
+      "name": "orion-notif",
+      "count": 1,
+      "files": [
+        "packages\\Notif\\src\\OrionNotif.less"
+      ]
+    },
+    {
+      "name": "orion-notif__icon",
+      "count": 1,
+      "files": [
+        "packages\\Notif\\src\\OrionNotif.less"
+      ]
+    },
+    {
+      "name": "orion-notif--danger",
+      "count": 1,
+      "files": [
+        "packages\\Notif\\src\\OrionNotif.less"
+      ]
+    },
+    {
+      "name": "orion-notif--info",
+      "count": 1,
+      "files": [
+        "packages\\Notif\\src\\OrionNotif.less"
+      ]
+    },
+    {
+      "name": "orion-notif--success",
+      "count": 1,
+      "files": [
+        "packages\\Notif\\src\\OrionNotif.less"
+      ]
+    },
+    {
+      "name": "orion-notif--warning",
+      "count": 1,
+      "files": [
+        "packages\\Notif\\src\\OrionNotif.less"
+      ]
+    },
+    {
+      "name": "orion-otp",
+      "count": 1,
+      "files": [
+        "packages\\Otp\\src\\OrionOtp.less"
+      ]
+    },
+    {
+      "name": "orion-page",
+      "count": 1,
+      "files": [
+        "packages\\Page\\src\\OrionPage.less"
+      ]
+    },
+    {
+      "name": "orion-password",
+      "count": 1,
+      "files": [
+        "packages\\Password\\src\\OrionPassword.less"
+      ]
+    },
+    {
+      "name": "orion-pop-confirm",
+      "count": 1,
+      "files": [
+        "packages\\PopConfirm\\src\\OrionPopConfirm.less"
+      ]
+    },
+    {
+      "name": "orion-progress-bar",
+      "count": 1,
+      "files": [
+        "packages\\ProgressBar\\src\\OrionProgressBar.less"
+      ]
+    },
+    {
+      "name": "orion-progress-bar__label",
+      "count": 1,
+      "files": [
+        "packages\\ProgressBar\\src\\OrionProgressBar.less"
+      ]
+    },
+    {
+      "name": "orion-progress-bar__value",
+      "count": 1,
+      "files": [
+        "packages\\ProgressBar\\src\\OrionProgressBar.less"
+      ]
+    },
+    {
+      "name": "orion-progress-circle",
+      "count": 1,
+      "files": [
+        "packages\\ProgressCircle\\src\\OrionProgressCircle.less"
+      ]
+    },
+    {
+      "name": "orion-progress-circle__value",
+      "count": 1,
+      "files": [
+        "packages\\ProgressCircle\\src\\OrionProgressCircle.less"
+      ]
+    },
+    {
+      "name": "orion-radio--required",
+      "count": 1,
+      "files": [
+        "packages\\Field\\src\\OrionField.less"
+      ]
+    },
+    {
+      "name": "orion-rate",
+      "count": 1,
+      "files": [
+        "packages\\Rate\\src\\OrionRate.less"
+      ]
+    },
+    {
+      "name": "orion-rate__wrapper",
+      "count": 1,
+      "files": [
+        "packages\\Rate\\src\\OrionRate.less"
+      ]
+    },
+    {
+      "name": "orion-rate--disabled",
+      "count": 1,
+      "files": [
+        "packages\\Rate\\src\\OrionRate.less"
+      ]
+    },
+    {
+      "name": "orion-section",
+      "count": 1,
+      "files": [
+        "packages\\Section\\src\\OrionSection.less"
+      ]
+    },
+    {
+      "name": "orion-section__header",
+      "count": 1,
+      "files": [
+        "packages\\Section\\src\\OrionSection.less"
+      ]
+    },
+    {
+      "name": "orion-section--actions",
+      "count": 1,
+      "files": [
+        "packages\\Section\\src\\OrionSection.less"
+      ]
+    },
+    {
+      "name": "orion-section--lg",
+      "count": 1,
+      "files": [
+        "packages\\Section\\src\\OrionSection.less"
+      ]
+    },
+    {
+      "name": "orion-section--md",
+      "count": 1,
+      "files": [
+        "packages\\Section\\src\\OrionSection.less"
+      ]
+    },
+    {
+      "name": "orion-section--sm",
+      "count": 1,
+      "files": [
+        "packages\\Section\\src\\OrionSection.less"
+      ]
+    },
+    {
+      "name": "orion-section--xs",
+      "count": 1,
+      "files": [
+        "packages\\Section\\src\\OrionSection.less"
+      ]
+    },
+    {
+      "name": "orion-select__autocomplete",
+      "count": 1,
+      "files": [
+        "packages\\Select\\src\\OrionSelect.less"
+      ]
+    },
+    {
+      "name": "orion-select__icon--internal",
+      "count": 1,
+      "files": [
+        "packages\\Select\\src\\OrionSelect.less"
+      ]
+    },
+    {
+      "name": "orion-select-multiple__popover",
+      "count": 1,
+      "files": [
+        "packages\\Select\\src\\OrionSelect.less"
+      ]
+    },
+    {
+      "name": "orion-sticker",
+      "count": 1,
+      "files": [
+        "packages\\Sticker\\src\\OrionSticker.less"
+      ]
+    },
+    {
+      "name": "orion-sticker--selected",
+      "count": 1,
+      "files": [
+        "packages\\Sticker\\src\\OrionSticker.less"
+      ]
+    },
+    {
+      "name": "orion-sticker--selected-brand",
+      "count": 1,
+      "files": [
+        "packages\\Sticker\\src\\OrionSticker.less"
+      ]
+    },
+    {
+      "name": "orion-sticker--selected-danger",
+      "count": 1,
+      "files": [
+        "packages\\Sticker\\src\\OrionSticker.less"
+      ]
+    },
+    {
+      "name": "orion-sticker--selected-info",
+      "count": 1,
+      "files": [
+        "packages\\Sticker\\src\\OrionSticker.less"
+      ]
+    },
+    {
+      "name": "orion-sticker--selected-pink",
+      "count": 1,
+      "files": [
+        "packages\\Sticker\\src\\OrionSticker.less"
+      ]
+    },
+    {
+      "name": "orion-sticker--selected-success",
+      "count": 1,
+      "files": [
+        "packages\\Sticker\\src\\OrionSticker.less"
+      ]
+    },
+    {
+      "name": "orion-sticker--selected-warning",
+      "count": 1,
+      "files": [
+        "packages\\Sticker\\src\\OrionSticker.less"
+      ]
+    },
+    {
+      "name": "orion-sticker-rotator",
+      "count": 1,
+      "files": [
+        "packages\\Sticker\\src\\OrionSticker.less"
+      ]
+    },
+    {
+      "name": "orion-sticker-wrapper--floating",
+      "count": 1,
+      "files": [
+        "packages\\Sticker\\src\\OrionSticker.less"
+      ]
+    },
+    {
+      "name": "orion-swipe",
+      "count": 1,
+      "files": [
+        "packages\\Swipe\\src\\OrionSwipe.less"
+      ]
+    },
+    {
+      "name": "orion-tab-nav",
+      "count": 1,
+      "files": [
+        "packages\\TabNav\\src\\OrionTabNav.less"
+      ]
+    },
+    {
+      "name": "orion-tab-nav__icon",
+      "count": 1,
+      "files": [
+        "packages\\TabNav\\src\\OrionTabNav.less"
+      ]
+    },
+    {
+      "name": "orion-tab-nav__label",
+      "count": 1,
+      "files": [
+        "packages\\TabNav\\src\\OrionTabNav.less"
+      ]
+    },
+    {
+      "name": "orion-tab-nav__marker",
+      "count": 1,
+      "files": [
+        "packages\\TabNav\\src\\OrionTabNav.less"
+      ]
+    },
+    {
+      "name": "orion-tab-pane",
+      "count": 1,
+      "files": [
+        "packages\\TabPane\\src\\OrionTabPane.less"
+      ]
+    },
+    {
+      "name": "orion-tabs",
+      "count": 1,
+      "files": [
+        "packages\\Tabs\\src\\OrionTabs.less"
+      ]
+    },
+    {
+      "name": "orion-telephone--with-flag",
+      "count": 1,
+      "files": [
+        "packages\\Phone\\src\\OrionPhone.less"
+      ]
+    },
+    {
+      "name": "orion-timeline",
+      "count": 1,
+      "files": [
+        "packages\\Timeline\\src\\OrionTimeline.less"
+      ]
+    },
+    {
+      "name": "orion-timeline__pills",
+      "count": 1,
+      "files": [
+        "packages\\TimelinePill\\src\\OrionTimelinePill.less"
+      ]
+    },
+    {
+      "name": "orion-timeline--horizontal",
+      "count": 1,
+      "files": [
+        "packages\\TimelinePill\\src\\OrionTimelinePill.less"
+      ]
+    },
+    {
+      "name": "orion-timeline--vertical",
+      "count": 1,
+      "files": [
+        "packages\\TimelinePill\\src\\OrionTimelinePill.less"
+      ]
+    },
+    {
+      "name": "orion-timeline-pane",
+      "count": 1,
+      "files": [
+        "packages\\TimelinePane\\src\\OrionTimelinePane.less"
+      ]
+    },
+    {
+      "name": "orion-timeline-pill",
+      "count": 1,
+      "files": [
+        "packages\\TimelinePill\\src\\OrionTimelinePill.less"
+      ]
+    },
+    {
+      "name": "orion-timeline-pill__core--active",
+      "count": 1,
+      "files": [
+        "packages\\TimelinePill\\src\\OrionTimelinePill.less"
+      ]
+    },
+    {
+      "name": "orion-timeline-pill__core--filled",
+      "count": 1,
+      "files": [
+        "packages\\TimelinePill\\src\\OrionTimelinePill.less"
+      ]
+    },
+    {
+      "name": "orion-timeline-pill__core-text",
+      "count": 1,
+      "files": [
+        "packages\\TimelinePill\\src\\OrionTimelinePill.less"
+      ]
+    },
+    {
+      "name": "orion-timeline-pill__separator",
+      "count": 1,
+      "files": [
+        "packages\\TimelinePill\\src\\OrionTimelinePill.less"
+      ]
+    },
+    {
+      "name": "orion-timeline-pill__separator--before",
+      "count": 1,
+      "files": [
+        "packages\\TimelinePill\\src\\OrionTimelinePill.less"
+      ]
+    },
+    {
+      "name": "orion-timeline-pill-wrapper--centered-pill",
+      "count": 1,
+      "files": [
+        "packages\\TimelinePill\\src\\OrionTimelinePill.less"
+      ]
+    },
+    {
+      "name": "orion-toggle__core",
+      "count": 1,
+      "files": [
+        "packages\\Toggle\\src\\OrionToggle.less"
+      ]
+    },
+    {
+      "name": "orion-toggle__core-button",
+      "count": 1,
+      "files": [
+        "packages\\Toggle\\src\\OrionToggle.less"
+      ]
+    },
+    {
+      "name": "orion-toggle--checked",
+      "count": 1,
+      "files": [
+        "packages\\Toggle\\src\\OrionToggle.less"
+      ]
+    },
+    {
+      "name": "orion-toggle--default",
+      "count": 1,
+      "files": [
+        "packages\\Toggle\\src\\OrionToggle.less"
+      ]
+    },
+    {
+      "name": "orion-toggle--disabled",
+      "count": 1,
+      "files": [
+        "packages\\Toggle\\src\\OrionToggle.less"
+      ]
+    },
+    {
+      "name": "orion-toggle--inverse",
+      "count": 1,
+      "files": [
+        "packages\\Toggle\\src\\OrionToggle.less"
+      ]
+    },
+    {
+      "name": "orion-toggle--lg",
+      "count": 1,
+      "files": [
+        "packages\\Toggle\\src\\OrionToggle.less"
+      ]
+    },
+    {
+      "name": "orion-toggle--required",
+      "count": 1,
+      "files": [
+        "packages\\Toggle\\src\\OrionToggle.less"
+      ]
+    },
+    {
+      "name": "orion-toggle--reverse",
+      "count": 1,
+      "files": [
+        "packages\\Toggle\\src\\OrionToggle.less"
+      ]
+    },
+    {
+      "name": "orion-toggle--sm",
+      "count": 1,
+      "files": [
+        "packages\\Toggle\\src\\OrionToggle.less"
+      ]
+    },
+    {
+      "name": "orion-toggle--xl",
+      "count": 1,
+      "files": [
+        "packages\\Toggle\\src\\OrionToggle.less"
+      ]
+    },
+    {
+      "name": "orion-toggle--xs",
+      "count": 1,
+      "files": [
+        "packages\\Toggle\\src\\OrionToggle.less"
+      ]
+    },
+    {
+      "name": "orion-tour-overlay",
+      "count": 1,
+      "files": [
+        "packages\\Tour\\src\\OrionTour.less"
+      ]
+    },
+    {
+      "name": "orion-tour-step",
+      "count": 1,
+      "files": [
+        "packages\\TourStep\\src\\OrionTourStep.less"
+      ]
+    },
+    {
+      "name": "orion-tour-step-highlighter",
+      "count": 1,
+      "files": [
+        "packages\\Tour\\src\\OrionTour.less"
+      ]
+    },
+    {
+      "name": "orion-tour-tooltip",
+      "count": 1,
+      "files": [
+        "packages\\Tour\\src\\OrionTour.less"
+      ]
+    },
+    {
+      "name": "orion-tour-tooltip__body",
+      "count": 1,
+      "files": [
+        "packages\\Tour\\src\\OrionTour.less"
+      ]
+    },
+    {
+      "name": "orion-upload",
+      "count": 1,
+      "files": [
+        "packages\\Upload\\src\\OrionUpload.less"
+      ]
+    },
+    {
+      "name": "orion-upload__delete-file",
+      "count": 1,
+      "files": [
+        "packages\\Upload\\src\\OrionUpload.less"
+      ]
+    },
+    {
+      "name": "orion-upload__illustration",
+      "count": 1,
+      "files": [
+        "packages\\Modal\\src\\OrionModal.less"
+      ]
+    },
+    {
+      "name": "orion-upload__or",
+      "count": 1,
+      "files": [
+        "packages\\Upload\\src\\OrionUpload.less"
+      ]
+    },
+    {
+      "name": "ovf-h",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\helpers.less"
+      ]
+    },
+    {
+      "name": "password-check-line",
+      "count": 1,
+      "files": [
+        "packages\\Password\\src\\OrionPassword.less"
+      ]
+    },
+    {
+      "name": "pre-line",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\helpers.less"
+      ]
+    },
+    {
+      "name": "ProseMirror",
+      "count": 1,
+      "files": [
+        "packages\\Editor\\src\\OrionEditor.less"
+      ]
+    },
+    {
+      "name": "ProseMirror-selectednode",
+      "count": 1,
+      "files": [
+        "packages\\Editor\\src\\OrionEditor.less"
+      ]
+    },
+    {
+      "name": "ripple__wave",
+      "count": 1,
+      "files": [
+        "packages\\Icon\\src\\OrionIcon.less"
+      ]
+    },
+    {
+      "name": "router",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\transitions.less"
+      ]
+    },
+    {
+      "name": "row",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\grid.less"
+      ]
+    },
+    {
+      "name": "runnable-track",
+      "count": 1,
+      "files": [
+        "packages\\InputRange\\src\\OrionInputRange.less"
+      ]
+    },
+    {
+      "name": "scale",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\transitions.less"
+      ]
+    },
+    {
+      "name": "scale-top-left",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\transitions.less"
+      ]
+    },
+    {
+      "name": "text",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\helpers.less"
+      ]
+    },
+    {
+      "name": "today",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.less"
+      ]
+    },
+    {
+      "name": "v-popper__arrow",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\tooltip.less"
+      ]
+    },
+    {
+      "name": "v-popper__backdrop",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\tooltip.less"
+      ]
+    },
+    {
+      "name": "v-popper__inner",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\tooltip.less"
+      ]
+    },
+    {
+      "name": "v-popper__popper",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.less"
+      ]
+    },
+    {
+      "name": "v-popper__popper--no-positioning",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\tooltip.less"
+      ]
+    },
+    {
+      "name": "v-popper__wrapper",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\tooltip.less"
+      ]
+    },
+    {
+      "name": "v-popper--theme",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\tooltip.less"
+      ]
+    },
+    {
+      "name": "v-popper--theme-orion-editor-toolbar",
+      "count": 1,
+      "files": [
+        "packages\\ColorPicker\\src\\OrionColorPicker.less"
+      ]
+    },
+    {
+      "name": "value",
+      "count": 1,
+      "files": [
+        "packages\\ColorPicker\\src\\OrionColorPicker.less"
+      ]
+    },
+    {
+      "name": "vue-portal-target",
+      "count": 1,
+      "files": [
+        "packages\\Page\\src\\OrionPage.less"
+      ]
+    },
+    {
+      "name": "w3schools",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\styles\\helpers.less"
+      ]
+    }
+  ],
+  "used": [
+    {
+      "name": "row",
+      "count": 66,
+      "files": [
+        "packages\\Alert\\docs\\AlertPlayground.vue",
+        "packages\\Aside\\docs\\AsidePlayground.vue",
+        "packages\\Avatar\\docs\\AvatarPlayground.vue",
+        "packages\\Avatar\\docs\\AvatarSquare.vue",
+        "packages\\Avatar\\docs\\AvatarUpdate.vue",
+        "packages\\Button\\docs\\ButtonPlayground.vue",
+        "packages\\Card\\docs\\CardActionsSlot.vue",
+        "packages\\Card\\docs\\CardGradient.vue",
+        "packages\\Card\\docs\\CardPlayground.vue",
+        "packages\\Card\\docs\\CardSelected.vue",
+        "packages\\Carousel\\docs\\CarouselPlayground.vue",
+        "packages\\Checkbox\\docs\\CheckboxPlayground.vue",
+        "packages\\Chips\\docs\\ChipsPlayground.vue",
+        "packages\\ColorPicker\\docs\\ColorPickerPlayground.vue",
+        "packages\\Cropper\\docs\\CropperPlayground.vue",
+        "packages\\DailyCalendar\\docs\\DailyCalendarPlayground.vue",
+        "packages\\DateTable\\docs\\DateTablePlayground.vue",
+        "packages\\Datepicker\\docs\\DatepickerDisplay.vue",
+        "packages\\Datepicker\\docs\\DatepickerPlayground.vue",
+        "packages\\Datepicker\\docs\\DatepickerType.vue",
+        "packages\\Editor\\docs\\EditorPlayground.vue",
+        "packages\\FooterFixed\\docs\\FooterFixedPlayground.vue",
+        "packages\\HorizontalScroll\\docs\\HorizontalScrollPlayground.vue",
+        "packages\\IconSection\\docs\\IconSectionPlayground.vue",
+        "packages\\IconSection\\docs\\IconSectionStyle.vue",
+        "packages\\Icon\\docs\\IconPlayground.vue",
+        "packages\\InputRange\\docs\\InputRangePlayground.vue",
+        "packages\\Input\\docs\\InputIcons.vue",
+        "packages\\Input\\docs\\InputMask.vue",
+        "packages\\Input\\docs\\InputPlayground.vue",
+        "packages\\Label\\docs\\LabelPlayground.vue",
+        "packages\\List\\docs\\ListPlayground.vue",
+        "packages\\Loader\\docs\\LoaderPlayground.vue",
+        "packages\\Modal\\docs\\ModalPlayground.vue",
+        "packages\\Notif\\docs\\NotifPlayground.vue",
+        "packages\\Otp\\docs\\OtpPlayground.vue",
+        "packages\\Page\\docs\\PagePlayground.vue",
+        "packages\\Paginate\\docs\\PaginatePlayground.vue",
+        "packages\\Password\\docs\\PasswordConfirmation.vue",
+        "packages\\Password\\docs\\PasswordPlayground.vue",
+        "packages\\Phone\\docs\\PhoneFlag.vue",
+        "packages\\Phone\\docs\\PhoneMobile.vue",
+        "packages\\Phone\\docs\\PhonePlayground.vue",
+        "packages\\ProgressBar\\docs\\ProgressBarPlayground.vue",
+        "packages\\ProgressCircle\\docs\\ProgressCirclePlayground.vue",
+        "packages\\Radio\\docs\\RadioPlayground.vue",
+        "packages\\Rate\\docs\\RatePlayground.vue",
+        "packages\\Section\\docs\\SectionPlayground.vue",
+        "packages\\Select\\docs\\SelectData.vue",
+        "packages\\Select\\docs\\SelectFavorite.vue",
+        "packages\\Select\\docs\\SelectFetch.vue",
+        "packages\\Select\\docs\\SelectFormat.vue",
+        "packages\\Select\\docs\\SelectPlayground.vue",
+        "packages\\Sticker\\docs\\StickerPlayground.vue",
+        "packages\\Swipe\\docs\\SwipePlayground.vue",
+        "packages\\Tabs\\docs\\TabsPlayground.vue",
+        "packages\\Textarea\\docs\\TextareaIcons.vue",
+        "packages\\Textarea\\docs\\TextareaPlayground.vue",
+        "packages\\Textarea\\docs\\TextareaStyle.vue",
+        "packages\\Timeline\\docs\\TimelinePlayground.vue",
+        "packages\\Toggle\\docs\\TogglePlayground.vue",
+        "packages\\Tour\\docs\\TourStepPlayground.vue",
+        "packages\\Tour\\docs\\TourStepPreviousNext.vue",
+        "packages\\Tour\\docs\\TourStepSize.vue",
+        "packages\\Tour\\docs\\TourStepTarget.vue",
+        "packages\\Upload\\docs\\UploadPlayground.vue"
+      ]
+    },
+    {
+      "name": "flex",
+      "count": 53,
+      "files": [
+        "packages\\Aside\\docs\\AsideSlots.vue",
+        "packages\\Aside\\docs\\AsideStyle.vue",
+        "packages\\Button\\docs\\ButtonColors.vue",
+        "packages\\Button\\docs\\ButtonIcons.vue",
+        "packages\\Chat\\docs\\ChatMultipleDiscussions.vue",
+        "packages\\Checkbox\\docs\\CheckboxStyle.vue",
+        "packages\\Checkbox\\docs\\CheckboxValue.vue",
+        "packages\\Chips\\docs\\ChipsClosable.vue",
+        "packages\\Chips\\docs\\ChipsColors.vue",
+        "packages\\ColorPicker\\docs\\ColorPickerFormat.vue",
+        "packages\\Cropper\\docs\\CropperPlayground.vue",
+        "packages\\Cropper\\docs\\CropperZoom.vue",
+        "packages\\DailyCalendar\\docs\\DailyCalendarPlayground.vue",
+        "packages\\DateTable\\docs\\DateTablePlayground.vue",
+        "packages\\Datepicker\\docs\\DatepickerDate.vue",
+        "packages\\Datepicker\\docs\\DatepickerPlayground.vue",
+        "packages\\Datepicker\\src\\OrionDatepicker.vue",
+        "packages\\Droppable\\docs\\DragNDropPlayground.vue",
+        "packages\\Droppable\\docs\\DroppableValidation.vue",
+        "packages\\HorizontalScroll\\docs\\HorizontalScrollPlayground.vue",
+        "packages\\HorizontalScroll\\docs\\HorizontalScrollPreview.vue",
+        "packages\\HorizontalScroll\\docs\\HorizontalScrollShadow.vue",
+        "packages\\IconSection\\docs\\IconSectionPlayground.vue",
+        "packages\\Icon\\docs\\IconMarker.vue",
+        "packages\\Icon\\docs\\IconPlayground.vue",
+        "packages\\Icon\\docs\\IconStyle.vue",
+        "packages\\InputRange\\docs\\InputRangePlayground.vue",
+        "packages\\InputRange\\docs\\InputRangeValue.vue",
+        "packages\\Input\\docs\\InputPlayground.vue",
+        "packages\\Input\\docs\\InputStyle.vue",
+        "packages\\Label\\docs\\LabelColors.vue",
+        "packages\\Loader\\docs\\LoaderColor.vue",
+        "packages\\Loader\\docs\\LoaderPlayground.vue",
+        "packages\\Loader\\docs\\LoaderSize.vue",
+        "packages\\Modal\\docs\\ModalOptions.vue",
+        "packages\\Modal\\docs\\ModalPromptConfirm.vue",
+        "packages\\Modal\\docs\\ModalStyle.vue",
+        "packages\\Notif\\docs\\NotifStyle.vue",
+        "packages\\Otp\\docs\\OtpCodeType.vue",
+        "packages\\Page\\docs\\PagePlayground.vue",
+        "packages\\Paginate\\docs\\PaginatePlayground.vue",
+        "packages\\Phone\\src\\OrionPhone.vue",
+        "packages\\PopConfirm\\docs\\PopConfirmSlots.vue",
+        "packages\\ProgressBar\\docs\\ProgressBarColor.vue",
+        "packages\\ProgressCircle\\docs\\ProgressCircleColors.vue",
+        "packages\\Radio\\docs\\RadioStyle.vue",
+        "packages\\Rate\\docs\\RateColors.vue",
+        "packages\\Rate\\docs\\RateNumbers.vue",
+        "packages\\Section\\docs\\SectionActionsOnly.vue",
+        "packages\\Select\\docs\\SelectContainer.vue",
+        "packages\\Toggle\\docs\\ToggleColor.vue",
+        "packages\\Upload\\docs\\UploadFile.vue",
+        "packages\\Upload\\docs\\UploadPlayground.vue"
+      ]
+    },
+    {
+      "name": "row--grid",
+      "count": 38,
+      "files": [
+        "packages\\Avatar\\docs\\AvatarSquare.vue",
+        "packages\\Button\\docs\\ButtonPlayground.vue",
+        "packages\\Card\\docs\\CardActionsSlot.vue",
+        "packages\\Card\\docs\\CardGradient.vue",
+        "packages\\Card\\docs\\CardPlayground.vue",
+        "packages\\Card\\docs\\CardSelected.vue",
+        "packages\\Carousel\\docs\\CarouselPlayground.vue",
+        "packages\\Checkbox\\docs\\CheckboxPlayground.vue",
+        "packages\\Chips\\docs\\ChipsPlayground.vue",
+        "packages\\ColorPicker\\docs\\ColorPickerPlayground.vue",
+        "packages\\Cropper\\docs\\CropperPlayground.vue",
+        "packages\\Datepicker\\docs\\DatepickerPlayground.vue",
+        "packages\\Datepicker\\docs\\DatepickerType.vue",
+        "packages\\Editor\\docs\\EditorPlayground.vue",
+        "packages\\FooterFixed\\docs\\FooterFixedPlayground.vue",
+        "packages\\InputRange\\docs\\InputRangePlayground.vue",
+        "packages\\Input\\docs\\InputIcons.vue",
+        "packages\\Input\\docs\\InputMask.vue",
+        "packages\\Input\\docs\\InputPlayground.vue",
+        "packages\\Loader\\docs\\LoaderPlayground.vue",
+        "packages\\Paginate\\docs\\PaginatePlayground.vue",
+        "packages\\Password\\docs\\PasswordConfirmation.vue",
+        "packages\\Password\\docs\\PasswordPlayground.vue",
+        "packages\\Phone\\docs\\PhoneFlag.vue",
+        "packages\\Phone\\docs\\PhoneMobile.vue",
+        "packages\\Phone\\docs\\PhonePlayground.vue",
+        "packages\\Radio\\docs\\RadioPlayground.vue",
+        "packages\\Section\\docs\\SectionPlayground.vue",
+        "packages\\Select\\docs\\SelectPlayground.vue",
+        "packages\\Sticker\\docs\\StickerPlayground.vue",
+        "packages\\Textarea\\docs\\TextareaIcons.vue",
+        "packages\\Textarea\\docs\\TextareaPlayground.vue",
+        "packages\\Timeline\\docs\\TimelinePlayground.vue",
+        "packages\\Toggle\\docs\\TogglePlayground.vue",
+        "packages\\Tour\\docs\\TourStepPlayground.vue",
+        "packages\\Tour\\docs\\TourStepPreviousNext.vue",
+        "packages\\Tour\\docs\\TourStepSize.vue",
+        "packages\\Tour\\docs\\TourStepTarget.vue"
+      ]
+    },
+    {
+      "name": "col-sm-4",
+      "count": 37,
+      "files": [
+        "packages\\Aside\\docs\\AsidePlayground.vue",
+        "packages\\Avatar\\docs\\AvatarPlayground.vue",
+        "packages\\Avatar\\docs\\AvatarSquare.vue",
+        "packages\\Button\\docs\\ButtonPlayground.vue",
+        "packages\\Card\\docs\\CardActionsSlot.vue",
+        "packages\\Card\\docs\\CardGradient.vue",
+        "packages\\Card\\docs\\CardPlayground.vue",
+        "packages\\Carousel\\docs\\CarouselPlayground.vue",
+        "packages\\Checkbox\\docs\\CheckboxPlayground.vue",
+        "packages\\Chips\\docs\\ChipsPlayground.vue",
+        "packages\\ColorPicker\\docs\\ColorPickerPlayground.vue",
+        "packages\\DailyCalendar\\docs\\DailyCalendarPlayground.vue",
+        "packages\\DateTable\\docs\\DateTablePlayground.vue",
+        "packages\\Datepicker\\docs\\DatepickerPlayground.vue",
+        "packages\\FooterFixed\\docs\\FooterFixedPlayground.vue",
+        "packages\\IconSection\\docs\\IconSectionPlayground.vue",
+        "packages\\Icon\\docs\\IconPlayground.vue",
+        "packages\\InputRange\\docs\\InputRangePlayground.vue",
+        "packages\\Input\\docs\\InputIcons.vue",
+        "packages\\Label\\docs\\LabelPlayground.vue",
+        "packages\\List\\docs\\ListPlayground.vue",
+        "packages\\Loader\\docs\\LoaderPlayground.vue",
+        "packages\\Modal\\docs\\ModalPlayground.vue",
+        "packages\\Notif\\docs\\NotifPlayground.vue",
+        "packages\\Otp\\docs\\OtpPlayground.vue",
+        "packages\\Page\\docs\\PagePlayground.vue",
+        "packages\\Paginate\\docs\\PaginatePlayground.vue",
+        "packages\\Password\\docs\\PasswordPlayground.vue",
+        "packages\\Radio\\docs\\RadioPlayground.vue",
+        "packages\\Rate\\docs\\RatePlayground.vue",
+        "packages\\Section\\docs\\SectionPlayground.vue",
+        "packages\\Select\\docs\\SelectPlayground.vue",
+        "packages\\Sticker\\docs\\StickerPlayground.vue",
+        "packages\\Tabs\\docs\\TabsPlayground.vue",
+        "packages\\Textarea\\docs\\TextareaIcons.vue",
+        "packages\\Timeline\\docs\\TimelinePlayground.vue",
+        "packages\\Toggle\\docs\\TogglePlayground.vue"
+      ]
+    },
+    {
+      "name": "{",
+      "count": 35,
+      "files": [
+        "packages\\Alert\\src\\OrionAlert.vue",
+        "packages\\Aside\\src\\OrionAside.vue",
+        "packages\\Button\\src\\OrionButton.vue",
+        "packages\\Card\\src\\OrionCard.vue",
+        "packages\\Carousel\\src\\OrionCarousel.vue",
+        "packages\\ChatDiscussionList\\src\\OrionChatDiscussionList.vue",
+        "packages\\ChatMessage\\src\\OrionChatMessage.vue",
+        "packages\\Checkbox\\src\\OrionCheckbox.vue",
+        "packages\\Chips\\src\\OrionChips.vue",
+        "packages\\ColorPicker\\src\\OrionColorPicker.vue",
+        "packages\\DateTable\\src\\OrionDateTable.vue",
+        "packages\\DateWeek\\src\\OrionDateWeek.vue",
+        "packages\\Datepicker\\src\\OrionDatepicker.vue",
+        "packages\\Draggable\\src\\OrionDraggable.vue",
+        "packages\\Droppable\\src\\OrionDroppable.vue",
+        "packages\\Editor\\src\\OrionEditor.vue",
+        "packages\\HorizontalScroll\\src\\OrionHorizontalScroll.vue",
+        "packages\\IconSection\\src\\OrionIconSection.vue",
+        "packages\\Icon\\src\\OrionIcon.vue",
+        "packages\\InputRange\\src\\OrionInputRange.vue",
+        "packages\\Label\\src\\OrionLabel.vue",
+        "packages\\Loader\\src\\OrionLoader.vue",
+        "packages\\Modal\\src\\OrionModal.vue",
+        "packages\\NavTop\\src\\OrionNavTop.vue",
+        "packages\\Overlay\\src\\OrionOverlay.vue",
+        "packages\\Page\\src\\OrionPage.vue",
+        "packages\\Paginate\\src\\OrionPaginate.vue",
+        "packages\\Phone\\src\\OrionPhone.vue",
+        "packages\\Radio\\src\\OrionRadio.vue",
+        "packages\\Rate\\src\\OrionRate.vue",
+        "packages\\Select\\src\\OrionSelect.vue",
+        "packages\\Sticker\\src\\OrionSticker.vue",
+        "packages\\Swipe\\src\\OrionSwipe.vue",
+        "packages\\Textarea\\src\\OrionTextarea.vue",
+        "packages\\Toggle\\src\\OrionToggle.vue"
+      ]
+    },
+    {
+      "name": "row--gutter",
+      "count": 32,
+      "files": [
+        "packages\\Alert\\docs\\AlertPlayground.vue",
+        "packages\\Aside\\docs\\AsidePlayground.vue",
+        "packages\\Avatar\\docs\\AvatarPlayground.vue",
+        "packages\\Card\\docs\\CardPlayground.vue",
+        "packages\\Carousel\\docs\\CarouselPlayground.vue",
+        "packages\\Chips\\docs\\ChipsPlayground.vue",
+        "packages\\DailyCalendar\\docs\\DailyCalendarPlayground.vue",
+        "packages\\DateTable\\docs\\DateTablePlayground.vue",
+        "packages\\HorizontalScroll\\docs\\HorizontalScrollPlayground.vue",
+        "packages\\IconSection\\docs\\IconSectionPlayground.vue",
+        "packages\\IconSection\\docs\\IconSectionStyle.vue",
+        "packages\\Icon\\docs\\IconPlayground.vue",
+        "packages\\Label\\docs\\LabelPlayground.vue",
+        "packages\\List\\docs\\ListPlayground.vue",
+        "packages\\Modal\\docs\\ModalPlayground.vue",
+        "packages\\Notif\\docs\\NotifPlayground.vue",
+        "packages\\Otp\\docs\\OtpPlayground.vue",
+        "packages\\Page\\docs\\PagePlayground.vue",
+        "packages\\ProgressBar\\docs\\ProgressBarPlayground.vue",
+        "packages\\ProgressCircle\\docs\\ProgressCirclePlayground.vue",
+        "packages\\Radio\\docs\\RadioPlayground.vue",
+        "packages\\Select\\docs\\SelectData.vue",
+        "packages\\Select\\docs\\SelectFavorite.vue",
+        "packages\\Select\\docs\\SelectFetch.vue",
+        "packages\\Select\\docs\\SelectFormat.vue",
+        "packages\\Swipe\\docs\\SwipePlayground.vue",
+        "packages\\Tabs\\docs\\TabsPlayground.vue",
+        "packages\\Textarea\\docs\\TextareaPlayground.vue",
+        "packages\\Textarea\\docs\\TextareaStyle.vue",
+        "packages\\Timeline\\docs\\TimelinePlayground.vue",
+        "packages\\Toggle\\docs\\TogglePlayground.vue",
+        "packages\\Upload\\docs\\UploadPlayground.vue"
+      ]
+    },
+    {
+      "name": "row--middle",
+      "count": 28,
+      "files": [
+        "packages\\Aside\\docs\\AsidePlayground.vue",
+        "packages\\Avatar\\docs\\AvatarPlayground.vue",
+        "packages\\Avatar\\docs\\AvatarSquare.vue",
+        "packages\\Cropper\\docs\\CropperPlayground.vue",
+        "packages\\DateTable\\docs\\DateTablePlayground.vue",
+        "packages\\FooterFixed\\docs\\FooterFixedPlayground.vue",
+        "packages\\HorizontalScroll\\docs\\HorizontalScrollPlayground.vue",
+        "packages\\IconSection\\docs\\IconSectionPlayground.vue",
+        "packages\\Icon\\docs\\IconPlayground.vue",
+        "packages\\Label\\docs\\LabelPlayground.vue",
+        "packages\\List\\docs\\ListPlayground.vue",
+        "packages\\Loader\\docs\\LoaderPlayground.vue",
+        "packages\\Modal\\docs\\ModalPlayground.vue",
+        "packages\\Page\\docs\\PagePlayground.vue",
+        "packages\\Phone\\docs\\PhonePlayground.vue",
+        "packages\\ProgressBar\\docs\\ProgressBarPlayground.vue",
+        "packages\\ProgressCircle\\docs\\ProgressCirclePlayground.vue",
+        "packages\\Radio\\docs\\RadioPlayground.vue",
+        "packages\\Rate\\docs\\RatePlayground.vue",
+        "packages\\Select\\docs\\SelectFavorite.vue",
+        "packages\\Select\\docs\\SelectFormat.vue",
+        "packages\\Swipe\\docs\\SwipePlayground.vue",
+        "packages\\Tabs\\docs\\TabsPlayground.vue",
+        "packages\\Timeline\\docs\\TimelinePlayground.vue",
+        "packages\\Tour\\docs\\TourStepPlayground.vue",
+        "packages\\Tour\\docs\\TourStepPreviousNext.vue",
+        "packages\\Tour\\docs\\TourStepSize.vue",
+        "packages\\Tour\\docs\\TourStepTarget.vue"
+      ]
+    },
+    {
+      "name": "[",
+      "count": 25,
+      "files": [
+        "packages\\Alert\\src\\OrionAlert.vue",
+        "packages\\Aside\\src\\OrionAside.vue",
+        "packages\\Avatar\\src\\OrionAvatar.vue",
+        "packages\\Button\\src\\OrionButton.vue",
+        "packages\\Card\\src\\OrionCard.vue",
+        "packages\\Carousel\\src\\OrionCarousel.vue",
+        "packages\\Checkbox\\src\\OrionCheckbox.vue",
+        "packages\\Chips\\src\\OrionChips.vue",
+        "packages\\ColorPicker\\src\\OrionColorPicker.vue",
+        "packages\\DateWeek\\src\\OrionDateWeek.vue",
+        "packages\\Datepicker\\src\\OrionDatepicker.vue",
+        "packages\\Field\\src\\OrionField.vue",
+        "packages\\HorizontalScroll\\src\\OrionHorizontalScroll.vue",
+        "packages\\Icon\\src\\OrionIcon.vue",
+        "packages\\Label\\src\\OrionLabel.vue",
+        "packages\\Loader\\src\\OrionLoader.vue",
+        "packages\\Modal\\src\\OrionModal.vue",
+        "packages\\NavTop\\src\\OrionNavTop.vue",
+        "packages\\Paginate\\src\\OrionPaginate.vue",
+        "packages\\Radio\\src\\OrionRadio.vue",
+        "packages\\Rate\\src\\OrionRate.vue",
+        "packages\\Section\\src\\OrionSection.vue",
+        "packages\\Sticker\\src\\OrionSticker.vue",
+        "packages\\Toggle\\src\\OrionToggle.vue",
+        "packages\\TourStep\\src\\OrionTourStep.vue"
+      ]
+    },
+    {
+      "name": "g-xs",
+      "count": 23,
+      "files": [
+        "packages\\Button\\docs\\ButtonColors.vue",
+        "packages\\Button\\docs\\ButtonIcons.vue",
+        "packages\\Chat\\docs\\ChatMultipleDiscussions.vue",
+        "packages\\Chips\\docs\\ChipsColors.vue",
+        "packages\\DailyCalendar\\docs\\DailyCalendarPlayground.vue",
+        "packages\\Datepicker\\src\\OrionDatepicker.vue",
+        "packages\\HorizontalScroll\\docs\\HorizontalScrollPlayground.vue",
+        "packages\\HorizontalScroll\\docs\\HorizontalScrollPreview.vue",
+        "packages\\HorizontalScroll\\docs\\HorizontalScrollShadow.vue",
+        "packages\\IconSection\\docs\\IconSectionPlayground.vue",
+        "packages\\Icon\\docs\\IconPlayground.vue",
+        "packages\\InputRange\\docs\\InputRangeValue.vue",
+        "packages\\Input\\docs\\InputPlayground.vue",
+        "packages\\Input\\docs\\InputStyle.vue",
+        "packages\\Label\\docs\\LabelColors.vue",
+        "packages\\Loader\\docs\\LoaderColor.vue",
+        "packages\\Loader\\docs\\LoaderSize.vue",
+        "packages\\Modal\\docs\\ModalPromptConfirm.vue",
+        "packages\\Page\\docs\\PagePlayground.vue",
+        "packages\\Rate\\docs\\RateColors.vue",
+        "packages\\Rate\\docs\\RateNumbers.vue",
+        "packages\\Upload\\docs\\UploadFile.vue",
+        "packages\\Upload\\docs\\UploadPlayground.vue"
+      ]
+    },
+    {
+      "name": "fd-c",
+      "count": 22,
+      "files": [
+        "packages\\Button\\docs\\ButtonColors.vue",
+        "packages\\Checkbox\\docs\\CheckboxStyle.vue",
+        "packages\\Chips\\docs\\ChipsColors.vue",
+        "packages\\ColorPicker\\docs\\ColorPickerFormat.vue",
+        "packages\\Cropper\\docs\\CropperPlayground.vue",
+        "packages\\Cropper\\docs\\CropperZoom.vue",
+        "packages\\DateTable\\docs\\DateTablePlayground.vue",
+        "packages\\Datepicker\\docs\\DatepickerPlayground.vue",
+        "packages\\IconSection\\docs\\IconSectionPlayground.vue",
+        "packages\\InputRange\\docs\\InputRangePlayground.vue",
+        "packages\\InputRange\\docs\\InputRangeValue.vue",
+        "packages\\Input\\docs\\InputPlayground.vue",
+        "packages\\Label\\docs\\LabelColors.vue",
+        "packages\\Loader\\docs\\LoaderPlayground.vue",
+        "packages\\Modal\\docs\\ModalPromptConfirm.vue",
+        "packages\\Page\\docs\\PagePlayground.vue",
+        "packages\\Paginate\\docs\\PaginatePlayground.vue",
+        "packages\\ProgressBar\\docs\\ProgressBarColor.vue",
+        "packages\\Rate\\docs\\RateColors.vue",
+        "packages\\Rate\\docs\\RateNumbers.vue",
+        "packages\\Upload\\docs\\UploadFile.vue",
+        "packages\\Upload\\docs\\UploadPlayground.vue"
+      ]
+    },
+    {
+      "name": "g-sm",
+      "count": 21,
+      "files": [
+        "packages\\Aside\\docs\\AsideSlots.vue",
+        "packages\\Aside\\docs\\AsideStyle.vue",
+        "packages\\Checkbox\\docs\\CheckboxStyle.vue",
+        "packages\\Chips\\docs\\ChipsColors.vue",
+        "packages\\ColorPicker\\docs\\ColorPickerFormat.vue",
+        "packages\\DateTable\\docs\\DateTablePlayground.vue",
+        "packages\\Datepicker\\docs\\DatepickerPlayground.vue",
+        "packages\\InputRange\\docs\\InputRangePlayground.vue",
+        "packages\\Label\\docs\\LabelColors.vue",
+        "packages\\Loader\\docs\\LoaderPlayground.vue",
+        "packages\\Modal\\docs\\ModalOptions.vue",
+        "packages\\Modal\\docs\\ModalPromptConfirm.vue",
+        "packages\\Modal\\docs\\ModalStyle.vue",
+        "packages\\Notif\\docs\\NotifStyle.vue",
+        "packages\\Paginate\\docs\\PaginatePlayground.vue",
+        "packages\\PopConfirm\\docs\\PopConfirmSlots.vue",
+        "packages\\ProgressBar\\docs\\ProgressBarColor.vue",
+        "packages\\ProgressCircle\\docs\\ProgressCircleColors.vue",
+        "packages\\Radio\\docs\\RadioStyle.vue",
+        "packages\\Rate\\docs\\RateColors.vue",
+        "packages\\Toggle\\docs\\ToggleColor.vue"
+      ]
+    },
+    {
+      "name": "row--toggles",
+      "count": 20,
+      "files": [
+        "packages\\Aside\\docs\\AsidePlayground.vue",
+        "packages\\Button\\docs\\ButtonPlayground.vue",
+        "packages\\Card\\docs\\CardPlayground.vue",
+        "packages\\Carousel\\docs\\CarouselPlayground.vue",
+        "packages\\Checkbox\\docs\\CheckboxPlayground.vue",
+        "packages\\Chips\\docs\\ChipsPlayground.vue",
+        "packages\\ColorPicker\\docs\\ColorPickerPlayground.vue",
+        "packages\\Datepicker\\docs\\DatepickerPlayground.vue",
+        "packages\\Input\\docs\\InputPlayground.vue",
+        "packages\\Modal\\docs\\ModalPlayground.vue",
+        "packages\\Page\\docs\\PagePlayground.vue",
+        "packages\\Password\\docs\\PasswordPlayground.vue",
+        "packages\\Phone\\docs\\PhonePlayground.vue",
+        "packages\\Radio\\docs\\RadioPlayground.vue",
+        "packages\\Section\\docs\\SectionPlayground.vue",
+        "packages\\Sticker\\docs\\StickerPlayground.vue",
+        "packages\\Textarea\\docs\\TextareaPlayground.vue",
+        "packages\\Timeline\\docs\\TimelinePlayground.vue",
+        "packages\\Toggle\\docs\\TogglePlayground.vue",
+        "packages\\Upload\\docs\\UploadPlayground.vue"
+      ]
+    },
+    {
+      "name": "col-sm-6",
+      "count": 18,
+      "files": [
+        "packages\\Alert\\docs\\AlertPlayground.vue",
+        "packages\\Card\\docs\\CardSelected.vue",
+        "packages\\Datepicker\\docs\\DatepickerDisplay.vue",
+        "packages\\Datepicker\\docs\\DatepickerPlayground.vue",
+        "packages\\Datepicker\\docs\\DatepickerType.vue",
+        "packages\\Editor\\docs\\EditorPlayground.vue",
+        "packages\\IconSection\\docs\\IconSectionStyle.vue",
+        "packages\\Page\\docs\\PagePlayground.vue",
+        "packages\\Password\\docs\\PasswordConfirmation.vue",
+        "packages\\Password\\docs\\PasswordPlayground.vue",
+        "packages\\Phone\\docs\\PhoneMobile.vue",
+        "packages\\Select\\docs\\SelectData.vue",
+        "packages\\Select\\docs\\SelectFavorite.vue",
+        "packages\\Select\\docs\\SelectFetch.vue",
+        "packages\\Select\\docs\\SelectFormat.vue",
+        "packages\\Select\\docs\\SelectPlayground.vue",
+        "packages\\Textarea\\docs\\TextareaStyle.vue",
+        "packages\\Upload\\docs\\UploadPlayground.vue"
+      ]
+    },
+    {
+      "name": "col-sm-3",
+      "count": 11,
+      "files": [
+        "packages\\Button\\docs\\ButtonPlayground.vue",
+        "packages\\Checkbox\\docs\\CheckboxPlayground.vue",
+        "packages\\Cropper\\docs\\CropperPlayground.vue",
+        "packages\\Input\\docs\\InputMask.vue",
+        "packages\\Input\\docs\\InputPlayground.vue",
+        "packages\\Phone\\docs\\PhonePlayground.vue",
+        "packages\\Radio\\docs\\RadioPlayground.vue",
+        "packages\\Textarea\\docs\\TextareaPlayground.vue",
+        "packages\\Timeline\\docs\\TimelinePlayground.vue",
+        "packages\\Toggle\\docs\\TogglePlayground.vue",
+        "packages\\Upload\\docs\\UploadPlayground.vue"
+      ]
+    },
+    {
+      "name": "fw-w",
+      "count": 9,
+      "files": [
+        "packages\\Button\\docs\\ButtonColors.vue",
+        "packages\\Button\\docs\\ButtonIcons.vue",
+        "packages\\Checkbox\\docs\\CheckboxStyle.vue",
+        "packages\\Chips\\docs\\ChipsColors.vue",
+        "packages\\Datepicker\\docs\\DatepickerPlayground.vue",
+        "packages\\Loader\\docs\\LoaderColor.vue",
+        "packages\\Loader\\docs\\LoaderSize.vue",
+        "packages\\Radio\\docs\\RadioStyle.vue",
+        "packages\\Toggle\\docs\\ToggleColor.vue"
+      ]
+    },
+    {
+      "name": "g-md",
+      "count": 8,
+      "files": [
+        "packages\\Chips\\docs\\ChipsClosable.vue",
+        "packages\\Chips\\docs\\ChipsColors.vue",
+        "packages\\Droppable\\docs\\DragNDropPlayground.vue",
+        "packages\\Droppable\\docs\\DroppableValidation.vue",
+        "packages\\Icon\\docs\\IconMarker.vue",
+        "packages\\Icon\\docs\\IconStyle.vue",
+        "packages\\Label\\docs\\LabelColors.vue",
+        "packages\\Section\\docs\\SectionActionsOnly.vue"
+      ]
+    },
+    {
+      "name": "ai-c",
+      "count": 7,
+      "files": [
+        "packages\\Datepicker\\src\\OrionDatepicker.vue",
+        "packages\\Icon\\docs\\IconPlayground.vue",
+        "packages\\Icon\\docs\\IconStyle.vue",
+        "packages\\Input\\docs\\InputPlayground.vue",
+        "packages\\Phone\\src\\OrionPhone.vue",
+        "packages\\Upload\\docs\\UploadFile.vue",
+        "packages\\Upload\\docs\\UploadPlayground.vue"
+      ]
+    },
+    {
+      "name": "jc-c",
+      "count": 7,
+      "files": [
+        "packages\\Checkbox\\docs\\CheckboxValue.vue",
+        "packages\\ColorPicker\\docs\\ColorPickerFormat.vue",
+        "packages\\Cropper\\docs\\CropperPlayground.vue",
+        "packages\\Icon\\docs\\IconPlayground.vue",
+        "packages\\Icon\\docs\\IconStyle.vue",
+        "packages\\Section\\docs\\SectionActionsOnly.vue",
+        "packages\\Select\\docs\\SelectContainer.vue"
+      ]
+    },
+    {
+      "name": "orion-input__error-message",
+      "count": 7,
+      "files": [
+        "packages\\Datepicker\\src\\OrionDatepicker.vue",
+        "packages\\Input\\src\\OrionInput.vue",
+        "packages\\Password\\src\\OrionPassword.vue",
+        "packages\\Phone\\src\\OrionPhone.vue",
+        "packages\\Select\\src\\OrionSelect.vue",
+        "packages\\Textarea\\src\\OrionTextarea.vue",
+        "packages\\Upload\\src\\OrionUpload.vue"
+      ]
+    },
+    {
+      "name": "mb-xs",
+      "count": 6,
+      "files": [
+        "packages\\FooterFixed\\docs\\FooterFixedPlayground.vue",
+        "packages\\HorizontalScroll\\docs\\HorizontalScrollShadow.vue",
+        "packages\\Icon\\docs\\IconPlayground.vue",
+        "packages\\Password\\docs\\PasswordPlayground.vue",
+        "packages\\Tabs\\docs\\TabsPlayground.vue",
+        "packages\\Timeline\\docs\\TimelinePlayground.vue"
+      ]
+    },
+    {
+      "name": "?",
+      "count": 5,
+      "files": [
+        "packages\\DailyCalendar\\src\\OrionDailyCalendar.vue",
+        "packages\\DateTable\\src\\OrionDateTable.vue",
+        "packages\\Icon\\src\\OrionIcon.vue",
+        "packages\\Password\\src\\OrionPassword.vue",
+        "packages\\Section\\src\\OrionSection.vue"
+      ]
+    },
+    {
+      "name": "mt-xs",
+      "count": 5,
+      "files": [
+        "packages\\List\\docs\\ListPlayground.vue",
+        "packages\\Loader\\docs\\LoaderPlayground.vue",
+        "packages\\Tabs\\docs\\TabsPlayground.vue",
+        "packages\\Timeline\\docs\\TimelinePlayground.vue",
+        "packages\\Upload\\docs\\UploadPlayground.vue"
+      ]
+    },
+    {
+      "name": "orion-input__input",
+      "count": 5,
+      "files": [
+        "packages\\Datepicker\\src\\OrionDatepicker.vue",
+        "packages\\Input\\src\\OrionInput.vue",
+        "packages\\Password\\src\\OrionPassword.vue",
+        "packages\\Select\\src\\OrionSelect.vue",
+        "packages\\Textarea\\src\\OrionTextarea.vue"
+      ]
+    },
+    {
+      "name": "pa-sm",
+      "count": 5,
+      "files": [
+        "packages\\Loader\\docs\\LoaderPlayground.vue",
+        "packages\\Section\\docs\\SectionActions.vue",
+        "packages\\Section\\docs\\SectionActionsOnly.vue",
+        "packages\\Section\\docs\\SectionCollapsible.vue",
+        "packages\\Section\\docs\\SectionPlayground.vue"
+      ]
+    },
+    {
+      "name": "]",
+      "count": 4,
+      "files": [
+        "packages\\Avatar\\src\\OrionAvatar.vue",
+        "packages\\Field\\src\\OrionField.vue",
+        "packages\\Section\\src\\OrionSection.vue",
+        "packages\\TourStep\\src\\OrionTourStep.vue"
+      ]
+    },
+    {
+      "name": "icon",
+      "count": 4,
+      "files": [
+        "packages\\Icon\\docs\\IconPlayground.vue",
+        "packages\\Icon\\src\\OrionIcon.vue",
+        "packages\\Tabs\\docs\\TabsPlayground.vue",
+        "packages\\Timeline\\docs\\TimelinePlayground.vue"
+      ]
+    },
+    {
+      "name": "mt-sm",
+      "count": 4,
+      "files": [
+        "packages\\Checkbox\\docs\\CheckboxPlayground.vue",
+        "packages\\Icon\\docs\\IconPlayground.vue",
+        "packages\\Page\\docs\\PagePlayground.vue",
+        "packages\\Select\\docs\\SelectData.vue"
+      ]
+    },
+    {
+      "name": ":",
+      "count": 3,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.vue",
+        "packages\\Icon\\src\\OrionIcon.vue",
+        "packages\\Section\\src\\OrionSection.vue"
+      ]
+    },
+    {
+      "name": "`orion-icon",
+      "count": 3,
+      "files": [
+        "packages\\Icon\\docs\\IconPlayground.vue",
+        "packages\\Tabs\\docs\\TabsPlayground.vue",
+        "packages\\Timeline\\docs\\TimelinePlayground.vue"
+      ]
+    },
+    {
+      "name": "ci-${item}`",
+      "count": 3,
+      "files": [
+        "packages\\Icon\\docs\\IconPlayground.vue",
+        "packages\\Tabs\\docs\\TabsPlayground.vue",
+        "packages\\Timeline\\docs\\TimelinePlayground.vue"
+      ]
+    },
+    {
+      "name": "icon-select-option",
+      "count": 3,
+      "files": [
+        "packages\\Icon\\docs\\IconPlayground.vue",
+        "packages\\Tabs\\docs\\TabsPlayground.vue",
+        "packages\\Timeline\\docs\\TimelinePlayground.vue"
+      ]
+    },
+    {
+      "name": "nav-top",
+      "count": 3,
+      "files": [
+        "packages\\Layout\\docs\\LayoutPlayground.vue",
+        "packages\\Layout\\docs\\LayoutSlots.vue",
+        "packages\\NavTop\\src\\OrionNavTop.vue"
+      ]
+    },
+    {
+      "name": "text--warning",
+      "count": 3,
+      "files": [
+        "packages\\Datepicker\\docs\\DatepickerDisplay.vue",
+        "packages\\Password\\src\\OrionPassword.vue",
+        "packages\\Shared\\SharedFieldSetupService.ts"
+      ]
+    },
+    {
+      "name": "[{",
+      "count": 2,
+      "files": [
+        "packages\\FooterFixed\\src\\OrionFooterFixed.vue",
+        "packages\\Select\\src\\OrionSelect.vue"
+      ]
+    },
+    {
+      "name": "+",
+      "count": 2,
+      "files": [
+        "packages\\Carousel\\docs\\CarouselPoster.vue",
+        "packages\\DateTable\\src\\OrionDateTable.vue"
+      ]
+    },
+    {
+      "name": "check",
+      "count": 2,
+      "files": [
+        "packages\\Card\\src\\OrionCard.vue",
+        "packages\\Sticker\\src\\OrionSticker.vue"
+      ]
+    },
+    {
+      "name": "col-sm-8",
+      "count": 2,
+      "files": [
+        "packages\\Aside\\docs\\AsidePlayground.vue",
+        "packages\\Notif\\docs\\NotifPlayground.vue"
+      ]
+    },
+    {
+      "name": "col-sm-9",
+      "count": 2,
+      "files": [
+        "packages\\Phone\\docs\\PhoneFlag.vue",
+        "packages\\Phone\\docs\\PhonePlayground.vue"
+      ]
+    },
+    {
+      "name": "container",
+      "count": 2,
+      "files": [
+        "packages\\Layout\\docs\\LayoutPlayground.vue",
+        "packages\\Layout\\docs\\LayoutSlots.vue"
+      ]
+    },
+    {
+      "name": "demo-chat",
+      "count": 2,
+      "files": [
+        "packages\\Chat\\docs\\ChatMultipleDiscussions.vue",
+        "packages\\Chat\\docs\\ChatSimple.vue"
+      ]
+    },
+    {
+      "name": "draggable-content",
+      "count": 2,
+      "files": [
+        "packages\\Droppable\\docs\\DragNDropPlayground.vue",
+        "packages\\Droppable\\docs\\DroppableValidation.vue"
+      ]
+    },
+    {
+      "name": "example",
+      "count": 2,
+      "files": [
+        "packages\\Layout\\docs\\LayoutPlayground.vue",
+        "packages\\Layout\\docs\\LayoutSlots.vue"
+      ]
+    },
+    {
+      "name": "g-xl",
+      "count": 2,
+      "files": [
+        "packages\\Checkbox\\docs\\CheckboxValue.vue",
+        "packages\\ColorPicker\\docs\\ColorPickerFormat.vue"
+      ]
+    },
+    {
+      "name": "jc-s",
+      "count": 2,
+      "files": [
+        "packages\\Droppable\\docs\\DragNDropPlayground.vue",
+        "packages\\Droppable\\docs\\DroppableValidation.vue"
+      ]
+    },
+    {
+      "name": "main",
+      "count": 2,
+      "files": [
+        "packages\\Layout\\docs\\LayoutPlayground.vue",
+        "packages\\Layout\\docs\\LayoutSlots.vue"
+      ]
+    },
+    {
+      "name": "marker",
+      "count": 2,
+      "files": [
+        "packages\\Card\\src\\OrionCard.vue",
+        "packages\\Sticker\\src\\OrionSticker.vue"
+      ]
+    },
+    {
+      "name": "mb-sm",
+      "count": 2,
+      "files": [
+        "packages\\IconSection\\docs\\IconSectionPlayground.vue",
+        "packages\\Modal\\docs\\ModalPromptConfirm.vue"
+      ]
+    },
+    {
+      "name": "nav-top-additional",
+      "count": 2,
+      "files": [
+        "packages\\Layout\\src\\OrionLayout.vue",
+        "packages\\NavTop\\src\\OrionNavTop.vue"
+      ]
+    },
+    {
+      "name": "nav-top-left",
+      "count": 2,
+      "files": [
+        "packages\\Layout\\src\\OrionLayout.vue",
+        "packages\\NavTop\\src\\OrionNavTop.vue"
+      ]
+    },
+    {
+      "name": "nav-top-right",
+      "count": 2,
+      "files": [
+        "packages\\Layout\\src\\OrionLayout.vue",
+        "packages\\NavTop\\src\\OrionNavTop.vue"
+      ]
+    },
+    {
+      "name": "navMain",
+      "count": 2,
+      "files": [
+        "packages\\Layout\\src\\OrionLayout.vue",
+        "packages\\NavAside\\src\\OrionNavAside.vue"
+      ]
+    },
+    {
+      "name": "o-footer",
+      "count": 2,
+      "files": [
+        "packages\\Card\\docs\\CardSelected.vue",
+        "packages\\Sticker\\docs\\StickerSelection.vue"
+      ]
+    },
+    {
+      "name": "o-section",
+      "count": 2,
+      "files": [
+        "packages\\Droppable\\docs\\DragNDropPlayground.vue",
+        "packages\\Droppable\\docs\\DroppableValidation.vue"
+      ]
+    },
+    {
+      "name": "o-sticker",
+      "count": 2,
+      "files": [
+        "packages\\Droppable\\docs\\DragNDropPlayground.vue",
+        "packages\\Droppable\\docs\\DroppableValidation.vue"
+      ]
+    },
+    {
+      "name": "orion-modal__nested",
+      "count": 2,
+      "files": [
+        "packages\\Modal\\src\\OrionModal.vue",
+        "packages\\Notif\\src\\OrionNotif.vue"
+      ]
+    },
+    {
+      "name": "row--center",
+      "count": 2,
+      "files": [
+        "packages\\Avatar\\docs\\AvatarPlayground.vue",
+        "packages\\Avatar\\docs\\AvatarUpdate.vue"
+      ]
+    },
+    {
+      "name": "row--grid-xs",
+      "count": 2,
+      "files": [
+        "packages\\InputRange\\docs\\InputRangePlayground.vue",
+        "packages\\Input\\docs\\InputPlayground.vue"
+      ]
+    },
+    {
+      "name": "setup.baseClass",
+      "count": 2,
+      "files": [
+        "packages\\NavMain\\src\\OrionNavMain.vue",
+        "packages\\NavTabs\\src\\OrionNavTabs.vue"
+      ]
+    },
+    {
+      "name": "setup.options.customClass,",
+      "count": 2,
+      "files": [
+        "packages\\Aside\\src\\OrionAside.vue",
+        "packages\\Modal\\src\\OrionModal.vue"
+      ]
+    },
+    {
+      "name": "text--danger",
+      "count": 2,
+      "files": [
+        "packages\\Shared\\SharedFieldSetupService.ts",
+        "packages\\Upload\\src\\OrionUpload.vue"
+      ]
+    },
+    {
+      "name": "text--info",
+      "count": 2,
+      "files": [
+        "packages\\Modal\\docs\\ModalPromptConfirm.vue",
+        "packages\\Select\\docs\\SelectSlot.vue"
+      ]
+    },
+    {
+      "name": "-",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.vue"
+      ]
+    },
+    {
+      "name": "??",
+      "count": 1,
+      "files": [
+        "packages\\Icon\\src\\OrionIcon.vue"
+      ]
+    },
+    {
+      "name": "...setup.additionalClass,",
+      "count": 1,
+      "files": [
+        "packages\\Avatar\\src\\OrionAvatar.vue"
+      ]
+    },
+    {
+      "name": "((i",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.vue"
+      ]
+    },
+    {
+      "name": "[`orion-daily-calendar__task--${task.color}`,",
+      "count": 1,
+      "files": [
+        "packages\\DailyCalendar\\src\\OrionDailyCalendar.vue"
+      ]
+    },
+    {
+      "name": "[setup.baseClass,",
+      "count": 1,
+      "files": [
+        "packages\\Field\\src\\OrionField.vue"
+      ]
+    },
+    {
+      "name": "[setup.options.customClass,",
+      "count": 1,
+      "files": [
+        "packages\\Notif\\src\\OrionNotif.vue"
+      ]
+    },
+    {
+      "name": "*",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.vue"
+      ]
+    },
+    {
+      "name": "``}",
+      "count": 1,
+      "files": [
+        "packages\\Icon\\src\\OrionIcon.vue"
+      ]
+    },
+    {
+      "name": "``}`,",
+      "count": 1,
+      "files": [
+        "packages\\Icon\\src\\OrionIcon.vue"
+      ]
+    },
+    {
+      "name": "`${icon",
+      "count": 1,
+      "files": [
+        "packages\\Icon\\src\\OrionIcon.vue"
+      ]
+    },
+    {
+      "name": "`${setup.baseClass}__clearable`",
+      "count": 1,
+      "files": [
+        "packages\\Field\\src\\OrionField.vue"
+      ]
+    },
+    {
+      "name": "`${setup.baseClass}__icon--prefix`,",
+      "count": 1,
+      "files": [
+        "packages\\Field\\src\\OrionField.vue"
+      ]
+    },
+    {
+      "name": "`${setup.baseClass}__icon--suffix`,",
+      "count": 1,
+      "files": [
+        "packages\\Field\\src\\OrionField.vue"
+      ]
+    },
+    {
+      "name": "`${setup.baseClass}__icon`,",
+      "count": 1,
+      "files": [
+        "packages\\Field\\src\\OrionField.vue"
+      ]
+    },
+    {
+      "name": "`${setup.baseClass}__pictos`",
+      "count": 1,
+      "files": [
+        "packages\\Field\\src\\OrionField.vue"
+      ]
+    },
+    {
+      "name": "`animated-poster--${stepIndex",
+      "count": 1,
+      "files": [
+        "packages\\Carousel\\docs\\CarouselPoster.vue"
+      ]
+    },
+    {
+      "name": "`ci-${icon}`",
+      "count": 1,
+      "files": [
+        "packages\\Icon\\src\\OrionIcon.vue"
+      ]
+    },
+    {
+      "name": "`legend",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.vue"
+      ]
+    },
+    {
+      "name": "`orion-alert--${color}`,",
+      "count": 1,
+      "files": [
+        "packages\\Alert\\src\\OrionAlert.vue"
+      ]
+    },
+    {
+      "name": "`orion-aside--${setup.options.size}`,",
+      "count": 1,
+      "files": [
+        "packages\\Aside\\src\\OrionAside.vue"
+      ]
+    },
+    {
+      "name": "`orion-avatar--${color}`,",
+      "count": 1,
+      "files": [
+        "packages\\Avatar\\src\\OrionAvatar.vue"
+      ]
+    },
+    {
+      "name": "`orion-button--${color}`,",
+      "count": 1,
+      "files": [
+        "packages\\Button\\src\\OrionButton.vue"
+      ]
+    },
+    {
+      "name": "`orion-button--${size}`,",
+      "count": 1,
+      "files": [
+        "packages\\Button\\src\\OrionButton.vue"
+      ]
+    },
+    {
+      "name": "`orion-card--${size}`,",
+      "count": 1,
+      "files": [
+        "packages\\Card\\src\\OrionCard.vue"
+      ]
+    },
+    {
+      "name": "`orion-card--selected-${selectedColor}`,",
+      "count": 1,
+      "files": [
+        "packages\\Card\\src\\OrionCard.vue"
+      ]
+    },
+    {
+      "name": "`orion-checkbox--${color}`,",
+      "count": 1,
+      "files": [
+        "packages\\Checkbox\\src\\OrionCheckbox.vue"
+      ]
+    },
+    {
+      "name": "`orion-chips--${color}`,",
+      "count": 1,
+      "files": [
+        "packages\\Chips\\src\\OrionChips.vue"
+      ]
+    },
+    {
+      "name": "`orion-chips--${size}`,",
+      "count": 1,
+      "files": [
+        "packages\\Chips\\src\\OrionChips.vue"
+      ]
+    },
+    {
+      "name": "`orion-daily-calendar-${setup.uid}__task`]",
+      "count": 1,
+      "files": [
+        "packages\\DailyCalendar\\src\\OrionDailyCalendar.vue"
+      ]
+    },
+    {
+      "name": "`orion-datepicker-multiple__clearable`",
+      "count": 1,
+      "files": [
+        "packages\\Datepicker\\src\\OrionDatepicker.vue"
+      ]
+    },
+    {
+      "name": "`orion-icon__marker--${markerColor}`,",
+      "count": 1,
+      "files": [
+        "packages\\Icon\\src\\OrionIcon.vue"
+      ]
+    },
+    {
+      "name": "`orion-icon--ripple",
+      "count": 1,
+      "files": [
+        "packages\\Icon\\src\\OrionIcon.vue"
+      ]
+    },
+    {
+      "name": "`orion-input-range__input--${color}`",
+      "count": 1,
+      "files": [
+        "packages\\InputRange\\src\\OrionInputRange.vue"
+      ]
+    },
+    {
+      "name": "`orion-input-range__progress-bar--${color}`",
+      "count": 1,
+      "files": [
+        "packages\\InputRange\\src\\OrionInputRange.vue"
+      ]
+    },
+    {
+      "name": "`orion-label--${color}`,",
+      "count": 1,
+      "files": [
+        "packages\\Label\\src\\OrionLabel.vue"
+      ]
+    },
+    {
+      "name": "`orion-label--${size}`,",
+      "count": 1,
+      "files": [
+        "packages\\Label\\src\\OrionLabel.vue"
+      ]
+    },
+    {
+      "name": "`orion-loader--${color}`,",
+      "count": 1,
+      "files": [
+        "packages\\Loader\\src\\OrionLoader.vue"
+      ]
+    },
+    {
+      "name": "`orion-loader--${size}`,",
+      "count": 1,
+      "files": [
+        "packages\\Loader\\src\\OrionLoader.vue"
+      ]
+    },
+    {
+      "name": "`orion-modal--${setup.options.size}`,",
+      "count": 1,
+      "files": [
+        "packages\\Modal\\src\\OrionModal.vue"
+      ]
+    },
+    {
+      "name": "`orion-notif--${setup.options.color}`]",
+      "count": 1,
+      "files": [
+        "packages\\Notif\\src\\OrionNotif.vue"
+      ]
+    },
+    {
+      "name": "`orion-progress-bar--${color}`",
+      "count": 1,
+      "files": [
+        "packages\\ProgressBar\\src\\OrionProgressBar.vue"
+      ]
+    },
+    {
+      "name": "`orion-progress-circle--${color}`",
+      "count": 1,
+      "files": [
+        "packages\\ProgressCircle\\src\\OrionProgressCircle.vue"
+      ]
+    },
+    {
+      "name": "`orion-radio--${color}`,",
+      "count": 1,
+      "files": [
+        "packages\\Radio\\src\\OrionRadio.vue"
+      ]
+    },
+    {
+      "name": "`orion-rate--${setup.color}`,",
+      "count": 1,
+      "files": [
+        "packages\\Rate\\src\\OrionRate.vue"
+      ]
+    },
+    {
+      "name": "`orion-rate`,",
+      "count": 1,
+      "files": [
+        "packages\\Rate\\src\\OrionRate.vue"
+      ]
+    },
+    {
+      "name": "`orion-section__content--align-${align}`",
+      "count": 1,
+      "files": [
+        "packages\\Section\\src\\OrionSection.vue"
+      ]
+    },
+    {
+      "name": "`orion-section__content--align`",
+      "count": 1,
+      "files": [
+        "packages\\Section\\src\\OrionSection.vue"
+      ]
+    },
+    {
+      "name": "`orion-section__header--collapsible`",
+      "count": 1,
+      "files": [
+        "packages\\Section\\src\\OrionSection.vue"
+      ]
+    },
+    {
+      "name": "`orion-section--${gap}`",
+      "count": 1,
+      "files": [
+        "packages\\Section\\src\\OrionSection.vue"
+      ]
+    },
+    {
+      "name": "`orion-sticker--selected-${selectedColor}`,",
+      "count": 1,
+      "files": [
+        "packages\\Sticker\\src\\OrionSticker.vue"
+      ]
+    },
+    {
+      "name": "`orion-swipe__actions--${setup.actionsPosition}`",
+      "count": 1,
+      "files": [
+        "packages\\Swipe\\src\\OrionSwipe.vue"
+      ]
+    },
+    {
+      "name": "`orion-toggle--${color}`,",
+      "count": 1,
+      "files": [
+        "packages\\Toggle\\src\\OrionToggle.vue"
+      ]
+    },
+    {
+      "name": "`orion-toggle--${size}`,",
+      "count": 1,
+      "files": [
+        "packages\\Toggle\\src\\OrionToggle.vue"
+      ]
+    },
+    {
+      "name": "`orion-tour-tooltip__body--${size}`,",
+      "count": 1,
+      "files": [
+        "packages\\TourStep\\src\\OrionTourStep.vue"
+      ]
+    },
+    {
+      "name": "`orion-tour-tooltip__footer--${size}`,",
+      "count": 1,
+      "files": [
+        "packages\\TourStep\\src\\OrionTourStep.vue"
+      ]
+    },
+    {
+      "name": "`orion-tour-tooltip--${size}`,",
+      "count": 1,
+      "files": [
+        "packages\\TourStep\\src\\OrionTourStep.vue"
+      ]
+    },
+    {
+      "name": "`text--${label.color}",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.vue"
+      ]
+    },
+    {
+      "name": "${fontIcon",
+      "count": 1,
+      "files": [
+        "packages\\Icon\\src\\OrionIcon.vue"
+      ]
+    },
+    {
+      "name": "1)",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.vue"
+      ]
+    },
+    {
+      "name": "1}`",
+      "count": 1,
+      "files": [
+        "packages\\Carousel\\docs\\CarouselPoster.vue"
+      ]
+    },
+    {
+      "name": "4))",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.vue"
+      ]
+    },
+    {
+      "name": "ai-s",
+      "count": 1,
+      "files": [
+        "packages\\Droppable\\docs\\DroppableValidation.vue"
+      ]
+    },
+    {
+      "name": "align",
+      "count": 1,
+      "files": [
+        "packages\\Section\\src\\OrionSection.vue"
+      ]
+    },
+    {
+      "name": "animated-poster",
+      "count": 1,
+      "files": [
+        "packages\\Carousel\\docs\\CarouselPoster.vue"
+      ]
+    },
+    {
+      "name": "arrow",
+      "count": 1,
+      "files": [
+        "packages\\Chat\\src\\OrionChat.vue"
+      ]
+    },
+    {
+      "name": "background`",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.vue"
+      ]
+    },
+    {
+      "name": "calendar",
+      "count": 1,
+      "files": [
+        "packages\\DailyCalendar\\src\\OrionDailyCalendar.vue"
+      ]
+    },
+    {
+      "name": "cellClass",
+      "count": 1,
+      "files": [
+        "packages\\List\\src\\OrionList.vue"
+      ]
+    },
+    {
+      "name": "col-md-4",
+      "count": 1,
+      "files": [
+        "packages\\HorizontalScroll\\docs\\HorizontalScrollPlayground.vue"
+      ]
+    },
+    {
+      "name": "col-md-6",
+      "count": 1,
+      "files": [
+        "packages\\HorizontalScroll\\docs\\HorizontalScrollPlayground.vue"
+      ]
+    },
+    {
+      "name": "collapsible",
+      "count": 1,
+      "files": [
+        "packages\\Section\\src\\OrionSection.vue"
+      ]
+    },
+    {
+      "name": "cropper",
+      "count": 1,
+      "files": [
+        "packages\\Cropper\\src\\OrionCropper.vue"
+      ]
+    },
+    {
+      "name": "datetable-validation",
+      "count": 1,
+      "files": [
+        "packages\\Droppable\\docs\\DroppableValidation.vue"
+      ]
+    },
+    {
+      "name": "demo__after-option",
+      "count": 1,
+      "files": [
+        "packages\\Select\\docs\\SelectSlot.vue"
+      ]
+    },
+    {
+      "name": "demo__before-option",
+      "count": 1,
+      "files": [
+        "packages\\Select\\docs\\SelectSlot.vue"
+      ]
+    },
+    {
+      "name": "demo__item-option",
+      "count": 1,
+      "files": [
+        "packages\\Select\\docs\\SelectSlot.vue"
+      ]
+    },
+    {
+      "name": "demo-icon",
+      "count": 1,
+      "files": [
+        "packages\\Icon\\docs\\IconList.vue"
+      ]
+    },
+    {
+      "name": "demo-icon-wrapper",
+      "count": 1,
+      "files": [
+        "packages\\Icon\\docs\\IconList.vue"
+      ]
+    },
+    {
+      "name": "dropdown-options",
+      "count": 1,
+      "files": [
+        "packages\\Select\\docs\\SelectContainer.vue"
+      ]
+    },
+    {
+      "name": "dropdownOptions",
+      "count": 1,
+      "files": [
+        "packages\\Select\\src\\OrionSelect.vue"
+      ]
+    },
+    {
+      "name": "favorite-icon",
+      "count": 1,
+      "files": [
+        "packages\\Select\\src\\OrionSelect.vue"
+      ]
+    },
+    {
+      "name": "favorite-separator",
+      "count": 1,
+      "files": [
+        "packages\\Select\\src\\OrionSelect.vue"
+      ]
+    },
+    {
+      "name": "fd-r",
+      "count": 1,
+      "files": [
+        "packages\\Otp\\docs\\OtpCodeType.vue"
+      ]
+    },
+    {
+      "name": "footer",
+      "count": 1,
+      "files": [
+        "packages\\Layout\\docs\\LayoutSlots.vue"
+      ]
+    },
+    {
+      "name": "gridClass",
+      "count": 1,
+      "files": [
+        "packages\\List\\src\\OrionList.vue"
+      ]
+    },
+    {
+      "name": "icon--children-indicator",
+      "count": 1,
+      "files": [
+        "packages\\NavMainItem\\src\\OrionNavMainItem.vue"
+      ]
+    },
+    {
+      "name": "icon--collapse",
+      "count": 1,
+      "files": [
+        "packages\\NavMainItem\\src\\OrionNavMainItem.vue"
+      ]
+    },
+    {
+      "name": "icon--delete",
+      "count": 1,
+      "files": [
+        "packages\\Select\\src\\OrionSelect.vue"
+      ]
+    },
+    {
+      "name": "icon--selected",
+      "count": 1,
+      "files": [
+        "packages\\Select\\src\\OrionSelect.vue"
+      ]
+    },
+    {
+      "name": "icon-playground",
+      "count": 1,
+      "files": [
+        "packages\\Icon\\docs\\IconPlayground.vue"
+      ]
+    },
+    {
+      "name": "img-autofill",
+      "count": 1,
+      "files": [
+        "packages\\Otp\\docs\\OtpAutoFill.vue"
+      ]
+    },
+    {
+      "name": "item.wrapperClass",
+      "count": 1,
+      "files": [
+        "packages\\NavMainItem\\src\\OrionNavMainItem.vue"
+      ]
+    },
+    {
+      "name": "jc-fs",
+      "count": 1,
+      "files": [
+        "packages\\Datepicker\\docs\\DatepickerDate.vue"
+      ]
+    },
+    {
+      "name": "jc-sa",
+      "count": 1,
+      "files": [
+        "packages\\Otp\\docs\\OtpCodeType.vue"
+      ]
+    },
+    {
+      "name": "jc-sb",
+      "count": 1,
+      "files": [
+        "packages\\ProgressCircle\\docs\\ProgressCircleColors.vue"
+      ]
+    },
+    {
+      "name": "legend--${label.color}`",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.vue"
+      ]
+    },
+    {
+      "name": "loader-colors",
+      "count": 1,
+      "files": [
+        "packages\\Loader\\docs\\LoaderColor.vue"
+      ]
+    },
+    {
+      "name": "loader-sizes",
+      "count": 1,
+      "files": [
+        "packages\\Loader\\docs\\LoaderSize.vue"
+      ]
+    },
+    {
+      "name": "loading",
+      "count": 1,
+      "files": [
+        "packages\\Icon\\src\\OrionIcon.vue"
+      ]
+    },
+    {
+      "name": "mb-lg",
+      "count": 1,
+      "files": [
+        "packages\\Icon\\docs\\IconPlayground.vue"
+      ]
+    },
+    {
+      "name": "mr-xs",
+      "count": 1,
+      "files": [
+        "packages\\Page\\docs\\PagePlayground.vue"
+      ]
+    },
+    {
+      "name": "mt-md",
+      "count": 1,
+      "files": [
+        "packages\\HorizontalScroll\\docs\\HorizontalScrollShadow.vue"
+      ]
+    },
+    {
+      "name": "nav-main",
+      "count": 1,
+      "files": [
+        "packages\\Layout\\docs\\LayoutPlayground.vue"
+      ]
+    },
+    {
+      "name": "nav-main-item-append",
+      "count": 1,
+      "files": [
+        "packages\\Layout\\src\\OrionLayout.vue"
+      ]
+    },
+    {
+      "name": "nav-main-item-prepend",
+      "count": 1,
+      "files": [
+        "packages\\Layout\\src\\OrionLayout.vue"
+      ]
+    },
+    {
+      "name": "nav-reload",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\SharedNavSetupService.ts"
+      ]
+    },
+    {
+      "name": "nav-tabs",
+      "count": 1,
+      "files": [
+        "packages\\Layout\\docs\\LayoutPlayground.vue"
+      ]
+    },
+    {
+      "name": "nav-top__additional",
+      "count": 1,
+      "files": [
+        "packages\\Layout\\docs\\LayoutSlots.vue"
+      ]
+    },
+    {
+      "name": "nav-top__left",
+      "count": 1,
+      "files": [
+        "packages\\Layout\\docs\\LayoutSlots.vue"
+      ]
+    },
+    {
+      "name": "nav-top__right",
+      "count": 1,
+      "files": [
+        "packages\\Layout\\docs\\LayoutSlots.vue"
+      ]
+    },
+    {
+      "name": "navAside",
+      "count": 1,
+      "files": [
+        "packages\\NavTabs\\src\\OrionNavTabs.vue"
+      ]
+    },
+    {
+      "name": "navigation",
+      "count": 1,
+      "files": [
+        "packages\\Carousel\\src\\OrionCarousel.vue"
+      ]
+    },
+    {
+      "name": "navItem",
+      "count": 1,
+      "files": [
+        "packages\\NavMain\\src\\OrionNavMain.vue"
+      ]
+    },
+    {
+      "name": "navTabs",
+      "count": 1,
+      "files": [
+        "packages\\Layout\\src\\OrionLayout.vue"
+      ]
+    },
+    {
+      "name": "navTop",
+      "count": 1,
+      "files": [
+        "packages\\Layout\\src\\OrionLayout.vue"
+      ]
+    },
+    {
+      "name": "notification",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.vue"
+      ]
+    },
+    {
+      "name": "null",
+      "count": 1,
+      "files": [
+        "packages\\Icon\\src\\OrionIcon.vue"
+      ]
+    },
+    {
+      "name": "null,",
+      "count": 1,
+      "files": [
+        "packages\\Section\\src\\OrionSection.vue"
+      ]
+    },
+    {
+      "name": "o-chips",
+      "count": 1,
+      "files": [
+        "packages\\Droppable\\docs\\DragNDropPlayground.vue"
+      ]
+    },
+    {
+      "name": "o-label",
+      "count": 1,
+      "files": [
+        "packages\\Droppable\\docs\\DragNDropPlayground.vue"
+      ]
+    },
+    {
+      "name": "orion-alert",
+      "count": 1,
+      "files": [
+        "packages\\Alert\\src\\OrionAlert.vue"
+      ]
+    },
+    {
+      "name": "orion-alert__close",
+      "count": 1,
+      "files": [
+        "packages\\Alert\\src\\OrionAlert.vue"
+      ]
+    },
+    {
+      "name": "orion-alert__contrast",
+      "count": 1,
+      "files": [
+        "packages\\Alert\\src\\OrionAlert.vue"
+      ]
+    },
+    {
+      "name": "orion-alert__title",
+      "count": 1,
+      "files": [
+        "packages\\Alert\\src\\OrionAlert.vue"
+      ]
+    },
+    {
+      "name": "orion-aside",
+      "count": 1,
+      "files": [
+        "packages\\Aside\\src\\OrionAside.vue"
+      ]
+    },
+    {
+      "name": "orion-aside__actions",
+      "count": 1,
+      "files": [
+        "packages\\Aside\\src\\OrionAside.vue"
+      ]
+    },
+    {
+      "name": "orion-aside__body",
+      "count": 1,
+      "files": [
+        "packages\\Aside\\src\\OrionAside.vue"
+      ]
+    },
+    {
+      "name": "orion-aside__close",
+      "count": 1,
+      "files": [
+        "packages\\Aside\\src\\OrionAside.vue"
+      ]
+    },
+    {
+      "name": "orion-aside__footer",
+      "count": 1,
+      "files": [
+        "packages\\Aside\\src\\OrionAside.vue"
+      ]
+    },
+    {
+      "name": "orion-aside__header",
+      "count": 1,
+      "files": [
+        "packages\\Aside\\src\\OrionAside.vue"
+      ]
+    },
+    {
+      "name": "orion-aside__logo",
+      "count": 1,
+      "files": [
+        "packages\\Aside\\src\\OrionAside.vue"
+      ]
+    },
+    {
+      "name": "orion-aside__poster",
+      "count": 1,
+      "files": [
+        "packages\\Aside\\src\\OrionAside.vue"
+      ]
+    },
+    {
+      "name": "orion-avatar",
+      "count": 1,
+      "files": [
+        "packages\\Avatar\\src\\OrionAvatar.vue"
+      ]
+    },
+    {
+      "name": "orion-avatar__image",
+      "count": 1,
+      "files": [
+        "packages\\Avatar\\src\\OrionAvatar.vue"
+      ]
+    },
+    {
+      "name": "orion-avatar__initial",
+      "count": 1,
+      "files": [
+        "packages\\Avatar\\src\\OrionAvatar.vue"
+      ]
+    },
+    {
+      "name": "orion-avatar__picto",
+      "count": 1,
+      "files": [
+        "packages\\Avatar\\src\\OrionAvatar.vue"
+      ]
+    },
+    {
+      "name": "orion-button",
+      "count": 1,
+      "files": [
+        "packages\\Button\\src\\OrionButton.vue"
+      ]
+    },
+    {
+      "name": "orion-button__icon",
+      "count": 1,
+      "files": [
+        "packages\\Button\\src\\OrionButton.vue"
+      ]
+    },
+    {
+      "name": "orion-button__icon--prefix",
+      "count": 1,
+      "files": [
+        "packages\\Button\\src\\OrionButton.vue"
+      ]
+    },
+    {
+      "name": "orion-button__icon--suffix",
+      "count": 1,
+      "files": [
+        "packages\\Button\\src\\OrionButton.vue"
+      ]
+    },
+    {
+      "name": "orion-button__text",
+      "count": 1,
+      "files": [
+        "packages\\Button\\src\\OrionButton.vue"
+      ]
+    },
+    {
+      "name": "orion-card",
+      "count": 1,
+      "files": [
+        "packages\\Card\\src\\OrionCard.vue"
+      ]
+    },
+    {
+      "name": "orion-card__actions",
+      "count": 1,
+      "files": [
+        "packages\\Card\\src\\OrionCard.vue"
+      ]
+    },
+    {
+      "name": "orion-card__body",
+      "count": 1,
+      "files": [
+        "packages\\Card\\src\\OrionCard.vue"
+      ]
+    },
+    {
+      "name": "orion-card__header",
+      "count": 1,
+      "files": [
+        "packages\\Card\\src\\OrionCard.vue"
+      ]
+    },
+    {
+      "name": "orion-card__poster",
+      "count": 1,
+      "files": [
+        "packages\\Card\\src\\OrionCard.vue"
+      ]
+    },
+    {
+      "name": "orion-card__selected",
+      "count": 1,
+      "files": [
+        "packages\\Card\\src\\OrionCard.vue"
+      ]
+    },
+    {
+      "name": "orion-card__title",
+      "count": 1,
+      "files": [
+        "packages\\Card\\src\\OrionCard.vue"
+      ]
+    },
+    {
+      "name": "orion-carousel",
+      "count": 1,
+      "files": [
+        "packages\\Carousel\\src\\OrionCarousel.vue"
+      ]
+    },
+    {
+      "name": "orion-carousel__actions",
+      "count": 1,
+      "files": [
+        "packages\\Carousel\\src\\OrionCarousel.vue"
+      ]
+    },
+    {
+      "name": "orion-carousel__dot",
+      "count": 1,
+      "files": [
+        "packages\\Carousel\\src\\OrionCarousel.vue"
+      ]
+    },
+    {
+      "name": "orion-carousel__dot-loader",
+      "count": 1,
+      "files": [
+        "packages\\Carousel\\src\\OrionCarousel.vue"
+      ]
+    },
+    {
+      "name": "orion-carousel__dot-section",
+      "count": 1,
+      "files": [
+        "packages\\Carousel\\src\\OrionCarousel.vue"
+      ]
+    },
+    {
+      "name": "orion-carousel__navigation",
+      "count": 1,
+      "files": [
+        "packages\\Carousel\\src\\OrionCarousel.vue"
+      ]
+    },
+    {
+      "name": "orion-carousel__navigation-next",
+      "count": 1,
+      "files": [
+        "packages\\Carousel\\src\\OrionCarousel.vue"
+      ]
+    },
+    {
+      "name": "orion-carousel__navigation-previous",
+      "count": 1,
+      "files": [
+        "packages\\Carousel\\src\\OrionCarousel.vue"
+      ]
+    },
+    {
+      "name": "orion-carousel__poster",
+      "count": 1,
+      "files": [
+        "packages\\Carousel\\src\\OrionCarousel.vue"
+      ]
+    },
+    {
+      "name": "orion-carousel__steps",
+      "count": 1,
+      "files": [
+        "packages\\Carousel\\src\\OrionCarousel.vue"
+      ]
+    },
+    {
+      "name": "orion-carousel__steps-wrapper",
+      "count": 1,
+      "files": [
+        "packages\\Carousel\\src\\OrionCarousel.vue"
+      ]
+    },
+    {
+      "name": "orion-carousel-item",
+      "count": 1,
+      "files": [
+        "packages\\CarouselItem\\src\\OrionCarouselItem.vue"
+      ]
+    },
+    {
+      "name": "orion-carousel-item__content",
+      "count": 1,
+      "files": [
+        "packages\\CarouselItem\\src\\OrionCarouselItem.vue"
+      ]
+    },
+    {
+      "name": "orion-chat",
+      "count": 1,
+      "files": [
+        "packages\\Chat\\src\\OrionChat.vue"
+      ]
+    },
+    {
+      "name": "orion-chat__actions",
+      "count": 1,
+      "files": [
+        "packages\\Chat\\src\\OrionChat.vue"
+      ]
+    },
+    {
+      "name": "orion-chat__avatars",
+      "count": 1,
+      "files": [
+        "packages\\Chat\\src\\OrionChat.vue"
+      ]
+    },
+    {
+      "name": "orion-chat__content",
+      "count": 1,
+      "files": [
+        "packages\\Chat\\src\\OrionChat.vue"
+      ]
+    },
+    {
+      "name": "orion-chat__content-empty",
+      "count": 1,
+      "files": [
+        "packages\\Chat\\src\\OrionChat.vue"
+      ]
+    },
+    {
+      "name": "orion-chat__footer",
+      "count": 1,
+      "files": [
+        "packages\\Chat\\src\\OrionChat.vue"
+      ]
+    },
+    {
+      "name": "orion-chat__header",
+      "count": 1,
+      "files": [
+        "packages\\Chat\\src\\OrionChat.vue"
+      ]
+    },
+    {
+      "name": "orion-chat__interlocutors",
+      "count": 1,
+      "files": [
+        "packages\\Chat\\src\\OrionChat.vue"
+      ]
+    },
+    {
+      "name": "orion-chat__lazy-loader",
+      "count": 1,
+      "files": [
+        "packages\\Chat\\src\\OrionChat.vue"
+      ]
+    },
+    {
+      "name": "orion-chat__search",
+      "count": 1,
+      "files": [
+        "packages\\Chat\\src\\OrionChat.vue"
+      ]
+    },
+    {
+      "name": "orion-chat__section",
+      "count": 1,
+      "files": [
+        "packages\\Chat\\src\\OrionChat.vue"
+      ]
+    },
+    {
+      "name": "orion-chat__section-title",
+      "count": 1,
+      "files": [
+        "packages\\Chat\\src\\OrionChat.vue"
+      ]
+    },
+    {
+      "name": "orion-chat__sections-wrapper",
+      "count": 1,
+      "files": [
+        "packages\\Chat\\src\\OrionChat.vue"
+      ]
+    },
+    {
+      "name": "orion-chat__send",
+      "count": 1,
+      "files": [
+        "packages\\Chat\\src\\OrionChat.vue"
+      ]
+    },
+    {
+      "name": "orion-chat__textarea",
+      "count": 1,
+      "files": [
+        "packages\\Chat\\src\\OrionChat.vue"
+      ]
+    },
+    {
+      "name": "orion-chat__title",
+      "count": 1,
+      "files": [
+        "packages\\Chat\\src\\OrionChat.vue"
+      ]
+    },
+    {
+      "name": "orion-chat__unread-bottom",
+      "count": 1,
+      "files": [
+        "packages\\Chat\\src\\OrionChat.vue"
+      ]
+    },
+    {
+      "name": "orion-chat__unread-top",
+      "count": 1,
+      "files": [
+        "packages\\Chat\\src\\OrionChat.vue"
+      ]
+    },
+    {
+      "name": "orion-chat-discussion-list",
+      "count": 1,
+      "files": [
+        "packages\\ChatDiscussionList\\src\\OrionChatDiscussionList.vue"
+      ]
+    },
+    {
+      "name": "orion-chat-discussion-list__content",
+      "count": 1,
+      "files": [
+        "packages\\ChatDiscussionList\\src\\OrionChatDiscussionList.vue"
+      ]
+    },
+    {
+      "name": "orion-chat-discussion-list__header",
+      "count": 1,
+      "files": [
+        "packages\\ChatDiscussionList\\src\\OrionChatDiscussionList.vue"
+      ]
+    },
+    {
+      "name": "orion-chat-discussion-list__item",
+      "count": 1,
+      "files": [
+        "packages\\ChatDiscussionList\\src\\OrionChatDiscussionList.vue"
+      ]
+    },
+    {
+      "name": "orion-chat-discussion-list__item-avatars",
+      "count": 1,
+      "files": [
+        "packages\\ChatDiscussionList\\src\\OrionChatDiscussionList.vue"
+      ]
+    },
+    {
+      "name": "orion-chat-discussion-list__item-content",
+      "count": 1,
+      "files": [
+        "packages\\ChatDiscussionList\\src\\OrionChatDiscussionList.vue"
+      ]
+    },
+    {
+      "name": "orion-chat-discussion-list__item-header",
+      "count": 1,
+      "files": [
+        "packages\\ChatDiscussionList\\src\\OrionChatDiscussionList.vue"
+      ]
+    },
+    {
+      "name": "orion-chat-discussion-list__item-interlocutor",
+      "count": 1,
+      "files": [
+        "packages\\ChatDiscussionList\\src\\OrionChatDiscussionList.vue"
+      ]
+    },
+    {
+      "name": "orion-chat-discussion-list__item-last-message-datetime",
+      "count": 1,
+      "files": [
+        "packages\\ChatDiscussionList\\src\\OrionChatDiscussionList.vue"
+      ]
+    },
+    {
+      "name": "orion-chat-discussion-list__item-preview",
+      "count": 1,
+      "files": [
+        "packages\\ChatDiscussionList\\src\\OrionChatDiscussionList.vue"
+      ]
+    },
+    {
+      "name": "orion-chat-discussion-list__item-preview-wrapper",
+      "count": 1,
+      "files": [
+        "packages\\ChatDiscussionList\\src\\OrionChatDiscussionList.vue"
+      ]
+    },
+    {
+      "name": "orion-chat-discussion-list__item-unread-count",
+      "count": 1,
+      "files": [
+        "packages\\ChatDiscussionList\\src\\OrionChatDiscussionList.vue"
+      ]
+    },
+    {
+      "name": "orion-chat-discussion-list__lazy-loader",
+      "count": 1,
+      "files": [
+        "packages\\ChatDiscussionList\\src\\OrionChatDiscussionList.vue"
+      ]
+    },
+    {
+      "name": "orion-chat-discussion-list__new-discussion",
+      "count": 1,
+      "files": [
+        "packages\\ChatDiscussionList\\src\\OrionChatDiscussionList.vue"
+      ]
+    },
+    {
+      "name": "orion-chat-discussion-list__no-discussion",
+      "count": 1,
+      "files": [
+        "packages\\ChatDiscussionList\\src\\OrionChatDiscussionList.vue"
+      ]
+    },
+    {
+      "name": "orion-chat-discussion-list__no-discussion-label",
+      "count": 1,
+      "files": [
+        "packages\\ChatDiscussionList\\src\\OrionChatDiscussionList.vue"
+      ]
+    },
+    {
+      "name": "orion-chat-discussion-list__search",
+      "count": 1,
+      "files": [
+        "packages\\ChatDiscussionList\\src\\OrionChatDiscussionList.vue"
+      ]
+    },
+    {
+      "name": "orion-chat-discussion-list__subheader",
+      "count": 1,
+      "files": [
+        "packages\\ChatDiscussionList\\src\\OrionChatDiscussionList.vue"
+      ]
+    },
+    {
+      "name": "orion-chat-message",
+      "count": 1,
+      "files": [
+        "packages\\ChatMessage\\src\\OrionChatMessage.vue"
+      ]
+    },
+    {
+      "name": "orion-chat-message__author",
+      "count": 1,
+      "files": [
+        "packages\\ChatMessage\\src\\OrionChatMessage.vue"
+      ]
+    },
+    {
+      "name": "orion-chat-message__avatar",
+      "count": 1,
+      "files": [
+        "packages\\ChatMessage\\src\\OrionChatMessage.vue"
+      ]
+    },
+    {
+      "name": "orion-chat-message__data",
+      "count": 1,
+      "files": [
+        "packages\\ChatMessage\\src\\OrionChatMessage.vue"
+      ]
+    },
+    {
+      "name": "orion-chat-message__message",
+      "count": 1,
+      "files": [
+        "packages\\ChatMessage\\src\\OrionChatMessage.vue"
+      ]
+    },
+    {
+      "name": "orion-chat-message__status",
+      "count": 1,
+      "files": [
+        "packages\\ChatMessage\\src\\OrionChatMessage.vue"
+      ]
+    },
+    {
+      "name": "orion-chat-message__wrapper",
+      "count": 1,
+      "files": [
+        "packages\\ChatMessage\\src\\OrionChatMessage.vue"
+      ]
+    },
+    {
+      "name": "orion-checkbox__check-container",
+      "count": 1,
+      "files": [
+        "packages\\Checkbox\\src\\OrionCheckbox.vue"
+      ]
+    },
+    {
+      "name": "orion-checkbox__input",
+      "count": 1,
+      "files": [
+        "packages\\Checkbox\\src\\OrionCheckbox.vue"
+      ]
+    },
+    {
+      "name": "orion-chips",
+      "count": 1,
+      "files": [
+        "packages\\Chips\\src\\OrionChips.vue"
+      ]
+    },
+    {
+      "name": "orion-chips__close",
+      "count": 1,
+      "files": [
+        "packages\\Chips\\src\\OrionChips.vue"
+      ]
+    },
+    {
+      "name": "orion-chips__dual",
+      "count": 1,
+      "files": [
+        "packages\\Chips\\src\\OrionChips.vue"
+      ]
+    },
+    {
+      "name": "orion-chips__dual-content",
+      "count": 1,
+      "files": [
+        "packages\\Chips\\src\\OrionChips.vue"
+      ]
+    },
+    {
+      "name": "orion-chips__main",
+      "count": 1,
+      "files": [
+        "packages\\Chips\\src\\OrionChips.vue"
+      ]
+    },
+    {
+      "name": "orion-color-picker",
+      "count": 1,
+      "files": [
+        "packages\\ColorPicker\\src\\OrionColorPicker.vue"
+      ]
+    },
+    {
+      "name": "orion-cropper",
+      "count": 1,
+      "files": [
+        "packages\\Cropper\\src\\OrionCropper.vue"
+      ]
+    },
+    {
+      "name": "orion-cropper__actions",
+      "count": 1,
+      "files": [
+        "packages\\Cropper\\src\\OrionCropper.vue"
+      ]
+    },
+    {
+      "name": "orion-daily-calendar",
+      "count": 1,
+      "files": [
+        "packages\\DailyCalendar\\src\\OrionDailyCalendar.vue"
+      ]
+    },
+    {
+      "name": "orion-daily-calendar__background",
+      "count": 1,
+      "files": [
+        "packages\\DailyCalendar\\src\\OrionDailyCalendar.vue"
+      ]
+    },
+    {
+      "name": "orion-daily-calendar__header",
+      "count": 1,
+      "files": [
+        "packages\\DailyCalendar\\src\\OrionDailyCalendar.vue"
+      ]
+    },
+    {
+      "name": "orion-daily-calendar__hidden-task-indicator",
+      "count": 1,
+      "files": [
+        "packages\\DailyCalendar\\src\\OrionDailyCalendar.vue"
+      ]
+    },
+    {
+      "name": "orion-daily-calendar__hour",
+      "count": 1,
+      "files": [
+        "packages\\DailyCalendar\\src\\OrionDailyCalendar.vue"
+      ]
+    },
+    {
+      "name": "orion-daily-calendar__hour--now",
+      "count": 1,
+      "files": [
+        "packages\\DailyCalendar\\src\\OrionDailyCalendar.vue"
+      ]
+    },
+    {
+      "name": "orion-daily-calendar__hour-line",
+      "count": 1,
+      "files": [
+        "packages\\DailyCalendar\\src\\OrionDailyCalendar.vue"
+      ]
+    },
+    {
+      "name": "orion-daily-calendar__hour-line--now",
+      "count": 1,
+      "files": [
+        "packages\\DailyCalendar\\src\\OrionDailyCalendar.vue"
+      ]
+    },
+    {
+      "name": "orion-daily-calendar__hour-number",
+      "count": 1,
+      "files": [
+        "packages\\DailyCalendar\\src\\OrionDailyCalendar.vue"
+      ]
+    },
+    {
+      "name": "orion-daily-calendar__hour-number--now",
+      "count": 1,
+      "files": [
+        "packages\\DailyCalendar\\src\\OrionDailyCalendar.vue"
+      ]
+    },
+    {
+      "name": "orion-daily-calendar__icon",
+      "count": 1,
+      "files": [
+        "packages\\DailyCalendar\\src\\OrionDailyCalendar.vue"
+      ]
+    },
+    {
+      "name": "orion-daily-calendar__other-days",
+      "count": 1,
+      "files": [
+        "packages\\DailyCalendar\\src\\OrionDailyCalendar.vue"
+      ]
+    },
+    {
+      "name": "orion-daily-calendar__task",
+      "count": 1,
+      "files": [
+        "packages\\DailyCalendar\\src\\OrionDailyCalendar.vue"
+      ]
+    },
+    {
+      "name": "orion-daily-calendar__task-wrapper",
+      "count": 1,
+      "files": [
+        "packages\\DailyCalendar\\src\\OrionDailyCalendar.vue"
+      ]
+    },
+    {
+      "name": "orion-daily-calendar__title",
+      "count": 1,
+      "files": [
+        "packages\\DailyCalendar\\src\\OrionDailyCalendar.vue"
+      ]
+    },
+    {
+      "name": "orion-date-range",
+      "count": 1,
+      "files": [
+        "packages\\DateRange\\src\\OrionDateRange.vue"
+      ]
+    },
+    {
+      "name": "orion-date-range__separator",
+      "count": 1,
+      "files": [
+        "packages\\DateRange\\src\\OrionDateRange.vue"
+      ]
+    },
+    {
+      "name": "orion-date-table__body",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.vue"
+      ]
+    },
+    {
+      "name": "orion-date-table__body__months",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.vue"
+      ]
+    },
+    {
+      "name": "orion-date-table__body__years",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.vue"
+      ]
+    },
+    {
+      "name": "orion-date-table__body-dow",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.vue"
+      ]
+    },
+    {
+      "name": "orion-date-table__footer",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.vue"
+      ]
+    },
+    {
+      "name": "orion-date-table__header",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.vue"
+      ]
+    },
+    {
+      "name": "orion-date-table__header-carret",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.vue"
+      ]
+    },
+    {
+      "name": "orion-date-table__header-current-display",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.vue"
+      ]
+    },
+    {
+      "name": "orion-date-table__header-current-month",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.vue"
+      ]
+    },
+    {
+      "name": "orion-date-table__header-current-range-years",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.vue"
+      ]
+    },
+    {
+      "name": "orion-date-table__header-current-year",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.vue"
+      ]
+    },
+    {
+      "name": "orion-date-table__legend",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.vue"
+      ]
+    },
+    {
+      "name": "orion-date-table__legend--opacity`",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.vue"
+      ]
+    },
+    {
+      "name": "orion-date-table__week-number",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.vue"
+      ]
+    },
+    {
+      "name": "orion-date-table-row",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.vue"
+      ]
+    },
+    {
+      "name": "orion-date-table-row__cell",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.vue"
+      ]
+    },
+    {
+      "name": "orion-date-table-row__cell--year",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.vue"
+      ]
+    },
+    {
+      "name": "orion-date-table-row__cell-display",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.vue"
+      ]
+    },
+    {
+      "name": "orion-date-table-row__cell-display-contrast",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.vue"
+      ]
+    },
+    {
+      "name": "orion-date-table-row__cell-notification",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.vue"
+      ]
+    },
+    {
+      "name": "orion-date-week",
+      "count": 1,
+      "files": [
+        "packages\\DateWeek\\src\\OrionDateWeek.vue"
+      ]
+    },
+    {
+      "name": "orion-date-week__body",
+      "count": 1,
+      "files": [
+        "packages\\DateWeek\\src\\OrionDateWeek.vue"
+      ]
+    },
+    {
+      "name": "orion-date-week__header",
+      "count": 1,
+      "files": [
+        "packages\\DateWeek\\src\\OrionDateWeek.vue"
+      ]
+    },
+    {
+      "name": "orion-date-week__header-carret",
+      "count": 1,
+      "files": [
+        "packages\\DateWeek\\src\\OrionDateWeek.vue"
+      ]
+    },
+    {
+      "name": "orion-date-week__header-current-display",
+      "count": 1,
+      "files": [
+        "packages\\DateWeek\\src\\OrionDateWeek.vue"
+      ]
+    },
+    {
+      "name": "orion-date-week__header-current-range-years",
+      "count": 1,
+      "files": [
+        "packages\\DateWeek\\src\\OrionDateWeek.vue"
+      ]
+    },
+    {
+      "name": "orion-date-week__header-current-year",
+      "count": 1,
+      "files": [
+        "packages\\DateWeek\\src\\OrionDateWeek.vue"
+      ]
+    },
+    {
+      "name": "orion-date-week__week-number",
+      "count": 1,
+      "files": [
+        "packages\\DateWeek\\src\\OrionDateWeek.vue"
+      ]
+    },
+    {
+      "name": "orion-date-week__week-picker",
+      "count": 1,
+      "files": [
+        "packages\\DateWeek\\src\\OrionDateWeek.vue"
+      ]
+    },
+    {
+      "name": "orion-date-week__week-readable-days",
+      "count": 1,
+      "files": [
+        "packages\\DateWeek\\src\\OrionDateWeek.vue"
+      ]
+    },
+    {
+      "name": "orion-date-week__week-row",
+      "count": 1,
+      "files": [
+        "packages\\DateWeek\\src\\OrionDateWeek.vue"
+      ]
+    },
+    {
+      "name": "orion-date-week-row",
+      "count": 1,
+      "files": [
+        "packages\\DateWeek\\src\\OrionDateWeek.vue"
+      ]
+    },
+    {
+      "name": "orion-date-week-row__cell",
+      "count": 1,
+      "files": [
+        "packages\\DateWeek\\src\\OrionDateWeek.vue"
+      ]
+    },
+    {
+      "name": "orion-date-week-row__cell--year",
+      "count": 1,
+      "files": [
+        "packages\\DateWeek\\src\\OrionDateWeek.vue"
+      ]
+    },
+    {
+      "name": "orion-datepicker",
+      "count": 1,
+      "files": [
+        "packages\\Datepicker\\src\\OrionDatepicker.vue"
+      ]
+    },
+    {
+      "name": "orion-datepicker__multiple",
+      "count": 1,
+      "files": [
+        "packages\\Datepicker\\src\\OrionDatepicker.vue"
+      ]
+    },
+    {
+      "name": "orion-datepicker__timepicker-wrapper",
+      "count": 1,
+      "files": [
+        "packages\\Datepicker\\src\\OrionDatepicker.vue"
+      ]
+    },
+    {
+      "name": "orion-datepicker-multiple__content",
+      "count": 1,
+      "files": [
+        "packages\\Datepicker\\src\\OrionDatepicker.vue"
+      ]
+    },
+    {
+      "name": "orion-datepicker-timepicker",
+      "count": 1,
+      "files": [
+        "packages\\Datepicker\\src\\OrionDatepicker.vue"
+      ]
+    },
+    {
+      "name": "orion-datepicker-timepicker__hours",
+      "count": 1,
+      "files": [
+        "packages\\Datepicker\\src\\OrionDatepicker.vue"
+      ]
+    },
+    {
+      "name": "orion-datepicker-timepicker__meridian",
+      "count": 1,
+      "files": [
+        "packages\\Datepicker\\src\\OrionDatepicker.vue"
+      ]
+    },
+    {
+      "name": "orion-datepicker-timepicker__minutes",
+      "count": 1,
+      "files": [
+        "packages\\Datepicker\\src\\OrionDatepicker.vue"
+      ]
+    },
+    {
+      "name": "orion-datepicker-timepicker__scroll-filler",
+      "count": 1,
+      "files": [
+        "packages\\Datepicker\\src\\OrionDatepicker.vue"
+      ]
+    },
+    {
+      "name": "orion-datepicker-timepicker__scroll-item",
+      "count": 1,
+      "files": [
+        "packages\\Datepicker\\src\\OrionDatepicker.vue"
+      ]
+    },
+    {
+      "name": "orion-datepicker-timepicker__separator",
+      "count": 1,
+      "files": [
+        "packages\\Datepicker\\src\\OrionDatepicker.vue"
+      ]
+    },
+    {
+      "name": "orion-datepicker-timepicker-actions",
+      "count": 1,
+      "files": [
+        "packages\\Datepicker\\src\\OrionDatepicker.vue"
+      ]
+    },
+    {
+      "name": "orion-draggable",
+      "count": 1,
+      "files": [
+        "packages\\Draggable\\src\\OrionDraggable.vue"
+      ]
+    },
+    {
+      "name": "orion-droppable",
+      "count": 1,
+      "files": [
+        "packages\\Droppable\\src\\OrionDroppable.vue"
+      ]
+    },
+    {
+      "name": "orion-droppable-dropzone",
+      "count": 1,
+      "files": [
+        "packages\\Droppable\\src\\OrionDroppable.vue"
+      ]
+    },
+    {
+      "name": "orion-editor",
+      "count": 1,
+      "files": [
+        "packages\\Editor\\src\\OrionEditor.vue"
+      ]
+    },
+    {
+      "name": "orion-editor__content",
+      "count": 1,
+      "files": [
+        "packages\\Editor\\src\\OrionEditor.vue"
+      ]
+    },
+    {
+      "name": "orion-editor__toolbar",
+      "count": 1,
+      "files": [
+        "packages\\Editor\\src\\OrionEditor.vue"
+      ]
+    },
+    {
+      "name": "orion-footer-fixed",
+      "count": 1,
+      "files": [
+        "packages\\FooterFixed\\src\\OrionFooterFixed.vue"
+      ]
+    },
+    {
+      "name": "orion-footer-fixed__title",
+      "count": 1,
+      "files": [
+        "packages\\FooterFixed\\src\\OrionFooterFixed.vue"
+      ]
+    },
+    {
+      "name": "orion-footer-selected",
+      "count": 1,
+      "files": [
+        "packages\\List\\src\\OrionList.vue"
+      ]
+    },
+    {
+      "name": "orion-footer-selected__actions",
+      "count": 1,
+      "files": [
+        "packages\\List\\src\\OrionList.vue"
+      ]
+    },
+    {
+      "name": "orion-footer-selected__close",
+      "count": 1,
+      "files": [
+        "packages\\List\\src\\OrionList.vue"
+      ]
+    },
+    {
+      "name": "orion-footer-selected__qty",
+      "count": 1,
+      "files": [
+        "packages\\List\\src\\OrionList.vue"
+      ]
+    },
+    {
+      "name": "orion-footer-selected__qty-number",
+      "count": 1,
+      "files": [
+        "packages\\List\\src\\OrionList.vue"
+      ]
+    },
+    {
+      "name": "orion-footer-selected__qty-text",
+      "count": 1,
+      "files": [
+        "packages\\List\\src\\OrionList.vue"
+      ]
+    },
+    {
+      "name": "orion-horizontal-scroll",
+      "count": 1,
+      "files": [
+        "packages\\HorizontalScroll\\src\\OrionHorizontalScroll.vue"
+      ]
+    },
+    {
+      "name": "orion-horizontal-scroll__button",
+      "count": 1,
+      "files": [
+        "packages\\HorizontalScroll\\src\\OrionHorizontalScroll.vue"
+      ]
+    },
+    {
+      "name": "orion-horizontal-scroll__button--left",
+      "count": 1,
+      "files": [
+        "packages\\HorizontalScroll\\src\\OrionHorizontalScroll.vue"
+      ]
+    },
+    {
+      "name": "orion-horizontal-scroll__button--right",
+      "count": 1,
+      "files": [
+        "packages\\HorizontalScroll\\src\\OrionHorizontalScroll.vue"
+      ]
+    },
+    {
+      "name": "orion-horizontal-scroll__preview",
+      "count": 1,
+      "files": [
+        "packages\\HorizontalScroll\\src\\OrionHorizontalScroll.vue"
+      ]
+    },
+    {
+      "name": "orion-horizontal-scroll__preview-container",
+      "count": 1,
+      "files": [
+        "packages\\HorizontalScroll\\src\\OrionHorizontalScroll.vue"
+      ]
+    },
+    {
+      "name": "orion-horizontal-scroll__preview-legend",
+      "count": 1,
+      "files": [
+        "packages\\HorizontalScroll\\src\\OrionHorizontalScroll.vue"
+      ]
+    },
+    {
+      "name": "orion-horizontal-scroll__preview-path",
+      "count": 1,
+      "files": [
+        "packages\\HorizontalScroll\\src\\OrionHorizontalScroll.vue"
+      ]
+    },
+    {
+      "name": "orion-horizontal-scroll__preview-visible",
+      "count": 1,
+      "files": [
+        "packages\\HorizontalScroll\\src\\OrionHorizontalScroll.vue"
+      ]
+    },
+    {
+      "name": "orion-horizontal-scroll__slider",
+      "count": 1,
+      "files": [
+        "packages\\HorizontalScroll\\src\\OrionHorizontalScroll.vue"
+      ]
+    },
+    {
+      "name": "orion-icon",
+      "count": 1,
+      "files": [
+        "packages\\Icon\\src\\OrionIcon.vue"
+      ]
+    },
+    {
+      "name": "orion-icon__button",
+      "count": 1,
+      "files": [
+        "packages\\Icon\\src\\OrionIcon.vue"
+      ]
+    },
+    {
+      "name": "orion-icon__loading",
+      "count": 1,
+      "files": [
+        "packages\\Icon\\src\\OrionIcon.vue"
+      ]
+    },
+    {
+      "name": "orion-icon__loading-inner",
+      "count": 1,
+      "files": [
+        "packages\\Icon\\src\\OrionIcon.vue"
+      ]
+    },
+    {
+      "name": "orion-icon__marker",
+      "count": 1,
+      "files": [
+        "packages\\Icon\\src\\OrionIcon.vue"
+      ]
+    },
+    {
+      "name": "orion-icon__ripple",
+      "count": 1,
+      "files": [
+        "packages\\Icon\\src\\OrionIcon.vue"
+      ]
+    },
+    {
+      "name": "orion-icon--ripple-${ripple}`",
+      "count": 1,
+      "files": [
+        "packages\\Icon\\src\\OrionIcon.vue"
+      ]
+    },
+    {
+      "name": "orion-icon-section",
+      "count": 1,
+      "files": [
+        "packages\\IconSection\\src\\OrionIconSection.vue"
+      ]
+    },
+    {
+      "name": "orion-icon-section__content",
+      "count": 1,
+      "files": [
+        "packages\\IconSection\\src\\OrionIconSection.vue"
+      ]
+    },
+    {
+      "name": "orion-icon-section__description",
+      "count": 1,
+      "files": [
+        "packages\\IconSection\\src\\OrionIconSection.vue"
+      ]
+    },
+    {
+      "name": "orion-icon-section__icon",
+      "count": 1,
+      "files": [
+        "packages\\IconSection\\src\\OrionIconSection.vue"
+      ]
+    },
+    {
+      "name": "orion-icon-section__title",
+      "count": 1,
+      "files": [
+        "packages\\IconSection\\src\\OrionIconSection.vue"
+      ]
+    },
+    {
+      "name": "orion-input__icon",
+      "count": 1,
+      "files": [
+        "packages\\Select\\src\\OrionSelect.vue"
+      ]
+    },
+    {
+      "name": "orion-input__reveal",
+      "count": 1,
+      "files": [
+        "packages\\Password\\src\\OrionPassword.vue"
+      ]
+    },
+    {
+      "name": "orion-input__textarea-counter",
+      "count": 1,
+      "files": [
+        "packages\\Textarea\\src\\OrionTextarea.vue"
+      ]
+    },
+    {
+      "name": "orion-input-group",
+      "count": 1,
+      "files": [
+        "packages\\Phone\\src\\OrionPhone.vue"
+      ]
+    },
+    {
+      "name": "orion-input-group--phone",
+      "count": 1,
+      "files": [
+        "packages\\Phone\\src\\OrionPhone.vue"
+      ]
+    },
+    {
+      "name": "orion-input-range",
+      "count": 1,
+      "files": [
+        "packages\\InputRange\\src\\OrionInputRange.vue"
+      ]
+    },
+    {
+      "name": "orion-input-range__input",
+      "count": 1,
+      "files": [
+        "packages\\InputRange\\src\\OrionInputRange.vue"
+      ]
+    },
+    {
+      "name": "orion-input-range__progress-bar",
+      "count": 1,
+      "files": [
+        "packages\\InputRange\\src\\OrionInputRange.vue"
+      ]
+    },
+    {
+      "name": "orion-label",
+      "count": 1,
+      "files": [
+        "packages\\Label\\src\\OrionLabel.vue"
+      ]
+    },
+    {
+      "name": "orion-label__content",
+      "count": 1,
+      "files": [
+        "packages\\Label\\src\\OrionLabel.vue"
+      ]
+    },
+    {
+      "name": "orion-list",
+      "count": 1,
+      "files": [
+        "packages\\List\\src\\OrionList.vue"
+      ]
+    },
+    {
+      "name": "orion-list__cell",
+      "count": 1,
+      "files": [
+        "packages\\List\\src\\OrionList.vue"
+      ]
+    },
+    {
+      "name": "orion-list__row",
+      "count": 1,
+      "files": [
+        "packages\\List\\src\\OrionList.vue"
+      ]
+    },
+    {
+      "name": "orion-loader",
+      "count": 1,
+      "files": [
+        "packages\\Loader\\src\\OrionLoader.vue"
+      ]
+    },
+    {
+      "name": "orion-loader__spinner",
+      "count": 1,
+      "files": [
+        "packages\\Loader\\src\\OrionLoader.vue"
+      ]
+    },
+    {
+      "name": "orion-loader__text",
+      "count": 1,
+      "files": [
+        "packages\\Loader\\src\\OrionLoader.vue"
+      ]
+    },
+    {
+      "name": "orion-modal",
+      "count": 1,
+      "files": [
+        "packages\\Modal\\src\\OrionModal.vue"
+      ]
+    },
+    {
+      "name": "orion-modal__actions",
+      "count": 1,
+      "files": [
+        "packages\\Modal\\src\\OrionModal.vue"
+      ]
+    },
+    {
+      "name": "orion-modal__body",
+      "count": 1,
+      "files": [
+        "packages\\Modal\\src\\OrionModal.vue"
+      ]
+    },
+    {
+      "name": "orion-modal__close",
+      "count": 1,
+      "files": [
+        "packages\\Modal\\src\\OrionModal.vue"
+      ]
+    },
+    {
+      "name": "orion-modal__footer",
+      "count": 1,
+      "files": [
+        "packages\\Modal\\src\\OrionModal.vue"
+      ]
+    },
+    {
+      "name": "orion-modal__message",
+      "count": 1,
+      "files": [
+        "packages\\Modal\\src\\OrionModal.vue"
+      ]
+    },
+    {
+      "name": "orion-nav-aside__footer",
+      "count": 1,
+      "files": [
+        "packages\\NavTabs\\src\\OrionNavTabs.vue"
+      ]
+    },
+    {
+      "name": "orion-nav-main__children",
+      "count": 1,
+      "files": [
+        "packages\\NavMain\\src\\OrionNavMain.vue"
+      ]
+    },
+    {
+      "name": "orion-nav-main__item-main-icon",
+      "count": 1,
+      "files": [
+        "packages\\NavMainItem\\src\\OrionNavMainItem.vue"
+      ]
+    },
+    {
+      "name": "orion-nav-main__wrapper",
+      "count": 1,
+      "files": [
+        "packages\\NavMain\\src\\OrionNavMain.vue"
+      ]
+    },
+    {
+      "name": "orion-nav-main--aside",
+      "count": 1,
+      "files": [
+        "packages\\NavAside\\src\\OrionNavAside.vue"
+      ]
+    },
+    {
+      "name": "orion-nav-main-item__children",
+      "count": 1,
+      "files": [
+        "packages\\NavMainItem\\src\\OrionNavMainItem.vue"
+      ]
+    },
+    {
+      "name": "orion-nav-tabs__item",
+      "count": 1,
+      "files": [
+        "packages\\NavTabs\\src\\OrionNavTabs.vue"
+      ]
+    },
+    {
+      "name": "orion-nav-top__item-label",
+      "count": 1,
+      "files": [
+        "packages\\NavTop\\src\\OrionNavTop.vue"
+      ]
+    },
+    {
+      "name": "orion-nav-top__slot-additional",
+      "count": 1,
+      "files": [
+        "packages\\NavTop\\src\\OrionNavTop.vue"
+      ]
+    },
+    {
+      "name": "orion-nav-top__slot-left",
+      "count": 1,
+      "files": [
+        "packages\\NavTop\\src\\OrionNavTop.vue"
+      ]
+    },
+    {
+      "name": "orion-nav-top__slot-right",
+      "count": 1,
+      "files": [
+        "packages\\NavTop\\src\\OrionNavTop.vue"
+      ]
+    },
+    {
+      "name": "orion-notif",
+      "count": 1,
+      "files": [
+        "packages\\Notif\\src\\OrionNotif.vue"
+      ]
+    },
+    {
+      "name": "orion-notif__close",
+      "count": 1,
+      "files": [
+        "packages\\Notif\\src\\OrionNotif.vue"
+      ]
+    },
+    {
+      "name": "orion-notif__content",
+      "count": 1,
+      "files": [
+        "packages\\Notif\\src\\OrionNotif.vue"
+      ]
+    },
+    {
+      "name": "orion-notif__icon",
+      "count": 1,
+      "files": [
+        "packages\\Notif\\src\\OrionNotif.vue"
+      ]
+    },
+    {
+      "name": "orion-notif__message",
+      "count": 1,
+      "files": [
+        "packages\\Notif\\src\\OrionNotif.vue"
+      ]
+    },
+    {
+      "name": "orion-notif__timer",
+      "count": 1,
+      "files": [
+        "packages\\Notif\\src\\OrionNotif.vue"
+      ]
+    },
+    {
+      "name": "orion-notif__timer-circle",
+      "count": 1,
+      "files": [
+        "packages\\Notif\\src\\OrionNotif.vue"
+      ]
+    },
+    {
+      "name": "orion-notif__timer-progress",
+      "count": 1,
+      "files": [
+        "packages\\Notif\\src\\OrionNotif.vue"
+      ]
+    },
+    {
+      "name": "orion-notif__timer-progress--animated",
+      "count": 1,
+      "files": [
+        "packages\\Notif\\src\\OrionNotif.vue"
+      ]
+    },
+    {
+      "name": "orion-notif__title",
+      "count": 1,
+      "files": [
+        "packages\\Notif\\src\\OrionNotif.vue"
+      ]
+    },
+    {
+      "name": "orion-otp",
+      "count": 1,
+      "files": [
+        "packages\\Otp\\src\\OrionOtp.vue"
+      ]
+    },
+    {
+      "name": "orion-otp__input",
+      "count": 1,
+      "files": [
+        "packages\\Otp\\src\\OrionOtp.vue"
+      ]
+    },
+    {
+      "name": "orion-overlay",
+      "count": 1,
+      "files": [
+        "packages\\Overlay\\src\\OrionOverlay.vue"
+      ]
+    },
+    {
+      "name": "orion-overlay__overscroll-behavior",
+      "count": 1,
+      "files": [
+        "packages\\Overlay\\src\\OrionOverlay.vue"
+      ]
+    },
+    {
+      "name": "orion-page",
+      "count": 1,
+      "files": [
+        "packages\\Page\\src\\OrionPage.vue"
+      ]
+    },
+    {
+      "name": "orion-page__actions",
+      "count": 1,
+      "files": [
+        "packages\\Page\\src\\OrionPage.vue"
+      ]
+    },
+    {
+      "name": "orion-page__content",
+      "count": 1,
+      "files": [
+        "packages\\Page\\src\\OrionPage.vue"
+      ]
+    },
+    {
+      "name": "orion-page__header",
+      "count": 1,
+      "files": [
+        "packages\\Page\\src\\OrionPage.vue"
+      ]
+    },
+    {
+      "name": "orion-page__subactions",
+      "count": 1,
+      "files": [
+        "packages\\Page\\src\\OrionPage.vue"
+      ]
+    },
+    {
+      "name": "orion-page__subtitle",
+      "count": 1,
+      "files": [
+        "packages\\Page\\src\\OrionPage.vue"
+      ]
+    },
+    {
+      "name": "orion-page__title",
+      "count": 1,
+      "files": [
+        "packages\\Page\\src\\OrionPage.vue"
+      ]
+    },
+    {
+      "name": "orion-page__title-subtitle",
+      "count": 1,
+      "files": [
+        "packages\\Page\\src\\OrionPage.vue"
+      ]
+    },
+    {
+      "name": "orion-paginate",
+      "count": 1,
+      "files": [
+        "packages\\Paginate\\src\\OrionPaginate.vue"
+      ]
+    },
+    {
+      "name": "orion-paginate__index",
+      "count": 1,
+      "files": [
+        "packages\\Paginate\\src\\OrionPaginate.vue"
+      ]
+    },
+    {
+      "name": "orion-paginate__input",
+      "count": 1,
+      "files": [
+        "packages\\Paginate\\src\\OrionPaginate.vue"
+      ]
+    },
+    {
+      "name": "orion-paginate__next",
+      "count": 1,
+      "files": [
+        "packages\\Paginate\\src\\OrionPaginate.vue"
+      ]
+    },
+    {
+      "name": "orion-paginate__prev",
+      "count": 1,
+      "files": [
+        "packages\\Paginate\\src\\OrionPaginate.vue"
+      ]
+    },
+    {
+      "name": "orion-paginate__wrapper",
+      "count": 1,
+      "files": [
+        "packages\\Paginate\\src\\OrionPaginate.vue"
+      ]
+    },
+    {
+      "name": "orion-password-popover--password-check",
+      "count": 1,
+      "files": [
+        "packages\\Password\\src\\OrionPassword.vue"
+      ]
+    },
+    {
+      "name": "orion-phone",
+      "count": 1,
+      "files": [
+        "packages\\Phone\\src\\OrionPhone.vue"
+      ]
+    },
+    {
+      "name": "orion-pop-confirm__actions",
+      "count": 1,
+      "files": [
+        "packages\\PopConfirm\\src\\OrionPopConfirm.vue"
+      ]
+    },
+    {
+      "name": "orion-pop-confirm__title",
+      "count": 1,
+      "files": [
+        "packages\\PopConfirm\\src\\OrionPopConfirm.vue"
+      ]
+    },
+    {
+      "name": "orion-progress-bar",
+      "count": 1,
+      "files": [
+        "packages\\ProgressBar\\src\\OrionProgressBar.vue"
+      ]
+    },
+    {
+      "name": "orion-progress-bar__label",
+      "count": 1,
+      "files": [
+        "packages\\ProgressBar\\src\\OrionProgressBar.vue"
+      ]
+    },
+    {
+      "name": "orion-progress-bar__path",
+      "count": 1,
+      "files": [
+        "packages\\ProgressBar\\src\\OrionProgressBar.vue"
+      ]
+    },
+    {
+      "name": "orion-progress-bar__value",
+      "count": 1,
+      "files": [
+        "packages\\ProgressBar\\src\\OrionProgressBar.vue"
+      ]
+    },
+    {
+      "name": "orion-progress-circle",
+      "count": 1,
+      "files": [
+        "packages\\ProgressCircle\\src\\OrionProgressCircle.vue"
+      ]
+    },
+    {
+      "name": "orion-progress-circle__label",
+      "count": 1,
+      "files": [
+        "packages\\ProgressCircle\\src\\OrionProgressCircle.vue"
+      ]
+    },
+    {
+      "name": "orion-progress-circle__path",
+      "count": 1,
+      "files": [
+        "packages\\ProgressCircle\\src\\OrionProgressCircle.vue"
+      ]
+    },
+    {
+      "name": "orion-progress-circle__value",
+      "count": 1,
+      "files": [
+        "packages\\ProgressCircle\\src\\OrionProgressCircle.vue"
+      ]
+    },
+    {
+      "name": "orion-radio__check-container",
+      "count": 1,
+      "files": [
+        "packages\\Radio\\src\\OrionRadio.vue"
+      ]
+    },
+    {
+      "name": "orion-radio__check-marker",
+      "count": 1,
+      "files": [
+        "packages\\Radio\\src\\OrionRadio.vue"
+      ]
+    },
+    {
+      "name": "orion-radio__input",
+      "count": 1,
+      "files": [
+        "packages\\Radio\\src\\OrionRadio.vue"
+      ]
+    },
+    {
+      "name": "orion-rate__number",
+      "count": 1,
+      "files": [
+        "packages\\Rate\\src\\OrionRate.vue"
+      ]
+    },
+    {
+      "name": "orion-rate__star",
+      "count": 1,
+      "files": [
+        "packages\\Rate\\src\\OrionRate.vue"
+      ]
+    },
+    {
+      "name": "orion-rate__wrapper",
+      "count": 1,
+      "files": [
+        "packages\\Rate\\src\\OrionRate.vue"
+      ]
+    },
+    {
+      "name": "orion-section",
+      "count": 1,
+      "files": [
+        "packages\\Section\\src\\OrionSection.vue"
+      ]
+    },
+    {
+      "name": "orion-section__actions",
+      "count": 1,
+      "files": [
+        "packages\\Section\\src\\OrionSection.vue"
+      ]
+    },
+    {
+      "name": "orion-section__content",
+      "count": 1,
+      "files": [
+        "packages\\Section\\src\\OrionSection.vue"
+      ]
+    },
+    {
+      "name": "orion-section__header",
+      "count": 1,
+      "files": [
+        "packages\\Section\\src\\OrionSection.vue"
+      ]
+    },
+    {
+      "name": "orion-section__subtitle",
+      "count": 1,
+      "files": [
+        "packages\\Section\\src\\OrionSection.vue"
+      ]
+    },
+    {
+      "name": "orion-section__title",
+      "count": 1,
+      "files": [
+        "packages\\Section\\src\\OrionSection.vue"
+      ]
+    },
+    {
+      "name": "orion-section__title-chevron",
+      "count": 1,
+      "files": [
+        "packages\\Section\\src\\OrionSection.vue"
+      ]
+    },
+    {
+      "name": "orion-select",
+      "count": 1,
+      "files": [
+        "packages\\Select\\src\\OrionSelect.vue"
+      ]
+    },
+    {
+      "name": "orion-select__autocomplete",
+      "count": 1,
+      "files": [
+        "packages\\Select\\src\\OrionSelect.vue"
+      ]
+    },
+    {
+      "name": "orion-select__carret",
+      "count": 1,
+      "files": [
+        "packages\\Select\\src\\OrionSelect.vue"
+      ]
+    },
+    {
+      "name": "orion-select__icon--internal",
+      "count": 1,
+      "files": [
+        "packages\\Select\\src\\OrionSelect.vue"
+      ]
+    },
+    {
+      "name": "orion-select__popover",
+      "count": 1,
+      "files": [
+        "packages\\Select\\src\\OrionSelect.vue"
+      ]
+    },
+    {
+      "name": "orion-select__popover-actions",
+      "count": 1,
+      "files": [
+        "packages\\Select\\src\\OrionSelect.vue"
+      ]
+    },
+    {
+      "name": "orion-select__popover-item",
+      "count": 1,
+      "files": [
+        "packages\\Select\\src\\OrionSelect.vue"
+      ]
+    },
+    {
+      "name": "orion-select__popover-item--noresult",
+      "count": 1,
+      "files": [
+        "packages\\Select\\src\\OrionSelect.vue"
+      ]
+    },
+    {
+      "name": "orion-select__popover-loader",
+      "count": 1,
+      "files": [
+        "packages\\Select\\src\\OrionSelect.vue"
+      ]
+    },
+    {
+      "name": "orion-select__popover-search-input",
+      "count": 1,
+      "files": [
+        "packages\\Select\\src\\OrionSelect.vue"
+      ]
+    },
+    {
+      "name": "orion-select__selected-item",
+      "count": 1,
+      "files": [
+        "packages\\Select\\src\\OrionSelect.vue"
+      ]
+    },
+    {
+      "name": "orion-select__selected-item-remove",
+      "count": 1,
+      "files": [
+        "packages\\Select\\src\\OrionSelect.vue"
+      ]
+    },
+    {
+      "name": "orion-select--default-slot",
+      "count": 1,
+      "files": [
+        "packages\\Select\\src\\OrionSelect.vue"
+      ]
+    },
+    {
+      "name": "orion-sticker",
+      "count": 1,
+      "files": [
+        "packages\\Sticker\\src\\OrionSticker.vue"
+      ]
+    },
+    {
+      "name": "orion-sticker__actions",
+      "count": 1,
+      "files": [
+        "packages\\Sticker\\src\\OrionSticker.vue"
+      ]
+    },
+    {
+      "name": "orion-sticker__content",
+      "count": 1,
+      "files": [
+        "packages\\Sticker\\src\\OrionSticker.vue"
+      ]
+    },
+    {
+      "name": "orion-sticker__selected",
+      "count": 1,
+      "files": [
+        "packages\\Sticker\\src\\OrionSticker.vue"
+      ]
+    },
+    {
+      "name": "orion-sticker__thumbnail",
+      "count": 1,
+      "files": [
+        "packages\\Sticker\\src\\OrionSticker.vue"
+      ]
+    },
+    {
+      "name": "orion-sticker__title",
+      "count": 1,
+      "files": [
+        "packages\\Sticker\\src\\OrionSticker.vue"
+      ]
+    },
+    {
+      "name": "orion-swipe",
+      "count": 1,
+      "files": [
+        "packages\\Swipe\\src\\OrionSwipe.vue"
+      ]
+    },
+    {
+      "name": "orion-swipe__actions",
+      "count": 1,
+      "files": [
+        "packages\\Swipe\\src\\OrionSwipe.vue"
+      ]
+    },
+    {
+      "name": "orion-swipe__content",
+      "count": 1,
+      "files": [
+        "packages\\Swipe\\src\\OrionSwipe.vue"
+      ]
+    },
+    {
+      "name": "orion-tab-nav__content",
+      "count": 1,
+      "files": [
+        "packages\\TabNav\\src\\OrionTabNav.vue"
+      ]
+    },
+    {
+      "name": "orion-tab-nav__icon",
+      "count": 1,
+      "files": [
+        "packages\\TabNav\\src\\OrionTabNav.vue"
+      ]
+    },
+    {
+      "name": "orion-tab-nav__label",
+      "count": 1,
+      "files": [
+        "packages\\TabNav\\src\\OrionTabNav.vue"
+      ]
+    },
+    {
+      "name": "orion-tab-nav-wrap",
+      "count": 1,
+      "files": [
+        "packages\\TabNav\\src\\OrionTabNav.vue"
+      ]
+    },
+    {
+      "name": "orion-tab-pane",
+      "count": 1,
+      "files": [
+        "packages\\TabPane\\src\\OrionTabPane.vue"
+      ]
+    },
+    {
+      "name": "orion-tabs",
+      "count": 1,
+      "files": [
+        "packages\\Tabs\\src\\OrionTabs.vue"
+      ]
+    },
+    {
+      "name": "orion-tabs__content",
+      "count": 1,
+      "files": [
+        "packages\\Tabs\\src\\OrionTabs.vue"
+      ]
+    },
+    {
+      "name": "orion-tabs__header",
+      "count": 1,
+      "files": [
+        "packages\\Tabs\\src\\OrionTabs.vue"
+      ]
+    },
+    {
+      "name": "orion-telephone--indicatif",
+      "count": 1,
+      "files": [
+        "packages\\Phone\\src\\OrionPhone.vue"
+      ]
+    },
+    {
+      "name": "orion-textarea",
+      "count": 1,
+      "files": [
+        "packages\\Textarea\\src\\OrionTextarea.vue"
+      ]
+    },
+    {
+      "name": "orion-timeline__content",
+      "count": 1,
+      "files": [
+        "packages\\Timeline\\src\\OrionTimeline.vue"
+      ]
+    },
+    {
+      "name": "orion-timeline__pills",
+      "count": 1,
+      "files": [
+        "packages\\TimelinePill\\src\\OrionTimelinePill.vue"
+      ]
+    },
+    {
+      "name": "orion-timeline-pane",
+      "count": 1,
+      "files": [
+        "packages\\TimelinePane\\src\\OrionTimelinePane.vue"
+      ]
+    },
+    {
+      "name": "orion-timeline-pill",
+      "count": 1,
+      "files": [
+        "packages\\TimelinePill\\src\\OrionTimelinePill.vue"
+      ]
+    },
+    {
+      "name": "orion-timeline-pill__after",
+      "count": 1,
+      "files": [
+        "packages\\TimelinePill\\src\\OrionTimelinePill.vue"
+      ]
+    },
+    {
+      "name": "orion-timeline-pill__before",
+      "count": 1,
+      "files": [
+        "packages\\TimelinePill\\src\\OrionTimelinePill.vue"
+      ]
+    },
+    {
+      "name": "orion-timeline-pill__core-text",
+      "count": 1,
+      "files": [
+        "packages\\TimelinePill\\src\\OrionTimelinePill.vue"
+      ]
+    },
+    {
+      "name": "orion-timeline-pill__icon",
+      "count": 1,
+      "files": [
+        "packages\\TimelinePill\\src\\OrionTimelinePill.vue"
+      ]
+    },
+    {
+      "name": "orion-timeline-pill__separator",
+      "count": 1,
+      "files": [
+        "packages\\TimelinePill\\src\\OrionTimelinePill.vue"
+      ]
+    },
+    {
+      "name": "orion-timeline-pill__separator--after",
+      "count": 1,
+      "files": [
+        "packages\\TimelinePill\\src\\OrionTimelinePill.vue"
+      ]
+    },
+    {
+      "name": "orion-timeline-pill__separator--before",
+      "count": 1,
+      "files": [
+        "packages\\TimelinePill\\src\\OrionTimelinePill.vue"
+      ]
+    },
+    {
+      "name": "orion-toggle__core",
+      "count": 1,
+      "files": [
+        "packages\\Toggle\\src\\OrionToggle.vue"
+      ]
+    },
+    {
+      "name": "orion-toggle__core-button",
+      "count": 1,
+      "files": [
+        "packages\\Toggle\\src\\OrionToggle.vue"
+      ]
+    },
+    {
+      "name": "orion-toggle__input",
+      "count": 1,
+      "files": [
+        "packages\\Toggle\\src\\OrionToggle.vue"
+      ]
+    },
+    {
+      "name": "orion-tour",
+      "count": 1,
+      "files": [
+        "packages\\Tour\\src\\OrionTour.vue"
+      ]
+    },
+    {
+      "name": "orion-tour__steps",
+      "count": 1,
+      "files": [
+        "packages\\Tour\\src\\OrionTour.vue"
+      ]
+    },
+    {
+      "name": "orion-tour-overlay",
+      "count": 1,
+      "files": [
+        "packages\\Tour\\src\\OrionTour.vue"
+      ]
+    },
+    {
+      "name": "orion-tour-tooltip",
+      "count": 1,
+      "files": [
+        "packages\\TourStep\\src\\OrionTourStep.vue"
+      ]
+    },
+    {
+      "name": "orion-tour-tooltip__actions",
+      "count": 1,
+      "files": [
+        "packages\\TourStep\\src\\OrionTourStep.vue"
+      ]
+    },
+    {
+      "name": "orion-tour-tooltip__arrow",
+      "count": 1,
+      "files": [
+        "packages\\TourStep\\src\\OrionTourStep.vue"
+      ]
+    },
+    {
+      "name": "orion-tour-tooltip__body",
+      "count": 1,
+      "files": [
+        "packages\\TourStep\\src\\OrionTourStep.vue"
+      ]
+    },
+    {
+      "name": "orion-tour-tooltip__close",
+      "count": 1,
+      "files": [
+        "packages\\TourStep\\src\\OrionTourStep.vue"
+      ]
+    },
+    {
+      "name": "orion-tour-tooltip__counter",
+      "count": 1,
+      "files": [
+        "packages\\TourStep\\src\\OrionTourStep.vue"
+      ]
+    },
+    {
+      "name": "orion-tour-tooltip__footer",
+      "count": 1,
+      "files": [
+        "packages\\TourStep\\src\\OrionTourStep.vue"
+      ]
+    },
+    {
+      "name": "orion-tour-tooltip__title",
+      "count": 1,
+      "files": [
+        "packages\\TourStep\\src\\OrionTourStep.vue"
+      ]
+    },
+    {
+      "name": "orion-upload",
+      "count": 1,
+      "files": [
+        "packages\\Upload\\src\\OrionUpload.vue"
+      ]
+    },
+    {
+      "name": "orion-upload__bubble",
+      "count": 1,
+      "files": [
+        "packages\\Upload\\src\\OrionUpload.vue"
+      ]
+    },
+    {
+      "name": "orion-upload__button",
+      "count": 1,
+      "files": [
+        "packages\\Upload\\src\\OrionUpload.vue"
+      ]
+    },
+    {
+      "name": "orion-upload__content",
+      "count": 1,
+      "files": [
+        "packages\\Upload\\src\\OrionUpload.vue"
+      ]
+    },
+    {
+      "name": "orion-upload__delete-file",
+      "count": 1,
+      "files": [
+        "packages\\Upload\\src\\OrionUpload.vue"
+      ]
+    },
+    {
+      "name": "orion-upload__drag-over-indicator",
+      "count": 1,
+      "files": [
+        "packages\\Upload\\src\\OrionUpload.vue"
+      ]
+    },
+    {
+      "name": "orion-upload__files-list",
+      "count": 1,
+      "files": [
+        "packages\\Upload\\src\\OrionUpload.vue"
+      ]
+    },
+    {
+      "name": "orion-upload__files-list-item",
+      "count": 1,
+      "files": [
+        "packages\\Upload\\src\\OrionUpload.vue"
+      ]
+    },
+    {
+      "name": "orion-upload__files-list-item-infos",
+      "count": 1,
+      "files": [
+        "packages\\Upload\\src\\OrionUpload.vue"
+      ]
+    },
+    {
+      "name": "orion-upload__files-list-item-name",
+      "count": 1,
+      "files": [
+        "packages\\Upload\\src\\OrionUpload.vue"
+      ]
+    },
+    {
+      "name": "orion-upload__files-list-item-preview",
+      "count": 1,
+      "files": [
+        "packages\\Upload\\src\\OrionUpload.vue"
+      ]
+    },
+    {
+      "name": "orion-upload__files-list-item-size",
+      "count": 1,
+      "files": [
+        "packages\\Upload\\src\\OrionUpload.vue"
+      ]
+    },
+    {
+      "name": "orion-upload__files-list-item-type",
+      "count": 1,
+      "files": [
+        "packages\\Upload\\src\\OrionUpload.vue"
+      ]
+    },
+    {
+      "name": "orion-upload__input",
+      "count": 1,
+      "files": [
+        "packages\\Upload\\src\\OrionUpload.vue"
+      ]
+    },
+    {
+      "name": "orion-upload__label",
+      "count": 1,
+      "files": [
+        "packages\\Upload\\src\\OrionUpload.vue"
+      ]
+    },
+    {
+      "name": "orion-upload__or",
+      "count": 1,
+      "files": [
+        "packages\\Upload\\src\\OrionUpload.vue"
+      ]
+    },
+    {
+      "name": "orion-upload__pending",
+      "count": 1,
+      "files": [
+        "packages\\Upload\\src\\OrionUpload.vue"
+      ]
+    },
+    {
+      "name": "orion-upload__wrapper",
+      "count": 1,
+      "files": [
+        "packages\\Upload\\src\\OrionUpload.vue"
+      ]
+    },
+    {
+      "name": "pa-xs",
+      "count": 1,
+      "files": [
+        "packages\\Select\\docs\\SelectData.vue"
+      ]
+    },
+    {
+      "name": "password-check-line",
+      "count": 1,
+      "files": [
+        "packages\\Password\\src\\OrionPassword.vue"
+      ]
+    },
+    {
+      "name": "playground",
+      "count": 1,
+      "files": [
+        "packages\\Droppable\\docs\\DragNDropPlayground.vue"
+      ]
+    },
+    {
+      "name": "playground-form",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\docs\\DateTablePlayground.vue"
+      ]
+    },
+    {
+      "name": "progress-circle",
+      "count": 1,
+      "files": [
+        "packages\\ProgressCircle\\docs\\ProgressCircleStyle.vue"
+      ]
+    },
+    {
+      "name": "ripple",
+      "count": 1,
+      "files": [
+        "packages\\Icon\\src\\OrionIcon.vue"
+      ]
+    },
+    {
+      "name": "ripple__wave",
+      "count": 1,
+      "files": [
+        "packages\\Icon\\src\\OrionIcon.vue"
+      ]
+    },
+    {
+      "name": "row--grid-sm",
+      "count": 1,
+      "files": [
+        "packages\\Rate\\docs\\RatePlayground.vue"
+      ]
+    },
+    {
+      "name": "row--gutter-sm",
+      "count": 1,
+      "files": [
+        "packages\\Upload\\docs\\UploadPlayground.vue"
+      ]
+    },
+    {
+      "name": "row--toggle",
+      "count": 1,
+      "files": [
+        "packages\\InputRange\\docs\\InputRangePlayground.vue"
+      ]
+    },
+    {
+      "name": "runnable-track",
+      "count": 1,
+      "files": [
+        "packages\\InputRange\\src\\OrionInputRange.vue"
+      ]
+    },
+    {
+      "name": "setup.additionalClass]",
+      "count": 1,
+      "files": [
+        "packages\\Field\\src\\OrionField.vue"
+      ]
+    },
+    {
+      "name": "setup.baseClass,",
+      "count": 1,
+      "files": [
+        "packages\\NavTop\\src\\OrionNavTop.vue"
+      ]
+    },
+    {
+      "name": "setup.cssClass",
+      "count": 1,
+      "files": [
+        "packages\\Upload\\src\\OrionUpload.vue"
+      ]
+    },
+    {
+      "name": "setup.filter.includes(label.color)",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.vue"
+      ]
+    },
+    {
+      "name": "setup.getClassForBackground(day)",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.vue"
+      ]
+    },
+    {
+      "name": "setup.getClassForBackground(period)",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.vue"
+      ]
+    },
+    {
+      "name": "setup.getClassForDay(day)",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.vue"
+      ]
+    },
+    {
+      "name": "setup.getClassForNotification(day)",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.vue"
+      ]
+    },
+    {
+      "name": "setup.getCssClassForDayInRange(day)",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.vue"
+      ]
+    },
+    {
+      "name": "setup.getCssClassForMonth(index",
+      "count": 1,
+      "files": [
+        "packages\\DateTable\\src\\OrionDateTable.vue"
+      ]
+    },
+    {
+      "name": "setup.labelClass",
+      "count": 1,
+      "files": [
+        "packages\\Field\\src\\OrionField.vue"
+      ]
+    },
+    {
+      "name": "setup.starColor(star)",
+      "count": 1,
+      "files": [
+        "packages\\Rate\\src\\OrionRate.vue"
+      ]
+    },
+    {
+      "name": "setup.today",
+      "count": 1,
+      "files": [
+        "packages\\DailyCalendar\\src\\OrionDailyCalendar.vue"
+      ]
+    },
+    {
+      "name": "setup.validationClass",
+      "count": 1,
+      "files": [
+        "packages\\Field\\src\\OrionField.vue"
+      ]
+    },
+    {
+      "name": "step-content",
+      "count": 1,
+      "files": [
+        "packages\\Carousel\\docs\\CarouselPoster.vue"
+      ]
+    },
+    {
+      "name": "tab-click",
+      "count": 1,
+      "files": [
+        "packages\\Tabs\\src\\OrionTabsSetupService.ts"
+      ]
+    },
+    {
+      "name": "tabindex",
+      "count": 1,
+      "files": [
+        "packages\\Shared\\SharedPopableSetupService.ts"
+      ]
+    },
+    {
+      "name": "tagOptions",
+      "count": 1,
+      "files": [
+        "packages\\Droppable\\docs\\DragNDropPlayground.vue"
+      ]
+    },
+    {
+      "name": "targetplayground",
+      "count": 1,
+      "files": [
+        "packages\\Tour\\docs\\TourStepTarget.vue"
+      ]
+    },
+    {
+      "name": "text--grey-dark",
+      "count": 1,
+      "files": [
+        "packages\\Modal\\docs\\ModalOptions.vue"
+      ]
+    },
+    {
+      "name": "text--success",
+      "count": 1,
+      "files": [
+        "packages\\Password\\src\\OrionPassword.vue"
+      ]
+    },
+    {
+      "name": "timeline-before-pill",
+      "count": 1,
+      "files": [
+        "packages\\Timeline\\docs\\TimelineMarker.vue"
+      ]
+    },
+    {
+      "name": "undefined,",
+      "count": 1,
+      "files": [
+        "packages\\Section\\src\\OrionSection.vue"
+      ]
+    },
+    {
+      "name": "validationMessage.valid",
+      "count": 1,
+      "files": [
+        "packages\\Password\\src\\OrionPassword.vue"
+      ]
+    },
+    {
+      "name": "value-display",
+      "count": 1,
+      "files": [
+        "packages\\Editor\\docs\\EditorPlayground.vue"
+      ]
+    },
+    {
+      "name": "value-display__type",
+      "count": 1,
+      "files": [
+        "packages\\Editor\\docs\\EditorPlayground.vue"
+      ]
+    }
+  ]
+}

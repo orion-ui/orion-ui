@@ -6,19 +6,16 @@
 
 	&__header {
 		position: sticky;
-		background: white;
+		background: var(--background-neutral-default);
 		top: 0;
 		right: 0;
 		left: 0;
 		height: 4rem;
 		margin: calc(-20rem / 16);
 		margin-bottom: 0;
-		padding: var(--fluid-20px);
+		padding: var(--space-lg);
 		z-index: 4;
 
-		[data-orion-theme='dark'] & {
-			background: var(--grey-light);
-		}
 	}
 
 	&__title {
@@ -27,12 +24,6 @@
 
 	&__background {
 		position: relative;
-	}
-
-	&__icon {
-		[data-orion-theme='dark'] & {
-			color: white;
-		}
 	}
 
 	&__hour {
@@ -47,27 +38,23 @@
 		}
 
 		&-number {
-			color: var(--grey);
+			color: var(--text-default-moderate);
 			font-size: 0.875rem;
 			margin-right: 1.25rem;
 
 			&--now {
-				color: var(--danger);
+				color: var(--text-error-default);
 			}
 		}
 
 		&-line {
 			height: calc(1rem / 16);
-			background: var(--grey-light);
+			background: var(--background-neutral-subtle);
 			width: 100%;
-
-			[data-orion-theme='dark'] & {
-				background: var(--grey);
-			}
 
 			&--now {
 				position: relative;
-				background: var(--danger);
+				background: var(--background-error-default);
 				height: calc(1rem / 16);
 				z-index: 2;
 
@@ -78,7 +65,7 @@
 					height: 0;
 					border-top: calc(6rem / 16) solid transparent;
 					border-bottom: calc(6rem / 16) solid transparent;
-					border-left: 0.5rem solid var(--danger);
+					border-left: 0.5rem solid var(--background-error-default);
 					top: calc(-5rem / 16);
 					left: calc(-3rem / 16);
 					z-index: 2;
@@ -91,32 +78,28 @@
 		position: absolute;
 		width: calc(100% - 52px);
 		right: 0;
-		padding: var(--fluid-5px) 10px;
-		background: rgba(var(--rgb-info), 0.25);
+		padding: var(--space-xs) 10px;
+		background: rgba(var(--background-info-default), 0.25);
 		border-radius: 0.25rem;
-		color: var(--info);
+		color: var(--text-info-default);
 		font-weight: 600;
 		transition: all 0.2s ease;
 		cursor: pointer;
 		overflow: hidden;
 
 		each(@colors, {
-			@color: ~"--@{value}";
-			@rgbColor: ~"--rgb-@{value}";
 			&--@{value} {
-				background: rgba(var(@rgbColor), 0.2);
-				color: var(@color);
-				// border-left: 0.0625rem solid @@value;
+				background: color-mix(in oklab, var(~"--background-@{value}-default") 20%, transparent);
+				color: var(~"--text-@{value}-default");
 				&:hover{
-					background: rgba(var(@rgbColor), 0.3);
-					// background: lighten(var(@color), 30);
+					background: color-mix(in oklab, var(~"--background-@{value}-default") 30%, transparent);
 					transform: translate3d(0, calc(-2rem / 16), 0);
 					box-shadow: 
-						0 calc(2rem / 16) calc(2rem / 16) rgba(var(@rgbColor), 0.06), 
-						0 0.25rem 0.25rem rgba(var(@rgbColor), 0.06),
-						0 0.5rem 0.5rem rgba(var(@rgbColor), 0.06),
-						0 1rem 1rem rgba(var(@rgbColor), 0.06),
-						0 2rem 2rem rgba(var(@rgbColor), 0.06);
+						0  calc(2rem/16) calc(2rem/16)  color-mix(in oklab, var(~"--background-@{value}-default") 6%, transparent),
+						0  0.25rem       0.25rem        color-mix(in oklab, var(~"--background-@{value}-default") 6%, transparent),
+						0  0.5rem        0.5rem         color-mix(in oklab, var(~"--background-@{value}-default") 6%, transparent),
+						0  1rem          1rem           color-mix(in oklab, var(~"--background-@{value}-default") 6%, transparent),
+						0  2rem          2rem           color-mix(in oklab, var(~"--background-@{value}-default") 6%, transparent);
 				}
 			}
 		});
@@ -141,7 +124,7 @@
 		top: calc(25rem / 16);
 		right: 1.25rem;
 		font-size: 1rem;
-		color: var(--grey-darker);
+		color: var(--text-default-default);
 		display: flex;
 		gap: 0.5rem;
 		z-index: 5;

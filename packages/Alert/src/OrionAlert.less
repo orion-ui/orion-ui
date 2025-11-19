@@ -6,15 +6,15 @@
 	display: flex;
 	flex-direction: column;
 	gap: 0.5rem;
-	border-radius: var(--radius-alert);
-	padding: var(--fluid-10px) var(--fluid-15px);
+	border-radius: var(--radius-small);
+	padding: var(--space-sm) var(--space-md);
 
 	&__close {
 		.close(calc(22rem / 16));
 		position: absolute;
 		z-index: 1;
-		top: var(--fluid-10px);
-		right: var(--fluid-10px);
+		top: var(--space-sm);
+		right: var(--space-sm);
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -35,17 +35,13 @@
 	}
 
 	each(@colors, {
-		@color: ~"--@{value}";
-		@rgbColor: ~"--rgb-@{value}";
-		@colorLight: ~"--@{value}-light";
-		@colorDark: ~"--@{value}-dark";
 		
     &--@{value} {
-			color: var(@colorDark);
-      background: var(@colorLight);
+			color: var(~"--text-@{value}-subtle");
+      background: var(~"--background-@{value}-minimal");
 
       .orion-alert__title {
-        color: var(@colorDark);
+        color: var(~"--text-@{value}-subtle");
       }
 
 			&:not(.orion-alert--inverse):not(.orion-alert--default) > {
@@ -53,29 +49,20 @@
 					.color-contrast();
 				}
 			}
-
-			[data-orion-theme="dark"] & {
-				color: var(@colorLight);
-				background: var(@colorDark);
-
-				.orion-alert__title {
-					color: var(@colorLight);
-				}
-			}
     }
   });
 
 	&--default {
-		color: var(--grey-darker);
-		background: var(--grey-light);
+		color: var(--text-default-default);
+		background: var(--background-neutral-subtle);
 	}
 
 	&--inverse {
-		color: var(--grey-lighter);
-		background: var(--inverse);
+		color: var(--text-default-minimal);
+		background: var(--background-neutral-highlight);
 
 		.orion-alert__title  {
-			color: var(--grey-lighter);
+			color: var(--text-default-minimal);
 		}
 	}
 }

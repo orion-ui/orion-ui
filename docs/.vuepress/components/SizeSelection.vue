@@ -54,7 +54,7 @@ const emit = defineEmits<{(e: 'update:modelValue', val: Orion.Size): void}>();
 		gap: 0.25rem;
 		min-height: 2.5rem;
 		height: auto;
-		padding: var(--fluid-10px);
+		padding: var(--space-xs);
 		width: fit-content;
 
 		[class*="col-"] > .size-selection > & {
@@ -69,25 +69,25 @@ const emit = defineEmits<{(e: 'update:modelValue', val: Orion.Size): void}>();
 		justify-content: center;
 		height: 1.125rem;
 		border-radius: 0.5rem;
-		background: var(--grey-light);
-		border: 0.0625rem solid var(--grey-light);
-		color: var(--grey-darker);
+		background: var(--background-neutral-moderate);
+		border: 0.0625rem solid var(--border-neutral-default);
+		color: var(--text-default-default);
 		cursor: pointer;
 		text-transform: uppercase;
 		font-size: 0.75rem;
 		font-weight: 600;
-		padding: 0 var(--fluid-8px);
+		padding: 0 var(--space-xs);
 
 		&:hover {
-			border-color: var(--info);
-			color: var(--info);
+			border-color: var(--border-info-default);
+			color: var(--text-info-default);
 			background: transparent;
 		}
 
 		&--selected, &--selected:hover {
-			border-color: var(--info);
-			background: var(--info);
-			color: white;
+			border-color: var(--border-info-default);
+			background: var(--background-info-default);
+			color: var(--text-default-inverted);
 		}
 	}
 }

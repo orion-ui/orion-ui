@@ -142,24 +142,24 @@ const middle = ref([
 
 .orion-droppable {
 	position: relative;
-	padding: var(--fluid-10px);
+	padding: var(--space-sm);
 	border-radius: 0.5rem;
-	background: var(--grey-light);
+	background: var(--background-neutral-subtle);
 
 	&--allowed {
-		background: rgba(var(--rgb-success), 0.15);
+		background: color-mix(in srgb, var(--background-success-default) 15%, transparent 85%);
 	}
 
 	&--forbidden {
-		background: rgba(var(--rgb-danger), 0.15);
+		background: color-mix(in srgb, var(--background-error-default) 15%, transparent 85%);
 	}
 
 	&--over {
-		background: rgba(var(--rgb-info), 0.15);
+		background: color-mix(in srgb, var(--background-info-default) 15%, transparent 85%);
 	}
 
 	&--disabled{
-		border: calc(1rem / 16) solid var(--danger);
+		border: 1px solid var(--background-error-default);
 		opacity: 0.2
 	}
 }

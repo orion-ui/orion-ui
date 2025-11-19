@@ -25,7 +25,7 @@
 				<orion-icon
 					class="orion-input__reveal"
 					:icon="setup.reveal ? 'hide' : 'show'"
-					ripple="default"
+					ripple="neutral"
 					@click="setup.toggleReveal()"/>
 			</template>
 

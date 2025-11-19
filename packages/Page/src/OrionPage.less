@@ -48,14 +48,10 @@
 		position: relative;
 		display: inline-block;
 		margin: 0;
-		font-weight: var(--font-weight-page-title);
-		color: var(--grey-darker);
+		font-weight: var(--typography-weight-bold);
+		color: var(--text-default-default);
 		max-width: 100%;
 		flex: 1 1 0%;
-
-		[data-orion-theme='dark'] & {
-			color: var(--grey-dark);
-		}
 
 		&--ellipsis {
 			.ellipsis();
@@ -64,18 +60,14 @@
 
 	&__subtitle {
 		margin: 0 0.25rem 0.25rem;
-		font-weight: var(--font-weight-page-subtitle);
-		color: var(--grey);
-
-		[data-orion-theme='dark'] & {
-			color: var(--grey-dark);
-		}
+		font-weight: var(--typography-weight-medium);
+		color: var(--text-default-moderate);
 
 		&--sticky {
 			position: sticky;
 			top: 3rem;
 			z-index: 9;
-			background: rgba(var(--rgb-grey-lighter), 0.9);
+			background: rgba(var(--background-neutral-subtle), 0.9);
 			backdrop-filter: blur(2px);
 		}
 
@@ -109,16 +101,9 @@
 			font-size: 1.5rem;
 
 			&:not(.orion-icon--button) {
-				color: var(--grey);
+				color: var(--text-default-moderate);
 				&:hover {
-					color: var(--grey-darker);
-				}
-
-				[data-orion-theme='dark'] & {
-					color: var(--grey-dark);
-					&:hover {
-						color: var(--grey-darker);
-					}
+					color: var(--text-default-default);
 				}
 			}
 
@@ -138,7 +123,7 @@
 			position: sticky;
 			top: 3rem;
 			z-index: 9;
-			background: rgba(var(--rgb-grey-lighter), 0.9);
+			background: rgba(var(--background-neutral-subtle), 0.9);
 			backdrop-filter: blur(2px);
 		}
 	}

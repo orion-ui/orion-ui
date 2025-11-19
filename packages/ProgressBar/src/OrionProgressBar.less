@@ -4,11 +4,7 @@
 .orion-progress-bar {
 	&__path {
 		position: relative;
-		background: var(--grey-light);
-
-		[data-orion-theme='dark'] & {
-			background: var(--grey);
-		}
+		background: var(--background-neutral-subtle);
 	}
 
 	&__value {
@@ -21,9 +17,8 @@
 		max-width: calc(100% - 0.25rem);
 
 		each(@colors, {
-			@color: ~"--@{value}";
       .orion-progress-bar--@{value} & {
-        background: var(@color);
+        background: var(~"--background-@{value}-default");
       }
     });
 	}
@@ -32,9 +27,9 @@
 		position: absolute;
 		top: 0;
 		right: 0;
-		color: white;
+		color: var(--text-default-inverted);
 		line-height: 1;
-		padding: var(--fluid-5px);
+		padding: var(--space-xs);
 		border-radius: 0.25rem;
 		font-weight: bold;
 		font-size: 0.75rem;
@@ -43,14 +38,9 @@
 			opacity: 0;
 		}
 
-		[data-orion-theme='dark'] & {
-			color: black;
-		}
-
 		each(@colors, {
-			@color: ~"--@{value}";
       .orion-progress-bar--@{value} & {
-        background: var(@color);
+        background: var(~"--background-@{value}-default");
       }
     });
 	}
@@ -58,14 +48,14 @@
 	&--default {
 		.orion-progress-bar__value,
 		.orion-progress-bar__label {
-			background: var(--grey-dark);
+			background: var(--background-neutral-default);
 		}
 	}
 
 	&--inverse {
 		.orion-progress-bar__value,
 		.orion-progress-bar__label {
-			background: var(--inverse);
+			background: var(--background-neutral-highlight);
 		}
 	}
 }

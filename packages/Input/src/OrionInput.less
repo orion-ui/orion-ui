@@ -16,28 +16,20 @@
 		z-index: 1;
 		max-width: calc(100% - 2rem);
 		pointer-events: none;
-		color: var(--grey);
-
-		[data-orion-theme='dark'] & {
-			color: rgba(var(--rgb-grey-dark), 0.5);
-		}
+		color: var(--text-default-moderate);
 
 		&::before {
 			content: '';
 			position: absolute;
-			background: white;
+			background: var(--background-neutral-default);
 			height: 0.125rem;
 			width: 100%;
 			left: 0;
 			z-index: -1;
 			top: 50%;
 
-			[data-orion-theme='dark'] & {
-				background: var(--grey-lighter);
-			}
-
 			.orion-input--disabled & {
-				background: var(--grey-lighter);
+				background: var(--background-neutral-minimal);
 			}
 		}
 
@@ -50,7 +42,7 @@
 				top: 0;
 				right: 0;
 				z-index: 1;
-				color: var(--danger);
+				color: var(--text-error-default);
 			}
 		}
 
@@ -66,7 +58,7 @@
 
 		&--floating {
 			left: 0.5rem;
-			padding: 0 var(--fluid-5px);
+			padding: 0 var(--space-xs);
 			font-size: 0.75rem;
 			transform: translate(0, -1.25rem);
 
@@ -80,23 +72,23 @@
 			}
 
 			.orion-input--focused & {
-				color: var(--info);
+				color: var(--text-info-default);
 			}
 
 			.orion-input--error & {
-				color: var(--danger);
+				color: var(--text-error-default);
 			}
 
 			.orion-input--warning & {
-				color: var(--warning);
+				color: var(--text-warning-default);
 			}
 
 			.orion-input--success & {
-				color: var(--success);
+				color: var(--text-success-default);
 			}
 
 			.orion-input--disabled & {
-				color: var(--grey);
+				color: var(--text-default-moderate);
 			}
 		}
 	}
@@ -108,37 +100,26 @@
 		margin: 0;
 		width: 100%;
 		height: 2.5rem;
-		padding: var(--fluid-10px) var(--fluid-15px);
-		background-color: white;
+		padding: var(--space-xs) var(--space-xs);
+		background-color: var(--background-neutral-default);
 		background-image: none;
-		border-radius: var(--radius-input);
-		border: 0.0625rem solid var(--grey-light);
+		border-radius: var(--radius-small);
+		border: 0.0625rem solid var(--background-neutral-subtle);
 		display: block;
 		font-family: inherit;
 		font-size: inherit;
 		line-height: 1.35;
-		color: var(--grey-darker);
+		color: var(--text-default-default);
 		outline: none;
 
-		[data-orion-theme='dark'] & {
-			background-color: var(--grey-lighter);
-			border-color: var(--grey);
-		}
-
 		&:hover {
-			border-color: var(--grey);
-			[data-orion-theme='dark'] & {
-				border-color: rgba(var(--rgb-grey-dark), 0.5);
-			}
+			border-color: var(--border-neutral-hover);
 		}
 
 		&:focus,
 		.orion-input--focused & {
 			outline: none;
-			border-color: var(--info);
-			[data-orion-theme='dark'] & {
-				border-color: var(--info);
-			}
+			border-color: var(--border-info-default);
 		}
 
 		.orion-input--prefix-icon & {
@@ -154,33 +135,33 @@
 		}
 
 		.orion-input--error & {
-			border-color: var(--danger);
+			border-color: var(--border-error-default);
 		}
 
 		.orion-input--warning & {
-			border-color: var(--warning);
+			border-color: var(--border-warning-default);
 		}
 
 		.orion-input--success & {
-			border-color: var(--success);
+			border-color: var(--border-success-default);
 		}
 
 		.orion-input--disabled & {
-			background: var(--grey-lighter);
-			border-color: var(--grey-light);
+			background: var(--background-neutral-minimal);
+			border-color: var(--border-neutral-default);
 			cursor: not-allowed;
 		}
 
 		.orion-input--xs & {
 			height: 2rem;
-			padding: var(--fluid-5px);
+			padding: var(--space-xs);
 			font-size: 0.75rem;
 		}
 	}
 
 	&__error-message {
 		margin-top: 0.25rem;
-		color: var(--danger);
+		color: var(--text-error-default);
 		font-size: 0.75rem;
 		line-height: 1.3;
 		padding: 0 0.25rem;
@@ -194,17 +175,13 @@
 		border-radius: 0.25rem;
 		display: flex;
 		align-items: center;
-		padding: 0 var(--fluid-10px) 0 var(--fluid-5px);
-		background: white;
+		padding: 0 var(--space-sm) 0 var(--space-xs);
+		background: var(--background-neutral-default);
 		pointer-events: none;
 		font-size: 1rem;
 
-		[data-orion-theme='dark'] & {
-			background: var(--grey-lighter);
-		}
-
 		.orion-input--disabled & {
-			background: var(--grey-lighter);
+			background: var(--background-neutral-minimal);
 		}
 
 		&:empty {
@@ -212,7 +189,7 @@
 		}
 
 		.orion-input--xs & {
-			padding: 0 var(--fluid-5px);
+			padding: 0 var(--space-xs);
 			height: calc(2rem - 2rem / 16);
 		}
 
@@ -227,15 +204,15 @@
 		font-size: 1rem;
 
 		&--error {
-			color: var(--danger);
+			color: var(--text-error-default);
 		}
 
 		&--warning {
-			color: var(--warning);
+			color: var(--text-warning-default);
 		}
 
 		&--success {
-			color: var(--success);
+			color: var(--text-success-default);
 		}
 	}
 
@@ -270,7 +247,7 @@
 
 	&--disabled {
 		.icon {
-			color: var(--grey);
+			color: var(--text-default-moderate);
 		}
 	}
 

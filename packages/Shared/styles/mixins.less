@@ -48,8 +48,8 @@
 
 	&:hover {
 		opacity: 1;
-		color: var(--danger);
-		border-color: var(--danger);
+		color: var(--text-error-default);
+		border-color: var(--border-error-default);
 		transform: rotate(90deg);
 	}
 }
@@ -59,9 +59,8 @@
 	position: absolute;
 
 	each(@colors, {
-		@color: ~"--@{value}";
     &--@{value} {
-      background: var(@color);
+      background: var(~"--background-@{value}-default");
     }
   });
 }
@@ -72,13 +71,9 @@
 	font-family: var(--font-family);
 	font-size: calc(@size * 0.75);
 	font-weight: bold;
-	color: white;
+	color: var(--text-default-inverted);
 }
 
 .color-contrast() {
 	filter: saturate(150%);
-
-	[data-orion-theme='dark'] & {
-		filter: saturate(300%);
-	}
 }

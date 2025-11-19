@@ -18,10 +18,10 @@
 					</h2>
 
 					<o-section align="left">
-						<o-button v-if="frontmatter.lang === 'fr'" color="brand" @click="$router.push('/fr/guide/quick-start.md')">Démarrage</o-button>
-						<o-button v-else color="brand" @click="$router.push('/guide/quick-start.md')">Quick Start</o-button>
-						<o-button v-if="frontmatter.lang === 'fr'" color="brand" outline @click="$router.push('/fr/components/OrionAvatar.md')">Composants</o-button>
-						<o-button v-else color="brand" outline @click="$router.push('/components/OrionAvatar.md')">Components</o-button>
+						<o-button v-if="frontmatter.lang === 'fr'" color="primary" @click="$router.push('/fr/guide/quick-start.md')">Démarrage</o-button>
+						<o-button v-else color="primary" @click="$router.push('/guide/quick-start.md')">Quick Start</o-button>
+						<o-button v-if="frontmatter.lang === 'fr'" color="primary" outline @click="$router.push('/fr/components/OrionAvatar.md')">Composants</o-button>
+						<o-button v-else color="primary" outline @click="$router.push('/components/OrionAvatar.md')">Components</o-button>
 					</o-section>
 				</div>
 	
@@ -141,11 +141,11 @@ const features = computed (() => {
 @import '../../../../../packages/Shared/styles/variables.less';
 
 .container {
-	padding: 0 var(--fluid-30px);
+	padding: 0 var(--space-md);
 }
 
 .clip {
-	background: linear-gradient(to bottom right, var(--brand), var(--brand-alt));
+	background: linear-gradient(to bottom right, var(--background-primary-default), var(--brand-alt));
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	background-clip: text;
@@ -168,7 +168,7 @@ h2 {
 	border: none;
 	font-size: 2.5rem;
 	line-height: 1.1;
-	color: var(--grey-darker);
+	color: var(--text-default-default);
 	padding-top: 0 !important;
 	margin-top: 0 !important;
 	margin-bottom: 2rem;

@@ -13,9 +13,9 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	padding: var(--fluid-20px);
+	padding: var(--space-lg);
 	min-height: calc(105rem / 16);
-	background: white;
+	background: var(--background-neutral-default);
 	box-shadow: 0 0.3rem 1rem fade(black, 15);
 	transform: scale3d(1, 0, 1);
 	transform-origin: bottom;
@@ -25,12 +25,8 @@
 		bottom: 0;
 	}
 
-	[data-orion-theme='dark'] & {
-		background: var(--grey-light);
-	}
-
 	@media @phone {
-		padding: var(--fluid-10px);
+		padding: var(--space-sm);
 		flex-wrap: wrap;
 	}
 
@@ -52,8 +48,8 @@
 }
 
 .orion-footer-selected {
-	padding: var(--fluid-10px) var(--fluid-30px) var(--fluid-10px)
-		var(--fluid-10px);
+	padding: var(--space-sm) var(--space-lg) var(--space-sm)
+		var(--space-sm);
 
 	> div {
 		.flex-align();
@@ -64,7 +60,7 @@
 		align-items: center;
 		margin-top: -0.3rem;
 		margin-right: 2rem;
-		color: var(--info);
+		color: var(--text-info-default);
 
 		@media screen and (max-width: 40rem) {
 			// 640px

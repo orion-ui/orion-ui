@@ -70,7 +70,7 @@ const state = reactive({
 	inputValue: 'option1',
 	iconCheck: undefined,
 	label: 'Option 1',
-	color: 'brand' as Orion.Color,
+	color: 'primary' as Orion.Color,
 });
 
 const icons = computed(() => {

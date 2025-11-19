@@ -27,13 +27,9 @@
 		justify-content: center;
 		width: 100%;
 		height: 100%;
-		color: rgba(255, 255, 255, 0.7);
+		color: 	 var(--text-default-inverted);
 		line-height: 1;
 		border-radius: inherit;
-
-		[data-orion-theme='dark'] & {
-			color: rgba(0, 0, 0, 0.7);
-		}
 
 		.orion-avatar--xl & {
 			font-size: 4rem;
@@ -52,19 +48,18 @@
 		}
 
 		each(@colors, {
-			@color: ~"--@{value}";
 			.orion-avatar--@{value} > & {
-				background: var(@color);
+				background:  var(~"--background-@{value}-default");
 			}
 		});
 
 		.orion-avatar--default > & {
-			background: var(--grey-light);
-			color: var(--grey-darker);
+			background: var(--background-neutral-subtle);
+			color: var(--text-default-default);
 		}
 
 		.orion-avatar--inverse > & {
-			background: var(--grey-darker);
+			background: var(--background-neutral-highlight);
 		}
 	}
 
@@ -76,8 +71,8 @@
 		bottom: 0;
 		right: 0;
 		font-size: 1.25rem;
-		color: var(--grey-dark);
-		background: white;
+		color: var(--text-default-default);
+		background: var(--background-neutral-default);
 		cursor: pointer;
 
 		.orion-avatar--lg & {
@@ -86,8 +81,8 @@
 		}
 
 		.orion-avatar--sm & {
-			bottom: calc(var(--fluid-5px) * -1);
-			right: calc(var(--fluid-5px) * -1);
+			bottom: calc(var(--space-xs) * -1);
+			right: calc(var(--space-xs) * -1);
 		}
 
 		.orion-avatar--xs & {
@@ -101,8 +96,8 @@
 
 		.orion-avatar--square & {
 			transform: translate3d(
-				calc(var(--fluid-5px) * -1),
-				calc(var(--fluid-5px) * -1),
+				calc(var(--space-xs) * -1),
+				calc(var(--space-xs) * -1),
 				0
 			);
 		}

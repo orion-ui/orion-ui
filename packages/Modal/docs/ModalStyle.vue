@@ -19,7 +19,7 @@
 			<template #footer="{ close }">
 				<o-section align="stretch">
 					<o-button
-						color="danger"
+						color="error"
 						outline
 						@click="close">
 						Close modal from the slot

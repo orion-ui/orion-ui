@@ -53,8 +53,8 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-  gap: var(--space-sm);
-  margin-bottom: var(--space-md);
+  gap: var(--spacing-16);
+  margin-bottom: var(--spacing-32);
 }
 </style>
 

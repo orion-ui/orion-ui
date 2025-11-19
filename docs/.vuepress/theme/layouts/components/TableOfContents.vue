@@ -137,7 +137,7 @@ function removeAllActive () {
 		font-size: var(--size-default);
 		
 		&--H3 {
-			padding-left: var(--fluid-10px);
+			padding-left: var(--space-xs);
 		}
 	}
 }

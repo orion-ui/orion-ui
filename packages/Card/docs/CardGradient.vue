@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 
-const colors = ['info', 'success', 'warning', 'pink', 'brand'];
+const colors = ['info', 'success', 'warning', 'secondary', 'primary'];
 </script>
 
 @hl {9,19}
@@ -24,12 +24,12 @@ const colors = ['info', 'success', 'warning', 'pink', 'brand'];
 @lang:en
 ### Gradients
 
-You can use pre-made gradients `info` `success` `warning` `pink` `brand` to add a gradient on the background of the card with the prop `gradient`.
+You can use pre-made gradients `info` `success` `warning` `primary` `secondary` to add a gradient on the background of the card with the prop `gradient`.
 @lang
 
 @lang:fr
 ### Dégradés
 
-Il est possible d'utiliser les dégradés prédéfinis  `info` `success` `warning` `pink` `brand` pour ajouter un dégradé sur la carte,
+Il est possible d'utiliser les dégradés prédéfinis  `info` `success` `warning` `primary` `secondary` pour ajouter un dégradé sur la carte,
 en utilisant la prop `gradient`.
 @lang

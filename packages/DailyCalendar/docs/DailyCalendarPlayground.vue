@@ -62,7 +62,7 @@
 				Add a task
 			</o-button>
 			<o-button
-				color="danger"
+				color="error"
 				outline
 				@click="reset()">
 				Reset

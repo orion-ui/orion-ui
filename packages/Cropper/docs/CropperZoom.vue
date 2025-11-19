@@ -18,7 +18,7 @@
 				:file="files[0]"/>
 
 			<o-button
-				color="brand"
+				color="primary"
 				outline
 				@click="cropAsync()">
 				Crop

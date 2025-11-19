@@ -6,7 +6,7 @@
 
 		<div class="flex ai-c g-xs">
 			<o-button
-				color="danger"
+				color="error"
 				outline
 				@click="discussionId = undefined">
 				Close discussion

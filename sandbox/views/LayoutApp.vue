@@ -141,10 +141,10 @@ const lang = computed({
 
 	> a {
 		font-weight: 600;
-		color: var(--info);
+		color: var(--text-info-default);
 
 		&.router-link-exact-active {
-			color: var(--warning-alt);
+			color: var(--text-warning-subtle);
 		}
 	}
 }
@@ -159,9 +159,9 @@ const lang = computed({
 }
 
 .test-append-icon {
-	color: red;
+	color: var(--text-error-default);
 	&:hover {
-		color: blue;
+		color: var(--text-primary-default);
 	}
 }
 </style>

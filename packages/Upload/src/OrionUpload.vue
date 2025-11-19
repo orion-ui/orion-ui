@@ -127,7 +127,7 @@
 					</div>
 
 					<orion-icon
-						ripple="danger"
+						ripple="error"
 						icon="trash_full"
 						class="orion-upload__delete-file"
 						@click="setup.deleteFile(i)"/>
