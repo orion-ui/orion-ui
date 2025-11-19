@@ -29,6 +29,7 @@ on:
 jobs:
   coverage:
     runs-on: ubuntu-latest
+    name: Run Vitest Tests and Coverage
 
     steps:
 
@@ -61,113 +62,34 @@ jobs:
           name: coverage-badge
           path: tests/vitest/coverage/badge.svg
 
-      - name: Comment coverage summary on PR
-        if: github.event_name == 'pull_request'
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const fs = require('fs');
-            
-            // Test results
-            let testResults = '';
-            const testPath = './tests/vitest/coverage/test-results.json';
-            if (fs.existsSync(testPath)) {
-              const tests = JSON.parse(fs.readFileSync(testPath));
-              const totalTests = tests.numTotalTests || 0;
-              const passedTests = tests.numPassedTests || 0;
-              const failedTests = tests.numFailedTests || 0;
-              const testFiles = tests.numTotalTestSuites || 0;
-              
-              testResults = `
-              ## 🧪 Test Results
-              | Metric | Count |
-              |---------|-------|
-              | Total Tests | ${totalTests} |
-              | Passed | ✅ ${passedTests} |
-              | Failed | ❌ ${failedTests} |
-              | Test Files | 📁 ${testFiles} |
-              
-              `;
-            }
-            
-            // Coverage results
-            let coverageResults = '';
-            const coveragePath = './tests/vitest/coverage/coverage-summary.json';
-            if (fs.existsSync(coveragePath)) {
-              const summary = JSON.parse(fs.readFileSync(coveragePath));
-              const lines = summary.total.lines.pct;
-              const statements = summary.total.statements.pct;
-              const functions = summary.total.functions.pct;
-              const branches = summary.total.branches.pct;
-              
-              // Generate color based on coverage percentage
-              const getColor = (pct) => {
-                if (pct >= 85) return 'brightgreen';
-                if (pct >= 70) return 'yellow';
-                if (pct >= 50) return 'orange';
-                return 'red';
-              };
-              
-              const color = getColor(lines);
-              const badgeUrl = `https://img.shields.io/badge/coverage-${lines}%25-${color}?style=flat`;
-
-              coverageResults = `
-              ## 📈 Coverage Report
-              
-              🧩 **Minimum required:** 85%
-              
-              ![Coverage Badge](${badgeUrl})
-              
-              | Metric | Coverage |
-              |---------|-----------|
-              | Lines | ${lines}% |
-              | Statements | ${statements}% |
-              | Functions | ${functions}% |
-              | Branches | ${branches}% |
-              `;
-            }
-
-            const body = testResults + coverageResults;
-
-            await github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body
-            });
-
-      - name: Create coverage summary for commits
-        if: github.event_name == 'push'
+      - name: Post coverage summary
         run: |
-          echo "## 📊 Test Results & Coverage Summary" >> $GITHUB_STEP_SUMMARY
-          
-          # Test Results
+          # Build markdown summary
+          SUMMARY="## 📊 Test Results & Coverage Summary\n"
+
+          # Test results
           if [ -f "./tests/vitest/coverage/test-results.json" ]; then
-            TOTAL_TESTS=$(cat ./tests/vitest/coverage/test-results.json | jq -r '.numTotalTests // 0')
-            PASSED_TESTS=$(cat ./tests/vitest/coverage/test-results.json | jq -r '.numPassedTests // 0')
-            FAILED_TESTS=$(cat ./tests/vitest/coverage/test-results.json | jq -r '.numFailedTests // 0')
-            TEST_FILES=$(cat ./tests/vitest/coverage/test-results.json | jq -r '.numTotalTestSuites // 0')
-            
-            echo "" >> $GITHUB_STEP_SUMMARY
-            echo "### 🧪 Test Results" >> $GITHUB_STEP_SUMMARY
-            echo "| Metric | Count |" >> $GITHUB_STEP_SUMMARY
-            echo "|---------|-------|" >> $GITHUB_STEP_SUMMARY
-            echo "| Total Tests | ${TOTAL_TESTS} |" >> $GITHUB_STEP_SUMMARY
-            echo "| Passed | ✅ ${PASSED_TESTS} |" >> $GITHUB_STEP_SUMMARY
-            echo "| Failed | ❌ ${FAILED_TESTS} |" >> $GITHUB_STEP_SUMMARY
-            echo "| Test Files | 📁 ${TEST_FILES} |" >> $GITHUB_STEP_SUMMARY
-            echo "" >> $GITHUB_STEP_SUMMARY
+            TOTAL_TESTS=$(jq -r '.numTotalTests // 0' ./tests/vitest/coverage/test-results.json)
+            PASSED_TESTS=$(jq -r '.numPassedTests // 0' ./tests/vitest/coverage/test-results.json)
+            FAILED_TESTS=$(jq -r '.numFailedTests // 0' ./tests/vitest/coverage/test-results.json)
+            TEST_FILES=$(jq -r '.numTotalTestSuites // 0' ./tests/vitest/coverage/test-results.json)
+
+            SUMMARY+="\n### 🧪 Test Results\n"
+            SUMMARY+="| Metric | Count |\n"
+            SUMMARY+="|--------|-------|\n"
+            SUMMARY+="| Total Tests | ${TOTAL_TESTS} |\n"
+            SUMMARY+="| Passed | ${PASSED_TESTS} |\n"
+            SUMMARY+="| Failed | ${FAILED_TESTS} |\n"
+            SUMMARY+="| Test Files | ${TEST_FILES} |\n"
           fi
-          
-          # Coverage Results
-          echo "### 📈 Coverage Report" >> $GITHUB_STEP_SUMMARY
+
+          # Coverage summary
           if [ -f "./tests/vitest/coverage/coverage-summary.json" ]; then
-            LINES=$(cat ./tests/vitest/coverage/coverage-summary.json | jq -r '.total.lines.pct')
-            STATEMENTS=$(cat ./tests/vitest/coverage/coverage-summary.json | jq -r '.total.statements.pct') 
-            FUNCTIONS=$(cat ./tests/vitest/coverage/coverage-summary.json | jq -r '.total.functions.pct')
-            BRANCHES=$(cat ./tests/vitest/coverage/coverage-summary.json | jq -r '.total.branches.pct')
-            
-            # Generate color for badge
+            LINES=$(jq -r '.total.lines.pct' ./tests/vitest/coverage/coverage-summary.json)
+            STATEMENTS=$(jq -r '.total.statements.pct' ./tests/vitest/coverage/coverage-summary.json)
+            FUNCTIONS=$(jq -r '.total.functions.pct' ./tests/vitest/coverage/coverage-summary.json)
+            BRANCHES=$(jq -r '.total.branches.pct' ./tests/vitest/coverage/coverage-summary.json)
+
             if (( $(echo "$LINES >= 85" | bc -l) )); then
               COLOR="brightgreen"
             elif (( $(echo "$LINES >= 70" | bc -l) )); then
@@ -177,16 +99,29 @@ jobs:
             else
               COLOR="red"
             fi
-            
-            echo "🧩 **Minimum required:** 85%" >> $GITHUB_STEP_SUMMARY
-            echo "" >> $GITHUB_STEP_SUMMARY
-            echo "![Coverage Badge](https://img.shields.io/badge/coverage-${LINES}%25-${COLOR}?style=flat)" >> $GITHUB_STEP_SUMMARY
-            echo "" >> $GITHUB_STEP_SUMMARY
-            echo "| Metric | Coverage |" >> $GITHUB_STEP_SUMMARY  
-            echo "|---------|-----------|" >> $GITHUB_STEP_SUMMARY
-            echo "| Lines | ${LINES}% |" >> $GITHUB_STEP_SUMMARY
-            echo "| Statements | ${STATEMENTS}% |" >> $GITHUB_STEP_SUMMARY
-            echo "| Functions | ${FUNCTIONS}% |" >> $GITHUB_STEP_SUMMARY
-            echo "| Branches | ${BRANCHES}% |" >> $GITHUB_STEP_SUMMARY
-            echo "" >> $GITHUB_STEP_SUMMARY
+
+            SUMMARY+="\n### 📈 Coverage Report\n"
+            SUMMARY+="**Minimum required:** 85%\n\n"
+            SUMMARY+="![Coverage Badge](https://img.shields.io/badge/coverage-${LINES}%25-${COLOR}?style=flat)\n\n"
+            SUMMARY+="| Metric | Coverage |\n"
+            SUMMARY+="|--------|---------|\n"
+            SUMMARY+="| Lines | ${LINES}% |\n"
+            SUMMARY+="| Statements | ${STATEMENTS}% |\n"
+            SUMMARY+="| Functions | ${FUNCTIONS}% |\n"
+            SUMMARY+="| Branches | ${BRANCHES}% |\n"
+          fi
+
+          # Coverage per folder
+          if [ -f "./tests/vitest/coverage/coverage-per-folder.md" ]; then
+            SUMMARY+="\n### 🗂 Coverage per Folder\n"
+            SUMMARY+="$(cat ./tests/vitest/coverage/coverage-per-folder.md)\n"
+          fi
+
+          # Post summary
+          if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
+            # Comment on PR
+            echo "$SUMMARY" | gh pr comment ${{ github.event.pull_request.number }} --body -
+          else
+            # Add to commit summary
+            echo "$SUMMARY" >> $GITHUB_STEP_SUMMARY
           fi

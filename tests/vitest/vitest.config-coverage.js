@@ -40,7 +40,7 @@ export default defineConfig({
 		coverage: {
 			enabled: true,
 			provider: 'v8',
-			reporter: ['text', 'json-summary'],
+			reporter: ['text', 'json-summary', 'html', 'lcov'],
 			reportsDirectory: './coverage',
 			exclude: [],
 			include: [path.resolve(__dirname, '../../{utils,services,devtool,assets}/**/*.ts').replace(/\\/g, '/')],

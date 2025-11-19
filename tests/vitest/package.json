@@ -23,6 +23,7 @@
         "test:old": "vitest run --config ./vitest.config.js",
         "test:coverage": "vitest run --config ./vitest.config-coverage.js --coverage",
         "test:coverage:badge": "npm run test:coverage && node generate-badge.cjs",
+        "test:coverage:folders": "node coverage-per-folder.cjs",
         "test:reports:cobertura": "vitest run --config ./vitest.config-reports-cobertura-junit.js",
         "test:reports:summary": "node cobertura-summary.js coverage/cobertura/cobertura-coverage.xml",
         "badge": "node generate-badge.cjs"
