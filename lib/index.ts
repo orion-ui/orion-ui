@@ -15,6 +15,7 @@ const Orion: Plugin = {
 			prefix: 'o',
 			use: ['components', 'monkeyPatching'],
 			lang: typeof navigator !== 'undefined' ? navigator.language.split('-')[0] : 'en',
+			iconStyle: 'outlined',
 			...config,
 		} as Orion.AppServiceConfig);
 
@@ -33,8 +34,8 @@ const OrionPlugin = Orion;
 
 export { orionAppService, OrionPlugin };
 
-// For export, use relative path
-export { coolicons } from '../assets/fonts/coolicons';
+// For export, use relative path`
+export { materialIcons } from 'assets/fonts/materialIcons';
 export { getAppLang, setAppLang } from '../services/LangService';
 export * from '../utils/Bus';
 export * from '../utils/Log';

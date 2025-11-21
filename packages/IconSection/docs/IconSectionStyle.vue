@@ -4,14 +4,14 @@
 	<div class="row row--gutter">
 		<div class="col-sm-6">
 			<o-icon-section
-				icon="image_01"
+				icon="image"
 				title="Default">
 				Lorem ipsum
 			</o-icon-section>
 		</div>
 		<div class="col-sm-6">
 			<o-icon-section
-				icon="house_01"
+				icon="house"
 				title="Center">
 				Lorem ipsum
 			</o-icon-section>
@@ -25,7 +25,7 @@
 	<div class="row row--gutter">
 		<div class="col-sm-6">
 			<o-icon-section
-				icon="sun"
+				icon="wb_sunny"
 				title="Center with labels"
 				center>
 				Lorem ipsum

@@ -24,7 +24,7 @@
 			<template #icon-suffix>
 				<orion-icon
 					class="orion-input__reveal"
-					:icon="setup.reveal ? 'hide' : 'show'"
+					:icon="setup.reveal ? 'visibility_off' : 'visibility'"
 					ripple="neutral"
 					@click="setup.toggleReveal()"/>
 			</template>
@@ -44,7 +44,7 @@
 					:key="index"
 					class="password-check-line"
 					:class="validationMessage.valid ? 'text--success': 'text--warning'">
-					<orion-icon :icon="validationMessage.valid ? 'check': 'triangle_warning'"/>
+					<orion-icon :icon="validationMessage.valid ? 'check': 'warning_amber'"/>
 					<span>{{ validationMessage.message }}</span>
 				</div>
 			</div>

@@ -2,7 +2,6 @@
 
 import { Component } from 'vue';
 import { RouteLocationRaw, Router } from 'vue-router';
-import { coolicons } from '../assets/fonts/coolicons';
 import OrionChatEntity from '../packages/Chat/src/OrionChatEntity';
 import OrionChatMessageEntity from '../packages/ChatMessage/src/OrionChatMessageEntity';
 import type { OrionAsideSetupService, OrionListProps, OrionModalSetupService, OrionNotifSetupService } from '../packages';
@@ -10,6 +9,7 @@ import useValidation from '../services/ValidationService';
 import { Validator as ValidatorClass } from '../utils/Validator';
 import { CountryCode } from 'libphonenumber-js';
 import { OrionAvatarProps } from 'packages/Avatar/src/OrionAvatarSetupService';
+import { MaterialIcon } from 'material-icons';
 
 declare global {
 	type Nullable<T> = T | null;
@@ -55,6 +55,7 @@ declare global {
 			use: ('components' | 'monkeyPatching')[];
 			lang: keyof typeof import('../lang')['default'];
 			router: Router;
+			iconStyle: Orion.IconStyle;
 			popableAnimationHooks:
 				& Record<AsideAnimationHookType, (instance?: OrionAside) => Promise<void>>
 				& Record<ModalAnimationHookType, (instance?: OrionModal) => Promise<void>>
@@ -63,7 +64,9 @@ declare global {
 
 		type Config = Partial<AppServiceConfig>
 
-		type Icon = typeof coolicons[number];
+		type Icon = MaterialIcon;
+
+		type IconStyle = 'filled' | 'outlined' | 'round' | 'sharp' | 'two-tone';
 
 		type Theme = 'dark' | 'light' | 'auto';
 

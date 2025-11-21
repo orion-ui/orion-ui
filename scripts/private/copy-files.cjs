@@ -24,6 +24,7 @@ class CopyFilesService {
 
 		this.rootPath = path.resolve(__dirname, '../..');
 		this.stylesPath = path.resolve(this.rootPath, 'dist/styles');
+		this.assetsPath = path.resolve(this.rootPath, 'dist/assets');
 		this.cliPath = path.resolve(this.rootPath, 'dist/scripts/public');
 	}
 
@@ -31,6 +32,10 @@ class CopyFilesService {
 		log.step('🥨 --> Copy Shared .less files');
 		await fs.remove(this.stylesPath);
 		await fs.copy(path.resolve(this.rootPath, 'packages/Shared/styles'), this.stylesPath);
+
+		//Copy materials icons less files
+		log.step('🥨 --> Copy Material Icons .less files');
+		await fs.copy(path.resolve(this.rootPath, 'node_modules/material-icons/iconfont'), path.resolve(this.assetsPath, 'material-icons'));
 
 		log.step('🥨 --> Copy Packages .less files');
 		const packages = (await fs.readdir(path.resolve(this.rootPath, 'packages'), { withFileTypes: true }))
@@ -52,8 +57,7 @@ class CopyFilesService {
 			const result = lessFileContent
 				.replace(`@import '../../Shared/styles/variables.less';`, `@import '../variables.less';`)
 				.replace(`@import '../../Shared/styles/mixins.less';`, `@import '../mixins.less';`)
-				.replace(`@import '../../Input/src/OrionInput';`, `@import './OrionInput';`)
-				.replace(`@import (css) url('assets/fonts/coolicons/coolicons.css');`, `@import (css) url('../../assets/fonts/coolicons/coolicons.css');`);
+				.replace(`@import '../../Input/src/OrionInput';`, `@import './OrionInput';`);
 
 			await fs.writeFile(path.resolve(this.rootPath, 'dist/styles/packages', `Orion${packageName}.less`), result, { encoding: 'utf-8' });
 		}

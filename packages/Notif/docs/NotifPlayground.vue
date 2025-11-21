@@ -58,7 +58,7 @@
 </template>
 
 <script setup lang="ts">
-import { useNotif, coolicons } from 'lib';
+import { useNotif, materialIcons } from 'lib';
 import { reactive, computed } from 'vue';
 
 const state = reactive({
@@ -69,7 +69,7 @@ const state = reactive({
 });
 
 const icons = computed(() => {
-	return coolicons.slice(0, 50);
+	return materialIcons.slice(0, 50);
 });
 
 </script>

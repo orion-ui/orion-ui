@@ -42,7 +42,7 @@
 						@blur="setup.handleSearchBlur()"/>
 					<orion-icon
 						v-else
-						icon="search_magnifying_glass"
+						icon="search"
 						ripple="info"
 						@click="setup.toggleSearch()"/>
 				</template>
@@ -234,7 +234,7 @@
 			<orion-icon
 				v-tooltip="setup.sendTooltip"
 				class="orion-chat__send"
-				icon="chat_add"
+				icon="sms"
 				ripple="info"
 				@click="setup.sendNewMessageAsync()"/>
 		</div>

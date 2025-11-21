@@ -1,15 +1,18 @@
 <template>
-	<i
+	<div
 		:ref="setup._el"
 		class="orion-icon icon"
 		:class="[
-			loading ? null : `${icon ? `ci-${icon}` : ``} ${fontIcon ?? ``}`,
+			loading ? null : `${fontIcon ?? ``}`,
 			ripple ? `orion-icon--ripple orion-icon--ripple-${ripple}` : '',
 			button ? `orion-icon--button orion-icon--button-${button}` : '',
 			{ 'orion-icon--clickable': setup.isClickable },
 		]"
 		@click="setup.handleClick($event)"
 		@touchend="setup.handleClick($event)">
+		<span
+			v-if="icon && !loading"
+			:class="`material-icons-${getIconStyle()}`">{{ icon }}</span>
 		<svg
 			v-if="loading"
 			:ref="setup._elSpinner"
@@ -92,7 +95,7 @@
 			@click="setup.handleMarkerClick($event)">
 			{{ typeof marker === 'number' ? marker : null }}
 		</span>
-	</i>
+	</div>
 </template>
 
 <script setup lang="ts">
@@ -100,6 +103,7 @@ import { useAttrs } from 'vue';
 import './OrionIcon.less';
 import OrionIconSetupService from './OrionIconSetupService';
 import type { OrionIconProps, OrionIconEmits } from './OrionIconSetupService';
+import { getIconStyle } from 'lib';
 const attrs = useAttrs();
 const emits = defineEmits<OrionIconEmits>() as OrionIconEmits;
 const props = withDefaults(defineProps<OrionIconProps>(), OrionIconSetupService.defaultProps);

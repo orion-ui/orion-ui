@@ -96,4 +96,10 @@ Your application's **VueRouter** instance, if you use **OrionLayout** or navigat
 
 </prop-description>
 
+<prop-description name="iconStyle" type="Orion.IconStyle" value="outlined">
+
+Your application's default icon style, if you use **OrionIcon** components.
+
+</prop-description>
+
 </type-description>

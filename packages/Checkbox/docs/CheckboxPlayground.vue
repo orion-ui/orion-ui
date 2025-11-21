@@ -79,7 +79,6 @@
 				v-model="state.multiple"
 				label="Multiple"/>
 		</div>
-		
 	</div>
 
 	<div class="row row--grid row--toggles">
@@ -97,8 +96,8 @@
 </template>
 
 <script setup lang="ts">
+import { materialIcons } from 'assets/fonts/materialIcons';
 import { reactive, computed } from 'vue';
-import { coolicons } from 'lib';
 
 const state = reactive({
 	color: 'brand' as Orion.Color,
@@ -115,7 +114,7 @@ const state = reactive({
 });
 
 const icons = computed(() => {
-	return coolicons.slice(0, 50);
+	return materialIcons.slice(0, 50);
 });
 </script>
 

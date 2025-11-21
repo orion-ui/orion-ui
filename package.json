@@ -58,6 +58,7 @@
 		"floating-vue": "^5.2.2",
 		"libphonenumber-js": "^1.12.4",
 		"lodash-es": "^4.17.21",
+		"material-icons": "^1.13.14",
 		"mitt": "^3.0.1",
 		"pluralize": "^8.0.0",
 		"radash": "^12.1.0",

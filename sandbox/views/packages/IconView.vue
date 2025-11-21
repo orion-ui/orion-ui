@@ -1,5 +1,5 @@
 <template>
-	<o-page :title="`Icon - ${coolicons.length}`">
+	<o-page :title="`Icon - ${materialIcons.length}`">
 		<o-section>
 			<o-toggle
 				v-model="state.loading"
@@ -25,7 +25,7 @@
 		<o-section>
 			<div class="demo-icon-wrapper">
 				<div
-					v-for="icon in coolicons"
+					v-for="icon in materialIcons"
 					:key="`${icon}-${getUid()}`"
 					class="demo-icon">
 					<o-icon :icon="icon"/>
@@ -39,7 +39,7 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
 import { getUid } from 'lib';
-import { coolicons } from 'assets/fonts/coolicons';
+import { materialIcons } from 'assets/fonts/materialIcons';
 const state = reactive({ loading: false });
 </script>
 

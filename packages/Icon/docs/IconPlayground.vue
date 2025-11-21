@@ -1,9 +1,13 @@
 <template>
 	<div class="icon-playground flex jc-c mt-sm mb-lg">
-		<o-icon v-bind="state"/>
+		<o-icon
+			v-if="!isUpdatingIconStyle"
+			v-bind="state"/>
 	</div>
 
-	<div class="row row--middle row--gutter">
+	<div
+		:key="iconStyle"
+		class="row row--middle row--gutter">
 		<div class="col-sm-4">
 			<o-select
 				v-model="state.icon"
@@ -22,7 +26,7 @@
 						color="info"
 						center>
 						Just a preview of<br>
-						the 410+ icons
+						the 2400+ icons
 					</o-alert>
 				</template>
 
@@ -33,6 +37,13 @@
 					</div>
 				</template>
 			</o-select>
+		</div>
+		<div class="col-sm-4">
+			<o-select
+				v-model="state.iconStyle"
+				label="Icon style"
+				:options="iconStyleOptions"
+				@select="updateIconStyle($event)"/>
 		</div>
 		<div class="col-sm-4">
 			<o-toggle
@@ -76,18 +87,28 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, computed } from 'vue';
-import { coolicons } from 'lib';
+import { reactive, computed, ref } from 'vue';
+import { materialIcons, setIconStyle } from 'lib';
 
 const state = reactive({
-	icon: 'notification' as Orion.Icon,
+	icon: 'notifications',
 	markerColor: undefined,
 	ripple: undefined,
 	button: undefined,
 	loading: false,
 	markerPosition: 'top right',
 	marker: false,
+	iconStyle: 'outlined' as Orion.IconStyle,
 });
+
+const isUpdatingIconStyle = ref(false);
+
+const iconStyleOptions = [
+	'outlined',
+	'round',
+	'two-tone',
+	'sharp',
+];
 
 const markerPosition = [
 	'top left',
@@ -109,8 +130,18 @@ const marker = [
 ];
 
 const icons = computed(() => {
-	return coolicons.slice(0, 50);
+	return materialIcons.slice(100, 150);
 });
+
+function updateIconStyle (val: Orion.IconStyle) {
+	isUpdatingIconStyle.value = true;
+	setIconStyle(state.iconStyle);
+	const iconsToUpdate = document.querySelectorAll('[ class*="material-icons" ]');
+	iconsToUpdate.length && Array.from(iconsToUpdate).forEach((icon) => {
+		icon.className = `material-icons-${val}`;
+	});
+	setTimeout(() => isUpdatingIconStyle.value = false, 500);
+}
 </script>
 
 <style lang="less" scoped>

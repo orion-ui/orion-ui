@@ -155,11 +155,11 @@
 
 <script setup lang="ts">
 import { ref, reactive, computed } from 'vue';
-import { coolicons } from 'lib';
+import { materialIcons } from 'lib';
 
 const activePane = ref('pane2');
 const targetSlot = computed(() => state.horizontal ? 'default' : 'after');
-const icons = computed(() => coolicons.slice(0, 50));
+const icons = computed(() => materialIcons.slice(0, 50));
 
 const state = reactive({
 	horizontal: true,

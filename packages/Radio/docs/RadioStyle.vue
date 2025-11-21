@@ -20,12 +20,12 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import { coolicons, colors } from 'lib';
+import { materialIcons, colors } from 'lib';
 
 const checkValue = ref(true);
 
 const icons = computed(() => {
-	return coolicons.slice(60, 66);
+	return materialIcons.slice(60, 66);
 });
 </script>
 

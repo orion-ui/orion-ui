@@ -55,10 +55,10 @@
 					:chat="chat"
 					:discussion-id="discussionId">
 					<template #prepend-discussion-actions>
-						<orion-icon icon="calendar"/>
+						<orion-icon icon="calendar_month"/>
 					</template>
 					<template #append-discussion-actions>
-						<orion-icon icon="add_plus_circle"/>
+						<orion-icon icon="add_circle_outline"/>
 					</template>
 				</o-chat>
 			</div>
@@ -67,12 +67,11 @@
 </template>
 
 <script setup lang="ts">
-import { useChat, getUid, useMonkey, useNotif, sleep } from 'lib';
+import { useChat, getUid, useMonkey, sleep } from 'lib';
 import { computed, reactive, ref, watch } from 'vue';
 import { OrionIcon } from 'packages/Icon';
 import { faker } from '@faker-js/faker';
 import { shuffle } from 'lodash-es';
-import { OrionNotif } from 'packages';
 
 
 const userId = getUid();

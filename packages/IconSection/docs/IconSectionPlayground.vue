@@ -34,7 +34,7 @@
 
 <script setup lang="ts">
 import { reactive, computed } from 'vue';
-import { coolicons } from 'lib';
+import { materialIcons } from 'lib';
 
 const state = reactive({
 	icon: 'image' as Orion.Icon,
@@ -44,7 +44,7 @@ const state = reactive({
 });
 
 const icons = computed(() => {
-	return coolicons.slice(0, 50);
+	return materialIcons.slice(0, 50);
 });
 </script>
 

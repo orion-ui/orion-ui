@@ -1,10 +1,10 @@
 <template>
 	<div class="flex ai-c jc-c g-md">
 		<o-icon
-			icon="bell_notification"
+			icon="warning"
 			ripple="warning"/>
 		<o-icon
-			icon="file_blank"
+			icon="file_copy"
 			button="info"/>
 		<o-icon
 			icon="folder"

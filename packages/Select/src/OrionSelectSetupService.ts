@@ -113,7 +113,7 @@ export default class OrionSelectSetupService<
 		options: () => [],
 		favoritesOptions: () => [],
 		trackKey: 'id' as any, // avoid typing error in OrionSelect.vue
-		favoriteIcon: 'star' as Orion.Icon,
+		favoriteIcon: 'star_border' as Orion.Icon,
 	};
 
 	private bus = mitt<{

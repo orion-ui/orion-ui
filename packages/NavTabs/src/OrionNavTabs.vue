@@ -20,7 +20,7 @@
 			v-if="navAside"
 			class="orion-nav-tabs__item"
 			@click.capture="setup.openAsideNav()">
-			<orion-icon icon="bar_right"/>
+			<orion-icon icon="view_sidebar"/>
 			{{ setup.lang.MENU }}
 		</span>
 

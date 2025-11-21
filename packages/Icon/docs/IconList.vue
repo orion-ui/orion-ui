@@ -16,11 +16,11 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import { coolicons, getUid } from 'lib';
+import { materialIcons, getUid } from 'lib';
 
 const filter = ref<string>();
 const icons = computed(() => {
-	return coolicons.filter(x => !!filter.value?.length
+	return materialIcons.filter(x => !!filter.value?.length
 		? x.includes(filter.value)
 		: true,
 	);
@@ -62,11 +62,12 @@ const icons = computed(() => {
 @lang:en
 ### Icon List
 
-See the full icon list and filter them by name or browse on the library's official website : [Coolicons](https://coolicons.cool/)
+See the full icon list and filter them by name or browse on the library's official website : [Material Icons](https://fonts.google.com/icons)
 @lang
 
 @lang:fr
 ### Liste des icônes
 
-Retrouvez ici la liste complèteque vous pouvez filtrer par nom, ou visitez le site officiel de la bibliothèque : [Coolicons](https://coolicons.cool/)
+Retrouvez ici la liste complèteque vous pouvez filtrer par nom, ou visitez le site officiel de la
+bibliothèque : [Material Icons](https://fonts.google.com/icons)
 @lang

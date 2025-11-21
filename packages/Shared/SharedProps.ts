@@ -1,7 +1,9 @@
+import { MaterialIcon } from 'material-icons';
+
 export type SharedPropsIcon = {
 	// @doc props/icon the icon of the component
 	// @doc/fr props/icon définit l'icône
-	icon?: Orion.Icon,
+	icon?: MaterialIcon,
 	// @doc props/fontIcon the icon of the component, from the imported font library
 	// @doc/fr props/fontIcon l'icône du composant, de la librairie de police importée
 	fontIcon?: string
@@ -10,7 +12,7 @@ export type SharedPropsIcon = {
 export type SharedPropsPrefixIcon = {
 	// @doc props/prefixIcon the prefix icon
 	// @doc/fr props/prefixIcon définit l'icône de préfixe
-	prefixIcon?: Orion.Icon,
+	prefixIcon?: MaterialIcon,
 	// @doc props/prefixFontIcon the prefix icon from the imported font library
 	// @doc/fr props/prefixFontIcon définit l'icône de préfixe à partir de la librairie de police importée
 	prefixFontIcon?: string
@@ -18,7 +20,7 @@ export type SharedPropsPrefixIcon = {
 export type SharedPropsSuffixIcon = {
 	// @doc props/suffixIcon the suffix icon
 		// @doc/fr props/suffixIcon définit l'icône de suffixe
-	suffixIcon?: Orion.Icon,
+	suffixIcon?: MaterialIcon,
 	// @doc props/suffixFontIcon the suffix icon from the imported font library
 	// @doc props/suffixFontIcon définit l'icône de suffixe à partir de la librairie de police importée
 	suffixFontIcon?: string

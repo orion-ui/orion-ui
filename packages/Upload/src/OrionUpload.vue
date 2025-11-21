@@ -128,7 +128,7 @@
 
 					<orion-icon
 						ripple="error"
-						icon="trash_full"
+						icon="delete"
 						class="orion-upload__delete-file"
 						@click="setup.deleteFile(i)"/>
 				</div>

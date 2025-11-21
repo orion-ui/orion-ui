@@ -6,6 +6,8 @@ import useLocalStorage from 'services/LocalStorageService';
 import useWindow from 'services/WindowService';
 import { CountryCode, parsePhoneNumber } from 'libphonenumber-js';
 import useDynamicFlagService from 'services/DynamicFlagService';
+import { Log } from 'lib';
+import path from 'path';
 
 
 const uidGenerator = function* () {
@@ -365,3 +367,40 @@ export function initThemeMode () {
 	setThemeMode(getThemeMode());
 }
 // #endregion
+
+
+export function getIconStyle () : Orion.IconStyle {
+	const iconStyle = useLocalStorage()?.getItem('data-orion-icon-style') as Orion.IconStyle;
+	return iconStyle ?? 'outlined';
+}
+
+export function setIconStyle (style: Orion.IconStyle) {
+	useLocalStorage()?.setItem('data-orion-icon-style', style);
+	useDocument()?.documentElement.setAttribute('data-orion-icon-style', style);
+
+	loadMaterialIconsCSS(style);
+}
+
+async function loadMaterialIconsCSS (style: Orion.IconStyle) {
+	try {
+		const existingLinks = useDocument()?.querySelectorAll('link[data-material-icons], style[data-material-icons]');
+		existingLinks?.forEach(link => link.remove());
+
+		const link = useDocument()?.createElement('link');
+		if (link && useDocument()) {
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.setAttribute('data-material-icons', style);
+
+			if (import.meta.env.DEV) {
+				link.href = new URL(`../node_modules/material-icons/iconfont/${style}.css`, import.meta.url).href;
+			} else {
+				link.href = new URL(`/assets/material-icons/${style}.css`, import.meta.url).href;
+			}
+			useDocument()?.head.appendChild(link);
+		}
+	} catch {
+		Log.error('Failed to load Material Icons CSS');
+	}
+}
+

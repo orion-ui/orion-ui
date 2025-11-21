@@ -79,7 +79,7 @@
 					v-show="!autocomplete &&
 						(!clearable || (clearable && !setup.hasValue))"
 					class="orion-input__icon orion-select__carret orion-select__icon--internal"
-					icon="chevron_down"
+					icon="expand_more"
 					:class="{ 'open' : setup.isFocus }"
 					:loading="setup.isFetching"/>
 			</template>
@@ -174,7 +174,7 @@
 									icon="check"
 									class="icon--selected orion-select__icon--internal"/>
 								<orion-icon
-									icon="trash_full"
+									icon="delete"
 									class="icon--delete orion-select__icon--internal"/>
 							</template>
 							<orion-icon

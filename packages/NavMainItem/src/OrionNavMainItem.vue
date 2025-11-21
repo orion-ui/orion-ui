@@ -30,7 +30,7 @@
 			<orion-icon
 				v-if="item.children && !item.replace"
 				class="icon--collapse"
-				:icon="item?.expand ? `caret_down_sm` : `caret_right_sm`"/>
+				:icon="item?.expand ? `expand_more` : `chevron_right`"/>
 		</component>
 
 		<div

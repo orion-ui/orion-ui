@@ -19,7 +19,7 @@
 					class="orion-chat-discussion-list__new-discussion"
 					color="info"
 					outline
-					prefix-icon="chat_conversation"
+					prefix-icon="forum"
 					@click="setup.createNewDiscussion()"/>
 			</div>
 

@@ -54,9 +54,9 @@
 
 <script setup lang="ts">
 import { reactive, computed } from 'vue';
-import { coolicons } from 'lib';
+import { materialIcons } from 'lib';
 
-const icons = computed(() => coolicons.slice(0, 50));
+const icons = computed(() => materialIcons.slice(0, 50));
 const state = reactive({
 	label: 'Textarea',
 	value: '',

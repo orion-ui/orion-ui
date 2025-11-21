@@ -1,15 +1,15 @@
 <template>
 	<div class="flex fw-w g-xs">
-		<o-button prefix-icon="bulb">
+		<o-button prefix-icon="lightbulb">
 			prefix
 		</o-button>
-		<o-button suffix-icon="bulb">
+		<o-button suffix-icon="lightbulb">
 			suffix
 		</o-button>
 		<o-button loading>
 			loading
 		</o-button>
-		<o-button prefix-icon="bulb"/>
+		<o-button prefix-icon="lightbulb"/>
 	</div>
 </template>
 

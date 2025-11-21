@@ -82,7 +82,7 @@ class TypesDeclarationFilesFactory {
 		await fs.move(path.resolve(rootPath, 'dist/lang'), path.resolve(rootPath, 'dist/types/lang'));
 		await fs.move(path.resolve(rootPath, 'dist/utils'), path.resolve(rootPath, 'dist/types/utils'));
 		await fs.move(path.resolve(rootPath, 'dist/lib'), path.resolve(rootPath, 'dist/types/lib'));
-		await fs.move(path.resolve(rootPath, 'dist/assets/fonts/coolicons.d.ts'), path.resolve(rootPath, 'dist/types/assets/fonts/coolicons.d.ts'));
+		await fs.move(path.resolve(rootPath, 'dist/assets/fonts/materialIcons.d.ts'), path.resolve(rootPath, 'dist/types/assets/fonts/materialIcons.d.ts'));
 
 		// Change import in global.d.ts
 		const filePath = path.resolve(rootPath, 'dist/types/lib/index.d.ts');

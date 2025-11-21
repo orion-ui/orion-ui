@@ -39,7 +39,7 @@ const globalTypesDocData = {
 		'ns': 'Orion',
 		'type': 'AppServiceConfig',
 		'generic': '',
-		'description': '{ \n\t\t\tprefix: string; \n\t\t\tuse: (\'components\' | \'monkeyPatching\')[]; \n\t\t\tlang: keyof typeof import(\'../lang\')[\'default\']; \n\t\t\trouter: Router; \n\t\t\tpopableAnimationHooks: \n\t\t\t\t& Record<AsideAnimationHookType, (instance?: OrionAside) => Promise<void>> \n\t\t\t\t& Record<ModalAnimationHookType, (instance?: OrionModal) => Promise<void>> \n\t\t\t\t& Record<NotifAnimationHookType, (instance?: OrionNotif) => Promise<void>> \n\t\t} \n',
+		'description': '{ \n\t\t\tprefix: string; \n\t\t\tuse: (\'components\' | \'monkeyPatching\')[]; \n\t\t\tlang: keyof typeof import(\'../lang\')[\'default\']; \n\t\t\trouter: Router; \n\t\t\ticonStyle: Orion.IconStyle; \n\t\t\tpopableAnimationHooks: \n\t\t\t\t& Record<AsideAnimationHookType, (instance?: OrionAside) => Promise<void>> \n\t\t\t\t& Record<ModalAnimationHookType, (instance?: OrionModal) => Promise<void>> \n\t\t\t\t& Record<NotifAnimationHookType, (instance?: OrionNotif) => Promise<void>> \n\t\t} \n',
 	}, {
 		'ns': 'Orion',
 		'type': 'Config',
@@ -49,7 +49,12 @@ const globalTypesDocData = {
 		'ns': 'Orion',
 		'type': 'Icon',
 		'generic': '',
-		'description': 'typeof coolicons[number]; \n',
+		'description': 'MaterialIcon; \n',
+	}, {
+		'ns': 'Orion',
+		'type': 'IconStyle',
+		'generic': '',
+		'description': '\'filled\' | \'outlined\' | \'round\' | \'sharp\' | \'two-tone\'; \n',
 	}, {
 		'ns': 'Orion',
 		'type': 'Theme',
@@ -64,7 +69,7 @@ const globalTypesDocData = {
 		'ns': 'Orion',
 		'type': 'Color',
 		'generic': '',
-		'description': '\'primary\' | \'default\' | \'info\' | \'success\' | \'warning\' | \'error\' | \'inverse\' | \'secondary\'; \n',
+		'description': '\'info\' | \'success\' | \'warning\' | \'inverse\' | \'primary\' | \'secondary\' | \'neutral\' | \'error\'; \n',
 	}, {
 		'ns': 'Orion',
 		'type': 'ColorAlt',

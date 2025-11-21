@@ -19,7 +19,7 @@
 					{{ title }}
 					<orion-icon
 						v-if="collapsible"
-						:icon="collapsed ? 'chevron_down' : 'chevron_up'"
+						:icon="collapsed ? 'expand_more' : 'chevron_up'"
 						class="orion-section__title-chevron"/>
 				</h3>
 				<h4

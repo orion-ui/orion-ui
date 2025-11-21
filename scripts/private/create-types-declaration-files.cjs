@@ -55,7 +55,7 @@ class TypesDeclarationFilesFactory {
 		],
 		inputDist: [
 			'lib/index.ts',
-			'assets/fonts/coolicons.ts',
+			'assets/fonts/materialIcons.ts',
 			'utils/Bus.ts',
 			'utils/Log.ts',
 			'utils/Orion.ts',

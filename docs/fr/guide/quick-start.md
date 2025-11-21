@@ -96,4 +96,10 @@ L'instance de **VueRouter** de votre application, si vous utilisé les composant
 
 </prop-description>
 
+<prop-description name="iconStyle" type="Orion.IconStyle" value="outlined">
+
+Le style d'icône par défaut de votre application, si vous utilisez les composants **OrionIcon**.
+
+</prop-description>
+
 </type-description>

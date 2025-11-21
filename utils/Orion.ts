@@ -1,7 +1,7 @@
 import { App, createVNode, render } from 'vue';
 import FloatingVue from 'floating-vue';
 
-import { handleTouchDevice, initThemeMode } from './tools';
+import { handleTouchDevice, initThemeMode, setIconStyle } from './tools';
 import useDocument from '../services/DocumentService';
 import { getAppLang, setAppLang } from '../services/LangService';
 import { OrionOverlay } from '../packages/Overlay';
@@ -66,8 +66,8 @@ export class OrionAppService {
 			this.registerGlobalComponents();
 		}
 
-		// this.createCssVar(config);
 		initThemeMode();
+		setIconStyle(this.appConfig.iconStyle);
 		handleTouchDevice();
 
 		Log.orion('••  END  •• Orion initializer');

@@ -23,7 +23,7 @@ export type OrionRateProps = {
 export default class OrionRateSetupService extends SharedSetupService {
 	static readonly defaultProps = {
 		color: 'warning' as Orion.Color,
-		icon: 'circle_check' as Orion.Icon,
+		icon: 'check_circle' as Orion.Icon,
 	};
 
 	private rate = ref<Undef<number>>();

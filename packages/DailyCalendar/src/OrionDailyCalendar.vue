@@ -66,7 +66,7 @@
 			v-if="setup.elementsAreHidden"
 			class="orion-daily-calendar__hidden-task-indicator">
 			<orion-button
-				prefix-icon="chevron_down"
+				prefix-icon="expand_more"
 				@click="setup.scrollDown()"/>
 		</div>
 

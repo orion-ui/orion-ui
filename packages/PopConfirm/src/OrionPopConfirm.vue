@@ -10,7 +10,7 @@
 		<template #popper>
 			<p class="orion-pop-confirm__title">
 				<slot name="content">
-					<orion-icon icon="warning"/>
+					<orion-icon icon="warning_amber"/>
 					{{ setup.title }}
 				</slot>
 			</p>
