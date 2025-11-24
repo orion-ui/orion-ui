@@ -16,6 +16,7 @@
 		"./dist/monkey-patching": "./dist/monkey-patching.d.ts",
 		"./dist/style.css": "./dist/style.css",
 		"./dist/styles/*": "./dist/styles/*.less",
+		"./dist/assets/material-icons/*": "./dist/assets/material-icons/*",
 		".": {
 			"import": "./dist/orion.js",
 			"require": "./dist/orion.umd.cjs"

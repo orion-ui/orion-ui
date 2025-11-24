@@ -14,6 +14,7 @@ const alias = {
 	'sandbox': resolve(__dirname, 'sandbox'),
 	'services': resolve(__dirname, 'services'),
 	'utils': resolve(__dirname, 'utils'),
+	'material-icons': resolve(__dirname, 'node_modules/material-icons'),
 };
 
 export { alias };
