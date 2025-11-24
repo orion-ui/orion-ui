@@ -391,10 +391,22 @@ async function loadMaterialIconsCSS (style: Orion.IconStyle) {
 			link.rel = 'stylesheet';
 			link.type = 'text/css';
 			link.setAttribute('data-material-icons', style);
-			if (import.meta.env.DEV) {
-				link.href = new URL(`../node_modules/material-icons/iconfont/${style}.css`, import.meta.url).href;
+
+			if (!import.meta.url.includes('/node_modules/')) {
+				console.log('load from assets');
+				const cssUrl = await import(
+					/* @vite-ignore */
+					`../node_modules/material-icons/iconfont/${style}.css`
+				).then(m => m.default);
+				link.href = cssUrl;
 			} else {
-				link.href = new URL(`assets/material-icons/${style}.css`, import.meta.url).href;
+				console.log('load from node_modules');
+
+				const cssUrl = await import(
+					/* @vite-ignore */
+					`assets/material-icons/${style}.css?url`
+				).then(m => m.default);
+				link.href = cssUrl;
 			}
 			useDocument()?.head.appendChild(link);
 		}
