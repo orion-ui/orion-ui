@@ -396,7 +396,9 @@ async function loadMaterialIconsCSS (style: Orion.IconStyle) {
 			} else {
 				link.href = new URL(`assets/material-icons/${style}.css`, import.meta.url).href;
 			}
+			useDocument()?.head.appendChild(link);
 		}
+
 	} catch {
 		Log.error('Failed to load Material Icons CSS');
 	}
