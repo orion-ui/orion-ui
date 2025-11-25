@@ -20,7 +20,7 @@
 				nude
 				size="sm"
 				color="info"
-				suffix-icon="external_link"
+				suffix-icon="arrow_outward"
 				@click="tryOnStackblitz()">
 				Try on Stackblitz
 			</o-button>
