@@ -7,8 +7,6 @@ import useWindow from 'services/WindowService';
 import { CountryCode, parsePhoneNumber } from 'libphonenumber-js';
 import useDynamicFlagService from 'services/DynamicFlagService';
 import { Log } from 'lib';
-import path from 'path';
-
 
 const uidGenerator = function* () {
 	let index = 1;
@@ -381,6 +379,10 @@ export function setIconStyle (style: Orion.IconStyle) {
 	loadMaterialIconsCSS(style);
 }
 
+function capitalizeFirstLetter (val: string) {
+	return String(val).charAt(0).toUpperCase() + String(val).slice(1);
+}
+
 async function loadMaterialIconsCSS (style: Orion.IconStyle) {
 	try {
 		const existingLinks = useDocument()?.querySelectorAll('link[data-material-icons], style[data-material-icons]');
@@ -392,22 +394,7 @@ async function loadMaterialIconsCSS (style: Orion.IconStyle) {
 			link.type = 'text/css';
 			link.setAttribute('data-material-icons', style);
 
-			if (!import.meta.url.includes('/node_modules/')) {
-				console.log('load from assets');
-				const cssUrl = await import(
-					/* @vite-ignore */
-					`../node_modules/material-icons/iconfont/${style}.css`
-				).then(m => m.default);
-				link.href = cssUrl;
-			} else {
-				console.log('load from node_modules');
-
-				const cssUrl = await import(
-					/* @vite-ignore */
-					`assets/material-icons/${style}.css?url`
-				).then(m => m.default);
-				link.href = cssUrl;
-			}
+			link.href = `https://fonts.googleapis.com/css2?family=Material+Symbols+${capitalizeFirstLetter(style)}`;
 			useDocument()?.head.appendChild(link);
 		}
 
