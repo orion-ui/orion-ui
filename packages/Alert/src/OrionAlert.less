@@ -5,12 +5,13 @@
 	position: relative;
 	display: flex;
 	flex-direction: column;
-	gap: 0.5rem;
-	border-radius: var(--radius-small);
-	padding: var(--space-sm) var(--space-md);
+	gap: var(--space-xs);
+	border-radius: var(--radius-medium);
+	padding: var(--space-sm);
+	font-size: var(--typography-size-sm);
 
 	&__close {
-		.close(calc(22rem / 16));
+		.close(var(--typography-body-large));
 		position: absolute;
 		z-index: 1;
 		top: var(--space-sm);
@@ -25,13 +26,29 @@
 		}
 	}
 
+	&__title-container {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+
+		.orion-icon {
+			font-size: var(--typography-body-large);
+		}
+	}
+
 	&__title {
 		margin: 0;
-		text-decoration: underline;
+		line-height: 20px;
 	}
 
 	&--center {
 		text-align: center;
+	}
+
+	&--icon {
+		.orion-alert__contrast {
+			padding-left: 1.625rem;
+		}
 	}
 
 	each(@colors, {
@@ -39,6 +56,7 @@
     &--@{value} {
 			color: var(~"--text-@{value}-subtle");
       background: var(~"--background-@{value}-minimal");
+			border: 1px solid var(~"--border-@{value}-subtle");
 
       .orion-alert__title {
         color: var(~"--text-@{value}-subtle");
