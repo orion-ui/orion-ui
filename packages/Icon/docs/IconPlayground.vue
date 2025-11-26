@@ -6,7 +6,6 @@
 	</div>
 
 	<div
-		:key="iconStyle"
 		class="row row--middle row--gutter">
 		<div class="col-sm-4">
 			<o-select
@@ -91,7 +90,7 @@ import { reactive, computed, ref } from 'vue';
 import { materialIcons, setIconStyle } from 'lib';
 
 const state = reactive({
-	icon: 'notifications',
+	icon: 'notifications' as Orion.Icon,
 	markerColor: undefined,
 	ripple: undefined,
 	button: undefined,
@@ -106,7 +105,6 @@ const isUpdatingIconStyle = ref(false);
 const iconStyleOptions = [
 	'outlined',
 	'round',
-	'two-tone',
 	'sharp',
 ];
 

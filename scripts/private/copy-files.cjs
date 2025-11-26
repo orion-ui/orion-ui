@@ -33,10 +33,6 @@ class CopyFilesService {
 		await fs.remove(this.stylesPath);
 		await fs.copy(path.resolve(this.rootPath, 'packages/Shared/styles'), this.stylesPath);
 
-		//Copy materials icons less files
-		log.step('🥨 --> Copy Material Icons .less files');
-		await fs.copy(path.resolve(this.rootPath, 'node_modules/material-icons/iconfont'), path.resolve(this.assetsPath, 'material-icons'));
-
 		log.step('🥨 --> Copy Packages .less files');
 		const packages = (await fs.readdir(path.resolve(this.rootPath, 'packages'), { withFileTypes: true }))
 			.filter(x => x.isDirectory() && x.name !== 'Shared')

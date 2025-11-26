@@ -393,7 +393,7 @@ function loadMaterialIconsCSS (style: Orion.IconStyle) {
 		const styleElement = useDocument()?.createElement('style');
 
 		if (link && styleElement && useDocument()) {
-			const fontName = `Material Symbols ${capitalizeFirstLetter(style)}`;
+			const fontName = `Material Icons ${capitalizeFirstLetter(style)}`;
 
 			link.rel = 'stylesheet';
 			link.setAttribute('data-material-icons', style);
