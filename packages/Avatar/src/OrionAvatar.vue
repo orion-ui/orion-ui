@@ -7,22 +7,36 @@
 			`orion-avatar--${color}`,
 			...setup.additionalClass,
 		]">
-		<span
-			v-if="setup.showInitial"
-			class="orion-avatar__initial">{{ setup.formatedName }}</span>
-		<img
-			v-else
-			class="orion-avatar__image"
-			:src="setup.avatarSrc"
-			@error="setup.error = true">
+		<div class="orion-avatar__pill">
+			<span
+				v-if="setup.showInitial"
+				class="orion-avatar__initial">{{ setup.formatedName }}</span>
+			<img
+				v-else
+				class="orion-avatar__image"
+				:src="setup.avatarSrc"
+				@error="setup.error = true">
+			<div
+				v-if="updateFunction"
+				class="orion-avatar__picto">
+				<orion-icon
+					v-tooltip="setup.tooltip"
+					icon="cloud_upload"
+					ripple="info"
+					button="neutral"
+					@click="updateFunction?.()"/>
+			</div>
+		</div>
+
 		<div
-			v-if="updateFunction"
-			class="orion-avatar__picto">
-			<orion-icon
-				v-tooltip="setup.tooltip"
-				icon="cloud_upload"
-				ripple="info"
-				@click="updateFunction?.()"/>
+			v-if="displayText && (name || description)"
+			class="orion-avatar__text">
+			<span
+				v-if="name"
+				class="orion-avatar__text-name">{{ name }}</span>
+			<span
+				v-if="description"
+				class="orion-avatar__text-description">{{ description }}</span>
 		</div>
 	</div>
 </template>

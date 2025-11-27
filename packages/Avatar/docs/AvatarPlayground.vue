@@ -25,12 +25,23 @@
 			<size-selection v-model="state.size"/>
 		</div>
 		<div class="col-sm-4">
+			<o-input
+				v-model="state.description"
+				label="Description"
+				clearable/>
+		</div>
+		<div class="col-sm-4">
 			<color-selection v-model="state.color"/>
 		</div>
 		<div class="col-sm-4">
 			<o-toggle
 				v-model="state.square"
 				label="Square"/>
+		</div>
+		<div class="col-sm-4">
+			<o-toggle
+				v-model="state.displayText"
+				label="Display Text"/>
 		</div>
 	</div>
 </template>
@@ -47,7 +58,9 @@ const state = reactive({
 	size: 'md'as Orion.Size,
 	color: 'info' as Orion.Color & 'image',
 	square: false,
+	displayText: true,
 	tooltip: 'Update your avatar',
+	description: 'This is a description',
 	name: 'Toto',
 });
 
