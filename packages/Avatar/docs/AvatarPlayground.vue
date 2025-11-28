@@ -33,12 +33,14 @@
 		<div class="col-sm-4">
 			<color-selection v-model="state.color"/>
 		</div>
-		<div class="col-sm-4">
+	</div>
+	<div class="row row--gutter row--middle">
+		<div class="col-sm-6">
 			<o-toggle
 				v-model="state.square"
 				label="Square"/>
 		</div>
-		<div class="col-sm-4">
+		<div class="col-sm-6">
 			<o-toggle
 				v-model="state.displayText"
 				label="Display Text"/>
@@ -55,7 +57,7 @@ const avatar = computed(() => {
 });
 
 const state = reactive({
-	size: 'md'as Orion.Size,
+	size: 100,
 	color: 'info' as Orion.Color & 'image',
 	square: false,
 	displayText: true,

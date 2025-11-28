@@ -3,18 +3,21 @@
 		<div class="col-sm-4">
 			<o-avatar
 				square
+				size="xl"
 				:contain="contain"
 				avatar="https://picsum.photos/id/1074/200/150"/>
 		</div>
 
 		<div class="col-sm-4">
 			<o-avatar
+				size="xl"
 				:contain="contain"
 				avatar="https://picsum.photos/id/1074/200/150"/>
 		</div>
 
 		<div class="col-sm-4">
 			<o-toggle
+
 				v-model="contain"
 				label="Toggle contain"/>
 		</div>

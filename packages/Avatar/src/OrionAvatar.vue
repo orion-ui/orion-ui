@@ -2,12 +2,13 @@
 	<div
 		:ref="setup._el"
 		class="orion-avatar"
-		:style="setup.avatarStyle"
 		:class="[
 			`orion-avatar--${color}`,
 			...setup.additionalClass,
 		]">
-		<div class="orion-avatar__pill">
+		<div
+			class="orion-avatar__pill"
+			:style="setup.avatarStyle">
 			<span
 				v-if="setup.showInitial"
 				class="orion-avatar__initial">{{ setup.formatedName }}</span>

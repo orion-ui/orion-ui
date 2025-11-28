@@ -46,7 +46,7 @@ export default class OrionAvatarSetupService extends SharedSetupService {
 		size: 'md' as OrionAvatarProps['size'],
 		nbAvatarUpdates: 0,
 		rootUrl: '/avatar/',
-		color: 'brand' as Orion.Color,
+		color: 'primary' as Orion.Color,
 	};
 
 	private state = reactive({ error: false });
