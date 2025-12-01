@@ -18,10 +18,34 @@ export type OrionAlertProps = SharedPropsColor & {
 	// @doc props/title Title of the alert
 	// @doc/fr props/title Titre de l'alert
 	title?: string,
+	// @doc props/icon Icon to display in the alert. If true, a default icon based on the color will be used
+	// @doc/fr props/icon Icône à afficher dans l'alerte. Si true, une icône par défaut basée sur la couleur sera utilisée
+	icon?: boolean | Orion.Icon,
+	// @doc props/fontIcon Font icon to display in the alert
+	// @doc/fr props/fontIcon Icône de police à afficher dans l'alerte
+	fontIcon?: string,
 };
 
 export default class OrionAlertSetupService extends SharedSetupService {
 	static readonly defaultProps : Partial<OrionAlertProps> = { ...SharedProps.color };
+
+	get icon () {
+		if (this.props.icon === true) {
+			switch (this.props.color) {
+			case 'success':
+				return 'check_circle';
+			case 'warning':
+				return 'warning';
+			case 'error':
+				return 'error';
+			default:
+				return 'info';
+			}
+		} else if (this.props.icon) {
+			return this.props.icon;
+		}
+		return undefined;
+	}
 
 	constructor (
 		protected props: OrionAlertProps & typeof OrionAlertSetupService.defaultProps,

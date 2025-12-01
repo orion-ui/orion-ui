@@ -8,14 +8,21 @@
 	<hr>
 
 	<div class="row row--gutter">
-		<div class="col-sm-6">
+		<div class="col-sm-4">
 			<o-input
 				v-model="state.title"
 				label="Title"
 				clearable/>
 		</div>
-		<div class="col-sm-6">
+		<div class="col-sm-4">
 			<color-selection v-model="state.color"/>
+		</div>
+		<div class="col-sm-4">
+			<o-select
+				v-model="state.icon"
+				label="Icon"
+				clearable
+				:options="icons"/>
 		</div>
 		<div class="col-sm-6">
 			<o-toggle
@@ -31,14 +38,19 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue';
-import { useNotif } from 'lib';
+import { computed, reactive } from 'vue';
+import { materialIcons, useNotif } from 'lib';
 
 const state = reactive({
 	title: 'Duis mollis est',
 	color: 'info' as Orion.Color,
+	icon: undefined as Undef<Orion.Icon>,
 	close: true,
 	center: false,
+});
+
+const icons = computed(() => {
+	return materialIcons.slice(200, 250);
 });
 
 function closeCb () {
