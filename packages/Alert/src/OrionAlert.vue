@@ -5,41 +5,36 @@
 		:class="[
 			`orion-alert--${color}`,
 			{ 'orion-alert--center': center },
+			{ 'orion-alert--closable': close },
 			{ 'orion-alert--icon': props.icon || props.fontIcon },
 		]">
-		<div
-			v-if="title || props.icon || props.fontIcon"
-			class="orion-alert__title-container">
-			<orion-icon
-				v-if="props.icon || props.fontIcon"
-				v-bind="{
-					icon: setup.icon,
-					fontIcon: fontIcon,
-				}"/>
+		<orion-icon
+			v-if="props.icon || props.fontIcon"
+			class="orion-alert__icon"
+			v-bind="{
+				icon: setup.icon,
+				fontIcon: fontIcon,
+			}"/>
+
+		<div class="orion-alert__content">
 			<h5
 				v-if="title"
 				class="orion-alert__title">
 				{{ title }}
 			</h5>
+			<slot/>
+			<div
+				v-if="$slots.actions"
+				class="orion-alert__actions">
+				<slot name="actions"/>
+			</div>
 		</div>
-
 
 		<span
 			v-if="close"
 			class="orion-alert__close"
 			@click="emits('close')"
 			@touchend.prevent.stop="emits('close')"/>
-
-		<div class="orion-alert__contrast">
-			<slot/>
-		</div>
-
-
-		<div
-			v-if="$slots.actions"
-			class="orion-alert__actions">
-			<slot name="actions"/>
-		</div>
 	</div>
 </template>
 
