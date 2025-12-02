@@ -1,9 +1,13 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
+import fs from 'fs';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import babel from 'vite-plugin-babel';
 import TurboConsole from 'unplugin-turbo-console/vite';
+import dts from 'vite-plugin-dts';
+
+const pkg = JSON.parse(fs.readFileSync(resolve(__dirname, 'package.json'), 'utf-8'));
 
 const alias = {
 	'assets': resolve(__dirname, 'assets'),
@@ -26,15 +30,34 @@ export default defineConfig({
 		vueJsx(),
 		babel({ filter: /\.tsx?$/ }),
 		TurboConsole({ disableLaunchEditor: true }),
+		dts({
+			outDir: 'dist/types',
+			tsconfigPath: 'tsconfig.build-lib.json',
+		}),
+		{
+			name: 'router-fallback',
+			configureServer (server) {
+				server.middlewares.use((req, res, next) => {
+					if (req.url?.startsWith('/packages') && !req.url.includes('.')) {
+						req.url = '/index.html';
+					}
+					next();
+				});
+			},
+		},
 	],
 	resolve: { alias },
 	build: {
 		lib: {
 			entry: resolve(__dirname, 'lib/index.ts'),
 			name: 'Orion',
+			formats: ['es'],
 		},
 		rollupOptions: {
 			output: {
+				preserveModules: true,
+				entryFileNames: '[name].js',
+				inlineDynamicImports: false,
 				exports: 'named',
 				globals: { vue: 'Vue' },
 				assetFileNames: (assetInfo) => {
@@ -45,7 +68,11 @@ export default defineConfig({
 					return assetInfo.names[0];
 				},
 			},
-			external: ['vue'],
+			external: [
+				...Object.keys(pkg.dependencies || {}),
+				...Object.keys(pkg.peerDependencies || {}),
+				/^@tiptap\/.*$/,
+			],
 		},
 	},
 	optimizeDeps: {
@@ -55,7 +82,6 @@ export default defineConfig({
 			'mitt',
 			'vue',
 			'vue-router',
-			'floating-vue',
 		],
 	},
 });

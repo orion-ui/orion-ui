@@ -1,12 +1,12 @@
 import { Ref, nextTick } from 'vue';
 import { Dropdown } from 'floating-vue';
-import { devtool, devtoolId } from 'devtool';
+import { Bus } from './Bus';
 import useDocument from 'services/DocumentService';
 import useLocalStorage from 'services/LocalStorageService';
 import useWindow from 'services/WindowService';
 import { CountryCode, parsePhoneNumber } from 'libphonenumber-js';
 import useDynamicFlagService from 'services/DynamicFlagService';
-import { Log } from 'lib';
+import { Log } from './Log';
 
 const uidGenerator = function* () {
 	let index = 1;
@@ -358,7 +358,7 @@ export function setThemeMode (mode: Orion.Theme) {
 		}
 	}
 
-	devtool?.sendInspectorState(devtoolId);
+	Bus.emit('theme:change', mode);
 }
 
 export function initThemeMode () {

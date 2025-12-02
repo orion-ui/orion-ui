@@ -120,6 +120,4 @@ export class OrionAppService {
 	}
 }
 
-const orionAppService = new OrionAppService();
-
-export default orionAppService;
+export const orionAppServiceSingleton = new OrionAppService();

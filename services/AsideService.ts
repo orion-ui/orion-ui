@@ -1,7 +1,7 @@
 import { h, render } from 'vue';
 import { PopableService } from './PopableService';
 import { OrionAside } from 'packages/Aside';
-import orionAppService from 'utils/Orion';
+import { orionAppServiceSingleton } from 'utils/Orion';
 import useDocument from './DocumentService';
 import usePopableQueueService from './PopableQueueService';
 
@@ -14,7 +14,7 @@ class AsideService extends PopableService<OrionAside> {
 
 	createVNode () {
 		const vnode = h(OrionAside, { options: this.options });
-		vnode.appContext = orionAppService.appContext;
+		vnode.appContext = orionAppServiceSingleton.appContext;
 
 		const container = useDocument()?.createElement('div');
 		if (container) {

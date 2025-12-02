@@ -1,6 +1,6 @@
 import { devtool } from 'devtool';
 import { getUid } from 'utils/tools';
-import orionAppService from 'utils/Orion';
+import { orionAppServiceSingleton } from 'utils/Orion';
 import { VNode } from 'vue';
 
 export abstract class PopableService<T> {
@@ -24,15 +24,15 @@ export abstract class PopableService<T> {
 
 
 	registerComponentInstanceInDevtool (vnode: VNode) {
-		if (vnode.component?.uid && orionAppService.appInstance) {
-			vnode.component.parent = orionAppService.appInstance;
-			vnode.component.root = orionAppService.appInstance;
+		if (vnode.component?.uid && orionAppServiceSingleton.appInstance) {
+			vnode.component.parent = orionAppServiceSingleton.appInstance;
+			vnode.component.root = orionAppServiceSingleton.appInstance;
 
 			devtool?.on.visitComponentTree((payload: any) => {
 				// Add custom type to the treeNode
 				type CustomComponentTreeNode = typeof payload.treeNode & { orionUid: number }
 
-				if (payload.treeNode.uid === orionAppService.appInstance?.uid && vnode.component?.uid) {
+				if (payload.treeNode.uid === orionAppServiceSingleton.appInstance?.uid && vnode.component?.uid) {
 					(payload.treeNode.children as CustomComponentTreeNode[]).push({
 						autoOpen: false,
 						children: [],
@@ -56,7 +56,7 @@ export abstract class PopableService<T> {
 	}
 
 	async notifyPopableUpdate (targetUid: number) {
-		const allInstances = await devtool?.getComponentInstances(orionAppService.app);
+		const allInstances = await devtool?.getComponentInstances(orionAppServiceSingleton.app);
 		const instance = allInstances?.find((x: any) => x.uid === targetUid);
 		devtool?.notifyComponentUpdate(instance);
 	}

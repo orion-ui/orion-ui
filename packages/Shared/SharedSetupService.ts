@@ -3,7 +3,7 @@ import { useRouter } from 'vue-router';
 
 import { Bus } from 'utils/Bus';
 import { getUid } from 'utils/tools';
-import orionAppService from 'utils/Orion';
+import { orionAppServiceSingleton } from 'utils/Orion';
 import useDocument from 'services/DocumentService';
 import useLang from 'services/LangService';
 import useResponsive from 'services/ResponsiveService';
@@ -23,7 +23,7 @@ export default abstract class SharedSetupService {
 
 	readonly _el = ref<HTMLElement>();
 
-	get router () { return orionAppService.appRouter ?? this.defaultRouter; }
+	get router () { return orionAppServiceSingleton.appRouter ?? this.defaultRouter; }
 	get lang () { return useLang(); }
 
 	get publicInstance (): Record<string, any> & { _el?: () => HTMLElement | undefined } {

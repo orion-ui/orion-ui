@@ -2,7 +2,7 @@ import { reactive, ref } from 'vue';
 import { isNil } from 'lodash-es';
 import anime from 'animejs';
 import SharedPopableSetupService, { SharedPopableSetupServiceEmits, SharedPopableSetupServiceProps } from '../../Shared/SharedPopableSetupService';
-import orionAppService from 'utils/Orion';
+import { orionAppServiceSingleton } from 'utils/Orion';
 
 export type OrionNotifEmits = SharedPopableSetupServiceEmits & {}
 export type OrionNotifProps = SharedPopableSetupServiceProps & {
@@ -66,7 +66,7 @@ export default class OrionNotifSetupService extends SharedPopableSetupService {
 			if (enter) {
 				this.state.visible = true;
 
-				await orionAppService.popableAnimationHooks.notifEnterBefore?.(this.publicInstance);
+				await orionAppServiceSingleton.popableAnimationHooks.notifEnterBefore?.(this.publicInstance);
 
 				anime({
 					targets: this._el.value,
@@ -75,7 +75,7 @@ export default class OrionNotifSetupService extends SharedPopableSetupService {
 					duration: 600,
 					easing: 'easeOutCubic',
 					begin: async () => {
-						await orionAppService.popableAnimationHooks.notifEnterStart?.(this.publicInstance);
+						await orionAppServiceSingleton.popableAnimationHooks.notifEnterStart?.(this.publicInstance);
 						this.emits('enter-start');
 						this.trigger('enter-start');
 
@@ -92,14 +92,14 @@ export default class OrionNotifSetupService extends SharedPopableSetupService {
 						}
 					},
 					complete: async () => {
-						await orionAppService.popableAnimationHooks.notifEnterEnd?.(this.publicInstance);
+						await orionAppServiceSingleton.popableAnimationHooks.notifEnterEnd?.(this.publicInstance);
 						resolve();
 						this.emits('enter-end');
 						this.trigger('enter-end');
 					},
 				});
 			} else {
-				await orionAppService.popableAnimationHooks.notifLeaveBefore?.(this.publicInstance);
+				await orionAppServiceSingleton.popableAnimationHooks.notifLeaveBefore?.(this.publicInstance);
 
 				anime({
 					targets: this._el.value,
@@ -108,13 +108,13 @@ export default class OrionNotifSetupService extends SharedPopableSetupService {
 					duration: 500,
 					easing: 'easeOutCubic',
 					begin: async () => {
-						await orionAppService.popableAnimationHooks.notifLeaveStart?.(this.publicInstance);
+						await orionAppServiceSingleton.popableAnimationHooks.notifLeaveStart?.(this.publicInstance);
 						this.emits('leave-start');
 						this.trigger('leave-start');
 					},
 					complete: async () => {
 						this.state.visible = false;
-						await orionAppService.popableAnimationHooks.notifLeaveEnd?.(this.publicInstance);
+						await orionAppServiceSingleton.popableAnimationHooks.notifLeaveEnd?.(this.publicInstance);
 						resolve();
 						this.emits('leave-end');
 						this.trigger('leave-end');

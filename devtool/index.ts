@@ -1,5 +1,5 @@
 import { setupDevtoolsPlugin } from '@vue/devtools-api';
-import type { DevtoolsPluginApi, ExtractSettingsTypes, PluginSettingsItem } from '@vue/devtools-api';
+import { Bus } from 'utils/Bus';
 
 import { getThemeMode, isIpad, isMac, isTouch, isWindows } from 'utils/tools';
 import { OrionAppService } from 'utils/Orion';
@@ -9,7 +9,7 @@ import useResponsive from 'services/ResponsiveService';
 
 export const devtoolId = 'orion-devtool';
 
-export let devtool: Undef<DevtoolsPluginApi<ExtractSettingsTypes<Record<string, PluginSettingsItem>>>>;
+export let devtool: any; // TODO: FIXME: fix type later
 
 const orionStateType = 'SetupService';
 const SetupServiceKeysToExclude = [
@@ -25,7 +25,7 @@ const SetupServiceKeysToExclude = [
 	'emits',
 ];
 
-export function setupDevtools (app: any, orionAppService: OrionAppService) {
+export function setupDevtools (app: any, orionAppServiceSingleton: OrionAppService) {
 	setupDevtoolsPlugin({
 		id: 'orion-devtool-plugin',
 		label: 'Orion DevTool Plugin',
@@ -62,11 +62,11 @@ export function setupDevtools (app: any, orionAppService: OrionAppService) {
 		api.on.getInspectorState((payload) => {
 			if (payload.nodeId === 'configuration') {
 				payload.state = {
-					'Initialization configuration': Object.keys(orionAppService.appConfig)
+					'Initialization configuration': Object.keys(orionAppServiceSingleton.appConfig)
 						.sort()
 						.map(key => ({
 							key,
-							value: orionAppService.appConfig[key as keyof Orion.AppServiceConfig],
+							value: orionAppServiceSingleton.appConfig[key as keyof Orion.AppServiceConfig],
 						})),
 					'Runtime configuration': [
 						{
@@ -140,6 +140,8 @@ export function setupDevtools (app: any, orionAppService: OrionAppService) {
 				};
 			}
 		});
+
+		Bus.on('theme:change', () => api.sendInspectorState(devtoolId));
 
 		api.on.visitComponentTree((payload) => {
 			if (/^Orion/.test(payload.componentInstance.type.__name)) {

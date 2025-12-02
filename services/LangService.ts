@@ -1,6 +1,6 @@
 import { reactive } from 'vue';
 import lang, { LangAvailable } from 'lang';
-import { Log } from 'lib';
+import { Log } from '../utils/Log';
 
 const state = reactive({ selectedLang: 'en' as LangAvailable });
 

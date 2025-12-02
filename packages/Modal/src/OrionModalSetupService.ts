@@ -1,7 +1,7 @@
 import { reactive, ref } from 'vue';
 import anime from 'animejs';
 import SharedPopableSetupService, { SharedPopableSetupServiceProps, SharedPopableSetupServiceEmits } from '../../Shared/SharedPopableSetupService';
-import orionAppService from 'utils/Orion';
+import { orionAppServiceSingleton } from 'utils/Orion';
 
 export type OrionModalEmits = SharedPopableSetupServiceEmits & {
 	(e: 'cancel'): void;
@@ -61,7 +61,7 @@ export default class OrionModalSetupService extends SharedPopableSetupService {
 			if (enter) {
 				this.state.visible = true;
 
-				await orionAppService.popableAnimationHooks.modalEnterBefore?.(this.publicInstance);
+				await orionAppServiceSingleton.popableAnimationHooks.modalEnterBefore?.(this.publicInstance);
 
 				anime({
 					targets: this._el.value,
@@ -70,12 +70,12 @@ export default class OrionModalSetupService extends SharedPopableSetupService {
 					duration: 600,
 					easing: 'easeOutCubic',
 					begin: async () => {
-						await orionAppService.popableAnimationHooks.modalEnterStart?.(this.publicInstance);
+						await orionAppServiceSingleton.popableAnimationHooks.modalEnterStart?.(this.publicInstance);
 						this.emits('enter-start');
 						this.trigger('enter-start');
 					},
 					complete: async () => {
-						await orionAppService.popableAnimationHooks.modalEnterEnd?.(this.publicInstance);
+						await orionAppServiceSingleton.popableAnimationHooks.modalEnterEnd?.(this.publicInstance);
 						resolve();
 						this.promptAutoFocus();
 						this.emits('enter-end');
@@ -83,7 +83,7 @@ export default class OrionModalSetupService extends SharedPopableSetupService {
 					},
 				});
 			} else {
-				await orionAppService.popableAnimationHooks.modalLeaveBefore?.(this.publicInstance);
+				await orionAppServiceSingleton.popableAnimationHooks.modalLeaveBefore?.(this.publicInstance);
 
 				anime({
 					targets: this._el.value,
@@ -92,13 +92,13 @@ export default class OrionModalSetupService extends SharedPopableSetupService {
 					duration: 300,
 					easing: 'easeOutCubic',
 					begin: async () => {
-						await orionAppService.popableAnimationHooks.modalLeaveStart?.(this.publicInstance);
+						await orionAppServiceSingleton.popableAnimationHooks.modalLeaveStart?.(this.publicInstance);
 						this.emits('leave-start');
 						this.trigger('leave-start');
 					},
 					complete: async () => {
 						this.state.visible = false;
-						await orionAppService.popableAnimationHooks.modalLeaveEnd?.(this.publicInstance);
+						await orionAppServiceSingleton.popableAnimationHooks.modalLeaveEnd?.(this.publicInstance);
 						resolve();
 						this.emits('leave-end');
 						this.trigger('leave-end');
