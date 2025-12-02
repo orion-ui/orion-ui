@@ -41,7 +41,10 @@ export default defineConfig({
 	resolve: { alias },
 	build: {
 		lib: {
-			entry: resolve(__dirname, 'lib/index.ts'),
+			entry: {
+				orion: resolve(__dirname, 'lib/index.ts'),
+				utils: resolve(__dirname, 'utils/index.ts'),
+			},
 			name: 'Orion',
 		},
 		rollupOptions: {

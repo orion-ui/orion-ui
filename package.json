@@ -21,6 +21,11 @@
 			"types": "./dist/types/lib/index.d.ts",
 			"import": "./dist/orion.js",
 			"require": "./dist/orion.umd.cjs"
+		},
+		"./utils": {
+			"types": "./dist/types/utils/index.d.ts",
+			"import": "./dist/utils.js",
+			"require": "./dist/utils.cjs"
 		}
 	},
 	"typings": "./dist/types/lib/index.d.ts",
