@@ -16,6 +16,7 @@
 		<div
 			class="orion-date-table__header">
 			<orion-icon
+				v-if="!hideMonthNavigation"
 				class="orion-date-table__header-carret"
 				:class="{ 'disable' : !canGoPrevMonth }"
 				icon="chevron_left"
@@ -40,6 +41,7 @@
 			</div>
 
 			<orion-icon
+				v-if="!hideMonthNavigation"
 				class="orion-date-table__header-carret"
 				:class="{ 'disable' : !canGoNextMonth }"
 				icon="chevron_right"

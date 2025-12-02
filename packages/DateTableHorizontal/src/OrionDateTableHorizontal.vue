@@ -8,7 +8,9 @@
 			'orion-date-table--with-week-number': displayWeekNumber,
 		}"
 		@mousedown.prevent>
-		<div class="orion-date-table__carrets">
+		<div
+			v-if="!hideMonthNavigation"
+			class="orion-date-table__carrets">
 			<orion-icon
 				class="orion-date-table__header-carret"
 				:class="{ 'disable' : !canGoPrevMonth }"

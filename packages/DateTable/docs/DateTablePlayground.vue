@@ -5,6 +5,7 @@
 		type="range"
 		v-bind="state"
 		range-start
+		hide-month-navigation
 		:periods="state.periods"/>
 
 	<div class="playground-form flex fd-c g-sm">

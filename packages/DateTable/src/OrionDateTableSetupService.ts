@@ -37,6 +37,9 @@ export type OrionDateTableProps = {
 	// @doc props/endDate the end date to display when horizontal is true
 	// @doc/fr props/endDate la date de fin à afficher lorsque horizontal est vrai
 	endDate?: Date,
+	// @doc props/hideMonthNavigation if true, hide month navigation arrows
+	// @doc/fr props/hideMonthNavigation si true, cache les flèches de navigation des mois
+	hideMonthNavigation?: boolean,
 	// @doc props/horizontal if true, displays the date table in a horizontal way
 	// @doc/fr props/horizontal si true, affiche le tableau des dates de manière horizontale
 	horizontal?: boolean,
