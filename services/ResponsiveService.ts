@@ -1,6 +1,6 @@
 import { reactive } from 'vue';
 import { debounce } from 'lodash-es';
-import { Log } from 'utils';
+import { Log } from 'utils/Log';
 import useWindow from './WindowService';
 
 type ResponsiveServiceOptions = {

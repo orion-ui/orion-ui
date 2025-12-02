@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import { escapeRegExp, get, isArray, isDate, isNil } from 'lodash-es';
 import { prefixWithZeros } from 'utils/tools';
-import { Log } from '../utils/Log';
+import { Log } from 'utils/Log';
 import useLang, { getAppLang } from './LangService';
 import usePluralize from './PluralizeService';
 

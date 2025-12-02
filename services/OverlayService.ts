@@ -1,4 +1,4 @@
-import { Log } from 'utils';
+import { Log } from 'utils/Log';
 
 export class OverlayService {
 	private globalOverlay?: OrionOverlay;

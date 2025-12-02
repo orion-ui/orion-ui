@@ -3,7 +3,7 @@
 
 import type { App, Plugin } from 'vue';
 
-import { orionAppService } from '../utils/Orion';
+import { orionAppService } from 'utils/Orion';
 import 'packages/Shared/styles/styles.less';
 import { setupDevtools } from '../devtool';
 import { applyMonkeyPatching } from '../services/MonkeyService';
