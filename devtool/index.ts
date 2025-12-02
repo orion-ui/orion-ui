@@ -1,15 +1,16 @@
 import { setupDevtoolsPlugin } from '@vue/devtools-api';
-import type { DevtoolsPluginApi, ExtractSettingsTypes, PluginSettingsItem } from '@vue/devtools-api';
+// import type { DevtoolsPluginApi, ExtractSettingsTypes, PluginSettingsItem } from '@vue/devtools-api';
 
 import { getThemeMode, isIpad, isMac, isTouch, isWindows } from 'utils/tools';
-import { OrionAppService } from 'utils/Orion';
-import useLang from 'services/LangService';
-import Log from 'utils/Log';
-import useResponsive from 'services/ResponsiveService';
+import { OrionAppService } from '../utils/Orion';
+import { Log } from '../utils/Log';
+import useLang from '../services/LangService';
+import useResponsive from '../services/ResponsiveService';
 
 export const devtoolId = 'orion-devtool';
 
-export let devtool: Undef<DevtoolsPluginApi<ExtractSettingsTypes<Record<string, PluginSettingsItem>>>>;
+// export let devtool: Undef<DevtoolsPluginApi<ExtractSettingsTypes<Record<string, PluginSettingsItem>>>>;
+export let devtool: any;
 
 const orionStateType = 'SetupService';
 const SetupServiceKeysToExclude = [

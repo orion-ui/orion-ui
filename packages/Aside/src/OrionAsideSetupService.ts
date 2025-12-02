@@ -1,7 +1,7 @@
 import { reactive, ref } from 'vue';
 import anime from 'animejs';
 import SharedPopableSetupService, { SharedPopableSetupServiceEmits, SharedPopableSetupServiceProps } from '../../Shared/SharedPopableSetupService';
-import orionAppService from 'utils/Orion';
+import { orionAppService } from 'utils/Orion';
 
 export type OrionAsideEmits = SharedPopableSetupServiceEmits & {}
 export type OrionAsideProps = SharedPopableSetupServiceProps & {

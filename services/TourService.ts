@@ -1,4 +1,4 @@
-import Log from 'utils/Log';
+import { Log } from 'utils';
 
 export class TourService {
 	state: Record<string, OrionTour> = {};

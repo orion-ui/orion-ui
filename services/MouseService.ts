@@ -1,5 +1,5 @@
 import { reactive } from 'vue';
-import Log from 'utils/Log';
+import { Log } from 'utils';
 import useWindow from './WindowService';
 
 export class MouseService {

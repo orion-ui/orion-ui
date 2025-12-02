@@ -18,6 +18,7 @@
 		"./dist/styles/*": "./dist/styles/*.less",
 		"./dist/assets/material-icons/*": "./dist/assets/material-icons/*",
 		".": {
+			"types": "./dist/types/lib/index.d.ts",
 			"import": "./dist/orion.js",
 			"require": "./dist/orion.umd.cjs"
 		}

@@ -1,7 +1,7 @@
 import { h, render } from 'vue';
 import { PopableService } from './PopableService';
 import { OrionAside } from 'packages/Aside';
-import orionAppService from 'utils/Orion';
+import { orionAppService } from 'utils/Orion';
 import useDocument from './DocumentService';
 import usePopableQueueService from './PopableQueueService';
 

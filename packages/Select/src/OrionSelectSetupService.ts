@@ -5,7 +5,7 @@ import mitt from 'mitt';
 import anime from 'animejs';
 
 import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetupServiceProps } from '../../Shared/SharedFieldSetupService';
-import Log from 'utils/Log';
+import { Log } from '../../../utils/Log';
 import useNotif from 'services/NotifService';
 import useMonkey from 'services/MonkeyService';
 import { addPopoverBackdropCloseAbility } from 'utils/tools';

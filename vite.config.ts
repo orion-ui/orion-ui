@@ -26,6 +26,17 @@ export default defineConfig({
 		vueJsx(),
 		babel({ filter: /\.tsx?$/ }),
 		TurboConsole({ disableLaunchEditor: true }),
+		{ // fix router in dev mode
+			name: 'router-fallback',
+			configureServer (server) {
+				server.middlewares.use((req, res, next) => {
+					if (req.url?.startsWith('/packages') && !req.url.includes('.')) {
+						req.url = '/index.html';
+					}
+					next();
+				});
+			},
+		},
 	],
 	resolve: { alias },
 	build: {

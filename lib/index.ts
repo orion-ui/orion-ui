@@ -3,10 +3,10 @@
 
 import type { App, Plugin } from 'vue';
 
-import orionAppService from '../utils/Orion';
+import { orionAppService } from '../utils/Orion';
 import 'packages/Shared/styles/styles.less';
 import { setupDevtools } from '../devtool';
-import { applyMonkeyPatching } from 'services/MonkeyService';
+import { applyMonkeyPatching } from '../services/MonkeyService';
 
 
 const Orion: Plugin = {
@@ -34,13 +34,9 @@ const OrionPlugin = Orion;
 
 export { orionAppService, OrionPlugin };
 
-// For export, use relative path`
+// For export, use relative path
 export { materialIcons } from 'assets/fonts/materialIcons';
 export { getAppLang, setAppLang } from '../services/LangService';
-export * from '../utils/Bus';
-export * from '../utils/Log';
-export * from '../utils/Validator';
-export * from '../utils/tools';
-export * from '../utils/mockup';
+export * from '../utils';
 export * from '../services';
 export * from '../lang';

@@ -7,7 +7,7 @@ import { getAppLang, setAppLang } from '../services/LangService';
 import { OrionOverlay } from '../packages/Overlay';
 import { OrionLoader } from '../packages/Loader';
 import OrionComponentsPlugin from '../packages';
-import Log from './Log';
+import { Log } from './Log';
 
 
 export class OrionAppService {
@@ -120,6 +120,4 @@ export class OrionAppService {
 	}
 }
 
-const orionAppService = new OrionAppService();
-
-export default orionAppService;
+export const orionAppService = new OrionAppService();

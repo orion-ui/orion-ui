@@ -1,7 +1,7 @@
 import { reactive, ref } from 'vue';
 import anime from 'animejs';
 import SharedPopableSetupService, { SharedPopableSetupServiceProps, SharedPopableSetupServiceEmits } from '../../Shared/SharedPopableSetupService';
-import orionAppService from 'utils/Orion';
+import { orionAppService } from 'utils/Orion';
 
 export type OrionModalEmits = SharedPopableSetupServiceEmits & {
 	(e: 'cancel'): void;

@@ -3,7 +3,7 @@ import { useRouter } from 'vue-router';
 
 import { Bus } from 'utils/Bus';
 import { getUid } from 'utils/tools';
-import orionAppService from 'utils/Orion';
+import { orionAppService } from 'utils/Orion';
 import useDocument from 'services/DocumentService';
 import useLang from 'services/LangService';
 import useResponsive from 'services/ResponsiveService';

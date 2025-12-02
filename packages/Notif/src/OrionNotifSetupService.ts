@@ -2,7 +2,7 @@ import { reactive, ref } from 'vue';
 import { isNil } from 'lodash-es';
 import anime from 'animejs';
 import SharedPopableSetupService, { SharedPopableSetupServiceEmits, SharedPopableSetupServiceProps } from '../../Shared/SharedPopableSetupService';
-import orionAppService from 'utils/Orion';
+import { orionAppService } from 'utils/Orion';
 
 export type OrionNotifEmits = SharedPopableSetupServiceEmits & {}
 export type OrionNotifProps = SharedPopableSetupServiceProps & {
