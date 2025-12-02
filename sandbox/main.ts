@@ -4,6 +4,7 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router/index.router';
 import Orion from '../lib';
+import '../packages/Shared/styles/styles.less';
 // import { orionAppServiceSingleton } from 'utils/Orion';
 
 const sandboxApp = createApp(App)
