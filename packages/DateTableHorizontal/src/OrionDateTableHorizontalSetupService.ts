@@ -43,10 +43,23 @@ export default class OrionDateTableHorizontalSetupService extends OrionDateTable
 		let firstDayOfMonth = this.firstDayOfCurrentMonth;
 		if (firstDayOfMonth === 0) firstDayOfMonth = 7;
 
-		const startDate = new Date(this.currentYear, this.currentMonth, this.props.startDate?.getDate() ?? 1);
-		const endDate = new Date(this.currentYear, this.currentMonth + 2, this.props.endDate?.getDate() ?? 0);
+		const startDate = this.props.startDate
+			? new Date(this.props.startDate.getFullYear(), this.props.startDate.getMonth(), this.props.startDate.getDate())
+			: new Date(this.currentYear, this.currentMonth, 1);
+
+		const endDate = this.props.endDate
+			? new Date(this.props.endDate.getFullYear(), this.props.endDate.getMonth(), this.props.endDate.getDate())
+			: new Date(this.currentYear, this.currentMonth + 2, 0);
+
 		startDate.setHours(0, 0, 0, 0);
 		endDate.setHours(0, 0, 0, 0);
+
+		if (endDate < startDate) {
+			// If inverted (e.g. misconfigured props), swap to avoid empty loop
+			const tmp = new Date(startDate);
+			startDate.setTime(endDate.getTime());
+			endDate.setTime(tmp.getTime());
+		}
 
 		const dates = [] as PeriodDay[];
 		for (let i = startDate; i <= endDate; i.setDate(i.getDate() + 1)) {

@@ -1,7 +1,6 @@
 <template>
 	<o-date-table
 		v-model="date"
-		horizontal
 		:markers="markers"
 		:start-date="new Date(2025, 9, 20)"
 		:end-date="new Date(2025, 11, 20)"

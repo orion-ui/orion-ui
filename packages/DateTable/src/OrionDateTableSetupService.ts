@@ -34,6 +34,9 @@ export type OrionDateTableProps = {
 	// @doc props/displayWeekNumber if true, displays week number on each row
 	// @doc/fr props/displayWeekNumber si true, affiche le numéro de semaine sur chaque ligne
 	displayWeekNumber?: boolean,
+	// @doc props/endDate the end date to display when horizontal is true
+	// @doc/fr props/endDate la date de fin à afficher lorsque horizontal est vrai
+	endDate?: Date,
 	// @doc props/horizontal if true, displays the date table in a horizontal way
 	// @doc/fr props/horizontal si true, affiche le tableau des dates de manière horizontale
 	horizontal?: boolean,
@@ -58,6 +61,9 @@ export type OrionDateTableProps = {
 	// @doc props/rangeStart if set, defines the range start value as the current value
 	// @doc/fr props/rangeStart si définie, la date sélectionnée est le début de la période
 	rangeStart?: boolean,
+	// @doc props/startDate the start date to display when horizontal is true
+	// @doc/fr props/startDate la date de début à afficher lorsque horizontal est vrai
+	startDate?: Date,
 	// @doc props/type the type of the vModel
 	// @doc/fr props/type le type de vModel
 	type?: Orion.DateTable.Type
