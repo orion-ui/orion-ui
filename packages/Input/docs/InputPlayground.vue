@@ -6,7 +6,7 @@
 
 	<hr>
 
-	<div class="flex fd-c g-xs">
+	<div class="flex fd-c g-8">
 		<div class="row row--grid row--toggles">
 			<div class="col-sm-3">
 				<o-toggle

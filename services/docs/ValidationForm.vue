@@ -1,5 +1,5 @@
 <template>
-	<div class="flex g-xs">
+	<div class="flex g-8">
 		<o-button
 			color="primary"
 			@click="checkForm">

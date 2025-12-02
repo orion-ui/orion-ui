@@ -1,5 +1,5 @@
 <template>
-	<div class="flex g-sm jc-sb">
+	<div class="flex g-16 jc-sb">
 		<o-progress-circle
 			v-for="(color, index) of colors"
 			:key="index"

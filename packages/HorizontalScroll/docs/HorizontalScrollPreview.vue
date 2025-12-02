@@ -6,7 +6,7 @@
 			shadow-color="white">
 			<div
 				id="show-preview"
-				class="flex g-xs">
+				class="flex g-8">
 				<o-button
 					v-for="number in 15"
 					:key="number"

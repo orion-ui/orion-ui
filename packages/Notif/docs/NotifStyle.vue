@@ -1,6 +1,6 @@
 <template>
 	<o-sticker>
-		<div class="flex g-sm">
+		<div class="flex g-16">
 			<o-button
 				color="info"
 				nude

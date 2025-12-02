@@ -3,7 +3,7 @@
 		title="Lorem Ipsum"
 		style="position:relative"
 		class="pa-sm">
-		<div class="flex fd-c g-sm">
+		<div class="flex fd-c g-16">
 			<div>
 				Lorem ipsum dolor sit amet consectetur adipisicing elit.<br>
 				Exercitationem, sapiente error ipsam veniam saepe molestias enim alias

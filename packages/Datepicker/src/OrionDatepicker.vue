@@ -46,7 +46,7 @@
 						:key="date.toString()"
 						:color="multipleLabelColor"
 						size="sm">
-						<div class="flex ai-c g-xs">
+						<div class="flex ai-c g-8">
 							{{ setup.inputValueFormat(date) }}
 							<span
 								:class="`orion-datepicker-multiple__clearable`"

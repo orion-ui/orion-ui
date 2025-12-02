@@ -11,7 +11,7 @@
 <style scoped lang="less">
 .type-description {
 	border: 0.125rem solid var(--border-neutral-default);
-	padding: var(--space-sm);
+	padding: var(--space-16);
 	border-radius: 0.5rem;
 
 	> :deep(div[class*="language-"]) {

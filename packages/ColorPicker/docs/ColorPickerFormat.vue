@@ -1,13 +1,13 @@
 <template>
-	<div class="flex jc-c g-xl">
-		<div class="flex fd-c g-sm">
+	<div class="flex jc-c g-72">
+		<div class="flex fd-c g-16">
 			<o-color-picker
 				v-model="colorRgba"
 				format="rgba"/>
 			Value: {{ colorRgba }}
 		</div>
 
-		<div class="flex fd-c g-sm">
+		<div class="flex fd-c g-16">
 			<o-color-picker
 				v-model="colorHex"
 				format="hex"

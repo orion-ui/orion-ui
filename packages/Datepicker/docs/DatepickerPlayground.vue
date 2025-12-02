@@ -19,7 +19,7 @@
 	</div>
 	<hr>
 
-	<div class="flex g-sm fw-w">
+	<div class="flex g-16 fw-w">
 		<o-radio
 			v-for="(type, index) in typeOptions"
 			:key="index"

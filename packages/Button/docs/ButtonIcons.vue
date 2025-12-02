@@ -1,5 +1,5 @@
 <template>
-	<div class="flex fw-w g-xs">
+	<div class="flex fw-w g-8">
 		<o-button prefix-icon="lightbulb">
 			prefix
 		</o-button>

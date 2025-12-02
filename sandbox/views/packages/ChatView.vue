@@ -4,7 +4,7 @@
 
 		<!-- <pre>{{ discussionsToFetch.length }}</pre> -->
 
-		<div class="flex ai-c g-xs">
+		<div class="flex ai-c g-8">
 			<o-button
 				color="error"
 				outline

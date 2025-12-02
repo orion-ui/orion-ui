@@ -1,5 +1,5 @@
 <template>
-	<div class="flex fd-c g-sm">
+	<div class="flex fd-c g-16">
 		<o-progress-bar
 			v-for="(color, index) of colors"
 			:key="index"

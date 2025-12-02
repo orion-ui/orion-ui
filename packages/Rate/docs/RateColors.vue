@@ -1,13 +1,13 @@
 <template>
-	<div class="flex g-sm">
-		<div class="flex fd-c g-xs">
+	<div class="flex g-16">
+		<div class="flex fd-c g-8">
 			<o-rate
 				v-for="(color, index) of colors"
 				:key="index"
 				:model-value="3"
 				:color="color"/>
 		</div>
-		<div class="flex fd-c g-xs">
+		<div class="flex fd-c g-8">
 			<o-rate
 				v-for="(icon, index) of icons"
 				:key="index"
