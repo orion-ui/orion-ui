@@ -1,6 +1,6 @@
 <template>
 	<o-page v-bind="state">
-		<div class="mt-sm flex fd-c g-xs">
+		<div class="mt-sm flex fd-c g-8">
 			<div>
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras gravida orci a nulla auctor,
 				in tempus erat elementum. Nullam ac tincidunt dolor. Sed sapien massa, commodo sed feugiat ac,
@@ -37,7 +37,7 @@
 				icon="check">
 				subactions
 			</o-button>
-			<div class="flex g-xs mr-xs">
+			<div class="flex g-8 mr-xs">
 				<o-icon icon="alarm"/>
 				<o-icon icon="file_blank"/>
 				<o-icon icon="chart_line"/>

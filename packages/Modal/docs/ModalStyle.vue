@@ -1,5 +1,5 @@
 <template>
-	<div class="flex g-sm">
+	<div class="flex g-16">
 		<o-button @click="displayModalA = true">
 			Modal with hideClose
 		</o-button>

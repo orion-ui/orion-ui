@@ -1,5 +1,5 @@
 <template>
-	<div class="flex g-sm">
+	<div class="flex g-16">
 		<o-button @click="showPromptModal()">
 			Show prompt modal
 		</o-button>
@@ -45,7 +45,7 @@ async function showCustomPromptModal () {
 
 async function showConfirmModal () {
 	const confirm = await useConfirm(`
-		<div class="flex fd-c g-xs">
+		<div class="flex fd-c g-8">
 			<div>Confirm this action ?</div>
 			<div>Press <kbd>Enter</kbd> to <b>confirm</b> or <kbd>Esc</kbd> to <b>cancel</b>.</div>
 			<div class="text--info">You can use string or <em>secure html</em> in case you need it</div>

@@ -1,5 +1,5 @@
 <template>
-	<div class="flex fw-w g-sm">
+	<div class="flex fw-w g-16">
 		<o-toggle
 			v-for="(color, index) of colors"
 			:key="index"
@@ -10,7 +10,7 @@
 
 	<hr>
 
-	<div class="flex fw-w g-sm">
+	<div class="flex fw-w g-16">
 		<o-toggle
 			v-for="(size, index) of sizes"
 			:key="index"

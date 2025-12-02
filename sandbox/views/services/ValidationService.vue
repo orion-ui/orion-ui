@@ -30,7 +30,7 @@
 
 		<div class="row row--grid">
 			<div class="col-sm-6">
-				<div class="flex fd-c g-sm">
+				<div class="flex fd-c g-16">
 					<o-input
 						v-model="user.required"
 						class="grid-input"
@@ -122,7 +122,7 @@
 						:validation-error-message="testLongErrorMessage"
 						:validation="validator.rule('choice')"/>
 
-					<div class="flex g-sm">
+					<div class="flex g-16">
 						<o-radio
 							v-model="user.radio"
 							input-value="Oui"

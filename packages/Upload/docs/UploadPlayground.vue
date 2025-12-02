@@ -1,5 +1,5 @@
 <template>
-	<div class="flex fd-c g-xs ai-c">
+	<div class="flex fd-c g-8 ai-c">
 		<o-upload
 			v-model="state.files"
 			v-bind="state"/>

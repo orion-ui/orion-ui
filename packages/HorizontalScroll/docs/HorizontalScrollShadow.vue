@@ -5,7 +5,7 @@
 			shadow-color="white">
 			<div
 				id="horizontal-item"
-				class="flex g-xs">
+				class="flex g-8">
 				<o-button
 					v-for="number in 20"
 					:key="number"
@@ -23,7 +23,7 @@
 			drop-shadow>
 			<div
 				id="horizontal-item"
-				class="flex g-xs">
+				class="flex g-8">
 				<o-button
 					v-for="number in 20"
 					:key="number"

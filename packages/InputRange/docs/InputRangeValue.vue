@@ -1,5 +1,5 @@
 <template>
-	<div class="flex fd-c g-xs">
+	<div class="flex fd-c g-8">
 		<o-input-range
 			v-model="value"
 			color="info"/>

@@ -13,7 +13,7 @@
 				label="icon"
 				:options="icons">
 				<template #value="{ item }">
-					<div class="icon-select-option flex ai-c g-xs">
+					<div class="icon-select-option flex ai-c g-8">
 						<i :class="`orion-icon icon ci-${item}`"/>
 						{{ item }}
 					</div>
@@ -30,7 +30,7 @@
 				</template>
 
 				<template #option="{ item }">
-					<div class="icon-select-option flex ai-c g-xs">
+					<div class="icon-select-option flex ai-c g-8">
 						<i :class="`orion-icon icon ci-${item}`"/>
 						{{ item }}
 					</div>

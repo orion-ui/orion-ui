@@ -10,7 +10,7 @@
 
 	<hr>
 
-	<div class="flex fd-c g-sm">
+	<div class="flex fd-c g-16">
 		<div>
 			<code v-if="!state.range">value: {{ state.value }}</code>
 			<code v-else>range value : [{{ state.valueRange[0] }} , {{ state.valueRange[1] }}]</code>

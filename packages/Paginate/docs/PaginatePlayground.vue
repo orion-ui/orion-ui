@@ -1,5 +1,5 @@
 <template>
-	<div class="flex fd-c g-sm">
+	<div class="flex fd-c g-16">
 		<o-paginate
 			v-model="state.index"
 			:total="state.total"

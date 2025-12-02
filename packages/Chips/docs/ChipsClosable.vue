@@ -1,5 +1,5 @@
 <template>
-	<div class="flex g-md">
+	<div class="flex g-32">
 		<o-chips
 			v-if="showChip"
 			color="info"

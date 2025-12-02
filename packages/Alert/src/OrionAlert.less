@@ -3,20 +3,31 @@
 
 .orion-alert {
 	position: relative;
-	display: flex;
-	flex-direction: column;
-	gap: 0.5rem;
-	border-radius: var(--radius-small);
-	padding: var(--space-sm) var(--space-md);
+	border-radius: var(--radius-medium);
+	padding: var(--space-16);
+	font-size: var(--typography-size-sm);
+	display: grid;
+	grid-template-columns: 1rem auto 1rem;
+	grid-template-areas: "content content content";
+	gap: var(--space-8);
+	
+	&--closable {
+		grid-template-areas: "content content close";
+	}
+
+	&--icon {
+		grid-template-areas: "icon content content";
+	}
+
+	&--icon.orion-alert--closable {
+		grid-template-areas: "icon content close";
+	}
 
 	&__close {
-		.close(calc(22rem / 16));
-		position: absolute;
+		grid-area: close;
+		.close(var(--typography-body-large));
 		z-index: 1;
-		top: var(--space-sm);
-		right: var(--space-sm);
-		display: flex;
-		align-items: center;
+		justify-self: flex-end;
 		justify-content: center;
 
 		&:hover {
@@ -26,29 +37,39 @@
 	}
 
 	&__title {
+		grid-area: content;
 		margin: 0;
-		text-decoration: underline;
+		line-height: 20px;
 	}
 
-	&--center {
-		text-align: center;
+	&__content {
+		grid-area: content;
+		display: flex;
+		gap: var(--space-xxs);
+		flex-direction: column;
+
+		.orion-alert--center & {
+			align-items: center;
+		}
 	}
+
+	&__icon {
+		grid-area: icon;
+		font-size: var(--typography-body-large);
+
+	}
+
 
 	each(@colors, {
 		
     &--@{value} {
 			color: var(~"--text-@{value}-subtle");
       background: var(~"--background-@{value}-minimal");
+			border: 1px solid var(~"--border-@{value}-subtle");
 
       .orion-alert__title {
         color: var(~"--text-@{value}-subtle");
       }
-
-			&:not(.orion-alert--inverse):not(.orion-alert--default) > {
-				.orion-alert__title, .orion-alert__contrast {
-					.color-contrast();
-				}
-			}
     }
   });
 

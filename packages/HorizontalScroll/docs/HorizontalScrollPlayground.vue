@@ -5,7 +5,7 @@
 		v-bind="state">
 		<div
 			id="horizontal-playground"
-			class="flex g-xs">
+			class="flex g-8">
 			<o-button
 				v-for="number in 20"
 				:key="number"

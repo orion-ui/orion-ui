@@ -1,5 +1,5 @@
 <template>
-	<div class="playground flex g-md jc-s">
+	<div class="playground flex g-32 jc-s">
 		<div>
 			<o-droppable
 				v-model:datalist="left"
@@ -56,7 +56,7 @@
 
 	<hr>
 
-	<div class="flex g-md">
+	<div class="flex g-32">
 		<o-select
 			v-model="state.tag"
 			label="Draggabel tag"
@@ -142,7 +142,7 @@ const middle = ref([
 
 .orion-droppable {
 	position: relative;
-	padding: var(--space-sm);
+	padding: var(--space-16);
 	border-radius: 0.5rem;
 	background: var(--background-neutral-subtle);
 

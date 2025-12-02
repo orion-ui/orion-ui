@@ -1,5 +1,5 @@
 <template>
-	<div class="flex ai-c jc-c g-md">
+	<div class="flex ai-c jc-c g-32">
 		<o-icon
 			icon="warning"
 			ripple="warning"/>
