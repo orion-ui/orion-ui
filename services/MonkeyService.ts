@@ -1,9 +1,9 @@
 /* eslint-disable max-len */
 import { escapeRegExp, get, isArray, isDate, isNil } from 'lodash-es';
-import { prefixWithZeros } from 'utils/tools';
 import { Log } from 'utils/Log';
-import useLang, { getAppLang } from './LangService';
-import usePluralize from './PluralizeService';
+import { prefixWithZeros } from 'utils/tools';
+import { getAppLang, useLang } from './LangService';
+import { usePluralize } from './PluralizeService';
 
 
 class ArrayMonkeyPatching<T> extends Array<T> {
@@ -793,16 +793,16 @@ class MonkeyService {
 	}
 }
 
-export default function useMonkey <T> (val: T[]): ArrayMonkeyPatching<T>;
-export default function useMonkey (val: Date): DateMonkeyPatching;
-export default function useMonkey (val: number): NumberMonkeyPatching;
-export default function useMonkey (val: string): StringMonkeyPatching;
-export default function useMonkey <T> (val: T[] | Date | number | string):
+export function useMonkey <T> (val: T[]): ArrayMonkeyPatching<T>;
+export function useMonkey (val: Date): DateMonkeyPatching;
+export function useMonkey (val: number): NumberMonkeyPatching;
+export function useMonkey (val: string): StringMonkeyPatching;
+export function useMonkey <T> (val: T[] | Date | number | string):
   ArrayMonkeyPatching<T> |
   DateMonkeyPatching |
   NumberMonkeyPatching |
   StringMonkeyPatching;
-export default function useMonkey <T> (val: T[] | Date | number | string) {
+export function useMonkey <T> (val: T[] | Date | number | string) {
 	if (isArray(val)) return MonkeyService.Array(...val);
 	if (isDate(val)) return MonkeyService.Date(val);
 	if (typeof val === 'number') return MonkeyService.Number(val);

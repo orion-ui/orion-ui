@@ -1,9 +1,9 @@
-import { defineConfig } from 'vite';
-import { resolve } from 'path';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
-import babel from 'vite-plugin-babel';
+import { resolve } from 'path';
 import TurboConsole from 'unplugin-turbo-console/vite';
+import { defineConfig } from 'vite';
+import babel from 'vite-plugin-babel';
 
 const alias = {
 	'assets': resolve(__dirname, 'assets'),

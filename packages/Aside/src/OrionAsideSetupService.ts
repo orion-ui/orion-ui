@@ -1,7 +1,6 @@
-import { reactive, ref } from 'vue';
 import anime from 'animejs';
+import { reactive, ref } from 'vue';
 import SharedPopableSetupService, { SharedPopableSetupServiceEmits, SharedPopableSetupServiceProps } from '../../Shared/SharedPopableSetupService';
-import { orionAppService } from 'utils/Orion';
 
 export type OrionAsideEmits = SharedPopableSetupServiceEmits & {}
 export type OrionAsideProps = SharedPopableSetupServiceProps & {
@@ -51,8 +50,6 @@ export default class OrionAsideSetupService extends SharedPopableSetupService {
 			if (enter) {
 				this.state.visible = true;
 
-				await orionAppService.popableAnimationHooks.asideEnterBefore?.(this.publicInstance);
-
 				anime({
 					targets: this._el.value,
 					opacity: [0, 1],
@@ -61,21 +58,17 @@ export default class OrionAsideSetupService extends SharedPopableSetupService {
 					duration: 400,
 					easing: 'easeOutQuad',
 					begin: async () => {
-						await orionAppService.popableAnimationHooks.asideEnterStart?.(this.publicInstance);
 						this.emits('enter-start');
 						this.trigger('enter-start');
 						this.animateActions();
 					},
 					complete: async () => {
-						await orionAppService.popableAnimationHooks.asideEnterEnd?.(this.publicInstance);
 						resolve();
 						this.emits('enter-end');
 						this.trigger('enter-end');
 					},
 				});
 			} else {
-				await orionAppService.popableAnimationHooks.asideLeaveBefore?.(this.publicInstance);
-
 				anime({
 					targets: this._el.value,
 					opacity: 0,
@@ -83,13 +76,11 @@ export default class OrionAsideSetupService extends SharedPopableSetupService {
 					duration: 200,
 					easing: 'linear',
 					begin: async () => {
-						await orionAppService.popableAnimationHooks.asideLeaveStart?.(this.publicInstance);
 						this.emits('leave-start');
 						this.trigger('leave-start');
 					},
 					complete: async () => {
 						this.state.visible = false;
-						await orionAppService.popableAnimationHooks.asideLeaveEnd?.(this.publicInstance);
 						resolve();
 						this.emits('leave-end');
 						this.trigger('leave-end');

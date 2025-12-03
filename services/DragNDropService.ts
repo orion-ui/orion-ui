@@ -1,7 +1,7 @@
 import { forEachRight } from 'lodash-es';
 import mitt from 'mitt';
 import { reactive } from 'vue';
-import useMonkey from './MonkeyService';
+import { useMonkey } from './MonkeyService';
 
 type DndRegistry = {
 	isDragging: boolean;

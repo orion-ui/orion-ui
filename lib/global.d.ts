@@ -1,15 +1,16 @@
 /// <reference path="packages.d.ts"/>
 
+import { LangAvailable } from 'lang';
+import { CountryCode } from 'libphonenumber-js';
+import { MaterialIcon } from 'material-icons';
+import { OrionAvatarProps } from 'packages/Avatar/src/OrionAvatarSetupService';
 import { Component } from 'vue';
 import { RouteLocationRaw, Router } from 'vue-router';
+import type { OrionAsideSetupService, OrionListProps, OrionModalSetupService, OrionNotifSetupService } from '../packages';
 import OrionChatEntity from '../packages/Chat/src/OrionChatEntity';
 import OrionChatMessageEntity from '../packages/ChatMessage/src/OrionChatMessageEntity';
-import type { OrionAsideSetupService, OrionListProps, OrionModalSetupService, OrionNotifSetupService } from '../packages';
 import useValidation from '../services/ValidationService';
 import { Validator as ValidatorClass } from '../utils/Validator';
-import { CountryCode } from 'libphonenumber-js';
-import { OrionAvatarProps } from 'packages/Avatar/src/OrionAvatarSetupService';
-import { MaterialIcon } from 'material-icons';
 
 declare global {
 	type Nullable<T> = T | null;
@@ -53,13 +54,9 @@ declare global {
 		type AppServiceConfig = {
 			prefix: string;
 			use: ('components' | 'monkeyPatching')[];
-			lang: keyof typeof import('../lang')['default'];
+			lang: LangAvailable;
 			router: Router;
 			iconStyle: Orion.IconStyle;
-			popableAnimationHooks:
-				& Record<AsideAnimationHookType, (instance?: OrionAside) => Promise<void>>
-				& Record<ModalAnimationHookType, (instance?: OrionModal) => Promise<void>>
-				& Record<NotifAnimationHookType, (instance?: OrionNotif) => Promise<void>>
 		}
 
 		type Config = Partial<AppServiceConfig>

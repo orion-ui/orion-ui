@@ -1,6 +1,6 @@
-import { reactive } from 'vue';
 import { getUid, toggleGlobalListener } from 'utils/tools';
-import useLang from './LangService';
+import { reactive } from 'vue';
+import { useLang } from './LangService';
 import useModal from './ModalService';
 
 class PromptService<T> {

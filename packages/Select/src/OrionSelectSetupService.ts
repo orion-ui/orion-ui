@@ -1,16 +1,16 @@
-import { ComponentPublicInstance, nextTick, ref, watch } from 'vue';
-import { cloneDeep, debounce, DebouncedFunc, get, isArray, isEmpty, isNil, isObject, upperFirst } from 'lodash-es';
-import { Dropdown, recomputeAllPoppers } from 'floating-vue';
-import mitt from 'mitt';
 import anime from 'animejs';
+import { Dropdown, recomputeAllPoppers } from 'floating-vue';
+import { cloneDeep, debounce, DebouncedFunc, get, isArray, isEmpty, isNil, isObject, upperFirst } from 'lodash-es';
+import mitt from 'mitt';
+import { ComponentPublicInstance, nextTick, ref, watch } from 'vue';
 
-import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetupServiceProps } from '../../Shared/SharedFieldSetupService';
-import { Log } from 'utils/Log';
+import { useMonkey } from 'services/MonkeyService';
 import useNotif from 'services/NotifService';
-import useMonkey from 'services/MonkeyService';
+import { Reactive } from 'utils/decorators';
+import { Log } from 'utils/Log';
 import { addPopoverBackdropCloseAbility } from 'utils/tools';
 import { ModelRef } from 'vue';
-import { Reactive } from 'utils/decorators';
+import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetupServiceProps } from '../../Shared/SharedFieldSetupService';
 
 export type OrionSelectEmits<T, O> = SharedFieldSetupServiceEmits<VModelType<T>> & {
 	// @doc event/input-keydown-tab/desc emitted when pressing Tab key from the search field

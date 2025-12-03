@@ -1,11 +1,10 @@
-import { Ref, nextTick } from 'vue';
 import { Dropdown } from 'floating-vue';
+import { Ref, nextTick } from 'vue';
 // import { devtool, devtoolId } from 'devtool';
-import useDocument from 'services/DocumentService';
-import useLocalStorage from 'services/LocalStorageService';
-import useWindow from 'services/WindowService';
 import { CountryCode, parsePhoneNumber } from 'libphonenumber-js';
-import useDynamicFlagService from 'services/DynamicFlagService';
+import { useDocument } from 'services/DocumentService';
+import { useLocalStorage } from 'services/LocalStorageService';
+import { useWindow } from 'services/WindowService';
 import { Log } from './Log';
 
 const uidGenerator = function* () {
@@ -277,12 +276,6 @@ export function displayPhone (phoneNumber : string, code: CountryCode) {
 		return phoneNumber;
 	}
 }
-
-export function getImageFlag (countryCode: CountryCode) {
-	return useDynamicFlagService(countryCode);
-}
-
-
 
 // #region Global events toggling
 type EventEntry = {

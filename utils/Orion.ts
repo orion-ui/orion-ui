@@ -1,13 +1,13 @@
-import { App, createVNode, render } from 'vue';
 import FloatingVue from 'floating-vue';
+import { App, createVNode, render } from 'vue';
 
-import { handleTouchDevice, initThemeMode, setIconStyle } from './tools';
-import useDocument from '../services/DocumentService';
-import { getAppLang, setAppLang } from '../services/LangService';
-import { OrionOverlay } from '../packages/Overlay';
+import { OrionComponentsPlugin } from '../packages';
 import { OrionLoader } from '../packages/Loader';
-import OrionComponentsPlugin from '../packages';
+import { OrionOverlay } from '../packages/Overlay';
+import { useDocument } from '../services/DocumentService';
+import { setAppLang } from '../services/LangService';
 import { Log } from './Log';
+import { handleTouchDevice, initThemeMode, setIconStyle } from './tools';
 
 
 export class OrionAppService {
@@ -17,14 +17,10 @@ export class OrionAppService {
 	get app () { return this._app; }
 	get appContext () { return this._app._context; }
 	get appInstance () { return this._app._instance; }
-	get appLang () { return getAppLang(); }
 	get appConfig () { return this.config; }
 	get appUse () { return this.config.use; }
 	get appPrefix () { return this.config.prefix; }
 	get appRouter () { return this.config.router; }
-
-	get popableAnimationHooks () { return this.config.popableAnimationHooks ?? {}; };
-
 
 	init (app: App, config: Orion.AppServiceConfig) {
 		Log.orion('•• START •• Orion initializer');

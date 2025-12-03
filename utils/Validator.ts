@@ -1,4 +1,5 @@
-import { useLang, useMonkey } from 'services';
+import { useLang } from 'services/LangService';
+import { useMonkey } from 'services/MonkeyService';
 import { reactive } from 'vue';
 
 type ValidatorPhoneValidation = Record<
@@ -31,72 +32,89 @@ export class Validator<T = any> {
 	};
 
 	static readonly rules = {
-		required: (message = useLang().VALIDATOR_ERROR_REQUIRED) => (value: any): Orion.Validator.RuleResult => {
+		required: (message?: string) => (value: any): Orion.Validator.RuleResult => {
+			const msg = message ?? useLang().VALIDATOR_ERROR_REQUIRED;
 			// Handle OrionPhone validation
 			if (typeof value === 'object' && value !== null && 'phoneCountryCode' in value && 'phoneNumber' in value) {
 				return {
 					result: !!value?.phoneNumber?.length,
-					message,
+					message: msg,
 					level: 'error',
 				};
 			} else {
 				return {
 					result: !!value?.toString().trim().length,
-					message,
+					message: msg,
 					level: 'error',
 				};
 			}
 		},
 
-		hasLowercase: (message = useLang().VALIDATOR_ERROR_HAS_LOWERCASE) => (value?: string): Orion.Validator.RuleResult => ({
-			result: !!value?.length && this.regex.hasLowercase.test(value),
-			message,
-			level: 'error',
-		}),
+		hasLowercase: (message?: string) => (value?: string): Orion.Validator.RuleResult => {
+			return {
+				result: !!value?.length && this.regex.hasLowercase.test(value),
+				message: message ?? useLang().VALIDATOR_ERROR_HAS_LOWERCASE,
+				level: 'error',
+			};
+		},
 
-		hasUppercase: (message = useLang().VALIDATOR_ERROR_HAS_UPPERCASE) => (value?: string): Orion.Validator.RuleResult => ({
-			result: !!value?.length && this.regex.hasUppercase.test(value),
-			message,
-			level: 'error',
-		}),
+		hasUppercase: (message?: string) => (value?: string): Orion.Validator.RuleResult => {
+			return {
+				result: !!value?.length && this.regex.hasUppercase.test(value),
+				message: message ?? useLang().VALIDATOR_ERROR_HAS_UPPERCASE,
+				level: 'error',
+			};
+		},
 
-		hasNumber: (message = useLang().VALIDATOR_ERROR_HAS_NUMBER) => (value?: string): Orion.Validator.RuleResult => ({
-			result: !!value?.length && this.regex.hasNumber.test(value),
-			message,
-			level: 'error',
-		}),
+		hasNumber: (message?: string) => (value?: string): Orion.Validator.RuleResult => {
+			return {
+				result: !!value?.length && this.regex.hasNumber.test(value),
+				message: message ?? useLang().VALIDATOR_ERROR_HAS_NUMBER,
+				level: 'error',
+			};
+		},
 
-		hasSpecialChar: (message = useLang().VALIDATOR_ERROR_HAS_SPECIAL_CHAR) => (value?: string): Orion.Validator.RuleResult => ({
-			result: !!value?.length && this.regex.hasSpecialChar.test(value),
-			message,
-			level: 'error',
-		}),
+		hasSpecialChar: (message?: string) => (value?: string): Orion.Validator.RuleResult => {
+			return {
+				result: !!value?.length && this.regex.hasSpecialChar.test(value),
+				message: message ?? useLang().VALIDATOR_ERROR_HAS_SPECIAL_CHAR,
+				level: 'error',
+			};
+		},
 
-		hasMinLength: (min: number, message = useLang().VALIDATOR_ERROR_HAS_MIN_LENGTH) => (value?: string): Orion.Validator.RuleResult => ({
-			result: (value?.length ?? 0) >= min,
-			message: message.replace('$charLength', useMonkey(useLang().CHARACTER).pluralize(min)),
-			level: 'error',
-		}),
+		hasMinLength: (min: number, message?: string) => (value?: string): Orion.Validator.RuleResult => {
+			const msg = message ?? useLang().VALIDATOR_ERROR_HAS_MIN_LENGTH;
+			return {
+				result: (value?.length ?? 0) >= min,
+				message: msg.replace('$charLength', useMonkey(useLang().CHARACTER).pluralize(min)),
+				level: 'error',
+			};
+		},
 
-		hasMaxLength: (max: number, message = useLang().VALIDATOR_ERROR_HAS_MAX_LENGTH) => (value?: string): Orion.Validator.RuleResult => ({
-			result: (value?.length ?? 0) <= max,
-			message: message.replace('$charLength', useMonkey(useLang().CHARACTER).pluralize(max)),
-			level: 'error',
-		}),
+		hasMaxLength: (max: number, message?: string) => (value?: string): Orion.Validator.RuleResult => {
+			const msg = message ?? useLang().VALIDATOR_ERROR_HAS_MAX_LENGTH;
+			return {
+				result: (value?.length ?? 0) <= max,
+				message: msg.replace('$charLength', useMonkey(useLang().CHARACTER).pluralize(max)),
+				level: 'error',
+			};
+		},
 
-		length: (minLength?: number, maxLength?: number, message = useLang().VALIDATOR_ERROR_LENGTH) => (value?: string): Orion.Validator.RuleResult => {
+		length: (minLength?: number, maxLength?: number, message?: string) => (value?: string): Orion.Validator.RuleResult => {
 			const min = minLength ?? 0;
 			const max = maxLength ?? Infinity;
+			const msg = message ?? useLang().VALIDATOR_ERROR_LENGTH;
 			return {
 				result: (value?.length ?? 0) >= min && (value?.length ?? 0) <= max,
 				message: max !== Infinity
-					? message.replace('$min', min.toString()).replace('$max', max.toString())
+					? msg.replace('$min', min.toString()).replace('$max', max.toString())
 					: useLang().VALIDATOR_ERROR_HAS_MIN_LENGTH.replace('$charLength', useMonkey(useLang().CHARACTER).pluralize(min)),
 				level: 'error',
 			};
 		},
 
-		phone: (mobile?: undefined | boolean, message = useLang().VALIDATOR_ERROR_PHONE) => (value: any): Orion.Validator.RuleResult => {
+		phone: (mobile?: undefined | boolean, message?: string) => (value: any): Orion.Validator.RuleResult => {
+			const msg = message ?? useLang().VALIDATOR_ERROR_PHONE;
 			const countryCode = value?.phoneCountryCode as Undef<Orion.Country['code']>;
 			if (!!countryCode && value?.phoneNumber && this.regex.phone[countryCode]) {
 				return {
@@ -105,40 +123,43 @@ export class Validator<T = any> {
 						: mobile
 							? this.regex.phone[countryCode].mobile.test(value.phoneNumber)
 							: this.regex.phone[countryCode].landline.test(value.phoneNumber),
-					message,
+					message: msg,
 					level: 'error',
 				};
 			} else {
 				return {
 					result: true,
-					message,
+					message: msg,
 					level: 'error',
 				};
 			}
 		},
 
-		password: (message = useLang().VALIDATOR_ERROR_PASSWORD) => (value?: string): Orion.Validator.RuleResult => ({
-			result: !!value?.toString().trim().length && this.regex.password.test(value),
-			message,
-			level: 'error',
-		}),
-
-		passwordConfirm: (
-			passwordToConfirm = '' as string | (() => string | undefined),
-			message = useLang().VALIDATOR_ERROR_PASSWORD_CONFIRM,
-		) => (value?: string): Orion.Validator.RuleResult => {
-			const valueToCompare = typeof passwordToConfirm === 'string' ? passwordToConfirm : passwordToConfirm?.();
+		password: (message?: string) => (value?: string): Orion.Validator.RuleResult => {
 			return {
-				result: !!valueToCompare?.trim().length && !!value?.trim().length && (valueToCompare === value),
-				message,
+				result: !!value?.toString().trim().length && this.regex.password.test(value),
+				message: message ?? useLang().VALIDATOR_ERROR_PASSWORD,
 				level: 'error',
 			};
 		},
 
-		email: (message = useLang().VALIDATOR_ERROR_EMAIL) => (value?: string): Orion.Validator.RuleResult => {
+		passwordConfirm: (
+			passwordToConfirm = '' as string | (() => string | undefined),
+			message?: string,
+		) => (value?: string): Orion.Validator.RuleResult => {
+			const msg = message ?? useLang().VALIDATOR_ERROR_PASSWORD_CONFIRM;
+			const valueToCompare = typeof passwordToConfirm === 'string' ? passwordToConfirm : passwordToConfirm?.();
+			return {
+				result: !!valueToCompare?.trim().length && !!value?.trim().length && (valueToCompare === value),
+				message: msg,
+				level: 'error',
+			};
+		},
+
+		email: (message?: string) => (value?: string): Orion.Validator.RuleResult => {
 			return {
 				result: !value?.length || (!!value?.length && this.regex.email.test(value)),
-				message,
+				message: message ?? useLang().VALIDATOR_ERROR_EMAIL,
 				level: 'error',
 			};
 		},

@@ -1,6 +1,6 @@
-import { reactive } from 'vue';
 import { Log } from 'utils/Log';
-import useWindow from './WindowService';
+import { reactive } from 'vue';
+import { useWindow } from './WindowService';
 
 export class MouseService {
 	private state = reactive({
@@ -31,8 +31,12 @@ export class MouseService {
 	}
 }
 
-const serviceInstance = new MouseService();
+// @tree-shaking lazy initialization
+let serviceInstance: MouseService | undefined;
 
-export default function useMouse () {
+export function useMouse () {
+	if (!serviceInstance) {
+		serviceInstance = new MouseService();
+	}
 	return serviceInstance;
 };

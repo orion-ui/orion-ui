@@ -1,14 +1,14 @@
 import { onBeforeMount, onBeforeUpdate, onMounted, onUnmounted, onUpdated, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { Bus } from 'utils/Bus';
-import { getUid } from 'utils/tools';
-import { orionAppService } from 'utils/Orion';
-import useDocument from 'services/DocumentService';
-import useLang from 'services/LangService';
+import { useDocument } from 'services/DocumentService';
+import { useLang } from 'services/LangService';
 import useResponsive from 'services/ResponsiveService';
-import useWindow from 'services/WindowService';
 import useUi from 'services/UiService';
+import { useWindow } from 'services/WindowService';
+import { Bus } from 'utils/Bus';
+import { orionAppService } from 'utils/Orion';
+import { getUid } from 'utils/tools';
 
 export default abstract class SharedSetupService {
 

@@ -1,7 +1,7 @@
-import { reactive } from 'vue';
 import { debounce } from 'lodash-es';
 import { Log } from 'utils/Log';
-import useWindow from './WindowService';
+import { reactive } from 'vue';
+import { useWindow } from './WindowService';
 
 type ResponsiveServiceOptions = {
   BPtablet?: number;

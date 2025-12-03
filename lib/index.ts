@@ -3,13 +3,13 @@
 
 import type { App, Plugin } from 'vue';
 
-import { orionAppService } from 'utils/Orion';
 import 'packages/Shared/styles/styles.less';
+import { orionAppService } from 'utils/Orion';
 import { setupDevtools } from '../devtool';
 import { applyMonkeyPatching } from '../services/MonkeyService';
 
 
-const Orion: Plugin = {
+const OrionPlugin: Plugin = {
 	install (app: App<any>, config?: Orion.Config) {
 		orionAppService.init(app, {
 			prefix: 'o',
@@ -28,15 +28,13 @@ const Orion: Plugin = {
 };
 
 
-export default Orion;
-
-const OrionPlugin = Orion;
+export default OrionPlugin;
 
 export { orionAppService, OrionPlugin };
 
 // For export, use relative path
 export { materialIcons } from 'assets/fonts/materialIcons';
-export { getAppLang, setAppLang } from '../services/LangService';
-export * from '../utils';
-export * from '../services';
 export * from '../lang';
+export * from '../services';
+export * from '../utils';
+
