@@ -10,6 +10,7 @@ declare module 'vue' {
 		OAlert: typeof import('packages/index')['OrionAlert'];
 		OAside: typeof import('packages/index')['OrionAside'];
 		OAvatar: typeof import('packages/index')['OrionAvatar'];
+		OAvatarGroup: typeof import('packages/index')['OrionAvatarGroup'];
 		OButton: typeof import('packages/index')['OrionButton'];
 		OCard: typeof import('packages/index')['OrionCard'];
 		OCarousel: typeof import('packages/index')['OrionCarousel'];

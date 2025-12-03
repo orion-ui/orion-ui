@@ -1,0 +1,15 @@
+@import '../../Shared/styles/variables.less';
+@import '../../Shared/styles/mixins.less';
+
+.orion-avatar-group {
+  display: flex;
+  align-items: center;
+
+  .orion-avatar {
+    margin-left: calc(-1 * var(--space-sm));
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+}

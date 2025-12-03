@@ -2,6 +2,7 @@
 	<div class="row row--center">
 		<o-avatar
 			name="Toto"
+			size="xl"
 			:avatar="avatarUrl"
 			:nb-avatar-updates="avatarUpdateIncrement"
 			:update-function="update"/>

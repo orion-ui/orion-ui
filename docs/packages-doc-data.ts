@@ -241,13 +241,27 @@ const packagesDocData = new Map([
 					'en': 'defines the color',
 					'fr': 'définit la couleur',
 				},
-				'defaultValue': '\'brand\' ',
+				'defaultValue': '\'primary\' ',
 			}, {
 				'name': 'contain',
 				'type': 'boolean',
 				'desc': {
 					'en': 'adapts the size of the image to fit into the container',
 					'fr': 'adapte la taille de l\'image pour s\'adapter à son conteneur',
+				},
+			}, {
+				'name': 'description',
+				'type': 'string',
+				'desc': {
+					'en': 'additionnal description of the avatar',
+					'fr': 'description additionnelle de l\'avatar',
+				},
+			}, {
+				'name': 'displayText',
+				'type': 'boolean',
+				'desc': {
+					'en': 'defines if the text (name or description) is displayed along with the avatar',
+					'fr': 'Définit si le texte (nom ou description) est affiché avec l\'avatar',
 				},
 			}, {
 				'name': 'name',
@@ -302,6 +316,57 @@ const packagesDocData = new Map([
 					'en': 'function to call to update the avatar',
 					'fr': 'fonction à appeler pour modifier l\'avatar',
 				},
+			}],
+			events: [],
+			publicInstance: undefined,
+		},
+	],
+	[
+		'AvatarGroup',
+		{
+			localTypes: {},
+			provide: [],
+			slots: [],
+			vModel: [],
+			props: [{
+				'name': 'color',
+				'type': 'Orion.Color',
+				'desc': {
+					'en': 'defines the color',
+					'fr': 'définit la couleur',
+				},
+				'defaultValue': '\'primary\' ',
+			}, {
+				'name': 'label',
+				'type': 'string',
+				'desc': {
+					'en': 'Missing @doc',
+					'fr': 'Missing @doc',
+				},
+			}, {
+				'name': 'max',
+				'type': 'number',
+				'desc': {
+					'en': 'Missing @doc',
+					'fr': 'Missing @doc',
+				},
+				'defaultValue': '5',
+			}, {
+				'name': 'size',
+				'type': 'number | Orion.Size',
+				'desc': {
+					'en': 'define the size',
+					'fr': 'définit la taille',
+				},
+				'defaultValue': '\'md\' ',
+			}, {
+				'name': 'spacing',
+				'type': 'number',
+				'desc': {
+					'en': 'Missing @doc',
+					'fr': 'Missing @doc',
+				},
+				'defaultValue': '16',
 			}],
 			events: [],
 			publicInstance: undefined,
@@ -5195,7 +5260,7 @@ const packagesDocData = new Map([
 					'en': 'Icon of the component',
 					'fr': 'icône du composant',
 				},
-				'defaultValue': '\'circle_check\' ',
+				'defaultValue': '\'check_circle\' ',
 			}, {
 				'name': 'numberOfRates',
 				'type': 'number',
@@ -5497,7 +5562,7 @@ const packagesDocData = new Map([
 					'en': 'key used to choice the favorite icon',
 					'fr': 'clé qui permet de choisir l\'icône des favoris',
 				},
-				'defaultValue': '\'star\' ',
+				'defaultValue': '\'star_border\' ',
 			}, {
 				'name': 'favoritesOptions',
 				'type': 'O[]',
