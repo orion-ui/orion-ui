@@ -32,9 +32,16 @@
 	border-style: solid;
 	border-color: transparent;
 	line-height: 1;
+	
 
 	[data-orion-theme='dark'] & {
 		box-shadow: none;
+	}
+
+
+	&:focus {
+		outline: 1px solid var(--border-neutral-focus); ;
+		outline-offset: 1px;
 	}
 
 	&__ripple {
@@ -272,7 +279,7 @@
 	&:focus,
 	&--outline,
 	&--nude {
-		box-shadow: none;
+		//box-shadow: none;
 	}
 
 	&--nude {
