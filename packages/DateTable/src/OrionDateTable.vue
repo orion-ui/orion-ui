@@ -1,9 +1,8 @@
 <template>
-	<template v-if="horizontal">
-		<orion-date-table-horizontal
-			v-model="vModel"
-			v-bind="props"/>
-	</template>
+	<orion-date-table-horizontal
+		v-if="horizontal"
+		v-model="vModel"
+		v-bind="props"/>
 	<div
 		v-else
 		:key="setup.currentMonth"
