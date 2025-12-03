@@ -63,15 +63,7 @@
 			}
 		}
 	}
-
-	&__text,
-	&__icon {
-		.orion-button--disabled &,
-		.orion-button--loading & {
-			opacity: 0.7;
-		}
-	}
-
+	
 	&__text {
 		text-align: center;
 		line-height: 1.25rem;
@@ -86,10 +78,6 @@
 	&__icon {
 		.icon-size(1rem);
 		pointer-events: none;
-
-		> .orion-icon__loading {
-			stroke: inherit;
-		}
 	}
 
 	&--xs {
@@ -294,6 +282,10 @@
 
 	&--loading {
 		cursor: progress;
+
+		.orion-icon__loading {
+			stroke: var(--text-default-moderate);
+		}
 	}
 }
 
