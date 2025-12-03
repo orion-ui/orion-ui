@@ -19,7 +19,7 @@
 				@click="state.selected = !state.selected"/>
 
 			<o-icon
-				icon="play"
+				icon="play_arrow"
 				ripple="success"
 				@click="triggerNotif()"/>
 		</template>
@@ -35,7 +35,10 @@
 				clearable/>
 		</div>
 		<div class="col-sm-4">
-			<size-selection v-model="state.size"/>
+			<o-input
+				v-model="state.subtitle"
+				label="Subtitle"
+				clearable/>
 		</div>
 		<div class="col-sm-4">
 			<o-input
@@ -46,6 +49,9 @@
 	</div>
 
 	<div class="row row--gutter">
+		<div class="col-sm-4">
+			<size-selection v-model="state.size"/>
+		</div>
 		<div class="col-sm-4">
 			<color-selection
 				v-model="state.gradient"
@@ -92,6 +98,7 @@ function triggerNotif () {
 
 const state = reactive({
 	title: 'Duis mollis est',
+	subtitle: 'Aenean eu leo quam',
 	poster: false,
 	content: 'Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.',
 	gradient: undefined as Orion.Color & undefined,
