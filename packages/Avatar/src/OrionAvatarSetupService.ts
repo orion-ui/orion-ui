@@ -11,6 +11,12 @@ export type OrionAvatarProps = SharedPropsColor & {
 	// @doc props/contain adapts the size of the image to fit into the container
 	// @doc/fr props/contain adapte la taille de l'image pour s'adapter à son conteneur
 	contain?: boolean,
+	// @doc props/description additionnal description of the avatar
+	// @doc/fr props/description description additionnelle de l'avatar
+	description?: string,
+	// @doc props/displayText defines if the text (name or description) is displayed along with the avatar
+	// @doc/fr props/displayText Définit si le texte (nom ou description) est affiché avec l'avatar
+	displayText?: boolean,
 	// @doc props/name displays first letter of the name if there is no image
 	// @doc/fr props/name affiche la première lettre de la prop `name` s'il n'y a pas d'image
 	name?: string,
@@ -37,9 +43,10 @@ export type OrionAvatarProps = SharedPropsColor & {
 export default class OrionAvatarSetupService extends SharedSetupService {
 	static readonly defaultProps = {
 		name: '',
+		size: 'md' as OrionAvatarProps['size'],
 		nbAvatarUpdates: 0,
 		rootUrl: '/avatar/',
-		color: 'brand' as Orion.Color,
+		color: 'primary' as Orion.Color,
 	};
 
 	private state = reactive({ error: false });
@@ -78,7 +85,7 @@ export default class OrionAvatarSetupService extends SharedSetupService {
 	}
 
 	get formatedName () {
-		return this.props.name.trim().charAt(0);
+		return this.props.name.split(' ').slice(0, 2).map(n => n.charAt(0).toUpperCase()).join('');
 	}
 
 	get showInitial () {
