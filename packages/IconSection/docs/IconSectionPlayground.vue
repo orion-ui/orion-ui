@@ -5,7 +5,7 @@
 		{{ state.content }}
 	</o-icon-section>
 
-	<div class="flex fd-c g-xs">
+	<div class="flex fd-c g-8">
 		<div class="row row--middle row--gutter">
 			<div class="col-sm-4">
 				<o-input

@@ -1,6 +1,6 @@
 <template>
-	<div class="flex fd-c g-xs">
-		<div class="flex g-xs fw-w">
+	<div class="flex fd-c g-8">
+		<div class="flex g-8 fw-w">
 			<o-button
 				v-for="(color, index) of colors"
 				:key="index"
@@ -8,7 +8,7 @@
 				{{ color }}
 			</o-button>
 		</div>
-		<div class="flex g-xs fw-w">
+		<div class="flex g-8 fw-w">
 			<o-button
 				v-for="(color, index) of colors"
 				:key="index"
@@ -17,7 +17,7 @@
 				{{ color }}
 			</o-button>
 		</div>
-		<div class="flex g-xs fw-w">
+		<div class="flex g-8 fw-w">
 			<o-button
 				v-for="(color, index) of colors"
 				:key="index"

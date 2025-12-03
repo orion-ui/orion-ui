@@ -11,9 +11,9 @@
 	transition: box-shadow 0.3s;
 	// z-index: @zIndexOrionPopable;
 	position: fixed;
-	top: var(--space-lg);
-	right: var(--space-lg);
-	bottom: var(--space-lg);
+	top: var(--space-48);
+	right: var(--space-48);
+	bottom: var(--space-48);
 	border-radius: var(--radius-large);
 	max-width: calc(100vw - 2.5rem);
 	display: none;
@@ -88,12 +88,12 @@
 		position: relative;
 		flex: 1 1 auto;
 		border-radius: var(--radius-large);
-		padding: var(--space-lg);
+		padding: var(--space-48);
 		max-width: 100%;
 		max-height: 100%;
 
 		/* .orion-aside__footer:not(:empty) + & {
-			padding-bottom: var(--space-md);
+			padding-bottom: var(--space-32);
 		} */
 
 		// #region Pure CSS scroll shadow
@@ -147,31 +147,31 @@
 		// #endregion
 
 		@media @tablet {
-			padding: var(--space-lg);
+			padding: var(--space-48);
 		}
 
 		.orion-aside--sm & {
-			padding: var(--space-lg);
+			padding: var(--space-48);
 		}
 		.orion-aside--xs & {
-			padding: var(--space-lg);
+			padding: var(--space-48);
 		}
 	}
 
 	&__footer {
 		order: 3;
 		flex: 0 0 auto;
-		padding: var(--space-lg) var(--space-lg);
+		padding: var(--space-48) var(--space-48);
 
 		@media @tablet {
-			padding: var(--space-lg) var(--space-lg);
+			padding: var(--space-48) var(--space-48);
 		}
 
 		.orion-aside--sm & {
-			padding: var(--space-lg) var(--space-lg);
+			padding: var(--space-48) var(--space-48);
 		}
 		.orion-aside--xs & {
-			padding: var(--space-lg);
+			padding: var(--space-48);
 		}
 
 		&:empty {
@@ -183,13 +183,13 @@
 		.close(1.5rem);
 		z-index: 1;
 		position: fixed;
-		top: var(--space-sm);
-		right: var(--space-sm);
+		top: var(--space-16);
+		right: var(--space-16);
 		background: var(--background-neutral-default);
 
 		@media @tablet {
-			top: var(--space-md);
-			right: var(--space-md);
+			top: var(--space-32);
+			right: var(--space-32);
 		}
 	}
 

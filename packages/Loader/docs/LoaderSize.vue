@@ -1,5 +1,5 @@
 <template>
-	<div class="loader-sizes flex g-xs fw-w">
+	<div class="loader-sizes flex g-8 fw-w">
 		<div
 			v-for="(size, index) of sizes"
 			:key="index">

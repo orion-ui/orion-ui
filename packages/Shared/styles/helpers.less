@@ -159,10 +159,10 @@
 		align-items: stretch;
 	}
 
-	each(@sizes, {
-		@size: ~"--space-@{value}";
+	each(@spacings, {
+		@space: ~"--space-@{value}";
 		&.g-@{value} {
-			gap: var(@size);
+			gap: var(@space);
 		}
 	});
 }

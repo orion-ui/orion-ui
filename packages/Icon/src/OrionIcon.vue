@@ -12,7 +12,7 @@
 		@touchend="setup.handleClick($event)">
 		<span
 			v-if="icon && !loading"
-			:class="`material-icons-${getIconStyle()}`">{{ icon }}</span>
+			:class="`material-symbols-${getIconStyle()}`">{{ icon }}</span>
 		<svg
 			v-if="loading"
 			:ref="setup._elSpinner"

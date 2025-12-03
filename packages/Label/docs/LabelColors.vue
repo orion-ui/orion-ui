@@ -1,6 +1,6 @@
 <template>
-	<div class="flex fd-c g-sm">
-		<div class="flex g-xs">
+	<div class="flex fd-c g-16">
+		<div class="flex g-8">
 			<o-label
 				v-for="(color, index) of colorsToDisplay"
 				:key="index"
@@ -8,7 +8,7 @@
 				{{ color }}
 			</o-label>
 		</div>
-		<div class="flex g-xs">
+		<div class="flex g-8">
 			<o-label
 				v-for="(color, index) of colorsToDisplay"
 				:key="index"
@@ -20,8 +20,8 @@
 
 		<div
 			v-if="displayGreys"
-			class="flex fd-c g-sm">
-			<div class="flex g-xs">
+			class="flex fd-c g-16">
+			<div class="flex g-8">
 				<o-label
 					v-for="(color, index) of greys"
 					:key="index"
@@ -30,7 +30,7 @@
 				</o-label>
 			</div>
 			<div
-				class="flex g-xs">
+				class="flex g-8">
 				<o-label
 					v-for="(color, index) of greys"
 					:key="index"
@@ -41,7 +41,7 @@
 			</div>
 		</div>
 
-		<div class="flex g-md">
+		<div class="flex g-32">
 			<o-toggle
 				v-model="displayAltColors"
 				label="Display alternative colors"/>

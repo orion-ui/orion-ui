@@ -61,7 +61,7 @@
 			<sections-generator :qty="5"/>
 
 			<!-- <template #footer>
-				<div class="flex g-xs">
+				<div class="flex g-8">
 					<o-button>Action 1</o-button>
 					<o-button>Action 2</o-button>
 				</div>

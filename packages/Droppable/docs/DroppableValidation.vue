@@ -1,5 +1,5 @@
 <template>
-	<div class="datetable-validation flex g-md jc-s ai-s">
+	<div class="datetable-validation flex g-32 jc-s ai-s">
 		<div>
 			<o-droppable
 				v-model:datalist="left"
@@ -82,7 +82,7 @@ const right = ref([
 
 .orion-droppable {
 	position: relative;
-	padding: var(--space-sm);
+	padding: var(--space-16);
 	border-radius: 0.5rem;
 	background: var(--background-neutral-subtle);
 

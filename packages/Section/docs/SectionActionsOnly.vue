@@ -22,7 +22,7 @@
 
 	<hr>
 
-	<div class="flex g-md jc-c">
+	<div class="flex g-32 jc-c">
 		<o-radio
 			v-for="(option, index) in alignOptions"
 			:key="index"

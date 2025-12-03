@@ -1,5 +1,5 @@
 <template>
-	<div class="flex g-sm">
+	<div class="flex g-16">
 		<o-pop-confirm
 			title="Do you confirm this incredible action ?"
 			@confirm="useNotif.info('Action has been confirmed')"

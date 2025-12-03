@@ -1,6 +1,6 @@
 <template>
-	<div class="flex fd-c g-sm">
-		<div class="flex g-sm fw-w">
+	<div class="flex fd-c g-16">
+		<div class="flex g-16 fw-w">
 			<o-checkbox
 				v-for="(color, index) of colors"
 				:key="index"
@@ -8,7 +8,7 @@
 				:color="color"
 				:label="color"/>
 		</div>
-		<div class="flex g-sm fw-w">
+		<div class="flex g-16 fw-w">
 			<o-checkbox
 				v-for="(icon, index) of icons"
 				:key="index"

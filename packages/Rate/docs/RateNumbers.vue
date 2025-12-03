@@ -1,5 +1,5 @@
 <template>
-	<div class="flex fd-c g-xs">
+	<div class="flex fd-c g-8">
 		<o-rate
 			v-for="(color, index) of colors.slice(0, 4)"
 			:key="index"

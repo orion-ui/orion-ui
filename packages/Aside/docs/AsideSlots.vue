@@ -1,5 +1,5 @@
 <template>
-	<div class="flex g-sm">
+	<div class="flex g-16">
 		<o-button @click="_asideA?.open()">
 			Show aside with actions
 		</o-button>

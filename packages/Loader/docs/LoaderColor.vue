@@ -1,5 +1,5 @@
 <template>
-	<div class="loader-colors flex g-xs fw-w">
+	<div class="loader-colors flex g-8 fw-w">
 		<div
 			v-for="(color, index) of colors"
 			:key="index">

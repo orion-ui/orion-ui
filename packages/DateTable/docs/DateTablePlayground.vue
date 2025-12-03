@@ -7,7 +7,7 @@
 		range-start
 		:periods="state.periods"/>
 
-	<div class="playground-form flex fd-c g-sm">
+	<div class="playground-form flex fd-c g-16">
 		<div class="row row--gutter">
 			<div class="col-sm-4">
 				<o-toggle

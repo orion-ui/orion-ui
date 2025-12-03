@@ -1,6 +1,6 @@
 <template>
-	<div class="flex fd-c g-sm">
-		<div class="flex g-xs fw-w">
+	<div class="flex fd-c g-16">
+		<div class="flex g-8 fw-w">
 			<o-chips
 				v-for="(color, index) of chipsColors"
 				:key="index"
@@ -8,7 +8,7 @@
 				{{ color }}
 			</o-chips>
 		</div>
-		<div class="flex g-xs fw-w">
+		<div class="flex g-8 fw-w">
 			<o-chips
 				v-for="(color, index) of chipsColors"
 				:key="index"
@@ -19,7 +19,7 @@
 		</div>
 		<div
 			v-if="showGreys"
-			class="flex g-xs fw-w">
+			class="flex g-8 fw-w">
 			<o-chips
 				v-for="(color, index) of greys"
 				:key="index"
@@ -29,7 +29,7 @@
 		</div>
 		<div
 			v-if="showGreys"
-			class="flex g-xs fw-w">
+			class="flex g-8 fw-w">
 			<o-chips
 				v-for="(color, index) of greys"
 				:key="index"
@@ -38,7 +38,7 @@
 				{{ color }}
 			</o-chips>
 		</div>
-		<div class="flex g-xs fw-w">
+		<div class="flex g-8 fw-w">
 			<o-chips
 				v-for="(color, index) of chipsColors"
 				:key="index"
@@ -52,7 +52,7 @@
 	</div>
 
 	<hr>
-	<div class="flex g-md">
+	<div class="flex g-32">
 		<o-toggle
 			v-model="altColors"
 			label="Alternative colors"/>

@@ -1,5 +1,5 @@
 <template>
-	<div class="flex g-xl jc-c">
+	<div class="flex g-72 jc-c">
 		<div>
 			<o-checkbox
 				v-model="checkValue"

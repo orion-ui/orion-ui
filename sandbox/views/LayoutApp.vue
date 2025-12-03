@@ -6,7 +6,7 @@
 			Orion v1
 		</template>
 
-		<div class="flex fw-w g-xs mb-md">
+		<div class="flex fw-w g-8 mb-md">
 			<o-button @click="setThemeMode('light')">
 				light theme
 			</o-button>
