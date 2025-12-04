@@ -12,7 +12,7 @@
 	display: flex;
 	flex-direction: column;
 	background: var(--background-neutral-default);
-	border-radius: var(--radius-medium);
+	border-radius: var(--radius-8);
 	box-shadow: 0 0.0625rem 0.1875rem fade(black, 10);
 	color: var(--text-default-default);
 
@@ -21,7 +21,7 @@
 	}
 
 	&__poster {
-		border-radius: var(--radius-medium) var(--radius-medium) 0 0;
+		border-radius: var(--radius-8) var(--radius-8) 0 0;
 		overflow: hidden;
 
 		> img {
@@ -33,19 +33,19 @@
 
 	&__header {
 		.orion-card--xs > & {
-			padding: var(--space-16) var(--space-16) 0;
+			padding: var(--space-12) var(--space-12) 0;
 		}
 
 		.orion-card--sm > & {
-			padding: var(--space-32) var(--space-32) 0;
+			padding: var(--space-16) var(--space-16) 0;
 		}
 
 		.orion-card--md > & {
-			padding: var(--space-48) var(--space-48) 0;
+			padding: var(--space-24) var(--space-24) 0;
 		}
 
 		.orion-card--lg > & {
-			padding: var(--space-48) var(--space-48) 0;
+			padding: var(--space-32) var(--space-32) 0;
 		}
 
 		.orion-card--xl > & {
@@ -63,19 +63,19 @@
 				1;
 
 			.orion-card--xs & {
-				padding: var(--space-16);
+				padding: var(--space-12);
 			}
 
 			.orion-card--sm & {
-				padding: var(--space-32);
+				padding: var(--space-16);
 			}
 
 			.orion-card--md & {
-				padding: var(--space-48);
+				padding: var(--space-24);
 			}
 
 			.orion-card--lg & {
-				padding: var(--space-48);
+				padding: var(--space-32);
 			}
 
 			.orion-card--xl & {
@@ -86,21 +86,22 @@
 
 	&__body {
 		flex: 1 0 0%;
+		font-size: var(--typography-size-sm);
 
 		.orion-card--xs > & {
-			padding: var(--space-16);
+			padding: var(--space-12);
 		}
 
 		.orion-card--sm > & {
-			padding: var(--space-32);
+			padding: var(--space-16);
 		}
 
 		.orion-card--md > & {
-			padding: var(--space-48);
+			padding: var(--space-24);
 		}
 
 		.orion-card--lg > & {
-			padding: var(--space-48);
+			padding: var(--space-32);
 		}
 
 		.orion-card--xl > & {
@@ -174,19 +175,19 @@
 		}
 
 		.orion-card--xs > & {
-			padding: 0 var(--space-16) var(--space-16);
+			padding: 0 var(--space-12) var(--space-12);
 		}
 
 		.orion-card--sm > & {
-			padding: var(--space-8) var(--space-16) var(--space-48);
+			padding: var(--space-8) var(--space-16) var(--space-32);
 		}
 
 		.orion-card--md > & {
-			padding: var(--space-16) var(--space-32) var(--space-48);
+			padding: var(--space-16) var(--space-24) var(--space-32);
 		}
 
 		.orion-card--lg > & {
-			padding: var(--space-32) var(--space-48) var(--space-48);
+			padding: var(--space-24) var(--space-32) var(--space-32);
 		}
 
 		.orion-card--xl > & {
@@ -203,20 +204,20 @@
 				)
 				1;
 
-			.orion-card--xl > & {
+			.orion-card--xs > & {
+				padding: var(--space-12);
+			}
+
+			.orion-card--sm > & {
 				padding: var(--space-16);
 			}
 
-			.orion-card--xl > & {
-				padding: var(--space-32);
-			}
-
 			.orion-card--md > & {
-				padding: var(--space-48);
+				padding: var(--space-24);
 			}
 
 			.orion-card--lg > & {
-				padding: var(--space-48) var(--space-48);
+				padding: var(--space-32) var(--space-32);
 			}
 
 			.orion-card--xl > & {
@@ -227,8 +228,48 @@
 
 	&__title {
 		margin: 0;
+		font-size: var(--typography-size-h5);
 		color: var(--text-default-default);
 		font-weight: 600;
+
+		.orion-card--xs & {
+			font-size: var(--typography-size-lg);
+		}
+
+		.orion-card--sm & {
+			font-size: var(--typography-size-lg);
+		}
+
+		.orion-card--lg & {
+			font-size: var(--typography-size-h4);
+		}
+
+		.orion-card--xl & {
+			font-size: var(--typography-size-h4);
+		}
+	}
+
+	&__subtitle {
+		margin-top: var(--space-8);
+		font-size: var(--typography-size-base);
+		color: var(--text-default-subtle);
+		font-weight: 400;
+
+		.orion-card--xs & {
+			font-size: var(--typography-size-sm);
+		}
+
+		.orion-card--sm & {
+			font-size: var(--typography-size-sm);
+		}
+
+		.orion-card--lg & {
+			font-size: var(--typography-size-lg);
+		}
+
+		.orion-card--xl & {
+			font-size: var(--typography-size-lg);
+		}
 	}
 
 	&__selected {
@@ -242,7 +283,7 @@
 		align-items: flex-end;
 		justify-content: flex-end;
 		pointer-events: none;
-		border-bottom-right-radius: var(--radius-medium);
+		border-bottom-right-radius: var(--radius-8);
 		overflow: hidden;
 		transform-origin: bottom right;
 		transform: scale(0);
@@ -400,7 +441,7 @@
 
 	&[class*='--gradient-'] {
 		color: var(--text-default-inverted);
-		.orion-card__title {
+		.orion-card__title, .orion-card__subtitle {
 			color: var(--text-default-inverted);
 		}
 	}
@@ -418,7 +459,7 @@
 	&--gradient-default.orion-card {
 		color: var(--text-default-default);
 
-		.orion-card__title {
+		.orion-card__title, .orion-card__subtitle {
 			color: var(--text-default-default);
 		}
 
@@ -433,7 +474,7 @@
 	&--gradient-inverse.orion-card {
 		color: var(--text-default-default);
 
-		.orion-card__title {
+		.orion-card__title, .orion-card__subtitle {
 			color: var(--text-default-default);
 		}
 
@@ -446,7 +487,21 @@
 		
 	}
 
+	&--no-elevation {
+		border: 1px solid var(--border-neutral-default);
+		box-shadow: none;
+
+		&:hover {
+			border: 1px solid var(--border-neutral-hover);
+		}
+
+		&:focus {
+			outline: 1px solid var(--border-neutral-focus);
+		}
+	}
+
 	&:not(.orion-card--no-elevation):hover {
+
 		body:not(.istouch) & {
 			z-index: 1;
 			transform: translate3d(0, -0.125rem, 0);

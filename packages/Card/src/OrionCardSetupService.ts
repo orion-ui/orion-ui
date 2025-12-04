@@ -33,6 +33,9 @@ export type OrionCardProps =
 	// @doc props/title the title of the card
 	// @doc/fr props/title titre de la carte
 	title?: string,
+	// @doc props/subtitle the subtitle of the card
+	// @doc/fr props/subtitle sous-titre de la carte
+	subtitle?: string,
 };
 
 export default class OrionCardSetupService extends SharedSetupService {
