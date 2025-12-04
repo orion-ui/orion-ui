@@ -13,13 +13,13 @@ export * from './DocumentService';
 export * from './DragNDropService';
 export * from './DynamicFlagService';
 export * from './LangService';
-// export * from './LoaderService';
+export * from './LoaderService';
 export * from './LocalStorageService';
 // export * from './ModalService';
 export * from './MonkeyService'; // @tree-shaking side effects
 export * from './MouseService';
 // export * from './NotifService';
-// export * from './OverlayService';
+export * from './OverlayService';
 export * from './PluralizeService';
 export * from './PopableQueueService';
 // export * from './PromptService';
