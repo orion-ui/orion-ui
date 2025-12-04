@@ -1,9 +1,10 @@
 import { h, render } from 'vue';
-import { PopableService } from './PopableService';
+
 import { OrionModal } from 'packages/Modal';
-import orionAppService from 'utils/Orion';
-import useDocument from './DocumentService';
+import { orionAppService } from 'utils/Orion';
+import { useDocument } from './DocumentService';
 import usePopableQueueService from './PopableQueueService';
+import { PopableService } from './PopableService';
 
 class ModalService extends PopableService<OrionModal> {
 	nameForDevtool = `OrionModal`;

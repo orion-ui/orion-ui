@@ -1,8 +1,8 @@
-import { nextTick, reactive, ref, watch } from 'vue';
 import { ChatService } from 'services/ChatService';
+import { useMonkey } from 'services/MonkeyService';
+import { usePluralize } from 'services/PluralizeService';
 import { isMac } from 'utils/tools';
-import usePluralize from 'services/PluralizeService';
-import useMonkey from 'services/MonkeyService';
+import { nextTick, reactive, ref, watch } from 'vue';
 import SharedSetupService from '../../Shared/SharedSetupService';
 
 export type OrionChatEmits = {

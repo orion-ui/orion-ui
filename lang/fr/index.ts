@@ -1,7 +1,7 @@
 import countries from './countries';
 import Pluralizer from './Pluralizer';
 
-export default {
+export const FrLang = {
 	pluralize: Pluralizer.pluralize,
 	countries: countries,
 

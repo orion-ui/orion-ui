@@ -1,9 +1,9 @@
-import { h, render, unref } from 'vue';
-import { PopableService } from './PopableService';
 import { OrionNotif } from 'packages/Notif';
-import orionAppService from 'utils/Orion';
-import useDocument from './DocumentService';
+import { orionAppService } from 'utils/Orion';
+import { h, render, unref } from 'vue';
+import { useDocument } from './DocumentService';
 import usePopableQueueService from './PopableQueueService';
+import { PopableService } from './PopableService';
 
 class NotifService extends PopableService<OrionNotif> {
 	nameForDevtool = `OrionNotif`;

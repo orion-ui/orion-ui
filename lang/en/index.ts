@@ -1,7 +1,7 @@
-import countries from './countries';
 import pluralize from 'pluralize';
+import countries from './countries';
 
-export default {
+export const EnLang = {
 	pluralize: pluralize,
 	countries: countries,
 

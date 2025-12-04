@@ -1,6 +1,6 @@
 import { ChatService } from 'services/ChatService';
+import { useMonkey } from 'services/MonkeyService';
 import { nextTick, reactive, ref, watch } from 'vue';
-import useMonkey from 'services/MonkeyService';
 import SharedSetupService from '../../Shared/SharedSetupService';
 
 export type OrionChatDiscussionListEmits = {

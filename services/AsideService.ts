@@ -1,9 +1,10 @@
 import { h, render } from 'vue';
-import { PopableService } from './PopableService';
+
 import { OrionAside } from 'packages/Aside';
-import orionAppService from 'utils/Orion';
-import useDocument from './DocumentService';
+import { orionAppService } from 'utils/Orion';
+import { useDocument } from './DocumentService';
 import usePopableQueueService from './PopableQueueService';
+import { PopableService } from './PopableService';
 
 class AsideService extends PopableService<OrionAside> {
 	nameForDevtool = `OrionAside`;

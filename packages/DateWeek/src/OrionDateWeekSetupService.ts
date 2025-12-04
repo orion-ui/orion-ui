@@ -1,5 +1,5 @@
+import { useMonkey } from 'services/MonkeyService';
 import { ModelRef, nextTick, reactive, ref } from 'vue';
-import useMonkey from 'services/MonkeyService';
 import SharedSetupService from '../../Shared/SharedSetupService';
 
 export type OrionDateWeekEmits = {}

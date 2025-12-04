@@ -34,5 +34,3 @@ export class Log {
 		return payload;
 	}
 }
-
-export default Log;

@@ -1,4 +1,4 @@
 // To be SSR friendly
-export default function useLocalStorage () {
+export function useLocalStorage () {
 	if (typeof localStorage !== 'undefined') return localStorage;
 }

@@ -1,8 +1,8 @@
 import { isNil } from 'lodash-es';
-import SharedSetupService from '../../Shared/SharedSetupService';
-import usePluralize from 'services/PluralizeService';
 import { getAppLang } from 'services/LangService';
+import { usePluralize } from 'services/PluralizeService';
 import { ModelRef } from 'vue';
+import SharedSetupService from '../../Shared/SharedSetupService';
 
 export type OrionListEmits = {
 	// @doc event/clear-selection/desc emitted to clear the selected items

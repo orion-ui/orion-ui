@@ -1,4 +1,4 @@
-import useLang from './LangService';
+import { useLang } from './LangService';
 
 class PluralizeService {
 	static get pluralize () {
@@ -6,6 +6,6 @@ class PluralizeService {
 	}
 }
 
-export default function usePluralize (words: string, quantity: number, quantityIncluded?: boolean) {
+export function usePluralize (words: string, quantity: number, quantityIncluded?: boolean) {
 	return PluralizeService.pluralize(words, quantity, quantityIncluded);
 }

@@ -51,4 +51,14 @@ jobs:
         run: node scripts/ci-build-lib.cjs
 
       - name: Publish to pkg.pr.new for pre-release
-        run: npx pkg-pr-new publish --compact
+        run: npx pkg-pr-new publish --compact --json output.json --comment=off
+
+      - name: Print install command
+        run: |
+          node -e "
+            const fs = require('fs');
+            const output = JSON.parse(fs.readFileSync('output.json', 'utf8'));
+            output.packages.forEach(pkg => {
+              console.log('::notice title=Install command::npm i ' + pkg.url);
+            });
+          "

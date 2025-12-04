@@ -1,5 +1,5 @@
 import { reactive } from 'vue';
-import { getUid } from '../utils/tools';
+import { getUid } from 'utils/tools';
 
 class UiService {
 	state = reactive({ token: getUid() });
