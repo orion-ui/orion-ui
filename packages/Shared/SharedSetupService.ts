@@ -23,7 +23,7 @@ export default abstract class SharedSetupService {
 
 	readonly _el = ref<HTMLElement>();
 
-	get router () { return orionAppInstance.appRouter ?? this.defaultRouter; }
+	get router () { return orionAppInstance?.appRouter ?? this.defaultRouter; }
 	get lang () { return useLang(); }
 
 	get publicInstance (): Record<string, any> & { _el?: () => HTMLElement | undefined } {

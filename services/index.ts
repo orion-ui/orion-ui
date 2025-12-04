@@ -18,7 +18,7 @@ export * from './LocalStorageService';
 // export * from './ModalService';
 export * from './MonkeyService'; // @tree-shaking side effects
 export * from './MouseService';
-// export * from './NotifService';
+export * from './NotifService';
 export * from './OverlayService';
 export * from './PluralizeService';
 export * from './PopableQueueService';

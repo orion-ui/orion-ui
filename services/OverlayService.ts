@@ -1,12 +1,5 @@
-import { Log } from 'utils/Log';
-
 export class OverlayService {
 	private globalOverlay?: OrionOverlay;
-
-
-	constructor () {
-		Log.orion(`OverlayService activated`);
-	}
 
 	/**
 	 * @desc adds a global overlay on the application. Used by **Orion** to set the main overlay

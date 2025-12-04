@@ -168,7 +168,7 @@ export default abstract class SharedPopableSetupService extends SharedSetupServi
 
 		if (this.options.programmatic) {
 			devtool?.on.visitComponentTree((payload: any) => {
-				if (payload.treeNode.uid === orionAppInstance.appInstance?.uid) {
+				if (payload.treeNode.uid === orionAppInstance?.appInstance?.uid) {
 					const index = payload.treeNode.children.findIndex((x: any) => (x as any).orionUid === this.uid);
 					if (index > -1) payload.treeNode.children.splice(index, 1);
 				}
@@ -271,9 +271,11 @@ export default abstract class SharedPopableSetupService extends SharedSetupServi
 
 	private async handleQueue () {
 		if (this.pendingQueue.length) {
-			this.options.overlay
-				? useOverlay().show()
-				: useOverlay().hide();
+			if (this.name !== 'OrionNotif') {
+				this.options.overlay
+					? useOverlay().show()
+					: useOverlay().hide();
+			}
 
 			// Replacement des OrionNotif
 			if (this.name === 'OrionNotif') {
@@ -299,14 +301,18 @@ export default abstract class SharedPopableSetupService extends SharedSetupServi
 
 			// Si il y a des entrées dans la queue, on affiche la première
 			const nextPending = this.pendingQueue[0];
-			nextPending.options.overlay
-				? useOverlay().show()
-				: useOverlay().hide();
+
+			if (this.name !== 'OrionNotif') {
+				nextPending.options.overlay
+					? useOverlay().show()
+					: useOverlay().hide();
+			}
+
 			await nextPending.animateAsync(true);
 		}
 
 		// Vérification si les queue Aside et Modal sont vide, on masque l'overlay
-		if (!usePopableQueueService().asideQueue.length && !usePopableQueueService().modalQueue.length) {
+		if (this.name !== 'OrionNotif' && !usePopableQueueService().asideQueue.length && !usePopableQueueService().modalQueue.length) {
 			useOverlay().hide();
 		}
 	}

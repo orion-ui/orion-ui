@@ -1,12 +1,5 @@
-import { Log } from 'utils/Log';
-
 export class LoaderService {
 	private globalLoader?: OrionLoader;
-
-
-	constructor () {
-		Log.orion(`LoaderService activated`);
-	}
 
 	/**
 	 * @desc adds a global loader on the application

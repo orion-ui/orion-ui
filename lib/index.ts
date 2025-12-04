@@ -14,6 +14,10 @@ const OrionPlugin: Plugin = {
 	install (app: App<any>, config?: Orion.Config) {
 		setOrionAppInstance(new OrionAppService());
 
+		if (!orionAppInstance) {
+			throw new Error('Orion app instance is not initialized');
+		}
+
 		orionAppInstance.init(app, {
 			prefix: 'o',
 			use: ['components', 'monkeyPatching'],

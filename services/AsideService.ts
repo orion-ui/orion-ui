@@ -15,7 +15,9 @@ class AsideService extends PopableService<OrionAside> {
 
 	createVNode () {
 		const vnode = h(OrionAside, { options: this.options });
-		vnode.appContext = orionAppInstance.appContext;
+		if (orionAppInstance?.appContext) {
+			vnode.appContext = orionAppInstance.appContext;
+		}
 
 		const container = useDocument()?.createElement('div');
 		if (container) {

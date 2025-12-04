@@ -11,12 +11,12 @@ import { handleTouchDevice, initThemeMode, setIconStyle } from './tools';
 
 
 export class OrionAppService {
-	private _app!: App;
+	private _app?: App;
 	private config!: Orion.AppServiceConfig;
 
 	get app () { return this._app; }
-	get appContext () { return this._app._context; }
-	get appInstance () { return this._app._instance; }
+	get appContext () { return this._app?._context; }
+	get appInstance () { return this._app?._instance; }
 	get appConfig () { return this.config; }
 	get appUse () { return this.config.use; }
 	get appPrefix () { return this.config.prefix; }
@@ -70,6 +70,7 @@ export class OrionAppService {
 	}
 
 	private preventVuePrefixWarning (): void {
+		if (!this._app) return;
 		this._app.config.warnHandler = (msg) => {
 			// Remove warning about property's name returned to template
 			// Orion use :
@@ -79,6 +80,7 @@ export class OrionAppService {
 	}
 
 	private registerGlobalComponents (): void {
+		if (!this._app) throw `Orion app instance is missing`;
 		if (!this.appPrefix) throw `key "prefix" is missing in config`;
 
 		OrionComponentsPlugin.install?.(this._app, this.appPrefix);
@@ -93,6 +95,7 @@ export class OrionAppService {
 	}
 
 	private createMainOverlay (): void {
+		if (!this.appContext) return;
 		const container = useDocument()?.createElement('div');
 		if (container) {
 			const vnode = createVNode(OrionOverlay, { global: true });
@@ -103,6 +106,7 @@ export class OrionAppService {
 	}
 
 	private createMainLoader (): void {
+		if (!this.appContext) return;
 		const container = useDocument()?.createElement('div');
 		if (container) {
 			const vnode = createVNode(OrionLoader, {

@@ -17,7 +17,9 @@ class NotifService extends PopableService<OrionNotif> {
 
 	createVNode () {
 		const vnode = h(OrionNotif, { options: this.options });
-		vnode.appContext = orionAppInstance.appContext;
+		if (orionAppInstance?.appContext) {
+			vnode.appContext = orionAppInstance.appContext;
+		}
 
 		const container = useDocument()?.createElement('div');
 		if (container) {

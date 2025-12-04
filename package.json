@@ -43,6 +43,7 @@
 	"sideEffects": false,
 	"scripts": {
 		"serve": "vite --port=9090",
+		"watch": "vite build --watch",
 		"build": "vite build",
 		"build:lib": "vite build && node scripts/ci-build-lib.cjs",
 		"build:hard": "vue-tsc --noEmit && vite build && node scripts/ci-build-lib.cjs",
