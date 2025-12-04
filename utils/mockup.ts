@@ -14,6 +14,7 @@ export const colors: Orion.Color[] = [
 	'warning',
 	'error',
 	'inverse',
+	'neutral',
 ];
 
 export const colorsAlt: Orion.ColorExtended[] = [
