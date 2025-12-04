@@ -4,10 +4,10 @@ import { useMonkey } from 'services/MonkeyService';
 import { Reactive } from 'utils/decorators';
 
 import type { ChatService } from '../../../services/ChatService';
-import OrionChatMessageEntity from '../../ChatMessage/src/OrionChatMessageEntity';
+import { OrionChatMessageEntity } from '../../ChatMessage/src/OrionChatMessageEntity';
 import SharedEntity from '../../Shared/SharedEntity';
 
-export default class OrionChatEntity extends SharedEntity<Orion.Chat.Discussion> {
+export class OrionChatEntity extends SharedEntity<Orion.Chat.Discussion> {
 	@Reactive private readonly state = {
 		hidden: false,
 		initialLoad: false,

@@ -1,9 +1,9 @@
 import { h, render } from 'vue';
 
 import { OrionAside } from 'packages/Aside';
-import { orionAppService } from 'utils/Orion';
+import { orionAppInstance } from 'utils/OrionAppInstance';
 import { useDocument } from './DocumentService';
-import usePopableQueueService from './PopableQueueService';
+import { usePopableQueueService } from './PopableQueueService';
 import { PopableService } from './PopableService';
 
 class AsideService extends PopableService<OrionAside> {
@@ -15,7 +15,7 @@ class AsideService extends PopableService<OrionAside> {
 
 	createVNode () {
 		const vnode = h(OrionAside, { options: this.options });
-		vnode.appContext = orionAppService.appContext;
+		vnode.appContext = orionAppInstance.appContext;
 
 		const container = useDocument()?.createElement('div');
 		if (container) {
@@ -38,6 +38,6 @@ class AsideService extends PopableService<OrionAside> {
 	}
 }
 
-export default function useAside (options: Partial<Orion.Aside.Options>) {
+export function useAside (options: Partial<Orion.Aside.Options>) {
 	return new AsideService(options).createVNode();
 }

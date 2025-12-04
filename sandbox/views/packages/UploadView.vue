@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { useValidation } from 'services';
+import { useValidation } from 'lib';
 import { reactive } from 'vue';
 
 const testValidation = reactive({ files: [] as File[] });

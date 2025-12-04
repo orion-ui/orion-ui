@@ -57,8 +57,12 @@ class DragNDropService {
 	}
 }
 
-const serviceInstance = new DragNDropService();
+// @tree-shaking lazy initialization
+let dragNDropServiceSingleton: DragNDropService;
 
-export default function useDragNDrop () {
-	return serviceInstance;
+export function useDragNDrop () {
+	if (!dragNDropServiceSingleton) {
+		dragNDropServiceSingleton = new DragNDropService();
+	}
+	return dragNDropServiceSingleton;
 }

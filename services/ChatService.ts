@@ -2,8 +2,8 @@ import { groupBy } from 'lodash-es';
 import mitt from 'mitt';
 import { Reactive } from 'utils/decorators';
 import { getUid } from 'utils/tools';
-import OrionChatEntity from '../packages/Chat/src/OrionChatEntity';
-import OrionChatMessageEntity from '../packages/ChatMessage/src/OrionChatMessageEntity';
+import { OrionChatEntity } from '../packages/Chat/src/OrionChatEntity';
+import { OrionChatMessageEntity } from '../packages/ChatMessage/src/OrionChatMessageEntity';
 import { useMonkey } from './MonkeyService';
 
 
@@ -209,7 +209,7 @@ export class ChatService {
 	// #endregion
 }
 
-export default function useChat (options: Orion.Chat.Options) {
+export function useChat (options: Orion.Chat.Options) {
 	return new ChatService(options);
 }
 

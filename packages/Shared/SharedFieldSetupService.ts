@@ -1,5 +1,5 @@
 import { debounce, DebouncedFunc, isNil } from 'lodash-es';
-import useValidation from 'services/ValidationService';
+import { useValidation } from 'services/ValidationService';
 import { useWindow } from 'services/WindowService';
 import { Validator } from 'utils/Validator';
 import { computed, ModelRef, reactive, ref } from 'vue';

@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import { useNotif } from 'services';
+import { useNotif } from 'lib';
 import { ref } from 'vue';
 
 const test = ref<OrionOtp>();

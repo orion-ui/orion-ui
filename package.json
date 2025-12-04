@@ -26,6 +26,11 @@
 			"types": "./dist/types/utils/index.d.ts",
 			"import": "./dist/utils.js",
 			"require": "./dist/utils.cjs"
+		},
+		"./services": {
+			"types": "./dist/types/services/index.d.ts",
+			"import": "./dist/services.js",
+			"require": "./dist/services.cjs"
 		}
 	},
 	"typings": "./dist/types/lib/index.d.ts",

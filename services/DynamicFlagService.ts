@@ -13,8 +13,12 @@ export class DynamicFlagService {
 
 }
 
-const dynamicFlagServiceSingleton = new DynamicFlagService();
+// @tree-shaking lazy initialization
+let dynamicFlagServiceSingleton: DynamicFlagService;
 
-export default function useDynamicFlagService (areaCode: CountryCode) {
+export function useDynamicFlagService (areaCode: CountryCode) {
+	if (!dynamicFlagServiceSingleton) {
+		dynamicFlagServiceSingleton = new DynamicFlagService();
+	}
 	return dynamicFlagServiceSingleton.getImageFromSlug(areaCode);
 }

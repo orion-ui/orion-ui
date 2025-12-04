@@ -1,6 +1,6 @@
-import { reactive } from 'vue';
-import { Validator } from 'utils/Validator';
 import { Log } from 'utils/Log';
+import { Validator } from 'utils/Validator';
+import { reactive } from 'vue';
 
 
 type FieldHasBeenFocusSetter = {
@@ -178,6 +178,6 @@ class ValidationService<T, V extends Orion.Validation.Rules<T>> {
 	}
 }
 
-export default function useValidation<T, V extends Orion.Validation.Rules<T>> (objectToValidate?: T, validatorRules?: V) {
+export function useValidation<T, V extends Orion.Validation.Rules<T>> (objectToValidate?: T, validatorRules?: V) {
 	return new ValidationService(objectToValidate, validatorRules);
 }

@@ -1,7 +1,7 @@
-import OrionChatEntity from '../../Chat/src/OrionChatEntity';
+import type { ChatService } from '../../../services/ChatService';
+import type { OrionChatEntity } from '../../Chat/src/OrionChatEntity';
 import SharedSetupService from '../../Shared/SharedSetupService';
-import OrionChatMessageEntity from './OrionChatMessageEntity';
-import { ChatService } from '../../../services/ChatService';
+import type { OrionChatMessageEntity } from './OrionChatMessageEntity';
 
 export type OrionChatMessageEmits = {}
 export type OrionChatMessageProps = {

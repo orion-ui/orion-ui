@@ -1,11 +1,11 @@
-import { nextTick, onMounted, onUnmounted, reactive, ref, watch } from 'vue';
+import { arrow, autoPlacement, autoUpdate, computePosition, offset, shift } from '@floating-ui/dom';
 import anime from 'animejs';
 import { debounce } from 'lodash-es';
-import SharedSetupService from '../../Shared/SharedSetupService';
+import { useConfirm } from 'services/ConfirmService';
+import { useLoader } from 'services/LoaderService';
 import { toggleGlobalListener } from 'utils/tools';
-import { autoPlacement, offset, shift, computePosition, arrow, autoUpdate } from '@floating-ui/dom';
-import useLoader from 'services/LoaderService';
-import useConfirm from 'services/ConfirmService';
+import { nextTick, onMounted, onUnmounted, reactive, ref, watch } from 'vue';
+import SharedSetupService from '../../Shared/SharedSetupService';
 
 export type OrionTourStepEmits = {}
 export type OrionTourStepProps = {
@@ -207,6 +207,7 @@ export default class OrionTourStepSetupService extends SharedSetupService {
 			} else {
 				this.calculateTooltipPosition();
 			}
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		} catch (e: any) {
 			this.showTimeoutModal();
 		}

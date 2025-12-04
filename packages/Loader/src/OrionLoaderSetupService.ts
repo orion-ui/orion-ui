@@ -1,7 +1,7 @@
+import { useLoader } from 'services/LoaderService';
 import { reactive, watchEffect } from 'vue';
-import SharedSetupService from '../../Shared/SharedSetupService';
-import useLoader from 'services/LoaderService';
 import SharedProps, { SharedPropsColor, SharedPropsSize } from '../../Shared/SharedProps';
+import SharedSetupService from '../../Shared/SharedSetupService';
 
 export type OrionLoaderEmits = {}
 export type OrionLoaderProps = SharedPropsColor &

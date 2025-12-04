@@ -44,6 +44,7 @@ export default defineConfig({
 			entry: {
 				orion: resolve(__dirname, 'lib/index.ts'),
 				utils: resolve(__dirname, 'utils/index.ts'),
+				services: resolve(__dirname, 'services/index.ts'),
 			},
 			name: 'Orion',
 		},

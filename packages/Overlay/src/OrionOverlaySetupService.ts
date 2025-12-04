@@ -1,8 +1,8 @@
-import { reactive } from 'vue';
 import { forEach } from 'lodash-es';
+import { useOverlay } from 'services/OverlayService';
+import { usePopableQueueService } from 'services/PopableQueueService';
+import { reactive } from 'vue';
 import SharedSetupService from '../../Shared/SharedSetupService';
-import useOverlay from 'services/OverlayService';
-import usePopableQueueService from 'services/PopableQueueService';
 
 export type OrionOverlayEmits = {}
 export type OrionOverlayProps = {

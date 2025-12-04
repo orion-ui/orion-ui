@@ -1,14 +1,14 @@
-import { nextTick, reactive, ref, render, watch } from 'vue';
-import mitt from 'mitt';
 import anime from 'animejs';
+import mitt from 'mitt';
+import { nextTick, reactive, ref, render, watch } from 'vue';
 
-import SharedSetupService from './SharedSetupService';
-import useOverlay from 'services/OverlayService';
-import usePopableQueueService from 'services/PopableQueueService';
-import { toggleGlobalListener } from 'utils/tools';
 import { devtool } from 'devtool';
-import { orionAppService } from 'utils/Orion';
+import { useOverlay } from 'services/OverlayService';
+import { usePopableQueueService } from 'services/PopableQueueService';
+import { orionAppInstance } from 'utils/OrionAppInstance';
 import { Reactive } from 'utils/decorators';
+import { toggleGlobalListener } from 'utils/tools';
+import SharedSetupService from './SharedSetupService';
 
 
 type Popable = OrionAside | OrionNotif | OrionModal;
@@ -168,7 +168,7 @@ export default abstract class SharedPopableSetupService extends SharedSetupServi
 
 		if (this.options.programmatic) {
 			devtool?.on.visitComponentTree((payload: any) => {
-				if (payload.treeNode.uid === orionAppService.appInstance?.uid) {
+				if (payload.treeNode.uid === orionAppInstance.appInstance?.uid) {
 					const index = payload.treeNode.children.findIndex((x: any) => (x as any).orionUid === this.uid);
 					if (index > -1) payload.treeNode.children.splice(index, 1);
 				}

@@ -30,8 +30,12 @@ class CountryService {
 
 }
 
-const serviceInstance = new CountryService();
+// @tree-shaking lazy initialization
+let countryServiceSingleton: CountryService;
 
-export default function useCountry () {
-	return serviceInstance;
+export function useCountry () {
+	if (!countryServiceSingleton) {
+		countryServiceSingleton = new CountryService();
+	}
+	return countryServiceSingleton;
 }

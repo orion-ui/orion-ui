@@ -1,8 +1,8 @@
 import { OrionNotif } from 'packages/Notif';
-import { orionAppService } from 'utils/Orion';
+import { orionAppInstance } from 'utils/OrionAppInstance';
 import { h, render, unref } from 'vue';
 import { useDocument } from './DocumentService';
-import usePopableQueueService from './PopableQueueService';
+import { usePopableQueueService } from './PopableQueueService';
 import { PopableService } from './PopableService';
 
 class NotifService extends PopableService<OrionNotif> {
@@ -17,7 +17,7 @@ class NotifService extends PopableService<OrionNotif> {
 
 	createVNode () {
 		const vnode = h(OrionNotif, { options: this.options });
-		vnode.appContext = orionAppService.appContext;
+		vnode.appContext = orionAppInstance.appContext;
 
 		const container = useDocument()?.createElement('div');
 		if (container) {
@@ -54,27 +54,25 @@ class NotifService extends PopableService<OrionNotif> {
 	}
 }
 
-const useNotif = {
+export const useNotif = {
 	info: (options: Partial<Orion.Notif.Options> | string, message?: string) => new NotifService({
 		icon: 'info',
 		...NotifService.sanitizeOptions(options, message),
 		color: 'info',
 	}).createVNode(),
 	success: (options: Partial<Orion.Notif.Options> | string, message?: string) => new NotifService({
-		icon: 'check_big',
+		icon: 'check',
 		...NotifService.sanitizeOptions(options, message),
 		color: 'success',
 	}).createVNode(),
 	warning: (options: Partial<Orion.Notif.Options> | string, message?: string) => new NotifService({
-		icon: 'triangle_warning',
+		icon: 'warning',
 		...NotifService.sanitizeOptions(options, message),
 		color: 'warning',
 	}).createVNode(),
 	danger: (options: Partial<Orion.Notif.Options> | string, message?: string) => new NotifService({
-		icon: 'stop_sign',
+		icon: 'dangerous',
 		...NotifService.sanitizeOptions(options, message),
 		color: 'danger',
 	}).createVNode(),
 };
-
-export default useNotif;

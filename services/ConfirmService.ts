@@ -1,6 +1,6 @@
 import { getUid, toggleGlobalListener } from 'utils/tools';
 import { useLang } from './LangService';
-import useModal from './ModalService';
+import { useModal } from './ModalService';
 
 class ConfirmService {
 	resolve!: (val: boolean) => void;
@@ -69,6 +69,6 @@ class ConfirmService {
 	}
 }
 
-export default function useConfirm (message: string, options?: Partial<Orion.Modal.Options>) {
+export function useConfirm (message: string, options?: Partial<Orion.Modal.Options>) {
 	return new ConfirmService(message, options).openConfirmModalAsync();
 }

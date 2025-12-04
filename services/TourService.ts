@@ -1,6 +1,6 @@
 import { Log } from 'utils/Log';
 
-export class TourService {
+class TourService {
 	state: Record<string, OrionTour> = {};
 	tour?: OrionTour;
 
@@ -40,9 +40,13 @@ export class TourService {
 	}
 }
 
-const serviceInstance = new TourService();
+// @tree-shaking lazy initialization
+let tourServiceSingleton: TourService;
 
-export default function useTour (name: string, tourComponent?: OrionTour) {
-	serviceInstance.tour = serviceInstance.state[name] ?? serviceInstance.register(name, tourComponent);
-	return serviceInstance;
+export function useTour (name: string, tourComponent?: OrionTour) {
+	if (!tourServiceSingleton) {
+		tourServiceSingleton = new TourService();
+	}
+	tourServiceSingleton.tour = tourServiceSingleton.state[name] ?? tourServiceSingleton.register(name, tourComponent);
+	return tourServiceSingleton;
 };

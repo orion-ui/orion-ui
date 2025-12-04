@@ -1,5 +1,5 @@
-import type { OrionAsideSetupService, OrionModalSetupService, OrionNotifSetupService } from '../packages';
 import { reactive } from 'vue';
+import type { OrionAsideSetupService, OrionModalSetupService, OrionNotifSetupService } from '../packages';
 
 class PopableQueueService {
 	private readonly _popables: Record<number, Orion.Popable.PublicIntance> = {};
@@ -29,8 +29,12 @@ class PopableQueueService {
 	}
 }
 
-const popableQueueServiceSingleton = new PopableQueueService();
+// @tree-shaking lazy initialization
+let popableQueueServiceSingleton: PopableQueueService;
 
-export default function usePopableQueueService () {
+export function usePopableQueueService () {
+	if (!popableQueueServiceSingleton) {
+		popableQueueServiceSingleton = new PopableQueueService();
+	}
 	return popableQueueServiceSingleton;
 }

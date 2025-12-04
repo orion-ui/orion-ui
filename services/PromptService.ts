@@ -1,7 +1,7 @@
 import { getUid, toggleGlobalListener } from 'utils/tools';
 import { reactive } from 'vue';
 import { useLang } from './LangService';
-import useModal from './ModalService';
+import { useModal } from './ModalService';
 
 class PromptService<T> {
 	resolve!: (val: Orion.Modal.PromptResolveType<T>) => void;
@@ -95,6 +95,6 @@ class PromptService<T> {
 	}
 }
 
-export default function usePrompt <T> (options?: Partial<Orion.Modal.Options>) {
+export function usePrompt <T> (options?: Partial<Orion.Modal.Options>) {
 	return new PromptService<T>(options).openPromptModalAsync();
 }

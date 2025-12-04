@@ -115,5 +115,3 @@ export class OrionAppService {
 		}
 	}
 }
-
-export const orionAppService = new OrionAppService();

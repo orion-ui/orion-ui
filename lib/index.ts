@@ -4,14 +4,17 @@
 import type { App, Plugin } from 'vue';
 
 import 'packages/Shared/styles/styles.less';
-import { orionAppService } from 'utils/Orion';
+import { OrionAppService } from 'utils/Orion';
+import { orionAppInstance, setOrionAppInstance } from 'utils/OrionAppInstance';
 import { setupDevtools } from '../devtool';
 import { applyMonkeyPatching } from '../services/MonkeyService';
 
 
 const OrionPlugin: Plugin = {
 	install (app: App<any>, config?: Orion.Config) {
-		orionAppService.init(app, {
+		setOrionAppInstance(new OrionAppService());
+
+		orionAppInstance.init(app, {
 			prefix: 'o',
 			use: ['components', 'monkeyPatching'],
 			lang: typeof navigator !== 'undefined' ? navigator.language.split('-')[0] : 'en',
@@ -19,22 +22,20 @@ const OrionPlugin: Plugin = {
 			...config,
 		} as Orion.AppServiceConfig);
 
-		if (orionAppService.appUse.includes('monkeyPatching')) {
+		if (orionAppInstance.appUse.includes('monkeyPatching')) {
 			applyMonkeyPatching();
 		}
 
-		setupDevtools(app, orionAppService);
+		setupDevtools(app, orionAppInstance);
 	},
 };
 
 
 export default OrionPlugin;
 
-export { orionAppService, OrionPlugin };
-
-// For export, use relative path
 export { materialIcons } from 'assets/fonts/materialIcons';
 export * from '../lang';
 export * from '../services';
 export * from '../utils';
+export { orionAppInstance, OrionPlugin };
 

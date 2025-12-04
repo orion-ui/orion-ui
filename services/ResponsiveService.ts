@@ -58,8 +58,12 @@ export class ResponsiveService {
 	}
 }
 
-const serviceInstance = new ResponsiveService();
+// @tree-shaking lazy initialization
+let responsiveServiceSingleton: ResponsiveService;
 
-export default function useResponsive () {
-	return serviceInstance;
+export function useResponsive () {
+	if (!responsiveServiceSingleton) {
+		responsiveServiceSingleton = new ResponsiveService();
+	}
+	return responsiveServiceSingleton;
 };

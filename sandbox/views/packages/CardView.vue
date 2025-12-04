@@ -67,8 +67,7 @@
 </template>
 
 <script setup lang="ts">
-import { colors, sizes, useNotif } from 'lib';
-import { useConfirm } from 'services';
+import { colors, sizes, useConfirm, useNotif } from 'lib';
 import { reactive, ref } from 'vue';
 
 const theOne = ref<OrionCard>();

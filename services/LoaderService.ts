@@ -40,8 +40,12 @@ export class LoaderService {
 	}
 }
 
-const serviceInstance = new LoaderService();
+// @tree-shaking lazy initialization
+let loaderServiceSingleton: LoaderService;
 
-export default function useLoader () {
-	return serviceInstance;
+export function useLoader () {
+	if (!loaderServiceSingleton) {
+		loaderServiceSingleton = new LoaderService();
+	}
+	return loaderServiceSingleton;
 };

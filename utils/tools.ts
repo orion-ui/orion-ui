@@ -7,14 +7,19 @@ import { useLocalStorage } from 'services/LocalStorageService';
 import { useWindow } from 'services/WindowService';
 import { Log } from './Log';
 
-const uidGenerator = function* () {
+const uidGeneratorFunction = function* () {
 	let index = 1;
 	while (true)
 		yield index++;
-}();
+};
+let uidGenerator: Generator<number, number, unknown> | undefined;
 
-
-export const getUid = () => uidGenerator.next().value;
+export const getUid = () => {
+	if (!uidGenerator) {
+		uidGenerator = uidGeneratorFunction();
+	}
+	return uidGenerator.next().value;
+};
 
 export const regexEmail = /^([a-zA-Z0-9_-]+([+.]{1}[a-zA-Z0-9_-]+)*)@([a-zA-Z0-9_-]+([.]{1}[a-zA-Z0-9_-]+)*)([.]{1}[a-z]{2,12})$/;
 

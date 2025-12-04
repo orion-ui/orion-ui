@@ -40,8 +40,12 @@ export class OverlayService {
 	}
 }
 
-const serviceInstance = new OverlayService();
+// @tree-shaking lazy initialization
+let overlayServiceSingleton: OverlayService;
 
-export default function useOverlay () {
-	return serviceInstance;
+export function useOverlay () {
+	if (!overlayServiceSingleton) {
+		overlayServiceSingleton = new OverlayService();
+	}
+	return overlayServiceSingleton;
 };

@@ -1,4 +1,4 @@
-import { ChatService } from 'services/ChatService';
+import type { ChatService } from 'services/ChatService';
 import { useMonkey } from 'services/MonkeyService';
 import { usePluralize } from 'services/PluralizeService';
 import { isMac } from 'utils/tools';

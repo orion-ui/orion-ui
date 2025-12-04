@@ -1,5 +1,5 @@
+import { getUid } from 'utils/tools/uid';
 import { reactive } from 'vue';
-import { getUid } from 'utils/tools';
 
 class UiService {
 	state = reactive({ token: getUid() });
@@ -13,8 +13,12 @@ class UiService {
 	}
 }
 
-const uiServiceSingleton = new UiService();
+// @tree-shaking lazy initialization
+let uiServiceSingleton: UiService;
 
-export default function useUi () {
+export function useUi () {
+	if (!uiServiceSingleton) {
+		uiServiceSingleton = new UiService();
+	}
 	return uiServiceSingleton;
 }

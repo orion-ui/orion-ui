@@ -1,9 +1,9 @@
 import { useMonkey } from 'services/MonkeyService';
-import type OrionChatEntity from '../../Chat/src/OrionChatEntity';
+import type { OrionChatEntity } from '../../Chat/src/OrionChatEntity';
 import SharedEntity from '../../Shared/SharedEntity';
 
 
-export default class OrionChatMessageEntity extends SharedEntity<Orion.Chat.Message> {
+export class OrionChatMessageEntity extends SharedEntity<Orion.Chat.Message> {
 	readonly discussion: OrionChatEntity;
 
 	get isRead () { return this.entity.isRead; }

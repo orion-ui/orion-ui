@@ -1,6 +1,6 @@
+import { useValidation } from 'services/ValidationService';
 import { ModelRef, reactive } from 'vue';
 import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetupServiceProps } from '../../Shared/SharedFieldSetupService';
-import useValidation from 'services/ValidationService';
 
 export type OrionPasswordEmits = SharedFieldSetupServiceEmits<string> & {}
 export type OrionPasswordProps = SharedFieldSetupServiceProps & {

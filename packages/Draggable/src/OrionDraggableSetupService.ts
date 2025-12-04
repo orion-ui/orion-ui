@@ -1,4 +1,4 @@
-import useDragNDrop from 'services/DragNDropService';
+import { useDragNDrop } from 'services/DragNDropService';
 import { useMonkey } from 'services/MonkeyService';
 import { toggleGlobalListener } from 'utils/tools';
 import { ModelRef, reactive } from 'vue';

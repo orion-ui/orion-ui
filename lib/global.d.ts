@@ -7,9 +7,9 @@ import { OrionAvatarProps } from 'packages/Avatar/src/OrionAvatarSetupService';
 import { Component } from 'vue';
 import { RouteLocationRaw, Router } from 'vue-router';
 import type { OrionAsideSetupService, OrionListProps, OrionModalSetupService, OrionNotifSetupService } from '../packages';
-import OrionChatEntity from '../packages/Chat/src/OrionChatEntity';
-import OrionChatMessageEntity from '../packages/ChatMessage/src/OrionChatMessageEntity';
-import useValidation from '../services/ValidationService';
+import type { OrionChatEntity } from '../packages/Chat/src/OrionChatEntity';
+import type { OrionChatMessageEntity } from '../packages/ChatMessage/src/OrionChatMessageEntity';
+import { useValidation } from '../services/ValidationService';
 import { Validator as ValidatorClass } from '../utils/Validator';
 
 declare global {
@@ -22,33 +22,6 @@ declare global {
 	type RefDom<T = HTMLElement> = undefined | HTMLElement & T;
 
 	type SetupProps<T> = Readonly<import('vue').ExtractPropTypes<T>>
-
-	type AsideAnimationHookType =
-	| 'asideEnterBefore'
-	| 'asideEnterStart'
-	| 'asideEnterEnd'
-	| 'asideLeaveBefore'
-	| 'asideLeaveStart'
-	| 'asideLeaveEnd'
-	;
-
-	type ModalAnimationHookType =
-	| 'modalEnterBefore'
-	| 'modalEnterStart'
-	| 'modalEnterEnd'
-	| 'modalLeaveBefore'
-	| 'modalLeaveStart'
-	| 'modalLeaveEnd'
-	;
-
-	type NotifAnimationHookType =
-	| 'notifEnterBefore'
-	| 'notifEnterStart'
-	| 'notifEnterEnd'
-	| 'notifLeaveBefore'
-	| 'notifLeaveStart'
-	| 'notifLeaveEnd'
-	;
 
 	namespace Orion {
 		type AppServiceConfig = {

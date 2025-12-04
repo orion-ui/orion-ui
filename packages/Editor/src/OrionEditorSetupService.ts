@@ -1,19 +1,19 @@
-import { ModelRef, reactive, ShallowRef } from 'vue';
-import { Editor, JSONContent, useEditor } from '@tiptap/vue-3';
-import StarterKit from '@tiptap/starter-kit';
-import Underline from '@tiptap/extension-underline';
-import TextAlign from '@tiptap/extension-text-align';
-import TextStyle from '@tiptap/extension-text-style';
+import Color from '@tiptap/extension-color';
 import Image from '@tiptap/extension-image';
 import Link from '@tiptap/extension-link';
-import Color from '@tiptap/extension-color';
+import TextAlign from '@tiptap/extension-text-align';
+import TextStyle from '@tiptap/extension-text-style';
+import Underline from '@tiptap/extension-underline';
 import Youtube from '@tiptap/extension-youtube';
+import StarterKit from '@tiptap/starter-kit';
+import { Editor, JSONContent, useEditor } from '@tiptap/vue-3';
+import { ModelRef, reactive, ShallowRef } from 'vue';
 
 import TextBackground from './editor/extensions/text-background';
 
+import { useNotif } from 'services/NotifService';
+import { usePrompt } from 'services/PromptService';
 import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetupServiceProps } from '../../Shared/SharedFieldSetupService';
-import usePrompt from 'services/PromptService';
-import useNotif from 'services/NotifService';
 
 export type OrionEditorEmits = SharedFieldSetupServiceEmits<Nil<string>> & {}
 export type OrionEditorProps = SharedFieldSetupServiceProps & {
