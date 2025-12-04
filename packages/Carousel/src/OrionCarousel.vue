@@ -35,7 +35,8 @@
 
 		<div
 			v-if="!hideNavigationButtons || !hideNavigationDots"
-			class="orion-carousel__navigation">
+			class="orion-carousel__navigation"
+			:class="{ 'orion-carousel__navigation--space-between': !centeredNavigation }">
 			<slot
 				name="navigation"
 				v-bind="{
@@ -44,21 +45,46 @@
 					goPreviousStep: () => setup.goPreviousStep(),
 					goNextStep: () => setup.goNextStep(),
 				}">
-				<orion-button
-					class="orion-carousel__navigation-previous"
-					:disabled="hideNavigationButtons || (!setup.shouldLoop && setup.stepIndex === 0)"
-					outline
-					size="sm"
-					prefix-icon="chevron_left"
-					@click="setup.goPreviousStep()"/>
+				<template v-if="centeredNavigation">
+					<orion-button
+						v-tooltip="`${useLang().PREVIOUS}`"
+						class="orion-carousel__navigation-previous"
+						:disabled="hideNavigationButtons || (!setup.shouldLoop && setup.stepIndex === 0)"
+						nude
+						size="sm"
+						prefix-icon="chevron_left"
+						@click="setup.goPreviousStep()"/>
 
-				<orion-button
-					class="orion-carousel__navigation-next"
-					:disabled="hideNavigationButtons || (!setup.shouldLoop && setup.stepIndex === (setup.stepsLength - 1))"
-					outline
-					size="sm"
-					suffix-icon="chevron_right"
-					@click="setup.goNextStep()"/>
+					<orion-button
+						v-tooltip="`${useLang().NEXT}`"
+						class="orion-carousel__navigation-next"
+						:disabled="hideNavigationButtons || (!setup.shouldLoop && setup.stepIndex === (setup.stepsLength - 1))"
+						nude
+						size="sm"
+						suffix-icon="chevron_right"
+						@click="setup.goNextStep()"/>
+				</template>
+				<div
+					v-else
+					class="orion-carousel__navigation-buttons">
+					<orion-button
+						v-tooltip="`${useLang().PREVIOUS}`"
+						class="orion-carousel__navigation-previous"
+						:disabled="hideNavigationButtons || (!setup.shouldLoop && setup.stepIndex === 0)"
+						nude
+						size="sm"
+						prefix-icon="chevron_left"
+						@click="setup.goPreviousStep()"/>
+
+					<orion-button
+						v-tooltip="`${useLang().NEXT}`"
+						class="orion-carousel__navigation-next"
+						:disabled="hideNavigationButtons || (!setup.shouldLoop && setup.stepIndex === (setup.stepsLength - 1))"
+						nude
+						size="sm"
+						suffix-icon="chevron_right"
+						@click="setup.goNextStep()"/>
+				</div>
 			</slot>
 
 			<div
@@ -104,6 +130,7 @@ import './OrionCarousel.less';
 import OrionCarouselSetupService from './OrionCarouselSetupService';
 import OrionButton from 'packages/Button/src/OrionButton.vue';
 import type { OrionCarouselProps, OrionCarouselEmits } from './OrionCarouselSetupService';
+import { useLang } from 'services';
 const slots = defineSlots();
 const vModel = defineModel<Undef<number | string>>({ required: true });
 const emits = defineEmits<OrionCarouselEmits>() as OrionCarouselEmits;

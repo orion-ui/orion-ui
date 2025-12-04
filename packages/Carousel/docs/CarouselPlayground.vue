@@ -55,6 +55,11 @@
 				v-model="state.hideNavigationDots"
 				label="Hide navigation dots"/>
 		</div>
+		<div class="col-sm-4">
+			<o-toggle
+				v-model="state.centeredNavigation"
+				label="Centered navigation"/>
+		</div>
 	</div>
 </template>
 
@@ -86,11 +91,12 @@ function getSteps () {
 const state = reactive({
 	stepTimer: 0,
 	pauseOnHover: false,
-	color: 'brand' as Orion.Color,
+	color: 'primary' as Orion.Color,
 	loop: false,
 	hideNavigationButtons: false,
 	hideNavigationDots: false,
 	modelValue: 0,
+	centeredNavigation: true,
 });
 
 const steps = getSteps();
