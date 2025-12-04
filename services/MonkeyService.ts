@@ -1,6 +1,5 @@
 /* eslint-disable max-len */
 import { escapeRegExp, get, isArray, isDate, isNil } from 'lodash-es';
-import { Log } from 'utils/Log';
 import { prefixWithZeros } from 'utils/tools';
 import { getAppLang, useLang } from './LangService';
 import { usePluralize } from './PluralizeService';
@@ -834,6 +833,4 @@ export function applyMonkeyPatching () {
 	stringMethodsToPatch.forEach((x) => {
 		Object.defineProperty(String.prototype, x, { value: stringPrototypeToPatch[x] });
 	});
-
-	Log.orion(`MonkeyPatching activated`);
 }

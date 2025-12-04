@@ -5,7 +5,7 @@ import { Reactive } from 'utils/decorators';
 
 import type { ChatService } from '../../../services/ChatService';
 import { OrionChatMessageEntity } from '../../ChatMessage/src/OrionChatMessageEntity';
-import SharedEntity from '../../Shared/SharedEntity';
+import { SharedEntity } from '../../Shared/SharedEntity';
 
 export class OrionChatEntity extends SharedEntity<Orion.Chat.Discussion> {
 	@Reactive private readonly state = {

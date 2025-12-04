@@ -6,19 +6,6 @@ import { OrionChatEntity } from '../packages/Chat/src/OrionChatEntity';
 import { OrionChatMessageEntity } from '../packages/ChatMessage/src/OrionChatMessageEntity';
 import { useMonkey } from './MonkeyService';
 
-
-const defaultConfig: Omit<Orion.Chat.Config, 'user'> & {user: Undef<Orion.Chat.User>} = {
-	user: undefined as Undef<Orion.Chat.User>,
-	allowDiscussionSearch: true,
-	discussionSearchTimer: 500,
-	allowDiscussionCreation: true,
-	allowMessageStatus: true,
-	messageFetcherAsync: async () => [],
-	onActiveDiscussionChange: () => null,
-	onMessageReadAsync: () => null,
-	onNewMessageAsync: () => null,
-};
-
 export class ChatService {
 	id = getUid();
 
@@ -61,7 +48,16 @@ export class ChatService {
 
 	constructor (options: Orion.Chat.Options) {
 		this.config = {
-			...defaultConfig,
+			// begin default config
+			allowDiscussionSearch: true,
+			discussionSearchTimer: 500,
+			allowDiscussionCreation: true,
+			allowMessageStatus: true,
+			messageFetcherAsync: async () => [],
+			onActiveDiscussionChange: () => null,
+			onMessageReadAsync: () => null,
+			onNewMessageAsync: () => null,
+			// end default config
 			...options,
 		};
 	}

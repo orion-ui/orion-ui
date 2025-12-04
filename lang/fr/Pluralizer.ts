@@ -1,130 +1,130 @@
 export class Pluralizer {
-	static pluralize (words: string, quantity: number, quantityIncluded = true) {
+	private pronouns = new Map([
+		[`l'`, 'les '],
+		['le', 'les'],
+		['la', 'les'],
+		['un', 'des'],
+		['une', 'des'],
+		['mon', 'mes'],
+		['ton', 'tes'],
+		['son', 'ses'],
+		['notre', 'nos'],
+		['votre', 'vos'],
+		['leur', 'leurs'],
+		['ce', 'ces'],
+		['cet', 'ces'],
+		['cette', 'ces'],
+	]);
+
+	private ouExceptions = [
+		'bijou',
+		'caillou',
+		'chou',
+		'genou',
+		'hibou',
+		'joujou',
+		'pou',
+	];
+
+	private alExceptions = [
+		'astronaval',
+		'aéronaval',
+		'aval',
+		'bal',
+		'banal',
+		'bancal',
+		'carnaval',
+		'cérémonial',
+		'chacal',
+		'choral',
+		'étal',
+		'fatal',
+		'festival',
+		'final',
+		'mistral',
+		'natal',
+		'naval',
+		'récital',
+		'régal',
+	];
+
+	private ailExceptions = [
+		'aspirail',
+		'bail',
+		'corail',
+		'émail',
+		'fermail',
+		'gemmail',
+		'soupirail',
+		'travail',
+		'vantail',
+		'ventail',
+		'vitrail',
+	];
+
+	private noFormatting = (word: string): string => word;
+	private auFormatting = (word: string): string => `${word}x`;
+
+	private cielFormatting = (): string => 'cieux';
+	private oeilFormatting = (): string => 'yeux';
+
+	private ouFormatting = (word: string): string => {
+		return this.ouExceptions.includes(word) ? `${word}x` : `${word}s`;
+	};
+
+	private alFormatting = (word: string): string => {
+		const formattedWord = word.substr(0, word.length - 1);
+		return this.alExceptions.includes(word) ? `${word}s` : `${formattedWord}ux`;
+	};
+
+	private ailFormatting = (word: string): string => {
+		const formattedWord = word.substr(0, word.length - 2);
+		return this.ailExceptions.includes(word) ? `${formattedWord}ux` : `${word}s`;
+	};
+
+	private exceptions = new Map([
+		['s', this.noFormatting],
+		['x', this.noFormatting],
+		['z', this.noFormatting],
+		['au', this.auFormatting],
+		['eu', this.auFormatting],
+		['ou', this.ouFormatting],
+		['al', this.alFormatting],
+		['ail', this.ailFormatting],
+		['ciel', this.cielFormatting],
+		['oeil', this.oeilFormatting],
+		['œil', this.oeilFormatting],
+	]);
+
+	pluralize (words: string, quantity: number, quantityIncluded = true) {
 		const prefix = quantityIncluded ? `${quantity} ` : '';
 
 		if (quantity >= 2 || quantity <= -2) {
-			return prefix + Pluralizer.pluralizeWords(words);
+			return prefix + this.pluralizeWords(words);
 		} else {
 			return prefix + words;
 		}
 	}
 
-	private static pluralizeWords (words: string) {
+	private pluralizeWords (words: string) {
 		let wordsFormatted = '';
 		words.split(' ').forEach((element: string, index: number) => {
 			if (index > 0) wordsFormatted += ' ';
-			wordsFormatted += Pluralizer.pluralizeSingleWord(element);
+			wordsFormatted += this.pluralizeSingleWord(element);
 		});
-		return wordsFormatted.replace(/l'/g, pronouns.get(`l'`));
+		return wordsFormatted.replace(/l'/g, this.pronouns.get(`l'`)!);
 	}
 
-	private static pluralizeSingleWord (word: string) {
-		const pronoun = pronouns.get(word);
+	private pluralizeSingleWord (word: string) {
+		const pronoun = this.pronouns.get(word);
 		if (pronoun) return pronoun;
 
 		const count = word.length < 4 ? word.length + 1 : 5;
 		for (let i = 1; i < count; i++) {
-			const end = word.substr(word.length - i);
-			const formatFunction = exceptions.get(end);
+			const end = word.substring(word.length - i);
+			const formatFunction = this.exceptions.get(end);
 			if (formatFunction) return formatFunction(word);
 		}
 		return `${word}s`;
 	}
 }
-
-// #region Methods for pronoun's formatting
-const pronouns = new Map();
-pronouns.set(`l'`, 'les ');
-pronouns.set('le', 'les');
-pronouns.set('la', 'les');
-pronouns.set('un', 'des');
-pronouns.set('une', 'des');
-pronouns.set('mon', 'mes');
-pronouns.set('ton', 'tes');
-pronouns.set('son', 'ses');
-pronouns.set('notre', 'nos');
-pronouns.set('votre', 'vos');
-pronouns.set('leur', 'leurs');
-pronouns.set('ce', 'ces');
-pronouns.set('cet', 'ces');
-pronouns.set('cette', 'ces');
-// #endregion
-
-// #region Methods for word's formatting
-const ouExceptions = [
-	'bijou',
-	'caillou',
-	'chou',
-	'genou',
-	'hibou',
-	'joujou',
-	'pou',
-];
-
-const alExceptions = [
-	'astronaval',
-	'aéronaval',
-	'aval',
-	'bal',
-	'banal',
-	'bancal',
-	'carnaval',
-	'cérémonial',
-	'chacal',
-	'choral',
-	'étal',
-	'fatal',
-	'festival',
-	'final',
-	'mistral',
-	'natal',
-	'naval',
-	'récital',
-	'régal',
-];
-
-const ailExceptions = [
-	'aspirail',
-	'bail',
-	'corail',
-	'émail',
-	'fermail',
-	'gemmail',
-	'soupirail',
-	'travail',
-	'vantail',
-	'ventail',
-	'vitrail',
-];
-
-const noFormatting = (word: string): string => word;
-const auFormatting = (word: string): string => `${word}x`;
-
-const cielFormatting = (): string => 'cieux';
-const oeilFormatting = (): string => 'yeux';
-
-const ouFormatting = (word: string): string => ouExceptions.includes(word) ? `${word}x` : `${word}s`;
-const alFormatting = (word: string): string => {
-	const formattedWord = word.substr(0, word.length - 1);
-	return alExceptions.includes(word) ? `${word}s` : `${formattedWord}ux`;
-};
-const ailFormatting = (word: string): string => {
-	const formattedWord = word.substr(0, word.length - 2);
-	return ailExceptions.includes(word) ? `${formattedWord}ux` : `${word}s`;
-};
-
-const exceptions = new Map();
-exceptions.set('s', noFormatting);
-exceptions.set('x', noFormatting);
-exceptions.set('z', noFormatting);
-exceptions.set('au', auFormatting);
-exceptions.set('eu', auFormatting);
-exceptions.set('ou', ouFormatting);
-exceptions.set('al', alFormatting);
-exceptions.set('ail', ailFormatting);
-exceptions.set('ciel', cielFormatting);
-exceptions.set('oeil', oeilFormatting);
-exceptions.set('œil', oeilFormatting);
-// #endregion
-
-export default Pluralizer;

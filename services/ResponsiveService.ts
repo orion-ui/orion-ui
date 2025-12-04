@@ -1,5 +1,4 @@
 import { debounce } from 'lodash-es';
-import { Log } from 'utils/Log';
 import { reactive } from 'vue';
 import { useWindow } from './WindowService';
 
@@ -38,8 +37,6 @@ export class ResponsiveService {
 
 
 	constructor (options?: ResponsiveServiceOptions) {
-		Log.orion(`ResponsiveService activated`);
-
 		if (options) {
 			Object.assign(this, options);
 		}
