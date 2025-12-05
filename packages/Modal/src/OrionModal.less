@@ -53,8 +53,8 @@
 	&__title {
 		flex: 1 0 0%;
 		margin: 0;
-		padding: var(--space-32) var(--space-48) var(--space-32)
-			var(--space-48);
+		padding: var(--spacing-32) var(--spacing-48) var(--spacing-32)
+			var(--spacing-48);
 		font-weight: 600;
 	}
 
@@ -68,10 +68,10 @@
 		order: 1;
 		flex: 1 1 auto;
 		border-radius: var(--radius-large);
-		padding: var(--space-48);
+		padding: var(--spacing-48);
 
 		.orion-modal__footer:not(:empty) + & {
-			padding-bottom: var(--space-16);
+			padding-bottom: var(--spacing-16);
 		}
 
 		// #region Pure CSS scroll shadow
@@ -125,39 +125,39 @@
 		// #endregion
 
 		@media @tablet {
-			padding: var(--space-48);
+			padding: var(--spacing-48);
 
 			.orion-modal__footer:not(:empty) + & {
-				padding-bottom: var(--space-48);
+				padding-bottom: var(--spacing-48);
 
 				.orion-modal--xs & {
-					padding-bottom: var(--space-16);
+					padding-bottom: var(--spacing-16);
 				}
 			}
 		}
 
 		.orion-modal--sm & {
-			padding: var(--space-48);
+			padding: var(--spacing-48);
 		}
 		.orion-modal--xs & {
-			padding: var(--space-48);
+			padding: var(--spacing-48);
 		}
 	}
 
 	&__footer {
 		order: 2;
 		flex: 0 0 auto;
-		padding: var(--space-48) var(--space-48);
+		padding: var(--spacing-48) var(--spacing-48);
 
 		@media @tablet {
-			padding: var(--space-48) var(--space-48);
+			padding: var(--spacing-48) var(--spacing-48);
 		}
 
 		.orion-modal--sm & {
-			padding: var(--space-48) var(--space-48);
+			padding: var(--spacing-48) var(--spacing-48);
 		}
 		.orion-modal--xs & {
-			padding: var(--space-48);
+			padding: var(--spacing-48);
 		}
 
 		&:empty {

@@ -160,7 +160,7 @@
 	}
 
 	each(@spacings, {
-		@space: ~"--space-@{value}";
+		@space: ~"--spacing-@{value}";
 		&.g-@{value} {
 			gap: var(@space);
 		}
@@ -182,7 +182,7 @@
 }
 
 each(@sizes, {
-	@size: ~"--space-@{value}";
+	@size: ~"--spacing-@{value}";
 	
 	.mt-@{value} {
 		margin-top: var(@size);
