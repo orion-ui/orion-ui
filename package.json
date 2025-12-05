@@ -45,7 +45,8 @@
 		"docs:build": "vuepress build docs",
 		"find:vars": "ts-node scripts/find-unknown-vars.ts packages --styles=packages/Shared/styles",
 		"find:vars:docs": "ts-node scripts/find-unknown-vars.ts docs --styles=packages/Shared/styles",
-		"test:ds": "npm run find:vars && npm run find:vars:docs && npm run lint:styles"
+		"test:ds": "npm run find:vars && npm run find:vars:docs && npm run lint:styles",
+		"build:tokens": "ts-node scripts/private/build-tokens.ts"
 	},
 	"dependencies": {
 		"@clack/prompts": "^0.8.2",
