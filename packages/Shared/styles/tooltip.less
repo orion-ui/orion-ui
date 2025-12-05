@@ -19,7 +19,7 @@
 
 		.v-popper__inner {
 			color: var(--text-default-default);
-			padding: var(--space-16);
+			padding: var(--spacing-16);
 			border-radius: var(--radius-medium);
 		}
 
@@ -64,7 +64,7 @@
 	&-tooltip {
 		pointer-events: none;
 		.v-popper__inner {
-			padding: var(--space-16) var(--space-32);
+			padding: var(--spacing-16) var(--spacing-32);
 			color: var(--text-default-inverted);
 		}
 	}
@@ -81,7 +81,7 @@
 	&-orion-editor-toolbar {
 		.v-popper {
 			&__inner {
-				padding: var(--space-8);
+				padding: var(--spacing-8);
 
 				.orion-button {
 					box-shadow: none;
@@ -92,7 +92,7 @@
 					}
 
 					+ .orion-button {
-						margin-left: var(--space-8);
+						margin-left: var(--spacing-8);
 					}
 				}
 			}
@@ -101,8 +101,8 @@
 
 	&-orion-select-searchable {
 		&.v-popper__popper--no-positioning .orion-select__popover {
-			height: calc(90vh - var(--space-48)); // dvh support fallback
-			height: calc(90dvh - var(--space-48));
+			height: calc(90vh - var(--spacing-48)); // dvh support fallback
+			height: calc(90dvh - var(--spacing-48));
 			max-height: none;
 		}
 	}
