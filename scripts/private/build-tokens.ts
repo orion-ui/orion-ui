@@ -1,4 +1,3 @@
-// scripts/private/build-tokens.ts
 import fs from 'fs';
 import path from 'path';
 
@@ -20,8 +19,6 @@ const paths = {
 if (!fs.existsSync(paths.outDir)) {
 	fs.mkdirSync(paths.outDir, { recursive: true });
 }
-
-// ---------- utils ----------
 
 function readJson (p: string): any {
 	return JSON.parse(fs.readFileSync(p, 'utf8'));
@@ -100,11 +97,55 @@ function tokenNameToCssVar (name: string): string {
 	);
 }
 
-// ici tu pourras raffiner selon type (px, %, etc.)
-function toCssValue (type: string | undefined, value: any): string {
-	if (type === 'color') return String(value);
-	if (type === 'number') return String(value);
-	return String(value);
+function toCssValue (
+	tokenName: string,
+	type: string | undefined,
+	value: any,
+): string {
+	const raw = String(value);
+
+	// CAS SPÉCIAL : font-weight (typography.weight.*)
+	if (tokenName.startsWith('typography.weight.')) {
+		const num = parseFloat(raw); // 31.25
+		if (!Number.isNaN(num)) {
+			const weight = Math.round(num * 16);
+			return String(weight);
+		}
+		return raw.replace(/[^0-9.]/g, '');
+	}
+
+	// DIMENSIONS : on veut du rem
+	if (type === 'dimension') {
+		// Si c'est déjà en rem -> on renvoie tel quel
+		if (/rem$/i.test(raw)) {
+			return raw;
+		}
+
+		// Si c'est en px -> on convertit en rem (16px = 1rem)
+		if (/px$/i.test(raw)) {
+			const num = parseFloat(raw);
+			if (!Number.isNaN(num)) {
+				return `${num / 16}rem`;
+			}
+		}
+
+		// Si c'est juste un nombre -> on le considère comme rem
+		if (/^[0-9.]+$/.test(raw)) {
+			return `${raw}rem`;
+		}
+
+		return raw;
+	}
+
+	if (type === 'color') {
+		return raw;
+	}
+
+	if (type === 'number') {
+		return raw;
+	}
+
+	return raw;
 }
 
 function buildLessForTheme (
@@ -116,18 +157,17 @@ function buildLessForTheme (
 	let css = `:root[data-theme="${themeName}"] {\n`;
 
 	for (const [name, meta] of Object.entries(flat)) {
-		const { type, value } = meta as FlatToken;
+		const { type, value } = meta as { type?: string; value: any };
 		const resolved = resolveValue(value, primitiveTokens);
 		const cssVar = tokenNameToCssVar(name);
-		const cssValue = toCssValue(type, resolved);
+		const cssValue = toCssValue(name, type, resolved);
+
 		css += `  ${cssVar}: ${cssValue};\n`;
 	}
 
 	css += '}\n';
 	return css;
 }
-
-// ---------- main ----------
 
 function main () {
 	const primitive = readJson(paths.primitive);

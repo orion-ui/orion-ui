@@ -463,107 +463,107 @@
     "lineHeight": {
       "h1": {
         "$type": "dimension",
-        "$value": "56px"
+        "$value": "3.5rem"
       },
       "lg": {
         "$type": "dimension",
-        "$value": "27px"
+        "$value": "1.688rem"
       },
       "base": {
         "$type": "dimension",
-        "$value": "25px"
+        "$value": "1.562rem"
       },
       "sm": {
         "$type": "dimension",
-        "$value": "20px"
+        "$value": "1.25rem"
       },
       "xs": {
         "$type": "dimension",
-        "$value": "18px"
+        "$value": "1.125rem"
       },
       "jumbo": {
         "$type": "dimension",
-        "$value": "100px"
+        "$value": "6.25rem"
       },
       "h5": {
         "$type": "dimension",
-        "$value": "32px"
+        "$value": "2rem"
       },
       "h4": {
         "$type": "dimension",
-        "$value": "32px"
+        "$value": "2rem"
       },
       "h3": {
         "$type": "dimension",
-        "$value": "40px"
+        "$value": "2.5rem"
       },
       "h2": {
         "$type": "dimension",
-        "$value": "48px"
+        "$value": "3rem"
       }
     },
     "weight": {
       "medium": {
         "$type": "dimension",
-        "$value": "500px"
+        "$value": "31.25rem"
       },
       "bold": {
         "$type": "dimension",
-        "$value": "700px"
+        "$value": "43.75rem"
       },
       "semibold": {
         "$type": "dimension",
-        "$value": "600px"
+        "$value": "37.5rem"
       },
       "extrabold": {
         "$type": "dimension",
-        "$value": "800px"
+        "$value": "50rem"
       },
       "normal": {
         "$type": "dimension",
-        "$value": "400px"
+        "$value": "25rem"
       }
     },
     "size": {
       "h5": {
         "$type": "dimension",
-        "$value": "19.2px"
+        "$value": "1.2rem"
       },
       "h4": {
         "$type": "dimension",
-        "$value": "23.04px"
+        "$value": "1.44rem"
       },
       "jumbo": {
         "$type": "dimension",
-        "$value": "80px"
+        "$value": "5rem"
       },
       "h3": {
         "$type": "dimension",
-        "$value": "27.65px"
+        "$value": "1.728rem"
       },
       "h1": {
         "$type": "dimension",
-        "$value": "39.81px"
+        "$value": "2.488rem"
       },
       "base": {
         "$type": "dimension",
-        "$value": "16px"
+        "$value": "1rem"
       },
       "xs": {
         "$type": "dimension",
-        "$value": "11.1px"
+        "$value": "0.694rem"
       },
       "h2": {
         "$type": "dimension",
-        "$value": "33.18px"
+        "$value": "2.074rem"
       },
       "lg": {
         "$type": "dimension",
-        "$value": "18px"
+        "$value": "1.125rem"
       },
       "sm": {
         "$type": "dimension",
-        "$value": "13.33px"
+        "$value": "0.833rem"
       }
     }
   },
@@ -588,15 +588,15 @@
   "opacity": {
     "moderate": {
       "$type": "dimension",
-      "$value": "80px"
+      "$value": "5rem"
     },
     "subtle": {
       "$type": "dimension",
-      "$value": "40px"
+      "$value": "2.5rem"
     },
     "minimal": {
       "$type": "dimension",
-      "$value": "20px"
+      "$value": "1.25rem"
     }
   },
   "height": {
@@ -626,7 +626,7 @@
   "spacing": {
     "0": {
       "$type": "dimension",
-      "$value": "0px"
+      "$value": "0rem"
     },
     "2": {
       "$type": "dimension",
