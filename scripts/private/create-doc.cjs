@@ -65,6 +65,7 @@ class DocUtility {
 	docFlags = {
 		en: '',
 		fr: '',
+		private: '',
 	};
 
 	packagesFolderPath = path.resolve(__dirname, '../../packages');
@@ -77,19 +78,24 @@ class DocUtility {
 		return {
 			en: (text.match(/@doc (.|\s)*?\n/g)?.map(x => x.replace('@doc ', '')) ?? []).join(''),
 			fr: (text.match(/@doc\/fr (.|\s)*?\n/g)?.map(x => x.replace('@doc\/fr ', '')) ?? []).join(''),
+			private: (text.match(/@doc\/private (.|\s)*?\n/g)?.map(x => x.replace('@doc\/private ', '')) ?? []).join(''),
 		};
 	}
 
 	getDoc (/** @type {string} */ regexPattern, flags = 'gm') {
 		if (this.docFlags === undefined) log.error(`Forgot to extract doc flags`);
+		const privateRegexWithDesc = new RegExp(regexPattern, flags);
+		const privateRegexWithoutDesc = new RegExp(regexPattern.replace(' (.*)$', '$'), flags);
 		return {
 			en: new RegExp(regexPattern, flags).exec(this.docFlags.en)?.[1] ?? this.missingDoc,
 			fr: new RegExp(regexPattern, flags).exec(this.docFlags.fr)?.[1] ?? this.missingDoc,
+			private: privateRegexWithDesc.test(this.docFlags.private) || privateRegexWithoutDesc.test(this.docFlags.private),
 		};
 	}
 
 	getPropsDesciption (/** @type {string} */ name) {
-		const desc = this.getDoc(`^props\/${name} (.*)$`);
+		log.warn('Getting prop description for:', name);
+		const desc = this.getDoc(`props\/${name} (.*)$`);
 		return desc;
 	}
 }
@@ -727,6 +733,7 @@ class SetupServiceFileScanner extends DocScanner {
 		type.getProperties().forEach((prop) => {
 			const name = prop.getName();
 			const desc = this.getPropsDesciption(name);
+
 			const valueDeclaration = prop.getValueDeclaration();
 			let type = 'unknown';
 
@@ -737,15 +744,17 @@ class SetupServiceFileScanner extends DocScanner {
 				type = symbolType.getText().replace(/as Orion.*/, '');
 			}
 
-			properties[name] = {
-				name,
-				type,
-				desc,
-			};
+			if (!desc.private) {
+				properties[name] = {
+					name,
+					type,
+					desc,
+				};
 
-			// Add sharedProps value
-			properties[name].defaultValue = sharedProps.get(name)?.defaultValue;
-			properties[name].desc = sharedProps.get(name)?.desc ?? properties[name].desc;
+				// Add sharedProps value
+				properties[name].defaultValue = sharedProps.get(name)?.defaultValue;
+				properties[name].desc = sharedProps.get(name)?.desc ?? properties[name].desc;
+			}
 		});
 
 
