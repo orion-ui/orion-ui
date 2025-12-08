@@ -51,7 +51,6 @@
 						class="orion-carousel__navigation-previous"
 						:disabled="hideNavigationButtons || (!setup.shouldLoop && setup.stepIndex === 0)"
 						nude
-						size="sm"
 						prefix-icon="chevron_left"
 						@click="setup.goPreviousStep()"/>
 
@@ -60,7 +59,6 @@
 						class="orion-carousel__navigation-next"
 						:disabled="hideNavigationButtons || (!setup.shouldLoop && setup.stepIndex === (setup.stepsLength - 1))"
 						nude
-						size="sm"
 						suffix-icon="chevron_right"
 						@click="setup.goNextStep()"/>
 				</template>
@@ -72,7 +70,6 @@
 						class="orion-carousel__navigation-previous"
 						:disabled="hideNavigationButtons || (!setup.shouldLoop && setup.stepIndex === 0)"
 						nude
-						size="sm"
 						prefix-icon="chevron_left"
 						@click="setup.goPreviousStep()"/>
 
@@ -81,7 +78,6 @@
 						class="orion-carousel__navigation-next"
 						:disabled="hideNavigationButtons || (!setup.shouldLoop && setup.stepIndex === (setup.stepsLength - 1))"
 						nude
-						size="sm"
 						suffix-icon="chevron_right"
 						@click="setup.goNextStep()"/>
 				</div>

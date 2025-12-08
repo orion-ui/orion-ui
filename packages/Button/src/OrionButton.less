@@ -19,7 +19,7 @@
 	align-items: center;
 	justify-content: center;
 	vertical-align: middle;
-	border-radius: var(--radius-8);
+	border-radius: var(--radius-md);
 	border: none;
 	appearance: none;
 	outline: none;
@@ -49,7 +49,7 @@
 		background: fade(white, 20);
 		height: 1.25rem;
 		width: 1.25rem;
-		border-radius: 100%;
+		border-radius: var(--radius-round);
 		z-index: 5;
 		pointer-events: none;
 		opacity: 1;
@@ -100,14 +100,14 @@
 		gap: var(--spacing-4);
 		padding: var(--spacing-4) var(--spacing-8);
 		font-size: var(--typography-size-sm);
-		height: var(--spacing-28);
+		height: var(--spacing-24);
 
 		.orion-icon {
 			font-size:var(--typography-size-base);
 		}
 
 		&.orion-button--icon-only {
-				width: var(--spacing-28);
+				width: var(--spacing-24);
 				padding: var(--spacing-4) var(--spacing-6);
 		}
 	}
