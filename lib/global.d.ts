@@ -132,10 +132,11 @@ declare global {
 			start: Date;
 			end: Date;
 			label: string;
-			color: Orion.Color;
+			color: Orion.ColorExtendedAndGreys;
 			callback?: () => void;
+			customClass?: string;
 			specific: {
-				color: Orion.Color
+				color: Orion.ColorExtendedAndGreys
 				date: Date;
 				exclude: boolean;
 			}[];
@@ -200,6 +201,15 @@ declare global {
 			skidding?: number;
 			triggers?: ('click' | 'hover' | 'focus' | 'touch')[];
 			arrowPadding?: number;
+		}
+
+		namespace DateTable {
+			type Type ='date' | 'range' | 'multiple' | 'month';
+
+			type Marker = {
+				date: Date;
+				color: Orion.ColorExtendedAndGreys;
+			}
 		}
 
 		namespace Popable {

@@ -11,8 +11,8 @@ const { PrivatePackagesFolder } = require('../scripts-utils.cjs');
  * Change or comment the content or this array
  * to test doc data generator only on selected components
  */
-/* const testOnPackages = [
-	'Alert',
+const testOnPackages = [
+	/* 'Alert',
 	'Aside',
 	'Card',
 	'Avatar',
@@ -21,8 +21,8 @@ const { PrivatePackagesFolder } = require('../scripts-utils.cjs');
 	'Datepicker',
 	'Notif',
 	'TabPane',
-	'Tour',
-]; */
+	'Tour', */
+];
 
 const packageDocDataTemplate = `[
 		'{packageName}',
@@ -646,17 +646,90 @@ class SetupServiceFileScanner extends DocScanner {
 		return resolvedProps;
 	}
 
-	extractPropsFromClassDeclaration () {
-		const fileTypeAlias = this.file.getTypeAliasOrThrow(`Orion${this.pack}Props`);
+	extractPropsFromClassDeclaration (/** @type {string | undefined} */ heritedComponent) {
+
+		let componentName = heritedComponent ?? this.pack;
+		const isCurrentComponent = heritedComponent === this.pack;
+		let file = this.file;
+
+		if (!isCurrentComponent) {
+			// Load parent component setup service file
+			const parentSetupServicePath = path.resolve(
+				this.packagesFolderPath,
+				componentName,
+				'src',
+				`Orion${componentName}SetupService.ts`,
+			);
+
+			file = this.project.addSourceFileAtPathIfExists(parentSetupServicePath);
+			if (!file) {
+				return { props: [] };
+			}
+		}
+
+		const fileTypeAlias = file.getTypeAlias(`Orion${componentName}Props`);
+		if (!fileTypeAlias) {
+			return { props: [] };
+		}
 
 		let type = fileTypeAlias.getType();
 
-		//HANDLE DEFAULT PROPS
-		const defaultProps = this.parseDefaultProps();
+		if (!isCurrentComponent) {
+			// Load parent component docFlags
+			const parentFullText = file.getText(true);
+			const parentDocFlags = this.extractDocFlags(parentFullText);
+
+			this.docFlags.en += parentDocFlags.en;
+			this.docFlags.fr += parentDocFlags.fr;
+
+			// Load parent Vue file for additional flags
+			const parentVuePath = path.resolve(
+				this.packagesFolderPath,
+				componentName,
+				'src',
+				`Orion${componentName}.vue`,
+			);
+
+			if (require('fs-extra').existsSync(parentVuePath)) {
+				const parentVueContent = require('fs-extra').readFileSync(parentVuePath, { encoding: 'utf-8' });
+				const parentVueDocFlags = this.extractDocFlags(parentVueContent);
+
+				this.docFlags.en += parentVueDocFlags.en;
+				this.docFlags.fr += parentVueDocFlags.fr;
+			}
+		}
 
 		const properties = {};
 
-		// PARSE PROPS IN FILE
+		// PARSE HERITED PROPS
+		if (fileTypeAlias) {
+			const typeNode = fileTypeAlias.getTypeNode();
+			if (typeNode) {
+				const intersectionTypes = typeNode.getDescendantsOfKind(SyntaxKind.TypeReference);
+
+				intersectionTypes.forEach((typeRef) => {
+					const typeName = typeRef.getTypeName().getText();
+
+					// check if it's a Orion...Props type
+					const match = typeName.match(/^Orion(\w+)Props$/);
+					if (match && match[1] !== this.pack) {
+						const parentComponent = match[1];
+
+						const parentResult = this.extractPropsFromClassDeclaration(parentComponent);
+
+						if (parentResult && parentResult.props) {
+							parentResult.props.forEach((parentProp) => {
+								if (!properties[parentProp.name]) {
+									properties[parentProp.name] = parentProp;
+								}
+							});
+						}
+					}
+				});
+			}
+		}
+
+		// PARSE PROPS IN CURRENT FILE
 		type.getProperties().forEach((prop) => {
 			const name = prop.getName();
 			const desc = this.getPropsDesciption(name);
@@ -667,11 +740,11 @@ class SetupServiceFileScanner extends DocScanner {
 			if (valueDeclaration) {
 				type = valueDeclaration.getTypeNode().getText().replace(/as Orion.*/, '');
 			} else {
-				const symbolType = prop.getTypeAtLocation(this.file);
+				const symbolType = prop.getTypeAtLocation(file);
 				type = symbolType.getText().replace(/as Orion.*/, '');
 			}
 
-			if (! desc.private) {
+			if (!desc.private) {
 				properties[name] = {
 					name,
 					type,
@@ -685,15 +758,20 @@ class SetupServiceFileScanner extends DocScanner {
 		});
 
 
-		const mergedProps = { ...properties };
+		if (isCurrentComponent) {
+			const defaultProps = this.parseDefaultProps();
+			const mergedProps = { ...properties };
 
-		for (const key in defaultProps) {
-			if (mergedProps[key]) {
-				mergedProps[key].defaultValue = defaultProps[key].defaultValue;
+			for (const key in defaultProps) {
+				if (mergedProps[key]) {
+					mergedProps[key].defaultValue = defaultProps[key].defaultValue;
+				}
 			}
+
+			return { props: Object.values(mergedProps).sort((a, b) => a.name.localeCompare(b.name)) };
 		}
 
-		return { props: Object.values(mergedProps).sort((a, b) => a.name.localeCompare(b.name)) };
+		return { props: Object.values(properties).sort((a, b) => a.name.localeCompare(b.name)) };
 	}
 
 	extractEmitsFromClassDeclaration () {

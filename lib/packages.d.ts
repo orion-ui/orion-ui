@@ -22,6 +22,7 @@ import { OrionCropperSetupService, OrionCropperProps, OrionCropperEmits } from '
 import { OrionDailyCalendarSetupService, OrionDailyCalendarProps, OrionDailyCalendarEmits } from '../packages/index';
 import { OrionDateRangeSetupService, OrionDateRangeProps, OrionDateRangeEmits } from '../packages/index';
 import { OrionDateTableSetupService, OrionDateTableProps, OrionDateTableEmits } from '../packages/index';
+import { OrionDateTableHorizontalSetupService, OrionDateTableHorizontalProps, OrionDateTableHorizontalEmits } from '../packages/index';
 import { OrionDateWeekSetupService, OrionDateWeekProps, OrionDateWeekEmits } from '../packages/index';
 import { OrionDatepickerSetupService, OrionDatepickerProps, OrionDatepickerEmits } from '../packages/index';
 import { OrionDraggableSetupService, OrionDraggableProps, OrionDraggableEmits } from '../packages/index';
@@ -173,6 +174,12 @@ declare global {
 	namespace OrionDateTable {
 		type Props = OrionDateTableProps
 		type Emits = OrionDateTableEmits
+	}
+
+	type OrionDateTableHorizontal = InstanceType<typeof OrionDateTableHorizontalSetupService>['publicInstance'];
+	namespace OrionDateTableHorizontal {
+		type Props = OrionDateTableHorizontalProps
+		type Emits = OrionDateTableHorizontalEmits
 	}
 
 	type OrionDateWeek = InstanceType<typeof OrionDateWeekSetupService>['publicInstance'];
