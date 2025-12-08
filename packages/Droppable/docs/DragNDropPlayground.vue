@@ -142,7 +142,7 @@ const middle = ref([
 
 .orion-droppable {
 	position: relative;
-	padding: var(--space-16);
+	padding: var(--spacing-16);
 	border-radius: 0.5rem;
 	background: var(--background-neutral-subtle);
 

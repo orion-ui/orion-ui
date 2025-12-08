@@ -51,8 +51,8 @@
 	display: flex;
 	align-items: center;
 	vertical-align: middle;
-	padding: var(--space-8) var(--space-16) var(--space-8)
-		var(--space-16);
+	padding: var(--spacing-8) var(--spacing-16) var(--spacing-8)
+		var(--spacing-16);
 	gap: 0.5rem;
 	backdrop-filter: saturate(50%) blur(8px);
 	background: var(--background-neutral-subtle);
@@ -110,7 +110,7 @@
 		border-radius: 0.25rem;
 		height: 2rem;
 		vertical-align: middle;
-		padding: 0 var(--space-8);
+		padding: 0 var(--spacing-8);
 
 		@media @phone, @tabletOnly {
 			display: none;
@@ -221,7 +221,7 @@
 .doc-content {
 	max-width: var(--content-width);
 	width: 100%;
-	padding: var(--space-48) 0;
+	padding: var(--spacing-48) 0;
 
 	p {
 		font-size: 1rem;
@@ -238,11 +238,11 @@
 	}
 
 	@media @phone {
-		padding: var(--space-16) var(--space-16);
+		padding: var(--spacing-16) var(--spacing-16);
 	}
 
 	@media @tabletPortrait {
-		padding: var(--space-32) var(--space-32);
+		padding: var(--spacing-32) var(--spacing-32);
 	}
 
 	h2,
@@ -295,7 +295,7 @@
 		background: var(--background-primary-default);
 		color: var(--text-default-inverted);
 		font-weight: 700;
-		padding: var(--space-8) var(--space-8);
+		padding: var(--spacing-8) var(--spacing-8);
 		border-radius: 0.25rem;
 		pointer-events: none;
 		white-space: nowrap;
@@ -311,7 +311,7 @@
 .toc-content {
 	position: sticky;
 	top: 4rem;
-	padding: var(--space-32);
+	padding: var(--spacing-32);
 	background: transparent;
 	white-space: nowrap;
 	width: 12.5rem;
@@ -354,7 +354,7 @@ h4 {
 	border-top: 0.0625rem solid var(--border-neutral-default);
 	display: flex;
 	justify-content: center;
-	padding: var(--space-32);
+	padding: var(--spacing-32);
 }
 
 code {

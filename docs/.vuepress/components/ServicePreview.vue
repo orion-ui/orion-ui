@@ -141,7 +141,7 @@ onUnmounted(() => {
 	&__details {
 		margin-left: 1rem;
 		border-left: 0.1875rem solid var(--border-neutral-default);
-		padding: 0 0 0.1875rem var(--space-8);
+		padding: 0 0 0.1875rem var(--spacing-8);
 	}
 
 	.function__description {

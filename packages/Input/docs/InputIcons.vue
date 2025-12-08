@@ -10,7 +10,7 @@
 			<o-input
 				v-model="value"
 				label="Suffix icon"
-				suffix-icon="calendar"/>
+				suffix-icon="calendar_today"/>
 		</div>
 		<div class="col-sm-4">
 			<o-input
