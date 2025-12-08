@@ -24,11 +24,19 @@
 				{ 'orion-card__header--lined': headerLine },
 			]"
 			@click="emits('header-click')">
-			<h4
-				v-if="title"
-				class="orion-card__title">
-				{{ title }}
-			</h4>
+			<div class="orion-card__title-subtitle">
+				<h4
+					v-if="title"
+					class="orion-card__title">
+					{{ title }}
+				</h4>
+				<h5
+					v-if="subtitle"
+					class="orion-card__subtitle">
+					{{ subtitle }}
+				</h5>
+			</div>
+
 			<slot name="header"/>
 		</div>
 

@@ -19,22 +19,29 @@
 	align-items: center;
 	justify-content: center;
 	vertical-align: middle;
-	border-radius: var(--radius-small);
+	border-radius: var(--radius-8);
 	border: none;
 	appearance: none;
 	outline: none;
 	font-family: var(--font-family);
 	font-weight: 600;
-	text-transform: uppercase;
+	text-transform: capitalize;
 	cursor: pointer;
 	overflow: hidden;
 	border-width: 0.0625rem;
 	border-style: solid;
 	border-color: transparent;
 	line-height: 1;
+	
 
 	[data-orion-theme='dark'] & {
 		box-shadow: none;
+	}
+
+
+	&:focus {
+		outline: 1px solid var(--border-neutral-focus); ;
+		outline-offset: 1px;
 	}
 
 	&__ripple {
@@ -56,17 +63,10 @@
 			}
 		}
 	}
-
-	&__text,
-	&__icon {
-		.orion-button--disabled &,
-		.orion-button--loading & {
-			opacity: 0.7;
-		}
-	}
-
+	
 	&__text {
 		text-align: center;
+		line-height: 1.2;
 
 		.orion-button--prefix-icon & {
 			&:not(:first-child) {
@@ -76,106 +76,88 @@
 	}
 
 	&__icon {
-		.icon-size(1.25rem);
+		.icon-size(1rem);
 		pointer-events: none;
-
-		> .orion-icon__loading {
-			stroke: inherit;
-		}
 	}
 
 	&--xs {
-		gap: 0.5rem;
-		padding: var(--space-8) var(--space-32);
-		font-size: 0.65rem;
-		min-height: 2rem;
+		gap: var(--spacing-4);
+		padding: var(--spacing-2) var(--spacing-8);
+		font-size: var(--typography-size-xs);
+		height: var(--spacing-24);
 
-		.orion-button__icon {
-			.icon-size(0.875rem);
+		.orion-icon {
+			font-size:var(--typography-body-s);
 		}
 
-		&.orion-button--prefix-icon,
-		&.orion-button--loading {
-			padding-left: var(--space-16);
-		}
-
-		&.orion-button--suffix-icon {
-			padding-right: var(--space-16);
+		&.orion-button--icon-only {
+			width: var(--spacing-24);
+			padding: var(--spacing-4) var(--spacing-8);
 		}
 	}
 
 	&--sm {
-		gap: 0.65rem;
-		padding: var(--space-8) var(--space-48);
-		font-size: 0.75rem;
-		min-height: 2.25rem;
+		gap: var(--spacing-4);
+		padding: var(--spacing-4) var(--spacing-8);
+		font-size: var(--typography-size-sm);
+		height: var(--spacing-28);
 
-		.orion-button__icon {
-			.icon-size(1rem);
+		.orion-icon {
+			font-size:var(--typography-size-base);
 		}
 
-		&.orion-button--prefix-icon,
-		&.orion-button--loading {
-			padding-left: var(--space-32);
-		}
-
-		&.orion-button--suffix-icon {
-			padding-right: var(--space-32);
+		&.orion-button--icon-only {
+				width: var(--spacing-28);
+				padding: var(--spacing-4) var(--spacing-6);
 		}
 	}
 
 	&--md {
-		gap: 0.7rem;
-		padding: var(--space-16) var(--space-48);
-		font-size: 0.8125rem;
-		min-height: 2.5rem;
+		gap: var(--spacing-4);
+		padding: var(--spacing-4) var(--spacing-12);
+		font-size: var(--typography-size-sm);
+		height: var(--spacing-32);
 
-		&.orion-button--prefix-icon,
-		&.orion-button--loading {
-			padding-left: var(--space-32);
+
+		&.orion-button--icon-only {
+				width: var(--spacing-32);
+				padding: var(--spacing-4) var(--spacing-6);
 		}
 
-		&.orion-button--suffix-icon {
-			padding-right: var(--space-32);
+
+		.orion-icon {
+			font-size:var(--typography-body-default);
 		}
 	}
 
 	&--lg {
 		gap: 1rem;
-		padding: var(--space-16) var(--space-48);
+		padding: var(--spacing-8) var(--spacing-16);
 		font-size: 0.9rem;
-		min-height: 2.75rem;
+		min-height: var(--spacing-40);
 
-		&.orion-button--prefix-icon,
-		&.orion-button--loading {
-			padding-left: var(--space-48);
+		&.orion-button--icon-only {
+			width: var(--spacing-40);
 		}
 
-		&.orion-button--suffix-icon {
-			padding-right: var(--space-48);
+		.orion-icon {
+			font-size: var(--typography-size-lg);
 		}
 	}
 
 	&--xl {
-		gap: 1.1rem;
-		padding: var(--space-16) var(--space-48);
+		gap: var(--spacing-sm);
+		padding: var(--spacing-12) var(--spacing-24);
 		font-size: 1rem;
-		min-height: 3rem;
+		min-height: var(--spacing-48);
 
-		&.orion-button--prefix-icon,
-		&.orion-button--loading {
-			padding-left: var(--space-48);
+		&.orion-button--icon-only {
+			width: var(--spacing-48);
 		}
 
-		&.orion-button--suffix-icon {
-			padding-right: var(--space-48);
+		.orion-icon {
+			font-size:var(--typography-size-h5);
 		}
-	}
-
-	&--icon-only {
-		padding: 0 !important;
-		border-radius: 100%;
-		aspect-ratio: 1;
 	}
 
 	each(@colors, {
@@ -185,35 +167,49 @@
 			stroke: white;
 
 			background: var(~"--background-@{value}-default");
-			box-shadow:
-      0 0.3rem 1rem -0.3rem
-      color-mix(in oklab, var(~"--background-@{value}-default") 80%, transparent);
 
+			&:hover {
+				background: var(~"--background-@{value}-hover");
+			}
+
+			&.orion-button--outline {
+				background: var(~"--background-neutral-default");
+				border: 1px solid var(~"--border-@{value}-subtle");
+			}
 
 			&.orion-button--outline, &.orion-button--nude {
 				color: var(~"--text-@{value}-default");
 				stroke: var(~"--border-@{value}-default");
-				background: var(~"--background-@{value}-minimal");
 			}
 			
-			&.orion-button--outline&:hover,
-			&.orion-button--outline&:focus {
-				border-color:  color-mix(in oklab, var(~"--border-@{value}-default") 50%, transparent);
+			&.orion-button--outline&:hover&:not(.orion-button--disabled),
+			&.orion-button--outline&:focus&:not(.orion-button--disabled) {
+				background: var(~"--background-@{value}-minimal");
 			}
 
 			&.orion-button--nude&:hover,
 			&.orion-button--nude&:focus {
 				background: var(~"--background-@{value}-minimal");
+			}
 
+			&.orion-button--disabled {
+				color: var(~"--text-default-subtle");
+				background: var(~"--background-@{value}-disabled");
+				border: 1px solid var(~"--border-@{value}-disabled");
 			}
 		}
 	});
 
-	&--default {
+	&--neutral {
 		background: var(--background-neutral-default);
 		color: var(--text-default-default);
 		stroke: var(--border-neutral-default);
 		box-shadow: 0 0.3rem 1rem -0.3rem fade(black, 20);
+
+
+		&.orion-button--outline {
+			border: 1px solid var(~"--border-neutral-default");
+		}
 
 		&.orion-button--outline,
 		&.orion-button--nude {
@@ -221,7 +217,7 @@
 
 			&:hover,
 			&:focus {
-				background: rgba(var(--background-neutral-subtle), 0.6);
+				background: var(--background-neutral-subtle);
 				border-color: color-mix(
 					in oklab,
 					var(--border-neutral-default) 60%,
@@ -255,7 +251,7 @@
 
 		&.orion-button--nude&:hover,
 		&.orion-button--nude&:focus {
-			background: var(--border-info-default);
+			background: var(--background-neutral-default);
 		}
 	}
 
@@ -267,12 +263,6 @@
 		}
 	}
 
-	&:hover,
-	&:focus,
-	&--outline,
-	&--nude {
-		box-shadow: none;
-	}
 
 	&--nude {
 		border-color: transparent !important;
@@ -292,6 +282,10 @@
 
 	&--loading {
 		cursor: progress;
+
+		.orion-icon__loading {
+			stroke: var(--text-default-moderate);
+		}
 	}
 }
 

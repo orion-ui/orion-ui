@@ -99,11 +99,11 @@
 </template>
 
 <script setup lang="ts">
+import { getIconStyle } from 'utils/tools';
 import { useAttrs } from 'vue';
 import './OrionIcon.less';
+import type { OrionIconEmits, OrionIconProps } from './OrionIconSetupService';
 import OrionIconSetupService from './OrionIconSetupService';
-import type { OrionIconProps, OrionIconEmits } from './OrionIconSetupService';
-import { getIconStyle } from 'lib';
 const attrs = useAttrs();
 const emits = defineEmits<OrionIconEmits>() as OrionIconEmits;
 const props = withDefaults(defineProps<OrionIconProps>(), OrionIconSetupService.defaultProps);

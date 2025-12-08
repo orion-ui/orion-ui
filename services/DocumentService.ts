@@ -1,4 +1,4 @@
 // To be SSR friendly
-export default function useDocument () {
+export function useDocument () {
 	if (typeof document !== 'undefined') return document;
 }

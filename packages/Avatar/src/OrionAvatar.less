@@ -4,7 +4,7 @@
 .orion-avatar {
 	display: flex;
 	align-items: center;
-	gap: var(--space-sm);
+	gap: var(--spacing-sm);
 
 	&__pill {
 		transition: all 0.3s;
@@ -159,8 +159,8 @@
 		}
 
 		.orion-avatar--sm & {
-			bottom: calc(var(--space-8) * -1);
-			right: calc(var(--space-8) * -1);
+			bottom: calc(var(--spacing-8) * -1);
+			right: calc(var(--spacing-8) * -1);
 			
 			.orion-icon {
 				font-size: 0.625rem;
@@ -182,31 +182,31 @@
 
 		.orion-avatar--square & {
 			transform: translate3d(
-				calc(var(--space-8) * -1),
-				calc(var(--space-8) * -1),
+				calc(var(--spacing-8) * -1),
+				calc(var(--spacing-8) * -1),
 				0
 			);
 		}
 	}
 
 	&--xl {
-		gap: var(--space-sm);			
+		gap: var(--spacing-sm);			
 	}
 
 	&--lg {
-			gap: var(--space-sm);
+			gap: var(--spacing-sm);
 	}
 
 	&--md {
-			gap: var(--space-xs);
+			gap: var(--spacing-xs);
 	}
 
 	&--sm {
-			gap: var(--space-xs);
+			gap: var(--spacing-xs);
 	}
 
 	&--xs {
-		gap: var(--space-xxs);
+		gap: var(--spacing-xxs);
 	}
 
 	&--square {
@@ -216,8 +216,8 @@
 
 		.orion-avatar__picto {
 			transform: translate3d(
-				calc(var(--space-sm) * 0.5),
-				calc(var(--space-sm) * 0.5),
+				calc(var(--spacing-sm) * 0.5),
+				calc(var(--spacing-sm) * 0.5),
 				0
 			);
 		}

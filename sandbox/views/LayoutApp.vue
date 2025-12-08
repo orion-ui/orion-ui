@@ -38,9 +38,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { getAppLang, setAppLang, setThemeMode } from 'lib';
 import packagesNavigation from 'sandbox/utils/packages-navigation';
-import { setThemeMode, getAppLang, setAppLang } from 'lib';
+import { computed } from 'vue';
 
 const navMain: OrionNavMain.Props = {
 	items: [
@@ -48,7 +48,7 @@ const navMain: OrionNavMain.Props = {
 			label: `Home`,
 			root: true,
 			to: '/',
-			icon: 'house_01',
+			icon: 'house',
 		},
 		{
 			label: `test callback`,
@@ -69,17 +69,17 @@ const navMain: OrionNavMain.Props = {
 				{
 					label: `Validation`,
 					to: { name: 'ValidationService' },
-					icon: 'cupcake',
+					icon: 'cake',
 				},
 				{
 					label: `Prompt`,
 					to: { name: 'PromptService' },
-					icon: 'cupcake',
+					icon: 'cake',
 				},
 				{
 					label: `DragNDrop`,
 					to: { name: 'DragNDropService' },
-					icon: 'cupcake',
+					icon: 'cake',
 				},
 			],
 		},

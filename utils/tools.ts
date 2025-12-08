@@ -1,12 +1,11 @@
-import { Ref, nextTick } from 'vue';
 import { Dropdown } from 'floating-vue';
-import { devtool, devtoolId } from 'devtool';
-import useDocument from 'services/DocumentService';
-import useLocalStorage from 'services/LocalStorageService';
-import useWindow from 'services/WindowService';
+import { Ref, nextTick } from 'vue';
+// import { devtool, devtoolId } from 'devtool';
 import { CountryCode, parsePhoneNumber } from 'libphonenumber-js';
-import useDynamicFlagService from 'services/DynamicFlagService';
-import { Log } from 'lib';
+import { useDocument } from 'services/DocumentService';
+import { useLocalStorage } from 'services/LocalStorageService';
+import { useWindow } from 'services/WindowService';
+import { Log } from './Log';
 
 const uidGenerator = function* () {
 	let index = 1;
@@ -116,7 +115,7 @@ export function isIpad () {
 		try {
 			useDocument()?.createEvent('TouchEvent');
 			return true;
-			// eslint-disable-next-line no-empty
+			// eslint-disable-next-line no-empty, @typescript-eslint/no-unused-vars
 		} catch (e) {}
 	}
 
@@ -278,12 +277,6 @@ export function displayPhone (phoneNumber : string, code: CountryCode) {
 	}
 }
 
-export function getImageFlag (countryCode: CountryCode) {
-	return useDynamicFlagService(countryCode);
-}
-
-
-
 // #region Global events toggling
 type EventEntry = {
   type: string;
@@ -358,7 +351,7 @@ export function setThemeMode (mode: Orion.Theme) {
 		}
 	}
 
-	devtool?.sendInspectorState(devtoolId);
+	// devtool?.sendInspectorState(devtoolId);
 }
 
 export function initThemeMode () {

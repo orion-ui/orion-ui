@@ -1,10 +1,10 @@
-import { computed, ModelRef, reactive, ref } from 'vue';
 import { debounce, DebouncedFunc, isNil } from 'lodash-es';
-import SharedSetupService from './SharedSetupService';
 import useValidation from 'services/ValidationService';
-import useWindow from 'services/WindowService';
+import { useWindow } from 'services/WindowService';
 import { Validator } from 'utils/Validator';
+import { computed, ModelRef, reactive, ref } from 'vue';
 import SharedProps, { SharedPropsPrefixIcon, SharedPropsSize, SharedPropsSuffixIcon } from './SharedProps';
+import SharedSetupService from './SharedSetupService';
 
 export type SharedFieldSetupServiceEmits<T = any | null | undefined> = {
 	// @doc event/focus/desc emitted on field focus

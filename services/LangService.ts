@@ -1,20 +1,29 @@
+import { getLang, LangAvailable } from 'lang/index';
+import { Log } from 'utils/Log';
 import { reactive } from 'vue';
-import lang, { LangAvailable } from 'lang';
-import { Log } from 'lib';
 
-const state = reactive({ selectedLang: 'en' as LangAvailable });
+// @tree-shaking lazy initialization
+let state: { selectedLang: LangAvailable } | undefined;
 
-export default function useLang () {
-	return lang[state.selectedLang];
+function getState () {
+	if (!state) {
+		state = reactive({ selectedLang: 'en' as LangAvailable });
+	}
+	return state;
+}
+
+export function useLang () {
+	return getLang()[getState().selectedLang];
 }
 
 export function getAppLang () {
-	return state.selectedLang;
+	return getState().selectedLang;
 }
 
 export function setAppLang (language: LangAvailable) {
-	if (!(language in lang))
+	if (!(language in getLang())) {
 		Log.warn('Unknown language, using `en` by default', 'Orion Config');
+	}
 
-	state.selectedLang = language in lang ? language : 'en';
+	getState().selectedLang = language in getLang() ? language : 'en';
 }

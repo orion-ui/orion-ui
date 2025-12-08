@@ -1,6 +1,6 @@
-import { ModelRef, reactive, watchEffect } from 'vue';
 import { uniqBy } from 'lodash-es';
-import useMonkey from 'services/MonkeyService';
+import { useMonkey } from 'services/MonkeyService';
+import { ModelRef, reactive, watchEffect } from 'vue';
 import SharedSetupService from '../../Shared/SharedSetupService';
 
 export type OrionDateTableEmits = {

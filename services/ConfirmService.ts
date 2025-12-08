@@ -1,5 +1,5 @@
 import { getUid, toggleGlobalListener } from 'utils/tools';
-import useLang from './LangService';
+import { useLang } from './LangService';
 import useModal from './ModalService';
 
 class ConfirmService {

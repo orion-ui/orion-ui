@@ -1,8 +1,8 @@
 <template>
 	<o-button
 		v-bind="state"
-		:prefix-icon="state.prefix ? 'check' : undefined"
-		:suffix-icon="state.suffix ? 'arrow_right_md' : undefined"
+		:prefix-icon="state.prefix ? 'add' : undefined"
+		:suffix-icon="state.suffix ? 'arrow_back' : undefined"
 		:outline="state.style==='outline'"
 		:nude="state.style==='nude'"
 		@click="click()">

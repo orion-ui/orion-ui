@@ -7,7 +7,7 @@ import useOverlay from 'services/OverlayService';
 import usePopableQueueService from 'services/PopableQueueService';
 import { toggleGlobalListener } from 'utils/tools';
 import { devtool } from 'devtool';
-import orionAppService from 'utils/Orion';
+import { orionAppService } from 'utils/Orion';
 import { Reactive } from 'utils/decorators';
 
 

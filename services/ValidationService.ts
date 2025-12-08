@@ -1,6 +1,6 @@
 import { reactive } from 'vue';
-import { Validator } from '../utils/Validator';
-import Log from 'utils/Log';
+import { Validator } from 'utils/Validator';
+import { Log } from 'utils/Log';
 
 
 type FieldHasBeenFocusSetter = {

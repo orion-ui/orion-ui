@@ -1,4 +1,4 @@
-import useLang from './LangService';
+import { useLang } from './LangService';
 
 class CountryService {
 	/**

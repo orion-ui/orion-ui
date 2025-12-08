@@ -1,9 +1,9 @@
-import { defineConfig } from 'vite';
-import { resolve } from 'path';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
-import babel from 'vite-plugin-babel';
+import { resolve } from 'path';
 import TurboConsole from 'unplugin-turbo-console/vite';
+import { defineConfig } from 'vite';
+import babel from 'vite-plugin-babel';
 
 const alias = {
 	'assets': resolve(__dirname, 'assets'),
@@ -26,11 +26,25 @@ export default defineConfig({
 		vueJsx(),
 		babel({ filter: /\.tsx?$/ }),
 		TurboConsole({ disableLaunchEditor: true }),
+		{ // fix router in dev mode
+			name: 'router-fallback',
+			configureServer (server) {
+				server.middlewares.use((req, res, next) => {
+					if (req.url?.startsWith('/packages') && !req.url.includes('.')) {
+						req.url = '/index.html';
+					}
+					next();
+				});
+			},
+		},
 	],
 	resolve: { alias },
 	build: {
 		lib: {
-			entry: resolve(__dirname, 'lib/index.ts'),
+			entry: {
+				orion: resolve(__dirname, 'lib/index.ts'),
+				utils: resolve(__dirname, 'utils/index.ts'),
+			},
 			name: 'Orion',
 		},
 		rollupOptions: {
