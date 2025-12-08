@@ -89,7 +89,6 @@ class DocUtility {
 	}
 
 	getPropsDesciption (/** @type {string} */ name) {
-		log.warn(name);
 		const desc = this.getDoc(`^props\/${name} (.*)$`);
 		return desc;
 	}

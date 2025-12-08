@@ -112,10 +112,7 @@
 
 							<span
 								class="orion-date-table-row__cell-display"
-								:class="[
-									setup.getClassForDay(day),
-									{ 'orion-date-table-row__cell-display--horizontal': horizontal },
-								]"
+								:class="setup.getClassForDay(day)"
 								@click="setup.handleSpecificDayCallback(day)">
 
 								<span class="orion-date-table-row__cell-display-contrast">
@@ -182,11 +179,11 @@
 </template>
 
 <script setup lang="ts">
-import './OrionDateTable.less';
-import { OrionIcon } from 'packages/Icon';
 import { OrionDateTableHorizontal } from 'packages/DateTableHorizontal';
+import { OrionIcon } from 'packages/Icon';
+import './OrionDateTable.less';
+import type { OrionDateTableEmits, OrionDateTableProps } from './OrionDateTableSetupService';
 import OrionDateTableSetupService from './OrionDateTableSetupService';
-import type { OrionDateTableProps, OrionDateTableEmits } from './OrionDateTableSetupService';
 const vModel = defineModel< Nil<Date>>();
 const range = defineModel<Nil<Orion.DateRange>>('range');
 const multiple = defineModel<Nil<Date[]>>('multiple');
