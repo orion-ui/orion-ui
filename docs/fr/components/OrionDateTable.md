@@ -18,6 +18,7 @@ Il permet notamment l'affichage de périodes avec une gestion fine des dates à 
 DateTablePeriods
 DateTableMonthSwitch
 DateTableMultiple
+DateTableHorizontal
 DateTablePlayground
 :::
 
