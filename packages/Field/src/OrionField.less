@@ -24,6 +24,7 @@ select:-webkit-autofill:focus {
 	position: relative;
 	display: flex;
 	align-items: center;
+	gap: var(--spacing-4);
 	justify-content: flex-end;
 	flex-direction: row-reverse;
 	margin: 0.5rem 0;
@@ -63,7 +64,7 @@ select:-webkit-autofill:focus {
 		justify-content: center;
 		margin-top: calc(1rem / 16);
 		margin-right: 0.25rem;
-		border-radius: calc(3rem / 16);
+		border-radius: var(--radius-xs);
 		border: 0.0625rem solid var(--border-neutral-default);
 		background: var(--background-neutral-default);
 
@@ -71,6 +72,11 @@ select:-webkit-autofill:focus {
 			margin-right: 0;
 			margin-left: 0.25rem;
 		}
+
+		.orion-checkbox--with-slot & {
+			align-self: flex-start;
+		}
+		
 
 
 		.orion-checkbox--error & {
@@ -119,17 +125,6 @@ select:-webkit-autofill:focus {
 			transform: scale(1);
 		}
 	}
-	
-	&--default {
-		&[class*='--checked'] > [class*='__check-container'] {
-			background: var(--background-info-default);
-			border-color: var(--border-info-default);
-		}
-
-		&:not([class*="--disabled"]):hover > [class*='__check-container'] {
-			border-color: var(--border-info-default);
-		}
-	}
 
 	each(@colors, {
 		&--@{value} {
@@ -138,8 +133,8 @@ select:-webkit-autofill:focus {
 				border-color: var(~"--border-@{value}-default");
 			}
 
-			&:hover > [class*="__check-container"] {
-				border-color: var(~"--border-@{value}-default");
+			&:hover&:not(.orion-checkbox--checked)&:not(.orion-checkbox--disabled) > [class*="__check-container"] {
+				background: var(--background-neutral-hover)
 			}
 		}
 	});
@@ -150,17 +145,6 @@ select:-webkit-autofill:focus {
 			background: var(--background-error-default);
 			border-color: var(--border-error-default);
 		}
-
-		&:hover > [class*='__check-container'] {
-			border-color: var(--border-error-default);
-		}
-	}
-
-	
-	&--inverse {
-			.orion-toggle__check-marker, .orion-radio__check-marker, .orion-checkbox__check-marker {
-				background: var(--background-neutral-highlight);
-			}
 	}
 
 	&--reverse {
@@ -172,11 +156,16 @@ select:-webkit-autofill:focus {
 	}
 
 	&--disabled {
-		opacity: 0.5;
 		cursor: not-allowed;
+		color: var(--text-default-disabled);
 
 		> [class$='__label'] {
 			cursor: not-allowed;
+		}
+
+		.orion-checkbox__check-container {
+			background: var(--background-neutral-disabled);
+			border-color: var(--border-neutral-disabled);
 		}
 	}
 }

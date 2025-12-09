@@ -4,6 +4,7 @@
 		:class="[setup.baseClass, setup.additionalClass]">
 		<label
 			v-if="label || placeholder"
+			:for="`orion-field_${_uid}`"
 			:class="setup.labelClass"
 			v-html="setup.labelValue"/>
 

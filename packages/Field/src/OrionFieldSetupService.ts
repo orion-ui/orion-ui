@@ -7,6 +7,7 @@ export type OrionFieldEmits = {
 }
 
 export type OrionFieldProps = {
+	_uid?: number,
 	prefixIcon?: SharedPropsPrefixIcon['prefixIcon'],
 	prefixFontIcon?: SharedPropsPrefixIcon['prefixFontIcon'],
 	suffixIcon?: SharedPropsSuffixIcon['suffixIcon'],

@@ -35,6 +35,7 @@
 		<o-checkbox
 			v-model="state.value"
 			:inline="state.inline"
+			disabled
 			:reverse="state.reverse">
 			<o-alert>Use default slot to display custom html content</o-alert>
 		</o-checkbox>
@@ -100,7 +101,7 @@ import { materialIcons } from 'assets/fonts/materialIcons';
 import { reactive, computed } from 'vue';
 
 const state = reactive({
-	color: 'brand' as Orion.Color,
+	color: 'primary' as Orion.Color,
 	label: 'Option 1',
 	inputValue: 'option1',
 	disabled: false,
@@ -110,7 +111,7 @@ const state = reactive({
 	readonly: false,
 	value: false,
 	multipleValue: [],
-	iconCheck: 'notification' as Orion.Icon,
+	iconCheck: 'notification_add' as Orion.Icon,
 });
 
 const icons = computed(() => {

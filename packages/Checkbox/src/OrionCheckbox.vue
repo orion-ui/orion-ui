@@ -7,12 +7,14 @@
 			{ 'orion-checkbox--checked': setup.isChecked },
 			{ 'orion-checkbox--reverse': reverse },
 			{ 'orion-checkbox--inline': inline },
+			{ 'orion-checkbox--with-slot': !!$slots.default },
 		]"
 		input-type="checkbox"
 		@click="setup.handleClick()">
 		<slot v-if="label === undefined"/>
 
 		<input
+			:id="`orion-field_${setup._uid}`"
 			:ref="setup._input"
 			class="orion-checkbox__input"
 			type="checkbox"
@@ -22,11 +24,11 @@
 
 		<span class="orion-checkbox__check-container">
 			<orion-icon
-				v-if="iconCheck"
+				v-if="iconCheck && setup.isChecked"
 				:icon="iconCheck"
 				@click="setup.handleClick()"/>
 			<svg
-				v-else
+				v-else-if="setup.isChecked"
 				viewBox="0 0 12 10">
 				<polyline points="1.5 6 4.5 9 10.5 1"/>
 			</svg>
