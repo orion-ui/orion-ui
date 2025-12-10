@@ -12,7 +12,9 @@
 			Show aside with header
 		</o-button>
 
-		<o-aside ref="_asideA">
+		<o-aside
+			ref="_asideA"
+			:options="{ title: 'This is the Title', description: 'This is an aside with actions slot' }">
 			<o-section title="Aside with actions">
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 				Duis sagittis viverra vulputate. Nunc ultricies ante urna, eget.
@@ -57,7 +59,7 @@
 		</o-aside>
 
 		<o-aside ref="_asideC">
-			<template #header>
+			<template #poster>
 				<img src="https://picsum.photos/id/1041/200">
 			</template>
 

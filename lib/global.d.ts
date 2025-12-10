@@ -211,6 +211,8 @@ declare global {
 
 			type Options = {
 				uid: number;
+				title?: string;
+				description?: string;
 				Nested: Component | null;
 				NestedProps: Record<string, any>;
 				customClass: string;
