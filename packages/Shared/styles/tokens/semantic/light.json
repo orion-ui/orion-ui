@@ -66,6 +66,18 @@
       "moderate": {
         "$type": "color",
         "$value": "{colors.neutral.200}"
+      },
+      "inverted": {
+        "$type": "color",
+        "$value": "{colors.neutral.700}"
+      },
+      "inverted-hover": {
+        "$type": "color",
+        "$value": "{colors.neutral.600}"
+      },
+      "inverted-active": {
+        "$type": "color",
+        "$value": "{colors.neutral.800}"
       }
     },
     "error": {
