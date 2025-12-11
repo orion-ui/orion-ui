@@ -68,7 +68,7 @@
 						:custom-fetch="customFetch"
 						v-bind="commonBind">
 						<template #value="{ item, display }">
-							<div class="flex g-8 ai-c">{{ item?.name }} <o-label>{{ display }}</o-label></div>
+							<div class="flex g-8 ai-c">{{ item?.name }} <o-chips>{{ display }}</o-chips></div>
 						</template>
 						<template #option="{ item, markedSearch }">
 							<div>

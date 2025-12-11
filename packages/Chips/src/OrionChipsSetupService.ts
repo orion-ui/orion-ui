@@ -1,5 +1,6 @@
 import SharedSetupService from '../../Shared/SharedSetupService';
 import SharedProps, { SharedPropsColorExtentedAndGreys, SharedPropsPrefixIcon, SharedPropsSize, SharedPropsSuffixIcon } from '../../Shared/SharedProps';
+import { round } from 'lodash-es';
 
 export type OrionChipsEmits = {
 	// @doc event/close/desc Emitted when closing the chips
@@ -30,6 +31,7 @@ export default class OrionChipsSetupService extends SharedSetupService {
 	static readonly defaultProps = {
 		...SharedProps.colorExtendedAndGreys,
 		...SharedProps.size,
+		round: true,
 	};
 
 	constructor (

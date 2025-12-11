@@ -42,9 +42,9 @@
 									</template>
 									= <span class="data__value">{{ itemHas(item, 'defaultValue') ? item.defaultValue : 'undefined' }}</span>
 								</code>
-								<o-label color="error" outline v-if="itemHas(item, 'required') && item.required">
+								<o-chips :round="false" color="error" outline v-if="itemHas(item, 'required') && item.required">
 									Required
-								</o-label>
+								</o-chips>
 							</div>
 
 							<Markdown

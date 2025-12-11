@@ -43,7 +43,7 @@
 				@select-discussion="discussionId = $event;">
 				<template #append-discussion-item="{ discussion }">
 					<div style="display: flex">
-						<o-label>{{ discussion.id }}</o-label>
+						<o-chips :round="false">{{ discussion.id }}</o-chips>
 					</div>
 				</template>
 			</o-chat-discussion-list>

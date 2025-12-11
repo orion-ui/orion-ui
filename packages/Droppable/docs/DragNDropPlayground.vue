@@ -83,7 +83,6 @@ const state = reactive({
 
 const tagOptions = [
 	'o-sticker',
-	'o-label',
 	'o-chips',
 ];
 
