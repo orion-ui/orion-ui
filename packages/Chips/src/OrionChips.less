@@ -8,10 +8,13 @@
 	align-items: center;
 	max-width: 100%;
 	font-weight: 600;
-	border-radius: 1.25rem;
+	border-radius: var(--radius-md);
 	white-space: nowrap;
-	border-width: 0.125rem;
 	border-style: solid;
+
+	&--rounded {
+		border-radius: var(--radius-lg);
+	}
 
 	&__close {
 		position: absolute;
@@ -20,7 +23,7 @@
 		&:hover {
 			opacity: 1;
 			color: var(--text-default-inverted) !important;
-			border-color: var(--border-neutral-inverted) !important;
+			border-color: var(--border-neutral-inverted);
 		}
 	}
 
@@ -29,10 +32,16 @@
 		display: flex;
 		align-items: center;
 		height: 100%;
+		gap: var(--spacing-4);
 	}
 
 	&__dual {
 		background: var(--background-neutral-default);
+	}
+
+	&__icon {
+		font-size: var(--typography-size-base);
+		color: var(--text-default-inverted)
 	}
 
 	each(@colorsAndGreys, {
@@ -56,14 +65,28 @@
 				}
 			}
 
+			&.orion-chips--nude {
+				.orion-chips__close {
+					color: var(~"--text-@{value}-default") !important;
+					border-color: var(~"--border-@{value}-default") !important;
+				}
+			}
+
 			&.orion-chips--outline {
 				color: var(~"--text-@{value}-default");
 				background: var(~"--background-@{value}-minimal");
-				border-color: transparent;
+				border: 1px solid var(~"--border-@{value}-subtle");
 
 				.orion-chips__dual {
 					color: var(~"--text-@{value}-default");
+					border-left: 1px solid var(~"--border-@{value}-subtle");
 				}
+			}
+
+			&.orion-chips--nude {
+				border: 1px solid var(~"--border-@{value}-subtle");
+				background: var(--background-neutral-transparent);
+				color: var(~"--text-@{value}-default");
 			}
 
 			&-alt {
@@ -89,7 +112,7 @@
 				&.orion-chips--outline {
 					color: var(~"--text-@{value}-alt");
 					background: color-mix(in oklab, var(~"--background-@{value}-alt") 15%, transparent);
-					border-color: color-mix(in oklab, var(~"--border-@{value}-alt") 15%, transparent);
+					border: 1px solid var(~"--border-@{value}-subtle");
 
 					&:not(.orion-chips--inverse):not(.orion-chips--default) > {
 						.orion-chips__main, .orion-chips__dual-content {
@@ -168,18 +191,21 @@
 &--xs {
 	@paddingClose: 1.25rem;
 	height: 1rem;
-	border-width: 0.0625rem;
-	font-size: 0.75rem;
+	font-size: var(--typography-size-xs);
 
 	.orion-chips {
 
 		&__main,
 		&__dual {
-			padding: 0 calc(6rem / 16) calc(1rem / 16);
+				padding: 0 var(--spacing-4)
+		}
+
+		&__icon {
+			font-size: var(--typography-size-sm)
 		}
 
 		&__close {
-			.close(0.875rem);
+			.close(var(--typography-size-sm));
 		}
 	}
 
@@ -207,11 +233,15 @@
 
 		&__main,
 		&__dual {
-			padding: 0 calc(7rem / 16) calc(1rem / 16);
+			padding: 0 var(--spacing-8)
+		}
+
+		&__icon {
+			font-size: var(--typography-size-sm)
 		}
 
 		&__close {
-			.close(calc(14rem / 16));
+			.close(var(--typography-size-sm));
 		}
 	}
 
@@ -233,17 +263,17 @@
 &--md {
 	@paddingClose: calc(24rem / 16);
 	height: 1.5rem;
-	font-size: 0.875rem;
+	font-size: var(--typography-size-sm);
 
 	.orion-chips {
 
 		&__main,
 		&__dual {
-			padding: 0 calc(8rem / 16) calc(1rem / 16);
+			padding: var(--spacing-2) var(--spacing-8)
 		}
 
 		&__close {
-			.close(1rem);
+			.close(var(--typography-size-sm));
 		}
 	}
 
@@ -271,11 +301,16 @@
 
 		&__main,
 		&__dual {
-			padding: 0 0.5rem calc(1rem / 16);
+			padding: var(--spacing-2) var(--spacing-12);
+			gap: var(--spacing-12)
+		}
+
+		&__icon {
+			font-size: var(--typography-size-lg)
 		}
 
 		&__close {
-			.close(1rem);
+			.close(var(--typography-size-lg));
 		}
 	}
 
@@ -303,11 +338,16 @@
 
 		&__main,
 		&__dual {
-			padding: 0 0.75rem calc(1rem / 16);
+			padding: var(--spacing-2) var(--spacing-16);
+			gap: var(--spacing-16);
+		}
+
+		&__icon {
+			font-size: var(--typography-size-h5)
 		}
 
 		&__close {
-			.close(1.125rem);
+			.close(var(--typography-size-lg));
 		}
 	}
 

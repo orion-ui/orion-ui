@@ -6,11 +6,26 @@
 			`orion-chips--${color}`,
 			`orion-chips--${size}`,
 			{ 'orion-chips--outline' : outline },
+			{ 'orion-chips--nude' : nude },
 			{ 'orion-chips--closable' : close },
+			{ 'orion-chips--rounded' : round },
 			{ 'orion-chips--dual' : !!$slots.dual },
 		]">
 		<span class="orion-chips__main">
+
+			<o-icon
+				v-if="prefixIcon || prefixFontIcon"
+				class="orion-chips__icon"
+				:icon="prefixIcon"
+				:font-icon="prefixFontIcon"/>
+
 			<slot/>
+
+			<o-icon
+				v-if="suffixIcon || suffixFontIcon"
+				class="orion-chips__icon"
+				:icon="suffixIcon"
+				:font-icon="suffixFontIcon"/>
 		</span>
 
 		<span
@@ -21,9 +36,10 @@
 			</div>
 		</span>
 
-		<span
+		<o-icon
 			v-if="close"
 			class="orion-chips__close"
+			icon="close"
 			@click="emits('close')"
 			@touchend.prevent.stop="emits('close')"/>
 	</span>
