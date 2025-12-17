@@ -49,7 +49,7 @@
 		"--rgb-pink-dark": "--background-secondary-moderate",
 		"--rgb-pink-light": "--background-secondary-minimal",
 
-		"--inverse": "--background-neutral-highlight",
+		"--inverted": "--background-neutral-highlight",
 
 		"--radius-btn": "--radius-small",
 		"--radius-label": "--radius-small",

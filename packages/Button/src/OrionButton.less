@@ -229,58 +229,6 @@
 		}
 	}
 
-	&--inverse {
-		color: var(--text-default-inverted);
-		background: var(--background-neutral-inverted);
-
-		&:hover,
-		&:focus {
-			background: var(--background-neutral-inverted-hover);
-		}
-
-		&.orion-button--nude {
-			color: var(--text-default-default);
-
-			&:hover,
-			&:focus {
-				background: var(--background-neutral-default);
-			}
-		}
-
-		&.orion-button--outline {
-			color: var(--text-default-default);
-			border: 1px solid var(--border-neutral-default);
-			background: var(--background-neutral-minimal);
-
-			&.orion-button--inverse:hover,
-			&.orion-button--inverse:focus {
-				background: var(--background-neutral-minimal);
-				border-color: var(--border-neutral-default);
-			}
-		}
-
-		&.orion-button--disabled {
-			color: var(--text-default-disabled);
-			&:hover,
-			&:focus {
-				background: var(transparent);
-				border-color: var(--border-neutral-disabled);
-			}
-
-			&.orion-button--nude {
-				background: transparent;
-			}
-		}
-	}
-
-	&--outline:not(&--inverse):not(&--default),
-	&--nude:not(&--inverse):not(&--default) {
-		.orion-button__text,
-		.orion-button__icon {
-			.color-contrast();
-		}
-	}
-
 	&--nude {
 		border-color: transparent !important;
 		stroke: none;

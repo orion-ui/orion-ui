@@ -69,7 +69,7 @@ declare global {
 
 		type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
-		type Color = 'info' | 'success' | 'warning' | 'inverse' | 'primary' | 'secondary' | 'neutral' | 'error';
+		type Color = 'info' | 'success' | 'warning' | 'inverted' | 'primary' | 'secondary' | 'neutral' | 'error';
 
 		type ColorAlt = 'primary-alt' | 'info-alt' | 'success-alt' | 'warning-alt' | 'error-alt' | 'secondary-alt';
 

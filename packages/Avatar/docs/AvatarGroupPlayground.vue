@@ -50,7 +50,7 @@ import { reactive } from 'vue';
 const state = reactive({
 	max: 4,
 	spacing: 16,
-	color: 'inverse' as Orion.Color,
+	color: 'inverted' as Orion.Color,
 });
 
 </script>
