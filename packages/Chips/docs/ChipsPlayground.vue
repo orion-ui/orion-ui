@@ -38,7 +38,7 @@
 		<div class="col-sm-3">
 			<o-toggle
 				v-model="state.round"
-				label="Rounded"/>
+				label="Round"/>
 		</div>
 		<div class="col-sm-3">
 			<o-toggle
