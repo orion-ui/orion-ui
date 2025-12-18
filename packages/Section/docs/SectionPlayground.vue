@@ -4,7 +4,7 @@
 			v-bind="state"
 			v-model:collapsed="state.collapsed">
 			<template #actions>
-				<o-button color="inverse">
+				<o-button color="inverted">
 					Action
 				</o-button>
 			</template>

@@ -9,10 +9,9 @@
 					v-for="item in state.titles"
 					:key="item.id"
 					class="toc-list__item"
-					:class="`toc-list__item--${item.tagName}`">
-					<a 
-						:href="'#' + item.id"
-						:id="'toc-' + item.id">
+					:class="`toc-list__item--${item.tagName}`"
+				>
+					<a :href="'#' + item.id" :id="'toc-' + item.id">
 						{{ capitalizeFirstLetter(item.innerText.replace(/#\s?/, '')) }}
 					</a>
 				</li>
@@ -22,7 +21,15 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUpdated, onUnmounted, reactive, watch, nextTick, computed } from 'vue';
+import {
+	onMounted,
+	onUpdated,
+	onUnmounted,
+	reactive,
+	watch,
+	nextTick,
+	computed,
+} from 'vue';
 import { throttle } from 'lodash-es';
 import { capitalizeFirstLetter } from '@utils/tools';
 import { Bus, useResponsive } from '@/lib';
@@ -33,13 +40,13 @@ const scrollSpy = throttle(() => {
 	checkActive();
 }, 100);
 
-const frontmatter = usePageFrontmatter()
+const frontmatter = usePageFrontmatter();
 
 const sectionMargin = 250;
 
 const state = reactive({
 	titles: [] as HTMLElement[],
-})
+});
 
 Bus.on('AttributeTable:mounted', getTitles);
 Bus.on('ServicePreview:mounted', getTitles);
@@ -52,23 +59,25 @@ Bus.on('ServicePreview:unMounted', () => {
 });
 
 const tocTitle = computed(() => {
-	if(frontmatter.value.lang?.includes('en')) {
-		return useResponsive().onPhone ? 'Return to top' : 'On this page'
+	if (frontmatter.value.lang?.includes('en')) {
+		return useResponsive().onPhone ? 'Return to top' : 'On this page';
+	} else {
+		return useResponsive().onPhone ? 'Retour en haut' : 'Sur cette page';
 	}
-	else {
-		return useResponsive().onPhone ? 'Retour en haut' : 'Sur cette page'
-	}
-}) 
+});
 
 const router = useRouter();
-watch(() => router.currentRoute.value, (to, from) => {
-	if (from.fullPath !== to.fullPath) {
-		nextTick(getTitles);
-	}
-})
+watch(
+	() => router.currentRoute.value,
+	(to, from) => {
+		if (from.fullPath !== to.fullPath) {
+			nextTick(getTitles);
+		}
+	},
+);
 
 onMounted(() => {
-	window.addEventListener("scroll", scrollSpy);
+	window.addEventListener('scroll', scrollSpy);
 	getTitles();
 	checkScroll();
 });
@@ -78,15 +87,15 @@ onUpdated(() => {
 });
 
 onUnmounted(() => {
-	window.removeEventListener("scroll", scrollSpy);
+	window.removeEventListener('scroll', scrollSpy);
 	checkScroll();
 });
 
-function scrollToTop () {
-	window.scrollTo(0,0)
+function scrollToTop() {
+	window.scrollTo(0, 0);
 }
 
-function getTitles () {
+function getTitles() {
 	state.titles.length = 0;
 	nextTick(() => {
 		const tab = document.querySelectorAll('h2, h3');
@@ -94,17 +103,24 @@ function getTitles () {
 			if (item.id !== '' && !state.titles.includes(item as HTMLElement))
 				state.titles.push(item as HTMLElement);
 		});
-		nextTick(checkScroll)
-	})
+		nextTick(checkScroll);
+	});
 }
 
-function checkScroll () {
-	checkActive()
+function checkScroll() {
+	checkActive();
 }
 
 function checkActive() {
 	const sections = [...state.titles];
-	const current = sections.length - [...sections].reverse().findIndex((section) => window.scrollY >= section.offsetTop - sectionMargin ) - 1
+	const current =
+		sections.length -
+		[...sections]
+			.reverse()
+			.findIndex(
+				(section) => window.scrollY >= section.offsetTop - sectionMargin,
+			) -
+		1;
 	let currentActive = 0;
 
 	if (current !== currentActive || current === 0) {
@@ -114,30 +130,29 @@ function checkActive() {
 	}
 }
 
-function makeActive (link: number) {
-	const menu_links = document.querySelectorAll(".toc-list__item a");
-	menu_links[link]?.classList.add("active");
+function makeActive(link: number) {
+	const menu_links = document.querySelectorAll('.toc-list__item a');
+	menu_links[link]?.classList.add('active');
 }
 
-function removeActive (link: number) {
-	const menu_links = document.querySelectorAll(".toc-list__item a");
-	menu_links[link]?.classList.remove("active");
+function removeActive(link: number) {
+	const menu_links = document.querySelectorAll('.toc-list__item a');
+	menu_links[link]?.classList.remove('active');
 }
 
-function removeAllActive () {
+function removeAllActive() {
 	const sections = [...state.titles];
 	[...Array(sections.length).keys()].forEach((link) => removeActive(link));
-} 
+}
 </script>
 
 <style scoped lang="less">
-
 .toc-list {
 	&__item {
 		font-size: var(--size-default);
-		
+
 		&--H3 {
-			padding-left: var(--space-8);
+			padding-left: var(--spacing-8);
 		}
 	}
 }

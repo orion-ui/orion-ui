@@ -518,6 +518,8 @@ export default class OrionSelectSetupService<
 		}
 
 		setTimeout(() => {
+			if (!this.state.isFocus) return;
+
 			if (this._defaultSlot.value) {
 				this._defaultSlot.value?.focus();
 				this._optionssearchinput.value?.focus();

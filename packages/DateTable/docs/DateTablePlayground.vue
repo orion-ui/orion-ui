@@ -5,24 +5,30 @@
 		type="range"
 		v-bind="state"
 		range-start
+		hide-month-navigation
 		:periods="state.periods"/>
 
 	<div class="playground-form flex fd-c g-16">
 		<div class="row row--gutter">
-			<div class="col-sm-4">
+			<div class="col-sm-3">
 				<o-toggle
 					v-model="state.canGoPrevMonth"
 					label="Can go prev month"/>
 			</div>
-			<div class="col-sm-4">
+			<div class="col-sm-3">
 				<o-toggle
 					v-model="state.canGoNextMonth"
 					label="Can go next month"/>
 			</div>
-			<div class="col-sm-4">
+			<div class="col-sm-3">
 				<o-toggle
 					v-model="state.disableMonthAndYear"
 					label="Disabled month and year"/>
+			</div>
+			<div class="col-sm-3">
+				<o-toggle
+					v-model="state.horizontal"
+					label="Horizontal"/>
 			</div>
 		</div>
 
@@ -128,6 +134,7 @@ const state = reactive({
 	disableMonthAndYear: false,
 	daterange: null,
 	date: new Date(),
+	horizontal: false,
 });
 
 function addPeriod () {

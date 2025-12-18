@@ -102,11 +102,14 @@
 		</div>
 		<div class="row row--grid-xs row--toggles">
 			<div class="col-sm-3">
-				<o-input label="Custom mask value" v-model="state.customMaskValue"/>
+				<o-input
+					v-model="state.customMaskValue"
+					label="Custom mask value"/>
 			</div>
 			<div class="col-sm-3 flex ai-c">
-				<o-toggle label="Static mask" 
-					v-model="state.staticMask"/>
+				<o-toggle
+					v-model="state.staticMask"
+					label="Static mask"/>
 			</div>
 		</div>
 	</div>
@@ -152,7 +155,7 @@ const maskOptions = [
 
 watch(() => state.customMaskValue, (val) => {
 	maskOptions[3] = val;
-})
+});
 </script>
 
 ### Playground

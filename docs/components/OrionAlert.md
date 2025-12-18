@@ -19,5 +19,4 @@ AlertPlayground
 
 ## Todo
 
-- `inverse` color style
 - auto hide if no `@close` callback

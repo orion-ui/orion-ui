@@ -1,16 +1,15 @@
 <template>
 	<div class="datetable-validation flex g-32 jc-s ai-s">
 		<div>
-			<o-droppable
-				v-model:datalist="left"
-				:tag="`o-section`">
+			<o-droppable v-model:datalist="left" :tag="`o-section`">
 				<o-draggable
 					v-for="item in left"
 					:key="item.__uid"
 					:data="item"
-					tag="o-sticker">
+					tag="o-sticker"
+				>
 					<div class="draggable-content">
-						<o-icon icon="file_document"/>
+						<o-icon icon="file_document" />
 						<strong>{{ item.title }}</strong>
 					</div>
 				</o-draggable>
@@ -21,14 +20,16 @@
 			<o-droppable
 				v-model:datalist="right"
 				:tag="`o-section`"
-				:validation="validation">
+				:validation="validation"
+			>
 				<o-draggable
 					v-for="item in right"
 					:key="item.__uid"
 					:data="item"
-					tag="o-sticker">
+					tag="o-sticker"
+				>
 					<div class="draggable-content">
-						<o-icon icon="file_blank"/>
+						<o-icon icon="file_blank" />
 						<strong>{{ item.title }}</strong>
 					</div>
 				</o-draggable>
@@ -75,14 +76,14 @@ const right = ref([
 
 <style lang="less" scoped>
 .datetable-validation {
-  > div {
+	> div {
 		flex: 1;
 	}
 }
 
 .orion-droppable {
 	position: relative;
-	padding: var(--space-16);
+	padding: var(--spacing-16);
 	border-radius: 0.5rem;
 	background: var(--background-neutral-subtle);
 
@@ -98,9 +99,9 @@ const right = ref([
 		background: rgba(var(--background-info-default), 0.15);
 	}
 
-	&--disabled{
+	&--disabled {
 		border: calc(1rem / 16) solid var(--background-error-default);
-		opacity: 0.2
+		opacity: 0.2;
 	}
 }
 
@@ -115,24 +116,12 @@ const right = ref([
 }
 </style>
 
-@hl {24,44-47}
-
-@lang:en
-### Validation on drop
-
-You can add a validation rule on the drop of an item in the dropzone.
-
-To do this you just have to pass a `validation` prop of the `Orion.Validation` type.
-
-If the `method` property return false, the drag'n drop operation will be canceled.
-@lang
-
-@lang:fr
-### Validation au drop
-
-Il est possible d'ajouter une règle de validation au moment du drop d'un élément dans une zone.
-
-Il suffit pour cela de passer une prop `validation` correspondant à un objet du type `Orion.DndValidation`.
-
-Si la propriété `method` renvoi `false`, l'opération de drag'n drop sera annulée.
+@hl {24,44-47} @lang:en ### Validation on drop You can add a validation rule on
+the drop of an item in the dropzone. To do this you just have to pass a
+`validation` prop of the `Orion.Validation` type. If the `method` property
+return false, the drag'n drop operation will be canceled. @lang @lang:fr ###
+Validation au drop Il est possible d'ajouter une règle de validation au moment
+du drop d'un élément dans une zone. Il suffit pour cela de passer une prop
+`validation` correspondant à un objet du type `Orion.DndValidation`. Si la
+propriété `method` renvoi `false`, l'opération de drag'n drop sera annulée.
 @lang

@@ -14,14 +14,21 @@ Son mécanisme est très similaire à celui du composant `<o-tabs>` ([plus d'inf
 TimelinePlayground
 :::
 
-## Timeline
+## Orion Timeline
 
 <attribute-table package="Timeline"/>
 
-## Timeline Pane
+## Orion Timeline Pane
 
 ::: demo:Timeline
 TimelineMarker
 TimelineStyle
 :::
 <attribute-table package="TimelinePane"/>
+
+## Orion Timeline Pill
+
+::: demo:Timeline
+TimelinePillsOnly
+:::
+<attribute-table package="TimelinePill"/>
