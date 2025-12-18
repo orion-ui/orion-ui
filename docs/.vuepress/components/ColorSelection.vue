@@ -36,7 +36,7 @@ import { colors, greys } from '@/lib';
 defineProps({
 	modelValue: {
 		type: String as PropType<Orion.Color | Orion.Grey>,
-		default: 'default',
+		default: 'primary',
 	},
 	label: {
 		type: String,

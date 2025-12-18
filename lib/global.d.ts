@@ -6,7 +6,12 @@ import { MaterialIcon } from 'material-icons';
 import { OrionAvatarProps } from 'packages/Avatar/src/OrionAvatarSetupService';
 import { Component } from 'vue';
 import { RouteLocationRaw, Router } from 'vue-router';
-import type { OrionAsideSetupService, OrionListProps, OrionModalSetupService, OrionNotifSetupService } from '../packages';
+import type {
+	OrionAsideSetupService,
+	OrionListProps,
+	OrionModalSetupService,
+	OrionNotifSetupService,
+} from '../packages';
 import OrionChatEntity from '../packages/Chat/src/OrionChatEntity';
 import OrionChatMessageEntity from '../packages/ChatMessage/src/OrionChatMessageEntity';
 import useValidation from '../services/ValidationService';
@@ -19,36 +24,33 @@ declare global {
 
 	type Nil<T> = T | undefined | null;
 
-	type RefDom<T = HTMLElement> = undefined | HTMLElement & T;
+	type RefDom<T = HTMLElement> = undefined | (HTMLElement & T);
 
-	type SetupProps<T> = Readonly<import('vue').ExtractPropTypes<T>>
+	type SetupProps<T> = Readonly<import('vue').ExtractPropTypes<T>>;
 
 	type AsideAnimationHookType =
-	| 'asideEnterBefore'
-	| 'asideEnterStart'
-	| 'asideEnterEnd'
-	| 'asideLeaveBefore'
-	| 'asideLeaveStart'
-	| 'asideLeaveEnd'
-	;
+		| 'asideEnterBefore'
+		| 'asideEnterStart'
+		| 'asideEnterEnd'
+		| 'asideLeaveBefore'
+		| 'asideLeaveStart'
+		| 'asideLeaveEnd';
 
 	type ModalAnimationHookType =
-	| 'modalEnterBefore'
-	| 'modalEnterStart'
-	| 'modalEnterEnd'
-	| 'modalLeaveBefore'
-	| 'modalLeaveStart'
-	| 'modalLeaveEnd'
-	;
+		| 'modalEnterBefore'
+		| 'modalEnterStart'
+		| 'modalEnterEnd'
+		| 'modalLeaveBefore'
+		| 'modalLeaveStart'
+		| 'modalLeaveEnd';
 
 	type NotifAnimationHookType =
-	| 'notifEnterBefore'
-	| 'notifEnterStart'
-	| 'notifEnterEnd'
-	| 'notifLeaveBefore'
-	| 'notifLeaveStart'
-	| 'notifLeaveEnd'
-	;
+		| 'notifEnterBefore'
+		| 'notifEnterStart'
+		| 'notifEnterEnd'
+		| 'notifLeaveBefore'
+		| 'notifLeaveStart'
+		| 'notifLeaveEnd';
 
 	namespace Orion {
 		type AppServiceConfig = {
@@ -57,9 +59,9 @@ declare global {
 			lang: LangAvailable;
 			router: Router;
 			iconStyle: Orion.IconStyle;
-		}
+		};
 
-		type Config = Partial<AppServiceConfig>
+		type Config = Partial<AppServiceConfig>;
 
 		type Icon = MaterialIcon;
 
@@ -69,15 +71,33 @@ declare global {
 
 		type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
-		type Color = 'info' | 'success' | 'warning' | 'inverted' | 'primary' | 'secondary' | 'neutral' | 'error';
+		type Color =
+			| 'info'
+			| 'success'
+			| 'warning'
+			| 'inverted'
+			| 'primary'
+			| 'secondary'
+			| 'error';
 
-		type ColorAlt = 'primary-alt' | 'info-alt' | 'success-alt' | 'warning-alt' | 'error-alt' | 'secondary-alt';
+		type ColorAlt =
+			| 'primary-alt'
+			| 'info-alt'
+			| 'success-alt'
+			| 'warning-alt'
+			| 'error-alt'
+			| 'secondary-alt';
 
 		type ColorExtended = Color | ColorAlt;
 
 		type ColorExtendedAndGreys = Color | ColorAlt | Grey;
 
-		type Grey = 'grey-darker' | 'grey-dark' | 'grey' | 'grey-light' |'grey-lighter';
+		type Grey =
+			| 'grey-darker'
+			| 'grey-dark'
+			| 'grey'
+			| 'grey-light'
+			| 'grey-lighter';
 
 		type DatepickerType = 'date' | 'range' | 'week' | 'multiple' | 'month';
 
@@ -86,12 +106,27 @@ declare global {
 		type ListLayout = 'grid' | 'row';
 
 		// eslint-disable-next-line max-len
-		type VDropdownPlacement = 'auto' | 'auto-start' | 'auto-end' | 'top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'left' | 'left-start' | 'left-end' | 'right' | 'right-start' | 'right-end';
+		type VDropdownPlacement =
+			| 'auto'
+			| 'auto-start'
+			| 'auto-end'
+			| 'top'
+			| 'top-start'
+			| 'top-end'
+			| 'bottom'
+			| 'bottom-start'
+			| 'bottom-end'
+			| 'left'
+			| 'left-start'
+			| 'left-end'
+			| 'right'
+			| 'right-start'
+			| 'right-end';
 
 		type Phone = {
 			phoneNumber?: Nil<string>;
 			phoneCountryCode?: Nil<Orion.Country['code']>;
-		}
+		};
 
 		type DateRange = {
 			start?: Date;
@@ -100,7 +135,7 @@ declare global {
 			year?: number;
 			monthNumber?: number;
 			selecting?: boolean;
-		}
+		};
 
 		type DailyCalendarTask = {
 			id: number;
@@ -110,7 +145,7 @@ declare global {
 			color: Orion.Color;
 			column?: number;
 			callback?: (task: DailyCalendarTask) => void;
-		}
+		};
 
 		type DndData = {
 			data: Object & { __uid: number };
@@ -119,12 +154,12 @@ declare global {
 			index: Nullable<number>;
 			canDrop: boolean;
 			fromAsideOrModal: Nullable<Number>;
-		}
+		};
 
 		type DndValidation = {
 			method: (payload?: DndData) => boolean;
 			notif: (payload?: any) => void;
-		}
+		};
 
 		type Period = {
 			isStart: boolean;
@@ -136,33 +171,36 @@ declare global {
 			callback?: () => void;
 			customClass?: string;
 			specific: {
-				color: Orion.ColorExtendedAndGreys
+				color: Orion.ColorExtendedAndGreys;
 				date: Date;
 				exclude: boolean;
 			}[];
-		}
+		};
 
 		type Country = {
 			code: CountryCode;
 			name: string;
 			areaCode: string;
-		}
+		};
 
 		type LayoutConfig = {
 			navMain?: OrionNavMain.Props;
 			navTop?: OrionNavTop.Props;
 			navTabs?: OrionNavTabs.Props;
-		}
+		};
 
-		type List<T extends Record<string, any>> = Omit<OrionListProps<T>, 'list' | 'selected'> & {
+		type List<T extends Record<string, any>> = Omit<
+			OrionListProps<T>,
+			'list' | 'selected'
+		> & {
 			list: T[];
 			selected?: T[];
-		}
+		};
 
 		type ListPage = {
 			size: number;
 			index: number;
-		}
+		};
 
 		type NavItem = Partial<{
 			always: boolean;
@@ -187,13 +225,13 @@ declare global {
 			to: RouteLocationRaw;
 			wrapperClass: string;
 			activeWhenExact: boolean;
-		}>
+		}>;
 
 		type NavSection = {
 			slug: string;
 			items: NavItem[];
 			if?: boolean | (() => boolean);
-		}
+		};
 
 		type VDropdown = {
 			placement?: VDropdownPlacement;
@@ -201,15 +239,15 @@ declare global {
 			skidding?: number;
 			triggers?: ('click' | 'hover' | 'focus' | 'touch')[];
 			arrowPadding?: number;
-		}
+		};
 
 		namespace DateTable {
-			type Type ='date' | 'range' | 'multiple' | 'month';
+			type Type = 'date' | 'range' | 'multiple' | 'month';
 
 			type Marker = {
 				date: Date;
 				color: Orion.ColorExtendedAndGreys;
-			}
+			};
 		}
 
 		namespace Popable {
@@ -218,7 +256,7 @@ declare global {
 			type PublicIntance =
 				| OrionAsideSetupService['publicInstance']
 				| OrionModalSetupService['publicInstance']
-				| OrionNotifSetupService['publicInstance']
+				| OrionNotifSetupService['publicInstance'];
 
 			type Options = {
 				uid: number;
@@ -235,7 +273,10 @@ declare global {
 				hideOnEsc: boolean;
 				overlay: boolean;
 				zIndex: number;
-				events?: Record<string, (popable: OrionAside | OrionModal | OrionNotif, params: any) => void>;
+				events?: Record<
+					string,
+					(popable: OrionAside | OrionModal | OrionNotif, params: any) => void
+				>;
 			};
 
 			type CloseOptions = {
@@ -248,7 +289,7 @@ declare global {
 		namespace Aside {
 			type Options = Popable.Options & {
 				events?: Record<string, (aside: OrionAside, params: any) => void>;
-			}
+			};
 		}
 
 		namespace Modal {
@@ -263,9 +304,16 @@ declare global {
 			type ActionsParams = OrionButton.Props & {
 				label: string;
 				callback: (modal: OrionModal, prompt?: Prompt) => void;
-			}
+			};
 
-			type PromptType = 'input' | 'textarea' | 'password' | 'select' | 'phone' | 'upload' | 'datepicker';
+			type PromptType =
+				| 'input'
+				| 'textarea'
+				| 'password'
+				| 'select'
+				| 'phone'
+				| 'upload'
+				| 'datepicker';
 
 			type Prompt<T = any> = {
 				type: PromptType;
@@ -273,13 +321,13 @@ declare global {
 				fieldProps: Partial<OrionField.Props> & Record<string, any>;
 				confirm(): void;
 				cancel(): void;
-			}
+			};
 
 			type PromptResolveType<T> = {
 				confirm: boolean;
 				value: Nil<T>;
 				modal: OrionModal;
-			}
+			};
 		}
 
 		namespace Notif {
@@ -289,7 +337,7 @@ declare global {
 				duration?: Nil<number>;
 				icon?: Orion.Icon;
 				fontIcon?: string;
-				color?: 'info' | 'success' | 'warning' | 'danger' ;
+				color?: 'info' | 'success' | 'warning' | 'danger';
 				events?: Record<string, (notif: OrionNotif, params: any) => void>;
 			};
 		}
@@ -302,15 +350,36 @@ declare global {
 				allowDiscussionSearch: boolean;
 				discussionSearchTimer: number;
 				// eslint-disable-next-line max-len
-				discussionFetcherAsync?: (params: { oldestDiscussionId?: number, oldestDiscussionUpdatedDate?: Date, searchTerm?: string, searchTermHasChanged?: boolean }) => Promise<Discussion[]>;
+				discussionFetcherAsync?: (params: {
+					oldestDiscussionId?: number;
+					oldestDiscussionUpdatedDate?: Date;
+					searchTerm?: string;
+					searchTermHasChanged?: boolean;
+				}) => Promise<Discussion[]>;
 				discussionTitleFormatter?: (discussion: OrionChatEntity) => string;
-				discussionInterlocutorsFormatter?: (discussion: OrionChatEntity) => User[];
-				discussionUnreadMessagesCounter?: (params: {discussion: OrionChatEntity, discussionId: number, messages: OrionChatMessageEntity[] }) => number;
-				messageFetcherAsync: (params: { discussion: OrionChatEntity, discussionId: number, oldestMessageId?: number }) => Promise<Message[]>;
+				discussionInterlocutorsFormatter?: (
+					discussion: OrionChatEntity,
+				) => User[];
+				discussionUnreadMessagesCounter?: (params: {
+					discussion: OrionChatEntity;
+					discussionId: number;
+					messages: OrionChatMessageEntity[];
+				}) => number;
+				messageFetcherAsync: (params: {
+					discussion: OrionChatEntity;
+					discussionId: number;
+					oldestMessageId?: number;
+				}) => Promise<Message[]>;
 				onMessageReadAsync: (message: OrionChatMessageEntity) => void;
-				onNewMessageAsync: (message: OrionChatMessageEntity, registerMessage: () => void) => void;
-				onActiveDiscussionChange: (discussionId?: number, oldDiscussionId?: number) => void;
-			}
+				onNewMessageAsync: (
+					message: OrionChatMessageEntity,
+					registerMessage: () => void,
+				) => void;
+				onActiveDiscussionChange: (
+					discussionId?: number,
+					oldDiscussionId?: number,
+				) => void;
+			};
 
 			type Options = Partial<Config> & {
 				user: User;
@@ -330,7 +399,7 @@ declare global {
 				participants: User[];
 				lastMessage?: Message;
 				messages: Message[];
-			}
+			};
 
 			type Message = {
 				discussionId: number;
@@ -343,40 +412,45 @@ declare global {
 				metaData?: string | Record<string, any>;
 				author: User;
 				isRead: boolean;
-			}
+			};
 
 			type NewMessage = {
 				message: string;
 				discussionId: number;
-			}
+			};
 		}
 
 		namespace Tour {
 			type TourObject = {
-				label?: string,
+				label?: string;
 				callback?: () => any;
-				clean?: () => any
-			}
+				clean?: () => any;
+			};
 		}
 
 		namespace Validation {
-			type Rule = ReturnType<ReturnType<typeof useValidation<any, any>>['rule']>;
-			type RuleResult<T> = string | boolean | ((val: T) => boolean | Validator.RuleResult) | ValidatorClass<T>;
+			type Rule = ReturnType<
+				ReturnType<typeof useValidation<any, any>>['rule']
+			>;
+			type RuleResult<T> =
+				| string
+				| boolean
+				| ((val: T) => boolean | Validator.RuleResult)
+				| ValidatorClass<T>;
 			type Rules<T> = {
 				[K in keyof T]?: RuleResult<T[K]>;
-			}
+			};
 		}
 
 		namespace Validator {
-			type Rule<T = any> = ((value: T) => Orion.Validator.RuleResult);
-			type RuleFunction = ((...args: any[]) => (value?: any) => boolean);
+			type Rule<T = any> = (value: T) => Orion.Validator.RuleResult;
+			type RuleFunction = (...args: any[]) => (value?: any) => boolean;
 			type RuleResult = {
-				result: boolean
-				level: 'warning' | 'error'
-				message?: string
-				meta?: any,
-			}
+				result: boolean;
+				level: 'warning' | 'error';
+				message?: string;
+				meta?: any;
+			};
 		}
-
 	}
 }
