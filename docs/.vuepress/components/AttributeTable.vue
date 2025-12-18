@@ -2,8 +2,7 @@
 	<div
 		v-for="(data, dataType) in packageDataToDisplay"
 		:key="dataType"
-		class="attribute-table"
-	>
+		class="attribute-table">
 		<div v-if="data?.length">
 			<h2 v-if="!package" :id="dataType" class="attribute-table__title">
 				<a :href="`#${dataType}`" class="header-anchor">
