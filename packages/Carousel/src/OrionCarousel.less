@@ -23,6 +23,12 @@
 		align-items: center;
 		justify-content: center;
 		gap: 1rem;
+		color: var(--text-default-subtle);
+
+		.orion-icon {
+			font-size: var(--typography-size-h5);
+		}
+		
 
 		&-previous,
 		&-next {
@@ -38,6 +44,19 @@
 		&-next {
 			order: 3;
 		}
+
+		&-buttons {
+			order: 2;
+		}
+
+		&--space-between {
+			justify-content: space-between;
+
+			.orion-carousel__navigation-previous {
+				order: 2;
+				align-self: flex-end;
+			}
+		}
 	}
 
 	&__dot-section {
@@ -46,6 +65,10 @@
 		align-items: center;
 		justify-content: center;
 		gap: 0.5rem;
+
+		.orion-carousel__navigation--space-between & {
+			order: 1;
+		}
 	}
 
 	&__dot {
@@ -56,17 +79,17 @@
 		width: 0.5rem;
 		border-radius: 0.25rem;
 		background: var(--background-neutral-default);
-		border: 1px solid var(--border-neutral-default);
+		border: 1px solid var(--border-neutral-subtle);
 		cursor: pointer;
 
 		&:hover {
-			border-color: var(--border-neutral-hover);
+			border-color: var(--color);
 		}
 
 		&--active,
 		&--past {
 			border-color: transparent;
-			background-color: var(--background-neutral-default);
+			background-color: var(--color);
 		}
 
 		&--past {
@@ -75,7 +98,7 @@
 
 		&--active {
 			.orion-carousel--timer & {
-					background-color: color-mix(in srgb, var(--background-neutral-highlight) 20%, transparent);
+					background-color: color-mix(in srgb, var(--color) 20%, transparent);
 					width: 1.5rem;
 			}
 		}
@@ -86,7 +109,7 @@
 			bottom: 0;
 			left: 0;
 			right: 0;
-			background-color: var(--background-neutral-highlight);
+			background-color: var(--color);
 			transform: scale3d(0, 1, 1);
 			transform-origin: left;
 
