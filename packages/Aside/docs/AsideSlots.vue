@@ -14,7 +14,7 @@
 
 		<o-aside
 			ref="_asideA"
-			:options="{ title: 'This is the Title', description: 'This is an aside with actions slot' }">
+			:options="{ title: 'This is the Title', description: 'This is an aside with a description' }">
 			<o-section title="Aside with actions">
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 				Duis sagittis viverra vulputate. Nunc ultricies ante urna, eget.

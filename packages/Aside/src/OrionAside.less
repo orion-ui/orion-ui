@@ -37,15 +37,23 @@
 
 	&__poster {
 		flex: none;
-		border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+		overflow: hidden;
+		border-radius: var(--radius-md) var(--radius-md) 0 0;
 	}
 
 	&__header {
 		padding: var(--spacing-24) var(--spacing-24);
 		display: flex;
+		position: relative;
 		flex-direction: column;
+		border-radius: var(--radius-md);
 		gap: var(--spacing-8);
 		background-color: var(--background-neutral-default);
+
+		&:has(+ .orion-aside__body),
+		&:has(+ .orion-aside__footer) {
+			padding-bottom: 0;
+		}
 
 		@media @tablet {
 			padding: var(--spacing-24) var(--spacing-24);
@@ -57,7 +65,7 @@
 		.orion-aside--xs & {
 			padding: var(--spacing-24);
 		}
-
+		
 		&:empty {
 			display: none;
 		}
@@ -118,6 +126,10 @@
 		padding: var(--spacing-24);
 		max-width: 100%;
 		max-height: 100%;
+
+		.orion-aside__header:not(:empty) + & {
+			padding-top: 0;
+		}
 
 
 		// #region Pure CSS scroll shadow
@@ -194,6 +206,7 @@
 		flex: 0 0 auto;
 		border: 1px solid var(--border-neutral-default);
 		padding: var(--spacing-16) var(--spacing-24);
+		border-radius: 0 0 var(--radius-md) var(--radius-md);
 
 		@media @tablet {
 			padding: var(--spacing-16) var(--spacing-24);
@@ -214,7 +227,7 @@
 	&__close {
 		.close(1.5rem);
 		z-index: 1;
-		position: fixed;
+		position: absolute;
 		color: var(--text-default-subtle);
 		top: var(--spacing-16);
 		right: var(--spacing-16);

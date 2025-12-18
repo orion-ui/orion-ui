@@ -50,7 +50,9 @@
 					:close="setup.close.bind(setup)"/>
 			</div>
 
-			<div class="orion-aside__body">
+			<div
+				:id="`OrionAside-${setup.uid}__body`"
+				class="orion-aside__body">
 				<component
 					:is="setup.options.Nested"
 					v-if="setup.options.Nested && setup.isMounted"
@@ -58,12 +60,17 @@
 
 				<slot :close="setup.close.bind(setup)"/>
 			</div>
+			<teleport
+				defer
+				:to="setup.headerIsDisplayed ? `#OrionAside-${setup.uid}__header` : `#OrionAside-${setup.uid}__body`">
+				{{ $slots.header }}
+				<span
+					v-if="!setup.options.hideClose"
+					class="orion-aside__close"
+					@click="setup.close({ keepInQueue: false })"
+					@touchend.prevent.stop="setup.close({ keepInQueue: false })"/>
+			</teleport>
 
-			<span
-				v-if="!setup.options.hideClose"
-				class="orion-aside__close"
-				@click="setup.close({ keepInQueue: false })"
-				@touchend.prevent.stop="setup.close({ keepInQueue: false })"/>
 
 			<orion-loader :ref="setup._loader"/>
 		</aside>
@@ -78,7 +85,8 @@ import OrionAsideSetupService from './OrionAsideSetupService';
 import type { OrionAsideProps, OrionAsideEmits } from './OrionAsideSetupService';
 const emits = defineEmits<OrionAsideEmits>() as OrionAsideEmits;
 const props = withDefaults(defineProps<OrionAsideProps>(), OrionAsideSetupService.defaultProps);
-const setup = new OrionAsideSetupService(props, emits);
+const slots = defineSlots();
+const setup = new OrionAsideSetupService(props, emits, slots);
 provide('_aside', setup.publicInstance);
 defineExpose(setup.publicInstance);
 
