@@ -72,7 +72,6 @@
 </template>
 
 <script setup lang="ts">
-import { template } from 'lodash-es';
 import { ref } from 'vue';
 const _asideA = ref<OrionAside>();
 const _asideB = ref<OrionAside>();
