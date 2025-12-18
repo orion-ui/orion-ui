@@ -44,6 +44,22 @@
 		opacity: 0.3;
 		color: var(--text-info-default);
 		font-size: 2rem;
+		
+
+		.orion-timeline-pill-wrapper--pill-only & {
+			.circle(2rem);
+			opacity: 0.5;
+			
+			&.orion-timeline-pill__core {
+				each(@colors, {
+					@color: ~"--@{value}";
+
+					&--@{value} {
+						border: 0.125rem solid var(@color);
+					}
+				});
+			}
+		} 
 
 		> .orion-timeline-pill__core-text {
 			display: block;
@@ -59,6 +75,10 @@
 
 		&--active {
 			opacity: 1;
+
+			.orion-timeline-pill-wrapper--pill-only & {
+				opacity: 1;
+			} 
 
 			+ .orion-timeline-pill__separator--before {
 				opacity: 1;
@@ -82,7 +102,19 @@
 					opacity: 1;
 				}
 			}
+
+			&.orion-timeline-pill__core {
+				each(@colors, {
+					@color: ~"--@{value}";
+
+					&--@{value} {
+						background: var(@color);
+					}
+				});
+			}
 		}
+
+		
 
 		&--clickable {
 			transition: opacity 0.3s;
@@ -127,7 +159,7 @@
 			order: 3;
 		}
 
-		.orion-timeline-pill__core--filled ~ & {
+		.orion-timeline-pill__core--filled ~ &:not(.orion-timeline-pill-wrapper--pill-only &) {
 			opacity: 1;
 		}
 

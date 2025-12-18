@@ -203,7 +203,7 @@ Ces variables utilisent les valeurs RGB pour créer des couleurs CSS utilisables
 |                 | `--grey`              |
 |                 | `--grey-light`        |
 |                 | `--grey-lighter`      |
-| **Inverse/Base**    | `--inverse`           |
+| **Inverse/Base**    | `--inverted`           |
 |                 | `--base`              |  
 | **Info**            | `--info`              |
 |                 | `--info-light`        |
@@ -248,7 +248,7 @@ Ces variables utilisent les valeurs RGB pour créer des couleurs CSS utilisables
 .alert-success {
   background-color: var(--success-light);
   border-color: var(--success);
-  color: rgb(var(--rgb-inverse),0.2); // Pour gérer l'opacité par exemple
+  color: rgb(var(--rgb-inverted),0.2); // Pour gérer l'opacité par exemple
 }
 ```
 

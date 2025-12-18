@@ -233,6 +233,7 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'the url of the image or an id (combined with root-url prop). More info in [Edges cases](#edge-cases) section.',
 					'fr': 'url de l\'image ou id (combiné avec la prop `root-url`). Plus d\'infos dans la section [Cas complexes](#cas-complexes).',
+					'private': false,
 				},
 			}, {
 				'name': 'color',
@@ -240,6 +241,7 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'defines the color',
 					'fr': 'définit la couleur',
+					'private': false,
 				},
 				'defaultValue': '\'primary\' ',
 			}, {
@@ -248,6 +250,7 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'adapts the size of the image to fit into the container',
 					'fr': 'adapte la taille de l\'image pour s\'adapter à son conteneur',
+					'private': false,
 				},
 			}, {
 				'name': 'description',
@@ -269,30 +272,31 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'displays first letter of the name if there is no image',
 					'fr': 'affiche la première lettre de la prop `name` s\'il n\'y a pas d\'image',
+					'private': false,
 				},
-				'defaultValue': '\'\'',
 			}, {
 				'name': 'nbAvatarUpdates',
 				'type': 'number',
 				'desc': {
 					'en': 'number to increment on each update to refresh the image',
 					'fr': 'nombre à incrémenter à chaque mise à jour de l\'image pour la rafraîchir',
+					'private': false,
 				},
-				'defaultValue': '0',
 			}, {
 				'name': 'rootUrl',
 				'type': 'string',
 				'desc': {
 					'en': 'the root url when the `avatar` prop is a number or JSON object',
 					'fr': 'url de l\'avatar si la prop `avatar` est un nombre ou un objet JSON',
+					'private': false,
 				},
-				'defaultValue': '\'/avatar/\'',
 			}, {
 				'name': 'size',
 				'type': 'number | Orion.Size',
 				'desc': {
 					'en': 'define the size',
 					'fr': 'définit la taille',
+					'private': false,
 				},
 				'defaultValue': '\'md\' ',
 			}, {
@@ -301,6 +305,7 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'defines if the avatar is square-shaped (circle otherwise)',
 					'fr': 'Définit la forme de l\'avatar (ronde par défaut)',
+					'private': false,
 				},
 			}, {
 				'name': 'tooltip',
@@ -308,6 +313,7 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'the tooltip text displayed to update the avatar',
 					'fr': 'le texte qui sera affiché dans la tooltip au survol de l\'icône de modification',
+					'private': false,
 				},
 			}, {
 				'name': 'updateFunction',
@@ -315,6 +321,7 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'function to call to update the avatar',
 					'fr': 'fonction à appeler pour modifier l\'avatar',
+					'private': false,
 				},
 			}],
 			events: [],
@@ -382,6 +389,7 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'the content of the button',
 					'fr': 'contenu du bouton',
+					'private': false,
 				},
 				'bindings': [],
 			}],
@@ -392,6 +400,7 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'if set, focus the button',
 					'fr': 'si défini, le focus sera placé sur le bouton',
+					'private': false,
 				},
 			}, {
 				'name': 'block',
@@ -399,6 +408,7 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'defines the button\'s width to 100%',
 					'fr': 'définie la largeur du bouton à 100%',
+					'private': false,
 				},
 			}, {
 				'name': 'color',
@@ -406,6 +416,7 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'defines the color',
 					'fr': 'définit la couleur',
+					'private': false,
 				},
 				'defaultValue': '\'default\' ',
 			}, {
@@ -414,6 +425,7 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'determines if the button is disabled',
 					'fr': 'désactive le bouton',
+					'private': false,
 				},
 			}, {
 				'name': 'loading',
@@ -421,6 +433,7 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'adds a loading icon and disables the button',
 					'fr': 'ajoute une icône de chargement et désactive le bouton',
+					'private': false,
 				},
 			}, {
 				'name': 'nude',
@@ -428,6 +441,7 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'removes the background color',
 					'fr': 'masque la couleur en arrière plan',
+					'private': false,
 				},
 			}, {
 				'name': 'outline',
@@ -435,20 +449,23 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'adds an outline on the button',
 					'fr': 'ajoute un contraste sur le bouton',
+					'private': false,
 				},
 			}, {
 				'name': 'prefixFontIcon',
 				'type': 'string',
 				'desc': {
-					'en': 'the prefix icon from the imported font library',
-					'fr': 'définit l\'icône de préfixe à partir de la librairie de police importée',
+					'en': 'Missing @doc',
+					'fr': 'Missing @doc',
+					'private': false,
 				},
 			}, {
 				'name': 'prefixIcon',
 				'type': 'MaterialIcon',
 				'desc': {
-					'en': 'the prefix icon',
-					'fr': 'définit l\'icône de préfixe',
+					'en': 'Missing @doc',
+					'fr': 'Missing @doc',
+					'private': false,
 				},
 			}, {
 				'name': 'size',
@@ -456,21 +473,24 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'define the size',
 					'fr': 'définit la taille',
+					'private': false,
 				},
 				'defaultValue': '\'md\' ',
 			}, {
 				'name': 'suffixFontIcon',
 				'type': 'string',
 				'desc': {
-					'en': 'the suffix icon from the imported font library',
+					'en': 'Missing @doc',
 					'fr': 'Missing @doc',
+					'private': false,
 				},
 			}, {
 				'name': 'suffixIcon',
 				'type': 'MaterialIcon',
 				'desc': {
-					'en': 'the suffix icon',
-					'fr': 'définit l\'icône de suffixe',
+					'en': 'Missing @doc',
+					'fr': 'Missing @doc',
+					'private': false,
 				},
 			}],
 			events: [{
@@ -479,6 +499,7 @@ const packagesDocData = new Map([
 				'desc': {
 					'en': 'emitted on button click',
 					'fr': 'émis lors du click sur le bouton',
+					'private': false,
 				},
 			}],
 			publicInstance: undefined,

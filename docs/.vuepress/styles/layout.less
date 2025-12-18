@@ -2,16 +2,17 @@
 
 .vp-sidebar {
 	font-size: 1rem;
-	transition: transform var(--t-transform), box-shadow var(--t-transform);
+	transition:
+		transform var(--t-transform),
+		box-shadow var(--t-transform);
 	scrollbar-color: var(--c-brand) transparent;
-	
-	&-item {
 
+	&-item {
 		p&:not(.vp-sidebar-heading)& {
 			color: var(--text-default-default);
 			text-transform: uppercase;
 			font-weight: 700 !important;
-			font-size: .75rem !important;
+			font-size: 0.75rem !important;
 		}
 
 		&.active {
@@ -34,10 +35,13 @@
 
 		.sidebar--opened & {
 			transform: none;
-			box-shadow: 0.125rem 0 0.125rem rgba(0, 0, 0, 0.02),
+			box-shadow:
+				0.125rem 0 0.125rem rgba(0, 0, 0, 0.02),
 				0.25rem 0 0.25rem rgba(0, 0, 0, 0.028),
-				0.5rem 0 0.5rem rgba(0, 0, 0, 0.035), 1rem 0 1rem rgba(0, 0, 0, 0.042),
-				2rem 0 2rem rgba(0, 0, 0, 0.05), 3rem 0 3rem rgba(0, 0, 0, 0.07);
+				0.5rem 0 0.5rem rgba(0, 0, 0, 0.035),
+				1rem 0 1rem rgba(0, 0, 0, 0.042),
+				2rem 0 2rem rgba(0, 0, 0, 0.05),
+				3rem 0 3rem rgba(0, 0, 0, 0.07);
 		}
 	}
 }
@@ -45,14 +49,12 @@
 .vp-back-to-top-button {
 	color: var(--c-brand);
 }
-	
 
 .vp-navbar {
 	display: flex;
 	align-items: center;
 	vertical-align: middle;
-	padding: var(--spacing-8) var(--spacing-16) var(--spacing-8)
-		var(--spacing-16);
+	padding: var(--spacing-8) var(--spacing-16) var(--spacing-8) var(--spacing-16);
 	gap: 0.5rem;
 	backdrop-filter: saturate(50%) blur(8px);
 	background: var(--background-neutral-subtle);
@@ -63,7 +65,6 @@
 			color: var(--c-brand);
 		}
 
-
 		a.route-link {
 			color: var(--text-default-default);
 
@@ -72,18 +73,17 @@
 			}
 		}
 
-
 		a.route-link-active {
 			color: var(--c-brand);
 			border-color: 2px solid var(--c-brand);
-
 
 			&::after {
 				border-left: 5px solid var(--c-brand);
 			}
 		}
 
-		> a:hover, .vp-navbar-item > a.route-link-active {
+		> a:hover,
+		.vp-navbar-item > a.route-link-active {
 			&:hover {
 				color: var(--c-brand);
 				border-bottom: 2px solid var(--c-brand);
@@ -176,7 +176,9 @@
 		gap: 0.25rem;
 
 		> span {
-			transition: transform var(--t-transform), opacity var(--t-transform);
+			transition:
+				transform var(--t-transform),
+				opacity var(--t-transform);
 
 			&:nth-child(2) {
 				margin: 0;

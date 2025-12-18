@@ -1,17 +1,16 @@
 <template>
 	<div class="playground flex g-32 jc-s">
 		<div>
-			<o-droppable
-				v-model:datalist="left"
-				:tag="`o-section`">
+			<o-droppable v-model:datalist="left" :tag="`o-section`">
 				<o-draggable
 					v-for="item in left"
 					:key="item.__uid"
 					:data="item"
 					:disabled="item.title === 'Item 1' ? state.disabled : false"
-					:tag="state.tag">
+					:tag="state.tag"
+				>
 					<div class="draggable-content">
-						<o-icon icon="file_document"/>
+						<o-icon icon="file_document" />
 						<strong>{{ item.title }}</strong>
 					</div>
 				</o-draggable>
@@ -19,16 +18,15 @@
 		</div>
 
 		<div>
-			<o-droppable
-				v-model:datalist="middle"
-				:tag="`o-section`">
+			<o-droppable v-model:datalist="middle" :tag="`o-section`">
 				<o-draggable
 					v-for="item in middle"
 					:key="item.__uid"
 					:data="item"
-					:tag="state.tag">
+					:tag="state.tag"
+				>
 					<div class="draggable-content">
-						<o-icon icon="file_blank"/>
+						<o-icon icon="file_blank" />
 						<strong>{{ item.title }}</strong>
 					</div>
 				</o-draggable>
@@ -39,14 +37,16 @@
 			<o-droppable
 				v-model:datalist="right"
 				:tag="`o-section`"
-				:validation="validation">
+				:validation="validation"
+			>
 				<o-draggable
 					v-for="item in right"
 					:key="item.__uid"
 					:data="item"
-					:tag="state.tag">
+					:tag="state.tag"
+				>
 					<div class="draggable-content">
-						<o-icon icon="file_code"/>
+						<o-icon icon="file_code" />
 						<strong>{{ item.title }}</strong>
 					</div>
 				</o-draggable>
@@ -54,16 +54,11 @@
 		</div>
 	</div>
 
-	<hr>
+	<hr />
 
 	<div class="flex g-32">
-		<o-select
-			v-model="state.tag"
-			label="Draggabel tag"
-			:options="tagOptions"/>
-		<o-toggle
-			v-model="state.disabled"
-			label="Item 1 disabled"/>
+		<o-select v-model="state.tag" label="Draggabel tag" :options="tagOptions" />
+		<o-toggle v-model="state.disabled" label="Item 1 disabled" />
 	</div>
 </template>
 
@@ -81,11 +76,7 @@ const state = reactive({
 	disabled: true,
 });
 
-const tagOptions = [
-	'o-sticker',
-	'o-label',
-	'o-chips',
-];
+const tagOptions = ['o-sticker', 'o-label', 'o-chips'];
 
 const left = ref([
 	{
@@ -135,7 +126,7 @@ const middle = ref([
 
 <style lang="less" scoped>
 .playground {
-  > div {
+	> div {
 		flex: 1;
 	}
 }
@@ -147,20 +138,32 @@ const middle = ref([
 	background: var(--background-neutral-subtle);
 
 	&--allowed {
-		background: color-mix(in srgb, var(--background-success-default) 15%, transparent 85%);
+		background: color-mix(
+			in srgb,
+			var(--background-success-default) 15%,
+			transparent 85%
+		);
 	}
 
 	&--forbidden {
-		background: color-mix(in srgb, var(--background-error-default) 15%, transparent 85%);
+		background: color-mix(
+			in srgb,
+			var(--background-error-default) 15%,
+			transparent 85%
+		);
 	}
 
 	&--over {
-		background: color-mix(in srgb, var(--background-info-default) 15%, transparent 85%);
+		background: color-mix(
+			in srgb,
+			var(--background-info-default) 15%,
+			transparent 85%
+		);
 	}
 
-	&--disabled{
+	&--disabled {
 		border: 1px solid var(--background-error-default);
-		opacity: 0.2
+		opacity: 0.2;
 	}
 }
 
@@ -174,6 +177,5 @@ const middle = ref([
 	}
 }
 </style>
-
 
 ### Playground

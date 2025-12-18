@@ -16,10 +16,33 @@
 		padding: 0;
 	}
 
+	&__marker {
+		position: absolute;
+		top: -0.125rem;
+		right: -0.125rem;
+		z-index: 10;
+		.circle(0.5rem);
+		background-color: var(--danger);
+		color: var(--white);
+
+		each(@colors, {
+			@color: ~"--@{value}";
+      &--@{value} {
+          background: var(@color);
+      
+      }
+    });
+	}
+
 	&__header {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+
+		> *:only-child {
+			margin-left: auto;
+			margin-right: auto;
+		}
 
 		&-current-display {
 			display: flex;
@@ -67,6 +90,10 @@
 
 	&__body {
 		font-size: 0.8125rem;
+
+		&--horizontal {
+			display: flex;
+		}
 
 		&-dow {
 			display: flex;
@@ -167,6 +194,10 @@
 				}
 			}
 
+			&-content {
+				position: relative;
+			}
+
 			&-display {
 				.circle(calc(25rem / 16));
 				.flex-align();
@@ -178,12 +209,17 @@
 					background: var(--background-neutral-subtle);
 				}
 
+				&--horizontal {
+					display: flex;
+					flex-direction: column;
+				}
+
 				&.day {
 					each(@colors, {
 						&--@{value}{
 							color: var(~"--text-@{value}-default");
 							
-							&:not(.day--inverse):not(.day--default) > {
+							&:not(.day--inverted):not(.day--default) > {
 								.orion-date-table-row__cell-display-contrast {
 									.color-contrast();
 								}
@@ -318,3 +354,5 @@
 		}
 	}
 }
+
+
