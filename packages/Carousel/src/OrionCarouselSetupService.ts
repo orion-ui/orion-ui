@@ -4,6 +4,9 @@ import { getUid } from 'utils/tools';
 
 export type OrionCarouselEmits = {}
 export type OrionCarouselProps = {
+	// @doc props/centeredNavigation alignment of the navigation (between dots and buttons)
+	// @doc/fr props/centeredNavigation alignement de la navigation (entre les points et les boutons)
+	centeredNavigation?: boolean,
 	// @doc props/color color of the dots at the carousel's bottom
 	// @doc/fr props/color couleur des points au bas du carrousel
 	color?: Orion.Color | Orion.ColorAlt,
@@ -26,7 +29,10 @@ export type OrionCarouselProps = {
 type Slots = ReturnType<typeof useSlots>;
 
 export default class OrionCarouselSetupService extends SharedSetupService {
-	static readonly defaultProps = { color: 'brand' as Orion.ColorExtended };
+	static readonly defaultProps = {
+		centeredNavigation: true,
+		color: 'primary' as Orion.ColorExtended,
+	};
 
 	private slots: Slots;
 	private timer?: NodeJS.Timeout;
@@ -51,7 +57,7 @@ export default class OrionCarouselSetupService extends SharedSetupService {
 		}
 	}
 
-	get rgbColor () { return `var(--rgb-${this.props.color})`; }
+	get rgbColor () { return `var(--background-${this.props.color}-default)`; }
 	get stepTimerForCss () { return this.props.stepTimer + 'ms'; }
 	get shouldLoop () { return !!this.props.stepTimer || this.props.loop; }
 	get stepIndex () { return this.steps.findIndex(x => x.name === this.vModel.value); }
