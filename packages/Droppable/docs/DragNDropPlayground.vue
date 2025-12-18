@@ -68,7 +68,7 @@
 </template>
 
 <script setup lang="ts">
-import { useNotif, getUid } from 'lib';
+import { getUid, useNotif } from 'lib';
 import { reactive, ref } from 'vue';
 
 const validation = {
@@ -134,32 +134,44 @@ const middle = ref([
 
 <style lang="less" scoped>
 .playground {
-  > div {
+	> div {
 		flex: 1;
 	}
 }
 
 .orion-droppable {
 	position: relative;
-	padding: var(--space-16);
+	padding: var(--spacing-16);
 	border-radius: 0.5rem;
 	background: var(--background-neutral-subtle);
 
 	&--allowed {
-		background: color-mix(in srgb, var(--background-success-default) 15%, transparent 85%);
+		background: color-mix(
+			in srgb,
+			var(--background-success-default) 15%,
+			transparent 85%
+		);
 	}
 
 	&--forbidden {
-		background: color-mix(in srgb, var(--background-error-default) 15%, transparent 85%);
+		background: color-mix(
+			in srgb,
+			var(--background-error-default) 15%,
+			transparent 85%
+		);
 	}
 
 	&--over {
-		background: color-mix(in srgb, var(--background-info-default) 15%, transparent 85%);
+		background: color-mix(
+			in srgb,
+			var(--background-info-default) 15%,
+			transparent 85%
+		);
 	}
 
-	&--disabled{
+	&--disabled {
 		border: 1px solid var(--background-error-default);
-		opacity: 0.2
+		opacity: 0.2;
 	}
 }
 
@@ -173,6 +185,5 @@ const middle = ref([
 	}
 }
 </style>
-
 
 ### Playground

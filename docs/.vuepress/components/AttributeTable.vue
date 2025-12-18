@@ -31,8 +31,18 @@
 					</div>
 				</div>
 
-				<div v-for="(item, index) in data" :key="index" class="row data-type-table__row">
-					<div :class="dataType === 'props' || dataType === 'vModels' ? `col-sm-12` : `col-sm-6`">
+				<div
+					v-for="(item, index) in data"
+					:key="index"
+					class="row data-type-table__row"
+				>
+					<div
+						:class="
+							dataType === 'props' || dataType === 'vModels'
+								? `col-sm-12`
+								: `col-sm-6`
+						"
+					>
 						<div class="data">
 							<div class="data__name data__name--typed">
 								<span class="data__name-only">{{ item.name }}</span>
@@ -40,7 +50,12 @@
 									<template v-if="itemHas(item, 'type')">
 										{{ item.type }}
 									</template>
-									= <span class="data__value">{{ itemHas(item, 'defaultValue') ? item.defaultValue : 'undefined' }}</span>
+									=
+									<span class="data__value">{{
+										itemHas(item, 'defaultValue')
+											? item.defaultValue
+											: 'undefined'
+									}}</span>
 								</code>
 								<o-chips :round="false" color="error" outline v-if="itemHas(item, 'required') && item.required">
 									Required
@@ -49,32 +64,68 @@
 
 							<Markdown
 								v-if="itemHas(item, 'desc') && item.desc"
-								:source="frontmatter.lang?.includes('fr') ? capitalizeFirstLetter(item.desc.fr !== 'Missing @doc' ?  item.desc.fr  : `${item.desc.en}`) : capitalizeFirstLetter(item.desc.en)"
-								class="data__description"/>
+								:source="
+									frontmatter.lang?.includes('fr')
+										? capitalizeFirstLetter(
+												item.desc.fr !== 'Missing @doc'
+													? item.desc.fr
+													: `${item.desc.en}`,
+											)
+										: capitalizeFirstLetter(item.desc.en)
+								"
+								class="data__description"
+							/>
 						</div>
 					</div>
-					<div class="col-sm-6" v-if="dataType !== 'props' && dataType !== 'vModels'">
+					<div
+						class="col-sm-6"
+						v-if="dataType !== 'props' && dataType !== 'vModels'"
+					>
 						<div class="data">
-							<template v-if="itemHas(item, 'type') || itemHas(item, 'payload') || itemHas(item, 'data')">
+							<template
+								v-if="
+									itemHas(item, 'type') ||
+									itemHas(item, 'payload') ||
+									itemHas(item, 'data')
+								"
+							>
 								<code :class="`code--${dataType}`">
-									<template v-if="itemHas(item, 'type')">{{ item.type }}</template>
-									<template v-if="itemHas(item, 'payload')">{{ item.payload.replace('undefined', 'No payload') }}</template>
-									<template v-if="itemHas(item, 'data')">{{ item.data }}</template>
+									<template v-if="itemHas(item, 'type')">{{
+										item.type
+									}}</template>
+									<template v-if="itemHas(item, 'payload')">{{
+										item.payload.replace('undefined', 'No payload')
+									}}</template>
+									<template v-if="itemHas(item, 'data')">{{
+										item.data
+									}}</template>
 								</code>
 							</template>
 							<template v-if="itemHas(item, 'bindings')">
 								<template v-if="item.bindings.length">
-									<template v-for="(binded, index) in item.bindings" :key="index">
+									<template
+										v-for="(binded, index) in item.bindings"
+										:key="index"
+									>
 										<div class="data__slot-binding">
 											<div>
-												<span class="data__bind">
-													{{ binded.bind }}:
-												</span>
+												<span class="data__bind"> {{ binded.bind }}: </span>
 												<code>
 													{{ binded.type }}
 												</code>
 											</div>
-											<Markdown :source="frontmatter.lang?.includes('fr') ? capitalizeFirstLetter(binded.desc.fr !== 'Missing @doc' ?  binded.desc.fr  : `${binded.desc.en}`) : capitalizeFirstLetter(binded.desc.en)" class="data__description"/>
+											<Markdown
+												:source="
+													frontmatter.lang?.includes('fr')
+														? capitalizeFirstLetter(
+																binded.desc.fr !== 'Missing @doc'
+																	? binded.desc.fr
+																	: `${binded.desc.en}`,
+															)
+														: capitalizeFirstLetter(binded.desc.en)
+												"
+												class="data__description"
+											/>
 										</div>
 									</template>
 								</template>
@@ -91,19 +142,19 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted } from 'vue';
 import { Bus, itemHas } from '@/lib';
-import { capitalizeFirstLetter, usePackageData } from '@utils/tools'
+import { capitalizeFirstLetter, usePackageData } from '@utils/tools';
+import { onMounted, onUnmounted } from 'vue';
 import { usePageFrontmatter } from 'vuepress/client';
 
 const props = defineProps({
 	package: {
 		type: String,
 		default: undefined,
-	}
-})
+	},
+});
 
-const frontmatter = usePageFrontmatter()
+const frontmatter = usePageFrontmatter();
 
 const packageData = usePackageData(props.package);
 // To define order of appearence
@@ -114,7 +165,7 @@ const packageDataToDisplay = {
 	slots: packageData?.slots,
 	publicInstance: packageData?.publicInstance,
 	provide: packageData?.provide,
-}
+};
 
 onMounted(() => {
 	Bus.emit('AttributeTable:mounted');
@@ -128,7 +179,7 @@ onUnmounted(() => {
 <style lang="less">
 .data-type-table {
 	&__row {
-		padding: var(--space-16) 0;
+		padding: var(--spacing-16) 0;
 		border-bottom: 0.125rem solid var(--border-neutral-default);
 
 		&--header {
@@ -140,7 +191,7 @@ onUnmounted(() => {
 			display: flex;
 			flex-direction: column;
 			gap: 0.25rem;
-			padding: 0 var(--space-16);
+			padding: 0 var(--spacing-16);
 
 			code {
 				align-self: flex-start;
@@ -151,7 +202,10 @@ onUnmounted(() => {
 				}
 			}
 
-			&__name, &__type, &__value, &__bind {
+			&__name,
+			&__type,
+			&__value,
+			&__bind {
 				font-family: var(--font-family-code);
 				font-size: 0.75rem;
 				line-height: 1.25rem;
@@ -173,7 +227,7 @@ onUnmounted(() => {
 			&__value {
 				color: var(--text-default-default);
 			}
-			
+
 			/* &__bind {
 				color: var(--text-primary-default);
 			} */
@@ -181,7 +235,7 @@ onUnmounted(() => {
 			&__description {
 				line-height: 1.25rem;
 				color: var(--text-default-default);
-				
+
 				p {
 					line-height: 1.5rem;
 					font-size: var(--size-default);
@@ -201,7 +255,7 @@ onUnmounted(() => {
 
 				strong {
 					color: var(--text-default-default);
-				} 
+				}
 			}
 
 			&__slot-binding {

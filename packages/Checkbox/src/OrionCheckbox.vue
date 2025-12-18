@@ -9,8 +9,9 @@
 			{ 'orion-checkbox--inline': inline },
 		]"
 		input-type="checkbox"
-		@click="setup.handleClick()">
-		<slot v-if="label === undefined"/>
+		@click="setup.handleClick()"
+	>
+		<slot v-if="label === undefined" />
 
 		<input
 			:ref="setup._input"
@@ -18,18 +19,11 @@
 			type="checkbox"
 			:value="inputValue"
 			:checked="setup.isChecked"
-			v-bind="{ ...$attrs, disabled: disabled }">
+			v-bind="{ ...$attrs, disabled: disabled }"
+		/>
 
 		<span class="orion-checkbox__check-container">
-			<orion-icon
-				v-if="iconCheck"
-				:icon="iconCheck"
-				@click="setup.handleClick()"/>
-			<svg
-				v-else
-				viewBox="0 0 12 10">
-				<polyline points="1.5 6 4.5 9 10.5 1"/>
-			</svg>
+			<orion-icon :icon="iconCheck || 'check'" @click="setup.handleClick()" />
 		</span>
 	</orion-field>
 </template>
@@ -39,10 +33,16 @@ import './OrionCheckbox.less';
 import { OrionField } from 'packages/Field';
 import { OrionIcon } from 'packages/Icon';
 import OrionCheckboxSetupService from './OrionCheckboxSetupService';
-import type { OrionCheckboxProps, OrionCheckboxEmits } from './OrionCheckboxSetupService';
+import type {
+	OrionCheckboxProps,
+	OrionCheckboxEmits,
+} from './OrionCheckboxSetupService';
 const emits = defineEmits<OrionCheckboxEmits<any>>() as OrionCheckboxEmits<any>;
 const vModel = defineModel<any[] | boolean | null | undefined>();
-const props = withDefaults(defineProps<OrionCheckboxProps>(), OrionCheckboxSetupService.defaultProps);
+const props = withDefaults(
+	defineProps<OrionCheckboxProps>(),
+	OrionCheckboxSetupService.defaultProps,
+);
 const setup = new OrionCheckboxSetupService(props, emits, vModel);
 defineExpose(setup.publicInstance);
 

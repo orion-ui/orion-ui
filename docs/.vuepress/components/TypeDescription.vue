@@ -1,20 +1,18 @@
 <template>
 	<div class="type-description">
-		<slot/>
+		<slot />
 	</div>
 </template>
 
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>
 
 <style scoped lang="less">
 .type-description {
 	border: 0.125rem solid var(--border-neutral-default);
-	padding: var(--space-16);
+	padding: var(--spacing-16);
 	border-radius: 0.5rem;
 
-	> :deep(div[class*="language-"]) {
+	> :deep(div[class*='language-']) {
 		> pre {
 			margin: 0;
 		}

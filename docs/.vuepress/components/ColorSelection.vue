@@ -10,19 +10,21 @@
 				:key="index"
 				:class="[
 					`color-selection__tint background--${color}`,
-					{ 'color-selection__tint--selected': modelValue === color }
+					{ 'color-selection__tint--selected': modelValue === color },
 				]"
-				@click="emit('update:modelValue', color)"/>
+				@click="emit('update:modelValue', color)"
+			/>
 			<span
 				v-if="showGreys"
-				v-for="(grey, index) of [...greys ]"
+				v-for="(grey, index) of [...greys]"
 				v-tooltip="grey"
 				:key="index"
 				:class="[
 					`color-selection__tint background--${grey}`,
-					{ 'color-selection__tint--selected': modelValue === grey }
+					{ 'color-selection__tint--selected': modelValue === grey },
 				]"
-				@click="emit('update:modelValue', grey)"/>
+				@click="emit('update:modelValue', grey)"
+			/>
 		</div>
 	</div>
 </template>
@@ -34,7 +36,7 @@ import { colors, greys } from '@/lib';
 defineProps({
 	modelValue: {
 		type: String as PropType<Orion.Color | Orion.Grey>,
-		default: 'default'
+		default: 'primary',
 	},
 	label: {
 		type: String,
@@ -43,10 +45,12 @@ defineProps({
 	showGreys: {
 		type: Boolean,
 		default: false,
-	}
-})
+	},
+});
 
-const emit = defineEmits<{(e: 'update:modelValue', val?: Orion.Color | Orion.Grey): void}>();
+const emit = defineEmits<{
+	(e: 'update:modelValue', val?: Orion.Color | Orion.Grey): void;
+}>();
 </script>
 
 <style lang="less" scoped>
@@ -61,10 +65,10 @@ const emit = defineEmits<{(e: 'update:modelValue', val?: Orion.Color | Orion.Gre
 		gap: 0.25rem;
 		min-height: 2.5rem;
 		height: auto;
-		padding: var(--space-8);
+		padding: var(--spacing-8);
 		width: fit-content;
 
-		[class*="col-"] > .color-selection > & {
+		[class*='col-'] > .color-selection > & {
 			width: auto;
 		}
 	}
@@ -90,7 +94,7 @@ const emit = defineEmits<{(e: 'update:modelValue', val?: Orion.Color | Orion.Gre
 				background: var(--background-neutral-default);
 				border: 0.0625rem solid var(--border-neutral-default);
 
-				[data-orion-theme="dark"] & {
+				[data-orion-theme='dark'] & {
 					background: var(--background-neutral-minimal);
 				}
 			}

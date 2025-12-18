@@ -6,7 +6,6 @@
 
 .markerPosition(@size) {
 	&.orion-icon__marker {
-
 		&--top,
 		&--bottom {
 			&.orion-icon__marker--right {
@@ -44,11 +43,9 @@
 .orion-icon {
 	position: relative;
 	aspect-ratio: 1;
-	font-size: 1.5rem;
+	font-size: var(--typography-size-base);
 	width: 1em;
 	height: 1em;
-
-
 
 	.material-symbols-outlined {
 		font-family: 'Material Symbols Outlined';
@@ -107,9 +104,8 @@
 	}
 
 	&--ripple {
-
 		.orion-icon__ripple,
-		.orion-icon__ripple>.ripple__wave {
+		.orion-icon__ripple > .ripple__wave {
 			display: block;
 			position: absolute;
 			z-index: 0;
@@ -125,7 +121,7 @@
 			transform: scale(1.8);
 		}
 
-		.orion-icon__ripple>.ripple__wave {
+		.orion-icon__ripple > .ripple__wave {
 			opacity: 0;
 			pointer-events: none;
 		}
@@ -136,7 +132,7 @@
 			}
 
 			&:hover .orion-icon__ripple,
-			.orion-icon__ripple>.ripple__wave {
+			.orion-icon__ripple > .ripple__wave {
 				background: rgba(var(--background-neutral-moderate), 0.2);
 			}
 		}
@@ -152,32 +148,34 @@
 				}
 			}
 		});
-}
-
-&--button {
-	.flex-align();
-
-	&::before {
-		position: absolute;
 	}
 
-	.orion-icon__button {
-		.circle(1.8em);
-		transition: box-shadow 0.3s, background 0.3s;
-		z-index: 0;
-		display: block;
-	}
+	&--button {
+		.flex-align();
 
-	&-default {
-		color: var(--text-default-default);
-
-		>.orion-icon__button {
-			background: var(--background-neutral-default);
-			box-shadow: 0 0.3rem 1rem -0.3rem fade(black, 20);
+		&::before {
+			position: absolute;
 		}
-	}
 
-	each(@colors, {
+		.orion-icon__button {
+			.circle(1.8em);
+			transition:
+				box-shadow 0.3s,
+				background 0.3s;
+			z-index: 0;
+			display: block;
+		}
+
+		&-default {
+			color: var(--text-default-default);
+
+			> .orion-icon__button {
+				background: var(--background-neutral-default);
+				box-shadow: 0 0.3rem 1rem -0.3rem fade(black, 20);
+			}
+		}
+
+		each(@colors, {
 		@bg: ~"--background-@{value}-default";
 		@shadow: ~"--background-@{value}-moderate";
 
@@ -191,18 +189,18 @@
 		}
 	});
 
-&-neutral {
-	color: var(--text-default-default);
-}
+		&-neutral {
+			color: var(--text-default-default);
+		}
 
-&:hover>.orion-icon__button {
-	box-shadow: none;
-}
-}
+		&:hover > .orion-icon__button {
+			box-shadow: none;
+		}
+	}
 
-&--clickable {
-	cursor: pointer;
-}
+	&--clickable {
+		cursor: pointer;
+	}
 }
 
 @keyframes OrionIconCircle {

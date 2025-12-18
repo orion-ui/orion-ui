@@ -11,6 +11,7 @@
 		<o-aside
 			ref="_asideA"
 			:options="{
+				title: 'Aside Title',
 				hideOnOverlayClick: false,
 				hideClose: true,
 			}"
@@ -56,7 +57,7 @@
 
 		<o-aside
 			ref="_asideB"
-			:options="{ overlay: false }">
+			:options="{ overlay: false, title: 'Aside Title' }">
 			<o-section title="Aside without overlay">
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 				Duis sagittis viverra vulputate. Nunc ultricies ante urna, eget.

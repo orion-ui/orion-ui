@@ -26,6 +26,7 @@ const jsxTimeline = () => {
 		scrollable: props.scrollable,
 		onPillClick: setup.onPillClick.bind(setup),
 		centeredPill: props.centeredPill,
+		pillOnly: setup.pillsOnly,
 	};
 
 	const pills = (

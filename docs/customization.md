@@ -196,7 +196,7 @@ These variables use the RGB values to create CSS colors that can be used directl
 |                  | `--grey`             |
 |                  | `--grey-light`       |
 |                  | `--grey-lighter`     |
-| **Inverse/Base** | `--inverse`           |
+| **Inverted/Base** | `--inverted`           |
 |                  | `--base`             |
 | **Info**         | `--info`             |
 |                  | `--info-light`       |
@@ -241,7 +241,7 @@ These variables use the RGB values to create CSS colors that can be used directl
 .alert-success {
   background-color: var(--success-light);
   border-color: var(--success);
-  color: rgb(var(--rgb-inverse), 0.2); // Example: using opacity
+  color: rgb(var(--rgb-inverted), 0.2); // Example: using opacity
 }
 ```
 
