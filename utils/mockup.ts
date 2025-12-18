@@ -1,10 +1,4 @@
-export const sizes: Orion.Size[] = [
-	'xl',
-	'lg',
-	'md',
-	'sm',
-	'xs',
-];
+export const sizes: Orion.Size[] = ['xl', 'lg', 'md', 'sm', 'xs'];
 
 export const colors: Orion.Color[] = [
 	'primary',
@@ -14,7 +8,6 @@ export const colors: Orion.Color[] = [
 	'warning',
 	'error',
 	'inverted',
-	'neutral',
 ];
 
 export const colorsAlt: Orion.ColorExtended[] = [
@@ -41,7 +34,6 @@ export const colorsExtended: Orion.ColorExtended[] = [
 	'secondary-alt',
 	'error-alt',
 ];
-
 
 export const greys: Orion.Grey[] = [
 	'grey-darker',
@@ -71,4 +63,3 @@ export const colorsExtendedAndGreys: Orion.ColorExtendedAndGreys[] = [
 	'grey-light',
 	'grey-lighter',
 ];
-

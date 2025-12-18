@@ -27,6 +27,7 @@ select:-webkit-autofill:focus {
 	justify-content: flex-end;
 	flex-direction: row-reverse;
 	margin: 0.5rem 0;
+	gap: var(--spacing-4);
 	cursor: pointer;
 
 	&__label {
@@ -56,22 +57,14 @@ select:-webkit-autofill:focus {
 	}
 
 	&__check-container {
-		.square(1.125rem);
+		.square(1rem);
 		transition: all 0.2s ease;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		margin-top: calc(1rem / 16);
-		margin-right: 0.25rem;
-		border-radius: calc(3rem / 16);
-		border: 0.0625rem solid var(--border-neutral-default);
+		border-radius: var(--radius-xs);
+		border: 0.0625rem solid var(--border-neutral-subtle);
 		background: var(--background-neutral-default);
-
-		[class*='--reverse'] > & {
-			margin-right: 0;
-			margin-left: 0.25rem;
-		}
-
 
 		.orion-checkbox--error & {
 			border-color: var(--border-neutral-default);
@@ -112,22 +105,11 @@ select:-webkit-autofill:focus {
 	&__check-marker {
 		.circle(0.5rem);
 		transition: transform 0.3s cubic-bezier(0, 3, 1, 1);
-		background: var(--background-neutral-default);
+		background: #ffffff;
 		transform: scale(0);
 
 		[class*='--checked'] & {
 			transform: scale(1);
-		}
-	}
-	
-	&--default {
-		&[class*='--checked'] > [class*='__check-container'] {
-			background: var(--background-info-default);
-			border-color: var(--border-info-default);
-		}
-
-		&:not([class*="--disabled"]):hover > [class*='__check-container'] {
-			border-color: var(--border-info-default);
 		}
 	}
 
@@ -139,13 +121,12 @@ select:-webkit-autofill:focus {
 			}
 
 			&:hover > [class*="__check-container"] {
-				border-color: var(~"--border-@{value}-default");
+				border-color: var(~"--border-@{value}-subtle");
 			}
 		}
 	});
 
 	&--error {
-
 		&[class*='--checked'] > [class*='__check-container'] {
 			background: var(--background-error-default);
 			border-color: var(--border-error-default);
@@ -156,11 +137,12 @@ select:-webkit-autofill:focus {
 		}
 	}
 
-	
 	&--inverted {
-			.orion-toggle__check-marker, .orion-radio__check-marker, .orion-checkbox__check-marker {
-				background: var(--background-neutral-highlight);
-			}
+		.orion-toggle__check-marker,
+		.orion-radio__check-marker,
+		.orion-checkbox__check-marker {
+			background: var(--background-neutral-highlight);
+		}
 	}
 
 	&--reverse {
