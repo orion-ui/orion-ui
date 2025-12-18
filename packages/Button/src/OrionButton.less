@@ -22,10 +22,11 @@
 	border: none;
 	appearance: none;
 	outline: none;
-	font-family: var(--font-family);
+	font-family: var(--typography-family--ignore-body);
 	font-size: var(--typography-size-sm);
-	font-weight: var(--typography-weight-medium);
-	line-height: 1;
+	font-style: normal;
+	font-weight: var(--typography-weight-semibold);
+	line-height: 20px;
 	text-transform: capitalize;
 	cursor: pointer;
 	overflow: hidden;
@@ -34,10 +35,10 @@
 	border-color: transparent;
 	border-radius: var(--radius-md);
 
-	// &:focus {
-	// 	outline: 1px solid var(--border-neutral-focus);
-	// 	outline-offset: 1px;
-	// }
+	&:focus {
+		outline: 1px solid var(--border-neutral-focus);
+		outline-offset: 1px;
+	}
 
 	&__ripple {
 		position: absolute;
@@ -134,7 +135,7 @@
 			}
 			
 			&.orion-button--outline {
-				background: transparent;	
+				background: var(--background-neutral-default);	
 				border: 1px solid var(~"--border-@{value}-subtle");
 
 				&:hover&:not(.orion-button--disabled){
@@ -143,6 +144,7 @@
 
 				&:focus&:not(.orion-button--disabled) {
 					background: var(~"--background-@{value}-minimal");
+					border-color: var(~"--border-@{value}-default");
 				}
 			}
 
