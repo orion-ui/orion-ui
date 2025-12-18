@@ -9,7 +9,6 @@
 
 .orion-button {
 	transition:
-		box-shadow 0.3s,
 		background 0.3s,
 		opacity 0.3s,
 		transform 0.3s,
@@ -23,24 +22,21 @@
 	border: none;
 	appearance: none;
 	outline: none;
-	font-family: var(--font-family);
-	font-weight: 600;
+	font-family: var(--typography-family--ignore-body);
+	font-size: var(--typography-size-sm);
+	font-style: normal;
+	font-weight: var(--typography-weight-semibold);
+	line-height: 20px;
 	text-transform: capitalize;
 	cursor: pointer;
 	overflow: hidden;
 	border-width: 0.0625rem;
 	border-style: solid;
 	border-color: transparent;
-	line-height: 1;
-	
-
-	[data-orion-theme='dark'] & {
-		box-shadow: none;
-	}
-
+	border-radius: var(--radius-md);
 
 	&:focus {
-		outline: 1px solid var(--border-neutral-focus); ;
+		outline: 1px solid var(--border-neutral-focus);
 		outline-offset: 1px;
 	}
 
@@ -63,7 +59,7 @@
 			}
 		}
 	}
-	
+
 	&__text {
 		text-align: center;
 		line-height: 1.2;
@@ -80,61 +76,40 @@
 		pointer-events: none;
 	}
 
-	&--xs {
-		gap: var(--spacing-4);
-		padding: var(--spacing-2) var(--spacing-8);
-		font-size: var(--typography-size-xs);
-		height: var(--spacing-24);
-
-		.orion-icon {
-			font-size:var(--typography-body-s);
-		}
-
-		&.orion-button--icon-only {
-			width: var(--spacing-24);
-			padding: var(--spacing-4) var(--spacing-8);
-		}
-	}
-
 	&--sm {
 		gap: var(--spacing-4);
 		padding: var(--spacing-4) var(--spacing-8);
-		font-size: var(--typography-size-sm);
 		height: var(--spacing-28);
 
 		.orion-icon {
-			font-size:var(--typography-size-base);
+			font-size: var(--typography-size-base);
 		}
 
 		&.orion-button--icon-only {
-				width: var(--spacing-28);
-				padding: var(--spacing-4) var(--spacing-6);
+			width: var(--spacing-28);
+			padding: var(--spacing-4) var(--spacing-6);
 		}
 	}
 
 	&--md {
 		gap: var(--spacing-4);
 		padding: var(--spacing-4) var(--spacing-12);
-		font-size: var(--typography-size-sm);
 		height: var(--spacing-32);
 
-
 		&.orion-button--icon-only {
-				width: var(--spacing-32);
-				padding: var(--spacing-4) var(--spacing-6);
+			width: var(--spacing-32);
+			padding: var(--spacing-4) var(--spacing-6);
 		}
 
-
 		.orion-icon {
-			font-size:var(--typography-body-default);
+			font-size: var(--typography-body-default);
 		}
 	}
 
 	&--lg {
-		gap: 1rem;
-		padding: var(--spacing-8) var(--spacing-16);
-		font-size: 0.9rem;
-		min-height: var(--spacing-40);
+		gap: var(--spacing-8);
+		padding: var(--spacing-4) var(--spacing-16);
+		height: var(--spacing-40);
 
 		&.orion-button--icon-only {
 			width: var(--spacing-40);
@@ -145,131 +120,85 @@
 		}
 	}
 
-	&--xl {
-		gap: var(--spacing-sm);
-		padding: var(--spacing-12) var(--spacing-24);
-		font-size: 1rem;
-		min-height: var(--spacing-48);
-
-		&.orion-button--icon-only {
-			width: var(--spacing-48);
-		}
-
-		.orion-icon {
-			font-size:var(--typography-size-h5);
-		}
-	}
-
 	each(@colors, {
 		&--@{value} {
 			
 			color: white;
-			stroke: white;
-
 			background: var(~"--background-@{value}-default");
 
 			&:hover {
 				background: var(~"--background-@{value}-hover");
 			}
 
-			&.orion-button--outline {
-				background: var(~"--background-neutral-default");
-				border: 1px solid var(~"--border-@{value}-subtle");
-			}
-
 			&.orion-button--outline, &.orion-button--nude {
 				color: var(~"--text-@{value}-default");
-				stroke: var(~"--border-@{value}-default");
 			}
 			
-			&.orion-button--outline&:hover&:not(.orion-button--disabled),
-			&.orion-button--outline&:focus&:not(.orion-button--disabled) {
-				background: var(~"--background-@{value}-minimal");
+			&.orion-button--outline {
+				background: var(--background-neutral-default);	
+				border: 1px solid var(~"--border-@{value}-subtle");
+
+				&:hover&:not(.orion-button--disabled){
+					background: var(~"--background-@{value}-minimal");
+				}				
+
+				&:focus&:not(.orion-button--disabled) {
+					background: var(~"--background-@{value}-minimal");
+					border-color: var(~"--border-@{value}-default");
+				}
 			}
 
-			&.orion-button--nude&:hover,
-			&.orion-button--nude&:focus {
-				background: var(~"--background-@{value}-minimal");
+			&.orion-button--nude {
+				&:hover&:not(.orion-button--disabled),
+				&:focus&:not(.orion-button--disabled) {
+					background: var(~"--background-@{value}-minimal");
+				}				
 			}
 
 			&.orion-button--disabled {
-				color: var(~"--text-default-subtle");
-				background: var(~"--background-@{value}-disabled");
-				border: 1px solid var(~"--border-@{value}-disabled");
+				background: var(--background-neutral-disabled);
+				color: var(--text-default-disabled);
+				border-color: var(--border-neutral-disabled);
+				&:hover, &:focus {
+					background: var(--background-neutral-disabled);
+					border-color: var(--border-neutral-disabled);
+				}
+
+				&.orion-button--nude {
+					background: transparent;
+				}
 			}
 		}
 	});
 
-	&--neutral {
-		background: var(--background-neutral-default);
-		color: var(--text-default-default);
-		stroke: var(--border-neutral-default);
-		box-shadow: 0 0.3rem 1rem -0.3rem fade(black, 20);
-
-
+	&--primary {
 		&.orion-button--outline {
-			border: 1px solid var(~"--border-neutral-default");
-		}
-
-		&.orion-button--outline,
-		&.orion-button--nude {
-			background: var(--background-neutral-minimal);
-
-			&:hover,
-			&:focus {
-				background: var(--background-neutral-subtle);
-				border-color: color-mix(
-					in oklab,
-					var(--border-neutral-default) 60%,
-					transparent
-				);
-			}
-		}
-	}
-
-	&--inverse {
-		color: var(--text-default-inverted);
-		stroke: var(--border-neutral-inverted);
-		background: var(--background-neutral-highlight);
-		box-shadow: 0 0.3rem 1rem -0.3rem fade(black, 20);
-
-		&.orion-button--nude {
 			color: var(--text-default-default);
-			stroke: var(--text-default-inverted);
-		}
+			border: 1px solid var(--border-neutral-default);
 
-		&.orion-button--outline {
-					color: var(--text-default-default);
-					stroke: var(--border-neutral-default);
-					background: var(--background-neutral-minimal);
-					
-			&.orion-button--inverse:hover,
-			&.orion-button--inverse:focus {
+			&:hover&:not(.orion-button--disabled),
+			&:focus&:not(.orion-button--disabled) {
+				background: var(--background-neutral-minimal);
 				border-color: var(--border-neutral-default);
 			}
 		}
 
-		&.orion-button--nude&:hover,
-		&.orion-button--nude&:focus {
-			background: var(--background-neutral-default);
+		&.orion-button--nude {
+			color: var(--text-default-default);
+
+			&:hover&:not(.orion-button--disabled),
+			&:focus&:not(.orion-button--disabled) {
+				background: var(--background-neutral-subtle);
+			}
 		}
 	}
-
-	&--outline:not(&--inverse):not(&--default),
-	&--nude:not(&--inverse):not(&--default) {
-		.orion-button__text,
-		.orion-button__icon {
-			.color-contrast();
-		}
-	}
-
-
 	&--nude {
 		border-color: transparent !important;
-	}
+		stroke: none;
 
-	&--nude:not(:hover):not(:focus) {
-		background: none;
+		&:not(:hover):not(:focus) {
+			background: none;
+		}
 	}
 
 	&--block {

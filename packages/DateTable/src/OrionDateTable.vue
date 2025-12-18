@@ -1,13 +1,21 @@
 <template>
+	<orion-date-table-horizontal
+		v-if="horizontal"
+		v-model="vModel"
+		v-bind="props"/>
 	<div
+		v-else
+		:key="setup.currentMonth"
 		:ref="setup._el"
 		:class="{
 			'orion-date-table': true,
 			'orion-date-table--with-week-number': displayWeekNumber,
 		}"
 		@mousedown.prevent>
-		<div class="orion-date-table__header">
+		<div
+			class="orion-date-table__header">
 			<orion-icon
+				v-if="!hideMonthNavigation"
 				class="orion-date-table__header-carret"
 				:class="{ 'disable' : !canGoPrevMonth }"
 				icon="chevron_left"
@@ -32,13 +40,16 @@
 			</div>
 
 			<orion-icon
+				v-if="!hideMonthNavigation"
 				class="orion-date-table__header-carret"
 				:class="{ 'disable' : !canGoNextMonth }"
 				icon="chevron_right"
 				@click="setup.switchPeriod(1)"/>
 		</div>
 
-		<div class="orion-date-table__body">
+
+		<div
+			class="orion-date-table__body">
 			<div
 				v-show="!setup.viewMonth && !setup.viewYears && !month"
 				class="orion-date-table__body-dow">
@@ -58,14 +69,14 @@
 				v-show="!setup.viewMonth && !setup.viewYears && !month"
 				class="orion-date-table__body">
 				<div
-					v-for="i in 6"
+					v-for="i in setup.daysToDisplay.length"
 					:key="i"
 					class="orion-date-table-row">
 					<span
 						v-if="displayWeekNumber"
 						class="orion-date-table__week-number">{{ setup.getWeekNumber(setup.daysToDisplay[i - 1][0].date) }}</span>
 					<span
-						v-for="day in setup.daysToDisplay[i - 1]"
+						v-for="(day) in setup.daysToDisplay[i - 1]"
 						:key="`day-${day.number}`"
 						class="orion-date-table-row__cell"
 						:class="setup.getCssClassForDayInRange(day)"
@@ -81,6 +92,7 @@
 							v-if="day.color"
 							:class="setup.getClassForBackground(day)"/>
 
+
 						<div
 							v-if="day.period.length > 1"
 							class="orion-date-table-row__cell-notification">
@@ -89,36 +101,27 @@
 								:class="setup.getClassForNotification(day)"/>
 						</div>
 
-						<span
-							class="orion-date-table-row__cell-display"
-							:class="setup.getClassForDay(day)"
-							@click="setup.handleSpecificDayCallback(day)">
-							<span class="orion-date-table-row__cell-display-contrast">
-								{{ day.number }}
+						<div class="orion-date-table-row__cell-content">
+
+							<span
+								v-if="markers?.map(m => m.date.getTime()).includes(day.date.getTime())"
+								class="orion-date-table__marker"
+								:class="[
+									`orion-date-table__marker--${markers.find(m => m.date.getTime() === day.date.getTime())?.color}`,
+								]"/>
+
+							<span
+								class="orion-date-table-row__cell-display"
+								:class="setup.getClassForDay(day)"
+								@click="setup.handleSpecificDayCallback(day)">
+
+								<span class="orion-date-table-row__cell-display-contrast">
+									{{ day.number }}
+								</span>
 							</span>
-						</span>
+						</div>
 
 					</span>
-				</div>
-				<div
-					v-if="!!setup.labels.length"
-					class="orion-date-table__footer">
-					<div
-						v-for="(label, index) in setup.labels"
-						:key="index"
-						v-tooltip="setup.filter.includes(label.color)
-							? setup.lang.ACTIVATE
-							: setup.lang.DEACTIVATE"
-						class="orion-date-table__legend"
-						:class="setup.filter.includes(label.color)
-							? `text--${label.color} orion-date-table__legend--opacity`
-							: `text--${label.color} background`"
-						@click.prevent="setup.filterColorOnClick(label.color)"
-						@mouseenter="setup.filterColorOnHover(label.color)"
-						@mouseleave="setup.filterColorOnHover(label.color, true)">
-						<div :class="`legend legend--${label.color}`"/>
-						{{ label.label }}
-					</div>
 				</div>
 			</div>
 
@@ -152,14 +155,35 @@
 				</div>
 			</div>
 		</div>
+		<div
+			v-if="!!setup.labels.length"
+			class="orion-date-table__footer">
+			<div
+				v-for="(label, index) in setup.labels"
+				:key="index"
+				v-tooltip="setup.filter.includes(label.color)
+					? setup.lang.ACTIVATE
+					: setup.lang.DEACTIVATE"
+				class="orion-date-table__legend"
+				:class="setup.filter.includes(label.color)
+					? `text--${label.color} orion-date-table__legend--opacity`
+					: `text--${label.color} background`"
+				@click.prevent="setup.filterColorOnClick(label.color)"
+				@mouseenter="setup.filterColorOnHover(label.color)"
+				@mouseleave="setup.filterColorOnHover(label.color, true)">
+				<div :class="`legend legend--${label.color}`"/>
+				{{ label.label }}
+			</div>
+		</div>
 	</div>
 </template>
 
 <script setup lang="ts">
-import './OrionDateTable.less';
+import { OrionDateTableHorizontal } from 'packages/DateTableHorizontal';
 import { OrionIcon } from 'packages/Icon';
+import './OrionDateTable.less';
+import type { OrionDateTableEmits, OrionDateTableProps } from './OrionDateTableSetupService';
 import OrionDateTableSetupService from './OrionDateTableSetupService';
-import type { OrionDateTableProps, OrionDateTableEmits } from './OrionDateTableSetupService';
 const vModel = defineModel< Nil<Date>>();
 const range = defineModel<Nil<Orion.DateRange>>('range');
 const multiple = defineModel<Nil<Date[]>>('multiple');

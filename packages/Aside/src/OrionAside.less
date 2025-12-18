@@ -28,7 +28,7 @@
 	}
 
 	> .orion-loader {
-		border-radius: var(--radius-large);
+		border-radius: var(--radius-lg);
 	}
 
 	&:focus {
@@ -146,8 +146,15 @@
 
 		[data-orion-theme='dark'] & {
 			background:
-				linear-gradient(var(--background-neutral-minimal) 30%, rgba(255, 255, 255, 0)),
-				linear-gradient(rgba(255, 255, 255, 0), var(--background-neutral-minimal) 70%) 0 100%,
+				linear-gradient(
+					var(--background-neutral-minimal) 30%,
+					rgba(255, 255, 255, 0)
+				),
+				linear-gradient(
+						rgba(255, 255, 255, 0),
+						var(--background-neutral-minimal) 70%
+					)
+					0 100%,
 				radial-gradient(
 					farthest-side at 50% 0,
 					rgba(0, 0, 0, 0),

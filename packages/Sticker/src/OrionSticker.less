@@ -7,13 +7,15 @@
 	--hoverElevation: 1;
 	--elevation: calc(1rem * var(--hoverElevation));
 	--shadowColor: rgba(0, 0, 0, calc(0.03 * (1 + var(--hoverElevation) / 5)));
-	transition: box-shadow 0.3s, transform 0.3s;
+	transition:
+		box-shadow 0.3s,
+		transform 0.3s;
 	position: relative;
 	display: flex;
 	align-items: center;
 	gap: 1.25rem;
 	padding: var(--spacing-48);
-	border-radius: var(--radius-medium);
+	border-radius: var(--radius-md);
 	background: var(--background-neutral-default);
 	color: var(--text-default-default);
 	box-shadow: 0 0.0625rem 0.1875rem fade(black, 10);
@@ -99,7 +101,7 @@
 		align-items: flex-end;
 		justify-content: flex-end;
 		pointer-events: none;
-		border-bottom-right-radius: var(--radius-medium);
+		border-bottom-right-radius: var(--radius-md);
 		overflow: hidden;
 		transform-origin: bottom right;
 		transform: scale(0);
@@ -280,7 +282,8 @@
 		body:not(.istouch) & {
 			z-index: 1;
 			transform: translate3d(0, -0.125rem, 0);
-			box-shadow: 0 calc(var(--elevation) / 8) calc(var(--elevation) / 8)
+			box-shadow:
+				0 calc(var(--elevation) / 8) calc(var(--elevation) / 8)
 					var(--shadowColor),
 				0 calc(var(--elevation) / 4) calc(var(--elevation) / 4)
 					var(--shadowColor),

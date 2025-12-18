@@ -1,5 +1,8 @@
 <template>
-	<div class="prop-description" :class="{ 'prop-description--deprecated': !!deprecated }">
+	<div
+		class="prop-description"
+		:class="{ 'prop-description--deprecated': !!deprecated }"
+	>
 		<div class="prop-description__header">
 			<span class="prop-description__name">{{ name }}</span>
 			<code>
@@ -13,9 +16,9 @@
 			<code>deprecated</code>
 			<span>{{ deprecated }}</span>
 		</div>
-		
+
 		<div class="prop-description__description">
-			<slot/>
+			<slot />
 		</div>
 	</div>
 </template>
@@ -37,8 +40,8 @@ defineProps({
 	deprecated: {
 		type: String,
 		default: undefined,
-	}
-})
+	},
+});
 </script>
 
 <style scoped lang="less">
@@ -46,7 +49,7 @@ defineProps({
 	display: flex;
 	flex-direction: column;
 	gap: 0.25rem;
-	padding: var(--space-16);
+	padding: var(--spacing-16);
 	border-top: 0.125rem solid var(--border-neutral-default);
 	border-bottom: 0.125rem solid var(--border-neutral-default);
 
@@ -62,7 +65,7 @@ defineProps({
 		font-size: 0.75rem;
 		line-height: 1.25rem;
 	}
-	
+
 	&__name {
 		font-family: var(--font-family-code);
 		color: var(--text-info-default);
@@ -75,14 +78,14 @@ defineProps({
 	&__value {
 		color: var(--text-default-default);
 	}
-	
+
 	&__description {
 		color: var(--text-default-default);
 
 		:deep(p) {
 			font-size: var(--size-default);
 		}
-		
+
 		:deep(strong) {
 			color: var(--text-default-default);
 		}

@@ -29,14 +29,14 @@
 	padding: 0;
 	margin: 0;
 	border: none;
-	border-radius: var(--radius-large);
+	border-radius: var(--radius-lg);
 	box-shadow: 0 2.5rem 7.5rem fade(black, 50);
 	overscroll-behavior: contain;
 	backface-visibility: hidden;
 	color: inherit;
 
 	> .orion-loader {
-		border-radius: var(--radius-large);
+		border-radius: var(--radius-lg);
 	}
 
 	&:focus {
@@ -67,7 +67,7 @@
 	&__body {
 		order: 1;
 		flex: 1 1 auto;
-		border-radius: var(--radius-large);
+		border-radius: var(--radius-lg);
 		padding: var(--spacing-48);
 
 		.orion-modal__footer:not(:empty) + & {
@@ -100,8 +100,15 @@
 
 		[data-orion-theme='dark'] & {
 			background:
-				linear-gradient(var(--background-neutral-minimal) 30%, rgba(255, 255, 255, 0)),
-				linear-gradient(rgba(255, 255, 255, 0), var(--background-neutral-minimal) 70%) 0 100%,
+				linear-gradient(
+					var(--background-neutral-minimal) 30%,
+					rgba(255, 255, 255, 0)
+				),
+				linear-gradient(
+						rgba(255, 255, 255, 0),
+						var(--background-neutral-minimal) 70%
+					)
+					0 100%,
 				radial-gradient(
 					farthest-side at 50% 0,
 					rgba(0, 0, 0, 0),

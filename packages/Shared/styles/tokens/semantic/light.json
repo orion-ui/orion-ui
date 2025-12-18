@@ -66,6 +66,18 @@
       "moderate": {
         "$type": "color",
         "$value": "{colors.neutral.200}"
+      },
+      "inverted": {
+        "$type": "color",
+        "$value": "{colors.neutral.700}"
+      },
+      "inverted-hover": {
+        "$type": "color",
+        "$value": "{colors.neutral.600}"
+      },
+      "inverted-active": {
+        "$type": "color",
+        "$value": "{colors.neutral.800}"
       }
     },
     "error": {
@@ -161,7 +173,7 @@
       },
       "disabled": {
         "$type": "color",
-        "$value": "{colors.neutral.300}"
+        "$value": "{colors.neutral.200}"
       },
       "minimal": {
         "$type": "color",
@@ -200,6 +212,32 @@
       "moderate": {
         "$type": "color",
         "$value": "{colors.secondary.200}"
+      }
+    },
+    "inverted": {
+      "default": {
+        "$type": "color",
+        "$value": "{colors.neutral.700}"
+      },
+      "hover": {
+        "$type": "color",
+        "$value": "{colors.neutral.600}"
+      },
+      "active": {
+        "$type": "color",
+        "$value": "{colors.neutral.800}"
+      },
+      "disabled": {
+        "$type": "color",
+        "$value": "{colors.neutral.200}"
+      },
+      "minimal": {
+        "$type": "color",
+        "$value": "{colors.neutral.300}"
+      },
+      "subtle": {
+        "$type": "color",
+        "$value": "{colors.neutral.400}"
       }
     }
   },
@@ -321,6 +359,16 @@
         "$type": "color",
         "$value": "{colors.secondary.600}"
       }
+    },
+    "inverted": {
+      "default": {
+        "$type": "color",
+        "$value": "{colors.neutral.700}"
+      },
+      "subtle": {
+        "$type": "color",
+        "$value": "{colors.neutral.500}"
+      }
     }
   },
   "border": {
@@ -416,6 +464,16 @@
       "hover": {
         "$type": "color",
         "$value": "{colors.secondary.400}"
+      }
+    },
+    "inverted": {
+      "default": {
+        "$type": "color",
+        "$value": "{colors.neutral.700}"
+      },
+      "subtle": {
+        "$type": "color",
+        "$value": "{colors.neutral.300}"
       }
     }
   },
@@ -583,6 +641,10 @@
     "xs": {
       "$type": "dimension",
       "$value": "{sizing.4}"
+    },
+    "sm": {
+      "$type": "dimension",
+      "$value": "{sizing.6}"
     }
   },
   "opacity": {
@@ -635,6 +697,10 @@
     "4": {
       "$type": "dimension",
       "$value": "{spacing.4}"
+    },
+    "6": {
+      "$type": "dimension",
+      "$value": "{sizing.6}"
     },
     "8": {
       "$type": "dimension",
