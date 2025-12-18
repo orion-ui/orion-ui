@@ -20,7 +20,7 @@
 		.v-popper__inner {
 			color: var(--text-default-default);
 			padding: var(--spacing-16);
-			border-radius: var(--radius-medium);
+			border-radius: var(--radius-md);
 		}
 
 		&--no-positioning {
@@ -46,7 +46,11 @@
 
 			.v-popper__backdrop {
 				display: block;
-				background: color-mix(in srgb, var(--background-neutral-highlight) 70%, transparent);
+				background: color-mix(
+					in srgb,
+					var(--background-neutral-highlight) 70%,
+					transparent
+				);
 				bottom: -1px; // for parent overscroll-behavior
 				height: auto; // for parent overscroll-behavior
 			}

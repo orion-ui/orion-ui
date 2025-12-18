@@ -8,7 +8,7 @@
 	max-width: 100%;
 	font-weight: 600;
 	line-height: 1;
-	border-radius: var(--radius-small);
+	border-radius: var(--radius-md);
 	white-space: nowrap;
 
 	each(@colorsAndGreys, {	
@@ -52,7 +52,8 @@
 		background: var(--background-neutral-highlight);
 	}
 
-	&--grey-light, &--grey-lighter {
+	&--grey-light,
+	&--grey-lighter {
 		color: var(--text-default-default);
 	}
 
@@ -61,7 +62,7 @@
 			color: var(--text-default-default);
 			background: var(--background-neutral-minimal);
 		}
-	} 
+	}
 
 	&--outline:not(&--inverse):not(&--default) {
 		.orion-label__content {
