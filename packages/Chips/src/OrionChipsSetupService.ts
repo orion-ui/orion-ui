@@ -1,6 +1,5 @@
-import SharedSetupService from '../../Shared/SharedSetupService';
 import SharedProps, { SharedPropsColorExtentedAndGreys, SharedPropsPrefixIcon, SharedPropsSize, SharedPropsSuffixIcon } from '../../Shared/SharedProps';
-import { round } from 'lodash-es';
+import SharedSetupService from '../../Shared/SharedSetupService';
 
 export type OrionChipsEmits = {
 	// @doc event/close/desc Emitted when closing the chips
@@ -22,16 +21,15 @@ export type OrionChipsProps =
 		// @doc props/close Defines if the chips can be closed
 		// @doc/fr props/close définit si le chips peut être fermée
 		close?: boolean,
-		// @doc props/rounded Adds rounded style on the chips
-		// @doc/fr props/rounded ajoute un style arrondi sur la chips
-		round?: boolean,
+		// @doc props/squared Adds squared style on the chips
+		// @doc/fr props/squared ajoute un style carré sur la chips
+		squared?: boolean,
 };
 
 export default class OrionChipsSetupService extends SharedSetupService {
 	static readonly defaultProps = {
 		...SharedProps.colorExtendedAndGreys,
 		...SharedProps.size,
-		round: true,
 	};
 
 	constructor (

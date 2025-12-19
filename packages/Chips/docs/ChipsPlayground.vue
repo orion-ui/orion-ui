@@ -37,8 +37,8 @@
 		</div>
 		<div class="col-sm-3">
 			<o-toggle
-				v-model="state.round"
-				label="Round"/>
+				v-model="state.squared"
+				label="Squared"/>
 		</div>
 		<div class="col-sm-3">
 			<o-toggle
@@ -75,15 +75,15 @@
 </template>
 
 <script setup lang="ts">
-import { computed, reactive } from 'vue';
 import { materialIcons, useNotif } from 'lib';
+import { computed, reactive } from 'vue';
 
 const state = reactive({
 	content: 'Duis mollis est',
 	color: 'info' as Orion.Color,
 	close: true,
 	dual: false,
-	round: false,
+	squared: false,
 	nude: false,
 	outline: false,
 	prefixIcon: undefined as Undef<Orion.Icon>,

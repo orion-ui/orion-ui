@@ -8,7 +8,7 @@
 			{ 'orion-chips--outline' : outline },
 			{ 'orion-chips--nude' : nude },
 			{ 'orion-chips--closable' : close },
-			{ 'orion-chips--rounded' : round },
+			{ 'orion-chips--squared' : squared },
 			{ 'orion-chips--dual' : !!$slots.dual },
 		]">
 		<span class="orion-chips__main">
@@ -47,8 +47,8 @@
 
 <script setup lang="ts">
 import './OrionChips.less';
+import type { OrionChipsEmits, OrionChipsProps } from './OrionChipsSetupService';
 import OrionChipsSetupService from './OrionChipsSetupService';
-import type { OrionChipsProps, OrionChipsEmits } from './OrionChipsSetupService';
 const emits = defineEmits<OrionChipsEmits>() as OrionChipsEmits;
 const props = withDefaults(defineProps<OrionChipsProps>(), OrionChipsSetupService.defaultProps);
 const setup = new OrionChipsSetupService(props, emits);
