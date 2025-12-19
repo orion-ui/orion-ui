@@ -1,4 +1,4 @@
-import { nextTick, reactive, ref, render, watch } from 'vue';
+import { nextTick, reactive, ref, render, Slots, watch } from 'vue';
 import mitt from 'mitt';
 import anime from 'animejs';
 
@@ -87,6 +87,10 @@ export default abstract class SharedPopableSetupService extends SharedSetupServi
 		return { zIndex: 100 + 1 + this.zIndexBumper + this.options.zIndex };
 	}
 
+	get headerIsDisplayed () {
+		return !!this.slots?.header || !!this.options.title || !!this.options.description;
+	}
+
 	get publicInstance () {
 		return {
 			...super.publicInstance,
@@ -109,7 +113,8 @@ export default abstract class SharedPopableSetupService extends SharedSetupServi
 		protected props: SharedPopableSetupServiceProps
 			& Omit<typeof SharedPopableSetupService.defaultProps, 'options'>
 			& {options: Partial<Orion.Popable.Options>},
-		protected emits: SharedPopableSetupServiceEmits) {
+		protected emits: SharedPopableSetupServiceEmits,
+		protected slots: Slots) {
 		super();
 
 

@@ -12,10 +12,14 @@
 			ref="_modalA"
 			:options="{
 				hideOnOverlayClick: false,
-				hideClose: true,
+				title: 'TUTUTUU',
+				description: 'This is a modal with hideClose set to true',
 			}"
 			:display="displayModalA"
 			@leave-start="displayModalA = false">
+			<template #poster>
+				<img src="https://picsum.photos/680/300">
+			</template>
 			<template #footer="{ close }">
 				<o-section align="stretch">
 					<o-button
@@ -33,7 +37,7 @@
 				</o-section>
 			</template>
 
-			<o-section title="Modal with hideClose">
+			<o-section>
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 				Duis sagittis viverra vulputate. Nunc ultricies ante urna.
 				Pellentesque lectus massa, fringilla eu risus id, semper.

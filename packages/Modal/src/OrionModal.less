@@ -4,11 +4,11 @@
 @positionTop: 4rem;
 @positionBottom: 4rem;
 @maxWidth: calc(100vw - 2.5rem);
-@widthXL: calc(1300rem / 16);
-@widthLG: calc(964rem / 16);
-@widthMD: calc(708rem / 16);
-@widthSM: calc(480rem / 16);
-@widthXS: calc(340rem / 16);
+@widthXL: 61.5rem;
+@widthLG: 50rem;
+@widthMD: 36.5rem;
+@widthSM: 30rem;
+@widthXS: 24rem;
 
 #o-modal-wrapper {
 	display: flex;
@@ -17,8 +17,7 @@
 
 .orion-modal {
 	position: fixed;
-	// z-index: @zIndexOrionPopable;
-	top: @positionTop;
+	top: 50%;
 	display: none;
 	flex-direction: column;
 	max-height: calc(
@@ -28,12 +27,13 @@
 	background: var(--background-neutral-default);
 	padding: 0;
 	margin: 0;
-	border: none;
-	border-radius: var(--radius-lg);
+	border: 1px solid var(--border-neutral-default);
+	border-radius: var(--radius-md);
 	box-shadow: 0 2.5rem 7.5rem fade(black, 50);
-	overscroll-behavior: contain;
+	overscroll-behavior: none;
 	backface-visibility: hidden;
 	color: inherit;
+	overflow: hidden;
 
 	> .orion-loader {
 		border-radius: var(--radius-lg);
@@ -46,96 +46,51 @@
 	&__close {
 		.close(1.5rem);
 		position: absolute;
-		top: 1rem;
-		right: 1rem;
+		top: var(--spacing-24);
+		right: var(--spacing-16);
 	}
 
 	&__title {
-		flex: 1 0 0%;
-		margin: 0;
-		padding: var(--spacing-32) var(--spacing-48) var(--spacing-32)
-			var(--spacing-48);
-		font-weight: 600;
+		color: var(--text-default-default);
+		font-size: var(--typography-size-h5);
+
+		margin-bottom: unset;
+	}
+
+	&__poster {
+			border-radius: var(--radius-md) var(--radius-md) 0 0;
+			overflow: hidden;
+	}
+
+	&__header {
+		padding: var(--spacing-24);
+		position: relative;
+		padding-bottom: 0;
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-8);
 	}
 
 	&__body,
 	&__footer {
 		overflow: auto;
-		overscroll-behavior: contain;
+		overscroll-behavior: none;
 	}
 
 	&__body {
 		order: 1;
 		flex: 1 1 auto;
+		position: relative;
 		border-radius: var(--radius-lg);
-		padding: var(--spacing-48);
-
-		.orion-modal__footer:not(:empty) + & {
-			padding-bottom: var(--spacing-16);
-		}
-
-		// #region Pure CSS scroll shadow
-		background:
-			linear-gradient(white 30%, rgba(255, 255, 255, 0)),
-			linear-gradient(rgba(255, 255, 255, 0), white 70%) 0 100%,
-			radial-gradient(
-				farthest-side at 50% 0,
-				rgba(0, 0, 0, 0),
-				rgba(0, 0, 0, 0)
-			),
-			radial-gradient(
-					farthest-side at 50% 100%,
-					rgba(0, 0, 0, 0.2),
-					rgba(0, 0, 0, 0)
-				)
-				0 100%;
-		background-repeat: no-repeat;
-		background-color: var(--background-neutral-default);
-		background-size:
-			100% 2.5rem,
-			100% 2.5rem,
-			100% 0,
-			100% 0.5rem;
-		background-attachment: local, local, scroll, scroll;
-
-		[data-orion-theme='dark'] & {
-			background:
-				linear-gradient(
-					var(--background-neutral-minimal) 30%,
-					rgba(255, 255, 255, 0)
-				),
-				linear-gradient(
-						rgba(255, 255, 255, 0),
-						var(--background-neutral-minimal) 70%
-					)
-					0 100%,
-				radial-gradient(
-					farthest-side at 50% 0,
-					rgba(0, 0, 0, 0),
-					rgba(0, 0, 0, 0)
-				),
-				radial-gradient(
-						farthest-side at 50% 100%,
-						rgba(0, 0, 0, 0.5),
-						rgba(0, 0, 0, 0)
-					)
-					0 100%;
-			background-repeat: no-repeat;
-			background-size:
-				100% 2.5rem,
-				100% 2.5rem,
-				100% 0,
-				100% 0.5rem;
-			background-attachment: local, local, scroll, scroll;
-			background-color: var(--background-neutral-minimal);
-		}
-		// #endregion
+		padding: var(--spacing-24) var(--spacing-24);
+		padding-bottom: var(--spacing-16);
 
 		@media @tablet {
-			padding: var(--spacing-48);
+			padding: var(--spacing-24) var(--spacing-24);
+			padding-bottom: var(--spacing-16);
 
 			.orion-modal__footer:not(:empty) + & {
-				padding-bottom: var(--spacing-48);
+				padding-bottom: 0;
 
 				.orion-modal--xs & {
 					padding-bottom: var(--spacing-16);
@@ -144,27 +99,27 @@
 		}
 
 		.orion-modal--sm & {
-			padding: var(--spacing-48);
+			padding: var(--spacing-24);
 		}
 		.orion-modal--xs & {
-			padding: var(--spacing-48);
+			padding: var(--spacing-24);
 		}
 	}
 
 	&__footer {
 		order: 2;
 		flex: 0 0 auto;
-		padding: var(--spacing-48) var(--spacing-48);
+		padding: 0 var(--spacing-24);
 
 		@media @tablet {
-			padding: var(--spacing-48) var(--spacing-48);
+			padding: var(--spacing-16) var(--spacing-24);
 		}
 
 		.orion-modal--sm & {
-			padding: var(--spacing-48) var(--spacing-48);
+			padding: var(--spacing-16) var(--spacing-24);
 		}
 		.orion-modal--xs & {
-			padding: var(--spacing-48);
+			padding: var(--spacing-16);
 		}
 
 		&:empty {
@@ -185,6 +140,7 @@
 
 	&--fullscreen {
 		top: 0;
+		transform: none;
 		left: 0;
 		width: 100vw;
 		max-width: 100vw;
@@ -201,27 +157,27 @@
 	}
 
 	&--xl {
-		width: ~'min(@{widthXL}, @{maxWidth})';
+		width: ~'@{widthXL}';
 		left: ~'max(calc(50% - @{widthXL} / 2), calc(50% - @{maxWidth} / 2))';
 	}
 
 	&--lg {
-		width: ~'min(@{widthLG}, @{maxWidth})';
+		width: ~'@{widthLG}';
 		left: ~'max(calc(50% - @{widthLG} / 2), calc(50% - @{maxWidth} / 2))';
 	}
 
 	&--md {
-		width: ~'min(@{widthMD}, @{maxWidth})';
+		width: ~'@{widthMD}';
 		left: ~'max(calc(50% - @{widthMD} / 2), calc(50% - @{maxWidth} / 2))';
 	}
 
 	&--sm {
-		width: ~'min(@{widthSM}, @{maxWidth})';
+		width: ~'@{widthSM}';
 		left: ~'max(calc(50% - @{widthSM} / 2), calc(50% - @{maxWidth} / 2))';
 	}
 
 	&--xs {
-		width: ~'min(@{widthXS}, @{maxWidth})';
+		width: ~'@{widthXS}';
 		left: ~'max(calc(50% - @{widthXS} / 2), calc(50% - @{maxWidth} / 2))';
 	}
 

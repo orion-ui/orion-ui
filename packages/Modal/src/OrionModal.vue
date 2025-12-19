@@ -14,6 +14,25 @@
 				{ 'orion-modal--visible': setup.visible },
 			]">
 			<div
+				v-if="$slots.poster"
+				:id="`OrionModal-${setup.uid}__poster`"
+				class="orion-modal__poster">
+				<slot name="poster"/>
+			</div>
+			<div
+				v-if="$slots.header || setup.options.title || setup.options.description"
+				:id="`OrionModal-${setup.uid}__header`"
+				class="orion-modal__header">
+				<h5
+					v-if="options.title"
+					class="orion-modal__title">
+					{{ options.title }}
+				</h5>
+				<span v-if="options.description">{{ options.description }}</span>
+				<slot name="header"/>
+			</div>
+
+			<div
 				:id="`OrionModal-${setup.uid}__footer`"
 				class="orion-modal__footer">
 				<div
@@ -33,8 +52,10 @@
 					:close="setup.close.bind(setup)"/>
 			</div>
 
-			<div class="orion-modal__body">
-				<orion-section :title="setup.options.title">
+			<div
+				:id="`OrionModal-${setup.uid}__body`"
+				class="orion-modal__body">
+				<orion-section>
 					<div
 						v-if="setup.options.message"
 						class="orion-modal__message"
@@ -60,11 +81,16 @@
 				</orion-section>
 			</div>
 
-			<span
-				v-if="!setup.options.hideClose"
-				class="orion-modal__close"
-				@click="setup.close({ keepInQueue: false } )"
-				@touchend.prevent.stop="setup.close({ keepInQueue: false } )"/>
+			<teleport
+				v-if="$slots.header || $slots.default"
+				defer
+				:to="setup.headerIsDisplayed ? `#OrionModal-${setup.uid}__header` : `#OrionModal-${setup.uid}__body`">
+				<span
+					v-if="!setup.options.hideClose"
+					class="orion-modal__close"
+					@click="setup.close({ keepInQueue: false } )"
+					@touchend.prevent.stop="setup.close({ keepInQueue: false } )"/>
+			</teleport>
 
 			<orion-loader :ref="setup._loader"/>
 		</dialog>
@@ -95,7 +121,8 @@ import OrionModalSetupService from './OrionModalSetupService';
 import type { OrionModalProps, OrionModalEmits } from './OrionModalSetupService';
 const emits = defineEmits<OrionModalEmits>() as OrionModalEmits;
 const props = withDefaults(defineProps<OrionModalProps>(), OrionModalSetupService.defaultProps);
-const setup = new OrionModalSetupService(props, emits);
+const slots = defineSlots();
+const setup = new OrionModalSetupService(props, emits, slots);
 provide('_modal', setup.publicInstance);
 defineExpose(setup.publicInstance);
 
@@ -103,6 +130,9 @@ defineExpose(setup.publicInstance);
 /** Doc
  * @doc slot/header the header of the modal
  * @doc/fr slot/header en-tête de la modal
+ *
+ * @doc slot/poster the poster of the modal
+ * @doc/fr slot/poster en-tête de la modal
  *
  * @doc slot/footer the content on the bottom, useful for actions
  * @doc/fr slot/footer contenu en bas, pratique pour les actions

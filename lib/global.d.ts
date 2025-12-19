@@ -6,12 +6,10 @@ import { MaterialIcon } from 'material-icons';
 import { OrionAvatarProps } from 'packages/Avatar/src/OrionAvatarSetupService';
 import { Component } from 'vue';
 import { RouteLocationRaw, Router } from 'vue-router';
-import type {
-	OrionAsideSetupService,
+import type { OrionAsideSetupService,
 	OrionListProps,
 	OrionModalSetupService,
-	OrionNotifSetupService,
-} from '../packages';
+	OrionNotifSetupService } from '../packages';
 import OrionChatEntity from '../packages/Chat/src/OrionChatEntity';
 import OrionChatMessageEntity from '../packages/ChatMessage/src/OrionChatMessageEntity';
 import useValidation from '../services/ValidationService';
@@ -294,7 +292,6 @@ declare global {
 
 		namespace Modal {
 			type Options = Popable.Options & {
-				title: Nil<string>;
 				message: Nil<string>;
 				events?: Record<string, (modal: OrionModal, params: any) => void>;
 				actions?: Partial<ActionsParams>[];
