@@ -22,7 +22,7 @@ export type OrionProgressCircleProps = SharedPropsColor & {
 
 export default class OrionProgressCircleSetupService extends SharedSetupService {
 	static readonly defaultProps = {
-		color: 'info' as Orion.Color,
+		color: 'primary' as Orion.Color,
 		pathWidth: 2,
 		size: 50,
 		value: 0,

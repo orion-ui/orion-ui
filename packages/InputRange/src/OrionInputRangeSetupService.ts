@@ -24,7 +24,7 @@ export default class OrionInputRangeSetupService extends SharedFieldSetupService
 		maxValue: 100,
 		minValue: 0,
 		step: 1,
-		color: 'primary' as Orion.Color,
+		color: 'default' as Orion.Color,
 	};
 
 	private circleSize = 20;

@@ -16,7 +16,7 @@ export type OrionProgressBarProps = SharedPropsColor & {
 
 export default class OrionProgressBarSetupService extends SharedSetupService {
 	static readonly defaultProps = {
-		color: 'info' as Orion.Color,
+		color: 'primary' as Orion.Color,
 		value: 0,
 		width: 10,
 	};

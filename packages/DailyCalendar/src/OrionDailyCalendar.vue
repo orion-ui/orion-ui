@@ -13,12 +13,12 @@
 						icon="chevron_left"
 						class="orion-daily-calendar__icon"
 						:class="setup.today ? 'disabled' : null"
-						:ripple="setup.today ? undefined : 'info'"
+						:ripple="setup.today ? undefined : 'primary'"
 						:disabled="true"
 						@click="setup.getPreviousDay()"/>
 
 					<orion-icon
-						ripple="info"
+						ripple="primary"
 						class="orion-daily-calendar__icon"
 						icon="chevron_right"
 						@click="setup.getNextDay()"/>

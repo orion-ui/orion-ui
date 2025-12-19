@@ -25,7 +25,7 @@ export type OrionStickerProps = {
 export default class OrionStickerSetupService extends SharedSetupService {
 	static readonly defaultProps = {
 		hoverElevation: 1,
-		selectedColor: 'info' as Orion.Color,
+		selectedColor: 'primary' as Orion.Color,
 	};
 
 	constructor (
