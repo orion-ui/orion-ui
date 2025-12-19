@@ -35,47 +35,37 @@
 
 	&:hover:not(.orion-input--focused) {
 		border-color: var(--border-neutral-subtle);
+
+		&.orion-input--error {
+			border-color: var(--border-error-default);
+		}
+
+		&.orion-input--warning {
+			border-color: var(--border-warning-default);
+		}
+
+		&.orion-input--success{
+			border-color: var(--border-success-default);
+		}
 	}
 
 	&:focus,
 	&--focused  {
 		outline: 1px solid var(--border-neutral-focus);
 		outline-offset: 2px;
-
-		&.orion-input::before {
-			content: '';
-			position: absolute;
-			top: -1;
-			left: -4px;
-			width: calc(100% + 8px);
-			height: calc(100% + 8px);
-			border-radius: var(--radius-md);
-			box-shadow: 0 0 4px 0 var(--gradient-input-active, #89DBFA);
-		}
-
-		border-color: var(--border-primary-default);
+		border-color: transparent;
+		transition: none;
 
 		&.orion-input--error {
-			border-color: var(--border-error-default);
-
-			&.orion-input::before {
-				box-shadow: 0 0 4px 0 var(--gradient-input-error, #FA8989);
-			}
+			outline-color: var(--border-error-default);
 		}
 
 		&.orion-input--warning {
-			border-color: var(--border-warning-default);
-			&.orion-input::before {
-				box-shadow: 0 0 4px 0 var(--gradient-input-warning, #FAD389);
-			}
+			outline-color: var(--border-warning-default);
 		}
 
 		&.orion-input--success{
-			border-color: var(--border-success-default);
-			
-			&.orion-input::before {
-				box-shadow: 0 0 4px 0 var(--gradient-input-success, #89FA9B);
-			}
+			outline-color: var(--border-success-default);
 		}
 	}
 
@@ -203,8 +193,6 @@
 			font-size: var(--typography-size-sm)
 		}
 	}
-
-
 
 	&__error-message {
 		margin-top: 0.25rem;
