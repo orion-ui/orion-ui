@@ -41,18 +41,19 @@
 				<div
 					v-if="!$slots.multipleDisplay"
 					class="orion-datepicker-multiple__content">
-					<orion-label
+					<orion-chips
 						v-for="date in multiple"
 						:key="date.toString()"
 						:color="multipleLabelColor"
-						size="sm">
+						size="sm"
+						squared>
 						<div class="flex ai-c g-8">
 							{{ setup.inputValueFormat(date) }}
 							<span
 								:class="`orion-datepicker-multiple__clearable`"
 								@click="setup.removeDate(date)"/>
 						</div>
-					</orion-label>
+					</orion-chips>
 				</div>
 				<div
 					class="orion-datepicker__multiple">
@@ -222,15 +223,15 @@
 </template>
 
 <script setup lang="ts">
-import './OrionDatepicker.less';
 import { OrionButton } from 'packages/Button';
+import { OrionChips } from 'packages/Chips';
 import { OrionDateRange } from 'packages/DateRange';
 import { OrionDateTable } from 'packages/DateTable';
 import { OrionDateWeek } from 'packages/DateWeek';
 import { OrionField } from 'packages/Field';
-import { OrionLabel } from 'packages/Label';
+import './OrionDatepicker.less';
+import type { OrionDatepickerEmits, OrionDatepickerProps } from './OrionDatepickerSetupService';
 import OrionDatepickerSetupService from './OrionDatepickerSetupService';
-import type { OrionDatepickerProps, OrionDatepickerEmits } from './OrionDatepickerSetupService';
 const slots = defineSlots();
 const vModel = defineModel<Nil<Date>>();
 const range = defineModel<Nil<Orion.DateRange>>('range');

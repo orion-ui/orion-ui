@@ -31,25 +31,14 @@
 }
 
 .close(@size) {
-	.circle(@size);
 	.flex-align();
 	-webkit-tap-highlight-color: transparent;
 	transition: all 0.3s;
 	font-size: @size;
-	border: calc(1rem / 16) solid transparent;
-	opacity: 0.7;
 	cursor: pointer;
-
-	&::before {
-		content: '\00D7';
-		font-weight: 600;
-		transform: translateY(-0.0625rem);
-	}
 
 	&:hover {
 		opacity: 1;
-		color: var(--text-error-default);
-		border-color: var(--border-error-default);
 		transform: rotate(90deg);
 	}
 }

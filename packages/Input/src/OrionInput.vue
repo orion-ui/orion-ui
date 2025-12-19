@@ -1,8 +1,16 @@
 <template>
+	<label
+		v-if="!floatingLabel"
+		:for="`orion-input_${setup._uid}`"
+		class="orion-input__static-label">
+		{{ label }}
+	</label>
+
 	<orion-field
 		v-bind="setup.orionFieldBinding"
 		@clear="setup.clear()">
 		<input
+			:id="`orion-input_${setup._uid}`"
 			:ref="setup._input"
 			v-model="setup.vModelProxy"
 			class="orion-input__input"
@@ -23,14 +31,20 @@
 			@keyup.left="setup.setCursorPosition($event)"
 			@keyup.right="setup.setCursorPosition($event)"
 			@blur="setup.handleBlurCustom($event)">
-
-		<div
-			v-if="setup.showState
-				&& (setup.showError || setup.showWarning)
-				&& setup.validationHtmlMessages?.length"
-			class="orion-input__error-message"
-			v-html="setup.validationHtmlMessages"/>
 	</orion-field>
+	<div
+		v-if="setup.showState
+			&& (setup.showError || setup.showWarning)
+			&& setup.validationHtmlMessages?.length"
+		class="orion-input__error-message"
+		v-html="setup.validationHtmlMessages"/>
+	<div
+		v-if="hintText && !(setup.showState
+			&& (setup.showError || setup.showWarning)
+			&& setup.validationHtmlMessages?.length)"
+		class="orion-input__hint-text">
+		{{ hintText }}
+	</div>
 </template>
 
 <script setup lang="ts">

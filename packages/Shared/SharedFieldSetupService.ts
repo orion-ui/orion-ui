@@ -48,9 +48,15 @@ export type SharedFieldSetupServiceProps =
 	// @doc props/selectOnFocus select the field content when focused.
 	// @doc/fr props/selectOnFocus sélectionne le contenu du champ lorsqu'il est focus.
 	selectOnFocus?: boolean,
-	// @doc props/forceLabelFloating allows floating label
-	// @doc/fr props/forceLabelFloating permet au label de se placer au dessus du champ lorsqu'il possède une valeur
+	// @doc props/floatingLabel enable floating label behavior
+	// @doc/fr props/floatingLabel active le comportement de label flottant
+	floatingLabel?: boolean,
+	// @doc props/forceLabelFloating force floating label even without focus or value
+	// @doc/fr props/forceLabelFloating force le label à se placer au dessus du champ même sans focus ni valeur
 	forceLabelFloating?: boolean,
+	// @doc props/hintText hint text displayed below the field
+	// @doc/fr props/hintText texte d'aide affiché sous le champ
+	hintText?: string,
 	// @doc props/clearToNull sets the value to null when the field is cleared
 	// @doc/fr props/clearToNull lorsque que le champ est vidé, sa valeur vaut `null`
 	clearToNull?: boolean,
@@ -82,11 +88,13 @@ export default abstract class SharedFieldSetupService<P, T, E extends SharedFiel
 		...SharedProps.size,
 		type: 'text',
 		donetyping: 0,
+		floatingLabel: true,
 		inheritValidationState: undefined as SharedFieldSetupServiceProps['inheritValidationState'],
 		validation: undefined as SharedFieldSetupServiceProps['validation'],
 	} as {}; // bypass "is not assignable to type 'InferDefault<LooseRequired<__component__Props>>" in Orion__field__.vue
 
 	readonly _input = ref<HTMLInputElement>();
+	_uid?: number;
 
 	protected inputType = 'input';
 
@@ -219,11 +227,13 @@ export default abstract class SharedFieldSetupService<P, T, E extends SharedFiel
 
 	get orionFieldBinding (): OrionField.Props {
 		return {
+			_uid: this._uid,
 			clearable: this.props.clearable,
 			disabled: this.props.disabled,
 			hasValue: this.hasValue,
 			inputType: this.inputType,
 			isFocus: this.state.isFocus,
+			floatingLabel: this.props.floatingLabel,
 			labelIsFloating: this.labelIsFloating,
 			prefixIcon: this.props.prefixIcon,
 			readonly: this.props.readonly,
@@ -261,6 +271,8 @@ export default abstract class SharedFieldSetupService<P, T, E extends SharedFiel
 		protected emits: E,
 		protected vModel: ModelRef<Nil<T>>) {
 		super();
+
+		this._uid = this.getUid();
 
 		if (!!this.props.validation && typeof this.props.validation === 'object') {
 			this.props.validation?.registerComponentFocusStateSetter(this.publicInstance);
