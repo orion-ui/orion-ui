@@ -170,7 +170,7 @@ const state = reactive({
 	complete: false,
 	pill: '1',
 	marker: false,
-	markerColor: 'info' as Orion.Color,
+	markerColor: 'primary' as Orion.Color,
 });
 
 const marker = [
