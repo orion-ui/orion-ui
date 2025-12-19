@@ -82,7 +82,6 @@
 			</div>
 
 			<teleport
-				v-if="$slots.header || $slots.default"
 				defer
 				:to="setup.headerIsDisplayed ? `#OrionModal-${setup.uid}__header` : `#OrionModal-${setup.uid}__body`">
 				<span
