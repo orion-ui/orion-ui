@@ -54,7 +54,7 @@ const activePane = ref('pane2');
 	text-align: right;
 
 	> em {
-		color: var(--text-default-moderate);
+		color: var(--o-text-default-moderate);
 	}
 }
 </style>
@@ -76,3 +76,4 @@ Il est possible d'ajouter une pastille de notification au niveau de l'icône du 
 
 En mode vertical, utilisez les slots `before` et `after` pour afficher votre contenu.
 @lang
+

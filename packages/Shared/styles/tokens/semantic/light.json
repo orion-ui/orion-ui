@@ -706,7 +706,7 @@
     },
     "lg": {
       "$type": "number",
-      "$value": "{sizing.16}"
+      "$value": "{radius.16}"
     },
     "md": {
       "$type": "number",
@@ -714,11 +714,11 @@
     },
     "xs": {
       "$type": "number",
-      "$value": "{sizing.4}"
+      "$value": "{radius.4}"
     },
     "sm": {
       "$type": "number",
-      "$value": "{sizing.6}"
+      "$value": "{radius.6}"
     }
   },
   "opacity": {
@@ -759,7 +759,7 @@
       }
     }
   },
-  "spacing": {
+  "space": {
     "0": {
       "$type": "number",
       "$value": 0
@@ -774,7 +774,7 @@
     },
     "6": {
       "$type": "number",
-      "$value": "{sizing.6}"
+      "$value": "{spacing.6}"
     },
     "8": {
       "$type": "number",

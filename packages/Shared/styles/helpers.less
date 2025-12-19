@@ -86,7 +86,7 @@
   });
 
 	&--inverted {
-		background: var(--background-neutral-highlight) !important;
+		background: var(--o-background-neutral-highlight) !important;
 	}
 }
 
@@ -160,7 +160,7 @@
 	}
 
 	each(@spacings, {
-		@space: ~"--spacing-@{value}";
+		@space: ~"--space-@{value}";
 		&.g-@{value} {
 			gap: var(@space);
 		}
@@ -182,7 +182,7 @@
 }
 
 each(@sizes, {
-	@size: ~"--spacing-@{value}";
+	@size: ~"--space-@{value}";
 	
 	.mt-@{value} {
 		margin-top: var(@size);
@@ -259,3 +259,4 @@ each(range(5), {
 		flex: @value;
 	}
 });
+

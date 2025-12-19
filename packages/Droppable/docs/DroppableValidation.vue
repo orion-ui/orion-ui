@@ -83,12 +83,12 @@ const right = ref([
 
 .orion-droppable {
 	position: relative;
-	padding: var(--spacing-16);
+	padding: var(--o-space-16);
 	border-radius: 0.5rem;
-	background: var(--background-neutral-subtle);
+	background: var(--o-background-neutral-subtle);
 
 	&--allowed {
-		background: rgba(var(--background-success-default), 0.15);
+		background: rgba(var(--o-background-success-default), 0.15);
 	}
 
 	&--forbidden {
@@ -96,7 +96,7 @@ const right = ref([
 	}
 
 	&--over {
-		background: rgba(var(--background-info-default), 0.15);
+		background: rgba(var(--o-background-info-default), 0.15);
 	}
 
 	&--disabled {
@@ -125,3 +125,4 @@ du drop d'un élément dans une zone. Il suffit pour cela de passer une prop
 `validation` correspondant à un objet du type `Orion.DndValidation`. Si la
 propriété `method` renvoi `false`, l'opération de drag'n drop sera annulée.
 @lang
+

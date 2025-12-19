@@ -65,7 +65,7 @@ const emit = defineEmits<{
 		gap: 0.25rem;
 		min-height: 2.5rem;
 		height: auto;
-		padding: var(--spacing-8);
+		padding: var(--space-8);
 		width: fit-content;
 
 		[class*='col-'] > .color-selection > & {

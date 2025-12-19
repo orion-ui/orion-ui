@@ -12,13 +12,13 @@
 	min-height: 4rem;
 	display: flex;
 	align-items: center;
-	background: var(--background-neutral-default);
-	border-radius: var(--radius-md);
-	padding: var(--spacing-16) var(--spacing-48) var(--spacing-16)
-		var(--spacing-48);
+	background: var(--o-background-neutral-default);
+	border-radius: var(--o-radius-md);
+	padding: var(--o-space-16) var(--o-space-48) var(--o-space-16)
+		var(--o-space-48);
 	font-size: 0.75rem;
-	color: var(--text-default-default);
-	border-left: calc(3rem / 16) solid var(--background-neutral-moderate);
+	color: var(--o-text-default-default);
+	border-left: calc(3rem / 16) solid var(--o-background-neutral-moderate);
 	box-shadow:
 		0 0.5rem 0.5rem fade(black, 8),
 		0 1rem 1rem fade(black, 8),
@@ -33,8 +33,8 @@
 
 	&__title {
 		margin: 0;
-		padding: var(--spacing-8) 0;
-		color: var(--text-default-default);
+		padding: var(--o-space-8) 0;
+		color: var(--o-text-default-default);
 	}
 
 	&__message {
@@ -53,7 +53,7 @@
 		top: 0.75rem;
 		right: 0.5rem;
 		font-size: 0.75rem;
-		color: var(--text-default-moderate);
+		color: var(--o-text-default-moderate);
 		cursor: pointer;
 
 		&-circle {
@@ -62,21 +62,21 @@
 			position: absolute;
 			top: 0;
 			left: 0;
-			border: calc(1rem / 16) solid var(--background-neutral-moderate);
+			border: calc(1rem / 16) solid var(--o-background-neutral-moderate);
 			border-right-color: transparent !important;
 			border-left-color: transparent !important;
 			border-bottom-color: transparent !important;
 
 			.orion-notif--info & {
-				border-color: var(--border-info-default);
+				border-color: var(--o-border-info-default);
 			}
 
 			.orion-notif--success & {
-				border-color: var(--border-success-default);
+				border-color: var(--o-border-success-default);
 			}
 
 			.orion-notif--warning & {
-				border-color: var(--border-warning-default);
+				border-color: var(--o-border-warning-default);
 			}
 
 			.orion-notif--danger & {
@@ -100,15 +100,15 @@
 			}
 
 			.orion-notif--info & {
-				background-color: rgba(var(--background-info-default), 0.05);
+				background-color: rgba(var(--o-background-info-default), 0.05);
 			}
 
 			.orion-notif--success & {
-				background-color: rgba(var(--background-success-default), 0.05);
+				background-color: rgba(var(--o-background-success-default), 0.05);
 			}
 
 			.orion-notif--warning & {
-				background-color: rgba(var(--background-warning-default), 0.075);
+				background-color: rgba(var(--o-background-warning-default), 0.075);
 			}
 
 			.orion-notif--danger & {
@@ -117,18 +117,18 @@
 		}
 
 		.orion-notif--info & {
-			border-color: var(--border-info-default);
-			color: var(--text-info-default);
+			border-color: var(--o-border-info-default);
+			color: var(--o-text-info-default);
 		}
 
 		.orion-notif--success & {
-			border-color: var(--border-success-default);
-			color: var(--text-success-default);
+			border-color: var(--o-border-success-default);
+			color: var(--o-text-success-default);
 		}
 
 		.orion-notif--warning & {
-			border-color: var(--border-warning-default);
-			color: var(--text-warning-default);
+			border-color: var(--o-border-warning-default);
+			color: var(--o-text-warning-default);
 		}
 
 		.orion-notif--danger & {
@@ -145,26 +145,26 @@
 	}
 
 	&--info {
-		border-color: var(--border-info-default);
+		border-color: var(--o-border-info-default);
 
 		.orion-notif__icon {
-			color: var(--text-info-default);
+			color: var(--o-text-info-default);
 		}
 	}
 
 	&--success {
-		border-color: var(--border-success-default);
+		border-color: var(--o-border-success-default);
 
 		.orion-notif__icon {
-			color: var(--text-success-default);
+			color: var(--o-text-success-default);
 		}
 	}
 
 	&--warning {
-		border-color: var(--border-warning-default);
+		border-color: var(--o-border-warning-default);
 
 		.orion-notif__icon {
-			color: var(--text-warning-default);
+			color: var(--o-text-warning-default);
 		}
 	}
 
@@ -176,3 +176,4 @@
 		}
 	}
 }
+

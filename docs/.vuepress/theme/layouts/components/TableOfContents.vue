@@ -152,7 +152,7 @@ function removeAllActive() {
 		font-size: var(--size-default);
 
 		&--H3 {
-			padding-left: var(--spacing-8);
+			padding-left: var(--space-8);
 		}
 	}
 }

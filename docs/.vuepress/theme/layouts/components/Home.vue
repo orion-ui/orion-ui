@@ -217,7 +217,7 @@ const features = computed(() => {
 @import '../../../../../packages/Shared/styles/variables.less';
 
 .container {
-	padding: 0 var(--spacing-32);
+	padding: 0 var(--space-32);
 }
 
 .clip {

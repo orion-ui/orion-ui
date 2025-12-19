@@ -11,17 +11,17 @@
 	position: relative;
 	display: flex;
 	flex-direction: column;
-	background: var(--background-neutral-default);
-	border-radius: var(--radius-8);
+	background: var(--o-background-neutral-default);
+	border-radius: var(--o-radius-8);
 	box-shadow: 0 0.0625rem 0.1875rem fade(black, 10);
-	color: var(--text-default-default);
+	color: var(--o-text-default-default);
 
 	img {
 		max-width: 100%;
 	}
 
 	&__poster {
-		border-radius: var(--radius-8) var(--radius-8) 0 0;
+		border-radius: var(--o-radius-8) var(--o-radius-8) 0 0;
 		overflow: hidden;
 
 		> img {
@@ -33,23 +33,23 @@
 
 	&__header {
 		.orion-card--xs > & {
-			padding: var(--spacing-12) var(--spacing-12) 0;
+			padding: var(--o-space-12) var(--o-space-12) 0;
 		}
 
 		.orion-card--sm > & {
-			padding: var(--spacing-16) var(--spacing-16) 0;
+			padding: var(--o-space-16) var(--o-space-16) 0;
 		}
 
 		.orion-card--md > & {
-			padding: var(--spacing-24) var(--spacing-24) 0;
+			padding: var(--o-space-24) var(--o-space-24) 0;
 		}
 
 		.orion-card--lg > & {
-			padding: var(--spacing-32) var(--spacing-32) 0;
+			padding: var(--o-space-32) var(--o-space-32) 0;
 		}
 
 		.orion-card--xl > & {
-			padding: var(--spacing-48) var(--spacing-48) 0;
+			padding: var(--o-space-48) var(--o-space-48) 0;
 		}
 
 		&--lined {
@@ -57,55 +57,55 @@
 			border-bottom: 0.0625rem solid;
 			border-image: linear-gradient(
 					to right,
-					color-mix(in srgb, var(--border-neutral-default) 0%, transparent),
-					color-mix(in srgb, var(--border-neutral-default) 100%, transparent)
+					color-mix(in srgb, var(--o-border-neutral-default) 0%, transparent),
+					color-mix(in srgb, var(--o-border-neutral-default) 100%, transparent)
 				)
 				1;
 
 			.orion-card--xs & {
-				padding: var(--spacing-12);
+				padding: var(--o-space-12);
 			}
 
 			.orion-card--sm & {
-				padding: var(--spacing-16);
+				padding: var(--o-space-16);
 			}
 
 			.orion-card--md & {
-				padding: var(--spacing-24);
+				padding: var(--o-space-24);
 			}
 
 			.orion-card--lg & {
-				padding: var(--spacing-32);
+				padding: var(--o-space-32);
 			}
 
 			.orion-card--xl & {
-				padding: var(--spacing-48);
+				padding: var(--o-space-48);
 			}
 		}
 	}
 
 	&__body {
 		flex: 1 0 0%;
-		font-size: var(--typography-size-sm);
+		font-size: var(--o-typography-size-sm);
 
 		.orion-card--xs > & {
-			padding: var(--spacing-12);
+			padding: var(--o-space-12);
 		}
 
 		.orion-card--sm > & {
-			padding: var(--spacing-16);
+			padding: var(--o-space-16);
 		}
 
 		.orion-card--md > & {
-			padding: var(--spacing-24);
+			padding: var(--o-space-24);
 		}
 
 		.orion-card--lg > & {
-			padding: var(--spacing-32);
+			padding: var(--o-space-32);
 		}
 
 		.orion-card--xl > & {
-			padding: var(--spacing-48);
+			padding: var(--o-space-48);
 		}
 
 		&:empty {
@@ -114,7 +114,7 @@
 
 		> .orion-loader,
 		> .orion-overlay {
-			border-radius: var(--radius-md);
+			border-radius: var(--o-radius-md);
 		}
 	}
 
@@ -122,7 +122,7 @@
 		.flex-align();
 		position: relative;
 		flex-wrap: wrap-reverse;
-		color: var(--text-default-default);
+		color: var(--o-text-default-default);
 
 		&--right {
 			justify-content: flex-end;
@@ -143,10 +143,10 @@
 				.circle(0.5rem);
 				position: absolute;
 				bottom: 0;
-				background: var(--background-neutral-moderate);
+				background: var(--o-background-neutral-moderate);
 
 				&--info {
-					background: var(--background-info-default);
+					background: var(--o-background-info-default);
 				}
 
 				&--mobile {
@@ -158,7 +158,7 @@
 					&::after {
 						font-family: var(--font-family);
 						content: attr(data-count);
-						color: var(--text-default-inverted);
+						color: var(--o-text-default-inverted);
 						font-size: 0.5rem;
 						font-weight: bold;
 					}
@@ -166,7 +166,7 @@
 			}
 
 			&:hover:not(.orion-icon--ripple) {
-				color: var(--text-info-default);
+				color: var(--o-text-info-default);
 			}
 		}
 
@@ -175,23 +175,23 @@
 		}
 
 		.orion-card--xs > & {
-			padding: 0 var(--spacing-12) var(--spacing-12);
+			padding: 0 var(--o-space-12) var(--o-space-12);
 		}
 
 		.orion-card--sm > & {
-			padding: var(--spacing-8) var(--spacing-16) var(--spacing-32);
+			padding: var(--o-space-8) var(--o-space-16) var(--o-space-32);
 		}
 
 		.orion-card--md > & {
-			padding: var(--spacing-16) var(--spacing-24) var(--spacing-32);
+			padding: var(--o-space-16) var(--o-space-24) var(--o-space-32);
 		}
 
 		.orion-card--lg > & {
-			padding: var(--spacing-24) var(--spacing-32) var(--spacing-32);
+			padding: var(--o-space-24) var(--o-space-32) var(--o-space-32);
 		}
 
 		.orion-card--xl > & {
-			padding: var(--spacing-48) var(--spacing-48) var(--spacing-48);
+			padding: var(--o-space-48) var(--o-space-48) var(--o-space-48);
 		}
 
 		&--lined {
@@ -199,76 +199,76 @@
 			border-top: 0.0625rem solid;
 			border-image: linear-gradient(
 					to right,
-					color-mix(in srgb, var(--border-neutral-default) 0%, transparent),
-					color-mix(in srgb, var(--border-neutral-default) 100%, transparent)
+					color-mix(in srgb, var(--o-border-neutral-default) 0%, transparent),
+					color-mix(in srgb, var(--o-border-neutral-default) 100%, transparent)
 				)
 				1;
 
 			.orion-card--xs > & {
-				padding: var(--spacing-12);
+				padding: var(--o-space-12);
 			}
 
 			.orion-card--sm > & {
-				padding: var(--spacing-16);
+				padding: var(--o-space-16);
 			}
 
 			.orion-card--md > & {
-				padding: var(--spacing-24);
+				padding: var(--o-space-24);
 			}
 
 			.orion-card--lg > & {
-				padding: var(--spacing-32) var(--spacing-32);
+				padding: var(--o-space-32) var(--o-space-32);
 			}
 
 			.orion-card--xl > & {
-				padding: var(--spacing-48) var(--spacing-48);
+				padding: var(--o-space-48) var(--o-space-48);
 			}
 		}
 	}
 
 	&__title {
 		margin: 0;
-		font-size: var(--typography-size-h5);
-		color: var(--text-default-default);
+		font-size: var(--o-typography-size-h5);
+		color: var(--o-text-default-default);
 		font-weight: 600;
 
 		.orion-card--xs & {
-			font-size: var(--typography-size-lg);
+			font-size: var(--o-typography-size-lg);
 		}
 
 		.orion-card--sm & {
-			font-size: var(--typography-size-lg);
+			font-size: var(--o-typography-size-lg);
 		}
 
 		.orion-card--lg & {
-			font-size: var(--typography-size-h4);
+			font-size: var(--o-typography-size-h4);
 		}
 
 		.orion-card--xl & {
-			font-size: var(--typography-size-h4);
+			font-size: var(--o-typography-size-h4);
 		}
 	}
 
 	&__subtitle {
-		margin-top: var(--spacing-8);
-		font-size: var(--typography-size-base);
-		color: var(--text-default-subtle);
+		margin-top: var(--o-space-8);
+		font-size: var(--o-typography-size-base);
+		color: var(--o-text-default-subtle);
 		font-weight: 400;
 
 		.orion-card--xs & {
-			font-size: var(--typography-size-sm);
+			font-size: var(--o-typography-size-sm);
 		}
 
 		.orion-card--sm & {
-			font-size: var(--typography-size-sm);
+			font-size: var(--o-typography-size-sm);
 		}
 
 		.orion-card--lg & {
-			font-size: var(--typography-size-lg);
+			font-size: var(--o-typography-size-lg);
 		}
 
 		.orion-card--xl & {
-			font-size: var(--typography-size-lg);
+			font-size: var(--o-typography-size-lg);
 		}
 	}
 
@@ -283,7 +283,7 @@
 		align-items: flex-end;
 		justify-content: flex-end;
 		pointer-events: none;
-		border-bottom-right-radius: var(--radius-8);
+		border-bottom-right-radius: var(--o-radius-8);
 		overflow: hidden;
 		transform-origin: bottom right;
 		transform: scale(0);
@@ -303,16 +303,16 @@
 
 			each(@colors, {
 				.orion-card--selected-@{value} & {
-					fill: var(~"--background-@{value}-default");
+					fill: var(~"--o-background-@{value}-default");
 				}
 			});
 
 			.orion-card--selected-default & {
-				fill: var(--background-neutral-moderate);
+				fill: var(--o-background-neutral-moderate);
 			}
 
 			.orion-card--selected-inverted & {
-				fill: var(--background-neutral-highlight);
+				fill: var(--o-background-neutral-highlight);
 			}
 		}
 
@@ -363,10 +363,10 @@
 			.orion-card--selected-default & {
 				background: linear-gradient(
 					to bottom,
-					color-mix(in srgb, var(--background-neutral-default) 0%, transparent),
+					color-mix(in srgb, var(--o-background-neutral-default) 0%, transparent),
 					color-mix(
 						in srgb,
-						var(--background-neutral-default) 100%,
+						var(--o-background-neutral-default) 100%,
 						transparent
 					)
 				);
@@ -375,10 +375,10 @@
 			.orion-card--selected-inverted & {
 				background: linear-gradient(
 					to bottom,
-					color-mix(in srgb, var(--background-neutral-default) 0%, transparent),
+					color-mix(in srgb, var(--o-background-neutral-default) 0%, transparent),
 					color-mix(
 						in srgb,
-						var(--background-neutral-default) 100%,
+						var(--o-background-neutral-default) 100%,
 						transparent
 					)
 				);
@@ -403,10 +403,10 @@
 			.orion-card--selected-default & {
 				background: linear-gradient(
 					to right,
-					color-mix(in srgb, var(--background-neutral-default) 0%, transparent),
+					color-mix(in srgb, var(--o-background-neutral-default) 0%, transparent),
 					color-mix(
 						in srgb,
-						var(--background-neutral-default) 100%,
+						var(--o-background-neutral-default) 100%,
 						transparent
 					)
 				);
@@ -415,10 +415,10 @@
 			.orion-card--selected-inverted & {
 				background: linear-gradient(
 					to right,
-					color-mix(in srgb, var(--background-neutral-default) 0%, transparent),
+					color-mix(in srgb, var(--o-background-neutral-default) 0%, transparent),
 					color-mix(
 						in srgb,
-						var(--background-neutral-default) 100%,
+						var(--o-background-neutral-default) 100%,
 						transparent
 					)
 				);
@@ -430,7 +430,7 @@
 			bottom: 0.3rem;
 			right: 0.3rem;
 			font-size: 0.5rem;
-			color: var(--text-default-inverted) !important;
+			color: var(--o-text-default-inverted) !important;
 			margin: 0 !important;
 		}
 	}
@@ -440,10 +440,10 @@
 	}
 
 	&[class*='--gradient-'] {
-		color: var(--text-default-inverted);
+		color: var(--o-text-default-inverted);
 		.orion-card__title,
 		.orion-card__subtitle {
-			color: var(--text-default-inverted);
+			color: var(--o-text-default-inverted);
 		}
 	}
 
@@ -451,48 +451,48 @@
 		&--gradient-@{value} {
 			background: linear-gradient(
 						to bottom right,
-						var(~"--background-@{value}-default"),
-						var(~"--background-@{value}-subtle")
+						var(~"--o-background-@{value}-default"),
+						var(~"--o-background-@{value}-subtle")
 					);
 		}
 	});
 
 	&--gradient-default.orion-card {
-		color: var(--text-default-default);
+		color: var(--o-text-default-default);
 
 		.orion-card__title,
 		.orion-card__subtitle {
-			color: var(--text-default-default);
+			color: var(--o-text-default-default);
 		}
 
 		background: linear-gradient(
 			to bottom right,
-			color-mix(in srgb, var(--background-neutral-default) 100%, transparent),
-			color-mix(in srgb, var(--background-neutral-moderate) 100%, transparent)
+			color-mix(in srgb, var(--o-background-neutral-default) 100%, transparent),
+			color-mix(in srgb, var(--o-background-neutral-moderate) 100%, transparent)
 		);
 	}
 
 	&--gradient-inverted.orion-card {
-		color: var(--text-default-default);
+		color: var(--o-text-default-default);
 
 		.orion-card__title,
 		.orion-card__subtitle {
-			color: var(--text-default-default);
+			color: var(--o-text-default-default);
 		}
 
 		background: linear-gradient(
 			to bottom right,
-			color-mix(in srgb, var(--background-neutral-moderate) 100%, transparent),
-			color-mix(in srgb, var(--background-neutral-highlight) 100%, transparent)
+			color-mix(in srgb, var(--o-background-neutral-moderate) 100%, transparent),
+			color-mix(in srgb, var(--o-background-neutral-highlight) 100%, transparent)
 		);
 	}
 
 	&--no-elevation {
-		border: 1px solid var(--border-neutral-default);
+		border: 1px solid var(--o-border-neutral-default);
 		box-shadow: none;
 
 		&:focus {
-			outline: 1px solid var(--border-neutral-focus);
+			outline: 1px solid var(--o-border-neutral-focus);
 		}
 	}
 
@@ -513,3 +513,6 @@
 		}
 	}
 }
+
+
+

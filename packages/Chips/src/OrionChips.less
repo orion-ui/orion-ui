@@ -8,12 +8,12 @@
 	align-items: center;
 	max-width: 100%;
 	font-weight: 600;
-	border-radius: var(--radius-round);
+	border-radius: var(--o-radius-round);
 	white-space: nowrap;
 	border: 1px solid transparent;
 	
 	&--squared {
-		border-radius: var(--radius-md);
+		border-radius: var(--o-radius-md);
 	}
 
 	&__close {
@@ -22,8 +22,8 @@
 
 		&:hover {
 			opacity: 1;
-			color: var(--text-default-inverted) !important;
-			border-color: var(--border-neutral-inverted);
+			color: var(--o-text-default-inverted) !important;
+			border-color: var(--o-border-neutral-inverted);
 		}
 	}
 
@@ -32,85 +32,85 @@
 		display: flex;
 		align-items: center;
 		height: 100%;
-		gap: var(--spacing-8);
+		gap: var(--o-space-8);
 	}
 
 	&__dual {
-		background: var(--background-neutral-default);
+		background: var(--o-background-neutral-default);
 	}
 
 	&__icon {
-		font-size: var(--typography-size-base);
+		font-size: var(--o-typography-size-base);
 	}
 
 	each(@colorsAndGreys, {
 		&--@{value} {
 			color: white;
-			background: var(~"--background-@{value}-default");
+			background: var(~"--o-background-@{value}-default");
 
 			.orion-chips__dual {
-				color: var(~"--text-@{value}-default");
+				color: var(~"--o-text-@{value}-default");
 			}
 
 			&.orion-chips--outline,
 			&.orion-chips--dual {
 				.orion-chips__close {
-					color: var(~"--text-@{value}-default") !important;
+					color: var(~"--o-text-@{value}-default") !important;
 
 					&:hover {
-						border-color: var(~"--border-@{value}-default") !important;
+						border-color: var(~"--o-border-@{value}-default") !important;
 					}
 				}
 			}
 
 			&.orion-chips--nude {
 				.orion-chips__close {
-					color: var(~"--text-@{value}-default") !important;
-					border-color: var(~"--border-@{value}-default") !important;
+					color: var(~"--o-text-@{value}-default") !important;
+					border-color: var(~"--o-border-@{value}-default") !important;
 				}
 			}
 
 			&.orion-chips--outline {
-				color: var(~"--text-@{value}-default");
-				background: var(~"--background-@{value}-minimal");
-				border: 1px solid var(~"--border-@{value}-subtle");
+				color: var(~"--o-text-@{value}-default");
+				background: var(~"--o-background-@{value}-minimal");
+				border: 1px solid var(~"--o-border-@{value}-subtle");
 
 				.orion-chips__dual {
-					color: var(~"--text-@{value}-default");
-					border-left: 1px solid var(~"--border-@{value}-subtle");
+					color: var(~"--o-text-@{value}-default");
+					border-left: 1px solid var(~"--o-border-@{value}-subtle");
 				}
 			}
 
 			&.orion-chips--nude {
-				border: 1px solid var(~"--border-@{value}-subtle");
+				border: 1px solid var(~"--o-border-@{value}-subtle");
 				background: var(--background-neutral-transparent);
-				color: var(~"--text-@{value}-default");
+				color: var(~"--o-text-@{value}-default");
 			}
 
 			&-alt {
-				color: var(--text-default-inverted);
-				background: var(~"--background-@{value}-alt");
+				color: var(--o-text-default-inverted);
+				background: var(~"--o-background-@{value}-alt");
 				border-color: transparent;
 
 				.orion-chips__dual {
-					color: var(~"--text-@{value}-alt");
+					color: var(~"--o-text-@{value}-alt");
 				}
 
 				&.orion-chips--outline,
 				&.orion-chips--dual {
 					.orion-chips__close {
-						color: var(~"--text-@{value}-alt") !important;
+						color: var(~"--o-text-@{value}-alt") !important;
 
 						&:hover {
-							border-color: var(~"--border-@{value}-alt") !important;
+							border-color: var(~"--o-border-@{value}-alt") !important;
 						}
 					}
 				}
 
 				&.orion-chips--outline {
-					color: var(~"--text-@{value}-alt");
-					background: color-mix(in oklab, var(~"--background-@{value}-alt") 15%, transparent);
-					border: 1px solid var(~"--border-@{value}-subtle");
+					color: var(~"--o-text-@{value}-alt");
+					background: color-mix(in oklab, var(~"--o-background-@{value}-alt") 15%, transparent);
+					border: 1px solid var(~"--o-border-@{value}-subtle");
 
 					&:not(.orion-chips--inverse):not(.orion-chips--default) > {
 						.orion-chips__main, .orion-chips__dual-content {
@@ -119,7 +119,7 @@
 					}
 
 					.orion-chips__dual {
-						color: var(~"--text-@{value}-alt");
+						color: var(~"--o-text-@{value}-alt");
 					}
 				}
 			}
@@ -127,41 +127,41 @@
 	});
 
 	&--neutral {
-		color: var(--text-inverted-default);
-		background: var(--background-neutral-subtle);
-		border: 1px solid var(--border-neutral-subtle);
+		color: var(--o-text-inverted-default);
+		background: var(--o-background-neutral-subtle);
+		border: 1px solid var(--o-border-neutral-subtle);
 	}
 
 	&--grey-light,
 	&--grey-lighter {
-		color: var(--text-default-inverted);
+		color: var(--o-text-default-inverted);
 	}
 
 	&[class*='--grey'] {
 		&.orion-chips--outline {
-			color: var(--text-default-default);
-			background: var(--background-neutral-minimal);
-			border-color: var(--border-neutral-default);
+			color: var(--o-text-default-default);
+			background: var(--o-background-neutral-minimal);
+			border-color: var(--o-border-neutral-default);
 		}
 	}
 
 	&--xs {
 		@paddingClose: 1.25rem;
 		height: 1rem;
-		font-size: var(--typography-size-xs);
+		font-size: var(--o-typography-size-xs);
 
 		.orion-chips {
 			&__main,
 			&__dual {
-					padding: 0 var(--spacing-4)
+					padding: 0 var(--o-space-4)
 			}
 
 			&__icon {
-				font-size: var(--typography-size-sm)
+				font-size: var(--o-typography-size-sm)
 			}
 
 			&__close {
-				.close(var(--typography-size-sm));
+				.close(var(--o-typography-size-sm));
 			}
 		}
 
@@ -188,15 +188,15 @@
 		.orion-chips {
 			&__main,
 			&__dual {
-				padding: 0 var(--spacing-8)
+				padding: 0 var(--o-space-8)
 			}
 
 			&__icon {
-				font-size: var(--typography-size-sm)
+				font-size: var(--o-typography-size-sm)
 			}
 
 			&__close {
-				.close(var(--typography-size-sm));
+				.close(var(--o-typography-size-sm));
 			}
 		}
 
@@ -218,19 +218,19 @@
 	&--md {
 		@paddingClose: calc(24rem / 16);
 		height: 1.5rem;
-		font-size: var(--typography-size-sm);
+		font-size: var(--o-typography-size-sm);
 
 		.orion-chips {
 			&__main {
-				padding: var(--spacing-2) var(--spacing-8)
+				padding: var(--o-space-2) var(--o-space-8)
 			}
 
 			&__dual {
-				padding: 0 var(--spacing-8)
+				padding: 0 var(--o-space-8)
 			}
 
 			&__close {
-				.close(var(--typography-size-sm));
+				.close(var(--o-typography-size-sm));
 			}
 		}
 
@@ -257,16 +257,16 @@
 		.orion-chips {
 			&__main,
 			&__dual {
-				padding: var(--spacing-2) var(--spacing-12);
-				gap: var(--spacing-12)
+				padding: var(--o-space-2) var(--o-space-12);
+				gap: var(--o-space-12)
 			}
 
 			&__icon {
-				font-size: var(--typography-size-lg)
+				font-size: var(--o-typography-size-lg)
 			}
 
 			&__close {
-				.close(var(--typography-size-lg));
+				.close(var(--o-typography-size-lg));
 			}
 		}
 
@@ -293,16 +293,16 @@
 		.orion-chips {
 			&__main,
 			&__dual {
-				padding: var(--spacing-2) var(--spacing-16);
-				gap: var(--spacing-16);
+				padding: var(--o-space-2) var(--o-space-16);
+				gap: var(--o-space-16);
 			}
 
 			&__icon {
-				font-size: var(--typography-size-h5)
+				font-size: var(--o-typography-size-h5)
 			}
 
 			&__close {
-				.close(var(--typography-size-lg));
+				.close(var(--o-typography-size-lg));
 			}
 		}
 
@@ -321,3 +321,5 @@
 		}
 	}
 }
+
+

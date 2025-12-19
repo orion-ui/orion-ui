@@ -4,10 +4,10 @@
 .orion-editor {
 	transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
 	margin: 0.5rem 0;
-	background: var(--background-neutral-default);
+	background: var(--o-background-neutral-default);
 	border-radius: 0.25rem;
-	border: 0.0625rem solid var(--background-neutral-subtle);
-	padding: var(--spacing-16);
+	border: 0.0625rem solid var(--o-background-neutral-subtle);
+	padding: var(--o-space-16);
 
 	&__toolbar {
 		display: flex;
@@ -19,13 +19,13 @@
 		}
 
 		.orion-button {
-			padding: var(--spacing-8) var(--spacing-32);
+			padding: var(--o-space-8) var(--o-space-32);
 			box-shadow: none;
 			border-radius: 0.5rem;
 
 			&.active {
-				color: var(--text-info-default);
-				background-color: rgba(var(--background-info-default), 0.1);
+				color: var(--o-text-info-default);
+				background-color: rgba(var(--o-background-info-default), 0.1);
 			}
 		}
 
@@ -36,7 +36,7 @@
 	}
 
 	&__content {
-		padding: var(--spacing-8);
+		padding: var(--o-space-8);
 
 		.ProseMirror {
 			&-focused {
@@ -52,7 +52,7 @@
 				max-width: 100%;
 
 				&.ProseMirror-selectednode {
-					outline: 3px solid var(--background-info-default);
+					outline: 3px solid var(--o-background-info-default);
 				}
 			}
 		}
@@ -63,14 +63,15 @@
 	}
 
 	&--warning {
-		border-color: var(--border-warning-default);
+		border-color: var(--o-border-warning-default);
 	}
 
 	&--success {
-		border-color: var(--border-success-default);
+		border-color: var(--o-border-success-default);
 	}
 
 	&--focused {
-		border-color: var(--border-info-default);
+		border-color: var(--o-border-info-default);
 	}
 }
+

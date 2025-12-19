@@ -14,10 +14,10 @@
 	display: flex;
 	align-items: center;
 	gap: 1.25rem;
-	padding: var(--spacing-48);
-	border-radius: var(--radius-md);
-	background: var(--background-neutral-default);
-	color: var(--text-default-default);
+	padding: var(--o-space-48);
+	border-radius: var(--o-radius-md);
+	background: var(--o-background-neutral-default);
+	color: var(--o-text-default-default);
 	box-shadow: 0 0.0625rem 0.1875rem fade(black, 10);
 
 	+ .orion-sticker {
@@ -41,7 +41,7 @@
 
 	&__title {
 		.ellipsis();
-		color: var(--text-default-default);
+		color: var(--o-text-default-default);
 		font-weight: 600;
 	}
 
@@ -50,7 +50,7 @@
 		flex: 0 1 auto;
 		flex-wrap: wrap;
 		margin: 1rem 0;
-		color: var(--text-default-default);
+		color: var(--o-text-default-default);
 
 		.icon {
 			position: relative;
@@ -62,10 +62,10 @@
 				.circle(0.375rem);
 				position: absolute;
 				bottom: 0;
-				background: var(--background-neutral-default);
+				background: var(--o-background-neutral-default);
 
 				&--info {
-					background: var(--background-info-default);
+					background: var(--o-background-info-default);
 				}
 
 				&--mobile {
@@ -77,7 +77,7 @@
 					&::after {
 						font-family: var(--font-family);
 						content: attr(data-count);
-						color: var(--text-default-inverted);
+						color: var(--o-text-default-inverted);
 						font-size: 0.5rem;
 						font-weight: bold;
 					}
@@ -85,7 +85,7 @@
 			}
 
 			&:hover:not(.orion-icon--ripple) {
-				color: var(--text-info-default);
+				color: var(--o-text-info-default);
 			}
 		}
 	}
@@ -101,7 +101,7 @@
 		align-items: flex-end;
 		justify-content: flex-end;
 		pointer-events: none;
-		border-bottom-right-radius: var(--radius-md);
+		border-bottom-right-radius: var(--o-radius-md);
 		overflow: hidden;
 		transform-origin: bottom right;
 		transform: scale(0);
@@ -120,22 +120,22 @@
 			.square(5.625rem);
 
 			.orion-sticker--selected-primary & {
-				fill: var(--background-primary-default);
+				fill: var(--o-background-primary-default);
 			}
 			.orion-sticker--selected-info & {
-				fill: var(--background-info-default);
+				fill: var(--o-background-info-default);
 			}
 			.orion-sticker--selected-success & {
-				fill: var(--background-success-default);
+				fill: var(--o-background-success-default);
 			}
 			.orion-sticker--selected-warning & {
-				fill: var(--background-warning-default);
+				fill: var(--o-background-warning-default);
 			}
 			.orion-sticker--selected-error & {
 				fill: var(--background-error-default);
 			}
 			.orion-sticker--selected-secondary & {
-				fill: var(--background-info-default);
+				fill: var(--o-background-info-default);
 			}
 		}
 
@@ -175,22 +175,22 @@
 			.orion-sticker--selected-info & {
 				background: linear-gradient(
 					to bottom,
-					rgba(var(--background-info-default), 0),
-					var(--background-info-default)
+					rgba(var(--o-background-info-default), 0),
+					var(--o-background-info-default)
 				);
 			}
 			.orion-sticker--selected-success & {
 				background: linear-gradient(
 					to bottom,
-					rgba(var(--background-success-default), 0),
-					var(--background-success-default)
+					rgba(var(--o-background-success-default), 0),
+					var(--o-background-success-default)
 				);
 			}
 			.orion-sticker--selected-warning & {
 				background: linear-gradient(
 					to bottom,
-					rgba(var(--background-warning-default), 0),
-					var(--background-warning-default)
+					rgba(var(--o-background-warning-default), 0),
+					var(--o-background-warning-default)
 				);
 			}
 			.orion-sticker--selected-danger & {
@@ -209,30 +209,30 @@
 			.orion-sticker--selected-primary & {
 				background: linear-gradient(
 					to right,
-					rgba(var(--background-primary-default), 0),
-					var(--background-primary-default)
+					rgba(var(--o-background-primary-default), 0),
+					var(--o-background-primary-default)
 				);
 			}
 
 			.orion-sticker--selected-info & {
 				background: linear-gradient(
 					to right,
-					rgba(var(--background-info-default), 0),
-					var(--background-info-default)
+					rgba(var(--o-background-info-default), 0),
+					var(--o-background-info-default)
 				);
 			}
 			.orion-sticker--selected-success & {
 				background: linear-gradient(
 					to right,
-					rgba(var(--background-success-default), 0),
-					var(--background-success-default)
+					rgba(var(--o-background-success-default), 0),
+					var(--o-background-success-default)
 				);
 			}
 			.orion-sticker--selected-warning & {
 				background: linear-gradient(
 					to right,
-					rgba(var(--background-warning-default), 0),
-					var(--background-warning-default)
+					rgba(var(--o-background-warning-default), 0),
+					var(--o-background-warning-default)
 				);
 			}
 			.orion-sticker--selected-error & {
@@ -245,8 +245,8 @@
 			.orion-sticker--selected-secondary & {
 				background: linear-gradient(
 					to right,
-					rgba(var(--background-secondary-default), 0),
-					var(--background-secondary-default)
+					rgba(var(--o-background-secondary-default), 0),
+					var(--o-background-secondary-default)
 				);
 			}
 		}
@@ -256,7 +256,7 @@
 			bottom: 0.25rem;
 			right: 0.25rem;
 			font-size: 0.5rem;
-			color: var(--text-default-inverted) !important;
+			color: var(--o-text-default-inverted) !important;
 			margin: 0 !important;
 		}
 	}
@@ -269,8 +269,8 @@
 	}
 
 	&--muted {
-		background: var(--background-neutral-minimal);
-		border: 0.0625rem solid var(--border-neutral-default);
+		background: var(--o-background-neutral-minimal);
+		border: 0.0625rem solid var(--o-border-neutral-default);
 		box-shadow: none;
 	}
 
@@ -295,3 +295,4 @@
 		}
 	}
 }
+

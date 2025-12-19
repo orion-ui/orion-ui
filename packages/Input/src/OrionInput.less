@@ -4,20 +4,20 @@
 .orion-input {
 	position: relative;
 	display: inline-flex;
-	gap: var(--spacing-8);
+	gap: var(--o-space-8);
 	align-items: center;
 	height: 2.5rem;
-	padding: 0 var(--spacing-8);
+	padding: 0 var(--o-space-8);
 	font-size: 0.875rem;
-	border-radius: var(--radius-md);
-	background-color: var(--background-neutral-default);
+	border-radius: var(--o-radius-md);
+	background-color: var(--o-background-neutral-default);
 	transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
-	border: 0.0625rem solid var(--background-neutral-subtle);
+	border: 0.0625rem solid var(--o-background-neutral-subtle);
 	margin: 0.5rem 0;
 
 	&--disabled {
-		background: var(--background-neutral-minimal);
-		border-color: var(--border-neutral-default);
+		background: var(--o-background-neutral-minimal);
+		border-color: var(--o-border-neutral-default);
 		cursor: not-allowed;
 	}
 
@@ -26,32 +26,32 @@
 	}
 
 	&--warning {
-		border-color: var(--border-warning-subtle);
+		border-color: var(--o-border-warning-subtle);
 	}
 
 	&--success{
-		border-color: var(--border-success-subtle);
+		border-color: var(--o-border-success-subtle);
 	}
 
 	&:hover:not(.orion-input--focused) {
-		border-color: var(--border-neutral-subtle);
+		border-color: var(--o-border-neutral-subtle);
 
 		&.orion-input--error {
 			border-color: var(--border-error-default);
 		}
 
 		&.orion-input--warning {
-			border-color: var(--border-warning-default);
+			border-color: var(--o-border-warning-default);
 		}
 
 		&.orion-input--success{
-			border-color: var(--border-success-default);
+			border-color: var(--o-border-success-default);
 		}
 	}
 
 	&:focus,
 	&--focused  {
-		outline: 1px solid var(--border-neutral-focus);
+		outline: 1px solid var(--o-border-neutral-focus);
 		outline-offset: 2px;
 		border-color: transparent;
 		transition: none;
@@ -61,11 +61,11 @@
 		}
 
 		&.orion-input--warning {
-			outline-color: var(--border-warning-default);
+			outline-color: var(--o-border-warning-default);
 		}
 
 		&.orion-input--success{
-			outline-color: var(--border-success-default);
+			outline-color: var(--o-border-success-default);
 		}
 	}
 
@@ -86,12 +86,12 @@
 		padding: 0 0.125rem;
 		max-width: calc(100% - 2rem);
 		pointer-events: none;
-		color: var(--text-default-moderate);
+		color: var(--o-text-default-moderate);
 
 		&::before {
 			content: '';
 			position: absolute;
-			background: var(--background-neutral-default);
+			background: var(--o-background-neutral-default);
 			height: 0.625rem;
 			width: 100%;
 			left: 0;
@@ -99,7 +99,7 @@
 			top: 0.25rem;
 
 			.orion-input--disabled & {
-				background: var(--background-neutral-minimal);
+				background: var(--o-background-neutral-minimal);
 			}
 		}
 
@@ -140,7 +140,7 @@
 			}
 
 			.orion-input--focused & {
-				color: var(--text-primary-default);
+				color: var(--o-text-primary-default);
 			}
 
 			.orion-input--error & {
@@ -148,21 +148,21 @@
 			}
 
 			.orion-input--warning & {
-				color: var(--text-warning-default);
+				color: var(--o-text-warning-default);
 			}
 
 			.orion-input--success & {
-				color: var(--text-success-default);
+				color: var(--o-text-success-default);
 			}
 
 			.orion-input--disabled & {
-				color: var(--text-default-moderate);
+				color: var(--o-text-default-moderate);
 			}
 		}	
 	}
 
 	&--prefix-icon {
-		padding-left: var(--spacing-12);
+		padding-left: var(--o-space-12);
 	}
 
 	&__input {
@@ -171,13 +171,13 @@
 		width: 100%;
 		background-color: unset;
 		background-image: none;
-		border-radius: var(--radius-xs);
+		border-radius: var(--o-radius-xs);
 		border: none;
 		display: block;
 		font-family: inherit;
 		font-size: inherit;
 		line-height: 1.35;
-		color: var(--text-default-default);
+		color: var(--o-text-default-default);
 		outline: none;
 
 		.orion-select &,
@@ -189,37 +189,37 @@
 
 		.orion-input--xs & {
 			height: 2rem;
-			padding: var(--spacing-8);
-			font-size: var(--typography-size-sm)
+			padding: var(--o-space-8);
+			font-size: var(--o-typography-size-sm)
 		}
 	}
 
 	&__error-message {
 		margin-top: 0.25rem;
 		color: var(--text-error-default);
-		font-size: var(--typography-size-sm);
+		font-size: var(--o-typography-size-sm);
 		line-height: 1.3;
 	}
 
 	&__hint-text {
 		margin-top: 0.25rem;
-		color: var(--text-default-moderate);
-		font-size: var(--typography-size-sm);
+		color: var(--o-text-default-moderate);
+		font-size: var(--o-typography-size-sm);
 		line-height: 1.3;
 	}
 
 	&__pictos {
-		border-radius: var(--radius-xs);
+		border-radius: var(--o-radius-xs);
 		display: flex;
-		gap: var(--spacing-4);
+		gap: var(--o-space-4);
 		align-items: center;
-		padding: 0 var(--spacing-4) 0 0;
-		background: var(--background-neutral-default);
+		padding: 0 var(--o-space-4) 0 0;
+		background: var(--o-background-neutral-default);
 		pointer-events: none;
 		font-size: 1rem;
 
 		.orion-input--disabled & {
-			background: var(--background-neutral-minimal);
+			background: var(--o-background-neutral-minimal);
 		}
 
 		&:empty {
@@ -227,7 +227,7 @@
 		}
 
 		.orion-input--xs & {
-			padding: 0 var(--spacing-8);
+			padding: 0 var(--o-space-8);
 			height: calc(2rem - 2rem / 16);
 		}
 
@@ -246,11 +246,11 @@
 		}
 
 		&--warning {
-			color: var(--text-warning-default);
+			color: var(--o-text-warning-default);
 		}
 
 		&--success {
-			color: var(--text-success-default);
+			color: var(--o-text-success-default);
 		}
 	}
 
@@ -271,14 +271,14 @@
 	&__icon {
 		.square(1.25rem);
 		.flex-align();
-		font-size: var(--typography-size-lg);
-		color: var(--text-default-subtle);
-		//padding-left: var(--spacing-4);
+		font-size: var(--o-typography-size-lg);
+		color: var(--o-text-default-subtle);
+		//padding-left: var(--o-space-4);
 	}
 
 	&--disabled {
 		.icon {
-			color: var(--text-default-moderate);
+			color: var(--o-text-default-moderate);
 		}
 	}
 
@@ -288,10 +288,10 @@
 	}
 
 	&__static-label {
-		font-size: var(--typography-size-sm);
+		font-size: var(--o-typography-size-sm);
 		font-weight: 600;
-		color: var(--text-default-default);
-		margin-bottom: var(--spacing-4);
+		color: var(--o-text-default-default);
+		margin-bottom: var(--o-space-4);
 		display: block;
 
 		& + .orion-input {
@@ -299,3 +299,4 @@
 		}
 	}
 }
+
