@@ -131,7 +131,6 @@ Using a `<style scoped>` block and the `:deep()` selector, you can locally modif
 | `--radius-sticker`            | OrionSticker               | `0.5rem`                          |
 | `--radius-popover`            | OrionPopover               | `0.5rem`                          |
 | `--radius-btn`                | OrionButton                | `0.25rem`                         |
-| `--radius-label`              | OrionLabel                 | `0.25rem`                         |
 | `--radius-alert`              | OrionAlert                 | `0.25rem`                         |
 | `--radius-notif`              | OrionNotification          | `0.25rem`                         |
 | `--radius-aside`              | OrionAside                 | `1.25rem`                         |

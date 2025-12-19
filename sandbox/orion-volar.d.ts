@@ -37,7 +37,6 @@ declare module 'vue' {
 		OIconSection: typeof import('packages/index')['OrionIconSection'];
 		OInput: typeof import('packages/index')['OrionInput'];
 		OInputRange: typeof import('packages/index')['OrionInputRange'];
-		OLabel: typeof import('packages/index')['OrionLabel'];
 		OLayout: typeof import('packages/index')['OrionLayout'];
 		OList: typeof import('packages/index')['OrionList'];
 		OLoader: typeof import('packages/index')['OrionLoader'];

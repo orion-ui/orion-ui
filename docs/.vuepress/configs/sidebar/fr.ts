@@ -33,7 +33,6 @@ export const fr: SidebarOptions = [
 					`/fr/components/OrionDragNDrop.md`,
 					`/fr/components/OrionIcon.md`,
 					`/fr/components/OrionIconSection.md`,
-					`/fr/components/OrionLabel.md`,
 					`/fr/components/OrionList.md`,
 					`/fr/components/OrionProgressBar.md`,
 					`/fr/components/OrionProgressCircle.md`,

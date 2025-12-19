@@ -1,25 +1,27 @@
 @import '../../Shared/styles/variables.less';
 @import '../../Shared/styles/mixins.less';
 
-@widthLG: 58.5rem; // 936px
-@widthMD: 42.5rem; // 680px
+@widthLG: 47rem; // 936px
+@widthMD: 31.625rem; // 680px
 @widthSM: 30rem; // 480px
-@widthXS: 21.25rem; // 340px
+@widthXS: 24rem; // 340px
 
 .orion-aside {
-	// will-change: opacity, transform; // rendering flou sous Chrome
 	transition: box-shadow 0.3s;
-	// z-index: @zIndexOrionPopable;
 	position: fixed;
-	top: var(--spacing-48);
-	right: var(--spacing-48);
-	bottom: var(--spacing-48);
-	border-radius: var(--radius-lg);
+	top: var(--spacing-24);
+	right: var(--spacing-24);
+	bottom: var(--spacing-24);
+	border-radius: var(--radius-md);
 	max-width: calc(100vw - 2.5rem);
 	display: none;
 	flex-direction: column;
 	background: var(--background-neutral-default);
 	backface-visibility: hidden;
+
+	[data-orion-theme='dark'] & {
+		background-color: var(--background-neutral-minimal);
+	}
 
 	@media @tablet {
 		max-width: calc(100vw - 5.5rem);
@@ -35,16 +37,47 @@
 
 	&__poster {
 		flex: none;
-		border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+		overflow: hidden;
+		border-radius: var(--radius-md) var(--radius-md) 0 0;
 	}
 
 	&__header {
-		order: 1;
-		position: absolute;
-		right: calc(100% + 1rem);
-		top: 2rem;
+		padding: var(--spacing-24) var(--spacing-24);
 		display: flex;
+		position: relative;
 		flex-direction: column;
+		border-radius: var(--radius-md);
+		gap: var(--spacing-8);
+		background-color: var(--background-neutral-default);
+
+		&:has(+ .orion-aside__body),
+		&:has(+ .orion-aside__footer) {
+			padding-bottom: 0;
+		}
+
+		@media @tablet {
+			padding: var(--spacing-24) var(--spacing-24);
+		}
+
+		.orion-aside--sm & {
+			padding: var(--spacing-24) var(--spacing-24);
+		}
+		.orion-aside--xs & {
+			padding: var(--spacing-24);
+		}
+		
+		&:empty {
+			display: none;
+		}
+
+		[data-orion-theme='dark'] & {
+			background-color: var(--background-neutral-minimal);
+		}
+	}
+
+	&__title {
+		font-size: var(--typography-size-h5);
+		margin: 0;
 	}
 
 	&__logo {
@@ -67,9 +100,11 @@
 	&__actions {
 		display: flex;
 		flex-direction: column;
-		position: relative;
+		position: absolute;
 		align-items: flex-start;
 		gap: 1rem;
+		right: calc(100% + 1rem);
+		top: 2rem;
 
 		.orion-button {
 			width: unset;
@@ -87,14 +122,15 @@
 		order: 2;
 		position: relative;
 		flex: 1 1 auto;
-		border-radius: var(--radius-lg);
-		padding: var(--spacing-48);
+		border-radius: var(--radius-md);
+		padding: var(--spacing-24);
 		max-width: 100%;
 		max-height: 100%;
 
-		/* .orion-aside__footer:not(:empty) + & {
-			padding-bottom: var(--spacing-32);
-		} */
+		.orion-aside__header:not(:empty) + & {
+			padding-top: 0;
+		}
+
 
 		// #region Pure CSS scroll shadow
 		background:
@@ -154,31 +190,33 @@
 		// #endregion
 
 		@media @tablet {
-			padding: var(--spacing-48);
+			padding: var(--spacing-24);
 		}
 
 		.orion-aside--sm & {
-			padding: var(--spacing-48);
+			padding: var(--spacing-24);
 		}
 		.orion-aside--xs & {
-			padding: var(--spacing-48);
+			padding: var(--spacing-24);
 		}
 	}
 
 	&__footer {
 		order: 3;
 		flex: 0 0 auto;
-		padding: var(--spacing-48) var(--spacing-48);
+		border: 1px solid var(--border-neutral-default);
+		padding: var(--spacing-16) var(--spacing-24);
+		border-radius: 0 0 var(--radius-md) var(--radius-md);
 
 		@media @tablet {
-			padding: var(--spacing-48) var(--spacing-48);
+			padding: var(--spacing-16) var(--spacing-24);
 		}
 
 		.orion-aside--sm & {
-			padding: var(--spacing-48) var(--spacing-48);
+			padding: var(--spacing-16) var(--spacing-24);
 		}
 		.orion-aside--xs & {
-			padding: var(--spacing-48);
+			padding: var(--spacing-16);
 		}
 
 		&:empty {
@@ -189,20 +227,21 @@
 	&__close {
 		.close(1.5rem);
 		z-index: 1;
-		position: fixed;
+		position: absolute;
+		color: var(--text-default-subtle);
 		top: var(--spacing-16);
 		right: var(--spacing-16);
 		background: var(--background-neutral-default);
 
 		@media @tablet {
-			top: var(--spacing-32);
-			right: var(--spacing-32);
+			top: var(--spacing-24);
+			right: var(--spacing-24);
 		}
 	}
 
 	&--visible {
 		display: flex;
-		box-shadow: 0 0 7.5rem fade(black, 50);
+		box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.04), 0 6px 12px 0 rgba(0, 0, 0, 0.10);
 
 		[data-orion-theme='dark'] & {
 			box-shadow: 0 0 7.5rem black;

@@ -1,5 +1,5 @@
 import anime from 'animejs';
-import { reactive, ref } from 'vue';
+import { reactive, ref, Slots } from 'vue';
 import SharedPopableSetupService, { SharedPopableSetupServiceEmits, SharedPopableSetupServiceProps } from '../../Shared/SharedPopableSetupService';
 
 export type OrionAsideEmits = SharedPopableSetupServiceEmits & {}
@@ -26,6 +26,9 @@ export default class OrionAsideSetupService extends SharedPopableSetupService {
 	get slotFooter () { return `#OrionAside-${this.uid}__footer`;}
 	get slotActions () { return `#OrionAside-${this.uid}__actions`;}
 	get slotHeader () { return `#OrionAside-${this.uid}__header`;}
+	get headerIsDisplayed () {
+		return this.slots.header || this.options.title || this.options.description;
+	}
 
 	get publicInstance () {
 		return {
@@ -39,7 +42,10 @@ export default class OrionAsideSetupService extends SharedPopableSetupService {
 
 	constructor (
 		protected props: OrionAsideProps & Omit<typeof OrionAsideSetupService.defaultProps, 'options'> & {options: Partial<Orion.Popable.Options>},
-		protected emits: OrionAsideEmits) {
+		protected emits: OrionAsideEmits,
+		protected slots: Slots,
+
+	) {
 		super(props, emits);
 
 		Object.assign(this.options, props.options);
