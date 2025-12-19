@@ -58,7 +58,7 @@ const useNotif = {
 	info: (options: Partial<Orion.Notif.Options> | string, message?: string) => new NotifService({
 		icon: 'info',
 		...NotifService.sanitizeOptions(options, message),
-		color: 'info',
+		color: 'primary',
 	}).createVNode(),
 	success: (options: Partial<Orion.Notif.Options> | string, message?: string) => new NotifService({
 		icon: 'check_big',
@@ -73,7 +73,7 @@ const useNotif = {
 	danger: (options: Partial<Orion.Notif.Options> | string, message?: string) => new NotifService({
 		icon: 'stop_sign',
 		...NotifService.sanitizeOptions(options, message),
-		color: 'danger',
+		color: 'error',
 	}).createVNode(),
 };
 

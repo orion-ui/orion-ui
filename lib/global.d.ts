@@ -325,7 +325,7 @@ declare global {
 				duration?: Nil<number>;
 				icon?: Orion.Icon;
 				fontIcon?: string;
-				color?: 'info' | 'success' | 'warning' | 'danger';
+				color?: 'primary' | 'success' | 'warning' | 'error';
 				events?: Record<string, (notif: OrionNotif, params: any) => void>;
 			};
 		}

@@ -59,9 +59,9 @@ export default class SharedProps {
 
 	static readonly color = { color: 'primary' as Orion.Color };
 
-	static readonly colorExtented : SharedPropsColorExtended = { color: 'primary' as Orion.ColorExtended };
+	static readonly colorExtented : SharedPropsColorExtended = { color: 'default' as Orion.ColorExtended };
 
-	static readonly colorExtendedAndGreys = { color: 'primary' as Orion.ColorExtendedAndGreys };
+	static readonly colorExtendedAndGreys = { color: 'default' as Orion.ColorExtendedAndGreys };
 
 	static readonly size = { size: 'md' as Orion.Size };
 

@@ -26,7 +26,7 @@ export type VModelType = any[] | boolean | number | Record<string, any> | string
 export default class OrionRadioSetupService extends SharedFieldSetupService<OrionRadioProps, VModelType> {
 	static readonly defaultProps = {
 		...SharedFieldSetupService.defaultProps,
-		color: 'info' as Orion.Color,
+		color: 'primary' as Orion.Color,
 		type: 'radio',
 	};
 
