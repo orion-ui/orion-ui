@@ -63,7 +63,6 @@
 			<teleport
 				defer
 				:to="setup.headerIsDisplayed ? `#OrionAside-${setup.uid}__header` : `#OrionAside-${setup.uid}__body`">
-				{{ $slots.header }}
 				<span
 					v-if="!setup.options.hideClose"
 					class="orion-aside__close"

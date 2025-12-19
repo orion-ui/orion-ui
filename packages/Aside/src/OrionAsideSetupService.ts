@@ -26,9 +26,6 @@ export default class OrionAsideSetupService extends SharedPopableSetupService {
 	get slotFooter () { return `#OrionAside-${this.uid}__footer`;}
 	get slotActions () { return `#OrionAside-${this.uid}__actions`;}
 	get slotHeader () { return `#OrionAside-${this.uid}__header`;}
-	get headerIsDisplayed () {
-		return this.slots.header || this.options.title || this.options.description;
-	}
 
 	get publicInstance () {
 		return {
@@ -46,7 +43,7 @@ export default class OrionAsideSetupService extends SharedPopableSetupService {
 		protected slots: Slots,
 
 	) {
-		super(props, emits);
+		super(props, emits, slots);
 
 		Object.assign(this.options, props.options);
 	}

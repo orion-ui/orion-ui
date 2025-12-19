@@ -107,11 +107,6 @@ const packagesNavigation: Orion.NavItem[] = [
 		icon: 'bookmark',
 	},
 	{
-		label: 'Label',
-		to: { name: 'LabelView' },
-		icon: 'bookmark',
-	},
-	{
 		label: 'List',
 		to: { name: 'ListView' },
 		icon: 'bookmark',

@@ -12,6 +12,10 @@
 			Footer from teleport
 		</o-button>
 
+		<o-button @click="_modalD?.open()">
+			Poster slot
+		</o-button>
+
 		<o-modal
 			ref="_modalA"
 			:options="{
@@ -76,6 +80,23 @@
 				</o-alert>
 			</teleport>
 		</o-modal>
+
+		<o-modal ref="_modalD">
+			<template #poster>
+				<img
+					src="https://picsum.photos/800/200"
+					alt="Modal poster image">
+			</template>
+			<o-section title="Modal with poster slot">
+				<p class="text--grey-dark">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+					Maecenas et sem commodo, feugiat lorem ut, aliquam eros.
+					Duis sagittis viverra vulputate. Nunc ultricies ante urna, eget aliquet lectus consectetur et.
+					Pellentesque lectus massa, fringilla eu risus id, semper volutpat nunc.
+					Curabitur libero odio, condimentum ac massa eget, placerat commodo mi.
+				</p>
+			</o-section>
+		</o-modal>
 	</div>
 </template>
 
@@ -86,14 +107,16 @@ import { useNotif } from 'lib';
 const _modalA = ref<OrionModal>();
 const _modalB = ref<OrionModal>();
 const _modalC = ref<OrionModal>();
+const _modalD = ref<OrionModal>();
 </script>
 
 @hl {17-23,36-45,69-77}
 
 @lang:en
-### Actions & footer slot
+### Slots
 
 You can add actions to the modal using the property `actions` from the `options` prop or the `footer` slot.
+A `poster` slot is also available for adding content like a picture at the top of the modal.
 
 :::tip Good to know
 If you need to access the `footer` slot from a subcomponent of the modal,
@@ -105,9 +128,10 @@ Simply provide the `:to` prop using the appropriate getter `slotFooter`.
 @lang
 
 @lang:fr
-### Actions & slot footer
+### Slots
 
 Il est possible de modifier les actions par défaut en utilisant la propritété `actions` de la prop `options` ou le slot `footer`.
+Un slot `poster` est également disponible pour ajouter du contenu tel qu'une image en haut de la modal.
 
 :::tip Bon à savoir
 Dans le cas où vous auriez besoin d'accéder au slot `footer` depuis un sous composant de la modal

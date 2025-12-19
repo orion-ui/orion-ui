@@ -31,11 +31,17 @@
 }
 
 .close(@size) {
+	.square(@size);
 	.flex-align();
 	-webkit-tap-highlight-color: transparent;
 	transition: all 0.3s;
 	font-size: @size;
 	cursor: pointer;
+
+	&::before {
+		content: '\00D7';
+		font-weight: 600;
+	}
 
 	&:hover {
 		opacity: 1;

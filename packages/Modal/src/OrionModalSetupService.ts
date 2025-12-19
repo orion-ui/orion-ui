@@ -1,5 +1,5 @@
 import anime from 'animejs';
-import { reactive, ref } from 'vue';
+import { reactive, ref, Slots } from 'vue';
 import SharedPopableSetupService, { SharedPopableSetupServiceEmits, SharedPopableSetupServiceProps } from '../../Shared/SharedPopableSetupService';
 
 export type OrionModalEmits = SharedPopableSetupServiceEmits & {
@@ -23,10 +23,7 @@ export default class OrionModalSetupService extends SharedPopableSetupService {
 
 	readonly _prompt = ref<RefDom>();
 
-	options = reactive<Orion.Modal.Options>({
-		...this.baseOptions,
-		title: null,
-	});
+	options = reactive<Orion.Modal.Options>({ ...this.baseOptions });
 
 	get promptFieldComponent () {
 		if (this.prompt) {
@@ -48,8 +45,10 @@ export default class OrionModalSetupService extends SharedPopableSetupService {
 
 	constructor (
 		protected props: OrionModalProps & Omit<typeof OrionModalSetupService.defaultProps, 'options'> & {options: Partial<Orion.Popable.Options>},
-		protected emits: OrionModalEmits) {
-		super(props, emits);
+		protected emits: OrionModalEmits,
+		protected slots: Slots,
+	) {
+		super(props, emits, slots);
 
 		Object.assign(this.options, props.options);
 	}
@@ -63,7 +62,7 @@ export default class OrionModalSetupService extends SharedPopableSetupService {
 				anime({
 					targets: this._el.value,
 					opacity: [0, 1],
-					translateY: [-300, 0],
+					translateY: ['-200vh', '-50%'],
 					duration: 600,
 					easing: 'easeOutCubic',
 					begin: async () => {
@@ -81,8 +80,9 @@ export default class OrionModalSetupService extends SharedPopableSetupService {
 				anime({
 					targets: this._el.value,
 					opacity: 0,
-					translateY: 300,
-					duration: 300,
+					//translateY: '-100vh',
+					translateY: ['-50%', '-100vh'],
+					duration: 600,
 					easing: 'easeOutCubic',
 					begin: async () => {
 						this.emits('leave-start');
