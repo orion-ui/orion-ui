@@ -45,6 +45,7 @@
 
 	&__close {
 		.close(1.5rem);
+		color: var(--text-default-subtle);
 		position: absolute;
 		top: var(--spacing-24);
 		right: var(--spacing-16);
@@ -157,27 +158,27 @@
 	}
 
 	&--xl {
-		width: ~'@{widthXL}';
+		width: ~'min(@{widthXL}, @{maxWidth})';
 		left: ~'max(calc(50% - @{widthXL} / 2), calc(50% - @{maxWidth} / 2))';
 	}
 
 	&--lg {
-		width: ~'@{widthLG}';
+		width: ~'min(@{widthLG}, @{maxWidth})';
 		left: ~'max(calc(50% - @{widthLG} / 2), calc(50% - @{maxWidth} / 2))';
 	}
 
 	&--md {
-		width: ~'@{widthMD}';
+		width: ~'min(@{widthMD}, @{maxWidth})';
 		left: ~'max(calc(50% - @{widthMD} / 2), calc(50% - @{maxWidth} / 2))';
 	}
 
 	&--sm {
-		width: ~'@{widthSM}';
+		width: ~'min(@{widthSM}, @{maxWidth})';
 		left: ~'max(calc(50% - @{widthSM} / 2), calc(50% - @{maxWidth} / 2))';
 	}
 
 	&--xs {
-		width: ~'@{widthXS}';
+		width: ~'min(@{widthXS}, @{maxWidth})';
 		left: ~'max(calc(50% - @{widthXS} / 2), calc(50% - @{maxWidth} / 2))';
 	}
 
