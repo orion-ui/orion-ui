@@ -255,23 +255,23 @@ Ces variables utilisent les valeurs RGB pour créer des couleurs CSS utilisables
 
 ### Fluid
 
-Les variables `--space-*` sont utilisées pour définir des padding et rester cohérent dans toute l'application.
+Les variables `--spacing-*` sont utilisées pour définir des padding et rester cohérent dans toute l'application.
 
 | Variable          | Valeur par défaut         |
 |--------------------|------------------------------|
-| `--space-xs`      | `calc(3px + 0.125rem)`       |
-| `--space-xs`      | `calc(5px + 0.1875rem)`      |
-| `--space-xs`     | `calc(5px + 0.3125rem)`      |
-| `--space-xs`     | `calc(8px + 0.25rem)`        |
-| `--space-sm`     | `calc(10px + 0.3rem)`        |
-| `--space-sm`     | `calc(10px + 0.5rem)`        |
-| `--space-sm`     | `calc(12px + 0.5rem)`        |
-| `--space-sm`     | `calc(13px + 0.75rem)`       |
-| `--space-md`     | `calc(14px + 1rem)`          |
-| `--space-md`     | `calc(19px + 1rem)`          |
-| `--space-md`     | `calc(24px + 1rem)`          |
-| `--space-lg`     | `calc(25px + 1.25rem)`       |
-| `--space-xl`     | `calc(36px + 1.5rem)`         |
+| `--spacing-xs`      | `calc(3px + 0.125rem)`       |
+| `--spacing-xs`      | `calc(5px + 0.1875rem)`      |
+| `--spacing-xs`     | `calc(5px + 0.3125rem)`      |
+| `--spacing-xs`     | `calc(8px + 0.25rem)`        |
+| `--spacing-sm`     | `calc(10px + 0.3rem)`        |
+| `--spacing-sm`     | `calc(10px + 0.5rem)`        |
+| `--spacing-sm`     | `calc(12px + 0.5rem)`        |
+| `--spacing-sm`     | `calc(13px + 0.75rem)`       |
+| `--spacing-md`     | `calc(14px + 1rem)`          |
+| `--spacing-md`     | `calc(19px + 1rem)`          |
+| `--spacing-md`     | `calc(24px + 1rem)`          |
+| `--spacing-lg`     | `calc(25px + 1.25rem)`       |
+| `--spacing-xl`     | `calc(36px + 1.5rem)`         |
 
 
 
@@ -279,16 +279,16 @@ Les variables `--space-*` sont utilisées pour définir des padding et rester co
 
 ### Espaces
 
-Les variables `--space-*` définissent les **marges et espacements standards** dans la grille du design.  
+Les variables `--spacing-*` définissent les **marges et espacements standards** dans la grille du design.  
 Elles sont fixes (en `rem`) et permettent de **garantir une cohérence verticale et horizontale**.
 
 | Variable         | Valeur par défaut | Utilisation recommandée                   |
 |-------------------|-------------------------|----------------------------------------------|
-| `--space-xs`       | `0.5rem`               | Espacement très petit (éléments très proches) |
-| `--space-sm`       | `1rem`                 | Petit espacement                             |
-| `--space-md`       | `2rem`                 | Espacement moyen                             |
-| `--space-lg`       | `3rem`                 | Grand espacement                             |
-| `--space-xl`       | `4rem`                 | Très grand espacement                        |
+| `--spacing-xs`       | `0.5rem`               | Espacement très petit (éléments très proches) |
+| `--spacing-sm`       | `1rem`                 | Petit espacement                             |
+| `--spacing-md`       | `2rem`                 | Espacement moyen                             |
+| `--spacing-lg`       | `3rem`                 | Grand espacement                             |
+| `--spacing-xl`       | `4rem`                 | Très grand espacement                        |
 
 :::tip Conseil
  Ces valeurs sont idéales pour définir les **gaps entre composants, sections, ou colonnes**.

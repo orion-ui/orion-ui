@@ -247,38 +247,38 @@ These variables use the RGB values to create CSS colors that can be used directl
 
 ### Fluid
 
-The `--space-*` variables are used to define padding and maintain consistency throughout the application.
+The `--spacing-*` variables are used to define padding and maintain consistency throughout the application.
 
 | Variable        | Default Value          |
 |-----------------|-----------------------|
-| `--space-xs`   | `calc(3px + 0.125rem)`|
-| `--space-xs`   | `calc(5px + 0.1875rem)`|
-| `--space-xs`  | `calc(5px + 0.3125rem)`|
-| `--space-xs`  | `calc(8px + 0.25rem)` |
-| `--space-sm`  | `calc(10px + 0.3rem)` |
-| `--space-sm`  | `calc(10px + 0.5rem)` |
-| `--space-sm`  | `calc(12px + 0.5rem)` |
-| `--space-sm`  | `calc(13px + 0.75rem)`|
-| `--space-md`  | `calc(14px + 1rem)`   |
-| `--space-md`  | `calc(19px + 1rem)`   |
-| `--space-md`  | `calc(24px + 1rem)`   |
-| `--space-lg`  | `calc(25px + 1.25rem)`|
-| `--space-xl`  | `calc(36px + 1.5rem)` |
+| `--spacing-xs`   | `calc(3px + 0.125rem)`|
+| `--spacing-xs`   | `calc(5px + 0.1875rem)`|
+| `--spacing-xs`  | `calc(5px + 0.3125rem)`|
+| `--spacing-xs`  | `calc(8px + 0.25rem)` |
+| `--spacing-sm`  | `calc(10px + 0.3rem)` |
+| `--spacing-sm`  | `calc(10px + 0.5rem)` |
+| `--spacing-sm`  | `calc(12px + 0.5rem)` |
+| `--spacing-sm`  | `calc(13px + 0.75rem)`|
+| `--spacing-md`  | `calc(14px + 1rem)`   |
+| `--spacing-md`  | `calc(19px + 1rem)`   |
+| `--spacing-md`  | `calc(24px + 1rem)`   |
+| `--spacing-lg`  | `calc(25px + 1.25rem)`|
+| `--spacing-xl`  | `calc(36px + 1.5rem)` |
 
 ---
 
 ### Spacing
 
-The `--space-*` variables define **standard margins and spacing** in the design grid.  
+The `--spacing-*` variables define **standard margins and spacing** in the design grid.  
 They are fixed (in `rem`) and ensure **vertical and horizontal consistency**.
 
 | Variable        | Default Value | Recommended Use                              |
 |-----------------|---------------|---------------------------------------------|
-| `--space-xs`    | `0.5rem`      | Very small spacing (elements very close)    |
-| `--space-sm`    | `1rem`        | Small spacing                               |
-| `--space-md`    | `2rem`        | Medium spacing                              |
-| `--space-lg`    | `3rem`        | Large spacing                               |
-| `--space-xl`    | `4rem`        | Very large spacing                           |
+| `--spacing-xs`    | `0.5rem`      | Very small spacing (elements very close)    |
+| `--spacing-sm`    | `1rem`        | Small spacing                               |
+| `--spacing-md`    | `2rem`        | Medium spacing                              |
+| `--spacing-lg`    | `3rem`        | Large spacing                               |
+| `--spacing-xl`    | `4rem`        | Very large spacing                           |
 
 :::tip Note
 These values are ideal for setting **gaps between components, sections, or columns**.

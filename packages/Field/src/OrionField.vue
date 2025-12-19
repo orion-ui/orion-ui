@@ -3,11 +3,10 @@
 		:ref="setup._el"
 		:class="[setup.baseClass, setup.additionalClass]">
 		<label
-			v-if="label || placeholder"
+			v-if="(label || placeholder) && floatingLabel"
+			:for="`orion-input_${_uid}`"
 			:class="setup.labelClass"
 			v-html="setup.labelValue"/>
-
-		<slot/>
 
 		<orion-icon
 			v-if="prefixIcon || prefixFontIcon"
@@ -18,6 +17,8 @@
 				`${setup.baseClass}__icon--prefix`,
 			]"/>
 
+		<slot/>
+
 		<span
 			:ref="setup._suffixPictos"
 			:class="`${setup.baseClass}__pictos`">
@@ -26,6 +27,7 @@
 					|| showWarning
 					|| showSuccess
 				) && !['checkbox', 'radio', 'toggle'].includes(inputType)"
+				:icon="setup.validationIcon"
 				:class="setup.validationClass"/>
 
 			<span
