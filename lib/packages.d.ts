@@ -36,7 +36,6 @@ import { OrionIconSetupService, OrionIconProps, OrionIconEmits } from '../packag
 import { OrionIconSectionSetupService, OrionIconSectionProps, OrionIconSectionEmits } from '../packages/index';
 import { OrionInputSetupService, OrionInputProps, OrionInputEmits } from '../packages/index';
 import { OrionInputRangeSetupService, OrionInputRangeProps, OrionInputRangeEmits } from '../packages/index';
-import { OrionLabelSetupService, OrionLabelProps, OrionLabelEmits } from '../packages/index';
 import { OrionLayoutSetupService, OrionLayoutProps, OrionLayoutEmits } from '../packages/index';
 import { OrionListSetupService, OrionListProps, OrionListEmits } from '../packages/index';
 import { OrionLoaderSetupService, OrionLoaderProps, OrionLoaderEmits } from '../packages/index';
@@ -259,12 +258,6 @@ declare global {
 	namespace OrionInputRange {
 		type Props = OrionInputRangeProps
 		type Emits = OrionInputRangeEmits
-	}
-
-	type OrionLabel = InstanceType<typeof OrionLabelSetupService>['publicInstance'];
-	namespace OrionLabel {
-		type Props = OrionLabelProps
-		type Emits = OrionLabelEmits
 	}
 
 	type OrionLayout = InstanceType<typeof OrionLayoutSetupService>['publicInstance'];

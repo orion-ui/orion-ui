@@ -57,13 +57,9 @@
 											: 'undefined'
 									}}</span>
 								</code>
-								<o-label
-									color="error"
-									outline
-									v-if="itemHas(item, 'required') && item.required"
-								>
+								<o-chips :round="false" color="error" outline v-if="itemHas(item, 'required') && item.required">
 									Required
-								</o-label>
+								</o-chips>
 							</div>
 
 							<Markdown
@@ -146,9 +142,9 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted } from 'vue';
 import { Bus, itemHas } from '@/lib';
 import { capitalizeFirstLetter, usePackageData } from '@utils/tools';
+import { onMounted, onUnmounted } from 'vue';
 import { usePageFrontmatter } from 'vuepress/client';
 
 const props = defineProps({

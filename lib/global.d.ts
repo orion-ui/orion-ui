@@ -6,12 +6,7 @@ import { MaterialIcon } from 'material-icons';
 import { OrionAvatarProps } from 'packages/Avatar/src/OrionAvatarSetupService';
 import { Component } from 'vue';
 import { RouteLocationRaw, Router } from 'vue-router';
-import type {
-	OrionAsideSetupService,
-	OrionListProps,
-	OrionModalSetupService,
-	OrionNotifSetupService,
-} from '../packages';
+import type { OrionAsideSetupService, OrionListProps, OrionModalSetupService, OrionNotifSetupService } from '../packages';
 import OrionChatEntity from '../packages/Chat/src/OrionChatEntity';
 import OrionChatMessageEntity from '../packages/ChatMessage/src/OrionChatMessageEntity';
 import useValidation from '../services/ValidationService';
@@ -71,14 +66,7 @@ declare global {
 
 		type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
-		type Color =
-			| 'info'
-			| 'success'
-			| 'warning'
-			| 'inverted'
-			| 'primary'
-			| 'secondary'
-			| 'error';
+		type Color = 'info' | 'success' | 'warning' | 'inverted' | 'primary' | 'secondary' | 'neutral' | 'error';
 
 		type ColorAlt =
 			| 'primary-alt'

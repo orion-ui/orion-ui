@@ -43,7 +43,7 @@
 				@select-discussion="discussionId = $event;">
 				<template #append-discussion-item="{ discussion }">
 					<div style="display: flex">
-						<o-label>{{ discussion.id }}</o-label>
+						<o-chips squared>{{ discussion.id }}</o-chips>
 					</div>
 				</template>
 			</o-chat-discussion-list>
@@ -67,11 +67,11 @@
 </template>
 
 <script setup lang="ts">
-import { useChat, getUid, useMonkey, sleep } from 'lib';
-import { computed, reactive, ref, watch } from 'vue';
-import { OrionIcon } from 'packages/Icon';
 import { faker } from '@faker-js/faker';
+import { getUid, sleep, useChat, useMonkey } from 'lib';
 import { shuffle } from 'lodash-es';
+import { OrionIcon } from 'packages/Icon';
+import { computed, reactive, ref, watch } from 'vue';
 
 
 const userId = getUid();
