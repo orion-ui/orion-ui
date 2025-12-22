@@ -114,7 +114,7 @@ export default abstract class SharedPopableSetupService extends SharedSetupServi
 			& Omit<typeof SharedPopableSetupService.defaultProps, 'options'>
 			& {options: Partial<Orion.Popable.Options>},
 		protected emits: SharedPopableSetupServiceEmits,
-		protected slots: Slots) {
+		protected slots?: Slots) {
 		super();
 
 

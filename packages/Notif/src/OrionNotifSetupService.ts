@@ -23,7 +23,7 @@ export default class OrionNotifSetupService extends SharedPopableSetupService {
 	options = reactive<Orion.Notif.Options>({
 		...this.baseOptions,
 		overlay: false,
-		title: null,
+		title: undefined,
 	});
 
 	private timerValue = ref<Nil<number>>();
