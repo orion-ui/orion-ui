@@ -2,14 +2,14 @@
 @import (css)
 	url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;1,200;1,300;1,400;1,600;1,700&display=swap');
 
-@import './animations';
-@import './dependencies';
-@import './grid';
-@import './helpers';
-@import './reset';
-@import './tooltip';
-@import './transitions';
-@import "./semantic.less";
+@import './animations.less';
+@import './dependencies.less';
+@import './grid.less';
+@import './helpers.less';
+@import './reset.less';
+@import './tooltip.less';
+@import './transitions.less';
+@import './semantic.less';
 
 :root {
 	color-scheme: light dark;
@@ -51,6 +51,10 @@ body {
 	line-height: 1.5;
 	font-weight: var(--typography-weight-medium);
 	color: var(--text-default-default);
+
+	&:has(.orion-modal--visible), &:has(.orion-aside--visible) {
+		overflow: hidden !important;
+	}
 }
 
 h1,

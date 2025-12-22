@@ -10,7 +10,7 @@
 			<o-input
 				v-model="value"
 				label="Suffix icon"
-				suffix-icon="calendar"/>
+				suffix-icon="calendar_today"/>
 		</div>
 		<div class="col-sm-4">
 			<o-input
@@ -28,10 +28,8 @@ const value = ref();
 </script>
 
 @hl {7,13,19-20}
-
 @lang:en
 ### Icons
-
 You can easily add a prefix or a suffix icon on the input with the props `prefixIcon` and `suffixIcon`.
 
 :::tip Reminder
@@ -41,7 +39,6 @@ You can also use `prefixFontIcon` and `suffixFontIcon` props if you use your own
 
 @lang:fr
 ### Icônes
-
 Il est possible d'ajouter une icône en préfix ou en suffix du champ de saisie avec les props `prefixIcon` et `suffixIcon`.
 
 :::tip Rappel

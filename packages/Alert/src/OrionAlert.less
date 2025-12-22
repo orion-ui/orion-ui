@@ -3,32 +3,33 @@
 
 .orion-alert {
 	position: relative;
-	border-radius: var(--radius-medium);
+	border-radius: var(--radius-md);
 	padding: var(--spacing-16);
 	font-size: var(--typography-size-sm);
 	display: grid;
 	grid-template-columns: 1rem auto 1rem;
-	grid-template-areas: "content content content";
+	grid-template-areas: 'content content content';
 	gap: var(--spacing-8);
-	
+
 	&--closable {
-		grid-template-areas: "content content close";
+		grid-template-areas: 'content content close';
 	}
 
 	&--icon {
-		grid-template-areas: "icon content content";
+		grid-template-areas: 'icon content content';
 	}
 
 	&--icon.orion-alert--closable {
-		grid-template-areas: "icon content close";
+		grid-template-areas: 'icon content close';
 	}
 
 	&__close {
+		.close(1rem);
 		grid-area: close;
-		.close(var(--typography-body-large));
 		z-index: 1;
 		justify-self: flex-end;
 		justify-content: center;
+		margin-top: 0.125rem;
 
 		&:hover {
 			color: inherit;
@@ -56,9 +57,7 @@
 	&__icon {
 		grid-area: icon;
 		font-size: var(--typography-body-large);
-
 	}
-
 
 	each(@colors, {
 		
@@ -78,7 +77,7 @@
 		background: var(--background-neutral-subtle);
 	}
 
-	&--inverse {
+	&--inverted {
 		color: var(--text-default-minimal);
 		background: var(--background-neutral-highlight);
 

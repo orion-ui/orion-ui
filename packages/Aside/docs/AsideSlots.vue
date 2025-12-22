@@ -9,10 +9,12 @@
 		</o-button>
 
 		<o-button @click="_asideC?.open()">
-			Show aside with header
+			Show aside with poster
 		</o-button>
 
-		<o-aside ref="_asideA">
+		<o-aside
+			ref="_asideA"
+			:options="{ title: 'This is the Title', description: 'This is an aside with a description' }">
 			<o-section title="Aside with actions">
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 				Duis sagittis viverra vulputate. Nunc ultricies ante urna, eget.
@@ -57,11 +59,13 @@
 		</o-aside>
 
 		<o-aside ref="_asideC">
-			<template #header>
-				<img src="https://picsum.photos/id/1041/200">
+			<template #poster>
+				<img
+					src="https://picsum.photos/id/1041/200"
+					style="display: block; width: 100%; height: 15rem; object-fit: cover;">
 			</template>
 
-			<o-section title="Aside with header">
+			<o-section title="Aside with poster">
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 				Duis sagittis viverra vulputate. Nunc ultricies ante urna, eget.
 				Pellentesque lectus massa, fringilla eu risus id, semper volutpat nunc.

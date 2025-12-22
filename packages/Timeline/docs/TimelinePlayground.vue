@@ -157,7 +157,7 @@
 import { ref, reactive, computed } from 'vue';
 import { materialIcons } from 'lib';
 
-const activePane = ref('pane2');
+const activePane = ref('pane3');
 const targetSlot = computed(() => state.horizontal ? 'default' : 'after');
 const icons = computed(() => materialIcons.slice(0, 50));
 
@@ -170,7 +170,7 @@ const state = reactive({
 	complete: false,
 	pill: '1',
 	marker: false,
-	markerColor: 'info' as Orion.Color,
+	markerColor: 'primary' as Orion.Color,
 });
 
 const marker = [

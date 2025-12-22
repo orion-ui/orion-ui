@@ -9,9 +9,10 @@
 				:key="index"
 				:class="[
 					`size-selection__size`,
-					{ 'size-selection__size--selected': modelValue === size }
+					{ 'size-selection__size--selected': modelValue === size },
 				]"
-				@click="emit('update:modelValue', size)">
+				@click="emit('update:modelValue', size)"
+			>
 				{{ size }}
 			</span>
 		</div>
@@ -25,7 +26,7 @@ import { sizes } from '@/lib';
 const props = defineProps({
 	modelValue: {
 		type: String as PropType<Orion.Size>,
-		default: 'default'
+		default: 'default',
 	},
 	label: {
 		type: String,
@@ -35,18 +36,18 @@ const props = defineProps({
 		type: Array as PropType<Nil<Orion.Size[]>>,
 		default: undefined,
 	},
-})
+});
 
 const sizeOptions = props.options ?? sizes;
 
-const emit = defineEmits<{(e: 'update:modelValue', val: Orion.Size): void}>();
+const emit = defineEmits<{ (e: 'update:modelValue', val: Orion.Size): void }>();
 </script>
 
 <style lang="less" scoped>
 .size-selection {
 	min-height: 2.5rem;
 	height: auto;
-	
+
 	&__input {
 		display: flex;
 		align-items: center;
@@ -54,16 +55,19 @@ const emit = defineEmits<{(e: 'update:modelValue', val: Orion.Size): void}>();
 		gap: 0.25rem;
 		min-height: 2.5rem;
 		height: auto;
-		padding: var(--space-8);
+		padding: var(--spacing-8);
 		width: fit-content;
 
-		[class*="col-"] > .size-selection > & {
+		[class*='col-'] > .size-selection > & {
 			width: auto;
 		}
 	}
 
 	&__size {
-		transition: background 0.3s, border-color 0.3s, color 0.3s;
+		transition:
+			background 0.3s,
+			border-color 0.3s,
+			color 0.3s;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -76,7 +80,7 @@ const emit = defineEmits<{(e: 'update:modelValue', val: Orion.Size): void}>();
 		text-transform: uppercase;
 		font-size: 0.75rem;
 		font-weight: 600;
-		padding: 0 var(--space-8);
+		padding: 0 var(--spacing-8);
 
 		&:hover {
 			border-color: var(--border-info-default);
@@ -84,7 +88,8 @@ const emit = defineEmits<{(e: 'update:modelValue', val: Orion.Size): void}>();
 			background: transparent;
 		}
 
-		&--selected, &--selected:hover {
+		&--selected,
+		&--selected:hover {
 			border-color: var(--border-info-default);
 			background: var(--background-info-default);
 			color: var(--text-default-inverted);

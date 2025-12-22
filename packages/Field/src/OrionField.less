@@ -10,7 +10,7 @@ textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
-	box-shadow: 0 0 0 calc(30rem / 16) var(--background-primary-default) inset !important;
+	box-shadow: 0 0 0 calc(30rem / 16) var(--background-neutral-default) inset !important;
 	-webkit-text-fill-color: var(--text-default-default) !important;
 
 	+ .orion-input__pictos {
@@ -28,6 +28,7 @@ select:-webkit-autofill:focus {
 	justify-content: flex-end;
 	flex-direction: row-reverse;
 	margin: 0.5rem 0;
+	gap: var(--spacing-4);
 	cursor: pointer;
 
 	&__label {
@@ -57,7 +58,7 @@ select:-webkit-autofill:focus {
 	}
 
 	&__check-container {
-		.square(1.125rem);
+		.square(1rem);
 		transition: all 0.2s ease;
 		display: flex;
 		align-items: center;
@@ -123,7 +124,7 @@ select:-webkit-autofill:focus {
 	&__check-marker {
 		.circle(0.5rem);
 		transition: transform 0.3s cubic-bezier(0, 3, 1, 1);
-		background: var(--background-neutral-default);
+		background: #ffffff;
 		transform: scale(0);
 
 		[class*='--checked'] & {
@@ -145,7 +146,6 @@ select:-webkit-autofill:focus {
 	});
 
 	&--error {
-
 		&[class*='--checked'] > [class*='__check-container'] {
 			background: var(--background-error-default);
 			border-color: var(--border-error-default);

@@ -44,7 +44,7 @@ import NestedComp from './NestedComp.vue';
 
 const state = reactive({
 	size: 'md',
-	hideClose: true,
+	hideClose: false,
 	hideOnOverlayClick: true,
 	title: 'Lorem ipsum',
 	overlay: true,

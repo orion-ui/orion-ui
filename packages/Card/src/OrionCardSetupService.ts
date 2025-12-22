@@ -42,7 +42,7 @@ export default class OrionCardSetupService extends SharedSetupService {
 	static readonly defaultProps = {
 		...SharedProps.size,
 		hoverElevation: 1,
-		selectedColor: 'info' as Orion.Color,
+		selectedColor: 'primary' as Orion.Color,
 	};
 
 	constructor (

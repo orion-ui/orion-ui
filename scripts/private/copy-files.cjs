@@ -53,7 +53,8 @@ class CopyFilesService {
 			const result = lessFileContent
 				.replace(`@import '../../Shared/styles/variables.less';`, `@import '../variables.less';`)
 				.replace(`@import '../../Shared/styles/mixins.less';`, `@import '../mixins.less';`)
-				.replace(`@import '../../Input/src/OrionInput';`, `@import './OrionInput';`);
+				.replace(`@import '../../Input/src/OrionInput';`, `@import './OrionInput';`)
+				.replace(`@import '../../DateTable/src/OrionDateTable.less';`, `@import './OrionDateTable.less';`);
 
 			await fs.writeFile(path.resolve(this.rootPath, 'dist/styles/packages', `Orion${packageName}.less`), result, { encoding: 'utf-8' });
 		}

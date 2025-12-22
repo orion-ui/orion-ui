@@ -22,23 +22,24 @@
 					:id="`OrionAside-${setup.uid}__poster`"/>
 			</div>
 
-			<div class="orion-aside__header">
-				<div
-					v-if="$slots.header"
-					class="orion-aside__logo">
-					<slot name="header"/>
-				</div>
-				<div
-					v-else
-					:id="`OrionAside-${setup.uid}__header`"/>
-				<div
-					:id="`OrionAside-${setup.uid}__actions`"
-					:ref="setup._actions"
-					class="orion-aside__actions">
-					<slot
-						name="actions"
-						:close="setup.close.bind(setup)"/>
-				</div>
+			<div
+				:id="`OrionAside-${setup.uid}__actions`"
+				:ref="setup._actions"
+				class="orion-aside__actions">
+				<slot
+					name="actions"
+					:close="setup.close.bind(setup)"/>
+			</div>
+			<div
+				:id="`OrionAside-${setup.uid}__header`"
+				class="orion-aside__header">
+				<h5
+					v-if="options.title"
+					class="orion-aside__title">
+					{{ options.title }}
+				</h5>
+				<span v-if="options.description">{{ options.description }}</span>
+				<slot name="header"/>
 			</div>
 
 			<div
@@ -49,7 +50,9 @@
 					:close="setup.close.bind(setup)"/>
 			</div>
 
-			<div class="orion-aside__body">
+			<div
+				:id="`OrionAside-${setup.uid}__body`"
+				class="orion-aside__body">
 				<component
 					:is="setup.options.Nested"
 					v-if="setup.options.Nested && setup.isMounted"
@@ -57,12 +60,16 @@
 
 				<slot :close="setup.close.bind(setup)"/>
 			</div>
+			<teleport
+				defer
+				:to="setup.headerIsDisplayed ? `#OrionAside-${setup.uid}__header` : `#OrionAside-${setup.uid}__body`">
+				<span
+					v-if="!setup.options.hideClose"
+					class="orion-aside__close"
+					@click="setup.close({ keepInQueue: false })"
+					@touchend.prevent.stop="setup.close({ keepInQueue: false })"/>
+			</teleport>
 
-			<span
-				v-if="!setup.options.hideClose"
-				class="orion-aside__close"
-				@click="setup.close({ keepInQueue: false })"
-				@touchend.prevent.stop="setup.close({ keepInQueue: false })"/>
 
 			<orion-loader :ref="setup._loader"/>
 		</aside>
@@ -77,7 +84,8 @@ import OrionAsideSetupService from './OrionAsideSetupService';
 import type { OrionAsideProps, OrionAsideEmits } from './OrionAsideSetupService';
 const emits = defineEmits<OrionAsideEmits>() as OrionAsideEmits;
 const props = withDefaults(defineProps<OrionAsideProps>(), OrionAsideSetupService.defaultProps);
-const setup = new OrionAsideSetupService(props, emits);
+const slots = defineSlots();
+const setup = new OrionAsideSetupService(props, emits, slots);
 provide('_aside', setup.publicInstance);
 defineExpose(setup.publicInstance);
 
@@ -85,8 +93,8 @@ defineExpose(setup.publicInstance);
  * @doc slot/poster useful to display a poster image on aside's top
  * @doc/fr slot/poster utile pour afficher une image de couverture en haut de l'aside
  *
- * @doc slot/header the header of the aside
- * @doc/fr slot/header en-tête de l'aside
+ * @doc slot/actions the actions of the aside
+ * @doc/fr slot/actions en-tête de l'aside
  *
  * @doc slot/actions content at the top left of the aside (useful for action's buttons)
  * @doc/fr slot/actions contenu situé en haut à gauche de l'aside (utile pour des boutons d'actions)

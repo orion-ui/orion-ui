@@ -111,7 +111,7 @@ const state = reactive({
 	readonly: false,
 	value: false,
 	multipleValue: [],
-	iconCheck: 'notification_add' as Orion.Icon,
+	iconCheck: 'notifications' as Orion.Icon,
 });
 
 const icons = computed(() => {

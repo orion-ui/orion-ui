@@ -23,6 +23,7 @@ import { OrionCropperSetupService, OrionCropperProps, OrionCropperEmits } from '
 import { OrionDailyCalendarSetupService, OrionDailyCalendarProps, OrionDailyCalendarEmits } from '../packages/index';
 import { OrionDateRangeSetupService, OrionDateRangeProps, OrionDateRangeEmits } from '../packages/index';
 import { OrionDateTableSetupService, OrionDateTableProps, OrionDateTableEmits } from '../packages/index';
+import { OrionDateTableHorizontalSetupService, OrionDateTableHorizontalProps, OrionDateTableHorizontalEmits } from '../packages/index';
 import { OrionDateWeekSetupService, OrionDateWeekProps, OrionDateWeekEmits } from '../packages/index';
 import { OrionDatepickerSetupService, OrionDatepickerProps, OrionDatepickerEmits } from '../packages/index';
 import { OrionDraggableSetupService, OrionDraggableProps, OrionDraggableEmits } from '../packages/index';
@@ -35,7 +36,6 @@ import { OrionIconSetupService, OrionIconProps, OrionIconEmits } from '../packag
 import { OrionIconSectionSetupService, OrionIconSectionProps, OrionIconSectionEmits } from '../packages/index';
 import { OrionInputSetupService, OrionInputProps, OrionInputEmits } from '../packages/index';
 import { OrionInputRangeSetupService, OrionInputRangeProps, OrionInputRangeEmits } from '../packages/index';
-import { OrionLabelSetupService, OrionLabelProps, OrionLabelEmits } from '../packages/index';
 import { OrionLayoutSetupService, OrionLayoutProps, OrionLayoutEmits } from '../packages/index';
 import { OrionListSetupService, OrionListProps, OrionListEmits } from '../packages/index';
 import { OrionLoaderSetupService, OrionLoaderProps, OrionLoaderEmits } from '../packages/index';
@@ -182,6 +182,12 @@ declare global {
 		type Emits = OrionDateTableEmits
 	}
 
+	type OrionDateTableHorizontal = InstanceType<typeof OrionDateTableHorizontalSetupService>['publicInstance'];
+	namespace OrionDateTableHorizontal {
+		type Props = OrionDateTableHorizontalProps
+		type Emits = OrionDateTableHorizontalEmits
+	}
+
 	type OrionDateWeek = InstanceType<typeof OrionDateWeekSetupService>['publicInstance'];
 	namespace OrionDateWeek {
 		type Props = OrionDateWeekProps
@@ -252,12 +258,6 @@ declare global {
 	namespace OrionInputRange {
 		type Props = OrionInputRangeProps
 		type Emits = OrionInputRangeEmits
-	}
-
-	type OrionLabel = InstanceType<typeof OrionLabelSetupService>['publicInstance'];
-	namespace OrionLabel {
-		type Props = OrionLabelProps
-		type Emits = OrionLabelEmits
 	}
 
 	type OrionLayout = InstanceType<typeof OrionLayoutSetupService>['publicInstance'];

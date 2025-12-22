@@ -19,6 +19,7 @@ export type OrionFieldProps = {
 	clearable?: boolean,
 	isFocus?: boolean,
 	hasValue?: boolean,
+	floatingLabel?: boolean,
 	labelIsFloating?: boolean,
 	showError?: boolean,
 	showWarning?: boolean,
@@ -32,6 +33,7 @@ export default class OrionFieldSetupService extends SharedSetupService {
 	static readonly defaultProps = {
 		...SharedProps.size,
 		inputType: 'input',
+		floatingLabel: true,
 	};
 
 	readonly _el = ref<RefDom>();
@@ -60,8 +62,8 @@ export default class OrionFieldSetupService extends SharedSetupService {
 	get labelClass () {
 		const cls = [`${this.baseClass}__label`];
 
-		if (this.props.labelIsFloating) cls.push(`${this.baseClass}__label--floating`);
-
+		if (this.props.labelIsFloating && this.props.floatingLabel) cls.push(`${this.baseClass}__label--floating`);
+		if (!this.props.floatingLabel) cls.push(`${this.baseClass}__label--static`);
 		return cls;
 	}
 
@@ -76,24 +78,20 @@ export default class OrionFieldSetupService extends SharedSetupService {
 	get validationClass () {
 		return [
 			`${this.baseClass}__validation`,
-			{ 'ci-check': this.props.showSuccess },
 			{ 'orion-input__validation--success': this.props.showSuccess },
-			{ 'ci-triangle_warning': this.props.showError },
 			{ 'orion-input__validation--error': this.props.showError },
-			{ 'ci-triangle_warning': this.props.showWarning },
 			{ 'orion-input__validation--warning': this.props.showWarning },
 		];
+	}
+
+	get validationIcon () {
+		if (this.props.showError) return 'error';
+		if (this.props.showSuccess) return 'check';
+		if (this.props.showWarning) return 'warning';
 	}
 
 
 	constructor (protected props: OrionFieldProps, protected emits: OrionFieldEmits) {
 		super();
-	}
-
-	protected onUpdated () {
-		if (this._suffixPictos.value && this._suffixPictos.value.childElementCount > 0) {
-			const target = this._el.value?.querySelectorAll(':scope > .orion-input__input')[0];
-			if (target) (target as HTMLElement).style.paddingRight = this._suffixPictos.value.offsetWidth + 'px';
-		}
 	}
 }

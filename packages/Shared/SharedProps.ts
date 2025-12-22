@@ -57,7 +57,7 @@ export type SharedPropsNav = {
 
 export default class SharedProps {
 
-	static readonly color = { color: 'neutral' as Orion.Color };
+	static readonly color = { color: 'primary' as Orion.Color };
 
 	static readonly colorExtented : SharedPropsColorExtended = { color: 'default' as Orion.ColorExtended };
 

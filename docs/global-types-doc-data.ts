@@ -139,7 +139,7 @@ const globalTypesDocData = {
 		'ns': 'Orion',
 		'type': 'Period',
 		'generic': '',
-		'description': '{ \n\t\t\tisStart: boolean; \n\t\t\tisEnd: boolean; \n\t\t\tstart: Date; \n\t\t\tend: Date; \n\t\t\tlabel: string; \n\t\t\tcolor: Orion.Color; \n\t\t\tcallback?: () => void; \n\t\t\tspecific: { \n\t\t\t\tcolor: Orion.Color \n\t\t\t\tdate: Date; \n\t\t\t\texclude: boolean; \n\t\t\t}[]; \n\t\t} \n',
+		'description': '{ \n\t\t\tisStart: boolean; \n\t\t\tisEnd: boolean; \n\t\t\tstart: Date; \n\t\t\tend: Date; \n\t\t\tlabel: string; \n\t\t\tcolor: Orion.ColorExtendedAndGreys; \n\t\t\tcallback?: () => void; \n\t\t\tcustomClass?: string; \n\t\t\tspecific: { \n\t\t\t\tcolor: Orion.ColorExtendedAndGreys \n\t\t\t\tdate: Date; \n\t\t\t\texclude: boolean; \n\t\t\t}[]; \n\t\t} \n',
 	}, {
 		'ns': 'Orion',
 		'type': 'Country',
@@ -174,7 +174,14 @@ const globalTypesDocData = {
 		'ns': 'Orion',
 		'type': 'VDropdown',
 		'generic': '',
-		'description': '{ \n\t\t\tplacement?: VDropdownPlacement; \n\t\t\tdistance?: number; \n\t\t\tskidding?: number; \n\t\t\tarrowPadding?: number; \n\t\t} \n',
+		'description': '{ \n\t\t\tplacement?: VDropdownPlacement; \n\t\t\tdistance?: number; \n\t\t\tskidding?: number; \n\t\t\ttriggers?: (\'click\' | \'hover\' | \'focus\' | \'touch\')[]; \n\t\t\tarrowPadding?: number; \n\t\t} \n \n\t\t\ttype Type =\'date\' | \'range\' | \'multiple\' | \'month\'; \n',
+	}],
+
+	'Orion.DateTable': [{
+		'ns': 'Orion.DateTable',
+		'type': 'Marker',
+		'generic': '',
+		'description': '{ \n\t\t\t\tdate: Date; \n\t\t\t\tcolor: Orion.ColorExtendedAndGreys; \n\t\t\t}',
 	}],
 
 	'Orion.Popable': [{
