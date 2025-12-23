@@ -1,7 +1,7 @@
 import { isArray } from 'lodash-es';
 import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetupServiceProps } from '../../Shared/SharedFieldSetupService';
 import { ModelRef } from 'vue';
-import SharedProps, { SharedPropsColor } from '../../Shared/SharedProps';
+import { SharedPropsColor } from '../../Shared/SharedProps';
 
 export type OrionCheckboxEmits<T> = SharedFieldSetupServiceEmits<T> & {}
 export type OrionCheckboxProps = SharedFieldSetupServiceProps &

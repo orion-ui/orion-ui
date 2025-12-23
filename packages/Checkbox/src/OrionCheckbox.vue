@@ -9,12 +9,13 @@
 			{ 'orion-checkbox--inline': inline },
 			{ 'orion-checkbox--with-slot': !!$slots.default },
 		]"
+		:tabindex="disabled ? undefined : setup._uid"
 		input-type="checkbox"
 		@click="setup.handleClick()">
 		<slot v-if="label === undefined"/>
 
 		<input
-			:id="`orion-field_${setup._uid}`"
+			:id="`orion-checkbox_${setup._uid}`"
 			:ref="setup._input"
 			class="orion-checkbox__input"
 			type="checkbox"

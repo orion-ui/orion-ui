@@ -4,7 +4,7 @@
 		:class="[setup.baseClass, setup.additionalClass]">
 		<label
 			v-if="(label || placeholder) && floatingLabel"
-			:for="`orion-input_${_uid}`"
+			:for="`orion-${inputType}_${_uid}`"
 			:class="setup.labelClass"
 			v-html="setup.labelValue"/>
 
