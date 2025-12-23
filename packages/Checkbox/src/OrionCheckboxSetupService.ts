@@ -24,6 +24,9 @@ export type OrionCheckboxProps = SharedFieldSetupServiceProps &
 	// @doc props/type the type of the input
 	// @doc/fr props/type type du champ
 	type?: string,
+	// @doc props/size the size of the checkbox
+	// @doc/fr props/size taille de la case à cocher
+	size?: Extract<Orion.Size, 'sm' | 'md'>;
 };
 type VModelType = any[] | boolean | null | undefined;
 
@@ -32,6 +35,7 @@ export default class OrionCheckboxSetupService extends SharedFieldSetupService<O
 		...SharedFieldSetupService.defaultProps,
 		color: 'info' as Orion.Color,
 		type: 'checkbox',
+		size: 'md' as OrionCheckboxProps['size'],
 	};
 
 	protected inputType = 'checkbox';

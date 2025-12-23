@@ -41,6 +41,10 @@ select:-webkit-autofill:focus {
 			padding-right: 0.25rem;
 		}
 
+		[class*='--sm'] > & {
+			font-size: var(--typography-size-sm);
+		}
+
 		.orion-checkbox--required &,
 		.orion-radio--required & {
 			padding-right: calc(6rem / 16);
@@ -58,7 +62,7 @@ select:-webkit-autofill:focus {
 	}
 
 	&__check-container {
-		.square(1rem);
+		.square(1.25rem);
 		transition: all 0.2s ease;
 		display: flex;
 		align-items: center;
@@ -72,6 +76,10 @@ select:-webkit-autofill:focus {
 		[class*='--reverse'] > & {
 			margin-right: 0;
 			margin-left: 0.25rem;
+		}
+
+		[class*='--sm'] > & {
+			.square(1rem);
 		}
 
 		.orion-checkbox--with-slot & {

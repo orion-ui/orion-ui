@@ -62,6 +62,11 @@
 				label="Icon"
 				:options="icons"/>
 		</div>
+		<div class="col-sm-4">
+			<size-selection
+				v-model="state.size"
+				:options="['sm', 'md']"/>
+		</div>
 	</div>
 
 	<div class="row row--grid row--toggles">
@@ -103,6 +108,7 @@ import { reactive, computed } from 'vue';
 const state = reactive({
 	color: 'primary' as Orion.Color,
 	label: 'Option 1',
+	size: 'md' as OrionCheckbox.Props['size'],
 	inputValue: 'option1',
 	disabled: false,
 	inline: false,

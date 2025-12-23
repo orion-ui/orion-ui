@@ -4,6 +4,7 @@
 		:label-is-floating="false"
 		:class="[
 			`orion-checkbox--${color}`,
+			`orion-checkbox--${size}`,
 			{ 'orion-checkbox--checked': setup.isChecked },
 			{ 'orion-checkbox--reverse': reverse },
 			{ 'orion-checkbox--inline': inline },
