@@ -11,7 +11,7 @@
 					:disabled="item.title === 'Item 1' ? state.disabled : false"
 					:tag="state.tag">
 					<div class="draggable-content">
-						<o-icon icon="file_document"/>
+						<o-icon icon="docs"/>
 						<strong>{{ item.title }}</strong>
 					</div>
 				</o-draggable>
@@ -28,7 +28,7 @@
 					:data="item"
 					:tag="state.tag">
 					<div class="draggable-content">
-						<o-icon icon="file_blank"/>
+						<o-icon icon="draft"/>
 						<strong>{{ item.title }}</strong>
 					</div>
 				</o-draggable>
@@ -46,7 +46,7 @@
 					:data="item"
 					:tag="state.tag">
 					<div class="draggable-content">
-						<o-icon icon="file_code"/>
+						<o-icon icon="file_present"/>
 						<strong>{{ item.title }}</strong>
 					</div>
 				</o-draggable>
@@ -156,7 +156,7 @@ const middle = ref([
 	&--forbidden {
 		background: color-mix(
 			in srgb,
-			var(--o-background-danger-default) 15%,
+			var(--background-error-default) 15%,
 			transparent 85%
 		);
 	}
@@ -170,7 +170,7 @@ const middle = ref([
 	}
 
 	&--disabled {
-		border: 1px solid var(--o-background-danger-default);
+		border: 1px solid var(--background-error-default);
 		opacity: 0.2;
 	}
 }
