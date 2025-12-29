@@ -36,7 +36,7 @@
 		<div
 			v-if="!hideNavigationButtons || !hideNavigationDots"
 			class="orion-carousel__navigation"
-			:class="{ 'orion-carousel__navigation--space-between': !centeredNavigation }">
+			:class="{ 'orion-carousel__navigation--o-space-between': !centeredNavigation }">
 			<slot
 				name="navigation"
 				v-bind="{

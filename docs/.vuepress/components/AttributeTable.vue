@@ -179,11 +179,11 @@ onUnmounted(() => {
 <style lang="less">
 .data-type-table {
 	&__row {
-		padding: var(--space-16) 0;
-		border-bottom: 0.125rem solid var(--border-neutral-default);
+		padding: var(--o-space-16) 0;
+		border-bottom: 0.125rem solid var(--o-border-neutral-default);
 
 		&--header {
-			background: var(--background-neutral-minimal);
+			background: var(--o-background-neutral-minimal);
 			font-weight: 800;
 		}
 
@@ -191,7 +191,7 @@ onUnmounted(() => {
 			display: flex;
 			flex-direction: column;
 			gap: 0.25rem;
-			padding: 0 var(--space-16);
+			padding: 0 var(--o-space-16);
 
 			code {
 				align-self: flex-start;
@@ -213,7 +213,7 @@ onUnmounted(() => {
 			}
 
 			&__name {
-				color: var(--text-info-default);
+				color: var(--o-text-info-default);
 				font-weight: 800;
 				font-size: 0.75rem;
 
@@ -225,20 +225,20 @@ onUnmounted(() => {
 			}
 
 			&__value {
-				color: var(--text-default-default);
+				color: var(--o-text-default-default);
 			}
 
 			/* &__bind {
-				color: var(--text-primary-default);
+				color: var(--o-text-primary-default);
 			} */
 
 			&__description {
 				line-height: 1.25rem;
-				color: var(--text-default-default);
+				color: var(--o-text-default-default);
 
 				p {
 					line-height: 1.5rem;
-					font-size: var(--size-default);
+					font-size: var(--o-size-default);
 
 					&::first-letter {
 						text-transform: uppercase;
@@ -250,11 +250,11 @@ onUnmounted(() => {
 				}
 
 				a {
-					color: var(--text-primary-default);
+					color: var(--o-text-primary-default);
 				}
 
 				strong {
-					color: var(--text-default-default);
+					color: var(--o-text-default-default);
 				}
 			}
 

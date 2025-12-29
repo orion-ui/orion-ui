@@ -22,7 +22,7 @@ body.oriondoc {
 	overflow-y: auto;
 	overflow-x: hidden;
 	scroll-padding-top: 4.75rem;
-	background: var(--background-neutral-default);
+	background: var(--o-background-neutral-default);
 }
 
 .external-link {
@@ -69,7 +69,7 @@ h6 {
 }
 
 a {
-	color: var(--text-primary-default);
+	color: var(--o-text-primary-default);
 }
 
 ol,
@@ -97,14 +97,14 @@ p > code {
 
 p[class='sidebar-item'],
 p[class='sidebar-item active'] {
-	color: var(--text-default-default);
+	color: var(--o-text-default-default);
 	text-transform: uppercase;
 	font-weight: bold !important;
 	font-size: 0.75rem !important;
 }
 
 .custom-container {
-	padding: var(--space-16) var(--space-16) !important;
+	padding: var(--o-space-16) var(--o-space-16) !important;
 
 	&-title {
 		font-size: 1rem;
@@ -127,7 +127,7 @@ p[class='sidebar-item active'] {
 	margin-top: 3rem;
 
 	&__title {
-		padding-top: var(--space-72);
+		padding-top: var(--o-space-72);
 	}
 
 	&__table {
@@ -137,7 +137,7 @@ p[class='sidebar-item active'] {
 	}
 
 	&__header {
-		background-color: var(--background-neutral-minimal);
+		background-color: var(--o-background-neutral-minimal);
 		border: 0;
 
 		> tr {
@@ -157,7 +157,7 @@ p[class='sidebar-item active'] {
 	* td {
 		border: 0;
 		height: 4rem;
-		border-bottom: 0.125rem solid var(--border-neutral-default);
+		border-bottom: 0.125rem solid var(--o-border-neutral-default);
 
 		> .label-cell {
 			display: flex;
@@ -177,7 +177,7 @@ p[class='sidebar-item active'] {
 		}
 
 		&-desc {
-			color: var(--text-neutral-subtle);
+			color: var(--o-text-neutral-subtle);
 			font-style: italic;
 		}
 	}
@@ -203,12 +203,12 @@ p[class='sidebar-item active'] {
 	&__nav {
 		margin: 0 0 -1rem 0 !important;
 		border-radius: 0.375rem 0.375rem 0 0 !important;
-		padding: var(--space-8) var(--space-8) var(--space-8)
-			var(--space-16);
+		padding: var(--o-space-8) var(--o-space-8) var(--o-space-8)
+			var(--o-space-16);
 	}
 
 	&__nav-tab {
-		padding: var(--space-8) var(--space-8);
+		padding: var(--o-space-8) var(--o-space-8);
 
 		&-active {
 			color: #61ffca;
@@ -222,10 +222,10 @@ code {
 	font-weight: 600;
 	font-size: 0.75rem !important;
 	background: rgba(var(--rgb-grey-light), 0.5);
-	color: var(--text-default-default);
+	color: var(--o-text-default-default);
 	line-height: 1.25rem;
 	display: inline-block;
-	padding: 0 var(--space-8);
+	padding: 0 var(--o-space-8);
 
 	> span {
 		font-size: 0.75rem !important;
@@ -240,7 +240,7 @@ pre {
 	font-family: var(--font-family-code);
 	font-size: 0.75rem;
 	font-weight: 500;
-	color: var(--text-default-default);
+	color: var(--o-text-default-default);
 }
 
 .flex-list {
@@ -271,9 +271,9 @@ pre {
 }
 
 summary.flat-source-code {
-	background-color: var(--background-neutral-minimal);
+	background-color: var(--o-background-neutral-minimal);
 	border-radius: 0.5rem;
-	padding: var(--space-16);
+	padding: var(--o-space-16);
 	text-align: center;
 	font-weight: 600;
 
@@ -284,11 +284,11 @@ summary.flat-source-code {
 	details {
 		transition: color 0.3s;
 		margin-top: 0.5rem;
-		color: var(--text-info-default);
+		color: var(--o-text-info-default);
 		cursor: pointer;
 
 		&:hover {
-			color: var(--text-primary-default);
+			color: var(--o-text-primary-default);
 		}
 	}
 }
@@ -297,12 +297,12 @@ summary.flat-source-code {
 	display: block;
 	position: relative;
 	height: 100%;
-	padding: var(--space-32);
+	padding: var(--o-space-32);
 	line-height: 1.5;
 	border: 1px solid transparent;
 
 	@media @tablet {
-		padding: var(--space-48);
+		padding: var(--o-space-48);
 	}
 
 	> h3:not([class*='orion-']) {
@@ -312,7 +312,7 @@ summary.flat-source-code {
 	}
 
 	&--grey-lighter {
-		background: var(--background-neutral-minimal);
+		background: var(--o-background-neutral-minimal);
 	}
 }
 
@@ -320,18 +320,18 @@ a.tile {
 	transition:
 		border-color 0.6s,
 		border-radius 0.45s;
-	color: var(--text-default-default);
+	color: var(--o-text-default-default);
 
 	> h3:not([class*='orion-']) {
 		transition: color 0.3s;
 	}
 
 	&:hover {
-		border-color: var(--border-primary-default);
+		border-color: var(--o-border-primary-default);
 		border-radius: 0.25rem;
 
 		> h3:not([class*='orion-']) {
-			color: var(--text-primary-default);
+			color: var(--o-text-primary-default);
 		}
 	}
 }
@@ -352,7 +352,7 @@ a.tile {
 	}
 
 	.DocSearch-Hit-Container {
-		color: var(--text-default-default);
+		color: var(--o-text-default-default);
 	}
 
 	.DocSearch-Footer {

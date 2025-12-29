@@ -149,10 +149,10 @@ function removeAllActive() {
 <style scoped lang="less">
 .toc-list {
 	&__item {
-		font-size: var(--size-default);
+		font-size: var(--o-size-default);
 
 		&--H3 {
-			padding-left: var(--space-8);
+			padding-left: var(--o-space-8);
 		}
 	}
 }

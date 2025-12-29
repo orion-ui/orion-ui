@@ -18,7 +18,7 @@
 * {
 	box-sizing: border-box;
 	scrollbar-width: thin;
-	scrollbar-color: var(--background-neutral-moderate) transparent;
+	scrollbar-color: var(--o-background-neutral-moderate) transparent;
 }
 
 *::-webkit-scrollbar {
@@ -32,7 +32,7 @@
 }
 
 *::-webkit-scrollbar-thumb {
-	background-color: var(--background-neutral-moderate);
+	background-color: var(--o-background-neutral-moderate);
 	border-radius: 20px;
 }
 
@@ -40,17 +40,17 @@ html,
 body {
 	margin: 0;
 	padding: 0;
-	background: var(--background-neutral-minimal);
+	background: var(--o-background-neutral-minimal);
 }
 
 body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	font-family: var(--font-family);
-	font-size: var(--typography-size-base);
+	font-size: var(--o-typography-size-base);
 	line-height: 1.5;
-	font-weight: var(--typography-weight-medium);
-	color: var(--text-default-default);
+	font-weight: var(--o-typography-weight-medium);
+	color: var(--o-text-default-default);
 }
 
 h1,
@@ -59,8 +59,8 @@ h3,
 h4,
 h5,
 h6 {
-	font-weight: var(--typography-weight-semibold);
-	color: var(--text-default-default);
+	font-weight: var(--o-typography-weight-semibold);
+	color: var(--o-text-default-default);
 	line-height: 1.2;
 	margin: 0 0 max(0.6em, 10px);
 }
@@ -135,8 +135,8 @@ hr {
 	border-bottom: 0.0625rem solid;
 	border-image: linear-gradient(
 			to right,
-			var(--background-neutral-subtle),
-			var(--background-neutral-moderate)
+			var(--o-background-neutral-subtle),
+			var(--o-background-neutral-moderate)
 		)	1;
 
 	@media @desktop {
@@ -147,7 +147,7 @@ hr {
 .orion-highlighter {
 	transition: opacity 0.45s, transform 0.45s;
 	position: absolute;
-	border: 2px solid rgba(var(--background-info-default), 0.8);
+	border: 2px solid rgba(var(--o-background-info-default), 0.8);
 	border-radius: 0.5rem;
 	opacity: 0;
 	transform: scale(0.85);
@@ -160,7 +160,7 @@ hr {
 
 .v-popper {
 	&__inner {
-		background: var(--background-neutral-default);
-		border-color: var(--border-neutral-default);
+		background: var(--o-background-neutral-default);
+		border-color: var(--o-border-neutral-default);
 	}
 }

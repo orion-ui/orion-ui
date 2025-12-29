@@ -49,9 +49,9 @@ defineProps({
 	display: flex;
 	flex-direction: column;
 	gap: 0.25rem;
-	padding: var(--space-16);
-	border-top: 0.125rem solid var(--border-neutral-default);
-	border-bottom: 0.125rem solid var(--border-neutral-default);
+	padding: var(--o-space-16);
+	border-top: 0.125rem solid var(--o-border-neutral-default);
+	border-bottom: 0.125rem solid var(--o-border-neutral-default);
 
 	& + & {
 		margin-top: -0.125rem;
@@ -68,26 +68,26 @@ defineProps({
 
 	&__name {
 		font-family: var(--font-family-code);
-		color: var(--text-info-default);
+		color: var(--o-text-info-default);
 
 		.prop-description--deprecated & {
-			color: var(--text-warning-default);
+			color: var(--o-text-warning-default);
 		}
 	}
 
 	&__value {
-		color: var(--text-default-default);
+		color: var(--o-text-default-default);
 	}
 
 	&__description {
-		color: var(--text-default-default);
+		color: var(--o-text-default-default);
 
 		:deep(p) {
-			font-size: var(--size-default);
+			font-size: var(--o-size-default);
 		}
 
 		:deep(strong) {
-			color: var(--text-default-default);
+			color: var(--o-text-default-default);
 		}
 
 		:deep(p:last-child) {
@@ -98,14 +98,14 @@ defineProps({
 	&__deprecated {
 		display: flex;
 		gap: 0.5rem;
-		color: var(--text-warning-default);
-		border: 1px solid var(--border-warning-default);
+		color: var(--o-text-warning-default);
+		border: 1px solid var(--o-border-warning-default);
 		border-radius: 0.25rem;
 		padding: 0.25rem;
 
 		code {
-			color: var(--text-warning-default);
-			background-color: var(--background-warning-subtle);
+			color: var(--o-text-warning-default);
+			background-color: var(--o-background-warning-subtle);
 		}
 	}
 }

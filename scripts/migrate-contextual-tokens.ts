@@ -56,9 +56,9 @@ function stateOf (name: string, channel: Channel): string {
 function semanticVar (name: string, channel: Channel): string {
 	const fam = familyOf(name);
 	const state = stateOf(name, channel);
-	if (channel === 'background') return `--background-${fam}-${state}`;
-	if (channel === 'border') return `--border-${fam}-${state}`;
-	return `--text-${fam}-${state}`;
+	if (channel === 'background') return `--o-background-${fam}-${state}`;
+	if (channel === 'border') return `--o-border-${fam}-${state}`;
+	return `--o-text-${fam}-${state}`;
 }
 
 /** ----- Scan & replace ----- */

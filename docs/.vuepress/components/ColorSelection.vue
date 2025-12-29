@@ -65,7 +65,7 @@ const emit = defineEmits<{
 		gap: 0.25rem;
 		min-height: 2.5rem;
 		height: auto;
-		padding: var(--space-8);
+		padding: var(--o-space-8);
 		width: fit-content;
 
 		[class*='col-'] > .color-selection > & {
@@ -81,7 +81,7 @@ const emit = defineEmits<{
 		height: 1rem;
 		aspect-ratio: 1;
 		border-radius: 50%;
-		border: 0.03125rem solid var(--border-neutral-default);
+		border: 0.03125rem solid var(--o-border-neutral-default);
 		cursor: pointer;
 
 		&--selected {
@@ -91,11 +91,11 @@ const emit = defineEmits<{
 				height: 0.5rem;
 				aspect-ratio: auto 1;
 				border-radius: 50%;
-				background: var(--background-neutral-default);
-				border: 0.0625rem solid var(--border-neutral-default);
+				background: var(--o-background-neutral-default);
+				border: 0.0625rem solid var(--o-border-neutral-default);
 
 				[data-orion-theme='dark'] & {
-					background: var(--background-neutral-minimal);
+					background: var(--o-background-neutral-minimal);
 				}
 			}
 		}

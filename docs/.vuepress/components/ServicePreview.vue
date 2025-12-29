@@ -161,14 +161,14 @@ onUnmounted(() => {
 		font-family: var(--font-family-code);
 		font-size: 0.75rem;
 		line-height: 1.25rem;
-		color: var(--text-default-default);
+		color: var(--o-text-default-default);
 		font-weight: 600;
 	}
 
 	&__details {
 		margin-left: 1rem;
-		border-left: 0.1875rem solid var(--border-neutral-default);
-		padding: 0 0 0.1875rem var(--space-8);
+		border-left: 0.1875rem solid var(--o-border-neutral-default);
+		padding: 0 0 0.1875rem var(--o-space-8);
 	}
 
 	.function__description {

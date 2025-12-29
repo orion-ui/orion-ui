@@ -102,7 +102,7 @@ En utilisant un bloc `<style scoped>` et le sélecteur `:deep()` il est possible
 
 ```less{4}
 :root {
-	--radius-input: 0.5rem;
+	--o-radius-input: 0.5rem;
 	--rgb-brand: 51, 67, 148;
 }
 ```
@@ -117,7 +117,7 @@ En utilisant un bloc `<style scoped>` et le sélecteur `:deep()` il est possible
 | `--font-family`               | Police principale                  | `'Source Sans Pro', sans-serif`        |
 | `--font-title`                | Police des titres                  | `'Source Sans Pro', sans-serif`        |
 | `--font-paragraph`            | Police des paragraphes             | `'Source Sans Pro', sans-serif`        |
-| `--size-default`               | Taille de base                     | `0.875rem`                             |
+| `--o-size-default`               | Taille de base                     | `0.875rem`                             |
 | `--font-weight-default`        | Graisse par défaut                 | `400`                                  |
 | `--font-weight-title`          | Graisse des titres                 | `700`                                  |
 | `--font-weight-page-title`     | Graisse titre de page              | `700`                                  |
@@ -132,17 +132,17 @@ En utilisant un bloc `<style scoped>` et le sélecteur `:deep()` il est possible
 
   | Variable                     | Composant concerné                        | Valeur par défaut                     |
 |------------------------------|-----------------------------------|---------------------------------------|
-| `--radius-card`               | OrionCard                  | `0.5rem`        |
-| `--radius-sticker`                | OrionSticker                  | `0.5rem`        |
-| `--radius-popover`            | OrionPopover             | `0.5rem`        |
-| `--radius-btn`               | OrionButton                     | `0.25rem`                             |
-| `--radius-alert`          | OrionAlert                 | `0.25rem`                                  |
-| `--radius-notif`     | OrionNotification              | `0.25rem`                                  |
-| `--radius-aside`  | OrionAside         | `1.25rem`                                  |
-| `--radius-modal`  | OrionModal            | `1.25rem`                                  |
-| `--radius-input-range` | OrionInputRange  | `0.5rem`                                  |
-| `--radius-input` | OrionInput   | `0.25rem`                                  |
-| `--radius-upload` | OrionUpload   | `0.25rem`                                  |
+| `--o-radius-card`               | OrionCard                  | `0.5rem`        |
+| `--o-radius-sticker`                | OrionSticker                  | `0.5rem`        |
+| `--o-radius-popover`            | OrionPopover             | `0.5rem`        |
+| `--o-radius-btn`               | OrionButton                     | `0.25rem`                             |
+| `--o-radius-alert`          | OrionAlert                 | `0.25rem`                                  |
+| `--o-radius-notif`     | OrionNotification              | `0.25rem`                                  |
+| `--o-radius-aside`  | OrionAside         | `1.25rem`                                  |
+| `--o-radius-modal`  | OrionModal            | `1.25rem`                                  |
+| `--o-radius-input-range` | OrionInputRange  | `0.5rem`                                  |
+| `--o-radius-input` | OrionInput   | `0.25rem`                                  |
+| `--o-radius-upload` | OrionUpload   | `0.25rem`                                  |
 ---
 
 ### Couleurs
@@ -255,23 +255,23 @@ Ces variables utilisent les valeurs RGB pour créer des couleurs CSS utilisables
 
 ### Fluid
 
-Les variables `--space-*` sont utilisées pour définir des padding et rester cohérent dans toute l'application.
+Les variables `--o-space-*` sont utilisées pour définir des padding et rester cohérent dans toute l'application.
 
 | Variable          | Valeur par défaut         |
 |--------------------|------------------------------|
-| `--space-xs`      | `calc(3px + 0.125rem)`       |
-| `--space-xs`      | `calc(5px + 0.1875rem)`      |
-| `--space-xs`     | `calc(5px + 0.3125rem)`      |
-| `--space-xs`     | `calc(8px + 0.25rem)`        |
-| `--space-sm`     | `calc(10px + 0.3rem)`        |
-| `--space-sm`     | `calc(10px + 0.5rem)`        |
-| `--space-sm`     | `calc(12px + 0.5rem)`        |
-| `--space-sm`     | `calc(13px + 0.75rem)`       |
-| `--space-md`     | `calc(14px + 1rem)`          |
-| `--space-md`     | `calc(19px + 1rem)`          |
-| `--space-md`     | `calc(24px + 1rem)`          |
-| `--space-lg`     | `calc(25px + 1.25rem)`       |
-| `--space-xl`     | `calc(36px + 1.5rem)`         |
+| `--o-space-xs`      | `calc(3px + 0.125rem)`       |
+| `--o-space-xs`      | `calc(5px + 0.1875rem)`      |
+| `--o-space-xs`     | `calc(5px + 0.3125rem)`      |
+| `--o-space-xs`     | `calc(8px + 0.25rem)`        |
+| `--o-space-sm`     | `calc(10px + 0.3rem)`        |
+| `--o-space-sm`     | `calc(10px + 0.5rem)`        |
+| `--o-space-sm`     | `calc(12px + 0.5rem)`        |
+| `--o-space-sm`     | `calc(13px + 0.75rem)`       |
+| `--o-space-md`     | `calc(14px + 1rem)`          |
+| `--o-space-md`     | `calc(19px + 1rem)`          |
+| `--o-space-md`     | `calc(24px + 1rem)`          |
+| `--o-space-lg`     | `calc(25px + 1.25rem)`       |
+| `--o-space-xl`     | `calc(36px + 1.5rem)`         |
 
 
 
@@ -279,16 +279,16 @@ Les variables `--space-*` sont utilisées pour définir des padding et rester co
 
 ### Espaces
 
-Les variables `--space-*` définissent les **marges et espacements standards** dans la grille du design.  
+Les variables `--o-space-*` définissent les **marges et espacements standards** dans la grille du design.  
 Elles sont fixes (en `rem`) et permettent de **garantir une cohérence verticale et horizontale**.
 
 | Variable         | Valeur par défaut | Utilisation recommandée                   |
 |-------------------|-------------------------|----------------------------------------------|
-| `--space-xs`       | `0.5rem`               | Espacement très petit (éléments très proches) |
-| `--space-sm`       | `1rem`                 | Petit espacement                             |
-| `--space-md`       | `2rem`                 | Espacement moyen                             |
-| `--space-lg`       | `3rem`                 | Grand espacement                             |
-| `--space-xl`       | `4rem`                 | Très grand espacement                        |
+| `--o-space-xs`       | `0.5rem`               | Espacement très petit (éléments très proches) |
+| `--o-space-sm`       | `1rem`                 | Petit espacement                             |
+| `--o-space-md`       | `2rem`                 | Espacement moyen                             |
+| `--o-space-lg`       | `3rem`                 | Grand espacement                             |
+| `--o-space-xl`       | `4rem`                 | Très grand espacement                        |
 
 :::tip Conseil
  Ces valeurs sont idéales pour définir les **gaps entre composants, sections, ou colonnes**.

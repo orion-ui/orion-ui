@@ -85,12 +85,21 @@ function pathPartsToCssVar(parts: unknown[]) {
 }
 
 // Convert "{colors/primary/500}" OR "{colors.primary.500}" to "var(--o-colors-primary-500)"
+function shouldAppendPx(cssVar: string) {
+  return (
+    cssVar.startsWith(`${PREFIX}spacing-`) ||
+    cssVar.startsWith(`${PREFIX}sizing-`) ||
+    cssVar.startsWith(`${PREFIX}radius-`)
+  );
+}
+
 function convertReferenceToCssVar(ref: string) {
   // strip { }
   const inner = ref.trim().replace(/^\{/, "").replace(/\}$/, "").trim();
   const parts = inner.includes("/") ? inner.split("/") : inner.split(".");
   const cssVar = pathPartsToCssVar(parts);
-  return `var(${cssVar})`;
+  const value = `var(${cssVar})`;
+  return shouldAppendPx(cssVar) ? `calc(${value} * 1px)` : value;
 }
 
 function stringifyCssValue(value: unknown) {
@@ -201,13 +210,13 @@ function main() {
     ),
   ].join("\n");
 
-  // Build dark file: semantic dark in :root
+  // Build dark file: semantic dark in :root[data-theme='dark']
   const darkRoot = [
     "/* AUTO-GENERATED - DO NOT EDIT */",
     "/* Source: tokens/semantic/dark.json */",
     "",
     wrapBlock(
-      ":root",
+      ":root[data-theme='dark']",
       [
         buildCssVarsBlock(semanticDarkLeaves, "  "),
       ].join("\n")
@@ -225,5 +234,3 @@ function main() {
 }
 
 main();
-
-

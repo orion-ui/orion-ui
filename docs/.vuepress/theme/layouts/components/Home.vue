@@ -217,13 +217,13 @@ const features = computed(() => {
 @import '../../../../../packages/Shared/styles/variables.less';
 
 .container {
-	padding: 0 var(--space-32);
+	padding: 0 var(--o-space-32);
 }
 
 .clip {
 	background: linear-gradient(
 		to bottom right,
-		var(--background-primary-default),
+		var(--o-background-primary-default),
 		var(--brand-alt)
 	);
 	-webkit-background-clip: text;
@@ -248,7 +248,7 @@ h2 {
 	border: none;
 	font-size: 2.5rem;
 	line-height: 1.1;
-	color: var(--text-default-default);
+	color: var(--o-text-default-default);
 	padding-top: 0 !important;
 	margin-top: 0 !important;
 	margin-bottom: 2rem;

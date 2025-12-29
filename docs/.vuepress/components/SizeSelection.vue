@@ -55,7 +55,7 @@ const emit = defineEmits<{ (e: 'update:modelValue', val: Orion.Size): void }>();
 		gap: 0.25rem;
 		min-height: 2.5rem;
 		height: auto;
-		padding: var(--space-8);
+		padding: var(--o-space-8);
 		width: fit-content;
 
 		[class*='col-'] > .size-selection > & {
@@ -73,26 +73,26 @@ const emit = defineEmits<{ (e: 'update:modelValue', val: Orion.Size): void }>();
 		justify-content: center;
 		height: 1.125rem;
 		border-radius: 0.5rem;
-		background: var(--background-neutral-moderate);
-		border: 0.0625rem solid var(--border-neutral-default);
-		color: var(--text-default-default);
+		background: var(--o-background-neutral-moderate);
+		border: 0.0625rem solid var(--o-border-neutral-default);
+		color: var(--o-text-default-default);
 		cursor: pointer;
 		text-transform: uppercase;
 		font-size: 0.75rem;
 		font-weight: 600;
-		padding: 0 var(--space-8);
+		padding: 0 var(--o-space-8);
 
 		&:hover {
-			border-color: var(--border-info-default);
-			color: var(--text-info-default);
+			border-color: var(--o-border-info-default);
+			color: var(--o-text-info-default);
 			background: transparent;
 		}
 
 		&--selected,
 		&--selected:hover {
-			border-color: var(--border-info-default);
-			background: var(--background-info-default);
-			color: var(--text-default-inverted);
+			border-color: var(--o-border-info-default);
+			background: var(--o-background-info-default);
+			color: var(--o-text-default-inverted);
 		}
 	}
 }

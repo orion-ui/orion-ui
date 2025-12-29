@@ -22,10 +22,10 @@
 
 .text {
 	each(@colorsAndGreys, {
-		@color:     ~"--text-@{value}-default";
-    @colorAlt:  ~"--text-@{value}-alt";
-    @colorDark: ~"--text-@{value}-moderate";
-    @colorLight:~"--text-@{value}-minimal";
+		@color:     ~"--o-text-@{value}-default";
+    @colorAlt:  ~"--o-text-@{value}-alt";
+    @colorDark: ~"--o-text-@{value}-moderate";
+    @colorLight:~"--o-text-@{value}-minimal";
     &--@{value} {
       color: var(@color) !important;
     }
@@ -67,10 +67,10 @@
 
 .background {
 	each(@colorsAndGreys, {
-		@color:     ~"--background-@{value}-default";
-    @colorAlt:  ~"--background-@{value}-alt";
-    @colorDark: ~"--background-@{value}-moderate";
-    @colorLight:~"--background-@{value}-minimal";
+		@color:     ~"--o-background-@{value}-default";
+    @colorAlt:  ~"--o-background-@{value}-alt";
+    @colorDark: ~"--o-background-@{value}-moderate";
+    @colorLight:~"--o-background-@{value}-minimal";
     &--@{value} {
       background-color: var(@color) !important;
     }
@@ -160,7 +160,7 @@
 	}
 
 	each(@spacings, {
-		@space: ~"--space-@{value}";
+		@space: ~"--o-space-@{value}";
 		&.g-@{value} {
 			gap: var(@space);
 		}
@@ -182,7 +182,7 @@
 }
 
 each(@sizes, {
-	@size: ~"--space-@{value}";
+	@size: ~"--o-space-@{value}";
 	
 	.mt-@{value} {
 		margin-top: var(@size);

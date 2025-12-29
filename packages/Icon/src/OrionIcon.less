@@ -176,11 +176,11 @@
 		}
 
 		each(@colors, {
-		@bg: ~"--background-@{value}-default";
-		@shadow: ~"--background-@{value}-moderate";
+		@bg: ~"--o-background-@{value}-default";
+		@shadow: ~"--o-background-@{value}-moderate";
 
 		&-@{value} {
-			color: var(--o-text-default-inverted);
+			color: #ffffff;
 
 			> .orion-icon__button {
 				background: var(@bg);

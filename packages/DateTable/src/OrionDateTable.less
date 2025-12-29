@@ -286,12 +286,12 @@
 			&.in-range {
 				background: var(--o-background-neutral-minimal);
 
-				&--border-left-radius {
+				&--o-border-left-radius {
 					border-top-left-radius: 1.5rem;
 					border-bottom-left-radius: 1.5rem;
 				}
 
-				&--border-right-radius {
+				&--o-border-right-radius {
 					border-top-right-radius: 1.5rem;
 					border-bottom-right-radius: 1.5rem;
 				}
@@ -324,7 +324,7 @@
 				}
 
 				each(@colors, {
-					@colorLight: ~"--background-@{value}-minimal";
+					@colorLight: ~"--o-background-@{value}-minimal";
 					@colorDark: ~"--@{value}-dark";
 					&--@{value} {
 						background: var(@colorLight);
