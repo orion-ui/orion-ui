@@ -58,7 +58,7 @@
 			cursor: pointer;
 
 			&:hover {
-				color: var(--text-info-default);
+				color: var(--o-text-info-default);
 			}
 		}
 
@@ -75,7 +75,7 @@
 		}
 
 		&-path {
-			background: var(--background-neutral-moderate);
+			background: var(--o-background-neutral-moderate);
 			border-radius: 1rem;
 			height: 0.25rem;
 			position: relative;
@@ -109,7 +109,7 @@
 	}
 
 	each(@colorsAndGreys, {
-		@bg: ~"--background-@{value}-default";
+		@bg: ~"--o-background-@{value}-default";
 
 		&--@{value} {
 			&::before {
@@ -158,3 +158,4 @@
 		}
 	}
 }
+

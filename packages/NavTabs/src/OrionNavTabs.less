@@ -10,7 +10,7 @@
 	height: 4rem;
 	display: flex;
 	justify-content: stretch;
-	background: var(--background-neutral-default);
+	background: var(--o-background-neutral-default);
 	box-shadow: 0 -0.25rem 0.5rem fade(black, 5);
 
 	@media @tabletLandscape {
@@ -29,11 +29,11 @@
 		line-height: 1;
 		text-align: center;
 		text-decoration: none;
-		color: var(--text-default-default);
+		color: var(--o-text-default-default);
 		cursor: pointer;
 
 		&.router-link-exact-active {
-			color: var(--text-info-default);
+			color: var(--o-text-info-default);
 
 			&::before {
 				transform: scale3d(1, 1, 1);
@@ -47,3 +47,4 @@
 		}
 	}
 }
+

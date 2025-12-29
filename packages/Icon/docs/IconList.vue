@@ -49,7 +49,7 @@ const icons = computed(() => {
 	flex-direction: column;
 	align-items: center;
 	gap: 1rem;
-	background: var(--background-neutral-default);
+	background: var(--o-background-neutral-default);
 	padding: 1.25rem;
 
 	.orion-icon {
@@ -71,3 +71,4 @@ See the full icon list and filter them by name or browse on the library's offici
 Retrouvez ici la liste complèteque vous pouvez filtrer par nom, ou visitez le site officiel de la
 bibliothèque : [Material Icons](https://fonts.google.com/icons)
 @lang
+

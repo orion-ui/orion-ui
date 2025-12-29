@@ -4,24 +4,24 @@
 .orion-tour-overlay {
 	position: fixed;
 	z-index: 300;
-background: color-mix(in srgb, var(--background-neutral-highlight) 70%, transparent);}
+background: color-mix(in srgb, var(--o-background-neutral-highlight) 70%, transparent);}
 
 .orion-tour-step-highlighter {
 	position: absolute;
 	border-radius: 0.25rem;
 	z-index: 90000;
-	border: 0.125rem solid var(--border-neutral-default);
+	border: 0.125rem solid var(--o-border-neutral-default);
 	pointer-events: none;
 }
 
 .orion-tour-tooltip {
 	position: fixed;
 	z-index: 99999;
-	background: var(--background-neutral-default);
+	background: var(--o-background-neutral-default);
 	border-radius: 0.25rem;
 	top:0;
 	left:0;
-	padding: var(--spacing-32);
+	padding: var(--o-space-32);
 	opacity:0;
 
 	&__arrow {
@@ -32,8 +32,8 @@ background: color-mix(in srgb, var(--background-neutral-highlight) 70%, transpar
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
   border-bottom: 5px solid white; */
-	color: var(--text-default-inverted);
-	border:  5px solid var(--border-neutral-inverted);
+	color: var(--o-text-default-inverted);
+	border:  5px solid var(--o-border-neutral-inverted);
   .square(7px);
 
 	}
@@ -46,9 +46,9 @@ background: color-mix(in srgb, var(--background-neutral-highlight) 70%, transpar
 	}
 
 	&__title {
-		color: var(--text-default-default);
+		color: var(--o-text-default-default);
 		font-weight: 600;
-		padding-right: var(--spacing-32);
+		padding-right: var(--o-space-32);
 		font-size: 1rem;
 
 		+ .orion-tour-tooltip__body {
@@ -89,7 +89,7 @@ background: color-mix(in srgb, var(--background-neutral-highlight) 70%, transpar
 	}
 
 	&__counter {
-		color: var(--text-default-moderate);
+		color: var(--o-text-default-moderate);
 		font-weight: 800;
 		margin-right: 0.5rem;
 		min-width: 2.5rem;
@@ -101,11 +101,11 @@ background: color-mix(in srgb, var(--background-neutral-highlight) 70%, transpar
 		border-top: 0.0625rem solid;
 		border-image: linear-gradient(
 				to right,
-				rgba(var(--background-neutral-minimal), 0),
-				var(--background-neutral-subtle)
+				rgba(var(--o-background-neutral-minimal), 0),
+				var(--o-background-neutral-subtle)
 			)
 			1;
-		padding-top: var(--spacing-32);
+		padding-top: var(--o-space-32);
 		justify-content: space-between;
 
 		&--sm {
@@ -121,3 +121,4 @@ background: color-mix(in srgb, var(--background-neutral-highlight) 70%, transpar
 		gap: 0.25rem;
 	}
 }
+

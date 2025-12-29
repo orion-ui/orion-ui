@@ -22,7 +22,7 @@
 	&__star {
 		.square(1.125rem);
 		font-size: 1rem;
-		color: var(--text-default-subtle);
+		color: var(--o-text-default-subtle);
 		cursor: pointer;
 
 		.orion-rate--disabled & {
@@ -34,7 +34,7 @@
 				&--@{value} {
 					&::before{
 						color: transparent;
-						background: linear-gradient(to right, var(~"--background-@{value}-default"), var(~"--background-@{value}-default") 50%, var(--background-neutral-minimal) 50%, var(--background-neutral-minimal) );
+						background: linear-gradient(to right, var(~"--o-background-@{value}-default"), var(~"--o-background-@{value}-default") 50%, var(--o-background-neutral-minimal) 50%, var(--o-background-neutral-minimal) );
 						background-clip: text;
 						-webkit-background-clip: text;
 						-webkit-text-fill-color: transparent;
@@ -44,7 +44,7 @@
 				&--default {
 					&::before{
 						color: transparent;
-						background: linear-gradient(to right, var(--border-neutral-default), var(--border-neutral-default) 50%, var(--background-neutral-subtle) 50%, var(--background-neutral-subtle) );
+						background: linear-gradient(to right, var(--o-border-neutral-default), var(--o-border-neutral-default) 50%, var(--o-background-neutral-subtle) 50%, var(--o-background-neutral-subtle) );
 						background-clip: text;
 						-webkit-background-clip: text;
 						-webkit-text-fill-color: transparent;
@@ -55,7 +55,7 @@
 	}
 
 	&__number {
-		color: var(--text-default-default);
+		color: var(--o-text-default-default);
 		transform: translateY(-0.0625rem);
 	}
 
@@ -67,52 +67,54 @@
 		&--@{value} {
 
 			input:checked ~ label {
-				color: var(~"--text-@{value}-default");
+				color: var(~"--o-text-@{value}-default");
 			}
 			.orion-rate__wrapper:hover {
 				input ~ label {
 					background: unset;
-					color: var(--text-default-subtle);
+					color: var(--o-text-default-subtle);
 				}
 				input ~ label:hover,
 				input ~ label:hover ~ label {
 					background: unset;
-					color: var(~"--text-@{value}-default") !important;
+					color: var(~"--o-text-@{value}-default") !important;
 				}
 			}
 		}
 
 		&--default {
 			input:checked ~ label {
-				color: var(--text-default-default);
+				color: var(--o-text-default-default);
 			}
 			.orion-rate__wrapper:hover {
 				input ~ label {
 					background: unset;
-					color: var(--text-default-subtle);
+					color: var(--o-text-default-subtle);
 				}
 				input ~ label:hover,
 				input ~ label:hover ~ label {
 					background: unset;
-					color: var(--text-default-default) !important;
+					color: var(--o-text-default-default) !important;
 				}
 			}
 		}
 		&--inverted {
 			input:checked ~ label {
-				color: var(--text-default-inverted);
+				color: var(--o-text-default-inverted);
 			}
 			.orion-rate__wrapper:hover {
 				input ~ label {
 					background: unset;
-					color: var(--text-default-subtle);
+					color: var(--o-text-default-subtle);
 				}
 				input ~ label:hover,
 				input ~ label:hover ~ label {
 					background: unset;
-					color: var(--text-default-inverted) !important;
+					color: var(--o-text-default-inverted) !important;
 				}
 			}
 		}
 	});
 }
+
+

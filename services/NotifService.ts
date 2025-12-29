@@ -73,7 +73,7 @@ const useNotif = {
 	danger: (options: Partial<Orion.Notif.Options> | string, message?: string) => new NotifService({
 		icon: 'stop_sign',
 		...NotifService.sanitizeOptions(options, message),
-		color: 'error',
+		color: 'danger',
 	}).createVNode(),
 };
 

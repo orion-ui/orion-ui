@@ -59,7 +59,7 @@ ${item.description}
 
   &__name {
     font-family: var(--font-family-code);
-    color: var(--text-info-default);
+    color: var(--o-text-info-default);
     margin-right: 0.25rem;
   }
 

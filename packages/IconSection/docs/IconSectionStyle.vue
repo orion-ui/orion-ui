@@ -48,7 +48,7 @@
 
 <style lang="less" scoped>
   .orion-icon-section {
-    background-color: var(--background-neutral-default);
+    background-color: var(--o-background-neutral-default);
 		padding: 0.75rem 0;
 		border-radius: 0.5rem;
 
@@ -71,3 +71,4 @@ The `center` prop can be used to center the content.
 
 La prop `center` permet de centrer le composant.
 @lang
+

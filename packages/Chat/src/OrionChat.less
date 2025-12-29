@@ -5,7 +5,7 @@
 	position: relative;
 	display: flex;
 	flex-direction: column;
-	background: var(--background-neutral-default);
+	background: var(--o-background-neutral-default);
 	height: 100%;
 
 	&__header {
@@ -16,9 +16,9 @@
 		align-items: center;
 		justify-content: space-between;
 		height: 4rem;
-		padding: var(--spacing-16);
-		background: var(--background-neutral-default);
-		border-bottom: 0.0625rem solid var(--background-neutral-subtle);
+		padding: var(--o-space-16);
+		background: var(--o-background-neutral-default);
+		border-bottom: 0.0625rem solid var(--o-background-neutral-subtle);
 	}
 
 	&__title {
@@ -39,7 +39,7 @@
 
 		> .orion-avatar {
 			.circle(2.8125rem);
-			border: 0.125rem solid var(--border-neutral-default);
+			border: 0.125rem solid var(--o-border-neutral-default);
 
 			+ .orion-avatar {
 				margin-left: -1.25rem;
@@ -100,8 +100,8 @@
 		justify-content: center;
 		gap: 0.3rem;
 		text-align: center;
-		background: var(--background-neutral-default);
-		color: var(--text-info-default);
+		background: var(--o-background-neutral-default);
+		color: var(--o-text-info-default);
 		text-transform: uppercase;
 		font-weight: 600;
 		font-size: 0.75rem;
@@ -152,14 +152,14 @@
 		text-align: center;
 		font-size: 0.8125rem;
 		font-weight: normal;
-		color: var(--text-default-default);
+		color: var(--o-text-default-default);
 		margin: 0 0 2.5rem;
 
 		> span {
 			position: relative;
 			display: inline-block;
-			padding: 0 var(--spacing-48);
-			background: var(--background-neutral-default);
+			padding: 0 var(--o-space-48);
+			background: var(--o-background-neutral-default);
 		}
 
 		&::before {
@@ -171,25 +171,25 @@
 			height: 0.0625rem;
 			background: linear-gradient(
 				to right,
-				rgba(var(--background-neutral-minimal), 0),
-				var(--background-neutral-subtle) 30%,
-				var(--background-neutral-subtle) 70%,
-				rgba(var(--background-neutral-minimal), 0)
+				rgba(var(--o-background-neutral-minimal), 0),
+				var(--o-background-neutral-subtle) 30%,
+				var(--o-background-neutral-subtle) 70%,
+				rgba(var(--o-background-neutral-minimal), 0)
 			);
 		}
 	}
 
 	&__footer {
-		background: var(--background-neutral-default);
+		background: var(--o-background-neutral-default);
 		position: sticky;
 		bottom: 0;
-		padding: var(--spacing-16);
+		padding: var(--o-space-16);
 
 		> .orion-chat__send {
 			position: absolute;
 			top: calc(21rem / 16);
 			right: calc(21rem / 16);
-			color: var(--text-info-default);
+			color: var(--o-text-info-default);
 			font-size: 1.25rem;
 		}
 	}
@@ -198,7 +198,7 @@
 		margin: 0;
 
 		textarea {
-			padding-right: var(--spacing-48);
+			padding-right: var(--o-space-48);
 		}
 
 		.orion-input__input {
@@ -206,3 +206,4 @@
 		}
 	}
 }
+

@@ -104,7 +104,7 @@
         "$value": "#100624"
       }
     },
-    "error": {
+    "danger": {
       "50": {
         "$type": "color",
         "$value": "#fff1f4"
@@ -336,191 +336,219 @@
     }
   },
   "typography": {
-    "font-title": {
-      "$type": "text",
-      "$value": "Source Sans Pro"
+    "font": {
+      "base": {
+        "$type": "text",
+        "$value": "Source Sans Pro"
+      }
     },
-    "font-body": {
-      "$type": "text",
-      "$value": "Source Sans Pro"
+    "size": {
+      "11": {
+        "$type": "number",
+        "$value": 11.11
+      },
+      "13": {
+        "$type": "number",
+        "$value": 13.33
+      },
+      "16": {
+        "$type": "number",
+        "$value": 16
+      },
+      "19": {
+        "$type": "number",
+        "$value": 19.2
+      },
+      "23": {
+        "$type": "number",
+        "$value": 23.04
+      },
+      "27": {
+        "$type": "number",
+        "$value": 27.65
+      },
+      "33": {
+        "$type": "number",
+        "$value": 33.18
+      },
+      "40": {
+        "$type": "number",
+        "$value": 39.81
+      },
+      "48": {
+        "$type": "number",
+        "$value": 47.78
+      }
     },
-    "Medium": {
-      "$type": "text",
-      "$value": "Medium"
+    "lineHeight": {
+      "2xl": {
+        "$type": "number",
+        "$value": 56
+      },
+      "relaxed": {
+        "$type": "number",
+        "$value": 25
+      },
+      "normal": {
+        "$type": "number",
+        "$value": 20
+      },
+      "loose": {
+        "$type": "number",
+        "$value": 27
+      },
+      "tight": {
+        "$type": "number",
+        "$value": 18
+      },
+      "xl": {
+        "$type": "number",
+        "$value": 40
+      }
     },
-    "Paragraph Bold": {
-      "$type": "text",
-      "$value": "Bold"
-    },
-    "Semi Bold": {
-      "$type": "text",
-      "$value": "SemiBold"
-    },
-    "Paragraph": {
-      "$type": "text",
-      "$value": "Regular"
-    },
-    "Extra Bold": {
-      "$type": "text",
-      "$value": "ExtraBold"
-    },
-    "H1": {
-      "$type": "dimension",
-      "$value": "2.986rem"
-    },
-    "H2": {
-      "$type": "dimension",
-      "$value": "2.488rem"
-    },
-    "H3": {
-      "$type": "dimension",
-      "$value": "2.074rem"
-    },
-    "H4": {
-      "$type": "dimension",
-      "$value": "1.728rem"
-    },
-    "H5": {
-      "$type": "dimension",
-      "$value": "1.44rem"
-    },
-    "body-default": {
-      "$type": "dimension",
-      "$value": "1rem"
-    },
-    "body-s": {
-      "$type": "dimension",
-      "$value": "0.833rem"
-    },
-    "body-large": {
-      "$type": "dimension",
-      "$value": "1.2rem"
-    },
-    "body-xs": {
-      "$type": "dimension",
-      "$value": "0.694rem"
+    "weight": {
+      "extrabold": {
+        "$type": "number",
+        "$value": 800
+      },
+      "bold": {
+        "$type": "number",
+        "$value": 700
+      },
+      "semibold": {
+        "$type": "number",
+        "$value": 600
+      },
+      "medium": {
+        "$type": "number",
+        "$value": 500
+      },
+      "regular": {
+        "$type": "number",
+        "$value": 400
+      }
     }
   },
   "sizing": {
     "2": {
-      "$type": "dimension",
-      "$value": "0.125rem"
+      "$type": "number",
+      "$value": 2
     },
     "4": {
-      "$type": "dimension",
-      "$value": "0.25rem"
+      "$type": "number",
+      "$value": 4
     },
     "6": {
-      "$type": "dimension",
-      "$value": "0.375rem"
+      "$type": "number",
+      "$value": 6
     },
     "8": {
-      "$type": "dimension",
-      "$value": "0.5rem"
+      "$type": "number",
+      "$value": 8
     },
     "12": {
-      "$type": "dimension",
-      "$value": "0.75rem"
+      "$type": "number",
+      "$value": 12
     },
     "16": {
-      "$type": "dimension",
-      "$value": "1rem"
+      "$type": "number",
+      "$value": 16
     },
     "24": {
-      "$type": "dimension",
-      "$value": "1.5rem"
+      "$type": "number",
+      "$value": 24
     },
     "28": {
-      "$type": "dimension",
-      "$value": "1.75rem"
+      "$type": "number",
+      "$value": 28
     },
     "32": {
-      "$type": "dimension",
-      "$value": "2rem"
+      "$type": "number",
+      "$value": 32
     },
     "40": {
-      "$type": "dimension",
-      "$value": "2.5rem"
+      "$type": "number",
+      "$value": 40
     },
     "48": {
-      "$type": "dimension",
-      "$value": "3rem"
+      "$type": "number",
+      "$value": 48
     },
     "72": {
-      "$type": "dimension",
-      "$value": "4.5rem"
+      "$type": "number",
+      "$value": 72
     }
   },
   "spacing": {
     "2": {
-      "$type": "dimension",
-      "$value": "0.125rem"
+      "$type": "number",
+      "$value": 2
     },
     "4": {
-      "$type": "dimension",
-      "$value": "0.25rem"
+      "$type": "number",
+      "$value": 4
     },
     "6": {
-      "$type": "dimension",
-      "$value": "0.375rem"
+      "$type": "number",
+      "$value": 6
     },
     "8": {
-      "$type": "dimension",
-      "$value": "0.5rem"
+      "$type": "number",
+      "$value": 8
     },
     "12": {
-      "$type": "dimension",
-      "$value": "0.75rem"
+      "$type": "number",
+      "$value": 12
     },
     "16": {
-      "$type": "dimension",
-      "$value": "1rem"
+      "$type": "number",
+      "$value": 16
     },
     "24": {
-      "$type": "dimension",
-      "$value": "1.5rem"
+      "$type": "number",
+      "$value": 24
     },
     "32": {
-      "$type": "dimension",
-      "$value": "2rem"
+      "$type": "number",
+      "$value": 32
     },
     "48": {
-      "$type": "dimension",
-      "$value": "3rem"
+      "$type": "number",
+      "$value": 48
     },
     "72": {
-      "$type": "dimension",
-      "$value": "4.5rem"
+      "$type": "number",
+      "$value": 72
     }
   },
   "radius": {
     "0": {
-      "$type": "dimension",
-      "$value": "0rem"
+      "$type": "number",
+      "$value": 0
     },
     "4": {
-      "$type": "dimension",
-      "$value": "0.25rem"
+      "$type": "number",
+      "$value": 4
     },
     "6": {
-      "$type": "dimension",
-      "$value": "0.375rem"
+      "$type": "number",
+      "$value": 6
     },
     "8": {
-      "$type": "dimension",
-      "$value": "0.5rem"
+      "$type": "number",
+      "$value": 8
     },
     "12": {
-      "$type": "dimension",
-      "$value": "0.75rem"
+      "$type": "number",
+      "$value": 12
     },
     "16": {
-      "$type": "dimension",
-      "$value": "1rem"
+      "$type": "number",
+      "$value": 16
     },
     "999": {
-      "$type": "dimension",
-      "$value": "62.438rem"
+      "$type": "number",
+      "$value": 999
     }
   }
 }

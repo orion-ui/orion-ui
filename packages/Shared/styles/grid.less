@@ -2,7 +2,7 @@
 	each(range(12), .(@i) {
 		@width: 100% / 12  * @i;
 		@numberOfCol: 12 / @i;
-		@gutter: var(--spacing-32);
+		@gutter: var(--o-space-32);
 
 		> .col-@{bp}-@{i} {
 			width: calc(@width);
@@ -25,7 +25,7 @@
 			}
 
 			&-xs {
-				@gutter: var(--spacing-8);
+				@gutter: var(--o-space-8);
 				> .col-@{bp}-@{i} {
 					width: calc(@width - (@gutter * (@numberOfCol - 1) / @numberOfCol));
 					max-width: calc(@width - (@gutter * (@numberOfCol - 1) / @numberOfCol));
@@ -37,7 +37,7 @@
 			}
 
 			&-sm {
-				@gutter: var(--spacing-16);
+				@gutter: var(--o-space-16);
 				> .col-@{bp}-@{i} {
 					width: calc(@width - (@gutter * (@numberOfCol - 1) / @numberOfCol));
 					max-width: calc(@width - (@gutter * (@numberOfCol - 1) / @numberOfCol));
@@ -49,7 +49,7 @@
 			}
 
 			&-lg {
-				@gutter: var(--spacing-48);
+				@gutter: var(--o-space-48);
 				> .col-@{bp}-@{i} {
 					width: calc(@width - (@gutter * (@numberOfCol - 1) / @numberOfCol));
 					max-width: calc(@width - (@gutter * (@numberOfCol - 1) / @numberOfCol));
@@ -88,15 +88,15 @@
 		gap: 0 2rem;
 
 		&-xs {
-			gap: 0 var(--spacing-8);
+			gap: 0 var(--o-space-8);
 		}
 
 		&-sm {
-			gap: 0 var(--spacing-16);
+			gap: 0 var(--o-space-16);
 		}
 
 		&-lg {
-			gap: 0 var(--spacing-48);
+			gap: 0 var(--o-space-48);
 		}
 	}
 
@@ -104,15 +104,15 @@
 		gap: 2rem;
 
 		&-xs {
-			gap: var(--spacing-8);
+			gap: var(--o-space-8);
 		}
 
 		&-sm {
-			gap: var(--spacing-16);
+			gap: var(--o-space-16);
 		}
 
 		&-lg {
-			gap: var(--spacing-48);
+			gap: var(--o-space-48);
 		}
 	}
 
@@ -254,3 +254,4 @@
 	}
 	// #endregion
 }
+

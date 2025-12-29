@@ -27,7 +27,7 @@
 		</o-button>
 
 		<o-button
-			color="error"
+			color="danger"
 			outline
 			@click="_modal?.close()">
 			Close modal

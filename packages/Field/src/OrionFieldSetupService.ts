@@ -45,7 +45,7 @@ export default class OrionFieldSetupService extends SharedSetupService {
 
 	get additionalClass () {
 		const cls = [`${this.baseClass}--${this.props.size}`];
-		if (this.props.showError) cls.push(`${this.baseClass}--error`);
+		if (this.props.showError) cls.push(`${this.baseClass}--danger`);
 		if (this.props.showWarning) cls.push(`${this.baseClass}--warning`);
 		if (this.props.showSuccess) cls.push(`${this.baseClass}--success`);
 		if (this.props.prefixIcon || this.props.prefixFontIcon) cls.push(`${this.baseClass}--prefix-icon`);
@@ -79,7 +79,7 @@ export default class OrionFieldSetupService extends SharedSetupService {
 		return [
 			`${this.baseClass}__validation`,
 			{ 'orion-input__validation--success': this.props.showSuccess },
-			{ 'orion-input__validation--error': this.props.showError },
+			{ 'orion-input__validation--danger': this.props.showError },
 			{ 'orion-input__validation--warning': this.props.showWarning },
 		];
 	}

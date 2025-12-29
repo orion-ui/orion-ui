@@ -98,7 +98,7 @@
 									font-family="SourceSansPro-Bold, Source Sans Pro"
 									font-size="22"
 									font-weight="bold"
-									line-spacing="30"
+									line-space="30"
 									fill="#FFFFFF">
 									<tspan
 										x="20.695"
@@ -127,7 +127,7 @@
 					</div>
 
 					<orion-icon
-						ripple="error"
+						ripple="danger"
 						icon="delete"
 						class="orion-upload__delete-file"
 						@click="setup.deleteFile(i)"/>

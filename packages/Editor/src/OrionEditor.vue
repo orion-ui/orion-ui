@@ -3,7 +3,7 @@
 		v-if="setup.editor?.value"
 		class="orion-editor"
 		:class="{
-			'orion-editor--error': setup.showError,
+			'orion-editor--danger': setup.showError,
 			'orion-editor--warning': setup.showWarning,
 			'orion-editor--success': setup.showSuccess,
 			'orion-editor--focused': setup.isFocus,

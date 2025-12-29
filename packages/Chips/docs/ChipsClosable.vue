@@ -10,9 +10,9 @@
 		<o-chips
 			color="info"
 			close>
-			dual
+			Dual
 			<template #dual>
-				close
+				Close
 			</template>
 		</o-chips>
 	</div>

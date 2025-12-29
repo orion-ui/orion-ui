@@ -66,7 +66,7 @@ export default class OrionUploadSetupService extends SharedFieldSetupService<Ori
 			{ 'orion-upload--drag-over': this.isDraggingOver },
 		];
 
-		if (this.showError) cls.push(`${baseClass}--error`);
+		if (this.showError) cls.push(`${baseClass}--danger`);
 		if (this.showWarning) cls.push(`${baseClass}--warning`);
 		if (this.showSuccess) cls.push(`${baseClass}--success`);
 		if (this.props.clearable) cls.push(`${baseClass}--clearable`);

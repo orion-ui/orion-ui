@@ -61,13 +61,13 @@
 							background: setup.visibilityValues[index].isHidingLeft
 								? `linear-gradient(
 								to left,
-								var(--background-info-default) ${setup.visibilityValues[index].visibility}%,
-								var(--background-neutral-moderate) 0%
+								var(--o-background-info-default) ${setup.visibilityValues[index].visibility}%,
+								var(--o-background-neutral-moderate) 0%
 							)`
 								: `linear-gradient(
 								to right,
-								var(--background-info-default) ${setup.visibilityValues[index].visibility}%,
-								var(--background-neutral-moderate) 0%
+								var(--o-background-info-default) ${setup.visibilityValues[index].visibility}%,
+								var(--o-background-neutral-moderate) 0%
 							)`,
 						}"
 						@click="setup.scrollTo(element)"/>
@@ -95,3 +95,4 @@ defineExpose(setup.publicInstance);
  * @doc/fr slot/default Contenu du composant
  */
 </script>
+

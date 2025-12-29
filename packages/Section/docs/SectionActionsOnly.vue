@@ -12,7 +12,7 @@
 			:align="align"
 			gap="xs">
 			<o-button
-				color="error"
+				color="danger"
 				outline>
 				Cancel
 			</o-button>

@@ -53,8 +53,8 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-  gap: var(--spacing-16);
-  margin-bottom: var(--spacing-32);
+  gap: var(--o-space-16);
+  margin-bottom: var(--o-space-32);
 }
 </style>
 
@@ -75,3 +75,4 @@ Avec les props `pathWidth` et `valueWidth` il est possible de changer l'épaisse
 
 La taille du cerle est aussi modifiable avec la prop `size`.
 @lang
+

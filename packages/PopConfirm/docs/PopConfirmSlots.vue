@@ -9,7 +9,7 @@
 			</o-button>
 			<template #actions="{ cancel, confirm }">
 				<o-button
-					color="error"
+					color="danger"
 					outline
 					@click="cancel()">
 					Nope

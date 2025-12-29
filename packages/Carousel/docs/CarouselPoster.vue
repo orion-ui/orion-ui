@@ -105,7 +105,7 @@ carouselStep.value = steps.value[0].id;
 	text-align: center;
 	font-size: 0.85rem;
 	font-weight: 600;
-	color: var(--text-default-default);
+	color: var(--o-text-default-default);
 
 	> .orion-input {
 		width: 50%;
@@ -128,3 +128,4 @@ Use the `poster` slot if you want to display a fixed content or a CSS animation 
 
 Utilisez le slot `poster` pour afficher un élément statique ou une animation CSS basée sur l'index de l'élément actif.
 @lang
+

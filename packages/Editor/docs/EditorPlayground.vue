@@ -41,7 +41,7 @@ const state = reactive({
 
 	&__type {
 		padding: 1rem;
-		border: 0.0625rem solid var(--background-neutral-subtle);
+		border: 0.0625rem solid var(--o-background-neutral-subtle);
 		overflow: auto;
 
 		pre {
@@ -53,4 +53,5 @@ const state = reactive({
 </style>
 
 ### Playground
+
 

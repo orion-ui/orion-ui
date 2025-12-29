@@ -33,7 +33,7 @@
 		<div class="col-sm-3">
 			<o-toggle
 				v-model="state.dual"
-				label="dual"/>
+				label="Dual"/>
 		</div>
 		<div class="col-sm-3">
 			<o-toggle

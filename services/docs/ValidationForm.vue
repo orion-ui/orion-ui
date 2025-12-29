@@ -6,7 +6,7 @@
 			Check form
 		</o-button>
 		<o-button
-			color="error"
+			color="danger"
 			outline
 			@click="validator.hideValidationState()">
 			Clear validation
@@ -103,7 +103,7 @@ function checkForm () : void {
 		resultColor.value = 'success';
 		validator.showValidationState();
 	} else {
-		resultColor.value = 'error';
+		resultColor.value = 'danger';
 		validator.showValidationState();
 	}
 }

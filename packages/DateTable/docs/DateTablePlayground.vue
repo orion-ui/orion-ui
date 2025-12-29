@@ -39,7 +39,7 @@
 				Add a period
 			</o-button>
 			<o-button
-				color="error"
+				color="danger"
 				outline
 				@click="reset()">
 				Reset

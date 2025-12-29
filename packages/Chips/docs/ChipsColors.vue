@@ -43,7 +43,7 @@
 				v-for="(color, index) of chipsColors"
 				:key="index"
 				:color="color">
-				dual
+				Dual
 				<template #dual>
 					{{ index }}
 				</template>

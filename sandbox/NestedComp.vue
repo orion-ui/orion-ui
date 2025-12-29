@@ -64,13 +64,13 @@
 				Open nested
 			</o-button>
 			<o-button
-				color="error"
+				color="danger"
 				outline
 				@click="_popable?.close()">
 				Close
 			</o-button>
 			<o-button
-				color="error"
+				color="danger"
 				outline
 				@click="_popable?.close({ flush: true })">
 				Close & flush
@@ -117,7 +117,7 @@
 			v-if="_aside"
 			:to="_aside.slotFooter">
 			<o-button
-				color="error"
+				color="danger"
 				@click="_aside?.close()">
 				close from teleport
 			</o-button>

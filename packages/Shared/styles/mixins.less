@@ -55,7 +55,7 @@
 
 	each(@colors, {
     &--@{value} {
-      background: var(~"--background-@{value}-default");
+      background: var(~"--o-background-@{value}-default");
     }
   });
 }
@@ -66,9 +66,10 @@
 	font-family: var(--font-family);
 	font-size: calc(@size * 0.75);
 	font-weight: bold;
-	color: var(--text-default-inverted);
+	color: var(--o-text-default-inverted);
 }
 
 .color-contrast() {
 	filter: saturate(150%);
 }
+
