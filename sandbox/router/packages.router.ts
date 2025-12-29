@@ -111,11 +111,6 @@ const packagesRoutes = [
 				component: () => import('sandbox/views/packages/InputRangeView.vue'),
 			},
 			{
-				name: 'LabelView',
-				path: 'label',
-				component: () => import('sandbox/views/packages/LabelView.vue'),
-			},
-			{
 				name: 'ListView',
 				path: 'list',
 				component: () => import('sandbox/views/packages/ListView.vue'),

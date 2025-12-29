@@ -9,7 +9,7 @@
 		</o-button>
 
 		<o-button @click="_asideC?.open()">
-			Show aside with header
+			Show aside with poster
 		</o-button>
 
 		<o-aside
@@ -60,10 +60,12 @@
 
 		<o-aside ref="_asideC">
 			<template #poster>
-				<img src="https://picsum.photos/id/1041/200">
+				<img
+					src="https://picsum.photos/id/1041/200"
+					style="display: block; width: 100%; height: 15rem; object-fit: cover;">
 			</template>
 
-			<o-section title="Aside with header">
+			<o-section title="Aside with poster">
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 				Duis sagittis viverra vulputate. Nunc ultricies ante urna, eget.
 				Pellentesque lectus massa, fringilla eu risus id, semper volutpat nunc.

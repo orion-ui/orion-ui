@@ -51,6 +51,10 @@ body {
 	line-height: 1.5;
 	font-weight: var(--o-typography-weight-medium);
 	color: var(--o-text-default-default);
+
+		&:has(.orion-modal--visible), &:has(.orion-aside--visible) {
+		overflow: hidden !important;
+	}
 }
 
 h1,

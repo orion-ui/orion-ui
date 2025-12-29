@@ -282,7 +282,6 @@ declare global {
 
 		namespace Modal {
 			type Options = Popable.Options & {
-				title: Nil<string>;
 				message: Nil<string>;
 				events?: Record<string, (modal: OrionModal, params: any) => void>;
 				actions?: Partial<ActionsParams>[];
