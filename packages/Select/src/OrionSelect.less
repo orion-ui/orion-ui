@@ -2,6 +2,17 @@
 @import '../../Shared/styles/mixins.less';
 
 .orion-select {
+	width: 100%;
+
+	.orion-input__input {
+		flex: 1 1 auto;
+		min-width: 0;
+		align-self: stretch;
+		display: flex;
+		align-items: center;
+		cursor: pointer;
+	}
+
 	&__carret {
 		transition: transform 0.3s;
 

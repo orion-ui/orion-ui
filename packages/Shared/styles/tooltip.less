@@ -105,10 +105,17 @@
 		}
 	}
 
+	&-orion-select,
+	&-orion-select-searchable {
+		.v-popper__inner {
+			background: var(--o-background-neutral-default);
+			color: var(--o-text-default-default);
+		}
+	}
+
 	&-orion-select-searchable {
 		&.v-popper__popper--no-positioning .orion-select__popover {
-			height: calc(90vh - var(--o-space-48)); // dvh support fallback
-			height: calc(90dvh - var(--o-space-48));
+			height: calc(90vh - var(--o-space-48));
 			max-height: none;
 		}
 	}
