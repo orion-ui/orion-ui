@@ -47,7 +47,7 @@ select:-webkit-autofill:focus {
 				content: '*';
 				position: absolute;
 				z-index: 1;
-				color: var(--o-text-error-default);
+				color: var(--o-text-danger-default);
 			}
 		}
 	}
@@ -66,7 +66,7 @@ select:-webkit-autofill:focus {
 		border: 0.0625rem solid var(--o-border-neutral-subtle);
 		background: var(--o-background-neutral-default);
 
-		.orion-checkbox--error & {
+		.orion-checkbox--danger & {
 			border-color: var(--o-border-neutral-default);
 		}
 
@@ -126,14 +126,14 @@ select:-webkit-autofill:focus {
 		}
 	});
 
-	&--error {
+	&--danger {
 		&[class*='--checked'] > [class*='__check-container'] {
-			background: var(--o-background-error-default);
-			border-color: var(--o-border-error-default);
+			background: var(--o-background-danger-default);
+			border-color: var(--o-border-danger-default);
 		}
 
 		&:hover > [class*='__check-container'] {
-			border-color: var(--o-border-error-default);
+			border-color: var(--o-border-danger-default);
 		}
 	}
 

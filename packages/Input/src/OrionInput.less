@@ -21,8 +21,8 @@
 		cursor: not-allowed;
 	}
 
-	&--error {
-		border-color: var(--o-border-error-subtle);
+	&--danger {
+		border-color: var(--o-border-danger-subtle);
 	}
 
 	&--warning {
@@ -36,8 +36,8 @@
 	&:hover:not(.orion-input--focused) {
 		border-color: var(--o-border-neutral-subtle);
 
-		&.orion-input--error {
-			border-color: var(--o-border-error-default);
+		&.orion-input--danger {
+			border-color: var(--o-border-danger-default);
 		}
 
 		&.orion-input--warning {
@@ -56,8 +56,8 @@
 		border-color: transparent;
 		transition: none;
 
-		&.orion-input--error {
-			outline-color: var(--o-border-error-default);
+		&.orion-input--danger {
+			outline-color: var(--o-border-danger-default);
 		}
 
 		&.orion-input--warning {
@@ -112,7 +112,7 @@
 				top: 0;
 				right: 0;
 				z-index: 1;
-				color: var(--o-text-error-default);
+				color: var(--o-text-danger-default);
 			}
 		}
 
@@ -143,8 +143,8 @@
 				color: var(--o-text-primary-default);
 			}
 
-			.orion-input--error & {
-				color: var(--o-text-error-default);
+			.orion-input--danger & {
+				color: var(--o-text-danger-default);
 			}
 
 			.orion-input--warning & {
@@ -196,7 +196,7 @@
 
 	&__error-message {
 		margin-top: 0.25rem;
-		color: var(--o-text-error-default);
+		color: var(--o-text-danger-default);
 		font-size: var(--o-typography-size-sm);
 		line-height: 1.3;
 	}
@@ -241,8 +241,8 @@
 		.flex-align();
 		font-size: 1rem;
 
-		&--error {
-			color: var(--o-text-error-default);
+		&--danger {
+			color: var(--o-text-danger-default);
 		}
 
 		&--warning {

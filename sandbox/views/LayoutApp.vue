@@ -159,7 +159,7 @@ const lang = computed({
 }
 
 .test-append-icon {
-	color: var(--o-text-error-default);
+	color: var(--o-text-danger-default);
 	&:hover {
 		color: var(--o-text-primary-default);
 	}

@@ -53,7 +53,7 @@ class ConfirmService {
 						},
 					},
 					{
-						color: 'error',
+						color: 'danger',
 						label: useLang().CANCEL,
 						outline: true,
 						callback: (M) => {

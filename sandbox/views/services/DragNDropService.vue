@@ -202,7 +202,7 @@ const middle = ref([
 	}
 
 	&--forbidden {
-		background: var(--o-background-error-subtle);
+		background: var(--o-background-danger-subtle);
 	}
 
 	&--over {
@@ -210,7 +210,7 @@ const middle = ref([
 	}
 
 	&--disabled{
-		border: 1px solid var(--o-background-error-default);
+		border: 1px solid var(--o-background-danger-default);
 		opacity: 0.2;
 	}
 }

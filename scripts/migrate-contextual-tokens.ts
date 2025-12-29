@@ -17,7 +17,7 @@ function familyOf (name: string): string {
 	if (name.startsWith('info')) return 'info';
 	if (name.startsWith('success')) return 'success';
 	if (name.startsWith('warning')) return 'warning';
-	if (name.startsWith('danger')) return 'error';
+	if (name.startsWith('danger')) return 'danger';
 	return 'neutral';
 }
 

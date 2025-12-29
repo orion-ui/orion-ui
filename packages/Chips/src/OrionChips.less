@@ -7,11 +7,11 @@
 	display: inline-flex;
 	align-items: center;
 	max-width: 100%;
-	font-weight: 600;
+
 	border-radius: var(--o-radius-round);
 	white-space: nowrap;
 	border: 1px solid transparent;
-	
+
 	&--squared {
 		border-radius: var(--o-radius-md);
 	}
@@ -126,200 +126,209 @@
 		}
 	});
 
-	&--neutral {
-		color: var(--o-text-inverted-default);
-		background: var(--o-background-neutral-subtle);
-		border: 1px solid var(--o-border-neutral-subtle);
+&--neutral {
+	color: var(--o-text-inverted-default);
+	background: var(--o-background-neutral-subtle);
+	border: 1px solid var(--o-border-neutral-subtle);
+}
+
+&--grey-light,
+&--grey-lighter {
+	color: var(--o-text-default-inverted);
+}
+
+&[class*='--grey'] {
+	&.orion-chips--outline {
+		color: var(--o-text-default-default);
+		background: var(--o-background-neutral-minimal);
+		border-color: var(--o-border-neutral-default);
 	}
+}
 
-	&--grey-light,
-	&--grey-lighter {
-		color: var(--o-text-default-inverted);
-	}
+&--xs {
+	@paddingClose: 1.25rem;
+	font-family: var(--typography-caption-default-fontFamily);
+	font-size: var(--typography-caption-default-fontSize);
+	font-style: normal;
+	font-weight: var(--typography-caption-default-fontWeight);
+	line-height: var(--typography-caption-default-lineHeight);
 
-	&[class*='--grey'] {
-		&.orion-chips--outline {
-			color: var(--o-text-default-default);
-			background: var(--o-background-neutral-minimal);
-			border-color: var(--o-border-neutral-default);
-		}
-	}
 
-	&--xs {
-		@paddingClose: 1.25rem;
-		height: 1rem;
-		font-size: var(--o-typography-size-xs);
+	.orion-chips {
 
-		.orion-chips {
-			&__main,
-			&__dual {
-					padding: 0 var(--o-space-4)
-			}
-
-			&__icon {
-				font-size: var(--o-typography-size-sm)
-			}
-
-			&__close {
-				.close(var(--o-typography-size-sm));
-			}
+		&__main,
+		&__dual {
+			padding: 0 var(--o-space-6)
 		}
 
-		&.orion-chips--closable {
-			&:not(.orion-chips--dual) {
-				.orion-chips__main {
-					padding-right: @paddingClose;
-				}
-			}
+		&__icon {
+			font-size: var(--o-typography-size-sm)
+		}
 
-			&.orion-chips--dual {
-				.orion-chips__dual {
-					padding-right: @paddingClose;
-				}
-			}
+		&__close {
+			.close(var(--o-typography-size-sm));
 		}
 	}
 
-	&--sm {
-		@paddingClose: calc(22rem / 16);
-		height: 1.25rem;
-		font-size: 0.75rem;
-
-		.orion-chips {
-			&__main,
-			&__dual {
-				padding: 0 var(--o-space-8)
-			}
-
-			&__icon {
-				font-size: var(--o-typography-size-sm)
-			}
-
-			&__close {
-				.close(var(--o-typography-size-sm));
+	&.orion-chips--closable {
+		&:not(.orion-chips--dual) {
+			.orion-chips__main {
+				padding-right: @paddingClose;
 			}
 		}
 
-		&.orion-chips--closable {
-			&:not(.orion-chips--dual) {
-				.orion-chips__main {
-					padding-right: @paddingClose;
-				}
-			}
-
-			&.orion-chips--dual {
-				.orion-chips__dual {
-					padding-right: @paddingClose;
-				}
-			}
-		}
-	}
-
-	&--md {
-		@paddingClose: calc(24rem / 16);
-		height: 1.5rem;
-		font-size: var(--o-typography-size-sm);
-
-		.orion-chips {
-			&__main {
-				padding: var(--o-space-2) var(--o-space-8)
-			}
-
-			&__dual {
-				padding: 0 var(--o-space-8)
-			}
-
-			&__close {
-				.close(var(--o-typography-size-sm));
-			}
-		}
-
-		&.orion-chips--closable {
-			&:not(.orion-chips--dual) {
-				.orion-chips__main {
-					padding-right: @paddingClose;
-				}
-			}
-
-			&.orion-chips--dual {
-				.orion-chips__dual {
-					padding-right: @paddingClose;
-				}
-			}
-		}
-	}
-
-	&--lg {
-		@paddingClose: calc(25rem / 16);
-		height: calc(28rem / 16);
-		font-size: 0.875rem;
-
-		.orion-chips {
-			&__main,
-			&__dual {
-				padding: var(--o-space-2) var(--o-space-12);
-				gap: var(--o-space-12)
-			}
-
-			&__icon {
-				font-size: var(--o-typography-size-lg)
-			}
-
-			&__close {
-				.close(var(--o-typography-size-lg));
-			}
-		}
-
-		&.orion-chips--closable {
-			&:not(.orion-chips--dual) {
-				.orion-chips__main {
-					padding-right: @paddingClose;
-				}
-			}
-
-			&.orion-chips--dual {
-				.orion-chips__dual {
-					padding-right: @paddingClose;
-				}
-			}
-		}
-	}
-
-	&--xl {
-		@paddingClose: calc(26rem / 16);
-		height: 2rem;
-		font-size: 0.875rem;
-
-		.orion-chips {
-			&__main,
-			&__dual {
-				padding: var(--o-space-2) var(--o-space-16);
-				gap: var(--o-space-16);
-			}
-
-			&__icon {
-				font-size: var(--o-typography-size-h5)
-			}
-
-			&__close {
-				.close(var(--o-typography-size-lg));
-			}
-		}
-
-		&.orion-chips--closable {
-			&:not(.orion-chips--dual) {
-				.orion-chips__main {
-					padding-right: @paddingClose;
-				}
-			}
-
-			&.orion-chips--dual {
-				.orion-chips__dual {
-					padding-right: @paddingClose;
-				}
+		&.orion-chips--dual {
+			.orion-chips__dual {
+				padding-right: @paddingClose;
 			}
 		}
 	}
 }
 
+// &--sm {
+// 	@paddingClose: calc(22rem / 16);
+// 	height: 1.25rem;
+// 	font-size: 0.75rem;
 
+// 	.orion-chips {
+
+// 		&__main,
+// 		&__dual {
+// 			padding: 0 var(--o-space-8)
+// 		}
+
+// 		&__icon {
+// 			font-size: var(--o-typography-size-sm)
+// 		}
+
+// 		&__close {
+// 			.close(var(--o-typography-size-sm));
+// 		}
+// 	}
+
+// 	&.orion-chips--closable {
+// 		&:not(.orion-chips--dual) {
+// 			.orion-chips__main {
+// 				padding-right: @paddingClose;
+// 			}
+// 		}
+
+// 		&.orion-chips--dual {
+// 			.orion-chips__dual {
+// 				padding-right: @paddingClose;
+// 			}
+// 		}
+// 	}
+// }
+
+&--md {
+	@paddingClose: calc(24rem / 16);
+	font-family: var(--typography-label-default-fontFamily);
+	font-size: var(--typography-label-default-fontSize);
+	font-style: normal;
+	font-weight: var(--typography-label-default-fontWeight);
+	line-height: var(--typography-label-default-lineHeight);
+
+	.orion-chips {
+		&__main {
+			padding: var(--o-space-2) var(--o-space-8)
+		}
+
+		&__dual {
+			padding: 0 var(--o-space-8)
+		}
+
+		&__close {
+			.close(var(--o-typography-size-sm));
+		}
+	}
+
+	&.orion-chips--closable {
+		&:not(.orion-chips--dual) {
+			.orion-chips__main {
+				padding-right: @paddingClose;
+			}
+		}
+
+		&.orion-chips--dual {
+			.orion-chips__dual {
+				padding-right: @paddingClose;
+			}
+		}
+	}
+}
+
+// &--lg {
+// 	@paddingClose: calc(25rem / 16);
+// 	height: calc(28rem / 16);
+// 	font-size: 0.875rem;
+
+// 	.orion-chips {
+
+// 		&__main,
+// 		&__dual {
+// 			padding: var(--o-space-2) var(--o-space-12);
+// 			gap: var(--o-space-12)
+// 		}
+
+// 		&__icon {
+// 			font-size: var(--o-typography-size-lg)
+// 		}
+
+// 		&__close {
+// 			.close(var(--o-typography-size-lg));
+// 		}
+// 	}
+
+// 	&.orion-chips--closable {
+// 		&:not(.orion-chips--dual) {
+// 			.orion-chips__main {
+// 				padding-right: @paddingClose;
+// 			}
+// 		}
+
+// 		&.orion-chips--dual {
+// 			.orion-chips__dual {
+// 				padding-right: @paddingClose;
+// 			}
+// 		}
+// 	}
+// }
+
+// &--xl {
+// 	@paddingClose: calc(26rem / 16);
+// 	height: 2rem;
+// 	font-size: 0.875rem;
+
+// 	.orion-chips {
+
+// 		&__main,
+// 		&__dual {
+// 			padding: var(--o-space-2) var(--o-space-16);
+// 			gap: var(--o-space-16);
+// 		}
+
+// 		&__icon {
+// 			font-size: var(--o-typography-size-h5)
+// 		}
+
+// 		&__close {
+// 			.close(var(--o-typography-size-lg));
+// 		}
+// 	}
+
+// 	&.orion-chips--closable {
+// 		&:not(.orion-chips--dual) {
+// 			.orion-chips__main {
+// 				padding-right: @paddingClose;
+// 			}
+// 		}
+
+// 		&.orion-chips--dual {
+// 			.orion-chips__dual {
+// 				padding-right: @paddingClose;
+// 			}
+// 		}
+// 	}
+// }
+}

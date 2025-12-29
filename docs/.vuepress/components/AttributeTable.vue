@@ -57,7 +57,7 @@
 											: 'undefined'
 									}}</span>
 								</code>
-								<o-chips :round="false" color="error" outline v-if="itemHas(item, 'required') && item.required">
+								<o-chips :round="false" color="danger" outline v-if="itemHas(item, 'required') && item.required">
 									Required
 								</o-chips>
 							</div>

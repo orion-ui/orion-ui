@@ -760,7 +760,7 @@ function cb () {
 	margin: 1rem;
 	//width: 10rem;
 	position:relative;
-	background: var(--o-background-error-default);
+	background: var(--o-background-danger-default);
 }
 
 .chip-style {

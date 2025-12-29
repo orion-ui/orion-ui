@@ -1026,7 +1026,7 @@
       ]
     },
     {
-      "name": "orion-checkbox--error",
+      "name": "orion-checkbox--danger",
       "count": 1,
       "files": [
         "packages\\Field\\src\\OrionField.less"
@@ -1327,7 +1327,7 @@
       ]
     },
     {
-      "name": "orion-input--error",
+      "name": "orion-input--danger",
       "count": 1,
       "files": [
         "packages\\Input\\src\\OrionInput.less"

@@ -8,7 +8,7 @@
 					Vérifions ça !
 				</o-button>
 				<o-button
-					color="error"
+					color="danger"
 					outline
 					@click="validator.hideValidationState()">
 					Effaçons ça !

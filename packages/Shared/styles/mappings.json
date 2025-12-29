@@ -11,7 +11,7 @@
 		"--info-dark": "--o-background-info-moderate",
 		"--info-alt": "--o-background-info-alt",
 
-		"--error": "--o-background-error-default",
+		"--danger": "--o-background-danger-default",
 		"--warning": "--o-background-warning-default",
 		"--success": "--o-background-success-default",
 
@@ -28,10 +28,10 @@
 		"--rgb-info": "--o-background-info-default",
 		"--rgb-info-light": "--o-background-info-minimal",
 		"--rgb-info-dark": "--o-background-info-subtle",
-		"--rgb-danger": "--o-background-error-default",
-		"--rgb-danger-alt": "--o-background-error-alt",
-		"--rgb-danger-dark": "--o-background-error-subtle",
-		"--rgb-danger-light": "--o-background-error-minimal",
+		"--rgb-danger": "--o-background-danger-default",
+		"--rgb-danger-alt": "--o-background-danger-alt",
+		"--rgb-danger-dark": "--o-background-danger-subtle",
+		"--rgb-danger-light": "--o-background-danger-minimal",
 		"--rgb-warning": "--o-background-warning-default",
 		"--rgb-warning-alt": "--o-background-warning-alt",
 		"--rgb-warning-dark": "--o-background-warning-subtle",

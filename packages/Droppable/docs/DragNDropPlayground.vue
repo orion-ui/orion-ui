@@ -156,7 +156,7 @@ const middle = ref([
 	&--forbidden {
 		background: color-mix(
 			in srgb,
-			var(--o-background-error-default) 15%,
+			var(--o-background-danger-default) 15%,
 			transparent 85%
 		);
 	}
@@ -170,7 +170,7 @@ const middle = ref([
 	}
 
 	&--disabled {
-		border: 1px solid var(--o-background-error-default);
+		border: 1px solid var(--o-background-danger-default);
 		opacity: 0.2;
 	}
 }
