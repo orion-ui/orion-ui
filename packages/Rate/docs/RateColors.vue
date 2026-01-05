@@ -22,13 +22,13 @@
 import { colors } from 'lib';
 
 const icons = [
-	'message_circle',
-	'heart_fill',
-	'home_heart-1',
+	'message',
+	'favorite',
+	'home',
 	'check',
-	'mention',
+	'alternate_email',
 	'filter',
-	'dot_05_xl',
+	'fiber_manual_record',
 	'cloud',
 ] as Orion.Icon[];
 </script>

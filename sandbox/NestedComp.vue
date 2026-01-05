@@ -102,7 +102,7 @@
 			:to="_aside.slotActions">
 			<o-button
 				color="warning"
-				prefix-icon="close_md"
+				prefix-icon="close"
 				@click="_aside?.close()"/>
 			<o-button
 				color="info"

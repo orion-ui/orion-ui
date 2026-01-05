@@ -20,7 +20,7 @@
 		</o-timeline-pane>
 		<o-timeline-pane
 			name="pane2"
-			icon="image_01"
+			icon="image"
 			:marker="4"
 			marker-color="info">
 			<template #before>

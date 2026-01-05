@@ -48,11 +48,11 @@
 						:outline="state.style === 'outline'"
 						:nude="state.style === 'nude'"
 						:prefix-icon="state.prefixIcon ? 'alarm' : undefined"
-						:suffix-icon="state.suffixIcon ? 'bulb' : undefined">
+						:suffix-icon="state.suffixIcon ? 'lightbulb' : undefined">
 						{{ color }}
 					</o-button>
 
-					<o-button prefix-icon="add_plus"/>
+					<o-button prefix-icon="add"/>
 				</div>
 			</o-card>
 		</o-section>

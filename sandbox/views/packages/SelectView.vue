@@ -568,7 +568,7 @@
 								multiple
 								:options="data.fieldSelectObjectMultiple.options"
 								:favorites-options="data.fieldSelectObjectMultiple.options.slice(3, 5)"
-								:favorite-icon="'add_column'"
+								:favorite-icon="'view_column'"
 								show-favorite-icon
 								prefix-icon="camera"/>
 						</div>

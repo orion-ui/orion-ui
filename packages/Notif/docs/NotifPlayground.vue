@@ -65,7 +65,7 @@ const state = reactive({
 	title: 'Lorem ipsum',
 	message: `Cras mattis consectetur purus sit amet fermentum.`,
 	duration: 5,
-	icon: 'heart_fill' as Orion.Icon,
+	icon: 'favorite' as Orion.Icon,
 });
 
 const icons = computed(() => {

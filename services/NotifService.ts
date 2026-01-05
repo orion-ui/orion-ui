@@ -61,17 +61,17 @@ const useNotif = {
 		color: 'primary',
 	}).createVNode(),
 	success: (options: Partial<Orion.Notif.Options> | string, message?: string) => new NotifService({
-		icon: 'check_big',
+		icon: 'check_circle',
 		...NotifService.sanitizeOptions(options, message),
 		color: 'success',
 	}).createVNode(),
 	warning: (options: Partial<Orion.Notif.Options> | string, message?: string) => new NotifService({
-		icon: 'triangle_warning',
+		icon: 'warning_amber',
 		...NotifService.sanitizeOptions(options, message),
 		color: 'warning',
 	}).createVNode(),
 	danger: (options: Partial<Orion.Notif.Options> | string, message?: string) => new NotifService({
-		icon: 'stop_sign',
+		icon: 'error',
 		...NotifService.sanitizeOptions(options, message),
 		color: 'danger',
 	}).createVNode(),

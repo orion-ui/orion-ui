@@ -9,7 +9,7 @@
 					tag="o-sticker"
 				>
 					<div class="draggable-content">
-						<o-icon icon="docs" />
+						<o-icon icon="article" />
 						<strong>{{ item.title }}</strong>
 					</div>
 				</o-draggable>
@@ -29,7 +29,7 @@
 					tag="o-sticker"
 				>
 					<div class="draggable-content">
-						<o-icon icon="draft" />
+						<o-icon icon="drafts" />
 						<strong>{{ item.title }}</strong>
 					</div>
 				</o-draggable>

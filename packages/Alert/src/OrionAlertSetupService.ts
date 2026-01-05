@@ -37,7 +37,7 @@ export default class OrionAlertSetupService extends SharedSetupService {
 			case 'warning':
 				return 'warning';
 			case 'danger':
-				return 'danger';
+				return 'error';
 			default:
 				return 'info';
 			}

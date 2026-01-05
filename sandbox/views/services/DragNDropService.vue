@@ -31,18 +31,18 @@
 						<strong>{{ item.title }} </strong>
 						<o-icon
 							v-tooltip="'tututu'"
-							icon="chart_line"/>
+							icon="show_chart"/>
 						<o-icon font-icon="layout-module"/>
 						<div class="order-pipeline-candidate-sticker__actions">
 							<o-icon
 								v-tooltip="`Voir le profil`"
 								ripple="info"
-								icon="calendar"
+							icon="calendar_today"
 								@mousedown.stop/>
 							<o-icon
 								v-tooltip="`Discussion`"
 								ripple="info"
-								icon="calendar"
+							icon="calendar_today"
 								@mousedown.stop/>
 						</div>
 					</o-draggable>

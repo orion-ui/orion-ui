@@ -4,7 +4,7 @@
 			<o-button
 				color="info"
 				nude
-				@click="useNotif.info({ icon: 'bulb', title: 'Lorem ipsum' })">
+				@click="useNotif.info({ icon: 'lightbulb', title: 'Lorem ipsum' })">
 				Show notif with custom icon
 			</o-button>
 			<o-button

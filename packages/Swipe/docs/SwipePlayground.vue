@@ -4,7 +4,7 @@
 			<o-button
 				v-tooltip="`Add an action`"
 				color="success"
-				prefix-icon="add_plus"
+				prefix-icon="add"
 				@click="state.display = true"/>
 			<o-button
 				color="info"
@@ -13,7 +13,7 @@
 				v-if="state.display"
 				v-tooltip="`Remove an action`"
 				color="danger"
-				prefix-icon="remove_minus"
+				prefix-icon="remove"
 				@click="removeButton()"/>
 		</template>
 
