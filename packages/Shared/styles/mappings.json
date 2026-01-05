@@ -86,12 +86,12 @@
 
 		"--font-family": "--font-family",
 		"--font-weight-default": "--o-typography-weight-regular",
-		"--font-weight-title": "--o-typography-weight-semibold",
+		"--font-weight-title": "--o-typography-label-bold-font-weight",
 		"--font-weight-page-title": "--o-typography-weight-bold",
 		"--font-weight-page-subtitle": "--o-typography-weight-medium",
-		"--font-weight-section-title": "--o-typography-weight-semibold",
+		"--font-weight-section-title": "--o-typography-label-bold-font-weight",
 		"--font-weight-section-subtitle": "--o-typography-weight-medium",
-		"--o-size-default": "--o-typography-size-base",
+		"--o-size-default": "--o-typography-body-default-font-size",
 
 		"--base": "--o-background-primary-default",
 		"--color": "--o-text-default-default",

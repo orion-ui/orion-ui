@@ -479,16 +479,16 @@ export default class OrionDateTableSetupService extends SharedSetupService {
 
 			if ((dayValue >= this.rangeStartValue && dayValue === dayHoverValue)
 				||(dayValue === this.rangeStartValue && dayValue >= dayHoverValue)) {
-				cssClass.push('in-range--o-border-right-radius');
+				cssClass.push('in-range--border-right-radius');
 			}
 			if ((dayValue <= this.rangeStartValue && dayValue === dayHoverValue)
 				||(dayValue === this.rangeStartValue && dayValue <= dayHoverValue)) {
-				cssClass.push('in-range--o-border-left-radius');
+				cssClass.push('in-range--border-left-radius');
 			}
 		} else if (this.rangeEndValue) {
 			if (dayValue >= this.rangeStartValue && dayValue <= this.rangeEndValue) cssClass.push('in-range');
-			if (dayValue === this.rangeStartValue) cssClass.push('in-range--o-border-left-radius');
-			if (dayValue === this.rangeEndValue) cssClass.push('in-range--o-border-right-radius');
+			if (dayValue === this.rangeStartValue) cssClass.push('in-range--border-left-radius');
+			if (dayValue === this.rangeEndValue) cssClass.push('in-range--border-right-radius');
 		}
 
 

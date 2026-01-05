@@ -46,8 +46,7 @@
 
 <script setup lang="ts">
 import { computed, PropType, ref } from 'vue';
-import { getUid } from 'lib';
-import { colors, greys } from '@/lib';
+import { getUid, colors, greys } from '@/lib';
 
 const props = defineProps({
 	modelValue: {
@@ -71,7 +70,7 @@ const emit = defineEmits<{
 const inputEl = ref<HTMLElement | null>(null);
 const isFocus = ref(false);
 const labelId = `color-selection-label-${getUid()}`;
-const hasValue = computed(() => props.modelValue !== undefined && props.modelValue !== null && props.modelValue !== '');
+const hasValue = computed(() => props.modelValue !== undefined && props.modelValue !== null);
 const labelIsFloating = computed(() => isFocus.value || hasValue.value);
 
 function handleFocus () {

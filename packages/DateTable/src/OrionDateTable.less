@@ -22,11 +22,11 @@
 		right: -0.125rem;
 		z-index: 10;
 		.circle(0.5rem);
-		background-color: var(--danger);
-		color: var(--white);
+		background-color: var(--o-background-danger-default);
+		color: var(--o-text-default-inverted);
 
 		each(@colors, {
-			@color: ~"--@{value}";
+			@color: ~"--o-text-@{value}-default";
       &--@{value} {
           background: var(@color);
       
@@ -286,12 +286,12 @@
 			&.in-range {
 				background: var(--o-background-neutral-minimal);
 
-				&--o-border-left-radius {
+				&--border-left-radius {
 					border-top-left-radius: 1.5rem;
 					border-bottom-left-radius: 1.5rem;
 				}
 
-				&--o-border-right-radius {
+				&--border-right-radius {
 					border-top-right-radius: 1.5rem;
 					border-bottom-right-radius: 1.5rem;
 				}

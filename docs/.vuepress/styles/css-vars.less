@@ -1,64 +1,64 @@
 :root {
 	// brand colors
-	--c-brand: var(--brand);
-	--c-brand-light: var(--brand-light);
+	--c-brand: var(--o-background-primary-default);
+	--c-brand-light: var(--o-background-primary-minimal);
 
 	// background colors
 	--c-bg: var(--o-background-neutral-default);
-	--c-bg-light: var(--o-background-brand-subtle);
+	--c-bg-light: var(--o-background-primary-subtle);
 	--c-bg-lighter: var(--o-background-neutral-minimal);
-	--c-bg-navbar: var(--c-bg);
-	--c-bg-sidebar: var(--c-bg);
-	--c-bg-arrow: #cccccc;
+	--c-bg-navbar: var(--o-background-neutral-default);
+	--c-bg-sidebar: var(--o-background-neutral-default);
+	--c-bg-arrow: var(--o-background-neutral-moderate);
 
 	// text colors
-	--c-text: #2c3e50;
-	--c-text-accent: var(--c-brand);
-	--c-text-light: #3a5169;
-	--c-text-lighter: #4e6e8e;
-	--c-text-lightest: #6a8bad;
-	--c-text-quote: #999999;
+	--c-text: var(--o-text-default-default);
+	--c-text-accent: var(--o-text-primary-default);
+	--c-text-light: var(--o-text-default-moderate);
+	--c-text-lighter: var(--o-text-default-subtle);
+	--c-text-lightest: var(--o-text-default-minimal);
+	--c-text-quote: var(--o-text-default-minimal);
 
 	// border colors
-	--c-border: #eaecef;
-	--c-border-dark: #dfe2e5;
+	--c-border: var(--o-border-neutral-default);
+	--c-border-dark: var(--o-border-neutral-subtle);
 
 	// custom container colors
-	--c-tip: #42b983;
-	--c-tip-bg: var(--c-bg-light);
-	--c-tip-title: var(--c-text);
-	--c-tip-text: var(--c-text);
-	--c-tip-text-accent: var(--c-text-accent);
-	--c-warning: #e7c000;
-	--c-warning-bg: #fffae3;
-	--c-warning-title: #ad9000;
-	--c-warning-text: #746000;
-	--c-warning-text-accent: var(--c-text);
-	--c-danger: #cc0000;
-	--c-danger-bg: #ffe0e0;
-	--c-danger-title: #990000;
-	--c-danger-text: #660000;
-	--c-danger-text-accent: var(--c-text);
-	--c-details-bg: #eeeeee;
+	--c-tip: var(--o-border-success-default);
+	--c-tip-bg: var(--o-background-success-minimal);
+	--c-tip-title: var(--o-text-success-default);
+	--c-tip-text: var(--o-text-default-default);
+	--c-tip-text-accent: var(--o-text-success-default);
+	--c-warning: var(--o-border-warning-default);
+	--c-warning-bg: var(--o-background-warning-minimal);
+	--c-warning-title: var(--o-text-warning-default);
+	--c-warning-text: var(--o-text-warning-subtle);
+	--c-warning-text-accent: var(--o-text-warning-default);
+	--c-danger: var(--o-border-danger-default);
+	--c-danger-bg: var(--o-background-danger-minimal);
+	--c-danger-title: var(--o-text-danger-default);
+	--c-danger-text: var(--o-text-danger-subtle);
+	--c-danger-text-accent: var(--o-text-danger-default);
+	--c-details-bg: var(--o-background-neutral-minimal);
 
 	// badge component colors
-	--c-badge-tip: var(--c-tip);
-	--c-badge-warning: var(--c-warning);
-	--c-badge-danger: var(--c-danger);
+	--c-badge-tip: var(--o-background-success-default);
+	--c-badge-warning: var(--o-background-warning-default);
+	--c-badge-danger: var(--o-background-danger-default);
 
 	// transition vars
 	--t-color: 0.3s ease;
 	--t-transform: 0.3s ease;
 
 	// code blocks vars
-	--code-bg-color: #21202f;
-	--code-hl-bg-color: rgba(0, 0, 0, 0.9);
-	--code-ln-color: #a8a4da;
-	--code-ln-wrapper-width: 3.5rem;
+	--code-bg-color: var(--o-background-inverted-default);
+	--code-hl-bg-color: var(--o-background-inverted-active);
+	--code-ln-color: var(--o-text-default-minimal);
+	--code-ln-wrapper-width: calc(var(--o-space-48) + var(--o-space-8));
 
 	// font vars
-	--font-family: 'Source Sans Pro', sans-serif;
-	--font-family-code: 'Fira Code', monospace;
+	--font-family: var(--o-typography-font-base);
+	--font-family-code: var(--o-typography-font-base);
 
 	// layout vars
 	--navbar-height: 4.5rem;
@@ -72,108 +72,282 @@
 
 // plugin-back-to-top
 .back-to-top {
-	--back-to-top-color: var(--c-brand);
-	--back-to-top-color-hover: var(--c-brand-light);
+	--back-to-top-color: var(--o-text-primary-default);
+	--back-to-top-color-hover: var(--o-text-primary-hover);
 }
 
 // plugin-docsearch
 .DocSearch {
-	--docsearch-primary-color: var(--c-brand);
-	--docsearch-text-color: var(--c-text);
-	--docsearch-highlight-color: var(--c-brand);
-	--docsearch-muted-color: var(--c-text-quote);
-	--docsearch-container-background: rgba(9, 10, 17, 0.8);
-	--docsearch-modal-background: var(--c-bg-light);
-	--docsearch-searchbox-background: var(--c-bg-lighter);
-	--docsearch-searchbox-focus-background: var(--c-bg);
-	--docsearch-searchbox-shadow: inset 0 0 0 0.125rem var(--c-brand);
-	--docsearch-hit-color: var(--c-text-light);
-	--docsearch-hit-active-color: var(--c-bg);
-	--docsearch-hit-background: var(--c-bg);
-	--docsearch-hit-shadow: 0 1px 3px 0 var(--c-border-dark);
-	--docsearch-footer-background: var(--c-bg);
+	--docsearch-primary-color: var(--o-text-primary-default);
+	--docsearch-text-color: var(--o-text-default-default);
+	--docsearch-highlight-color: var(--o-text-primary-default);
+	--docsearch-muted-color: var(--o-text-default-minimal);
+	--docsearch-container-background: color-mix(
+		in srgb,
+		var(--o-background-inverted-default) 80%,
+		transparent
+	);
+	--docsearch-modal-background: var(--o-background-neutral-default);
+	--docsearch-searchbox-background: var(--o-background-neutral-minimal);
+	--docsearch-searchbox-focus-background: var(--o-background-neutral-default);
+	--docsearch-searchbox-shadow: inset 0 0 0 0.125rem var(--o-border-primary-default);
+	--docsearch-hit-color: var(--o-text-default-subtle);
+	--docsearch-hit-active-color: var(--o-text-default-default);
+	--docsearch-hit-background: var(--o-background-neutral-default);
+	--docsearch-hit-shadow: var(--o-shadow-sm);
+	--docsearch-footer-background: var(--o-background-neutral-default);
 }
 
 // plugin-external-link-icon
 .external-link-icon {
-	--external-link-icon-color: var(--grey-dark);
+	--external-link-icon-color: var(--o-background-neutral-highlight);
 }
 
 // plugin-medium-zoom
 .medium-zoom-overlay {
-	--medium-zoom-bg-color: var(--c-bg);
+	--medium-zoom-bg-color: color-mix(
+		in srgb,
+		var(--o-background-inverted-default) 80%,
+		transparent
+	);
 }
 
 // plugin-nprogress
 #nprogress {
-	--nprogress-color: var(--c-brand);
+	--nprogress-color: var(--o-background-primary-default);
 }
 
 // plugin-pwa-popup
 .pwa-popup {
-	--pwa-popup-text-color: var(--c-text);
-	--pwa-popup-bg-color: var(--c-bg);
-	--pwa-popup-border-color: var(--c-brand);
-	--pwa-popup-shadow: 0 4px 16px var(--c-brand);
-	--pwa-popup-btn-text-color: var(--c-bg);
-	--pwa-popup-btn-bg-color: var(--c-brand);
-	--pwa-popup-btn-hover-bg-color: var(--c-brand-light);
+	--pwa-popup-text-color: var(--o-text-default-default);
+	--pwa-popup-bg-color: var(--o-background-neutral-default);
+	--pwa-popup-border-color: var(--o-border-primary-default);
+	--pwa-popup-shadow: var(--o-shadow-md);
+	--pwa-popup-btn-text-color: var(--o-text-default-inverted);
+	--pwa-popup-btn-bg-color: var(--o-background-primary-default);
+	--pwa-popup-btn-hover-bg-color: var(--o-background-primary-hover);
 }
 
 // plugin-search
 .search-box {
-	--search-bg-color: var(--c-bg);
-	--search-accent-color: var(--c-brand);
-	--search-text-color: var(--c-text);
-	--search-border-color: var(--c-border);
+	--search-bg-color: var(--o-background-neutral-default);
+	--search-accent-color: var(--o-text-primary-default);
+	--search-text-color: var(--o-text-default-default);
+	--search-border-color: var(--o-border-neutral-default);
 
-	--search-item-text-color: var(--c-text-lighter);
-	--search-item-focus-bg-color: var(--c-bg-light);
+	--search-item-text-color: var(--o-text-default-subtle);
+	--search-item-focus-bg-color: var(--o-background-primary-subtle);
 }
 
 html.dark {
-	// brand colors
-	--c-brand: var(--brand);
-	--c-brand-light: var(--brand-light);
-
-	// background colors
-	--c-bg: #22272e;
-	--c-bg-light: var(--grey-lighter);
-	--c-bg-lighter: var(--grey-lighter);
-
-	// text colors
-	--c-text: #adbac7;
-	--c-text-light: #96a7b7;
-	--c-text-lighter: #8b9eb0;
-	--c-text-lightest: #8094a8;
-
-	// border colors
-	--c-border: #3e4c5a;
-	--c-border-dark: #34404c;
-
-	// custom container colors
-	--c-tip: #318a62;
-	--c-warning: #ceab00;
-	--c-warning-bg: #7e755b;
-	--c-warning-title: #ceac03;
-	--c-warning-text: #362e00;
-	--c-danger: #940000;
-	--c-danger-bg: #806161;
-	--c-danger-title: #610000;
-	--c-danger-text: #3a0000;
-	--c-details-bg: #323843;
-
 	// code blocks vars
-	--code-hl-bg-color: #363b46;
+	--code-bg-color: var(--o-background-neutral-minimal);
+	--code-hl-bg-color: var(--o-background-neutral-default);
+	--code-ln-color: var(--o-text-default-moderate);
 }
 
 // plugin-docsearch
 html.dark .DocSearch {
-	--docsearch-logo-color: var(--c-text);
-	--docsearch-modal-shadow: inset 1px 1px 0 0 #2c2e40, 0 3px 8px 0 #000309;
-	--docsearch-key-shadow: inset 0 -2px 0 0 #282d55, inset 0 0 1px 1px #51577d,
-		0 2px 2px 0 rgba(3, 4, 9, 0.3);
-	--docsearch-key-gradient: linear-gradient(-225deg, #444950, #1c1e21);
-	--docsearch-footer-shadow: inset 0 1px 0 0 rgba(73, 76, 106, 0.5),
-		0 -4px 8px 0 rgba(0, 0, 0, 0.2);
+	--docsearch-container-background: color-mix(
+		in srgb,
+		var(--o-background-neutral-minimal) 80%,
+		transparent
+	);
+	--docsearch-logo-color: var(--o-text-default-default);
+	--docsearch-modal-shadow: var(--o-shadow-lg);
+	--docsearch-key-shadow: var(--o-shadow-sm);
+	--docsearch-key-gradient: linear-gradient(
+		-225deg,
+		var(--o-gradient-primary_from),
+		var(--o-gradient-primary_to)
+	);
+	--docsearch-footer-shadow: var(--o-shadow-sm);
 }
+
+html.dark .medium-zoom-overlay {
+	--medium-zoom-bg-color: color-mix(
+		in srgb,
+		var(--o-background-neutral-minimal) 80%,
+		transparent
+	);
+}
+
+// :root {
+// 	// brand colors
+// 	--c-brand: var(--brand);
+// 	--c-brand-light: var(--brand-light);
+
+// 	// background colors
+// 	--c-bg: var(--o-background-neutral-default);
+// 	--c-bg-light: var(--o-background-brand-subtle);
+// 	--c-bg-lighter: var(--o-background-neutral-minimal);
+// 	--c-bg-navbar: var(--c-bg);
+// 	--c-bg-sidebar: var(--c-bg);
+// 	--c-bg-arrow: #cccccc;
+
+// 	// text colors
+// 	--c-text: #2c3e50;
+// 	--c-text-accent: var(--c-brand);
+// 	--c-text-light: #3a5169;
+// 	--c-text-lighter: #4e6e8e;
+// 	--c-text-lightest: #6a8bad;
+// 	--c-text-quote: #999999;
+
+// 	// border colors
+// 	--c-border: #eaecef;
+// 	--c-border-dark: #dfe2e5;
+
+// 	// custom container colors
+// 	--c-tip: #42b983;
+// 	--c-tip-bg: var(--c-bg-light);
+// 	--c-tip-title: var(--c-text);
+// 	--c-tip-text: var(--c-text);
+// 	--c-tip-text-accent: var(--c-text-accent);
+// 	--c-warning: #e7c000;
+// 	--c-warning-bg: #fffae3;
+// 	--c-warning-title: #ad9000;
+// 	--c-warning-text: #746000;
+// 	--c-warning-text-accent: var(--c-text);
+// 	--c-danger: #cc0000;
+// 	--c-danger-bg: #ffe0e0;
+// 	--c-danger-title: #990000;
+// 	--c-danger-text: #660000;
+// 	--c-danger-text-accent: var(--c-text);
+// 	--c-details-bg: #eeeeee;
+
+// 	// badge component colors
+// 	--c-badge-tip: var(--c-tip);
+// 	--c-badge-warning: var(--c-warning);
+// 	--c-badge-danger: var(--c-danger);
+
+// 	// transition vars
+// 	--t-color: 0.3s ease;
+// 	--t-transform: 0.3s ease;
+
+// 	// code blocks vars
+// 	--code-bg-color: #21202f;
+// 	--code-hl-bg-color: rgba(0, 0, 0, 0.9);
+// 	--code-ln-color: #a8a4da;
+// 	--code-ln-wrapper-width: 3.5rem;
+
+// 	// font vars
+// 	--font-family: 'Source Sans Pro', sans-serif;
+// 	--font-family-code: 'Fira Code', monospace;
+
+// 	// layout vars
+// 	--navbar-height: 4.5rem;
+// 	--navbar-padding-v: 0.7rem;
+// 	--navbar-padding-h: 1.5rem;
+// 	--sidebar-width: 16rem;
+// 	--sidebar-width-mobile: var(--sidebar-width);
+// 	--content-width: 50rem;
+// 	--homepage-width: 60rem;
+// }
+
+// // plugin-back-to-top
+// .back-to-top {
+// 	--back-to-top-color: var(--c-brand);
+// 	--back-to-top-color-hover: var(--c-brand-light);
+// }
+
+// // plugin-docsearch
+// .DocSearch {
+// 	--docsearch-primary-color: var(--c-brand);
+// 	--docsearch-text-color: var(--c-text);
+// 	--docsearch-highlight-color: var(--c-brand);
+// 	--docsearch-muted-color: var(--c-text-quote);
+// 	--docsearch-container-background: rgba(9, 10, 17, 0.8);
+// 	--docsearch-modal-background: var(--c-bg-light);
+// 	--docsearch-searchbox-background: var(--c-bg-lighter);
+// 	--docsearch-searchbox-focus-background: var(--c-bg);
+// 	--docsearch-searchbox-shadow: inset 0 0 0 0.125rem var(--c-brand);
+// 	--docsearch-hit-color: var(--c-text-light);
+// 	--docsearch-hit-active-color: var(--c-bg);
+// 	--docsearch-hit-background: var(--c-bg);
+// 	--docsearch-hit-shadow: 0 1px 3px 0 var(--c-border-dark);
+// 	--docsearch-footer-background: var(--c-bg);
+// }
+
+// // plugin-external-link-icon
+// .external-link-icon {
+// 	--external-link-icon-color: var(--grey-dark);
+// }
+
+// // plugin-medium-zoom
+// .medium-zoom-overlay {
+// 	--medium-zoom-bg-color: var(--c-bg);
+// }
+
+// // plugin-nprogress
+// #nprogress {
+// 	--nprogress-color: var(--c-brand);
+// }
+
+// // plugin-pwa-popup
+// .pwa-popup {
+// 	--pwa-popup-text-color: var(--c-text);
+// 	--pwa-popup-bg-color: var(--c-bg);
+// 	--pwa-popup-border-color: var(--c-brand);
+// 	--pwa-popup-shadow: 0 4px 16px var(--c-brand);
+// 	--pwa-popup-btn-text-color: var(--c-bg);
+// 	--pwa-popup-btn-bg-color: var(--c-brand);
+// 	--pwa-popup-btn-hover-bg-color: var(--c-brand-light);
+// }
+
+// // plugin-search
+// .search-box {
+// 	--search-bg-color: var(--c-bg);
+// 	--search-accent-color: var(--c-brand);
+// 	--search-text-color: var(--c-text);
+// 	--search-border-color: var(--c-border);
+
+// 	--search-item-text-color: var(--c-text-lighter);
+// 	--search-item-focus-bg-color: var(--c-bg-light);
+// }
+
+// html.dark {
+// 	// brand colors
+// 	--c-brand: var(--brand);
+// 	--c-brand-light: var(--brand-light);
+
+// 	// background colors
+// 	--c-bg: #22272e;
+// 	--c-bg-light: var(--grey-lighter);
+// 	--c-bg-lighter: var(--grey-lighter);
+
+// 	// text colors
+// 	--c-text: #adbac7;
+// 	--c-text-light: #96a7b7;
+// 	--c-text-lighter: #8b9eb0;
+// 	--c-text-lightest: #8094a8;
+
+// 	// border colors
+// 	--c-border: #3e4c5a;
+// 	--c-border-dark: #34404c;
+
+// 	// custom container colors
+// 	--c-tip: #318a62;
+// 	--c-warning: #ceab00;
+// 	--c-warning-bg: #7e755b;
+// 	--c-warning-title: #ceac03;
+// 	--c-warning-text: #362e00;
+// 	--c-danger: #940000;
+// 	--c-danger-bg: #806161;
+// 	--c-danger-title: #610000;
+// 	--c-danger-text: #3a0000;
+// 	--c-details-bg: #323843;
+
+// 	// code blocks vars
+// 	--code-hl-bg-color: #363b46;
+// }
+
+// // plugin-docsearch
+// html.dark .DocSearch {
+// 	--docsearch-logo-color: var(--c-text);
+// 	--docsearch-modal-shadow: inset 1px 1px 0 0 #2c2e40, 0 3px 8px 0 #000309;
+// 	--docsearch-key-shadow: inset 0 -2px 0 0 #282d55, inset 0 0 1px 1px #51577d,
+// 		0 2px 2px 0 rgba(3, 4, 9, 0.3);
+// 	--docsearch-key-gradient: linear-gradient(-225deg, #444950, #1c1e21);
+// 	--docsearch-footer-shadow: inset 0 1px 0 0 rgba(73, 76, 106, 0.5),
+// 		0 -4px 8px 0 rgba(0, 0, 0, 0.2);
+// }

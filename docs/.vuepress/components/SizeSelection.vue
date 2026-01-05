@@ -36,8 +36,7 @@
 
 <script setup lang="ts">
 import { computed, PropType, ref } from 'vue';
-import { getUid } from 'lib';
-import { sizes } from '@/lib';
+import { getUid, sizes } from '@/lib';
 
 const props = defineProps({
 	modelValue: {
@@ -60,7 +59,7 @@ const sizeOptions = props.options ?? sizes;
 const inputEl = ref<HTMLElement | null>(null);
 const isFocus = ref(false);
 const labelId = `size-selection-label-${getUid()}`;
-const hasValue = computed(() => props.modelValue !== undefined && props.modelValue !== null && props.modelValue !== '');
+const hasValue = computed(() => props.modelValue !== undefined && props.modelValue !== null);
 const labelIsFloating = computed(() => isFocus.value || hasValue.value);
 
 function handleFocus () {
