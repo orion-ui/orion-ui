@@ -1,40 +1,48 @@
 @import '../../Shared/styles/variables.less';
 @import '../../Shared/styles/mixins.less';
 
-@timerSize: 20px;
+@timerSize: 2rem;
 
 .orion-notif {
 	position: fixed;
 	z-index: @zIndexOrionNotif;
 	bottom: 2rem;
 	right: 2rem;
-	width: 20rem;
-	min-height: 4rem;
+	width: 23.75rem;
+	min-height: 3.5rem;
+	max-height: 8.875rem;
 	display: flex;
-	align-items: center;
 	background: var(--o-background-neutral-default);
 	border-radius: var(--o-radius-md);
-	padding: var(--o-space-16) var(--o-space-48) var(--o-space-16)
-		var(--o-space-48);
-	font-size: 0.75rem;
+	padding: var(--o-space-16);
+	font-size: var(--o-typography-label-default-font-size);
 	color: var(--o-text-default-default);
-	border-left: calc(3rem / 16) solid var(--o-background-neutral-moderate);
-	box-shadow:
-		0 0.5rem 0.5rem fade(black, 8),
-		0 1rem 1rem fade(black, 8),
-		0 2rem 2rem fade(black, 8),
-		0 3rem 3rem fade(black, 8),
-		0 4rem 4rem fade(black, 8);
-	backface-visibility: hidden;
+	border: 1px solid var(--o-border-neutral-default);
+	box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.03) ;
+	backface-visibility: hidden; 
+	gap: var(--o-space-16);
+
+	&__header {
+		position: relative;
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--o-space-4);
+	}
 
 	&__content {
-		flex: 1 0 0%;
+		display: flex;
+		width: 100%;
+		flex-direction: column;
+		gap: var(--o-space-4);
+		justify-content: center;
 	}
 
 	&__title {
 		margin: 0;
-		padding: var(--o-space-8) 0;
 		color: var(--o-text-default-default);
+		line-height: 1.4295;
 	}
 
 	&__message {
@@ -42,18 +50,26 @@
 	}
 
 	&__icon {
-		font-size: 1.5rem;
-		margin-right: 1.25rem;
+		.square(1.25rem);
+		.flex-align();
+		position: relative;
+		margin-top: 0.0625rem;
+		color: var(--o-text-default-subtle);
+	
+		&.orion-icon {
+			font-size: var(--o-typography-heading-h5-font-size);
+		}
 	}
 
 	&__timer {
 		.circle(@timerSize);
 		.flex-align();
 		position: absolute;
-		top: 0.75rem;
-		right: 0.5rem;
-		font-size: 0.75rem;
-		color: var(--o-text-default-moderate);
+		top: -0.5rem;
+		right: 0rem;
+		font-size: var(--o-typography-body-default-font-size);
+		font-weight: var(--o-typography-body-default-font-weight);
+		color: var(--o-text-default-default);
 		cursor: pointer;
 
 		&-circle {
@@ -62,7 +78,7 @@
 			position: absolute;
 			top: 0;
 			left: 0;
-			border: calc(1rem / 16) solid var(--o-background-neutral-moderate);
+			border: 1px solid var(--o-border-neutral-default);
 			border-right-color: transparent !important;
 			border-left-color: transparent !important;
 			border-bottom-color: transparent !important;
@@ -79,7 +95,7 @@
 				border-color: var(--o-border-warning-default);
 			}
 
-			.orion-notif--danger & {
+			.orion-notif--error & {
 				border-color: var(--o-border-danger-default);
 			}
 		}
@@ -115,65 +131,27 @@
 				background-color: rgba(var(--o-background-danger-default), 0.075);
 			}
 		}
-
-		.orion-notif--info & {
-			border-color: var(--o-border-info-default);
-			color: var(--o-text-info-default);
-		}
-
-		.orion-notif--success & {
-			border-color: var(--o-border-success-default);
-			color: var(--o-text-success-default);
-		}
-
-		.orion-notif--warning & {
-			border-color: var(--o-border-warning-default);
-			color: var(--o-text-warning-default);
-		}
-
-		.orion-notif--danger & {
-			border-color: var(--o-border-danger-default);
-			color: var(--o-text-danger-default);
-		}
 	}
 
 	&__close {
-		.close(1rem);
-		position: absolute;
-		top: 0.5rem;
-		right: 0.5rem;
+		.close(1.25rem);
+		position: relative;
+		color: var(--o-text-default-subtle);
+		justify-self: flex-end;
+		align-self: flex-start;
 	}
 
-	&--info {
-		border-color: var(--o-border-info-default);
+	each(@colors, {
+		&--@{value} {
 
-		.orion-notif__icon {
-			color: var(--o-text-info-default);
+			&:has(.orion-notif__timer) {
+				background-color: var(~"--o-background-@{value}-minimal");
+			}
+
+			.orion-notif__icon {
+				color: var(~"--o-text-@{value}-default");
+			}
 		}
-	}
-
-	&--success {
-		border-color: var(--o-border-success-default);
-
-		.orion-notif__icon {
-			color: var(--o-text-success-default);
-		}
-	}
-
-	&--warning {
-		border-color: var(--o-border-warning-default);
-
-		.orion-notif__icon {
-			color: var(--o-text-warning-default);
-		}
-	}
-
-	&--danger {
-		border-color: var(--o-border-danger-default);
-
-		.orion-notif__icon {
-			color: var(--o-text-danger-default);
-		}
-	}
+	});
 }
 

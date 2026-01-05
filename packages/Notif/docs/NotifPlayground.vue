@@ -2,6 +2,12 @@
 	<o-sticker>
 		<o-section align="stretch">
 			<o-button
+				color="primary"
+				nude
+				@click="useNotif.primary(state)">
+				Primary notif
+			</o-button>
+			<o-button
 				color="info"
 				nude
 				@click="useNotif.info(state)">
@@ -51,6 +57,7 @@
 		<div class="col-sm-4">
 			<o-select
 				v-model="state.icon"
+				clearable
 				label="Icon"
 				:options="icons"/>
 		</div>

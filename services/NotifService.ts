@@ -55,10 +55,15 @@ class NotifService extends PopableService<OrionNotif> {
 }
 
 const useNotif = {
-	info: (options: Partial<Orion.Notif.Options> | string, message?: string) => new NotifService({
+	primary: (options: Partial<Orion.Notif.Options> | string, message?: string) => new NotifService({
 		icon: 'info',
 		...NotifService.sanitizeOptions(options, message),
 		color: 'primary',
+	}).createVNode(),
+	info: (options: Partial<Orion.Notif.Options> | string, message?: string) => new NotifService({
+		icon: 'info',
+		...NotifService.sanitizeOptions(options, message),
+		color: 'info',
 	}).createVNode(),
 	success: (options: Partial<Orion.Notif.Options> | string, message?: string) => new NotifService({
 		icon: 'check_circle',
