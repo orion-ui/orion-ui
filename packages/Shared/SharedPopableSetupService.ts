@@ -1,14 +1,14 @@
-import { nextTick, reactive, ref, render, Slots, watch } from 'vue';
-import mitt from 'mitt';
 import anime from 'animejs';
+import mitt from 'mitt';
+import { nextTick, reactive, ref, render, Slots, watch } from 'vue';
 
-import SharedSetupService from './SharedSetupService';
+import { devtool } from 'devtool';
 import useOverlay from 'services/OverlayService';
 import usePopableQueueService from 'services/PopableQueueService';
-import { toggleGlobalListener } from 'utils/tools';
-import { devtool } from 'devtool';
 import { orionAppService } from 'utils/Orion';
 import { Reactive } from 'utils/decorators';
+import { toggleGlobalListener } from 'utils/tools';
+import SharedSetupService from './SharedSetupService';
 
 
 type Popable = OrionAside | OrionNotif | OrionModal;
@@ -114,7 +114,8 @@ export default abstract class SharedPopableSetupService extends SharedSetupServi
 			& Omit<typeof SharedPopableSetupService.defaultProps, 'options'>
 			& {options: Partial<Orion.Popable.Options>},
 		protected emits: SharedPopableSetupServiceEmits,
-		protected slots?: Slots) {
+		protected slots?: Slots,
+	) {
 		super();
 
 

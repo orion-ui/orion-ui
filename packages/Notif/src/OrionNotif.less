@@ -9,7 +9,7 @@
 	bottom: 2rem;
 	right: 2rem;
 	width: 23.75rem;
-	min-height: 4rem;
+	min-height: 3.5rem;
 	max-height: 8.875rem;
 	display: flex;
 	gap: var(--spacing-16);
@@ -21,21 +21,15 @@
 	border: 1px solid var(--border-neutral-default);
 	box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.03) ;
 	backface-visibility: hidden; 
-	display: flex;
 	gap: var(--spacing-16);
 
-	&:not(:has(.orion-notif__message, .orion-notif__nested)) {
-		.orion-notif__icon, .orion-notif__close {
-			align-self: center;
-		}
-	}
-
 	&__header {
-		display: flex;
-		align-items: flex-start;
 		position: relative;
 		width: 100%;
+		display: flex;
+		align-items: center;
 		justify-content: space-between;
+		gap: var(--spacing-4);
 	}
 
 	&__content {
@@ -49,6 +43,7 @@
 	&__title {
 		margin: 0;
 		color: var(--text-default-default);
+		line-height: 1.4295;
 	}
 
 	&__message {
@@ -56,8 +51,10 @@
 	}
 
 	&__icon {
+		.square(1.25rem);
+		.flex-align();
 		position: relative;
-		display: flex;
+		margin-top: 0.0625rem;
 		color: var(--text-default-subtle);
 	
 		&.orion-icon {
@@ -142,6 +139,7 @@
 		position: relative;
 		color: var(--text-default-subtle);
 		justify-self: flex-end;
+		align-self: flex-start;
 	}
 
 	each(@colors, {
@@ -153,8 +151,6 @@
 
 			.orion-notif__icon {
 				color: var(~"--text-@{value}-default");
-				position: relative;
-				
 			}
 		}
 	});

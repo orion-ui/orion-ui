@@ -57,16 +57,15 @@
 </template>
 
 <script setup lang="ts">
-import './OrionNotif.less';
-import { provide } from 'vue';
 import { OrionIcon } from 'packages/Icon';
 import { OrionLoader } from 'packages/Loader';
+import { provide } from 'vue';
+import './OrionNotif.less';
+import type { OrionNotifEmits, OrionNotifProps } from './OrionNotifSetupService';
 import OrionNotifSetupService from './OrionNotifSetupService';
-import type { OrionNotifProps, OrionNotifEmits } from './OrionNotifSetupService';
 const emits = defineEmits<OrionNotifEmits>() as OrionNotifEmits;
 const props = withDefaults(defineProps<OrionNotifProps>(), OrionNotifSetupService.defaultProps);
 const setup = new OrionNotifSetupService(props, emits);
 provide('_notif', setup.publicInstance);
 defineExpose(setup.publicInstance);
-
 </script>
