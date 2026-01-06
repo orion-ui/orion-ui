@@ -69,12 +69,12 @@ const globalTypesDocData = {
 		'ns': 'Orion',
 		'type': 'Color',
 		'generic': '',
-		'description': '\'info\' | \'success\' | \'warning\' | \'inverse\' | \'primary\' | \'secondary\' | \'neutral\' | \'error\'; \n',
+		'description': '\'info\' | \'success\' | \'warning\' | \'inverse\' | \'primary\' | \'secondary\' | \'neutral\' | \'danger\'; \n',
 	}, {
 		'ns': 'Orion',
 		'type': 'ColorAlt',
 		'generic': '',
-		'description': '\'primary-alt\' | \'info-alt\' | \'success-alt\' | \'warning-alt\' | \'error-alt\' | \'secondary-alt\'; \n',
+		'description': '\'primary-alt\' | \'info-alt\' | \'success-alt\' | \'warning-alt\' | \'danger-alt\' | \'secondary-alt\'; \n',
 	}, {
 		'ns': 'Orion',
 		'type': 'ColorExtended',
@@ -302,7 +302,7 @@ const globalTypesDocData = {
 		'ns': 'Orion.Validator',
 		'type': 'RuleResult',
 		'generic': '',
-		'description': '{ \n\t\t\t\tresult: boolean \n\t\t\t\tlevel: \'warning\' | \'error\' \n\t\t\t\tmessage?: string \n\t\t\t\tmeta?: any, \n\t\t\t}',
+		'description': '{ \n\t\t\t\tresult: boolean \n\t\t\t\tlevel: \'warning\' | \'danger\' \n\t\t\t\tmessage?: string \n\t\t\t\tmeta?: any, \n\t\t\t}',
 	}],
 
 	'Private': [{

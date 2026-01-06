@@ -9,18 +9,18 @@
 .orion-aside {
 	transition: box-shadow 0.3s;
 	position: fixed;
-	top: var(--spacing-24);
-	right: var(--spacing-24);
-	bottom: var(--spacing-24);
-	border-radius: var(--radius-md);
+	top: var(--o-space-24);
+	right: var(--o-space-24);
+	bottom: var(--o-space-24);
+	border-radius: var(--o-radius-md);
 	max-width: calc(100vw - 2.5rem);
 	display: none;
 	flex-direction: column;
-	background: var(--background-neutral-default);
+	background: var(--o-background-neutral-default);
 	backface-visibility: hidden;
 
 	[data-orion-theme='dark'] & {
-		background-color: var(--background-neutral-minimal);
+		background-color: var(--o-background-neutral-minimal);
 	}
 
 	@media @tablet {
@@ -28,7 +28,7 @@
 	}
 
 	> .orion-loader {
-		border-radius: var(--radius-lg);
+		border-radius: var(--o-radius-lg);
 	}
 
 	&:focus {
@@ -38,17 +38,17 @@
 	&__poster {
 		flex: none;
 		overflow: hidden;
-		border-radius: var(--radius-md) var(--radius-md) 0 0;
+		border-radius: var(--o-radius-md) var(--o-radius-md) 0 0;
 	}
 
 	&__header {
-		padding: var(--spacing-24) var(--spacing-24);
+		padding: var(--o-space-24) var(--o-space-24);
 		display: flex;
 		position: relative;
 		flex-direction: column;
-		border-radius: var(--radius-md);
-		gap: var(--spacing-8);
-		background-color: var(--background-neutral-default);
+		border-radius: var(--o-radius-md);
+		gap: var(--o-space-8);
+		background-color: var(--o-background-neutral-default);
 
 		&:has(+ .orion-aside__body),
 		&:has(+ .orion-aside__footer) {
@@ -56,14 +56,14 @@
 		}
 
 		@media @tablet {
-			padding: var(--spacing-24) var(--spacing-24);
+			padding: var(--o-space-24) var(--o-space-24);
 		}
 
 		.orion-aside--sm & {
-			padding: var(--spacing-24) var(--spacing-24);
+			padding: var(--o-space-24) var(--o-space-24);
 		}
 		.orion-aside--xs & {
-			padding: var(--spacing-24);
+			padding: var(--o-space-24);
 		}
 		
 		&:empty {
@@ -71,12 +71,12 @@
 		}
 
 		[data-orion-theme='dark'] & {
-			background-color: var(--background-neutral-minimal);
+			background-color: var(--o-background-neutral-minimal);
 		}
 	}
 
 	&__title {
-		font-size: var(--typography-size-h5);
+		font-size: var(--o-typography-heading-h5-font-size);
 		margin: 0;
 	}
 
@@ -85,7 +85,7 @@
 		height: 6.25rem;
 		box-shadow: 0 0.0625rem 0.1875rem fade(black, 10);
 		border-radius: 0.5rem;
-		background: var(--background-neutral-default);
+		background: var(--o-background-neutral-default);
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -122,8 +122,8 @@
 		order: 2;
 		position: relative;
 		flex: 1 1 auto;
-		border-radius: var(--radius-md);
-		padding: var(--spacing-24);
+		border-radius: var(--o-radius-md);
+		padding: var(--o-space-24);
 		max-width: 100%;
 		max-height: 100%;
 
@@ -148,7 +148,7 @@
 				)
 				0 100%;
 		background-repeat: no-repeat;
-		background-color: var(--background-neutral-default);
+		background-color: var(--o-background-neutral-default);
 		background-size:
 			100% 2.5rem,
 			100% 2.5rem,
@@ -159,12 +159,12 @@
 		[data-orion-theme='dark'] & {
 			background:
 				linear-gradient(
-					var(--background-neutral-minimal) 30%,
+					var(--o-background-neutral-minimal) 30%,
 					rgba(255, 255, 255, 0)
 				),
 				linear-gradient(
 						rgba(255, 255, 255, 0),
-						var(--background-neutral-minimal) 70%
+						var(--o-background-neutral-minimal) 70%
 					)
 					0 100%,
 				radial-gradient(
@@ -185,38 +185,38 @@
 				100% 0,
 				100% 0.5rem;
 			background-attachment: local, local, scroll, scroll;
-			background-color: var(--background-neutral-minimal);
+			background-color: var(--o-background-neutral-minimal);
 		}
 		// #endregion
 
 		@media @tablet {
-			padding: var(--spacing-24);
+			padding: var(--o-space-24);
 		}
 
 		.orion-aside--sm & {
-			padding: var(--spacing-24);
+			padding: var(--o-space-24);
 		}
 		.orion-aside--xs & {
-			padding: var(--spacing-24);
+			padding: var(--o-space-24);
 		}
 	}
 
 	&__footer {
 		order: 3;
 		flex: 0 0 auto;
-		border: 1px solid var(--border-neutral-default);
-		padding: var(--spacing-16) var(--spacing-24);
-		border-radius: 0 0 var(--radius-md) var(--radius-md);
+		border: 1px solid var(--o-border-neutral-default);
+		padding: var(--o-space-16) var(--o-space-24);
+		border-radius: 0 0 var(--o-radius-md) var(--o-radius-md);
 
 		@media @tablet {
-			padding: var(--spacing-16) var(--spacing-24);
+			padding: var(--o-space-16) var(--o-space-24);
 		}
 
 		.orion-aside--sm & {
-			padding: var(--spacing-16) var(--spacing-24);
+			padding: var(--o-space-16) var(--o-space-24);
 		}
 		.orion-aside--xs & {
-			padding: var(--spacing-16);
+			padding: var(--o-space-16);
 		}
 
 		&:empty {
@@ -228,14 +228,14 @@
 		.close(1.5rem);
 		z-index: 1;
 		position: absolute;
-		color: var(--text-default-subtle);
-		top: var(--spacing-16);
-		right: var(--spacing-16);
-		background: var(--background-neutral-default);
+		color: var(--o-text-default-subtle);
+		top: var(--o-space-16);
+		right: var(--o-space-16);
+		background: var(--o-background-neutral-default);
 
 		@media @tablet {
-			top: var(--spacing-24);
-			right: var(--spacing-24);
+			top: var(--o-space-24);
+			right: var(--o-space-24);
 		}
 	}
 
@@ -264,3 +264,5 @@
 		width: @widthLG;
 	}
 }
+
+

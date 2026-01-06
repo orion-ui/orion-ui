@@ -1,9 +1,24 @@
 <template>
-	<div class="color-selection orion-input">
-		<label class="orion-input__label orion-input__label--floating">
+	<div
+		class="color-selection orion-input"
+		role="group"
+		:aria-labelledby="labelId"
+		:class="{ 'orion-input--focused': isFocus }">
+		<span
+			:id="labelId"
+			:class="[
+				'orion-input__label',
+				{ 'orion-input__label--floating': labelIsFloating },
+			]">
 			{{ label }}
-		</label>
-		<div class="color-selection__input orion-input__input">
+		</span>
+		<div
+			ref="inputEl"
+			class="color-selection__input orion-input__input"
+			tabindex="0"
+			@focus="handleFocus"
+			@blur="handleBlur"
+			@mousedown="focusInput">
 			<span
 				v-for="(color, index) of [...colors, undefined]"
 				v-tooltip="color ?? 'unset'"
@@ -30,10 +45,10 @@
 </template>
 
 <script setup lang="ts">
-import { PropType } from 'vue';
-import { colors, greys } from '@/lib';
+import { computed, PropType, ref } from 'vue';
+import { getUid, colors, greys } from '@/lib';
 
-defineProps({
+const props = defineProps({
 	modelValue: {
 		type: String as PropType<Orion.Color | Orion.Grey>,
 		default: 'primary',
@@ -51,12 +66,34 @@ defineProps({
 const emit = defineEmits<{
 	(e: 'update:modelValue', val?: Orion.Color | Orion.Grey): void;
 }>();
+
+const inputEl = ref<HTMLElement | null>(null);
+const isFocus = ref(false);
+const labelId = `color-selection-label-${getUid()}`;
+const hasValue = computed(() => props.modelValue !== undefined && props.modelValue !== null);
+const labelIsFloating = computed(() => isFocus.value || hasValue.value);
+
+function handleFocus () {
+	isFocus.value = true;
+}
+
+function handleBlur () {
+	isFocus.value = false;
+}
+
+function focusInput () {
+	inputEl.value?.focus();
+}
 </script>
 
 <style lang="less" scoped>
 .color-selection {
 	min-height: 2.5rem;
 	height: auto;
+
+	.orion-input__label {
+		top: var(--o-space-8);
+	}
 
 	&__input {
 		display: flex;
@@ -65,7 +102,7 @@ const emit = defineEmits<{
 		gap: 0.25rem;
 		min-height: 2.5rem;
 		height: auto;
-		padding: var(--spacing-8);
+		padding: var(--o-space-8);
 		width: fit-content;
 
 		[class*='col-'] > .color-selection > & {
@@ -81,7 +118,7 @@ const emit = defineEmits<{
 		height: 1rem;
 		aspect-ratio: 1;
 		border-radius: 50%;
-		border: 0.03125rem solid var(--border-neutral-default);
+		border: 0.03125rem solid var(--o-border-neutral-default);
 		cursor: pointer;
 
 		&--selected {
@@ -91,11 +128,11 @@ const emit = defineEmits<{
 				height: 0.5rem;
 				aspect-ratio: auto 1;
 				border-radius: 50%;
-				background: var(--background-neutral-default);
-				border: 0.0625rem solid var(--border-neutral-default);
+				background: var(--o-background-neutral-default);
+				border: 0.0625rem solid var(--o-border-neutral-default);
 
 				[data-orion-theme='dark'] & {
-					background: var(--background-neutral-minimal);
+					background: var(--o-background-neutral-minimal);
 				}
 			}
 		}

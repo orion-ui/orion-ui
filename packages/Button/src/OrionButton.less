@@ -18,24 +18,24 @@
 	align-items: center;
 	justify-content: center;
 	vertical-align: middle;
-	border-radius: var(--radius-md);
+	border-radius: var(--o-radius-md);
 	border: none;
 	appearance: none;
 	outline: none;
-	font-family: var(--typography-family--ignore-body);
-	font-size: var(--typography-size-sm);
+	font-family: var(--o-typography-label-bold-font-family);
+	font-size: var(--o-typography-label-bold-font-size);
 	font-style: normal;
-	font-weight: var(--typography-weight-semibold);
+	font-weight: var(--o-typography-label-bold-font-weight);
 	line-height: 20px;
 	cursor: pointer;
 	overflow: hidden;
 	border-width: 0.0625rem;
 	border-style: solid;
 	border-color: transparent;
-	border-radius: var(--radius-md);
+	border-radius: var(--o-radius-md);
 
 	&:focus {
-		outline: 1px solid var(--border-neutral-focus);
+		outline: 1px solid var(--o-border-neutral-focus);
 		outline-offset: 1px;
 	}
 
@@ -44,7 +44,7 @@
 		background: fade(white, 20);
 		height: 1.25rem;
 		width: 1.25rem;
-		border-radius: var(--radius-round);
+		border-radius: var(--o-radius-round);
 		z-index: 5;
 		pointer-events: none;
 		opacity: 1;
@@ -76,46 +76,46 @@
 	}
 
 	&--sm {
-		gap: var(--spacing-4);
-		padding: var(--spacing-4) var(--spacing-8);
-		height: var(--spacing-28);
+		gap: var(--o-space-4);
+		padding: var(--o-space-4) var(--o-space-8);
+		height: var(--o-space-28);
 
 		.orion-icon {
-			font-size: var(--typography-size-base);
+			font-size: var(--o-typography-label-default-font-size);
 		}
 
 		&.orion-button--icon-only {
-			width: var(--spacing-28);
-			padding: var(--spacing-4) var(--spacing-6);
+			width: var(--o-space-28);
+			padding: var(--o-space-4) var(--o-space-6);
 		}
 	}
 
 	&--md {
-		gap: var(--spacing-4);
-		padding: var(--spacing-4) var(--spacing-12);
-		height: var(--spacing-32);
+		gap: var(--o-space-4);
+		padding: var(--o-space-4) var(--o-space-12);
+		height: var(--o-space-32);
 
 		&.orion-button--icon-only {
-			width: var(--spacing-32);
-			padding: var(--spacing-4) var(--spacing-6);
+			width: var(--o-space-32);
+			padding: var(--o-space-4) var(--o-space-6);
 		}
 
 		.orion-icon {
-			font-size: var(--typography-body-default);
+			font-size: var(--o-typography-body-default-font-size);
 		}
 	}
 
 	&--lg {
-		gap: var(--spacing-8);
-		padding: var(--spacing-4) var(--spacing-16);
-		height: var(--spacing-40);
+		gap: var(--o-space-8);
+		padding: var(--o-space-4) var(--o-space-16);
+		height: var(--o-space-40);
 
 		&.orion-button--icon-only {
-			width: var(--spacing-40);
+			width: var(--o-space-40);
 		}
 
 		.orion-icon {
-			font-size: var(--typography-size-lg);
+			font-size: var(--o-o-typography-body-default-font-size);
 		}
 	}
 
@@ -123,44 +123,44 @@
 		&--@{value} {
 			
 			color: white;
-			background: var(~"--background-@{value}-default");
+			background: var(~"--o-background-@{value}-default");
 
 			&:hover {
-				background: var(~"--background-@{value}-hover");
+				background: var(~"--o-background-@{value}-hover");
 			}
 
 			&.orion-button--outline, &.orion-button--nude {
-				color: var(~"--text-@{value}-default");
+				color: var(~"--o-text-@{value}-default");
 			}
 			
 			&.orion-button--outline {
-				background: var(--background-neutral-default);	
-				border: 1px solid var(~"--border-@{value}-subtle");
+				background: var(--o-background-neutral-default);	
+				border: 1px solid var(~"--o-border-@{value}-subtle");
 
 				&:hover&:not(.orion-button--disabled){
-					background: var(~"--background-@{value}-minimal");
+					background: var(~"--o-background-@{value}-minimal");
 				}				
 
 				&:focus&:not(.orion-button--disabled) {
-					background: var(~"--background-@{value}-minimal");
-					border-color: var(~"--border-@{value}-default");
+					background: var(~"--o-background-@{value}-minimal");
+					border-color: var(~"--o-border-@{value}-default");
 				}
 			}
 
 			&.orion-button--nude {
 				&:hover&:not(.orion-button--disabled),
 				&:focus&:not(.orion-button--disabled) {
-					background: var(~"--background-@{value}-minimal");
+					background: var(~"--o-background-@{value}-minimal");
 				}				
 			}
 
 			&.orion-button--disabled {
-				background: var(--background-neutral-disabled);
-				color: var(--text-default-disabled);
-				border-color: var(--border-neutral-disabled);
+				background: var(--o-background-neutral-disabled);
+				color: var(--o-text-default-disabled);
+				border-color: var(--o-border-neutral-disabled);
 				&:hover, &:focus {
-					background: var(--background-neutral-disabled);
-					border-color: var(--border-neutral-disabled);
+					background: var(--o-background-neutral-disabled);
+					border-color: var(--o-border-neutral-disabled);
 				}
 
 				&.orion-button--nude {
@@ -172,22 +172,22 @@
 
 	&--primary {
 		&.orion-button--outline {
-			color: var(--text-default-default);
-			border: 1px solid var(--border-neutral-default);
+			color: var(--o-text-default-default);
+			border: 1px solid var(--o-border-neutral-default);
 
 			&:hover&:not(.orion-button--disabled),
 			&:focus&:not(.orion-button--disabled) {
-				background: var(--background-neutral-minimal);
-				border-color: var(--border-neutral-default);
+				background: var(--o-background-neutral-minimal);
+				border-color: var(--o-border-neutral-default);
 			}
 		}
 
 		&.orion-button--nude {
-			color: var(--text-default-default);
+			color: var(--o-text-default-default);
 
 			&:hover&:not(.orion-button--disabled),
 			&:focus&:not(.orion-button--disabled) {
-				background: var(--background-neutral-subtle);
+				background: var(--o-background-neutral-subtle);
 			}
 		}
 	}
@@ -212,7 +212,7 @@
 		cursor: progress;
 
 		.orion-icon__loading {
-			stroke: var(--text-default-moderate);
+			stroke: var(--o-text-default-moderate);
 		}
 	}
 }
@@ -227,3 +227,6 @@
 		opacity: 0;
 	}
 }
+
+
+

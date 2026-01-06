@@ -9,7 +9,7 @@
 					tag="o-sticker"
 				>
 					<div class="draggable-content">
-						<o-icon icon="file_document" />
+						<o-icon icon="article" />
 						<strong>{{ item.title }}</strong>
 					</div>
 				</o-draggable>
@@ -29,7 +29,7 @@
 					tag="o-sticker"
 				>
 					<div class="draggable-content">
-						<o-icon icon="file_blank" />
+						<o-icon icon="drafts" />
 						<strong>{{ item.title }}</strong>
 					</div>
 				</o-draggable>
@@ -83,24 +83,24 @@ const right = ref([
 
 .orion-droppable {
 	position: relative;
-	padding: var(--spacing-16);
+	padding: var(--o-space-16);
 	border-radius: 0.5rem;
-	background: var(--background-neutral-subtle);
+	background: var(--o-background-neutral-subtle);
 
 	&--allowed {
-		background: rgba(var(--background-success-default), 0.15);
+		background: rgba(var(--o-background-success-default), 0.15);
 	}
 
 	&--forbidden {
-		background: rgba(var(--background-error-default), 0.15);
+		background: rgba(var(--o-background-danger-default), 0.15);
 	}
 
 	&--over {
-		background: rgba(var(--background-info-default), 0.15);
+		background: rgba(var(--o-background-info-default), 0.15);
 	}
 
 	&--disabled {
-		border: calc(1rem / 16) solid var(--background-error-default);
+		border: calc(1rem / 16) solid var(--o-background-danger-default);
 		opacity: 0.2;
 	}
 }
@@ -125,3 +125,4 @@ du drop d'un élément dans une zone. Il suffit pour cela de passer une prop
 `validation` correspondant à un objet du type `Orion.DndValidation`. Si la
 propriété `method` renvoi `false`, l'opération de drag'n drop sera annulée.
 @lang
+

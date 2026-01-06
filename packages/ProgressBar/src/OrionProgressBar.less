@@ -4,7 +4,7 @@
 .orion-progress-bar {
 	&__path {
 		position: relative;
-		background: var(--background-neutral-subtle);
+		background: var(--o-background-neutral-subtle);
 	}
 
 	&__value {
@@ -18,7 +18,7 @@
 
 		each(@colors, {
       .orion-progress-bar--@{value} & {
-        background: var(~"--background-@{value}-default");
+        background: var(~"--o-background-@{value}-default");
       }
     });
 	}
@@ -27,9 +27,9 @@
 		position: absolute;
 		top: 0;
 		right: 0;
-		color: var(--text-default-inverted);
+		color: var(--o-text-default-inverted);
 		line-height: 1;
-		padding: var(--spacing-8);
+		padding: var(--o-space-8);
 		border-radius: 0.25rem;
 		font-weight: bold;
 		font-size: 0.75rem;
@@ -40,7 +40,7 @@
 
 		each(@colors, {
       .orion-progress-bar--@{value} & {
-        background: var(~"--background-@{value}-default");
+        background: var(~"--o-background-@{value}-default");
       }
     });
 	}
@@ -48,14 +48,16 @@
 	&--default {
 		.orion-progress-bar__value,
 		.orion-progress-bar__label {
-			background: var(--background-neutral-default);
+			background: var(--o-background-neutral-default);
 		}
 	}
 
 	&--inverted {
 		.orion-progress-bar__value,
 		.orion-progress-bar__label {
-			background: var(--background-neutral-highlight);
+			background: var(--o-background-neutral-highlight);
 		}
 	}
 }
+
+

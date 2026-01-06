@@ -25,7 +25,7 @@
 					v-model="fields.input.value"
 					label="Suffix Icon"
 					v-bind="commonBind"
-					suffix-icon="combine_cells"/>
+					suffix-icon="view_column"/>
 			</div>
 			<div class="col-sm-3">
 				<o-input

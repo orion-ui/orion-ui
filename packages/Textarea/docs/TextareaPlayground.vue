@@ -61,7 +61,7 @@ const state = reactive({
 	label: 'Textarea',
 	value: '',
 	readonly: false,
-	prefixIcon: 'bulb' as Orion.Icon,
+	prefixIcon: 'lightbulb' as Orion.Icon,
 	suffixIcon: undefined,
 	disabled: false,
 	clearable: true,

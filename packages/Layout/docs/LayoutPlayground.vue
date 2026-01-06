@@ -30,21 +30,21 @@
 
 <style scoped lang="less">
 .nav-top {
-  background-color: var(--background-neutral-moderate);
+  background-color: var(--o-background-neutral-moderate);
   height: 3rem;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .nav-main {
-  background-color: var(--background-neutral-subtle);
+  background-color: var(--o-background-neutral-subtle);
   flex: 6rem 0 0;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .main {
-  background-color: var(--background-neutral-minimal);
+  background-color: var(--o-background-neutral-minimal);
   display: flex;
 	flex: 1;
   justify-content: center;
@@ -53,7 +53,7 @@
 	padding-top: 1rem;
 }
 .nav-tabs {
-  background-color: var(--background-neutral-default);
+  background-color: var(--o-background-neutral-default);
   height: 3rem;
   display: flex;
   justify-content: center;
@@ -79,3 +79,4 @@
 @lang:fr
 ### Exemple de disposition
 @lang
+

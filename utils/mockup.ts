@@ -6,7 +6,7 @@ export const colors: Orion.Color[] = [
 	'success',
 	'info',
 	'warning',
-	'error',
+	'danger',
 	'inverted',
 	'neutral',
 ];
@@ -16,7 +16,7 @@ export const colorsAlt: Orion.ColorExtended[] = [
 	'success-alt',
 	'info-alt',
 	'warning-alt',
-	'error-alt',
+	'danger-alt',
 	'secondary-alt',
 ];
 
@@ -26,14 +26,14 @@ export const colorsExtended: Orion.ColorExtended[] = [
 	'success',
 	'info',
 	'warning',
-	'error',
+	'danger',
 	'inverted',
 	'primary-alt',
 	'success-alt',
 	'info-alt',
 	'warning-alt',
 	'secondary-alt',
-	'error-alt',
+	'danger-alt',
 ];
 
 export const greys: Orion.Grey[] = [
@@ -49,14 +49,14 @@ export const colorsExtendedAndGreys: Orion.ColorExtendedAndGreys[] = [
 	'success',
 	'info',
 	'warning',
-	'error',
+	'danger',
 	'secondary',
 	'inverted',
 	'primary-alt',
 	'success-alt',
 	'info-alt',
 	'warning-alt',
-	'error-alt',
+	'danger-alt',
 	'secondary-alt',
 	'grey-darker',
 	'grey-dark',

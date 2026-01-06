@@ -20,7 +20,7 @@
 			<template #footer="{ close }">
 				<o-section align="stretch">
 					<o-button
-						color="error"
+						color="danger"
 						outline
 						@click="close">
 						Close aside from the slot

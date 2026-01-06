@@ -36,7 +36,7 @@ export default class OrionAlertSetupService extends SharedSetupService {
 				return 'check_circle';
 			case 'warning':
 				return 'warning';
-			case 'error':
+			case 'danger':
 				return 'error';
 			default:
 				return 'info';

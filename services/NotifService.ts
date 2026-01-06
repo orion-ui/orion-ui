@@ -71,14 +71,14 @@ const useNotif = {
 		color: 'success',
 	}).createVNode(),
 	warning: (options: Partial<Orion.Notif.Options> | string, message?: string) => new NotifService({
-		icon: 'warning',
+		icon: 'warning_amber',
 		...NotifService.sanitizeOptions(options, message),
 		color: 'warning',
 	}).createVNode(),
 	danger: (options: Partial<Orion.Notif.Options> | string, message?: string) => new NotifService({
-		icon: 'dangerous',
+		icon: 'error',
 		...NotifService.sanitizeOptions(options, message),
-		color: 'error',
+		color: 'danger',
 	}).createVNode(),
 };
 

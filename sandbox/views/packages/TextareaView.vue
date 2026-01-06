@@ -5,7 +5,7 @@
 			v-model="value"
 			label="My label trop cool"
 			show-length
-			suffix-icon="add_column"
+			suffix-icon="view_column"
 			@input.self="test"/>
 		<input
 			v-model="value"

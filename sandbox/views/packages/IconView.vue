@@ -57,7 +57,7 @@ const state = reactive({ loading: false });
 	flex-direction: column;
 	align-items: center;
 	gap: 15px;
-	background: var(--background-neutral-default);
+	background: var(--o-background-neutral-default);
 	padding: 20px;
 
 	.orion-icon {

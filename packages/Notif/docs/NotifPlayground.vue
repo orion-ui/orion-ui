@@ -26,7 +26,7 @@
 				Warning notif
 			</o-button>
 			<o-button
-				color="error"
+				color="danger"
 				nude
 				@click="useNotif.danger(state)">
 				Danger notif
@@ -72,7 +72,7 @@ const state = reactive({
 	title: 'Lorem ipsum',
 	message: `Cras mattis consectetur purus sit amet fermentum.`,
 	duration: 5,
-	icon: 'info' as Orion.Icon,
+	icon: 'favorite' as Orion.Icon,
 });
 
 const icons = computed(() => {

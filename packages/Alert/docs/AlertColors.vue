@@ -14,7 +14,7 @@
 const colors: Orion.Color[] = [
 	'primary',
 	'success',
-	'error',
+	'danger',
 	'warning',
 ];
 </script>

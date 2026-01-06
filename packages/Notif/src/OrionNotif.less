@@ -12,16 +12,15 @@
 	min-height: 3.5rem;
 	max-height: 8.875rem;
 	display: flex;
-	gap: var(--spacing-16);
-	background: var(--background-neutral-default);
-	border-radius: var(--radius-md);
-	padding: var(--spacing-16);
-	font-size: var(--typography-size-sm);
-	color: var(--text-default-default);
-	border: 1px solid var(--border-neutral-default);
+	background: var(--o-background-neutral-default);
+	border-radius: var(--o-radius-md);
+	padding: var(--o-space-16);
+	font-size: var(--o-typography-label-default-font-size);
+	color: var(--o-text-default-default);
+	border: 1px solid var(--o-border-neutral-default);
 	box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.03) ;
 	backface-visibility: hidden; 
-	gap: var(--spacing-16);
+	gap: var(--o-space-16);
 
 	&__header {
 		position: relative;
@@ -29,20 +28,20 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		gap: var(--spacing-4);
+		gap: var(--o-space-4);
 	}
 
 	&__content {
 		display: flex;
 		width: 100%;
 		flex-direction: column;
-		gap: var(--spacing-8);
+		gap: var(--o-space-4);
 		justify-content: center;
 	}
 
 	&__title {
 		margin: 0;
-		color: var(--text-default-default);
+		color: var(--o-text-default-default);
 		line-height: 1.4295;
 	}
 
@@ -55,10 +54,10 @@
 		.flex-align();
 		position: relative;
 		margin-top: 0.0625rem;
-		color: var(--text-default-subtle);
+		color: var(--o-text-default-subtle);
 	
 		&.orion-icon {
-			font-size: var(--typography-size-h5);
+			font-size: var(--o-typography-heading-h5-font-size);
 		}
 	}
 
@@ -68,9 +67,9 @@
 		position: absolute;
 		top: -0.5rem;
 		right: 0rem;
-		font-size: var(--typography-size-base);
-		font-weight: var(--typography-weight-normal);
-		color: var(--text-default-default);
+		font-size: var(--o-typography-body-default-font-size);
+		font-weight: var(--o-typography-body-default-font-weight);
+		color: var(--o-text-default-default);
 		cursor: pointer;
 
 		&-circle {
@@ -79,25 +78,25 @@
 			position: absolute;
 			top: 0;
 			left: 0;
-			border: 1px solid var(--background-neutral-moderate);
+			border: 1px solid var(--o-border-neutral-default);
 			border-right-color: transparent !important;
 			border-left-color: transparent !important;
 			border-bottom-color: transparent !important;
 
 			.orion-notif--info & {
-				border-color: var(--border-info-default);
+				border-color: var(--o-border-info-default);
 			}
 
 			.orion-notif--success & {
-				border-color: var(--border-success-default);
+				border-color: var(--o-border-success-default);
 			}
 
 			.orion-notif--warning & {
-				border-color: var(--border-warning-default);
+				border-color: var(--o-border-warning-default);
 			}
 
 			.orion-notif--error & {
-				border-color: var(--border-error-default);
+				border-color: var(--o-border-danger-default);
 			}
 		}
 
@@ -117,19 +116,19 @@
 			}
 
 			.orion-notif--info & {
-				background-color: rgba(var(--background-info-default), 0.05);
+				background-color: rgba(var(--o-background-info-default), 0.05);
 			}
 
 			.orion-notif--success & {
-				background-color: rgba(var(--background-success-default), 0.05);
+				background-color: rgba(var(--o-background-success-default), 0.05);
 			}
 
 			.orion-notif--warning & {
-				background-color: rgba(var(--background-warning-default), 0.075);
+				background-color: rgba(var(--o-background-warning-default), 0.075);
 			}
 
 			.orion-notif--danger & {
-				background-color: rgba(var(--background-error-default), 0.075);
+				background-color: rgba(var(--o-background-danger-default), 0.075);
 			}
 		}
 	}
@@ -137,7 +136,7 @@
 	&__close {
 		.close(1.25rem);
 		position: relative;
-		color: var(--text-default-subtle);
+		color: var(--o-text-default-subtle);
 		justify-self: flex-end;
 		align-self: flex-start;
 	}
@@ -146,12 +145,13 @@
 		&--@{value} {
 
 			&:has(.orion-notif__timer) {
-				background-color: var(~"--background-@{value}-minimal");
+				background-color: var(~"--o-background-@{value}-minimal");
 			}
 
 			.orion-notif__icon {
-				color: var(~"--text-@{value}-default");
+				color: var(~"--o-text-@{value}-default");
 			}
 		}
 	});
 }
+

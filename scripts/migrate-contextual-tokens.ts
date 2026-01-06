@@ -17,7 +17,7 @@ function familyOf (name: string): string {
 	if (name.startsWith('info')) return 'info';
 	if (name.startsWith('success')) return 'success';
 	if (name.startsWith('warning')) return 'warning';
-	if (name.startsWith('danger')) return 'error';
+	if (name.startsWith('danger')) return 'danger';
 	return 'neutral';
 }
 
@@ -56,9 +56,9 @@ function stateOf (name: string, channel: Channel): string {
 function semanticVar (name: string, channel: Channel): string {
 	const fam = familyOf(name);
 	const state = stateOf(name, channel);
-	if (channel === 'background') return `--background-${fam}-${state}`;
-	if (channel === 'border') return `--border-${fam}-${state}`;
-	return `--text-${fam}-${state}`;
+	if (channel === 'background') return `--o-background-${fam}-${state}`;
+	if (channel === 'border') return `--o-border-${fam}-${state}`;
+	return `--o-text-${fam}-${state}`;
 }
 
 /** ----- Scan & replace ----- */
