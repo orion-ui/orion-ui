@@ -27,8 +27,8 @@
 		max-width: calc(100vw - 5.5rem);
 	}
 
-	> .orion-loader {
-		border-radius: var(--o-radius-lg);
+	>.orion-loader {
+		border-radius: var(--o-radius-xl);
 	}
 
 	&:focus {
@@ -62,10 +62,11 @@
 		.orion-aside--sm & {
 			padding: var(--o-space-24) var(--o-space-24);
 		}
+
 		.orion-aside--xs & {
 			padding: var(--o-space-24);
 		}
-		
+
 		&:empty {
 			display: none;
 		}
@@ -127,57 +128,43 @@
 		max-width: 100%;
 		max-height: 100%;
 
-		.orion-aside__header:not(:empty) + & {
+		.orion-aside__header:not(:empty)+& {
 			padding-top: 0;
 		}
 
 
 		// #region Pure CSS scroll shadow
-		background:
-			linear-gradient(white 30%, rgba(255, 255, 255, 0)),
-			linear-gradient(rgba(255, 255, 255, 0), white 70%) 0 100%,
-			radial-gradient(
-				farthest-side at 50% 0,
-				rgba(0, 0, 0, 0),
-				rgba(0, 0, 0, 0)
-			),
-			radial-gradient(
-					farthest-side at 50% 100%,
-					rgba(0, 0, 0, 0.2),
-					rgba(0, 0, 0, 0)
-				)
-				0 100%;
+		background: linear-gradient(white 30%, rgba(255, 255, 255, 0)),
+		linear-gradient(rgba(255, 255, 255, 0), white 70%) 0 100%,
+		radial-gradient(farthest-side at 50% 0,
+			rgba(0, 0, 0, 0),
+			rgba(0, 0, 0, 0)),
+		radial-gradient(farthest-side at 50% 100%,
+			rgba(0, 0, 0, 0.2),
+			rgba(0, 0, 0, 0)) 0 100%;
 		background-repeat: no-repeat;
 		background-color: var(--o-background-neutral-default);
-		background-size:
-			100% 2.5rem,
-			100% 2.5rem,
-			100% 0,
-			100% 0.5rem;
-		background-attachment: local, local, scroll, scroll;
+		background-size: 100% 2.5rem,
+		100% 2.5rem,
+		100% 0,
+		100% 0.5rem;
+		background-attachment: local,
+		local,
+		scroll,
+		scroll;
 
 		[data-orion-theme='dark'] & {
 			background:
-				linear-gradient(
-					var(--o-background-neutral-minimal) 30%,
-					rgba(255, 255, 255, 0)
-				),
-				linear-gradient(
-						rgba(255, 255, 255, 0),
-						var(--o-background-neutral-minimal) 70%
-					)
-					0 100%,
-				radial-gradient(
-					farthest-side at 50% 0,
+				linear-gradient(var(--o-background-neutral-minimal) 30%,
+					rgba(255, 255, 255, 0)),
+				linear-gradient(rgba(255, 255, 255, 0),
+					var(--o-background-neutral-minimal) 70%) 0 100%,
+				radial-gradient(farthest-side at 50% 0,
 					rgba(0, 0, 0, 0),
-					rgba(0, 0, 0, 0)
-				),
-				radial-gradient(
-						farthest-side at 50% 100%,
-						rgba(0, 0, 0, 0.5),
-						rgba(0, 0, 0, 0)
-					)
-					0 100%;
+					rgba(0, 0, 0, 0)),
+				radial-gradient(farthest-side at 50% 100%,
+					rgba(0, 0, 0, 0.5),
+					rgba(0, 0, 0, 0)) 0 100%;
 			background-repeat: no-repeat;
 			background-size:
 				100% 2.5rem,
@@ -187,6 +174,7 @@
 			background-attachment: local, local, scroll, scroll;
 			background-color: var(--o-background-neutral-minimal);
 		}
+
 		// #endregion
 
 		@media @tablet {
@@ -196,6 +184,7 @@
 		.orion-aside--sm & {
 			padding: var(--o-space-24);
 		}
+
 		.orion-aside--xs & {
 			padding: var(--o-space-24);
 		}
@@ -215,6 +204,7 @@
 		.orion-aside--sm & {
 			padding: var(--o-space-16) var(--o-space-24);
 		}
+
 		.orion-aside--xs & {
 			padding: var(--o-space-16);
 		}
@@ -264,5 +254,3 @@
 		width: @widthLG;
 	}
 }
-
-

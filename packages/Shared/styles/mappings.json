@@ -61,8 +61,8 @@
 		"--o-radius-card": "--o-radius-md",
 		"--o-radius-sticker": "--o-radius-md",
 		"--o-radius-popover": "--o-radius-md",
-		"--o-radius-modal": "--o-radius-lg",
-		"--o-radius-aside": "--o-radius-lg",
+		"--o-radius-modal": "--o-radius-xl",
+		"--o-radius-aside": "--o-radius-xl",
 
 		"--o-space-xs": "--o-space-8",
 		"--o-space-sm": "--o-space-16",

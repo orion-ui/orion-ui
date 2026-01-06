@@ -10,6 +10,7 @@
 					border-color: var(--o-border-neutral-default);
 				}
 			}
+
 			&-inner {
 				[data-orion-theme='dark'] & {
 					border-color: var(--o-border-neutral-default);
@@ -20,7 +21,7 @@
 		.v-popper__inner {
 			color: var(--o-text-default-default);
 			padding: var(--o-space-16);
-			border-radius: var(--o-radius-md);
+			border-radius: var(--o-radius-lg);
 		}
 
 		&--no-positioning {
@@ -36,7 +37,8 @@
 			overflow: auto;
 
 			&::-webkit-scrollbar {
-				display: none; /* Chrome, Safari and Opera */
+				display: none;
+				/* Chrome, Safari and Opera */
 			}
 
 			.v-popper__inner {
@@ -46,11 +48,9 @@
 
 			.v-popper__backdrop {
 				display: block;
-				background: color-mix(
-					in srgb,
-					var(--o-background-neutral-highlight) 70%,
-					transparent
-				);
+				background: color-mix(in srgb,
+						var(--o-background-neutral-highlight) 70%,
+						transparent);
 				bottom: -1px; // for parent overscroll-behavior
 				height: auto; // for parent overscroll-behavior
 			}
@@ -67,6 +67,7 @@
 .v-popper--theme {
 	&-tooltip {
 		pointer-events: none;
+
 		.v-popper__inner {
 			border-radius: var(--o-radius-md);
 			padding: var(--o-space-8) var(--o-space-16);
@@ -78,7 +79,7 @@
 	&-orion-pop-confirm {
 		width: max-content;
 
-		> .icon {
+		>.icon {
 			cursor: pointer;
 			display: inherit;
 		}
@@ -97,7 +98,7 @@
 						border-color: var(--o-border-info-default);
 					}
 
-					+ .orion-button {
+					+.orion-button {
 						margin-left: var(--o-space-8);
 					}
 				}
@@ -120,5 +121,3 @@
 		}
 	}
 }
-
-

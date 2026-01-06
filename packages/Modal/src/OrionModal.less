@@ -20,9 +20,7 @@
 	top: 50%;
 	display: none;
 	flex-direction: column;
-	max-height: calc(
-		100vh - @positionTop - @positionBottom
-	); // dvh support fallback
+	max-height: calc(100vh - @positionTop - @positionBottom); // dvh support fallback
 	max-height: calc(100dvh - @positionTop - @positionBottom);
 	background: var(--o-background-neutral-default);
 	padding: 0;
@@ -35,8 +33,8 @@
 	color: inherit;
 	overflow: hidden;
 
-	> .orion-loader {
-		border-radius: var(--o-radius-lg);
+	>.orion-loader {
+		border-radius: var(--o-radius-xl);
 	}
 
 	&:focus {
@@ -59,8 +57,8 @@
 	}
 
 	&__poster {
-			border-radius: var(--o-radius-md) var(--o-radius-md) 0 0;
-			overflow: hidden;
+		border-radius: var(--o-radius-md) var(--o-radius-md) 0 0;
+		overflow: hidden;
 	}
 
 	&__header {
@@ -82,7 +80,7 @@
 		order: 1;
 		flex: 1 1 auto;
 		position: relative;
-		border-radius: var(--o-radius-lg);
+		border-radius: var(--o-radius-xl);
 		padding: var(--o-space-24) var(--o-space-24);
 		padding-bottom: var(--o-space-16);
 
@@ -90,7 +88,7 @@
 			padding: var(--o-space-24) var(--o-space-24);
 			padding-bottom: var(--o-space-16);
 
-			.orion-modal__footer:not(:empty) + & {
+			.orion-modal__footer:not(:empty)+& {
 				padding-bottom: 0;
 
 				.orion-modal--o-xs & {
@@ -102,6 +100,7 @@
 		.orion-modal--sm & {
 			padding: var(--o-space-24);
 		}
+
 		.orion-modal--xs & {
 			padding: var(--o-space-24);
 		}
@@ -119,6 +118,7 @@
 		.orion-modal--sm & {
 			padding: var(--o-space-16) var(--o-space-24);
 		}
+
 		.orion-modal--xs & {
 			padding: var(--o-space-16);
 		}
@@ -158,28 +158,28 @@
 	}
 
 	&--xl {
-		width: ~'min(@{widthXL}, @{maxWidth})';
-		left: ~'max(calc(50% - @{widthXL} / 2), calc(50% - @{maxWidth} / 2))';
+		width:~'min(@{widthXL}, @{maxWidth})';
+		left:~'max(calc(50% - @{widthXL} / 2), calc(50% - @{maxWidth} / 2))';
 	}
 
 	&--lg {
-		width: ~'min(@{widthLG}, @{maxWidth})';
-		left: ~'max(calc(50% - @{widthLG} / 2), calc(50% - @{maxWidth} / 2))';
+		width:~'min(@{widthLG}, @{maxWidth})';
+		left:~'max(calc(50% - @{widthLG} / 2), calc(50% - @{maxWidth} / 2))';
 	}
 
 	&--md {
-		width: ~'min(@{widthMD}, @{maxWidth})';
-		left: ~'max(calc(50% - @{widthMD} / 2), calc(50% - @{maxWidth} / 2))';
+		width:~'min(@{widthMD}, @{maxWidth})';
+		left:~'max(calc(50% - @{widthMD} / 2), calc(50% - @{maxWidth} / 2))';
 	}
 
 	&--sm {
-		width: ~'min(@{widthSM}, @{maxWidth})';
-		left: ~'max(calc(50% - @{widthSM} / 2), calc(50% - @{maxWidth} / 2))';
+		width:~'min(@{widthSM}, @{maxWidth})';
+		left:~'max(calc(50% - @{widthSM} / 2), calc(50% - @{maxWidth} / 2))';
 	}
 
 	&--xs {
-		width: ~'min(@{widthXS}, @{maxWidth})';
-		left: ~'max(calc(50% - @{widthXS} / 2), calc(50% - @{maxWidth} / 2))';
+		width:~'min(@{widthXS}, @{maxWidth})';
+		left:~'max(calc(50% - @{widthXS} / 2), calc(50% - @{maxWidth} / 2))';
 	}
 
 	&--prompt {
@@ -192,4 +192,3 @@
 		}
 	}
 }
-

@@ -351,6 +351,10 @@
         "$type": "number",
         "$value": 13.33
       },
+      "14": {
+        "$type": "number",
+        "$value": 14
+      },
       "16": {
         "$type": "number",
         "$value": 16
