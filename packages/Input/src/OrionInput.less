@@ -242,6 +242,10 @@
 
 		&--danger {
 			color: var(--o-text-danger-default);
+
+			&:has(+ .orion-input__reveal) {
+				display: none;
+			}
 		}
 
 		&--warning {
@@ -250,6 +254,10 @@
 
 		&--success {
 			color: var(--o-text-success-default);
+
+			&:has(+ .orion-input__reveal) {
+				display: none;
+			}
 		}
 	}
 
@@ -265,7 +273,7 @@
 
 	&__reveal {
 		margin-left: 0.3rem;
-		color: var(--text-default-subtle)
+		color: var(--o-text-default-subtle)
 	}
 
 	&__icon {

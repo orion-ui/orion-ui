@@ -42,14 +42,12 @@ export default class OrionPasswordSetupService extends SharedFieldSetupService<O
 			return this.props.passwordToConfirm === this.vModel.value;
 		}
 		if (this.props.rules?.length) {
-			for (const validation of this.tooltipValidationMessages) {
-				if (!validation.valid) {
-					return false;
-				}
+			if (this.tooltipValidationMessages.find(x => !x.valid)) {
+				return false;
+			} else
 				return true;
-			}
 		}
-		return useValidation().check(this.vModel.value, 'password');
+		return true;
 	}
 
 	get showState () {

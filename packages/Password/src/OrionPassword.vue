@@ -2,13 +2,14 @@
 	<v-dropdown
 		:placement="setup.placementToolTip"
 		:triggers="[]"
-		:shown="true"
+		:shown="setup.isFocus"
 		:auto-hide="false"
 		:disabled="!passwordTooltip">
 		<orion-field
 			v-bind="setup.orionFieldBinding"
 			@clear="setup.clear()">
 			<input
+				:id="`orion-input_${setup._uid}`"
 				:ref="setup._input"
 				v-model="vModel"
 				class="orion-input__input"
@@ -25,7 +26,7 @@
 				<orion-icon
 					class="orion-input__reveal"
 					:icon="setup.reveal ? 'visibility_off' : 'visibility'"
-					ripple="neutral"
+					ripple="default"
 					@click="setup.toggleReveal()"/>
 			</template>
 
