@@ -26,7 +26,7 @@ const state = reactive({
 });
 </script>
 
-@hl {4,8,9}
+@hl {5,12}
 
 @lang:en
 ### Password confirmation

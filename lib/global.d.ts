@@ -66,7 +66,7 @@ declare global {
 
 		type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
-		type Color = 'info' | 'success' | 'warning' | 'inverted' | 'primary' | 'secondary' | 'neutral' | 'danger';
+		type Color = 'info' | 'success' | 'warning' | 'inverted' | 'primary' | 'secondary' | 'default' | 'danger' | 'neutral';
 
 		type ColorAlt =
 			| 'primary-alt'
@@ -148,6 +148,14 @@ declare global {
 			method: (payload?: DndData) => boolean;
 			notif: (payload?: any) => void;
 		};
+
+		type PasswordRuleKey = Exclude<keyof typeof ValidatorClass.rules, 'passwordConfirm'>;
+		type PasswordRuleSpec =
+  | PasswordRuleKey
+  | `hasMinLength:${number}`
+  | `hasMaxLength:${number}`
+  | `length:${number},${number}`
+  | `phone:${'true' | 'false'}`;
 
 		type Period = {
 			isStart: boolean;

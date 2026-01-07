@@ -2,7 +2,7 @@
 	<v-dropdown
 		:placement="setup.placementToolTip"
 		:triggers="[]"
-		:shown="setup.isFocus"
+		:shown="true"
 		:auto-hide="false"
 		:disabled="!passwordTooltip">
 		<orion-field
@@ -100,5 +100,8 @@ defineExpose(setup.publicInstance);
 /** Doc
  * @doc vModel/vModel component's vModel
  * @doc/fr vModel/vModel vModel du composant
+ *
+ * @doc slot/popper-content additionnal content of the dropdown popper
+ * @doc/fr slot/popper-content contenu additionnel du popper du dropdown
  */
 </script>

@@ -345,7 +345,7 @@ function checkForm () : void {
 		resultColor.value = 'primary';
 		// validator.showValidationState();
 	} else {
-		resultColor.value = 'error';
+		resultColor.value = 'danger';
 		// validator.showValidationState();
 	}
 }

@@ -4,7 +4,9 @@
 			<o-password
 				v-model="state.value"
 				v-bind="state"
+				:rules="['hasSpecialChar', 'hasMinLength:6']"
 				:password-tooltip="state.passwordTooltip"
+				:password-to-confirm="undefined"
 				label="Password"/>
 		</div>
 		<div class="col-sm-6">
@@ -17,20 +19,25 @@
 	</div>
 
 	<div class="row row--toggles">
-		<div class="col-sm-4">
+		<div class="col-sm-3">
 			<o-toggle
 				v-model="state.passwordTooltip"
 				label="Password tooltip"/>
 		</div>
-		<div class="col-sm-4">
+		<div class="col-sm-3">
 			<o-toggle
 				v-model="state.disabled"
-				label="disabled"/>
+				label="Disabled"/>
 		</div>
-		<div class="col-sm-4">
+		<div class="col-sm-3">
 			<o-toggle
 				v-model="state.readonly"
-				label="readonly"/>
+				label="Readonly"/>
+		</div>
+		<div class="col-sm-3">
+			<o-toggle
+				v-model="state.strengthIndicator"
+				label="Strength indicator"/>
 		</div>
 	</div>
 </template>
@@ -44,6 +51,7 @@ const state = reactive({
 	disabled: false,
 	readonly: false,
 	passwordToConfirm: undefined,
+	strengthIndicator: true,
 });
 </script>
 

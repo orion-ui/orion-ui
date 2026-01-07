@@ -11,6 +11,9 @@ export type OrionPasswordProps = SharedFieldSetupServiceProps & {
 	// @doc props/passwordTooltip shows the tooltip with the password's rules
 	// @doc/fr props/passwordTooltip affiche la une tooltip avec les règles à respecter
 	passwordTooltip?: boolean,
+	// @doc props/rules rules to validate the password
+	// @doc/fr props/rules règles de validation du mot de passe
+	rules?: Orion.PasswordRuleSpec[];
 	// @doc props/strengthIndicator displays a password strength indicator
 	// @doc/fr props/strengthIndicator affiche un indicateur de robustesse du mot de passe
 	strengthIndicator?: boolean,
@@ -25,18 +28,26 @@ export default class OrionPasswordSetupService extends SharedFieldSetupService<O
 		type: 'password',
 		strengthIndicator: true,
 		passwordToConfirm: undefined as OrionPasswordProps['passwordToConfirm'],
+		rules: () => ['hasLowercase', 'hasUppercase', 'hasNumber', 'length:8,60'] as Orion.PasswordRuleSpec[],
 	};
 
 	protected state = reactive({
 		...this.sharedState,
 		reveal: false,
-		validPassword: false,
 		placementToolTip: 'auto',
 	});
 
 	protected get isValidCustom () {
 		if (typeof this.props.passwordToConfirm === 'string' && this.props.passwordToConfirm?.length) {
 			return this.props.passwordToConfirm === this.vModel.value;
+		}
+		if (this.props.rules?.length) {
+			for (const validation of this.tooltipValidationMessages) {
+				if (!validation.valid) {
+					return false;
+				}
+				return true;
+			}
 		}
 		return useValidation().check(this.vModel.value, 'password');
 	}
@@ -52,24 +63,39 @@ export default class OrionPasswordSetupService extends SharedFieldSetupService<O
 				valid: this.isValid.value,
 			}];
 		} else {
-			return [
-				{
-					message: this.lang.ORION_PASSWORD__VALIDATION_HAS_LOWERCASE,
-					valid: useValidation().check(this.vModel.value, 'hasLowercase'),
-				},
-				{
-					message: this.lang.ORION_PASSWORD__VALIDATION_HAS_UPPERCASE,
-					valid: useValidation().check(this.vModel.value, 'hasUppercase'),
-				},
-				{
-					message: this.lang.ORION_PASSWORD__VALIDATION_HAS_NUMBER,
-					valid: useValidation().check(this.vModel.value, 'hasNumber'),
-				},
-				{
-					message: this.lang.ORION_PASSWORD__VALIDATION_LENGTH,
-					valid: useValidation().check(this.vModel.value, 'length:8,60'),
-				},
-			];
+			const rules = [] as {message: string; valid: boolean}[];
+			this.props.rules?.forEach((rule) => {
+				if (typeof rule === 'string') {
+					const [ruleName, param] = rule.split(':');
+					rules.push({
+						message: this.getPasswordRuleMessage(ruleName as Orion.PasswordRuleKey, param),
+						valid: useValidation().check(this.vModel.value, rule),
+					});
+				}
+			});
+			return rules;
+		}
+	}
+
+	getPasswordRuleMessage (rule: Orion.PasswordRuleKey, param?: string) {
+		switch (rule) {
+		case 'hasLowercase':
+			return this.lang.ORION_PASSWORD__VALIDATION_HAS_LOWERCASE;
+		case 'hasUppercase':
+			return this.lang.ORION_PASSWORD__VALIDATION_HAS_UPPERCASE;
+		case 'hasNumber':
+			return this.lang.ORION_PASSWORD__VALIDATION_HAS_NUMBER;
+		case 'hasSpecialChar':
+			return this.lang.ORION_PASSWORD__VALIDATION_HAS_SPECIAL_CHAR;
+		case 'hasMinLength':
+			return this.lang.ORION_PASSWORD__VALIDATION_HAS_MIN_LENGTH.replace('$charLength', param?.toString() || '');
+		case 'hasMaxLength':
+			return this.lang.ORION_PASSWORD__VALIDATION_HAS_MAX_LENGTH.replace('$charLength', param?.toString() || '');
+		case 'length':
+			const [min, max] = param?.split(',') || [];
+			return this.lang.ORION_PASSWORD__VALIDATION_LENGTH.replace('$min', min || '').replace('$max', max || '');
+		default:
+			return '';
 		}
 	}
 
@@ -82,13 +108,30 @@ export default class OrionPasswordSetupService extends SharedFieldSetupService<O
 	}
 
 	get passwordScore () {
-		let score = 0;
-		this.tooltipValidationMessages.forEach((validation) => {
-			if (validation.valid) {
-				score += 1;
-			}
-		});
-		return score;
+		let i = 0;
+		if (!this.vModel.value || !this.vModel.value.length) return i;
+
+		if (this.vModel.value.length > 6 && this.vModel.value?.length < 11) {
+			i++;
+		}
+
+		if (this.vModel.value.length >= 11) {
+			i++;
+		}
+
+		if (/[A-Z]/.test(this.vModel.value)) {
+			i++;
+		}
+
+		if (/[0-9]/.test(this.vModel.value)) {
+			i++;
+		}
+
+		if (/[^A-Za-z0-9]/.test(this.vModel.value)) {
+			i++;
+		}
+
+		return i;
 	}
 
 	get passwordStrength () {
@@ -101,6 +144,7 @@ export default class OrionPasswordSetupService extends SharedFieldSetupService<O
 		case 3:
 			return useLang().PASSWORD_STRENGTH_GOOD;
 		case 4:
+		case 5:
 			return useLang().PASSWORD_STRENGTH_STRONG;
 		default:
 			return useLang().PASSWORD_STRENGTH_WEAK;
@@ -112,7 +156,7 @@ export default class OrionPasswordSetupService extends SharedFieldSetupService<O
 			switch (this.passwordScore) {
 			case 0:
 			case 1:
-				return 'orion-password-popover__indicator-step--error';
+				return 'orion-password-popover__indicator-step--danger';
 			case 2:
 				return 'orion-password-popover__indicator-step--warning';
 			case 3:
@@ -136,7 +180,9 @@ export default class OrionPasswordSetupService extends SharedFieldSetupService<O
 	}
 
 	constructor (
-		protected props: OrionPasswordProps & typeof OrionPasswordSetupService.defaultProps,
+		protected props: OrionPasswordProps & Omit<typeof OrionPasswordSetupService.defaultProps, 'rules'> &{
+			rules: Orion.PasswordRuleSpec[]
+		},
 		protected emits: OrionPasswordEmits,
 		protected vModel: ModelRef<Nil<string>>) {
 		super(props, emits, vModel);
@@ -164,6 +210,6 @@ export default class OrionPasswordSetupService extends SharedFieldSetupService<O
 		if (!this.vModel.value || !this.vModel.value.length) {
 			return 'text--neutral-light';
 		}
-		return validation ? 'text--success' : 'text--error';
+		return validation ? 'text--success' : 'text--danger';
 	}
 }
