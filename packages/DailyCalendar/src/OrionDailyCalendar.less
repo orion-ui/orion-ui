@@ -6,14 +6,14 @@
 
 	&__header {
 		position: sticky;
-		background: var(--background-neutral-default);
+		background: var(--o-background-neutral-default);
 		top: 0;
 		right: 0;
 		left: 0;
 		height: 4rem;
 		margin: calc(-20rem / 16);
 		margin-bottom: 0;
-		padding: var(--spacing-48);
+		padding: var(--o-space-48);
 		z-index: 4;
 
 	}
@@ -38,23 +38,23 @@
 		}
 
 		&-number {
-			color: var(--text-default-moderate);
+			color: var(--o-text-default-moderate);
 			font-size: 0.875rem;
 			margin-right: 1.25rem;
 
 			&--now {
-				color: var(--text-error-default);
+				color: var(--o-text-danger-default);
 			}
 		}
 
 		&-line {
 			height: calc(1rem / 16);
-			background: var(--background-neutral-subtle);
+			background: var(--o-background-neutral-subtle);
 			width: 100%;
 
 			&--now {
 				position: relative;
-				background: var(--background-error-default);
+				background: var(--o-background-danger-default);
 				height: calc(1rem / 16);
 				z-index: 2;
 
@@ -65,7 +65,7 @@
 					height: 0;
 					border-top: calc(6rem / 16) solid transparent;
 					border-bottom: calc(6rem / 16) solid transparent;
-					border-left: 0.5rem solid var(--background-error-default);
+					border-left: 0.5rem solid var(--o-background-danger-default);
 					top: calc(-5rem / 16);
 					left: calc(-3rem / 16);
 					z-index: 2;
@@ -78,10 +78,10 @@
 		position: absolute;
 		width: calc(100% - 52px);
 		right: 0;
-		padding: var(--spacing-8) 10px;
-		background: rgba(var(--background-info-default), 0.25);
+		padding: var(--o-space-8) 10px;
+		background: rgba(var(--o-background-info-default), 0.25);
 		border-radius: 0.25rem;
-		color: var(--text-info-default);
+		color: var(--o-text-info-default);
 		font-weight: 600;
 		transition: all 0.2s ease;
 		cursor: pointer;
@@ -89,17 +89,17 @@
 
 		each(@colors, {
 			&--@{value} {
-				background: color-mix(in oklab, var(~"--background-@{value}-default") 20%, transparent);
-				color: var(~"--text-@{value}-default");
+				background: color-mix(in oklab, var(~"--o-background-@{value}-default") 20%, transparent);
+				color: var(~"--o-text-@{value}-default");
 				&:hover{
-					background: color-mix(in oklab, var(~"--background-@{value}-default") 30%, transparent);
+					background: color-mix(in oklab, var(~"--o-background-@{value}-default") 30%, transparent);
 					transform: translate3d(0, calc(-2rem / 16), 0);
 					box-shadow: 
-						0  calc(2rem/16) calc(2rem/16)  color-mix(in oklab, var(~"--background-@{value}-default") 6%, transparent),
-						0  0.25rem       0.25rem        color-mix(in oklab, var(~"--background-@{value}-default") 6%, transparent),
-						0  0.5rem        0.5rem         color-mix(in oklab, var(~"--background-@{value}-default") 6%, transparent),
-						0  1rem          1rem           color-mix(in oklab, var(~"--background-@{value}-default") 6%, transparent),
-						0  2rem          2rem           color-mix(in oklab, var(~"--background-@{value}-default") 6%, transparent);
+						0  calc(2rem/16) calc(2rem/16)  color-mix(in oklab, var(~"--o-background-@{value}-default") 6%, transparent),
+						0  0.25rem       0.25rem        color-mix(in oklab, var(~"--o-background-@{value}-default") 6%, transparent),
+						0  0.5rem        0.5rem         color-mix(in oklab, var(~"--o-background-@{value}-default") 6%, transparent),
+						0  1rem          1rem           color-mix(in oklab, var(~"--o-background-@{value}-default") 6%, transparent),
+						0  2rem          2rem           color-mix(in oklab, var(~"--o-background-@{value}-default") 6%, transparent);
 				}
 			}
 		});
@@ -124,7 +124,7 @@
 		top: calc(25rem / 16);
 		right: 1.25rem;
 		font-size: 1rem;
-		color: var(--text-default-default);
+		color: var(--o-text-default-default);
 		display: flex;
 		gap: 0.5rem;
 		z-index: 5;
@@ -139,3 +139,5 @@
 		z-index: 3;
 	}
 }
+
+

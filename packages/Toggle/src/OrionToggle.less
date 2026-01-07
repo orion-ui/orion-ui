@@ -8,7 +8,7 @@
 	justify-content: flex-end;
 	flex-direction: row-reverse;
 	margin: 0;
-	gap: var(--spacing-4);
+	gap: var(--o-space-4);
 	cursor: pointer;
 
 	&__label {
@@ -17,11 +17,11 @@
 		cursor: pointer;
 		font-weight: 600;
 		font-size: 0.75rem;
-		font-family: var(--typography-family--ignore-body);
-		font-size: var(--typography-size-sm);
+		font-family: var(--o-typography-label-bold-font-family);
+		font-size: var(--o-typography-label-bold-font-size);
 		font-style: normal;
-		font-weight: var(--typography-weight-normal);
-		line-height: var(--typography-line-height-sm); /* 150.038% */
+		font-weight: var(--o-typography-weight-normal);
+		line-height: var(--o-typography-line-height-sm); /* 150.038% */
 
 		.orion-toggle--required & {
 			padding-right: 0.375rem;
@@ -30,17 +30,17 @@
 				position: absolute;
 				top: 0;
 				z-index: 1;
-				color: var(--text-error-default);
+				color: var(--o-text-danger-default);
 			}
 		}
 
 		.orion-toggle--reverse & {
 			padding-left: 0;
-			padding-right: var(--spacing-16);
+			padding-right: var(--o-space-16);
 		}
 
 		.orion-toggle--disabled & {
-			color: var(--text-default-moderate);
+			color: var(--o-text-default-moderate);
 			cursor: not-allowed;
 		}
 	}
@@ -57,8 +57,8 @@
 		position: relative;
 		box-sizing: border-box;
 		outline: 0;
-		margin: var(--spacing-4);
-		background-color: var(--background-neutral-moderate);
+		margin: var(--o-space-4);
+		background-color: var(--o-background-neutral-moderate);
 		user-select: none;
 
 		&-button {
@@ -94,7 +94,7 @@
         > .orion-toggle__core,
         > .orion-toggle__core > .orion-toggle__core-button::before,
         > .orion-toggle__core > .orion-toggle__core-button::after {
-          background: var(~"--background-@{value}-default");
+          background: var(~"--o-background-@{value}-default");
         }
       }
     });
@@ -103,7 +103,7 @@
 			> .orion-toggle__core,
 			> .orion-toggle__core > .orion-toggle__core-button::before,
 			> .orion-toggle__core > .orion-toggle__core-button::after {
-				background: var(--background-info-default);
+				background: var(--o-background-info-default);
 			}
 		}
 
@@ -111,7 +111,7 @@
 			> .orion-toggle__core,
 			> .orion-toggle__core > .orion-toggle__core-button::before,
 			> .orion-toggle__core > .orion-toggle__core-button::after {
-				background: var(--background-neutral-highlight);
+				background: var(--o-background-neutral-highlight);
 			}
 		}
 	}
@@ -120,9 +120,9 @@
 		cursor: not-allowed;
 
 		> .orion-toggle__core {
-			background: var(--background-neutral-disabled);
+			background: var(--o-background-neutral-disabled);
 			> .orion-toggle__core-button {
-				background: var(--background-neutral-subtle);
+				background: var(--o-background-neutral-subtle);
 			}
 		}
 	}
@@ -131,3 +131,6 @@
 		display: none;
 	}
 }
+
+
+

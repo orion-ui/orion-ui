@@ -11,10 +11,10 @@
 				:title="item.title">
 				{{ item.description }}
 				<template #actions>
-					<o-icon icon="image_01"/>
+					<o-icon icon="image"/>
 					<o-icon icon="redo"/>
 					<o-icon
-						icon="check_big"
+						icon="check"
 						ripple="info"
 						@click="toggleItemSelection(item)"/>
 				</template>

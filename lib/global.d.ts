@@ -66,14 +66,14 @@ declare global {
 
 		type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
-		type Color = 'info' | 'success' | 'warning' | 'inverted' | 'primary' | 'secondary' | 'neutral' | 'error';
+		type Color = 'info' | 'success' | 'warning' | 'inverted' | 'primary' | 'secondary' | 'neutral' | 'danger';
 
 		type ColorAlt =
 			| 'primary-alt'
 			| 'info-alt'
 			| 'success-alt'
 			| 'warning-alt'
-			| 'error-alt'
+			| 'danger-alt'
 			| 'secondary-alt';
 
 		type ColorExtended = Color | ColorAlt;
@@ -324,7 +324,7 @@ declare global {
 				duration?: Nil<number>;
 				icon?: Orion.Icon;
 				fontIcon?: string;
-				color?: 'primary' | 'success' | 'warning' | 'error';
+				color?: 'primary' | 'success' | 'warning' | 'danger' | 'info';
 				events?: Record<string, (notif: OrionNotif, params: any) => void>;
 			};
 		}

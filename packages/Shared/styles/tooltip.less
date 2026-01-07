@@ -2,25 +2,26 @@
 	&__popper {
 		.v-popper__arrow {
 			[data-orion-theme='dark'] & {
-				border-color: var(--border-neutral-default);
+				border-color: var(--o-border-neutral-default);
 			}
 
 			&-outer {
 				[data-orion-theme='dark'] & {
-					border-color: var(--border-neutral-default);
+					border-color: var(--o-border-neutral-default);
 				}
 			}
+
 			&-inner {
 				[data-orion-theme='dark'] & {
-					border-color: var(--border-neutral-default);
+					border-color: var(--o-border-neutral-default);
 				}
 			}
 		}
 
 		.v-popper__inner {
-			color: var(--text-default-default);
-			padding: var(--spacing-16);
-			border-radius: var(--radius-md);
+			color: var(--o-text-default-default);
+			padding: var(--o-space-16);
+			border-radius: var(--o-radius-lg);
 		}
 
 		&--no-positioning {
@@ -36,7 +37,8 @@
 			overflow: auto;
 
 			&::-webkit-scrollbar {
-				display: none; /* Chrome, Safari and Opera */
+				display: none;
+				/* Chrome, Safari and Opera */
 			}
 
 			.v-popper__inner {
@@ -46,11 +48,9 @@
 
 			.v-popper__backdrop {
 				display: block;
-				background: color-mix(
-					in srgb,
-					var(--background-neutral-highlight) 70%,
-					transparent
-				);
+				background: color-mix(in srgb,
+						var(--o-background-neutral-highlight) 70%,
+						transparent);
 				bottom: -1px; // for parent overscroll-behavior
 				height: auto; // for parent overscroll-behavior
 			}
@@ -67,18 +67,19 @@
 .v-popper--theme {
 	&-tooltip {
 		pointer-events: none;
+
 		.v-popper__inner {
-			border-radius: var(--radius-md);
-			padding: var(--spacing-8) var(--spacing-16);
-			color: var(--text-default-inverted);
-			font-size: var(--typography-size-sm);
+			border-radius: var(--o-radius-md);
+			padding: var(--o-space-8) var(--o-space-16);
+			color: var(--o-text-default-inverted);
+			font-size: var(--o-typography-label-bold-font-size);
 		}
 	}
 
 	&-orion-pop-confirm {
 		width: max-content;
 
-		> .icon {
+		>.icon {
 			cursor: pointer;
 			display: inherit;
 		}
@@ -87,28 +88,35 @@
 	&-orion-editor-toolbar {
 		.v-popper {
 			&__inner {
-				padding: var(--spacing-8);
+				padding: var(--o-space-8);
 
 				.orion-button {
 					box-shadow: none;
-					border: 0.0625rem solid rgba(var(--border-neutral-default), 0.7);
+					border: 0.0625rem solid rgba(var(--o-border-neutral-default), 0.7);
 
 					&.active {
-						border-color: var(--border-info-default);
+						border-color: var(--o-border-info-default);
 					}
 
-					+ .orion-button {
-						margin-left: var(--spacing-8);
+					+.orion-button {
+						margin-left: var(--o-space-8);
 					}
 				}
 			}
 		}
 	}
 
+	&-orion-select,
+	&-orion-select-searchable {
+		.v-popper__inner {
+			background: var(--o-background-neutral-default);
+			color: var(--o-text-default-default);
+		}
+	}
+
 	&-orion-select-searchable {
 		&.v-popper__popper--no-positioning .orion-select__popover {
-			height: calc(90vh - var(--spacing-48)); // dvh support fallback
-			height: calc(90dvh - var(--spacing-48));
+			height: calc(90vh - var(--o-space-48));
 			max-height: none;
 		}
 	}

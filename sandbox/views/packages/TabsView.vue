@@ -70,8 +70,8 @@ import NestedComp from 'sandbox/NestedComp.vue';
 const activeTab = ref('toto');
 const activeTatab = ref('pane1');
 const tutu = reactive([1, 2, 3, 4]);
-const pillIcon = ref<Orion.Icon>('adobe_xd');
+const pillIcon = ref<Orion.Icon>('palette');
 const pillIconOptions: Orion.Icon[] = [
-	'Figma', 'LinkedIn', 'Sketch', 'add_column', 'add_row', 'add_to_queue',
+	'palette', 'link', 'brush', 'view_column', 'table_rows', 'add_to_queue',
 ];
 </script>

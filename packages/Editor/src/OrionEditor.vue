@@ -3,7 +3,7 @@
 		v-if="setup.editor?.value"
 		class="orion-editor"
 		:class="{
-			'orion-editor--error': setup.showError,
+			'orion-editor--danger': setup.showError,
 			'orion-editor--warning': setup.showWarning,
 			'orion-editor--success': setup.showSuccess,
 			'orion-editor--focused': setup.isFocus,
@@ -28,7 +28,7 @@
 				<orion-button
 					v-tooltip="setup.lang.ORION_EDITOR__FONT_SIZE"
 					size="sm"
-					prefix-icon="font"/>
+					prefix-icon="format_size"/>
 				<template #popper>
 					<orion-button
 						size="xs"
@@ -63,7 +63,7 @@
 				<orion-button
 					v-tooltip="setup.lang.ORION_EDITOR__TEXT_COLOR"
 					size="sm"
-					prefix-icon="swatches_palette"
+					prefix-icon="palette"
 					:class="{ 'active': setup.editor?.value.isActive('textColor') }"/>
 				<template #popper>
 					<orion-color-picker
@@ -87,12 +87,12 @@
 				<orion-button
 					v-tooltip="setup.lang.ORION_EDITOR__BACKGROUND_COLOR"
 					size="sm"
-					prefix-icon="rainbow"
+					prefix-icon="format_color_fill"
 					:class="{ 'active': setup.editor?.value.isActive('textBackground') }"/>
 				<template #popper>
 					<orion-color-picker
 						hide-rgba
-						:start-value="setup.editor?.value?.commands.getTextBackground()"
+						:start-value="setup.editor?.value?.getAttributes('textStyle').background ?? ''"
 						@picked="setup.editor?.value?.commands.setTextBackground($event?.hex)"/>
 					<orion-button
 						style="border:none"
@@ -110,21 +110,21 @@
 				v-if="!disableFeatures.includes('Bold')"
 				v-tooltip="setup.lang.ORION_EDITOR__BOLD"
 				size="sm"
-				prefix-icon="bold"
+				prefix-icon="format_bold"
 				:class="{ 'active': setup.editor?.value.isActive('bold') }"
 				@click="setup.editor?.value?.chain().focus().toggleBold().run()"/>
 			<orion-button
 				v-if="!disableFeatures.includes('Italic')"
 				v-tooltip="setup.lang.ORION_EDITOR__ITALIC"
 				size="sm"
-				prefix-icon="italic"
+				prefix-icon="format_italic"
 				:class="{ 'active': setup.editor?.value.isActive('italic') }"
 				@click="setup.editor?.value?.chain().focus().toggleItalic().run()"/>
 			<orion-button
 				v-if="!disableFeatures.includes('Underline')"
 				v-tooltip="setup.lang.ORION_EDITOR__UNDERLINE"
 				size="sm"
-				prefix-icon="underline"
+				prefix-icon="format_underlined"
 				:class="{ 'active': setup.editor?.value.isActive('underline') }"
 				@click="setup.editor?.value?.chain().focus().toggleUnderline().run()"/>
 
@@ -134,7 +134,7 @@
 				<orion-button
 					v-tooltip="setup.lang.ORION_EDITOR__ALIGN"
 					size="sm"
-					prefix-icon="text_align_center"/>
+					prefix-icon="format_align_center"/>
 				<template #popper>
 					<orion-button
 						size="xs"
@@ -161,7 +161,7 @@
 				v-if="!disableFeatures.includes('BulletList')"
 				v-tooltip="setup.lang.ORION_EDITOR__UNORDERED_LIST"
 				size="sm"
-				prefix-icon="list_unordered"
+				prefix-icon="format_list_bulleted"
 				:class="{ 'active': setup.editor?.value.isActive('bulletList') }"
 				@click="setup.editor?.value?.chain().focus().toggleBulletList().run()"/>
 			<orion-button
@@ -175,28 +175,28 @@
 				v-if="!disableFeatures.includes('Link') && setup.editor?.value.isActive('link')"
 				v-tooltip="setup.lang.ORION_EDITOR__UNLINK"
 				size="sm"
-				prefix-icon="link_break"
+				prefix-icon="link_off"
 				@click="setup.editor?.value?.chain().focus().unsetLink().run()"/>
 
 			<orion-button
 				v-if="!disableFeatures.includes('ImageUrl')"
 				v-tooltip="setup.lang.ORION_EDITOR__PICTURE_URL"
 				size="sm"
-				prefix-icon="image_01"
+				prefix-icon="image"
 				@click="setup.promptImageUrlAsync()"/>
 
 			<orion-button
 				v-if="!disableFeatures.includes('ImageBase64')"
 				v-tooltip="setup.lang.ORION_EDITOR__PICTURE"
 				size="sm"
-				prefix-icon="camera"
+				prefix-icon="photo_camera"
 				@click="setup.promptImageAsync()"/>
 
 			<orion-button
 				v-if="!disableFeatures.includes('YouTube')"
 				v-tooltip="setup.lang.ORION_EDITOR__YOUTUBE"
 				size="sm"
-				prefix-icon="play"
+				prefix-icon="play_circle"
 				@click="setup.promptYouTubeAsync()"/>
 		</div>
 

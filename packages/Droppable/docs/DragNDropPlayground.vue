@@ -11,7 +11,7 @@
 					:disabled="item.title === 'Item 1' ? state.disabled : false"
 					:tag="state.tag">
 					<div class="draggable-content">
-						<o-icon icon="file_document"/>
+						<o-icon icon="article"/>
 						<strong>{{ item.title }}</strong>
 					</div>
 				</o-draggable>
@@ -28,7 +28,7 @@
 					:data="item"
 					:tag="state.tag">
 					<div class="draggable-content">
-						<o-icon icon="file_blank"/>
+						<o-icon icon="drafts"/>
 						<strong>{{ item.title }}</strong>
 					</div>
 				</o-draggable>
@@ -46,7 +46,7 @@
 					:data="item"
 					:tag="state.tag">
 					<div class="draggable-content">
-						<o-icon icon="file_code"/>
+						<o-icon icon="file_present"/>
 						<strong>{{ item.title }}</strong>
 					</div>
 				</o-draggable>
@@ -141,14 +141,14 @@ const middle = ref([
 
 .orion-droppable {
 	position: relative;
-	padding: var(--spacing-16);
+	padding: var(--o-space-16);
 	border-radius: 0.5rem;
-	background: var(--background-neutral-subtle);
+	background: var(--o-background-neutral-subtle);
 
 	&--allowed {
 		background: color-mix(
 			in srgb,
-			var(--background-success-default) 15%,
+			var(--o-background-success-default) 15%,
 			transparent 85%
 		);
 	}
@@ -164,7 +164,7 @@ const middle = ref([
 	&--over {
 		background: color-mix(
 			in srgb,
-			var(--background-info-default) 15%,
+			var(--o-background-info-default) 15%,
 			transparent 85%
 		);
 	}
@@ -187,3 +187,4 @@ const middle = ref([
 </style>
 
 ### Playground
+

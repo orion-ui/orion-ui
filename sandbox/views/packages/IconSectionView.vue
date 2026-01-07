@@ -3,7 +3,7 @@
 		<o-card style="width:320px">
 			<o-icon-section
 				title="Vulputate Etiam"
-				icon="data">
+				icon="data_usage">
 				Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
 			</o-icon-section>
 			<o-icon-section

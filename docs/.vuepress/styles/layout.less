@@ -6,10 +6,12 @@
 		transform var(--t-transform),
 		box-shadow var(--t-transform);
 	scrollbar-color: var(--c-brand) transparent;
+		background: var(--o-background-neutral-minimal);
+
 
 	&-item {
 		p&:not(.vp-sidebar-heading)& {
-			color: var(--text-default-default);
+			color: var(--o-text-default-default);
 			text-transform: uppercase;
 			font-weight: 700 !important;
 			font-size: 0.75rem !important;
@@ -54,10 +56,10 @@
 	display: flex;
 	align-items: center;
 	vertical-align: middle;
-	padding: var(--spacing-8) var(--spacing-16) var(--spacing-8) var(--spacing-16);
+	padding: var(--o-space-8) var(--o-space-16) var(--o-space-8) var(--o-space-16);
 	gap: 0.5rem;
 	backdrop-filter: saturate(50%) blur(8px);
-	background: var(--background-neutral-subtle);
+	background: var(--o-background-neutral-minimal);
 	border-bottom: none;
 
 	&-item {
@@ -66,7 +68,7 @@
 		}
 
 		a.route-link {
-			color: var(--text-default-default);
+			color: var(--o-text-default-default);
 
 			&:hover {
 				color: var(--c-brand);
@@ -103,14 +105,14 @@
 		display: flex;
 		order: 5;
 		background-color: transparent;
-		color: var(--text-default-default);
+		color: var(--o-text-default-default);
 		cursor: pointer;
 		margin-left: 0.5rem;
-		border: 0.0625rem solid var(--border-neutral-default);
+		border: 0.0625rem solid var(--o-border-neutral-default);
 		border-radius: 0.25rem;
 		height: 2rem;
 		vertical-align: middle;
-		padding: 0 var(--spacing-8);
+		padding: 0 var(--o-space-8);
 
 		@media @phone, @tabletOnly {
 			display: none;
@@ -120,7 +122,7 @@
 	.navbar-search-buttonKey {
 		font-size: 0.75rem;
 		background-color: transparent;
-		color: var(--text-default-default);
+		color: var(--o-text-default-default);
 		border-color: transparent;
 		height: inherit;
 		display: flex;
@@ -129,7 +131,7 @@
 	}
 
 	.navbar-search-buttons:hover {
-		border-color: var(--border-primary-default);
+		border-color: var(--o-border-primary-default);
 	}
 
 	.search-box {
@@ -223,7 +225,7 @@
 .doc-content {
 	max-width: var(--content-width);
 	width: 100%;
-	padding: var(--spacing-48) 0;
+	padding: var(--o-space-48) 0;
 
 	p {
 		font-size: 1rem;
@@ -240,11 +242,11 @@
 	}
 
 	@media @phone {
-		padding: var(--spacing-16) var(--spacing-16);
+		padding: var(--o-space-16) var(--o-space-16);
 	}
 
 	@media @tabletPortrait {
-		padding: var(--spacing-32) var(--spacing-32);
+		padding: var(--o-space-32) var(--o-space-32);
 	}
 
 	h2,
@@ -268,7 +270,7 @@
 		margin-top: 2rem;
 
 		.meta-item-info {
-			color: var(--text-default-default);
+			color: var(--o-text-default-default);
 		}
 	}
 
@@ -279,7 +281,7 @@
 		font-size: 1.25rem;
 		top: 0.5rem;
 		z-index: 5;
-		color: var(--text-neutral-subtle);
+		color: var(--o-text-neutral-subtle);
 
 		@media @phone {
 			display: none;
@@ -287,17 +289,17 @@
 	}
 
 	* .copy-icon:hover {
-		color: var(--text-primary-default);
+		color: var(--o-text-primary-default);
 	}
 
 	.tooltip-prog {
 		position: absolute;
 		top: 0.25rem;
 		left: calc(100% + 0.3125rem);
-		background: var(--background-primary-default);
-		color: var(--text-default-inverted);
+		background: var(--o-background-primary-default);
+		color: var(--o-text-default-inverted);
 		font-weight: 700;
-		padding: var(--spacing-8) var(--spacing-8);
+		padding: var(--o-space-8) var(--o-space-8);
 		border-radius: 0.25rem;
 		pointer-events: none;
 		white-space: nowrap;
@@ -305,7 +307,7 @@
 	}
 
 	.global-type {
-		color: var(--text-primary-default);
+		color: var(--o-text-primary-default);
 		cursor: pointer;
 	}
 }
@@ -313,7 +315,7 @@
 .toc-content {
 	position: sticky;
 	top: 4rem;
-	padding: var(--spacing-32);
+	padding: var(--o-space-32);
 	background: transparent;
 	white-space: nowrap;
 	width: 12.5rem;
@@ -325,7 +327,7 @@
 }
 
 .toc-list__item a {
-	color: var(--text-default-default);
+	color: var(--o-text-default-default);
 
 	&.active {
 		font-weight: bold;
@@ -340,7 +342,7 @@
 	z-index: 20;
 	justify-content: flex-end;
 	backdrop-filter: saturate(50%) blur(8px);
-	background: var(--background-neutral-default);
+	background: var(--o-background-neutral-default);
 }
 
 h2,
@@ -353,10 +355,10 @@ h4 {
 
 .footer {
 	margin: 3rem 2rem;
-	border-top: 0.0625rem solid var(--border-neutral-default);
+	border-top: 0.0625rem solid var(--o-border-neutral-default);
 	display: flex;
 	justify-content: center;
-	padding: var(--spacing-32);
+	padding: var(--o-space-32);
 }
 
 code {

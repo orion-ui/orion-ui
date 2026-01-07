@@ -57,7 +57,7 @@ export default class OrionCarouselSetupService extends SharedSetupService {
 		}
 	}
 
-	get rgbColor () { return `var(--background-${this.props.color}-default)`; }
+	get rgbColor () { return `var(--o-background-${this.props.color}-default)`; }
 	get stepTimerForCss () { return this.props.stepTimer + 'ms'; }
 	get shouldLoop () { return !!this.props.stepTimer || this.props.loop; }
 	get stepIndex () { return this.steps.findIndex(x => x.name === this.vModel.value); }

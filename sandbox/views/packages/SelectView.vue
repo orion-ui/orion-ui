@@ -568,7 +568,7 @@
 								multiple
 								:options="data.fieldSelectObjectMultiple.options"
 								:favorites-options="data.fieldSelectObjectMultiple.options.slice(3, 5)"
-								:favorite-icon="'add_column'"
+								:favorite-icon="'view_column'"
 								show-favorite-icon
 								prefix-icon="camera"/>
 						</div>
@@ -760,7 +760,7 @@ function cb () {
 	margin: 1rem;
 	//width: 10rem;
 	position:relative;
-	background: var(--background-error-default);
+	background: var(--o-background-danger-default);
 }
 
 .chip-style {

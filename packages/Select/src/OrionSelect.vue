@@ -120,7 +120,7 @@
 					:label="setup.lang.SEARCH"
 					class="orion-select__popover-search-input"
 					size="xs"
-					suffix-icon="search_magnifying_glass"
+					suffix-icon="search"
 					enterkeyhint="search"
 					@keydown.down.prevent.stop="setup.handleKeydown('down')"
 					@keydown.up.prevent.stop="setup.handleKeydown('up')"

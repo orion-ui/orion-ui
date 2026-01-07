@@ -98,7 +98,7 @@ Using a `<style scoped>` block and the `:deep()` selector, you can locally modif
 
 ```less{4}
 :root {
-  --radius-input: 0.5rem;
+  --o-radius-input: 0.5rem;
   --rgb-brand: 51, 67, 148;
 }
 ```
@@ -113,7 +113,7 @@ Using a `<style scoped>` block and the `:deep()` selector, you can locally modif
 | `--font-family`               | Main font                          | `'Source Sans Pro', sans-serif`  |
 | `--font-title`                | Title font                         | `'Source Sans Pro', sans-serif`  |
 | `--font-paragraph`            | Paragraph font                     | `'Source Sans Pro', sans-serif`  |
-| `--size-default`              | Base size                           | `0.875rem`                       |
+| `--o-size-default`              | Base size                           | `0.875rem`                       |
 | `--font-weight-default`       | Default font weight                 | `400`                            |
 | `--font-weight-title`         | Title font weight                   | `700`                            |
 | `--font-weight-page-title`    | Page title font weight              | `700`                            |
@@ -127,17 +127,17 @@ Using a `<style scoped>` block and the `:deep()` selector, you can locally modif
 
 | Variable                     | Component                  | Default Value                     |
 |------------------------------|----------------------------|----------------------------------|
-| `--radius-card`               | OrionCard                  | `0.5rem`                          |
-| `--radius-sticker`            | OrionSticker               | `0.5rem`                          |
-| `--radius-popover`            | OrionPopover               | `0.5rem`                          |
-| `--radius-btn`                | OrionButton                | `0.25rem`                         |
-| `--radius-alert`              | OrionAlert                 | `0.25rem`                         |
-| `--radius-notif`              | OrionNotification          | `0.25rem`                         |
-| `--radius-aside`              | OrionAside                 | `1.25rem`                         |
-| `--radius-modal`              | OrionModal                 | `1.25rem`                         |
-| `--radius-input-range`        | OrionInputRange            | `0.5rem`                          |
-| `--radius-input`              | OrionInput                 | `0.25rem`                         |
-| `--radius-upload`             | OrionUpload                | `0.25rem`                         |
+| `--o-radius-card`               | OrionCard                  | `0.5rem`                          |
+| `--o-radius-sticker`            | OrionSticker               | `0.5rem`                          |
+| `--o-radius-popover`            | OrionPopover               | `0.5rem`                          |
+| `--o-radius-btn`                | OrionButton                | `0.25rem`                         |
+| `--o-radius-alert`              | OrionAlert                 | `0.25rem`                         |
+| `--o-radius-notif`              | OrionNotification          | `0.25rem`                         |
+| `--o-radius-aside`              | OrionAside                 | `1.25rem`                         |
+| `--o-radius-modal`              | OrionModal                 | `1.25rem`                         |
+| `--o-radius-input-range`        | OrionInputRange            | `0.5rem`                          |
+| `--o-radius-input`              | OrionInput                 | `0.25rem`                         |
+| `--o-radius-upload`             | OrionUpload                | `0.25rem`                         |
 ---
 
 ### Colors

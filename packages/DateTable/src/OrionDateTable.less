@@ -4,11 +4,11 @@
 .orion-date-table {
 	min-width: calc(280rem / 16);
 	flex: 1;
-	padding: var(--spacing-16);
-	background-color: var(--background-neutral-default);
+	padding: var(--o-space-16);
+	background-color: var(--o-background-neutral-default);
 
 	&--with-week-number {
-		padding: var(--spacing-8);
+		padding: var(--o-space-8);
 	}
 
 	.v-popper__popper & {
@@ -22,11 +22,11 @@
 		right: -0.125rem;
 		z-index: 10;
 		.circle(0.5rem);
-		background-color: var(--danger);
-		color: var(--white);
+		background-color: var(--o-background-danger-default);
+		color: var(--o-text-default-inverted);
 
 		each(@colors, {
-			@color: ~"--@{value}";
+			@color: ~"--o-text-@{value}-default";
       &--@{value} {
           background: var(@color);
       
@@ -50,35 +50,35 @@
 			gap: 0.25rem;
 			font-weight: 600;
 			line-height: 1.5rem;
-			color: var(--text-default-default);
+			color: var(--o-text-default-default);
 
 			> span {
 				display: block;
-				padding: calc(1px + 0.125rem) var(--spacing-16);
+				padding: calc(1px + 0.125rem) var(--o-space-16);
 			}
 		}
 
 		&-current-month,
 		&-current-year {
-			border: 0.0625rem solid var(--background-neutral-subtle);
+			border: 0.0625rem solid var(--o-background-neutral-subtle);
 			border-radius: 0.25rem;
 
 			&:not(.disabled) {
 				cursor: pointer;
 
 				&:hover {
-					color: var(--text-info-default);
+					color: var(--o-text-info-default);
 				}
 			}
 		}
 
 		&-carret {
 			font-size: 1.25rem;
-			color: var(--text-default-default);
+			color: var(--o-text-default-default);
 			cursor: pointer;
 
 			&:hover {
-				color: var(--text-info-default);
+				color: var(--o-text-info-default);
 			}
 
 			&.disable {
@@ -98,7 +98,7 @@
 		&-dow {
 			display: flex;
 			justify-content: center;
-			border-bottom: 0.0625rem solid var(--border-neutral-default);
+			border-bottom: 0.0625rem solid var(--o-border-neutral-default);
 
 
 			> span {
@@ -120,7 +120,7 @@
 	&__legend {
 		display: flex;
 		cursor: pointer;
-		padding: calc(2rem / 16) var(--spacing-16);
+		padding: calc(2rem / 16) var(--o-space-16);
 		.flex-align();
 
 		&--opacity {
@@ -132,7 +132,7 @@
 			margin-right: 0.25rem;
 			each(@colors, {
 				&--@{value}{
-					background: var(~"--background-@{value}-default");
+					background: var(~"--o-background-@{value}-default");
 				}
 			});
 		}
@@ -142,8 +142,8 @@
 		.flex-align();
 		width: calc(100% / 8);
 		height: calc(40rem / 16);
-		background-color: var(--background-neutral-minimal);
-		color: var(--text-default-default);
+		background-color: var(--o-background-neutral-minimal);
+		color: var(--o-text-default-default);
 		font-style: italic;
 		font-size: 0.7rem;
 
@@ -182,14 +182,14 @@
 				.notification {
 					.circle(calc(3rem / 16));
 					margin: 0 calc(1rem / 16);
-					background-color: rgba(var(--background-neutral-moderate), 0.7);
+					background-color: rgba(var(--o-background-neutral-moderate), 0.7);
 
 					&--lighter {
-						background-color: var(--background-neutral-moderate);
+						background-color: var(--o-background-neutral-moderate);
 					}
 
 					&--white {
-						background-color: var(--background-neutral-default);
+						background-color: var(--o-background-neutral-default);
 					}
 				}
 			}
@@ -203,10 +203,10 @@
 				.flex-align();
 				position: relative;
 				z-index: 3;
-				color: var(--text-default-default);
+				color: var(--o-text-default-default);
 
 				&:hover:not(.selected) {
-					background: var(--background-neutral-subtle);
+					background: var(--o-background-neutral-subtle);
 				}
 
 				&--horizontal {
@@ -217,7 +217,7 @@
 				&.day {
 					each(@colors, {
 						&--@{value}{
-							color: var(~"--text-@{value}-default");
+							color: var(~"--o-text-@{value}-default");
 							
 							&:not(.day--inverted):not(.day--default) > {
 								.orion-date-table-row__cell-display-contrast {
@@ -230,13 +230,13 @@
 
 				&.today {
 					font-weight: 600;
-					color: var(--text-info-default);
-					border: 0.0625rem solid var(--background-info-default);
+					color: var(--o-text-info-default);
+					border: 0.0625rem solid var(--o-background-info-default);
 				}
 
 				&.selected {
-					color: var(--text-default-inverted);
-					background: var(--background-info-default);
+					color: var(--o-text-default-inverted);
+					background: var(--o-background-info-default);
 
 					> .orion-date-table-row__cell-display-contrast {
 						filter: none !important;
@@ -244,19 +244,19 @@
 
 					each(@colors, {
 						&--@{value} {
-							background: var(~"--background-@{value}-default");
+							background: var(~"--o-background-@{value}-default");
 						}
 					});
 				}
 
 				&.disable {
-					color: var(--text-default-subtle);
+					color: var(--o-text-default-subtle);
 					cursor: not-allowed;
 					pointer-events: none;
 				}
 
 				&--grey {
-					color: var(--text-default-moderate);
+					color: var(--o-text-default-moderate);
 				}
 			}
 
@@ -268,23 +268,23 @@
 				border-radius: 0.25rem;
 
 				&:hover {
-					color: var(--text-info-default);
-					background: var(--background-neutral-default) !important;
+					color: var(--o-text-info-default);
+					background: var(--o-background-neutral-default) !important;
 				}
 
 				&.selected {
-					color: var(--text-info-default);
-					background-color: var(--background-info-minimal);
+					color: var(--o-text-info-default);
+					background-color: var(--o-background-info-minimal);
 				}
 
 				&.disabled {
-					color: var(--text-default-subtle);
+					color: var(--o-text-default-subtle);
 					cursor: not-allowed;
 				}
 			}
 
 			&.in-range {
-				background: var(--background-neutral-minimal);
+				background: var(--o-background-neutral-minimal);
 
 				&--border-left-radius {
 					border-top-left-radius: 1.5rem;
@@ -298,8 +298,8 @@
 
 				&:hover {
 					.orion-date-table-row__day__display {
-						background: var(--background-info-default);
-						color: var(--text-default-inverted);
+						background: var(--o-background-info-default);
+						color: var(--o-text-default-inverted);
 					}
 				}
 			}
@@ -324,7 +324,7 @@
 				}
 
 				each(@colors, {
-					@colorLight: ~"--background-@{value}-minimal";
+					@colorLight: ~"--o-background-@{value}-minimal";
 					@colorDark: ~"--@{value}-dark";
 					&--@{value} {
 						background: var(@colorLight);
@@ -354,5 +354,7 @@
 		}
 	}
 }
+
+
 
 

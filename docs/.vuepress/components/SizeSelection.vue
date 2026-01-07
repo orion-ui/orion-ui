@@ -1,9 +1,24 @@
 <template>
-	<div class="size-selection orion-input">
-		<label class="orion-input__label orion-input__label--floating">
+	<div
+		class="size-selection orion-input"
+		role="group"
+		:aria-labelledby="labelId"
+		:class="{ 'orion-input--focused': isFocus }">
+		<span
+			:id="labelId"
+			:class="[
+				'orion-input__label',
+				{ 'orion-input__label--floating': labelIsFloating },
+			]">
 			{{ label }}
-		</label>
-		<div class="size-selection__input orion-input__input">
+		</span>
+		<div
+			ref="inputEl"
+			class="size-selection__input orion-input__input"
+			tabindex="0"
+			@focus="handleFocus"
+			@blur="handleBlur"
+			@mousedown="focusInput">
 			<span
 				v-for="(size, index) of sizeOptions"
 				:key="index"
@@ -20,8 +35,8 @@
 </template>
 
 <script setup lang="ts">
-import { PropType } from 'vue';
-import { sizes } from '@/lib';
+import { computed, PropType, ref } from 'vue';
+import { getUid, sizes } from '@/lib';
 
 const props = defineProps({
 	modelValue: {
@@ -38,15 +53,36 @@ const props = defineProps({
 	},
 });
 
-const sizeOptions = props.options ?? sizes;
-
 const emit = defineEmits<{ (e: 'update:modelValue', val: Orion.Size): void }>();
+
+const sizeOptions = props.options ?? sizes;
+const inputEl = ref<HTMLElement | null>(null);
+const isFocus = ref(false);
+const labelId = `size-selection-label-${getUid()}`;
+const hasValue = computed(() => props.modelValue !== undefined && props.modelValue !== null);
+const labelIsFloating = computed(() => isFocus.value || hasValue.value);
+
+function handleFocus () {
+	isFocus.value = true;
+}
+
+function handleBlur () {
+	isFocus.value = false;
+}
+
+function focusInput () {
+	inputEl.value?.focus();
+}
 </script>
 
 <style lang="less" scoped>
 .size-selection {
 	min-height: 2.5rem;
 	height: auto;
+
+	.orion-input__label {
+		top: var(--o-space-8);
+	}
 
 	&__input {
 		display: flex;
@@ -55,7 +91,7 @@ const emit = defineEmits<{ (e: 'update:modelValue', val: Orion.Size): void }>();
 		gap: 0.25rem;
 		min-height: 2.5rem;
 		height: auto;
-		padding: var(--spacing-8);
+		padding: var(--o-space-8);
 		width: fit-content;
 
 		[class*='col-'] > .size-selection > & {
@@ -73,26 +109,26 @@ const emit = defineEmits<{ (e: 'update:modelValue', val: Orion.Size): void }>();
 		justify-content: center;
 		height: 1.125rem;
 		border-radius: 0.5rem;
-		background: var(--background-neutral-moderate);
-		border: 0.0625rem solid var(--border-neutral-default);
-		color: var(--text-default-default);
+		background: var(--o-background-neutral-moderate);
+		border: 0.0625rem solid var(--o-border-neutral-default);
+		color: var(--o-text-default-default);
 		cursor: pointer;
 		text-transform: uppercase;
 		font-size: 0.75rem;
 		font-weight: 600;
-		padding: 0 var(--spacing-8);
+		padding: 0 var(--o-space-8);
 
 		&:hover {
-			border-color: var(--border-info-default);
-			color: var(--text-info-default);
+			border-color: var(--o-border-info-default);
+			color: var(--o-text-info-default);
 			background: transparent;
 		}
 
 		&--selected,
 		&--selected:hover {
-			border-color: var(--border-info-default);
-			background: var(--background-info-default);
-			color: var(--text-default-inverted);
+			border-color: var(--o-border-info-default);
+			background: var(--o-background-info-default);
+			color: var(--o-text-default-inverted);
 		}
 	}
 }
