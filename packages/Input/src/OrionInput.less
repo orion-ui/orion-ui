@@ -7,6 +7,7 @@
 	gap: var(--spacing-8);
 	align-items: center;
 	height: 2.5rem;
+	width: 100%;
 	padding: 0 var(--spacing-8);
 	font-size: 0.875rem;
 	border-radius: var(--radius-md);
@@ -51,9 +52,8 @@
 
 	&:focus,
 	&--focused  {
-		outline: 1px solid var(--border-neutral-focus);
-		outline-offset: 2px;
-		border-color: transparent;
+		
+		border: 1px solid var(--border-neutral-focus);
 		transition: none;
 
 		&.orion-input--error {
@@ -266,6 +266,7 @@
 
 	&__reveal {
 		margin-left: 0.3rem;
+		color: var(--text-default-subtle)
 	}
 
 	&__icon {

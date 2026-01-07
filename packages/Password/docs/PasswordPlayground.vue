@@ -32,11 +32,7 @@
 				v-model="state.readonly"
 				label="readonly"/>
 		</div>
-		
-		
-	
 	</div>
-	
 </template>
 
 <script setup lang="ts">
