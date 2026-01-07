@@ -1,194 +1,229 @@
+/* build-tokens.js
+ *
+ * Input:
+ *  - packages/Shared/styles/tokens/primitive/orion.json
+ *  - packages/Shared/styles/tokens/semantic/light.json
+ *  - packages/Shared/styles/tokens/semantic/dark.json
+ *
+ * Output:
+ *  - packages/Shared/styles/tokens/semantic/tokens-light.less
+ *  - packages/Shared/styles/tokens/semantic/tokens-dark.less
+ *  - packages/Shared/styles/tokens/primitive/tokens-primitive.less
+ *
+ * Rules:
+ *  - primitives => hard values
+ *  - semantic   => only references => var(--o-xxx)
+ *  - prefix     => --o-
+ */
+
 import fs from 'fs';
 import path from 'path';
 
-const rootDir = process.cwd();
+const ROOT = process.cwd();
 
-const paths = {
-	primitive: path.join(
-		rootDir,
-		'packages/Shared/styles/tokens/primitive/orion.json',
-	),
-	light: path.join(
-		rootDir,
-		'packages/Shared/styles/tokens/semantic/light.json',
-	),
-	dark: path.join(rootDir, 'packages/Shared/styles/tokens/semantic/dark.json'),
-	outDir: path.join(rootDir, 'packages/Shared/styles/tokens/generated'),
+const TOKENS_ROOT = path.join(ROOT, 'packages', 'Shared', 'styles', 'tokens');
+const INPUT = {
+	primitive: path.join(TOKENS_ROOT, 'primitive', 'orion.json'),
+	semanticLight: path.join(TOKENS_ROOT, 'semantic', 'light.json'),
+	semanticDark: path.join(TOKENS_ROOT, 'semantic', 'dark.json'),
 };
 
-if (!fs.existsSync(paths.outDir)) {
-	fs.mkdirSync(paths.outDir, { recursive: true });
-}
-
-function readJson (p: string): any {
-	return JSON.parse(fs.readFileSync(p, 'utf8'));
-}
-
-function getByPath (obj: any, pathStr: string): any {
-	const parts = pathStr.split('.');
-	let current = obj;
-	for (const part of parts) {
-		if (current == null) return undefined;
-		current = current[part];
-	}
-	return current;
-}
-
-function isAlias (v: unknown): v is string {
-	return typeof v === 'string' && v.startsWith('{') && v.endsWith('}');
-}
-
-function stripBraces (v: string) {
-	return v.slice(1, -1);
-}
-
-function resolveValue (rawValue: any, primitive: any): any {
-	if (!isAlias(rawValue)) return rawValue;
-
-	const pathStr = stripBraces(rawValue); // ex: "colors.primary.500"
-	const node = getByPath(primitive, pathStr);
-
-	if (!node) {
-		console.warn('⚠️ Alias non résolu :', rawValue);
-		return rawValue;
-	}
-
-	const inner = (node as any).$value ?? node;
-	return isAlias(inner) ? resolveValue(inner, primitive) : inner;
-}
-
-type FlatToken = {
-	type: string | undefined;
-	value: any;
+const OUTPUT = {
+	semanticLight: path.join(TOKENS_ROOT, 'semantic', 'tokens-light.less'),
+	semanticDark: path.join(TOKENS_ROOT, 'semantic', 'tokens-dark.less'),
+	primitive: path.join(TOKENS_ROOT, 'primitive', 'tokens.less'),
 };
 
-function flattenTokens (
-	obj: any,
-	prefix: string[] = [],
-): Record<string, FlatToken> {
-	const out: Record<string, FlatToken> = {};
+const PREFIX = '--o-';
+
+// Ensure output folders exist before writing files.
+function ensureDir(dirPath: string) {
+	fs.mkdirSync(dirPath, { recursive: true });
+}
+
+// Read a JSON token file from disk.
+function readJson(filePath: string) {
+	const raw = fs.readFileSync(filePath, 'utf8');
+	return JSON.parse(raw);
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+	return !!value && typeof value === 'object';
+}
+
+// Detect a leaf token object with a usable value.
+function isTokenLeaf(node: unknown) {
+	if (!isRecord(node)) return false;
+	if (Object.prototype.hasOwnProperty.call(node, '$value')) return true;
+	if (!Object.prototype.hasOwnProperty.call(node, 'value')) return false;
+	const value = node.value;
+	return typeof value === 'string' || typeof value === 'number';
+}
+
+// Normalize token nodes that can store values under "$value" or "value".
+function getTokenValue(node: unknown) {
+	if (isRecord(node)) {
+		if (Object.prototype.hasOwnProperty.call(node, '$value')) return node.$value;
+		if (Object.prototype.hasOwnProperty.call(node, 'value')) return node.value;
+	}
+	return node;
+}
+
+function toKebabCase(value: string) {
+	return value
+		.replace(/([a-z0-9])([A-Z])/g, '$1-$2')
+		.replace(/\s+/g, '-')
+		.toLowerCase();
+}
+
+function normalizePathParts(parts: unknown[]) {
+	return parts
+		.filter(Boolean)
+		.map(p => String(p).trim())
+		.filter(p => p.length > 0)
+		.map(p => toKebabCase(p));
+}
+
+// Convert a token path array into a CSS variable name.
+function pathPartsToCssVar(parts: unknown[]) {
+	const clean = normalizePathParts(parts);
+	return `${PREFIX}${clean.join('-')}`;
+}
+
+const NO_PX_UNIT_SUFFIXES = ['-weight', '-opacity', '-z-index'];
+
+// Append px for specific semantic suffixes when the value is unitless.
+function applyPxUnitForSuffixes(cssVar: string, cssValue: string) {
+	if (NO_PX_UNIT_SUFFIXES.some(suffix => cssVar.includes(suffix))) return cssValue.split('px')[0];
+	return cssValue;
+}
+
+// Turn a token reference "{path.to.token}" into var(--o-...).
+function convertReferenceToCssVar(ref: string) {
+	const inner = ref.trim().replace(/^\{/, '').replace(/\}$/, '').trim();
+	const parts = inner.includes('/') ? inner.split('/') : inner.split('.');
+	const cssVar = pathPartsToCssVar(parts);
+	const value = `var(${cssVar})`;
+	return value;
+}
+
+// Convert raw token values to CSS-safe strings.
+function stringifyCssValue(value: unknown) {
+	if (typeof value === 'string') {
+		const v = value.trim();
+
+		if (/^\{.+\}$/.test(v)) {
+			return convertReferenceToCssVar(v);
+		}
+
+		if (/[A-Za-z]/.test(v) && !/^["'].*["']$/.test(v) && v.includes(' ')) {
+			return `"${v}"`;
+		}
+
+		return v;
+	}
+
+	if (typeof value === 'number') return String(value) + 'px';
+
+	if (value === null) return 'null';
+	if (typeof value === 'boolean') return value ? 'true' : 'false';
+
+	return JSON.stringify(value);
+}
+
+// Walk the token tree and collect all leaf tokens with their paths.
+function collectLeaves(obj: unknown, basePath: string[] = [], out: { path: string[]; value: unknown }[] = []) {
+	if (!obj || typeof obj !== 'object') return out;
+
+	if (isTokenLeaf(obj)) {
+		out.push({
+			path: basePath,
+			value: getTokenValue(obj),
+		});
+		return out;
+	}
 
 	for (const [key, val] of Object.entries(obj)) {
-		if (
-			val &&
-			typeof val === 'object' &&
-			Object.prototype.hasOwnProperty.call(val, '$value')
-		) {
-			const tokenName = [...prefix, key].join('.');
-			out[tokenName] = {
-				type: (val as any).$type,
-				value: (val as any).$value,
-			};
-		} else if (val && typeof val === 'object') {
-			Object.assign(out, flattenTokens(val, [...prefix, key]));
-		}
+		if (key === '$type' || key === '$description' || key === '$extensions') continue;
+		collectLeaves(val, [...basePath, key], out);
 	}
 
 	return out;
 }
 
-function tokenNameToCssVar (name: string): string {
-	return (
-		'--' +
-		name
-			.replace(/\./g, '-')
-			.replace(/([a-z0-9])([A-Z])/g, '$1-$2')
-			.toLowerCase()
-	);
+// Build the CSS variable declarations for a root block.
+function buildCssVarsBlock(
+	leaves: { path: string[]; value: unknown }[],
+	indent: string = '  ',
+) {
+	const sorted = [...leaves].sort((a, b) => a.path.join('/').localeCompare(b.path.join('/')));
+	const lines = [];
+	for (const item of sorted) {
+		const cssVar = pathPartsToCssVar(item.path);
+		const cssValue = applyPxUnitForSuffixes(cssVar, stringifyCssValue(item.value));
+		lines.push(`${indent}${cssVar}: ${cssValue};`);
+	}
+	return lines.join('\n');
 }
 
-function toCssValue (
-	tokenName: string,
-	type: string | undefined,
-	value: any,
-): string {
-	const raw = String(value);
-
-	// CAS SPÉCIAL : font-weight (typography.weight.*)
-	if (tokenName.startsWith('typography.weight.')) {
-		const num = parseFloat(raw); // 31.25
-		if (!Number.isNaN(num)) {
-			const weight = Math.round(num * 16);
-			return String(weight);
-		}
-		return raw.replace(/[^0-9.]/g, '');
-	}
-
-	// DIMENSIONS : on veut du rem
-	if (type === 'dimension') {
-		// Si c'est déjà en rem -> on renvoie tel quel
-		if (/rem$/i.test(raw)) {
-			return raw;
-		}
-
-		// Si c'est en px -> on convertit en rem (16px = 1rem)
-		if (/px$/i.test(raw)) {
-			const num = parseFloat(raw);
-			if (!Number.isNaN(num)) {
-				return `${num / 16}rem`;
-			}
-		}
-
-		// Si c'est juste un nombre -> on le considère comme rem
-		if (/^[0-9.]+$/.test(raw)) {
-			return `${raw}rem`;
-		}
-
-		return raw;
-	}
-
-	if (type === 'color') {
-		return raw;
-	}
-
-	if (type === 'number') {
-		return raw;
-	}
-
-	return raw;
+function wrapBlock(selector: string, content: string) {
+	return `${selector} {\n${content}\n}\n`;
 }
 
-function buildLessForTheme (
-	themeName: 'light' | 'dark',
-	semanticTokens: any,
-	primitiveTokens: any,
-): string {
-	const flat = flattenTokens(semanticTokens);
-	let css = `:root[data-theme="${themeName}"] {\n`;
-
-	for (const [name, meta] of Object.entries(flat)) {
-		const { type, value } = meta as { type?: string; value: any };
-		const resolved = resolveValue(value, primitiveTokens);
-		const cssVar = tokenNameToCssVar(name);
-		const cssValue = toCssValue(name, type, resolved);
-
-		css += `  ${cssVar}: ${cssValue};\n`;
-	}
-
-	css += '}\n';
-	return css;
+// Assemble a full file with header + root selector block.
+function buildRootFile(selector: string, source: string, leaves: { path: string[]; value: unknown }[]) {
+	return [
+		'/* AUTO-GENERATED - DO NOT EDIT */',
+		`/* Source: ${source} */`,
+		'',
+		wrapBlock(selector, buildCssVarsBlock(leaves, '  ')),
+	].join('\n');
 }
 
-function main () {
-	const primitive = readJson(paths.primitive);
-	const light = readJson(paths.light);
-	const dark = readJson(paths.dark);
+/** ---------- Build ---------- */
 
-	const lightLess = buildLessForTheme('light', light, primitive);
-	const darkLess = buildLessForTheme('dark', dark, primitive);
+function main() {
+	// Ensure all output dirs exist.
+	for (const outputFile of Object.values(OUTPUT)) {
+		ensureDir(path.dirname(outputFile));
+	}
 
-	fs.writeFileSync(
-		path.join(paths.outDir, 'tokens-light.less'),
-		lightLess,
-		'utf8',
-	);
-	fs.writeFileSync(
-		path.join(paths.outDir, 'tokens-dark.less'),
-		darkLess,
-		'utf8',
-	);
+	// Load source token files.
+	const primitive = readJson(INPUT.primitive);
+	const semanticLight = readJson(INPUT.semanticLight);
+	const semanticDark = readJson(INPUT.semanticDark);
 
-	console.log('✅ tokens-light.less & tokens-dark.less générés.');
+	// Define the three outputs to generate.
+	const files = [
+		{
+			output: OUTPUT.primitive,
+			selector: ':root',
+			source: 'tokens/primitive/orion.json',
+			leaves: collectLeaves(primitive),
+		},
+		{
+			output: OUTPUT.semanticLight,
+			selector: ':root',
+			source: 'tokens/semantic/light.json',
+			leaves: collectLeaves(semanticLight),
+		},
+		{
+			output: OUTPUT.semanticDark,
+			selector: ':root[data-theme=\'dark\']',
+			source: 'tokens/semantic/dark.json',
+			leaves: collectLeaves(semanticDark),
+		},
+	];
+
+	// Generate each file in a consistent format.
+	for (const file of files) {
+		fs.writeFileSync(file.output, buildRootFile(file.selector, file.source, file.leaves), 'utf8');
+	}
+
+	console.log('Generated:');
+	for (const file of files) {
+		console.log(' -', path.relative(ROOT, file.output));
+	}
 }
 
 main();

@@ -18,27 +18,27 @@
 
 			> span {
 				display: block;
-				padding: calc(1px + 0.125rem) var(--spacing-16);
+				padding: calc(1px + 0.125rem) var(--o-space-16);
 			}
 		}
 
 		&-current-year {
 			cursor: pointer;
-			border: 0.0625rem solid var(--background-neutral-subtle);
+			border: 0.0625rem solid var(--o-background-neutral-subtle);
 			border-radius: 0.25rem;
 
 			&:hover {
-				color: var(--text-info-default);
+				color: var(--o-text-info-default);
 			}
 		}
 
 		&-carret {
 			font-size: 1.25rem;
-			color: var(--text-default-default);
+			color: var(--o-text-default-default);
 			cursor: pointer;
 
 			&:hover {
-				color: var(--text-info-default);
+				color: var(--o-text-info-default);
 			}
 
 			&.disable {
@@ -53,19 +53,19 @@
 			max-height: calc(240rem / 16);
 			overflow: auto;
 			margin-top: 1rem;
-			padding-right: var(--spacing-32);
-			color: var(--text-default-default);
+			padding-right: var(--o-space-32);
+			color: var(--o-text-default-default);
 			font-size: 0.85rem;
 		}
 
 		&-row {
 			transition: background 0.3s;
-			padding: var(--spacing-8) var(--spacing-16);
+			padding: var(--o-space-8) var(--o-space-16);
 			cursor: pointer;
 			width: fit-content;
 
 			&:hover {
-				background: var(--background-neutral-minimal);
+				background: var(--o-background-neutral-minimal);
 			}
 
 			&--disabled {
@@ -74,7 +74,7 @@
 			}
 
 			&--active > div {
-				color: var(--text-info-default);
+				color: var(--o-text-info-default);
 			}
 
 			@media @phone {
@@ -84,11 +84,11 @@
 
 		&-number {
 			font-weight: 600;
-			color: var(--text-default-default);
+			color: var(--o-text-default-default);
 		}
 
 		&-readable-days {
-			color: var(--text-default-moderate);
+			color: var(--o-text-default-moderate);
 			font-size: 0.8125rem;
 			white-space: nowrap;
 		}
@@ -110,10 +110,11 @@
 				margin: 0.25rem 0.5rem;
 
 				&:hover {
-					color: var(--text-info-default);
+					color: var(--o-text-info-default);
 					background: white !important;
 				}
 			}
 		}
 	}
 }
+

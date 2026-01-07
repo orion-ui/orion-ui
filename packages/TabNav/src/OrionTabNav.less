@@ -7,14 +7,14 @@
 	align-items: center;
 	justify-content: center;
 	flex: 1 0 0%;
-	padding: var(--spacing-48) var(--spacing-16);
-	border-bottom: 0.125rem solid var(--background-neutral-subtle);
+	padding: var(--o-space-48) var(--o-space-16);
+	border-bottom: 0.125rem solid var(--o-background-neutral-subtle);
 	font-size: 0.8125rem;
 	font-weight: bold;
 	line-height: 1.2;
 	text-align: center;
 	text-transform: uppercase;
-	color: var(--text-default-default);
+	color: var(--o-text-default-default);
 	cursor: pointer;
 
 	&-wrap {
@@ -51,15 +51,15 @@
 	}
 
 	&:hover:not(.orion-tab-nav--active) {
-		color: var(--text-default-default);
-		border-color: var(--border-neutral-default);
+		color: var(--o-text-default-default);
+		border-color: var(--o-border-neutral-default);
 	}
 
 	&--active {
 		border-right: none !important;
 		border-left: none !important;
-		border-color: var(--border-info-default);
-		color: var(--text-info-default);
+		border-color: var(--o-border-info-default);
+		color: var(--o-text-info-default);
 	}
 
 	&--disabled {
@@ -74,7 +74,7 @@
 
 	@media @phone {
 		align-items: flex-start;
-		padding: var(--spacing-16) 0.1875rem;
+		padding: var(--o-space-16) 0.1875rem;
 
 		&-content {
 			flex-direction: column;
@@ -103,10 +103,11 @@
 	@media @tabletOnly {
 		font-size: 0.75rem;
 		line-height: 1.25;
-		padding: var(--spacing-32) var(--spacing-16);
+		padding: var(--o-space-32) var(--o-space-16);
 	}
 
 	@media @desktopOnly {
-		padding: var(--spacing-32);
+		padding: var(--o-space-32);
 	}
 }
+

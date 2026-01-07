@@ -50,7 +50,7 @@
 				<o-timeline-pane
 					name="pane4"
 					lazy-once
-					icon="circle_check">
+					icon="check_circle">
 					<nested-comp/>
 				</o-timeline-pane>
 				<o-timeline-pane
@@ -106,5 +106,5 @@ const timeline = ref<OrionTimeline>();
 const activePane = ref('pane3');
 const tutu = reactive([1, 2, 3, 4]);
 const pillIcon = ref<Orion.Icon>('alarm');
-const pillIconOptions: Orion.Icon[] = ['figma', 'link', 'shield_check', 'add_column', 'add_row', 'add_to_queue'];
+const pillIconOptions: Orion.Icon[] = ['palette', 'link', 'shield', 'view_column', 'table_rows', 'add_to_queue'];
 </script>

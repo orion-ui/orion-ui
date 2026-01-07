@@ -21,7 +21,7 @@
 		<template #actions>
 			<o-icon
 				v-tooltip="`Search`"
-				icon="file_search"
+				icon="find_in_page"
 				@click="triggerSearch()"/>
 			<o-button
 				color="success"
@@ -39,8 +39,8 @@
 			</o-button>
 			<div class="flex g-8 mr-xs">
 				<o-icon icon="alarm"/>
-				<o-icon icon="file_blank"/>
-				<o-icon icon="chart_line"/>
+				<o-icon icon="insert_drive_file"/>
+				<o-icon icon="show_chart"/>
 				<o-icon
 					icon="devices"
 					button="info"/>
@@ -105,7 +105,7 @@ function triggerSearch () {
 <style lang="less" scoped>
 :deep(.orion-page__subactions) {
 	&--sticky {
-		background-color: rgba(var(--background-neutral-subtle), 0.7);
+		background-color: rgba(var(--o-background-neutral-subtle), 0.7);
 		backdrop-filter: blur(2px);
 		margin: 0 -0.5rem;
 		padding: 0.5rem;
@@ -115,3 +115,4 @@ function triggerSearch () {
 </style>
 
 ### Playground
+

@@ -41,7 +41,7 @@ const periods: Orion.Period[] = [
 		start: new Date(today.setDate(today.getDate()+3)),
 		end: new Date(today.setDate(today.getDate()+6)),
 		label: 'period 2',
-		color: 'error',
+		color: 'danger',
 		specific: [
 			{
 				color: 'warning',

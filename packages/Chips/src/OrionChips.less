@@ -7,13 +7,13 @@
 	display: inline-flex;
 	align-items: center;
 	max-width: 100%;
-	font-weight: 600;
-	border-radius: var(--radius-round);
+
+	border-radius: var(--o-radius-round);
 	white-space: nowrap;
 	border: 1px solid transparent;
-	
+
 	&--squared {
-		border-radius: var(--radius-md);
+		border-radius: var(--o-radius-md);
 	}
 
 	&__close {
@@ -22,8 +22,8 @@
 
 		&:hover {
 			opacity: 1;
-			color: var(--text-default-inverted) !important;
-			border-color: var(--border-neutral-inverted);
+			color: var(--o-text-default-inverted) !important;
+			border-color: var(--o-border-neutral-inverted);
 		}
 	}
 
@@ -32,85 +32,85 @@
 		display: flex;
 		align-items: center;
 		height: 100%;
-		gap: var(--spacing-8);
+		gap: var(--o-space-8);
 	}
 
 	&__dual {
-		background: var(--background-neutral-default);
+		background: var(--o-background-neutral-default);
 	}
 
 	&__icon {
-		font-size: var(--typography-size-base);
+		font-size: var(--o-typography-body-default-font-size);
 	}
 
 	each(@colorsAndGreys, {
 		&--@{value} {
 			color: white;
-			background: var(~"--background-@{value}-default");
+			background: var(~"--o-background-@{value}-default");
 
 			.orion-chips__dual {
-				color: var(~"--text-@{value}-default");
+				color: var(~"--o-text-@{value}-default");
 			}
 
 			&.orion-chips--outline,
 			&.orion-chips--dual {
 				.orion-chips__close {
-					color: var(~"--text-@{value}-default") !important;
+					color: var(~"--o-text-@{value}-default") !important;
 
 					&:hover {
-						border-color: var(~"--border-@{value}-default") !important;
+						border-color: var(~"--o-border-@{value}-default") !important;
 					}
 				}
 			}
 
 			&.orion-chips--nude {
 				.orion-chips__close {
-					color: var(~"--text-@{value}-default") !important;
-					border-color: var(~"--border-@{value}-default") !important;
+					color: var(~"--o-text-@{value}-default") !important;
+					border-color: var(~"--o-border-@{value}-default") !important;
 				}
 			}
 
 			&.orion-chips--outline {
-				color: var(~"--text-@{value}-default");
-				background: var(~"--background-@{value}-minimal");
-				border: 1px solid var(~"--border-@{value}-subtle");
+				color: var(~"--o-text-@{value}-default");
+				background: var(~"--o-background-@{value}-minimal");
+				border: 1px solid var(~"--o-border-@{value}-subtle");
 
 				.orion-chips__dual {
-					color: var(~"--text-@{value}-default");
-					border-left: 1px solid var(~"--border-@{value}-subtle");
+					color: var(~"--o-text-@{value}-default");
+					border-left: 1px solid var(~"--o-border-@{value}-subtle");
 				}
 			}
 
 			&.orion-chips--nude {
-				border: 1px solid var(~"--border-@{value}-subtle");
-				background: var(--background-neutral-transparent);
-				color: var(~"--text-@{value}-default");
+				border: 1px solid var(~"--o-border-@{value}-subtle");
+				background: var(--o-background-neutral-transparent);
+				color: var(~"--o-text-@{value}-default");
 			}
 
 			&-alt {
-				color: var(--text-default-inverted);
-				background: var(~"--background-@{value}-alt");
+				color: var(--o-text-default-inverted);
+				background: var(~"--o-background-@{value}-alt");
 				border-color: transparent;
 
 				.orion-chips__dual {
-					color: var(~"--text-@{value}-alt");
+					color: var(~"--o-text-@{value}-alt");
 				}
 
 				&.orion-chips--outline,
 				&.orion-chips--dual {
 					.orion-chips__close {
-						color: var(~"--text-@{value}-alt") !important;
+						color: var(~"--o-text-@{value}-alt") !important;
 
 						&:hover {
-							border-color: var(~"--border-@{value}-alt") !important;
+							border-color: var(~"--o-border-@{value}-alt") !important;
 						}
 					}
 				}
 
 				&.orion-chips--outline {
-					color: var(~"--text-@{value}-alt");
-					background: color-mix(in oklab, var(~"--background-@{value}-alt") 15%, transparent);
-					border: 1px solid var(~"--border-@{value}-subtle");
+					color: var(~"--o-text-@{value}-alt");
+					background: color-mix(in oklab, var(~"--o-background-@{value}-alt") 15%, transparent);
+					border: 1px solid var(~"--o-border-@{value}-subtle");
 
 					&:not(.orion-chips--inverse):not(.orion-chips--default) > {
 						.orion-chips__main, .orion-chips__dual-content {
@@ -119,205 +119,220 @@
 					}
 
 					.orion-chips__dual {
-						color: var(~"--text-@{value}-alt");
+						color: var(~"--o-text-@{value}-alt");
 					}
 				}
 			}
 		}
 	});
 
-	&--neutral {
-		color: var(--text-inverted-default);
-		background: var(--background-neutral-subtle);
-		border: 1px solid var(--border-neutral-subtle);
+&--neutral {
+	color: var(--o-text-inverted-default);
+	background: var(--o-background-neutral-subtle);
+	border: 1px solid var(--o-border-neutral-subtle);
+}
+
+&--grey-light,
+&--grey-lighter {
+	color: var(--o-text-default-inverted);
+}
+
+&[class*='--grey'] {
+	&.orion-chips--outline {
+		color: var(--o-text-default-default);
+		background: var(--o-background-neutral-minimal);
+		border-color: var(--o-border-neutral-default);
 	}
+}
 
-	&--grey-light,
-	&--grey-lighter {
-		color: var(--text-default-inverted);
-	}
+&--xs {
+	@paddingClose: 1.25rem;
+	font-family: var(--o-typography-caption-default-fontFamily);
+	font-size: var(--o-typography-caption-default-font-size);
+	font-style: normal;
+	font-weight: var(--o-typography-caption-default-fontWeight);
 
-	&[class*='--grey'] {
-		&.orion-chips--outline {
-			color: var(--text-default-default);
-			background: var(--background-neutral-minimal);
-			border-color: var(--border-neutral-default);
-		}
-	}
 
-	&--xs {
-		@paddingClose: 1.25rem;
-		height: 1rem;
-		font-size: var(--typography-size-xs);
+	.orion-chips {
 
-		.orion-chips {
-			&__main,
-			&__dual {
-					padding: 0 var(--spacing-4)
-			}
-
-			&__icon {
-				font-size: var(--typography-size-sm)
-			}
-
-			&__close {
-				.close(var(--typography-size-sm));
-			}
+		&__main,
+		&__dual {
+			padding: 0 var(--o-space-6);
 		}
 
-		&.orion-chips--closable {
-			&:not(.orion-chips--dual) {
-				.orion-chips__main {
-					padding-right: @paddingClose;
-				}
-			}
+		&__icon {
+			font-size: var(--o-typography-caption-default-font-size);
+		}
 
-			&.orion-chips--dual {
-				.orion-chips__dual {
-					padding-right: @paddingClose;
-				}
-			}
+		&__close {
+			.close(var(--o-typography-caption-default-font-size););
 		}
 	}
 
-	&--sm {
-		@paddingClose: calc(22rem / 16);
-		height: 1.25rem;
-		font-size: 0.75rem;
-
-		.orion-chips {
-			&__main,
-			&__dual {
-				padding: 0 var(--spacing-8)
-			}
-
-			&__icon {
-				font-size: var(--typography-size-sm)
-			}
-
-			&__close {
-				.close(var(--typography-size-sm));
+	&.orion-chips--closable {
+		&:not(.orion-chips--dual) {
+			.orion-chips__main {
+				padding-right: @paddingClose;
 			}
 		}
 
-		&.orion-chips--closable {
-			&:not(.orion-chips--dual) {
-				.orion-chips__main {
-					padding-right: @paddingClose;
-				}
-			}
-
-			&.orion-chips--dual {
-				.orion-chips__dual {
-					padding-right: @paddingClose;
-				}
+		&.orion-chips--dual {
+			.orion-chips__dual {
+				padding-right: @paddingClose;
 			}
 		}
 	}
+}
 
-	&--md {
-		@paddingClose: calc(24rem / 16);
-		height: 1.5rem;
-		font-size: var(--typography-size-sm);
+&--sm {
+	@paddingClose: calc(22rem / 16);
+	font-family: var(--o-typography-caption-default-fontFamily);
+	font-size: var(--o-typography-caption-default-font-size);
+	font-style: normal;
+	font-weight: var(--o-typography-caption-default-fontWeight);
+	.orion-chips {
 
-		.orion-chips {
-			&__main {
-				padding: var(--spacing-2) var(--spacing-8)
-			}
-
-			&__dual {
-				padding: 0 var(--spacing-8)
-			}
-
-			&__close {
-				.close(var(--typography-size-sm));
-			}
+		&__main,
+		&__dual {
+			padding: 0 var(--o-space-8);
 		}
 
-		&.orion-chips--closable {
-			&:not(.orion-chips--dual) {
-				.orion-chips__main {
-					padding-right: @paddingClose;
-				}
-			}
+		&__icon {
+	font-size: var(--o-typography-caption-default-font-size);
+		}
 
-			&.orion-chips--dual {
-				.orion-chips__dual {
-					padding-right: @paddingClose;
-				}
-			}
+		&__close {
+			.close(var(--o-typography-caption-default-font-size));
 		}
 	}
 
-	&--lg {
-		@paddingClose: calc(25rem / 16);
-		height: calc(28rem / 16);
-		font-size: 0.875rem;
-
-		.orion-chips {
-			&__main,
-			&__dual {
-				padding: var(--spacing-2) var(--spacing-12);
-				gap: var(--spacing-12)
-			}
-
-			&__icon {
-				font-size: var(--typography-size-lg)
-			}
-
-			&__close {
-				.close(var(--typography-size-lg));
+	&.orion-chips--closable {
+		&:not(.orion-chips--dual) {
+			.orion-chips__main {
+				padding-right: @paddingClose;
 			}
 		}
 
-		&.orion-chips--closable {
-			&:not(.orion-chips--dual) {
-				.orion-chips__main {
-					padding-right: @paddingClose;
-				}
-			}
-
-			&.orion-chips--dual {
-				.orion-chips__dual {
-					padding-right: @paddingClose;
-				}
+		&.orion-chips--dual {
+			.orion-chips__dual {
+				padding-right: @paddingClose;
 			}
 		}
 	}
+}
 
-	&--xl {
-		@paddingClose: calc(26rem / 16);
-		height: 2rem;
-		font-size: 0.875rem;
+&--md {
+	@paddingClose: calc(24rem / 16);
+	font-family: var(--o-typography-label-default-fontFamily);
+	font-size: var(--o-typography-label-default-font-size);
+	font-style: normal;
+	font-weight: var(--o-typography-label-default-fontWeight);
 
-		.orion-chips {
-			&__main,
-			&__dual {
-				padding: var(--spacing-2) var(--spacing-16);
-				gap: var(--spacing-16);
-			}
+	.orion-chips {
+		&__main {
+			padding: var(--o-space-2) var(--o-space-8);
+		}
 
-			&__icon {
-				font-size: var(--typography-size-h5)
-			}
+		&__dual {
+			padding: 0 var(--o-space-8);
+		}
 
-			&__close {
-				.close(var(--typography-size-lg));
+		&__close {
+			.close(var(--o-typography-label-default-font-size));
+		}
+	}
+
+	&.orion-chips--closable {
+		&:not(.orion-chips--dual) {
+			.orion-chips__main {
+				padding-right: @paddingClose;
 			}
 		}
 
-		&.orion-chips--closable {
-			&:not(.orion-chips--dual) {
-				.orion-chips__main {
-					padding-right: @paddingClose;
-				}
-			}
-
-			&.orion-chips--dual {
-				.orion-chips__dual {
-					padding-right: @paddingClose;
-				}
+		&.orion-chips--dual {
+			.orion-chips__dual {
+				padding-right: @paddingClose;
 			}
 		}
 	}
+}
+
+&--lg {
+	@paddingClose: calc(25rem / 16);
+	font-family: var(--o-typography-label-default-fontFamily);
+	font-size: var(--o-typography-label-default-font-size);
+	font-style: normal;
+	font-weight: var(--o-typography-label-default-fontWeight);
+
+	.orion-chips {
+
+		&__main,
+		&__dual {
+			padding: var(--o-space-2) var(--o-space-12);
+			gap: var(--o-space-12);
+		}
+
+		&__icon {
+			font-size: var(--o-typography-label-default-font-size);
+		}
+
+		&__close {
+			.close(var(--o-typography-label-default-font-size));
+		}
+	}
+
+	&.orion-chips--closable {
+		&:not(.orion-chips--dual) {
+			.orion-chips__main {
+				padding-right: @paddingClose;
+			}
+		}
+
+		&.orion-chips--dual {
+			.orion-chips__dual {
+				padding-right: @paddingClose;
+			}
+		}
+	}
+}
+
+&--xl {
+	@paddingClose: calc(26rem / 16);
+	height: 2rem;
+	font-family: var(--o-typography-body-default-fontFamily);
+	font-size: var(--o-typography-body-default-font-size);
+	font-style: normal;
+	font-weight: var(--o-typography-body-default-fontWeight);
+
+	.orion-chips {
+
+		&__main,
+		&__dual {
+			padding: var(--o-space-2) var(--o-space-16);
+			gap: var(--o-space-16);
+		}
+
+		&__icon {
+			font-size: var(--o-typography-body-default-font-size);
+		}
+
+		&__close {
+			.close(var(--o-typography-body-default-font-size));
+		}
+	}
+
+	&.orion-chips--closable {
+		&:not(.orion-chips--dual) {
+			.orion-chips__main {
+				padding-right: @paddingClose;
+			}
+		}
+
+		&.orion-chips--dual {
+			.orion-chips__dual {
+				padding-right: @paddingClose;
+			}
+		}
+	}
+}
 }

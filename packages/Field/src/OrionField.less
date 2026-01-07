@@ -10,8 +10,8 @@ textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
-	box-shadow: 0 0 0 calc(30rem / 16) var(--background-neutral-default) inset !important;
-	-webkit-text-fill-color: var(--text-default-default) !important;
+	box-shadow: 0 0 0 calc(30rem / 16) var(--o-background-neutral-default) inset !important;
+	-webkit-text-fill-color: var(--o-text-default-default) !important;
 
 	+ .orion-input__pictos {
 		background: none;
@@ -28,7 +28,7 @@ select:-webkit-autofill:focus {
 	justify-content: flex-end;
 	flex-direction: row-reverse;
 	margin: 0.5rem 0;
-	gap: var(--spacing-4);
+	gap: var(--o-space-4);
 	cursor: pointer;
 
 	&__label {
@@ -52,7 +52,7 @@ select:-webkit-autofill:focus {
 				content: '*';
 				position: absolute;
 				z-index: 1;
-				color: var(--text-error-default);
+				color: var(--o-text-danger-default);
 			}
 		}
 	}
@@ -69,9 +69,9 @@ select:-webkit-autofill:focus {
 		justify-content: center;
 		margin-top: calc(1rem / 16);
 		margin-right: 0.25rem;
-		border-radius: var(--radius-xs);
-		border: 0.0625rem solid var(--border-neutral-default);
-		background: var(--background-neutral-default);
+		border-radius: var(--o-radius-xs);
+		border: 0.0625rem solid var(--o-border-neutral-default);
+		background: var(--o-background-neutral-default);
 
 		[class*='--reverse'] > & {
 			margin-right: 0;
@@ -87,14 +87,14 @@ select:-webkit-autofill:focus {
 		}
 
 		.orion-checkbox:focus & {
-			outline: 1px solid var(--border-neutral-focus);
+			outline: 1px solid var(--o-border-neutral-focus);
 			outline-offset: 1px;
 		}
 		
 
 
 		.orion-checkbox--error & {
-			border-color: var(--border-neutral-default);
+			border-color: var(--o-border-neutral-default);
 		}
 
 		.orion-radio & {
@@ -107,7 +107,7 @@ select:-webkit-autofill:focus {
 			width: 0.75rem;
 			height: 0.5rem;
 			fill: none;
-			stroke: var(--background-neutral-default);
+			stroke: var(--o-background-neutral-default);
 			stroke-width: 2;
 			stroke-linecap: round;
 			stroke-linejoin: round;
@@ -116,7 +116,7 @@ select:-webkit-autofill:focus {
 		}
 
 		.icon {
-			color: var(--text-default-inverted);
+			color: var(--o-text-default-inverted);
 			font-size: 0.75rem;
 		}
 
@@ -143,20 +143,20 @@ select:-webkit-autofill:focus {
 	each(@colors, {
 		&--@{value} {
 			&[class*="--checked"] > [class*="__check-container"] {
-				background: var(~"--background-@{value}-default");
-				border-color: var(~"--border-@{value}-default");
+				background: var(~"--o-background-@{value}-default");
+				border-color: var(~"--o-border-@{value}-default");
 			}
 
 			&:hover&:not(.orion-checkbox--checked)&:not(.orion-checkbox--disabled) > [class*="__check-container"] {
-				background: var(--background-neutral-hover)
+				background: var(--o-background-neutral-hover)
 			}
 		}
 	});
 
-	&--error {
+	&--danger {
 		&[class*='--checked'] > [class*='__check-container'] {
-			background: var(--background-error-default);
-			border-color: var(--border-error-default);
+			background: var(--o-background-danger-default);
+			border-color: var(--o-border-danger-default);
 		}
 	}
 
@@ -170,15 +170,15 @@ select:-webkit-autofill:focus {
 
 	&--disabled {
 		cursor: not-allowed;
-		color: var(--text-default-disabled);
+		color: var(--o-text-default-disabled);
 
 		> [class$='__label'] {
 			cursor: not-allowed;
 		}
 
 		.orion-checkbox__check-container {
-			background: var(--background-neutral-disabled);
-			border-color: var(--border-neutral-disabled);
+			background: var(--o-background-neutral-disabled);
+			border-color: var(--o-border-neutral-disabled);
 		}
 	}
 }
@@ -188,3 +188,5 @@ select:-webkit-autofill:focus {
 		transform: scale(0.9);
 	}
 }
+
+

@@ -43,7 +43,7 @@ import { materialIcons } from 'lib';
 const state = reactive({
 	modelValue: 3,
 	disabled: false,
-	icon: 'circle_check' as Orion.Icon,
+	icon: 'check_circle' as Orion.Icon,
 	numberOfRates: 10,
 	color: 'warning' as Orion.Color,
 });

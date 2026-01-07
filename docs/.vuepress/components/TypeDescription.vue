@@ -8,8 +8,8 @@
 
 <style scoped lang="less">
 .type-description {
-	border: 0.125rem solid var(--border-neutral-default);
-	padding: var(--spacing-16);
+	border: 0.125rem solid var(--o-border-neutral-default);
+	padding: var(--o-space-16);
 	border-radius: 0.5rem;
 
 	> :deep(div[class*='language-']) {

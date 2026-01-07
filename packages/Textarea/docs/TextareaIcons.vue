@@ -10,7 +10,7 @@
 			<o-textarea
 				v-model="value"
 				label="Tristique Vestibulum"
-				suffix-icon="calendar"/>
+				suffix-icon="calendar_today"/>
 		</div>
 		<div class="col-sm-4">
 			<o-textarea

@@ -13,7 +13,7 @@
 		</o-timeline-pane>
 		<o-timeline-pane
 			name="pane2"
-			icon="image_01"
+			icon="image"
 			complete>
 			Integer posuere erat a ante venenatis dapibus posuere velit aliquet.
 			Aenean lacinia bibendum nulla sed consectetur.

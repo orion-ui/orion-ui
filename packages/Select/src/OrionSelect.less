@@ -2,6 +2,17 @@
 @import '../../Shared/styles/mixins.less';
 
 .orion-select {
+	width: 100%;
+
+	.orion-input__input {
+		flex: 1 1 auto;
+		min-width: 0;
+		align-self: stretch;
+		display: flex;
+		align-items: center;
+		cursor: pointer;
+	}
+
 	&__carret {
 		transition: transform 0.3s;
 
@@ -23,7 +34,7 @@
 		padding-bottom: 0.125rem;
 		padding-left: calc(5px + 0.125rem); // 7px
 		margin: 0.125rem 0.25rem 0.125rem 0;
-	background: color-mix(in srgb, var(--background-neutral-minimal) 60%, transparent);
+	background: color-mix(in srgb, var(--o-background-neutral-minimal) 60%, transparent);
 
 		.orion-input--disabled &,
 		.orion-input--readonly & {
@@ -38,15 +49,15 @@
 			.flex-align();
 			font-size: 1rem;
 			margin-left: 0.125rem;
-			padding: 0 var(--spacing-8);
+			padding: 0 var(--o-space-8);
 			border-radius: 0 0.25rem 0.25rem 0;
-			color: var(--text-default-default);
+			color: var(--o-text-default-default);
 			cursor: pointer;
 
 			body:not(.istouch) & {
 				&:hover {
-					background: color-mix(in srgb, var(--background-error-default) 10%, transparent);
-					color: var(--text-error-default);
+					background: color-mix(in srgb, var(--o-background-danger-default) 10%, transparent);
+					color: var(--o-text-danger-default);
 				}
 			}
 
@@ -61,7 +72,7 @@
 	&:not(.orion-select--multiple) {
 		.orion-input__input {
 			.ellipsis();
-			padding-right: var(--spacing-48);
+			padding-right: var(--o-space-48);
 		}
 	}
 
@@ -93,7 +104,7 @@
 		.favorite-separator{
 			margin: .5rem 0rem;
 			border-image: unset;
-			border-color: var(--border-neutral-default);
+			border-color: var(--o-border-neutral-default);
 		}
 
 		&-item {
@@ -101,10 +112,10 @@
 			align-items: center;
 			justify-content: space-between;
 			gap: 1.25rem;
-			padding: var(--spacing-8) var(--spacing-32);
+			padding: var(--o-space-8) var(--o-space-32);
 			font-size: 0.875rem;
 			transition: background 0.3s, color 0.3s;
-			color: var(--text-default-default);
+			color: var(--o-text-default-default);
 			cursor: pointer;
 
 			.orion-select__icon--internal {
@@ -124,14 +135,14 @@
 			body:not(.istouch) & {
 				&.hover,
 				&:hover {
-					color: var(--text-default-default);
-					background: var(--background-neutral-minimal);
+					color: var(--o-text-default-default);
+					background: var(--o-background-neutral-minimal);
 				}
 			}
 
 			& .favorite-icon {
 				display: none;
-				color: var(--text-default-moderate);
+				color: var(--o-text-default-moderate);
 			}
 
 			&.favorite > .favorite-icon {
@@ -139,12 +150,12 @@
 			}
 
 			&.selected {
-				background: var(--background-info-default);
-				color: var(--text-default-inverted);
+				background: var(--o-background-info-default);
+				color: var(--o-text-default-inverted);
 
 				.orion-select-multiple__popover & {
-					color: var(--text-info-default);
-					background: rgba(var(--background-info-default), 0.1);
+					color: var(--o-text-info-default);
+					background: rgba(var(--o-background-info-default), 0.1);
 
 					.icon--selected {
 						display: block;
@@ -153,8 +164,8 @@
 					body:not(.istouch) & {
 						&.hover,
 						&:hover {
-							color: var(--text-error-default);
-							background: rgba(var(--background-error-default), 0.1);
+							color: var(--o-text-danger-default);
+							background: rgba(var(--o-background-danger-default), 0.1);
 
 							.icon--selected {
 								display: none;
@@ -202,7 +213,7 @@
 			flex-wrap: wrap;
 			min-height: 2.5rem;
 			height: auto;
-			padding: 0.375rem var(--spacing-48) 0.375rem var(--spacing-32);
+			padding: 0.375rem var(--o-space-48) 0.375rem var(--o-space-32);
 		}
 
 		.orion-select__autocomplete:not(:only-child) {
@@ -219,3 +230,4 @@
 		outline: none;
 	}
 }
+

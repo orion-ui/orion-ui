@@ -35,7 +35,7 @@
 				:multiple="state.multiple"
 				:favorites-options="optionsFlat.slice(1, 2)"
 				show-favorite-icon
-				favorite-icon="heart_01"
+				favorite-icon="favorite_border"
 				clearable/>
 		</div>
 		<div class="col-sm-6">
