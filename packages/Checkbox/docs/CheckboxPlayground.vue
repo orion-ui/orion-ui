@@ -1,85 +1,96 @@
 <template>
 	<template v-if="state.multiple">
-		<o-checkbox v-bind="state" v-model="state.multipleValue" />
+		<o-checkbox
+			v-bind="state"
+			v-model="state.multipleValue"/>
 		<o-checkbox
 			v-model="state.multipleValue"
 			:inline="state.inline"
 			:reverse="state.reverse"
 			multiple
 			label="Option 2"
-			input-value="option2"
-		/>
+			input-value="option2"/>
 		<o-checkbox
 			v-model="state.multipleValue"
 			:inline="state.inline"
 			:reverse="state.reverse"
 			multiple
 			label="Option 3"
-			input-value="option3"
-		/>
+			input-value="option3"/>
 		<o-checkbox
 			v-model="state.multipleValue"
 			:inline="state.inline"
 			:reverse="state.reverse"
 			multiple
 			label="Option 4"
-			input-value="option4"
-		/>
+			input-value="option4"/>
 
 		<pre>Value: {{ state.multipleValue }}</pre>
 	</template>
 
 	<template v-else>
-		<o-checkbox v-bind="state" v-model="state.value" />
+		<o-checkbox
+			v-bind="state"
+			v-model="state.value"/>
 		<o-checkbox
 			v-model="state.value"
 			:inline="state.inline"
-			:reverse="state.reverse"
-		>
+			:reverse="state.reverse">
 			<o-alert>Use default slot to display custom html content</o-alert>
 		</o-checkbox>
 
 		<pre>Value: {{ state.value }}</pre>
 	</template>
 
-	<hr />
+	<hr>
 
 	<b>Change the configuration of the Option 1 checkbox :</b>
 	<div class="mt-sm row row--grid">
 		<div class="col-sm-4">
-			<o-input v-model="state.label" label="Label" />
+			<o-input
+				v-model="state.label"
+				label="Label"/>
 		</div>
 		<div class="col-sm-4">
-			<color-selection v-model="state.color" />
+			<color-selection v-model="state.color"/>
 		</div>
 		<div class="col-sm-4">
 			<o-select
 				v-model="state.iconCheck"
 				clearable
 				label="Icon"
-				:options="icons"
-			/>
+				:options="icons"/>
 		</div>
 	</div>
 
 	<div class="row row--grid row--toggles">
 		<div class="col-sm-3">
-			<o-toggle v-model="state.reverse" label="Reverse" />
+			<o-toggle
+				v-model="state.reverse"
+				label="Reverse"/>
 		</div>
 		<div class="col-sm-3">
-			<o-toggle v-model="state.inline" label="Inline" />
+			<o-toggle
+				v-model="state.inline"
+				label="Inline"/>
 		</div>
 		<div class="col-sm-3">
-			<o-toggle v-model="state.multiple" label="Multiple" />
+			<o-toggle
+				v-model="state.multiple"
+				label="Multiple"/>
 		</div>
 	</div>
 
 	<div class="row row--grid row--toggles">
 		<div class="col-sm-3">
-			<o-toggle v-model="state.disabled" label="Disabled" />
+			<o-toggle
+				v-model="state.disabled"
+				label="Disabled"/>
 		</div>
 		<div class="col-sm-3">
-			<o-toggle v-model="state.readonly" label="Readonly" />
+			<o-toggle
+				v-model="state.readonly"
+				label="Readonly"/>
 		</div>
 	</div>
 </template>
