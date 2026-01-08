@@ -151,11 +151,11 @@ declare global {
 
 		type PasswordRuleKey = Exclude<keyof typeof ValidatorClass.rules, 'passwordConfirm'>;
 		type PasswordRuleSpec =
-  | PasswordRuleKey
-  | `hasMinLength:${number}`
-  | `hasMaxLength:${number}`
-  | `length:${number},${number}`
-  | `phone:${'true' | 'false'}`;
+			| PasswordRuleKey
+			| `hasMinLength:${number}`
+			| `hasMaxLength:${number}`
+			| `length:${number},${number}`
+			| `phone:${'true' | 'false'}`;
 
 		type Period = {
 			isStart: boolean;

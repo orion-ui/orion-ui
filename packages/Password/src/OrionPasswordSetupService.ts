@@ -1,7 +1,6 @@
+import useValidation from 'services/ValidationService';
 import { ModelRef, reactive } from 'vue';
 import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetupServiceProps } from '../../Shared/SharedFieldSetupService';
-import useValidation from 'services/ValidationService';
-import { useLang } from 'services';
 
 export type OrionPasswordEmits = SharedFieldSetupServiceEmits<string> & {}
 export type OrionPasswordProps = SharedFieldSetupServiceProps & {
@@ -136,16 +135,16 @@ export default class OrionPasswordSetupService extends SharedFieldSetupService<O
 		switch (this.passwordScore) {
 		case 0:
 		case 1:
-			return useLang().PASSWORD_STRENGTH_WEAK;
+			return this.lang.PASSWORD_STRENGTH_WEAK;
 		case 2:
-			return useLang().PASSWORD_STRENGTH_MEDIUM;
+			return this.lang.PASSWORD_STRENGTH_MEDIUM;
 		case 3:
-			return useLang().PASSWORD_STRENGTH_GOOD;
+			return this.lang.PASSWORD_STRENGTH_GOOD;
 		case 4:
 		case 5:
-			return useLang().PASSWORD_STRENGTH_STRONG;
+			return this.lang.PASSWORD_STRENGTH_STRONG;
 		default:
-			return useLang().PASSWORD_STRENGTH_WEAK;
+			return this.lang.PASSWORD_STRENGTH_WEAK;
 		}
 	}
 

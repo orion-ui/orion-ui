@@ -44,7 +44,7 @@
 					v-if="!passwordToConfirm"
 					class="orion-password-popover__header">
 					<span class="orion-password-popover--title">
-						{{ useLang().PASSWORD_CRITERIAS }}
+						{{ setup.lang.PASSWORD_CRITERIAS }}
 					</span>
 					<span class="orion-password-popover--subtitle">
 						{{ setup.tooltipSubtitle }}
@@ -86,12 +86,11 @@
 </template>
 
 <script setup lang="ts">
-import './OrionPassword.less';
 import { OrionField } from 'packages/Field';
 import { OrionIcon } from 'packages/Icon';
+import './OrionPassword.less';
+import type { OrionPasswordEmits, OrionPasswordProps } from './OrionPasswordSetupService';
 import OrionPasswordSetupService from './OrionPasswordSetupService';
-import type { OrionPasswordProps, OrionPasswordEmits } from './OrionPasswordSetupService';
-import { useLang } from 'services';
 const vModel = defineModel<Nil<string>>();
 const emits = defineEmits<OrionPasswordEmits>() as OrionPasswordEmits;
 const props = withDefaults(defineProps<OrionPasswordProps>(), OrionPasswordSetupService.defaultProps);

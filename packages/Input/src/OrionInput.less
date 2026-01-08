@@ -52,7 +52,9 @@
 
 	&:focus,
 	&--focused  {
-		border: 1px solid var(--o-border-neutral-focus);
+		outline: 1px solid var(--o-border-neutral-focus);
+		outline-offset: 2px;
+		border-color: transparent;
 		transition: none;
 
 		&.orion-input--danger {
