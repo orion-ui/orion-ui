@@ -24,7 +24,7 @@ select:-webkit-autofill:focus {
 	position: relative;
 	display: flex;
 	align-items: center;
-	gap: var(--spacing-4);
+	gap: var(--o-space-4);
 	justify-content: flex-end;
 	flex-direction: row-reverse;
 	margin: 0.5rem 0;
@@ -42,7 +42,7 @@ select:-webkit-autofill:focus {
 		}
 
 		[class*='--sm'] > & {
-			font-size: var(--typography-size-sm);
+			font-size: var(--o-typography-body-default-font-size);
 		}
 
 		.orion-checkbox--required &,
@@ -113,11 +113,19 @@ select:-webkit-autofill:focus {
 			stroke-linejoin: round;
 			stroke-dasharray: 1rem;
 			stroke-dashoffset: 1rem;
+
+			[class*='--disabled'] > & {
+				stroke: var(--o-text-default-disabled);
+			}
 		}
 
 		.icon {
 			color: var(--o-text-default-inverted);
 			font-size: 0.75rem;
+			
+			[class*='--disabled'] > & {
+				color: var(--o-text-default-disabled);
+			}
 		}
 
 		[class*='--checked'] > & {
@@ -127,6 +135,8 @@ select:-webkit-autofill:focus {
 				stroke-dashoffset: 0;
 			}
 		}
+
+		
 	}
 
 	&__check-marker {
@@ -177,8 +187,8 @@ select:-webkit-autofill:focus {
 		}
 
 		.orion-checkbox__check-container {
-			background: var(--o-background-neutral-disabled);
-			border-color: var(--o-border-neutral-disabled);
+			background: var(--o-background-neutral-disabled) !important;
+			border-color: var(--o-border-neutral-disabled) !important;
 		}
 	}
 }
