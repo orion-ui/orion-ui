@@ -35,7 +35,6 @@
 		<o-checkbox
 			v-model="state.value"
 			:inline="state.inline"
-			disabled
 			:reverse="state.reverse">
 			<o-alert>Use default slot to display custom html content</o-alert>
 		</o-checkbox>

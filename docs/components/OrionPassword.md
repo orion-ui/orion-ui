@@ -11,6 +11,7 @@ title: Password
 
 ::: demo:Password
 PasswordConfirmation
+PasswordTooltip
 PasswordPlayground
 :::
 
