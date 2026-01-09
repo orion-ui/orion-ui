@@ -83,7 +83,9 @@
 
 			<teleport
 				defer
-				:to="setup.headerIsDisplayed ? `#OrionModal-${setup.uid}__header` : `#OrionModal-${setup.uid}__body`">
+				:to="setup.displayHeader
+					? `#OrionModal-${setup.uid}__header`
+					: `#OrionModal-${setup.uid}__body`">
 				<span
 					v-if="!setup.options.hideClose"
 					class="orion-modal__close"
@@ -111,13 +113,13 @@ export default {
 </script>
 
 <script setup lang="ts">
-import './OrionModal.less';
-import { defineAsyncComponent, provide } from 'vue';
 import { OrionButton } from 'packages/Button';
 import { OrionLoader } from 'packages/Loader';
 import { OrionSection } from 'packages/Section';
+import { defineAsyncComponent, provide } from 'vue';
+import './OrionModal.less';
+import type { OrionModalEmits, OrionModalProps } from './OrionModalSetupService';
 import OrionModalSetupService from './OrionModalSetupService';
-import type { OrionModalProps, OrionModalEmits } from './OrionModalSetupService';
 const emits = defineEmits<OrionModalEmits>() as OrionModalEmits;
 const props = withDefaults(defineProps<OrionModalProps>(), OrionModalSetupService.defaultProps);
 const slots = defineSlots();

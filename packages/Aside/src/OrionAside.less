@@ -28,7 +28,7 @@
 	}
 
 	>.orion-loader {
-		border-radius: var(--o-radius-xl);
+		border-radius: var(--o-radius-md);
 	}
 
 	&:focus {
@@ -42,7 +42,7 @@
 	}
 
 	&__header {
-		padding: var(--o-space-8);
+		padding: var(--o-space-8) var(--o-space-24);
 		display: flex;
 		position: relative;
 		flex-direction: column;
@@ -53,9 +53,10 @@
 		border-bottom: 1px solid var(--o-border-neutral-default);
 
 		.orion-aside__header-container {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
+			min-height: var(--o-height-control-xs);
+			margin-right: var(--o-space-16);
+			margin-top: var(--o-space-4);
+			margin-bottom: var(--o-space-4);
 		}
 
 		&:empty {
@@ -68,14 +69,12 @@
 	}
 
 	&__title {
-		padding-left: var(--o-space-16);
 		.typography(subtitle-bold);
 	}
 
 	&__description {
 		.typography(body2-default);
 		color: var(--o-text-default-subtle);
-		padding: 0 var(--o-space-16);
 	}
 
 	&__logo {
@@ -211,7 +210,11 @@
 		}
 	}
 
-	.orion-aside__close {}
+	&__close.orion-button {
+		position: absolute;
+		top: var(--o-space-8);
+		right: var(--o-space-8);
+	}
 
 	&--visible {
 		display: flex;

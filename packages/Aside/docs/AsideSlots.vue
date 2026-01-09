@@ -15,6 +15,9 @@
 		<o-aside
 			ref="_asideA"
 			:options="{ title: 'This is the Title', description: 'This is an aside with a description' }">
+			<template #header>
+				<span class="text--primary">Here</span> comes your <span class="text--primary">header slot content</span>
+			</template>
 			<o-section title="Aside with actions">
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 				Duis sagittis viverra vulputate. Nunc ultricies ante urna, eget.
@@ -31,17 +34,19 @@
 				<o-button
 					outline>
 					Cancel
-					</o-button>
+				</o-button>
 				<o-button
 					color="info">
 					Save
-					</o-button>
+				</o-button>
 			</teleport>
 		</o-aside>
 
-		<o-aside ref="_asideB" :options="{ title: 'This is the Title', description: 'This is an aside with a description' }">
+		<o-aside
+			ref="_asideB"
+			:options="{ title: 'This is the Title', description: 'This is an aside with a description' }">
 			<template #footer>
-					<span class="text--primary">Here</span> comes your <span class="text--primary">footer content</span>
+				<span class="text--primary">Here</span> comes your <span class="text--primary">footer content</span>
 			</template>
 
 			<o-section title="Aside with footer">
@@ -55,7 +60,9 @@
 			</o-section>
 		</o-aside>
 
-		<o-aside ref="_asideC" :options="{ title: 'This is the Title', description: 'This is an aside with a description' }">
+		<o-aside
+			ref="_asideC"
+			:options="{ title: 'This is the Title', description: 'This is an aside with a description' }">
 			<template #poster>
 				<img
 					src="https://picsum.photos/id/1041/200"

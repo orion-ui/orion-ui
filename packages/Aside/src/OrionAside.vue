@@ -13,8 +13,7 @@
 				{ 'orion-aside--visible': setup.visible },
 			]">
 			<div class="orion-aside__poster">
-				<div
-					v-if="$slots.poster">
+				<div v-if="$slots.poster">
 					<slot name="poster"/>
 				</div>
 				<div
@@ -23,19 +22,23 @@
 			</div>
 
 			<div
+				v-if="setup.displayHeader"
 				:id="`OrionAside-${setup.uid}__header`"
 				class="orion-aside__header">
 				<div class="orion-aside__header-container">
-					<slot name="header"/>
-					<span
+					<div
 						v-if="options.title"
 						class="orion-aside__title">
 						{{ options.title }}
-					</span>
+					</div>
+					<slot name="header"/>
 				</div>
 
-				<span v-if="options.description"  class="orion-aside__description">{{ options.description }}</span>
-
+				<span
+					v-if="options.description"
+					class="orion-aside__description">
+					{{ options.description }}
+				</span>
 			</div>
 
 			<div
@@ -52,8 +55,7 @@
 			<div
 				:id="`OrionAside-${setup.uid}__actions`"
 				:ref="setup._actions"
-				class="orion-aside__actions"
-				v-show="setup.actionsHasContent">
+				class="orion-aside__actions">
 				<slot
 					name="actions"
 					:close="setup.close.bind(setup)"/>
@@ -62,15 +64,17 @@
 			<div
 				:id="`OrionAside-${setup.uid}__footer`"
 				:ref="setup._footer"
-				class="orion-aside__footer"
-				v-show="setup.footerHasContent">
+				class="orion-aside__footer">
 				<slot
 					name="footer"
 					:close="setup.close.bind(setup)"/>
 			</div>
+
 			<teleport
 				defer
-				:to="setup.headerIsDisplayed ? `#OrionAside-${setup.uid}__header .orion-aside__header-container` : `#OrionAside-${setup.uid}__body`">
+				:to="setup.displayHeader
+					? `#OrionAside-${setup.uid}__header`
+					: `#OrionAside-${setup.uid}__body`">
 				<o-button
 					v-if="!setup.options.hideClose"
 					class="orion-aside__close"
@@ -80,17 +84,18 @@
 					@click="setup.close({ keepInQueue: false })"
 					@touchend.prevent.stop="setup.close({ keepInQueue: false })"/>
 			</teleport>
+
 			<orion-loader :ref="setup._loader"/>
 		</aside>
 	</teleport>
 </template>
 
 <script setup lang="ts">
-import './OrionAside.less';
-import { provide } from 'vue';
 import { OrionLoader } from 'packages/Loader';
+import { provide } from 'vue';
+import './OrionAside.less';
+import type { OrionAsideEmits, OrionAsideProps } from './OrionAsideSetupService';
 import OrionAsideSetupService from './OrionAsideSetupService';
-import type { OrionAsideProps, OrionAsideEmits } from './OrionAsideSetupService';
 const emits = defineEmits<OrionAsideEmits>() as OrionAsideEmits;
 const props = withDefaults(defineProps<OrionAsideProps>(), OrionAsideSetupService.defaultProps);
 const slots = defineSlots();

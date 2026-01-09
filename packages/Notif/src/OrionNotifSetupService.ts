@@ -1,6 +1,7 @@
 import anime from 'animejs';
 import { isNil } from 'lodash-es';
-import { reactive, ref } from 'vue';
+import { Reactive } from 'utils/decorators';
+import { ref } from 'vue';
 import SharedPopableSetupService, { SharedPopableSetupServiceEmits, SharedPopableSetupServiceProps } from '../../Shared/SharedPopableSetupService';
 
 export type OrionNotifEmits = SharedPopableSetupServiceEmits & {}
@@ -16,15 +17,15 @@ export type OrionNotifProps = SharedPopableSetupServiceProps & {
 export default class OrionNotifSetupService extends SharedPopableSetupService {
 	static readonly defaultProps = { ...SharedPopableSetupService.defaultProps };
 
-	protected name = 'OrionNotif' as const;
+	protected readonly name = 'OrionNotif' as const;
 
+	readonly _timerProgress = ref<HTMLElement>();
 
-	_timerProgress = ref<HTMLElement>();
-	options = reactive<Orion.Notif.Options>({
+	@Reactive readonly options: Orion.Notif.Options = {
 		...this.baseOptions,
 		overlay: false,
 		title: undefined,
-	});
+	};
 
 	private timerValue = ref<Nil<number>>();
 	private timerInterval?: NodeJS.Timeout;
