@@ -47,6 +47,7 @@ const state = reactive({
 	hideClose: false,
 	hideOnOverlayClick: true,
 	title: 'Lorem ipsum',
+	description: 'This is a description for the aside.',
 	overlay: true,
 });
 

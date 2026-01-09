@@ -1,5 +1,6 @@
 import anime from 'animejs';
-import { reactive, ref, Slots } from 'vue';
+import { Reactive } from 'utils';
+import { ref, Slots } from 'vue';
 import SharedPopableSetupService, { SharedPopableSetupServiceEmits, SharedPopableSetupServiceProps } from '../../Shared/SharedPopableSetupService';
 
 export type OrionAsideEmits = SharedPopableSetupServiceEmits & {}
@@ -15,12 +16,12 @@ export type OrionAsideProps = SharedPopableSetupServiceProps & {
 export default class OrionAsideSetupService extends SharedPopableSetupService {
 	static readonly defaultProps = { ...SharedPopableSetupService.defaultProps };
 
-	protected name = 'OrionAside' as const;
-
+	protected readonly name = 'OrionAside' as const;
 
 	readonly _actions = ref<RefDom>();
+	readonly _footer = ref<RefDom>();
 
-	options = reactive<Orion.Aside.Options>({ ...this.baseOptions });
+	@Reactive readonly options: Orion.Aside.Options = { ...this.baseOptions };
 
 	get slotPoster () { return `#OrionAside-${this.uid}__poster`;}
 	get slotFooter () { return `#OrionAside-${this.uid}__footer`;}
@@ -44,8 +45,15 @@ export default class OrionAsideSetupService extends SharedPopableSetupService {
 
 	) {
 		super(props, emits, slots);
-
 		Object.assign(this.options, props.options);
+	}
+
+	protected onMounted () {
+		super.onMounted();
+	}
+
+	protected onUnmounted () {
+		super.onUnmounted();
 	}
 
 	async animateAsync (enter: boolean) {

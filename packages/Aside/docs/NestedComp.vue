@@ -1,5 +1,7 @@
 <template>
-	<o-section :title="`${title} ${uid ?? ''}`">
+	<o-section
+		:title="`${title} ${uid ?? ''}`"
+		subtitle="This is a nested component inside an aside.">
 		<p>
 			Etiam porta sem malesuada magna mollis euismod.
 			Etiam porta sem malesuada magna mollis euismod.
@@ -15,35 +17,38 @@
 			Vestibulum id ligula porta felis euismod semper.
 			Nulla vitae elit libero, a pharetra augue.
 		</p>
-	</o-section>
 
-	<o-section align="right">
-		<o-button
-			v-if="uid"
-			color="warning"
-			outline
-			@click="_aside?.close({ flush: true })">
-			Close and flush queue
-		</o-button>
+		<teleport :to="_aside?.slotActions">
+			<o-button
+				v-if="uid"
+				color="warning"
+				outline
+				@click="_aside?.close({ flush: true })">
+				Close and flush queue
+			</o-button>
 
-		<o-button
-			color="danger"
-			outline
-			@click="_aside?.close()">
-			Close aside
-		</o-button>
+			<o-button
+				outline
+				@click="_aside?.close()">
+				Close aside
+			</o-button>
 
-		<o-button
-			color="info"
-			@click="openNew()">
-			Open a new aside
-		</o-button>
+			<o-button
+				color="info"
+				@click="openNew()">
+				Open a new aside
+			</o-button>
+		</teleport>
+
+		<teleport :to="_aside?.slotFooter">
+			This is the footer from the nested component.
+		</teleport>
 	</o-section>
 </template>
 
 <script setup lang="ts">
+import { getUid, useAside } from 'lib';
 import { inject } from 'vue';
-import { useAside, getUid } from 'lib';
 import NestedComp from './NestedComp.vue';
 
 defineProps<{ title: string, uid?: number }>();

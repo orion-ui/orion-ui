@@ -1,5 +1,6 @@
 import anime from 'animejs';
-import { reactive, ref, Slots } from 'vue';
+import { Reactive } from 'utils';
+import { ref, Slots } from 'vue';
 import SharedPopableSetupService, { SharedPopableSetupServiceEmits, SharedPopableSetupServiceProps } from '../../Shared/SharedPopableSetupService';
 
 export type OrionModalEmits = SharedPopableSetupServiceEmits & {
@@ -18,12 +19,11 @@ export type OrionModalProps = SharedPopableSetupServiceProps & {
 export default class OrionModalSetupService extends SharedPopableSetupService {
 	static readonly defaultProps = { ...SharedPopableSetupService.defaultProps };
 
-	protected name = 'OrionModal' as const;
-
+	protected readonly name = 'OrionModal' as const;
 
 	readonly _prompt = ref<RefDom>();
 
-	options = reactive<Orion.Modal.Options>({ ...this.baseOptions });
+	@Reactive readonly options: Orion.Modal.Options = { ...this.baseOptions };
 
 	get promptFieldComponent () {
 		if (this.prompt) {
