@@ -58,20 +58,6 @@
 			}
 		}
 
-		&-current-month,
-		&-current-year {
-			border: 0.0625rem solid var(--o-background-neutral-subtle);
-			border-radius: 0.25rem;
-
-			&:not(.disabled) {
-				cursor: pointer;
-
-				&:hover {
-					color: var(--o-text-info-default);
-				}
-			}
-		}
-
 		&-carret {
 			font-size: 1.25rem;
 			color: var(--o-text-default-default);
@@ -221,7 +207,7 @@
 							
 							&:not(.day--inverted):not(.day--default) > {
 								.orion-date-table-row__cell-display-contrast {
-									.color-contrast();
+									color: var(--o-text-default-disabled);
 								}
 							}
 						}	
@@ -230,13 +216,12 @@
 
 				&.today {
 					font-weight: 600;
-					color: var(--o-text-info-default);
-					border: 0.0625rem solid var(--o-background-info-default);
+					color: var(--o-text-primary-default);
 				}
 
 				&.selected {
 					color: var(--o-text-default-inverted);
-					background: var(--o-background-info-default);
+					background: var(--o-background-primary-default);
 
 					> .orion-date-table-row__cell-display-contrast {
 						filter: none !important;
@@ -256,7 +241,7 @@
 				}
 
 				&--grey {
-					color: var(--o-text-default-moderate);
+					color: var(--o-text-default-disabled);
 				}
 			}
 
@@ -284,14 +269,14 @@
 			}
 
 			&.in-range {
-				background: var(--o-background-neutral-minimal);
+				background: var(--o-background-neutral-selected);
 
-				&--border-left-radius {
+				&--border-left-radius, &:first-child {
 					border-top-left-radius: 1.5rem;
 					border-bottom-left-radius: 1.5rem;
 				}
 
-				&--border-right-radius {
+				&--border-right-radius, &:last-child {
 					border-top-right-radius: 1.5rem;
 					border-bottom-right-radius: 1.5rem;
 				}

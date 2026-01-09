@@ -22,16 +22,24 @@
 				@click="setup.switchPeriod(-1)"/>
 
 			<div class="orion-date-table__header-current-display">
-				<span
+				<o-button
 					v-show="!setup.viewMonth && !setup.viewYears && !month"
+					:disabled="disableMonthAndYear"
+					outline
+					:nude="disableMonthAndYear"
 					class="orion-date-table__header-current-month"
-					:class="{ 'disabled': disableMonthAndYear }"
-					@click="setup.showMonths">{{ setup.monthName }} </span>
-				<span
+					@click="setup.showMonths()">
+					{{ setup.monthName }}
+				</o-button>
+				<o-button
 					v-if="!setup.viewYears"
+					:disabled="disableMonthAndYear"
+					outline
+					:nude="disableMonthAndYear"
 					class="orion-date-table__header-current-year"
-					:class="{ 'disabled': disableMonthAndYear }"
-					@click="setup.showYears">{{ setup.currentYear }}</span>
+					@click="setup.showYears()">
+					{{ setup.currentYear }}
+				</o-button>
 				<span
 					v-else
 					class="orion-date-table__header-current-range-years">

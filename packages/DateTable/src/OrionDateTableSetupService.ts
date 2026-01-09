@@ -148,7 +148,7 @@ export default class OrionDateTableSetupService extends SharedSetupService {
 		const startDate = new Date(this.currentYear, this.currentMonth, 1 - (firstDayOfMonth - 1));
 		startDate.setHours(0, 0, 0, 0);
 
-		for (let i = 0; i < 6; i++) {
+		for (let i = 0; i < 5; i++) {
 			const days = [];
 			for (let d = 0; d < 7; d++) {
 				const currentDate = new Date(startDate);

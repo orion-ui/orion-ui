@@ -1,27 +1,15 @@
 .v-popper {
 	&__popper {
-		.v-popper__arrow {
-			[data-orion-theme='dark'] & {
-				border-color: var(--o-border-neutral-default);
-			}
-
-			&-outer {
-				[data-orion-theme='dark'] & {
-					border-color: var(--o-border-neutral-default);
-				}
-			}
-
-			&-inner {
-				[data-orion-theme='dark'] & {
-					border-color: var(--o-border-neutral-default);
-				}
-			}
+		.v-popper__arrow-container {
+			display: none;
 		}
 
 		.v-popper__inner {
 			color: var(--o-text-default-default);
 			padding: var(--o-space-16);
 			border-radius: var(--o-radius-lg);
+			border:  1px solid var(--border-neutral-default, #ECEEF2);
+			box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.03);
 		}
 
 		&--no-positioning {

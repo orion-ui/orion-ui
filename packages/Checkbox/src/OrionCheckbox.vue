@@ -9,9 +9,8 @@
 			{ 'orion-checkbox--inline': inline },
 		]"
 		input-type="checkbox"
-		@click="setup.handleClick()"
-	>
-		<slot v-if="label === undefined" />
+		@click="setup.handleClick()">
+		<slot v-if="label === undefined"/>
 
 		<input
 			:ref="setup._input"
@@ -19,11 +18,12 @@
 			type="checkbox"
 			:value="inputValue"
 			:checked="setup.isChecked"
-			v-bind="{ ...$attrs, disabled: disabled }"
-		/>
+			v-bind="{ ...$attrs, disabled: disabled }">
 
 		<span class="orion-checkbox__check-container">
-			<orion-icon :icon="iconCheck || 'check'" @click="setup.handleClick()" />
+			<orion-icon
+				:icon="iconCheck || 'check'"
+				@click="setup.handleClick()"/>
 		</span>
 	</orion-field>
 </template>
@@ -33,10 +33,8 @@ import './OrionCheckbox.less';
 import { OrionField } from 'packages/Field';
 import { OrionIcon } from 'packages/Icon';
 import OrionCheckboxSetupService from './OrionCheckboxSetupService';
-import type {
-	OrionCheckboxProps,
-	OrionCheckboxEmits,
-} from './OrionCheckboxSetupService';
+import type { OrionCheckboxProps,
+	OrionCheckboxEmits } from './OrionCheckboxSetupService';
 const emits = defineEmits<OrionCheckboxEmits<any>>() as OrionCheckboxEmits<any>;
 const vModel = defineModel<any[] | boolean | null | undefined>();
 const props = withDefaults(

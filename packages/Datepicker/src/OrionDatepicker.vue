@@ -4,12 +4,14 @@
 		placement="bottom-start"
 		:positioning-disabled="setup.responsive.onPhone"
 		:triggers="[]"
-		:shown="setup.isFocus"
+		:shown="true"
+		theme="orion"
 		:auto-hide="false"
 		@apply-show="setup.handlePopperShow()"
 		@apply-hide="setup.handlePopperHide()">
 		<orion-field
 			v-bind="setup.orionFieldBinding"
+			:id="`orion-input_${setup._uid}`"
 			class="orion-datepicker"
 			:has-value="setup.hasValue"
 			:label-is-floating="setup.hasValue || (type === 'date' && setup.isFocus)"
