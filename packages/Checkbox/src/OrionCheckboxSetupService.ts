@@ -1,7 +1,7 @@
 import { isArray } from 'lodash-es';
 import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetupServiceProps } from '../../Shared/SharedFieldSetupService';
 import { ModelRef } from 'vue';
-import SharedProps, { SharedPropsColor } from '../../Shared/SharedProps';
+import { SharedPropsColor } from '../../Shared/SharedProps';
 
 export type OrionCheckboxEmits<T> = SharedFieldSetupServiceEmits<T> & {}
 export type OrionCheckboxProps = SharedFieldSetupServiceProps &
@@ -24,14 +24,18 @@ export type OrionCheckboxProps = SharedFieldSetupServiceProps &
 	// @doc props/type the type of the input
 	// @doc/fr props/type type du champ
 	type?: string,
+	// @doc props/size the size of the checkbox
+	// @doc/fr props/size taille de la case à cocher
+	size?: Extract<Orion.Size, 'sm' | 'md'>;
 };
 type VModelType = any[] | boolean | null | undefined;
 
 export default class OrionCheckboxSetupService extends SharedFieldSetupService<OrionCheckboxProps, VModelType, OrionCheckboxEmits<VModelType>> {
 	static readonly defaultProps = {
 		...SharedFieldSetupService.defaultProps,
-		...SharedProps.color,
+		color: 'info' as Orion.Color,
 		type: 'checkbox',
+		size: 'md' as OrionCheckboxProps['size'],
 	};
 
 	protected inputType = 'checkbox';
