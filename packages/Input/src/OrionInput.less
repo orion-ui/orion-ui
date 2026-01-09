@@ -7,6 +7,7 @@
 	gap: var(--o-space-8);
 	align-items: center;
 	height: 2.5rem;
+	width: 100%;
 	padding: 0 var(--o-space-8);
 	.typography(body2-default);
 	border-radius: var(--o-radius-md);
@@ -241,6 +242,10 @@
 
 		&--danger {
 			color: var(--o-text-danger-default);
+
+			&:has(+ .orion-input__reveal) {
+				display: none;
+			}
 		}
 
 		&--warning {
@@ -249,6 +254,10 @@
 
 		&--success {
 			color: var(--o-text-success-default);
+
+			&:has(+ .orion-input__reveal) {
+				display: none;
+			}
 		}
 	}
 
@@ -264,6 +273,7 @@
 
 	&__reveal {
 		margin-left: 0.3rem;
+		color: var(--o-text-default-subtle)
 	}
 
 	&__icon {

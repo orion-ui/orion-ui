@@ -216,12 +216,7 @@
 <script
 	setup
 	lang="ts"
-	generic="
-		T,
-		O,
-		VKey extends keyof O = never,
-		DKey extends keyof O = VKey,
-	">
+	generic="T, O, VKey extends keyof O = never, DKey extends keyof O = VKey">
 import './OrionSelect.less';
 import { OrionButton } from 'packages/Button';
 import { OrionIcon } from 'packages/Icon';
