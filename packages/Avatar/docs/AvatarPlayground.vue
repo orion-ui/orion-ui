@@ -49,15 +49,15 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, computed } from 'vue';
 import { useNotif } from 'lib';
+import { computed, reactive } from 'vue';
 
 const avatar = computed(() => {
 	return state.color === 'image' ? 'https://picsum.photos/id/1011/200' : undefined;
 });
 
 const state = reactive({
-	size: 100,
+	size: 'md',
 	color: 'info' as Orion.Color & 'image',
 	square: false,
 	displayText: true,

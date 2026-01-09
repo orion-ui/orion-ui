@@ -15,7 +15,6 @@
 		margin-bottom: 0;
 		padding: var(--o-space-48);
 		z-index: 4;
-
 	}
 
 	&__title {
@@ -39,7 +38,7 @@
 
 		&-number {
 			color: var(--o-text-default-moderate);
-			font-size: 0.875rem;
+			.typography(body2-default);
 			margin-right: 1.25rem;
 
 			&--now {
@@ -91,15 +90,15 @@
 			&--@{value} {
 				background: color-mix(in oklab, var(~"--o-background-@{value}-default") 20%, transparent);
 				color: var(~"--o-text-@{value}-default");
-				&:hover{
+
+				&:hover {
 					background: color-mix(in oklab, var(~"--o-background-@{value}-default") 30%, transparent);
 					transform: translate3d(0, calc(-2rem / 16), 0);
-					box-shadow: 
-						0  calc(2rem/16) calc(2rem/16)  color-mix(in oklab, var(~"--o-background-@{value}-default") 6%, transparent),
-						0  0.25rem       0.25rem        color-mix(in oklab, var(~"--o-background-@{value}-default") 6%, transparent),
-						0  0.5rem        0.5rem         color-mix(in oklab, var(~"--o-background-@{value}-default") 6%, transparent),
-						0  1rem          1rem           color-mix(in oklab, var(~"--o-background-@{value}-default") 6%, transparent),
-						0  2rem          2rem           color-mix(in oklab, var(~"--o-background-@{value}-default") 6%, transparent);
+					box-shadow: 0 calc(2rem/16) calc(2rem/16) color-mix(in oklab, var(~"--o-background-@{value}-default") 6%, transparent),
+					0 0.25rem 0.25rem color-mix(in oklab, var(~"--o-background-@{value}-default") 6%, transparent),
+					0 0.5rem 0.5rem color-mix(in oklab, var(~"--o-background-@{value}-default") 6%, transparent),
+					0 1rem 1rem color-mix(in oklab, var(~"--o-background-@{value}-default") 6%, transparent),
+					0 2rem 2rem color-mix(in oklab, var(~"--o-background-@{value}-default") 6%, transparent);
 				}
 			}
 		});
@@ -139,5 +138,3 @@
 		z-index: 3;
 	}
 }
-
-
