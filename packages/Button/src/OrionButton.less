@@ -22,11 +22,7 @@
 	border: none;
 	appearance: none;
 	outline: none;
-	font-family: var(--o-typography-label-bold-font-family);
-	font-size: var(--o-typography-label-bold-font-size);
-	font-style: normal;
-	font-weight: var(--o-typography-label-bold-font-weight);
-	line-height: 20px;
+	.typography(body2-bold);
 	cursor: pointer;
 	overflow: hidden;
 	border-width: 0.0625rem;
@@ -53,6 +49,7 @@
 
 		.orion-button--default & {
 			background: fade(black, 5);
+
 			[data-orion-theme='dark'] & {
 				background: fade(white, 10);
 			}
@@ -101,7 +98,7 @@
 		}
 
 		.orion-icon {
-			font-size: var(--o-typography-body-default-font-size);
+			font-size: var(--o-typography-body2-default-font-size);
 		}
 	}
 
@@ -115,13 +112,12 @@
 		}
 
 		.orion-icon {
-			font-size: var(--o-o-typography-body-default-font-size);
+			font-size: var(--o-typography-body1-default-font-size);
 		}
 	}
 
 	each(@colors, {
 		&--@{value} {
-			
 			color: white;
 			background: var(~"--o-background-@{value}-default");
 
@@ -132,14 +128,14 @@
 			&.orion-button--outline, &.orion-button--nude {
 				color: var(~"--o-text-@{value}-default");
 			}
-			
+
 			&.orion-button--outline {
-				background: var(--o-background-neutral-default);	
+				background: var(--o-background-neutral-default);
 				border: 1px solid var(~"--o-border-@{value}-subtle");
 
-				&:hover&:not(.orion-button--disabled){
+				&:hover&:not(.orion-button--disabled) {
 					background: var(~"--o-background-@{value}-minimal");
-				}				
+				}
 
 				&:focus&:not(.orion-button--disabled) {
 					background: var(~"--o-background-@{value}-minimal");
@@ -148,16 +144,18 @@
 			}
 
 			&.orion-button--nude {
+
 				&:hover&:not(.orion-button--disabled),
 				&:focus&:not(.orion-button--disabled) {
 					background: var(~"--o-background-@{value}-minimal");
-				}				
+				}
 			}
 
 			&.orion-button--disabled {
 				background: var(--o-background-neutral-disabled);
 				color: var(--o-text-default-disabled);
 				border-color: var(--o-border-neutral-disabled);
+
 				&:hover, &:focus {
 					background: var(--o-background-neutral-disabled);
 					border-color: var(--o-border-neutral-disabled);
@@ -191,6 +189,7 @@
 			}
 		}
 	}
+
 	&--nude {
 		border-color: transparent !important;
 		stroke: none;
@@ -222,11 +221,9 @@
 		transform: scale(1);
 		opacity: 1;
 	}
+
 	to {
 		transform: scale(30);
 		opacity: 0;
 	}
 }
-
-
-
