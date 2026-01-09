@@ -492,7 +492,7 @@
     }
   },
   "typography": {
-    "body": {
+    "body1": {
       "default": {
         "fontFamily": {
           "$type": "text",
@@ -500,7 +500,7 @@
         },
         "fontSize": {
           "$type": "number",
-          "$value": "{typography.size.14}"
+          "$value": "{typography.size.16}"
         },
         "fontWeight": {
           "$type": "number",
@@ -508,7 +508,11 @@
         },
         "lineHeight": {
           "$type": "number",
-          "$value": "{typography.lineHeight.normal}"
+          "$value": "{typography.lineHeight.24}"
+        },
+        "letterSpacing": {
+          "$type": "number",
+          "$value": "{typography.letterSpacing.default}"
         }
       },
       "bold": {
@@ -518,7 +522,7 @@
         },
         "fontSize": {
           "$type": "number",
-          "$value": "{typography.size.14}"
+          "$value": "{typography.size.16}"
         },
         "fontWeight": {
           "$type": "number",
@@ -526,7 +530,11 @@
         },
         "lineHeight": {
           "$type": "number",
-          "$value": "{typography.lineHeight.normal}"
+          "$value": "{typography.lineHeight.24}"
+        },
+        "letterSpacing": {
+          "$type": "number",
+          "$value": "{typography.letterSpacing.default}"
         }
       }
     },
@@ -542,11 +550,15 @@
         },
         "fontWeight": {
           "$type": "number",
-          "$value": "{typography.weight.bold}"
+          "$value": "{typography.weight.semibold}"
         },
         "lineHeight": {
           "$type": "number",
-          "$value": "{typography.lineHeight.2xl}"
+          "$value": "{typography.lineHeight.56}"
+        },
+        "letterSpacing": {
+          "$type": "number",
+          "$value": "{typography.letterSpacing.tighter}"
         }
       },
       "h2": {
@@ -556,15 +568,19 @@
         },
         "fontSize": {
           "$type": "number",
-          "$value": "{typography.size.33}"
+          "$value": "{typography.size.32}"
         },
         "fontWeight": {
           "$type": "number",
-          "$value": "{typography.weight.bold}"
+          "$value": "{typography.weight.semibold}"
         },
         "lineHeight": {
           "$type": "number",
-          "$value": "{typography.lineHeight.xl}"
+          "$value": "{typography.lineHeight.40}"
+        },
+        "letterSpacing": {
+          "$type": "number",
+          "$value": "{typography.letterSpacing.tight}"
         }
       },
       "h3": {
@@ -574,15 +590,19 @@
         },
         "fontSize": {
           "$type": "number",
-          "$value": "{typography.size.27}"
+          "$value": "{typography.size.28}"
         },
         "fontWeight": {
           "$type": "number",
-          "$value": "{typography.weight.bold}"
+          "$value": "{typography.weight.semibold}"
         },
         "lineHeight": {
           "$type": "number",
-          "$value": "{typography.lineHeight.loose}"
+          "$value": "{typography.lineHeight.32}"
+        },
+        "letterSpacing": {
+          "$type": "number",
+          "$value": "{typography.letterSpacing.tight}"
         }
       },
       "h4": {
@@ -592,7 +612,7 @@
         },
         "fontSize": {
           "$type": "number",
-          "$value": "{typography.size.23}"
+          "$value": "{typography.size.24}"
         },
         "fontWeight": {
           "$type": "number",
@@ -600,7 +620,11 @@
         },
         "lineHeight": {
           "$type": "number",
-          "$value": "{typography.lineHeight.relaxed}"
+          "$value": "{typography.lineHeight.28}"
+        },
+        "letterSpacing": {
+          "$type": "number",
+          "$value": "{typography.letterSpacing.default}"
         }
       },
       "h5": {
@@ -610,7 +634,7 @@
         },
         "fontSize": {
           "$type": "number",
-          "$value": "{typography.size.19}"
+          "$value": "{typography.size.20}"
         },
         "fontWeight": {
           "$type": "number",
@@ -618,7 +642,11 @@
         },
         "lineHeight": {
           "$type": "number",
-          "$value": "{typography.lineHeight.relaxed}"
+          "$value": "{typography.lineHeight.24}"
+        },
+        "letterSpacing": {
+          "$type": "number",
+          "$value": "{typography.letterSpacing.default}"
         }
       }
     },
@@ -630,7 +658,7 @@
         },
         "fontSize": {
           "$type": "number",
-          "$value": "{typography.size.13}"
+          "$value": "{typography.size.12}"
         },
         "fontWeight": {
           "$type": "number",
@@ -638,7 +666,11 @@
         },
         "lineHeight": {
           "$type": "number",
-          "$value": "{typography.lineHeight.tight}"
+          "$value": "{typography.lineHeight.18}"
+        },
+        "letterSpacing": {
+          "$type": "number",
+          "$value": "{typography.letterSpacing.default}"
         }
       },
       "bold": {
@@ -648,7 +680,7 @@
         },
         "fontSize": {
           "$type": "number",
-          "$value": "{typography.size.13}"
+          "$value": "{typography.size.12}"
         },
         "fontWeight": {
           "$type": "number",
@@ -656,7 +688,11 @@
         },
         "lineHeight": {
           "$type": "number",
-          "$value": "{typography.lineHeight.tight}"
+          "$value": "{typography.lineHeight.18}"
+        },
+        "letterSpacing": {
+          "$type": "number",
+          "$value": "{typography.letterSpacing.default}"
         }
       }
     },
@@ -668,7 +704,7 @@
         },
         "fontSize": {
           "$type": "number",
-          "$value": "{typography.size.11}"
+          "$value": "{typography.size.10}"
         },
         "fontWeight": {
           "$type": "number",
@@ -676,7 +712,11 @@
         },
         "lineHeight": {
           "$type": "number",
-          "$value": "{typography.lineHeight.tight}"
+          "$value": "{typography.lineHeight.16}"
+        },
+        "letterSpacing": {
+          "$type": "number",
+          "$value": "{typography.letterSpacing.relaxed}"
         }
       },
       "bold": {
@@ -686,7 +726,7 @@
         },
         "fontSize": {
           "$type": "number",
-          "$value": "{typography.size.11}"
+          "$value": "{typography.size.10}"
         },
         "fontWeight": {
           "$type": "number",
@@ -694,11 +734,15 @@
         },
         "lineHeight": {
           "$type": "number",
-          "$value": "{typography.lineHeight.tight}"
+          "$value": "{typography.lineHeight.16}"
+        },
+        "letterSpacing": {
+          "$type": "number",
+          "$value": "{typography.letterSpacing.relaxed}"
         }
       }
     },
-    "body-lg": {
+    "body2": {
       "default": {
         "fontFamily": {
           "$type": "text",
@@ -706,7 +750,7 @@
         },
         "fontSize": {
           "$type": "number",
-          "$value": "{typography.size.16}"
+          "$value": "{typography.size.14}"
         },
         "fontWeight": {
           "$type": "number",
@@ -714,7 +758,11 @@
         },
         "lineHeight": {
           "$type": "number",
-          "$value": "{typography.lineHeight.normal}"
+          "$value": "{typography.lineHeight.20}"
+        },
+        "letterSpacing": {
+          "$type": "number",
+          "$value": "{typography.letterSpacing.default}"
         }
       },
       "bold": {
@@ -724,7 +772,7 @@
         },
         "fontSize": {
           "$type": "number",
-          "$value": "{typography.size.16}"
+          "$value": "{typography.size.14}"
         },
         "fontWeight": {
           "$type": "number",
@@ -732,7 +780,57 @@
         },
         "lineHeight": {
           "$type": "number",
-          "$value": "{typography.lineHeight.normal}"
+          "$value": "{typography.lineHeight.20}"
+        },
+        "letterSpacing": {
+          "$type": "number",
+          "$value": "{typography.letterSpacing.default}"
+        }
+      }
+    },
+    "subtitle": {
+      "default": {
+        "fontFamily": {
+          "$type": "text",
+          "$value": "{typography.font.base}"
+        },
+        "fontSize": {
+          "$type": "number",
+          "$value": "{typography.size.18}"
+        },
+        "fontWeight": {
+          "$type": "number",
+          "$value": "{typography.weight.regular}"
+        },
+        "lineHeight": {
+          "$type": "number",
+          "$value": "{typography.lineHeight.24}"
+        },
+        "letterSpacing": {
+          "$type": "number",
+          "$value": "{typography.letterSpacing.default}"
+        }
+      },
+      "bold": {
+        "fontFamily": {
+          "$type": "text",
+          "$value": "{typography.font.base}"
+        },
+        "fontSize": {
+          "$type": "number",
+          "$value": "{typography.size.18}"
+        },
+        "fontWeight": {
+          "$type": "number",
+          "$value": "{typography.weight.semibold}"
+        },
+        "lineHeight": {
+          "$type": "number",
+          "$value": "{typography.lineHeight.24}"
+        },
+        "letterSpacing": {
+          "$type": "number",
+          "$value": "{typography.letterSpacing.default}"
         }
       }
     }
@@ -742,9 +840,9 @@
       "$type": "number",
       "$value": "{radius.0}"
     },
-    "lg": {
+    "xl": {
       "$type": "number",
-      "$value": "{radius.12}"
+      "$value": "{radius.16}"
     },
     "md": {
       "$type": "number",
@@ -758,9 +856,9 @@
       "$type": "number",
       "$value": "{radius.6}"
     },
-    "xl": {
+    "lg": {
       "$type": "number",
-      "$value": "{radius.16}"
+      "$value": "{radius.12}"
     }
   },
   "opacity": {

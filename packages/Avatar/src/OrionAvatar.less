@@ -23,7 +23,7 @@
 		.orion-avatar--lg & {
 			.circle(3rem);
 		}
-		
+
 		.orion-avatar--md & {
 			.circle(2.5rem);
 		}
@@ -31,6 +31,7 @@
 		.orion-avatar--sm & {
 			.circle(2rem);
 		}
+
 		.orion-avatar--xs & {
 			.circle(1.5rem);
 		}
@@ -42,39 +43,61 @@
 		justify-content: center;
 
 		&-name {
-			font-weight: var(--o-typography-label-bold-font-weight);
+			.typography(body2-bold);
+		}
+
+		&-description {
+			.typography(body2-default);
 		}
 
 		.orion-avatar--xl & {
 			&-name {
-				font-size: var(--o-o-typography-body-default-font-size)
+				.typography(body1-bold);
 			}
 
 			&-description {
-				font-size: var(--o-typography-body-default-font-size)
+				.typography(body1-default);
 			}
 		}
 
 		.orion-avatar--lg & {
-			font-size: var(--o-typography-body-default-font-size);
+			&-name {
+				.typography(body2-bold);
+			}
+
+			&-description {
+				.typography(body2-default);
+			}
 		}
 
 		.orion-avatar--md & {
-			font-size: var(--o-typography-label-bold-font-size);
+			&-name {
+				.typography(label-bold);
+			}
+
+			&-description {
+				.typography(label-default);
+			}
 		}
 
 		.orion-avatar--sm & {
 			&-name {
-				font-size: var(--o-typography-label-bold-font-size)
+				.typography(label-bold);
 			}
 
 			&-description {
-				font-size: var(--o-typography-caption-default-font-size)
+				.typography(label-default);
 			}
 		}
 
-		.orion-avatar--xs & {	
-			font-size: var(--o-typography-caption-default-font-size)
+		.orion-avatar--xs & {
+			&-name {
+				.typography(label-bold);
+			}
+
+			&-description {
+				.typography(label-default);
+			}
 		}
 	}
 
@@ -94,141 +117,128 @@
 		justify-content: center;
 		width: 100%;
 		height: 100%;
-		color: 	 var(--o-text-default-inverted);
+		color: var(--o-text-default-inverted);
 		line-height: 1;
 		border-radius: inherit;
 
 		.orion-avatar--xl & {
-			font-size: var(--o-typography-heading-h5-font-size);
+			.typography(heading-h4);
 		}
 
 		.orion-avatar--lg & {
-			font-size: var(--o-typography-body-default-font-size);
+			.typography(heading-h5);
 		}
 
 		.orion-avatar--md & {
-			font-size: var(--o-typography-label-default-font-size);
+			.typography(body1-bold);
 		}
 
 		.orion-avatar--sm & {
-			font-size: var(--o-typography-label-default-font-size);
+			.typography(label-bold);
 		}
 
 		.orion-avatar--xs & {
-			font-size: var(--o-typography-caption-default-font-size);
+			.typography(caption-bold);
 		}
 
 		each(@colors, {
 			.orion-avatar--@{value} & {
-				background:  var(~"--o-background-@{value}-default");
+				background: var(~"--o-background-@{value}-default");
 				border: 1px solid var(~"--o-border-@{value}-subtle");
 			}
 		});
 
-		.orion-avatar--default > & {
-			background: var(--o-background-neutral-subtle);
-			color: var(--o-text-default-default);
-		}
-
-		.orion-avatar--inverted > & {
-			background: var(--o-background-neutral-highlight);
-		}
-	}
-
-	&__picto {
-		.flex-align();
-		transition: transform 0.3s, opacity 0.3s;
-		position: absolute;
-		bottom: 0;
-		right: 0;
-		z-index: 2;
+	.orion-avatar--default>& {
+		background: var(--o-background-neutral-subtle);
 		color: var(--o-text-default-default);
-		background: var(--o-background-neutral-default);
-		cursor: pointer;
-
-		.orion-avatar--xl &, .orion-avatar--lg & {
-			.orion-icon {
-				font-size: 1rem;
-			}
-		}
-
-		.orion-avatar--md &, .orion-avatar--sm & {
-			.orion-icon {
-				font-size: 0.75rem;
-			}
-		}
-
-		.orion-avatar--sm & {
-			bottom: calc(var(--o-space-8) * -1);
-			right: calc(var(--o-space-8) * -1);
-			
-			.orion-icon {
-				font-size: 0.625rem;
-			}
-		}
-
-		.orion-avatar--xs & {
-			opacity: 0;
-		}
-
-		.orion-avatar--xs & {
-			.orion-icon {
-				font-size: 0.75rem;
-			}
-			&:hover {
-			opacity: 1;
-			}
-		}
-
-		.orion-avatar--square & {
-			transform: translate3d(
-				calc(var(--o-space-8) * -1),
-				calc(var(--o-space-8) * -1),
-				0
-			);
-		}
 	}
 
-	&--xl {
-		gap: var(--o-space-8);			
-	}
-
-	&--lg {
-			gap: var(--o-space-8);
-	}
-
-	&--md {
-			gap: var(--o-space-6);
-	}
-
-	&--8 {
-			gap: var(--o-space-6);
-	}
-
-	&--xs {
-		gap: var(--o-space-4);
-	}
-
-	&--square {
-		.orion-avatar__pill {
-			border-radius: 0;
-		}
-
-		.orion-avatar__picto {
-			transform: translate3d(
-				calc(var(--o-space-8) * 0.5),
-				calc(var(--o-space-8) * 0.5),
-				0
-			);
-		}
-	}
-
-	&--contain {
-		.orion-avatar__image {
-			object-fit: contain;
-		}
+	.orion-avatar--inverted>& {
+		background: var(--o-background-neutral-highlight);
 	}
 }
 
+&__picto {
+	.flex-align();
+	transition: transform 0.3s, opacity 0.3s;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	z-index: 2;
+	color: var(--o-text-default-default);
+	background: var(--o-background-neutral-default);
+	cursor: pointer;
 
+	.orion-avatar--xl &,
+	.orion-avatar--lg & {
+		.orion-icon {
+			font-size: 1rem;
+		}
+	}
 
+	.orion-avatar--md &,
+	.orion-avatar--sm & {
+		.orion-icon {
+			font-size: 0.75rem;
+		}
+	}
+
+	.orion-avatar--xs & {
+		opacity: 0;
+	}
+
+	.orion-avatar--xs & {
+		.orion-icon {
+			font-size: 0.75rem;
+		}
+
+		&:hover {
+			opacity: 1;
+		}
+	}
+
+	.orion-avatar--square & {
+		transform: translate3d(calc(var(--o-space-8) * -1),
+				calc(var(--o-space-8) * -1),
+				0);
+	}
+}
+
+&--xl {
+	gap: var(--o-space-8);
+}
+
+&--lg {
+	gap: var(--o-space-8);
+}
+
+&--md {
+	gap: var(--o-space-6);
+}
+
+&--8 {
+	gap: var(--o-space-6);
+}
+
+&--xs {
+	gap: var(--o-space-4);
+}
+
+&--square {
+	.orion-avatar__pill {
+		border-radius: 0;
+	}
+
+	.orion-avatar__picto {
+		transform: translate3d(calc(var(--o-space-8) * 0.5),
+				calc(var(--o-space-8) * 0.5),
+				0);
+	}
+}
+
+&--contain {
+	.orion-avatar__image {
+		object-fit: contain;
+	}
+}
+}

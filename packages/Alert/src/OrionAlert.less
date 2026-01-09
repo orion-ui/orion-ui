@@ -5,7 +5,7 @@
 	position: relative;
 	border-radius: var(--o-radius-md);
 	padding: var(--o-space-16);
-	font-size: var(--o-typography-label-bold-font-size);
+	.typography(body2);
 	display: grid;
 	grid-template-columns: 1rem auto 1rem;
 	grid-template-areas: 'content content content';
@@ -25,7 +25,7 @@
 
 	&__close {
 		grid-area: close;
-		.close(var(--o-typography-body-default-font-size));
+		.close(var(--o-typography-body2-default-font-size));
 		z-index: 1;
 		justify-self: flex-end;
 		justify-content: center;
@@ -40,7 +40,7 @@
 	&__title {
 		grid-area: content;
 		margin: 0;
-		line-height: 20px;
+		.typography(body2-bold);
 	}
 
 	&__content {
@@ -56,21 +56,21 @@
 
 	&__icon {
 		grid-area: icon;
-		font-size: var(--o-typography-body-default-font-size);
+		font-size: var(--o-typography-body2-default-font-size);
 	}
 
 	each(@colors, {
-		
-    &--@{value} {
+
+		&--@{value} {
 			color: var(~"--o-text-@{value}-subtle");
-      background: var(~"--o-background-@{value}-minimal");
+			background: var(~"--o-background-@{value}-minimal");
 			border: 1px solid var(~"--o-border-@{value}-subtle");
 
-      .orion-alert__title {
-        color: var(~"--o-text-@{value}-subtle");
-      }
-    }
-  });
+			.orion-alert__title {
+				color: var(~"--o-text-@{value}-subtle");
+			}
+		}
+	});
 
 	&--default {
 		color: var(--o-text-default-default);
@@ -81,11 +81,8 @@
 		color: var(--o-text-default-minimal);
 		background: var(--o-background-neutral-highlight);
 
-		.orion-alert__title  {
+		.orion-alert__title {
 			color: var(--o-text-default-minimal);
 		}
 	}
 }
-
-
-

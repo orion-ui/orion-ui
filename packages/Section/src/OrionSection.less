@@ -2,21 +2,24 @@
 @import '../../Shared/styles/mixins.less';
 
 details.orion-section summary::-webkit-details-marker {
-	display:none;
+	display: none;
 }
 
 .orion-section {
 
-	+ .orion-section--xs {
+	+.orion-section--xs {
 		margin-top: 1rem;
 	}
-	+ .orion-section--sm {
+
+	+.orion-section--sm {
 		margin-top: 2rem;
 	}
-	+ .orion-section--md {
+
+	+.orion-section--md {
 		margin-top: 3rem;
 	}
-	+ .orion-section--lg {
+
+	+.orion-section--lg {
 		margin-top: 4rem;
 	}
 
@@ -28,7 +31,7 @@ details.orion-section summary::-webkit-details-marker {
 		gap: 0.5rem;
 		width: 100%;
 
-		> div:first-child {
+		>div:first-child {
 			align-self: center;
 		}
 
@@ -68,7 +71,6 @@ details.orion-section summary::-webkit-details-marker {
 
 	&__title {
 		margin: 0;
-		font-weight: var(--o-typography-label-bold-font-weight);
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
@@ -85,7 +87,6 @@ details.orion-section summary::-webkit-details-marker {
 	}
 
 	&__subtitle {
-		font-weight: var(--o-typography-weight-medium);
 		color: var(--o-text-default-default);
 		margin: 0.3rem 0 0;
 	}
@@ -94,7 +95,7 @@ details.orion-section summary::-webkit-details-marker {
 		opacity: 1;
 		transition: opacity 0.3s ease;
 
-		.orion-section__header + & {
+		.orion-section__header+& {
 			margin-top: 1.25rem;
 		}
 
@@ -111,14 +112,18 @@ details.orion-section summary::-webkit-details-marker {
 			&-left {
 				justify-content: flex-start;
 			}
+
 			&-center {
 				justify-content: center;
 			}
+
 			&-right {
 				justify-content: flex-end;
 			}
+
 			&-stretch {
 				align-items: stretch;
+
 				.orion-button {
 					flex: 1 1 0%;
 				}
@@ -126,4 +131,3 @@ details.orion-section summary::-webkit-details-marker {
 		}
 	}
 }
-

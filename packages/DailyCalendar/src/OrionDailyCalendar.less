@@ -39,7 +39,7 @@
 
 		&-number {
 			color: var(--o-text-default-moderate);
-			font-size: 0.875rem;
+			.typography(body2-default);
 			margin-right: 1.25rem;
 
 			&--now {
@@ -91,53 +91,51 @@
 			&--@{value} {
 				background: color-mix(in oklab, var(~"--o-background-@{value}-default") 20%, transparent);
 				color: var(~"--o-text-@{value}-default");
-				&:hover{
+
+				&:hover {
 					background: color-mix(in oklab, var(~"--o-background-@{value}-default") 30%, transparent);
 					transform: translate3d(0, calc(-2rem / 16), 0);
-					box-shadow: 
-						0  calc(2rem/16) calc(2rem/16)  color-mix(in oklab, var(~"--o-background-@{value}-default") 6%, transparent),
-						0  0.25rem       0.25rem        color-mix(in oklab, var(~"--o-background-@{value}-default") 6%, transparent),
-						0  0.5rem        0.5rem         color-mix(in oklab, var(~"--o-background-@{value}-default") 6%, transparent),
-						0  1rem          1rem           color-mix(in oklab, var(~"--o-background-@{value}-default") 6%, transparent),
-						0  2rem          2rem           color-mix(in oklab, var(~"--o-background-@{value}-default") 6%, transparent);
+					box-shadow: 0 calc(2rem/16) calc(2rem/16) color-mix(in oklab, var(~"--o-background-@{value}-default") 6%, transparent),
+					0 0.25rem 0.25rem color-mix(in oklab, var(~"--o-background-@{value}-default") 6%, transparent),
+					0 0.5rem 0.5rem color-mix(in oklab, var(~"--o-background-@{value}-default") 6%, transparent),
+					0 1rem 1rem color-mix(in oklab, var(~"--o-background-@{value}-default") 6%, transparent),
+					0 2rem 2rem color-mix(in oklab, var(~"--o-background-@{value}-default") 6%, transparent);
 				}
 			}
 		});
 
-		p {
-			font-size: 0.75rem;
-			line-height: 0.875rem;
-			margin: unset;
-		}
-
-		&-wrapper {
-			position: absolute;
-			top: 0;
-			bottom: 0;
-			left: calc(52rem / 16);
-			right: 0;
-		}
+	p {
+		font-size: 0.75rem;
+		line-height: 0.875rem;
+		margin: unset;
 	}
 
-	&__other-days {
+	&-wrapper {
 		position: absolute;
-		top: calc(25rem / 16);
-		right: 1.25rem;
-		font-size: 1rem;
-		color: var(--o-text-default-default);
-		display: flex;
-		gap: 0.5rem;
-		z-index: 5;
-	}
-
-	&__hidden-task-indicator {
-		position: sticky;
-		bottom: 1.25rem;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		z-index: 3;
+		top: 0;
+		bottom: 0;
+		left: calc(52rem / 16);
+		right: 0;
 	}
 }
 
+&__other-days {
+	position: absolute;
+	top: calc(25rem / 16);
+	right: 1.25rem;
+	font-size: 1rem;
+	color: var(--o-text-default-default);
+	display: flex;
+	gap: 0.5rem;
+	z-index: 5;
+}
 
+&__hidden-task-indicator {
+	position: sticky;
+	bottom: 1.25rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 3;
+}
+}

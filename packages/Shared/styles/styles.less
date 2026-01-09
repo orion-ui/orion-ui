@@ -1,6 +1,5 @@
 // @import (css) url('https://fonts.bunny.net/css?family=source-sans-pro:200,200i,300,300i,400,400i,600,600i,700,700i');
-@import (css)
-	url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;1,200;1,300;1,400;1,600;1,700&display=swap');
+@import (css) url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;1,200;1,300;1,400;1,600;1,700&display=swap');
 
 @import './animations';
 @import './dependencies';
@@ -46,13 +45,11 @@ body {
 body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	font-family: var(--font-family);
-	font-size: var(--o-typography-body-default-font-size);
-	line-height: 1.5;
-	font-weight: var(--o-typography-weight-medium);
+	.typography(body2-default);
 	color: var(--o-text-default-default);
 
-		&:has(.orion-modal--visible), &:has(.orion-aside--visible) {
+	&:has(.orion-modal--visible),
+	&:has(.orion-aside--visible) {
 		overflow: hidden !important;
 	}
 }
@@ -63,57 +60,65 @@ h3,
 h4,
 h5,
 h6 {
-	font-weight: var(--o-typography-label-bold-font-weight);
 	color: var(--o-text-default-default);
-	line-height: 1.2;
-	margin: 0 0 max(0.6em, 10px);
+	margin: 0;
 }
 
 h1 {
-	font-size: 1.5rem;
+	.typography(heading-h1);
+
 	@media @tablet {
 		font-size: 2rem;
 	}
+
 	@media @desktop {
 		font-size: 2.5rem;
 	}
 }
 
 h2 {
-	font-size: 1.25rem;
+	.typography(heading-h2);
+
 	@media @tablet {
 		font-size: 1.5rem;
 	}
+
 	@media @desktop {
 		font-size: 2rem;
 	}
 }
 
 h3 {
-	font-size: 1rem;
+	.typography(heading-h3);
+
 	@media @tablet {
 		font-size: 1.25rem;
 	}
+
 	@media @desktop {
 		font-size: 1.5rem;
 	}
 }
 
 h4 {
-	font-size: 0.875rem;
+	.typography(heading-h4);
+
 	@media @tablet {
 		font-size: 1rem;
 	}
+
 	@media @desktop {
 		font-size: 1rem;
 	}
 }
 
 h5 {
-	font-size: 0.75rem;
+	.typography(heading-h5);
+
 	@media @tablet {
 		font-size: 0.8125rem;
 	}
+
 	@media @desktop {
 		font-size: 0.875rem;
 	}
@@ -121,9 +126,11 @@ h5 {
 
 h6 {
 	font-size: 0.5rem;
+
 	@media @tablet {
 		font-size: 0.7rem;
 	}
+
 	@media @desktop {
 		font-size: 0.75rem;
 	}
@@ -137,11 +144,9 @@ hr {
 	margin: 1rem auto;
 	border: 0;
 	border-bottom: 0.0625rem solid;
-	border-image: linear-gradient(
-			to right,
+	border-image: linear-gradient(to right,
 			var(--o-background-neutral-subtle),
-			var(--o-background-neutral-moderate)
-		)	1;
+			var(--o-background-neutral-moderate)) 1;
 
 	@media @desktop {
 		margin: 2rem auto;

@@ -8,7 +8,7 @@
 	align-items: center;
 	height: 2.5rem;
 	padding: 0 var(--o-space-8);
-	font-size: 0.875rem;
+	.typography(body2-default);
 	border-radius: var(--o-radius-md);
 	background-color: var(--o-background-neutral-default);
 	transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
@@ -29,7 +29,7 @@
 		border-color: var(--o-border-warning-subtle);
 	}
 
-	&--success{
+	&--success {
 		border-color: var(--o-border-success-subtle);
 	}
 
@@ -44,13 +44,13 @@
 			border-color: var(--o-border-warning-default);
 		}
 
-		&.orion-input--success{
+		&.orion-input--success {
 			border-color: var(--o-border-success-default);
 		}
 	}
 
 	&:focus,
-	&--focused  {
+	&--focused {
 		outline: 1px solid var(--o-border-neutral-focus);
 		outline-offset: 2px;
 		border-color: transparent;
@@ -64,7 +64,7 @@
 			outline-color: var(--o-border-warning-default);
 		}
 
-		&.orion-input--success{
+		&.orion-input--success {
 			outline-color: var(--o-border-success-default);
 		}
 	}
@@ -72,7 +72,7 @@
 	&:has(+ .orion-input__error-message) {
 		margin-bottom: 0;
 	}
-	
+
 	&:has(+ .orion-input__hint-text) {
 		margin-bottom: 0;
 	}
@@ -158,7 +158,7 @@
 			.orion-input--disabled & {
 				color: var(--o-text-default-moderate);
 			}
-		}	
+		}
 	}
 
 	&--prefix-icon {
@@ -190,22 +190,20 @@
 		.orion-input--xs & {
 			height: 2rem;
 			padding: var(--o-space-8);
-			font-size: var(--o-typography-label-bold-font-size)
+			.typography(label-default);
 		}
 	}
 
 	&__error-message {
 		margin-top: 0.25rem;
 		color: var(--o-text-danger-default);
-		font-size: var(--o-typography-label-bold-font-size);
-		line-height: 1.3;
+		.typography(label-default);
 	}
 
 	&__hint-text {
 		margin-top: 0.25rem;
 		color: var(--o-text-default-moderate);
-		font-size: var(--o-typography-label-bold-font-size);
-		line-height: 1.3;
+		.typography(label-default);
 	}
 
 	&__pictos {
@@ -231,7 +229,7 @@
 			height: calc(2rem - 2rem / 16);
 		}
 
-		> .orion-icon--clickable {
+		>.orion-icon--clickable {
 			pointer-events: all;
 		}
 	}
@@ -288,15 +286,13 @@
 	}
 
 	&__static-label {
-		font-size: var(--o-typography-label-bold-font-size);
-		font-weight: 600;
+		.typography(label-default);
 		color: var(--o-text-default-default);
 		margin-bottom: var(--o-space-4);
 		display: block;
 
-		& + .orion-input {
+		&+.orion-input {
 			margin: 0;
 		}
 	}
 }
-

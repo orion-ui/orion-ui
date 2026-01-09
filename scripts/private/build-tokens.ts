@@ -91,11 +91,30 @@ function pathPartsToCssVar(parts: unknown[]) {
 }
 
 const NO_PX_UNIT_SUFFIXES = ['-weight', '-opacity', '-z-index'];
+const REM_BASE = 16;
 
-// Append px for specific semantic suffixes when the value is unitless.
-function applyPxUnitForSuffixes(cssVar: string, cssValue: string) {
-	if (NO_PX_UNIT_SUFFIXES.some(suffix => cssVar.includes(suffix))) return cssValue.split('px')[0];
-	return cssValue;
+function isRemToken(pathParts: string[]) {
+	if (pathParts.length < 2) return false;
+	const [group, scale] = pathParts;
+	return group === 'typography' && (scale === 'size' || scale === 'lineHeight');
+}
+
+function isEmToken(pathParts: string[]) {
+	if (pathParts.length < 2) return false;
+	const [group, scale] = pathParts;
+	return group === 'typography' && scale === 'letterSpacing';
+}
+
+function formatNumber(value: number, decimals: number = 4) {
+	return value.toFixed(decimals).replace(/\.?0+$/, '');
+}
+
+function applyUnits(cssVar: string, value: unknown, cssValue: string, pathParts: string[]) {
+	if (typeof value !== 'number') return cssValue;
+	if (NO_PX_UNIT_SUFFIXES.some(suffix => cssVar.includes(suffix))) return String(value);
+	if (isEmToken(pathParts)) return `${formatNumber(value / REM_BASE)}em`;
+	if (isRemToken(pathParts)) return `${formatNumber(value / REM_BASE)}rem`;
+	return `${value}px`;
 }
 
 // Turn a token reference "{path.to.token}" into var(--o-...).
@@ -123,7 +142,7 @@ function stringifyCssValue(value: unknown) {
 		return v;
 	}
 
-	if (typeof value === 'number') return String(value) + 'px';
+	if (typeof value === 'number') return String(value);
 
 	if (value === null) return 'null';
 	if (typeof value === 'boolean') return value ? 'true' : 'false';
@@ -160,8 +179,10 @@ function buildCssVarsBlock(
 	const lines = [];
 	for (const item of sorted) {
 		const cssVar = pathPartsToCssVar(item.path);
-		const cssValue = applyPxUnitForSuffixes(cssVar, stringifyCssValue(item.value));
-		lines.push(`${indent}${cssVar}: ${cssValue};`);
+		const rawValue = item.value;
+		const cssValue = stringifyCssValue(rawValue);
+		const withUnits = applyUnits(cssVar, rawValue, cssValue, item.path);
+		lines.push(`${indent}${cssVar}: ${withUnits};`);
 	}
 	return lines.join('\n');
 }
