@@ -148,97 +148,97 @@
 			}
 		});
 
-	.orion-avatar--default>& {
-		background: var(--o-background-neutral-subtle);
+		.orion-avatar--default>& {
+			background: var(--o-background-neutral-subtle);
+			color: var(--o-text-default-default);
+		}
+
+		.orion-avatar--inverted>& {
+			background: var(--o-background-neutral-highlight);
+		}
+	}
+
+	&__picto {
+		.flex-align();
+		transition: transform 0.3s, opacity 0.3s;
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		z-index: 2;
 		color: var(--o-text-default-default);
-	}
+		background: var(--o-background-neutral-default);
+		cursor: pointer;
 
-	.orion-avatar--inverted>& {
-		background: var(--o-background-neutral-highlight);
-	}
-}
+		.orion-avatar--xl &,
+		.orion-avatar--lg & {
+			.orion-icon {
+				font-size: 1rem;
+			}
+		}
 
-&__picto {
-	.flex-align();
-	transition: transform 0.3s, opacity 0.3s;
-	position: absolute;
-	bottom: 0;
-	right: 0;
-	z-index: 2;
-	color: var(--o-text-default-default);
-	background: var(--o-background-neutral-default);
-	cursor: pointer;
+		.orion-avatar--md &,
+		.orion-avatar--sm & {
+			.orion-icon {
+				font-size: 0.75rem;
+			}
+		}
 
-	.orion-avatar--xl &,
-	.orion-avatar--lg & {
-		.orion-icon {
-			font-size: 1rem;
+		.orion-avatar--xs & {
+			opacity: 0;
+		}
+
+		.orion-avatar--xs & {
+			.orion-icon {
+				font-size: 0.75rem;
+			}
+
+			&:hover {
+				opacity: 1;
+			}
+		}
+
+		.orion-avatar--square & {
+			transform: translate3d(calc(var(--o-space-8) * -1),
+					calc(var(--o-space-8) * -1),
+					0);
 		}
 	}
 
-	.orion-avatar--md &,
-	.orion-avatar--sm & {
-		.orion-icon {
-			font-size: 0.75rem;
+	&--xl {
+		gap: var(--o-space-8);
+	}
+
+	&--lg {
+		gap: var(--o-space-8);
+	}
+
+	&--md {
+		gap: var(--o-space-6);
+	}
+
+	&--8 {
+		gap: var(--o-space-6);
+	}
+
+	&--xs {
+		gap: var(--o-space-4);
+	}
+
+	&--square {
+		.orion-avatar__pill {
+			border-radius: 0;
+		}
+
+		.orion-avatar__picto {
+			transform: translate3d(calc(var(--o-space-8) * 0.5),
+					calc(var(--o-space-8) * 0.5),
+					0);
 		}
 	}
 
-	.orion-avatar--xs & {
-		opacity: 0;
-	}
-
-	.orion-avatar--xs & {
-		.orion-icon {
-			font-size: 0.75rem;
-		}
-
-		&:hover {
-			opacity: 1;
+	&--contain {
+		.orion-avatar__image {
+			object-fit: contain;
 		}
 	}
-
-	.orion-avatar--square & {
-		transform: translate3d(calc(var(--o-space-8) * -1),
-				calc(var(--o-space-8) * -1),
-				0);
-	}
-}
-
-&--xl {
-	gap: var(--o-space-8);
-}
-
-&--lg {
-	gap: var(--o-space-8);
-}
-
-&--md {
-	gap: var(--o-space-6);
-}
-
-&--8 {
-	gap: var(--o-space-6);
-}
-
-&--xs {
-	gap: var(--o-space-4);
-}
-
-&--square {
-	.orion-avatar__pill {
-		border-radius: 0;
-	}
-
-	.orion-avatar__picto {
-		transform: translate3d(calc(var(--o-space-8) * 0.5),
-				calc(var(--o-space-8) * 0.5),
-				0);
-	}
-}
-
-&--contain {
-	.orion-avatar__image {
-		object-fit: contain;
-	}
-}
 }

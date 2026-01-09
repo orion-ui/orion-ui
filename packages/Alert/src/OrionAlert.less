@@ -5,7 +5,7 @@
 	position: relative;
 	border-radius: var(--o-radius-md);
 	padding: var(--o-space-16);
-	.typography(body2);
+	.typography(body2-default);
 	display: grid;
 	grid-template-columns: 1rem auto 1rem;
 	grid-template-areas: 'content content content';
@@ -60,7 +60,6 @@
 	}
 
 	each(@colors, {
-
 		&--@{value} {
 			color: var(~"--o-text-@{value}-subtle");
 			background: var(~"--o-background-@{value}-minimal");

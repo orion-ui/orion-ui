@@ -83,7 +83,7 @@
 
 	&__body {
 		flex: 1 0 0%;
-		.typography(body1-default);
+		.typography(body2-default);
 
 		.orion-card--xs>& {
 			padding: var(--o-space-12);
@@ -299,182 +299,182 @@
 				}
 			});
 
+			.orion-card--selected-default & {
+				fill: var(--o-background-neutral-moderate);
+			}
+
+			.orion-card--selected-inverted & {
+				fill: var(--o-background-neutral-highlight);
+			}
+		}
+
+		svg.check {
+			transition: all 0.3s ease;
+			bottom: 0.3rem;
+			right: 0.3rem;
+			width: 0.75rem;
+			height: 0.5rem;
+			fill: none;
+			stroke: white;
+			stroke-width: 2;
+			stroke-linecap: round;
+			stroke-linejoin: round;
+			stroke-dasharray: 1rem;
+			stroke-dashoffset: 1rem;
+
+			.orion-card--selected & {
+				transition-delay: 0.3s;
+				stroke-dashoffset: 0;
+			}
+		}
+
+		&::after,
+		&::before {
+			content: '';
+			display: block;
+			position: absolute;
+			bottom: 0;
+			right: 0;
+		}
+
+		&::before {
+			top: 0.5rem;
+			width: 0.0625rem;
+
+			each(@colors, {
+				@color: ~"--o-background-@{value}-default";
+
+				.orion-card--selected-@{value} & {
+					background: linear-gradient(to bottom,
+						color-mix(in srgb, var(@color) 0%, transparent),
+						color-mix(in srgb, var(@color) 100%, transparent));
+				}
+			});
+
 		.orion-card--selected-default & {
-			fill: var(--o-background-neutral-moderate);
+			background: linear-gradient(to bottom,
+					color-mix(in srgb, var(--o-background-neutral-default) 0%, transparent),
+					color-mix(in srgb,
+						var(--o-background-neutral-default) 100%,
+						transparent));
 		}
 
 		.orion-card--selected-inverted & {
-			fill: var(--o-background-neutral-highlight);
+			background: linear-gradient(to bottom,
+					color-mix(in srgb, var(--o-background-neutral-default) 0%, transparent),
+					color-mix(in srgb,
+						var(--o-background-neutral-default) 100%,
+						transparent));
 		}
-	}
-
-	svg.check {
-		transition: all 0.3s ease;
-		bottom: 0.3rem;
-		right: 0.3rem;
-		width: 0.75rem;
-		height: 0.5rem;
-		fill: none;
-		stroke: white;
-		stroke-width: 2;
-		stroke-linecap: round;
-		stroke-linejoin: round;
-		stroke-dasharray: 1rem;
-		stroke-dashoffset: 1rem;
-
-		.orion-card--selected & {
-			transition-delay: 0.3s;
-			stroke-dashoffset: 0;
 		}
-	}
 
-	&::after,
-	&::before {
-		content: '';
-		display: block;
-		position: absolute;
-		bottom: 0;
-		right: 0;
-	}
+		&::after {
+			left: 0.5rem;
+			height: 0.0625rem;
 
-	&::before {
-		top: 0.5rem;
-		width: 0.0625rem;
+			each(@colors, {
+				@color: ~"--o-background-@{value}-default";
 
-		each(@colors, {
-			@color: ~"--o-background-@{value}-default";
+				.orion-card--selected-@{value} & {
+					background: linear-gradient(to right,
+						color-mix(in srgb, var(@color) 0%, transparent),
+						color-mix(in srgb, var(@color) 100%, transparent));
+				}
+			});
 
-			.orion-card--selected-@{value} & {
-				background: linear-gradient(to bottom,
-					color-mix(in srgb, var(@color) 0%, transparent),
-					color-mix(in srgb, var(@color) 100%, transparent));
+			.orion-card--selected-default & {
+				background: linear-gradient(to right,
+						color-mix(in srgb, var(--o-background-neutral-default) 0%, transparent),
+						color-mix(in srgb,
+							var(--o-background-neutral-default) 100%,
+							transparent));
 			}
-		});
 
-	.orion-card--selected-default & {
-		background: linear-gradient(to bottom,
-				color-mix(in srgb, var(--o-background-neutral-default) 0%, transparent),
-				color-mix(in srgb,
-					var(--o-background-neutral-default) 100%,
-					transparent));
+			.orion-card--selected-inverted & {
+				background: linear-gradient(to right,
+						color-mix(in srgb, var(--o-background-neutral-default) 0%, transparent),
+						color-mix(in srgb,
+							var(--o-background-neutral-default) 100%,
+							transparent));
+			}
+		}
+
+		.icon {
+			position: absolute;
+			bottom: 0.3rem;
+			right: 0.3rem;
+			font-size: 0.5rem;
+			color: var(--o-text-default-inverted) !important;
+			margin: 0 !important;
+		}
 	}
 
-	.orion-card--selected-inverted & {
-		background: linear-gradient(to bottom,
-				color-mix(in srgb, var(--o-background-neutral-default) 0%, transparent),
-				color-mix(in srgb,
-					var(--o-background-neutral-default) 100%,
-					transparent));
+	&--clickable {
+		cursor: pointer;
 	}
-}
 
-&::after {
-	left: 0.5rem;
-	height: 0.0625rem;
+	&[class*='--gradient-'] {
+		color: var(--o-text-default-inverted);
+
+		.orion-card__title,
+		.orion-card__subtitle {
+			color: var(--o-text-default-inverted);
+		}
+	}
 
 	each(@colors, {
-		@color: ~"--o-background-@{value}-default";
-
-		.orion-card--selected-@{value} & {
-			background: linear-gradient(to right,
-				color-mix(in srgb, var(@color) 0%, transparent),
-				color-mix(in srgb, var(@color) 100%, transparent));
+		&--gradient-@{value} {
+			background: linear-gradient(to bottom right,
+				var(~"--o-background-@{value}-default"),
+				var(~"--o-background-@{value}-subtle"));
 		}
 	});
 
-.orion-card--selected-default & {
-	background: linear-gradient(to right,
-			color-mix(in srgb, var(--o-background-neutral-default) 0%, transparent),
-			color-mix(in srgb,
-				var(--o-background-neutral-default) 100%,
-				transparent));
-}
+	&--gradient-default.orion-card {
+		color: var(--o-text-default-default);
 
-.orion-card--selected-inverted & {
-	background: linear-gradient(to right,
-			color-mix(in srgb, var(--o-background-neutral-default) 0%, transparent),
-			color-mix(in srgb,
-				var(--o-background-neutral-default) 100%,
-				transparent));
-}
-}
+		.orion-card__title,
+		.orion-card__subtitle {
+			color: var(--o-text-default-default);
+		}
 
-.icon {
-	position: absolute;
-	bottom: 0.3rem;
-	right: 0.3rem;
-	font-size: 0.5rem;
-	color: var(--o-text-default-inverted) !important;
-	margin: 0 !important;
-}
-}
-
-&--clickable {
-	cursor: pointer;
-}
-
-&[class*='--gradient-'] {
-	color: var(--o-text-default-inverted);
-
-	.orion-card__title,
-	.orion-card__subtitle {
-		color: var(--o-text-default-inverted);
-	}
-}
-
-each(@colors, {
-	&--gradient-@{value} {
 		background: linear-gradient(to bottom right,
-			var(~"--o-background-@{value}-default"),
-			var(~"--o-background-@{value}-subtle"));
+			color-mix(in srgb, var(--o-background-neutral-default) 100%, transparent),
+			color-mix(in srgb, var(--o-background-neutral-moderate) 100%, transparent));
 	}
-});
 
-&--gradient-default.orion-card {
-	color: var(--o-text-default-default);
-
-	.orion-card__title,
-	.orion-card__subtitle {
+	&--gradient-inverted.orion-card {
 		color: var(--o-text-default-default);
+
+		.orion-card__title,
+		.orion-card__subtitle {
+			color: var(--o-text-default-default);
+		}
+
+		background: linear-gradient(to bottom right,
+			color-mix(in srgb, var(--o-background-neutral-moderate) 100%, transparent),
+			color-mix(in srgb, var(--o-background-neutral-highlight) 100%, transparent));
 	}
 
-	background: linear-gradient(to bottom right,
-		color-mix(in srgb, var(--o-background-neutral-default) 100%, transparent),
-		color-mix(in srgb, var(--o-background-neutral-moderate) 100%, transparent));
-}
+	&--no-elevation {
+		border: 1px solid var(--o-border-neutral-default);
+		box-shadow: none;
 
-&--gradient-inverted.orion-card {
-	color: var(--o-text-default-default);
-
-	.orion-card__title,
-	.orion-card__subtitle {
-		color: var(--o-text-default-default);
+		&:focus {
+			outline: 1px solid var(--o-border-neutral-focus);
+		}
 	}
 
-	background: linear-gradient(to bottom right,
-		color-mix(in srgb, var(--o-background-neutral-moderate) 100%, transparent),
-		color-mix(in srgb, var(--o-background-neutral-highlight) 100%, transparent));
-}
-
-&--no-elevation {
-	border: 1px solid var(--o-border-neutral-default);
-	box-shadow: none;
-
-	&:focus {
-		outline: 1px solid var(--o-border-neutral-focus);
+	&:not(.orion-card--no-elevation):hover {
+		body:not(.istouch) & {
+			z-index: 1;
+			transform: translate3d(0, -0.125rem, 0);
+			box-shadow:
+				0 calc(var(--elevation) / 8) calc(var(--elevation) / 8) var(--shadowColor),
+				0 calc(var(--elevation) / 4) calc(var(--elevation) / 4) var(--shadowColor),
+				0 calc(var(--elevation) / 2) calc(var(--elevation) / 2) var(--shadowColor),
+				0 var(--elevation) var(--elevation) var(--shadowColor),
+				0 calc(var(--elevation) * 2) calc(var(--elevation) * 2) var(--shadowColor);
+		}
 	}
-}
-
-&:not(.orion-card--no-elevation):hover {
-	body:not(.istouch) & {
-		z-index: 1;
-		transform: translate3d(0, -0.125rem, 0);
-		box-shadow:
-			0 calc(var(--elevation) / 8) calc(var(--elevation) / 8) var(--shadowColor),
-			0 calc(var(--elevation) / 4) calc(var(--elevation) / 4) var(--shadowColor),
-			0 calc(var(--elevation) / 2) calc(var(--elevation) / 2) var(--shadowColor),
-			0 var(--elevation) var(--elevation) var(--shadowColor),
-			0 calc(var(--elevation) * 2) calc(var(--elevation) * 2) var(--shadowColor);
-	}
-}
 }
