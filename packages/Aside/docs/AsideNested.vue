@@ -12,6 +12,7 @@ import NestedComp from './NestedComp.vue';
 
 function showProgrammaticAside () {
 	useAside({
+		title: 'Aside title',
 		Nested: NestedComp,
 		NestedProps: { title: 'Title from nested props' },
 	});
@@ -26,6 +27,7 @@ function showProgrammaticAside () {
 You can insert an existing component in the aside with the property `Nested`.
 
 Props can be passed to the nested component with the property `NestedProps`.
+If you need a title in the aside header, use `options.title`.
 
 Take a look at the source code below.
 
@@ -40,6 +42,8 @@ In the `script` part of your nested component : `const _aside = inject('_aside')
 Il est possible d'imbriquer un composant existant dans l'aside avec la propriété `Nested`.
 
 Les props peuvent être passées à ce composant avec la propriété `NestedProps`.
+
+Si vous avez besoin d'un titre dans l'en-tÇ¸te de l'aside, utilisez `options.title`.
 
 Jetez un oeil au code source ci-dessous.
 

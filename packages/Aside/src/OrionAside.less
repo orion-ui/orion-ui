@@ -9,9 +9,9 @@
 .orion-aside {
 	transition: box-shadow 0.3s;
 	position: fixed;
-	top: var(--o-space-24);
-	right: var(--o-space-24);
-	bottom: var(--o-space-24);
+	top: var(--o-space-8);
+	right: var(--o-space-8);
+	bottom: var(--o-space-8);
 	border-radius: var(--o-radius-md);
 	max-width: calc(100vw - 2.5rem);
 	display: none;
@@ -42,29 +42,20 @@
 	}
 
 	&__header {
-		padding: var(--o-space-24) var(--o-space-24);
+		padding: var(--o-space-8);
 		display: flex;
 		position: relative;
 		flex-direction: column;
-		border-radius: var(--o-radius-md);
+		border-top-left-radius: var(--o-radius-md);
+		border-top-right-radius: var(--o-radius-md);
 		gap: var(--o-space-8);
 		background-color: var(--o-background-neutral-default);
+		border-bottom: 1px solid var(--o-border-neutral-default);
 
-		&:has(+ .orion-aside__body),
-		&:has(+ .orion-aside__footer) {
-			padding-bottom: 0;
-		}
-
-		@media @tablet {
-			padding: var(--o-space-24) var(--o-space-24);
-		}
-
-		.orion-aside--sm & {
-			padding: var(--o-space-24) var(--o-space-24);
-		}
-
-		.orion-aside--xs & {
-			padding: var(--o-space-24);
+		.orion-aside__header-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
 		}
 
 		&:empty {
@@ -77,8 +68,14 @@
 	}
 
 	&__title {
-		.typography(heading-h5);
-		margin: 0;
+		padding-left: var(--o-space-16);
+		.typography(subtitle-bold);
+	}
+
+	&__description {
+		.typography(body2-default);
+		color: var(--o-text-default-subtle);
+		padding: 0 var(--o-space-16);
 	}
 
 	&__logo {
@@ -98,21 +95,6 @@
 		}
 	}
 
-	&__actions {
-		display: flex;
-		flex-direction: column;
-		position: absolute;
-		align-items: flex-start;
-		gap: 1rem;
-		right: calc(100% + 1rem);
-		top: 2rem;
-
-		.orion-button {
-			width: unset;
-			box-shadow: 0 0.3rem 1rem -0.3rem fade(black, 40);
-		}
-	}
-
 	&__body,
 	&__footer {
 		overflow: auto;
@@ -128,30 +110,26 @@
 		max-width: 100%;
 		max-height: 100%;
 
-		.orion-aside__header:not(:empty)+& {
-			padding-top: 0;
-		}
-
 
 		// #region Pure CSS scroll shadow
 		background: linear-gradient(white 30%, rgba(255, 255, 255, 0)),
-		linear-gradient(rgba(255, 255, 255, 0), white 70%) 0 100%,
-		radial-gradient(farthest-side at 50% 0,
-			rgba(0, 0, 0, 0),
-			rgba(0, 0, 0, 0)),
-		radial-gradient(farthest-side at 50% 100%,
-			rgba(0, 0, 0, 0.2),
-			rgba(0, 0, 0, 0)) 0 100%;
+			linear-gradient(rgba(255, 255, 255, 0), white 70%) 0 100%,
+			radial-gradient(farthest-side at 50% 0,
+				rgba(0, 0, 0, 0),
+				rgba(0, 0, 0, 0)),
+			radial-gradient(farthest-side at 50% 100%,
+				rgba(0, 0, 0, 0.2),
+				rgba(0, 0, 0, 0)) 0 100%;
 		background-repeat: no-repeat;
 		background-color: var(--o-background-neutral-default);
 		background-size: 100% 2.5rem,
-		100% 2.5rem,
-		100% 0,
-		100% 0.5rem;
+			100% 2.5rem,
+			100% 0,
+			100% 0.5rem;
 		background-attachment: local,
-		local,
-		scroll,
-		scroll;
+			local,
+			scroll,
+			scroll;
 
 		[data-orion-theme='dark'] & {
 			background:
@@ -190,12 +168,31 @@
 		}
 	}
 
-	&__footer {
+	&__actions {
 		order: 3;
-		flex: 0 0 auto;
-		border: 1px solid var(--o-border-neutral-default);
+		display: flex;
+		justify-content: flex-end;
+		gap: var(--o-space-8);
 		padding: var(--o-space-16) var(--o-space-24);
+		border-top: 1px solid var(--o-border-neutral-default);
 		border-radius: 0 0 var(--o-radius-md) var(--o-radius-md);
+
+		&:empty {
+			display: none;
+		}
+	}
+
+	&__footer {
+		order: 4;
+		display: flex;
+		flex: 0 0 auto;
+		gap: var(--o-space-8);
+		padding: var(--o-space-16) var(--o-space-24);
+		border-top: 1px solid var(--o-border-neutral-default);
+		border-radius: 0 0 var(--o-radius-md) var(--o-radius-md);
+		background: var(--o-background-neutral-minimal);
+		color: var(--o-text-default-subtle);
+
 
 		@media @tablet {
 			padding: var(--o-space-16) var(--o-space-24);
@@ -214,20 +211,7 @@
 		}
 	}
 
-	&__close {
-		.close(1.5rem);
-		z-index: 1;
-		position: absolute;
-		color: var(--o-text-default-subtle);
-		top: var(--o-space-16);
-		right: var(--o-space-16);
-		background: var(--o-background-neutral-default);
-
-		@media @tablet {
-			top: var(--o-space-24);
-			right: var(--o-space-24);
-		}
-	}
+	.orion-aside__close {}
 
 	&--visible {
 		display: flex;

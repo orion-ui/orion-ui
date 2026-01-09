@@ -1,5 +1,5 @@
 <template>
-	<o-section :title="`${title} ${uid ?? ''}`">
+	<o-section :title="`${title} ${uid ?? ''}`" subtitle="This is a nested component inside an aside.">
 		<p>
 			Etiam porta sem malesuada magna mollis euismod.
 			Etiam porta sem malesuada magna mollis euismod.
@@ -15,29 +15,30 @@
 			Vestibulum id ligula porta felis euismod semper.
 			Nulla vitae elit libero, a pharetra augue.
 		</p>
-	</o-section>
+		<teleport
+			v-if="_aside?.slotActions"
+			defer
+			:to="_aside.slotActions">
+			<o-button
+				v-if="uid"
+				color="warning"
+				outline
+				@click="_aside?.close({ flush: true })">
+				Close and flush queue
+			</o-button>
 
-	<o-section align="right">
-		<o-button
-			v-if="uid"
-			color="warning"
-			outline
-			@click="_aside?.close({ flush: true })">
-			Close and flush queue
-		</o-button>
+			<o-button
+				outline
+				@click="_aside?.close()">
+				Close aside
+			</o-button>
 
-		<o-button
-			color="danger"
-			outline
-			@click="_aside?.close()">
-			Close aside
-		</o-button>
-
-		<o-button
-			color="info"
-			@click="openNew()">
-			Open a new aside
-		</o-button>
+			<o-button
+				color="info"
+				@click="openNew()">
+				Open a new aside
+			</o-button>
+		</teleport>
 	</o-section>
 </template>
 

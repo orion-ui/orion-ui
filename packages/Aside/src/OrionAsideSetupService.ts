@@ -1,5 +1,5 @@
 import anime from 'animejs';
-import { reactive, ref, Slots } from 'vue';
+import { nextTick, reactive, ref, Slots } from 'vue';
 import SharedPopableSetupService, { SharedPopableSetupServiceEmits, SharedPopableSetupServiceProps } from '../../Shared/SharedPopableSetupService';
 
 export type OrionAsideEmits = SharedPopableSetupServiceEmits & {}
@@ -19,6 +19,14 @@ export default class OrionAsideSetupService extends SharedPopableSetupService {
 
 
 	readonly _actions = ref<RefDom>();
+	readonly _footer = ref<RefDom>();
+
+	private state = reactive({
+		actionsHasContent: false,
+		footerHasContent: false,
+		actionsObserver: null as Nullable<MutationObserver>,
+		footerObserver: null as Nullable<MutationObserver>,
+	});
 
 	options = reactive<Orion.Aside.Options>({ ...this.baseOptions });
 
@@ -26,6 +34,9 @@ export default class OrionAsideSetupService extends SharedPopableSetupService {
 	get slotFooter () { return `#OrionAside-${this.uid}__footer`;}
 	get slotActions () { return `#OrionAside-${this.uid}__actions`;}
 	get slotHeader () { return `#OrionAside-${this.uid}__header`;}
+
+	get actionsHasContent () { return this.state.actionsHasContent; }
+	get footerHasContent () { return this.state.footerHasContent; }
 
 	get publicInstance () {
 		return {
@@ -46,6 +57,56 @@ export default class OrionAsideSetupService extends SharedPopableSetupService {
 		super(props, emits, slots);
 
 		Object.assign(this.options, props.options);
+	}
+
+	protected onMounted () {
+		super.onMounted();
+		nextTick(() => {
+			this.initActionsObserver();
+			this.initFooterObserver();
+		});
+	}
+
+	protected onUnmounted () {
+		super.onUnmounted();
+		this.state.actionsObserver?.disconnect();
+		this.state.footerObserver?.disconnect();
+	}
+
+	private initActionsObserver () {
+		if (!this.window) return;
+		const el = this._actions.value;
+		if (!el) return;
+
+		const update = () => {
+			this.state.actionsHasContent = this.hasRenderableContent(el);
+		};
+
+		update();
+		this.state.actionsObserver = new MutationObserver(update);
+		this.state.actionsObserver.observe(el, { childList: true, subtree: false });
+	}
+
+	private initFooterObserver () {
+		if (!this.window) return;
+		const el = this._footer.value;
+		if (!el) return;
+
+		const update = () => {
+			this.state.footerHasContent = this.hasRenderableContent(el);
+		};
+
+		update();
+		this.state.footerObserver = new MutationObserver(update);
+		this.state.footerObserver.observe(el, { childList: true, subtree: false });
+	}
+
+	private hasRenderableContent (el: HTMLElement) {
+		return Array.from(el.childNodes).some((node) => {
+			if (node.nodeType === Node.ELEMENT_NODE) return true;
+			if (node.nodeType === Node.TEXT_NODE) return !!node.textContent?.trim();
+			return false;
+		});
 	}
 
 	async animateAsync (enter: boolean) {

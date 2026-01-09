@@ -23,31 +23,19 @@
 			</div>
 
 			<div
-				:id="`OrionAside-${setup.uid}__actions`"
-				:ref="setup._actions"
-				class="orion-aside__actions">
-				<slot
-					name="actions"
-					:close="setup.close.bind(setup)"/>
-			</div>
-			<div
 				:id="`OrionAside-${setup.uid}__header`"
 				class="orion-aside__header">
-				<h5
-					v-if="options.title"
-					class="orion-aside__title">
-					{{ options.title }}
-				</h5>
-				<span v-if="options.description">{{ options.description }}</span>
-				<slot name="header"/>
-			</div>
+				<div class="orion-aside__header-container">
+					<slot name="header"/>
+					<span
+						v-if="options.title"
+						class="orion-aside__title">
+						{{ options.title }}
+					</span>
+				</div>
 
-			<div
-				:id="`OrionAside-${setup.uid}__footer`"
-				class="orion-aside__footer">
-				<slot
-					name="footer"
-					:close="setup.close.bind(setup)"/>
+				<span v-if="options.description"  class="orion-aside__description">{{ options.description }}</span>
+
 			</div>
 
 			<div
@@ -60,17 +48,38 @@
 
 				<slot :close="setup.close.bind(setup)"/>
 			</div>
+
+			<div
+				:id="`OrionAside-${setup.uid}__actions`"
+				:ref="setup._actions"
+				class="orion-aside__actions"
+				v-show="setup.actionsHasContent">
+				<slot
+					name="actions"
+					:close="setup.close.bind(setup)"/>
+			</div>
+
+			<div
+				:id="`OrionAside-${setup.uid}__footer`"
+				:ref="setup._footer"
+				class="orion-aside__footer"
+				v-show="setup.footerHasContent">
+				<slot
+					name="footer"
+					:close="setup.close.bind(setup)"/>
+			</div>
 			<teleport
 				defer
-				:to="setup.headerIsDisplayed ? `#OrionAside-${setup.uid}__header` : `#OrionAside-${setup.uid}__body`">
-				<span
+				:to="setup.headerIsDisplayed ? `#OrionAside-${setup.uid}__header .orion-aside__header-container` : `#OrionAside-${setup.uid}__body`">
+				<o-button
 					v-if="!setup.options.hideClose"
 					class="orion-aside__close"
+					color="primary"
+					nude
+					prefix-icon="close"
 					@click="setup.close({ keepInQueue: false })"
 					@touchend.prevent.stop="setup.close({ keepInQueue: false })"/>
 			</teleport>
-
-
 			<orion-loader :ref="setup._loader"/>
 		</aside>
 	</teleport>
