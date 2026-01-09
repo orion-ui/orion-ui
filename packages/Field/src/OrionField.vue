@@ -6,6 +6,7 @@
 			v-if="(label || placeholder) && floatingLabel"
 			:for="`orion-${inputType}_${_uid}`"
 			:class="setup.labelClass"
+			@click.prevent
 			v-html="setup.labelValue"/>
 
 		<orion-icon
@@ -20,6 +21,7 @@
 		<slot/>
 
 		<span
+			v-if="!['checkbox', 'radio', 'toggle'].includes(inputType)"
 			:ref="setup._suffixPictos"
 			:class="`${setup.baseClass}__pictos`">
 			<orion-icon
@@ -50,10 +52,10 @@
 </template>
 
 <script setup lang="ts">
-import './OrionField.less';
 import { OrionIcon } from 'packages/Icon';
+import './OrionField.less';
+import type { OrionFieldEmits, OrionFieldProps } from './OrionFieldSetupService';
 import OrionFieldSetupService from './OrionFieldSetupService';
-import type { OrionFieldProps, OrionFieldEmits } from './OrionFieldSetupService';
 const emits = defineEmits<OrionFieldEmits>() as OrionFieldEmits;
 const props = withDefaults(defineProps<OrionFieldProps>(), OrionFieldSetupService.defaultProps);
 const setup = new OrionFieldSetupService(props, emits);
