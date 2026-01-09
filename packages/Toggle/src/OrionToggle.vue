@@ -14,6 +14,7 @@
 		<slot v-if="label === undefined"/>
 
 		<input
+			:id="`orion-toggle_${setup._uid}`"
 			:ref="setup._input"
 			v-model="vModel"
 			class="orion-toggle__input"
@@ -32,10 +33,10 @@
 </template>
 
 <script setup lang="ts">
-import './OrionToggle.less';
 import { OrionField } from 'packages/Field';
+import './OrionToggle.less';
+import type { OrionToggleEmits, OrionToggleProps } from './OrionToggleSetupService';
 import OrionToggleSetupService from './OrionToggleSetupService';
-import type { OrionToggleProps, OrionToggleEmits } from './OrionToggleSetupService';
 const emits = defineEmits<OrionToggleEmits>() as OrionToggleEmits;
 const vModel = defineModel<boolean>({ required: true });
 const props = withDefaults(defineProps<OrionToggleProps>(), OrionToggleSetupService.defaultProps);
