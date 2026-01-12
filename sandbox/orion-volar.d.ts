@@ -25,6 +25,7 @@ declare module 'vue' {
 		ODailyCalendar: typeof import('packages/index')['OrionDailyCalendar'];
 		ODateRange: typeof import('packages/index')['OrionDateRange'];
 		ODateTable: typeof import('packages/index')['OrionDateTable'];
+		ODateTableHorizontal: typeof import('packages/index')['OrionDateTableHorizontal'];
 		ODateWeek: typeof import('packages/index')['OrionDateWeek'];
 		ODatepicker: typeof import('packages/index')['OrionDatepicker'];
 		ODraggable: typeof import('packages/index')['OrionDraggable'];
@@ -70,6 +71,7 @@ declare module 'vue' {
 		OTimelinePane: typeof import('packages/index')['OrionTimelinePane'];
 		OTimelinePill: typeof import('packages/index')['OrionTimelinePill'];
 		OToggle: typeof import('packages/index')['OrionToggle'];
+		OToggleButton: typeof import('packages/index')['OrionToggleButton'];
 		OTour: typeof import('packages/index')['OrionTour'];
 		OTourStep: typeof import('packages/index')['OrionTourStep'];
 		OUpload: typeof import('packages/index')['OrionUpload'];

@@ -61,6 +61,7 @@ export const fr: SidebarOptions = [
 					`/fr/components/OrionSelect.md`,
 					`/fr/components/OrionTextarea.md`,
 					`/fr/components/OrionToggle.md`,
+					`/fr/components/OrionToggleButton.md`,
 					`/fr/components/OrionUpload.md`,
 				],
 			},
