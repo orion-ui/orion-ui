@@ -14,7 +14,7 @@ SharedPropsPrefixIcon &
 SharedPropsSuffixIcon & {
 	// @doc props/size define the size
 	// @doc/fr props/size définit la taille
-    size?: Extract<Orion.Size, 'sm' | 'md'>,
+  size?: Extract<Orion.Size, 'sm' | 'md'>,
 	// @doc props/disabled determines if the button is disabled
 	// @doc/fr props/disabled désactive le bouton
 	disabled?: boolean,

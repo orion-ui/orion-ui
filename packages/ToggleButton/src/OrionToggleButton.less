@@ -37,27 +37,29 @@
 
   &--active {
     each(@colors, {
-      &.orion-toggle-button--@{value}  {
+      &.orion-toggle-button--@{value}:not(.orion-toggle-button--disabled) {
         color: var(~"--o-text-@{value}-active");
         background: var(~"--o-background-@{value}-minimal");
         border: 1px solid var(~"--o-border-@{value}-default");
       }
 
-      &.orion-toggle-button--disabled {
-				background: var(--o-background-neutral-disabled);
-				color: var(--o-text-default-disabled);
-				border-color: var(--o-border-neutral-disabled);
 
-				&:hover, &:focus {
-					background: var(--o-background-neutral-disabled);
-					border-color: var(--o-border-neutral-disabled);
-				}
-
-				&.orion-button--nude {
-					background: transparent;
-				}
-			}
     })
+  }
+
+  &--disabled {
+    background: var(--o-background-neutral-disabled);
+    color: var(--o-text-default-disabled);
+    border-color: var(--o-border-neutral-disabled);
+
+    &:hover, &:focus {
+      background: var(--o-background-neutral-disabled);
+      border-color: var(--o-border-neutral-disabled);
+    }
+
+    &.orion-button--nude {
+      background: transparent;
+    }
   }
 
   &--md {

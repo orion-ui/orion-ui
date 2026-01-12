@@ -13,5 +13,6 @@ Un toggle button est un bouton à état persistant qui permet d’activer ou dé
 Contrairement à un bouton d’action classique, il conserve son état après interaction et reflète visuellement si l’option est active ou inactive.
 
 ::: demo:ToggleButton
+ToggleButtonStyle
 ToggleButtonPlayground
 :::
