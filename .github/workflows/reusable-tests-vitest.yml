@@ -45,7 +45,7 @@ jobs:
           reporter: java-junit
           only-summary: true
       - name: Coverage Test Report
-        uses: j0hnlam/cobertura-action@v16
+        uses: 5monkeys/cobertura-action@master
         if: always()
         with:
           path: tests/vitest/coverage/cobertura/cobertura-coverage.xml
