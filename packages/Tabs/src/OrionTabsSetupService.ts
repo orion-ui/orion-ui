@@ -11,6 +11,9 @@ export type OrionTabsEmits = {
 }
 
 export type OrionTabsProps = {
+	// @doc props/floatingTabs use tabs as a secondary floating navigation above the content
+	// @doc/fr props/floatingTabs utilise les tabs comme une navigation flottante secondaire au-dessus du contenu
+	floatingTabs?: boolean,
 	// @doc props/loader adds a loader on the tab
 	// @doc/fr props/loader ajoute une icône de chargement sur l'onglet
 	loader?: string | boolean,
@@ -20,8 +23,6 @@ export type OrionTabsProps = {
 	// @doc props/useRouter connect the tabs to the router to bind active tab to current route and use `<router-view/>` component
 	// @doc/fr props/useRouter connecte les tabs au router pour synchroniser la tab active avec la router actuelle et utiliser le composant `<router-view/>`
 	useRouter?: boolean,
-
-
 };
 
 export default class OrionTabsSetupService extends SharedSetupService {

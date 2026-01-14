@@ -6,14 +6,12 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	flex: 1 0 0%;
-	padding: var(--o-space-48) var(--o-space-16);
+	padding: var(--o-space-16);
 	border-bottom: 0.125rem solid var(--o-background-neutral-subtle);
 	font-size: 0.8125rem;
 	font-weight: bold;
 	line-height: 1.2;
 	text-align: center;
-	text-transform: uppercase;
 	color: var(--o-text-default-default);
 	cursor: pointer;
 
@@ -24,12 +22,9 @@
 	}
 
 	&__icon {
-		font-size: 1rem;
+		font-size: var(--o-typography-body1-bold-font-size);
+		font-weight: var(--o-typography-body1-bold-font-weight);
 		pointer-events: none;
-
-		+ .orion-tab-nav__label {
-			margin-left: 0.5rem;
-		}
 	}
 
 	&__content {
@@ -37,6 +32,11 @@
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
+		gap: var(--o-space-8);
+	}
+
+	&__label {
+		.typography(body2-default);
 	}
 
 	&__marker {
@@ -48,28 +48,28 @@
 		&--number {
 			.markerNumber();
 		}
+
+		.orion-tab-nav--disabled & {
+			background: var(--o-background-neutral-disabled);
+		}
 	}
 
-	&:hover:not(.orion-tab-nav--active) {
+	&:hover:not(.orion-tab-nav--active):not(.orion-tab-nav--disabled) {
 		color: var(--o-text-default-default);
-		border-color: var(--o-border-neutral-default);
+		border-color: var(--o-border-primary-default);
 	}
 
 	&--active {
 		border-right: none !important;
 		border-left: none !important;
-		border-color: var(--o-border-info-default);
-		color: var(--o-text-info-default);
+		border-color: var(--o-border-primary-default);
+		color: var(--o-text-primary-default);
 	}
 
 	&--disabled {
 		cursor: not-allowed;
-
-		.orion-tab-nav__label,
-		.orion-tab-nav__marker,
-		.orion-tab-nav__icon {
-			opacity: 0.5;
-		}
+		color: var(--o-text-default-subtle);
+		border-bottom-color: transparent;
 	}
 
 	@media @phone {

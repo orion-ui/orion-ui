@@ -24,8 +24,7 @@
 
 			<o-tab-pane
 				name="pane3"
-				label="Pane 3"
-				disabled>
+				label="Pane 3">
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras gravida orci a nulla auctor,
 				in tempus erat elementum. Nullam ac tincidunt dolor. Sed sapien massa, commodo sed feugiat ac,
 				auctor sed lectus.

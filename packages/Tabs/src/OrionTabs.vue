@@ -24,6 +24,7 @@ const jsxTabs = () => {
 	const navData = {
 		value: vModel.value,
 		panes: setup.panes,
+		floatingTabs: props.floatingTabs,
 		onTabClick: setup.onTabClick.bind(setup),
 	};
 
