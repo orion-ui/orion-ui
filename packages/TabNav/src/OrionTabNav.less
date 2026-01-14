@@ -40,14 +40,10 @@
 	}
 
 	&__marker {
-		.marker();
 		top: 0;
 		right: 0;
 		transform: translate(100%, -75%);
-
-		&--number {
-			.markerNumber();
-		}
+		position: absolute;
 
 		.orion-tab-nav--disabled & {
 			background: var(--o-background-neutral-disabled);
