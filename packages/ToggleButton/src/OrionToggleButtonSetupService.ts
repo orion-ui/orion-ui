@@ -21,6 +21,9 @@ SharedPropsSuffixIcon & {
 	// @doc props/loading adds a loading icon and disables the button
 	// @doc/fr props/loading ajoute une icône de chargement et désactive le bouton
 	loading?: boolean,
+	// @doc props/name the name of the toggle button when used in a toggle button group
+	// @doc/fr props/name le nom du toggle button lorsqu'il est utilisé dans un groupe de toggle button
+	name?: string | number,
 	// @doc props/nude removes the background color
 	// @doc/fr props/nude masque la couleur en arrière plan
 	nude?: boolean,

@@ -72,6 +72,7 @@ declare module 'vue' {
 		OTimelinePill: typeof import('packages/index')['OrionTimelinePill'];
 		OToggle: typeof import('packages/index')['OrionToggle'];
 		OToggleButton: typeof import('packages/index')['OrionToggleButton'];
+		OToggleButtonGroup: typeof import('packages/index')['OrionToggleButtonGroup'];
 		OTour: typeof import('packages/index')['OrionTour'];
 		OTourStep: typeof import('packages/index')['OrionTourStep'];
 		OUpload: typeof import('packages/index')['OrionUpload'];
