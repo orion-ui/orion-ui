@@ -1,9 +1,9 @@
 
 import { reactive, ref } from 'vue';
 import { describe, it, expect, vi, beforeEach, afterAll } from 'vitest';
-vi.unmock('../../../../utils/Log');
+vi.unmock('@dir-projet/utils/Log');
 
-import { Log } from '../../../../utils/Log';
+import { Log } from '@dir-projet/utils/Log';
 
 describe('utils/Log.ts', () => {
 	const consoleLogSpy = vi.spyOn(console, 'log').mockImplementation(() => {});

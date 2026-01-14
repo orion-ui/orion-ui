@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
 import * as vue from 'vue';
 
-vi.mock('../../../../packages/Notif', () => ({
+vi.mock('@dir-projet/packages/Notif', () => ({
 	OrionNotif: { name: 'OrionNotif' },
 }));
 
@@ -12,10 +12,10 @@ vi.mock('utils/Orion', () => ({
 	},
 }));
 
-vi.mock('../../../../services/DocumentService');
-vi.mock('../../../../services/PopableQueueService');
+vi.mock('@dir-projet/services/DocumentService');
+vi.mock('@dir-projet/services/PopableQueueService');
 
-vi.mock('../../../../services/PopableService', () => {
+vi.mock('@dir-projet/services/PopableService', () => {
 	class MockPopableService {
 		options: any;
 		constructor (options: any) { this.options = options; }
@@ -33,16 +33,16 @@ vi.mock('vue', async () => {
 	};
 });
 
-vi.mock('../../../../services/NotifService', async () => {
-	const actual = await vi.importActual<any>('../../../../services/NotifService');
+vi.mock('@dir-projet/services/NotifService', async () => {
+	const actual = await vi.importActual<any>('@dir-projet/services/NotifService');
 	return actual;
 });
 
 
-const { default: useNotif } = await import('../../../../services/NotifService');
+const { default: useNotif } = await import('@dir-projet/services/NotifService');
 const { h, render } = await import('vue');
-const { default: useDocument } = await import('../../../../services/DocumentService');
-const { default: usePopableQueueService } = await import('../../../../services/PopableQueueService');
+const { default: useDocument } = await import('@dir-projet/services/DocumentService');
+const { default: usePopableQueueService } = await import('@dir-projet/services/PopableQueueService');
 
 
 describe('NotifService & useNotif', () => {

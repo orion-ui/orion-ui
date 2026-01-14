@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { setupDevtools, devtoolId } from '../../../../devtool';
+import { setupDevtools, devtoolId } from '@dir-projet/devtool';
 import type { DevtoolsPluginApi, ExtractSettingsTypes, PluginSettingsItem, StateBase } from '@vue/devtools-api';
 
 vi.mock('@vue/devtools-api', () => ({

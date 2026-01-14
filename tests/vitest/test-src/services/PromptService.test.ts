@@ -1,9 +1,9 @@
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import usePrompt from '../../../../services/PromptService';
+import usePrompt from '@dir-projet/services/PromptService';
 
-import useModal from '../../../../services/ModalService';
-import useLang from '../../../../services/LangService';
+import useModal from '@dir-projet/services/ModalService';
+import useLang from '@dir-projet/services/LangService';
 import { getUid, toggleGlobalListener } from 'utils/tools';
 
 const mockModalInstance = {

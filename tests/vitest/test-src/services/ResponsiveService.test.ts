@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import type { ResponsiveService as ResponsiveServiceType } from '../../../../services/ResponsiveService';
-import useWindow from '../../../../services/WindowService';
-import Log from '../../../../utils/Log';
+import type { ResponsiveService as ResponsiveServiceType } from '@dir-projet/services/ResponsiveService';
+import useWindow from '@dir-projet/services/WindowService';
+import Log from '@dir-projet/utils/Log';
 import { debounce } from 'lodash-es';
 
 vi.mock('utils/Log', () => ({
@@ -42,7 +42,7 @@ describe('services/ResponsiveService.ts', () => {
 			addEventListener: vi.fn(),
 		};
 
-		const module = await import('../../../../services/ResponsiveService');
+		const module = await import('@dir-projet/services/ResponsiveService');
 		ResponsiveService = module.ResponsiveService;
 		useResponsive = module.default;
 	});
@@ -79,7 +79,7 @@ describe('services/ResponsiveService.ts', () => {
 		
 		vi.resetModules();
 
-		const { default: useResponsiveNew } = await import('../../../../services/ResponsiveService');
+		const { default: useResponsiveNew } = await import('@dir-projet/services/ResponsiveService');
 		const service = useResponsiveNew();
 		
 		expect(service.ww).toBe(1200);

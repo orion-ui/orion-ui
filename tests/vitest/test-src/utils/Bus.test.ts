@@ -6,10 +6,10 @@ import {
 	beforeEach,
 	afterEach,
 } from 'vitest';
-import Log from '../../../../utils/Log';
-import { Bus, logBusEvents } from '../../../../utils/Bus';
+import Log from '@dir-projet/utils/Log';
+import { Bus, logBusEvents } from '@dir-projet/utils/Bus';
 
-vi.mock('../../../../utils/Log', () => ({
+vi.mock('@dir-projet/utils/Log', () => ({
 	default: {
 		info: vi.fn(),
 	},

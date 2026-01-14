@@ -1,7 +1,7 @@
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import useCountry from '../../../../services/CountryService';
-import useLang from '../../../../services/LangService';
+import useCountry from '@dir-projet/services/CountryService';
+import useLang from '@dir-projet/services/LangService';
 
 type MockCountry = {
 	name: string;
@@ -15,7 +15,7 @@ const mockCountries: MockCountry[] = [
 	{ name: 'Canada', code: 'CA', areaCode: '+1' },
 ];
 
-vi.mock('../../../../services/LangService', () => ({
+vi.mock('@dir-projet/services/LangService', () => ({
 	default: vi.fn(() => ({
 		countries: mockCountries,
 	})),

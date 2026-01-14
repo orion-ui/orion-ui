@@ -1,5 +1,5 @@
 import { describe, it, expect, afterEach } from 'vitest';
-import useLocalStorage from '../../../../services/LocalStorageService';
+import useLocalStorage from '@dir-projet/services/LocalStorageService';
 
 const originalLocalStorage = global.localStorage;
 

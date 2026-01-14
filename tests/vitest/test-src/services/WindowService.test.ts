@@ -1,6 +1,6 @@
 
 import { describe, it, expect, vi } from 'vitest';
-import useWindow from '../../../../services/WindowService';
+import useWindow from '@dir-projet/services/WindowService';
 
 describe('useWindow', () => {
 	it('should return the window object when it is defined', () => {

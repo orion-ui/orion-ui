@@ -1,6 +1,6 @@
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import Log from '../../../../utils/Log';
+import Log from '@dir-projet/utils/Log';
 
 vi.mock('utils/Log', () => ({
 	default: {
@@ -25,7 +25,7 @@ describe('TourService and useTour', () => {
 
 
 	it('register() should add a tour to the state and return it', async () => {
-		const { TourService } = await import('../../../../services/TourService');
+		const { TourService } = await import('@dir-projet/services/TourService');
 		const service = new TourService();
 		const mockTour: MockOrionTour = { start: vi.fn(), stop: vi.fn() };
 
@@ -36,7 +36,7 @@ describe('TourService and useTour', () => {
 	});
 
 	it('register() should do nothing and return undefined if tour is not provided', async () => {
-		const { TourService } = await import('../../../../services/TourService');
+		const { TourService } = await import('@dir-projet/services/TourService');
 		const service = new TourService();
 
 		const result = service.register('myTour', undefined);
@@ -46,7 +46,7 @@ describe('TourService and useTour', () => {
 	});
 
 	it('start() should call start on the active tour with the provided index', async () => {
-		const { TourService } = await import('../../../../services/TourService');
+		const { TourService } = await import('@dir-projet/services/TourService');
 		const service = new TourService();
 		const mockTour: MockOrionTour = { start: vi.fn(), stop: vi.fn() };
 		service.tour = mockTour as any;
@@ -58,7 +58,7 @@ describe('TourService and useTour', () => {
 	});
 
 	it('start() should call start on the active tour with default index 0', async () => {
-		const { TourService } = await import('../../../../services/TourService');
+		const { TourService } = await import('@dir-projet/services/TourService');
 		const service = new TourService();
 		const mockTour: MockOrionTour = { start: vi.fn(), stop: vi.fn() };
 		service.tour = mockTour as any;
@@ -70,7 +70,7 @@ describe('TourService and useTour', () => {
 	});
 
 	it('stop() should call stop on the active tour', async () => {
-		const { TourService } = await import('../../../../services/TourService');
+		const { TourService } = await import('@dir-projet/services/TourService');
 		const service = new TourService();
 		const mockTour: MockOrionTour = { start: vi.fn(), stop: vi.fn() };
 		service.tour = mockTour as any;
@@ -81,7 +81,7 @@ describe('TourService and useTour', () => {
 	});
 
 	it('useTour() should register a new tour and set it as the active tour', async () => {
-		const { default: useTour, TourService } = await import('../../../../services/TourService');
+		const { default: useTour, TourService } = await import('@dir-projet/services/TourService');
 		const mockTour: MockOrionTour = { start: vi.fn(), stop: vi.fn() };
 
 		const serviceInstance = useTour('newTour', mockTour as any);
@@ -92,7 +92,7 @@ describe('TourService and useTour', () => {
 	});
 
 	it('useTour() should retrieve an existing tour and set it as the active tour', async () => {
-		const { default: useTour } = await import('../../../../services/TourService');
+		const { default: useTour } = await import('@dir-projet/services/TourService');
 		const mockTour: MockOrionTour = { start: vi.fn(), stop: vi.fn() };
 
 		useTour('existingTour', mockTour as any);
@@ -104,7 +104,7 @@ describe('TourService and useTour', () => {
 	});
 
 	it('useTour() should switch the active tour when called with different names', async () => {
-		const { default: useTour } = await import('../../../../services/TourService');
+		const { default: useTour } = await import('@dir-projet/services/TourService');
 		const mockTourA: MockOrionTour = { start: vi.fn(), stop: vi.fn() };
 		const mockTourB: MockOrionTour = { start: vi.fn(), stop: vi.fn() };
 

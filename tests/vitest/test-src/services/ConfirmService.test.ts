@@ -1,24 +1,24 @@
 
 import { vi, describe, it, expect, beforeEach } from 'vitest';
-import useConfirm from '../../../../services/ConfirmService';
-import { getUid, toggleGlobalListener } from '../../../../utils/tools';
-import useLang from '../../../../services/LangService';
-import useModal from '../../../../services/ModalService';
+import useConfirm from '@dir-projet/services/ConfirmService';
+import { getUid, toggleGlobalListener } from '@dir-projet/utils/tools';
+import useLang from '@dir-projet/services/LangService';
+import useModal from '@dir-projet/services/ModalService';
 
 const mockModalInstance = {
 	close: vi.fn(),
 };
 
-vi.mock('../../../../utils/tools', () => ({
+vi.mock('@dir-projet/utils/tools', () => ({
 	getUid: vi.fn(),
 	toggleGlobalListener: vi.fn(),
 }));
 
-vi.mock('../../../../services/LangService', () => ({
+vi.mock('@dir-projet/services/LangService', () => ({
 	default: vi.fn(),
 }));
 
-vi.mock('../../../../services/ModalService', () => ({
+vi.mock('@dir-projet/services/ModalService', () => ({
 	default: vi.fn(() => mockModalInstance),
 }));
 

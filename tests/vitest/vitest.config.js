@@ -16,6 +16,8 @@ export default defineConfig({
             tsconfigPaths({ projects: [path.resolve(__dirname, '../../tsconfig.json')] })],
   resolve: {
     alias: {
+      '@dir-projet': path.resolve(__dirname, '../..'),
+      '@dir-test': path.resolve(__dirname, ''),
       'packages': path.resolve(__dirname, '../../packages'),
       'utils': path.resolve(__dirname, '../../utils'),
       'services': path.resolve(__dirname, '../../services'),

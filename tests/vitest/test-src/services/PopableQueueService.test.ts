@@ -1,6 +1,6 @@
 
 import { describe, it, expect, vi } from 'vitest';
-import usePopableQueueService from '../../../../services/PopableQueueService';
+import usePopableQueueService from '@dir-projet/services/PopableQueueService';
 
 const getMockInstance = (uid: number): Orion.Popable.PublicIntance => ({
 	uid,

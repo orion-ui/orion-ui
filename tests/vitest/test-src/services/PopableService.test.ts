@@ -1,8 +1,8 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { PopableService } from '../../../../services/PopableService';
-import orionAppService from '../../../../utils/Orion';
-import { getUid } from '../../../../utils/tools';
-import { devtool } from '../../../../devtool';
+import { PopableService } from '@dir-projet/services/PopableService';
+import orionAppService from '@dir-projet/utils/Orion';
+import { getUid } from '@dir-projet/utils/tools';
+import { devtool } from '@dir-projet/devtool';
 import { VNode } from 'vue';
 
 vi.mock('devtool', () => ({

@@ -25,10 +25,10 @@ describe('OverlayService', () => {
 		vi.clearAllMocks();
 		vi.resetModules();
 
-		const logModule = await import('../../../../utils/Log');
+		const logModule = await import('@dir-projet/utils/Log');
 		Log = logModule.default;
 
-		const serviceModule = await import('../../../../services/OverlayService');
+		const serviceModule = await import('@dir-projet/services/OverlayService');
 		useOverlay = serviceModule.default;
 		OverlayService = serviceModule.OverlayService;
 	});

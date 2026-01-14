@@ -1,9 +1,9 @@
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import useLoader, { LoaderService } from '../../../../services/LoaderService';
-import Log from '../../../../utils/Log';
+import useLoader, { LoaderService } from '@dir-projet/services/LoaderService';
+import Log from '@dir-projet/utils/Log';
 
-vi.mock('../../../../utils/Log', () => ({
+vi.mock('@dir-projet/utils/Log', () => ({
   default: {
     orion: vi.fn(),
   },
@@ -14,7 +14,7 @@ const getMockLoader = () => ({
   hide: vi.fn(),
 });
 
-describe('../../../../services/LoaderService.ts', () => {
+describe('@dir-projet/services/LoaderService.ts', () => {
   describe('LoaderService Class Behavior', () => {
     let service: LoaderService;
     let mockLoader: ReturnType<typeof getMockLoader>;

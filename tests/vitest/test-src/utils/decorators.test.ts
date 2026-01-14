@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { isReactive } from 'vue';
-import { Reactive } from '../../../../utils/decorators';
+import { Reactive } from '@dir-projet/utils/decorators';
 
 describe('Reactive Decorator', () => {
   it('should return an initializer that makes a plain object reactive when used on a class field', () => {

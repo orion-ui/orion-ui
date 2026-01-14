@@ -17,7 +17,7 @@ vi.mock('lang', () => ({
 }));
 
 describe('useLang service', async () => {
-  const { default: useLang, getAppLang, setAppLang } = await import('../../../../services/LangService');
+  const { default: useLang, getAppLang, setAppLang } = await import('@dir-projet/services/LangService');
   const { Log } = await import('lib');
 
   beforeEach(() => {

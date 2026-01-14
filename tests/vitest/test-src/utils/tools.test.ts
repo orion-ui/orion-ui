@@ -1,17 +1,17 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
-vi.unmock('../../../../utils/tools');
-vi.unmock('../../../../services/DynamicFlagService');
+vi.unmock('@dir-projet/utils/tools');
+vi.unmock('@dir-projet/services/DynamicFlagService');
 
-import useDocument from '../../../../services/DocumentService';
-import useLocalStorage from '../../../../services/LocalStorageService';
-import useWindow from '../../../../services/WindowService';
-import useDynamicFlagService from '../../../../services/DynamicFlagService';
+import useDocument from '@dir-projet/services/DocumentService';
+import useLocalStorage from '@dir-projet/services/LocalStorageService';
+import useWindow from '@dir-projet/services/WindowService';
+import useDynamicFlagService from '@dir-projet/services/DynamicFlagService';
 import { nextTick, ref } from 'vue';
 
-vi.mock('../../../../services/WindowService');
-vi.mock('../../../../services/DocumentService');
-vi.mock('../../../../services/LocalStorageService');
+vi.mock('@dir-projet/services/WindowService');
+vi.mock('@dir-projet/services/DocumentService');
+vi.mock('@dir-projet/services/LocalStorageService');
 
 vi.mock('devtool', () => ({
 	devtoolId: 'orion-devtool',
@@ -21,7 +21,7 @@ vi.mock('devtool', () => ({
 	setupDevtools: vi.fn(),
 }));
 
-vi.mock('../../../../devtool/index.ts', () => ({
+vi.mock('@dir-projet/devtool/index.ts', () => ({
 	devtoolId: 'orion-devtool',
 	devtool: {
 		sendInspectorState: vi.fn(),
@@ -29,7 +29,7 @@ vi.mock('../../../../devtool/index.ts', () => ({
 	setupDevtools: vi.fn(),
 }));
 
-vi.mock('../../../../services/DynamicFlagService', () => ({
+vi.mock('@dir-projet/services/DynamicFlagService', () => ({
 	default: vi.fn(),
 }));
 
@@ -68,7 +68,7 @@ const {
 	getThemeMode,
 	setThemeMode,
 	initThemeMode,
-} = await import('../../../../utils/tools');
+} = await import('@dir-projet/utils/tools');
 
 const mockUseWindow = useWindow as vi.Mock;
 const mockUseDocument = useDocument as vi.Mock;

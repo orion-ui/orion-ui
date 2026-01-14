@@ -1,7 +1,7 @@
 import { vi, describe, it, expect, beforeEach, type Mock } from 'vitest';
 import mitt from 'mitt';
-import useMonkey from '../../../../services/MonkeyService';
-import { getUid } from '../../../../utils/tools';
+import useMonkey from '@dir-projet/services/MonkeyService';
+import { getUid } from '@dir-projet/utils/tools';
 
 vi.mock('mitt', () => ({
 	default: vi.fn().mockImplementation(() => ({
@@ -11,18 +11,18 @@ vi.mock('mitt', () => ({
 	})),
 }));
 
-vi.mock('../../../../utils/tools', () => ({
+vi.mock('@dir-projet/utils/tools', () => ({
 	getUid: vi.fn(),
 }));
 
-vi.mock('../../../../services/MonkeyService');
+vi.mock('@dir-projet/services/MonkeyService');
 
-vi.mock('../../../../packages/Chat/src/OrionChatEntity');
-vi.mock('../../../../packages/ChatMessage/src/OrionChatMessageEntity');
+vi.mock('@dir-projet/packages/Chat/src/OrionChatEntity');
+vi.mock('@dir-projet/packages/ChatMessage/src/OrionChatMessageEntity');
 
-import { ChatService } from '../../../../services/ChatService';
-import OrionChatEntity from '../../../../packages/Chat/src/OrionChatEntity';
-import OrionChatMessageEntity from '../../../../packages/ChatMessage/src/OrionChatMessageEntity';
+import { ChatService } from '@dir-projet/services/ChatService';
+import OrionChatEntity from '@dir-projet/packages/Chat/src/OrionChatEntity';
+import OrionChatMessageEntity from '@dir-projet/packages/ChatMessage/src/OrionChatMessageEntity';
 
 
 describe('ChatService', () => {

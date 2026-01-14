@@ -55,22 +55,22 @@ const {
 	};
 });
 
-vi.mock('../../../../services/LangService', () => ({
+vi.mock('@dir-projet/services/LangService', () => ({
 	default: mockUseLang,
 	getAppLang: mockGetAppLang,
 }));
 
-vi.mock('../../../../services/PluralizeService', () => ({
+vi.mock('@dir-projet/services/PluralizeService', () => ({
 	default: mockUsePluralize,
 }));
 
-vi.mock('../../../../utils/Log', () => ({
+vi.mock('@dir-projet/utils/Log', () => ({
 	default: {
 		orion: mockLogOrion,
 	},
 }));
 
-import useMonkey, { applyMonkeyPatching } from '../../../../services/MonkeyService';
+import useMonkey, { applyMonkeyPatching } from '@dir-projet/services/MonkeyService';
 
 
 describe('services/MonkeyService', () => {

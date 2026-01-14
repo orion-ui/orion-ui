@@ -1,10 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { h, render } from 'vue';
-import { OrionModal } from '../../../../packages/Modal';
+import { OrionModal } from '@dir-projet/packages/Modal';
 import orionAppService from 'utils/Orion';
-import useDocument from '../../../../services/DocumentService';
-import usePopableQueueService from '../../../../services/PopableQueueService';
-import useModal from '../../../../services/ModalService';
+import useDocument from '@dir-projet/services/DocumentService';
+import usePopableQueueService from '@dir-projet/services/PopableQueueService';
+import useModal from '@dir-projet/services/ModalService';
 
 vi.mock('vue', () => ({
 	h: vi.fn((comp, props) => ({
@@ -15,12 +15,12 @@ vi.mock('vue', () => ({
 	render: vi.fn(),
 }));
 
-vi.mock('../../../../packages/Modal', () => ({
+vi.mock('@dir-projet/packages/Modal', () => ({
 	OrionModal: { name: 'OrionModal' },
 }));
 
 const mockRegisterComponentInstanceInDevtool = vi.fn();
-vi.mock('../../../../services/PopableService', () => ({
+vi.mock('@dir-projet/services/PopableService', () => ({
 	PopableService: class {
 		options: any;
 		nameForDevtool = 'OrionModal';
@@ -39,7 +39,7 @@ const mockCreateElement = vi.fn(() => ({
 	id: '',
 	appendChild: mockAppendChild,
 }));
-vi.mock('../../../../services/DocumentService', () => ({
+vi.mock('@dir-projet/services/DocumentService', () => ({
 	default: vi.fn(() => ({
 		body: { appendChild: mockBodyAppendChild },
 		createElement: mockCreateElement,
@@ -48,13 +48,13 @@ vi.mock('../../../../services/DocumentService', () => ({
 }));
 
 const mockGetInstance = vi.fn(() => ({ id: 'mock-modal-instance' }));
-vi.mock('../../../../services/PopableQueueService', () => ({
+vi.mock('@dir-projet/services/PopableQueueService', () => ({
 	default: vi.fn(() => ({
 		getInstance: mockGetInstance,
 	})),
 }));
 
-vi.mock('../../../../utils/Orion', () => ({
+vi.mock('@dir-projet/utils/Orion', () => ({
 	default: {
 		appContext: { id: 'mock-app-context' },
 	},

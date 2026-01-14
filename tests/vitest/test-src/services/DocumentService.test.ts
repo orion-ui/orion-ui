@@ -1,6 +1,6 @@
 
 import { describe, it, expect, vi } from 'vitest';
-import useDocument from '../../../../services/DocumentService';
+import useDocument from '@dir-projet/services/DocumentService';
 
 describe('useDocument', () => {
   it('should return the document object when it is defined (browser environment)', () => {

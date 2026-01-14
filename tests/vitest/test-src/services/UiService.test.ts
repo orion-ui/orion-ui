@@ -2,7 +2,7 @@ import { describe, it, expect, vi, afterEach } from 'vitest';
 
 const getUidMock = vi.fn();
 
-vi.mock('../../../../utils/tools', () => ({
+vi.mock('@dir-projet/utils/tools', () => ({
   getUid: getUidMock,
 }));
 
@@ -13,7 +13,7 @@ describe('UiService', () => {
   });
 
   it('should return a singleton instance', async () => {
-    const { default: useUi } = await import('../../../../services/UiService');
+    const { default: useUi } = await import('@dir-projet/services/UiService');
     
     const instance1 = useUi();
     const instance2 = useUi();
@@ -25,7 +25,7 @@ describe('UiService', () => {
     const initialToken = 'mocked-initial-uid';
     getUidMock.mockReturnValue(initialToken);
 
-    const { default: useUi } = await import('../../../../services/UiService');
+    const { default: useUi } = await import('@dir-projet/services/UiService');
     const uiService = useUi();
 
     expect(uiService.token).toBe(initialToken);
@@ -37,7 +37,7 @@ describe('UiService', () => {
     const updatedToken = 'updated-uid';
     getUidMock.mockReturnValueOnce(initialToken);
 
-    const { default: useUi } = await import('../../../../services/UiService');
+    const { default: useUi } = await import('@dir-projet/services/UiService');
     const uiService = useUi();
 
     expect(uiService.token).toBe(initialToken);

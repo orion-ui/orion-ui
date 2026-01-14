@@ -1,6 +1,6 @@
 
 import { describe, expect, it } from 'vitest';
-import { sizes, colors, colorsAlt, colorsExtended, greys, colorsExtendedAndGreys } from '../../../../utils/mockup';
+import { sizes, colors, colorsAlt, colorsExtended, greys, colorsExtendedAndGreys } from '@dir-projet/utils/mockup';
 
 describe('Shared Constants', () => {
 	it('should export the correct sizes', () => {

@@ -1,9 +1,9 @@
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import usePluralize from '../../../../services/PluralizeService';
-import useLang from '../../../../services/LangService';
+import usePluralize from '@dir-projet/services/PluralizeService';
+import useLang from '@dir-projet/services/LangService';
 
-vi.mock('../../../../services/LangService', () => ({
+vi.mock('@dir-projet/services/LangService', () => ({
   default: vi.fn(),
 }));
 

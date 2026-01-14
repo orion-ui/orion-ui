@@ -1,11 +1,11 @@
 import { describe, it, expect, vi, beforeEach, type Mock } from 'vitest';
 import { h, render } from 'vue';
-import { PopableService } from '../../../../services/PopableService';
-import useAside from '../../../../services/AsideService';
-import { OrionAside } from '../../../../packages/Aside';
-import orionAppService from '../../../../utils/Orion';
-import useDocument from '../../../../services/DocumentService';
-import usePopableQueueService from '../../../../services/PopableQueueService';
+import { PopableService } from '@dir-projet/services/PopableService';
+import useAside from '@dir-projet/services/AsideService';
+import { OrionAside } from '@dir-projet/packages/Aside';
+import orionAppService from '@dir-projet/utils/Orion';
+import useDocument from '@dir-projet/services/DocumentService';
+import usePopableQueueService from '@dir-projet/services/PopableQueueService';
 
 declare global {
   namespace Orion {
@@ -24,15 +24,15 @@ let mockPopableWrapper: any;
 let mockBody: any;
 let mockUseDocument: any;
 
-vi.mock('../../../../services/PopableQueueService', () => ({
+vi.mock('@dir-projet/services/PopableQueueService', () => ({
 	default: vi.fn().mockImplementation(() => mockUsePopableQueueService),
 }));
 
-vi.mock('../../../../services/DocumentService', () => ({
+vi.mock('@dir-projet/services/DocumentService', () => ({
 	default: vi.fn().mockImplementation(() => mockUseDocument),
 }));
 
-vi.mock('../../../../services/PopableService', () => {
+vi.mock('@dir-projet/services/PopableService', () => {
 	const PopableService = vi.fn(function (this: any, options: any) {
 		this.options = options;
 	});
@@ -40,11 +40,11 @@ vi.mock('../../../../services/PopableService', () => {
 	return { PopableService };
 });
 
-vi.mock('../../../../packages/Aside', () => ({
+vi.mock('@dir-projet/packages/Aside', () => ({
 	OrionAside: { name: 'OrionAside' },
 }));
 
-vi.mock('../../../../utils/Orion', () => ({
+vi.mock('@dir-projet/utils/Orion', () => ({
 	default: {
 		appContext: { id: 'mock-app-context' },
 	},

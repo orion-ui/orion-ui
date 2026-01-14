@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 
 
-import { Validator } from '../../../../utils/Validator';
+import { Validator } from '@dir-projet/utils/Validator';
 import { reactive } from 'vue';
 
 

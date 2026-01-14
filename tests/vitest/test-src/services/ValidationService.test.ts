@@ -1,10 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import useValidation from '../../../../services/ValidationService';
-import { Validator } from '../../../../utils/Validator';
-import Log from '../../../../utils/Log';
+import useValidation from '@dir-projet/services/ValidationService';
+import { Validator } from '@dir-projet/utils/Validator';
+import Log from '@dir-projet/utils/Log';
 import { reactive } from 'vue';
 
-vi.mock('../../../../utils/Log', () => ({
+vi.mock('@dir-projet/utils/Log', () => ({
 	default: {
 		info: vi.fn(),
 		success: vi.fn(),
@@ -14,7 +14,7 @@ vi.mock('../../../../utils/Log', () => ({
 	},
 }));
 
-vi.mock('../../../../utils/Validator', () => {
+vi.mock('@dir-projet/utils/Validator', () => {
 	const Validator = vi.fn().mockImplementation(function (this: any, rules: any) {
 		this.validate = (value: any) => {
 			if (rules === 'required' && (value === '' || value === null || value === undefined)) {
