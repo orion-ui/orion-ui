@@ -3,23 +3,20 @@ import SharedProps, { SharedPropsColor } from '../../Shared/SharedProps';
 
 export type OrionBadgeEmits = {
 	// @doc event/clicked/desc emitted when the badge is clicked
-	// @doc/fr event/clicked/desc emis lorsque le badge est clique
+	// @doc/fr event/clicked/desc emis lorsque le badge est cliqué
 	(e: 'clicked', event: MouseEvent): void
 }
 
-export type OrionBadgeType = 'dot' | 'square' | 'rounded';
-
-export type OrionBadgeProps =
-SharedPropsColor & {
+export type OrionBadgeProps = SharedPropsColor & {
 	// @doc props/type badge style variant
 	// @doc/fr props/type variante de style du badge
-	type?: OrionBadgeType,
+	type?: Orion.BadgeType,
 };
 
 export default class OrionBadgeSetupService extends SharedSetupService {
 	static readonly defaultProps = {
 		...SharedProps.color,
-		type: 'square' as OrionBadgeType,
+		type: 'square' as Orion.BadgeType,
 	};
 
 	constructor (

@@ -2,14 +2,14 @@
 	<div class="flex fd-c g-16">
 		<div class="flex g-12 ai-c fw-w">
 			<o-badge
-				v-for="(color, index) of colors"
+				v-for="color of colors"
 				:key="`dot-${color}`"
 				type="dot"
 				:color="color"/>
 		</div>
 		<div class="flex g-12 ai-c fw-w">
 			<o-badge
-				v-for="(color, index) of colors"
+				v-for="color of colors"
 				:key="`square-${color}`"
 				type="square"
 				:color="color">
@@ -18,7 +18,7 @@
 		</div>
 		<div class="flex g-12 ai-c fw-w">
 			<o-badge
-				v-for="(color, index) of colors"
+				v-for="color of colors"
 				:key="`rounded-${color}`"
 				type="rounded"
 				:color="color">
@@ -29,10 +29,10 @@
 </template>
 
 <script setup lang="ts">
-	import { colors } from 'lib';
+import { colors } from 'lib';
 </script>
 
-@hl {6-7,14-15,22-23}
+@hl {8,14-15,23-24}
 
 @lang:en
 ### Variants
