@@ -28,6 +28,7 @@ export const en: SidebarOptions = [
 					`/components/OrionCard.md`,
 					`/components/OrionCarousel.md`,
 					`/components/OrionChips.md`,
+					`/components/OrionBadge.md`,
 					`/components/OrionDailyCalendar.md`,
 					`/components/OrionDateTable.md`,
 					`/components/OrionDragNDrop.md`,
