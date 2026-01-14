@@ -32,6 +32,7 @@ const jsxTabs = () => {
 	if (props.floatingTabs) {
 		headerClass += ' orion-tabs__header--floating';
 	}
+	headerClass += ` orion-tabs__header--${props.headerSize}`;
 	const header = (
 		<div class={headerClass}>
 			<OrionTabNav {...navData}></OrionTabNav>

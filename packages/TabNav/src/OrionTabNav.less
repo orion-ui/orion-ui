@@ -6,7 +6,6 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	padding: var(--o-space-16);
 	border-bottom: 0.125rem solid var(--o-background-neutral-subtle);
 	font-size: 0.8125rem;
 	font-weight: bold;
@@ -66,6 +65,14 @@
 		color: var(--o-text-primary-default);
 	}
 
+	.orion-tabs__header--md & {
+		padding: var(--o-space-16);
+	}
+
+	.orion-tabs__header--sm & {
+		padding: var(--o-space-8);
+	}
+
 	&--disabled {
 		cursor: not-allowed;
 		color: var(--o-text-default-subtle);
@@ -74,7 +81,6 @@
 
 	.orion-tabs--floating  & {
 		border-radius: var(--o-radius-8);
-		padding: var(--o-space-4) var(--o-space-12);
 		border: 1px solid transparent;
 
 		&--active {
@@ -89,6 +95,14 @@
 		.orion-tab-nav__label {
 			.typography(body2-bold);
 		}
+	}
+
+	.orion-tabs--floating .orion-tabs__header--md & {
+		padding: var(--o-space-8) var(--o-space-12);
+	}
+
+	.orion-tabs--floating .orion-tabs__header--sm & {
+		padding: var(--o-space-4) var(--o-space-12);
 	}
 
 	@media @phone {

@@ -34,17 +34,25 @@
 
 	<hr>
 
-	<div class="col-sm-4">
-		<o-toggle
-			v-model="state.floatingTabs"
-			label="Use floating Tabs"/>
+	<div class="mt-12 row row--gutter row--middle">
+		<div class="col-sm-4">
+			<o-toggle
+				v-model="state.floatingTabs"
+				label="Use floating Tabs"/>
+		</div>
+		<div class="col-sm-4">
+			<size-selection
+				v-model="state.headerSize"
+				:options="['sm', 'md']"
+				label="Header Size"/>
+		</div>
 	</div>
 
 	<hr>
 
 	<b>Modify the configuration of the first tab :</b>
 
-	<div class="mt-xs row row--gutter row--middle">
+	<div class="mt-12 row row--gutter row--middle">
 		<div class="col-sm-4">
 			<o-input
 				v-model="state.label"
@@ -115,6 +123,7 @@ const state = reactive({
 	loader: false,
 	icon: 'check' as Orion.Icon,
 	disabled: false,
+	headerSize: 'md' as Extract<Orion.Size, 'sm' | 'md'>,
 	lazy: false,
 	lazyOnce: false,
 	name: 'pane1',

@@ -1,5 +1,5 @@
 import { Component, ModelRef, reactive, ref, Slots, VNode, watch } from 'vue';
-import { isArray } from 'lodash-es';
+import { head, isArray } from 'lodash-es';
 import { isDefineOrTrue } from 'utils/tools';
 import SharedSetupService from '../../Shared/SharedSetupService';
 import { Private } from 'lib/private';
@@ -14,6 +14,9 @@ export type OrionTabsProps = {
 	// @doc props/floatingTabs use tabs as a secondary floating navigation above the content
 	// @doc/fr props/floatingTabs utilise les tabs comme une navigation flottante secondaire au-dessus du contenu
 	floatingTabs?: boolean,
+	// @doc props/headerSize the size of the tab headers
+	// @doc/fr props/headerSize la taille des en-têtes des tabs
+	headerSize?: Extract<Orion.Size, 'sm' | 'md'>,
 	// @doc props/loader adds a loader on the tab
 	// @doc/fr props/loader ajoute une icône de chargement sur l'onglet
 	loader?: string | boolean,
@@ -26,7 +29,7 @@ export type OrionTabsProps = {
 };
 
 export default class OrionTabsSetupService extends SharedSetupService {
-	static readonly defaultProps = {};
+	static readonly defaultProps = { headerSize: 'md' as OrionTabsProps['headerSize'] };
 
 	_loader = ref<OrionLoader>();
 	private slots: Slots;
