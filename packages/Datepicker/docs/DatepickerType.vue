@@ -51,6 +51,7 @@ import { ref, reactive } from 'vue';
 
 const date = ref(new Date());
 const dates = ref([]);
+
 const dateRange = reactive({
 	range: undefined,
 	week: undefined,

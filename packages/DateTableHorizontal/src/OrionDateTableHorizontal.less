@@ -1,0 +1,109 @@
+.orion-date-table {
+  &__body--horizontal {
+    width: max-content;
+    max-width: 100%;
+  }
+
+  &--horizontal {
+    flex: none;
+    width: max-content;
+    max-width: 100%;
+  }
+}
+@import '../../DateTable/src/OrionDateTable.less';
+
+.orion-date-table--horizontal {
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--fluid-18px);
+
+  .orion-horizontal-scroll__slider {
+    width: 100%;
+  }
+
+  .orion-horizontal-scroll--drop-shadow::before, .orion-horizontal-scroll--drop-shadow::after {
+    background: none !important;
+  }
+  
+  .orion-date-table {
+
+    &__body {
+      display: flex;
+      width: 100%;   
+
+      &-years, &-months {
+        background: white;
+        width: 100%;
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+      }
+    }
+
+    &__header {
+      position: relative;
+
+      &-current-display {
+        position: sticky;
+        left: 0;
+      }
+    }
+
+    &__carrets {
+      justify-content: flex-end;
+      display: flex;
+      gap: var(--fluid-10px);
+    }
+
+    &__month-container {
+      display: flex;
+      position: relative;
+      flex-direction: column;
+      gap: var(--fluid-18px);
+    }
+
+    &-row {
+      display: flex;
+
+      &__cell {
+        display: flex;
+        min-width: 2rem;
+        min-height: fit-content;
+        flex-direction: column;
+        gap: var(--fluid-10px);
+        overflow: hidden;
+
+        .emphasis {
+          bottom: 0;
+        }
+
+        &-display {
+
+          width: 100%;
+          min-height: fit-content;
+
+          &-number {
+            z-index: 10;
+            min-height: 2rem;
+            display: flex;
+            align-items: center;
+          }
+        }
+      }
+    }
+
+    &__marker {
+		position: absolute;
+		top: 0.125rem;
+		right: 0.125rem;
+	}
+
+    &__footer {
+      position: sticky;
+      margin-top: unset;
+      left: 0;
+    }
+    
+  }
+}

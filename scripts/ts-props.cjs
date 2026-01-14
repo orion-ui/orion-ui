@@ -21,7 +21,7 @@ const { PrivatePackagesFolder } = require('./scripts-utils.cjs');
 class MigratePropToPureTs {
 
 	testOnPackages = [
-	/* 	'Alert',
+	/* 'Alert',
 		'Aside',
 		'Radio',
 		'Button',

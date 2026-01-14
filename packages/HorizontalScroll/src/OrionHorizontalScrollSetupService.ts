@@ -144,7 +144,8 @@ export default class OrionHorizontalScrollSetupService extends SharedSetupServic
 		if (this._el.value === undefined)
 			return;
 
-		const overflowGradientWidth = +(getComputedStyle(this._el.value, ':before').width?.replace('px', '') ?? 0);
+		const elt = this._el.value.getElementsByClassName('orion-horizontal-scroll')?.item(0);
+		const overflowGradientWidth = elt ? +(getComputedStyle(elt, ':before').width?.replace('px', '') ?? 0) : 0;
 
 		if (typeof this.props.scrollStep === 'function' && Number.isFinite(this.props.scrollStep())) {
 			const stepper = this.props.scrollStep() as number;

@@ -10,7 +10,7 @@ export type OrionTimelineEmits = {
 	(e: 'input', payload: string | number): void
 	// @doc event/pill-click/desc emitted when a pill is clicked
 	// @doc/fr event/pill-click/desc émis au moment du click sur une vignette
-	(e: 'pill-click', ...payload: [OrionTimelinePane, MouseEvent]): void
+	(e: 'pill-click', ...payload: [OrionTimelinePane | OrionTimelinePill, MouseEvent]): void
 }
 
 export type OrionTimelineProps = {
@@ -36,6 +36,7 @@ export default class OrionTimelineSetupService extends SharedSetupService {
 	private state = reactive({
 		current: '' as Undef<number | string>,
 		panes: [] as Private.TsxTimelinePane[],
+		pillsOnly: false,
 	});
 
 	private get content () {
@@ -48,6 +49,10 @@ export default class OrionTimelineSetupService extends SharedSetupService {
 
 	get current () {
 		return this.state.current;
+	}
+
+	get pillsOnly () {
+		return this.state.pillsOnly;
 	}
 
 	get publicInstance () {
@@ -101,22 +106,20 @@ export default class OrionTimelineSetupService extends SharedSetupService {
 					// https://github.com/element-plus/element-plus/blob/dev/packages/tabs/src/tabs.vue#L115
 					let type = vnode.type;
 					type = (type as Component).name || type;
-
-					return type === 'OrionTimelinePane';
+					return (type === 'OrionTimelinePane' || type === 'OrionTimelinePill');
 				});
-
+			if (!paneSlots.find(x => (x.type as Component).name === 'OrionTimelinePane')) this.state.pillsOnly = true;
 			this.state.panes.push(...paneSlots.map((x) => {
 				const pane = {
 					props: x.props,
 					children: x.children,
 				} as Private.TsxTimelinePane;
-
 				return pane;
 			}));
 		}
 	}
 
-	onPillClick (pane: OrionTimelinePane, event: MouseEvent) {
+	onPillClick (pane: OrionTimelinePane | OrionTimelinePill, event: MouseEvent) {
 		if (isDefineOrTrue(pane.disabled)) return;
 
 		this.setCurrent(pane.name);

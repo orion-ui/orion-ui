@@ -1,5 +1,5 @@
-import { OrionTimelinePaneProps } from "packages/TimelinePane/src/OrionTimelinePaneSetupService";
-import { Slot } from "vue";
+import { OrionTimelinePaneProps } from 'packages/TimelinePane/src/OrionTimelinePaneSetupService';
+import { Slot } from 'vue';
 
 declare namespace Private {
 

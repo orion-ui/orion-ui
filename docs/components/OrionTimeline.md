@@ -25,3 +25,13 @@ TimelineMarker
 TimelineStyle
 :::
 <attribute-table package="TimelinePane"/>
+
+## Orion Timeline Pill
+
+::: demo:Timeline
+TimelinePillsOnly
+:::
+<attribute-table package="TimelinePill"/>
+
+
+

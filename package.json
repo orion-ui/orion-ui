@@ -16,7 +16,11 @@
 		"./dist/monkey-patching": "./dist/monkey-patching.d.ts",
 		"./dist/style.css": "./dist/style.css",
 		"./dist/styles/*": "./dist/styles/*.less",
+		"./monkey-patching": "./dist/monkey-patching.d.ts",
+		"./style.css": "./dist/style.css",
+		"./packages": "./dist/types/packages/index.d.ts",
 		".": {
+			"types": "./dist/types/lib/index.d.ts",
 			"import": "./dist/orion.js",
 			"require": "./dist/orion.umd.cjs"
 		}

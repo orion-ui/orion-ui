@@ -8,7 +8,6 @@ const PrivatePackagesFolder = [
 	'NavAside',
 	'NavMainItem',
 	'TabNav',
-	'TimelinePill',
 	'Field',
 	'DateRange',
 	'DateWeek',
