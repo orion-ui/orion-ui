@@ -28,8 +28,12 @@ const jsxTabs = () => {
 		onTabClick: setup.onTabClick.bind(setup),
 	};
 
+	let headerClass = `orion-tabs__header`;
+	if (props.floatingTabs) {
+		headerClass += ' orion-tabs__header--floating';
+	}
 	const header = (
-		<div class='orion-tabs__header'>
+		<div class={headerClass}>
 			<OrionTabNav {...navData}></OrionTabNav>
 		</div>
 	);
@@ -52,9 +56,13 @@ const jsxTabs = () => {
 		</div>
 	);
 
+	let tabsClass = `orion-tabs`;
+	if (props.floatingTabs) {
+		tabsClass += ' orion-tabs--floating';
+	}
 
 	return (
-		<div class="orion-tabs">
+		<div class={tabsClass}>
 			{[ header, content ]}
 		</div>
 	);

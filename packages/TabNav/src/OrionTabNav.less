@@ -60,8 +60,12 @@
 	}
 
 	&--active {
-		border-right: none !important;
-		border-left: none !important;
+
+		&:not(.orion-tabs--floating) & {
+			border-right: none !important;
+			border-left: none !important;
+		}
+		
 		border-color: var(--o-border-primary-default);
 		color: var(--o-text-primary-default);
 	}
@@ -70,6 +74,25 @@
 		cursor: not-allowed;
 		color: var(--o-text-default-subtle);
 		border-bottom-color: transparent;
+	}
+
+	.orion-tabs--floating  & {
+		border-radius: var(--o-radius-8);
+		padding: var(--o-space-4) var(--o-space-12);
+		border: 1px solid transparent;
+
+		&--active {
+			background-color: var(--o-background-neutral-default);
+			border: 1px solid var(--o-border-neutral-default);
+		}
+
+		&:hover:not(.orion-tab-nav--active):not(.orion-tab-nav--disabled) {
+			border-color: var(--o-border-neutral-default);
+		}
+		
+		.orion-tab-nav__label {
+			.typography(body2-bold);
+		}
 	}
 
 	@media @phone {

@@ -49,6 +49,10 @@ Afin de ne pas rentrer en conflit avec vos autre **subviews**, vous pouvez utili
 
 ## Orion Tabs
 
+::: demo:Tabs
+TabsFloating
+:::
+
 <attribute-table package="Tabs"/>
 
 ## Orion Tab Pane

@@ -94,7 +94,8 @@ export default class OrionTabsSetupService extends SharedSetupService {
 					props: x.props,
 					children: x.children,
 				} as Private.TsxTabPane;
-
+				const rawMarker = (x.props as any)?.marker;
+				pane.props.marker = rawMarker === '' ? true : rawMarker;
 				return pane;
 			}));
 		}

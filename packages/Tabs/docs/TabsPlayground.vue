@@ -34,6 +34,14 @@
 
 	<hr>
 
+	<div class="col-sm-4">
+		<o-toggle
+			v-model="state.floatingTabs"
+			label="Use floating Tabs"/>
+	</div>
+
+	<hr>
+
 	<b>Modify the configuration of the first tab :</b>
 
 	<div class="mt-xs row row--gutter row--middle">
@@ -103,6 +111,7 @@ import { materialIcons } from 'lib';
 const activePane = ref('pane1');
 
 const state = reactive({
+	floatingTabs: false,
 	loader: false,
 	icon: 'check' as Orion.Icon,
 	disabled: false,
