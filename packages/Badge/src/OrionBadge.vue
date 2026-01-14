@@ -5,7 +5,8 @@
 		:class="[
 			`orion-badge--${type}`,
 			`orion-badge--${color}`,
-		]">
+		]"
+		@click="emits('clicked', $event)">
 		<slot v-if="type !== 'dot'"/>
 	</span>
 </template>

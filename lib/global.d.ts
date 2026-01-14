@@ -66,6 +66,8 @@ declare global {
 
 		type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
+		type BadgeType = 'dot' | 'square' | 'rounded';
+
 		type Color = 'info' | 'success' | 'warning' | 'inverted' | 'primary' | 'secondary' | 'default' | 'danger' | 'neutral';
 
 		type ColorAlt =
