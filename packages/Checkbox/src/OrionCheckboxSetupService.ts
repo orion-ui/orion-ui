@@ -33,7 +33,7 @@ type VModelType = any[] | boolean | null | undefined;
 export default class OrionCheckboxSetupService extends SharedFieldSetupService<OrionCheckboxProps, VModelType, OrionCheckboxEmits<VModelType>> {
 	static readonly defaultProps = {
 		...SharedFieldSetupService.defaultProps,
-		color: 'info' as Orion.Color,
+		color: 'primary' as Orion.Color,
 		type: 'checkbox',
 		size: 'md' as OrionCheckboxProps['size'],
 	};

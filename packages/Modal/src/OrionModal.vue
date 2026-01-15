@@ -23,33 +23,22 @@
 				v-if="$slots.header || setup.options.title || setup.options.description"
 				:id="`OrionModal-${setup.uid}__header`"
 				class="orion-modal__header">
-				<h5
-					v-if="options.title"
-					class="orion-modal__title">
-					{{ options.title }}
-				</h5>
-				<span v-if="options.description">{{ options.description }}</span>
-				<slot name="header"/>
-			</div>
-
-			<div
-				:id="`OrionModal-${setup.uid}__footer`"
-				class="orion-modal__footer">
 				<div
-					v-if="options?.actions?.length"
-					class="orion-modal__actions">
-					<orion-button
-						v-for="(action, index) in options.actions"
-						:key="index"
-						v-bind="action"
-						@click="setup.actionCallback(action)">
-						{{ action.label }}
-					</orion-button>
+					:id="`OrionModal-${setup.uid}__header-container`"
+					class="orion-modal__header-container">
+					<div
+						v-if="options.title"
+						class="orion-modal__title">
+						{{ options.title }}
+					</div>
+					<slot name="header"/>
 				</div>
 
-				<slot
-					name="footer"
-					:close="setup.close.bind(setup)"/>
+				<span
+					v-if="options.description"
+					class="orion-modal__description">
+					{{ options.description }}
+				</span>
 			</div>
 
 			<div
@@ -81,16 +70,39 @@
 				</orion-section>
 			</div>
 
+			<div
+				:id="`OrionModal-${setup.uid}__actions`"
+				class="orion-modal__actions">
+				<orion-button
+					v-for="(action, index) in options.actions"
+					:key="index"
+					v-bind="action"
+					@click="setup.actionCallback(action)">
+					{{ action.label }}
+				</orion-button>
+			</div>
+
+			<div
+				:id="`OrionModal-${setup.uid}__footer`"
+				class="orion-modal__footer">
+				<slot
+					name="footer"
+					:close="setup.close.bind(setup)"/>
+			</div>
+
 			<teleport
 				defer
 				:to="setup.displayHeader
-					? `#OrionModal-${setup.uid}__header`
+					? `#OrionModal-${setup.uid}__header-container`
 					: `#OrionModal-${setup.uid}__body`">
-				<span
+				<o-button
 					v-if="!setup.options.hideClose"
 					class="orion-modal__close"
-					@click="setup.close({ keepInQueue: false } )"
-					@touchend.prevent.stop="setup.close({ keepInQueue: false } )"/>
+					color="primary"
+					nude
+					prefix-icon="close"
+					@click="setup.close({ keepInQueue: false })"
+					@touchend.prevent.stop="setup.close({ keepInQueue: false })"/>
 			</teleport>
 
 			<orion-loader :ref="setup._loader"/>

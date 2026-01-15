@@ -53,8 +53,10 @@
 		border-bottom: 1px solid var(--o-border-neutral-default);
 
 		.orion-aside__header-container {
+			display: flex;
+			align-items: flex-start;
+			gap: var(--o-space-8);
 			min-height: var(--o-height-control-xs);
-			margin-right: var(--o-space-16);
 			margin-top: var(--o-space-4);
 			margin-bottom: var(--o-space-4);
 		}
@@ -70,6 +72,14 @@
 
 	&__title {
 		.typography(subtitle-bold);
+	}
+
+	&__header-content {
+		display: flex;
+		flex: 1 1 auto;
+		flex-direction: column;
+		gap: var(--o-space-4);
+		min-width: 0;
 	}
 
 	&__description {
@@ -211,9 +221,15 @@
 	}
 
 	&__close.orion-button {
-		position: absolute;
-		top: var(--o-space-8);
-		right: var(--o-space-8);
+		margin-left: auto;
+	}
+
+	&__body {
+		>.orion-aside__close {
+			order: -1;
+			align-self: flex-end;
+			margin-bottom: var(--o-space-8);
+		}
 	}
 
 	&--visible {

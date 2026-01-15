@@ -25,13 +25,17 @@
 				v-if="setup.displayHeader"
 				:id="`OrionAside-${setup.uid}__header`"
 				class="orion-aside__header">
-				<div class="orion-aside__header-container">
-					<div
-						v-if="options.title"
-						class="orion-aside__title">
-						{{ options.title }}
+				<div
+					:id="`OrionAside-${setup.uid}__header-container`"
+					class="orion-aside__header-container">
+					<div class="orion-aside__header-content">
+						<div
+							v-if="options.title"
+							class="orion-aside__title">
+							{{ options.title }}
+						</div>
+						<slot name="header"/>
 					</div>
-					<slot name="header"/>
 				</div>
 
 				<span
@@ -73,7 +77,7 @@
 			<teleport
 				defer
 				:to="setup.displayHeader
-					? `#OrionAside-${setup.uid}__header`
+					? `#OrionAside-${setup.uid}__header-container`
 					: `#OrionAside-${setup.uid}__body`">
 				<o-button
 					v-if="!setup.options.hideClose"
