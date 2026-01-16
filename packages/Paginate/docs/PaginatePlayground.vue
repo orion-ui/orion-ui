@@ -6,14 +6,29 @@
 			:size="state.size"
 			@paginate="notifPageUpdate($event)"/>
 
+		<o-paginate
+			v-model="state.index"
+			variant="detailed"
+			:total="state.total"
+			:size="state.size"
+			@paginate="notifPageUpdate($event)"
+			@update:size="state.size = $event"/>
+
 		<o-list
 			v-model:page="state"
+			v-model:selected="selectedItems"
 			v-bind="listState"
+			:total="state.total"
+			paginate-variant="detailed"
 			:list="list">
-			<template #default="{ item }">
-				<o-card :title="item.title">
-					{{ item.description }}
-				</o-card>
+			<template #default="{ item, selected }">
+				<div @click="toggleItemSelection(item)">
+					<o-card
+						:selected="selected"
+						:title="item.title">
+						{{ item.description }}
+					</o-card>
+				</div>
 			</template>
 		</o-list>
 	</div>
@@ -49,6 +64,7 @@ import { faker } from '@faker-js/faker';
 
 const fullList = ref(seedList());
 const list = computed(() => fullList.value.slice(state.size * (state.index - 1), state.size * state.index));
+const selectedItems = reactive<any[]>([]);
 
 const state = reactive({
 	total: fullList.value.length,
@@ -58,8 +74,8 @@ const state = reactive({
 
 const listState = reactive({
 	trackKey: 'id',
-	usePaginationBottom: false,
-	usePaginationTop: false,
+	usePaginationBottom: true,
+	usePaginationTop: true,
 });
 
 function seedList (qty = 20) {
@@ -77,6 +93,13 @@ function seedList (qty = 20) {
 
 function notifPageUpdate (index: number) {
 	useNotif.info(`Active page index is now ${index}`);
+}
+
+function toggleItemSelection (item: any) {
+	const index = selectedItems.findIndex(x => x.id === item.id);
+	index > -1
+		? selectedItems.splice(index, 1)
+		: selectedItems.push(item);
 }
 
 watch(

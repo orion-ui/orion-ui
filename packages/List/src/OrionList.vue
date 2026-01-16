@@ -8,7 +8,11 @@
 			:size="page.size"
 			:total="total"
 			:bind-router="bindRouter"
-			@paginate="setup.handleOnPaginate()"/>
+			:selected-count="selected.length"
+			:variant="paginateVariant"
+			:size-options="paginateSizeOptions"
+			@paginate="setup.handleOnPaginate()"
+			@update:size="setup.handleOnPageSizeUpdate($event)"/>
 
 		<div
 			v-if="setup.computedLayout === 'grid'"
@@ -38,7 +42,11 @@
 			:size="page.size"
 			:total="total"
 			:bind-router="bindRouter"
-			@paginate="setup.handleOnPaginate()"/>
+			:selected-count="selected.length"
+			:variant="paginateVariant"
+			:size-options="paginateSizeOptions"
+			@paginate="setup.handleOnPaginate()"
+			@update:size="setup.handleOnPageSizeUpdate($event)"/>
 
 		<orion-footer-fixed
 			class="orion-footer-selected"

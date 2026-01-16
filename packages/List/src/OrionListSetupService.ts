@@ -53,6 +53,12 @@ export type OrionListProps<T extends Record<string, any>> = {
 	// @doc props/usePaginationTop displays pagination at the top of the list
 	// @doc/fr props/usePaginationTop affiche une pagination en haut de la liste
 	usePaginationTop?: boolean,
+	// @doc props/paginateVariant pagination style used by the embedded paginate component
+	// @doc/fr props/paginateVariant style de pagination utilise par le composant paginate
+	paginateVariant?: 'default' | 'detailed',
+	// @doc props/paginateSizeOptions page size options for detailed pagination
+	// @doc/fr props/paginateSizeOptions options de taille pour la pagination detaillee
+	paginateSizeOptions?: number[],
 };
 
 export default class OrionListSetupService<T extends Record<string, any>> extends SharedSetupService {
@@ -66,6 +72,7 @@ export default class OrionListSetupService<T extends Record<string, any>> extend
 		useFooterSelected: true,
 		usePaginationBottom: true,
 		usePaginationTop: true,
+		paginateVariant: 'default' as const,
 	};
 
 	get computedLayout () { return this.responsive.onPhone ? 'grid' : this.props.layout; }
@@ -116,9 +123,21 @@ export default class OrionListSetupService<T extends Record<string, any>> extend
 		this.emits('paginate', this.page.value.index);
 	}
 
+	handleOnPageSizeUpdate (size: number) {
+		const sizeValue = Number(size);
+		if (!sizeValue || isNaN(sizeValue)) return;
+		this.page.value.size = sizeValue;
+		const pagesLength = Math.ceil(this.props.total / sizeValue);
+		if (pagesLength > 0 && this.page.value.index > pagesLength) {
+			this.page.value.index = pagesLength;
+		}
+		this.emits('paginate', this.page.value.index);
+	}
+
 	listItemIsSelected (item: T): boolean {
 		return this.selected.value
 			.map(x => x[this.props.trackKey!])
 			.includes(item[this.props.trackKey!]);
 	}
 }
+

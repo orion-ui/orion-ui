@@ -5,18 +5,23 @@
 	position: relative;
 	display: flex;
 	justify-content: center;
+	align-items: center;
+	gap: var(--o-space-16);
 
 	&__wrapper {
 		display: flex;
+		flex: 1 1 auto;
 		align-items: center;
-		max-width: calc(100% - (2.125rem * 2));
+		justify-content: center;
+		gap: var(--o-space-4);
 	}
 
 	&__index {
-		padding: var(--o-space-16) var(--o-space-32);
+		.typography(body2-default);
 
 		&-active {
-			background: var(--o-background-info-minimal) !important;
+			background: var(--o-background-primary-minimal) !important;
+			color: var(--o-text-primary-default) !important;
 		}
 	}
 
@@ -24,18 +29,68 @@
 		padding: var(--o-space-16) var(--o-space-8);
 	}
 
-	&__prev,
-	&__next {
-		width: 2.5rem;
+	&__detail {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		gap: var(--o-space-24);
+		width: 100%;
 	}
 
-	.orion-button {
-		border: none;
-		min-width: 2.5rem;
+	&__detail-size {
+		display: flex;
+		align-items: center;
+		gap: var(--o-space-12);
 
-		&--icon-only .icon {
-			font-size: 0.875rem;
+		.orion-select {
+			width: 70px;
 		}
+	}
+
+	&__detail-selection {
+		display: flex;
+		align-items: center;
+	}
+
+	&__detail-label,
+	&__detail-text {
+		.typography(body2-default);
+		color: var(--o-text-default);
+		white-space: nowrap;
+	}
+
+	&__detail-actions {
+		display: flex;
+		align-items: center;
+		gap: var(--o-space-8);
+	}
+
+	&__size-select {
+		flex: 0 0 70px;
+		width: 70px;
+		min-width: 70px;
+		max-width: 70px;
+	}
+
+	&__size-select.orion-select {
+		width: 70px;
+
+		.orion-input__input {
+			width: 22px;
+			min-width: 22px;
+			max-width: 22px;
+			flex: 0 0 22px;
+			padding-right: 0 !important;
+		}
+
+		.orion-input__pictos {
+			padding: 0;
+		}
+	}
+
+	&--detailed {
+		justify-content: space-between;
 	}
 
 	&__input {
@@ -47,13 +102,14 @@
 
 		&.orion-input {
 
-		margin-left: 0.5rem;
-		margin-right: 0.5rem;
+			margin-left: 0.5rem;
+			margin-right: 0.5rem;
+
 			&__input {
 				padding: var(--o-space-8) var(--o-space-8);
 				text-align: center;
 			}
-			
+
 			.orion-input__label {
 				max-width: unset !important;
 				left: 0.75rem;
@@ -72,4 +128,3 @@
 		}
 	}
 }
-
