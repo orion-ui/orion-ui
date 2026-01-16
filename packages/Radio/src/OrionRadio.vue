@@ -8,6 +8,7 @@
 			{ 'orion-radio--reverse': reverse },
 			{ 'orion-radio--inline': inline },
 		]"
+		:tabindex="disabled ? undefined : setup._uid"
 		input-type="radio"
 		@click="setup.handleClick()">
 		<slot v-if="label === undefined"/>
