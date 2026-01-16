@@ -3,10 +3,10 @@
 		<template v-if="props.variant === 'detailed'">
 			<div class="orion-paginate__detail">
 				<div
-					v-if="props.selectedCount !== undefined && props.selectedCount !== null"
-					class="orion-paginate__detail-selection">
+					class="orion-paginate__detail-selection"
+					:class="{ 'orion-paginate__detail-selection--hidden': !showSelection }">
 					<span class="orion-paginate__detail-text">
-						{{ props.selectedCount }} / {{ props.total }} {{ props.selectionLabel }}
+						{{ selectedCountValue }} / {{ props.total }} {{ props.selectionLabel }}
 					</span>
 				</div>
 				<div class="orion-paginate__detail-actions">
@@ -67,6 +67,9 @@ const props = withDefaults(defineProps<OrionPaginateProps>(), OrionPaginateSetup
 const vModel = defineModel<number>({ required: true });
 const setup = new OrionPaginateSetupService(props, emits, vModel);
 defineExpose(setup.publicInstance);
+
+const showSelection = computed(() => props.selectedCount !== undefined && props.selectedCount !== null);
+const selectedCountValue = computed(() => props.selectedCount ?? 0);
 
 const sizeProxy = computed<number>({
 	get: () => props.size,

@@ -1,31 +1,15 @@
 <template>
 	<div class="flex fd-c g-16">
-		<o-paginate
-			v-model="state.index"
-			:total="state.total"
-			:size="state.size"
-			@paginate="notifPageUpdate($event)"/>
+		<o-paginate v-model="state.index" :total="state.total" :size="state.size" @paginate="notifPageUpdate($event)" />
 
-		<o-paginate
-			v-model="state.index"
-			variant="detailed"
-			:total="state.total"
-			:size="state.size"
-			@paginate="notifPageUpdate($event)"
-			@update:size="state.size = $event"/>
+		<o-paginate v-model="state.index" variant="detailed" :total="state.total" :size="state.size"
+			:selected-count="selectedItems.length" @paginate="notifPageUpdate($event)" @update:size="state.size = $event" />
 
-		<o-list
-			v-model:page="state"
-			v-model:selected="selectedItems"
-			v-bind="listState"
-			:total="state.total"
-			paginate-variant="detailed"
-			:list="list">
+		<o-list v-model:page="state" v-model:selected="selectedItems" v-bind="listState" :total="state.total"
+			paginate-variant="detailed" :list="list">
 			<template #default="{ item, selected }">
 				<div @click="toggleItemSelection(item)">
-					<o-card
-						:selected="selected"
-						:title="item.title">
+					<o-card :selected="selected" :title="item.title">
 						{{ item.description }}
 					</o-card>
 				</div>
@@ -37,22 +21,13 @@
 
 	<div class="row row--grid">
 		<div class="col-sm-4">
-			<o-input
-				v-model="state.total"
-				label="Total"
-				type="number"/>
+			<o-input v-model="state.total" label="Total" type="number" />
 		</div>
 		<div class="col-sm-4">
-			<o-input
-				v-model="state.size"
-				label="Size"
-				type="number"/>
+			<o-input v-model="state.size" label="Size" type="number" />
 		</div>
 		<div class="col-sm-4">
-			<o-input
-				v-model="state.index"
-				label="Index"
-				type="number"/>
+			<o-input v-model="state.index" label="Index" type="number" />
 		</div>
 	</div>
 </template>
@@ -74,11 +49,11 @@ const state = reactive({
 
 const listState = reactive({
 	trackKey: 'id',
-	usePaginationBottom: true,
+	usePaginationBottom: false,
 	usePaginationTop: true,
 });
 
-function seedList (qty = 20) {
+function seedList(qty = 20) {
 	const items = [];
 	for (let index = 0; index < qty; index++) {
 		items.push({
@@ -91,11 +66,11 @@ function seedList (qty = 20) {
 	return items;
 }
 
-function notifPageUpdate (index: number) {
+function notifPageUpdate(index: number) {
 	useNotif.info(`Active page index is now ${index}`);
 }
 
-function toggleItemSelection (item: any) {
+function toggleItemSelection(item: any) {
 	const index = selectedItems.findIndex(x => x.id === item.id);
 	index > -1
 		? selectedItems.splice(index, 1)
