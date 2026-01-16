@@ -22,6 +22,12 @@ export type OrionPaginateProps = {
 	// @doc props/selectionLabel label displayed after the selected count in detailed mode
 	// @doc/fr props/selectionLabel libelle affiche apres le compteur de selection en mode detailed
 	selectionLabel?: string,
+	// @doc props/showPerPage toggles the per-page selector in detailed mode
+	// @doc/fr props/showPerPage affiche ou masque le selecteur de lignes par page en mode detailed
+	showPerPage?: boolean,
+	// @doc props/showPageInfo toggles the page indicator in detailed mode
+	// @doc/fr props/showPageInfo affiche ou masque l'indicateur de page en mode detailed
+	showPageInfo?: boolean,
 	// @doc props/variant pagination style (default or detailed)
 	// @doc/fr props/variant style de pagination (default ou detailed)
 	variant?: 'default' | 'detailed',
@@ -54,6 +60,8 @@ export default class OrionPaginateSetupService extends SharedSetupService {
 		pageLabel: 'Page',
 		ofLabel: 'sur',
 		selectionLabel: 'ligne(s) sélectionnées',
+		showPerPage: true,
+		showPageInfo: true,
 	};
 
 	@Reactive protected readonly state = { pageInput: undefined as Undef<number> };
@@ -161,6 +169,7 @@ export default class OrionPaginateSetupService extends SharedSetupService {
 		return page === this.index;
 	}
 }
+
 
 
 

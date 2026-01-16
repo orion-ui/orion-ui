@@ -1,57 +1,45 @@
 <template>
-	<div :ref="setup._el" class="orion-paginate" :class="{ 'orion-paginate--detailed': props.variant === 'detailed' }">
-		<template v-if="props.variant === 'detailed'">
-			<div class="orion-paginate__detail">
+	<div :ref="setup._el" class="orion-paginate orion-paginate--detailed">
+		<div
+			class="orion-paginate__detail"
+			:class="{ 'orion-paginate__detail--center-actions': onlyActionsVisible }">
+			<div
+				class="orion-paginate__detail-selection"
+				:class="{
+					'orion-paginate__detail-selection--hidden': !showSelection && !onlyActionsVisible,
+					'orion-paginate__detail-selection--collapsed': !showSelection && onlyActionsVisible,
+				}">
+				<span class="orion-paginate__detail-text">
+					{{ selectedCountValue }} / {{ props.total }} {{ props.selectionLabel }}
+				</span>
+			</div>
+			<div class="orion-paginate__detail-actions">
 				<div
-					class="orion-paginate__detail-selection"
-					:class="{ 'orion-paginate__detail-selection--hidden': !showSelection }">
+					v-if="showPerPage"
+					class="orion-paginate__detail-size">
+					<span class="orion-paginate__detail-label">{{ props.perPageLabel }}</span>
+					<orion-select v-model="sizeProxy" :options="setup.sizeOptions" :searchable="false" :clearable="false"
+						size="xs" class="orion-paginate__size-select" />
+				</div>
+				<div
+					v-if="showPageInfo"
+					class="orion-paginate__detail-page">
 					<span class="orion-paginate__detail-text">
-						{{ selectedCountValue }} / {{ props.total }} {{ props.selectionLabel }}
+						{{ props.pageLabel }} {{ setup.index }} {{ props.ofLabel }} {{ setup.pagesLength }}
 					</span>
 				</div>
 				<div class="orion-paginate__detail-actions">
-					<div class="orion-paginate__detail-size">
-						<span class="orion-paginate__detail-label">{{ props.perPageLabel }}</span>
-						<orion-select v-model="sizeProxy" :options="setup.sizeOptions" :searchable="false" :clearable="false"
-							size="xs" class="orion-paginate__size-select" />
-					</div>
-					<div class="orion-paginate__detail-page">
-						<span class="orion-paginate__detail-text">
-							{{ props.pageLabel }} {{ setup.index }} {{ props.ofLabel }} {{ setup.pagesLength }}
-						</span>
-					</div>
-					<div class="orion-paginate__detail-actions">
-						<orion-button outline prefix-icon="keyboard_double_arrow_left"
-							:disabled="setup.index <= 1 || setup.pagesLength <= 1" @click="setup.index = 1" />
-						<orion-button outline prefix-icon="chevron_left" :disabled="setup.index <= 1 || setup.pagesLength <= 1"
-							@click="setup.index -= 1" />
-						<orion-button outline prefix-icon="chevron_right" :disabled="setup.index >= setup.pagesLength"
-							@click="setup.index += 1" />
-						<orion-button outline prefix-icon="keyboard_double_arrow_right" :disabled="setup.index >= setup.pagesLength"
-							@click="setup.index = setup.pagesLength" />
-					</div>
+					<orion-button outline prefix-icon="keyboard_double_arrow_left"
+						:disabled="setup.index <= 1 || setup.pagesLength <= 1" @click="setup.index = 1" />
+					<orion-button outline prefix-icon="chevron_left" :disabled="setup.index <= 1 || setup.pagesLength <= 1"
+						@click="setup.index -= 1" />
+					<orion-button outline prefix-icon="chevron_right" :disabled="setup.index >= setup.pagesLength"
+						@click="setup.index += 1" />
+					<orion-button outline prefix-icon="keyboard_double_arrow_right" :disabled="setup.index >= setup.pagesLength"
+						@click="setup.index = setup.pagesLength" />
 				</div>
 			</div>
-		</template>
-		<template v-else>
-			<orion-button outline prefix-icon="chevron_left" @click="setup.index -= 1" />
-
-			<div class="orion-paginate__wrapper">
-				<template v-for="(page, i) in setup.pagesArray" :key="i">
-					<orion-button v-if="page !== '...' || (page === '...' && i === 1)" :class="[
-						{ 'orion-paginate__index-active': setup.isActive(Number(page)) },
-						{ 'orion-paginate__ellipsis': page === '...' },
-					]" :color="setup.isActive(Number(page)) ? 'primary' : 'neutral'" :disabled="page === '...'" nude
-						class="orion-paginate__index" @click="setup.index = Number(page)">
-						{{ page }}
-					</orion-button>
-					<o-input v-else v-model="setup.pageInput" placeholder="..." type="number" :max-value="setup.pagesLength"
-						:min-value="1" size="sm" class="orion-paginate__input" />
-				</template>
-			</div>
-
-			<orion-button outline suffix-icon="chevron_right" @click="setup.index += 1" />
-		</template>
+		</div>
 	</div>
 </template>
 
@@ -69,6 +57,9 @@ const setup = new OrionPaginateSetupService(props, emits, vModel);
 defineExpose(setup.publicInstance);
 
 const showSelection = computed(() => props.selectedCount !== undefined && props.selectedCount !== null);
+const showPerPage = computed(() => props.showPerPage !== false);
+const showPageInfo = computed(() => props.showPageInfo !== false);
+const onlyActionsVisible = computed(() => !showSelection.value && !showPerPage.value && !showPageInfo.value);
 const selectedCountValue = computed(() => props.selectedCount ?? 0);
 
 const sizeProxy = computed<number>({
@@ -89,4 +80,3 @@ const sizeProxy = computed<number>({
  * @doc/fr vModel/vModel vModel du composant
  */
 </script>
-

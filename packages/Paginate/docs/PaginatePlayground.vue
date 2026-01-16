@@ -1,12 +1,9 @@
 <template>
 	<div class="flex fd-c g-16">
-		<o-paginate v-model="state.index" :total="state.total" :size="state.size" @paginate="notifPageUpdate($event)" />
+		<o-paginate v-model="state.index" :total="state.total" :size="state.size" :show-per-page="false"
+			:show-page-info="false" @paginate="notifPageUpdate($event)" @update:size="state.size = $event" />
 
-		<o-paginate v-model="state.index" variant="detailed" :total="state.total" :size="state.size"
-			:selected-count="selectedItems.length" @paginate="notifPageUpdate($event)" @update:size="state.size = $event" />
-
-		<o-list v-model:page="state" v-model:selected="selectedItems" v-bind="listState" :total="state.total"
-			paginate-variant="detailed" :list="list">
+		<o-list v-model:page="state" v-model:selected="selectedItems" v-bind="listState" :total="state.total" :list="list">
 			<template #default="{ item, selected }">
 				<div @click="toggleItemSelection(item)">
 					<o-card :selected="selected" :title="item.title">
