@@ -57,7 +57,6 @@ export default class OrionTabPaneSetupService extends SharedSetupService {
 	constructor (protected props: OrionTabPaneProps, protected emits: OrionTabPaneEmits, _tabs?: OrionTabs) {
 		super();
 		this._tabs = _tabs;
-
 		watch(() => this.active, (val) => {
 			if (val) {
 				this.state.hasBeenActive = val;

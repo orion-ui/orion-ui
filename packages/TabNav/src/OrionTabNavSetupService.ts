@@ -6,6 +6,7 @@ export type OrionTabNavEmits = {}
 export type OrionTabNavProps = {
 	value?: string,
 	panes: Private.TsxTabPane[],
+	floatingTabs?: boolean,
 	onTabClick:(...val: [OrionTabPane, MouseEvent]) => void,
 }
 
