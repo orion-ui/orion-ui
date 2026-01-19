@@ -1,17 +1,26 @@
 <template>
-	<o-toggle-button-group
-		v-bind="state"
-		v-model="vModel">
-		<o-toggle-button :name="1">
-			Option 1
-		</o-toggle-button>
-		<o-toggle-button :name="2">
-			Option 2
-		</o-toggle-button>
-		<o-toggle-button :name="3">
-			Option 3
-		</o-toggle-button>
-	</o-toggle-button-group>
+	<div class="flex g-24">
+		<div>
+			<o-toggle-button-group
+				v-bind="state"
+				v-model="vModel">
+				<o-toggle-button :name="1">
+					Option 1
+				</o-toggle-button>
+				<o-toggle-button :name="2">
+					Option 2
+				</o-toggle-button>
+				<o-toggle-button :name="3">
+					Option 3
+				</o-toggle-button>
+			</o-toggle-button-group>
+		</div>
+		<div class="flex-1">
+			<o-card>
+				<pre class="ma-0">Value: {{ vModel }}</pre>
+			</o-card>
+		</div>
+	</div>
 
 	<hr>
 

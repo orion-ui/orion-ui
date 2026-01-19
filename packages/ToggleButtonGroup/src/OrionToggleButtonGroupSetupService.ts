@@ -1,15 +1,15 @@
-import { ModelRef, Slots, VNode } from 'vue';
-import SharedSetupService from '../../Shared/SharedSetupService';
+import { isArray } from 'lodash-es';
 import SharedProps, { SharedPropsColor } from 'packages/Shared/SharedProps';
 import { OrionToggleButtonProps } from 'packages/ToggleButton/src/OrionToggleButtonSetupService';
-import { isDefineOrTrue } from 'utils';
 import { useMonkey } from 'services';
-import { isArray } from 'lodash-es';
+import { isDefineOrTrue } from 'utils';
+import { ModelRef, Slots, VNode } from 'vue';
+import SharedSetupService from '../../Shared/SharedSetupService';
 
 export type OrionToggleButtonGroupEmits = {
 	// @doc event/click/desc emitted on button click
 	// @doc/fr event/click/desc émis lors du click sur le bouton
-	(e: 'button-click', button :OrionToggleButton, event: MouseEvent): void
+	(e: 'button-click', button: OrionToggleButton, event: MouseEvent): void
 }
 
 export type OrionToggleButtonGroupProps = SharedPropsColor & {
