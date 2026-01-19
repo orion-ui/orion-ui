@@ -8,7 +8,7 @@
 	align-items: center;
 	height: 2.5rem;
 	width: 100%;
-	padding: 0 var(--o-space-8);
+	padding: 0 var(--o-space-12);
 	.typography(body2-default);
 	border-radius: var(--o-radius-md);
 	background-color: var(--o-background-neutral-default);
@@ -82,9 +82,9 @@
 		.ellipsis();
 		transition: all 0.3s;
 		position: absolute;
-		left: 1rem;
+		left: 0.5rem;
 		z-index: 1;
-		padding: 0 0.125rem;
+		padding: 0 0.25rem;
 		max-width: calc(100% - 2rem);
 		pointer-events: none;
 		color: var(--o-text-default-moderate);
@@ -93,11 +93,12 @@
 			content: '';
 			position: absolute;
 			background: var(--o-background-neutral-default);
-			height: 0.625rem;
-			width: 100%;
 			left: 0;
+			right: 0;
+			top: 0.125rem;
+			bottom: 0.0625rem;
 			z-index: -1;
-			top: 0.25rem;
+			border-radius: 0.125rem;
 
 			.orion-input--disabled & {
 				background: var(--o-background-neutral-minimal);
@@ -118,26 +119,19 @@
 		}
 
 		.orion-input--prefix-icon & {
-			left: 2.5rem;
+			left: 2.25rem;
 		}
 
 		.orion-input--xs & {
-			top: calc(6rem / 16);
-			left: 0.5rem;
+			top: 0.3125rem;
 		}
 
 		&--floating {
-			left: 0.5rem;
 			font-size: 0.75rem;
-			transform: translate(0, -1.25rem);
-
-			.orion-input--prefix-icon & {
-				left: calc(36rem / 16);
-			}
+			transform: translate(0, -1.1875rem);
 
 			.orion-input--xs & {
-				left: calc(6rem / 16);
-				transform: translate(0, -1rem);
+				transform: translate(0, -0.9375rem);
 			}
 
 			.orion-input--focused & {
@@ -162,10 +156,6 @@
 		}
 	}
 
-	&--prefix-icon {
-		padding-left: var(--o-space-12);
-	}
-
 	&__input {
 		appearance: none;
 		-webkit-appearance: none;
@@ -180,6 +170,7 @@
 		line-height: 1.35;
 		color: var(--o-text-default-default);
 		outline: none;
+		padding: 0;
 
 		.orion-select &,
 		.orion-datepicker & {
@@ -189,8 +180,7 @@
 		}
 
 		.orion-input--xs & {
-			height: 2rem;
-			padding: var(--o-space-8);
+			// height: 2rem;
 			.typography(label-default);
 		}
 	}
@@ -281,7 +271,6 @@
 		.flex-align();
 		font-size: var(--o-typography-body2-default-font-size);
 		color: var(--o-text-default-subtle);
-		//padding-left: var(--o-space-4);
 	}
 
 	&--disabled {

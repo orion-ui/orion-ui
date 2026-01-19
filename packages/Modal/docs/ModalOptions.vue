@@ -19,13 +19,14 @@
 		<o-modal
 			ref="_modalA"
 			:options="{
+				title: 'Modal with actions from options',
 				actions: [{
 					label: 'Modal Action',
 					color: 'success',
 					callback: () => useNotif.success('Accept from modal'),
 				}],
 			}">
-			<o-section title="Modal with actions from options">
+			<o-section>
 				<p class="text--grey-dark">
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 					Maecenas et sem commodo, feugiat lorem ut, aliquam eros.
@@ -36,7 +37,9 @@
 			</o-section>
 		</o-modal>
 
-		<o-modal ref="_modalB">
+		<o-modal
+			ref="_modalB"
+			:options="{ title: 'Modal with actions from footer slot' }">
 			<template #footer="{ close }">
 				<o-section align="right">
 					<o-button
@@ -48,7 +51,7 @@
 				</o-section>
 			</template>
 
-			<o-section title="Modal with actions from footer slot">
+			<o-section>
 				<p class="text--grey-dark">
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 					Maecenas et sem commodo, feugiat lorem ut, aliquam eros.
@@ -59,8 +62,10 @@
 			</o-section>
 		</o-modal>
 
-		<o-modal ref="_modalC">
-			<o-section title="Modal with actions from footer slot">
+		<o-modal
+			ref="_modalC"
+			:options="{ title: 'Modal with actions from footer slot' }">
+			<o-section>
 				<p class="text--grey-dark">
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 					Maecenas et sem commodo, feugiat lorem ut, aliquam eros.
@@ -81,13 +86,15 @@
 			</teleport>
 		</o-modal>
 
-		<o-modal ref="_modalD">
+		<o-modal
+			ref="_modalD"
+			:options="{ title: 'Modal with poster slot' }">
 			<template #poster>
 				<img
 					src="https://picsum.photos/800/200"
 					alt="Modal poster image">
 			</template>
-			<o-section title="Modal with poster slot">
+			<o-section>
 				<p class="text--grey-dark">
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 					Maecenas et sem commodo, feugiat lorem ut, aliquam eros.

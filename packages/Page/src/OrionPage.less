@@ -8,15 +8,15 @@
 	max-width: calc(510rem / 16);
 
 	@media @tablet {
-		max-width: calc(@BP-tablet - 4rem);
+		max-width: calc(@BP-tablet - 6rem);
 	}
 
 	@media @desktop {
-		max-width: calc(@BP-tabletLandscape - 4rem);
+		max-width: calc(@BP-desktop - 6rem);
 	}
 
 	@media @desktopXL {
-		max-width: calc(@BP-desktop - 4rem);
+		max-width: calc(@BP-desktopXL - 6rem);
 	}
 
 	&__header {
@@ -30,7 +30,7 @@
 		}
 
 		@media @desktop {
-			gap: 2rem;
+			gap: var(--o-space-16);
 		}
 
 		&--unwrap {
@@ -78,7 +78,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: flex-end;
-		gap: 0.5rem;
+		gap: var(--o-space-8);
 		flex: 1;
 
 		@media @tablet {
@@ -86,7 +86,7 @@
 		}
 
 		@media @desktop {
-			gap: 1rem;
+			gap: var(--o-space-8);
 		}
 
 		.vue-portal-target {

@@ -41,11 +41,11 @@ export type SharedPopableSetupServiceProps = {
 export default abstract class SharedPopableSetupService extends SharedSetupService {
 	static readonly defaultProps = { options: () => ({}) as Partial<Orion.Popable.Options> };
 
-	protected abstract name: Orion.Popable.Name;
+	protected readonly abstract name: Orion.Popable.Name;
 
-	_el = ref<RefDom>();
-	_loader = ref<OrionLoader>();
-	bus = mitt();
+	readonly _el = ref<RefDom>();
+	readonly _loader = ref<OrionLoader>();
+	readonly bus = mitt();
 
 	@Reactive protected readonly state = {
 		isClosing: false,
@@ -87,7 +87,7 @@ export default abstract class SharedPopableSetupService extends SharedSetupServi
 		return { zIndex: 100 + 1 + this.zIndexBumper + this.options.zIndex };
 	}
 
-	get headerIsDisplayed () {
+	get displayHeader () {
 		return !!this.slots?.header || !!this.options.title || !!this.options.description;
 	}
 
