@@ -43,6 +43,7 @@ import './OrionCheckbox.less';
 import { OrionField } from 'packages/Field';
 import { OrionIcon } from 'packages/Icon';
 import OrionCheckboxSetupService from './OrionCheckboxSetupService';
+import { toRefs } from 'vue';
 import type { OrionCheckboxProps,
 	OrionCheckboxEmits } from './OrionCheckboxSetupService';
 const emits = defineEmits<OrionCheckboxEmits<any>>() as OrionCheckboxEmits<any>;
@@ -51,6 +52,7 @@ const props = withDefaults(
 	defineProps<OrionCheckboxProps>(),
 	OrionCheckboxSetupService.defaultProps,
 );
+const { color } = toRefs(props);
 const setup = new OrionCheckboxSetupService(props, emits, vModel);
 defineExpose(setup.publicInstance);
 
