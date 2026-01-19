@@ -5,29 +5,32 @@
 .orion-textarea {
 	height: auto;
 
+	&.orion-input {
+		align-items: flex-start;
+		padding: var(--o-space-6) var(--o-space-12);
+	}
+
 	.orion-input__input {
 		height: auto;
 		min-height: 4rem;
 		line-height: 1.25rem;
-		padding-top: var(--o-space-16);
-		padding-bottom: var(--o-space-16);
+		//padding: 
 	}
 
 	.orion-input__pictos {
-		bottom: auto;
-		height: 2.25rem;
+		display: flex;
 	}
-
+	
 	&-max-length {
 		.orion-input__input {
-			padding-bottom: var(--o-space-32);
+			padding-bottom: var(--o-space-24);
 		}
 	}
 
 	.orion-input__textarea-counter {
 		position: absolute;
-		bottom: 0.4rem;
-		right: 0.4rem;
+		bottom: var(--o-space-6);
+		right: var(--o-space-12);
 		color: var(--o-text-default-moderate);
 		font-size: 0.75rem;
 	}
