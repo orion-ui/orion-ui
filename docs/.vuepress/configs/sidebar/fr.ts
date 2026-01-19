@@ -25,6 +25,7 @@ export const fr: SidebarOptions = [
 				text: 'Données',
 				children: [
 					`/fr/components/OrionAvatar.md`,
+					`/fr/components/OrionBadge.md`,
 					`/fr/components/OrionCard.md`,
 					`/fr/components/OrionCarousel.md`,
 					`/fr/components/OrionChips.md`,
@@ -61,6 +62,7 @@ export const fr: SidebarOptions = [
 					`/fr/components/OrionSelect.md`,
 					`/fr/components/OrionTextarea.md`,
 					`/fr/components/OrionToggle.md`,
+					`/fr/components/OrionToggleButton.md`,
 					`/fr/components/OrionUpload.md`,
 				],
 			},

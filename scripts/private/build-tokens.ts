@@ -6,9 +6,10 @@
  *  - packages/Shared/styles/tokens/semantic/dark.json
  *
  * Output:
+ *  - packages/Shared/styles/tokens/semantic/tokens.less
  *  - packages/Shared/styles/tokens/semantic/tokens-light.less
  *  - packages/Shared/styles/tokens/semantic/tokens-dark.less
- *  - packages/Shared/styles/tokens/primitive/tokens-primitive.less
+ *  - packages/Shared/styles/tokens/primitive/tokens.less
  *
  * Rules:
  *  - primitives => hard values
@@ -29,6 +30,7 @@ const INPUT = {
 };
 
 const OUTPUT = {
+	semantic: path.join(TOKENS_ROOT, 'semantic', 'tokens.less'),
 	semanticLight: path.join(TOKENS_ROOT, 'semantic', 'tokens-light.less'),
 	semanticDark: path.join(TOKENS_ROOT, 'semantic', 'tokens-dark.less'),
 	primitive: path.join(TOKENS_ROOT, 'primitive', 'tokens.less'),
@@ -37,22 +39,22 @@ const OUTPUT = {
 const PREFIX = '--o-';
 
 // Ensure output folders exist before writing files.
-function ensureDir(dirPath: string) {
+function ensureDir (dirPath: string) {
 	fs.mkdirSync(dirPath, { recursive: true });
 }
 
 // Read a JSON token file from disk.
-function readJson(filePath: string) {
+function readJson (filePath: string) {
 	const raw = fs.readFileSync(filePath, 'utf8');
 	return JSON.parse(raw);
 }
 
-function isRecord(value: unknown): value is Record<string, unknown> {
+function isRecord (value: unknown): value is Record<string, unknown> {
 	return !!value && typeof value === 'object';
 }
 
 // Detect a leaf token object with a usable value.
-function isTokenLeaf(node: unknown) {
+function isTokenLeaf (node: unknown) {
 	if (!isRecord(node)) return false;
 	if (Object.prototype.hasOwnProperty.call(node, '$value')) return true;
 	if (!Object.prototype.hasOwnProperty.call(node, 'value')) return false;
@@ -61,7 +63,7 @@ function isTokenLeaf(node: unknown) {
 }
 
 // Normalize token nodes that can store values under "$value" or "value".
-function getTokenValue(node: unknown) {
+function getTokenValue (node: unknown) {
 	if (isRecord(node)) {
 		if (Object.prototype.hasOwnProperty.call(node, '$value')) return node.$value;
 		if (Object.prototype.hasOwnProperty.call(node, 'value')) return node.value;
@@ -69,14 +71,22 @@ function getTokenValue(node: unknown) {
 	return node;
 }
 
-function toKebabCase(value: string) {
+function getTokenType (node: unknown) {
+	if (isRecord(node)) {
+		if (Object.prototype.hasOwnProperty.call(node, '$type')) return String(node.$type);
+		if (Object.prototype.hasOwnProperty.call(node, 'type')) return String(node.type);
+	}
+	return undefined;
+}
+
+function toKebabCase (value: string) {
 	return value
 		.replace(/([a-z0-9])([A-Z])/g, '$1-$2')
 		.replace(/\s+/g, '-')
 		.toLowerCase();
 }
 
-function normalizePathParts(parts: unknown[]) {
+function normalizePathParts (parts: unknown[]) {
 	return parts
 		.filter(Boolean)
 		.map(p => String(p).trim())
@@ -85,21 +95,40 @@ function normalizePathParts(parts: unknown[]) {
 }
 
 // Convert a token path array into a CSS variable name.
-function pathPartsToCssVar(parts: unknown[]) {
+function pathPartsToCssVar (parts: unknown[]) {
 	const clean = normalizePathParts(parts);
 	return `${PREFIX}${clean.join('-')}`;
 }
 
 const NO_PX_UNIT_SUFFIXES = ['-weight', '-opacity', '-z-index'];
+const REM_BASE = 16;
 
-// Append px for specific semantic suffixes when the value is unitless.
-function applyPxUnitForSuffixes(cssVar: string, cssValue: string) {
-	if (NO_PX_UNIT_SUFFIXES.some(suffix => cssVar.includes(suffix))) return cssValue.split('px')[0];
-	return cssValue;
+function isRemToken (pathParts: string[]) {
+	if (pathParts.length < 2) return false;
+	const [group, scale] = pathParts;
+	return group === 'typography' && (scale === 'size' || scale === 'lineHeight');
+}
+
+function isEmToken (pathParts: string[]) {
+	if (pathParts.length < 2) return false;
+	const [group, scale] = pathParts;
+	return group === 'typography' && scale === 'letterSpacing';
+}
+
+function formatNumber (value: number, decimals: number = 4) {
+	return value.toFixed(decimals).replace(/\.?0+$/, '');
+}
+
+function applyUnits (cssVar: string, value: unknown, cssValue: string, pathParts: string[]) {
+	if (typeof value !== 'number') return cssValue;
+	if (NO_PX_UNIT_SUFFIXES.some(suffix => cssVar.includes(suffix))) return String(value);
+	if (isEmToken(pathParts)) return `${formatNumber(value / REM_BASE)}em`;
+	if (isRemToken(pathParts)) return `${formatNumber(value / REM_BASE)}rem`;
+	return `${value}px`;
 }
 
 // Turn a token reference "{path.to.token}" into var(--o-...).
-function convertReferenceToCssVar(ref: string) {
+function convertReferenceToCssVar (ref: string) {
 	const inner = ref.trim().replace(/^\{/, '').replace(/\}$/, '').trim();
 	const parts = inner.includes('/') ? inner.split('/') : inner.split('.');
 	const cssVar = pathPartsToCssVar(parts);
@@ -108,7 +137,7 @@ function convertReferenceToCssVar(ref: string) {
 }
 
 // Convert raw token values to CSS-safe strings.
-function stringifyCssValue(value: unknown) {
+function stringifyCssValue (value: unknown) {
 	if (typeof value === 'string') {
 		const v = value.trim();
 
@@ -123,7 +152,7 @@ function stringifyCssValue(value: unknown) {
 		return v;
 	}
 
-	if (typeof value === 'number') return String(value) + 'px';
+	if (typeof value === 'number') return String(value);
 
 	if (value === null) return 'null';
 	if (typeof value === 'boolean') return value ? 'true' : 'false';
@@ -132,13 +161,18 @@ function stringifyCssValue(value: unknown) {
 }
 
 // Walk the token tree and collect all leaf tokens with their paths.
-function collectLeaves(obj: unknown, basePath: string[] = [], out: { path: string[]; value: unknown }[] = []) {
+function collectLeaves (
+	obj: unknown,
+	basePath: string[] = [],
+	out: { path: string[]; value: unknown; type?: string }[] = [],
+) {
 	if (!obj || typeof obj !== 'object') return out;
 
 	if (isTokenLeaf(obj)) {
 		out.push({
 			path: basePath,
 			value: getTokenValue(obj),
+			type: getTokenType(obj),
 		});
 		return out;
 	}
@@ -152,26 +186,32 @@ function collectLeaves(obj: unknown, basePath: string[] = [], out: { path: strin
 }
 
 // Build the CSS variable declarations for a root block.
-function buildCssVarsBlock(
-	leaves: { path: string[]; value: unknown }[],
+function buildCssVarsBlock (
+	leaves: { path: string[]; value: unknown; type?: string }[],
 	indent: string = '  ',
 ) {
 	const sorted = [...leaves].sort((a, b) => a.path.join('/').localeCompare(b.path.join('/')));
 	const lines = [];
 	for (const item of sorted) {
 		const cssVar = pathPartsToCssVar(item.path);
-		const cssValue = applyPxUnitForSuffixes(cssVar, stringifyCssValue(item.value));
-		lines.push(`${indent}${cssVar}: ${cssValue};`);
+		const rawValue = item.value;
+		const cssValue = stringifyCssValue(rawValue);
+		const withUnits = applyUnits(cssVar, rawValue, cssValue, item.path);
+		lines.push(`${indent}${cssVar}: ${withUnits};`);
 	}
 	return lines.join('\n');
 }
 
-function wrapBlock(selector: string, content: string) {
+function wrapBlock (selector: string, content: string) {
 	return `${selector} {\n${content}\n}\n`;
 }
 
 // Assemble a full file with header + root selector block.
-function buildRootFile(selector: string, source: string, leaves: { path: string[]; value: unknown }[]) {
+function buildRootFile (
+	selector: string,
+	source: string,
+	leaves: { path: string[]; value: unknown; type?: string }[],
+) {
 	return [
 		'/* AUTO-GENERATED - DO NOT EDIT */',
 		`/* Source: ${source} */`,
@@ -182,7 +222,7 @@ function buildRootFile(selector: string, source: string, leaves: { path: string[
 
 /** ---------- Build ---------- */
 
-function main() {
+function main () {
 	// Ensure all output dirs exist.
 	for (const outputFile of Object.values(OUTPUT)) {
 		ensureDir(path.dirname(outputFile));
@@ -193,7 +233,11 @@ function main() {
 	const semanticLight = readJson(INPUT.semanticLight);
 	const semanticDark = readJson(INPUT.semanticDark);
 
-	// Define the three outputs to generate.
+	const isColorLeaf = (leaf: { type?: string }) => (leaf.type || '').toLowerCase() === 'color';
+	const semanticLightLeaves = collectLeaves(semanticLight);
+	const semanticDarkLeaves = collectLeaves(semanticDark);
+
+	// Define the outputs to generate.
 	const files = [
 		{
 			output: OUTPUT.primitive,
@@ -202,16 +246,22 @@ function main() {
 			leaves: collectLeaves(primitive),
 		},
 		{
+			output: OUTPUT.semantic,
+			selector: ':root',
+			source: 'tokens/semantic/light.json (non-color)',
+			leaves: semanticLightLeaves.filter(leaf => !isColorLeaf(leaf)),
+		},
+		{
 			output: OUTPUT.semanticLight,
 			selector: ':root',
-			source: 'tokens/semantic/light.json',
-			leaves: collectLeaves(semanticLight),
+			source: 'tokens/semantic/light.json (colors)',
+			leaves: semanticLightLeaves.filter(isColorLeaf),
 		},
 		{
 			output: OUTPUT.semanticDark,
 			selector: ':root[data-theme=\'dark\']',
-			source: 'tokens/semantic/dark.json',
-			leaves: collectLeaves(semanticDark),
+			source: 'tokens/semantic/dark.json (colors)',
+			leaves: semanticDarkLeaves.filter(isColorLeaf),
 		},
 	];
 

@@ -36,10 +36,12 @@
 			</div>
 		</span>
 
-		<o-icon
+		<o-button
 			v-if="close"
 			class="orion-chips__close"
-			icon="close"
+			nude
+			prefix-icon="close"
+			type="button"
 			@click="emits('close')"
 			@touchend.prevent.stop="emits('close')"/>
 	</span>

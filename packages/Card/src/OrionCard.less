@@ -24,7 +24,7 @@
 		border-radius: var(--o-radius-md) var(--o-radius-md) 0 0;
 		overflow: hidden;
 
-		> img {
+		>img {
 			display: block;
 			width: 100%;
 			object-fit: cover;
@@ -32,35 +32,32 @@
 	}
 
 	&__header {
-		.orion-card--xs > & {
+		.orion-card--xs>& {
 			padding: var(--o-space-12) var(--o-space-12) 0;
 		}
 
-		.orion-card--sm > & {
+		.orion-card--sm>& {
 			padding: var(--o-space-16) var(--o-space-16) 0;
 		}
 
-		.orion-card--md > & {
+		.orion-card--md>& {
 			padding: var(--o-space-24) var(--o-space-24) 0;
 		}
 
-		.orion-card--lg > & {
+		.orion-card--lg>& {
 			padding: var(--o-space-32) var(--o-space-32) 0;
 		}
 
-		.orion-card--xl > & {
+		.orion-card--xl>& {
 			padding: var(--o-space-48) var(--o-space-48) 0;
 		}
 
 		&--lined {
 			border: 0;
 			border-bottom: 0.0625rem solid;
-			border-image: linear-gradient(
-					to right,
+			border-image: linear-gradient(to right,
 					color-mix(in srgb, var(--o-border-neutral-default) 0%, transparent),
-					color-mix(in srgb, var(--o-border-neutral-default) 100%, transparent)
-				)
-				1;
+					color-mix(in srgb, var(--o-border-neutral-default) 100%, transparent)) 1;
 
 			.orion-card--xs & {
 				padding: var(--o-space-12);
@@ -86,25 +83,25 @@
 
 	&__body {
 		flex: 1 0 0%;
-		font-size: var(--o-typography-label-bold-font-size);
+		.typography(body2-default);
 
-		.orion-card--xs > & {
+		.orion-card--xs>& {
 			padding: var(--o-space-12);
 		}
 
-		.orion-card--sm > & {
+		.orion-card--sm>& {
 			padding: var(--o-space-16);
 		}
 
-		.orion-card--md > & {
+		.orion-card--md>& {
 			padding: var(--o-space-24);
 		}
 
-		.orion-card--lg > & {
+		.orion-card--lg>& {
 			padding: var(--o-space-32);
 		}
 
-		.orion-card--xl > & {
+		.orion-card--xl>& {
 			padding: var(--o-space-48);
 		}
 
@@ -112,8 +109,8 @@
 			padding-top: 0;
 		}
 
-		> .orion-loader,
-		> .orion-overlay {
+		>.orion-loader,
+		>.orion-overlay {
 			border-radius: var(--o-radius-md);
 		}
 	}
@@ -174,53 +171,50 @@
 			margin: 0.5rem;
 		}
 
-		.orion-card--xs > & {
+		.orion-card--xs>& {
 			padding: 0 var(--o-space-12) var(--o-space-12);
 		}
 
-		.orion-card--sm > & {
+		.orion-card--sm>& {
 			padding: var(--o-space-8) var(--o-space-16) var(--o-space-32);
 		}
 
-		.orion-card--md > & {
+		.orion-card--md>& {
 			padding: var(--o-space-16) var(--o-space-24) var(--o-space-32);
 		}
 
-		.orion-card--lg > & {
+		.orion-card--lg>& {
 			padding: var(--o-space-24) var(--o-space-32) var(--o-space-32);
 		}
 
-		.orion-card--xl > & {
+		.orion-card--xl>& {
 			padding: var(--o-space-48) var(--o-space-48) var(--o-space-48);
 		}
 
 		&--lined {
 			border: 0;
 			border-top: 0.0625rem solid;
-			border-image: linear-gradient(
-					to right,
+			border-image: linear-gradient(to right,
 					color-mix(in srgb, var(--o-border-neutral-default) 0%, transparent),
-					color-mix(in srgb, var(--o-border-neutral-default) 100%, transparent)
-				)
-				1;
+					color-mix(in srgb, var(--o-border-neutral-default) 100%, transparent)) 1;
 
-			.orion-card--xs > & {
+			.orion-card--xs>& {
 				padding: var(--o-space-12);
 			}
 
-			.orion-card--sm > & {
+			.orion-card--sm>& {
 				padding: var(--o-space-16);
 			}
 
-			.orion-card--md > & {
+			.orion-card--md>& {
 				padding: var(--o-space-24);
 			}
 
-			.orion-card--lg > & {
+			.orion-card--lg>& {
 				padding: var(--o-space-32) var(--o-space-32);
 			}
 
-			.orion-card--xl > & {
+			.orion-card--xl>& {
 				padding: var(--o-space-48) var(--o-space-48);
 			}
 		}
@@ -228,47 +222,45 @@
 
 	&__title {
 		margin: 0;
-		font-size: var(--o-typography-heading-h5-font-size);
+		.typography(heading-h5);
 		color: var(--o-text-default-default);
-		font-weight: 600;
 
 		.orion-card--xs & {
-			font-size: var(--o-o-typography-body-default-font-size);
+			.typography(body2-bold);
 		}
 
 		.orion-card--sm & {
-			font-size: var(--o-o-typography-body-default-font-size);
+			.typography(body1-bold);
 		}
 
 		.orion-card--lg & {
-			font-size: var(--o-typography-heading-h4-font-size);
+			.typography(heading-h4);
 		}
 
 		.orion-card--xl & {
-			font-size: var(--o-typography-heading-h4-font-size);
+			.typography(heading-h3);
 		}
 	}
 
 	&__subtitle {
 		margin-top: var(--o-space-8);
-		font-size: var(--o-typography-body-default-font-size);
+		.typography(subtitle-default);
 		color: var(--o-text-default-subtle);
-		font-weight: 400;
 
 		.orion-card--xs & {
-			font-size: var(--o-typography-label-bold-font-size);
+			.typography(body2-default);
 		}
 
 		.orion-card--sm & {
-			font-size: var(--o-typography-label-bold-font-size);
+			.typography(body1-default);
 		}
 
 		.orion-card--lg & {
-			font-size: var(--o-o-typography-body-default-font-size);
+			.typography(heading-h5);
 		}
 
 		.orion-card--xl & {
-			font-size: var(--o-o-typography-body-default-font-size);
+			.typography(heading-h4);
 		}
 	}
 
@@ -351,38 +343,29 @@
 
 			each(@colors, {
 				@color: ~"--o-background-@{value}-default";
+
 				.orion-card--selected-@{value} & {
-					background: linear-gradient(
-						to bottom,
+					background: linear-gradient(to bottom,
 						color-mix(in srgb, var(@color) 0%, transparent),
-						color-mix(in srgb, var(@color) 100%, transparent)
-					);
+						color-mix(in srgb, var(@color) 100%, transparent));
 				}
 			});
 
-			.orion-card--selected-default & {
-				background: linear-gradient(
-					to bottom,
+		.orion-card--selected-default & {
+			background: linear-gradient(to bottom,
 					color-mix(in srgb, var(--o-background-neutral-default) 0%, transparent),
-					color-mix(
-						in srgb,
+					color-mix(in srgb,
 						var(--o-background-neutral-default) 100%,
-						transparent
-					)
-				);
-			}
+						transparent));
+		}
 
-			.orion-card--selected-inverted & {
-				background: linear-gradient(
-					to bottom,
+		.orion-card--selected-inverted & {
+			background: linear-gradient(to bottom,
 					color-mix(in srgb, var(--o-background-neutral-default) 0%, transparent),
-					color-mix(
-						in srgb,
+					color-mix(in srgb,
 						var(--o-background-neutral-default) 100%,
-						transparent
-					)
-				);
-			}
+						transparent));
+		}
 		}
 
 		&::after {
@@ -391,37 +374,28 @@
 
 			each(@colors, {
 				@color: ~"--o-background-@{value}-default";
+
 				.orion-card--selected-@{value} & {
-					background: linear-gradient(
-						to right,
+					background: linear-gradient(to right,
 						color-mix(in srgb, var(@color) 0%, transparent),
-						color-mix(in srgb, var(@color) 100%, transparent)
-					);
+						color-mix(in srgb, var(@color) 100%, transparent));
 				}
 			});
 
 			.orion-card--selected-default & {
-				background: linear-gradient(
-					to right,
-					color-mix(in srgb, var(--o-background-neutral-default) 0%, transparent),
-					color-mix(
-						in srgb,
-						var(--o-background-neutral-default) 100%,
-						transparent
-					)
-				);
+				background: linear-gradient(to right,
+						color-mix(in srgb, var(--o-background-neutral-default) 0%, transparent),
+						color-mix(in srgb,
+							var(--o-background-neutral-default) 100%,
+							transparent));
 			}
 
 			.orion-card--selected-inverted & {
-				background: linear-gradient(
-					to right,
-					color-mix(in srgb, var(--o-background-neutral-default) 0%, transparent),
-					color-mix(
-						in srgb,
-						var(--o-background-neutral-default) 100%,
-						transparent
-					)
-				);
+				background: linear-gradient(to right,
+						color-mix(in srgb, var(--o-background-neutral-default) 0%, transparent),
+						color-mix(in srgb,
+							var(--o-background-neutral-default) 100%,
+							transparent));
 			}
 		}
 
@@ -441,6 +415,7 @@
 
 	&[class*='--gradient-'] {
 		color: var(--o-text-default-inverted);
+
 		.orion-card__title,
 		.orion-card__subtitle {
 			color: var(--o-text-default-inverted);
@@ -449,11 +424,9 @@
 
 	each(@colors, {
 		&--gradient-@{value} {
-			background: linear-gradient(
-						to bottom right,
-						var(~"--o-background-@{value}-default"),
-						var(~"--o-background-@{value}-subtle")
-					);
+			background: linear-gradient(to bottom right,
+				var(~"--o-background-@{value}-default"),
+				var(~"--o-background-@{value}-subtle"));
 		}
 	});
 
@@ -465,11 +438,9 @@
 			color: var(--o-text-default-default);
 		}
 
-		background: linear-gradient(
-			to bottom right,
+		background: linear-gradient(to bottom right,
 			color-mix(in srgb, var(--o-background-neutral-default) 100%, transparent),
-			color-mix(in srgb, var(--o-background-neutral-moderate) 100%, transparent)
-		);
+			color-mix(in srgb, var(--o-background-neutral-moderate) 100%, transparent));
 	}
 
 	&--gradient-inverted.orion-card {
@@ -480,11 +451,9 @@
 			color: var(--o-text-default-default);
 		}
 
-		background: linear-gradient(
-			to bottom right,
+		background: linear-gradient(to bottom right,
 			color-mix(in srgb, var(--o-background-neutral-moderate) 100%, transparent),
-			color-mix(in srgb, var(--o-background-neutral-highlight) 100%, transparent)
-		);
+			color-mix(in srgb, var(--o-background-neutral-highlight) 100%, transparent));
 	}
 
 	&--no-elevation {
@@ -501,18 +470,11 @@
 			z-index: 1;
 			transform: translate3d(0, -0.125rem, 0);
 			box-shadow:
-				0 calc(var(--elevation) / 8) calc(var(--elevation) / 8)
-					var(--shadowColor),
-				0 calc(var(--elevation) / 4) calc(var(--elevation) / 4)
-					var(--shadowColor),
-				0 calc(var(--elevation) / 2) calc(var(--elevation) / 2)
-					var(--shadowColor),
+				0 calc(var(--elevation) / 8) calc(var(--elevation) / 8) var(--shadowColor),
+				0 calc(var(--elevation) / 4) calc(var(--elevation) / 4) var(--shadowColor),
+				0 calc(var(--elevation) / 2) calc(var(--elevation) / 2) var(--shadowColor),
 				0 var(--elevation) var(--elevation) var(--shadowColor),
-				0 calc(var(--elevation) * 2) calc(var(--elevation) * 2)
-					var(--shadowColor);
+				0 calc(var(--elevation) * 2) calc(var(--elevation) * 2) var(--shadowColor);
 		}
 	}
 }
-
-
-

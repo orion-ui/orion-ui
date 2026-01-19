@@ -343,13 +343,13 @@
       }
     },
     "size": {
-      "11": {
+      "10": {
         "$type": "number",
-        "$value": 11.11
+        "$value": 10
       },
-      "13": {
+      "12": {
         "$type": "number",
-        "$value": 13.33
+        "$value": 12
       },
       "14": {
         "$type": "number",
@@ -359,53 +359,61 @@
         "$type": "number",
         "$value": 16
       },
-      "19": {
-        "$type": "number",
-        "$value": 19.2
-      },
-      "23": {
-        "$type": "number",
-        "$value": 23.04
-      },
-      "27": {
-        "$type": "number",
-        "$value": 27.65
-      },
-      "33": {
-        "$type": "number",
-        "$value": 33.18
-      },
-      "40": {
-        "$type": "number",
-        "$value": 39.81
-      },
-      "48": {
-        "$type": "number",
-        "$value": 47.78
-      }
-    },
-    "lineHeight": {
-      "2xl": {
-        "$type": "number",
-        "$value": 56
-      },
-      "relaxed": {
-        "$type": "number",
-        "$value": 25
-      },
-      "normal": {
-        "$type": "number",
-        "$value": 20
-      },
-      "loose": {
-        "$type": "number",
-        "$value": 27
-      },
-      "tight": {
+      "18": {
         "$type": "number",
         "$value": 18
       },
-      "xl": {
+      "20": {
+        "$type": "number",
+        "$value": 20
+      },
+      "24": {
+        "$type": "number",
+        "$value": 24
+      },
+      "28": {
+        "$type": "number",
+        "$value": 28
+      },
+      "32": {
+        "$type": "number",
+        "$value": 32
+      },
+      "40": {
+        "$type": "number",
+        "$value": 40
+      }
+    },
+    "lineHeight": {
+      "16": {
+        "$type": "number",
+        "$value": 16
+      },
+      "18": {
+        "$type": "number",
+        "$value": 18
+      },
+      "20": {
+        "$type": "number",
+        "$value": 20
+      },
+      "24": {
+        "$type": "number",
+        "$value": 24
+      },
+      "28": {
+        "$type": "number",
+        "$value": 28
+      },
+      "32": {
+        "$type": "number",
+        "$value": 32
+      },
+      "40": {
+        "$type": "number",
+        "$value": 40
+      },
+      "56": {
         "$type": "number",
         "$value": 40
       }
@@ -430,6 +438,24 @@
       "regular": {
         "$type": "number",
         "$value": 400
+      }
+    },
+    "letterSpacing": {
+      "tighter": {
+        "$type": "number",
+        "$value": -0.4
+      },
+      "default": {
+        "$type": "number",
+        "$value": 0
+      },
+      "relaxed": {
+        "$type": "number",
+        "$value": 0.4
+      },
+      "tight": {
+        "$type": "number",
+        "$value": -0.2
       }
     }
   },

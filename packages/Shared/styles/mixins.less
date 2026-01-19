@@ -73,3 +73,11 @@
 	filter: saturate(150%);
 }
 
+.typography(@name) {
+  font-family: var(~"--o-typography-@{name}-font-family");
+  font-size: var(~"--o-typography-@{name}-font-size");
+  font-style: normal;
+  font-weight: var(~"--o-typography-@{name}-font-weight");
+  line-height: var(~"--o-typography-@{name}-line-height");
+  letter-spacing: var(~"--o-typography-@{name}-letter-spacing");
+}

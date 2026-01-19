@@ -9,6 +9,7 @@ import { OrionAlertSetupService, OrionAlertProps, OrionAlertEmits } from '../pac
 import { OrionAsideSetupService, OrionAsideProps, OrionAsideEmits } from '../packages/index';
 import { OrionAvatarSetupService, OrionAvatarProps, OrionAvatarEmits } from '../packages/index';
 import { OrionAvatarGroupSetupService, OrionAvatarGroupProps, OrionAvatarGroupEmits } from '../packages/index';
+import { OrionBadgeSetupService, OrionBadgeProps, OrionBadgeEmits } from '../packages/index';
 import { OrionButtonSetupService, OrionButtonProps, OrionButtonEmits } from '../packages/index';
 import { OrionCardSetupService, OrionCardProps, OrionCardEmits } from '../packages/index';
 import { OrionCarouselSetupService, OrionCarouselProps, OrionCarouselEmits } from '../packages/index';
@@ -69,6 +70,7 @@ import { OrionTimelineSetupService, OrionTimelineProps, OrionTimelineEmits } fro
 import { OrionTimelinePaneSetupService, OrionTimelinePaneProps, OrionTimelinePaneEmits } from '../packages/index';
 import { OrionTimelinePillSetupService, OrionTimelinePillProps, OrionTimelinePillEmits } from '../packages/index';
 import { OrionToggleSetupService, OrionToggleProps, OrionToggleEmits } from '../packages/index';
+import { OrionToggleButtonSetupService, OrionToggleButtonProps, OrionToggleButtonEmits } from '../packages/index';
 import { OrionTourSetupService, OrionTourProps, OrionTourEmits } from '../packages/index';
 import { OrionTourStepSetupService, OrionTourStepProps, OrionTourStepEmits } from '../packages/index';
 import { OrionUploadSetupService, OrionUploadProps, OrionUploadEmits } from '../packages/index';
@@ -96,6 +98,12 @@ declare global {
 	namespace OrionAvatarGroup {
 		type Props = OrionAvatarGroupProps
 		type Emits = OrionAvatarGroupEmits
+	}
+
+	type OrionBadge = InstanceType<typeof OrionBadgeSetupService>['publicInstance'];
+	namespace OrionBadge {
+		type Props = OrionBadgeProps
+		type Emits = OrionBadgeEmits
 	}
 
 	type OrionButton = InstanceType<typeof OrionButtonSetupService>['publicInstance'];
@@ -456,6 +464,12 @@ declare global {
 	namespace OrionToggle {
 		type Props = OrionToggleProps
 		type Emits = OrionToggleEmits
+	}
+
+	type OrionToggleButton = InstanceType<typeof OrionToggleButtonSetupService>['publicInstance'];
+	namespace OrionToggleButton {
+		type Props = OrionToggleButtonProps
+		type Emits = OrionToggleButtonEmits
 	}
 
 	type OrionTour = InstanceType<typeof OrionTourSetupService>['publicInstance'];

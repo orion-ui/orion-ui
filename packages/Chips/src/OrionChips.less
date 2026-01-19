@@ -19,11 +19,28 @@
 	&__close {
 		position: absolute;
 		right: calc(3rem / 16);
+		padding: 0;
+		min-width: 0;
+		min-height: 0;
+		border-radius: var(--o-radius-round);
+		line-height: 1;
 
-		&:hover {
-			opacity: 1;
-			color: var(--o-text-default-inverted) !important;
-			border-color: var(--o-border-neutral-inverted);
+		&.orion-button {
+			background: transparent;
+			border-color: transparent;
+			color: var(--o-text-default-inverted);
+		}
+
+		&:hover,
+		&:focus,
+		&:active {
+			background: transparent;
+			color: var(--o-text-default-default);
+		}
+
+		&.orion-button.orion-button--nude:hover,
+		&.orion-button.orion-button--nude:focus {
+			background: transparent;
 		}
 	}
 
@@ -40,13 +57,23 @@
 	}
 
 	&__icon {
-		font-size: var(--o-typography-body-default-font-size);
+		font-size: var(--o-typography-body2-default-font-size);
 	}
 
 	each(@colorsAndGreys, {
 		&--@{value} {
 			color: white;
 			background: var(~"--o-background-@{value}-default");
+
+			.orion-chips__close.orion-button {
+				color: var(--o-text-default-inverted);
+			}
+
+			.orion-chips__close.orion-button:hover,
+			.orion-chips__close.orion-button:focus,
+			.orion-chips__close.orion-button:active {
+				color: var(~"--o-text-@{value}-default", var(--o-text-default-default));
+			}
 
 			.orion-chips__dual {
 				color: var(~"--o-text-@{value}-default");
@@ -66,7 +93,6 @@
 			&.orion-chips--nude {
 				.orion-chips__close {
 					color: var(~"--o-text-@{value}-default") !important;
-					border-color: var(~"--o-border-@{value}-default") !important;
 				}
 			}
 
@@ -91,6 +117,16 @@
 				color: var(--o-text-default-inverted);
 				background: var(~"--o-background-@{value}-alt");
 				border-color: transparent;
+
+				.orion-chips__close.orion-button {
+					color: var(--o-text-default-inverted);
+				}
+
+				.orion-chips__close.orion-button:hover,
+				.orion-chips__close.orion-button:focus,
+				.orion-chips__close.orion-button:active {
+					color: var(~"--o-text-@{value}-alt", var(--o-text-default-default));
+				}
 
 				.orion-chips__dual {
 					color: var(~"--o-text-@{value}-alt");
@@ -147,10 +183,7 @@
 
 &--xs {
 	@paddingClose: 1.25rem;
-	font-family: var(--o-typography-caption-default-fontFamily);
-	font-size: var(--o-typography-caption-default-font-size);
-	font-style: normal;
-	font-weight: var(--o-typography-caption-default-fontWeight);
+	.typography(caption-default);
 
 
 	.orion-chips {
@@ -165,7 +198,12 @@
 		}
 
 		&__close {
-			.close(var(--o-typography-caption-default-font-size););
+			.square(var(--o-space-8));
+		}
+
+		&__close .orion-button__icon {
+			.square(var(--o-space-8));
+			font-size: var(--o-typography-caption-default-font-size);
 		}
 	}
 
@@ -186,23 +224,26 @@
 
 &--sm {
 	@paddingClose: calc(22rem / 16);
-	font-family: var(--o-typography-caption-default-fontFamily);
-	font-size: var(--o-typography-caption-default-font-size);
-	font-style: normal;
-	font-weight: var(--o-typography-caption-default-fontWeight);
+	.typography(caption-default);
+
 	.orion-chips {
 
 		&__main,
 		&__dual {
-			padding: 0 var(--o-space-8);
+			padding: var(--o-space-2) var(--o-space-8);
 		}
 
 		&__icon {
-	font-size: var(--o-typography-caption-default-font-size);
+			font-size: var(--o-typography-caption-default-font-size);
 		}
 
 		&__close {
-			.close(var(--o-typography-caption-default-font-size));
+			.square(var(--o-space-12));
+		}
+
+		&__close .orion-button__icon {
+			.square(var(--o-space-12));
+			font-size: var(--o-typography-caption-default-font-size);
 		}
 	}
 
@@ -223,10 +264,7 @@
 
 &--md {
 	@paddingClose: calc(24rem / 16);
-	font-family: var(--o-typography-label-default-fontFamily);
-	font-size: var(--o-typography-label-default-font-size);
-	font-style: normal;
-	font-weight: var(--o-typography-label-default-fontWeight);
+	.typography(label-default);
 
 	.orion-chips {
 		&__main {
@@ -234,11 +272,16 @@
 		}
 
 		&__dual {
-			padding: 0 var(--o-space-8);
+			padding: var(--o-space-2) var(--o-space-8);
 		}
 
 		&__close {
-			.close(var(--o-typography-label-default-font-size));
+			.square(var(--o-space-16));
+		}
+
+		&__close .orion-button__icon {
+			.square(var(--o-space-16));
+			font-size: var(--o-typography-label-default-font-size);
 		}
 	}
 
@@ -259,10 +302,7 @@
 
 &--lg {
 	@paddingClose: calc(25rem / 16);
-	font-family: var(--o-typography-label-default-fontFamily);
-	font-size: var(--o-typography-label-default-font-size);
-	font-style: normal;
-	font-weight: var(--o-typography-label-default-fontWeight);
+	.typography(label-default);
 
 	.orion-chips {
 
@@ -277,7 +317,12 @@
 		}
 
 		&__close {
-			.close(var(--o-typography-label-default-font-size));
+			.square(var(--o-space-16));
+		}
+
+		&__close .orion-button__icon {
+			.square(var(--o-space-16));
+			font-size: var(--o-typography-label-default-font-size);
 		}
 	}
 
@@ -299,10 +344,7 @@
 &--xl {
 	@paddingClose: calc(26rem / 16);
 	height: 2rem;
-	font-family: var(--o-typography-body-default-fontFamily);
-	font-size: var(--o-typography-body-default-font-size);
-	font-style: normal;
-	font-weight: var(--o-typography-body-default-fontWeight);
+	.typography(body2-default);
 
 	.orion-chips {
 
@@ -313,11 +355,16 @@
 		}
 
 		&__icon {
-			font-size: var(--o-typography-body-default-font-size);
+			font-size: var(--o-typography-body2-default-font-size);
 		}
 
 		&__close {
-			.close(var(--o-typography-body-default-font-size));
+			.square(var(--o-space-16));
+		}
+
+		&__close .orion-button__icon {
+			.square(var(--o-space-16));
+			font-size: var(--o-typography-body2-default-font-size);
 		}
 	}
 

@@ -15,11 +15,11 @@
 	background: var(--o-background-neutral-default);
 	border-radius: var(--o-radius-md);
 	padding: var(--o-space-16);
-	font-size: var(--o-typography-label-default-font-size);
+	.typography(body2-default);
 	color: var(--o-text-default-default);
 	border: 1px solid var(--o-border-neutral-default);
-	box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.03) ;
-	backface-visibility: hidden; 
+	box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.03);
+	backface-visibility: hidden;
 	gap: var(--o-space-16);
 
 	&__header {
@@ -55,7 +55,7 @@
 		position: relative;
 		margin-top: 0.0625rem;
 		color: var(--o-text-default-subtle);
-	
+
 		&.orion-icon {
 			font-size: var(--o-typography-heading-h5-font-size);
 		}
@@ -67,8 +67,8 @@
 		position: absolute;
 		top: -0.5rem;
 		right: 0rem;
-		font-size: var(--o-typography-body-default-font-size);
-		font-weight: var(--o-typography-body-default-font-weight);
+		font-size: var(--o-typography-body2-default-font-size);
+		font-weight: var(--o-typography-body2-default-font-weight);
 		color: var(--o-text-default-default);
 		cursor: pointer;
 
@@ -154,4 +154,3 @@
 		}
 	});
 }
-

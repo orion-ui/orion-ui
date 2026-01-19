@@ -34,7 +34,7 @@
 		padding-bottom: 0.125rem;
 		padding-left: calc(5px + 0.125rem); // 7px
 		margin: 0.125rem 0.25rem 0.125rem 0;
-	background: color-mix(in srgb, var(--o-background-neutral-minimal) 60%, transparent);
+		background: color-mix(in srgb, var(--o-background-neutral-minimal) 60%, transparent);
 
 		.orion-input--disabled &,
 		.orion-input--readonly & {
@@ -101,7 +101,7 @@
 			max-height: 75dvh;
 		}
 
-		.favorite-separator{
+		.favorite-separator {
 			margin: .5rem 0rem;
 			border-image: unset;
 			border-color: var(--o-border-neutral-default);
@@ -113,7 +113,7 @@
 			justify-content: space-between;
 			gap: 1.25rem;
 			padding: var(--o-space-8) var(--o-space-32);
-			font-size: 0.875rem;
+			.typography(body2-default);
 			transition: background 0.3s, color 0.3s;
 			color: var(--o-text-default-default);
 			cursor: pointer;
@@ -230,4 +230,3 @@
 		outline: none;
 	}
 }
-

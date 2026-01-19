@@ -13,20 +13,20 @@
 				collapsible ? `orion-section__header--collapsible` : null,
 			]">
 			<div>
-				<h3
+				<h4
 					v-if="title"
 					class="orion-section__title">
 					{{ title }}
 					<orion-icon
 						v-if="collapsible"
-						:icon="collapsed ? 'expand_more' : 'chevron_up'"
+						:icon="collapsed ? 'keyboard_arrow_down' : 'keyboard_arrow_up'"
 						class="orion-section__title-chevron"/>
-				</h3>
-				<h4
+				</h4>
+				<span
 					v-if="subtitle"
 					class="orion-section__subtitle">
 					{{ subtitle }}
-				</h4>
+			</span>
 			</div>
 
 			<div

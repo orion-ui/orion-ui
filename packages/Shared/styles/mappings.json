@@ -91,7 +91,7 @@
 		"--font-weight-page-subtitle": "--o-typography-weight-medium",
 		"--font-weight-section-title": "--o-typography-label-bold-font-weight",
 		"--font-weight-section-subtitle": "--o-typography-weight-medium",
-		"--o-size-default": "--o-typography-body-default-font-size",
+		"--o-size-default": "--o-typography-body2-default-font-size",
 
 		"--base": "--o-background-primary-default",
 		"--color": "--o-text-default-default",
