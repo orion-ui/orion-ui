@@ -71,6 +71,7 @@ import { OrionTimelinePaneSetupService, OrionTimelinePaneProps, OrionTimelinePan
 import { OrionTimelinePillSetupService, OrionTimelinePillProps, OrionTimelinePillEmits } from '../packages/index';
 import { OrionToggleSetupService, OrionToggleProps, OrionToggleEmits } from '../packages/index';
 import { OrionToggleButtonSetupService, OrionToggleButtonProps, OrionToggleButtonEmits } from '../packages/index';
+import { OrionToggleButtonGroupSetupService, OrionToggleButtonGroupProps, OrionToggleButtonGroupEmits } from '../packages/index';
 import { OrionTourSetupService, OrionTourProps, OrionTourEmits } from '../packages/index';
 import { OrionTourStepSetupService, OrionTourStepProps, OrionTourStepEmits } from '../packages/index';
 import { OrionUploadSetupService, OrionUploadProps, OrionUploadEmits } from '../packages/index';
@@ -470,6 +471,12 @@ declare global {
 	namespace OrionToggleButton {
 		type Props = OrionToggleButtonProps
 		type Emits = OrionToggleButtonEmits
+	}
+
+	type OrionToggleButtonGroup = InstanceType<typeof OrionToggleButtonGroupSetupService>['publicInstance'];
+	namespace OrionToggleButtonGroup {
+		type Props = OrionToggleButtonGroupProps
+		type Emits = OrionToggleButtonGroupEmits
 	}
 
 	type OrionTour = InstanceType<typeof OrionTourSetupService>['publicInstance'];
