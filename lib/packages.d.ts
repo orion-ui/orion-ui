@@ -9,6 +9,7 @@ import { OrionAlertSetupService, OrionAlertProps, OrionAlertEmits } from '../pac
 import { OrionAsideSetupService, OrionAsideProps, OrionAsideEmits } from '../packages/index';
 import { OrionAvatarSetupService, OrionAvatarProps, OrionAvatarEmits } from '../packages/index';
 import { OrionAvatarGroupSetupService, OrionAvatarGroupProps, OrionAvatarGroupEmits } from '../packages/index';
+import { OrionBadgeSetupService, OrionBadgeProps, OrionBadgeEmits } from '../packages/index';
 import { OrionButtonSetupService, OrionButtonProps, OrionButtonEmits } from '../packages/index';
 import { OrionCardSetupService, OrionCardProps, OrionCardEmits } from '../packages/index';
 import { OrionCarouselSetupService, OrionCarouselProps, OrionCarouselEmits } from '../packages/index';
@@ -98,6 +99,12 @@ declare global {
 	namespace OrionAvatarGroup {
 		type Props = OrionAvatarGroupProps
 		type Emits = OrionAvatarGroupEmits
+	}
+
+	type OrionBadge = InstanceType<typeof OrionBadgeSetupService>['publicInstance'];
+	namespace OrionBadge {
+		type Props = OrionBadgeProps
+		type Emits = OrionBadgeEmits
 	}
 
 	type OrionButton = InstanceType<typeof OrionButtonSetupService>['publicInstance'];

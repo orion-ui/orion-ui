@@ -8,7 +8,6 @@
 }
 
 .orion-toggle-button {
-
   position: relative;
 	display: inline-flex;
 	align-items: center;
@@ -18,7 +17,6 @@
   border-radius: var(--o-radius-md);
   border: 1px solid var(--o-border-neutral-default);
   background: var(--o-background-neutral-default);
-  
   cursor: pointer;
 
   &:hover {
@@ -31,7 +29,7 @@
 	}
 
   &--nude {
-    border: 1px solid transparent;
+    border-color: transparent;
     background: transparent;
   }
 
@@ -46,6 +44,7 @@
   }
 
   &--disabled {
+		cursor: not-allowed;
     background: var(--o-background-neutral-disabled);
     color: var(--o-text-default-disabled);
     border-color: var(--o-border-neutral-disabled);
@@ -88,16 +87,11 @@
 		}
   }
 
-  &--disabled {
-		cursor: not-allowed;
-	}
-
   &--loading {
-      cursor: progress;
+    cursor: progress;
 
-      .orion-icon__loading {
-        stroke: var(--o-text-default-moderate);
-      }
+    .orion-icon__loading {
+      stroke: var(--o-text-default-moderate);
+    }
 	}
-
 }

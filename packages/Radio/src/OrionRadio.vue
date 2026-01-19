@@ -13,6 +13,7 @@
 		<slot v-if="label === undefined"/>
 
 		<input
+			:id="`orion-radio_${setup._uid}`"
 			:ref="setup._input"
 			class="orion-radio__input"
 			type="radio"
@@ -33,11 +34,11 @@
 </template>
 
 <script setup lang="ts">
-import './OrionRadio.less';
 import { OrionField } from 'packages/Field';
 import { OrionIcon } from 'packages/Icon';
+import './OrionRadio.less';
+import type { OrionRadioEmits, OrionRadioProps, VModelType } from './OrionRadioSetupService';
 import OrionRadioSetupService from './OrionRadioSetupService';
-import type { OrionRadioProps, OrionRadioEmits, VModelType } from './OrionRadioSetupService';
 const emits = defineEmits<OrionRadioEmits>() as OrionRadioEmits;
 const vModel = defineModel<VModelType>();
 const props = withDefaults(defineProps<OrionRadioProps>(), OrionRadioSetupService.defaultProps);

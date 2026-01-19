@@ -6,9 +6,10 @@
  *  - packages/Shared/styles/tokens/semantic/dark.json
  *
  * Output:
+ *  - packages/Shared/styles/tokens/semantic/tokens.less
  *  - packages/Shared/styles/tokens/semantic/tokens-light.less
  *  - packages/Shared/styles/tokens/semantic/tokens-dark.less
- *  - packages/Shared/styles/tokens/primitive/tokens-primitive.less
+ *  - packages/Shared/styles/tokens/primitive/tokens.less
  *
  * Rules:
  *  - primitives => hard values
@@ -29,6 +30,7 @@ const INPUT = {
 };
 
 const OUTPUT = {
+	semantic: path.join(TOKENS_ROOT, 'semantic', 'tokens.less'),
 	semanticLight: path.join(TOKENS_ROOT, 'semantic', 'tokens-light.less'),
 	semanticDark: path.join(TOKENS_ROOT, 'semantic', 'tokens-dark.less'),
 	primitive: path.join(TOKENS_ROOT, 'primitive', 'tokens.less'),
@@ -67,6 +69,14 @@ function getTokenValue (node: unknown) {
 		if (Object.prototype.hasOwnProperty.call(node, 'value')) return node.value;
 	}
 	return node;
+}
+
+function getTokenType (node: unknown) {
+	if (isRecord(node)) {
+		if (Object.prototype.hasOwnProperty.call(node, '$type')) return String(node.$type);
+		if (Object.prototype.hasOwnProperty.call(node, 'type')) return String(node.type);
+	}
+	return undefined;
 }
 
 function toKebabCase (value: string) {
@@ -151,13 +161,18 @@ function stringifyCssValue (value: unknown) {
 }
 
 // Walk the token tree and collect all leaf tokens with their paths.
-function collectLeaves (obj: unknown, basePath: string[] = [], out: { path: string[]; value: unknown }[] = []) {
+function collectLeaves (
+	obj: unknown,
+	basePath: string[] = [],
+	out: { path: string[]; value: unknown; type?: string }[] = [],
+) {
 	if (!obj || typeof obj !== 'object') return out;
 
 	if (isTokenLeaf(obj)) {
 		out.push({
 			path: basePath,
 			value: getTokenValue(obj),
+			type: getTokenType(obj),
 		});
 		return out;
 	}
@@ -172,7 +187,7 @@ function collectLeaves (obj: unknown, basePath: string[] = [], out: { path: stri
 
 // Build the CSS variable declarations for a root block.
 function buildCssVarsBlock (
-	leaves: { path: string[]; value: unknown }[],
+	leaves: { path: string[]; value: unknown; type?: string }[],
 	indent: string = '  ',
 ) {
 	const sorted = [...leaves].sort((a, b) => a.path.join('/').localeCompare(b.path.join('/')));
@@ -192,7 +207,11 @@ function wrapBlock (selector: string, content: string) {
 }
 
 // Assemble a full file with header + root selector block.
-function buildRootFile (selector: string, source: string, leaves: { path: string[]; value: unknown }[]) {
+function buildRootFile (
+	selector: string,
+	source: string,
+	leaves: { path: string[]; value: unknown; type?: string }[],
+) {
 	return [
 		'/* AUTO-GENERATED - DO NOT EDIT */',
 		`/* Source: ${source} */`,
@@ -214,7 +233,11 @@ function main () {
 	const semanticLight = readJson(INPUT.semanticLight);
 	const semanticDark = readJson(INPUT.semanticDark);
 
-	// Define the three outputs to generate.
+	const isColorLeaf = (leaf: { type?: string }) => (leaf.type || '').toLowerCase() === 'color';
+	const semanticLightLeaves = collectLeaves(semanticLight);
+	const semanticDarkLeaves = collectLeaves(semanticDark);
+
+	// Define the outputs to generate.
 	const files = [
 		{
 			output: OUTPUT.primitive,
@@ -223,16 +246,22 @@ function main () {
 			leaves: collectLeaves(primitive),
 		},
 		{
+			output: OUTPUT.semantic,
+			selector: ':root',
+			source: 'tokens/semantic/light.json (non-color)',
+			leaves: semanticLightLeaves.filter(leaf => !isColorLeaf(leaf)),
+		},
+		{
 			output: OUTPUT.semanticLight,
 			selector: ':root',
-			source: 'tokens/semantic/light.json',
-			leaves: collectLeaves(semanticLight),
+			source: 'tokens/semantic/light.json (colors)',
+			leaves: semanticLightLeaves.filter(isColorLeaf),
 		},
 		{
 			output: OUTPUT.semanticDark,
 			selector: ':root[data-theme=\'dark\']',
-			source: 'tokens/semantic/dark.json',
-			leaves: collectLeaves(semanticDark),
+			source: 'tokens/semantic/dark.json (colors)',
+			leaves: semanticDarkLeaves.filter(isColorLeaf),
 		},
 	];
 
