@@ -1,0 +1,97 @@
+@import '../../Shared/styles/variables.less';
+@import '../../Shared/styles/mixins.less';
+
+.icon-size(@size) {
+	.square(@size);
+	.flex-align();
+	font-size: @size;
+}
+
+.orion-toggle-button {
+  position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	vertical-align: middle;
+  gap: var(--o-space-4);
+  border-radius: var(--o-radius-md);
+  border: 1px solid var(--o-border-neutral-default);
+  background: var(--o-background-neutral-default);
+  cursor: pointer;
+
+  &:hover {
+    background: var(--o-background-neutral-minimal);
+  }
+
+  &__icon {
+		.icon-size(1rem);
+		pointer-events: none;
+	}
+
+  &--nude {
+    border-color: transparent;
+    background: transparent;
+  }
+
+  &--active {
+    each(@colors, {
+      &.orion-toggle-button--@{value}:not(.orion-toggle-button--disabled) {
+        color: var(~"--o-text-@{value}-active");
+        background: var(~"--o-background-@{value}-minimal");
+        border: 1px solid var(~"--o-border-@{value}-default");
+      }
+    })
+  }
+
+  &--disabled {
+		cursor: not-allowed;
+    background: var(--o-background-neutral-disabled);
+    color: var(--o-text-default-disabled);
+    border-color: var(--o-border-neutral-disabled);
+
+    &:hover, &:focus {
+      background: var(--o-background-neutral-disabled);
+      border-color: var(--o-border-neutral-disabled);
+    }
+
+    &.orion-button--nude {
+      background: transparent;
+    }
+  }
+
+  &--md {
+    padding: var(--o-space-4) var(--o-space-12);
+    .typography(body2-bold);
+    height: var(--o-height-control-md);
+
+    .orion-icon {
+      font-size: var(--o-typography-body1-default-font-size);
+    }
+
+    &.orion-toggle-button--icon-only {
+			padding: var(--o-space-8);
+		}
+  }
+
+  &--sm {
+    padding: var(--o-space-4) var(--o-space-12);
+    .typography(label-bold);
+    height: var(--o-height-control-sm);
+
+    .orion-icon {
+      font-size: var(--o-typography-body1-default-font-size);
+    }
+
+    &.orion-toggle-button--icon-only {
+			padding: var(--o-space-6);
+		}
+  }
+
+  &--loading {
+    cursor: progress;
+
+    .orion-icon__loading {
+      stroke: var(--o-text-default-moderate);
+    }
+	}
+}
