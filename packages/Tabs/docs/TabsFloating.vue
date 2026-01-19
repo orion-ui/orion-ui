@@ -27,7 +27,7 @@ const activePane = ref<string>('pane1');
 @lang:en
 ### Floating Tabs
 
-With the `floatingTabs` props ypou can display a navigation variant that allows quick access to a limited set of views or actions,
+With the `floatingTabs` props you can display a navigation variant that allows quick access to a limited set of views or actions,
 while remaining visually detached from the main content.
 
 @lang

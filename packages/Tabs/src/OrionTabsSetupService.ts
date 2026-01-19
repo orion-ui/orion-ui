@@ -1,8 +1,8 @@
-import { Component, ModelRef, reactive, ref, Slots, VNode, watch } from 'vue';
-import { head, isArray } from 'lodash-es';
-import { isDefineOrTrue } from 'utils/tools';
-import SharedSetupService from '../../Shared/SharedSetupService';
 import { Private } from 'lib/private';
+import { isArray } from 'lodash-es';
+import { isDefineOrTrue } from 'utils/tools';
+import { Component, ModelRef, reactive, ref, Slots, VNode, watch } from 'vue';
+import SharedSetupService from '../../Shared/SharedSetupService';
 
 export type OrionTabsEmits = {
 	// @doc event/tab-click/desc emitted on tab click
