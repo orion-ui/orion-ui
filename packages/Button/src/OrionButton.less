@@ -75,14 +75,14 @@
 	&--sm {
 		gap: var(--o-space-4);
 		padding: var(--o-space-4) var(--o-space-8);
-		height: var(--o-space-28);
+		height: var(--o-height-control-sm);
 
 		.orion-icon {
 			font-size: var(--o-typography-label-default-font-size);
 		}
 
 		&.orion-button--icon-only {
-			width: var(--o-space-28);
+			width: var(--o-height-control-sm);
 			padding: var(--o-space-4) var(--o-space-6);
 		}
 	}
@@ -90,10 +90,10 @@
 	&--md {
 		gap: var(--o-space-4);
 		padding: var(--o-space-4) var(--o-space-12);
-		height: var(--o-space-32);
+		height: var(--o-height-control-md);
 
 		&.orion-button--icon-only {
-			width: var(--o-space-32);
+			width: var(--o-height-control-md);
 			padding: var(--o-space-4) var(--o-space-6);
 		}
 
@@ -105,10 +105,10 @@
 	&--lg {
 		gap: var(--o-space-8);
 		padding: var(--o-space-4) var(--o-space-16);
-		height: var(--o-space-40);
+		height: var(--o-height-control-lg);
 
 		&.orion-button--icon-only {
-			width: var(--o-space-40);
+			width: var(--o-height-control-lg);
 		}
 
 		.orion-icon {
@@ -216,14 +216,14 @@
 	}
 }
 
-@keyframes click {
-	from {
-		transform: scale(1);
-		opacity: 1;
-	}
+	@keyframes click {
+		from {
+			transform: scale(1);
+			opacity: 1;
+		}
 
-	to {
-		transform: scale(30);
-		opacity: 0;
-	}
+		to {
+			transform: scale(30);
+			opacity: 0;
+		}
 }
