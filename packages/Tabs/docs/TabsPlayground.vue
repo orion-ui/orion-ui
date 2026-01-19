@@ -24,8 +24,7 @@
 
 			<o-tab-pane
 				name="pane3"
-				label="Pane 3"
-				disabled>
+				label="Pane 3">
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras gravida orci a nulla auctor,
 				in tempus erat elementum. Nullam ac tincidunt dolor. Sed sapien massa, commodo sed feugiat ac,
 				auctor sed lectus.
@@ -35,9 +34,25 @@
 
 	<hr>
 
+	<div class="mt-12 row row--gutter row--middle">
+		<div class="col-sm-4">
+			<o-toggle
+				v-model="state.floatingTabs"
+				label="Use floating Tabs"/>
+		</div>
+		<div class="col-sm-4">
+			<size-selection
+				v-model="state.headerSize"
+				:options="['sm', 'md']"
+				label="Header Size"/>
+		</div>
+	</div>
+
+	<hr>
+
 	<b>Modify the configuration of the first tab :</b>
 
-	<div class="mt-xs row row--gutter row--middle">
+	<div class="mt-12 row row--gutter row--middle">
 		<div class="col-sm-4">
 			<o-input
 				v-model="state.label"
@@ -104,9 +119,11 @@ import { materialIcons } from 'lib';
 const activePane = ref('pane1');
 
 const state = reactive({
+	floatingTabs: false,
 	loader: false,
 	icon: 'check' as Orion.Icon,
 	disabled: false,
+	headerSize: 'md' as Extract<Orion.Size, 'sm' | 'md'>,
 	lazy: false,
 	lazyOnce: false,
 	name: 'pane1',

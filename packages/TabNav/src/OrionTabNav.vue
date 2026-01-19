@@ -7,6 +7,7 @@ import './OrionTabNav.less';
 import { inject } from 'vue';
 import { isDefineOrTrue } from 'utils/tools';
 import { OrionIcon } from 'packages/Icon';
+import { OrionBadge } from 'packages/Badge';
 import OrionTabNavSetupService from './OrionTabNavSetupService';
 import type { OrionTabNavProps, OrionTabNavEmits } from './OrionTabNavSetupService';
 const emits = defineEmits<OrionTabNavEmits>() as OrionTabNavEmits;
@@ -26,18 +27,19 @@ const jsxTabNav = () => {
 			? <span class="orion-tab-nav__label">{ labelContent }</span>
 			: null;
 
-		let markerColor = pane.props['marker-color'] ?? pane.props['markerColor'];
+		let markerColor = pane.props['marker-color'] as Orion.Color ?? pane.props['markerColor'];
 		let markerClass = `orion-tab-nav__marker orion-tab-nav__marker--${markerColor ?? 'danger'}`;
 		if (typeof pane.props.marker === 'number') {
 			markerClass += ' orion-tab-nav__marker--number';
 		}
 
 		const marker = isDefineOrTrue(pane.props.marker)
-			? (
-				<span class={ markerClass }>
-					{ typeof pane.props.marker === 'number' ? pane.props.marker : null }
-				</span>
-			) : null;
+			? (<OrionBadge
+				class={ markerClass }
+				type={ !!pane.props.marker && typeof pane.props.marker !== 'number' ? 'dot' : 'rounded'}
+				color={ markerColor ?? 'danger' }>
+				{ typeof pane.props.marker === 'number' ? pane.props.marker : undefined }
+			</OrionBadge>) : null;
 
 		return (
 			<div
