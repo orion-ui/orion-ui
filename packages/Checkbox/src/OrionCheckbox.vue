@@ -12,7 +12,9 @@
 		]"
 		:tabindex="disabled ? undefined : setup._uid"
 		input-type="checkbox"
-		@click="setup.handleClick()">
+		@click="setup.handleClick()"
+		@keydown.space.prevent="setup.handleClick()"
+		@keydown.enter.prevent="setup.handleClick()">
 		<slot v-if="label === undefined"/>
 
 		<input
@@ -39,20 +41,14 @@
 </template>
 
 <script setup lang="ts">
-import './OrionCheckbox.less';
 import { OrionField } from 'packages/Field';
 import { OrionIcon } from 'packages/Icon';
+import './OrionCheckbox.less';
+import type { OrionCheckboxEmits, OrionCheckboxProps } from './OrionCheckboxSetupService';
 import OrionCheckboxSetupService from './OrionCheckboxSetupService';
-import { toRefs } from 'vue';
-import type { OrionCheckboxProps,
-	OrionCheckboxEmits } from './OrionCheckboxSetupService';
 const emits = defineEmits<OrionCheckboxEmits<any>>() as OrionCheckboxEmits<any>;
 const vModel = defineModel<any[] | boolean | null | undefined>();
-const props = withDefaults(
-	defineProps<OrionCheckboxProps>(),
-	OrionCheckboxSetupService.defaultProps,
-);
-const { color } = toRefs(props);
+const props = withDefaults(defineProps<OrionCheckboxProps>(), OrionCheckboxSetupService.defaultProps);
 const setup = new OrionCheckboxSetupService(props, emits, vModel);
 defineExpose(setup.publicInstance);
 

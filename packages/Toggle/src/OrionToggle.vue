@@ -11,7 +11,9 @@
 		]"
 		input-type="toggle"
 		:tabindex="disabled ? undefined : setup._uid"
-		@click="setup.handleClick()">
+		@click="setup.handleClick()"
+		@keydown.space.prevent="setup.handleClick()"
+		@keydown.enter.prevent="setup.handleClick()">
 		<slot v-if="label === undefined"/>
 
 		<input
