@@ -10,7 +10,10 @@
 			{ 'orion-toggle--inline': inline },
 		]"
 		input-type="toggle"
-		@click="setup.handleClick()">
+		:tabindex="disabled ? undefined : setup._uid"
+		@click="setup.handleClick()"
+		@keydown.space.prevent="setup.handleClick()"
+		@keydown.enter.prevent="setup.handleClick()">
 		<slot v-if="label === undefined"/>
 
 		<input
