@@ -41,32 +41,48 @@
 		outline: none;
 	}
 
-	&__close {
-		.close(1.5rem);
-		color: var(--o-text-default-subtle);
-		position: absolute;
-		top: var(--o-space-24);
-		right: var(--o-space-16);
+	&__close.orion-button {
+		margin-left: auto;
 	}
 
 	&__title {
 		color: var(--o-text-default-default);
-		.typography(heading-h5);
+		.typography(subtitle-bold);
 		margin-bottom: unset;
 	}
 
+	&__description {
+		.typography(body2-default);
+		color: var(--o-text-default-subtle);
+	}
+
 	&__poster {
-		border-radius: var(--o-radius-md) var(--o-radius-md) 0 0;
+		border-radius: var(--o-radius-xl) var(--o-radius-xl) 0 0;
 		overflow: hidden;
 	}
 
 	&__header {
-		padding: var(--o-space-24);
+		order: 1;
+		padding: var(--o-space-8) var(--o-space-24);
 		position: relative;
-		padding-bottom: 0;
 		display: flex;
 		flex-direction: column;
 		gap: var(--o-space-8);
+		background-color: var(--o-background-neutral-default);
+		border-bottom: 1px solid var(--o-border-neutral-default);
+
+		[data-orion-theme='dark'] & {
+			background-color: var(--o-background-neutral-minimal);
+		}
+	}
+
+	&__header-container {
+		display: flex;
+		align-items: center;
+		gap: var(--o-space-8);
+		min-height: var(--o-height-control-xs);
+		margin-top: var(--o-space-4);
+		margin-bottom: var(--o-space-4);
 	}
 
 	&__body,
@@ -76,24 +92,26 @@
 	}
 
 	&__body {
-		order: 1;
+		order: 2;
 		flex: 1 1 auto;
+		display: flex;
+		flex-direction: column;
 		position: relative;
 		border-radius: var(--o-radius-xl);
-		padding: var(--o-space-24) var(--o-space-24);
-		padding-bottom: var(--o-space-16);
+		padding: var(--o-space-24);
+
+		>.orion-modal__close {
+			order: -1;
+			align-self: flex-end;
+			margin-bottom: var(--o-space-8);
+		}
+
+		>.orion-section {
+			flex: 1 1 auto;
+		}
 
 		@media @tablet {
-			padding: var(--o-space-24) var(--o-space-24);
-			padding-bottom: var(--o-space-16);
-
-			.orion-modal__footer:not(:empty)+& {
-				padding-bottom: 0;
-
-				.orion-modal--o-xs & {
-					padding-bottom: var(--o-o-space-16);
-				}
-			}
+			padding: var(--o-space-24);
 		}
 
 		.orion-modal--sm & {
@@ -106,9 +124,16 @@
 	}
 
 	&__footer {
-		order: 2;
+		order: 4;
+		display: flex;
+		flex-direction: column;
+		gap: var(--o-space-8);
 		flex: 0 0 auto;
-		padding: 0 var(--o-space-24);
+		padding: var(--o-space-16) var(--o-space-24);
+		border-top: 1px solid var(--o-border-neutral-default);
+		border-radius: 0 0 var(--o-radius-xl) var(--o-radius-xl);
+		background: var(--o-background-neutral-minimal);
+		color: var(--o-text-default-subtle);
 
 		@media @tablet {
 			padding: var(--o-space-16) var(--o-space-24);
@@ -128,10 +153,17 @@
 	}
 
 	&__actions {
-		flex: 1 0 0%;
+		order: 3;
 		display: flex;
-		flex-direction: row-reverse;
-		gap: 1rem;
+		justify-content: flex-end;
+		gap: var(--o-space-8);
+		padding: var(--o-space-16) var(--o-space-24);
+		border-top: 1px solid var(--o-border-neutral-default);
+		border-radius: 0 0 var(--o-radius-xl) var(--o-radius-xl);
+
+		&:empty {
+			display: none;
+		}
 	}
 
 	&--visible {
