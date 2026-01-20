@@ -4,7 +4,7 @@
 .orion-input {
 	position: relative;
 	display: inline-flex;
-	gap: var(--o-space-8);
+	gap: var(--o-space-4);
 	align-items: center;
 	height: 2.5rem;
 	width: 100%;
@@ -18,7 +18,7 @@
 
 	&--disabled {
 		background: var(--o-background-neutral-minimal);
-		border-color: var(--o-border-neutral-default);
+		border-color: var(--o-border-neutral-disabled);
 		cursor: not-allowed;
 	}
 
@@ -202,7 +202,7 @@
 		display: flex;
 		gap: var(--o-space-4);
 		align-items: center;
-		padding: 0 var(--o-space-4) 0 0;
+		justify-content: flex-end;
 		background: var(--o-background-neutral-default);
 		pointer-events: none;
 		font-size: 1rem;
@@ -254,7 +254,10 @@
 	&__clearable {
 		.close(1rem);
 		margin: 0.125rem;
+		margin-top: 0;
 		pointer-events: all;
+		align-items: center;
+		color: var(--o-text-default-moderate);
 
 		.orion-input--disabled & {
 			display: none;
