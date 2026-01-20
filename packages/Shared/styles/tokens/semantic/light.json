@@ -230,7 +230,7 @@
     }
   },
   "text": {
-    "default": {
+    "neutral": {
       "default": {
         "$type": "color",
         "$value": "{colors.neutral.950}"
