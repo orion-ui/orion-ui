@@ -10,7 +10,7 @@
 	min-width: 18px;
 	padding: 0 var(--o-space-4);
 	white-space: nowrap;
-	color: var(--o-text-default-default);
+	color: var(--o-text-neutral-default);
 
 
 	&--square {
@@ -31,7 +31,7 @@
 
 	each(@colors, {
 		&--@{value} {
-			color: var(--o-text-default-inverted);
+			color: var(--o-text-neutral-inverted);
 			background: var(~"--o-background-@{value}-default");
 		}
 	});
@@ -41,7 +41,7 @@
 	}
 
 	&--neutral {
-		color: var(--o-text-default-default);
+		color: var(--o-text-neutral-default);
 		background: var(--o-background-neutral-subtle);
 	}
 }

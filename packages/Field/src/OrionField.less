@@ -11,7 +11,7 @@ select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
 	box-shadow: 0 0 0 calc(30rem / 16) var(--o-background-neutral-default) inset !important;
-	-webkit-text-fill-color: var(--o-text-default-default) !important;
+	-webkit-text-fill-color: var(--o-text-neutral-default) !important;
 
 	+ .orion-input__pictos {
 		background: none;
@@ -108,17 +108,17 @@ select:-webkit-autofill:focus {
 			stroke-dashoffset: 1rem;
 
 			[class*='--disabled'] > & {
-				stroke: var(--o-text-default-disabled);
+				stroke: var(--o-text-neutral-disabled);
 			}
 		}
 
 		.icon {
 			.flex-align();
-			color: var(--o-text-default-inverted);
+			color: var(--o-text-neutral-inverted);
 			font-size: 0.75rem;
 			
 			[class*='--disabled'] > & {
-				color: var(--o-text-default-disabled);
+				color: var(--o-text-neutral-disabled);
 			}
 		}
 
@@ -168,7 +168,7 @@ select:-webkit-autofill:focus {
 
 	&--disabled {
 		cursor: not-allowed;
-		color: var(--o-text-default-disabled);
+		color: var(--o-text-neutral-disabled);
 
 		> [class$='__label'] {
 			cursor: not-allowed;

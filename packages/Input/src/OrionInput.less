@@ -87,7 +87,7 @@
 		padding: 0 0.25rem;
 		max-width: calc(100% - 2rem);
 		pointer-events: none;
-		color: var(--o-text-default-moderate);
+		color: var(--o-text-neutral-moderate);
 
 		&::before {
 			content: '';
@@ -151,7 +151,7 @@
 			}
 
 			.orion-input--disabled & {
-				color: var(--o-text-default-moderate);
+				color: var(--o-text-neutral-moderate);
 			}
 		}
 	}
@@ -168,7 +168,7 @@
 		font-family: inherit;
 		font-size: inherit;
 		line-height: 1.35;
-		color: var(--o-text-default-default);
+		color: var(--o-text-neutral-default);
 		outline: none;
 		padding: 0;
 
@@ -193,7 +193,7 @@
 
 	&__hint-text {
 		margin-top: 0.25rem;
-		color: var(--o-text-default-moderate);
+		color: var(--o-text-neutral-moderate);
 		.typography(label-default);
 	}
 
@@ -257,7 +257,7 @@
 		margin-top: 0;
 		pointer-events: all;
 		align-items: center;
-		color: var(--o-text-default-moderate);
+		color: var(--o-text-neutral-moderate);
 
 		.orion-input--disabled & {
 			display: none;
@@ -266,19 +266,19 @@
 
 	&__reveal {
 		margin-left: 0.3rem;
-		color: var(--o-text-default-subtle)
+		color: var(--o-text-neutral-subtle)
 	}
 
 	&__icon {
 		.square(1.25rem);
 		.flex-align();
 		font-size: var(--o-typography-body2-default-font-size);
-		color: var(--o-text-default-subtle);
+		color: var(--o-text-neutral-subtle);
 	}
 
 	&--disabled {
 		.icon {
-			color: var(--o-text-default-moderate);
+			color: var(--o-text-neutral-moderate);
 		}
 	}
 
@@ -289,7 +289,7 @@
 
 	&__static-label {
 		.typography(label-default);
-		color: var(--o-text-default-default);
+		color: var(--o-text-neutral-default);
 		margin-bottom: var(--o-space-4);
 		display: block;
 

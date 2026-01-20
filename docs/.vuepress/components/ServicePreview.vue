@@ -161,7 +161,7 @@ onUnmounted(() => {
 		font-family: var(--font-family-code);
 		font-size: 0.75rem;
 		line-height: 1.25rem;
-		color: var(--o-text-default-default);
+		color: var(--o-text-neutral-default);
 		font-weight: 600;
 	}
 

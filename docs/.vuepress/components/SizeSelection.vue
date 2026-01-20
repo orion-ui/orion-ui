@@ -111,7 +111,7 @@ function focusInput () {
 		border-radius: 0.5rem;
 		background: var(--o-background-neutral-moderate);
 		border: 0.0625rem solid var(--o-border-neutral-default);
-		color: var(--o-text-default-default);
+		color: var(--o-text-neutral-default);
 		cursor: pointer;
 		text-transform: uppercase;
 		font-size: 0.75rem;
@@ -128,7 +128,7 @@ function focusInput () {
 		&--selected:hover {
 			border-color: var(--o-border-info-default);
 			background: var(--o-background-info-default);
-			color: var(--o-text-default-inverted);
+			color: var(--o-text-neutral-inverted);
 		}
 	}
 }
