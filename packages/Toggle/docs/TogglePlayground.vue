@@ -45,7 +45,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, readonly } from 'vue';
+import { reactive } from 'vue';
 
 const state = reactive({
 	value: true,

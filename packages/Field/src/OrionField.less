@@ -59,6 +59,7 @@ select:-webkit-autofill:focus {
 		.square(1.25rem);
 		transition: all 0.2s ease;
 		display: flex;
+		align-self: flex-start;
 		align-items: center;
 		justify-content: center;
 		margin-top: calc(1rem / 16);
@@ -88,6 +89,11 @@ select:-webkit-autofill:focus {
 			border-radius: 100%;
 		}
 
+		.orion-radio:focus & {
+			outline: 1px solid var(--o-border-neutral-focus);
+			outline-offset: 1px;
+		}
+
 		svg {
 			transition: all 0.3s ease;
 			transition-delay: 0.1s;
@@ -107,6 +113,7 @@ select:-webkit-autofill:focus {
 		}
 
 		.icon {
+			.flex-align();
 			color: var(--o-text-default-inverted);
 			font-size: 0.75rem;
 			
@@ -140,10 +147,6 @@ select:-webkit-autofill:focus {
 			&[class*="--checked"] > [class*="__check-container"] {
 				background: var(~"--o-background-@{value}-default");
 				border-color: var(~"--o-border-@{value}-default");
-			}
-
-			&:hover&:not(.orion-checkbox--checked)&:not(.orion-checkbox--disabled) > [class*="__check-container"] {
-				background: var(--o-background-neutral-hover)
 			}
 		}
 	});

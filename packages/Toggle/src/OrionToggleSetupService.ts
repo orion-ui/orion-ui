@@ -1,8 +1,6 @@
-import SharedFieldSetupService, {
-	SharedFieldSetupServiceEmits,
-	SharedFieldSetupServiceProps,
-} from '../../Shared/SharedFieldSetupService';
 import { ModelRef, reactive } from 'vue';
+import type { SharedFieldSetupServiceEmits, SharedFieldSetupServiceProps } from '../../Shared/SharedFieldSetupService';
+import SharedFieldSetupService from '../../Shared/SharedFieldSetupService';
 import SharedProps, { SharedPropsColor } from '../../Shared/SharedProps';
 
 export type OrionToggleEmits = SharedFieldSetupServiceEmits<boolean> & {};
@@ -22,10 +20,7 @@ export type OrionToggleProps = SharedFieldSetupServiceProps &
 		value?: boolean;
 	};
 
-export default class OrionToggleSetupService extends SharedFieldSetupService<
-	OrionToggleProps,
-	boolean
-> {
+export default class OrionToggleSetupService extends SharedFieldSetupService<OrionToggleProps, boolean> {
 	static readonly defaultProps = {
 		...SharedFieldSetupService.defaultProps,
 		...SharedProps.color,
@@ -39,40 +34,40 @@ export default class OrionToggleSetupService extends SharedFieldSetupService<
 		margin: 2,
 	});
 
-	protected get width() {
+	protected get width () {
 		switch (this.props.size) {
-			case 'xs':
-				return 30;
-			case 'sm':
-				return 32;
-			case 'md':
-				return 40;
-			case 'lg':
-				return 52;
-			case 'xl':
-				return 60;
-			default:
-				return 45;
+		case 'xs':
+			return 30;
+		case 'sm':
+			return 32;
+		case 'md':
+			return 40;
+		case 'lg':
+			return 52;
+		case 'xl':
+			return 60;
+		default:
+			return 45;
 		}
 	}
 
-	protected get height() {
+	protected get height () {
 		return Math.round(this.width / 1.75);
 	}
 
-	protected get buttonRadius() {
+	protected get buttonRadius () {
 		return this.height - this.state.margin * 2;
 	}
 
-	protected get distance() {
+	protected get distance () {
 		return this.px(this.width - this.height + this.state.margin);
 	}
 
-	protected get isValidCustom() {
+	protected get isValidCustom () {
 		if (this.props.required) return !!this.vModel.value;
 	}
 
-	get coreStyle() {
+	get coreStyle () {
 		return {
 			width: this.px(this.width),
 			minWidth: this.px(this.width),
@@ -81,7 +76,7 @@ export default class OrionToggleSetupService extends SharedFieldSetupService<
 		};
 	}
 
-	get buttonStyle() {
+	get buttonStyle () {
 		const cssMargin = this.px(this.state.margin);
 		const transform = this.vModel.value
 			? this.translate3d(this.distance, cssMargin)
@@ -94,7 +89,7 @@ export default class OrionToggleSetupService extends SharedFieldSetupService<
 		};
 	}
 
-	constructor(
+	constructor (
 		protected props: OrionToggleProps &
 			typeof OrionToggleSetupService.defaultProps,
 		protected emits: OrionToggleEmits,
@@ -103,15 +98,15 @@ export default class OrionToggleSetupService extends SharedFieldSetupService<
 		super(props, emits, vModel);
 	}
 
-	private px(v: number) {
+	private px (v: number) {
 		return `calc(${v}rem / 16)`;
 	}
 
-	private translate3d(x: string, y: string, z = '0') {
+	private translate3d (x: string, y: string, z = '0') {
 		return `translate3d(${x}, ${y}, ${z})`;
 	}
 
-	handleClick() {
+	handleClick () {
 		if (!this.props.disabled && !this.props.readonly) {
 			this.state.hasBeenFocus = true;
 			this.vModel.value = !this.vModel.value;
