@@ -61,27 +61,27 @@
 
 	each(@colors, {
 		&--@{value} {
-			color: var(~"--o-text-@{value}-subtle");
+			color: var(~"--o-text-@{value}-default");
 			background: var(~"--o-background-@{value}-minimal");
 			border: 1px solid var(~"--o-border-@{value}-subtle");
 
 			.orion-alert__title {
-				color: var(~"--o-text-@{value}-subtle");
+				color: var(~"--o-text-@{value}-default");
 			}
 		}
 	});
 
-	&--default {
-		color: var(--o-text-default-default);
+	&--neutral {
+		color: var(--o-text-neutral-default);
 		background: var(--o-background-neutral-subtle);
 	}
 
 	&--inverted {
-		color: var(--o-text-default-minimal);
+		color: var(--o-text-neutral-minimal);
 		background: var(--o-background-neutral-highlight);
 
 		.orion-alert__title {
-			color: var(--o-text-default-minimal);
+			color: var(--o-text-neutral-minimal);
 		}
 	}
 }

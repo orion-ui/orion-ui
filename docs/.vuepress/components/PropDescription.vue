@@ -76,18 +76,18 @@ defineProps({
 	}
 
 	&__value {
-		color: var(--o-text-default-default);
+		color: var(--o-text-neutral-default);
 	}
 
 	&__description {
-		color: var(--o-text-default-default);
+		color: var(--o-text-neutral-default);
 
 		:deep(p) {
 			font-size: var(--o-size-default);
 		}
 
 		:deep(strong) {
-			color: var(--o-text-default-default);
+			color: var(--o-text-neutral-default);
 		}
 
 		:deep(p:last-child) {

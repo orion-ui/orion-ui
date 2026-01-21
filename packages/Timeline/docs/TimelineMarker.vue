@@ -54,7 +54,7 @@ const activePane = ref('pane2');
 	text-align: right;
 
 	> em {
-		color: var(--o-text-default-moderate);
+		color: var(--o-text-neutral-moderate);
 	}
 }
 </style>
