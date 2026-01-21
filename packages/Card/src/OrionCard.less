@@ -41,7 +41,7 @@
 		}
 
 		.orion-card--md>& {
-			padding: var(--o-space-24) var(--o-space-24) 0;
+			padding: var(--o-space-24) var(--o-space-24) 0;	
 		}
 
 		.orion-card--lg>& {
@@ -53,30 +53,38 @@
 		}
 
 		&--lined {
-			border: 0;
-			border-bottom: 0.0625rem solid;
-			border-image: linear-gradient(to right,
-					color-mix(in srgb, var(--o-border-neutral-default) 0%, transparent),
-					color-mix(in srgb, var(--o-border-neutral-default) 100%, transparent)) 1;
+				& > .orion-card__title-subtitle {
+				border-bottom: 0.0625rem solid var(--o-border-neutral-default);
+			}
 
-			.orion-card--xs & {
-				padding: var(--o-space-12);
+			.orion-card--xs & {				
+				& > .orion-card__title-subtitle {
+					padding-bottom: var(--o-space-12);
+				}
 			}
 
 			.orion-card--sm & {
-				padding: var(--o-space-16);
+				& > .orion-card__title-subtitle {
+					padding-bottom: var(--o-space-16);
+				}
 			}
 
 			.orion-card--md & {
-				padding: var(--o-space-24);
+				& > .orion-card__title-subtitle {
+					padding-bottom: var(--o-space-24);
+				}
 			}
 
 			.orion-card--lg & {
-				padding: var(--o-space-32);
+				& > .orion-card__title-subtitle {
+					padding-bottom: var(--o-space-32);
+				}
 			}
 
 			.orion-card--xl & {
-				padding: var(--o-space-48);
+				& > .orion-card__title-subtitle {
+					padding-bottom: var(--o-space-48);
+				}
 			}
 		}
 	}
@@ -172,31 +180,27 @@
 		}
 
 		.orion-card--xs>& {
-			padding: 0 var(--o-space-12) var(--o-space-12);
+			padding: var(--o-space-12) 0 var(--o-space-12) var(--o-space-12) ;
 		}
 
 		.orion-card--sm>& {
-			padding: var(--o-space-8) var(--o-space-16) var(--o-space-32);
+			padding: var(--o-space-16) 0 var(--o-space-16) var(--o-space-16);
 		}
 
 		.orion-card--md>& {
-			padding: var(--o-space-16) var(--o-space-24) var(--o-space-32);
+			padding: var(--o-space-24) 0 var(--o-space-24) var(--o-space-24);
 		}
 
 		.orion-card--lg>& {
-			padding: var(--o-space-24) var(--o-space-32) var(--o-space-32);
+			padding: var(--o-space-32) 0 var(--o-space-32) var(--o-space-32);
 		}
 
 		.orion-card--xl>& {
-			padding: var(--o-space-48) var(--o-space-48) var(--o-space-48);
+			padding: var(--o-space-48) 0 var(--o-space-48) var(--o-space-48);
 		}
 
 		&--lined {
-			border: 0;
-			border-top: 0.0625rem solid;
-			border-image: linear-gradient(to right,
-					color-mix(in srgb, var(--o-border-neutral-default) 0%, transparent),
-					color-mix(in srgb, var(--o-border-neutral-default) 100%, transparent)) 1;
+			border-top: 0.0625rem solid var(--o-border-neutral-default);
 
 			.orion-card--xs>& {
 				padding: var(--o-space-12);
@@ -211,11 +215,11 @@
 			}
 
 			.orion-card--lg>& {
-				padding: var(--o-space-32) var(--o-space-32);
+				padding: var(--o-space-32);
 			}
 
 			.orion-card--xl>& {
-				padding: var(--o-space-48) var(--o-space-48);
+				padding: var(--o-space-48);
 			}
 		}
 	}
