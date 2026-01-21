@@ -76,8 +76,7 @@
 
 			<template #icon-suffix>
 				<orion-icon
-					v-show="!autocomplete &&
-						(!clearable || (clearable && !setup.hasValue))"
+					v-show="!clearable || (clearable && !setup.hasValue)"
 					class="orion-input__icon orion-select__carret orion-select__icon--internal"
 					icon="expand_more"
 					:class="{ 'open' : setup.isFocus }"
