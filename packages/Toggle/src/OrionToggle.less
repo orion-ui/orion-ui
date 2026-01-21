@@ -43,6 +43,12 @@
 		display: none;
 	}
 
+	&:hover {
+		> .orion-toggle__core {
+			background-color: var(--o-background-neutral-hover);
+		}
+	}
+
 	&__core {
 		transition:
 			border-color 0.3s,
@@ -98,11 +104,11 @@
       }
     });
 
-		&.orion-toggle--default {
+		&.orion-toggle--neutral {
 			> .orion-toggle__core,
 			> .orion-toggle__core > .orion-toggle__core-button::before,
 			> .orion-toggle__core > .orion-toggle__core-button::after {
-				background: var(--o-background-info-default);
+				background: var(--o-background-neutral-default);
 			}
 		}
 

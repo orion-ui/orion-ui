@@ -47,7 +47,7 @@
 		transform: scale(1);
 		animation: click 0.7s ease-in-out 0s 1 normal none running;
 
-		.orion-button--default & {
+		.orion-button--neutral & {
 			background: fade(black, 5);
 
 			[data-orion-theme='dark'] & {
@@ -188,6 +188,10 @@
 				background: var(--o-background-neutral-subtle);
 			}
 		}
+	}
+
+	&--neutral {
+		color: var(--o-text-neutral-default);
 	}
 
 	&--nude {
