@@ -1,6 +1,7 @@
-import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
+import { App, Plugin } from 'vue';
 import OrionAvatarGroup from './src/OrionAvatarGroup.vue';
+import type { OrionAvatarGroupEmits, OrionAvatarGroupProps } from './src/OrionAvatarGroupSetupService';
 import OrionAvatarGroupSetupService from './src/OrionAvatarGroupSetupService';
 
 export const OrionAvatarGroupPlugin: Plugin = {
@@ -9,4 +10,5 @@ export const OrionAvatarGroupPlugin: Plugin = {
 	},
 };
 
-export { OrionAvatarGroup, OrionAvatarGroupSetupService };
+export { OrionAvatarGroup, OrionAvatarGroupEmits, OrionAvatarGroupProps, OrionAvatarGroupSetupService };
+

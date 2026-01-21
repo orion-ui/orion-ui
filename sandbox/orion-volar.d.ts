@@ -1,7 +1,7 @@
 /**
  * Auto generated file using cli command
- * _> npx orion
- * Then select 'volar' option
+ * _> orion
+ * Then select 'Volar intellisense' option
  * Manual changes will be overwritten
  */
 
@@ -11,6 +11,7 @@ declare module 'vue' {
 		OAside: typeof import('packages/index')['OrionAside'];
 		OAvatar: typeof import('packages/index')['OrionAvatar'];
 		OAvatarGroup: typeof import('packages/index')['OrionAvatarGroup'];
+		OBadge: typeof import('packages/index')['OrionBadge'];
 		OButton: typeof import('packages/index')['OrionButton'];
 		OCard: typeof import('packages/index')['OrionCard'];
 		OCarousel: typeof import('packages/index')['OrionCarousel'];
@@ -72,6 +73,7 @@ declare module 'vue' {
 		OTimelinePill: typeof import('packages/index')['OrionTimelinePill'];
 		OToggle: typeof import('packages/index')['OrionToggle'];
 		OToggleButton: typeof import('packages/index')['OrionToggleButton'];
+		OToggleButtonGroup: typeof import('packages/index')['OrionToggleButtonGroup'];
 		OTour: typeof import('packages/index')['OrionTour'];
 		OTourStep: typeof import('packages/index')['OrionTourStep'];
 		OUpload: typeof import('packages/index')['OrionUpload'];

@@ -28,14 +28,14 @@
 		&.orion-button {
 			background: transparent;
 			border-color: transparent;
-			color: var(--o-text-default-inverted);
+			color: var(--o-text-neutral-inverted);
 		}
 
 		&:hover,
 		&:focus,
 		&:active {
 			background: transparent;
-			color: var(--o-text-default-default);
+			color: var(--o-text-neutral-default);
 		}
 
 		&.orion-button.orion-button--nude:hover,
@@ -66,13 +66,13 @@
 			background: var(~"--o-background-@{value}-default");
 
 			.orion-chips__close.orion-button {
-				color: var(--o-text-default-inverted);
+				color: var(--o-text-neutral-inverted);
 			}
 
 			.orion-chips__close.orion-button:hover,
 			.orion-chips__close.orion-button:focus,
 			.orion-chips__close.orion-button:active {
-				color: var(~"--o-text-@{value}-default", var(--o-text-default-default));
+				color: var(~"--o-text-@{value}-default", var(--o-text-neutral-default));
 			}
 
 			.orion-chips__dual {
@@ -114,18 +114,18 @@
 			}
 
 			&-alt {
-				color: var(--o-text-default-inverted);
+				color: var(--o-text-neutral-inverted);
 				background: var(~"--o-background-@{value}-alt");
 				border-color: transparent;
 
 				.orion-chips__close.orion-button {
-					color: var(--o-text-default-inverted);
+					color: var(--o-text-neutral-inverted);
 				}
 
 				.orion-chips__close.orion-button:hover,
 				.orion-chips__close.orion-button:focus,
 				.orion-chips__close.orion-button:active {
-					color: var(~"--o-text-@{value}-alt", var(--o-text-default-default));
+					color: var(~"--o-text-@{value}-alt", var(--o-text-neutral-default));
 				}
 
 				.orion-chips__dual {
@@ -148,7 +148,7 @@
 					background: color-mix(in oklab, var(~"--o-background-@{value}-alt") 15%, transparent);
 					border: 1px solid var(~"--o-border-@{value}-subtle");
 
-					&:not(.orion-chips--inverse):not(.orion-chips--default) > {
+					&:not(.orion-chips--inverse):not(.orion-chips--neutral) > {
 						.orion-chips__main, .orion-chips__dual-content {
 							filter: saturate(90%);
 						}
@@ -170,12 +170,12 @@
 
 &--grey-light,
 &--grey-lighter {
-	color: var(--o-text-default-inverted);
+	color: var(--o-text-neutral-inverted);
 }
 
 &[class*='--grey'] {
 	&.orion-chips--outline {
-		color: var(--o-text-default-default);
+		color: var(--o-text-neutral-default);
 		background: var(--o-background-neutral-minimal);
 		border-color: var(--o-border-neutral-default);
 	}

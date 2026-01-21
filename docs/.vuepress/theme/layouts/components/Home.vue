@@ -248,7 +248,7 @@ h2 {
 	border: none;
 	font-size: 2.5rem;
 	line-height: 1.1;
-	color: var(--o-text-default-default);
+	color: var(--o-text-neutral-default);
 	padding-top: 0 !important;
 	margin-top: 0 !important;
 	margin-bottom: 2rem;

@@ -14,7 +14,7 @@
 	background: var(--o-background-neutral-default);
 	border-radius: var(--o-radius-md);
 	box-shadow: 0 0.0625rem 0.1875rem fade(black, 10);
-	color: var(--o-text-default-default);
+	color: var(--o-text-neutral-default);
 
 	img {
 		max-width: 100%;
@@ -119,7 +119,7 @@
 		.flex-align();
 		position: relative;
 		flex-wrap: wrap-reverse;
-		color: var(--o-text-default-default);
+		color: var(--o-text-neutral-default);
 
 		&--right {
 			justify-content: flex-end;
@@ -155,7 +155,7 @@
 					&::after {
 						font-family: var(--font-family);
 						content: attr(data-count);
-						color: var(--o-text-default-inverted);
+						color: var(--o-text-neutral-inverted);
 						font-size: 0.5rem;
 						font-weight: bold;
 					}
@@ -223,7 +223,7 @@
 	&__title {
 		margin: 0;
 		.typography(heading-h5);
-		color: var(--o-text-default-default);
+		color: var(--o-text-neutral-default);
 
 		.orion-card--xs & {
 			.typography(body2-bold);
@@ -245,7 +245,7 @@
 	&__subtitle {
 		margin-top: var(--o-space-8);
 		.typography(subtitle-default);
-		color: var(--o-text-default-subtle);
+		color: var(--o-text-neutral-subtle);
 
 		.orion-card--xs & {
 			.typography(body2-default);
@@ -404,7 +404,7 @@
 			bottom: 0.3rem;
 			right: 0.3rem;
 			font-size: 0.5rem;
-			color: var(--o-text-default-inverted) !important;
+			color: var(--o-text-neutral-inverted) !important;
 			margin: 0 !important;
 		}
 	}
@@ -414,11 +414,11 @@
 	}
 
 	&[class*='--gradient-'] {
-		color: var(--o-text-default-inverted);
+		color: var(--o-text-neutral-inverted);
 
 		.orion-card__title,
 		.orion-card__subtitle {
-			color: var(--o-text-default-inverted);
+			color: var(--o-text-neutral-inverted);
 		}
 	}
 
@@ -431,11 +431,11 @@
 	});
 
 	&--gradient-default.orion-card {
-		color: var(--o-text-default-default);
+		color: var(--o-text-neutral-default);
 
 		.orion-card__title,
 		.orion-card__subtitle {
-			color: var(--o-text-default-default);
+			color: var(--o-text-neutral-default);
 		}
 
 		background: linear-gradient(to bottom right,
@@ -444,11 +444,11 @@
 	}
 
 	&--gradient-inverted.orion-card {
-		color: var(--o-text-default-default);
+		color: var(--o-text-neutral-default);
 
 		.orion-card__title,
 		.orion-card__subtitle {
-			color: var(--o-text-default-default);
+			color: var(--o-text-neutral-default);
 		}
 
 		background: linear-gradient(to bottom right,

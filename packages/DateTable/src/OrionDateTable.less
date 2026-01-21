@@ -23,7 +23,7 @@
 		z-index: 10;
 		.circle(0.5rem);
 		background-color: var(--o-background-danger-default);
-		color: var(--o-text-default-inverted);
+		color: var(--o-text-neutral-inverted);
 
 		each(@colors, {
 			@color: ~"--o-text-@{value}-default";
@@ -50,7 +50,7 @@
 			gap: 0.25rem;
 			font-weight: 600;
 			line-height: 1.5rem;
-			color: var(--o-text-default-default);
+			color: var(--o-text-neutral-default);
 
 			.orion-button--disabled {
 				color: var(--o-text-default-default) !important;
@@ -61,7 +61,7 @@
 
 		&-carret {
 			font-size: 1.25rem;
-			color: var(--o-text-default-default);
+			color: var(--o-text-neutral-default);
 			cursor: pointer;
 
 			&:hover {
@@ -142,7 +142,7 @@
 		width: calc(100% / 8);
 		height: calc(40rem / 16);
 		background-color: var(--o-background-neutral-minimal);
-		color: var(--o-text-default-default);
+		color: var(--o-text-neutral-default);
 		font-style: italic;
 		font-size: 0.7rem;
 
@@ -202,7 +202,7 @@
 				.flex-align();
 				position: relative;
 				z-index: 3;
-				color: var(--o-text-default-default);
+				color: var(--o-text-neutral-default);
 
 				&:hover:not(.selected) {
 					background: var(--o-background-neutral-subtle);
@@ -233,8 +233,8 @@
 				}
 
 				&.selected {
-					color: var(--o-text-default-inverted);
 					background: var(--o-background-primary-default);
+					color: var(--o-text-neutral-inverted);
 
 					> .orion-date-table-row__cell-display-contrast {
 						filter: none !important;
@@ -248,13 +248,13 @@
 				}
 
 				&.disable {
-					color: var(--o-text-default-subtle);
+					color: var(--o-text-neutral-subtle);
 					cursor: not-allowed;
 					pointer-events: none;
 				}
 
 				&--grey {
-					color: var(--o-text-default-disabled);
+					color: var(--o-text-neutral-disabled);
 				}
 			}
 
@@ -274,7 +274,7 @@
 				&:hover {
 					.orion-date-table-row__day__display {
 						background: var(--o-background-info-default);
-						color: var(--o-text-default-inverted);
+						color: var(--o-text-neutral-inverted);
 					}
 				}
 			}

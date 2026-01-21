@@ -5,6 +5,7 @@
 		:class="{ 'orion-textarea-max-length': maxLength }"
 		@clear="setup.clear()">
 		<textarea
+			:id="`orion-input_${setup._uid}`"
 			:ref="setup._input"
 			v-model="vModel"
 			style="resize: none;"
@@ -30,14 +31,20 @@
 			class="orion-input__textarea-counter">
 			{{ vModel?.length ?? 0 }}
 		</span>
-
-		<div
-			v-if="setup.showState
-				&& (setup.showError || setup.showWarning)
-				&& setup.validationHtmlMessages?.length"
-			class="orion-input__error-message"
-			v-html="setup.validationHtmlMessages"/>
 	</orion-field>
+	<div
+		v-if="setup.showState
+			&& (setup.showError || setup.showWarning)
+			&& setup.validationHtmlMessages?.length"
+		class="orion-input__error-message"
+		v-html="setup.validationHtmlMessages"/>
+	<div
+		v-if="hintText && !(setup.showState
+			&& (setup.showError || setup.showWarning)
+			&& setup.validationHtmlMessages?.length)"
+		class="orion-input__hint-text">
+		{{ hintText }}
+	</div>
 </template>
 
 <script setup lang="ts">

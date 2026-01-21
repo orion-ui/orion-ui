@@ -62,10 +62,9 @@
 	.material-symbols-outlined,
 	.material-symbols-round,
 	.material-symbols-sharp {
-		z-index: 2;
-		position: absolute;
-		font-size: inherit;
-	}
+			z-index: 2;
+			font-size: inherit;
+		}
 
 	&::before {
 		position: relative;
@@ -128,7 +127,7 @@
 
 		&-default {
 			&:hover {
-				color: var(--o-text-default-default);
+				color: var(--o-text-neutral-default);
 			}
 
 			&:hover .orion-icon__ripple,
@@ -157,6 +156,14 @@
 			position: absolute;
 		}
 
+		.material-symbols-outlined,
+		.material-symbols-round,
+		.material-symbols-sharp {
+			z-index: 2;
+			position: absolute;
+			font-size: inherit;
+	}
+
 		.orion-icon__button {
 			.circle(1.8em);
 			transition:
@@ -167,7 +174,7 @@
 		}
 
 		&-default {
-			color: var(--o-text-default-default);
+			color: var(--o-text-neutral-default);
 
 			> .orion-icon__button {
 				background: var(--o-background-neutral-default);
@@ -190,7 +197,7 @@
 	});
 
 		&-neutral {
-			color: var(--o-text-default-default);
+			color: var(--o-text-neutral-default);
 		}
 
 		&:hover > .orion-icon__button {

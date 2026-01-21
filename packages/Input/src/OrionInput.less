@@ -4,7 +4,7 @@
 .orion-input {
 	position: relative;
 	display: inline-flex;
-	gap: var(--o-space-8);
+	gap: var(--o-space-4);
 	align-items: center;
 	height: 2.5rem;
 	width: 100%;
@@ -18,7 +18,7 @@
 
 	&--disabled {
 		background: var(--o-background-neutral-minimal);
-		border-color: var(--o-border-neutral-default);
+		border-color: var(--o-border-neutral-disabled);
 		cursor: not-allowed;
 	}
 
@@ -87,7 +87,7 @@
 		padding: 0 0.25rem;
 		max-width: calc(100% - 2rem);
 		pointer-events: none;
-		color: var(--o-text-default-moderate);
+		color: var(--o-text-neutral-moderate);
 
 		&::before {
 			content: '';
@@ -151,7 +151,7 @@
 			}
 
 			.orion-input--disabled & {
-				color: var(--o-text-default-moderate);
+				color: var(--o-text-neutral-moderate);
 			}
 		}
 	}
@@ -168,7 +168,7 @@
 		font-family: inherit;
 		font-size: inherit;
 		line-height: 1.35;
-		color: var(--o-text-default-default);
+		color: var(--o-text-neutral-default);
 		outline: none;
 		padding: 0;
 
@@ -193,7 +193,7 @@
 
 	&__hint-text {
 		margin-top: 0.25rem;
-		color: var(--o-text-default-moderate);
+		color: var(--o-text-neutral-moderate);
 		.typography(label-default);
 	}
 
@@ -202,7 +202,7 @@
 		display: flex;
 		gap: var(--o-space-4);
 		align-items: center;
-		padding: 0 var(--o-space-4) 0 0;
+		justify-content: flex-end;
 		background: var(--o-background-neutral-default);
 		pointer-events: none;
 		font-size: 1rem;
@@ -254,7 +254,10 @@
 	&__clearable {
 		.close(1rem);
 		margin: 0.125rem;
+		margin-top: 0;
 		pointer-events: all;
+		align-items: center;
+		color: var(--o-text-neutral-moderate);
 
 		.orion-input--disabled & {
 			display: none;
@@ -263,19 +266,19 @@
 
 	&__reveal {
 		margin-left: 0.3rem;
-		color: var(--o-text-default-subtle)
+		color: var(--o-text-neutral-subtle)
 	}
 
 	&__icon {
 		.square(1.25rem);
 		.flex-align();
 		font-size: var(--o-typography-body2-default-font-size);
-		color: var(--o-text-default-subtle);
+		color: var(--o-text-neutral-subtle);
 	}
 
 	&--disabled {
 		.icon {
-			color: var(--o-text-default-moderate);
+			color: var(--o-text-neutral-moderate);
 		}
 	}
 
@@ -286,7 +289,7 @@
 
 	&__static-label {
 		.typography(label-default);
-		color: var(--o-text-default-default);
+		color: var(--o-text-neutral-default);
 		margin-bottom: var(--o-space-4);
 		display: block;
 
