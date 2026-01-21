@@ -167,4 +167,8 @@ export default class OrionDateWeekSetupService extends SharedSetupService {
 		return this.vModel.value?.weekNumber === week.weekNumber
 			&& this.vModel.value?.year === this.year;
 	}
+
+	isYearActive (year: number) {
+		return this.state.year === year;
+	}
 }

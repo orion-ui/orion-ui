@@ -4,9 +4,10 @@
 .orion-datepicker {
 	.orion-input__input {
 		min-height: 2.5rem;
-		height: auto;
+		height: inherit;
 		display: flex;
 		align-items: center;
+		overflow: hidden;
 	}
 
 	&__timepicker-wrapper {
@@ -38,9 +39,11 @@
 		&__content {
 			height: 100%;
 			display: flex;
-			flex-wrap: wrap;
-			gap: var(--o-space-8);
+			width: inherit;
+			gap: var(--o-space-4);
 			align-items: center;
+			overflow: hidden;
+			z-index: 2;
 		}
 
 		&__clearable {
@@ -65,6 +68,14 @@
 				border-color: var(--o-border-neutral-default);
 				transform: rotate(90deg);
 			}
+		}
+
+		&__dropdown {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			gap: var(--o-space-4)
 		}
 	}
 }

@@ -22,7 +22,7 @@
 				@click="setup.switchPeriod(-1)"/>
 
 			<div class="orion-date-table__header-current-display">
-				<o-button
+				<orion-button
 					v-show="!setup.viewMonth && !setup.viewYears && !month"
 					:disabled="disableMonthAndYear"
 					outline
@@ -30,8 +30,8 @@
 					class="orion-date-table__header-current-month"
 					@click="setup.showMonths()">
 					{{ setup.monthName }}
-				</o-button>
-				<o-button
+				</orion-button>
+				<orion-button
 					v-if="!setup.viewYears"
 					:disabled="disableMonthAndYear"
 					outline
@@ -39,7 +39,7 @@
 					class="orion-date-table__header-current-year"
 					@click="setup.showYears()">
 					{{ setup.currentYear }}
-				</o-button>
+				</orion-button>
 				<span
 					v-else
 					class="orion-date-table__header-current-range-years">
@@ -135,16 +135,21 @@
 
 			<div
 				v-show="(setup.viewMonth || month) && !setup.viewYears"
-				class="orion-date-table__body__months">
+				class="orion-date-table__body-months">
 				<div
 					v-for="i in 3"
 					:key="i"
 					class="orion-date-table-row">
-					<span
+					<orion-toggle-button
 						v-for="(month, index) in setup.lang.MONTH_NAME.slice((i - 1) * 4, i * 4)"
 						:key="`month-${month}`"
-						:class="setup.getCssClassForMonth(index + ((i - 1) * 4))"
-						@click="setup.selectMonth(index + ((i - 1) * 4))">{{ month }}</span>
+						:model-value="setup.isMonthActive(index + ((i - 1) * 4))"
+						nude
+						class="orion-date-table-row__cell--month"
+						:disabled="setup.isMonthDisabled(index + ((i - 1) * 4))"
+						@click="setup.selectMonth(index + ((i - 1) * 4))">
+						{{ month }}
+					</orion-toggle-button>
 				</div>
 			</div>
 
@@ -155,11 +160,15 @@
 					v-for="i in 3"
 					:key="i"
 					class="orion-date-table-row">
-					<span
+					<orion-toggle-button
 						v-for="year in setup.rangeYears.slice((i - 1) * 4, i * 4)"
 						:key="`year-${year}`"
-						class="orion-date-table-row__cell orion-date-table-row__cell--year"
-						@click="setup.selectYear(year)">{{ year }}</span>
+						:model-value="setup.isYearActive(year)"
+						nude
+						class="orion-date-table-row__cell--year"
+						@click="setup.selectYear(year)">
+						{{ year }}
+					</orion-toggle-button>
 				</div>
 			</div>
 		</div>
@@ -189,6 +198,8 @@
 <script setup lang="ts">
 import { OrionDateTableHorizontal } from 'packages/DateTableHorizontal';
 import { OrionIcon } from 'packages/Icon';
+import { OrionButton } from 'packages/Button';
+import { OrionToggleButton } from 'packages/ToggleButton';
 import './OrionDateTable.less';
 import type { OrionDateTableEmits, OrionDateTableProps } from './OrionDateTableSetupService';
 import OrionDateTableSetupService from './OrionDateTableSetupService';

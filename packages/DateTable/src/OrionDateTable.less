@@ -52,9 +52,10 @@
 			line-height: 1.5rem;
 			color: var(--o-text-default-default);
 
-			> span {
-				display: block;
-				padding: calc(1px + 0.125rem) var(--o-space-16);
+			.orion-button--disabled {
+				color: var(--o-text-default-default) !important;
+				cursor: default;
+				border: 1px solid var(--o-border-neutral-default) !important;
 			}
 		}
 
@@ -64,7 +65,7 @@
 			cursor: pointer;
 
 			&:hover {
-				color: var(--o-text-info-default);
+				color: var(--o-text-primary-default);
 			}
 
 			&.disable {
@@ -79,6 +80,18 @@
 
 		&--horizontal {
 			display: flex;
+		}
+
+		&-months {
+			padding: var(--o-space-16) 0;
+			display: flex;
+			flex-direction: column;
+			gap: var(--o-space-4);
+
+			.orion-date-table-row {
+				justify-content: center;
+				gap: var(--o-space-4);
+			}
 		}
 
 		&-dow {
@@ -242,29 +255,6 @@
 
 				&--grey {
 					color: var(--o-text-default-disabled);
-				}
-			}
-
-			&--month,
-			&--year {
-				width: 5rem;
-				margin: 0.25rem 0.5rem;
-				padding: 0.5rem 1rem;
-				border-radius: 0.25rem;
-
-				&:hover {
-					color: var(--o-text-info-default);
-					background: var(--o-background-neutral-default) !important;
-				}
-
-				&.selected {
-					color: var(--o-text-info-default);
-					background-color: var(--o-background-info-minimal);
-				}
-
-				&.disabled {
-					color: var(--o-text-default-subtle);
-					cursor: not-allowed;
 				}
 			}
 
