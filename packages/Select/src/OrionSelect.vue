@@ -217,14 +217,14 @@
 	setup
 	lang="ts"
 	generic="T, O, VKey extends keyof O = never, DKey extends keyof O = VKey">
-import './OrionSelect.less';
 import { OrionButton } from 'packages/Button';
+import { OrionField } from 'packages/Field';
 import { OrionIcon } from 'packages/Icon';
 import { OrionInput } from 'packages/Input';
 import { OrionLoader } from 'packages/Loader';
-import { OrionField } from 'packages/Field';
+import './OrionSelect.less';
+import type { OrionSelectEmits, OrionSelectProps, VModelType } from './OrionSelectSetupService';
 import OrionSelectSetupService from './OrionSelectSetupService';
-import type { OrionSelectProps, OrionSelectEmits, VModelType } from './OrionSelectSetupService';
 const emits = defineEmits<OrionSelectEmits<T, O>>();
 const vModel = defineModel<VModelType<T>>();
 const props = withDefaults(defineProps<OrionSelectProps<T, O, VKey, DKey>>(), OrionSelectSetupService.defaultProps);

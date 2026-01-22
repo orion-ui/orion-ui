@@ -512,6 +512,7 @@ export default class OrionSelectSetupService<
 
 	handlePopoverShow () {
 		addPopoverBackdropCloseAbility(this._popover, () => this.handleBlur(undefined, true));
+
 		if (isArray(this._items.value)) {
 			this.state.indexNav = this._items.value.findIndex(x => (x as HTMLElement).classList.contains('selected'));
 			this.animate();
@@ -551,11 +552,10 @@ export default class OrionSelectSetupService<
 	handleBlur = debounce((e?: FocusEvent, selection?: boolean) => {
 		if (e?.relatedTarget) {
 			const el = e.relatedTarget as HTMLElement;
-			if (el.parentElement?.classList.contains('orion-select__popover-search-input')
+			if (el.classList.contains('orion-select__popover-search-input')
 					|| (el === this._autocomplete.value)) {
 				return false;
 			}
-
 		}
 
 		this.state.hasBeenFocus = true;
