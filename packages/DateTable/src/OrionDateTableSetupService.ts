@@ -368,6 +368,11 @@ export default class OrionDateTableSetupService extends SharedSetupService {
 		}
 	}
 
+	showDays () {
+		this.state.viewMonth = false;
+		this.state.viewYears = false;
+	}
+
 	showMonths () {
 		if (!this.props.disableMonthAndYear) {
 			this.state.viewMonth = true;

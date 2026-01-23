@@ -4,7 +4,7 @@
 		placement="bottom-start"
 		:positioning-disabled="setup.responsive.onPhone"
 		:triggers="[]"
-		:distance="4"
+		:distance="multiple ? 4 : undefined"
 		:shown="setup.isFocus"
 		theme="orion"
 		:auto-hide="false"

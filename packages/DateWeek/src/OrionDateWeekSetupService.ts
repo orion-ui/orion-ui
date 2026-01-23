@@ -125,6 +125,10 @@ export default class OrionDateWeekSetupService extends SharedSetupService {
 		return useMonkey(new Date(year ?? this.state.year, 0, weekNumber*7)).getWeekDates();
 	}
 
+	showDays () {
+		this.state.viewYears = false;
+	}
+
 	showYears () {
 		if (!this.props.disableMonthAndYear) {
 			this.state.viewYears = true;

@@ -11,6 +11,12 @@
 
 			<span class="orion-date-week__header-current-display">
 				<orion-button
+					v-show="setup.viewYears"
+					outline
+					@click="setup.showDays()">
+					{{ setup.lang.CLOSE_ACTION }}
+				</orion-button>
+				<orion-button
 					v-if="!setup.viewYears"
 					outline
 					:readonly="disableMonthAndYear"
@@ -18,11 +24,11 @@
 					@click="setup.showYears()">
 					{{ setup.year }}
 				</orion-button>
-				<span
+				<orion-button
 					v-else
-					class="orion-date-week__header-current-range-years">
+					outline>
 					{{ `${setup.rangeYears[0]} - ${setup.rangeYears[setup.rangeYears.length - 1]}` }}
-				</span>
+				</orion-button>
 			</span>
 
 			<orion-icon
@@ -52,7 +58,9 @@
 				</div>
 			</div>
 
-			<div v-show="setup.viewYears">
+			<div
+				v-show="setup.viewYears"
+				class="orion-date-table__body-years">
 				<div
 					v-for="i in 3"
 					:key="i"
@@ -62,7 +70,6 @@
 						:key="`year-${year}`"
 						:model-value="setup.isYearActive(year)"
 						nude
-						class="orion-date-week-row__cell--year"
 						@click="setup.selectYear(year)">
 						{{ year }}
 					</orion-toggle-button>
@@ -73,12 +80,12 @@
 </template>
 
 <script setup lang="ts">
-import './OrionDateWeek.less';
-import { OrionIcon } from 'packages/Icon';
 import { OrionButton } from 'packages/Button';
+import { OrionIcon } from 'packages/Icon';
 import { OrionToggleButton } from 'packages/ToggleButton';
+import './OrionDateWeek.less';
+import type { OrionDateWeekEmits, OrionDateWeekProps } from './OrionDateWeekSetupService';
 import OrionDateWeekSetupService from './OrionDateWeekSetupService';
-import type { OrionDateWeekProps, OrionDateWeekEmits } from './OrionDateWeekSetupService';
 const emits = defineEmits<OrionDateWeekEmits>() as OrionDateWeekEmits;
 const vModel = defineModel<Undef<Orion.DateRange>>();
 const props = withDefaults(defineProps<OrionDateWeekProps>(), OrionDateWeekSetupService.defaultProps);

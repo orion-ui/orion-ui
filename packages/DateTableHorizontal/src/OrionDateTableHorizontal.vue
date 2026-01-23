@@ -115,7 +115,7 @@
 					<span
 						v-for="year in setup.rangeYears"
 						:key="`year-${year}`"
-						class="orion-date-table-row__cell orion-date-table-row__cell--year"
+						class="orion-date-table-row__cell"
 						@click="setup.selectYear(year)">{{ year }}</span>
 				</div>
 			</div>
@@ -144,12 +144,12 @@
 </template>
 
 <script setup lang="ts">
-import './OrionDateTableHorizontal.less';
-import { OrionIcon } from 'packages/Icon';
 import { OrionHorizontalScroll } from 'packages/HorizontalScroll';
-import OrionDateTableHorizontalSetupService from './OrionDateTableHorizontalSetupService';
-import type { OrionDateTableHorizontalProps, OrionDateTableHorizontalEmits } from './OrionDateTableHorizontalSetupService';
+import { OrionIcon } from 'packages/Icon';
 import { useMonkey } from 'services';
+import './OrionDateTableHorizontal.less';
+import type { OrionDateTableHorizontalEmits, OrionDateTableHorizontalProps } from './OrionDateTableHorizontalSetupService';
+import OrionDateTableHorizontalSetupService from './OrionDateTableHorizontalSetupService';
 const vModel = defineModel< Nil<Date>>();
 const range = defineModel<Nil<Orion.DateRange>>('range');
 const multiple = defineModel<Nil<Date[]>>('multiple');
