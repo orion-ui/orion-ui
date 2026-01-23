@@ -1,12 +1,13 @@
 <template>
 	<v-dropdown
 		:ref="setup._popover"
-		:theme="setup.showPopoverSearch ? 'orion-select-searchable' : 'orion-select'"
+		theme="orion-select"
 		:positioning-disabled="setup.responsive.onPhone"
 		:triggers="[]"
 		:shown="setup.showPopover"
 		:auto-hide="!!$slots.default"
 		v-bind="dropdownOptions"
+		placement="bottom"
 		:container="setup._defaultSlot.value"
 		@hide="setup.handleBlur()"
 		@apply-show="setup.handlePopoverShow()">
@@ -19,6 +20,7 @@
 			:class="[{ 'orion-select--multiple': multiple }, $attrs.class]"
 			@clear="setup.clear()">
 			<div
+				:id="`orion-input_${setup._uid}`"
 				:ref="setup._input"
 				class="orion-input__input"
 				:tabindex="disabled ? undefined : 0"
@@ -29,39 +31,62 @@
 				@keydown.down.prevent="setup.handleKeydown('down')"
 				@keydown.up.prevent="setup.handleKeydown('up')"
 				@keydown.enter="setup.selectItemFromEnter()">
-				<div v-if="multiple && setup.isArray(vModel) && vModel?.length && !$slots['multiple-value']">
-					<span
-						v-for="(item, i) in vModel"
+				<div
+					v-if="multiple && !$slots['multiple-value']"
+					class="orion-select__multiple-content">
+					<orion-chips
+						v-for="(item, i) in (vModel as Array<T>)?.slice(0, setup.maxVisibleMultipleItems)"
 						:key="Number(i)"
-						class="orion-select__selected-item">
+						squared
+						:close="!readonly && !disabled"
+						class="orion-select__selected-item"
+						@close="setup.removeIndex(i)">
 						<slot
 							v-if="setup.valueDisplay(item)"
 							name="value"
 							v-bind="setup.valueDisplay(item)">
 							{{ setup.valueDisplay(item)!.display }}
 						</slot>
-						<span
-							v-if="!readonly && !disabled"
-							class="orion-select__selected-item-remove"
-							@mousedown.prevent="setup.removeIndex(i)">
-							&times;
-						</span>
-					</span>
+					</orion-chips>
+					<v-dropdown
+						v-if="multiple && setup.isArray(vModel) && vModel?.length && !$slots['multiple-value'] && vModel.length > setup.maxVisibleMultipleItems"
+						:triggers="[]"
+						:shown="setup.displayMultipleDropdown"
+						@apply-hide="setup.displayMultipleDropdown = false">
+						<orion-chips
+							squared
+							@mousedown.prevent.stop
+							@click="setup.toggleMultiplePopper()">
+							+ {{ vModel.length - setup.maxVisibleMultipleItems }}
+						</orion-chips>
+						<template #popper>
+							<div class="orion-select__multiple-dropdown">
+								<orion-chips
+									v-for="(item, index) in vModel?.slice(setup.maxVisibleMultipleItems)"
+									:key="index"
+									:close="!readonly && !disabled"
+									squared
+									@close="setup.removeIndex(index + setup.maxVisibleMultipleItems)">
+									<div class="flex ai-c g-8">
+										{{ setup.valueDisplay(item)!.display }}
+									</div>
+								</orion-chips>
+							</div>
+						</template>
+					</v-dropdown>
 				</div>
 				<slot
 					v-else-if="!multiple && !setup.isArray(vModel) && setup.valueDisplay()"
 					name="value"
 					v-bind="setup.valueDisplay(vModel)">
-					{{ setup.valueDisplay(vModel).display }}
+					<span>{{ setup.valueDisplay(vModel).display }}</span>
 				</slot>
 				<slot
 					v-else-if="$slots['multiple-value'] && vModel && setup.isArray(vModel)"
 					name="multiple-value"
 					:value="vModel"/>
-
-
 				<input
-					v-if="autocomplete && (!setup.hasValue || (setup.hasValue && setup.isFocus))"
+					v-if="autocomplete && (!setup.hasValue || (setup.hasValue && setup.isFocus)) && !multiple"
 					:ref="setup._autocomplete"
 					v-model="setup.valueToSearch"
 					type="text"
@@ -76,8 +101,6 @@
 
 			<template #icon-suffix>
 				<orion-icon
-					v-show="!autocomplete &&
-						(!clearable || (clearable && !setup.hasValue))"
 					class="orion-input__icon orion-select__carret orion-select__icon--internal"
 					icon="expand_more"
 					:class="{ 'open' : setup.isFocus }"
@@ -117,7 +140,7 @@
 					v-if="setup.showPopoverSearch"
 					:ref="setup._optionssearchinput"
 					v-model="setup.valueToSearch"
-					:label="setup.lang.SEARCH"
+					:placeholder="setup.lang.SEARCH"
 					class="orion-select__popover-search-input"
 					size="xs"
 					suffix-icon="search"
@@ -143,6 +166,7 @@
 				<div
 					v-else
 					:ref="setup._optionscontainer"
+					class="orion-select__popover-options"
 					@mousemove="setup.indexNav = -1"
 					@touchmove="setup.indexNav = -1">
 					<template
@@ -169,12 +193,15 @@
 										? setup.markedSearch(option[displayKey])
 										: setup.markedSearch(String(option))"/>
 							</slot>
+							<o-icon
+								class="icon--add orion-select__icon--internal"
+								icon="add"/>
 							<template v-if="multiple">
 								<orion-icon
 									icon="check"
 									class="icon--selected orion-select__icon--internal"/>
 								<orion-icon
-									icon="delete"
+									icon="remove"
 									class="icon--delete orion-select__icon--internal"/>
 							</template>
 							<orion-icon
@@ -202,12 +229,30 @@
 					</orion-button>
 				</div>
 
+				<div
+					v-if="setup.responsive.onDesktop"
+					class="orion-select__popover-footer">
+					<div class="orion-select__popover-footer-item">
+						<span class="keyboard-shortcut">ESC</span>
+						<span>{{ setup.lang.CLOSE_ACTION }}</span>
+					</div>
+
+					<div class="orion-select__popover-footer-item">
+						<span class="keyboard-shortcut">
+							<o-icon icon="keyboard_arrow_down"/>
+						</span>
+						<span class="keyboard-shortcut">
+							<o-icon icon="keyboard_arrow_up"/>
+						</span>
+						<span>{{ setup.lang.NAVIGATE }}</span>
+					</div>
+				</div>
 				<orion-loader
 					class="orion-select__popover-loader"
 					size="sm"
-					color="info"
 					:visible="setup.isFetching"
-					:message="setup.lang.LOADING_RESULTS"/>
+					:message="setup.lang.LOADING_RESULTS"
+					@mousewheel.prevent.stop/>
 			</div>
 		</template>
 	</v-dropdown>
@@ -222,6 +267,7 @@ import { OrionField } from 'packages/Field';
 import { OrionIcon } from 'packages/Icon';
 import { OrionInput } from 'packages/Input';
 import { OrionLoader } from 'packages/Loader';
+import { OrionChips } from 'packages/Chips';
 import './OrionSelect.less';
 import type { OrionSelectEmits, OrionSelectProps, VModelType } from './OrionSelectSetupService';
 import OrionSelectSetupService from './OrionSelectSetupService';

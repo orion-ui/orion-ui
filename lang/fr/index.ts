@@ -36,6 +36,7 @@ export const FrLang = {
 	MINUTE: `Minute`,
 	MONTH: `Mois`,
 	MONTH_NAME: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+	NAVIGATE: `Naviguer`,
 	NEXT: `Suivant`,
 	NO_RESULT: `Aucun résultat`,
 	OR: `ou`,

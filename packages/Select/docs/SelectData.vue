@@ -32,6 +32,12 @@
 				v-bind="selectBind"
 				multiple/>
 
+
+			<pre
+				v-if="state.multiple"
+				class="pa-xs">Value:<br>{{ state.multiple }}</pre>
+		</div>
+		<div class="col-sm-12">
 			<o-select
 				v-model="state.multiple"
 				label="Multiple searchable"
@@ -39,18 +45,6 @@
 				class="mt-sm"
 				multiple
 				searchable/>
-
-			<o-select
-				v-model="state.multiple"
-				label="Multiple autocomplete"
-				v-bind="selectBind"
-				class="mt-sm"
-				multiple
-				autocomplete/>
-
-			<pre
-				v-if="state.multiple"
-				class="pa-xs">Value:<br>{{ state.multiple }}</pre>
 		</div>
 	</div>
 </template>

@@ -7,7 +7,7 @@
 	display: inline-flex;
 	align-items: center;
 	max-width: 100%;
-
+	min-width: fit-content;
 	border-radius: var(--o-radius-round);
 	white-space: nowrap;
 	border: 1px solid transparent;
@@ -166,6 +166,10 @@
 	color: var(--o-text-inverted-default);
 	background: var(--o-background-neutral-subtle);
 	border: 1px solid var(--o-border-neutral-subtle);
+
+	.orion-chips__close.orion-button {
+		color: var(--o-text-inverted-default);
+	}
 }
 
 &--grey-light,

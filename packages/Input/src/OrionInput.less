@@ -36,6 +36,14 @@
 
 	&:hover:not(.orion-input--focused) {
 		border-color: var(--o-border-neutral-subtle);
+		background-color: var(--o-background-neutral-hover);
+
+		.orion-input__label::before {
+			background-color: var(--o-background-neutral-hover);
+		}
+		.orion-input__pictos {
+			background-color: var(--o-background-neutral-hover);
+		}
 
 		&.orion-input--danger {
 			border-color: var(--o-border-danger-default);
@@ -169,10 +177,9 @@
 		display: block;
 		font-family: inherit;
 		font-size: inherit;
-		line-height: 1.35;
 		color: var(--o-text-neutral-default);
 		outline: none;
-		padding: 0;
+		padding: var(--o-space-6) 0;
 
 		.orion-select &,
 		.orion-datepicker & {
