@@ -148,6 +148,15 @@ export default class OrionSelectSetupService<
 	readonly isArray = isArray;
 	readonly get = get;
 
+	private readonly debouncedWindowResizeHandler = () => {
+		this.windowResizeHandler();
+	};
+
+	windowResizeHandler = debounce(async () => {
+		this.calculateVisibleMultipleItems();
+	}, 17);
+
+
 	get favoritesOptions () { return this.state.favoritesOptions; }
 	get valueToSearch () { return this.state.valueToSearch; }
 	set valueToSearch (value) {
@@ -290,10 +299,16 @@ export default class OrionSelectSetupService<
 	}
 
 	protected onMounted () {
-		if (this.props.type === 'multiple') {
+		if (this.props.multiple) {
 			this.calculateVisibleMultipleItems();
+			this.window?.addEventListener('resize', this.debouncedWindowResizeHandler);
 		}
 	}
+
+	protected onUnmounted () {
+		this.window?.removeEventListener('resize', this.debouncedWindowResizeHandler);
+	};
+
 
 	private checkProps () {
 		if (this.props.multiple && !isNil(this.vModel.value) && !isArray(this.vModel.value)) {
