@@ -20,24 +20,24 @@
 		<div
 			v-if="$slots.header || title"
 			class="orion-card__header"
-			:class="[
-				{ 'orion-card__header--lined': headerLine },
-			]"
 			@click="emits('header-click')">
-			<div class="orion-card__title-subtitle">
+			<div
+				class="orion-card__header-content"
+				:class="{ 'orion-card__header-content--lined': headerLine }">
 				<h4
 					v-if="title"
 					class="orion-card__title">
 					{{ title }}
 				</h4>
+
 				<h5
 					v-if="subtitle"
 					class="orion-card__subtitle">
 					{{ subtitle }}
 				</h5>
-			</div>
 
-			<slot name="header"/>
+				<slot name="header"/>
+			</div>
 		</div>
 
 		<div
@@ -48,11 +48,12 @@
 
 		<div
 			v-if="$slots.actions"
-			class="orion-card__actions"
-			:class="[
-				{ 'orion-card__actions--lined': actionsLine },
-			]">
-			<slot name="actions"/>
+			class="orion-card__actions">
+			<div
+				class="orion-card__actions-content"
+				:class="{ 'orion-card__actions-content--lined': actionsLine }">
+				<slot name="actions"/>
+			</div>
 		</div>
 
 		<div class="orion-card__selected">
@@ -75,8 +76,8 @@
 
 <script setup lang="ts">
 import './OrionCard.less';
+import type { OrionCardEmits, OrionCardProps } from './OrionCardSetupService';
 import OrionCardSetupService from './OrionCardSetupService';
-import type { OrionCardProps, OrionCardEmits } from './OrionCardSetupService';
 const emits = defineEmits<OrionCardEmits>() as OrionCardEmits;
 const props = withDefaults(defineProps<OrionCardProps>(), OrionCardSetupService.defaultProps);
 const setup = new OrionCardSetupService(props, emits);

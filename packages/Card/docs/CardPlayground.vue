@@ -22,6 +22,13 @@
 				icon="play_arrow"
 				ripple="success"
 				@click="triggerNotif()"/>
+
+			<o-button
+				size="sm"
+				color="primary"
+				@click.stop="triggerNotif()">
+				Click me !
+			</o-button>
 		</template>
 	</o-card>
 
@@ -89,8 +96,8 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue';
 import { useNotif } from 'lib';
+import { reactive } from 'vue';
 
 function triggerNotif () {
 	useNotif.info('Nice job !');

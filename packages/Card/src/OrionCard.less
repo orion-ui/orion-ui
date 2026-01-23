@@ -12,7 +12,7 @@
 	display: flex;
 	flex-direction: column;
 	background: var(--o-background-neutral-default);
-	border-radius: var(--o-radius-md);
+	border-radius: var(--o-radius-xl);
 	box-shadow: 0 0.0625rem 0.1875rem fade(black, 10);
 	color: var(--o-text-neutral-default);
 
@@ -41,7 +41,7 @@
 		}
 
 		.orion-card--md>& {
-			padding: var(--o-space-24) var(--o-space-24) 0;
+			padding: var(--o-space-24) var(--o-space-24) 0;	
 		}
 
 		.orion-card--lg>& {
@@ -51,39 +51,42 @@
 		.orion-card--xl>& {
 			padding: var(--o-space-48) var(--o-space-48) 0;
 		}
+	}
+
+	&__header-content {
+		display: flex;
+		flex-direction: column;
+		gap: var(--o-space-8);
 
 		&--lined {
-			border: 0;
-			border-bottom: 0.0625rem solid;
-			border-image: linear-gradient(to right,
-					color-mix(in srgb, var(--o-border-neutral-default) 0%, transparent),
-					color-mix(in srgb, var(--o-border-neutral-default) 100%, transparent)) 1;
-
-			.orion-card--xs & {
-				padding: var(--o-space-12);
+			border-bottom: 0.0625rem solid var(--o-border-neutral-default);
+			
+			.orion-card--xs & {				
+				padding-bottom: var(--o-space-12);
 			}
-
+	
 			.orion-card--sm & {
-				padding: var(--o-space-16);
+				padding-bottom: var(--o-space-16);
 			}
-
+	
 			.orion-card--md & {
-				padding: var(--o-space-24);
+				padding-bottom: var(--o-space-24);
 			}
-
+	
 			.orion-card--lg & {
-				padding: var(--o-space-32);
+				padding-bottom: var(--o-space-32);
 			}
-
+	
 			.orion-card--xl & {
-				padding: var(--o-space-48);
+				padding-bottom: var(--o-space-48);
 			}
 		}
+
 	}
 
 	&__body {
-		flex: 1 0 0%;
 		.typography(body2-default);
+		flex: 1 0 0%;
 
 		.orion-card--xs>& {
 			padding: var(--o-space-12);
@@ -116,113 +119,75 @@
 	}
 
 	&__actions {
-		.flex-align();
-		position: relative;
-		flex-wrap: wrap-reverse;
-		color: var(--o-text-neutral-default);
-
-		&--right {
-			justify-content: flex-end;
-		}
-
-		.icon {
-			position: relative;
-			transition: color 0.3s;
-			margin: 0 0.5rem;
+		.orion-icon {
 			font-size: 1.25rem;
 
 			@media @phone {
-				margin: 0.5rem;
 				font-size: 1.5rem;
 			}
 
-			&__indicator {
-				.circle(0.5rem);
-				position: absolute;
-				bottom: 0;
-				background: var(--o-background-neutral-moderate);
-
-				&--info {
-					background: var(--o-background-info-default);
-				}
-
-				&--mobile {
-					.circle(1rem);
-					.flex-align();
-					left: -0.3rem;
-					bottom: -0.5rem;
-
-					&::after {
-						font-family: var(--font-family);
-						content: attr(data-count);
-						color: var(--o-text-neutral-inverted);
-						font-size: 0.5rem;
-						font-weight: bold;
-					}
-				}
-			}
-
 			&:hover:not(.orion-icon--ripple) {
-				color: var(--o-text-info-default);
+				color: var(--o-text-primary-default);
 			}
 		}
 
-		.orion-button {
-			margin: 0.5rem;
+		.orion-card--xs & {
+			padding: 0 var(--o-space-12) var(--o-space-12) var(--o-space-12);
 		}
 
-		.orion-card--xs>& {
-			padding: 0 var(--o-space-12) var(--o-space-12);
+		.orion-card--sm & {
+			padding: 0 var(--o-space-16) var(--o-space-16) var(--o-space-16);
 		}
 
-		.orion-card--sm>& {
-			padding: var(--o-space-8) var(--o-space-16) var(--o-space-32);
+		.orion-card--md & {
+			padding: 0 var(--o-space-24) var(--o-space-24) var(--o-space-24);
 		}
 
-		.orion-card--md>& {
-			padding: var(--o-space-16) var(--o-space-24) var(--o-space-32);
+		.orion-card--lg & {
+			padding: 0 var(--o-space-32) var(--o-space-32) var(--o-space-32);
 		}
 
-		.orion-card--lg>& {
-			padding: var(--o-space-24) var(--o-space-32) var(--o-space-32);
-		}
-
-		.orion-card--xl>& {
-			padding: var(--o-space-48) var(--o-space-48) var(--o-space-48);
-		}
-
-		&--lined {
-			border: 0;
-			border-top: 0.0625rem solid;
-			border-image: linear-gradient(to right,
-					color-mix(in srgb, var(--o-border-neutral-default) 0%, transparent),
-					color-mix(in srgb, var(--o-border-neutral-default) 100%, transparent)) 1;
-
-			.orion-card--xs>& {
-				padding: var(--o-space-12);
-			}
-
-			.orion-card--sm>& {
-				padding: var(--o-space-16);
-			}
-
-			.orion-card--md>& {
-				padding: var(--o-space-24);
-			}
-
-			.orion-card--lg>& {
-				padding: var(--o-space-32) var(--o-space-32);
-			}
-
-			.orion-card--xl>& {
-				padding: var(--o-space-48) var(--o-space-48);
-			}
+		.orion-card--xl & {
+			padding: 0 var(--o-space-48) var(--o-space-48) var(--o-space-48);
 		}
 	}
 
+	&__actions-content {
+		.flex-align();
+		flex-wrap: wrap-reverse;
+		gap: 1rem;
+		position: relative;
+		color: var(--o-text-neutral-default);
+
+		&--lined {
+			border-top: 0.0625rem solid var(--o-border-neutral-default);
+			
+			.orion-card--xs & {
+				padding-top: var(--o-space-12);
+			}
+	
+			.orion-card--sm & {
+				padding-top: var(--o-space-16);
+			}
+	
+			.orion-card--md & {
+				padding-top: var(--o-space-24);
+			}
+	
+			.orion-card--lg & {
+				padding-top: var(--o-space-32);
+			}
+	
+			.orion-card--xl & {
+				padding-top: var(--o-space-48);
+			}
+		}
+
+	}
+
 	&__title {
-		margin: 0;
 		.typography(heading-h5);
+		margin: var(--o-space-0);
 		color: var(--o-text-neutral-default);
 
 		.orion-card--xs & {
@@ -243,8 +208,8 @@
 	}
 
 	&__subtitle {
-		margin-top: var(--o-space-8);
-		.typography(subtitle-default);
+		.typography(body2-default);
+		margin: var(--o-space-0);
 		color: var(--o-text-neutral-subtle);
 
 		.orion-card--xs & {
@@ -354,17 +319,13 @@
 		.orion-card--selected-default & {
 			background: linear-gradient(to bottom,
 					color-mix(in srgb, var(--o-background-neutral-default) 0%, transparent),
-					color-mix(in srgb,
-						var(--o-background-neutral-default) 100%,
-						transparent));
+					color-mix(in srgb, var(--o-background-neutral-default) 100%, transparent));
 		}
 
 		.orion-card--selected-inverted & {
 			background: linear-gradient(to bottom,
 					color-mix(in srgb, var(--o-background-neutral-default) 0%, transparent),
-					color-mix(in srgb,
-						var(--o-background-neutral-default) 100%,
-						transparent));
+					color-mix(in srgb, var(--o-background-neutral-default) 100%, transparent));
 		}
 		}
 
@@ -385,17 +346,13 @@
 			.orion-card--selected-default & {
 				background: linear-gradient(to right,
 						color-mix(in srgb, var(--o-background-neutral-default) 0%, transparent),
-						color-mix(in srgb,
-							var(--o-background-neutral-default) 100%,
-							transparent));
+						color-mix(in srgb, var(--o-background-neutral-default) 100%, transparent));
 			}
 
 			.orion-card--selected-inverted & {
 				background: linear-gradient(to right,
 						color-mix(in srgb, var(--o-background-neutral-default) 0%, transparent),
-						color-mix(in srgb,
-							var(--o-background-neutral-default) 100%,
-							transparent));
+						color-mix(in srgb, var(--o-background-neutral-default) 100%, transparent));
 			}
 		}
 
