@@ -70,6 +70,14 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 	private get dateformat () { return this.setDateFormat(); }
 	private get pattern () { return this.getPattern(); }
 
+	private readonly debouncedWindowResizeHandler = () => {
+		this.windowResizeHandler();
+	};
+
+	windowResizeHandler = debounce(async () => {
+		this.calculateVisibleMultipleDates();
+	}, 17);
+
 	get appLang () { return getAppLang(); }
 
 	get selectionIsOnHourMinute () {
@@ -213,8 +221,15 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 		super.onMounted();
 		if (this.props.type === 'multiple') {
 			this.calculateVisibleMultipleDates();
+			this.window?.addEventListener('resize', this.debouncedWindowResizeHandler);
 		}
 	}
+
+	protected onUnmounted () {
+		if (this.props.type === 'multiple') {
+			this.window?.removeEventListener('resize', this.debouncedWindowResizeHandler);
+		}
+	};
 
 
 	inputValueFormat (date: Date) {
