@@ -62,12 +62,11 @@
 						:triggers="[]"
 						:shown="setup.displayMultipleDropdown"
 						@apply-hide="setup.displayMultipleDropdown = false">
-						<o-chips
+						<orion-chips
 							@mousedown.prevent.stop
 							@click="setup.toggleMultiplePopper()">
 							+ {{ multiple.length - setup.maxVisibleMultipleDates }}
-						</o-chips>
-
+						</orion-chips>
 						<template #popper>
 							<div class="orion-datepicker-multiple__dropdown">
 								<orion-chips
