@@ -7,12 +7,11 @@ import { useLocalStorage } from 'services/LocalStorageService';
 import { useWindow } from 'services/WindowService';
 import { Log } from './Log';
 
-const uidGenerator = function* () {
+const uidGenerator = (function* () {
 	let index = 1;
 	while (true)
 		yield index++;
-}();
-
+}());
 
 export const getUid = () => uidGenerator.next().value;
 
@@ -55,7 +54,7 @@ export function hoursToNumber (value: string, delimiter = ':') {
  * @param {number} milliseconds time to wait
  * @return Promise
  */
-export async function sleep (milliseconds: number) {
+export async function sleepAsync (milliseconds: number) {
 	return new Promise(resolve => setTimeout(resolve, milliseconds));
 }
 
@@ -86,7 +85,7 @@ export function getDaysInMonth (month: number, year: number) {
  * @param {string} [hourSeparator='h'] separator between hours and minutes
  * @return string
  */
-export function getHoursInterval (start: Date, end: Date, pattern = 'De $start à $end', hourSeparator='h') {
+export function getHoursInterval (start: Date, end: Date, pattern = 'De $start à $end', hourSeparator = 'h') {
 
 	const startHours = start.getHours().toString().padStart(2, '0');
 	const startMinutes = start.getMinutes().toString().padStart(2, '0');
@@ -115,8 +114,9 @@ export function isIpad () {
 		try {
 			useDocument()?.createEvent('TouchEvent');
 			return true;
-			// eslint-disable-next-line no-empty, @typescript-eslint/no-unused-vars
-		} catch (e) {}
+
+		}
+		catch (e) {}
 	}
 
 	return false;
@@ -194,7 +194,8 @@ export function highlightDomElement (element: Nil<HTMLElement | string>, options
 			highlighter.addEventListener('transitionend', () => highlighter.remove());
 			highlighter.classList.remove('orion-highlighter--visible');
 		}, { once: true });
-	} else if (mergedOptions.event?.type === 'click' || !mergedOptions.event) {
+	}
+	else if (mergedOptions.event?.type === 'click' || !mergedOptions.event) {
 		setTimeout(() => {
 			highlighter.addEventListener('transitionend', () => highlighter.remove());
 			highlighter.classList.remove('orion-highlighter--visible');
@@ -209,7 +210,8 @@ export function highlightDomElement (element: Nil<HTMLElement | string>, options
 export function handleTouchDevice () {
 	if (isTouch()) {
 		useDocument()?.body.classList.add('istouch');
-	} else {
+	}
+	else {
 		useDocument()?.body.classList.remove('istouch');
 	}
 }
@@ -220,7 +222,7 @@ export function handleTouchDevice () {
  * @param {any} prop prop to search
  * @return boolean
  */
-export function itemHas <P extends string> (item: Record<string, any>, prop: P): item is Record<P, any> {
+export function itemHas<P extends string> (item: Record<string, any>, prop: P): item is Record<P, any> {
 	return prop in item;
 }
 
@@ -240,7 +242,7 @@ export function itemIs<T extends Record<string, any>> (item: Record<string, any>
  * @param {(K extends keyof T)[]} keys the keys to extract
  * @return Pick<T, K>
  */
-export function pickFrom <T extends object, K extends keyof T> (target: T, keys: K[]): Pick<T, K> {
+export function pickFrom<T extends object, K extends keyof T> (target: T, keys: K[]): Pick<T, K> {
 	const res = {} as Pick<T, K>;
 	keys.forEach((k) => {
 		res[k] = target[k];
@@ -265,24 +267,25 @@ export function addPopoverBackdropCloseAbility (popoverRef: Ref<Undef<InstanceTy
 	}
 }
 
-export function displayPhone (phoneNumber : string, code: CountryCode) {
+export function displayPhone (phoneNumber: string, code: CountryCode) {
 	try {
 		const parsedPhoneNumber = parsePhoneNumber(phoneNumber, code);
 		if (parsedPhoneNumber.isValid()) {
 			return parsedPhoneNumber.formatInternational();
 		}
 		return phoneNumber;
-	} catch {
+	}
+	catch {
 		return phoneNumber;
 	}
 }
 
 // #region Global events toggling
 type EventEntry = {
-  type: string;
-  callback: EventListenerOrEventListenerObject;
-	target: 'document' | 'window';
-}
+	type: string
+	callback: EventListenerOrEventListenerObject
+	target: 'document' | 'window'
+};
 const eventsRegistry: Record<number, EventEntry> = {};
 export function toggleGlobalListener (
 	type: string | number,
@@ -300,23 +303,25 @@ export function toggleGlobalListener (
 
 		if (target === 'document') {
 			useDocument()?.addEventListener(type, callback, params);
-		} else {
+		}
+		else {
 			useWindow()?.addEventListener(type, callback, params);
 		}
 		return uid;
-	} else if (typeof type === 'number') {
+	}
+	else if (typeof type === 'number') {
 		if (!eventsRegistry[type]) return;
 
 		if (eventsRegistry[type].target === 'document') {
 			useDocument()?.removeEventListener(eventsRegistry[type].type, eventsRegistry[type].callback);
-		} else {
+		}
+		else {
 			useWindow()?.removeEventListener(eventsRegistry[type].type, eventsRegistry[type].callback);
 		}
 		return type;
 	}
 }
 // #endregion
-
 
 // #region Color Theme
 export const isDarkMode = useWindow()?.matchMedia && useWindow()?.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -338,11 +343,13 @@ export function setThemeMode (mode: Orion.Theme) {
 		if (typeof darkThemeMediaQuery?.removeEventListener === 'function') {
 			darkThemeMediaQuery?.removeEventListener('change', themeMediaQueryListEventHandler);
 		}
-	} else {
+	}
+	else {
 		useLocalStorage()?.removeItem('orion-theme');
 		if (darkThemeMediaQuery?.matches) {
 			useDocument()?.documentElement.setAttribute('data-orion-theme', 'dark');
-		} else {
+		}
+		else {
 			useDocument()?.documentElement.setAttribute('data-orion-theme', 'light');
 		}
 
@@ -359,8 +366,7 @@ export function initThemeMode () {
 }
 // #endregion
 
-
-export function getIconStyle () : Orion.IconStyle {
+export function getIconStyle (): Orion.IconStyle {
 	const iconStyle = useLocalStorage()?.getItem('data-orion-icon-style') as Orion.IconStyle;
 	return iconStyle ?? 'outlined';
 }
@@ -393,8 +399,8 @@ function loadMaterialIconsCSS (style: Orion.IconStyle) {
 			link.href = `https://fonts.googleapis.com/css2?family=${fontName.replace(/ /g, '+')}`;
 			useDocument()?.head.appendChild(link);
 		}
-	} catch {
+	}
+	catch {
 		Log.error('Failed to load Material Icons CSS');
 	}
 }
-

@@ -1,5 +1,5 @@
 import pluralize from 'pluralize';
-import countries from './countries';
+import { countries } from './countries';
 
 export const EnLang = {
 	pluralize: pluralize,
