@@ -51,6 +51,7 @@
 					<v-dropdown
 						v-if="multiple && setup.isArray(vModel) && vModel?.length && !$slots['multiple-value'] && vModel.length > setup.maxVisibleMultipleItems"
 						:triggers="[]"
+						theme="orion-select"
 						:shown="setup.displayMultipleDropdown"
 						@apply-hide="setup.displayMultipleDropdown = false">
 						<orion-chips

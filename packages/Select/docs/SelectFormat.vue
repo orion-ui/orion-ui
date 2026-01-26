@@ -16,7 +16,7 @@
 			<o-select
 				v-model="state.object"
 				label="Array of objects"
-				:options="[{ id: null, value: 'None zenf izej fiezj fijezifojezoifjiojfiozefjze iofjzeifj ' }]"
+				:options="optionsObject"
 				:multiple="state.multiple"
 				clearable
 				track-key="id"
