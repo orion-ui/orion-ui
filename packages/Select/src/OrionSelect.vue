@@ -194,21 +194,23 @@
 										? setup.markedSearch(option[displayKey])
 										: setup.markedSearch(String(option))"/>
 							</slot>
-							<o-icon
-								class="icon--add orion-select__icon--internal"
-								icon="add"/>
-							<template v-if="multiple">
+							<div class="flex g-4 ai-c">
+								<o-icon
+									class="icon--add orion-select__icon--internal"
+									icon="add"/>
+								<template v-if="multiple">
+									<orion-icon
+										icon="check"
+										class="icon--selected orion-select__icon--internal"/>
+									<orion-icon
+										icon="remove"
+										class="icon--delete orion-select__icon--internal"/>
+								</template>
 								<orion-icon
-									icon="check"
-									class="icon--selected orion-select__icon--internal"/>
-								<orion-icon
-									icon="remove"
-									class="icon--delete orion-select__icon--internal"/>
-							</template>
-							<orion-icon
-								v-if="favoriteIcon && !setup.optionIsSelected(option)"
-								:icon="favoriteIcon"
-								class="favorite-icon"/>
+									v-if="favoriteIcon"
+									:icon="favoriteIcon"
+									class="favorite-icon"/>
+							</div>
 						</div>
 						<hr
 							v-if="setup.favoritesOptions && i === (setup.favoritesOptions.length - 1)"
