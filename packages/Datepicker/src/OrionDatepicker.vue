@@ -4,12 +4,15 @@
 		placement="bottom-start"
 		:positioning-disabled="setup.responsive.onPhone"
 		:triggers="[]"
+		:distance="multiple ? 4 : undefined"
 		:shown="setup.isFocus"
+		theme="orion"
 		:auto-hide="false"
 		@apply-show="setup.handlePopperShow()"
 		@apply-hide="setup.handlePopperHide()">
 		<orion-field
 			v-bind="setup.orionFieldBinding"
+			:id="`orion-input_${setup._uid}`"
 			class="orion-datepicker"
 			:has-value="setup.hasValue"
 			:label-is-floating="setup.hasValue || (type === 'date' && setup.isFocus)"
@@ -42,10 +45,10 @@
 					v-if="!$slots.multipleDisplay"
 					class="orion-datepicker-multiple__content">
 					<orion-chips
-						v-for="date in multiple"
+						v-for="(date) in multiple?.slice(0, setup.maxVisibleMultipleDates)"
 						:key="date.toString()"
 						:color="multipleLabelColor"
-						size="sm"
+						size="xs"
 						squared>
 						<div class="flex ai-c g-8">
 							{{ setup.inputValueFormat(date) }}
@@ -54,6 +57,34 @@
 								@click="setup.removeDate(date)"/>
 						</div>
 					</orion-chips>
+					<v-dropdown
+						v-if="multiple && multiple?.length > setup.maxVisibleMultipleDates"
+						:triggers="[]"
+						:shown="setup.displayMultipleDropdown"
+						@apply-hide="setup.displayMultipleDropdown = false">
+						<orion-chips
+							@mousedown.prevent.stop
+							@click="setup.toggleMultiplePopper()">
+							+ {{ multiple.length - setup.maxVisibleMultipleDates }}
+						</orion-chips>
+						<template #popper>
+							<div class="orion-datepicker-multiple__dropdown">
+								<orion-chips
+									v-for="date in multiple?.slice(setup.maxVisibleMultipleDates)"
+									:key="date.toString()"
+									:color="multipleLabelColor"
+									size="xs"
+									squared>
+									<div class="flex ai-c g-8">
+										{{ setup.inputValueFormat(date) }}
+										<span
+											:class="`orion-datepicker-multiple__clearable`"
+											@click="setup.removeDate(date)"/>
+									</div>
+								</orion-chips>
+							</div>
+						</template>
+					</v-dropdown>
 				</div>
 				<div
 					class="orion-datepicker__multiple">

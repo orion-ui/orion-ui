@@ -41,7 +41,7 @@ export class OrionAppService {
 				themes: {
 					'orion': {
 						$extend: 'dropdown',
-						arrowPadding: 15,
+						distance: -4,
 					},
 					'orion-select': {
 						$extend: 'orion',
@@ -58,7 +58,6 @@ export class OrionAppService {
 					},
 				},
 			});
-			// this.app.use(directives);
 
 			this.createPopableWrapper();
 			this.createMainOverlay();

@@ -10,16 +10,25 @@
 				@click="setup.switchPeriod(-1)"/>
 
 			<span class="orion-date-week__header-current-display">
-				<span
+				<orion-button
+					v-show="setup.viewYears"
+					outline
+					@click="setup.showDays()">
+					{{ setup.lang.CLOSE_ACTION }}
+				</orion-button>
+				<orion-button
 					v-if="!setup.viewYears"
+					outline
+					:readonly="disableMonthAndYear"
 					class="orion-date-week__header-current-year"
-					:class="{ 'disable': disableMonthAndYear }"
-					@click="setup.showYears()">{{ setup.year }}</span>
-				<span
+					@click="setup.showYears()">
+					{{ setup.year }}
+				</orion-button>
+				<orion-button
 					v-else
-					class="orion-date-week__header-current-range-years">
+					outline>
 					{{ `${setup.rangeYears[0]} - ${setup.rangeYears[setup.rangeYears.length - 1]}` }}
-				</span>
+				</orion-button>
 			</span>
 
 			<orion-icon
@@ -49,16 +58,21 @@
 				</div>
 			</div>
 
-			<div v-show="setup.viewYears">
+			<div
+				v-show="setup.viewYears"
+				class="orion-date-table__body-years">
 				<div
 					v-for="i in 3"
 					:key="i"
 					class="orion-date-week-row">
-					<span
+					<orion-toggle-button
 						v-for="year in setup.rangeYears.slice((i - 1) * 4, i * 4)"
 						:key="`year-${year}`"
-						class="orion-date-week-row__cell orion-date-week-row__cell--year"
-						@click="setup.selectYear(year)">{{ year }}</span>
+						:model-value="setup.isYearActive(year)"
+						nude
+						@click="setup.selectYear(year)">
+						{{ year }}
+					</orion-toggle-button>
 				</div>
 			</div>
 		</div>
@@ -66,10 +80,12 @@
 </template>
 
 <script setup lang="ts">
-import './OrionDateWeek.less';
+import { OrionButton } from 'packages/Button';
 import { OrionIcon } from 'packages/Icon';
+import { OrionToggleButton } from 'packages/ToggleButton';
+import './OrionDateWeek.less';
+import type { OrionDateWeekEmits, OrionDateWeekProps } from './OrionDateWeekSetupService';
 import OrionDateWeekSetupService from './OrionDateWeekSetupService';
-import type { OrionDateWeekProps, OrionDateWeekEmits } from './OrionDateWeekSetupService';
 const emits = defineEmits<OrionDateWeekEmits>() as OrionDateWeekEmits;
 const vModel = defineModel<Undef<Orion.DateRange>>();
 const props = withDefaults(defineProps<OrionDateWeekProps>(), OrionDateWeekSetupService.defaultProps);

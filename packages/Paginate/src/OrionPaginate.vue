@@ -26,7 +26,7 @@
 					@click="setup.index = Number(page)">
 					{{ page }}
 				</orion-button>
-				<o-input
+				<orion-input
 					v-else
 					v-model="setup.pageInput"
 					placeholder="..."
@@ -49,6 +49,7 @@
 <script setup lang="ts">
 import './OrionPaginate.less';
 import { OrionButton } from 'packages/Button';
+import { OrionInput } from 'packages/Input';
 import OrionPaginateSetupService from './OrionPaginateSetupService';
 import type { OrionPaginateProps, OrionPaginateEmits } from './OrionPaginateSetupService';
 const emits = defineEmits<OrionPaginateEmits>() as OrionPaginateEmits;

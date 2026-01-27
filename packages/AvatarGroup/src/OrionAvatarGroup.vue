@@ -9,7 +9,7 @@
 				:style="i !== 0 ? { 'margin-left': `-${spacing}px` } : {}"/>
 		</template>
 
-		<o-avatar
+		<orion-avatar
 			v-if="setup.overflowCount > 0"
 			:size="setup.avatars[0]?.props?.size ?? 'md'"
 			:color
@@ -21,6 +21,7 @@
 
 <script setup lang="ts">
 import './OrionAvatarGroup.less';
+import { OrionAvatar } from 'packages/Avatar';
 import OrionAvatarGroupSetupService from './OrionAvatarGroupSetupService';
 import type { OrionAvatarGroupProps, OrionAvatarGroupEmits } from './OrionAvatarGroupSetupService';
 const emits = defineEmits<OrionAvatarGroupEmits>() as OrionAvatarGroupEmits;

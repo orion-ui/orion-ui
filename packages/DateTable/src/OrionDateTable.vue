@@ -22,21 +22,33 @@
 				@click="setup.switchPeriod(-1)"/>
 
 			<div class="orion-date-table__header-current-display">
-				<span
+				<orion-button
+					v-show="(setup.viewMonth || setup.viewYears) && !month"
+					outline
+					@click="setup.showDays()">
+					{{ setup.lang.CLOSE_ACTION }}
+				</orion-button>
+				<orion-button
 					v-show="!setup.viewMonth && !setup.viewYears && !month"
-					class="orion-date-table__header-current-month"
-					:class="{ 'disabled': disableMonthAndYear }"
-					@click="setup.showMonths">{{ setup.monthName }} </span>
-				<span
+					:disabled="disableMonthAndYear"
+					outline
+					:nude="disableMonthAndYear"
+					@click="setup.showMonths()">
+					{{ setup.monthName }}
+				</orion-button>
+				<orion-button
 					v-if="!setup.viewYears"
-					class="orion-date-table__header-current-year"
-					:class="{ 'disabled': disableMonthAndYear }"
-					@click="setup.showYears">{{ setup.currentYear }}</span>
-				<span
+					:disabled="disableMonthAndYear"
+					outline
+					:nude="disableMonthAndYear"
+					@click="setup.showYears()">
+					{{ setup.currentYear }}
+				</orion-button>
+				<orion-button
 					v-else
-					class="orion-date-table__header-current-range-years">
+					outline>
 					{{ `${setup.rangeYears[0]} - ${setup.rangeYears[setup.rangeYears.length - 1]}` }}
-				</span>
+				</orion-button>
 			</div>
 
 			<orion-icon
@@ -75,14 +87,13 @@
 					<span
 						v-if="displayWeekNumber"
 						class="orion-date-table__week-number">{{ setup.getWeekNumber(setup.daysToDisplay[i - 1][0].date) }}</span>
-					<span
+					<div
 						v-for="(day) in setup.daysToDisplay[i - 1]"
 						:key="`day-${day.number}`"
 						class="orion-date-table-row__cell"
 						:class="setup.getCssClassForDayInRange(day)"
 						@click="setup.selectDate(day)"
 						@mouseover="setup.handleMouseOverDay(day)">
-
 						<span
 							v-for="(period, index) in day.period"
 							:key="index"
@@ -91,7 +102,6 @@
 						<span
 							v-if="day.color"
 							:class="setup.getClassForBackground(day)"/>
-
 
 						<div
 							v-if="day.period.length > 1"
@@ -102,7 +112,6 @@
 						</div>
 
 						<div class="orion-date-table-row__cell-content">
-
 							<span
 								v-if="markers?.map(m => m.date.getTime()).includes(day.date.getTime())"
 								class="orion-date-table__marker"
@@ -120,38 +129,45 @@
 								</span>
 							</span>
 						</div>
-
-					</span>
+					</div>
 				</div>
 			</div>
 
 			<div
 				v-show="(setup.viewMonth || month) && !setup.viewYears"
-				class="orion-date-table__body__months">
+				class="orion-date-table__body-months">
 				<div
 					v-for="i in 3"
 					:key="i"
 					class="orion-date-table-row">
-					<span
+					<orion-toggle-button
 						v-for="(month, index) in setup.lang.MONTH_NAME.slice((i - 1) * 4, i * 4)"
 						:key="`month-${month}`"
-						:class="setup.getCssClassForMonth(index + ((i - 1) * 4))"
-						@click="setup.selectMonth(index + ((i - 1) * 4))">{{ month }}</span>
+						:model-value="setup.isMonthActive(index + ((i - 1) * 4))"
+						nude
+						class="orion-date-table-row__cell--month"
+						:disabled="setup.isMonthDisabled(index + ((i - 1) * 4))"
+						@click="setup.selectMonth(index + ((i - 1) * 4))">
+						{{ month }}
+					</orion-toggle-button>
 				</div>
 			</div>
 
 			<div
 				v-show="setup.viewYears"
-				class="orion-date-table__body__years">
+				class="orion-date-table__body-years">
 				<div
 					v-for="i in 3"
 					:key="i"
 					class="orion-date-table-row">
-					<span
+					<orion-toggle-button
 						v-for="year in setup.rangeYears.slice((i - 1) * 4, i * 4)"
 						:key="`year-${year}`"
-						class="orion-date-table-row__cell orion-date-table-row__cell--year"
-						@click="setup.selectYear(year)">{{ year }}</span>
+						:model-value="setup.isYearActive(year)"
+						nude
+						@click="setup.selectYear(year)">
+						{{ year }}
+					</orion-toggle-button>
 				</div>
 			</div>
 		</div>
@@ -179,8 +195,10 @@
 </template>
 
 <script setup lang="ts">
+import { OrionButton } from 'packages/Button';
 import { OrionDateTableHorizontal } from 'packages/DateTableHorizontal';
 import { OrionIcon } from 'packages/Icon';
+import { OrionToggleButton } from 'packages/ToggleButton';
 import './OrionDateTable.less';
 import type { OrionDateTableEmits, OrionDateTableProps } from './OrionDateTableSetupService';
 import OrionDateTableSetupService from './OrionDateTableSetupService';

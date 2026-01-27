@@ -148,7 +148,7 @@ export default class OrionDateTableSetupService extends SharedSetupService {
 		const startDate = new Date(this.currentYear, this.currentMonth, 1 - (firstDayOfMonth - 1));
 		startDate.setHours(0, 0, 0, 0);
 
-		for (let i = 0; i < 6; i++) {
+		for (let i = 0; i < 5; i++) {
 			const days = [];
 			for (let d = 0; d < 7; d++) {
 				const currentDate = new Date(startDate);
@@ -368,6 +368,11 @@ export default class OrionDateTableSetupService extends SharedSetupService {
 		}
 	}
 
+	showDays () {
+		this.state.viewMonth = false;
+		this.state.viewYears = false;
+	}
+
 	showMonths () {
 		if (!this.props.disableMonthAndYear) {
 			this.state.viewMonth = true;
@@ -454,7 +459,7 @@ export default class OrionDateTableSetupService extends SharedSetupService {
 			}
 		} else if (this.props.type === 'multiple') {
 			const targetIndex = this.multiple.value?.findIndex(x => x.valueOf() === newDate.valueOf());
-			if (targetIndex && targetIndex >= 0) {
+			if (targetIndex !== undefined && targetIndex >= 0) {
 				this.multiple.value?.splice(targetIndex, 1);
 			} else {
 				this.multiple.value?.push(newDate);
@@ -562,20 +567,22 @@ export default class OrionDateTableSetupService extends SharedSetupService {
 		return [...dayPeriodColors, ...cssClass];
 	}
 
-	getCssClassForMonth (month: number) {
-		const cssClass = ['orion-date-table-row__cell orion-date-table-row__cell--month'];
+	isMonthActive (month: number) {
+		return (this.range?.value?.monthNumber === month && this.range?.value.year === this.currentYear)
+			|| this.currentMonth === month;
 
-		if (this.props.month) {
-			if (this.range?.value?.monthNumber === month && this.range?.value.year === this.currentYear)
-				cssClass.push('selected');
+	}
 
-			if ((this.props.minDate && new Date(this.currentYear, month, 1) < this.props.minDate)
+	isYearActive (year: number) {
+		return this.range?.value?.year === year || this.currentYear === year;
+	}
+
+	isMonthDisabled (month: number) {
+		if ((this.props.minDate && new Date(this.currentYear, month, 1) < this.props.minDate)
 			|| (this.props.maxDate && new Date(this.currentYear, month, new Date(this.currentYear, month+1, 0).getDate()) > this.props.maxDate)) {
-				cssClass.push('disabled');
-			}
+			return true;
 		}
-
-		return cssClass;
+		return false;
 	}
 
 	selectMonth (month: number) {
