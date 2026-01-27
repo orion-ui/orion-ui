@@ -48,12 +48,12 @@
 <script setup lang="ts">
 import { OrionIcon } from 'packages/Icon';
 import './OrionRate.less';
-import OrionRateSetupService from './OrionRateSetupService';
-import type { OrionRateProps, OrionRateEmits } from './OrionRateSetupService';
+import type { OrionRateEmits, OrionRateProps } from './OrionRateSetup';
+import OrionRateSetup from './OrionRateSetup';
 const emits = defineEmits<OrionRateEmits>() as OrionRateEmits;
-const props = withDefaults(defineProps<OrionRateProps>(), OrionRateSetupService.defaultProps);
+const props = withDefaults(defineProps<OrionRateProps>(), OrionRateSetup.defaultProps);
 const vModel = defineModel<number>({ required: true });
-const setup = new OrionRateSetupService(props, emits, vModel);
+const setup = new OrionRateSetup(props, emits, vModel);
 defineExpose(setup.publicInstance);
 
 /** Doc

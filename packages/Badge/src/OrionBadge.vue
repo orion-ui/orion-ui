@@ -13,11 +13,11 @@
 
 <script setup lang="ts">
 import './OrionBadge.less';
-import OrionBadgeSetupService from './OrionBadgeSetupService';
-import type { OrionBadgeProps, OrionBadgeEmits } from './OrionBadgeSetupService';
+import type { OrionBadgeEmits, OrionBadgeProps } from './OrionBadgeSetup';
+import OrionBadgeSetup from './OrionBadgeSetup';
 const emits = defineEmits<OrionBadgeEmits>() as OrionBadgeEmits;
-const props = withDefaults(defineProps<OrionBadgeProps>(), OrionBadgeSetupService.defaultProps);
-const setup = new OrionBadgeSetupService(props, emits);
+const props = withDefaults(defineProps<OrionBadgeProps>(), OrionBadgeSetup.defaultProps);
+const setup = new OrionBadgeSetup(props, emits);
 defineExpose(setup.publicInstance);
 
 /** Doc

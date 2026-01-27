@@ -1,8 +1,8 @@
-import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
+import { App, Plugin } from 'vue';
 import OrionSticker from './src/OrionSticker.vue';
-import type { OrionStickerEmits, OrionStickerProps } from './src/OrionStickerSetupService';
-import OrionStickerSetupService from './src/OrionStickerSetupService';
+import type { OrionStickerEmits, OrionStickerProps } from './src/OrionStickerSetup';
+import OrionStickerSetup from './src/OrionStickerSetup';
 
 export const OrionStickerPlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,4 +10,5 @@ export const OrionStickerPlugin: Plugin = {
 	},
 };
 
-export { OrionSticker, OrionStickerSetupService, OrionStickerEmits, OrionStickerProps };
+export { OrionSticker, OrionStickerEmits, OrionStickerProps, OrionStickerSetup };
+

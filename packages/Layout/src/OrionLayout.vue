@@ -57,15 +57,15 @@
 </template>
 
 <script setup lang="ts">
-import './OrionLayout.less';
 import { OrionNavMain } from 'packages/NavMain';
-import { OrionNavTop } from 'packages/NavTop';
 import { OrionNavTabs } from 'packages/NavTabs';
-import OrionLayoutSetupService from './OrionLayoutSetupService';
-import type { OrionLayoutProps, OrionLayoutEmits } from './OrionLayoutSetupService';
+import { OrionNavTop } from 'packages/NavTop';
+import './OrionLayout.less';
+import type { OrionLayoutEmits, OrionLayoutProps } from './OrionLayoutSetup';
+import OrionLayoutSetup from './OrionLayoutSetup';
 const emits = defineEmits<OrionLayoutEmits>() as OrionLayoutEmits;
-const props = withDefaults(defineProps<OrionLayoutProps>(), OrionLayoutSetupService.defaultProps);
-const setup = new OrionLayoutSetupService(props, emits);
+const props = withDefaults(defineProps<OrionLayoutProps>(), OrionLayoutSetup.defaultProps);
+const setup = new OrionLayoutSetup(props, emits);
 defineExpose(setup.publicInstance);
 
 /** Doc

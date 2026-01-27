@@ -1,8 +1,8 @@
-import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
+import { App, Plugin } from 'vue';
 import OrionSelect from './src/OrionSelect.vue';
-import type { OrionSelectEmits, OrionSelectProps } from './src/OrionSelectSetupService';
-import OrionSelectSetupService from './src/OrionSelectSetupService';
+import type { OrionSelectEmits, OrionSelectProps } from './src/OrionSelectSetup';
+import OrionSelectSetup from './src/OrionSelectSetup';
 
 export const OrionSelectPlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,4 +10,5 @@ export const OrionSelectPlugin: Plugin = {
 	},
 };
 
-export { OrionSelect, OrionSelectSetupService, OrionSelectEmits, OrionSelectProps };
+export { OrionSelect, OrionSelectEmits, OrionSelectProps, OrionSelectSetup };
+

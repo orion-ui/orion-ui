@@ -60,20 +60,20 @@
 </template>
 
 <script setup lang="ts">
-import './OrionPhone.less';
 import { OrionInput } from 'packages/Input';
 import { OrionSelect } from 'packages/Select';
-import OrionPhoneSetupService from './OrionPhoneSetupService';
-import type { OrionPhoneProps, OrionPhoneEmits, VModelType } from './OrionPhoneSetupService';
+import './OrionPhone.less';
+import type { OrionPhoneEmits, OrionPhoneProps, VModelType } from './OrionPhoneSetup';
+import OrionPhoneSetup from './OrionPhoneSetup';
 // TODO: avoid code duplicate
 // https://github.com/vuejs/core/issues/8301
-// import OrionPhoneSetupService, { type OrionPhoneEmit } from './OrionPhoneSetupService';
+// import OrionPhoneSetup, { type OrionPhoneEmit } from './OrionPhoneSetup';
 const emits = defineEmits<OrionPhoneEmits>() as OrionPhoneEmits;
 const vModel = defineModel<VModelType>();
 const phoneCountryCode = defineModel<string | undefined>('phoneCountryCode');
 const phoneNumber = defineModel<string | undefined>('phoneNumber');
-const props = withDefaults(defineProps<OrionPhoneProps>(), OrionPhoneSetupService.defaultProps);
-const setup = new OrionPhoneSetupService(props, emits, vModel, phoneCountryCode, phoneNumber);
+const props = withDefaults(defineProps<OrionPhoneProps>(), OrionPhoneSetup.defaultProps);
+const setup = new OrionPhoneSetup(props, emits, vModel, phoneCountryCode, phoneNumber);
 defineExpose(setup.publicInstance);
 
 /** Doc

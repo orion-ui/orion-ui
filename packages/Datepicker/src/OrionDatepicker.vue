@@ -261,15 +261,15 @@ import { OrionDateTable } from 'packages/DateTable';
 import { OrionDateWeek } from 'packages/DateWeek';
 import { OrionField } from 'packages/Field';
 import './OrionDatepicker.less';
-import type { OrionDatepickerEmits, OrionDatepickerProps } from './OrionDatepickerSetupService';
-import OrionDatepickerSetupService from './OrionDatepickerSetupService';
+import type { OrionDatepickerEmits, OrionDatepickerProps } from './OrionDatepickerSetup';
+import OrionDatepickerSetup from './OrionDatepickerSetup';
 const slots = defineSlots();
 const vModel = defineModel<Nil<Date>>();
 const range = defineModel<Nil<Orion.DateRange>>('range');
 const multiple = defineModel<Nil<Date[]>>('multiple');
 const emits = defineEmits<OrionDatepickerEmits>() as OrionDatepickerEmits;
-const props = withDefaults(defineProps<OrionDatepickerProps>(), OrionDatepickerSetupService.defaultProps);
-const setup = new OrionDatepickerSetupService(props, emits, slots, vModel, range, multiple);
+const props = withDefaults(defineProps<OrionDatepickerProps>(), OrionDatepickerSetup.defaultProps);
+const setup = new OrionDatepickerSetup(props, emits, slots, vModel, range, multiple);
 defineExpose(setup.publicInstance);
 
 /** Doc

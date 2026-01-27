@@ -25,11 +25,11 @@
 
 <script setup lang="ts">
 import './OrionProgressBar.less';
-import OrionProgressBarSetupService from './OrionProgressBarSetupService';
-import type { OrionProgressBarProps, OrionProgressBarEmits } from './OrionProgressBarSetupService';
+import type { OrionProgressBarEmits, OrionProgressBarProps } from './OrionProgressBarSetup';
+import OrionProgressBarSetup from './OrionProgressBarSetup';
 const emits = defineEmits<OrionProgressBarEmits>() as OrionProgressBarEmits;
-const props = withDefaults(defineProps<OrionProgressBarProps>(), OrionProgressBarSetupService.defaultProps);
-const setup = new OrionProgressBarSetupService(props, emits);
+const props = withDefaults(defineProps<OrionProgressBarProps>(), OrionProgressBarSetup.defaultProps);
+const setup = new OrionProgressBarSetup(props, emits);
 defineExpose(setup.publicInstance);
 /** Doc
  * @doc slot/default the label of the progress bar

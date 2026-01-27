@@ -38,12 +38,12 @@
 <script setup lang="ts">
 import { OrionField } from 'packages/Field';
 import './OrionToggle.less';
-import type { OrionToggleEmits, OrionToggleProps } from './OrionToggleSetupService';
-import OrionToggleSetupService from './OrionToggleSetupService';
+import type { OrionToggleEmits, OrionToggleProps } from './OrionToggleSetup';
+import OrionToggleSetup from './OrionToggleSetup';
 const emits = defineEmits<OrionToggleEmits>() as OrionToggleEmits;
 const vModel = defineModel<boolean>({ required: true });
-const props = withDefaults(defineProps<OrionToggleProps>(), OrionToggleSetupService.defaultProps);
-const setup = new OrionToggleSetupService(props, emits, vModel);
+const props = withDefaults(defineProps<OrionToggleProps>(), OrionToggleSetup.defaultProps);
+const setup = new OrionToggleSetup(props, emits, vModel);
 defineExpose(setup.publicInstance);
 
 /** Doc

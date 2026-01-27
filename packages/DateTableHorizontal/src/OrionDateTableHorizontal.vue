@@ -154,21 +154,21 @@
 </template>
 
 <script setup lang="ts">
-import { OrionHorizontalScroll } from 'packages/HorizontalScroll';
-import { OrionToggleButton } from 'packages/ToggleButton';
-import { OrionIcon } from 'packages/Icon';
 import { OrionButton } from 'packages/Button';
+import { OrionHorizontalScroll } from 'packages/HorizontalScroll';
+import { OrionIcon } from 'packages/Icon';
+import { OrionToggleButton } from 'packages/ToggleButton';
 import { useMonkey } from 'services';
 import './OrionDateTableHorizontal.less';
-import type { OrionDateTableHorizontalEmits, OrionDateTableHorizontalProps } from './OrionDateTableHorizontalSetupService';
-import OrionDateTableHorizontalSetupService from './OrionDateTableHorizontalSetupService';
+import type { OrionDateTableHorizontalEmits, OrionDateTableHorizontalProps } from './OrionDateTableHorizontalSetup';
+import OrionDateTableHorizontalSetup from './OrionDateTableHorizontalSetup';
 const vModel = defineModel< Nil<Date>>();
 const range = defineModel<Nil<Orion.DateRange>>('range');
 const multiple = defineModel<Nil<Date[]>>('multiple');
 const dayHover = defineModel<Nil<Date>>('dayHover');
 const emits = defineEmits<OrionDateTableHorizontalEmits>() as OrionDateTableHorizontalEmits;
-const props = withDefaults(defineProps<OrionDateTableHorizontalProps>(), OrionDateTableHorizontalSetupService.defaultProps);
-const setup = new OrionDateTableHorizontalSetupService(props, emits, vModel, range, multiple, dayHover);
+const props = withDefaults(defineProps<OrionDateTableHorizontalProps>(), OrionDateTableHorizontalSetup.defaultProps);
+const setup = new OrionDateTableHorizontalSetup(props, emits, vModel, range, multiple, dayHover);
 defineExpose(setup.publicInstance);
 
 /** Doc

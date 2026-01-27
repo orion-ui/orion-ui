@@ -9,19 +9,19 @@
 </template>
 
 <script lang="ts">
-// Needed to manage slots in OrionTimelineSetupService / calcPaneInstances
+// Needed to manage slots in OrionTimelineSetup / calcPaneInstances
 export default { name: 'OrionTimelinePane' };
 </script>
 
 <script setup lang="ts">
-import './OrionTimelinePane.less';
 import { inject } from 'vue';
-import type { OrionTimelinePaneProps, OrionTimelinePaneEmits } from './OrionTimelinePaneSetupService';
-import OrionTimelinePaneSetupService from './OrionTimelinePaneSetupService';
+import './OrionTimelinePane.less';
+import type { OrionTimelinePaneEmits, OrionTimelinePaneProps } from './OrionTimelinePaneSetup';
+import OrionTimelinePaneSetup from './OrionTimelinePaneSetup';
 const _timeline = inject<OrionTimeline>('_timeline');
 const emits = defineEmits<OrionTimelinePaneEmits>() as OrionTimelinePaneEmits;
-const props = withDefaults(defineProps<OrionTimelinePaneProps>(), OrionTimelinePaneSetupService.defaultProps);
-const setup = new OrionTimelinePaneSetupService(props, emits, _timeline);
+const props = withDefaults(defineProps<OrionTimelinePaneProps>(), OrionTimelinePaneSetup.defaultProps);
+const setup = new OrionTimelinePaneSetup(props, emits, _timeline);
 defineExpose(setup.publicInstance);
 
 /** Doc

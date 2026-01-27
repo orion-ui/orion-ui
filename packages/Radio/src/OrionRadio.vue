@@ -40,12 +40,12 @@
 import { OrionField } from 'packages/Field';
 import { OrionIcon } from 'packages/Icon';
 import './OrionRadio.less';
-import type { OrionRadioEmits, OrionRadioProps, VModelType } from './OrionRadioSetupService';
-import OrionRadioSetupService from './OrionRadioSetupService';
+import type { OrionRadioEmits, OrionRadioProps, VModelType } from './OrionRadioSetup';
+import OrionRadioSetup from './OrionRadioSetup';
 const emits = defineEmits<OrionRadioEmits>() as OrionRadioEmits;
 const vModel = defineModel<VModelType>();
-const props = withDefaults(defineProps<OrionRadioProps>(), OrionRadioSetupService.defaultProps);
-const setup = new OrionRadioSetupService(props, emits, vModel);
+const props = withDefaults(defineProps<OrionRadioProps>(), OrionRadioSetup.defaultProps);
+const setup = new OrionRadioSetup(props, emits, vModel);
 defineExpose(setup.publicInstance);
 
 /** Doc

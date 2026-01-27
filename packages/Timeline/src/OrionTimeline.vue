@@ -3,18 +3,18 @@
 </template>
 
 <script setup lang="tsx">
-import './OrionTimeline.less';
-import { provide } from 'vue';
 import { OrionLoader } from 'packages/Loader';
 import { OrionTimelinePill } from 'packages/TimelinePill';
-import OrionTimelineSetupService from './OrionTimelineSetupService';
 import { isDefineOrTrue } from 'utils/tools';
-import type { OrionTimelineProps, OrionTimelineEmits } from './OrionTimelineSetupService';
+import { provide } from 'vue';
+import './OrionTimeline.less';
+import type { OrionTimelineEmits, OrionTimelineProps } from './OrionTimelineSetup';
+import OrionTimelineSetup from './OrionTimelineSetup';
 const slots = defineSlots();
 const emits = defineEmits<OrionTimelineEmits>() as OrionTimelineEmits;
-const props = withDefaults(defineProps<OrionTimelineProps>(), OrionTimelineSetupService.defaultProps);
+const props = withDefaults(defineProps<OrionTimelineProps>(), OrionTimelineSetup.defaultProps);
 const vModel = defineModel<number | string | undefined>();
-const setup = new OrionTimelineSetupService(props, emits, slots, vModel);
+const setup = new OrionTimelineSetup(props, emits, slots, vModel);
 provide('_timeline', setup.publicInstance);
 defineExpose(setup.publicInstance);
 

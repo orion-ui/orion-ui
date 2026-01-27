@@ -12,14 +12,14 @@
 </template>
 
 <script setup lang="ts">
-import './OrionColorPicker.less';
 import { ColorPicker } from 'vue-color-kit';
-import type { OrionColorPickerProps, OrionColorPickerEmits } from './OrionColorPickerSetupService';
-import OrionColorPickerSetupService from './OrionColorPickerSetupService';
+import './OrionColorPicker.less';
+import type { OrionColorPickerEmits, OrionColorPickerProps } from './OrionColorPickerSetup';
+import OrionColorPickerSetup from './OrionColorPickerSetup';
 const vModel = defineModel<Nil<string>>();
 const emits = defineEmits<OrionColorPickerEmits>() as OrionColorPickerEmits;
-const props = withDefaults(defineProps<OrionColorPickerProps>(), OrionColorPickerSetupService.defaultProps);
-const setup = new OrionColorPickerSetupService(props, emits, vModel);
+const props = withDefaults(defineProps<OrionColorPickerProps>(), OrionColorPickerSetup.defaultProps);
+const setup = new OrionColorPickerSetup(props, emits, vModel);
 defineExpose(setup.publicInstance);
 
 /** Doc

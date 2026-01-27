@@ -46,14 +46,14 @@
 </template>
 
 <script setup lang="ts">
-import './OrionPopConfirm.less';
 import { OrionButton } from 'packages/Button';
 import { OrionIcon } from 'packages/Icon';
-import OrionPopConfirmSetupService from './OrionPopConfirmSetupService';
-import type { OrionPopConfirmProps, OrionPopConfirmEmits } from './OrionPopConfirmSetupService';
+import './OrionPopConfirm.less';
+import type { OrionPopConfirmEmits, OrionPopConfirmProps } from './OrionPopConfirmSetup';
+import OrionPopConfirmSetup from './OrionPopConfirmSetup';
 const emits = defineEmits<OrionPopConfirmEmits>() as OrionPopConfirmEmits;
-const props = withDefaults(defineProps<OrionPopConfirmProps>(), OrionPopConfirmSetupService.defaultProps);
-const setup = new OrionPopConfirmSetupService(props, emits);
+const props = withDefaults(defineProps<OrionPopConfirmProps>(), OrionPopConfirmSetup.defaultProps);
+const setup = new OrionPopConfirmSetup(props, emits);
 defineExpose(setup.publicInstance);
 
 /** Doc

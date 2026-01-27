@@ -5,493 +5,424 @@
  * Manual changes will be overwritten
  */
 
-import { OrionAlertSetupService, OrionAlertProps, OrionAlertEmits } from '../packages/index';
-import { OrionAsideSetupService, OrionAsideProps, OrionAsideEmits } from '../packages/index';
-import { OrionAvatarSetupService, OrionAvatarProps, OrionAvatarEmits } from '../packages/index';
-import { OrionAvatarGroupSetupService, OrionAvatarGroupProps, OrionAvatarGroupEmits } from '../packages/index';
-import { OrionBadgeSetupService, OrionBadgeProps, OrionBadgeEmits } from '../packages/index';
-import { OrionButtonSetupService, OrionButtonProps, OrionButtonEmits } from '../packages/index';
-import { OrionCardSetupService, OrionCardProps, OrionCardEmits } from '../packages/index';
-import { OrionCarouselSetupService, OrionCarouselProps, OrionCarouselEmits } from '../packages/index';
-import { OrionCarouselItemSetupService, OrionCarouselItemProps, OrionCarouselItemEmits } from '../packages/index';
-import { OrionChatSetupService, OrionChatProps, OrionChatEmits } from '../packages/index';
-import { OrionChatDiscussionListSetupService, OrionChatDiscussionListProps, OrionChatDiscussionListEmits } from '../packages/index';
-import { OrionChatMessageSetupService, OrionChatMessageProps, OrionChatMessageEmits } from '../packages/index';
-import { OrionCheckboxSetupService, OrionCheckboxProps, OrionCheckboxEmits } from '../packages/index';
-import { OrionChipsSetupService, OrionChipsProps, OrionChipsEmits } from '../packages/index';
-import { OrionColorPickerSetupService, OrionColorPickerProps, OrionColorPickerEmits } from '../packages/index';
-import { OrionCropperSetupService, OrionCropperProps, OrionCropperEmits } from '../packages/index';
-import { OrionDailyCalendarSetupService, OrionDailyCalendarProps, OrionDailyCalendarEmits } from '../packages/index';
-import { OrionDateRangeSetupService, OrionDateRangeProps, OrionDateRangeEmits } from '../packages/index';
-import { OrionDateTableSetupService, OrionDateTableProps, OrionDateTableEmits } from '../packages/index';
-import { OrionDateTableHorizontalSetupService, OrionDateTableHorizontalProps, OrionDateTableHorizontalEmits } from '../packages/index';
-import { OrionDateWeekSetupService, OrionDateWeekProps, OrionDateWeekEmits } from '../packages/index';
-import { OrionDatepickerSetupService, OrionDatepickerProps, OrionDatepickerEmits } from '../packages/index';
-import { OrionDraggableSetupService, OrionDraggableProps, OrionDraggableEmits } from '../packages/index';
-import { OrionDroppableSetupService, OrionDroppableProps, OrionDroppableEmits } from '../packages/index';
-import { OrionEditorSetupService, OrionEditorProps, OrionEditorEmits } from '../packages/index';
-import { OrionFieldSetupService, OrionFieldProps, OrionFieldEmits } from '../packages/index';
-import { OrionFooterFixedSetupService, OrionFooterFixedProps, OrionFooterFixedEmits } from '../packages/index';
-import { OrionHorizontalScrollSetupService, OrionHorizontalScrollProps, OrionHorizontalScrollEmits } from '../packages/index';
-import { OrionIconSetupService, OrionIconProps, OrionIconEmits } from '../packages/index';
-import { OrionIconSectionSetupService, OrionIconSectionProps, OrionIconSectionEmits } from '../packages/index';
-import { OrionInputSetupService, OrionInputProps, OrionInputEmits } from '../packages/index';
-import { OrionInputRangeSetupService, OrionInputRangeProps, OrionInputRangeEmits } from '../packages/index';
-import { OrionLayoutSetupService, OrionLayoutProps, OrionLayoutEmits } from '../packages/index';
-import { OrionListSetupService, OrionListProps, OrionListEmits } from '../packages/index';
-import { OrionLoaderSetupService, OrionLoaderProps, OrionLoaderEmits } from '../packages/index';
-import { OrionModalSetupService, OrionModalProps, OrionModalEmits } from '../packages/index';
-import { OrionNavAsideSetupService, OrionNavAsideProps, OrionNavAsideEmits } from '../packages/index';
-import { OrionNavMainSetupService, OrionNavMainProps, OrionNavMainEmits } from '../packages/index';
-import { OrionNavMainItemSetupService, OrionNavMainItemProps, OrionNavMainItemEmits } from '../packages/index';
-import { OrionNavTabsSetupService, OrionNavTabsProps, OrionNavTabsEmits } from '../packages/index';
-import { OrionNavTopSetupService, OrionNavTopProps, OrionNavTopEmits } from '../packages/index';
-import { OrionNotifSetupService, OrionNotifProps, OrionNotifEmits } from '../packages/index';
-import { OrionOtpSetupService, OrionOtpProps, OrionOtpEmits } from '../packages/index';
-import { OrionOverlaySetupService, OrionOverlayProps, OrionOverlayEmits } from '../packages/index';
-import { OrionPageSetupService, OrionPageProps, OrionPageEmits } from '../packages/index';
-import { OrionPaginateSetupService, OrionPaginateProps, OrionPaginateEmits } from '../packages/index';
-import { OrionPasswordSetupService, OrionPasswordProps, OrionPasswordEmits } from '../packages/index';
-import { OrionPhoneSetupService, OrionPhoneProps, OrionPhoneEmits } from '../packages/index';
-import { OrionPopConfirmSetupService, OrionPopConfirmProps, OrionPopConfirmEmits } from '../packages/index';
-import { OrionProgressBarSetupService, OrionProgressBarProps, OrionProgressBarEmits } from '../packages/index';
-import { OrionProgressCircleSetupService, OrionProgressCircleProps, OrionProgressCircleEmits } from '../packages/index';
-import { OrionRadioSetupService, OrionRadioProps, OrionRadioEmits } from '../packages/index';
-import { OrionRateSetupService, OrionRateProps, OrionRateEmits } from '../packages/index';
-import { OrionSectionSetupService, OrionSectionProps, OrionSectionEmits } from '../packages/index';
-import { OrionSelectSetupService, OrionSelectProps, OrionSelectEmits } from '../packages/index';
-import { OrionStickerSetupService, OrionStickerProps, OrionStickerEmits } from '../packages/index';
-import { OrionSwipeSetupService, OrionSwipeProps, OrionSwipeEmits } from '../packages/index';
-import { OrionTabNavSetupService, OrionTabNavProps, OrionTabNavEmits } from '../packages/index';
-import { OrionTabPaneSetupService, OrionTabPaneProps, OrionTabPaneEmits } from '../packages/index';
-import { OrionTabsSetupService, OrionTabsProps, OrionTabsEmits } from '../packages/index';
-import { OrionTextareaSetupService, OrionTextareaProps, OrionTextareaEmits } from '../packages/index';
-import { OrionTimelineSetupService, OrionTimelineProps, OrionTimelineEmits } from '../packages/index';
-import { OrionTimelinePaneSetupService, OrionTimelinePaneProps, OrionTimelinePaneEmits } from '../packages/index';
-import { OrionTimelinePillSetupService, OrionTimelinePillProps, OrionTimelinePillEmits } from '../packages/index';
-import { OrionToggleSetupService, OrionToggleProps, OrionToggleEmits } from '../packages/index';
-import { OrionToggleButtonSetupService, OrionToggleButtonProps, OrionToggleButtonEmits } from '../packages/index';
-import { OrionToggleButtonGroupSetupService, OrionToggleButtonGroupProps, OrionToggleButtonGroupEmits } from '../packages/index';
-import { OrionTourSetupService, OrionTourProps, OrionTourEmits } from '../packages/index';
-import { OrionTourStepSetupService, OrionTourStepProps, OrionTourStepEmits } from '../packages/index';
-import { OrionUploadSetupService, OrionUploadProps, OrionUploadEmits } from '../packages/index';
+import { OrionAlertEmits, OrionAlertProps, OrionAlertSetup, OrionAsideEmits, OrionAsideProps, OrionAsideSetup, OrionAvatarEmits, OrionAvatarGroupEmits, OrionAvatarGroupProps, OrionAvatarGroupSetup, OrionAvatarProps, OrionAvatarSetup, OrionBadgeEmits, OrionBadgeProps, OrionBadgeSetup, OrionButtonEmits, OrionButtonProps, OrionButtonSetup, OrionCardEmits, OrionCardProps, OrionCardSetup, OrionCarouselEmits, OrionCarouselItemEmits, OrionCarouselItemProps, OrionCarouselItemSetup, OrionCarouselProps, OrionCarouselSetup, OrionChatDiscussionListEmits, OrionChatDiscussionListProps, OrionChatDiscussionListSetup, OrionChatEmits, OrionChatMessageEmits, OrionChatMessageProps, OrionChatMessageSetup, OrionChatProps, OrionChatSetup, OrionCheckboxEmits, OrionCheckboxProps, OrionCheckboxSetup, OrionChipsEmits, OrionChipsProps, OrionChipsSetup, OrionColorPickerEmits, OrionColorPickerProps, OrionColorPickerSetup, OrionCropperEmits, OrionCropperProps, OrionCropperSetup, OrionDailyCalendarEmits, OrionDailyCalendarProps, OrionDailyCalendarSetup, OrionDatepickerEmits, OrionDatepickerProps, OrionDatepickerSetup, OrionDateRangeEmits, OrionDateRangeProps, OrionDateRangeSetup, OrionDateTableEmits, OrionDateTableHorizontalEmits, OrionDateTableHorizontalProps, OrionDateTableHorizontalSetup, OrionDateTableProps, OrionDateTableSetup, OrionDateWeekEmits, OrionDateWeekProps, OrionDateWeekSetup, OrionDraggableEmits, OrionDraggableProps, OrionDraggableSetup, OrionDroppableEmits, OrionDroppableProps, OrionDroppableSetup, OrionEditorEmits, OrionEditorProps, OrionEditorSetup, OrionFieldEmits, OrionFieldProps, OrionFieldSetup, OrionFooterFixedEmits, OrionFooterFixedProps, OrionFooterFixedSetup, OrionHorizontalScrollEmits, OrionHorizontalScrollProps, OrionHorizontalScrollSetup, OrionIconEmits, OrionIconProps, OrionIconSectionEmits, OrionIconSectionProps, OrionIconSectionSetup, OrionIconSetup, OrionInputEmits, OrionInputProps, OrionInputRangeEmits, OrionInputRangeProps, OrionInputRangeSetup, OrionInputSetup, OrionLayoutEmits, OrionLayoutProps, OrionLayoutSetup, OrionListEmits, OrionListProps, OrionListSetup, OrionLoaderEmits, OrionLoaderProps, OrionLoaderSetup, OrionModalEmits, OrionModalProps, OrionModalSetup, OrionNavAsideEmits, OrionNavAsideProps, OrionNavAsideSetup, OrionNavMainEmits, OrionNavMainItemEmits, OrionNavMainItemProps, OrionNavMainItemSetup, OrionNavMainProps, OrionNavMainSetup, OrionNavTabsEmits, OrionNavTabsProps, OrionNavTabsSetup, OrionNavTopEmits, OrionNavTopProps, OrionNavTopSetup, OrionNotifEmits, OrionNotifProps, OrionNotifSetup, OrionOtpEmits, OrionOtpProps, OrionOtpSetup, OrionOverlayEmits, OrionOverlayProps, OrionOverlaySetup, OrionPageEmits, OrionPageProps, OrionPageSetup, OrionPaginateEmits, OrionPaginateProps, OrionPaginateSetup, OrionPasswordEmits, OrionPasswordProps, OrionPasswordSetup, OrionPhoneEmits, OrionPhoneProps, OrionPhoneSetup, OrionPopConfirmEmits, OrionPopConfirmProps, OrionPopConfirmSetup, OrionProgressBarEmits, OrionProgressBarProps, OrionProgressBarSetup, OrionProgressCircleEmits, OrionProgressCircleProps, OrionProgressCircleSetup, OrionRadioEmits, OrionRadioProps, OrionRadioSetup, OrionRateEmits, OrionRateProps, OrionRateSetup, OrionSectionEmits, OrionSectionProps, OrionSectionSetup, OrionSelectEmits, OrionSelectProps, OrionSelectSetup, OrionStickerEmits, OrionStickerProps, OrionStickerSetup, OrionSwipeEmits, OrionSwipeProps, OrionSwipeSetup, OrionTabNavEmits, OrionTabNavProps, OrionTabNavSetup, OrionTabPaneEmits, OrionTabPaneProps, OrionTabPaneSetup, OrionTabsEmits, OrionTabsProps, OrionTabsSetup, OrionTextareaEmits, OrionTextareaProps, OrionTextareaSetup, OrionTimelineEmits, OrionTimelinePaneEmits, OrionTimelinePaneProps, OrionTimelinePaneSetup, OrionTimelinePillEmits, OrionTimelinePillProps, OrionTimelinePillSetup, OrionTimelineProps, OrionTimelineSetup, OrionToggleButtonEmits, OrionToggleButtonGroupEmits, OrionToggleButtonGroupProps, OrionToggleButtonGroupSetup, OrionToggleButtonProps, OrionToggleButtonSetup, OrionToggleEmits, OrionToggleProps, OrionToggleSetup, OrionTourEmits, OrionTourProps, OrionTourSetup, OrionTourStepEmits, OrionTourStepProps, OrionTourStepSetup, OrionUploadEmits, OrionUploadProps, OrionUploadSetup } from '../packages/index';
 
 declare global {
-	type OrionAlert = InstanceType<typeof OrionAlertSetupService>['publicInstance'];
+	type OrionAlert = InstanceType<typeof OrionAlertSetup>['publicInstance'];
 	namespace OrionAlert {
 		type Props = OrionAlertProps;
 		type Emits = OrionAlertEmits;
 	}
 
-	type OrionAside = InstanceType<typeof OrionAsideSetupService>['publicInstance'];
+	type OrionAside = InstanceType<typeof OrionAsideSetup>['publicInstance'];
 	namespace OrionAside {
 		type Props = OrionAsideProps;
 		type Emits = OrionAsideEmits;
 	}
 
-	type OrionAvatar = InstanceType<typeof OrionAvatarSetupService>['publicInstance'];
+	type OrionAvatar = InstanceType<typeof OrionAvatarSetup>['publicInstance'];
 	namespace OrionAvatar {
 		type Props = OrionAvatarProps;
 		type Emits = OrionAvatarEmits;
 	}
 
-	type OrionAvatarGroup = InstanceType<typeof OrionAvatarGroupSetupService>['publicInstance'];
+	type OrionAvatarGroup = InstanceType<typeof OrionAvatarGroupSetup>['publicInstance'];
 	namespace OrionAvatarGroup {
 		type Props = OrionAvatarGroupProps;
 		type Emits = OrionAvatarGroupEmits;
 	}
 
-	type OrionBadge = InstanceType<typeof OrionBadgeSetupService>['publicInstance'];
+	type OrionBadge = InstanceType<typeof OrionBadgeSetup>['publicInstance'];
 	namespace OrionBadge {
 		type Props = OrionBadgeProps;
 		type Emits = OrionBadgeEmits;
 	}
 
-	type OrionButton = InstanceType<typeof OrionButtonSetupService>['publicInstance'];
+	type OrionButton = InstanceType<typeof OrionButtonSetup>['publicInstance'];
 	namespace OrionButton {
 		type Props = OrionButtonProps;
 		type Emits = OrionButtonEmits;
 	}
 
-	type OrionCard = InstanceType<typeof OrionCardSetupService>['publicInstance'];
+	type OrionCard = InstanceType<typeof OrionCardSetup>['publicInstance'];
 	namespace OrionCard {
 		type Props = OrionCardProps;
 		type Emits = OrionCardEmits;
 	}
 
-	type OrionCarousel = InstanceType<typeof OrionCarouselSetupService>['publicInstance'];
+	type OrionCarousel = InstanceType<typeof OrionCarouselSetup>['publicInstance'];
 	namespace OrionCarousel {
 		type Props = OrionCarouselProps;
 		type Emits = OrionCarouselEmits;
 	}
 
-	type OrionCarouselItem = InstanceType<typeof OrionCarouselItemSetupService>['publicInstance'];
+	type OrionCarouselItem = InstanceType<typeof OrionCarouselItemSetup>['publicInstance'];
 	namespace OrionCarouselItem {
 		type Props = OrionCarouselItemProps;
 		type Emits = OrionCarouselItemEmits;
 	}
 
-	type OrionChat = InstanceType<typeof OrionChatSetupService>['publicInstance'];
+	type OrionChat = InstanceType<typeof OrionChatSetup>['publicInstance'];
 	namespace OrionChat {
 		type Props = OrionChatProps;
 		type Emits = OrionChatEmits;
 	}
 
-	type OrionChatDiscussionList = InstanceType<typeof OrionChatDiscussionListSetupService>['publicInstance'];
+	type OrionChatDiscussionList = InstanceType<typeof OrionChatDiscussionListSetup>['publicInstance'];
 	namespace OrionChatDiscussionList {
 		type Props = OrionChatDiscussionListProps;
 		type Emits = OrionChatDiscussionListEmits;
 	}
 
-	type OrionChatMessage = InstanceType<typeof OrionChatMessageSetupService>['publicInstance'];
+	type OrionChatMessage = InstanceType<typeof OrionChatMessageSetup>['publicInstance'];
 	namespace OrionChatMessage {
 		type Props = OrionChatMessageProps;
 		type Emits = OrionChatMessageEmits;
 	}
 
-	type OrionCheckbox = InstanceType<typeof OrionCheckboxSetupService>['publicInstance'];
+	type OrionCheckbox = InstanceType<typeof OrionCheckboxSetup>['publicInstance'];
 	namespace OrionCheckbox {
 		type Props = OrionCheckboxProps;
 		type Emits = OrionCheckboxEmits;
 	}
 
-	type OrionChips = InstanceType<typeof OrionChipsSetupService>['publicInstance'];
+	type OrionChips = InstanceType<typeof OrionChipsSetup>['publicInstance'];
 	namespace OrionChips {
 		type Props = OrionChipsProps;
 		type Emits = OrionChipsEmits;
 	}
 
-	type OrionColorPicker = InstanceType<typeof OrionColorPickerSetupService>['publicInstance'];
+	type OrionColorPicker = InstanceType<typeof OrionColorPickerSetup>['publicInstance'];
 	namespace OrionColorPicker {
 		type Props = OrionColorPickerProps;
 		type Emits = OrionColorPickerEmits;
 	}
 
-	type OrionCropper = InstanceType<typeof OrionCropperSetupService>['publicInstance'];
+	type OrionCropper = InstanceType<typeof OrionCropperSetup>['publicInstance'];
 	namespace OrionCropper {
 		type Props = OrionCropperProps;
 		type Emits = OrionCropperEmits;
 	}
 
-	type OrionDailyCalendar = InstanceType<typeof OrionDailyCalendarSetupService>['publicInstance'];
+	type OrionDailyCalendar = InstanceType<typeof OrionDailyCalendarSetup>['publicInstance'];
 	namespace OrionDailyCalendar {
 		type Props = OrionDailyCalendarProps;
 		type Emits = OrionDailyCalendarEmits;
 	}
 
-	type OrionDateRange = InstanceType<typeof OrionDateRangeSetupService>['publicInstance'];
+	type OrionDateRange = InstanceType<typeof OrionDateRangeSetup>['publicInstance'];
 	namespace OrionDateRange {
 		type Props = OrionDateRangeProps;
 		type Emits = OrionDateRangeEmits;
 	}
 
-	type OrionDateTable = InstanceType<typeof OrionDateTableSetupService>['publicInstance'];
+	type OrionDateTable = InstanceType<typeof OrionDateTableSetup>['publicInstance'];
 	namespace OrionDateTable {
 		type Props = OrionDateTableProps;
 		type Emits = OrionDateTableEmits;
 	}
 
-	type OrionDateTableHorizontal = InstanceType<typeof OrionDateTableHorizontalSetupService>['publicInstance'];
+	type OrionDateTableHorizontal = InstanceType<typeof OrionDateTableHorizontalSetup>['publicInstance'];
 	namespace OrionDateTableHorizontal {
 		type Props = OrionDateTableHorizontalProps;
 		type Emits = OrionDateTableHorizontalEmits;
 	}
 
-	type OrionDateWeek = InstanceType<typeof OrionDateWeekSetupService>['publicInstance'];
+	type OrionDateWeek = InstanceType<typeof OrionDateWeekSetup>['publicInstance'];
 	namespace OrionDateWeek {
 		type Props = OrionDateWeekProps;
 		type Emits = OrionDateWeekEmits;
 	}
 
-	type OrionDatepicker = InstanceType<typeof OrionDatepickerSetupService>['publicInstance'];
+	type OrionDatepicker = InstanceType<typeof OrionDatepickerSetup>['publicInstance'];
 	namespace OrionDatepicker {
 		type Props = OrionDatepickerProps;
 		type Emits = OrionDatepickerEmits;
 	}
 
-	type OrionDraggable = InstanceType<typeof OrionDraggableSetupService>['publicInstance'];
+	type OrionDraggable = InstanceType<typeof OrionDraggableSetup>['publicInstance'];
 	namespace OrionDraggable {
 		type Props = OrionDraggableProps;
 		type Emits = OrionDraggableEmits;
 	}
 
-	type OrionDroppable = InstanceType<typeof OrionDroppableSetupService>['publicInstance'];
+	type OrionDroppable = InstanceType<typeof OrionDroppableSetup>['publicInstance'];
 	namespace OrionDroppable {
 		type Props = OrionDroppableProps;
 		type Emits = OrionDroppableEmits;
 	}
 
-	type OrionEditor = InstanceType<typeof OrionEditorSetupService>['publicInstance'];
+	type OrionEditor = InstanceType<typeof OrionEditorSetup>['publicInstance'];
 	namespace OrionEditor {
 		type Props = OrionEditorProps;
 		type Emits = OrionEditorEmits;
 	}
 
-	type OrionField = InstanceType<typeof OrionFieldSetupService>['publicInstance'];
+	type OrionField = InstanceType<typeof OrionFieldSetup>['publicInstance'];
 	namespace OrionField {
 		type Props = OrionFieldProps;
 		type Emits = OrionFieldEmits;
 	}
 
-	type OrionFooterFixed = InstanceType<typeof OrionFooterFixedSetupService>['publicInstance'];
+	type OrionFooterFixed = InstanceType<typeof OrionFooterFixedSetup>['publicInstance'];
 	namespace OrionFooterFixed {
 		type Props = OrionFooterFixedProps;
 		type Emits = OrionFooterFixedEmits;
 	}
 
-	type OrionHorizontalScroll = InstanceType<typeof OrionHorizontalScrollSetupService>['publicInstance'];
+	type OrionHorizontalScroll = InstanceType<typeof OrionHorizontalScrollSetup>['publicInstance'];
 	namespace OrionHorizontalScroll {
 		type Props = OrionHorizontalScrollProps;
 		type Emits = OrionHorizontalScrollEmits;
 	}
 
-	type OrionIcon = InstanceType<typeof OrionIconSetupService>['publicInstance'];
+	type OrionIcon = InstanceType<typeof OrionIconSetup>['publicInstance'];
 	namespace OrionIcon {
 		type Props = OrionIconProps;
 		type Emits = OrionIconEmits;
 	}
 
-	type OrionIconSection = InstanceType<typeof OrionIconSectionSetupService>['publicInstance'];
+	type OrionIconSection = InstanceType<typeof OrionIconSectionSetup>['publicInstance'];
 	namespace OrionIconSection {
 		type Props = OrionIconSectionProps;
 		type Emits = OrionIconSectionEmits;
 	}
 
-	type OrionInput = InstanceType<typeof OrionInputSetupService>['publicInstance'];
+	type OrionInput = InstanceType<typeof OrionInputSetup>['publicInstance'];
 	namespace OrionInput {
 		type Props = OrionInputProps;
 		type Emits = OrionInputEmits;
 	}
 
-	type OrionInputRange = InstanceType<typeof OrionInputRangeSetupService>['publicInstance'];
+	type OrionInputRange = InstanceType<typeof OrionInputRangeSetup>['publicInstance'];
 	namespace OrionInputRange {
 		type Props = OrionInputRangeProps;
 		type Emits = OrionInputRangeEmits;
 	}
 
-	type OrionLayout = InstanceType<typeof OrionLayoutSetupService>['publicInstance'];
+	type OrionLayout = InstanceType<typeof OrionLayoutSetup>['publicInstance'];
 	namespace OrionLayout {
 		type Props = OrionLayoutProps;
 		type Emits = OrionLayoutEmits;
 	}
 
-	type OrionList = InstanceType<typeof OrionListSetupService>['publicInstance'];
+	type OrionList = InstanceType<typeof OrionListSetup>['publicInstance'];
 	namespace OrionList {
 		type Props = OrionListProps;
 		type Emits = OrionListEmits;
 	}
 
-	type OrionLoader = InstanceType<typeof OrionLoaderSetupService>['publicInstance'];
+	type OrionLoader = InstanceType<typeof OrionLoaderSetup>['publicInstance'];
 	namespace OrionLoader {
 		type Props = OrionLoaderProps;
 		type Emits = OrionLoaderEmits;
 	}
 
-	type OrionModal = InstanceType<typeof OrionModalSetupService>['publicInstance'];
+	type OrionModal = InstanceType<typeof OrionModalSetup>['publicInstance'];
 	namespace OrionModal {
 		type Props = OrionModalProps;
 		type Emits = OrionModalEmits;
 	}
 
-	type OrionNavAside = InstanceType<typeof OrionNavAsideSetupService>['publicInstance'];
+	type OrionNavAside = InstanceType<typeof OrionNavAsideSetup>['publicInstance'];
 	namespace OrionNavAside {
 		type Props = OrionNavAsideProps;
 		type Emits = OrionNavAsideEmits;
 	}
 
-	type OrionNavMain = InstanceType<typeof OrionNavMainSetupService>['publicInstance'];
+	type OrionNavMain = InstanceType<typeof OrionNavMainSetup>['publicInstance'];
 	namespace OrionNavMain {
 		type Props = OrionNavMainProps;
 		type Emits = OrionNavMainEmits;
 	}
 
-	type OrionNavMainItem = InstanceType<typeof OrionNavMainItemSetupService>['publicInstance'];
+	type OrionNavMainItem = InstanceType<typeof OrionNavMainItemSetup>['publicInstance'];
 	namespace OrionNavMainItem {
 		type Props = OrionNavMainItemProps;
 		type Emits = OrionNavMainItemEmits;
 	}
 
-	type OrionNavTabs = InstanceType<typeof OrionNavTabsSetupService>['publicInstance'];
+	type OrionNavTabs = InstanceType<typeof OrionNavTabsSetup>['publicInstance'];
 	namespace OrionNavTabs {
 		type Props = OrionNavTabsProps;
 		type Emits = OrionNavTabsEmits;
 	}
 
-	type OrionNavTop = InstanceType<typeof OrionNavTopSetupService>['publicInstance'];
+	type OrionNavTop = InstanceType<typeof OrionNavTopSetup>['publicInstance'];
 	namespace OrionNavTop {
 		type Props = OrionNavTopProps;
 		type Emits = OrionNavTopEmits;
 	}
 
-	type OrionNotif = InstanceType<typeof OrionNotifSetupService>['publicInstance'];
+	type OrionNotif = InstanceType<typeof OrionNotifSetup>['publicInstance'];
 	namespace OrionNotif {
 		type Props = OrionNotifProps;
 		type Emits = OrionNotifEmits;
 	}
 
-	type OrionOtp = InstanceType<typeof OrionOtpSetupService>['publicInstance'];
+	type OrionOtp = InstanceType<typeof OrionOtpSetup>['publicInstance'];
 	namespace OrionOtp {
 		type Props = OrionOtpProps;
 		type Emits = OrionOtpEmits;
 	}
 
-	type OrionOverlay = InstanceType<typeof OrionOverlaySetupService>['publicInstance'];
+	type OrionOverlay = InstanceType<typeof OrionOverlaySetup>['publicInstance'];
 	namespace OrionOverlay {
 		type Props = OrionOverlayProps;
 		type Emits = OrionOverlayEmits;
 	}
 
-	type OrionPage = InstanceType<typeof OrionPageSetupService>['publicInstance'];
+	type OrionPage = InstanceType<typeof OrionPageSetup>['publicInstance'];
 	namespace OrionPage {
 		type Props = OrionPageProps;
 		type Emits = OrionPageEmits;
 	}
 
-	type OrionPaginate = InstanceType<typeof OrionPaginateSetupService>['publicInstance'];
+	type OrionPaginate = InstanceType<typeof OrionPaginateSetup>['publicInstance'];
 	namespace OrionPaginate {
 		type Props = OrionPaginateProps;
 		type Emits = OrionPaginateEmits;
 	}
 
-	type OrionPassword = InstanceType<typeof OrionPasswordSetupService>['publicInstance'];
+	type OrionPassword = InstanceType<typeof OrionPasswordSetup>['publicInstance'];
 	namespace OrionPassword {
 		type Props = OrionPasswordProps;
 		type Emits = OrionPasswordEmits;
 	}
 
-	type OrionPhone = InstanceType<typeof OrionPhoneSetupService>['publicInstance'];
+	type OrionPhone = InstanceType<typeof OrionPhoneSetup>['publicInstance'];
 	namespace OrionPhone {
 		type Props = OrionPhoneProps;
 		type Emits = OrionPhoneEmits;
 	}
 
-	type OrionPopConfirm = InstanceType<typeof OrionPopConfirmSetupService>['publicInstance'];
+	type OrionPopConfirm = InstanceType<typeof OrionPopConfirmSetup>['publicInstance'];
 	namespace OrionPopConfirm {
 		type Props = OrionPopConfirmProps;
 		type Emits = OrionPopConfirmEmits;
 	}
 
-	type OrionProgressBar = InstanceType<typeof OrionProgressBarSetupService>['publicInstance'];
+	type OrionProgressBar = InstanceType<typeof OrionProgressBarSetup>['publicInstance'];
 	namespace OrionProgressBar {
 		type Props = OrionProgressBarProps;
 		type Emits = OrionProgressBarEmits;
 	}
 
-	type OrionProgressCircle = InstanceType<typeof OrionProgressCircleSetupService>['publicInstance'];
+	type OrionProgressCircle = InstanceType<typeof OrionProgressCircleSetup>['publicInstance'];
 	namespace OrionProgressCircle {
 		type Props = OrionProgressCircleProps;
 		type Emits = OrionProgressCircleEmits;
 	}
 
-	type OrionRadio = InstanceType<typeof OrionRadioSetupService>['publicInstance'];
+	type OrionRadio = InstanceType<typeof OrionRadioSetup>['publicInstance'];
 	namespace OrionRadio {
 		type Props = OrionRadioProps;
 		type Emits = OrionRadioEmits;
 	}
 
-	type OrionRate = InstanceType<typeof OrionRateSetupService>['publicInstance'];
+	type OrionRate = InstanceType<typeof OrionRateSetup>['publicInstance'];
 	namespace OrionRate {
 		type Props = OrionRateProps;
 		type Emits = OrionRateEmits;
 	}
 
-	type OrionSection = InstanceType<typeof OrionSectionSetupService>['publicInstance'];
+	type OrionSection = InstanceType<typeof OrionSectionSetup>['publicInstance'];
 	namespace OrionSection {
 		type Props = OrionSectionProps;
 		type Emits = OrionSectionEmits;
 	}
 
-	type OrionSelect = InstanceType<typeof OrionSelectSetupService>['publicInstance'];
+	type OrionSelect = InstanceType<typeof OrionSelectSetup>['publicInstance'];
 	namespace OrionSelect {
 		type Props = OrionSelectProps;
 		type Emits = OrionSelectEmits;
 	}
 
-	type OrionSticker = InstanceType<typeof OrionStickerSetupService>['publicInstance'];
+	type OrionSticker = InstanceType<typeof OrionStickerSetup>['publicInstance'];
 	namespace OrionSticker {
 		type Props = OrionStickerProps;
 		type Emits = OrionStickerEmits;
 	}
 
-	type OrionSwipe = InstanceType<typeof OrionSwipeSetupService>['publicInstance'];
+	type OrionSwipe = InstanceType<typeof OrionSwipeSetup>['publicInstance'];
 	namespace OrionSwipe {
 		type Props = OrionSwipeProps;
 		type Emits = OrionSwipeEmits;
 	}
 
-	type OrionTabNav = InstanceType<typeof OrionTabNavSetupService>['publicInstance'];
+	type OrionTabNav = InstanceType<typeof OrionTabNavSetup>['publicInstance'];
 	namespace OrionTabNav {
 		type Props = OrionTabNavProps;
 		type Emits = OrionTabNavEmits;
 	}
 
-	type OrionTabPane = InstanceType<typeof OrionTabPaneSetupService>['publicInstance'];
+	type OrionTabPane = InstanceType<typeof OrionTabPaneSetup>['publicInstance'];
 	namespace OrionTabPane {
 		type Props = OrionTabPaneProps;
 		type Emits = OrionTabPaneEmits;
 	}
 
-	type OrionTabs = InstanceType<typeof OrionTabsSetupService>['publicInstance'];
+	type OrionTabs = InstanceType<typeof OrionTabsSetup>['publicInstance'];
 	namespace OrionTabs {
 		type Props = OrionTabsProps;
 		type Emits = OrionTabsEmits;
 	}
 
-	type OrionTextarea = InstanceType<typeof OrionTextareaSetupService>['publicInstance'];
+	type OrionTextarea = InstanceType<typeof OrionTextareaSetup>['publicInstance'];
 	namespace OrionTextarea {
 		type Props = OrionTextareaProps;
 		type Emits = OrionTextareaEmits;
 	}
 
-	type OrionTimeline = InstanceType<typeof OrionTimelineSetupService>['publicInstance'];
+	type OrionTimeline = InstanceType<typeof OrionTimelineSetup>['publicInstance'];
 	namespace OrionTimeline {
 		type Props = OrionTimelineProps;
 		type Emits = OrionTimelineEmits;
 	}
 
-	type OrionTimelinePane = InstanceType<typeof OrionTimelinePaneSetupService>['publicInstance'];
+	type OrionTimelinePane = InstanceType<typeof OrionTimelinePaneSetup>['publicInstance'];
 	namespace OrionTimelinePane {
 		type Props = OrionTimelinePaneProps;
 		type Emits = OrionTimelinePaneEmits;
 	}
 
-	type OrionTimelinePill = InstanceType<typeof OrionTimelinePillSetupService>['publicInstance'];
+	type OrionTimelinePill = InstanceType<typeof OrionTimelinePillSetup>['publicInstance'];
 	namespace OrionTimelinePill {
 		type Props = OrionTimelinePillProps;
 		type Emits = OrionTimelinePillEmits;
 	}
 
-	type OrionToggle = InstanceType<typeof OrionToggleSetupService>['publicInstance'];
+	type OrionToggle = InstanceType<typeof OrionToggleSetup>['publicInstance'];
 	namespace OrionToggle {
 		type Props = OrionToggleProps;
 		type Emits = OrionToggleEmits;
 	}
 
-	type OrionToggleButton = InstanceType<typeof OrionToggleButtonSetupService>['publicInstance'];
+	type OrionToggleButton = InstanceType<typeof OrionToggleButtonSetup>['publicInstance'];
 	namespace OrionToggleButton {
 		type Props = OrionToggleButtonProps;
 		type Emits = OrionToggleButtonEmits;
 	}
 
-	type OrionToggleButtonGroup = InstanceType<typeof OrionToggleButtonGroupSetupService>['publicInstance'];
+	type OrionToggleButtonGroup = InstanceType<typeof OrionToggleButtonGroupSetup>['publicInstance'];
 	namespace OrionToggleButtonGroup {
 		type Props = OrionToggleButtonGroupProps;
 		type Emits = OrionToggleButtonGroupEmits;
 	}
 
-	type OrionTour = InstanceType<typeof OrionTourSetupService>['publicInstance'];
+	type OrionTour = InstanceType<typeof OrionTourSetup>['publicInstance'];
 	namespace OrionTour {
 		type Props = OrionTourProps;
 		type Emits = OrionTourEmits;
 	}
 
-	type OrionTourStep = InstanceType<typeof OrionTourStepSetupService>['publicInstance'];
+	type OrionTourStep = InstanceType<typeof OrionTourStepSetup>['publicInstance'];
 	namespace OrionTourStep {
 		type Props = OrionTourStepProps;
 		type Emits = OrionTourStepEmits;
 	}
 
-	type OrionUpload = InstanceType<typeof OrionUploadSetupService>['publicInstance'];
+	type OrionUpload = InstanceType<typeof OrionUploadSetup>['publicInstance'];
 	namespace OrionUpload {
 		type Props = OrionUploadProps;
 		type Emits = OrionUploadEmits;

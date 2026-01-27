@@ -1,8 +1,8 @@
-import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
+import { App, Plugin } from 'vue';
 import OrionInputRange from './src/OrionInputRange.vue';
-import type { OrionInputRangeEmits, OrionInputRangeProps } from './src/OrionInputRangeSetupService';
-import OrionInputRangeSetupService from './src/OrionInputRangeSetupService';
+import type { OrionInputRangeEmits, OrionInputRangeProps } from './src/OrionInputRangeSetup';
+import OrionInputRangeSetup from './src/OrionInputRangeSetup';
 
 export const OrionInputRangePlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,4 +10,5 @@ export const OrionInputRangePlugin: Plugin = {
 	},
 };
 
-export { OrionInputRange, OrionInputRangeSetupService, OrionInputRangeEmits, OrionInputRangeProps };
+export { OrionInputRange, OrionInputRangeEmits, OrionInputRangeProps, OrionInputRangeSetup };
+

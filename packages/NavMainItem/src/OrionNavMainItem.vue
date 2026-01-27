@@ -62,12 +62,12 @@
 </template>
 
 <script setup lang="ts">
-import './OrionNavMainItem.less';
 import { OrionIcon } from 'packages/Icon';
-import OrionNavMainItemSetupService from './OrionNavMainItemSetupService';
-import type { OrionNavMainItemProps, OrionNavMainItemEmits } from './OrionNavMainItemSetupService';
+import './OrionNavMainItem.less';
+import type { OrionNavMainItemEmits, OrionNavMainItemProps } from './OrionNavMainItemSetup';
+import OrionNavMainItemSetup from './OrionNavMainItemSetup';
 const emits = defineEmits<OrionNavMainItemEmits>() as OrionNavMainItemEmits;
-const props = withDefaults(defineProps<OrionNavMainItemProps>(), OrionNavMainItemSetupService.defaultProps);
-const setup = new OrionNavMainItemSetupService(props, emits);
+const props = withDefaults(defineProps<OrionNavMainItemProps>(), OrionNavMainItemSetup.defaultProps);
+const setup = new OrionNavMainItemSetup(props, emits);
 defineExpose(setup.publicInstance);
 </script>

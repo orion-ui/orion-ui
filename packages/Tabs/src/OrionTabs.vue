@@ -3,18 +3,18 @@
 </template>
 
 <script setup lang="tsx">
-import './OrionTabs.less';
-import { provide } from 'vue';
-import { isDefineOrTrue } from 'utils/tools';
-import { OrionTabNav } from 'packages/TabNav';
 import { OrionLoader } from 'packages/Loader';
-import OrionTabsSetupService from './OrionTabsSetupService';
-import type { OrionTabsProps, OrionTabsEmits } from './OrionTabsSetupService';
+import { OrionTabNav } from 'packages/TabNav';
+import { isDefineOrTrue } from 'utils/tools';
+import { provide } from 'vue';
+import './OrionTabs.less';
+import type { OrionTabsEmits, OrionTabsProps } from './OrionTabsSetup';
+import OrionTabsSetup from './OrionTabsSetup';
 const slots = defineSlots();
 const emits = defineEmits<OrionTabsEmits>() as OrionTabsEmits;
-const props = withDefaults(defineProps<OrionTabsProps>(), OrionTabsSetupService.defaultProps);
+const props = withDefaults(defineProps<OrionTabsProps>(), OrionTabsSetup.defaultProps);
 const vModel = defineModel<string | undefined>();
-const setup = new OrionTabsSetupService(props, emits, slots, vModel);
+const setup = new OrionTabsSetup(props, emits, slots, vModel);
 provide('_tabs', setup.publicInstance);
 defineExpose(setup.publicInstance);
 

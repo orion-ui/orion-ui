@@ -1,8 +1,8 @@
-import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
+import { App, Plugin } from 'vue';
 import OrionButton from './src/OrionButton.vue';
-import type { OrionButtonEmits, OrionButtonProps } from './src/OrionButtonSetupService';
-import OrionButtonSetupService from './src/OrionButtonSetupService';
+import type { OrionButtonEmits, OrionButtonProps } from './src/OrionButtonSetup';
+import OrionButtonSetup from './src/OrionButtonSetup';
 
 export const OrionButtonPlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,4 +10,5 @@ export const OrionButtonPlugin: Plugin = {
 	},
 };
 
-export { OrionButton, OrionButtonSetupService, OrionButtonEmits, OrionButtonProps  };
+export { OrionButton, OrionButtonEmits, OrionButtonProps, OrionButtonSetup };
+

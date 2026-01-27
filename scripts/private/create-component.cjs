@@ -46,7 +46,7 @@ class ComponentFactory {
 			'index.ts',
 			'src/{ComponentName}.vue',
 			'src/{ComponentName}.less',
-			'src/{ComponentName}SetupService.ts',
+			'src/{ComponentName}Setup.ts',
 		];
 
 		filesToWrite.forEach((f) => {

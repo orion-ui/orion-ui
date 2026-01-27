@@ -1,8 +1,8 @@
-import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
+import { App, Plugin } from 'vue';
 import OrionCarousel from './src/OrionCarousel.vue';
-import type { OrionCarouselEmits, OrionCarouselProps } from './src/OrionCarouselSetupService';
-import OrionCarouselSetupService from './src/OrionCarouselSetupService';
+import type { OrionCarouselEmits, OrionCarouselProps } from './src/OrionCarouselSetup';
+import OrionCarouselSetup from './src/OrionCarouselSetup';
 
 export const OrionCarouselPlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,4 +10,5 @@ export const OrionCarouselPlugin: Plugin = {
 	},
 };
 
-export { OrionCarousel, OrionCarouselSetupService, OrionCarouselEmits, OrionCarouselProps  };
+export { OrionCarousel, OrionCarouselEmits, OrionCarouselProps, OrionCarouselSetup };
+

@@ -52,11 +52,11 @@
 
 <script setup lang="ts">
 import './OrionSticker.less';
-import OrionStickerSetupService from './OrionStickerSetupService';
-import type { OrionStickerProps, OrionStickerEmits } from './OrionStickerSetupService';
+import type { OrionStickerEmits, OrionStickerProps } from './OrionStickerSetup';
+import OrionStickerSetup from './OrionStickerSetup';
 const emits = defineEmits<OrionStickerEmits>() as OrionStickerEmits;
-const props = withDefaults(defineProps<OrionStickerProps>(), OrionStickerSetupService.defaultProps);
-const setup = new OrionStickerSetupService(props, emits);
+const props = withDefaults(defineProps<OrionStickerProps>(), OrionStickerSetup.defaultProps);
+const setup = new OrionStickerSetup(props, emits);
 defineExpose(setup.publicInstance);
 
 /** Doc

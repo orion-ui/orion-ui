@@ -268,12 +268,12 @@ import { OrionIcon } from 'packages/Icon';
 import { OrionInput } from 'packages/Input';
 import { OrionLoader } from 'packages/Loader';
 import './OrionSelect.less';
-import type { OrionSelectEmits, OrionSelectProps, VModelType } from './OrionSelectSetupService';
-import OrionSelectSetupService from './OrionSelectSetupService';
+import type { OrionSelectEmits, OrionSelectProps, VModelType } from './OrionSelectSetup';
+import OrionSelectSetup from './OrionSelectSetup';
 const emits = defineEmits<OrionSelectEmits<T, O>>();
 const vModel = defineModel<VModelType<T>>();
-const props = withDefaults(defineProps<OrionSelectProps<T, O, VKey, DKey>>(), OrionSelectSetupService.defaultProps);
-const setup = new OrionSelectSetupService(props, emits, vModel);
+const props = withDefaults(defineProps<OrionSelectProps<T, O, VKey, DKey>>(), OrionSelectSetup.defaultProps);
+const setup = new OrionSelectSetup(props, emits, vModel);
 
 defineSlots<{
 	'default'(): void
@@ -286,7 +286,7 @@ defineSlots<{
 			markedSearch:(content: string) => string | undefined
 		}): void
 	'value'(props: {
-			item: ReturnType<OrionSelectSetupService<T, O, VKey, DKey>['valueDisplay']>['item'],
+			item: ReturnType<OrionSelectSetup<T, O, VKey, DKey>['valueDisplay']>['item'],
 			display: ObjectKeyValidator<O, DKey, VKey> extends never
 				? O
 				: DKey extends keyof O

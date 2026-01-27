@@ -71,20 +71,20 @@
 </template>
 
 <script lang="ts">
-// Needed to manage slots in OrionTourSetupService / calcStepInstances
+// Needed to manage slots in OrionTourSetup / calcStepInstances
 export default { name: 'OrionTourStep' };
 </script>
 
 <script setup lang="ts">
-import { inject } from 'vue';
 import { OrionButton } from 'packages/Button';
+import { inject } from 'vue';
 import '../../Tour/src/OrionTour.less';
-import OrionTourStepSetupService from './OrionTourStepSetupService';
-import type { OrionTourStepProps, OrionTourStepEmits } from './OrionTourStepSetupService';
+import type { OrionTourStepEmits, OrionTourStepProps } from './OrionTourStepSetup';
+import OrionTourStepSetup from './OrionTourStepSetup';
 const _tour = inject<OrionTour>('_tour');
 const emits = defineEmits<OrionTourStepEmits>() as OrionTourStepEmits;
-const props = withDefaults(defineProps<OrionTourStepProps>(), OrionTourStepSetupService.defaultProps);
-const setup = new OrionTourStepSetupService(props, emits, _tour);
+const props = withDefaults(defineProps<OrionTourStepProps>(), OrionTourStepSetup.defaultProps);
+const setup = new OrionTourStepSetup(props, emits, _tour);
 defineExpose(setup.publicInstance);
 /** Doc
  * @doc slot/default content of the step

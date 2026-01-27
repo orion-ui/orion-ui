@@ -1,8 +1,8 @@
-import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
+import { App, Plugin } from 'vue';
 import OrionSwipe from './src/OrionSwipe.vue';
-import type { OrionSwipeEmits, OrionSwipeProps } from './src/OrionSwipeSetupService';
-import OrionSwipeSetupService from './src/OrionSwipeSetupService';
+import type { OrionSwipeEmits, OrionSwipeProps } from './src/OrionSwipeSetup';
+import OrionSwipeSetup from './src/OrionSwipeSetup';
 
 export const OrionSwipePlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,4 +10,5 @@ export const OrionSwipePlugin: Plugin = {
 	},
 };
 
-export { OrionSwipe, OrionSwipeSetupService, OrionSwipeEmits, OrionSwipeProps };
+export { OrionSwipe, OrionSwipeEmits, OrionSwipeProps, OrionSwipeSetup };
+

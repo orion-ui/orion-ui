@@ -27,12 +27,12 @@
 <script setup lang="ts">
 import { useSlots } from 'vue';
 import './OrionSwipe.less';
-import OrionSwipeSetupService from './OrionSwipeSetupService';
-import type { OrionSwipeProps, OrionSwipeEmits } from './OrionSwipeSetupService';
+import type { OrionSwipeEmits, OrionSwipeProps } from './OrionSwipeSetup';
+import OrionSwipeSetup from './OrionSwipeSetup';
 const slots = useSlots();
 const emits = defineEmits<OrionSwipeEmits>() as OrionSwipeEmits;
-const props = withDefaults(defineProps<OrionSwipeProps>(), OrionSwipeSetupService.defaultProps);
-const setup = new OrionSwipeSetupService(props, emits, slots);
+const props = withDefaults(defineProps<OrionSwipeProps>(), OrionSwipeSetup.defaultProps);
+const setup = new OrionSwipeSetup(props, emits, slots);
 defineExpose(setup.publicInstance);
 
 /** Doc

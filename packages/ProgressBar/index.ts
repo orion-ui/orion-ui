@@ -1,8 +1,8 @@
-import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
+import { App, Plugin } from 'vue';
 import OrionProgressBar from './src/OrionProgressBar.vue';
-import type { OrionProgressBarEmits, OrionProgressBarProps } from './src/OrionProgressBarSetupService';
-import OrionProgressBarSetupService from './src/OrionProgressBarSetupService';
+import type { OrionProgressBarEmits, OrionProgressBarProps } from './src/OrionProgressBarSetup';
+import OrionProgressBarSetup from './src/OrionProgressBarSetup';
 
 export const OrionProgressBarPlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,4 +10,5 @@ export const OrionProgressBarPlugin: Plugin = {
 	},
 };
 
-export { OrionProgressBar, OrionProgressBarSetupService, OrionProgressBarEmits, OrionProgressBarProps };
+export { OrionProgressBar, OrionProgressBarEmits, OrionProgressBarProps, OrionProgressBarSetup };
+

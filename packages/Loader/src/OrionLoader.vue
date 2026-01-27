@@ -24,10 +24,10 @@
 <script setup lang="ts">
 import { OrionIcon } from 'packages/Icon';
 import './OrionLoader.less';
-import OrionLoaderSetupService from './OrionLoaderSetupService';
-import type { OrionLoaderProps, OrionLoaderEmits } from './OrionLoaderSetupService';
+import type { OrionLoaderEmits, OrionLoaderProps } from './OrionLoaderSetup';
+import OrionLoaderSetup from './OrionLoaderSetup';
 const emits = defineEmits<OrionLoaderEmits>() as OrionLoaderEmits;
-const props = withDefaults(defineProps<OrionLoaderProps>(), OrionLoaderSetupService.defaultProps);
-const setup = new OrionLoaderSetupService(props, emits);
+const props = withDefaults(defineProps<OrionLoaderProps>(), OrionLoaderSetup.defaultProps);
+const setup = new OrionLoaderSetup(props, emits);
 defineExpose(setup.publicInstance);
 </script>

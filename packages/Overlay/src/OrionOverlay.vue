@@ -14,10 +14,10 @@
 
 <script setup lang="ts">
 import './OrionOverlay.less';
-import OrionOverlaySetupService from './OrionOverlaySetupService';
-import type { OrionOverlayProps, OrionOverlayEmits } from './OrionOverlaySetupService';
+import type { OrionOverlayEmits, OrionOverlayProps } from './OrionOverlaySetup';
+import OrionOverlaySetup from './OrionOverlaySetup';
 const emits = defineEmits<OrionOverlayEmits>() as OrionOverlayEmits;
-const props = withDefaults(defineProps<OrionOverlayProps>(), OrionOverlaySetupService.defaultProps);
-const setup = new OrionOverlaySetupService(props, emits);
+const props = withDefaults(defineProps<OrionOverlayProps>(), OrionOverlaySetup.defaultProps);
+const setup = new OrionOverlaySetup(props, emits);
 defineExpose(setup.publicInstance);
 </script>

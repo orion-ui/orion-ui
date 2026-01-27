@@ -35,18 +35,18 @@
 </template>
 
 <script setup lang="ts">
-import './OrionAvatar.less';
 import { OrionIcon } from 'packages/Icon';
-import OrionAvatarSetupService from './OrionAvatarSetupService';
+import './OrionAvatar.less';
 import type {
-	OrionAvatarProps,
 	OrionAvatarEmits,
-} from './OrionAvatarSetupService';
+	OrionAvatarProps,
+} from './OrionAvatarSetup';
+import OrionAvatarSetup from './OrionAvatarSetup';
 const emits = defineEmits<OrionAvatarEmits>() as OrionAvatarEmits;
 const props = withDefaults(
 	defineProps<OrionAvatarProps>(),
-	OrionAvatarSetupService.defaultProps,
+	OrionAvatarSetup.defaultProps,
 );
-const setup = new OrionAvatarSetupService(props, emits);
+const setup = new OrionAvatarSetup(props, emits);
 defineExpose(setup.publicInstance);
 </script>

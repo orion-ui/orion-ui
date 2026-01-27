@@ -1,4 +1,4 @@
-const { SetupServiceFileScanner, VueFileScanner } = require('./private/create-doc.cjs').scanner;
+const { SetupFileScanner, VueFileScanner } = require('./private/create-doc.cjs').scanner;
 
 const path = require('path');
 const { readdir, writeFile } = require('fs-extra');
@@ -73,7 +73,7 @@ class MigratePropToPureTs {
 			this.packagesFolderPath,
 			pack,
 			'src',
-			`Orion${this.pack}SetupService.ts`,
+			`Orion${this.pack}Setup.ts`,
 		));
 
 		this.fullText = this.file.getText(true);
@@ -81,7 +81,7 @@ class MigratePropToPureTs {
 
 	async scanPackagesAsync () {
 		for await (const pack of this.packages) {
-			const setupServiceFileScanner = new SetupServiceFileScanner(undefined, this.project, pack);
+			const setupServiceFileScanner = new SetupFileScanner(undefined, this.project, pack);
 			const vueFileScanner = new VueFileScanner(undefined, this.project, pack);
 			const setupServiceFileData = await setupServiceFileScanner.scan();
 			const setupFile = setupServiceFileScanner.file;
@@ -106,7 +106,7 @@ class MigratePropToPureTs {
 		let defaultProps = `static readonly defaultProps = {`;
 
 		// GET inherit props
-		const spreadProps = sourceFile?.getClass(`Orion${packageName}SetupService`)?.getProperty('props')?.getInitializerIfKind(SyntaxKind.ObjectLiteralExpression);
+		const spreadProps = sourceFile?.getClass(`Orion${packageName}Setup`)?.getProperty('props')?.getInitializerIfKind(SyntaxKind.ObjectLiteralExpression);
 
 		const spreadAssignments = spreadProps?.getProperties().filter(prop =>
 			prop.getKind() === SyntaxKind.SpreadAssignment,
@@ -141,7 +141,7 @@ class MigratePropToPureTs {
 			newProps = `export type Orion${packageName}Emits = {}\n`.concat(newProps);
 		}
 
-		fileContent = fileContent.replace('SharedSetupService<Props>', 'SharedSetupService');
+		fileContent = fileContent.replace('SharedSetup<Props>', 'SharedSetup');
 		fileContent = fileContent.replace(regexTypeProps, newProps);
 		fileContent = fileContent.replace(regexExtendProps, `<Orion${packageName}Props`);
 		fileContent = fileContent.replace(regexExistingEmits, '');
@@ -161,8 +161,8 @@ class MigratePropToPureTs {
 		const regexTypeEmits = /type \w*Emit(s)*\s*=\s*{\s*(\n*\s*\(.*)*\n}/;
 		const regexConstructor = /\(props(,*\s*emit[s]*)*/;
 
-		let newProps = `import type { Orion${packageName}Props, Orion${packageName}Emits } from './Orion${packageName}SetupService';
-const props = withDefaults(defineProps<Orion${packageName}Props>(), Orion${packageName}SetupService.defaultProps);`;
+		let newProps = `import type { Orion${packageName}Props, Orion${packageName}Emits } from './Orion${packageName}Setup';
+const props = withDefaults(defineProps<Orion${packageName}Props>(), Orion${packageName}Setup.defaultProps);`;
 		const newEmits = `const emits = defineEmits<Orion${packageName}Emits>() as Orion${packageName}Emits;`;
 
 		if (fileContent.match(regexTypeEmits)) {

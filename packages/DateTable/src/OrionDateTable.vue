@@ -200,15 +200,15 @@ import { OrionDateTableHorizontal } from 'packages/DateTableHorizontal';
 import { OrionIcon } from 'packages/Icon';
 import { OrionToggleButton } from 'packages/ToggleButton';
 import './OrionDateTable.less';
-import type { OrionDateTableEmits, OrionDateTableProps } from './OrionDateTableSetupService';
-import OrionDateTableSetupService from './OrionDateTableSetupService';
+import type { OrionDateTableEmits, OrionDateTableProps } from './OrionDateTableSetup';
+import OrionDateTableSetup from './OrionDateTableSetup';
 const vModel = defineModel< Nil<Date>>();
 const range = defineModel<Nil<Orion.DateRange>>('range');
 const multiple = defineModel<Nil<Date[]>>('multiple');
 const dayHover = defineModel<Nil<Date>>('dayHover');
 const emits = defineEmits<OrionDateTableEmits>() as OrionDateTableEmits;
-const props = withDefaults(defineProps<OrionDateTableProps>(), OrionDateTableSetupService.defaultProps);
-const setup = new OrionDateTableSetupService(props, emits, vModel, range, multiple, dayHover);
+const props = withDefaults(defineProps<OrionDateTableProps>(), OrionDateTableSetup.defaultProps);
+const setup = new OrionDateTableSetup(props, emits, vModel, range, multiple, dayHover);
 defineExpose(setup.publicInstance);
 
 /** Doc

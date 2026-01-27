@@ -3,17 +3,17 @@
 </template>
 
 <script setup lang="tsx">
-import './OrionTabNav.less';
-import { inject } from 'vue';
-import { isDefineOrTrue } from 'utils/tools';
-import { OrionIcon } from 'packages/Icon';
 import { OrionBadge } from 'packages/Badge';
-import OrionTabNavSetupService from './OrionTabNavSetupService';
-import type { OrionTabNavProps, OrionTabNavEmits } from './OrionTabNavSetupService';
+import { OrionIcon } from 'packages/Icon';
+import { isDefineOrTrue } from 'utils/tools';
+import { inject } from 'vue';
+import './OrionTabNav.less';
+import type { OrionTabNavEmits, OrionTabNavProps } from './OrionTabNavSetup';
+import OrionTabNavSetup from './OrionTabNavSetup';
 const emits = defineEmits<OrionTabNavEmits>() as OrionTabNavEmits;
-const props = withDefaults(defineProps<OrionTabNavProps>(), OrionTabNavSetupService.defaultProps);
+const props = withDefaults(defineProps<OrionTabNavProps>(), OrionTabNavSetup.defaultProps);
 const _tabs = inject<OrionTabs>('_tabs');
-const setup = new OrionTabNavSetupService(props, emits);
+const setup = new OrionTabNavSetup(props, emits);
 defineExpose(setup.publicInstance);
 
 const jsxTabNav = () => {

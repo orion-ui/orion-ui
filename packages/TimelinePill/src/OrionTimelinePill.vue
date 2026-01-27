@@ -4,20 +4,20 @@
 </template>
 
 <script setup lang="tsx">
-import './OrionTimelinePill.less';
-import { OrionIcon } from 'packages/Icon';
-import { OrionHorizontalScroll } from 'packages/HorizontalScroll';
 import { Dropdown } from 'floating-vue';
-import OrionTimelinePillSetupService from './OrionTimelinePillSetupService';
+import { OrionHorizontalScroll } from 'packages/HorizontalScroll';
+import { OrionIcon } from 'packages/Icon';
 import { isDefineOrTrue } from 'utils/tools';
-import type { OrionTimelinePillProps, OrionTimelinePillEmits } from './OrionTimelinePillSetupService';
+import './OrionTimelinePill.less';
+import type { OrionTimelinePillEmits, OrionTimelinePillProps } from './OrionTimelinePillSetup';
+import OrionTimelinePillSetup from './OrionTimelinePillSetup';
 
 const emits = defineEmits<OrionTimelinePillEmits>() as OrionTimelinePillEmits;
-const props = withDefaults(defineProps<OrionTimelinePillProps>(), OrionTimelinePillSetupService.defaultProps);
-const setup = new OrionTimelinePillSetupService(props, emits);
+const props = withDefaults(defineProps<OrionTimelinePillProps>(), OrionTimelinePillSetup.defaultProps);
+const setup = new OrionTimelinePillSetup(props, emits);
 defineExpose(setup.publicInstance);
 
-// Needed to manage slots in OrionTimelineSetupService / calcPaneInstances
+// Needed to manage slots in OrionTimelineSetup / calcPaneInstances
 defineOptions({ name: 'OrionTimelinePill' });
 
 const jsxTimelinePill = () => {

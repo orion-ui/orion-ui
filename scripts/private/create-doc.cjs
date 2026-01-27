@@ -163,10 +163,10 @@ class DocFactory extends DocUtility {
 			const vueFileScanner = new VueFileScanner(this.options, this.project, pack);
 			const vueFileData = await vueFileScanner.scanAsync();
 
-			const setupServiceDtsFileScanner = new SetupServiceDtsFileScanner(this.options, this.project, pack);
+			const setupServiceDtsFileScanner = new SetupDtsFileScanner(this.options, this.project, pack);
 			const setupServiceDtsFileData = await setupServiceDtsFileScanner.scan();
 
-			const setupServiceFileScanner = new SetupServiceFileScanner(this.options, this.project, pack);
+			const setupServiceFileScanner = new SetupFileScanner(this.options, this.project, pack);
 			const setupServiceFileData = await setupServiceFileScanner.scan();
 
 			this.packagesDataDocFile.push({
@@ -427,7 +427,7 @@ class VueFileScanner extends DocScanner {
 
 }
 
-class SetupServiceDtsFileScanner extends DocScanner {
+class SetupDtsFileScanner extends DocScanner {
 
 	packagesFolderPath = path.resolve(__dirname, '../../dist/types/packages');
 	tsFileFolderPath = path.resolve(__dirname, '../../packages');
@@ -447,13 +447,13 @@ class SetupServiceDtsFileScanner extends DocScanner {
 			this.packagesFolderPath,
 			this.pack,
 			'src',
-			`Orion${this.pack}SetupService.d.ts`,
+			`Orion${this.pack}Setup.d.ts`,
 		));
 	}
 
 	scan () {
 		this.addFileToTsMorphProject();
-		const packClass = this.file.getClass(`Orion${this.pack}SetupService`);
+		const packClass = this.file.getClass(`Orion${this.pack}Setup`);
 		const publicInstance = this.extractPublicIntance(this.getPublicInstance(packClass));
 
 		return { publicInstance };
@@ -532,7 +532,7 @@ class SetupServiceDtsFileScanner extends DocScanner {
 
 }
 
-class SetupServiceFileScanner extends DocScanner {
+class SetupFileScanner extends DocScanner {
 
 	fullText;
 
@@ -545,7 +545,7 @@ class SetupServiceFileScanner extends DocScanner {
 			this.packagesFolderPath,
 			this.pack,
 			'src',
-			`Orion${this.pack}SetupService.ts`,
+			`Orion${this.pack}Setup.ts`,
 		));
 
 		this.fullText = this.file.getText(true);
@@ -612,7 +612,7 @@ class SetupServiceFileScanner extends DocScanner {
 	}
 
 	parseDefaultProps () {
-		const classDeclaration = this.file.getClassOrThrow(`Orion${this.pack}SetupService`);
+		const classDeclaration = this.file.getClassOrThrow(`Orion${this.pack}Setup`);
 		const defaultPropsProperty = classDeclaration.getStaticPropertyOrThrow('defaultProps');
 		const initializer = defaultPropsProperty.getInitializer();
 
@@ -658,14 +658,14 @@ class SetupServiceFileScanner extends DocScanner {
 
 		if (!isCurrentComponent) {
 			// Load parent component setup service file
-			const parentSetupServicePath = path.resolve(
+			const parentSetupPath = path.resolve(
 				this.packagesFolderPath,
 				componentName,
 				'src',
-				`Orion${componentName}SetupService.ts`,
+				`Orion${componentName}Setup.ts`,
 			);
 
-			file = this.project.addSourceFileAtPathIfExists(parentSetupServicePath);
+			file = this.project.addSourceFileAtPathIfExists(parentSetupPath);
 			if (!file) {
 				return { props: [] };
 			}
@@ -1169,6 +1169,6 @@ if (require.main === module) {
 }
 
 module.exports.scanner = {
-	SetupServiceFileScanner,
+	SetupFileScanner,
 	VueFileScanner,
 };

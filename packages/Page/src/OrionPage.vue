@@ -44,11 +44,11 @@
 
 <script setup lang="ts">
 import './OrionPage.less';
-import OrionPageSetupService from './OrionPageSetupService';
-import type { OrionPageProps, OrionPageEmits } from './OrionPageSetupService';
+import type { OrionPageEmits, OrionPageProps } from './OrionPageSetup';
+import OrionPageSetup from './OrionPageSetup';
 const emits = defineEmits<OrionPageEmits>() as OrionPageEmits;
-const props = withDefaults(defineProps<OrionPageProps>(), OrionPageSetupService.defaultProps);
-const setup = new OrionPageSetupService(props, emits);
+const props = withDefaults(defineProps<OrionPageProps>(), OrionPageSetup.defaultProps);
+const setup = new OrionPageSetup(props, emits);
 defineExpose(setup.publicInstance);
 
 /** Doc

@@ -3,15 +3,15 @@
 </template>
 
 <script setup lang="tsx">
-import './OrionTour.less';
 import { provide } from 'vue';
-import OrionTourSetupService from './OrionTourSetupService';
+import './OrionTour.less';
+import type { OrionTourEmits, OrionTourProps } from './OrionTourSetup';
+import OrionTourSetup from './OrionTourSetup';
 
 const slots = defineSlots();
 const emits = defineEmits<OrionTourEmits>() as OrionTourEmits;
-import type { OrionTourProps, OrionTourEmits } from './OrionTourSetupService';
-const props = withDefaults(defineProps<OrionTourProps>(), OrionTourSetupService.defaultProps);
-const setup = new OrionTourSetupService(props, emits, slots);
+const props = withDefaults(defineProps<OrionTourProps>(), OrionTourSetup.defaultProps);
+const setup = new OrionTourSetup(props, emits, slots);
 provide('_tour', setup.publicInstance);
 defineExpose(setup.publicInstance);
 

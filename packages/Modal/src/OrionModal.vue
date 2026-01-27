@@ -130,12 +130,12 @@ import { OrionLoader } from 'packages/Loader';
 import { OrionSection } from 'packages/Section';
 import { defineAsyncComponent, provide } from 'vue';
 import './OrionModal.less';
-import type { OrionModalEmits, OrionModalProps } from './OrionModalSetupService';
-import OrionModalSetupService from './OrionModalSetupService';
+import type { OrionModalEmits, OrionModalProps } from './OrionModalSetup';
+import OrionModalSetup from './OrionModalSetup';
 const emits = defineEmits<OrionModalEmits>() as OrionModalEmits;
-const props = withDefaults(defineProps<OrionModalProps>(), OrionModalSetupService.defaultProps);
+const props = withDefaults(defineProps<OrionModalProps>(), OrionModalSetup.defaultProps);
 const slots = defineSlots();
-const setup = new OrionModalSetupService(props, emits, slots);
+const setup = new OrionModalSetup(props, emits, slots);
 provide('_modal', setup.publicInstance);
 defineExpose(setup.publicInstance);
 

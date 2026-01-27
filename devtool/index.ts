@@ -12,8 +12,8 @@ export const devtoolId = 'orion-devtool';
 // export let devtool: Undef<DevtoolsPluginApi<ExtractSettingsTypes<Record<string, PluginSettingsItem>>>>;
 export let devtool: any;
 
-const orionStateType = 'SetupService';
-const SetupServiceKeysToExclude = [
+const orionStateType = 'Setup';
+const SetupKeysToExclude = [
 	'Bus',
 	'bus',
 	'props',
@@ -158,7 +158,7 @@ export function setupDevtools (app: any, orionAppService: OrionAppService) {
 		api.on.inspectComponent((payload) => {
 			if (/^Orion/.test(payload.componentInstance.type.__name)) {
 				const instance = payload.instanceData;
-				const SetupService = payload.componentInstance.devtoolsRawSetupState?.setup ?? payload.componentInstance.exposed;
+				const Setup = payload.componentInstance.devtoolsRawSetupState?.setup ?? payload.componentInstance.exposed;
 
 				for (let i = instance.state.length - 1; i > -1; i--) {
 					const element = instance.state[i];
@@ -167,8 +167,8 @@ export function setupDevtools (app: any, orionAppService: OrionAppService) {
 					}
 				}
 
-				instance.state.unshift(...Object.entries(SetupService)
-					.filter(([key]) => !SetupServiceKeysToExclude.includes(key) && !Object.keys(SetupService.publicInstance ?? {}).includes(key))
+				instance.state.unshift(...Object.entries(Setup)
+					.filter(([key]) => !SetupKeysToExclude.includes(key) && !Object.keys(Setup.publicInstance ?? {}).includes(key))
 					.map(([key, value]) => ({
 						type: orionStateType,
 						key,
@@ -177,7 +177,7 @@ export function setupDevtools (app: any, orionAppService: OrionAppService) {
 					})),
 				);
 
-				instance.state.unshift(...Object.entries(SetupService.publicInstance ?? {})
+				instance.state.unshift(...Object.entries(Setup.publicInstance ?? {})
 					.map(([key, value]) => ({
 						type: 'Setup.publicInstance',
 						key,

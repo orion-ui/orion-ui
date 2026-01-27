@@ -48,12 +48,12 @@
 </template>
 
 <script setup lang="ts">
-import './OrionNavTop.less';
 import { OrionIcon } from 'packages/Icon';
-import OrionNavTopSetupService from './OrionNavTopSetupService';
-import type { OrionNavTopProps, OrionNavTopEmits } from './OrionNavTopSetupService';
+import './OrionNavTop.less';
+import type { OrionNavTopEmits, OrionNavTopProps } from './OrionNavTopSetup';
+import OrionNavTopSetup from './OrionNavTopSetup';
 const emits = defineEmits<OrionNavTopEmits>() as OrionNavTopEmits;
-const props = withDefaults(defineProps<OrionNavTopProps>(), OrionNavTopSetupService.defaultProps);
-const setup = new OrionNavTopSetupService(props, emits);
+const props = withDefaults(defineProps<OrionNavTopProps>(), OrionNavTopSetup.defaultProps);
+const setup = new OrionNavTopSetup(props, emits);
 defineExpose(setup.publicInstance);
 </script>

@@ -1,8 +1,8 @@
-import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
+import { App, Plugin } from 'vue';
 import OrionNavTabs from './src/OrionNavTabs.vue';
-import type { OrionNavTabsEmits, OrionNavTabsProps } from './src/OrionNavTabsSetupService';
-import OrionNavTabsSetupService from './src/OrionNavTabsSetupService';
+import type { OrionNavTabsEmits, OrionNavTabsProps } from './src/OrionNavTabsSetup';
+import OrionNavTabsSetup from './src/OrionNavTabsSetup';
 
 export const OrionNavTabsPlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,4 +10,5 @@ export const OrionNavTabsPlugin: Plugin = {
 	},
 };
 
-export { OrionNavTabs, OrionNavTabsSetupService, OrionNavTabsEmits, OrionNavTabsProps };
+export { OrionNavTabs, OrionNavTabsEmits, OrionNavTabsProps, OrionNavTabsSetup };
+

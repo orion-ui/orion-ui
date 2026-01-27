@@ -43,13 +43,13 @@
 </template>
 
 <script setup lang="ts">
-import './OrionButton.less';
 import { OrionIcon } from 'packages/Icon';
-import OrionButtonSetupService from './OrionButtonSetupService';
-import type { OrionButtonProps, OrionButtonEmits } from './OrionButtonSetupService';
+import './OrionButton.less';
+import type { OrionButtonEmits, OrionButtonProps } from './OrionButtonSetup';
+import OrionButtonSetup from './OrionButtonSetup';
 const emits = defineEmits<OrionButtonEmits>() as OrionButtonEmits;
-const props = withDefaults(defineProps<OrionButtonProps>(), OrionButtonSetupService.defaultProps);
-const setup = new OrionButtonSetupService(props, emits);
+const props = withDefaults(defineProps<OrionButtonProps>(), OrionButtonSetup.defaultProps);
+const setup = new OrionButtonSetup(props, emits);
 defineExpose(setup.publicInstance);
 
 /** Doc

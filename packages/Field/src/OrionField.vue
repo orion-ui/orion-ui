@@ -54,10 +54,10 @@
 <script setup lang="ts">
 import { OrionIcon } from 'packages/Icon';
 import './OrionField.less';
-import type { OrionFieldEmits, OrionFieldProps } from './OrionFieldSetupService';
-import OrionFieldSetupService from './OrionFieldSetupService';
+import type { OrionFieldEmits, OrionFieldProps } from './OrionFieldSetup';
+import OrionFieldSetup from './OrionFieldSetup';
 const emits = defineEmits<OrionFieldEmits>() as OrionFieldEmits;
-const props = withDefaults(defineProps<OrionFieldProps>(), OrionFieldSetupService.defaultProps);
-const setup = new OrionFieldSetupService(props, emits);
+const props = withDefaults(defineProps<OrionFieldProps>(), OrionFieldSetup.defaultProps);
+const setup = new OrionFieldSetup(props, emits);
 defineExpose(setup.publicInstance);
 </script>

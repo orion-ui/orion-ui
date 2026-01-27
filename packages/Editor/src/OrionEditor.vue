@@ -71,7 +71,7 @@
 						:start-value="setup.editor?.value?.getAttributes('textStyle').color"
 						@picked="setup.editor?.value?.commands.setColor($event?.hex)"/>
 					<orion-button
-						style="border:none"
+						style="border: none;"
 						size="xs"
 						block
 						nude
@@ -95,7 +95,7 @@
 						:start-value="setup.editor?.value?.getAttributes('textStyle').background ?? ''"
 						@picked="setup.editor?.value?.commands.setTextBackground($event?.hex)"/>
 					<orion-button
-						style="border:none"
+						style="border: none;"
 						size="xs"
 						block
 						nude
@@ -208,18 +208,17 @@
 </template>
 
 <script setup lang="ts">
-import './OrionEditor.less';
-import { EditorContent } from '@tiptap/vue-3';
+import { EditorContent, JSONContent } from '@tiptap/vue-3';
 import { OrionButton } from 'packages/Button';
 import { OrionColorPicker } from 'packages/ColorPicker';
-import { JSONContent } from '@tiptap/vue-3';
-import OrionEditorSetupService from './OrionEditorSetupService';
-import type { OrionEditorProps, OrionEditorEmits } from './OrionEditorSetupService';
+import './OrionEditor.less';
+import type { OrionEditorEmits, OrionEditorProps } from './OrionEditorSetup';
+import OrionEditorSetup from './OrionEditorSetup';
 const emits = defineEmits<OrionEditorEmits>() as OrionEditorEmits;
 const vModel = defineModel<Nil<string>>();
 const json = defineModel<JSONContent | undefined >('json');
-const props = withDefaults(defineProps<OrionEditorProps>(), OrionEditorSetupService.defaultProps);
-const setup = new OrionEditorSetupService(props, emits, vModel, json);
+const props = withDefaults(defineProps<OrionEditorProps>(), OrionEditorSetup.defaultProps);
+const setup = new OrionEditorSetup(props, emits, vModel, json);
 defineExpose(setup.publicInstance);
 
 /** Doc

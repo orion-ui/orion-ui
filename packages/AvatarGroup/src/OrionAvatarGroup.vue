@@ -20,14 +20,14 @@
 </template>
 
 <script setup lang="ts">
-import './OrionAvatarGroup.less';
 import { OrionAvatar } from 'packages/Avatar';
-import OrionAvatarGroupSetupService from './OrionAvatarGroupSetupService';
-import type { OrionAvatarGroupProps, OrionAvatarGroupEmits } from './OrionAvatarGroupSetupService';
+import './OrionAvatarGroup.less';
+import type { OrionAvatarGroupEmits, OrionAvatarGroupProps } from './OrionAvatarGroupSetup';
+import OrionAvatarGroupSetup from './OrionAvatarGroupSetup';
 const emits = defineEmits<OrionAvatarGroupEmits>() as OrionAvatarGroupEmits;
 const slots = defineSlots();
-const props = withDefaults(defineProps<OrionAvatarGroupProps>(), OrionAvatarGroupSetupService.defaultProps);
-const setup = new OrionAvatarGroupSetupService(props, emits, slots);
+const props = withDefaults(defineProps<OrionAvatarGroupProps>(), OrionAvatarGroupSetup.defaultProps);
+const setup = new OrionAvatarGroupSetup(props, emits, slots);
 
 defineExpose(setup.publicInstance);
 </script>

@@ -11,7 +11,7 @@ const { log, note, spinner } = require('@clack/prompts');
 // https://github.com/vuejs/core/issues/8301
 require('@vue/compiler-sfc').registerTS(() => require('typescript')); // TODO:
 
-// const setupServiceImportRegex = /^import (\w+SetupService) from .+\n/gm;
+// const setupServiceImportRegex = /^import (\w+Setup) from .+\n/gm;
 const lessImportRegex = /^import .+.less.+\n/gm;
 
 /**
@@ -51,7 +51,7 @@ class TypesDeclarationFilesFactory {
 		input: [
 			'packages/**/*.ts',
 			'packages/**/src/*.vue',
-			// 'packages/!(Shared)/!(*SetupService).ts',
+			// 'packages/!(Shared)/!(*Setup).ts',
 			'packages/index.ts',
 			'lang/**/*.ts',
 		],
@@ -143,7 +143,7 @@ class TypesDeclarationFilesFactory {
 						/* if (sfc.descriptor.scriptSetup) {
 							sfc.descriptor.scriptSetup.content = scriptSetup.content
 								.replace(
-									/(import type .* from ')(\..*)(?<orion>\/Orion)(?<packageName>\w*)(?<setup>SetupService';)/gm, // good luck
+									/(import type .* from ')(\..*)(?<orion>\/Orion)(?<packageName>\w*)(?<setup>Setup';)/gm, // good luck
 									'$1packages/$<packageName>/src$<orion>$<packageName>$<setup>'
 								);
 						}  */

@@ -1,13 +1,13 @@
 import { reactive } from 'vue';
-import type { OrionAsideSetupService, OrionModalSetupService, OrionNotifSetupService } from '../packages';
+import type { OrionAsideSetup, OrionModalSetup, OrionNotifSetup } from '../packages';
 
 class PopableQueueService {
 
 	private readonly _popables: Record<number, Orion.Popable.PublicIntance> = {};
 	private readonly _queue = reactive({
-		OrionAside: [] as OrionAsideSetupService['publicInstance'][],
-		OrionModal: [] as OrionModalSetupService['publicInstance'][],
-		OrionNotif: [] as OrionNotifSetupService['publicInstance'][],
+		OrionAside: [] as OrionAsideSetup['publicInstance'][],
+		OrionModal: [] as OrionModalSetup['publicInstance'][],
+		OrionNotif: [] as OrionNotifSetup['publicInstance'][],
 		ids: [] as number[],
 	});
 

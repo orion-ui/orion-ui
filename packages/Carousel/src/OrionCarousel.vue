@@ -121,17 +121,17 @@
 </template>
 
 <script setup lang="ts">
+import OrionButton from 'packages/Button/src/OrionButton.vue';
+import { useLang } from 'services';
 import { provide } from 'vue';
 import './OrionCarousel.less';
-import OrionCarouselSetupService from './OrionCarouselSetupService';
-import OrionButton from 'packages/Button/src/OrionButton.vue';
-import type { OrionCarouselProps, OrionCarouselEmits } from './OrionCarouselSetupService';
-import { useLang } from 'services';
+import type { OrionCarouselEmits, OrionCarouselProps } from './OrionCarouselSetup';
+import OrionCarouselSetup from './OrionCarouselSetup';
 const slots = defineSlots();
 const vModel = defineModel<Undef<number | string>>({ required: true });
 const emits = defineEmits<OrionCarouselEmits>() as OrionCarouselEmits;
-const props = withDefaults(defineProps<OrionCarouselProps>(), OrionCarouselSetupService.defaultProps);
-const setup = new OrionCarouselSetupService(props, emits, vModel, slots);
+const props = withDefaults(defineProps<OrionCarouselProps>(), OrionCarouselSetup.defaultProps);
+const setup = new OrionCarouselSetup(props, emits, vModel, slots);
 provide('_carousel', setup.publicInstance);
 defineExpose(setup.publicInstance);
 

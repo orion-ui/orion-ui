@@ -37,14 +37,14 @@
 </template>
 
 <script setup lang="ts">
-import './OrionDateRange.less';
 import { OrionDateTable } from 'packages/DateTable';
-import OrionDateRangeSetupService from './OrionDateRangeSetupService';
-import type { OrionDateRangeProps, OrionDateRangeEmits } from './OrionDateRangeSetupService';
+import './OrionDateRange.less';
+import type { OrionDateRangeEmits, OrionDateRangeProps } from './OrionDateRangeSetup';
+import OrionDateRangeSetup from './OrionDateRangeSetup';
 const emits = defineEmits<OrionDateRangeEmits>() as OrionDateRangeEmits;
 const vModel = defineModel<Nil<Orion.DateRange>>();
-const props = withDefaults(defineProps<OrionDateRangeProps>(), OrionDateRangeSetupService.defaultProps);
-const setup = new OrionDateRangeSetupService(props, emits, vModel);
+const props = withDefaults(defineProps<OrionDateRangeProps>(), OrionDateRangeSetup.defaultProps);
+const setup = new OrionDateRangeSetup(props, emits, vModel);
 defineExpose(setup.publicInstance);
 
 /** Doc

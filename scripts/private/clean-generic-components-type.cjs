@@ -20,11 +20,11 @@ class GenericComponentsCleaner {
 		const libPackagesPath = path.resolve(rootPath, 'dist/types/lib/packages.d.ts');
 
 		for await (const sourceFile of packagesFiles) {
-			if (sourceFile.includes('SetupService.d.ts')) {
+			if (sourceFile.includes('Setup.d.ts')) {
 				const filePath = path.resolve(rootPath, 'dist/types/packages/' + sourceFile);
 				let content = fs.readFileSync(filePath, 'utf8');
 
-				const packageName = `${sourceFile}`.split('/').slice(-1)[0].replace('SetupService.d.ts', '');
+				const packageName = `${sourceFile}`.split('/').slice(-1)[0].replace('Setup.d.ts', '');
 
 				// example : 'T, O, VKey extends keyof O = never, DKey extends keyof O = VKey, OKey extends Record<string, any> = O'
 				const genericKeysRegex = /(?<key>(?<!(extends | = )\w*)[A-Z]{1,2}\w*)(, | extends | = )?/gm;

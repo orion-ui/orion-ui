@@ -39,13 +39,13 @@
 </template>
 
 <script setup lang="ts">
-import './OrionToggleButton.less';
 import { OrionIcon } from 'packages/Icon';
-import OrionToggleButtonSetupService from './OrionToggleButtonSetupService';
-import type { OrionToggleButtonProps, OrionToggleButtonEmits } from './OrionToggleButtonSetupService';
+import './OrionToggleButton.less';
+import type { OrionToggleButtonEmits, OrionToggleButtonProps } from './OrionToggleButtonSetup';
+import OrionToggleButtonSetup from './OrionToggleButtonSetup';
 const emits = defineEmits<OrionToggleButtonEmits>() as OrionToggleButtonEmits;
-const props = withDefaults(defineProps<OrionToggleButtonProps>(), OrionToggleButtonSetupService.defaultProps);
+const props = withDefaults(defineProps<OrionToggleButtonProps>(), OrionToggleButtonSetup.defaultProps);
 const vModel = defineModel<boolean>({ default: false });
-const setup = new OrionToggleButtonSetupService(props, emits, vModel);
+const setup = new OrionToggleButtonSetup(props, emits, vModel);
 defineExpose(setup.publicInstance);
 </script>

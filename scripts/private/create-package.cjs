@@ -67,7 +67,7 @@ class ComponentFactory {
 			'index.ts',
 			'src/{ComponentName}.vue',
 			'src/{ComponentName}.less',
-			'src/{ComponentName}SetupService.ts',
+			'src/{ComponentName}Setup.ts',
 		];
 
 		if (this.options.dryRun) note(`🥨 --> Orion would write following files in /packages`);

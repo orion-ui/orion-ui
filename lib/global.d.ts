@@ -3,10 +3,10 @@
 import { EnLang } from 'lang/en';
 import { CountryCode } from 'libphonenumber-js';
 import { MaterialIcon } from 'material-icons';
-import { OrionAvatarProps } from 'packages/Avatar/src/OrionAvatarSetupService';
+import { OrionAvatarProps } from 'packages/Avatar/src/OrionAvatarSetup';
 import { Component } from 'vue';
 import { RouteLocationRaw, Router } from 'vue-router';
-import type { OrionAsideSetupService, OrionListProps, OrionModalSetupService, OrionNotifSetupService } from '../packages';
+import type { OrionAsideSetup, OrionListProps, OrionModalSetup, OrionNotifSetup } from '../packages';
 import OrionChatEntity from '../packages/Chat/src/OrionChatEntity';
 import OrionChatMessageEntity from '../packages/ChatMessage/src/OrionChatMessageEntity';
 import { useValidation } from '../services/ValidationService';
@@ -257,9 +257,9 @@ declare global {
 			type Name = 'OrionAside' | 'OrionModal' | 'OrionNotif';
 
 			type PublicIntance
-				= | OrionAsideSetupService['publicInstance']
-				  | OrionModalSetupService['publicInstance']
-				  | OrionNotifSetupService['publicInstance'];
+				= | OrionAsideSetup['publicInstance']
+				  | OrionModalSetup['publicInstance']
+				  | OrionNotifSetup['publicInstance'];
 
 			type Options = {
 				uid: number

@@ -44,12 +44,12 @@
 import { OrionField } from 'packages/Field';
 import { OrionIcon } from 'packages/Icon';
 import './OrionCheckbox.less';
-import type { OrionCheckboxEmits, OrionCheckboxProps } from './OrionCheckboxSetupService';
-import OrionCheckboxSetupService from './OrionCheckboxSetupService';
+import type { OrionCheckboxEmits, OrionCheckboxProps } from './OrionCheckboxSetup';
+import OrionCheckboxSetup from './OrionCheckboxSetup';
 const emits = defineEmits<OrionCheckboxEmits<any>>() as OrionCheckboxEmits<any>;
 const vModel = defineModel<any[] | boolean | null | undefined>();
-const props = withDefaults(defineProps<OrionCheckboxProps>(), OrionCheckboxSetupService.defaultProps);
-const setup = new OrionCheckboxSetupService(props, emits, vModel);
+const props = withDefaults(defineProps<OrionCheckboxProps>(), OrionCheckboxSetup.defaultProps);
+const setup = new OrionCheckboxSetup(props, emits, vModel);
 defineExpose(setup.publicInstance);
 
 /** Doc
