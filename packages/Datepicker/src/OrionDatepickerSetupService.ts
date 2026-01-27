@@ -3,7 +3,7 @@ import { debounce, isNil, throttle } from 'lodash-es';
 import { getAppLang } from 'services/LangService';
 import { useMonkey } from 'services/MonkeyService';
 import { addPopoverBackdropCloseAbility } from 'utils/tools';
-import { ModelRef, nextTick, reactive, ref, Slots, watchEffect } from 'vue';
+import { ModelRef, nextTick, reactive, ref, Slots, watch, watchEffect } from 'vue';
 import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetupServiceProps } from '../../Shared/SharedFieldSetupService';
 
 export type OrionDatepickerEmits = SharedFieldSetupServiceEmits<Nil<Date>> & {}
@@ -43,7 +43,7 @@ export type OrionDatepickerProps = SharedFieldSetupServiceProps & {
 export default class OrionDatepickerSetupService extends SharedFieldSetupService<OrionDatepickerProps, Nil<Date>> {
 	static readonly defaultProps = {
 		...SharedFieldSetupService.defaultProps,
-		multipleLabelColor: 'default' as Orion.ColorExtendedAndGreys,
+		multipleLabelColor: 'neutral' as Orion.ColorExtendedAndGreys,
 		type: 'date' as Orion.DatepickerType,
 	};
 
@@ -60,6 +60,8 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 		mobileMinutesValue: 0,
 		selectionIsOn: undefined as Undef<'year' | 'month' | 'day' | 'hours' | 'minutes' | 'ampm'>,
 		rangeBuffer: undefined as Undef<Orion.DateRange>,
+		displayMultipleDropdown: false,
+		maxVisibleMultipleDates: 2,
 	});
 
 	private get dateSeparator () { return this.lang.DATE_SEPARATOR; }
@@ -67,6 +69,14 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 	private get dateTimeSeparator () { return this.lang.DATETIME_SEPARATOR; }
 	private get dateformat () { return this.setDateFormat(); }
 	private get pattern () { return this.getPattern(); }
+
+	private readonly debouncedWindowResizeHandler = () => {
+		this.windowResizeHandler();
+	};
+
+	windowResizeHandler = debounce(async () => {
+		this.calculateVisibleMultipleDates();
+	}, 17);
 
 	get appLang () { return getAppLang(); }
 
@@ -137,6 +147,8 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 		return this.displayDateSelected.includes('PM');
 	}
 
+	get displayMultipleDropdown () { return this.state.displayMultipleDropdown; }
+	set displayMultipleDropdown (val) { this.state.displayMultipleDropdown = val; }
 	get vModelProxy () { return this.vModel.value;}
 
 	set vModelProxy (val) {
@@ -172,6 +184,14 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 		this.range.value = val;
 	}
 
+	get maxVisibleMultipleDates () {
+		return this.state.maxVisibleMultipleDates;
+	}
+
+	set maxVisibleMultipleDates (val: number) {
+		this.state.maxVisibleMultipleDates = val;
+	}
+
 	constructor (
 		protected props: OrionDatepickerProps & typeof OrionDatepickerSetupService.defaultProps,
 		protected emits: OrionDatepickerEmits,
@@ -189,7 +209,27 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 			// eslint-disable-next-line no-console
 			console.warn(`OrionDatepicker - props "clear-to-null" is not compatible with type "multiple"`);
 		}
+
+		watch(() => this.multiple.value?.length, () => {
+			if (this.props.type === 'multiple') {
+				setTimeout(() => this.calculateVisibleMultipleDates(), 0);
+			}
+		}, { deep: true });
 	}
+
+	protected onMounted (): void {
+		super.onMounted();
+		if (this.props.type === 'multiple') {
+			this.calculateVisibleMultipleDates();
+			this.window?.addEventListener('resize', this.debouncedWindowResizeHandler);
+		}
+	}
+
+	protected onUnmounted () {
+		if (this.props.type === 'multiple') {
+			this.window?.removeEventListener('resize', this.debouncedWindowResizeHandler);
+		}
+	};
 
 
 	inputValueFormat (date: Date) {
@@ -963,5 +1003,41 @@ export default class OrionDatepickerSetupService extends SharedFieldSetupService
 	closePopperSlot () {
 		this.focusedWithMouse = false;
 		super.handleBlur();
+	}
+
+	toggleMultiplePopper () {
+		if (this.state.isFocus) {
+			this.state.displayMultipleDropdown = false;
+			return;
+		}
+
+		this.state.displayMultipleDropdown = !this.state.displayMultipleDropdown;
+	}
+
+	calculateVisibleMultipleDates () {
+		const container = this._input.value?.querySelector('.orion-datepicker-multiple__content') as HTMLElement;
+		if (!container || !this.multiple.value?.length) return;
+
+		const containerWidth = container.offsetWidth - 40; // padding and size of the `+ X` button
+		const children = Array.from(container.children);
+		if (children.length === 0) return;
+
+		let totalWidth = 0;
+		let visibleCount = 0;
+		const gap = 5;
+
+		for (let i = 0; i < children.length; i++) {
+			const childWidth = (children[i] as HTMLElement).offsetWidth;
+			const requiredWidth = totalWidth + childWidth + (i > 0 ? gap : 0);
+
+			if (requiredWidth <= containerWidth) {
+				totalWidth += childWidth + (i > 0 ? gap : 0);
+				visibleCount = i + 1;
+			} else {
+				break;
+			}
+		}
+
+		this.state.maxVisibleMultipleDates = Math.max(1, visibleCount);
 	}
 }

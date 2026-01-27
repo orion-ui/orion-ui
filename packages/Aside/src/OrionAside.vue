@@ -79,7 +79,7 @@
 				:to="setup.displayHeader
 					? `#OrionAside-${setup.uid}__header-container`
 					: `#OrionAside-${setup.uid}__body`">
-				<o-button
+				<orion-button
 					v-if="!setup.options.hideClose"
 					class="orion-aside__close"
 					color="primary"
@@ -96,6 +96,7 @@
 
 <script setup lang="ts">
 import { OrionLoader } from 'packages/Loader';
+import { OrionButton } from 'packages/Button';
 import { provide } from 'vue';
 import './OrionAside.less';
 import type { OrionAsideEmits, OrionAsideProps } from './OrionAsideSetupService';

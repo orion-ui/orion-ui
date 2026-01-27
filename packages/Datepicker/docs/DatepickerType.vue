@@ -39,6 +39,7 @@
 			<b>Multiple dates</b>
 			<o-datepicker
 				v-model:multiple="dates"
+				suffix-icon="event"
 				label="Multiple dates"
 				type="multiple"
 				clearable/>

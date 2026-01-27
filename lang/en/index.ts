@@ -36,6 +36,7 @@ export const EnLang = {
 	MINUTE: `Minute`,
 	MONTH: `Month`,
 	MONTH_NAME: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+	NAVIGATE: `Navigate`,
 	NEXT: `Next`,
 	NO_RESULT: `No result`,
 	OR: `or`,
