@@ -12,33 +12,22 @@ const lessImportRegex = /^import .+.less.+\n/gm;
 
 module.exports = async () => {
 	const factory = new TypesDeclarationFilesFactory();
-	await factory.buildFiles();
-	await factory.copyFiles();
-	await factory.cleanLessImports();
+	await factory.buildFilesAsync();
+	await factory.copyFilesAsync();
+	await factory.cleanLessImportsAsync();
 };
-
 
 class TypesDeclarationFilesFactory {
 
-	executeCommand (command) {
-		return new Promise((resolve, reject) => {
-			exec(command, (error, stdout, stderr) => {
-				/* if (stdout) {
-					console.log(`stdout: ${stdout}`);
-				}
-				if (stderr) {
-					console.error(`stderr: ${stderr}`);
-				}
-				if (error) {
-					reject(`Erreur : ${error.message}`);
-					return;
-				} */
+	executeCommandAsync (command) {
+		return new Promise((resolve) => {
+			exec(command, (error, stdout) => {
 				resolve(stdout);
 			});
 		});
 	}
 
-	async buildFiles () {
+	async buildFilesAsync () {
 		try {
 			await fs.rm(outputDir, {
 				recursive: true,
@@ -49,16 +38,17 @@ class TypesDeclarationFilesFactory {
 
 			// Exécuter la commande vue-tsc et attendre la fin
 			log.step('Generating declaration files...');
-			await this.executeCommand(vueTscCommand);
+			await this.executeCommandAsync(vueTscCommand);
 			log.step('Declaration files generated with success !');
 
-		} catch (error) {
+		}
+		catch (error) {
 			// eslint-disable-next-line no-console
 			console.error(error);
 		}
 	}
 
-	async cleanLessImports () {
+	async cleanLessImportsAsync () {
 		const packagesFiles = await fs.readdir(path.resolve(rootPath, 'dist/types/packages'), { recursive: true });
 
 		for (const sourceFile of packagesFiles) {
@@ -75,8 +65,7 @@ class TypesDeclarationFilesFactory {
 		}
 	}
 
-	async copyFiles () {
-
+	async copyFilesAsync () {
 		await fs.move(path.resolve(rootPath, 'dist/packages'), path.resolve(rootPath, 'dist/types/packages'));
 		await fs.move(path.resolve(rootPath, 'dist/services'), path.resolve(rootPath, 'dist/types/services'));
 		await fs.move(path.resolve(rootPath, 'dist/lang'), path.resolve(rootPath, 'dist/types/lang'));
@@ -89,12 +78,12 @@ class TypesDeclarationFilesFactory {
 		let content = fs.readFileSync(filePath, 'utf8');
 		if ((content.includes('lib/global'))) {
 			content = content.replace('<reference types="lib/global" />', '<reference types="./global" />');
-		} else {
+		}
+		else {
 			content = `/// <reference types="./global" />\n` + content;
 		}
 
 		await fs.writeFile(filePath, content, 'utf8');
-
 	}
 
 }

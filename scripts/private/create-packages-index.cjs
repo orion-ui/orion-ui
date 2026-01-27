@@ -11,12 +11,13 @@ const { PackagesFolderToNotIndex } = require('../scripts-utils.cjs');
 
 module.exports = async (/** @type {Options} */ options) => {
 	const factory = new PackagesIndexFactory(options);
-	await factory.setPackagesList();
-	await factory.createPackageIndexTsFile();
-	await factory.createPackageDtsFile();
+	await factory.setPackagesListAsync();
+	await factory.createPackageIndexTsFileAsync();
+	await factory.createPackageDtsFileAsync();
 };
 
 class PackagesIndexFactory {
+
 	constructor (/** @type {Options} */ options) {
 		this.options = options;
 		this.packagesFolderPath = path.resolve(__dirname, '../../packages');
@@ -27,13 +28,13 @@ class PackagesIndexFactory {
 		this.packages = [];
 	}
 
-	async setPackagesList () {
+	async setPackagesListAsync () {
 		this.packages = (await readdir(this.packagesFolderPath)).filter((x) => {
 			return !(/(\.d)?\.ts$/).test(x) && !PackagesFolderToNotIndex.includes(x);
 		});
 	}
 
-	async createPackageIndexTsFile () {
+	async createPackageIndexTsFileAsync () {
 		const importTemplate = `import { Orion{ComponentName}Plugin } from './{ComponentName}';`;
 		const pluginTemplate = `Orion{ComponentName}Plugin.install?.(app, prefix);`;
 		const exportTemplate = `export * from './{ComponentName}';`;
@@ -55,18 +56,19 @@ class PackagesIndexFactory {
 		if (this.options.dryRun) {
 			note(`🥨 --> Orion would write following content in ${this.packagesFolderRelativePath}/index.ts`);
 			log.message(content);
-		} else {
+		}
+		else {
 			await writeFile(path.resolve(this.packagesFolderPath, 'index.ts'), content, { encoding: 'utf-8' });
 			log.success(`🥨 --> Orion created ${this.packagesFolderRelativePath}/index.ts`);
 		}
 	}
 
-	async createPackageDtsFile () {
+	async createPackageDtsFileAsync () {
 		const importTemplate = `import { Orion{ComponentName}SetupService, Orion{ComponentName}Props, Orion{ComponentName}Emits } from '../packages/index';`;
 		const declarationTemplate = `type Orion{ComponentName} = InstanceType<typeof Orion{ComponentName}SetupService>['publicInstance'];
 	namespace Orion{ComponentName} {
-		type Props = Orion{ComponentName}Props
-		type Emits = Orion{ComponentName}Emits
+		type Props = Orion{ComponentName}Props;
+		type Emits = Orion{ComponentName}Emits;
 	}`;
 
 		let content = await readFile(path.resolve(__dirname, 'templates/packages.d.tstemplate'), { encoding: 'utf-8' });
@@ -82,9 +84,11 @@ class PackagesIndexFactory {
 		if (this.options.dryRun) {
 			note(`🥨 --> Orion would write following content in ${this.libFolderRelativePath}/packages.d.ts`);
 			log.message(content);
-		} else {
+		}
+		else {
 			await writeFile(path.resolve(this.libFolderPath, 'packages.d.ts'), content, { encoding: 'utf-8' });
 			log.success(`🥨 --> Orion created ${this.libFolderRelativePath}/packages.d.ts`);
 		}
 	}
+
 }

@@ -13,12 +13,13 @@ const { log } = require('@clack/prompts');
 module.exports = async (/** @type {Options} */ options) => {
 	const service = new CopyFilesService(options);
 
-	if (options.cli) await service.copyCliFiles();
-	if (options.less) await service.copyLessFiles();
-	if (options.dts) await service.copyDtsFiles();
+	if (options.cli) await service.copyCliFilesAsync();
+	if (options.less) await service.copyLessFilesAsync();
+	if (options.dts) await service.copyDtsFilesAsync();
 };
 
 class CopyFilesService {
+
 	constructor (/** @type {Options} */ options) {
 		this.options = options;
 
@@ -28,7 +29,7 @@ class CopyFilesService {
 		this.cliPath = path.resolve(this.rootPath, 'dist/scripts/public');
 	}
 
-	async copyLessFiles () {
+	async copyLessFilesAsync () {
 		log.step('🥨 --> Copy Shared .less files');
 		await fs.remove(this.stylesPath);
 		await fs.copy(path.resolve(this.rootPath, 'packages/Shared/styles'), this.stylesPath);
@@ -68,13 +69,13 @@ class CopyFilesService {
 		await fs.copy(path.resolve(this.rootPath, 'assets'), path.resolve(this.rootPath, 'dist/assets'));
 	}
 
-	async copyCliFiles () {
+	async copyCliFilesAsync () {
 		log.step('🥨 --> Copy cli files');
 		await fs.copy(path.resolve(this.rootPath, 'scripts/public'), this.cliPath);
 		await fs.copy(path.resolve(this.rootPath, 'cli.cjs'), path.resolve(this.rootPath, 'dist/cli.cjs'));
 	}
 
-	async copyDtsFiles () {
+	async copyDtsFilesAsync () {
 		log.step('🥨 --> Copy .dts files');
 		await fs.copy(
 			path.resolve(this.rootPath, 'lib/monkey-patching.d.ts'),
@@ -93,4 +94,5 @@ class CopyFilesService {
 			path.resolve(this.rootPath, 'dist/types/lib/private.d.ts'),
 		);
 	}
+
 }

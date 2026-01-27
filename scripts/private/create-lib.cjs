@@ -16,4 +16,3 @@ module.exports = async (/** @type {Options} */ options) => {
 	});
 	await require('./clean-generic-components-type.cjs')();
 };
-

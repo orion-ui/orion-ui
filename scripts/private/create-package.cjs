@@ -3,7 +3,6 @@ const path = require('path');
 const { sanitizePackageName } = require('../scripts-utils.cjs');
 const { text, log, note } = require('@clack/prompts');
 
-
 /**
  * @typedef {object} Options
  * @property {boolean} [dryRun]
@@ -38,8 +37,8 @@ module.exports = async (/** @type {Options} */ options) => {
 	factory.createDocFiles();
 };
 
-
 class ComponentFactory {
+
 	constructor (/** @type {string} */ name, /** @type {Options} */ options) {
 		this.options = options;
 
@@ -79,7 +78,8 @@ class ComponentFactory {
 
 			if (this.options.dryRun) {
 				log.message(path.resolve(this.packagePath, targetFileName));
-			} else {
+			}
+			else {
 				fs.writeFileSync(path.resolve(this.packagePath, targetFileName), this.readTemplate(`component/${f}`), { encoding: 'utf-8' });
 				log.success(`🥨 --> Orion created ${relativePath}`);
 			}
@@ -100,7 +100,8 @@ class ComponentFactory {
 
 			if (this.options.dryRun) {
 				log.message(path.resolve(this.docPath, targetFileName));
-			} else {
+			}
+			else {
 				fs.writeFileSync(path.resolve(this.docPath, targetFileName), this.readTemplate(`docs/${f}`), { encoding: 'utf-8' });
 				log.success(`🥨 --> Orion created ${relativePath}`);
 			}
@@ -116,4 +117,5 @@ class ComponentFactory {
 
 		return content;
 	}
+
 }

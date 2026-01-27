@@ -32,7 +32,6 @@ const packageDocDataTemplate = `[
 const sharedProps = new Map();
 const cleanString = /^'|'$/g;
 
-
 /**
  * @typedef {Record<string, any>} PackageData
  *
@@ -47,20 +46,20 @@ module.exports.default = async (/** @type {Options} */ options) => {
 	}
 
 	const factory = new DocFactory(options);
-	await factory.scanPackages();
-	await factory.writeFilePackagesDataDocFile();
+	await factory.scanPackagesAsync();
+	await factory.writeFilePackagesDataDocFileAsync();
 	const serviceFactory = new ServiceFileScanner(options);
-	await serviceFactory.scanServices();
-	await serviceFactory.writeFileServicesDataDocFile();
-	await serviceFactory.writeFileToolsDataDocFile();
+	await serviceFactory.scanServicesAsync();
+	await serviceFactory.writeFileServicesDataDocFileAsync();
+	await serviceFactory.writeFileToolsDataDocFileAsync();
 
 	const globalTypesFactory = new globalTypeFileScanner(options);
-	await globalTypesFactory.scanGlobalTypes();
-	await globalTypesFactory.writeFileTypesDataDocFile();
+	await globalTypesFactory.scanGlobalTypesAsync();
+	await globalTypesFactory.writeFileTypesDataDocFileAsync();
 };
 
-
 class DocUtility {
+
 	missingDoc = `Missing @doc`;
 	docFlags = {
 		en: '',
@@ -98,20 +97,22 @@ class DocUtility {
 		const desc = this.getDoc(`props\/${name} (.*)$`);
 		return desc;
 	}
+
 }
 
-
 class DocScanner extends DocUtility {
+
 	constructor (/** @type {Options} */ options, /** @type {Project} */ tsMorphProject, /** @type {string} */ pack) {
 		super();
 		this.options = options;
 		this.project = tsMorphProject;
 		this.pack = pack;
 	}
+
 }
 
-
 class DocFactory extends DocUtility {
+
 	/** @type {Array<{ package: string, data: PackageData }>} */
 	packagesDataDocFile = [];
 
@@ -124,7 +125,7 @@ class DocFactory extends DocUtility {
 		this.docFolderRelativePath = this.docFolderPath.replace(process.cwd(), '');
 	}
 
-	async setPackagesList () {
+	async setPackagesListAsync () {
 		this.packages = (await readdir(this.packagesFolderPath)).filter((x) => {
 			return testOnPackages.length
 				? !(/(\.d)?\.ts$/).test(x) && testOnPackages.includes(x)
@@ -145,14 +146,14 @@ class DocFactory extends DocUtility {
 		});
 	}
 
-	async scanPackages () {
+	async scanPackagesAsync () {
 		this.createTsMorphProject();
 
-		await this.setPackagesList();
+		await this.setPackagesListAsync();
 
 		if (this.options?.verbose) note(this.packages.join('\n'));
 
-		await this.parseSharedProps();
+		await this.parseSharedPropsAsync();
 
 		const scanSpinner = spinner();
 		scanSpinner.start(`Scanning ${this.packages.length} packages`);
@@ -160,7 +161,7 @@ class DocFactory extends DocUtility {
 
 		for await (const pack of this.packages) {
 			const vueFileScanner = new VueFileScanner(this.options, this.project, pack);
-			const vueFileData = await vueFileScanner.scan();
+			const vueFileData = await vueFileScanner.scanAsync();
 
 			const setupServiceDtsFileScanner = new SetupServiceDtsFileScanner(this.options, this.project, pack);
 			const setupServiceDtsFileData = await setupServiceDtsFileScanner.scan();
@@ -181,7 +182,7 @@ class DocFactory extends DocUtility {
 		scanSpinner.stop(`${this.packages.length} packages scanned`);
 	}
 
-	async writeFilePackagesDataDocFile () {
+	async writeFilePackagesDataDocFileAsync () {
 		const filePath = path.resolve(this.docFolderPath, 'packages-doc-data.ts');
 		let content = await readFile(path.resolve(__dirname, 'templates/packages-doc-data.tstemplate'), { encoding: 'utf-8' });
 
@@ -218,7 +219,7 @@ class DocFactory extends DocUtility {
 		}`;
 	}
 
-	async parseSharedProps () {
+	async parseSharedPropsAsync () {
 
 		const sharedPropsContent = this.project.addSourceFileAtPath(path.resolve(
 			this.packagesFolderPath,
@@ -232,7 +233,6 @@ class DocFactory extends DocUtility {
 
 		const sharedPropsClass = sharedPropsFile.getClassOrThrow('SharedProps');
 		sharedPropsClass.getStaticProperties().forEach((prop) => {
-			const propName = prop.getName(); // Nom de la propriété statique
 			const initializer = prop.getInitializer();
 
 			if (initializer?.getKindName() === 'ObjectLiteralExpression') {
@@ -254,15 +254,16 @@ class DocFactory extends DocUtility {
 			}
 		});
 	}
+
 }
 
-
 class VueFileScanner extends DocScanner {
+
 	constructor (...args) {
 		super(...args);
 	}
 
-	async createTsMorphTmpFile () {
+	async createTsMorphTmpFileAsync () {
 		this.vue = await readFile(path.resolve(
 			this.packagesFolderPath,
 			this.pack,
@@ -274,8 +275,8 @@ class VueFileScanner extends DocScanner {
 		this.file = this.project.createSourceFile('tmp/tmp.ts', vueScript, { overwrite: true });
 	}
 
-	async scan () {
-		await this.createTsMorphTmpFile();
+	async scanAsync () {
+		await this.createTsMorphTmpFileAsync();
 		this.docFlags.en = this.extractDocFlags(this.vue).en;
 		this.docFlags.fr = this.extractDocFlags(this.vue).fr;
 
@@ -301,7 +302,8 @@ class VueFileScanner extends DocScanner {
 		if (this.options?.verbose) {
 			if (Object.keys(this.localTypes).length) {
 				note(this.localTypes);
-			} else {
+			}
+			else {
 				log.warn('No Types has been declared in vue file');
 			}
 		}
@@ -324,7 +326,8 @@ class VueFileScanner extends DocScanner {
 		if (this.options?.verbose) {
 			if (Object.keys(provide).length) {
 				note(provide.join('\n'));
-			} else {
+			}
+			else {
 				log.warn('No Types has been declared in vue file');
 			}
 		}
@@ -421,9 +424,11 @@ class VueFileScanner extends DocScanner {
 			bindings,
 		};
 	}
+
 }
 
 class SetupServiceDtsFileScanner extends DocScanner {
+
 	packagesFolderPath = path.resolve(__dirname, '../../dist/types/packages');
 	tsFileFolderPath = path.resolve(__dirname, '../../packages');
 	tsFile;
@@ -484,12 +489,9 @@ class SetupServiceDtsFileScanner extends DocScanner {
 			?.getProperties()
 			.map(x => ({
 				name: x.getName(),
-				type: this.handleNameSpecificCases(x.getName())
-					?? this.handleTypeSpecificCases(
-						x.getFirstChildByKind(SyntaxKind.ColonToken)
-							.getNextSibling()
-							.getText(),
-					),
+				type: this.handleNameSpecificCases(x.getName()) ?? this.handleTypeSpecificCases(
+					x.getFirstChildByKind(SyntaxKind.ColonToken).getNextSibling().getText(),
+				),
 			}));
 	}
 
@@ -519,7 +521,7 @@ class SetupServiceDtsFileScanner extends DocScanner {
 		return type;
 	}
 
-	async readTsTmpFile () {
+	async readTsTmpFileAsync () {
 		this.tsFile = await readFile(path.resolve(
 			this.tsFileFolderPath,
 			this.pack,
@@ -527,8 +529,8 @@ class SetupServiceDtsFileScanner extends DocScanner {
 			`Orion${this.pack}.vue`,
 		), { encoding: 'utf-8' });
 	}
-}
 
+}
 
 class SetupServiceFileScanner extends DocScanner {
 
@@ -568,8 +570,9 @@ class SetupServiceFileScanner extends DocScanner {
 			const propertyName = expression.getName();
 
 			// Charger la classe ou l'objet correspondant
-			const referencedClass = this.file.getClass(className) ||
-            this.project.getSourceFileOrThrow(path.resolve(this.packagesFolderPath, 'Shared', `${className}.ts`)).getClassOrThrow(className);
+			const referencedClass = this.file.getClass(className) || this.project
+				.getSourceFileOrThrow(path.resolve(this.packagesFolderPath, 'Shared', `${className}.ts`))
+				.getClassOrThrow(className);
 
 			const sharedPropsContent = this.project.addSourceFileAtPath(path.resolve(
 				this.packagesFolderPath,
@@ -629,7 +632,8 @@ class SetupServiceFileScanner extends DocScanner {
 						desc,
 						defaultValue: value || 'undefined',
 					};
-				} else if (Node.isSpreadAssignment(prop)) {
+				}
+				else if (Node.isSpreadAssignment(prop)) {
 					const expression = prop.getExpression();
 					const spreadProps = this.resolveSpreadProps(expression);
 
@@ -739,7 +743,8 @@ class SetupServiceFileScanner extends DocScanner {
 
 			if (valueDeclaration) {
 				type = valueDeclaration.getTypeNode().getText().replace(/as Orion.*/, '');
-			} else {
+			}
+			else {
 				const symbolType = prop.getTypeAtLocation(file);
 				type = symbolType.getText().replace(/as Orion.*/, '');
 			}
@@ -756,7 +761,6 @@ class SetupServiceFileScanner extends DocScanner {
 				properties[name].desc = sharedProps.get(name)?.desc ?? properties[name].desc;
 			}
 		});
-
 
 		if (isCurrentComponent) {
 			const defaultProps = this.parseDefaultProps();
@@ -802,7 +806,6 @@ class SetupServiceFileScanner extends DocScanner {
 			}
 		}
 
-
 		return events;
 	}
 
@@ -811,7 +814,8 @@ class SetupServiceFileScanner extends DocScanner {
 			let desc = this.props.get(name)?.desc;
 			if (typeof desc === 'string') desc = desc.replace(cleanString, '');
 			return String(desc);
-		} else {
+		}
+		else {
 			return 'Props description value missing';
 		}
 	}
@@ -830,10 +834,11 @@ class SetupServiceFileScanner extends DocScanner {
 		const desc = this.getDoc(`^event\/${name}/desc (.*)$`);
 		return desc;
 	}
+
 }
 
-
 class ServiceFileScanner extends DocUtility {
+
 	servicesDataDocFile = [];
 	toolsDataDocFile = [];
 
@@ -845,7 +850,7 @@ class ServiceFileScanner extends DocUtility {
 		this.docFolderRelativePath = this.docFolderPath.replace(process.cwd(), '');
 	}
 
-	async setServicesList () {
+	async setServicesListAsync () {
 		this.services = (await readdir(this.servicesFolderPath)).filter((x) => {
 			return (/\.ts/).test(x) && !x.match('index.ts');
 		});
@@ -889,7 +894,7 @@ class ServiceFileScanner extends DocUtility {
 
 		params.filter((x) => {
 			var match;
-			while (match =regexParam.exec(x)?.groups) {
+			while (match = regexParam.exec(x)?.groups) {
 				var format = {
 					name: match.name ?? match.nameWith,
 					type: match.type,
@@ -915,7 +920,7 @@ class ServiceFileScanner extends DocUtility {
 		return result;
 	}
 
-	async writeFileServicesDataDocFile () {
+	async writeFileServicesDataDocFileAsync () {
 		const filePath = path.resolve(this.docFolderPath, 'services-doc-data.ts');
 		let content = await readFile(path.resolve(__dirname, 'templates/services-doc-data.tstemplate'), { encoding: 'utf-8' });
 
@@ -938,7 +943,7 @@ class ServiceFileScanner extends DocUtility {
 		}
 	}
 
-	async writeFileToolsDataDocFile () {
+	async writeFileToolsDataDocFileAsync () {
 		const filePath = path.resolve(this.docFolderPath, 'tools-doc-data.ts');
 		let content = await readFile(path.resolve(__dirname, 'templates/tools-doc-data.tstemplate'), { encoding: 'utf-8' });
 
@@ -971,7 +976,8 @@ class ServiceFileScanner extends DocUtility {
 				dataContent = dataContent
 					.replace(/{value}/gm, content),
 				dataToInsert.push(dataContent);
-			} else {
+			}
+			else {
 				let dataContent = `${key}: {value},`;
 				dataContent = dataContent
 					.replace(/{value}/gm, JSON.stringify(Object.fromEntries(value)));
@@ -998,8 +1004,8 @@ class ServiceFileScanner extends DocUtility {
 		}`;
 	}
 
-	async scanServices () {
-		await this.setServicesList();
+	async scanServicesAsync () {
+		await this.setServicesListAsync();
 
 		const scanSpinner = spinner();
 		scanSpinner.start(`Scanning ${this.services.length} services`);
@@ -1035,10 +1041,11 @@ class ServiceFileScanner extends DocUtility {
 
 		toolsSpinner.stop(`Tools scanned`);
 	}
+
 }
 
-
 class globalTypeFileScanner extends DocUtility {
+
 	globalTypesDataDocFile = [];
 
 	constructor (/** @type {Options} */ options) {
@@ -1050,9 +1057,9 @@ class globalTypeFileScanner extends DocUtility {
 		this.libFolderRelativePath = this.libFolderPath.replace(process.cwd(), '');
 	}
 
-	async scanGlobalTypes () {
-		let globalData = await this.extractNamespace('global.d.ts');
-		const privateData = await this.extractNamespace('private.d.ts');
+	async scanGlobalTypesAsync () {
+		let globalData = await this.extractNamespaceAsync('global.d.ts');
+		const privateData = await this.extractNamespaceAsync('private.d.ts');
 		globalData = globalData.concat(privateData);
 
 		const typesSpinner = spinner();
@@ -1063,7 +1070,7 @@ class globalTypeFileScanner extends DocUtility {
 		typesSpinner.stop(`Types scanned`);
 	}
 
-	async extractNamespace (filename) {
+	async extractNamespaceAsync (filename) {
 		var file = await readFile(path.resolve(
 			this.libFolderPath,
 			filename,
@@ -1082,16 +1089,17 @@ class globalTypeFileScanner extends DocUtility {
 					generic: match.parameter ?? '',
 					description: match.description,
 				});
-			} else if (line.includes('namespace')) {
+			}
+			else if (line.includes('namespace')) {
 				var namespace = line.split('namespace')[1].split(' ')[1];
-				currentNS = currentNS === 'global' ? namespace : currentNS +`.${namespace}`;
+				currentNS = currentNS === 'global' ? namespace : currentNS + `.${namespace}`;
 				currentNSBracket = bracketCount;
-			} else {
+			}
+			else {
 				if (types[types.length - 1]?.description && (bracketCount > (currentNSBracket - 1)))
 					types[types.length - 1].description += ' \n' + line;
 			}
 		}
-
 
 		var fileArray = file.split('\n');
 		var i = 0;
@@ -1104,7 +1112,6 @@ class globalTypeFileScanner extends DocUtility {
 			bracketCount += (line.match(/{/g) || []).length;
 			bracketCount -= (line.match(/}/g) || []).length;
 
-
 			ns(line, bracketCount);
 
 			if ((line.match(/}/g) || []).length && bracketCount === (currentNSBracket - 1)) {
@@ -1114,7 +1121,7 @@ class globalTypeFileScanner extends DocUtility {
 		return types;
 	}
 
-	async writeFileTypesDataDocFile () {
+	async writeFileTypesDataDocFileAsync () {
 		const filePath = path.resolve(this.docFolderPath, 'global-types-doc-data.ts');
 		let content = await readFile(path.resolve(__dirname, 'templates/global-types-doc-data.tstemplate'), { encoding: 'utf-8' });
 
@@ -1149,7 +1156,6 @@ class globalTypeFileScanner extends DocUtility {
 				.replace(/{value}/gm, JSON.stringify(value));
 			dataToInsert.push('\n' + dataContent);
 		});
-
 
 		return `{
 			${dataToInsert.join('\n\t\t\t')}

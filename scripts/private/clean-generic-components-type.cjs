@@ -5,13 +5,12 @@ const rootPath = path.resolve(__dirname, '../..');
 
 module.exports = async () => {
 	const factory = new GenericComponentsCleaner();
-	await factory.cleanGenericComponents();
+	await factory.cleanGenericComponentsAsync();
 };
-
 
 class GenericComponentsCleaner {
 
-	async cleanGenericComponents () {
+	async cleanGenericComponentsAsync () {
 		// example : declare const _default: <T extends Record<string, any>, O extends Record<string, any>>
 		// const genericComponentRegex = /declare const _default: <(?<generic>.*)>\(__VLS_props/;
 		const genericComponentPropsRegex = /export type (.*)Props<(?<generic>.*)>\s=/;
@@ -48,7 +47,8 @@ class GenericComponentsCleaner {
 						libPackagesContent = libPackagesContent.replace(propsMatch[0], newLine);
 
 						await fs.writeFile(libPackagesPath, libPackagesContent, 'utf8');
-					} else {
+					}
+					else {
 						// eslint-disable-next-line no-console
 						console.log(`Line Props not found for package: ${packageName}`);
 					}
@@ -72,7 +72,8 @@ class GenericComponentsCleaner {
 						libPackagesContent = libPackagesContent.replace(emitsMatch[0], newLine);
 
 						await fs.writeFile(libPackagesPath, libPackagesContent, 'utf8');
-					} else {
+					}
+					else {
 						// eslint-disable-next-line no-console
 						console.log(`Line Emits not found for package: ${packageName}`);
 					}

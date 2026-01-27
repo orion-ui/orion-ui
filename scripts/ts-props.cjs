@@ -1,13 +1,9 @@
-
-
-//const filePattern = `${await getSrcFolderFilePatternAsync()}src/setup/**/*SetupService.ts`;
-
-
 const { SetupServiceFileScanner, VueFileScanner } = require('./private/create-doc.cjs').scanner;
 
 const path = require('path');
 const { readdir, writeFile } = require('fs-extra');
-const { Project, SourceFile, SyntaxKind, ClassDeclaration, SpreadAssignment } = require('ts-morph');
+// eslint-disable-next-line no-unused-vars
+const { Project, SourceFile, SyntaxKind } = require('ts-morph');
 const { PrivatePackagesFolder } = require('./scripts-utils.cjs');
 
 /**
@@ -32,7 +28,6 @@ class MigratePropToPureTs {
 		'Tour', */
 	];
 
-
 	packagesFolderPath = path.resolve(__dirname, '../dist/types/packages');
 	tsFileFolderPath = path.resolve(__dirname, '../packages');
 	file;
@@ -50,11 +45,11 @@ class MigratePropToPureTs {
 
 	async initAsync () {
 		this.createTsMorphProject();
-		await this.setPackagesList();
-		await this.scanPackages();
+		await this.setPackagesListAsync();
+		await this.scanPackagesAsync();
 	}
 
-	async setPackagesList () {
+	async setPackagesListAsync () {
 		this.packages = (await readdir(this.packagesFolderPath)).filter((x) => {
 			return this.testOnPackages.length
 				? !(/(\.d)?\.ts$/).test(x) && this.testOnPackages.includes(x)
@@ -84,46 +79,33 @@ class MigratePropToPureTs {
 		this.fullText = this.file.getText(true);
 	}
 
-	async scanPackages () {
-
+	async scanPackagesAsync () {
 		for await (const pack of this.packages) {
 			const setupServiceFileScanner = new SetupServiceFileScanner(undefined, this.project, pack);
 			const vueFileScanner = new VueFileScanner(undefined, this.project, pack);
 			const setupServiceFileData = await setupServiceFileScanner.scan();
-			const vueFileScannerData = await vueFileScanner.scan();
-			const fullText = setupServiceFileScanner.fullText;
 			const setupFile = setupServiceFileScanner.file;
 			let vueFileContent = vueFileScanner.vue;
 
 			await this.rewritePropsAsync(pack, setupFile, setupServiceFileData.props);
-
 			await this.rewriteVueFileAsync(pack, vueFileContent);
-
-			/* this.packagesDataDocFile.push({
-				package: pack,
-				data: { ...setupServiceFileData },
-			}); */
 		}
 	}
 
 	async rewritePropsAsync (packageName, /** @type {SourceFile} */sourceFile, props) {
-
 		const regexProps = /static props\s*=\s*{([\s\S]*?)};/g;
 		const regexTypeProps = /type Props = SetupProps.*/;
 		const regexIsConstructor = /constructor \(.*\)/;
-		const regexConstructorProps = /props: \w*/;
-		const regexConstructorEmits = /emit[s]*: \w*/gm;
 		const regexConstructor = /\(props: \w*(,\s*emit[s]*: \w*)*/;
 		const regexEmitsDef = /^type .*Emit[s]* = /;
 		const regexExistingEmits = /private emit[s]*:* .*;|protected emit[s]*:* .*;/;
 		const regexEmitAssign = /this.emit[s]* = emit[s]*;/;
 		const regexExtendProps = /<Props/;
 
-
 		let newProps = `export type Orion${packageName}Props = {`;
 		let defaultProps = `static readonly defaultProps = {`;
 
-		//GET inherit props
+		// GET inherit props
 		const spreadProps = sourceFile?.getClass(`Orion${packageName}SetupService`)?.getProperty('props')?.getInitializerIfKind(SyntaxKind.ObjectLiteralExpression);
 
 		const spreadAssignments = spreadProps?.getProperties().filter(prop =>
@@ -136,13 +118,7 @@ class MigratePropToPureTs {
 
 		defaultProps += '\n\t\t' + res?.filter(x => x.name.includes(`.defaultProps`)).map(x => x.name)?.join('\n') + ',';
 
-
-
-
-
-
 		const newConstructorProps = `(protected props: Orion${packageName}Props, protected emits: Orion${packageName}Emits`;
-		//const newConstructorEmits = `protected emits: Orion${packageName}Emits`;
 		const newEmitsDef = `export type Orion${packageName}Emits =`;
 
 		props.forEach((prop) => {
@@ -160,7 +136,8 @@ class MigratePropToPureTs {
 		sourceFile.removeText();
 		if (fileContent.match(regexEmitsDef)) {
 			fileContent = fileContent.replace(regexEmitsDef, newEmitsDef);
-		} else {
+		}
+		else {
 			newProps = `export type Orion${packageName}Emits = {}\n`.concat(newProps);
 		}
 
@@ -172,7 +149,6 @@ class MigratePropToPureTs {
 
 		if (regexIsConstructor.test(fileContent)) {
 			fileContent = fileContent.replace(regexConstructor, newConstructorProps);
-			//fileContent = fileContent.replace(regexConstructorEmits, newConstructorEmits);
 		}
 		await writeFile(sourceFile.getFilePath(), fileContent.replace(regexProps, defaultProps), 'utf8');
 	}
@@ -183,7 +159,6 @@ class MigratePropToPureTs {
 		const regexProps = /const props = .*/;
 		const regexEmits = /(const emit(s)* = )*defineEmits<({(\n*\s*\(.*)*\n*>*})*\w*>*\(\);/;
 		const regexTypeEmits = /type \w*Emit(s)*\s*=\s*{\s*(\n*\s*\(.*)*\n}/;
-		//const regexConstructor = /\(props\w*\)/;
 		const regexConstructor = /\(props(,*\s*emit[s]*)*/;
 
 		let newProps = `import type { Orion${packageName}Props, Orion${packageName}Emits } from './Orion${packageName}SetupService';
@@ -194,13 +169,6 @@ const props = withDefaults(defineProps<Orion${packageName}Props>(), Orion${packa
 			fileContent = fileContent.replace(regexTypeEmits, '');
 		}
 		fileContent = fileContent.replace(regexConstructor, `(props, emits`);
-
-
-		/* if (fileContent.match(regexEmits)) {
-			fileContent = fileContent.replace(regexEmits, newEmits);
-		} else {
-			newProps = `const emits = defineEmits<Orion${packageName}Emits>() as Orion${packageName}Emits;\n`.concat(newProps);
-		} */
 		fileContent = fileContent.replace(regexEmits, '');
 		fileContent = fileContent.replace('', '');
 
@@ -211,13 +179,7 @@ const props = withDefaults(defineProps<Orion${packageName}Props>(), Orion${packa
 
 		await writeFile(filePath, fileContent, 'utf8');
 	}
+
 }
 
-
-
 new MigratePropToPureTs();
-
-
-// type .*Emit = .*\n*\s*(?<event>\(.*\):.*)\n*.*
-// type .*Emit = .*\n*\s*(?<event>\(.*\):.*)+
-// \(e:\s*'[^']*'(?:\s*.*:\s*\w+)?\):\s*.*;

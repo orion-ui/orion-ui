@@ -29,9 +29,9 @@ module.exports = async (/** @type {Options} */ options) => {
 	if (options.dryRun) {
 		note(`🥨 --> Orion would write following content in ${servicesFolderRelativePath}/index.ts`);
 		log.message(content);
-	} else {
+	}
+	else {
 		await writeFile(path.resolve(servicesFolderPath, 'index.ts'), content, { encoding: 'utf-8' });
 		log.success(`🥨 --> Orion created ${servicesFolderRelativePath}/index.ts`);
 	}
 };
-

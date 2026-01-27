@@ -164,7 +164,7 @@ function stringifyCssValue (value: unknown) {
 function collectLeaves (
 	obj: unknown,
 	basePath: string[] = [],
-	out: { path: string[]; value: unknown; type?: string }[] = [],
+	out: { path: string[], value: unknown, type?: string }[] = [],
 ) {
 	if (!obj || typeof obj !== 'object') return out;
 
@@ -187,7 +187,7 @@ function collectLeaves (
 
 // Build the CSS variable declarations for a root block.
 function buildCssVarsBlock (
-	leaves: { path: string[]; value: unknown; type?: string }[],
+	leaves: { path: string[], value: unknown, type?: string }[],
 	indent: string = '  ',
 ) {
 	const sorted = [...leaves].sort((a, b) => a.path.join('/').localeCompare(b.path.join('/')));
@@ -210,7 +210,7 @@ function wrapBlock (selector: string, content: string) {
 function buildRootFile (
 	selector: string,
 	source: string,
-	leaves: { path: string[]; value: unknown; type?: string }[],
+	leaves: { path: string[], value: unknown, type?: string }[],
 ) {
 	return [
 		'/* AUTO-GENERATED - DO NOT EDIT */',
@@ -270,8 +270,10 @@ function main () {
 		fs.writeFileSync(file.output, buildRootFile(file.selector, file.source, file.leaves), 'utf8');
 	}
 
+	// eslint-disable-next-line no-console
 	console.log('Generated:');
 	for (const file of files) {
+		// eslint-disable-next-line no-console
 		console.log(' -', path.relative(ROOT, file.output));
 	}
 }

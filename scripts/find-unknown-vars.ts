@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -13,7 +14,8 @@ if (roots.length === 0) roots.push('packages'); // par défaut tout le dossier "
 function readFileSafe (p: string) {
 	try {
 		return fs.readFileSync(p, 'utf8');
-	} catch {
+	}
+	catch {
 		return '';
 	}
 }
@@ -58,7 +60,8 @@ for (const r of roots) if (fs.existsSync(r)) scan(r);
 const unknown = [...used.keys()].filter(v => !allowed.has(v));
 if (unknown.length === 0) {
 	console.log('✓ No unknown variables found.');
-} else {
+}
+else {
 	console.log('Unknown variables (map/alias):');
 	for (const v of unknown) {
 		console.log('-', v);

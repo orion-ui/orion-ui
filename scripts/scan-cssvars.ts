@@ -35,18 +35,21 @@ function walk (dir: string) {
 		let stat: fs.Stats;
 		try {
 			stat = fs.statSync(p);
-		} catch {
+		}
+		catch {
 			continue;
 		}
 		if (stat.isDirectory()) {
 			if (IGNORE_DIRS.has(name)) continue;
 			walk(p);
-		} else {
+		}
+		else {
 			if (!exts.has(path.extname(p))) continue;
 			let txt = '';
 			try {
 				txt = fs.readFileSync(p, 'utf8');
-			} catch {
+			}
+			catch {
 				/* ignore */
 			}
 			const re = /var\(--([a-zA-Z0-9_-]+)\)/g;
@@ -69,6 +72,7 @@ const list = [...used.entries()]
 	}))
 	.sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
 
+// eslint-disable-next-line no-console
 console.log(JSON.stringify({
 	total: list.length,
 	vars: list,

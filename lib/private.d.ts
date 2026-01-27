@@ -5,29 +5,29 @@ declare namespace Private {
 
 	type TsxTabPane = {
 		props: OrionTabPane.Props & {
-			'font-icon': string;
-			'marker-color': string;
-		};
+			'font-icon': string
+			'marker-color': string
+		}
 		children: {
-			default: Slot;
-			label?: Slot;
-		};
-	}
+			default: Slot
+			label?: Slot
+		}
+	};
 
 	type TsxTimelinePane = {
 		props: OrionTimelinePaneProps & {
-			'font-icon': string;
-			'marker-color': string;
-			'centered-pill': string;
-		};
+			'font-icon': string
+			'marker-color': string
+			'centered-pill': string
+		}
 		children: {
-			default: Slot;
-			after?: Slot;
-			before?: Slot;
-		};
-	}
+			default: Slot
+			after?: Slot
+			before?: Slot
+		}
+	};
 
 	type TsxTourStep = {
-		props : OrionTourStep.Props
-	}
+		props: OrionTourStep.Props
+	};
 }
