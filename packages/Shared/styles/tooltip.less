@@ -98,8 +98,11 @@
 	&-orion-select,
 	&-orion-select-searchable {
 		.v-popper__inner {
-			background: var(--o-background-neutral-default);
-			color: var(--o-text-neutral-default);
+			padding: var(--o-space-4);
+
+				.orion-loader {
+				margin: calc(var(--o-space-4) * -1);
+			}
 		}
 	}
 

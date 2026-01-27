@@ -37,8 +37,8 @@ export type OrionSelectEmits<T, O> = SharedFieldSetupServiceEmits<VModelType<T>>
 }
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export type OrionSelectProps<T, O, VKey extends keyof O, DKey extends keyof O = VKey> = SharedFieldSetupServiceProps & {
-	// @doc props/autocomplete adds the possibility to write in the select field
-	// @doc/fr props/autocomplete permet à l'utilisateur d'écrire dans le champ
+	// @doc props/autocomplete adds the possibility to write in the select field to filter options (for single select only)
+	// @doc/fr props/autocomplete permet à l'utilisateur d'écrire dans le champ dans le cas d'un select simple
 	autocomplete?: boolean,
 	// @doc props/customFetch allows you to custom the fetch function
 	// @doc/fr props/customFetch permet de personnaliser la fonction de récupération des options
@@ -133,6 +133,8 @@ export default class OrionSelectSetupService<
 		isFetching: false,
 		fetchResult: [] as O[],
 		favoritesOptions: [] as O[],
+		maxVisibleMultipleItems: 2,
+		displayMultipleDropdown: false,
 	};
 
 	readonly _popover = ref<InstanceType<typeof Dropdown>>();
@@ -145,6 +147,15 @@ export default class OrionSelectSetupService<
 	readonly _items = ref<(Element | ComponentPublicInstance)[]>([]);
 	readonly isArray = isArray;
 	readonly get = get;
+
+	private readonly debouncedWindowResizeHandler = () => {
+		this.windowResizeHandler();
+	};
+
+	windowResizeHandler = debounce(async () => {
+		this.calculateVisibleMultipleItems();
+	}, 17);
+
 
 	get favoritesOptions () { return this.state.favoritesOptions; }
 	get valueToSearch () { return this.state.valueToSearch; }
@@ -239,6 +250,11 @@ export default class OrionSelectSetupService<
 		|| (this.props.searchable && this.props.options.length > 1);
 	}
 
+	get maxVisibleMultipleItems () { return this.state.maxVisibleMultipleItems; }
+
+	get displayMultipleDropdown () { return this.state.displayMultipleDropdown; }
+	set displayMultipleDropdown (val) { this.state.displayMultipleDropdown = val; }
+
 	get publicInstance () {
 		return {
 			...super.publicInstance,
@@ -281,6 +297,17 @@ export default class OrionSelectSetupService<
 		this.handleFieldEvents();
 		this.checkProps();
 	}
+
+	protected onMounted () {
+		if (this.props.multiple) {
+			this.calculateVisibleMultipleItems();
+			this.window?.addEventListener('resize', this.debouncedWindowResizeHandler);
+		}
+	}
+
+	protected onUnmounted () {
+		this.window?.removeEventListener('resize', this.debouncedWindowResizeHandler);
+	};
 
 
 	private checkProps () {
@@ -408,14 +435,15 @@ export default class OrionSelectSetupService<
 					useNotif.danger(this.lang.ORION_SELECT__REMOVE_VALUE_ERROR);
 				}
 			}
-
 			this.emitValue(valueToEmit);
+
 		});
 	}
 
 	private emitValue (valueToEmit: Nil<VModelType<T>>) {
 		this.state.lastValue = valueToEmit;
 		this.vModel.value = valueToEmit;
+		setTimeout(() => this.calculateVisibleMultipleItems(), 10);
 	}
 
 	private animate () {
@@ -676,5 +704,52 @@ export default class OrionSelectSetupService<
 
 	normalizeString (str: string) {
 		return str.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '');
+	}
+
+	toggleMultiplePopper () {
+		if (this.state.isFocus) {
+			this.state.displayMultipleDropdown = false;
+			return;
+		}
+
+		this.state.displayMultipleDropdown = !this.state.displayMultipleDropdown;
+	}
+
+	calculateVisibleMultipleItems () {
+		if (!this.props.multiple) return;
+
+		const container = this._input.value?.querySelector('.orion-select__multiple-content') as HTMLElement;
+		if (!container || (isArray(this.vModel.value) && !this.vModel.value.length)) return;
+
+		const previousMax = this.state.maxVisibleMultipleItems;
+		this.state.maxVisibleMultipleItems = (this.vModel.value as Array<O>)?.length ?? 999;
+
+		nextTick(() => {
+			const containerWidth = container.offsetWidth - 40; // padding and size of the `+ X` button
+			const children = Array.from(container.children);
+
+			if (children.length === 0) {
+				this.state.maxVisibleMultipleItems = previousMax;
+				return;
+			}
+
+			let totalWidth = 0;
+			let visibleCount = 0;
+			const gap = 5;
+
+			for (let i = 0; i < children.length; i++) {
+				const childWidth = (children[i] as HTMLElement).offsetWidth;
+				const requiredWidth = totalWidth + childWidth + (i > 0 ? gap : 0);
+
+				if (requiredWidth <= containerWidth) {
+					totalWidth += childWidth + (i > 0 ? gap : 0);
+					visibleCount = i + 1;
+				} else {
+					break;
+				}
+			}
+
+			this.state.maxVisibleMultipleItems = Math.max(1, visibleCount);
+		});
 	}
 }

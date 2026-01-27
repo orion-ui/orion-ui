@@ -1775,7 +1775,7 @@
       ]
     },
     {
-      "name": "orion-select__autocomplete",
+      "name": "orion-select__autocomplete-input",
       "count": 1,
       "files": [
         "packages\\Select\\src\\OrionSelect.less"
@@ -6075,7 +6075,7 @@
       ]
     },
     {
-      "name": "orion-select__autocomplete",
+      "name": "orion-select__autocomplete-input",
       "count": 1,
       "files": [
         "packages\\Select\\src\\OrionSelect.vue"
