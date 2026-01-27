@@ -1,4 +1,4 @@
-import useValidation from 'services/ValidationService';
+import { useValidation } from 'services/ValidationService';
 import { ModelRef, reactive } from 'vue';
 import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetupServiceProps } from '../../Shared/SharedFieldSetupService';
 

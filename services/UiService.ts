@@ -1,20 +1,20 @@
-import { reactive } from 'vue';
+import { Reactive } from 'utils/decorators';
 import { getUid } from 'utils/tools';
 
 class UiService {
-	state = reactive({ token: getUid() });
 
-	get token () {
-		return this.state.token;
-	}
+	@Reactive private readonly state = { token: getUid() };
+
+	get token () { return this.state.token }
 
 	update () {
 		this.state.token = getUid();
 	}
+
 }
 
 const uiServiceSingleton = new UiService();
 
-export default function useUi () {
+export function useUi () {
 	return uiServiceSingleton;
 }

@@ -5,7 +5,7 @@ import mitt from 'mitt';
 import { ComponentPublicInstance, nextTick, ref, watch } from 'vue';
 
 import { useMonkey } from 'services/MonkeyService';
-import useNotif from 'services/NotifService';
+import { useNotif } from 'services/NotifService';
 import { Reactive } from 'utils/decorators';
 import { Log } from 'utils/Log';
 import { addPopoverBackdropCloseAbility } from 'utils/tools';

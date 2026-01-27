@@ -1,9 +1,9 @@
 import { Log } from 'utils/Log';
 
 export class TourService {
+
 	state: Record<string, OrionTour> = {};
 	tour?: OrionTour;
-
 
 	constructor () {
 		Log.orion(`TourService activated`);
@@ -38,11 +38,12 @@ export class TourService {
 	stop () {
 		this.tour?.stop();
 	}
+
 }
 
 const serviceInstance = new TourService();
 
-export default function useTour (name: string, tourComponent?: OrionTour) {
+export function useTour (name: string, tourComponent?: OrionTour) {
 	serviceInstance.tour = serviceInstance.state[name] ?? serviceInstance.register(name, tourComponent);
 	return serviceInstance;
 };

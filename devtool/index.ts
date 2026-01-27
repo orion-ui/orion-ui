@@ -5,7 +5,7 @@ import { Log } from 'utils/Log';
 import { OrionAppService } from 'utils/Orion';
 import { getThemeMode, isIpad, isMac, isTouch, isWindows } from 'utils/tools';
 import { useLang } from '../services/LangService';
-import useResponsive from '../services/ResponsiveService';
+import { useResponsive } from '../services/ResponsiveService';
 
 export const devtoolId = 'orion-devtool';
 
@@ -109,7 +109,8 @@ export function setupDevtools (app: any, orionAppService: OrionAppService) {
 						value: (useResponsive() as any)[key],
 					})),
 				};
-			} else if (payload.nodeId === 'localization') {
+			}
+			else if (payload.nodeId === 'localization') {
 				const currentLang = useLang();
 				payload.state = {
 					'01 - Global': Object.keys(currentLang)
@@ -188,7 +189,6 @@ export function setupDevtools (app: any, orionAppService: OrionAppService) {
 	});
 }
 
-
 function handleFunctions (value: Function) {
 	return {
 		_custom: {
@@ -201,6 +201,7 @@ function handleFunctions (value: Function) {
 				{
 					icon: 'input',
 					tooltip: 'Trigger function',
+					// eslint-disable-next-line orion-rules/async-suffix
 					action: async () => {
 						// console.log(value);
 						// eslint-disable-next-line no-console

@@ -4,8 +4,8 @@ import { debounce } from 'lodash-es';
 import SharedSetupService from '../../Shared/SharedSetupService';
 import { toggleGlobalListener } from 'utils/tools';
 import { autoPlacement, offset, shift, computePosition, arrow, autoUpdate } from '@floating-ui/dom';
-import useLoader from 'services/LoaderService';
-import useConfirm from 'services/ConfirmService';
+import { useLoader } from 'services/LoaderService';
+import { useConfirm } from 'services/ConfirmService';
 
 export type OrionTourStepEmits = {}
 export type OrionTourStepProps = {

@@ -2,7 +2,7 @@ import { ModelRef, nextTick, reactive, watch } from 'vue';
 import { isString } from 'lodash-es';
 
 import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetupServiceProps } from '../../Shared/SharedFieldSetupService';
-import useValidation from 'services/ValidationService';
+import { useValidation } from 'services/ValidationService';
 import { hoursToNumber } from 'utils/tools';
 import { useMonkey } from 'services';
 

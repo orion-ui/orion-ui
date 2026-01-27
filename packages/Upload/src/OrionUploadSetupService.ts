@@ -1,7 +1,7 @@
 import { ModelRef, reactive, ref, useTemplateRef } from 'vue';
 import anime from 'animejs';
 import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetupServiceProps } from '../../Shared/SharedFieldSetupService';
-import useNotif from 'services/NotifService';
+import { useNotif } from 'services/NotifService';
 
 export type OrionUploadEmits = SharedFieldSetupServiceEmits<Nil<File[]>> & {}
 export type OrionUploadProps = SharedFieldSetupServiceProps & {

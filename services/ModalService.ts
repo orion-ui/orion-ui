@@ -3,10 +3,11 @@ import { h, render } from 'vue';
 import { OrionModal } from 'packages/Modal';
 import { orionAppService } from 'utils/Orion';
 import { useDocument } from './DocumentService';
-import usePopableQueueService from './PopableQueueService';
+import { usePopableQueue } from './PopableQueueService';
 import { PopableService } from './PopableService';
 
 class ModalService extends PopableService<OrionModal> {
+
 	nameForDevtool = `OrionModal`;
 
 	constructor (options: Partial<Orion.Modal.Options>) {
@@ -24,7 +25,8 @@ class ModalService extends PopableService<OrionModal> {
 			const popableWrapper = useDocument()?.getElementById('orion-popable-wrapper');
 			if (popableWrapper) {
 				popableWrapper.appendChild(container);
-			} else {
+			}
+			else {
 				useDocument()?.body.appendChild(container);
 			}
 
@@ -33,11 +35,12 @@ class ModalService extends PopableService<OrionModal> {
 			this.registerComponentInstanceInDevtool(vnode);
 		}
 
-		const instance = usePopableQueueService().getInstance(this.options.uid);
+		const instance = usePopableQueue().getInstance(this.options.uid);
 		return instance as OrionModal;
 	}
+
 }
 
-export default function useModal (options: Partial<Orion.Modal.Options>) {
+export function useModal (options: Partial<Orion.Modal.Options>) {
 	return new ModalService(options).createVNode();
 }

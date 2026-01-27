@@ -3,8 +3,8 @@ import { useRouter } from 'vue-router';
 
 import { useDocument } from 'services/DocumentService';
 import { useLang } from 'services/LangService';
-import useResponsive from 'services/ResponsiveService';
-import useUi from 'services/UiService';
+import { useResponsive } from 'services/ResponsiveService';
+import { useUi } from 'services/UiService';
 import { useWindow } from 'services/WindowService';
 import { Bus } from 'utils/Bus';
 import { orionAppService } from 'utils/Orion';

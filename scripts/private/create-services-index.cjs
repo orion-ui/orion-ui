@@ -14,7 +14,7 @@ module.exports = async (/** @type {Options} */ options) => {
 	const servicesFolderRelativePath = servicesFolderPath.replace(process.cwd(), '');
 
 	const services = (await readdir(servicesFolderPath)).filter(x => !PrivateServices.includes(x));
-	const exportTemplate = `export { default as {serviceName} } from './{serviceFileName}';`;
+	const exportTemplate = `export { {serviceName} } from './{serviceFileName}';`;
 
 	let content = await readFile(path.resolve(__dirname, 'templates/services-index.tstemplate'), { encoding: 'utf-8' });
 

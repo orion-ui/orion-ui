@@ -4,21 +4,22 @@ import { nextTick, reactive, ref, watch } from 'vue';
 import SharedSetupService from '../../Shared/SharedSetupService';
 
 export type OrionChatDiscussionListEmits = {
-	// @doc event/new-discussion/desc emitted when a new discussion is created
-	// @doc/fr event/new-discussion/desc émis lorsqu'une nouvelle discussion est créée *
-	(e: 'new-discussion'): void;
-	// @doc event/select-discussion/desc emitted when a discussion is selected
-	// @doc/fr event/select-discussion/desc émis quand une discussion est séléctionnée
-	(e: 'select-discussion', payload: number): void;
-}
+	// @doc event/newDiscussion/desc emitted when a new discussion is created
+	// @doc/fr event/newDiscussion/desc émis lorsqu'une nouvelle discussion est créée *
+	(e: 'newDiscussion'): void
+	// @doc event/selectDiscussion/desc emitted when a discussion is selected
+	// @doc/fr event/selectDiscussion/desc émis quand une discussion est séléctionnée
+	(e: 'selectDiscussion', payload: number): void
+};
 
 export type OrionChatDiscussionListProps = {
 	// @doc props/chat instance of the chat service
 	// @doc/fr props/chat instance du service `chat`
-	chat: ChatService,
+	chat: ChatService
 };
 
 export default class OrionChatDiscussionListSetupService extends SharedSetupService {
+
 	static readonly defaultProps = {};
 
 	private intersectionObserver = undefined as Undef<IntersectionObserver>;
@@ -30,15 +31,9 @@ export default class OrionChatDiscussionListSetupService extends SharedSetupServ
 
 	_el = ref<RefDom>();
 	_lazyLoader = ref<RefDom>();
-	_content = ref<RefDom>();
+	private _content = ref<RefDom>();
 
-	get searchTerm () { return this.state.searchTerm; }
-	set searchTerm (val) { this.state.searchTerm = val; }
-
-	get chat () {
-		return this.props.chat;
-	}
-
+	get chat () { return this.props.chat }
 	get discussions () {
 		return [...this.chat.discussions]
 			.filter(x => this.searchTerm && !this.chat.config.discussionFetcherAsync ? x.title.toLowerCase().includes(this.searchTerm.toLowerCase()) : true)
@@ -54,6 +49,8 @@ export default class OrionChatDiscussionListSetupService extends SharedSetupServ
 		return !this.chat.discussionsFullyLoaded && this.state.contentHasScroll;
 	}
 
+	get searchTerm () { return this.state.searchTerm }
+	set searchTerm (val) { this.state.searchTerm = val }
 
 	constructor (protected props: OrionChatDiscussionListProps, protected emits: OrionChatDiscussionListEmits) {
 		super();
@@ -81,13 +78,12 @@ export default class OrionChatDiscussionListSetupService extends SharedSetupServ
 		}
 	}
 
-
-	async fetchDiscussionsAsync (searchTermHasChanged = false) {
+	private async fetchDiscussionsAsync (searchTermHasChanged = false) {
 		if (!this.chat.config.discussionFetcherAsync) return;
 		await this.chat.fetchDiscussionsAsync(this.searchTerm, searchTermHasChanged);
 	}
 
-	intersectionObserverCallback (entries: IntersectionObserverEntry[]) {
+	private intersectionObserverCallback (entries: IntersectionObserverEntry[]) {
 		entries.forEach(async (x) => {
 			if (x.isIntersecting && this.chat.config.discussionFetcherAsync) {
 				this.fetchDiscussionsAsync();
@@ -95,17 +91,17 @@ export default class OrionChatDiscussionListSetupService extends SharedSetupServ
 		});
 	}
 
-	initObservers () {
+	private initObservers () {
 		const lazyLoader = this._lazyLoader.value;
 		if (lazyLoader) this.intersectionObserver?.observe(lazyLoader);
 	}
 
-	resetObservers () {
+	private resetObservers () {
 		this.intersectionObserver?.disconnect();
 		nextTick(() => this.initObservers());
 	}
 
-	checkContentScroll () {
+	private checkContentScroll () {
 		nextTick(() => {
 			const discussionContentHeight = this._content?.value?.offsetHeight ?? 0;
 			const discussionContentScrollHeight = this._content?.value?.scrollHeight ?? 0;
@@ -119,19 +115,21 @@ export default class OrionChatDiscussionListSetupService extends SharedSetupServ
 	formatLastMessageDateTime (date: Date) {
 		if (date.valueOf() < useMonkey(new Date()).toMidnight().valueOf()) {
 			return useMonkey(date).toReadable();
-		} else {
+		}
+		else {
 			return useMonkey(date).toReadable('$hh:$mm');
 		}
 	}
 
 	selectDiscussion (id: number) {
 		this.chat.activeDiscussionId = id;
-		this.emits('select-discussion', id);
-		this.chat.bus.emit('select-discussion', id);
+		this.emits('selectDiscussion', id);
+		this.chat.bus.emit('selectDiscussion', id);
 	}
 
 	createNewDiscussion () {
-		this.emits('new-discussion');
-		this.chat.bus.emit('new-discussion');
+		this.emits('newDiscussion');
+		this.chat.bus.emit('newDiscussion');
 	}
+
 }

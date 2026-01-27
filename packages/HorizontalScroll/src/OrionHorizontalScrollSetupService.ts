@@ -1,7 +1,7 @@
 import SharedSetupService from '../../Shared/SharedSetupService';
 import { isArray, throttle, debounce } from 'lodash-es';
 import { nextTick, onMounted, onUnmounted, reactive, ref, watch } from 'vue';
-import useDragNDrop from 'services/DragNDropService';
+import { useDragNDrop } from 'services/DragNDropService';
 
 export type OrionHorizontalScrollEmits = {}
 export type OrionHorizontalScrollProps = {

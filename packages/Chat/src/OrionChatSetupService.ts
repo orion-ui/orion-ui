@@ -115,7 +115,7 @@ export default class OrionChatSetupService extends SharedSetupService {
 			threshold: 0,
 		});
 
-		this.chat.bus.on('message-added', (discussionId: number) => {
+		this.chat.bus.on('messageAdded', (discussionId: number) => {
 			if (discussionId === this.props.discussionId) this.handleMessageAdded();
 		});
 

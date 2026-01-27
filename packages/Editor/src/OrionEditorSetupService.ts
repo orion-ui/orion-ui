@@ -12,8 +12,8 @@ import Youtube from '@tiptap/extension-youtube';
 import TextBackground from './editor/extensions/text-background';
 
 import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetupServiceProps } from '../../Shared/SharedFieldSetupService';
-import usePrompt from 'services/PromptService';
-import useNotif from 'services/NotifService';
+import { usePrompt } from 'services/PromptService';
+import { useNotif } from 'services/NotifService';
 
 export type OrionEditorEmits = SharedFieldSetupServiceEmits<Nil<string>> & {}
 export type OrionEditorProps = SharedFieldSetupServiceProps & {

@@ -6,8 +6,7 @@ import OrionChatEntity from '../packages/Chat/src/OrionChatEntity';
 import OrionChatMessageEntity from '../packages/ChatMessage/src/OrionChatMessageEntity';
 import { useMonkey } from './MonkeyService';
 
-
-const defaultConfig: Omit<Orion.Chat.Config, 'user'> & {user: Undef<Orion.Chat.User>} = {
+const defaultConfig: Omit<Orion.Chat.Config, 'user'> & { user: Undef<Orion.Chat.User> } = {
 	user: undefined as Undef<Orion.Chat.User>,
 	allowDiscussionSearch: true,
 	discussionSearchTimer: 500,
@@ -15,17 +14,18 @@ const defaultConfig: Omit<Orion.Chat.Config, 'user'> & {user: Undef<Orion.Chat.U
 	allowMessageStatus: true,
 	messageFetcherAsync: async () => [],
 	onActiveDiscussionChange: () => null,
-	onMessageReadAsync: () => null,
-	onNewMessageAsync: () => null,
+	onMessageReadAsync: async () => null,
+	onNewMessageAsync: async () => null,
 };
 
 export class ChatService {
+
 	id = getUid();
 
 	bus = mitt<{
-		'message-added': number;
-		'select-discussion': number;
-		'new-discussion': void;
+		'messageAdded': number
+		'selectDiscussion': number
+		'newDiscussion': void
 	}>();
 
 	@Reactive private readonly state = {
@@ -36,28 +36,19 @@ export class ChatService {
 
 	config: Orion.Chat.Config;
 
-	get activeDiscussionId () { return this.state.activeDiscussionId; }
+	get userId () { return this.config.user.id }
+	get discussions () { return [...this.registry.values()].filter(x => !x.hidden) }
+	get registry () { return this.state.registry }
+
+	get activeDiscussionId () { return this.state.activeDiscussionId }
 	set activeDiscussionId (val) {
 		const oldVal = this.state.activeDiscussionId;
 		this.state.activeDiscussionId = val;
 		this.config.onActiveDiscussionChange(val, oldVal);
 	}
 
-	get discussionsFullyLoaded () { return this.state.discussionsFullyLoaded; }
-	set discussionsFullyLoaded (val) { this.state.discussionsFullyLoaded = val; }
-
-	get userId () {
-		return this.config.user.id;
-	}
-
-	get discussions () {
-		return [...this.registry.values()].filter(x => !x.hidden);
-	}
-
-	get registry () {
-		return this.state.registry;
-	}
-
+	get discussionsFullyLoaded () { return this.state.discussionsFullyLoaded }
+	set discussionsFullyLoaded (val) { this.state.discussionsFullyLoaded = val }
 
 	constructor (options: Orion.Chat.Options) {
 		this.config = {
@@ -66,8 +57,6 @@ export class ChatService {
 		};
 	}
 
-
-	// #region Discussions
 	async fetchDiscussionsAsync (searchTerm?: string, searchTermHasChanged?: boolean) {
 		if (!this.config.discussionFetcherAsync) return;
 
@@ -90,11 +79,13 @@ export class ChatService {
 				const registeredDiscussion = this.registry.get(discussion.id);
 				if (registeredDiscussion) {
 					registeredDiscussion.hidden = false;
-				} else {
+				}
+				else {
 					this.addDiscussion(discussion);
 				}
 			});
-		} else {
+		}
+		else {
 			fetchedDiscussions
 				.filter(d => !loadedDiscussionIds.includes(d.id))
 				.forEach(d => this.addDiscussion(d));
@@ -133,9 +124,7 @@ export class ChatService {
 	setDiscussionsFullyLoaded (fullyLoaded: boolean) {
 		this.discussionsFullyLoaded = fullyLoaded;
 	}
-	// #endregion
 
-	// #region Messages
 	async fetchMessagesAsync (discussionId: number) {
 		const discussion = this.getDiscussion(discussionId);
 
@@ -151,7 +140,8 @@ export class ChatService {
 				messages
 					.filter(m => !useMonkey(discussion.messages).mapKey().includes(m.id))
 					.forEach(m => new OrionChatMessageEntity(m, discussion));
-			} else {
+			}
+			else {
 				discussion.fullyLoaded = true;
 			}
 		}
@@ -177,7 +167,7 @@ export class ChatService {
 			if (discussion) {
 				messages.forEach(m => new OrionChatMessageEntity(m, discussion));
 				discussion.setLastMessageFromRegistered();
-				this.bus.emit('message-added', discussion.id);
+				this.bus.emit('messageAdded', discussion.id);
 			}
 		});
 
@@ -207,9 +197,9 @@ export class ChatService {
 		discussion.setLastMessage(message);
 	}
 	// #endregion
+
 }
 
-export default function useChat (options: Orion.Chat.Options) {
+export function useChat (options: Orion.Chat.Options) {
 	return new ChatService(options);
 }
-

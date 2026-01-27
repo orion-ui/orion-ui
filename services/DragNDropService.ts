@@ -4,17 +4,18 @@ import { reactive } from 'vue';
 import { useMonkey } from './MonkeyService';
 
 type DndRegistry = {
-	isDragging: boolean;
-	cursor: { x: Nullable<number>, y: Nullable<number> };
-	items: Orion.DndData[];
-}
+	isDragging: boolean
+	cursor: { x: Nullable<number>, y: Nullable<number> }
+	items: Orion.DndData[]
+};
 
 class DragNDropService {
+
 	bus = mitt<{
-		drop: Orion.DndData | undefined;
-		dragStart: Orion.DndData | undefined;
-		dragEnd: Orion.DndData | undefined;
-		dragLeave: Orion.DndData | void;
+		drop: Orion.DndData | undefined
+		dragStart: Orion.DndData | undefined
+		dragEnd: Orion.DndData | undefined
+		dragLeave: Orion.DndData | void
 	}>();
 
 	registry = reactive<DndRegistry>({
@@ -55,10 +56,11 @@ class DragNDropService {
 			if (x.to === null) this.registry.items.splice(i, 1);
 		});
 	}
+
 }
 
 const serviceInstance = new DragNDropService();
 
-export default function useDragNDrop () {
+export function useDragNDrop () {
 	return serviceInstance;
 }

@@ -3,8 +3,8 @@ import mitt from 'mitt';
 import { nextTick, reactive, ref, render, Slots, watch } from 'vue';
 
 import { devtool } from 'devtool';
-import useOverlay from 'services/OverlayService';
-import usePopableQueueService from 'services/PopableQueueService';
+import { useOverlay } from 'services/OverlayService';
+import { usePopableQueue } from 'services/PopableQueueService';
 import { orionAppService } from 'utils/Orion';
 import { Reactive } from 'utils/decorators';
 import { toggleGlobalListener } from 'utils/tools';
@@ -72,15 +72,15 @@ export default abstract class SharedPopableSetupService extends SharedSetupServi
 
 	options = reactive<Orion.Popable.Options>({ ...this.baseOptions });
 
-	protected get pendingQueue () { return usePopableQueueService().queue[this.name] as (typeof this.publicInstance)[]; }
+	protected get pendingQueue () { return usePopableQueue().queue[this.name] as (typeof this.publicInstance)[]; }
 
 	get uid () { return this.options.uid; }
 	get visible () { return this.state.visible; }
 	get isMounted () { return this.state.isMounted; }
-	get isLastOpenedPopable () { return usePopableQueueService().queueIds.slice(-1)[0] === this.uid; }
+	get isLastOpenedPopable () { return usePopableQueue().queueIds.slice(-1)[0] === this.uid; }
 
 	get zIndexBumper (): number {
-		return usePopableQueueService().queueIds.findIndex(x => x === this.uid);
+		return usePopableQueue().queueIds.findIndex(x => x === this.uid);
 	}
 
 	get domStyle (): Record<string, any> {
@@ -120,7 +120,7 @@ export default abstract class SharedPopableSetupService extends SharedSetupServi
 
 
 		Object.assign(this.options, props.options);
-		usePopableQueueService().register(this.options.uid, this.publicInstance as Orion.Popable.PublicIntance);
+		usePopableQueue().register(this.options.uid, this.publicInstance as Orion.Popable.PublicIntance);
 
 		watch(() => this.props.display, (val) => {
 			if (val) {
@@ -259,7 +259,7 @@ export default abstract class SharedPopableSetupService extends SharedSetupServi
 
 		// On ajout le popable en premier dans la queue
 		this.pendingQueue.unshift(this.publicInstance);
-		if (this.name !== 'OrionNotif') usePopableQueueService().queueIds.push(this.uid);
+		if (this.name !== 'OrionNotif') usePopableQueue().queueIds.push(this.uid);
 	}
 
 	private unqueue () {
@@ -312,7 +312,7 @@ export default abstract class SharedPopableSetupService extends SharedSetupServi
 		}
 
 		// Vérification si les queue Aside et Modal sont vide, on masque l'overlay
-		if (!usePopableQueueService().asideQueue.length && !usePopableQueueService().modalQueue.length) {
+		if (!usePopableQueue().asideQueue.length && !usePopableQueue().modalQueue.length) {
 			useOverlay().hide();
 		}
 	}
@@ -326,13 +326,13 @@ export default abstract class SharedPopableSetupService extends SharedSetupServi
 		if (targetWrapper) render(null, targetWrapper);
 
 		targetWrapper?.remove();
-		usePopableQueueService().unregister(this.uid);
+		usePopableQueue().unregister(this.uid);
 		this.removeFromQueueIds(this.uid);
 	}
 
 	private removeFromQueueIds (id: number) {
-		const idIndex = usePopableQueueService().queueIds.findIndex(x => x === id);
-		if (idIndex > -1) usePopableQueueService().queueIds.splice(idIndex, 1);
+		const idIndex = usePopableQueue().queueIds.findIndex(x => x === id);
+		if (idIndex > -1) usePopableQueue().queueIds.splice(idIndex, 1);
 	}
 
 	trigger (eventName: string, params?: any) {

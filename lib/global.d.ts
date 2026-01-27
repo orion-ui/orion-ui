@@ -9,7 +9,7 @@ import { RouteLocationRaw, Router } from 'vue-router';
 import type { OrionAsideSetupService, OrionListProps, OrionModalSetupService, OrionNotifSetupService } from '../packages';
 import OrionChatEntity from '../packages/Chat/src/OrionChatEntity';
 import OrionChatMessageEntity from '../packages/ChatMessage/src/OrionChatMessageEntity';
-import useValidation from '../services/ValidationService';
+import { useValidation } from '../services/ValidationService';
 import { Validator as ValidatorClass } from '../utils/Validator';
 
 declare global {
