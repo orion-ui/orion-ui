@@ -45,8 +45,7 @@
 <script setup lang="ts">
 import { OrionIcon } from 'packages/Icon';
 import './OrionButton.less';
-import type { OrionButtonEmits, OrionButtonProps } from './OrionButtonSetup';
-import OrionButtonSetup from './OrionButtonSetup';
+import { OrionButtonSetup, type OrionButtonEmits, type OrionButtonProps } from './OrionButtonSetup';
 const emits = defineEmits<OrionButtonEmits>() as OrionButtonEmits;
 const props = withDefaults(defineProps<OrionButtonProps>(), OrionButtonSetup.defaultProps);
 const setup = new OrionButtonSetup(props, emits);

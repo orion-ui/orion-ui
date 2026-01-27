@@ -49,8 +49,7 @@
 								{{ useMonkey(days[0].date).toReadable('$YYYY') }}
 							</orion-button>
 						</div>
-						<div
-							class="orion-date-table-row">
+						<div class="orion-date-table-row">
 							<template
 								v-for="day in days"
 								:key="day.date.getTime()">
@@ -79,8 +78,7 @@
 											:class="[
 												`orion-date-table__marker--${markers.find(m => m.date.getTime() === day.date.getTime())?.color}`,
 											]"/>
-										<span
-											class="orion-date-table-row__cell-display-number">
+										<span class="orion-date-table-row__cell-display-number">
 											{{ day.date.getDate() }}
 										</span>
 									</span>
@@ -160,9 +158,8 @@ import { OrionIcon } from 'packages/Icon';
 import { OrionToggleButton } from 'packages/ToggleButton';
 import { useMonkey } from 'services';
 import './OrionDateTableHorizontal.less';
-import type { OrionDateTableHorizontalEmits, OrionDateTableHorizontalProps } from './OrionDateTableHorizontalSetup';
-import OrionDateTableHorizontalSetup from './OrionDateTableHorizontalSetup';
-const vModel = defineModel< Nil<Date>>();
+import { OrionDateTableHorizontalSetup, type OrionDateTableHorizontalEmits, type OrionDateTableHorizontalProps } from './OrionDateTableHorizontalSetup';
+const vModel = defineModel<Nil<Date>>();
 const range = defineModel<Nil<Orion.DateRange>>('range');
 const multiple = defineModel<Nil<Date[]>>('multiple');
 const dayHover = defineModel<Nil<Date>>('dayHover');

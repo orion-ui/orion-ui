@@ -1,36 +1,37 @@
 import { debounce, isArray, throttle } from 'lodash-es';
 import { useDragNDrop } from 'services/DragNDropService';
 import { nextTick, onMounted, onUnmounted, reactive, ref, watch } from 'vue';
-import SharedSetup from '../../Shared/SharedSetup';
+import { SharedSetup } from '../../Shared/SharedSetup';
 
-export type OrionHorizontalScrollEmits = {}
+export type OrionHorizontalScrollEmits = {};
 export type OrionHorizontalScrollProps = {
 	// @doc props/dropShadow if set, hides the shadow on the extremities of the scroll
 	// @doc/fr props/dropShadow si défini, masque l'ombre aux extrémités du composant
-	dropShadow?: boolean,
+	dropShadow?: boolean
 	// @doc props/hideButton if set, hides the buttons to slide left or right
 	// @doc/fr props/hideButton si défini, masque les bouttons permettant de glisser vers gauche ou vers la droite.
-	hideButton?: boolean,
+	hideButton?: boolean
 	// @doc props/scrollStep defines the targets of the scroll step
 	// @doc/fr props/scrollStep défini le pas du scroll, ou un tableau d'éléments dans le DOM pour le calculer automatiquement
-	scrollStep?: () => number | Array<HTMLElement>,
+	scrollStep?: () => number | Array<HTMLElement>
 	// @doc props/shadowColor the color of the shadow on the extremities of the scroll
 	// @doc/fr props/shadowColor couleur de l'ombre aux extrémités du composant
-	shadowColor?: string,
+	shadowColor?: string
 	// @doc props/targets if set, shows a preview of the items contained is the scroll. The function must return an array of DOM elements which are in the scroll area.
 	// @doc/fr props/targets si défini, affiche un aperçu des éléments contenus dans le scroll. Cette fonction doit renvoyer un tableau d'éléments du DOM.
-	targets?: () => Array<HTMLElement>,
+	targets?: () => Array<HTMLElement>
 	// @doc props/tolerance set the scroll tolerance that trigger the shadow's display
 	// @doc/fr props/tolerance défini la tolérence pour le déclenchement de l'apparition ou de la disparation de l'ombre
-	tolerance?: number,
+	tolerance?: number
 };
 
 type PreviewDatas = {
-	visibility?: number,
-	isHidingLeft?: boolean,
-}
+	visibility?: number
+	isHidingLeft?: boolean
+};
 
-export default class OrionHorizontalScrollSetup extends SharedSetup {
+export class OrionHorizontalScrollSetup extends SharedSetup {
+
 	static readonly defaultProps = {
 		shadowColor: 'grey-lighter',
 		tolerance: 1,
@@ -39,7 +40,7 @@ export default class OrionHorizontalScrollSetup extends SharedSetup {
 	_el = ref<RefDom>();
 	_slider = ref<RefDom>();
 	_previewContainer = ref<RefDom>();
-	_previewValues = ref<RefDom[]>([]);
+	private _previewValues = ref<RefDom[]>([]);
 
 	private dnd = useDragNDrop();
 	private throttledHandleScrollWhileDragging = throttle(() => this.handleScrollWhileDragging(), 100);
@@ -62,17 +63,15 @@ export default class OrionHorizontalScrollSetup extends SharedSetup {
 		useNaturalScroll: false,
 	});
 
-
-	get shadowColor () { return this.props.shadowColor; }
-	get dropShadow () { return this.props.dropShadow; }
-	get showLeftShadow () { return this.state.showLeftShadow; }
-	get showRightShadow () { return this.state.showRightShadow; }
-	get scrollLeft () { return Math.round(this._slider.value?.scrollLeft ?? 0); }
-	get maxScrollLeft () { return this.state.sliderScrollWidth - this.state.width; }
-	get pourcentage () { return this.state.pourcentage;}
-	get visibilityValues () { return this.state.visibilityValues;}
-
-	get elements () { return this.state.elements;}
+	get shadowColor () { return this.props.shadowColor }
+	get dropShadow () { return this.props.dropShadow }
+	get showLeftShadow () { return this.state.showLeftShadow }
+	get showRightShadow () { return this.state.showRightShadow }
+	private get scrollLeft () { return Math.round(this._slider.value?.scrollLeft ?? 0) }
+	private get maxScrollLeft () { return this.state.sliderScrollWidth - this.state.width }
+	get pourcentage () { return this.state.pourcentage }
+	get visibilityValues () { return this.state.visibilityValues }
+	get elements () { return this.state.elements }
 
 	private readonly windowResizeHandler = debounce(async () => {
 		this.getElementInPreviewSize();
@@ -123,9 +122,9 @@ export default class OrionHorizontalScrollSetup extends SharedSetup {
 		watch(() => this.state.dragScrollBottom, () => {
 			this.throttledHandleScrollWhileDragging();
 		});
-	};
+	}
 
-	setShadows () {
+	private setShadows () {
 		const _el = this._el?.value;
 		if (!this._slider?.value) return;
 
@@ -155,7 +154,8 @@ export default class OrionHorizontalScrollSetup extends SharedSetup {
 
 			if (direction === 'right') {
 				if (stepDelta === 0 || stepDelta >= sliderDelta) targetStep++;
-			} else {
+			}
+			else {
 				if (stepDelta <= sliderDelta) targetStep--;
 			}
 
@@ -163,8 +163,9 @@ export default class OrionHorizontalScrollSetup extends SharedSetup {
 
 			this._slider.value.scrollLeft = targetScroll;
 
-		} else if (typeof this.props.scrollStep === 'function' && isArray(this.props.scrollStep())) {
-			const stepper = (this.props.scrollStep() as HTMLElement[]);
+		}
+		else if (typeof this.props.scrollStep === 'function' && isArray(this.props.scrollStep())) {
+			const stepper = this.props.scrollStep() as HTMLElement[];
 			let i = 0;
 
 			if (direction === 'right') {
@@ -172,7 +173,8 @@ export default class OrionHorizontalScrollSetup extends SharedSetup {
 					if (step.offsetLeft > currentScroll + overflowGradientWidth) break;
 					i++;
 				}
-			} else {
+			}
+			else {
 				for (const step of stepper.reverse()) {
 					if (step.offsetLeft < currentScroll + overflowGradientWidth) break;
 					i++;
@@ -181,7 +183,8 @@ export default class OrionHorizontalScrollSetup extends SharedSetup {
 			const target = stepper[i];
 			this._slider.value.scrollLeft = target.offsetLeft - overflowGradientWidth;
 
-		} else {
+		}
+		else {
 			this._slider.value.scrollLeft = direction === 'left'
 				? 0
 				: this.state.sliderScrollWidth + 10;
@@ -197,9 +200,9 @@ export default class OrionHorizontalScrollSetup extends SharedSetup {
 			clearInterval(shadowInterval);
 			this.getVisibility();
 		}, 400);
-	};
+	}
 
-	handleScrollWhileDragging () {
+	private handleScrollWhileDragging () {
 		clearInterval(this.state.dragInterval as number);
 		if (this.state.dragScrollRight || this.state.dragScrollLeft || this.state.dragScrollTop || this.state.dragScrollBottom) {
 			const ratio = 5;
@@ -218,7 +221,8 @@ export default class OrionHorizontalScrollSetup extends SharedSetup {
 					if (this.state.dragScrollLeft <= 100) {
 						this.window.scrollBy({ left: -(100 - this.state.dragScrollLeft) / ratio });
 					}
-				} else {
+				}
+				else {
 					if (!this._slider.value) return;
 
 					if (this.state.dragScrollRight <= 100) {
@@ -244,7 +248,8 @@ export default class OrionHorizontalScrollSetup extends SharedSetup {
 					if (this.state.dragScrollBottom <= 100) {
 						this.window.scrollBy({ top: (100 - this.state.dragScrollBottom) / ratio });
 					}
-				} else {
+				}
+				else {
 					if (this.state.dragScrollTop <= 100) {
 						this._el.value.scrollTop -= (100 - this.state.dragScrollTop) / ratio;
 					}
@@ -257,7 +262,7 @@ export default class OrionHorizontalScrollSetup extends SharedSetup {
 		}
 		this.handleShadows();
 		this.getVisibility();
-	};
+	}
 
 	resetDragScroll () {
 		clearInterval(this.state.dragInterval as number);
@@ -265,7 +270,7 @@ export default class OrionHorizontalScrollSetup extends SharedSetup {
 		this.state.dragScrollLeft = 0;
 		this.state.dragScrollTop = 0;
 		this.state.dragScrollBottom = 0;
-	};
+	}
 
 	handleDragScroll (event: TouchEvent | MouseEvent) {
 		if (!this.window) return;
@@ -309,7 +314,7 @@ export default class OrionHorizontalScrollSetup extends SharedSetup {
 		this.state.dragScrollTop = Math.abs(limitTop - touchY);
 		this.state.dragScrollBottom = limitBottom - touchY;
 		// #endregion
-	};
+	}
 
 	handleScroll (event: Event) {
 		if (event.target !== this._slider.value) {
@@ -318,7 +323,7 @@ export default class OrionHorizontalScrollSetup extends SharedSetup {
 		}
 	}
 
-	handleScrollEnd = debounce(() => this.state.useNaturalScroll = false, 100);
+	private handleScrollEnd = debounce(() => this.state.useNaturalScroll = false, 100);
 
 	handleWheel = throttle((event: WheelEvent) => {
 		if (this.state.useNaturalScroll) return;
@@ -326,7 +331,6 @@ export default class OrionHorizontalScrollSetup extends SharedSetup {
 		if (this._el.value === undefined) return;
 		if (!this._slider.value) return;
 		if (this.state.width - this.state.sliderScrollWidth >= 0) return;
-
 
 		if (this._el.value.scrollHeight <= this._el.value.offsetHeight) {
 			this._slider.value.scrollLeft += event.deltaY + event.deltaX;
@@ -337,18 +341,18 @@ export default class OrionHorizontalScrollSetup extends SharedSetup {
 		this.getVisibility();
 	}, 8, { leading: false });
 
-	handleShadows () {
+	private handleShadows () {
 		this.state.showLeftShadow = this.scrollLeft - this.props.tolerance > 0;
 		this.state.showRightShadow = this.scrollLeft + this.props.tolerance < this.maxScrollLeft;
-	};
+	}
 
-	getElements () {
+	private getElements () {
 		if (this.props.targets) {
 			Object.assign(this.state.elements, this.props.targets());
 		}
 	}
 
-	getElementInPreviewSize () {
+	private getElementInPreviewSize () {
 		const containerSize = this._previewContainer.value?.clientWidth;
 		const targetTotalSize = this._slider.value?.firstElementChild?.clientWidth;
 
@@ -357,7 +361,7 @@ export default class OrionHorizontalScrollSetup extends SharedSetup {
 		}
 	}
 
-	getVisibility () {
+	private getVisibility () {
 		if (!this._slider.value) return;
 
 		this.state.visibilityValues.length = 0;
@@ -367,7 +371,6 @@ export default class OrionHorizontalScrollSetup extends SharedSetup {
 
 			const elementCoords = element.getBoundingClientRect();
 			const sliderCoords = this._slider.value.getBoundingClientRect();
-
 
 			let visibility = 100;
 			let isHidingLeft = false;
@@ -379,17 +382,18 @@ export default class OrionHorizontalScrollSetup extends SharedSetup {
 				visibility = (visiblePart * 100) / elementCoords.width;
 				isHidingLeft = true;
 
-			} else if (elementCoords.x > sliderCoords.right) {
+			}
+			else if (elementCoords.x > sliderCoords.right) {
 				visibility = 0;
 				isHidingLeft = false;
-			} else if (elementCoords.right > sliderCoords.right || (this.showRightShadow && elementCoords.right > sliderCoords.right - 40)) {
+			}
+			else if (elementCoords.right > sliderCoords.right || (this.showRightShadow && elementCoords.right > sliderCoords.right - 40)) {
 				const shadowOffset = this.showRightShadow ? 40 : 0;
 				const diff = elementCoords.right - sliderCoords.right + shadowOffset;
 				const visiblePart = elementCoords.width - diff;
 				visibility = (visiblePart * 100) / elementCoords.width;
 				isHidingLeft = false;
 			}
-
 
 			this.state.visibilityValues.push({
 				visibility,

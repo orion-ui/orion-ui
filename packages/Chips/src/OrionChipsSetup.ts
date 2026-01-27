@@ -1,32 +1,29 @@
-import SharedProps, { SharedPropsColorExtentedAndGreys, SharedPropsPrefixIcon, SharedPropsSize, SharedPropsSuffixIcon } from '../../Shared/SharedProps';
-import SharedSetup from '../../Shared/SharedSetup';
+import { SharedProps, type SharedPropsColorExtentedAndGreys, type SharedPropsPrefixIcon, type SharedPropsSize, type SharedPropsSuffixIcon } from '../../Shared/SharedProps';
+import { SharedSetup } from '../../Shared/SharedSetup';
 
 export type OrionChipsEmits = {
 	// @doc event/close/desc Emitted when closing the chips
 	// @doc/fr event/close/desc Émis lors de la fermeture de la chips
 	(e: 'close'): void
-}
-
-export type OrionChipsProps =
-	SharedPropsSize &
-	SharedPropsPrefixIcon &
-	SharedPropsSuffixIcon &
-	SharedPropsColorExtentedAndGreys & {
-		// @doc props/nude Removes background and add border on the chips
-		// @doc/fr props/nude supprime le fond et ajoute une bordure sur la chips
-		nude?: boolean,
-		// @doc props/outline Adds an outline style on the chips
-		// @doc/fr props/outline modifie le style en ajoutant un contraste
-		outline?: boolean,
-		// @doc props/close Defines if the chips can be closed
-		// @doc/fr props/close définit si le chips peut être fermée
-		close?: boolean,
-		// @doc props/squared Adds squared style on the chips
-		// @doc/fr props/squared ajoute un style carré sur la chips
-		squared?: boolean,
 };
 
-export default class OrionChipsSetup extends SharedSetup {
+export type OrionChipsProps = SharedPropsSize & SharedPropsPrefixIcon & SharedPropsSuffixIcon & SharedPropsColorExtentedAndGreys & {
+	// @doc props/nude Removes background and add border on the chips
+	// @doc/fr props/nude supprime le fond et ajoute une bordure sur la chips
+	nude?: boolean
+	// @doc props/outline Adds an outline style on the chips
+	// @doc/fr props/outline modifie le style en ajoutant un contraste
+	outline?: boolean
+	// @doc props/close Defines if the chips can be closed
+	// @doc/fr props/close définit si le chips peut être fermée
+	close?: boolean
+	// @doc props/squared Adds squared style on the chips
+	// @doc/fr props/squared ajoute un style carré sur la chips
+	squared?: boolean
+};
+
+export class OrionChipsSetup extends SharedSetup {
+
 	static readonly defaultProps = {
 		...SharedProps.colorExtendedAndGreys,
 		...SharedProps.size,
@@ -37,4 +34,5 @@ export default class OrionChipsSetup extends SharedSetup {
 		protected emits: OrionChipsEmits) {
 		super();
 	}
+
 }

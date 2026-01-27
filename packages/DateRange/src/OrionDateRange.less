@@ -1,17 +1,13 @@
-@import '../../Shared/styles/variables.less';
-@import '../../Shared/styles/mixins.less';
+@import "../../Shared/styles/variables.less";
+@import "../../Shared/styles/mixins.less";
 
 .orion-date-range {
 	display: flex;
 
-	@media @phone {
-		flex-direction: column;
-	}
-
 	&__separator {
 		width: calc(1rem / 16);
-		background: var(--o-background-neutral-subtle);
 		margin: 0 1rem;
+		background: var(--o-background-neutral-subtle);
 
 		@media @phone {
 			width: auto;
@@ -19,5 +15,8 @@
 			margin: 0.5rem 0;
 		}
 	}
-}
 
+	@media @phone {
+		flex-direction: column;
+	}
+}

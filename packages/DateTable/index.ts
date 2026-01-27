@@ -1,8 +1,7 @@
 import { upperFirst } from 'lodash-es';
-import { App, Plugin } from 'vue';
+import { type App, type Plugin } from 'vue';
 import OrionDateTable from './src/OrionDateTable.vue';
-import type { OrionDateTableEmits, OrionDateTableProps } from './src/OrionDateTableSetup';
-import OrionDateTableSetup from './src/OrionDateTableSetup';
+import { OrionDateTableSetup, type OrionDateTableEmits, type OrionDateTableProps } from './src/OrionDateTableSetup';
 
 export const OrionDateTablePlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,5 +9,4 @@ export const OrionDateTablePlugin: Plugin = {
 	},
 };
 
-export { OrionDateTable, OrionDateTableEmits, OrionDateTableProps, OrionDateTableSetup };
-
+export { OrionDateTable, OrionDateTableSetup, type OrionDateTableEmits, type OrionDateTableProps };

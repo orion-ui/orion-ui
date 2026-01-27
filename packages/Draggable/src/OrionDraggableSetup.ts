@@ -1,23 +1,24 @@
 import { useDragNDrop } from 'services/DragNDropService';
 import { useMonkey } from 'services/MonkeyService';
 import { toggleGlobalListener } from 'utils/tools';
-import { ModelRef, reactive } from 'vue';
-import SharedSetup from '../../Shared/SharedSetup';
+import { type ModelRef, reactive } from 'vue';
+import { SharedSetup } from '../../Shared/SharedSetup';
 
-export type OrionDraggableEmits = {}
+export type OrionDraggableEmits = {};
 export type OrionDraggableProps = {
 	// @doc props/data datas of the draggable item
 	// @doc/fr props/data données de l'élément
-	data?: Orion.DndData['data'],
+	data?: Orion.DndData['data']
 	// @doc props/tag the tag or component of the draggable item
 	// @doc/fr props/tag tag ou composant qui réprésentera l'élément
-	tag?: string,
+	tag?: string
 };
 
-export default class OrionDraggableSetup extends SharedSetup {
+export class OrionDraggableSetup extends SharedSetup {
+
 	static readonly defaultProps = { tag: 'div' };
 
-	private _droppable? : OrionDroppable;
+	private _droppable?: OrionDroppable;
 	private state = reactive({ isDragging: false });
 
 	private relativeX = 0;
@@ -36,16 +37,11 @@ export default class OrionDraggableSetup extends SharedSetup {
 
 	private dnd = useDragNDrop();
 
-	get tag () {
-		return this.props.tag;
-	}
+	get tag () { return this.props.tag }
+	private get $el () { return this.document?.getElementById(`orion-draggable-${this.uid}`) }
 
-	get isDragging () { return this.state.isDragging; }
-	set isDragging (val) { this.state.isDragging = val; }
-
-	get $el () {
-		return this.document?.getElementById(`orion-draggable-${this.uid}`);
-	}
+	get isDragging () { return this.state.isDragging }
+	set isDragging (val) { this.state.isDragging = val }
 
 	constructor (
 		protected props: OrionDraggableProps,
@@ -62,7 +58,7 @@ export default class OrionDraggableSetup extends SharedSetup {
 		this._modal = _modal;
 	}
 
-	startGlobalEvent () {
+	private startGlobalEvent () {
 		if (!this.document) return;
 
 		const stopGlobalListener = () => {
@@ -75,7 +71,7 @@ export default class OrionDraggableSetup extends SharedSetup {
 
 			this.document?.body.classList.remove('body--orion-dragging');
 			this.document?.body.removeAttribute('style');
-			this.handleDragEnd();
+			this.handleDragEndAsync();
 		};
 
 		this.document.addEventListener('mouseup', stopGlobalListener, { once: true });
@@ -95,7 +91,7 @@ export default class OrionDraggableSetup extends SharedSetup {
 			const touch = touches.item(0);
 			if (touch) this.handleDrag(touch.clientX, touch.clientY);
 		});
-	};
+	}
 
 	handleMouseDown (event: MouseEvent | TouchEvent) {
 		if (!this.document || this.dnd.registry.isDragging || this.disabled.value) return;
@@ -107,13 +103,14 @@ export default class OrionDraggableSetup extends SharedSetup {
 				once: true,
 				passive: false,
 			});
-		} else if (event instanceof TouchEvent) {
+		}
+		else if (event instanceof TouchEvent) {
 			this.document.addEventListener('touchmove', this.handleDragStart, {
 				once: true,
 				passive: false,
 			});
 		}
-	};
+	}
 
 	handleMouseUp () {
 		if (!this.document || this.disabled.value) return;
@@ -121,7 +118,7 @@ export default class OrionDraggableSetup extends SharedSetup {
 		this.document.removeEventListener('mousemove', this.handleDragStart);
 		this.document.removeEventListener('touchmove', this.handleDragStart);
 		this.document.body.classList.remove('body--orion-dragging');
-	};
+	}
 
 	private readonly handleDragStart = async (event: MouseEvent | TouchEvent) => {
 		if (this.dnd.registry.isDragging) return;
@@ -135,7 +132,8 @@ export default class OrionDraggableSetup extends SharedSetup {
 				this.relativeX = event.clientX - _el?.getBoundingClientRect().left;
 				this.relativeY = event.clientY - _el?.getBoundingClientRect().top;
 				this.createGhost(event.clientX, event.clientY);
-			} else {
+			}
+			else {
 				const touch = event.touches.item(0);
 				if (touch) {
 					this.relativeX = touch.clientX - _el?.getBoundingClientRect().left;
@@ -162,16 +160,16 @@ export default class OrionDraggableSetup extends SharedSetup {
 		this.dnd.emitDragStart();
 	};
 
-	createDragOrigin () {
+	private createDragOrigin () {
 		if (!this.document) return;
 
 		const dragOrigin = this.document.createElement('div');
 		dragOrigin.id = `dragOrigin-${this.uid}`;
 		dragOrigin.style.display = 'none';
 		this.$el?.parentNode?.insertBefore(dragOrigin as Node, this.$el);
-	};
+	}
 
-	createGhost (x: number, y: number) {
+	private createGhost (x: number, y: number) {
 		if (!this.document) return;
 
 		const boundingDraggedElement = this.$el?.getBoundingClientRect();
@@ -181,9 +179,9 @@ export default class OrionDraggableSetup extends SharedSetup {
 		this.ghost.style.height = `${boundingDraggedElement?.height}px`;
 		this.document.body.appendChild(this.ghost);
 		this.handleDrag(x, y);
-	};
+	}
 
-	handleDrag (x: number, y: number) {
+	private handleDrag (x: number, y: number) {
 		if (this.ghost) {
 			this.dnd.registry.cursor.x = x;
 			this.dnd.registry.cursor.y = y;
@@ -194,25 +192,25 @@ export default class OrionDraggableSetup extends SharedSetup {
 				0
 			)`;
 		}
-	};
+	}
 
-	async handleDragEnd () {
+	private async handleDragEndAsync () {
 		const draggedItem = useMonkey(this.dnd.registry.items).last();
 		if (!draggedItem) return;
 
 		if (draggedItem.to) this.dnd.emitDrop();
 
 		if (!draggedItem.canDrop || !draggedItem.to) {
-			await this.animateGhostBack();
+			await this.animateGhostBackAsync();
 		}
 
 		this.removeGhost();
 		this.dnd.bus.off('dragLeave', this.goToInitialPlace.bind(this, draggedItem));
 		this.dnd.cleanRegistry();
 		this.dnd.emitDragEnd();
-	};
+	}
 
-	animateGhostBack () {
+	private animateGhostBackAsync () {
 		return new Promise((resolve) => {
 			if (this.ghost) {
 				if (this.anchor) {
@@ -232,18 +230,19 @@ export default class OrionDraggableSetup extends SharedSetup {
 						0
 					)`;
 				}
-			} else {
+			}
+			else {
 				resolve(true);
 			}
 		});
-	};
+	}
 
-	removeGhost () {
+	private removeGhost () {
 		this.isDragging = false;
 		this.ghost?.remove();
-	};
+	}
 
-	goToInitialPlace (payload: Orion.DndData | undefined) {
+	private goToInitialPlace (payload: Orion.DndData | undefined) {
 		if (payload)
 			if (payload.data.__uid === this.props.data?.__uid) {
 				const ghost = document?.querySelector('.orion-dragging:not(.orion-draggable-clone)');
@@ -252,4 +251,5 @@ export default class OrionDraggableSetup extends SharedSetup {
 				}
 			}
 	};
+
 }

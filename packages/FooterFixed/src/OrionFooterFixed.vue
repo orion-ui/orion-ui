@@ -18,8 +18,7 @@
 
 <script setup lang="ts">
 import './OrionFooterFixed.less';
-import type { OrionFooterFixedEmits, OrionFooterFixedProps } from './OrionFooterFixedSetup';
-import OrionFooterFixedSetup from './OrionFooterFixedSetup';
+import { OrionFooterFixedSetup, type OrionFooterFixedEmits, type OrionFooterFixedProps } from './OrionFooterFixedSetup';
 const emits = defineEmits<OrionFooterFixedEmits>() as OrionFooterFixedEmits;
 const props = withDefaults(defineProps<OrionFooterFixedProps>(), OrionFooterFixedSetup.defaultProps);
 const setup = new OrionFooterFixedSetup(props, emits);

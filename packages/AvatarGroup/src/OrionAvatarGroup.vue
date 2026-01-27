@@ -1,6 +1,5 @@
 <template>
-	<div
-		class="orion-avatar-group">
+	<div class="orion-avatar-group">
 		<template
 			v-for="(vnode, i) in setup.visibleAvatars"
 			:key="i">
@@ -22,8 +21,7 @@
 <script setup lang="ts">
 import { OrionAvatar } from 'packages/Avatar';
 import './OrionAvatarGroup.less';
-import type { OrionAvatarGroupEmits, OrionAvatarGroupProps } from './OrionAvatarGroupSetup';
-import OrionAvatarGroupSetup from './OrionAvatarGroupSetup';
+import { OrionAvatarGroupSetup, type OrionAvatarGroupEmits, type OrionAvatarGroupProps } from './OrionAvatarGroupSetup';
 const emits = defineEmits<OrionAvatarGroupEmits>() as OrionAvatarGroupEmits;
 const slots = defineSlots();
 const props = withDefaults(defineProps<OrionAvatarGroupProps>(), OrionAvatarGroupSetup.defaultProps);

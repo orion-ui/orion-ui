@@ -136,7 +136,7 @@ export default class OrionNotifSetup extends SharedPopableSetup {
 
 		setTimeout(() => {
 			if (this._timerProgress.value) {
-				this._timerProgress.value.style.animationName = 'scaleXtoZero';
+				this._timerProgress.value.style.animationName = 'scale-x-to-zero';
 			}
 		}, 0);
 	}

@@ -14,8 +14,7 @@
 <script setup lang="ts">
 import { ColorPicker } from 'vue-color-kit';
 import './OrionColorPicker.less';
-import type { OrionColorPickerEmits, OrionColorPickerProps } from './OrionColorPickerSetup';
-import OrionColorPickerSetup from './OrionColorPickerSetup';
+import { OrionColorPickerSetup, type OrionColorPickerEmits, type OrionColorPickerProps } from './OrionColorPickerSetup';
 const vModel = defineModel<Nil<string>>();
 const emits = defineEmits<OrionColorPickerEmits>() as OrionColorPickerEmits;
 const props = withDefaults(defineProps<OrionColorPickerProps>(), OrionColorPickerSetup.defaultProps);

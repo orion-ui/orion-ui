@@ -1,5 +1,5 @@
-@import '../../Shared/styles/variables.less';
-@import '../../Shared/styles/mixins.less';
+@import "../../Shared/styles/variables.less";
+@import "../../Shared/styles/mixins.less";
 
 .orion-date-week {
 	flex: 1;
@@ -11,55 +11,55 @@
 
 		&-current-display {
 			display: flex;
-			align-items: center;
 			gap: 0.25rem;
+			align-items: center;
 			font-weight: 600;
 			line-height: 1.5rem;
 
 			> span {
 				display: block;
-				padding: calc(1px + 0.125rem) var(--o-space-16);
+				padding: calc(0.0625rem + 0.125rem) var(--o-space-16);
 			}
 		}
 
 		&-carret {
+			cursor: pointer;
 			font-size: 1.25rem;
 			color: var(--o-text-neutral-default);
-			cursor: pointer;
 
 			&:hover {
 				color: var(--o-text-primary-default);
 			}
 
 			&.disable {
-				opacity: 0.4;
 				cursor: not-allowed;
+				opacity: 0.4;
 			}
 		}
 	}
 
 	&__week {
 		&-picker {
-			max-height: calc(240rem / 16);
 			overflow: auto;
+			max-height: calc(240rem / 16);
 			margin-top: 1rem;
-			color: var(--o-text-neutral-default);
 			font-size: 0.85rem;
+			color: var(--o-text-neutral-default);
 		}
 
 		&-row {
-			transition: background 0.3s;
-			padding: var(--o-space-8) var(--o-space-16);
 			cursor: pointer;
 			width: fit-content;
+			padding: var(--o-space-8) var(--o-space-16);
+			transition: background 0.3s;
 
 			&:hover {
 				background: var(--o-background-neutral-minimal);
 			}
 
 			&--disabled {
-				opacity: 0.5;
 				cursor: not-allowed;
+				opacity: 0.5;
 			}
 
 			&--active > div {
@@ -77,17 +77,16 @@
 		}
 
 		&-readable-days {
-			color: var(--o-text-neutral-moderate);
 			font-size: 0.8125rem;
+			color: var(--o-text-neutral-moderate);
 			white-space: nowrap;
 		}
 	}
 
 	&-row {
 		display: flex;
+		gap: var(--o-space-4);
 		justify-content: center;
 		text-align: center;
-		gap: var(--o-space-4);
 	}
 }
-

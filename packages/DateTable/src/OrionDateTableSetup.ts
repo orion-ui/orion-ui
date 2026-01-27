@@ -1,96 +1,97 @@
 import { uniqBy } from 'lodash-es';
 import { useMonkey } from 'services/MonkeyService';
-import { ModelRef, reactive, ref, watchEffect } from 'vue';
-import SharedSetup from '../../Shared/SharedSetup';
+import { type ModelRef, reactive, ref, watchEffect } from 'vue';
+import { SharedSetup } from '../../Shared/SharedSetup';
 
 export type OrionDateTableEmits = {
 	// @doc event/change-month/desc emitted to change the current month
 	// @doc/fr event/change-month/desc émis pour mettre à jour la valeur du mois courant
-	(e: 'change-month', payload: { month: number, year: number }): void;
+	(e: 'change-month', payload: { month: number, year: number }): void
 	// @doc event/select-specific/desc emitted on day click, to execute the associate callback if it exists
 	// @doc/fr event/select-specific/desc émis au moment du click sur un jour spécifique, pour exécuter le callback correspondant s'il est défini
-	(e: 'select-specific', payload: Orion.Period | PeriodDay): void;
+	(e: 'select-specific', payload: Orion.Period | PeriodDay): void
 	// @doc event/select-period/desc emitted when a period is selected and executes its associated callbacks
 	// @doc/fr event/select-period/desc émis quand une période est sélectionnée et exécute le callback si défini
-	(e: 'select-period', payload: Orion.Period[]): void;
+	(e: 'select-period', payload: Orion.Period[]): void
 	// @doc event/select-day/desc emitted when a day is selected
 	// @doc/fr event/select-day/desc émis quand un jour est sélectioné
-	(e: 'select-day', payload: Orion.Period | PeriodDay): void;
-}
+	(e: 'select-day', payload: Orion.Period | PeriodDay): void
+};
 
 export type OrionDateTableProps = {
 	// @doc props/canGoNextMonth allows the navigation to the next month
 	// @doc/fr props/canGoNextMonth permet la navigation vers le mois suivant
-	canGoNextMonth?: boolean,
+	canGoNextMonth?: boolean
 	// @doc props/canGoPrevMonth allows the navigation to the previous month
 	// @doc/fr props/canGoPrevMonth permet la navigation vers le mois précédent
-	canGoPrevMonth?: boolean,
+	canGoPrevMonth?: boolean
 	// @doc props/dateSelected the selected date
 	// @doc/fr props/dateSelected la date selectionée
-	dateSelected?: Date,
+	dateSelected?: Date
 	// @doc props/disableMonthAndYear disabled month and year selection on top
 	// @doc/fr props/disableMonthAndYear désactive la sélection du mois et de l'année en haut du calendrier
-	disableMonthAndYear?: boolean,
+	disableMonthAndYear?: boolean
 	// @doc props/displayWeekNumber if true, displays week number on each row
 	// @doc/fr props/displayWeekNumber si true, affiche le numéro de semaine sur chaque ligne
-	displayWeekNumber?: boolean,
+	displayWeekNumber?: boolean
 	// @doc props/endDate the end date to display when horizontal is true
 	// @doc/fr props/endDate la date de fin à afficher lorsque horizontal est vrai
-	endDate?: Date,
+	endDate?: Date
 	// @doc props/hideMonthNavigation if true, hide month navigation arrows
 	// @doc/fr props/hideMonthNavigation si true, cache les flèches de navigation des mois
-	hideMonthNavigation?: boolean,
+	hideMonthNavigation?: boolean
 	// @doc props/horizontal if true, displays the date table in a horizontal way
 	// @doc/fr props/horizontal si true, affiche le tableau des dates de manière horizontale
-	horizontal?: boolean,
+	horizontal?: boolean
 	// @doc props/markers markers to display on the table
 	// @doc/fr props/markers marqueurs à afficher sur le tableau
 	markers?: Orion.DateTable.Marker[]
 	// @doc props/maxDate the maximum date which can be selected
 	// @doc/fr props/maxDate la date maximum qui peut être sélectionnée
-	maxDate?: Date,
+	maxDate?: Date
 	// @doc props/minDate the minimum date which can be selected
 	// @doc/fr props/minDate la date minimum qui peut être selectionée
-	minDate?: Date,
+	minDate?: Date
 	// @doc props/month if set, displays only months
 	// @doc/fr props/month si défini, affiche uniquement les mois
-	month?: boolean,
+	month?: boolean
 	// @doc props/periods periods to display on the table
 	// @doc/fr props/periods périodes à afficher
-	periods?: Orion.Period[],
+	periods?: Orion.Period[]
 	// @doc props/rangeEnd if set, defines the range end value as the current value
 	// @doc/fr props/rangeEnd si définie, la date selectionnée est la fin de la période
-	rangeEnd?: boolean,
+	rangeEnd?: boolean
 	// @doc props/rangeStart if set, defines the range start value as the current value
 	// @doc/fr props/rangeStart si définie, la date sélectionnée est le début de la période
-	rangeStart?: boolean,
+	rangeStart?: boolean
 	// @doc props/startDate the start date to display when horizontal is true
 	// @doc/fr props/startDate la date de début à afficher lorsque horizontal est vrai
-	startDate?: Date,
+	startDate?: Date
 	// @doc props/type the type of the vModel
 	// @doc/fr props/type le type de vModel
 	type?: Orion.DateTable.Type
 	// @doc props/dateRangeSameMonth when the component is used in a OrionDatepicker component with type 'range', specified if the daterange is in one month
 	// @doc/fr props/dateRangeSameMonth quand le composant est utilisé dans un OrionDatepicker de type 'range', défini si la période sélectionnée se situe sur un seul même mois.
-	dateRangeSameMonth?: boolean,
+	dateRangeSameMonth?: boolean
 };
 
 type PeriodDay = {
-	color?: Orion.ColorExtendedAndGreys;
-	date: Date;
-	isStart: boolean;
-	isEnd: boolean;
-	isSelected: boolean;
-	exclude: boolean;
-	number: number;
-	month: number;
-	year: number;
-	period: Orion.Period[];
-	callback?: () => void;
-	customClass?: string;
-}
+	color?: Orion.ColorExtendedAndGreys
+	date: Date
+	isStart: boolean
+	isEnd: boolean
+	isSelected: boolean
+	exclude: boolean
+	number: number
+	month: number
+	year: number
+	period: Orion.Period[]
+	callback?: () => void
+	customClass?: string
+};
 
-export default class OrionDateTableSetup extends SharedSetup {
+export class OrionDateTableSetup extends SharedSetup {
+
 	static readonly defaultProps = {
 		canGoNextMonth: true,
 		canGoPrevMonth: true,
@@ -98,7 +99,6 @@ export default class OrionDateTableSetup extends SharedSetup {
 	};
 
 	readonly _el = ref<HTMLElement | undefined>();
-
 
 	protected state = reactive({
 		currentDate: new Date(),
@@ -113,16 +113,14 @@ export default class OrionDateTableSetup extends SharedSetup {
 	protected get periodsToFilter () {
 		if (this.state.filter.length) {
 			return this.props.periods?.filter(x => !this.state.filter.includes(x.color));
-		} else {
+		}
+		else {
 			return this.props.periods;
 		}
 	}
 
-	get currentMonth () {
-		return this.props.dateRangeSameMonth ? (this.state.currentDate.getMonth()+1)%12 : this.state.currentDate.getMonth();
-	}
-
-	get firstDayOfCurrentMonth () {
+	get currentMonth () { return this.props.dateRangeSameMonth ? (this.state.currentDate.getMonth() + 1) % 12 : this.state.currentDate.getMonth() }
+	protected get firstDayOfCurrentMonth () {
 		const firstDay = new Date(this.currentYear, this.currentMonth, 1);
 		return firstDay.getDay();
 	}
@@ -138,7 +136,6 @@ export default class OrionDateTableSetup extends SharedSetup {
 			return useMonkey(this.range.value.end).toMidnight().valueOf();
 		}
 	}
-
 
 	get daysToDisplay () {
 		const weeks = [];
@@ -220,17 +217,18 @@ export default class OrionDateTableSetup extends SharedSetup {
 		return range;
 	}
 
-	get monthName () { return this.lang.MONTH_NAME[this.currentMonth];}
+	get monthName () { return this.lang.MONTH_NAME[this.currentMonth] }
 	get currentYear () {
 		return this.props.dateRangeSameMonth
-		&& this.currentMonth === 0 ? this.state.currentDate.getFullYear() + 1 : this.state.currentDate.getFullYear();
+		  && this.currentMonth === 0
+			? this.state.currentDate.getFullYear() + 1
+			: this.state.currentDate.getFullYear();
 	}
 
-	get viewMonth () {return this.state.viewMonth;}
-	get viewYears () {return this.state.viewYears;}
-	get filter () { return this.state.filter;}
-	get selectedDates () { return this.state.selectedDates; }
-
+	get viewMonth () { return this.state.viewMonth }
+	get viewYears () { return this.state.viewYears }
+	get filter () { return this.state.filter }
+	private get selectedDates () { return this.state.selectedDates }
 	get labels () {
 		if (this.props.periods?.length) {
 			return uniqBy(this.props.periods.map(x => ({
@@ -262,10 +260,14 @@ export default class OrionDateTableSetup extends SharedSetup {
 		protected dayHover: ModelRef<Nil<Date>>) {
 		super();
 
-		watchEffect(() => { if (!props.horizontal) this.state.currentDate = this.vModel.value ?? new Date(); });
+		watchEffect(() => {
+			if (!props.horizontal) {
+				this.state.currentDate = this.vModel.value ?? new Date();
+			}
+		});
 	}
 
-	protected async onBeforeMount () {
+	protected async onBeforeMountAsync () {
 		this.setDateCalendar();
 		this.createColorsArrayFromPeriods();
 		if (this.props.month)
@@ -278,16 +280,14 @@ export default class OrionDateTableSetup extends SharedSetup {
 			this.state.viewMonth = true;
 	}
 
-	addWeeksToDate (date: Date, numberOfWeeks: number) {
-		date.setDate(date.getDate()+ numberOfWeeks * 7);
+	private addWeeksToDate (date: Date, numberOfWeeks: number) {
+		date.setDate(date.getDate() + numberOfWeeks * 7);
 		return date;
 	}
 
 	protected weeksBetween (startDate: Date, endDate: Date) {
 		return Math.ceil((endDate.getTime() - startDate.getTime()) / (7 * 24 * 60 * 60 * 1000));
 	}
-
-
 
 	protected triggerSelectPeriod () {
 		// Emit selected period during component update
@@ -317,7 +317,8 @@ export default class OrionDateTableSetup extends SharedSetup {
 	filterColorOnClick (color: string) {
 		if (this.state.filter.includes(color)) {
 			this.state.filter.splice(this.state.filter.indexOf(color), 1);
-		} else {
+		}
+		else {
 			this.state.filter.push(color);
 		}
 		this.state.filterHover = undefined;
@@ -337,8 +338,6 @@ export default class OrionDateTableSetup extends SharedSetup {
 		}
 
 		const cssClass = ['emphasis', `emphasis--${period.color}`];
-
-
 
 		if (this.state.filterHover && this.state.filterHover !== period.color) {
 			cssClass.push('emphasis--opacity');
@@ -390,10 +389,12 @@ export default class OrionDateTableSetup extends SharedSetup {
 		const currentMonth = this.props.dateRangeSameMonth ? this.currentMonth - 1 : this.currentMonth;
 		if (this.state.viewMonth) {
 			this.state.currentDate = new Date(this.currentYear + numberOfperiod, currentMonth, 1);
-		} else if (this.state.viewYears) {
+		}
+		else if (this.state.viewYears) {
 			const year = numberOfperiod === -1 ? this.rangeYears[0] : this.rangeYears[this.rangeYears.length - 1];
 			this.state.currentDate = new Date(year + numberOfperiod, currentMonth, 1);
-		} else {
+		}
+		else {
 			if ((numberOfperiod === -1 && this.props.canGoPrevMonth) || (numberOfperiod === 1 && this.props.canGoNextMonth)) {
 				this.state.currentDate = new Date(this.currentYear, this.currentMonth + numberOfperiod, 1);
 				this.emits('change-month', {
@@ -442,14 +443,16 @@ export default class OrionDateTableSetup extends SharedSetup {
 					end: undefined,
 					selecting: true,
 				};
-			} else {
+			}
+			else {
 				if (!!this.range?.value.start && newDate >= this.range.value.start) {
 					this.range.value = {
 						...this.range.value,
 						end: newDate,
 						selecting: false,
 					};
-				} else {
+				}
+				else {
 					this.range.value = {
 						start: newDate,
 						end: this.range?.value.start,
@@ -457,14 +460,17 @@ export default class OrionDateTableSetup extends SharedSetup {
 					};
 				}
 			}
-		} else if (this.props.type === 'multiple') {
+		}
+		else if (this.props.type === 'multiple') {
 			const targetIndex = this.multiple.value?.findIndex(x => x.valueOf() === newDate.valueOf());
 			if (targetIndex !== undefined && targetIndex >= 0) {
 				this.multiple.value?.splice(targetIndex, 1);
-			} else {
+			}
+			else {
 				this.multiple.value?.push(newDate);
 			}
-		} else {
+		}
+		else {
 			this.vModel.value = newDate;
 		}
 	}
@@ -479,24 +485,23 @@ export default class OrionDateTableSetup extends SharedSetup {
 
 		if (!this.rangeEndValue && dayHoverValue) {
 			if ((dayValue >= this.rangeStartValue && dayValue <= dayHoverValue)
-				||(dayValue <= this.rangeStartValue && dayValue >= dayHoverValue)
+			  || (dayValue <= this.rangeStartValue && dayValue >= dayHoverValue)
 			) cssClass.push('in-range');
 
 			if ((dayValue >= this.rangeStartValue && dayValue === dayHoverValue)
-				||(dayValue === this.rangeStartValue && dayValue >= dayHoverValue)) {
+			  || (dayValue === this.rangeStartValue && dayValue >= dayHoverValue)) {
 				cssClass.push('in-range--border-right-radius');
 			}
 			if ((dayValue <= this.rangeStartValue && dayValue === dayHoverValue)
-				||(dayValue === this.rangeStartValue && dayValue <= dayHoverValue)) {
+			  || (dayValue === this.rangeStartValue && dayValue <= dayHoverValue)) {
 				cssClass.push('in-range--border-left-radius');
 			}
-		} else if (this.rangeEndValue) {
+		}
+		else if (this.rangeEndValue) {
 			if (dayValue >= this.rangeStartValue && dayValue <= this.rangeEndValue) cssClass.push('in-range');
 			if (dayValue === this.rangeStartValue) cssClass.push('in-range--border-left-radius');
 			if (dayValue === this.rangeEndValue) cssClass.push('in-range--border-right-radius');
 		}
-
-
 
 		return cssClass;
 	}
@@ -512,7 +517,8 @@ export default class OrionDateTableSetup extends SharedSetup {
 		// Define day colors for periods highlight
 		if (day.color) {
 			dayPeriodColors.push(`day--${day.color}`);
-		} else if (dayIsCurrentMonth) {
+		}
+		else if (dayIsCurrentMonth) {
 			day.period?.forEach((period) => {
 				dayPeriodColors.push(`day--${period.color}`);
 			});
@@ -540,11 +546,10 @@ export default class OrionDateTableSetup extends SharedSetup {
 			cssClass.push('disable');
 		}
 		// Both
-		if (this.props.maxDate && dayDate > useMonkey(this.props.maxDate).toMidnight()
-			|| this.props.minDate && dayDate < useMonkey(this.props.minDate).toMidnight()) {
+		if ((this.props.maxDate && dayDate > useMonkey(this.props.maxDate).toMidnight())
+		  || (this.props.minDate && dayDate < useMonkey(this.props.minDate).toMidnight())) {
 			cssClass.push('disable');
 		}
-
 
 		if (!dayIsOutOfMonth) {
 			if (dayDate.valueOf() === useMonkey(new Date()).toMidnight().valueOf()) {
@@ -552,14 +557,16 @@ export default class OrionDateTableSetup extends SharedSetup {
 			}
 
 			if (this.props.type === 'range') {
-				if (this.range?.value?.start && useMonkey(this.range?.value?.start).toMidnight().valueOf() === dayDate.valueOf()
-					|| this.range?.value?.end && useMonkey(this.range?.value?.end).toMidnight().valueOf() === dayDate.valueOf()) {
+				if ((this.range?.value?.start && useMonkey(this.range?.value?.start).toMidnight().valueOf() === dayDate.valueOf())
+				  || (this.range?.value?.end && useMonkey(this.range?.value?.end).toMidnight().valueOf() === dayDate.valueOf())) {
 					cssClass.push('selected');
 				}
-			} else if (this.multiple.value?.length) {
+			}
+			else if (this.multiple.value?.length) {
 				if (dayDate && this.multiple.value?.find(x => x.getTime() === dayDate.getTime()))
 					cssClass.push('selected');
-			} else if (this.vModel?.value && useMonkey(this.vModel?.value).toMidnight().valueOf() === dayDate.valueOf()) {
+			}
+			else if (this.vModel?.value && useMonkey(this.vModel?.value).toMidnight().valueOf() === dayDate.valueOf()) {
 				cssClass.push('selected');
 			}
 		}
@@ -569,7 +576,7 @@ export default class OrionDateTableSetup extends SharedSetup {
 
 	isMonthActive (month: number) {
 		return (this.range?.value?.monthNumber === month && this.range?.value.year === this.currentYear)
-			|| this.currentMonth === month;
+		  || this.currentMonth === month;
 
 	}
 
@@ -579,7 +586,7 @@ export default class OrionDateTableSetup extends SharedSetup {
 
 	isMonthDisabled (month: number) {
 		if ((this.props.minDate && new Date(this.currentYear, month, 1) < this.props.minDate)
-			|| (this.props.maxDate && new Date(this.currentYear, month, new Date(this.currentYear, month+1, 0).getDate()) > this.props.maxDate)) {
+		  || (this.props.maxDate && new Date(this.currentYear, month, new Date(this.currentYear, month + 1, 0).getDate()) > this.props.maxDate)) {
 			return true;
 		}
 		return false;
@@ -590,12 +597,12 @@ export default class OrionDateTableSetup extends SharedSetup {
 		this.state.viewMonth = false;
 		if (this.props.month) {
 			if ((this.props.minDate && this.state.currentDate < this.props.minDate)
-			|| (this.props.maxDate && new Date(this.currentYear, month, new Date(this.currentYear, month+1, 0).getDate()) > this.props.maxDate))
+			  || (this.props.maxDate && new Date(this.currentYear, month, new Date(this.currentYear, month + 1, 0).getDate()) > this.props.maxDate))
 				return;
 
 			this.range.value = {
 				start: this.state.currentDate,
-				end: new Date(this.currentYear, month, new Date(this.currentYear, month+1, 0).getDate()),
+				end: new Date(this.currentYear, month, new Date(this.currentYear, month + 1, 0).getDate()),
 				monthNumber: month,
 				year: this.currentYear,
 			};
@@ -650,4 +657,5 @@ export default class OrionDateTableSetup extends SharedSetup {
 	getWeekNumber (date: Date) {
 		return useMonkey(date).getWeekNumber();
 	}
+
 }

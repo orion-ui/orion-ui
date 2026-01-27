@@ -76,8 +76,7 @@
 
 <script setup lang="ts">
 import './OrionCard.less';
-import type { OrionCardEmits, OrionCardProps } from './OrionCardSetup';
-import OrionCardSetup from './OrionCardSetup';
+import { OrionCardSetup, type OrionCardEmits, type OrionCardProps } from './OrionCardSetup';
 const emits = defineEmits<OrionCardEmits>() as OrionCardEmits;
 const props = withDefaults(defineProps<OrionCardProps>(), OrionCardSetup.defaultProps);
 const setup = new OrionCardSetup(props, emits);

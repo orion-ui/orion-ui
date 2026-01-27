@@ -7,7 +7,7 @@
 
 <script setup lang="ts">
 import { faker } from '@faker-js/faker';
-import { useChat, getUid, sleep } from 'lib';
+import { getUid, sleepAsync, useChat } from 'lib';
 
 const user: Orion.Chat.User = {
 	id: getUid(),
@@ -38,9 +38,8 @@ chat.config.onNewMessageAsync = async (message, registerMessage) => {
 	addFakeMessageAsync();
 };
 
-
 async function addFakeMessageAsync (delay = 1000) {
-	await sleep(delay);
+	await sleepAsync(delay);
 	chat.addMessagesToDiscussions([
 		{
 			discussionId: 1,
@@ -56,14 +55,13 @@ async function addFakeMessageAsync (delay = 1000) {
 
 <style scoped lang="less">
 .demo-chat {
+	overflow: hidden;
 	height: 25rem;
 	border-radius: 0.5rem;
-	overflow: hidden;
 }
 </style>
 
 @hl {2-5,24,26-31,33,35-39,44}
-
 
 @lang:en
 ## OrionChat
@@ -82,7 +80,6 @@ Let's first observe an example below with a single conversation.
 
 The method `addMessagesToDiscussions`, used on **line 44**, allows you to add incoming messages via WebSocket to the relevant conversation.
 @lang
-
 
 @lang:fr
 ## OrionChat

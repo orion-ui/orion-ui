@@ -81,7 +81,7 @@
 		"@babel/plugin-proposal-decorators": "^7.25.9",
 		"@babel/preset-typescript": "^7.26.0",
 		"@faker-js/faker": "^8.4.0",
-		"@orion.ui/orion-linter": "^1.0.3",
+		"@orion.ui/orion-linter": "^1.0.5",
 		"@stackblitz/sdk": "^1.11.0",
 		"@types/cli-progress": "^3.11.6",
 		"@types/fs-extra": "^11.0.4",

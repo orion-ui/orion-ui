@@ -1,36 +1,36 @@
 import { isArray } from 'lodash-es';
-import { ModelRef } from 'vue';
-import SharedFieldSetup, { SharedFieldSetupEmits, SharedFieldSetupProps } from '../../Shared/SharedFieldSetup';
-import { SharedPropsColor } from '../../Shared/SharedProps';
+import { type ModelRef } from 'vue';
+import { SharedFieldSetup, type SharedFieldSetupEmits, type SharedFieldSetupProps } from '../../Shared/SharedFieldSetup';
+import { type SharedPropsColor } from '../../Shared/SharedProps';
 
-export type OrionCheckboxEmits<T> = SharedFieldSetupEmits<T> & {}
-export type OrionCheckboxProps = SharedFieldSetupProps &
-	SharedPropsColor & {
+export type OrionCheckboxEmits<T> = SharedFieldSetupEmits<T> & {};
+export type OrionCheckboxProps = SharedFieldSetupProps & SharedPropsColor & {
 	// @doc props/iconCheck the icon when the checkbox is checked
 	// @doc/fr props/iconCheck l'icône lorsque la case est cochée
-	iconCheck?: Orion.Icon,
+	iconCheck?: Orion.Icon
 	// @doc props/inline set the property `display` on `inline-flex` instead of `flex`
 	// @doc/fr props/inline défini la propriété `display` à `inline-flex` à la place `flex`
-	inline?: boolean,
+	inline?: boolean
 	// @doc props/inputValue the value of the checkbox
 	// @doc/fr props/inputValue valeur de la case à cocher
-	inputValue?: string | boolean | number | Object | any[] | Date | undefined,
+	inputValue?: string | boolean | number | Object | any[] | Date | undefined
 	// @doc props/multiple allows to select multiples checkbox values, related to v-model array
 	// @doc/fr props/multiple permet de selectionner plusieurs cases à cocher, dans le cas où le v-model est un tableau
-	multiple?: boolean,
+	multiple?: boolean
 	// @doc props/reverse displays the label first
 	// @doc/fr props/reverse affiche d'abord le label puis la case à cocher
-	reverse?: boolean,
+	reverse?: boolean
 	// @doc props/type the type of the input
 	// @doc/fr props/type type du champ
-	type?: string,
+	type?: string
 	// @doc props/size the size of the checkbox
 	// @doc/fr props/size taille de la case à cocher
-	size?: Extract<Orion.Size, 'sm' | 'md'>;
+	size?: Extract<Orion.Size, 'sm' | 'md'>
 };
 type VModelType = any[] | boolean | null | undefined;
 
-export default class OrionCheckboxSetup extends SharedFieldSetup<OrionCheckboxProps, VModelType, OrionCheckboxEmits<VModelType>> {
+export class OrionCheckboxSetup extends SharedFieldSetup<OrionCheckboxProps, VModelType, OrionCheckboxEmits<VModelType>> {
+
 	static readonly defaultProps = {
 		...SharedFieldSetup.defaultProps,
 		color: 'primary' as Orion.Color,
@@ -47,7 +47,7 @@ export default class OrionCheckboxSetup extends SharedFieldSetup<OrionCheckboxPr
 		return true;
 	}
 
-	get hasValue () {
+	protected get hasValue () {
 		if (isArray(this.vModel?.value)) return !!this.vModel?.value.length;
 		return !!this.vModel?.value;
 	}
@@ -55,7 +55,8 @@ export default class OrionCheckboxSetup extends SharedFieldSetup<OrionCheckboxPr
 	get isChecked () {
 		if (this.props.multiple) {
 			return isArray(this.vModel?.value) && this.vModel.value?.includes(this.props.inputValue);
-		} else {
+		}
+		else {
 			return !!this.vModel?.value;
 		}
 	}
@@ -67,7 +68,6 @@ export default class OrionCheckboxSetup extends SharedFieldSetup<OrionCheckboxPr
 		super(props, emits, vModel);
 	}
 
-
 	handleClick () {
 		if (!this.props.disabled && !this.props.readonly) {
 			this.state.hasBeenFocus = true;
@@ -75,12 +75,15 @@ export default class OrionCheckboxSetup extends SharedFieldSetup<OrionCheckboxPr
 			if (this.props.multiple && isArray(this.vModel?.value)) {
 				if (this.vModel?.value.includes(this.props.inputValue)) {
 					this.vModel?.value.splice(this.vModel.value.indexOf(this.props.inputValue), 1);
-				} else {
+				}
+				else {
 					this.vModel?.value.push(this.props.inputValue);
 				}
-			} else {
+			}
+			else {
 				this.vModel.value = !this.vModel.value;
 			}
 		}
 	}
+
 }

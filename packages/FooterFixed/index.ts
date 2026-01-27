@@ -1,8 +1,7 @@
 import { upperFirst } from 'lodash-es';
-import { App, Plugin } from 'vue';
+import { type App, type Plugin } from 'vue';
 import OrionFooterFixed from './src/OrionFooterFixed.vue';
-import type { OrionFooterFixedEmits, OrionFooterFixedProps } from './src/OrionFooterFixedSetup';
-import OrionFooterFixedSetup from './src/OrionFooterFixedSetup';
+import { OrionFooterFixedSetup, type OrionFooterFixedEmits, type OrionFooterFixedProps } from './src/OrionFooterFixedSetup';
 
 export const OrionFooterFixedPlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,5 +9,4 @@ export const OrionFooterFixedPlugin: Plugin = {
 	},
 };
 
-export { OrionFooterFixed, OrionFooterFixedEmits, OrionFooterFixedProps, OrionFooterFixedSetup };
-
+export { OrionFooterFixed, OrionFooterFixedSetup, type OrionFooterFixedEmits, type OrionFooterFixedProps };

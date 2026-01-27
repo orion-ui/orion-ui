@@ -1,7 +1,7 @@
-import { ChatService } from 'services/ChatService';
+import { type ChatService } from 'services/ChatService';
 import { useMonkey } from 'services/MonkeyService';
 import { nextTick, reactive, ref, watch } from 'vue';
-import SharedSetup from '../../Shared/SharedSetup';
+import { SharedSetup } from '../../Shared/SharedSetup';
 
 export type OrionChatDiscussionListEmits = {
 	// @doc event/newDiscussion/desc emitted when a new discussion is created
@@ -18,7 +18,7 @@ export type OrionChatDiscussionListProps = {
 	chat: ChatService
 };
 
-export default class OrionChatDiscussionListSetup extends SharedSetup {
+export class OrionChatDiscussionListSetup extends SharedSetup {
 
 	static readonly defaultProps = {};
 
@@ -65,6 +65,7 @@ export default class OrionChatDiscussionListSetup extends SharedSetup {
 		});
 	}
 
+	// eslint-disable-next-line orion-rules/async-suffix
 	protected async onMounted () {
 		if (this.chat.config.discussionFetcherAsync) {
 			// Init intersectionObserver to mark messages as read when scroll into view

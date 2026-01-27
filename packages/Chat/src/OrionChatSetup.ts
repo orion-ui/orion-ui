@@ -1,32 +1,33 @@
-import { ChatService } from 'services/ChatService';
+import { type ChatService } from 'services/ChatService';
 import { useMonkey } from 'services/MonkeyService';
 import { usePluralize } from 'services/PluralizeService';
 import { isMac } from 'utils/tools';
 import { nextTick, reactive, ref, watch } from 'vue';
-import SharedSetup from '../../Shared/SharedSetup';
+import { SharedSetup } from '../../Shared/SharedSetup';
 
 export type OrionChatEmits = {
 	// @doc event/new-message/desc emitted when a new message is sent
 	// @doc/fr event/new-message/desc émis lorsqu'un nouveau message est envoyé
-	(e: 'new-message', payload: Orion.Chat.NewMessage): void;
-}
+	(e: 'new-message', payload: Orion.Chat.NewMessage): void
+};
 
 export type OrionChatProps = {
 	// @doc props/chat instance of the chat service
 	// @doc/fr props/chat instance du service `chat`
-	chat: ChatService,
+	chat: ChatService
 	// @doc props/discussionId id of the discussion
 	// @doc/fr props/discussionId id de la discussion
-	discussionId: number,
+	discussionId: number
 	// @doc props/focusOnOpen focused the input field chat the chat opens
 	// @doc/fr props/focusOnOpen place le focus sur la zone de texte quand le chat s'ouvre
-	focusOnOpen?: boolean,
+	focusOnOpen?: boolean
 	// @doc props/hideSearch hides the research field on the top of the chat
 	// @doc/fr props/hideSearch masque le champ de recherche en haut du chat
-	hideSearch?: boolean,
+	hideSearch?: boolean
 };
 
-export default class OrionChatSetup extends SharedSetup {
+export class OrionChatSetup extends SharedSetup {
+
 	static readonly defaultProps = {};
 
 	private observer = null as Nullable<IntersectionObserver>;
@@ -41,22 +42,21 @@ export default class OrionChatSetup extends SharedSetup {
 		showSearch: false,
 	});
 
-	_input = ref<OrionTextarea>();
+	readonly _input = ref<OrionTextarea>();
 	_content = ref<RefDom>();
 	_lazyLoader = ref<RefDom>();
 	_sectionsWrapper = ref<RefDom>();
 	_search = ref<RefDom>();
 
-	get chat () { return this.props.chat; }
-	get discussion () { return this.chat.getDiscussion(this.props.discussionId); }
-	get hideSearch () { return this.props.hideSearch; }
-	get showSearch () { return this.state.showSearch; }
-	get unreadMessageLabel () { return usePluralize(this.lang.ORION_CHAT__UNREAD_MESSAGE, this.state.unreadTop, true); }
-	get newMessageLabel () { return usePluralize(this.lang.ORION_CHAT__NEW_MESSAGE, this.state.unreadBottom, true); }
-	get unreadTop () { return this.state.unreadTop; }
-	get unreadBottom () { return this.state.unreadBottom; }
-	get isLoading () { return this.state.isLoading; }
-
+	private get chat () { return this.props.chat }
+	get discussion () { return this.chat.getDiscussion(this.props.discussionId) }
+	get hideSearch () { return this.props.hideSearch }
+	get showSearch () { return this.state.showSearch }
+	get unreadMessageLabel () { return usePluralize(this.lang.ORION_CHAT__UNREAD_MESSAGE, this.state.unreadTop, true) }
+	get newMessageLabel () { return usePluralize(this.lang.ORION_CHAT__NEW_MESSAGE, this.state.unreadBottom, true) }
+	get unreadTop () { return this.state.unreadTop }
+	get unreadBottom () { return this.state.unreadBottom }
+	get isLoading () { return this.state.isLoading }
 	get textareaLabel () {
 		return this._input.value?.isFocus()
 			? this.sendTooltip
@@ -75,26 +75,24 @@ export default class OrionChatSetup extends SharedSetup {
 			: `CTRL + ${this.lang.ORION_CHAT__ENTER_TO_SEND}`;
 	}
 
-	get searchTerm () { return this.state.searchTerm; }
-	set searchTerm (val) { this.state.searchTerm = val; }
-
-	get newMessage () { return this.state.newMessage; }
-	set newMessage (val) { this.state.newMessage = val; }
-
 	get publicInstance () {
 		return {
 			...super.publicInstance,
-			checkUnreadMessagesInDom: this.checkUnreadMessagesInDom.bind(this),
+			checkUnreadMessagesInDom: this.checkUnreadMessagesInDomAsync.bind(this),
 			getDiscussionId: () => this.discussion?.id,
 		};
 	}
 
+	get searchTerm () { return this.state.searchTerm }
+	set searchTerm (val) { this.state.searchTerm = val }
+
+	get newMessage () { return this.state.newMessage }
+	set newMessage (val) { this.state.newMessage = val }
 
 	constructor (
 		protected props: OrionChatProps & typeof OrionChatSetup.defaultProps,
 		protected emits: OrionChatEmits) {
 		super();
-
 
 		watch(() => this.props.discussionId, () => {
 			nextTick(() => {
@@ -108,7 +106,8 @@ export default class OrionChatSetup extends SharedSetup {
 		});
 	}
 
-	async onMounted () {
+	// eslint-disable-next-line orion-rules/async-suffix
+	protected async onMounted () {
 		// Init observer to mark messages as read when scroll into view
 		this.observer = new IntersectionObserver(this.intersectionObserverCallback.bind(this), {
 			root: this._content.value,
@@ -126,7 +125,6 @@ export default class OrionChatSetup extends SharedSetup {
 		}
 	}
 
-
 	getSectionTitle (date: number) {
 		return useMonkey(new Date(Number(date))).toReadable();
 	}
@@ -142,11 +140,11 @@ export default class OrionChatSetup extends SharedSetup {
 			discussion.initialLoad = true;
 		}
 
-		await this.resetIntersectionObserver();
+		await this.resetIntersectionObserverAsync();
 		this.scrollToLastRead();
-		await this.checkUnreadMessagesInDom();
+		await this.checkUnreadMessagesInDomAsync();
 		this.state.isLoading = false;
-	};
+	}
 
 	private initIntersectionObserver () {
 		const messages = this._content.value?.querySelectorAll('.orion-chat-message--is-unread.orion-chat-message--from-interlocutor');
@@ -158,7 +156,7 @@ export default class OrionChatSetup extends SharedSetup {
 
 		const lazyLoader = this._lazyLoader.value;
 		if (lazyLoader) this.observer?.observe(lazyLoader);
-	};
+	}
 
 	private intersectionObserverCallback (entries: IntersectionObserverEntry[], observer: IntersectionObserver) {
 		entries.forEach(async (x) => {
@@ -182,21 +180,22 @@ export default class OrionChatSetup extends SharedSetup {
 							}, 100);
 						});
 					}
-				} else {
+				}
+				else {
 					const target = x.target as HTMLElement;
 					const messageId = Number(target.dataset.chatMessageId);
 
 					setTimeout(() => { // timeout for better UX
 						this.chat.setMessageRead(this.props.discussionId, messageId);
 						observer.unobserve(target);
-						this.checkUnreadMessagesInDom();
+						this.checkUnreadMessagesInDomAsync();
 					}, 600);
 				}
 			}
 		});
-	};
+	}
 
-	private resetIntersectionObserver () {
+	private resetIntersectionObserverAsync () {
 		return new Promise((resolve) => {
 			this.observer?.disconnect();
 			nextTick(() => {
@@ -204,7 +203,7 @@ export default class OrionChatSetup extends SharedSetup {
 				resolve(true);
 			});
 		});
-	};
+	}
 
 	private scrollToLastRead () {
 		if (this.state.preventScroll) return;
@@ -213,17 +212,17 @@ export default class OrionChatSetup extends SharedSetup {
 			?.querySelectorAll('.orion-chat-message--is-unread.orion-chat-message--from-interlocutor')
 			.item(0) as HTMLElement;
 
-
 		if (firstUnread) {
 			this._content.value?.scrollTo({
 				top: firstUnread.offsetTop - 90,
 				left: 0,
 				// behavior: 'smooth',
 			});
-		} else {
+		}
+		else {
 			this.scrollToBottom();
 		}
-	};
+	}
 
 	private scrollToBottom (smooth = false) {
 		if (this.state.preventScroll) return;
@@ -240,12 +239,12 @@ export default class OrionChatSetup extends SharedSetup {
 				});
 			});
 		}
-	};
+	}
 
 	private checkIfShouldScroll () {
 		const domContent = this._content.value;
 		return domContent && (domContent.offsetHeight + domContent.scrollTop) > (domContent.scrollHeight - 30);
-	};
+	}
 
 	async sendNewMessageAsync () {
 		if (this.state.newMessage && this.discussion) {
@@ -265,35 +264,36 @@ export default class OrionChatSetup extends SharedSetup {
 
 			if (shouldScroll) this.scrollToLastRead();
 		}
-	};
+	}
 
 	toggleSearch () {
 		if (this.state.showSearch) {
 			this.state.showSearch = false;
 			this.searchTerm = undefined;
-		} else {
+		}
+		else {
 			this.state.showSearch = true;
 			nextTick(() => {
 				this._search.value?.focus();
 			});
 		}
-	};
+	}
 
 	handleSearchBlur () {
 		if (!this.searchTerm?.trim().length) {
 			this.toggleSearch();
 		}
-	};
+	}
 
 	private handleMessageAdded () {
-		this.resetIntersectionObserver();
+		this.resetIntersectionObserverAsync();
 
 		if (this.checkIfShouldScroll()) this.scrollToLastRead();
 
-		this.checkUnreadMessagesInDom();
-	};
+		this.checkUnreadMessagesInDomAsync();
+	}
 
-	private checkUnreadMessagesInDom () {
+	private checkUnreadMessagesInDomAsync () {
 		return new Promise<void>((resolve) => {
 			nextTick(() => {
 				if (this.discussion?.unreadMessagesCount === 0) {
@@ -325,7 +325,7 @@ export default class OrionChatSetup extends SharedSetup {
 					.filter((el) => {
 						const { top, bottom } = el.getBoundingClientRect();
 						return top <= contentBottom - offset && top >= contentTop - offset
-							&& bottom <= contentBottom + offset && bottom >= contentTop + offset;
+						  && bottom <= contentBottom + offset && bottom >= contentTop + offset;
 					})
 					.length;
 
@@ -334,5 +334,5 @@ export default class OrionChatSetup extends SharedSetup {
 			});
 		});
 	};
-}
 
+}

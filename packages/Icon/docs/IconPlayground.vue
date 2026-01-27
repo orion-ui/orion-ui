@@ -5,8 +5,7 @@
 			v-bind="state"/>
 	</div>
 
-	<div
-		class="row row--middle row--gutter">
+	<div class="row row--middle row--gutter">
 		<div class="col-sm-4">
 			<o-select
 				v-model="state.icon"
@@ -86,8 +85,8 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, computed, ref } from 'vue';
 import { materialIcons, setIconStyle } from 'lib';
+import { computed, reactive, ref } from 'vue';
 
 const state = reactive({
 	icon: 'notifications' as Orion.Icon,
@@ -102,7 +101,7 @@ const state = reactive({
 
 const isUpdatingIconStyle = ref(false);
 
-const iconStyleOptions = [
+const iconStyleOptions: Orion.IconStyle[] = [
 	'outlined',
 	'round',
 	'sharp',

@@ -1,46 +1,47 @@
 import { isObject, isString } from 'lodash-es';
 import { reactive, watch } from 'vue';
-import { SharedPropsColor } from '../../Shared/SharedProps';
-import SharedSetup from '../../Shared/SharedSetup';
+import { type SharedPropsColor } from '../../Shared/SharedProps';
+import { SharedSetup } from '../../Shared/SharedSetup';
 
-export type OrionAvatarEmits = {}
+export type OrionAvatarEmits = {};
 export type OrionAvatarProps = SharedPropsColor & {
 	// @doc props/avatar the url of the image or an id (combined with root-url prop). More info in [Edges cases](#edge-cases) section.
 	// @doc/fr props/avatar url de l'image ou id (combiné avec la prop `root-url`). Plus d'infos dans la section [Cas complexes](#cas-complexes).
-	avatar?: {id: number} | number | string,
+	avatar?: { id: number } | number | string
 	// @doc props/contain adapts the size of the image to fit into the container
 	// @doc/fr props/contain adapte la taille de l'image pour s'adapter à son conteneur
-	contain?: boolean,
+	contain?: boolean
 	// @doc props/description additionnal description of the avatar
 	// @doc/fr props/description description additionnelle de l'avatar
-	description?: string,
+	description?: string
 	// @doc props/displayText defines if the text (name or description) is displayed along with the avatar
 	// @doc/fr props/displayText Définit si le texte (nom ou description) est affiché avec l'avatar
-	displayText?: boolean,
+	displayText?: boolean
 	// @doc props/name displays first letter of the name if there is no image
 	// @doc/fr props/name affiche la première lettre de la prop `name` s'il n'y a pas d'image
-	name?: string,
+	name?: string
 	// @doc props/nbAvatarUpdates number to increment on each update to refresh the image
 	// @doc/fr props/nbAvatarUpdates nombre à incrémenter à chaque mise à jour de l'image pour la rafraîchir
-	nbAvatarUpdates?: number,
+	nbAvatarUpdates?: number
 	// @doc props/rootUrl the root url when the `avatar` prop is a number or JSON object
 	// @doc/fr props/rootUrl url de l'avatar si la prop `avatar` est un nombre ou un objet JSON
-	rootUrl?: string,
+	rootUrl?: string
 	// @doc props/size the size of the avatar
 	// @doc/fr props/size taille de l'avatar
-	size?: number | Orion.Size,
+	size?: number | Orion.Size
 	// @doc props/square defines if the avatar is square-shaped (circle otherwise)
 	// @doc/fr props/square Définit la forme de l'avatar (ronde par défaut)
-	square?: boolean,
+	square?: boolean
 	// @doc props/tooltip the tooltip text displayed to update the avatar
 	// @doc/fr props/tooltip le texte qui sera affiché dans la tooltip au survol de l'icône de modification
-	tooltip?: string,
+	tooltip?: string
 	// @doc props/updateFunction function to call to update the avatar
 	// @doc/fr props/updateFunction fonction à appeler pour modifier l'avatar
-	updateFunction?: () => void,
+	updateFunction?: () => void
 };
 
-export default class OrionAvatarSetup extends SharedSetup {
+export class OrionAvatarSetup extends SharedSetup {
+
 	static readonly defaultProps = {
 		name: '',
 		size: 'md' as OrionAvatarProps['size'],
@@ -51,14 +52,9 @@ export default class OrionAvatarSetup extends SharedSetup {
 
 	private state = reactive({ error: false });
 
-	set error (val: boolean) {
-		this.state.error = val;
-	}
+	set error (val: boolean) { this.state.error = val }
 
-	get tooltip () {
-		return this.props.tooltip ?? this.lang.ORION_AVATAR__TOOLTIP;
-	}
-
+	get tooltip () { return this.props.tooltip ?? this.lang.ORION_AVATAR__TOOLTIP }
 	get additionalClass () {
 		const additionalClass = [];
 		if (isString(this.props.size)) {
@@ -76,31 +72,28 @@ export default class OrionAvatarSetup extends SharedSetup {
 		return additionalClass;
 	}
 
-	get internalAvatarId () {
+	private get internalAvatarId () {
 		if (typeof this.props.avatar === 'number' && isFinite(this.props.avatar)) {
 			return this.props.avatar;
-		} else if (isObject(this.props.avatar) && isFinite(this.props.avatar?.id)) {
+		}
+		else if (isObject(this.props.avatar) && isFinite(this.props.avatar?.id)) {
 			return this.props.avatar.id;
-		} else return 0;
+		}
+		else return 0;
 	}
 
-	get formatedName () {
-		return this.props.name.split(' ').slice(0, 2).map(n => n.charAt(0).toUpperCase()).join('');
-	}
-
+	get formatedName () { return this.props.name.split(' ').slice(0, 2).map(n => n.charAt(0).toUpperCase()).join('') }
 	get showInitial () {
 		return this.state.error || (typeof this.props.avatar !== 'string'
-			&& (!isFinite(this.internalAvatarId) || this.internalAvatarId === 0));
+		  && (!isFinite(this.internalAvatarId) || this.internalAvatarId === 0));
 	}
 
-	get updateTrick () {
-		return this.props.nbAvatarUpdates ? `?update=${this.props.nbAvatarUpdates}` : '';
-	}
-
+	private get updateTrick () { return this.props.nbAvatarUpdates ? `?update=${this.props.nbAvatarUpdates}` : '' }
 	get avatarSrc () {
 		if (typeof this.props.avatar === 'string') {
 			return this.props.avatar;
-		} else {
+		}
+		else {
 			return `${this.props.rootUrl}${this.internalAvatarId}${this.updateTrick}`;
 		}
 	}
@@ -110,9 +103,10 @@ export default class OrionAvatarSetup extends SharedSetup {
 			return {
 				width: `calc(${this.props.size}rem / 16)`,
 				height: `calc(${this.props.size}rem / 16)`,
-				fontSize: `calc(${this.props.size/2}rem / 16)`,
+				fontSize: `calc(${this.props.size / 2}rem / 16)`,
 			};
-		} else {
+		}
+		else {
 			return {};
 		}
 	}
@@ -127,4 +121,5 @@ export default class OrionAvatarSetup extends SharedSetup {
 			this.state.error = val === oldVal;
 		});
 	}
+
 }

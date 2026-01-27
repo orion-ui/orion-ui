@@ -57,7 +57,7 @@ const avatar = computed(() => {
 });
 
 const state = reactive({
-	size: 'md',
+	size: 'md' as Orion.Size,
 	color: 'info' as Orion.Color & 'image',
 	square: false,
 	displayText: true,

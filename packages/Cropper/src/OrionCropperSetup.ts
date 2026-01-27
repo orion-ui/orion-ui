@@ -1,38 +1,39 @@
 import { throttle } from 'lodash-es';
 import { reactive, ref } from 'vue';
-import { Cropper } from 'vue-advanced-cropper';
-import SharedSetup from '../../Shared/SharedSetup';
+import { type Cropper } from 'vue-advanced-cropper';
+import { SharedSetup } from '../../Shared/SharedSetup';
 
-export type OrionCropperEmits = {}
+export type OrionCropperEmits = {};
 export type OrionCropperProps = {
 	// @doc props/circle define if the shape of the cropper is a circle (otherwise a square)
 	// @doc/fr props/circle définit si le recadrage prend la forme d'unn cercle (un rectangle sinon)
-	circle?: boolean,
+	circle?: boolean
 	// @doc props/cropHeight the height of the cropped image
 	// @doc/fr props/cropHeight la hauteur de l'image recadrée
-	cropHeight?: number,
+	cropHeight?: number
 	// @doc props/cropWidth the width of the cropped image
 	// @doc/fr props/cropWidth la largeur de l'image recadrée
-	cropWidth?: number,
+	cropWidth?: number
 	// @doc props/file the file
 	// @doc/fr props/file le fichier à recadrer
-	file?: File,
+	file?: File
 	// @doc props/options options of the cropper
 	// @doc/fr props/options les options du cropper
-	options?: Object,
+	options?: Object
 	// @doc props/zoomMax the maximum zoom
 	// @doc/fr props/zoomMax le zoom maximum
-	zoomMax?: number,
+	zoomMax?: number
 	// @doc props/zoomMin the minimal zoom
 	// @doc/fr props/zoomMin le zoom minimum
-	zoomMin?: number,
+	zoomMin?: number
 	// @doc props/zoomStep the step of the zoom
 	// @doc/fr props/zoomStep le pas du zoom
-	zoomStep?: number,
+	zoomStep?: number
 };
 type CropperType = InstanceType<typeof Cropper> & { coefficient: number };
 
-export default class OrionCropperSetup extends SharedSetup {
+export class OrionCropperSetup extends SharedSetup {
+
 	static readonly defaultProps = {
 		cropHeight: 300,
 		cropWidth: 300,
@@ -67,25 +68,16 @@ export default class OrionCropperSetup extends SharedSetup {
 		};
 	}
 
-	get image () {
-		return this.state.image;
-	}
-
-	get zoom () {
-		return this.state.zoom;
-	}
-
-	set zoom (value) {
-		this.state.zoom = value;
-	}
-
+	get image () { return this.state.image }
 	get publicInstance () {
 		return {
 			...super.publicInstance,
-			crop: this.crop.bind(this),
+			crop: this.cropAsync.bind(this),
 		};
 	}
 
+	get zoom () { return this.state.zoom }
+	set zoom (value) { this.state.zoom = value }
 
 	constructor (
 		protected props: OrionCropperProps & typeof OrionCropperSetup.defaultProps,
@@ -93,10 +85,9 @@ export default class OrionCropperSetup extends SharedSetup {
 		super();
 	}
 
-	protected async onBeforeMount () {
+	protected async onBeforeMountAsync () {
 		this.readFile();
 	}
-
 
 	private readFile () {
 		if (this.props.file) {
@@ -110,7 +101,7 @@ export default class OrionCropperSetup extends SharedSetup {
 		}
 	}
 
-	crop () {
+	private async cropAsync () {
 		return new Promise<File>((resolve, reject) => {
 			const res = this._cropper.value?.getResult();
 			if (!res) return;
@@ -156,7 +147,8 @@ export default class OrionCropperSetup extends SharedSetup {
 								: (this.props.file as File)?.name,
 							{ type: blob.type },
 						));
-					} else {
+					}
+					else {
 						reject('No blob');
 					}
 				});
@@ -176,4 +168,5 @@ export default class OrionCropperSetup extends SharedSetup {
 	rotateCropper (angle: number) {
 		this._cropper.value?.rotate(angle);
 	}
+
 }

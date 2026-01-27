@@ -1,46 +1,47 @@
-import { Dropdown } from 'floating-vue';
+import { type Dropdown } from 'floating-vue';
 import { debounce, isNil, throttle } from 'lodash-es';
 import { getAppLang } from 'services/LangService';
 import { useMonkey } from 'services/MonkeyService';
 import { addPopoverBackdropCloseAbility } from 'utils/tools';
-import { ModelRef, nextTick, reactive, ref, Slots, watch, watchEffect } from 'vue';
-import SharedFieldSetup, { SharedFieldSetupEmits, SharedFieldSetupProps } from '../../Shared/SharedFieldSetup';
+import { type ModelRef, nextTick, reactive, ref, type Slots, watch, watchEffect } from 'vue';
+import { SharedFieldSetup, type SharedFieldSetupEmits, type SharedFieldSetupProps } from '../../Shared/SharedFieldSetup';
 
-export type OrionDatepickerEmits = SharedFieldSetupEmits<Nil<Date>> & {}
+export type OrionDatepickerEmits = SharedFieldSetupEmits<Nil<Date>> & {};
 export type OrionDatepickerProps = SharedFieldSetupProps & {
 	// @doc props/disablePopover if you don't want to use the calendar popover
 	// @doc/fr props/disablePopover si vous ne souhaitez pas utiliser la popover avec le calendrier
-	disablePopover?: boolean,
+	disablePopover?: boolean
 	// @doc props/displayWeekNumber if true, displays week number on each row
 	// @doc/fr props/displayWeekNumber si true, affiche le numéro de semaine sur chaque ligne
-	displayWeekNumber?: boolean,
+	displayWeekNumber?: boolean
 	// @doc props/hideDisabled hide disabled dates (currently for type="week" only)
 	// @doc/fr props/hideDisabled cache les dates désactivées (actuellement uniquement avec type="week")
-	hideDisabled?: boolean,
+	hideDisabled?: boolean
 	// @doc props/maxDate the maximum date which can be selected
 	// @doc/fr props/maxDate la date maximum qui peut être sélectionnée
-	maxDate?: Date,
+	maxDate?: Date
 	// @doc props/minDate the minimum date which can be selected
 	// @doc/fr props/minDate la date minimum qui peut être sélectionnée
-	minDate?: Date,
+	minDate?: Date
 	// @doc props/multipleLabelColor color of the displayed dates is the type is set to `multiple`
 	// @doc/fr props/multipleLabelColor couleurs des dates affichées si le type est défini à `multiple`
-	multipleLabelColor?: Orion.ColorExtendedAndGreys,
+	multipleLabelColor?: Orion.ColorExtendedAndGreys
 	// @doc props/preserveTime keep the current time value when changing date
 	// @doc/fr props/preserveTime conserve la valeur actuelle de l'heure lors du changement de date
-	preserveTime?: boolean,
+	preserveTime?: boolean
 	// @doc props/time displays also hours/minutes
 	// @doc/fr props/time affiche aussi les heures/minutes
-	time?: boolean,
+	time?: boolean
 	// @doc props/type the type of the vModel
 	// @doc/fr props/type le type de vModel
-	type?: Orion.DatepickerType,
+	type?: Orion.DatepickerType
 	// @doc props/valueDisplayFormat function to customize the display format
 	// @doc/fr props/valueDisplayFormat fonction pour personnaliser l'affichage
-	valueDisplayFormat?: (val: Nil<Date> | Nil<Orion.DateRange>) => string,
+	valueDisplayFormat?: (val: Nil<Date> | Nil<Orion.DateRange>) => string
 };
 
-export default class OrionDatepickerSetup extends SharedFieldSetup<OrionDatepickerProps, Nil<Date>> {
+export class OrionDatepickerSetup extends SharedFieldSetup<OrionDatepickerProps, Nil<Date>> {
+
 	static readonly defaultProps = {
 		...SharedFieldSetup.defaultProps,
 		multipleLabelColor: 'neutral' as Orion.ColorExtendedAndGreys,
@@ -64,26 +65,13 @@ export default class OrionDatepickerSetup extends SharedFieldSetup<OrionDatepick
 		maxVisibleMultipleDates: 2,
 	});
 
-	private get dateSeparator () { return this.lang.DATE_SEPARATOR; }
-	private get timeSeparator () { return this.lang.TIME_SEPARATOR; }
-	private get dateTimeSeparator () { return this.lang.DATETIME_SEPARATOR; }
-	private get dateformat () { return this.setDateFormat(); }
-	private get pattern () { return this.getPattern(); }
-
-	private readonly debouncedWindowResizeHandler = () => {
-		this.windowResizeHandler();
-	};
-
-	windowResizeHandler = debounce(async () => {
-		this.calculateVisibleMultipleDates();
-	}, 17);
-
-	get appLang () { return getAppLang(); }
-
-	get selectionIsOnHourMinute () {
-		return !!this.state.selectionIsOn && ['hours', 'minutes', 'ampm'].includes(this.state.selectionIsOn);
-	}
-
+	private get dateSeparator () { return this.lang.DATE_SEPARATOR }
+	private get timeSeparator () { return this.lang.TIME_SEPARATOR }
+	private get dateTimeSeparator () { return this.lang.DATETIME_SEPARATOR }
+	private get dateformat () { return this.setDateFormat() }
+	private get pattern () { return this.getPattern() }
+	get appLang () { return getAppLang() }
+	private get selectionIsOnHourMinute () { return !!this.state.selectionIsOn && ['hours', 'minutes', 'ampm'].includes(this.state.selectionIsOn) }
 	get isFocus () {
 		if (this.props.disablePopover) return false;
 		return this.state.isFocus;
@@ -96,14 +84,17 @@ export default class OrionDatepickerSetup extends SharedFieldSetup<OrionDatepick
 					.replace('$start', useMonkey(this.range.value.start).toReadable())
 					.replace('$end', useMonkey(this.range.value.end).toReadable());
 			}
-		} else if (this.props.type === 'month') {
+		}
+		else if (this.props.type === 'month') {
 			if (this.range.value?.start instanceof Date) {
 				return useMonkey(this.range.value?.start)?.toReadable('$MMMM');
 			}
-		} else {
+		}
+		else {
 			if (this.vModel.value instanceof Date) {
 				return this.props.valueDisplayFormat ? this.props.valueDisplayFormat(this.vModel.value) : this.inputValueFormat(this.vModel.value);
-			} else if (this.state.isFocus) {
+			}
+			else if (this.state.isFocus) {
 				return this.dateformat.replaceAll('$', '').toLowerCase();
 			}
 		}
@@ -122,7 +113,8 @@ export default class OrionDatepickerSetup extends SharedFieldSetup<OrionDatepick
 		}
 		if (this.props.type === 'multiple') {
 			return !!this.multiple.value && (this.multiple.value.length > 0);
-		} else {
+		}
+		else {
 			return !isNil(this.vModel?.value);
 		}
 	}
@@ -139,23 +131,18 @@ export default class OrionDatepickerSetup extends SharedFieldSetup<OrionDatepick
 			: undefined;
 	}
 
-	get isOnPhoneWithTimepicker () {
-		return this.props.type === 'date' && this.props.time && this.responsive.onPhone;
-	}
+	get isOnPhoneWithTimepicker () { return this.props.type === 'date' && this.props.time && this.responsive.onPhone }
+	get isPm () { return this.displayDateSelected.includes('PM') }
 
-	get isPm () {
-		return this.displayDateSelected.includes('PM');
-	}
+	get displayMultipleDropdown () { return this.state.displayMultipleDropdown }
+	set displayMultipleDropdown (val) { this.state.displayMultipleDropdown = val }
 
-	get displayMultipleDropdown () { return this.state.displayMultipleDropdown; }
-	set displayMultipleDropdown (val) { this.state.displayMultipleDropdown = val; }
-	get vModelProxy () { return this.vModel.value;}
-
+	get vModelProxy () { return this.vModel.value }
 	set vModelProxy (val) {
 		const currentValue = this.vModel.value;
 		const dateUnchanged = (val?.getDate() === currentValue?.getDate())
-			&& (val?.getMonth() === currentValue?.getMonth())
-			&& (val?.getFullYear() === currentValue?.getFullYear());
+		  && (val?.getMonth() === currentValue?.getMonth())
+		  && (val?.getFullYear() === currentValue?.getFullYear());
 
 		if (val) {
 			if (currentValue && (this.props.preserveTime || !dateUnchanged)) {
@@ -175,7 +162,7 @@ export default class OrionDatepickerSetup extends SharedFieldSetup<OrionDatepick
 		this.vModel.value = val;
 	}
 
-	get rangeBuffer () { return this.state.rangeBuffer; }
+	get rangeBuffer () { return this.state.rangeBuffer }
 	set rangeBuffer (val) {
 		this.state.rangeBuffer = val;
 
@@ -184,13 +171,16 @@ export default class OrionDatepickerSetup extends SharedFieldSetup<OrionDatepick
 		this.range.value = val;
 	}
 
-	get maxVisibleMultipleDates () {
-		return this.state.maxVisibleMultipleDates;
-	}
+	get maxVisibleMultipleDates () { return this.state.maxVisibleMultipleDates }
+	set maxVisibleMultipleDates (val: number) { this.state.maxVisibleMultipleDates = val }
 
-	set maxVisibleMultipleDates (val: number) {
-		this.state.maxVisibleMultipleDates = val;
-	}
+	private readonly debouncedWindowResizeHandler = () => {
+		this.windowResizeHandler();
+	};
+
+	private windowResizeHandler = debounce(async () => {
+		this.calculateVisibleMultipleDates();
+	}, 17);
 
 	constructor (
 		protected props: OrionDatepickerProps & typeof OrionDatepickerSetup.defaultProps,
@@ -201,7 +191,6 @@ export default class OrionDatepickerSetup extends SharedFieldSetup<OrionDatepick
 		protected multiple: ModelRef<Nil<Date[]>>,
 	) {
 		super(props, emits, vModel);
-
 
 		watchEffect(() => this.state.rangeBuffer = { ...range.value });
 
@@ -229,15 +218,15 @@ export default class OrionDatepickerSetup extends SharedFieldSetup<OrionDatepick
 		if (this.props.type === 'multiple') {
 			this.window?.removeEventListener('resize', this.debouncedWindowResizeHandler);
 		}
-	};
-
+	}
 
 	inputValueFormat (date: Date) {
 		if (this.props.time && this.props.type !== 'multiple') {
 			return useMonkey(date).toReadable()
-				+ this.dateTimeSeparator
-				+ useMonkey(date).toReadable(`$hh${this.timeSeparator}$mm${this.appLang === 'en' ? ` $A` : ''}`);
-		} else {
+			  + this.dateTimeSeparator
+			  + useMonkey(date).toReadable(`$hh${this.timeSeparator}$mm${this.appLang === 'en' ? ` $A` : ''}`);
+		}
+		else {
 			return useMonkey(date).toReadable();
 		}
 	}
@@ -262,7 +251,8 @@ export default class OrionDatepickerSetup extends SharedFieldSetup<OrionDatepick
 		if (dayPostion < monthPostion) {
 			dayIndex = 0;
 			monthIndex = 1;
-		} else {
+		}
+		else {
 			dayIndex = 1;
 			monthIndex = 0;
 		}
@@ -298,7 +288,8 @@ export default class OrionDatepickerSetup extends SharedFieldSetup<OrionDatepick
 		if (dayPosition < monthPosition) {
 			dayIndex = 0;
 			monthIndex = 1;
-		} else {
+		}
+		else {
 			dayIndex = 1;
 			monthIndex = 0;
 		}
@@ -307,7 +298,8 @@ export default class OrionDatepickerSetup extends SharedFieldSetup<OrionDatepick
 		if (this.appLang === 'fr') {
 			selectionIsOnDay = cursorPosition <= firstSeparatorIndex;
 			selectionIsOnMonth = cursorPosition > firstSeparatorIndex && cursorPosition <= secondSeparatorIndex;
-		} else if (this.appLang === 'en') {
+		}
+		else if (this.appLang === 'en') {
 			selectionIsOnMonth = cursorPosition <= firstSeparatorIndex;
 			selectionIsOnDay = cursorPosition > firstSeparatorIndex && cursorPosition <= secondSeparatorIndex;
 		}
@@ -470,7 +462,8 @@ export default class OrionDatepickerSetup extends SharedFieldSetup<OrionDatepick
 			if (isTwelveHours && +hour < 13 && isPM && hour !== '12') dateValue.setHours(+hour + 12);
 			if (isTwelveHours && +hour < 13 && !isPM && hour === '12') dateValue.setHours(0);
 			this.vModel.value = dateValue;
-		} else {
+		}
+		else {
 			day = numRegex.test(day) ? day.padStart(2, '0') : day;
 			month = numRegex.test(month) ? month.padStart(2, '0') : month;
 			year = numRegex.test(year) ? year.padEnd(4, '0') : year;
@@ -487,7 +480,8 @@ export default class OrionDatepickerSetup extends SharedFieldSetup<OrionDatepick
 					+ (this.appLang === 'en'
 						? ((numRegex.test(hour) && (+hour > 12)) ? ' PM' : ' AM')
 						: '');
-			} else {
+			}
+			else {
 				input.value = this.dateformat.toLowerCase()
 					.replace(this.pattern.day, day)
 					.replace(this.pattern.month, month)
@@ -523,9 +517,11 @@ export default class OrionDatepickerSetup extends SharedFieldSetup<OrionDatepick
 
 			if (itemOffsetMiddle < containerOffsetMiddle) {
 				itemRelativeMiddle = itemOffsetMiddle - containerRect.top;
-			} else if (itemOffsetMiddle > containerOffsetMiddle) {
+			}
+			else if (itemOffsetMiddle > containerOffsetMiddle) {
 				itemRelativeMiddle = containerRect.bottom - itemOffsetMiddle;
-			} else {
+			}
+			else {
 				itemRelativeMiddle = containerRelativeMiddle;
 			}
 
@@ -575,7 +571,8 @@ export default class OrionDatepickerSetup extends SharedFieldSetup<OrionDatepick
 				if (selectionIsOnHour) this.setSelectionToHour();
 				if (selectionIsOnMinute) this.setSelectionToMinute();
 				if (selectionIsOnAmPm) this.setSelectionToAmPm();
-			} else {
+			}
+			else {
 				this.appLang === 'en'
 					? this.setSelectionToMonth()
 					: this.setSelectionToDay();
@@ -589,10 +586,10 @@ export default class OrionDatepickerSetup extends SharedFieldSetup<OrionDatepick
 
 	handleFocus (e: FocusEvent) {
 		if (!this.focusedWithMouse
-			&& this.props.type === 'date'
-			&& !this.responsive.onPhone
-			&& !this.props.selectOnFocus
-			&& !this.props.valueDisplayFormat
+		  && this.props.type === 'date'
+		  && !this.responsive.onPhone
+		  && !this.props.selectOnFocus
+		  && !this.props.valueDisplayFormat
 		) {
 			setTimeout(() => {
 				const { input, firstSeparatorIndex } = this.getEventData();
@@ -626,9 +623,11 @@ export default class OrionDatepickerSetup extends SharedFieldSetup<OrionDatepick
 		if (this.props.disabled || this.props.readonly) return;
 		if (this.props.type === 'range' || this.props.type === 'week' || this.props.type === 'month') {
 			this.range.value = clearTo;
-		} else if (this.props.type === 'multiple') {
+		}
+		else if (this.props.type === 'multiple') {
 			this.multiple.value = [];
-		} else {
+		}
+		else {
 			this.vModel.value = clearTo;
 		}
 		this.emits('change', clearTo);
@@ -662,7 +661,6 @@ export default class OrionDatepickerSetup extends SharedFieldSetup<OrionDatepick
 
 		if (isSeparatorKey) key = 'ArrowRight';
 		if (![...misc].includes(key)) e.preventDefault();
-
 
 		// Handle arrows
 		if (arrows.includes(key)) {
@@ -744,16 +742,19 @@ export default class OrionDatepickerSetup extends SharedFieldSetup<OrionDatepick
 				if (day.length === 2 && num >= 4) {
 					this.setInputStringValue(year, month, key, hour, minute);
 					nextTick(() => this.appLang === 'en' ? this.setSelectionToYear() : this.setSelectionToMonth());
-				} else {
+				}
+				else {
 					if (day.length === 1) {
 						if (day === '3' && num > 1) return;
 						this.setInputStringValue(year, month, day + key, hour, minute);
 						nextTick(() => this.appLang === 'en' ? this.setSelectionToYear() : this.setSelectionToMonth());
-					} else {
+					}
+					else {
 						if (this.appLang === 'en') {
 							input.value = input.value.slice(0, cursorPosition) + num + input.value.slice(secondSeparatorIndex);
 							input.setSelectionRange(firstSeparatorIndex + 2, firstSeparatorIndex + 2);
-						} else {
+						}
+						else {
 							input.value = num + input.value.slice(cursorPosition + 2);
 							input.setSelectionRange(1, 1);
 						}
@@ -766,17 +767,20 @@ export default class OrionDatepickerSetup extends SharedFieldSetup<OrionDatepick
 					if (num > 1) {
 						this.setInputStringValue(year, key, day, hour, minute);
 						nextTick(() => this.appLang === 'en' ? this.setSelectionToDay() : this.setSelectionToYear());
-					} else {
+					}
+					else {
 						if (this.appLang === 'en') {
 							input.value = num + input.value.slice(cursorPosition + 2);
 							input.setSelectionRange(1, 1);
-						} else {
+						}
+						else {
 							input.value = input.value.slice(0, cursorPosition) + num + input.value.slice(secondSeparatorIndex);
 							input.setSelectionRange(cursorPosition + 1, cursorPosition + 1);
 						}
 					}
-				} else if (month.length === 1 && ((month === '1' && num <= 2) || month === '0')) {
-					this.setInputStringValue(year, month+key, day, hour, minute);
+				}
+				else if (month.length === 1 && ((month === '1' && num <= 2) || month === '0')) {
+					this.setInputStringValue(year, month + key, day, hour, minute);
 					nextTick(() => {
 						this.appLang === 'fr'
 							? this.setSelectionToYear()
@@ -790,13 +794,15 @@ export default class OrionDatepickerSetup extends SharedFieldSetup<OrionDatepick
 					input.value = input.value.slice(0, cursorPosition) + num + input.value.slice(dateTimeSeparatorIndex);
 					input.setSelectionRange(cursorPosition + 1, cursorPosition + 1);
 					if (year.length === 3) {
-						this.setInputStringValue(year+key, month, day, hour, minute);
-						nextTick(() => { this.setSelectionToHour(); });
+						this.setInputStringValue(year + key, month, day, hour, minute);
+						nextTick(() => this.setSelectionToHour());
 					}
-				} else {
+				}
+				else {
 					if (year.length === 3) {
-						this.setInputStringValue(year+key, month, day, hour, minute);
-					} else if (year.length < 4 || selection.length === 4) {
+						this.setInputStringValue(year + key, month, day, hour, minute);
+					}
+					else if (year.length < 4 || selection.length === 4) {
 						input.value = input.value.slice(0, cursorPosition) + num;
 					}
 				}
@@ -807,12 +813,14 @@ export default class OrionDatepickerSetup extends SharedFieldSetup<OrionDatepick
 					if (num > 2 || (this.appLang === 'en' && num > 1)) {
 						this.setInputStringValue(year, month, day, key, minute);
 						nextTick(() => this.setSelectionToMinute());
-					} else {
+					}
+					else {
 						input.value = input.value.slice(0, cursorPosition) + num + input.value.slice(timeSeparatorIndex);
 						input.setSelectionRange(cursorPosition + 1, cursorPosition + 1);
 					}
-				} else if (hour.length === 1 && ((hour === '2' && num <= 3) || hour === '1' || hour === '0')) {
-					this.setInputStringValue(year, month, day, hour+key, minute);
+				}
+				else if (hour.length === 1 && ((hour === '2' && num <= 3) || hour === '1' || hour === '0')) {
+					this.setInputStringValue(year, month, day, hour + key, minute);
 					nextTick(() => this.setSelectionToMinute());
 				}
 			}
@@ -822,14 +830,16 @@ export default class OrionDatepickerSetup extends SharedFieldSetup<OrionDatepick
 					if (num > 5) {
 						this.setInputStringValue(year, month, day, hour, key);
 						nextTick(() => this.setSelectionToAmPm());
-					} else {
+					}
+					else {
 						input.value = input.value.slice(0, cursorPosition) + key + (isTwelveHours
 							? input.value.slice(input.value.length - 3)
 							: '');
 						input.setSelectionRange(cursorPosition + 1, cursorPosition + 1);
 					}
-				} else if (minute.length === 1) {
-					this.setInputStringValue(year, month, day, hour, minute+key);
+				}
+				else if (minute.length === 1) {
+					this.setInputStringValue(year, month, day, hour, minute + key);
 					nextTick(() => this.setSelectionToAmPm());
 				}
 			}
@@ -862,11 +872,13 @@ export default class OrionDatepickerSetup extends SharedFieldSetup<OrionDatepick
 					if (this.appLang === 'en') {
 						this.setInputStringValue(year, monthPattern, day, hour, minute);
 						this.setSelectionToMonth();
-					} else {
+					}
+					else {
 						this.handleClear();
 						nextTick(() => this.setSelectionToDay());
 					}
-				} else {
+				}
+				else {
 					this.setInputStringValue(year, month, dayPattern, hour, minute);
 					this.setSelectionToDay();
 				}
@@ -877,11 +889,13 @@ export default class OrionDatepickerSetup extends SharedFieldSetup<OrionDatepick
 					if (this.appLang === 'en') {
 						this.handleClear();
 						this.setSelectionToMonth();
-					} else {
+					}
+					else {
 						this.setInputStringValue(year, month, dayPattern, hour, minute);
 						this.setSelectionToDay();
 					}
-				} else {
+				}
+				else {
 					this.setInputStringValue(year, monthPattern, day, hour, minute);
 					if (this.appLang === 'en')
 						this.setSelectionToMonth();
@@ -894,11 +908,13 @@ export default class OrionDatepickerSetup extends SharedFieldSetup<OrionDatepick
 				if (!isNaN(+year)) {
 					this.setInputStringValue(yearPattern, month, day, hour, minute);
 					this.setSelectionToYear();
-				} else {
+				}
+				else {
 					if (this.appLang === 'en') {
 						this.setInputStringValue(year, month, dayPattern, hour, minute);
 						this.setSelectionToDay();
-					} else {
+					}
+					else {
 						this.setInputStringValue(year, monthPattern, day, hour, minute);
 						this.setSelectionToMonth();
 					}
@@ -909,7 +925,8 @@ export default class OrionDatepickerSetup extends SharedFieldSetup<OrionDatepick
 				if (isNaN(+hour)) {
 					this.setInputStringValue(yearPattern, month, day, hour, minute);
 					this.setSelectionToYear();
-				} else {
+				}
+				else {
 					this.setInputStringValue(year, month, day, hourPattern, minute);
 					this.setSelectionToHour();
 				}
@@ -919,7 +936,8 @@ export default class OrionDatepickerSetup extends SharedFieldSetup<OrionDatepick
 				if (isNaN(+minute)) {
 					this.setInputStringValue(year, month, day, hourPattern, minute);
 					this.setSelectionToHour();
-				} else {
+				}
+				else {
 					this.setInputStringValue(year, month, day, hour, minutePattern);
 					this.setSelectionToMinute();
 				}
@@ -979,16 +997,17 @@ export default class OrionDatepickerSetup extends SharedFieldSetup<OrionDatepick
 		this.handleTimeScrollDebounced();
 	}
 
-	handleTimeItemScrollThrottled = throttle((container: 'hours' | 'minutes') => this.computeTimeItemsStyle(container), 16);
+	private handleTimeItemScrollThrottled = throttle((container: 'hours' | 'minutes') => this.computeTimeItemsStyle(container), 16);
 
-	handleTimeScrollDebounced = debounce(() => {
+	private handleTimeScrollDebounced = debounce(() => {
 		const dateToEmit = new Date(this.vModel.value ?? Date.now());
 
 		dateToEmit.setMinutes(this.state.mobileMinutesValue);
 
 		if (this.appLang && this.isPm) {
 			dateToEmit.setHours(this.state.mobileHoursValue + 12);
-		} else {
+		}
+		else {
 			dateToEmit.setHours(this.state.mobileHoursValue);
 		}
 
@@ -1014,7 +1033,7 @@ export default class OrionDatepickerSetup extends SharedFieldSetup<OrionDatepick
 		this.state.displayMultipleDropdown = !this.state.displayMultipleDropdown;
 	}
 
-	calculateVisibleMultipleDates () {
+	private calculateVisibleMultipleDates () {
 		const container = this._input.value?.querySelector('.orion-datepicker-multiple__content') as HTMLElement;
 		if (!container || !this.multiple.value?.length) return;
 
@@ -1033,11 +1052,13 @@ export default class OrionDatepickerSetup extends SharedFieldSetup<OrionDatepick
 			if (requiredWidth <= containerWidth) {
 				totalWidth += childWidth + (i > 0 ? gap : 0);
 				visibleCount = i + 1;
-			} else {
+			}
+			else {
 				break;
 			}
 		}
 
 		this.state.maxVisibleMultipleDates = Math.max(1, visibleCount);
 	}
+
 }

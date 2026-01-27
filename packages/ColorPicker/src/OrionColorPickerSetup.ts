@@ -1,54 +1,54 @@
-import { debounce, DebouncedFunc } from 'lodash-es';
-import { ModelRef, reactive, watch } from 'vue';
-import SharedFieldSetup, { SharedFieldSetupEmits, SharedFieldSetupProps } from '../../Shared/SharedFieldSetup';
+import { debounce, type DebouncedFunc } from 'lodash-es';
+import { type ModelRef, reactive, watch } from 'vue';
+import { SharedFieldSetup, type SharedFieldSetupEmits, type SharedFieldSetupProps } from '../../Shared/SharedFieldSetup';
 
 export type OrionColorPickerEmits = SharedFieldSetupEmits<Nil<string>> & {
 	// @doc event/picked/desc emitted when a color is selected
 	// @doc/fr event/picked/desc émis quand une couleur est selectionnée
-	(e: 'picked', payload: ColorValue): void;
-}
+	(e: 'picked', payload: ColorValue): void
+};
 export type OrionColorPickerProps = SharedFieldSetupProps & {
 	// @doc props/debounce the debounce interval
 	// @doc/fr props/debounce définits la durée selon laquelle la valeur va se mettre à jour
-	debounce?: number,
+	debounce?: number
 	// @doc props/format the format of the color definition
 	// @doc/fr props/format format de la couleur
-	format?: ColorFormat,
+	format?: ColorFormat
 	// @doc props/hideHex hides the hexadecimal value
 	// @doc/fr props/hideHex masque la valeur hexadécimale
-	hideHex?: boolean,
+	hideHex?: boolean
 	// @doc props/hideRgba hides the rgba value
 	// @doc/fr props/hideRgba masque la valeur rgba
-	hideRgba?: boolean,
+	hideRgba?: boolean
 	// @doc props/startValue the default value
 	// @doc/fr props/startValue la valeur par défaut
-	startValue?: string,
+	startValue?: string
 };
 
 type ColorFormat = 'rgba' | 'hsv' | 'hex';
 
 type ColorValue = {
-  rgba: {
-    r: number;
-    g: number;
-    b: number;
-    a: number;
-  };
-  hsv: {
-    h: number;
-    s: number;
-    v: number;
-  };
-  hex: string;
-}
+	rgba: {
+		r: number
+		g: number
+		b: number
+		a: number
+	}
+	hsv: {
+		h: number
+		s: number
+		v: number
+	}
+	hex: string
+};
 
-export default class OrionColorPickerSetup extends SharedFieldSetup<OrionColorPickerProps, string> {
+export class OrionColorPickerSetup extends SharedFieldSetup<OrionColorPickerProps, string> {
+
 	static readonly defaultProps = {
 		...SharedFieldSetup.defaultProps,
 		debounce: 300,
 		format: 'hex' as ColorFormat,
 	};
-
 
 	protected state = reactive({
 		...this.sharedState,
@@ -58,9 +58,7 @@ export default class OrionColorPickerSetup extends SharedFieldSetup<OrionColorPi
 
 	changeColor: DebouncedFunc<(pickedColor?: ColorValue) => void>;
 
-	get color () {
-		return this.state.color;
-	}
+	get color () { return this.state.color }
 
 	constructor (
 		protected props: OrionColorPickerProps & typeof OrionColorPickerSetup.defaultProps,
@@ -77,12 +75,11 @@ export default class OrionColorPickerSetup extends SharedFieldSetup<OrionColorPi
 		});
 	}
 
-	protected async onBeforeMount () {
+	protected async onBeforeMountAsync () {
 		this.state.color = this.props.startValue ?? this.vModel?.value ?? '';
 	}
 
-
-	init () {
+	private init () {
 		return debounce((pickedColor?: ColorValue) => {
 			if (!pickedColor) return;
 
@@ -91,10 +88,12 @@ export default class OrionColorPickerSetup extends SharedFieldSetup<OrionColorPi
 			if (this.props.format === 'rgba') {
 				const { r, g, b, a } = pickedColor.rgba;
 				this.state.color = `rgba(${r}, ${g}, ${b}, ${a})`;
-			} else if (this.props.format === 'hsv') {
+			}
+			else if (this.props.format === 'hsv') {
 				const { h, s, v } = pickedColor.hsv;
 				this.state.color = `hsv(${h}, ${s}, ${v})`;
-			} else {
+			}
+			else {
 				this.state.color = pickedColor.hex;
 			}
 
@@ -103,4 +102,5 @@ export default class OrionColorPickerSetup extends SharedFieldSetup<OrionColorPi
 			this.emits('picked', pickedColor);
 		}, this.props.debounce);
 	}
+
 }

@@ -39,8 +39,7 @@
 <script setup lang="ts">
 import { OrionDateTable } from 'packages/DateTable';
 import './OrionDateRange.less';
-import type { OrionDateRangeEmits, OrionDateRangeProps } from './OrionDateRangeSetup';
-import OrionDateRangeSetup from './OrionDateRangeSetup';
+import { OrionDateRangeSetup, type OrionDateRangeEmits, type OrionDateRangeProps } from './OrionDateRangeSetup';
 const emits = defineEmits<OrionDateRangeEmits>() as OrionDateRangeEmits;
 const vModel = defineModel<Nil<Orion.DateRange>>();
 const props = withDefaults(defineProps<OrionDateRangeProps>(), OrionDateRangeSetup.defaultProps);

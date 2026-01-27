@@ -1,19 +1,20 @@
 import anime from 'animejs';
 import { Reactive } from 'utils';
-import { ref, Slots } from 'vue';
-import SharedPopableSetup, { SharedPopableSetupEmits, SharedPopableSetupProps } from '../../Shared/SharedPopableSetup';
+import { ref, type Slots } from 'vue';
+import { SharedPopableSetup, type SharedPopableSetupEmits, type SharedPopableSetupProps } from '../../Shared/SharedPopableSetup';
 
-export type OrionAsideEmits = SharedPopableSetupEmits & {}
+export type OrionAsideEmits = SharedPopableSetupEmits & {};
 export type OrionAsideProps = SharedPopableSetupProps & {
 	// @doc props/display if set, displays the component
 	// @doc/fr props/display si défini, affiche le composant
-	display?: boolean,
+	display?: boolean
 	// @doc props/options options of the aside
 	// @doc/fr props/options options de l'aside
-	options?: Partial<Orion.Aside.Options>,
+	options?: Partial<Orion.Aside.Options>
 };
 
-export default class OrionAsideSetup extends SharedPopableSetup {
+export class OrionAsideSetup extends SharedPopableSetup {
+
 	static readonly defaultProps = { ...SharedPopableSetup.defaultProps };
 
 	protected readonly name = 'OrionAside' as const;
@@ -23,11 +24,10 @@ export default class OrionAsideSetup extends SharedPopableSetup {
 
 	@Reactive readonly options: Orion.Aside.Options = { ...this.baseOptions };
 
-	get slotPoster () { return `#OrionAside-${this.uid}__poster`;}
-	get slotFooter () { return `#OrionAside-${this.uid}__footer`;}
-	get slotActions () { return `#OrionAside-${this.uid}__actions`;}
-	get slotHeader () { return `#OrionAside-${this.uid}__header`;}
-
+	private get slotPoster () { return `#OrionAside-${this.uid}__poster` }
+	private get slotFooter () { return `#OrionAside-${this.uid}__footer` }
+	private get slotActions () { return `#OrionAside-${this.uid}__actions` }
+	private get slotHeader () { return `#OrionAside-${this.uid}__header` }
 	get publicInstance () {
 		return {
 			...super.publicInstance,
@@ -39,7 +39,7 @@ export default class OrionAsideSetup extends SharedPopableSetup {
 	}
 
 	constructor (
-		protected props: OrionAsideProps & Omit<typeof OrionAsideSetup.defaultProps, 'options'> & {options: Partial<Orion.Popable.Options>},
+		protected props: OrionAsideProps & Omit<typeof OrionAsideSetup.defaultProps, 'options'> & { options: Partial<Orion.Popable.Options> },
 		protected emits: OrionAsideEmits,
 		protected slots: Slots,
 
@@ -56,7 +56,7 @@ export default class OrionAsideSetup extends SharedPopableSetup {
 		super.onUnmounted();
 	}
 
-	async animateAsync (enter: boolean) {
+	protected async animateAsync (enter: boolean) {
 		return new Promise<void>(async (resolve) => {
 			if (enter) {
 				this.state.visible = true;
@@ -68,29 +68,30 @@ export default class OrionAsideSetup extends SharedPopableSetup {
 					scale: [1.3, 1],
 					duration: 400,
 					easing: 'easeOutQuad',
-					begin: async () => {
+					'begin': async () => {
 						this.emits('enter-start');
 						this.trigger('enter-start');
 						this.animateActions();
 					},
-					complete: async () => {
+					'complete': async () => {
 						resolve();
 						this.emits('enter-end');
 						this.trigger('enter-end');
 					},
 				});
-			} else {
+			}
+			else {
 				anime({
 					targets: this._el.value,
 					opacity: 0,
 					translateX: ['30%'],
 					duration: 200,
 					easing: 'linear',
-					begin: async () => {
+					'begin': async () => {
 						this.emits('leave-start');
 						this.trigger('leave-start');
 					},
-					complete: async () => {
+					'complete': async () => {
 						this.state.visible = false;
 						resolve();
 						this.emits('leave-end');
@@ -115,4 +116,5 @@ export default class OrionAsideSetup extends SharedPopableSetup {
 			});
 		}
 	}
+
 }

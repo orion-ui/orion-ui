@@ -2,46 +2,45 @@ import mitt from 'mitt';
 import { useDragNDrop } from 'services/DragNDropService';
 import { useMonkey } from 'services/MonkeyService';
 import { toggleGlobalListener } from 'utils/tools';
-import { ModelRef, nextTick, watch } from 'vue';
-import SharedSetup from '../../Shared/SharedSetup';
+import { type ModelRef, nextTick, watch } from 'vue';
+import { SharedSetup } from '../../Shared/SharedSetup';
 
 export type OrionDroppableEmits = {
 	// @doc event/dropIn/desc Emitted when the draggable item is dropped in a zone
 	// @doc/fr event/dropIn/desc émis quand un élément est déposé dans une zone de drop
-	(e: 'dropIn', payload: any): void;
+	(e: 'dropIn', payload: any): void
 	// @doc event/dragOver/desc Emitted when the draggable item enters in a droppable zone
 	// @doc/fr event/dragOver/desc émis quand un élément entre dans une zone de drop
-	(e: 'dragOver'): void ;
+	(e: 'dragOver'): void
 	// @doc event/dragLeave/desc Emitted when the draggable item leaves a droppable zone
 	// @doc/fr event/dragLeave/desc émis quand un élément quitte une zone de drop
-	(e: 'dragLeave'): void ;
+	(e: 'dragLeave'): void
 	// @doc event/reorder/desc Emitted when the draggable item is dropped in its origin area
 	// @doc/fr event/reorder/desc émis quand un élément est relaché dans la zone dont il provient
-	(e: 'reorder', payload: any): void ;
+	(e: 'reorder', payload: any): void
 	// @doc event/dropOut/desc Emitted when the draggable item is droped outside a droppable zone
 	// @doc/fr event/dropOut/desc émis quand un élément est laché en dehors d'une zone de drop
-	(e: 'dropOut', payload: any): void ;
-}
+	(e: 'dropOut', payload: any): void
+};
 
 export type OrionDroppableProps = {
 	// @doc props/tag the tag or component of the droppable area
 	// @doc/fr props/tag tag ou composant qui représentera la zone de drop
-	tag?: string,
+	tag?: string
 	// @doc props/validation allows you to add a validation before the item drops
 	// @doc/fr props/validation permet d'ajouter une validation avant de déposer un objet dans la zone
-	validation?: Orion.DndValidation,
+	validation?: Orion.DndValidation
 };
 
-export type DataListItem = Record<string, any>;
+export class OrionDroppableSetup extends SharedSetup {
 
-export default class OrionDroppableSetup extends SharedSetup {
 	static readonly defaultProps = { tag: 'div' };
 
-	isHovering = false;
-	isMounted = false;
-	validationState = undefined as Undef<boolean>;
-	globalMouseEventUid = undefined as Undef<number>;
-	globalTouchEventUid = undefined as Undef<number>;
+	private isHovering = false;
+	private isMounted = false;
+	private validationState = undefined as Undef<boolean>;
+	private globalMouseEventUid = undefined as Undef<number>;
+	private globalTouchEventUid = undefined as Undef<number>;
 
 	uid = this.getUid();
 
@@ -51,11 +50,11 @@ export default class OrionDroppableSetup extends SharedSetup {
 	private dnd = useDragNDrop();
 
 	private bus = mitt<{
-		dropIn: any;
-		dragOver: any;
-		dragLeave: any;
-		reorder: any;
-		dropOut: any;
+		dropIn: any
+		dragOver: any
+		dragLeave: any
+		reorder: any
+		dropOut: any
 	}>();
 
 	get publicInstance () {
@@ -65,25 +64,20 @@ export default class OrionDroppableSetup extends SharedSetup {
 		};
 	}
 
-	get $el () {
-		return this.document?.getElementById(`orion-droppable-${this.uid}`);
-	}
-
+	private get $el () { return this.document?.getElementById(`orion-droppable-${this.uid}`) }
 	get canHandle () {
 		const popableUid = useMonkey(this.dnd.registry.items)?.last()?.fromAsideOrModal;
 
 		if (!popableUid) { // pas de popable
 			return true;
-		} else {
-			return (this._modal?.uid === popableUid || this._aside?.uid===popableUid);
-			//|| !this.$overlay.visible;
+		}
+		else {
+			return (this._modal?.uid === popableUid || this._aside?.uid === popableUid);
+			// || !this.$overlay.visible;
 		}
 	}
 
-	get tag () {
-		return this.props.tag;
-	}
-
+	get tag () { return this.props.tag }
 	get canDrop () {
 		if (useMonkey(this.dnd.registry?.items)?.last()?.from === this.uid) return true;
 		const lastItem = useMonkey(this.dnd.registry.items).last() as Orion.DndData;
@@ -92,10 +86,7 @@ export default class OrionDroppableSetup extends SharedSetup {
 		return false;
 	}
 
-	get isDragging (): boolean {
-		return this.dnd.registry.isDragging;
-	}
-
+	get isDragging (): boolean { return this.dnd.registry.isDragging }
 	get isDraggingOver (): boolean {
 
 		if (!this.canHandle) return false;
@@ -113,7 +104,7 @@ export default class OrionDroppableSetup extends SharedSetup {
 	constructor (
 		protected props: OrionDroppableProps,
 		protected emits: OrionDroppableEmits,
-		protected datalist: ModelRef<Undef<DataListItem[]>>,
+		protected datalist: ModelRef<Undef<Orion.DataListItem[]>>,
 		_modal?: OrionModal,
 		_aside?: OrionAside) {
 		super();
@@ -133,7 +124,8 @@ export default class OrionDroppableSetup extends SharedSetup {
 			if (val && lastItem) {
 				lastItem.to = this.uid;
 				this.bus.emit('dragOver');
-			} else if (lastItem) {
+			}
+			else if (lastItem) {
 				lastItem.to = null;
 				this.bus.emit('dragLeave');
 				this.dnd.emitDragLeave();
@@ -145,7 +137,7 @@ export default class OrionDroppableSetup extends SharedSetup {
 		// bypass non reactive this.$el in isDraggingOver computed
 		this.isMounted = true;
 
-		this.bus.on('dropIn', (val: DataListItem) => {
+		this.bus.on('dropIn', (val: Orion.DataListItem) => {
 			this.document?.querySelector('.orion-dragging')?.remove();
 			const lastItem = useMonkey(this.dnd.registry.items).last();
 			if (!lastItem)
@@ -159,13 +151,13 @@ export default class OrionDroppableSetup extends SharedSetup {
 			}
 		});
 
-		this.bus.on('dropOut', (val: DataListItem) => {
+		this.bus.on('dropOut', (val: Orion.DataListItem) => {
 			if (!this.datalist.value) return;
 			const toEmit = useMonkey(this.datalist.value).delete(val);
 			this.datalist.value = toEmit;
 		});
 
-		this.bus.on('reorder', (val: DataListItem) => {
+		this.bus.on('reorder', (val: Orion.DataListItem) => {
 			if (!this.datalist.value) return;
 			const toEmit = useMonkey(this.datalist.value).delete(val, '__uid');
 			const lastItem = useMonkey(this.dnd.registry.items).last();
@@ -202,9 +194,11 @@ export default class OrionDroppableSetup extends SharedSetup {
 
 			if (payload.from === payload.to && this.datalist.value?.find(x => x.__uid === payload.data.__uid)) {
 				this.bus.emit('reorder', payload.data);
-			} else if (this.uid === payload.to) {
+			}
+			else if (this.uid === payload.to) {
 				this.handleDrop(payload);
-			} else if (this.uid === payload.from) {
+			}
+			else if (this.uid === payload.from) {
 				if (payload.canDrop) {
 					nextTick(() => {
 						this.bus.emit('dropOut', payload.data);
@@ -214,16 +208,16 @@ export default class OrionDroppableSetup extends SharedSetup {
 		});
 	}
 
-
-	handleDrop (payload: Orion.DndData) {
+	private handleDrop (payload: Orion.DndData) {
 		if (this.canDrop) {
 			this.bus.emit('dropIn', payload.data);
-		} else {
+		}
+		else {
 			this.props.validation?.notif(useMonkey(this.dnd.registry.items).last()?.data);
 		}
-	};
+	}
 
-	handleDragOver () {
+	private handleDragOver () {
 		if (!this.document) return;
 
 		const lastItem = useMonkey(this.dnd.registry.items).last();
@@ -249,16 +243,18 @@ export default class OrionDroppableSetup extends SharedSetup {
 
 			if (elementAfter) {
 				lastSibling.parentNode?.insertBefore(dragged, elementAfter);
-			} else {
+			}
+			else {
 				lastSibling.parentNode?.insertBefore(dragged, lastSibling.nextSibling);
 			}
-		} else {
+		}
+		else {
 			dropzone?.parentElement?.insertBefore(dragged, dropzone);
 		}
-	};
+	}
 
-	getDraggedContext (container: HTMLElement, y: number) {
-		const siblings = [ ...container.querySelectorAll('.orion-draggable:not(.orion-dragging)')];
+	private getDraggedContext (container: HTMLElement, y: number) {
+		const siblings = [...container.querySelectorAll('.orion-draggable:not(.orion-dragging)')];
 		let closest = {
 			offset: Number.NEGATIVE_INFINITY,
 			index: null as Nullable<number>,
@@ -267,7 +263,7 @@ export default class OrionDroppableSetup extends SharedSetup {
 		};
 		siblings.forEach((element, index) => {
 			const { top, height } = element.getBoundingClientRect();
-			const offset = y - top - height/2;
+			const offset = y - top - height / 2;
 			if (offset < 0 && offset > closest.offset) {
 				closest = {
 					offset,
@@ -280,7 +276,8 @@ export default class OrionDroppableSetup extends SharedSetup {
 
 		if (closest.index !== null) {
 			return closest;
-		} else {
+		}
+		else {
 			closest = {
 				...closest,
 				element: null,
@@ -290,4 +287,5 @@ export default class OrionDroppableSetup extends SharedSetup {
 			return closest;
 		}
 	};
+
 }

@@ -11,8 +11,7 @@
 <script setup lang="ts">
 import { inject } from 'vue';
 import './OrionCarouselItem.less';
-import type { OrionCarouselItemEmits, OrionCarouselItemProps } from './OrionCarouselItemSetup';
-import OrionCarouselItemSetup from './OrionCarouselItemSetup';
+import { OrionCarouselItemSetup, type OrionCarouselItemEmits, type OrionCarouselItemProps } from './OrionCarouselItemSetup';
 const _carousel = inject<OrionCarousel>('_carousel');
 const emits = defineEmits<OrionCarouselItemEmits>() as OrionCarouselItemEmits;
 const props = withDefaults(defineProps<OrionCarouselItemProps>(), OrionCarouselItemSetup.defaultProps);

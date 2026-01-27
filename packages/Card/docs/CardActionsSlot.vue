@@ -25,14 +25,13 @@
 		</div>
 
 		<div class="col-sm-4">
-			<o-card
-				title="Card with poster slot">
+			<o-card title="Card with poster slot">
 				Duis elit dolore elit eiusmod ipsum ex.
 				Veniam est ex ullamco deserunt elit id anim tempor.
 
 				<template #poster>
 					<img
-						style="height:6rem"
+						style="height: 6rem;"
 						src="https://picsum.photos/id/1004/200">
 				</template>
 			</o-card>
@@ -56,8 +55,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
 import { useNotif } from 'lib';
+import { ref } from 'vue';
 
 const selected = ref(false);
 

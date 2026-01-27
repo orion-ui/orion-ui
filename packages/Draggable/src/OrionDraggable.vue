@@ -20,8 +20,7 @@
 <script setup lang="ts">
 import { inject } from 'vue';
 import './OrionDraggable.less';
-import type { OrionDraggableEmits, OrionDraggableProps } from './OrionDraggableSetup';
-import OrionDraggableSetup from './OrionDraggableSetup';
+import { OrionDraggableSetup, type OrionDraggableEmits, type OrionDraggableProps } from './OrionDraggableSetup';
 const emits = defineEmits<OrionDraggableEmits>() as OrionDraggableEmits;
 const props = withDefaults(defineProps<OrionDraggableProps>(), OrionDraggableSetup.defaultProps);
 const disabled = defineModel<boolean>('disabled', { default: false });

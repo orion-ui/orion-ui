@@ -44,8 +44,7 @@
 import { OrionField } from 'packages/Field';
 import { OrionIcon } from 'packages/Icon';
 import './OrionCheckbox.less';
-import type { OrionCheckboxEmits, OrionCheckboxProps } from './OrionCheckboxSetup';
-import OrionCheckboxSetup from './OrionCheckboxSetup';
+import { OrionCheckboxSetup, type OrionCheckboxEmits, type OrionCheckboxProps } from './OrionCheckboxSetup';
 const emits = defineEmits<OrionCheckboxEmits<any>>() as OrionCheckboxEmits<any>;
 const vModel = defineModel<any[] | boolean | null | undefined>();
 const props = withDefaults(defineProps<OrionCheckboxProps>(), OrionCheckboxSetup.defaultProps);

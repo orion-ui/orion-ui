@@ -1,9 +1,9 @@
 .router {
 	&-enter-active,
 	&-leave-active {
-		transition-property: opacity transform;
-		transition-duration: 0.3s;
 		transition-timing-function: ease-out;
+		transition-duration: 0.3s;
+		transition-property: opacity transform;
 	}
 
 	&-enter,
@@ -37,8 +37,8 @@
 .scale-top-left {
 	&-enter-active,
 	&-leave-active {
-		transition: transform 0.3s;
 		transform-origin: top left;
+		transition: transform 0.3s;
 	}
 
 	&-enter,
@@ -55,9 +55,9 @@
 .fade {
 	&-enter-active,
 	&-leave-active {
-		transition-property: opacity;
-		transition-duration: 0.3s;
 		transition-timing-function: ease-out;
+		transition-duration: 0.3s;
+		transition-property: opacity;
 	}
 
 	&-enter-from,
@@ -74,31 +74,28 @@
 .chat-message {
 	&-enter-active,
 	&-leave-active {
-		transition-property: opacity, transform;
-		transition-duration: 0.5s;
-		transition-delay: 0.2s;
-		transition-timing-function: ease-out;
+		transition: opacity 0.5s ease-out 0.2s, transform 0.5s ease-out 0.2s;
 	}
 
 	&-enter-from,
 	&-leave-to {
-		opacity: 0;
 		transform: translate3d(0, -70%, 0);
+		opacity: 0;
 	}
 
 	&-enter-to,
 	&-leave {
-		opacity: 1;
 		transform: translate3d(0, 0, 0);
+		opacity: 1;
 	}
 }
 
 .fade-slide-down-to-down {
 	&-enter-active,
 	&-leave-active {
-		transition-property: opacity, transform;
-		transition-duration: 0.3s;
 		transition-timing-function: ease-out;
+		transition-duration: 0.3s;
+		transition-property: opacity, transform;
 	}
 
 	&-enter,
@@ -108,8 +105,8 @@
 
 	&-enter-to,
 	&-leave {
-		opacity: 1;
 		transform: translate3d(0, 0, 0);
+		opacity: 1;
 	}
 
 	&-enter {
@@ -124,59 +121,51 @@
 .fade-slide-up-to-down {
 	&-enter-active,
 	&-leave-active {
-		transition-property: opacity, transform;
-		transition-duration: 0.3s;
 		transition-timing-function: ease-out;
-	}
-
-	&-enter,
-	&-leave-to {
-		opacity: 0;
-	}
-
-	&-enter-to,
-	&-leave {
-		opacity: 1;
-		transform: translate3d(0, 0, 0);
+		transition-duration: 0.3s;
+		transition-property: opacity, transform;
 	}
 
 	&-enter,
 	&-leave-to {
 		transform: translate3d(0, 100%, 0);
+		opacity: 0;
+	}
+
+	&-enter-to,
+	&-leave {
+		transform: translate3d(0, 0, 0);
+		opacity: 1;
 	}
 }
 
 .fade-slide-left-to-right {
 	&-enter-active,
 	&-leave-active {
-		transition-property: opacity, transform;
-		transition-duration: 0.3s;
 		transition-timing-function: ease-out;
-	}
-
-	&-enter,
-	&-leave-to {
-		opacity: 0;
-	}
-
-	&-enter-to,
-	&-leave {
-		opacity: 1;
-		transform: translate3d(0, 0, 0);
+		transition-duration: 0.3s;
+		transition-property: opacity, transform;
 	}
 
 	&-enter,
 	&-leave-to {
 		transform: translate3d(100%, 0, 0);
+		opacity: 0;
+	}
+
+	&-enter-to,
+	&-leave {
+		transform: translate3d(0, 0, 0);
+		opacity: 1;
 	}
 }
 
 .fade-slide-left-to-left {
 	&-enter-active,
 	&-leave-active {
-		transition-property: opacity, transform;
-		transition-duration: 0.3s;
 		transition-timing-function: ease-out;
+		transition-duration: 0.3s;
+		transition-property: opacity, transform;
 	}
 
 	&-enter,
@@ -186,8 +175,8 @@
 
 	&-enter-to,
 	&-leave {
-		opacity: 1;
 		transform: translate3d(0, 0, 0);
+		opacity: 1;
 	}
 
 	&-enter {
@@ -202,24 +191,20 @@
 .fade-slide-right-to-left {
 	&-enter-active,
 	&-leave-active {
-		transition-property: opacity, transform;
-		transition-duration: 0.3s;
 		transition-timing-function: ease-out;
-	}
-
-	&-enter,
-	&-leave-to {
-		opacity: 0;
-	}
-
-	&-enter-to,
-	&-leave {
-		opacity: 1;
-		transform: translate3d(0, 0, 0);
+		transition-duration: 0.3s;
+		transition-property: opacity, transform;
 	}
 
 	&-enter,
 	&-leave-to {
 		transform: translate3d(-100%, 0, 0);
+		opacity: 0;
+	}
+
+	&-enter-to,
+	&-leave {
+		transform: translate3d(0, 0, 0);
+		opacity: 1;
 	}
 }

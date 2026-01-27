@@ -1,16 +1,17 @@
-import { Slots } from 'vue';
-import SharedSetup from '../../Shared/SharedSetup';
+import { type Slots } from 'vue';
+import { SharedSetup } from '../../Shared/SharedSetup';
 
-export type OrionAvatarGroupEmits = {}
+export type OrionAvatarGroupEmits = {};
 export type OrionAvatarGroupProps = {
-	max?: number,
-	size?: number | Orion.Size,
-	color?: Orion.Color,
-	label?: string,
+	max?: number
+	size?: number | Orion.Size
+	color?: Orion.Color
+	label?: string
 	spacing?: number
-}
+};
 
-export default class OrionAvatarGroupSetup extends SharedSetup {
+export class OrionAvatarGroupSetup extends SharedSetup {
+
 	static readonly defaultProps = {
 		max: 5,
 		color: 'primary' as Orion.Color,
@@ -18,10 +19,10 @@ export default class OrionAvatarGroupSetup extends SharedSetup {
 		spacing: 16,
 	};
 
-	get avatars () { return this.slots.default?.().filter(x => (x.type as any)?.__name === 'OrionAvatar') ?? []; }
-	get visibleAvatars () { return this.avatars.slice(0, this.props.max); }
-	get overflowCount () { return Math.max(0, this.avatars.length - this.props.max); }
-	get label () { return this.props.label ?? this.overflowCount; }
+	get avatars () { return this.slots.default?.().filter(x => (x.type as any)?.__name === 'OrionAvatar') ?? [] }
+	get visibleAvatars () { return this.avatars.slice(0, this.props.max) }
+	get overflowCount () { return Math.max(0, this.avatars.length - this.props.max) }
+	private get label () { return this.props.label ?? this.overflowCount }
 
 	constructor (
 		protected props: OrionAvatarGroupProps & typeof OrionAvatarGroupSetup.defaultProps,
@@ -30,4 +31,5 @@ export default class OrionAvatarGroupSetup extends SharedSetup {
 	) {
 		super();
 	}
+
 }

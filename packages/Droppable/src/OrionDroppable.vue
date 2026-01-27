@@ -18,11 +18,10 @@
 <script setup lang="ts">
 import { inject, provide } from 'vue';
 import './OrionDroppable.less';
-import type { DataListItem, OrionDroppableEmits, OrionDroppableProps } from './OrionDroppableSetup';
-import OrionDroppableSetup from './OrionDroppableSetup';
+import { OrionDroppableSetup, type OrionDroppableEmits, type OrionDroppableProps } from './OrionDroppableSetup';
 const emits = defineEmits<OrionDroppableEmits>() as OrionDroppableEmits;
 const props = withDefaults(defineProps<OrionDroppableProps>(), OrionDroppableSetup.defaultProps);
-const datalist = defineModel<Undef<DataListItem[]>>('datalist');
+const datalist = defineModel<Undef<Orion.DataListItem[]>>('datalist');
 const _aside = inject<OrionAside>('_aside');
 const _modal = inject<OrionModal>('_modal');
 const setup = new OrionDroppableSetup(props, emits, datalist, _modal, _aside);

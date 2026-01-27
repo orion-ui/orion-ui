@@ -1,24 +1,25 @@
 import { useMonkey } from 'services/MonkeyService';
-import { ModelRef, nextTick, reactive, ref } from 'vue';
-import SharedSetup from '../../Shared/SharedSetup';
+import { type ModelRef, nextTick, reactive, ref } from 'vue';
+import { SharedSetup } from '../../Shared/SharedSetup';
 
-export type OrionDateWeekEmits = {}
+export type OrionDateWeekEmits = {};
 export type OrionDateWeekProps = {
-	disableMonthAndYear?: boolean,
-	hideDisabled?: boolean,
-	minDate?: Date,
+	disableMonthAndYear?: boolean
+	hideDisabled?: boolean
+	minDate?: Date
 	maxDate?: Date
-}
+};
 
-export default class OrionDateWeekSetup extends SharedSetup {
-	static defaultProps = {};
+export class OrionDateWeekSetup extends SharedSetup {
+
+	static readonly defaultProps = {};
 
 	private state = reactive({
 		year: new Date().getFullYear(),
 		viewYears: false,
 	});
 
-	_weekPicker = ref<RefDom>();
+	readonly _weekPicker = ref<RefDom>();
 
 	get weekOptions () {
 		const weekOptions = [];
@@ -26,34 +27,35 @@ export default class OrionDateWeekSetup extends SharedSetup {
 		for (let i = 1; i <= this.numberOfWeeksInYear(); i++) {
 			if (this.props.hideDisabled && this.weekIsDisabled(this.weekDates(i))) continue;
 
-
 			let weekDates = this.weekDates(i);
 			let weekNumber = i;
 
-			//adjust weeknumber depending on the ISO week number
+			// adjust weeknumber depending on the ISO week number
 			if (i === 1 && (weekDates.start.getDate() === 5
-				|| weekDates.start.getDate() === 6
-				|| weekDates.start.getDate() === 7)) {
+			  || weekDates.start.getDate() === 6
+			  || weekDates.start.getDate() === 7)) {
 				firstWeekStartsInDecember = true;
 			}
 
 			if (i === this.numberOfWeeksInYear() && firstWeekStartsInDecember) {
 				weekNumber = 1;
 				if (this.numberOfWeeksInYear() === 53) {
-					const lastWeek = this.weekDates(this.numberOfWeeksInYear(this.state.year-1), this.state.year-1);
+					const lastWeek = this.weekDates(this.numberOfWeeksInYear(this.state.year - 1), this.state.year - 1);
 					weekDates = {
 						start: new Date(lastWeek.start.setDate(lastWeek.start.getDate())),
 						end: new Date(new Date(weekOptions[0].start).setDate(weekOptions[0].start.getDate() - 1)),
 					};
-				} else {
-					const lastWeek = this.weekDates(this.numberOfWeeksInYear(this.state.year-1), this.state.year-1);
+				}
+				else {
+					const lastWeek = this.weekDates(this.numberOfWeeksInYear(this.state.year - 1), this.state.year - 1);
 					weekDates = {
-						start: new Date(lastWeek.end.setDate(lastWeek.end.getDate()+1)),
+						start: new Date(lastWeek.end.setDate(lastWeek.end.getDate() + 1)),
 						end: new Date(new Date(weekOptions[0].start).setDate(weekOptions[0].start.getDate() - 1)),
 					};
 				}
-			} else {
-				weekNumber = firstWeekStartsInDecember ? i+1 : i;
+			}
+			else {
+				weekNumber = firstWeekStartsInDecember ? i + 1 : i;
 			}
 
 			weekOptions.push({
@@ -75,14 +77,8 @@ export default class OrionDateWeekSetup extends SharedSetup {
 		return range;
 	}
 
-	get year () {
-		return this.state.year;
-	}
-
-	get viewYears () {
-		return this.state.viewYears;
-	}
-
+	get year () { return this.state.year }
+	get viewYears () { return this.state.viewYears }
 	get publicInstance () {
 		return {
 			...super.publicInstance,
@@ -117,12 +113,12 @@ export default class OrionDateWeekSetup extends SharedSetup {
 		});
 	}
 
-	private numberOfWeeksInYear (year? : number) {
+	private numberOfWeeksInYear (year?: number) {
 		return useMonkey(new Date(year ?? this.state.year, 0, 1)).hasFiftyThreeWeeks() ? 53 : 52;
 	}
 
 	private weekDates (weekNumber: number, year?: number) {
-		return useMonkey(new Date(year ?? this.state.year, 0, weekNumber*7)).getWeekDates();
+		return useMonkey(new Date(year ?? this.state.year, 0, weekNumber * 7)).getWeekDates();
 	}
 
 	showDays () {
@@ -138,7 +134,8 @@ export default class OrionDateWeekSetup extends SharedSetup {
 	switchPeriod (numberOfperiod: number) {
 		if (this.state.viewYears) {
 			this.state.year += numberOfperiod * 10;
-		} else {
+		}
+		else {
 			this.state.year += numberOfperiod;
 		}
 	}
@@ -164,15 +161,16 @@ export default class OrionDateWeekSetup extends SharedSetup {
 
 	weekIsDisabled (week: Orion.DateRange) {
 		return (this.props.minDate && week.start && week.start < this.props.minDate)
-			|| (this.props.maxDate && week.end && week.end > this.props.maxDate);
+		  || (this.props.maxDate && week.end && week.end > this.props.maxDate);
 	}
 
 	weekIsActive (week: Orion.DateRange) {
 		return this.vModel.value?.weekNumber === week.weekNumber
-			&& this.vModel.value?.year === this.year;
+		  && this.vModel.value?.year === this.year;
 	}
 
 	isYearActive (year: number) {
 		return this.state.year === year;
 	}
+
 }

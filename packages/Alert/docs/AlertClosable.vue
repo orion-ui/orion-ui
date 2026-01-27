@@ -3,18 +3,18 @@
 		v-if="showAlert"
 		color="info"
 		close
-		@close="closeCb()">
+		@close="closeCbAsync()">
 		Curabitur blandit tempus porttitor.
 	</o-alert>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
 import { useConfirm } from 'lib';
+import { ref } from 'vue';
 
 const showAlert = ref(true);
 
-async function closeCb () {
+async function closeCbAsync () {
 	showAlert.value = false;
 	await useConfirm(`o-alert has been closed, it will reappear in 3sec`);
 	setTimeout(() => {

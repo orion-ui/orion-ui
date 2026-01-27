@@ -253,11 +253,9 @@ import { OrionInput } from 'packages/Input';
 import { OrionLoader } from 'packages/Loader';
 import { OrionTextarea } from 'packages/Textarea';
 import './OrionChat.less';
-import type { OrionChatEmits, OrionChatProps } from './OrionChatSetup';
-import OrionChatSetup from './OrionChatSetup';
+import { OrionChatSetup, type OrionChatEmits, type OrionChatProps } from './OrionChatSetup';
 const emits = defineEmits<OrionChatEmits>() as OrionChatEmits;
 const props = withDefaults(defineProps<OrionChatProps>(), OrionChatSetup.defaultProps);
-
 const setup = new OrionChatSetup(props, emits);
 defineExpose(setup.publicInstance);
 

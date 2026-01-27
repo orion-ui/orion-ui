@@ -1,8 +1,7 @@
 import { upperFirst } from 'lodash-es';
-import { App, Plugin } from 'vue';
+import { type App, type Plugin } from 'vue';
 import OrionCheckbox from './src/OrionCheckbox.vue';
-import type { OrionCheckboxEmits, OrionCheckboxProps } from './src/OrionCheckboxSetup';
-import OrionCheckboxSetup from './src/OrionCheckboxSetup';
+import { OrionCheckboxSetup, type OrionCheckboxEmits, type OrionCheckboxProps } from './src/OrionCheckboxSetup';
 
 export const OrionCheckboxPlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,5 +9,4 @@ export const OrionCheckboxPlugin: Plugin = {
 	},
 };
 
-export { OrionCheckbox, OrionCheckboxEmits, OrionCheckboxProps, OrionCheckboxSetup };
-
+export { OrionCheckbox, OrionCheckboxSetup, type OrionCheckboxEmits, type OrionCheckboxProps };

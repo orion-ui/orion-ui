@@ -1,8 +1,7 @@
 import { upperFirst } from 'lodash-es';
-import { App, Plugin } from 'vue';
+import { type App, type Plugin } from 'vue';
 import OrionDraggable from './src/OrionDraggable.vue';
-import type { OrionDraggableEmits, OrionDraggableProps } from './src/OrionDraggableSetup';
-import OrionDraggableSetup from './src/OrionDraggableSetup';
+import { OrionDraggableSetup, type OrionDraggableEmits, type OrionDraggableProps } from './src/OrionDraggableSetup';
 
 export const OrionDraggablePlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,5 +9,4 @@ export const OrionDraggablePlugin: Plugin = {
 	},
 };
 
-export { OrionDraggable, OrionDraggableEmits, OrionDraggableProps, OrionDraggableSetup };
-
+export { OrionDraggable, OrionDraggableSetup, type OrionDraggableEmits, type OrionDraggableProps };

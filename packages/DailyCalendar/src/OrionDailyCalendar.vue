@@ -82,8 +82,7 @@ import { OrionCard } from 'packages/Card';
 import { OrionIcon } from 'packages/Icon';
 import { OrionLoader } from 'packages/Loader';
 import './OrionDailyCalendar.less';
-import type { OrionDailyCalendarEmits, OrionDailyCalendarProps } from './OrionDailyCalendarSetup';
-import OrionDailyCalendarSetup from './OrionDailyCalendarSetup';
+import { OrionDailyCalendarSetup, type OrionDailyCalendarEmits, type OrionDailyCalendarProps } from './OrionDailyCalendarSetup';
 const date = defineModel<Date>('date', { required: true });
 const emits = defineEmits<OrionDailyCalendarEmits>() as OrionDailyCalendarEmits;
 const props = withDefaults(defineProps<OrionDailyCalendarProps>(), OrionDailyCalendarSetup.defaultProps);
@@ -95,4 +94,3 @@ defineExpose(setup.publicInstance);
  * @doc/fr vModel/date la date sélectionnée.
  */
 </script>
-

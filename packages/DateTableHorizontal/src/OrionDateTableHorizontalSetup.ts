@@ -1,44 +1,42 @@
 import { groupBy } from 'lodash-es';
 import { useMonkey } from 'services';
-import { ModelRef } from 'vue';
-import OrionDateTableSetup, { OrionDateTableEmits, OrionDateTableProps } from '../../DateTable/src/OrionDateTableSetup';
+import { type ModelRef } from 'vue';
+import { OrionDateTableSetup, type OrionDateTableEmits, type OrionDateTableProps } from '../../DateTable/src/OrionDateTableSetup';
 
-export type OrionDateTableHorizontalEmits = OrionDateTableEmits
+export type OrionDateTableHorizontalEmits = OrionDateTableEmits;
 
 export type OrionDateTableHorizontalProps = OrionDateTableProps & {
 	// @doc props/startDate the start date to display when horizontal is true
 	// @doc/fr props/startDate la date de début à afficher lorsque horizontal est vrai
-	startDate?: Date,
+	startDate?: Date
 	// @doc props/endDate the end date to display when horizontal is true
 	// @doc/fr props/endDate la date de fin à afficher lorsque horizontal est vrai
-	endDate?: Date,
-}
+	endDate?: Date
+};
 
 type PeriodDay = {
-	color?: Orion.ColorExtendedAndGreys;
-	date: Date;
-	isStart: boolean;
-	isEnd: boolean;
-	isSelected: boolean;
-	exclude: boolean;
-	number: number;
-	month: number;
-	year: number;
-	period: Orion.Period[];
-	callback?: () => void;
-}
+	color?: Orion.ColorExtendedAndGreys
+	date: Date
+	isStart: boolean
+	isEnd: boolean
+	isSelected: boolean
+	exclude: boolean
+	number: number
+	month: number
+	year: number
+	period: Orion.Period[]
+	callback?: () => void
+};
 
-export default class OrionDateTableHorizontalSetup extends OrionDateTableSetup {
+export class OrionDateTableHorizontalSetup extends OrionDateTableSetup {
+
 	static readonly defaultProps = {
 		canGoNextMonth: true,
 		canGoPrevMonth: true,
 		type: 'date' as Orion.DateTable.Type,
 	};
 
-	get publicInstance () {
-		return { ...super.publicInstance };
-	}
-
+	get publicInstance () { return { ...super.publicInstance } }
 	get daysToDisplay () {
 		let firstDayOfMonth = this.firstDayOfCurrentMonth;
 		if (firstDayOfMonth === 0) firstDayOfMonth = 7;
@@ -115,7 +113,6 @@ export default class OrionDateTableHorizontalSetup extends OrionDateTableSetup {
 				});
 			}
 
-
 			dates.push(day);
 		}
 
@@ -123,12 +120,12 @@ export default class OrionDateTableHorizontalSetup extends OrionDateTableSetup {
 	}
 
 	constructor (
-			protected props: OrionDateTableHorizontalProps & typeof OrionDateTableHorizontalSetup.defaultProps,
-			protected emits: OrionDateTableEmits,
-			protected vModel: ModelRef<Nil<Date>>,
-			protected range: ModelRef<Nil<Orion.DateRange>>,
-			protected multiple: ModelRef<Nil<Date[]>>,
-			protected dayHover: ModelRef<Nil<Date>>) {
+		protected props: OrionDateTableHorizontalProps & typeof OrionDateTableHorizontalSetup.defaultProps,
+		protected emits: OrionDateTableEmits,
+		protected vModel: ModelRef<Nil<Date>>,
+		protected range: ModelRef<Nil<Orion.DateRange>>,
+		protected multiple: ModelRef<Nil<Date[]>>,
+		protected dayHover: ModelRef<Nil<Date>>) {
 
 		super(props, emits, vModel, range, multiple, dayHover);
 	}
@@ -142,14 +139,16 @@ export default class OrionDateTableHorizontalSetup extends OrionDateTableSetup {
 		}
 
 		if (this.props.type === 'range') {
-			if (this.range?.value?.start && useMonkey(this.range?.value?.start).toMidnight().valueOf() === dayDate.valueOf()
-					|| this.range?.value?.end && useMonkey(this.range?.value?.end).toMidnight().valueOf() === dayDate.valueOf()) {
+			if ((this.range?.value?.start && useMonkey(this.range?.value?.start).toMidnight().valueOf() === dayDate.valueOf())
+			  || (this.range?.value?.end && useMonkey(this.range?.value?.end).toMidnight().valueOf() === dayDate.valueOf())) {
 				classes.push('selected');
 			}
-		} else if (this.multiple.value?.length) {
+		}
+		else if (this.multiple.value?.length) {
 			if (dayDate && this.multiple.value?.find(x => x.getTime() === dayDate.getTime()))
 				classes.push('selected');
-		} else if (this.vModel?.value && useMonkey(this.vModel?.value).toMidnight().valueOf() === dayDate.valueOf()) {
+		}
+		else if (this.vModel?.value && useMonkey(this.vModel?.value).toMidnight().valueOf() === dayDate.valueOf()) {
 			classes.push('selected');
 		}
 

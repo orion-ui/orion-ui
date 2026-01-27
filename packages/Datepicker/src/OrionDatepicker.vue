@@ -86,8 +86,7 @@
 						</template>
 					</v-dropdown>
 				</div>
-				<div
-					class="orion-datepicker__multiple">
+				<div class="orion-datepicker__multiple">
 					<slot
 						name="multipleDisplay"
 						:datas="multiple"
@@ -261,8 +260,7 @@ import { OrionDateTable } from 'packages/DateTable';
 import { OrionDateWeek } from 'packages/DateWeek';
 import { OrionField } from 'packages/Field';
 import './OrionDatepicker.less';
-import type { OrionDatepickerEmits, OrionDatepickerProps } from './OrionDatepickerSetup';
-import OrionDatepickerSetup from './OrionDatepickerSetup';
+import { OrionDatepickerSetup, type OrionDatepickerEmits, type OrionDatepickerProps } from './OrionDatepickerSetup';
 const slots = defineSlots();
 const vModel = defineModel<Nil<Date>>();
 const range = defineModel<Nil<Orion.DateRange>>('range');

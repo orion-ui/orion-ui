@@ -72,8 +72,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from 'vue';
 import { getUid } from 'lib';
+import { reactive, ref } from 'vue';
 
 const taskDurationOptions = [
 	{

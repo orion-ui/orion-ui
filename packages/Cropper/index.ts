@@ -1,8 +1,7 @@
 import { upperFirst } from 'lodash-es';
-import { App, Plugin } from 'vue';
+import { type App, type Plugin } from 'vue';
 import OrionCropper from './src/OrionCropper.vue';
-import type { OrionCropperEmits, OrionCropperProps } from './src/OrionCropperSetup';
-import OrionCropperSetup from './src/OrionCropperSetup';
+import { OrionCropperSetup, type OrionCropperEmits, type OrionCropperProps } from './src/OrionCropperSetup';
 
 export const OrionCropperPlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,5 +9,4 @@ export const OrionCropperPlugin: Plugin = {
 	},
 };
 
-export { OrionCropper, OrionCropperEmits, OrionCropperProps, OrionCropperSetup };
-
+export { OrionCropper, OrionCropperSetup, type OrionCropperEmits, type OrionCropperProps };

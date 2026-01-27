@@ -13,8 +13,7 @@
 
 <script setup lang="ts">
 import './OrionBadge.less';
-import type { OrionBadgeEmits, OrionBadgeProps } from './OrionBadgeSetup';
-import OrionBadgeSetup from './OrionBadgeSetup';
+import { OrionBadgeSetup, type OrionBadgeEmits, type OrionBadgeProps } from './OrionBadgeSetup';
 const emits = defineEmits<OrionBadgeEmits>() as OrionBadgeEmits;
 const props = withDefaults(defineProps<OrionBadgeProps>(), OrionBadgeSetup.defaultProps);
 const setup = new OrionBadgeSetup(props, emits);

@@ -1,39 +1,36 @@
 import { ref } from 'vue';
-import SharedProps, { SharedPropsColor, SharedPropsPrefixIcon, SharedPropsSize, SharedPropsSuffixIcon } from '../../Shared/SharedProps';
-import SharedSetup from '../../Shared/SharedSetup';
+import { SharedProps, type SharedPropsColor, type SharedPropsPrefixIcon, type SharedPropsSize, type SharedPropsSuffixIcon } from '../../Shared/SharedProps';
+import { SharedSetup } from '../../Shared/SharedSetup';
 
 export type OrionButtonEmits = {
 	// @doc event/click/desc emitted on button click
 	// @doc/fr event/click/desc émis lors du click sur le bouton
 	(e: 'click', event: MouseEvent): void
-}
-
-export type OrionButtonProps =
-SharedPropsSize &
-SharedPropsPrefixIcon &
-SharedPropsSuffixIcon &
-SharedPropsColor & {
-	// @doc props/autofocus if set, focus the button
-	// @doc/fr props/autofocus si défini, le focus sera placé sur le bouton
-	autofocus?: boolean,
-	// @doc props/block defines the button's width to 100%
-	// @doc/fr props/block définie la largeur du bouton à 100%
-	block?: boolean,
-	// @doc props/disabled determines if the button is disabled
-	// @doc/fr props/disabled désactive le bouton
-	disabled?: boolean,
-	// @doc props/loading adds a loading icon and disables the button
-	// @doc/fr props/loading ajoute une icône de chargement et désactive le bouton
-	loading?: boolean,
-	// @doc props/nude removes the background color
-	// @doc/fr props/nude masque la couleur en arrière plan
-	nude?: boolean,
-	// @doc props/outline adds an outline on the button
-	// @doc/fr props/outline ajoute un contraste sur le bouton
-	outline?: boolean,
 };
 
-export default class OrionButtonSetup extends SharedSetup {
+export type OrionButtonProps = SharedPropsSize & SharedPropsPrefixIcon & SharedPropsSuffixIcon & SharedPropsColor & {
+	// @doc props/autofocus if set, focus the button
+	// @doc/fr props/autofocus si défini, le focus sera placé sur le bouton
+	autofocus?: boolean
+	// @doc props/block defines the button's width to 100%
+	// @doc/fr props/block définie la largeur du bouton à 100%
+	block?: boolean
+	// @doc props/disabled determines if the button is disabled
+	// @doc/fr props/disabled désactive le bouton
+	disabled?: boolean
+	// @doc props/loading adds a loading icon and disables the button
+	// @doc/fr props/loading ajoute une icône de chargement et désactive le bouton
+	loading?: boolean
+	// @doc props/nude removes the background color
+	// @doc/fr props/nude masque la couleur en arrière plan
+	nude?: boolean
+	// @doc props/outline adds an outline on the button
+	// @doc/fr props/outline ajoute un contraste sur le bouton
+	outline?: boolean
+};
+
+export class OrionButtonSetup extends SharedSetup {
+
 	static readonly defaultProps = {
 		...SharedProps.color,
 		...SharedProps.size,
@@ -49,7 +46,7 @@ export default class OrionButtonSetup extends SharedSetup {
 		super();
 	}
 
-	onMounted () {
+	protected onMounted () {
 		if (this.props.autofocus) {
 			setTimeout(() => this._el.value?.focus(), 100);
 		}
@@ -72,4 +69,5 @@ export default class OrionButtonSetup extends SharedSetup {
 			visualClick.remove();
 		};
 	}
+
 }

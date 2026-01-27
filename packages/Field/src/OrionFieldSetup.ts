@@ -1,35 +1,36 @@
 import { ref } from 'vue';
-import SharedProps, { SharedPropsPrefixIcon, SharedPropsSize, SharedPropsSuffixIcon } from '../../Shared/SharedProps';
-import SharedSetup from '../../Shared/SharedSetup';
+import { SharedProps, type SharedPropsPrefixIcon, type SharedPropsSize, type SharedPropsSuffixIcon } from '../../Shared/SharedProps';
+import { SharedSetup } from '../../Shared/SharedSetup';
 
 export type OrionFieldEmits = {
 	(e: 'clear'): void
-}
+};
 
 export type OrionFieldProps = {
-	_uid?: number,
-	prefixIcon?: SharedPropsPrefixIcon['prefixIcon'],
-	prefixFontIcon?: SharedPropsPrefixIcon['prefixFontIcon'],
-	suffixIcon?: SharedPropsSuffixIcon['suffixIcon'],
-	suffixFontIcon?: SharedPropsSuffixIcon['suffixFontIcon'],
-	size?: SharedPropsSize['size'],
-	readonly?: boolean,
-	disabled?: boolean,
-	required?: boolean,
-	clearable?: boolean,
-	isFocus?: boolean,
-	hasValue?: boolean,
-	floatingLabel?: boolean,
-	labelIsFloating?: boolean,
-	showError?: boolean,
-	showWarning?: boolean,
-	showSuccess?: boolean,
-	inputType?: string,
-	label?: string,
-	placeholder?: string,
-}
+	_uid?: number
+	prefixIcon?: SharedPropsPrefixIcon['prefixIcon']
+	prefixFontIcon?: SharedPropsPrefixIcon['prefixFontIcon']
+	suffixIcon?: SharedPropsSuffixIcon['suffixIcon']
+	suffixFontIcon?: SharedPropsSuffixIcon['suffixFontIcon']
+	size?: SharedPropsSize['size']
+	readonly?: boolean
+	disabled?: boolean
+	required?: boolean
+	clearable?: boolean
+	isFocus?: boolean
+	hasValue?: boolean
+	floatingLabel?: boolean
+	labelIsFloating?: boolean
+	showError?: boolean
+	showWarning?: boolean
+	showSuccess?: boolean
+	inputType?: string
+	label?: string
+	placeholder?: string
+};
 
-export default class OrionFieldSetup extends SharedSetup {
+export class OrionFieldSetup extends SharedSetup {
+
 	static readonly defaultProps = {
 		...SharedProps.size,
 		inputType: 'input',
@@ -39,10 +40,7 @@ export default class OrionFieldSetup extends SharedSetup {
 	readonly _el = ref<RefDom>();
 	readonly _suffixPictos = ref<RefDom>();
 
-	get baseClass () {
-		return `orion-${this.props.inputType}`;
-	}
-
+	get baseClass () { return `orion-${this.props.inputType}` }
 	get additionalClass () {
 		const cls = [`${this.baseClass}--${this.props.size}`];
 		if (this.props.showError) cls.push(`${this.baseClass}--danger`);
@@ -70,7 +68,8 @@ export default class OrionFieldSetup extends SharedSetup {
 	get labelValue () {
 		if (this.props.hasValue) {
 			return this.props.label;
-		} else {
+		}
+		else {
 			return this.props.placeholder ?? this.props.label;
 		}
 	}
@@ -90,8 +89,8 @@ export default class OrionFieldSetup extends SharedSetup {
 		if (this.props.showWarning) return 'warning';
 	}
 
-
 	constructor (protected props: OrionFieldProps, protected emits: OrionFieldEmits) {
 		super();
 	}
+
 }

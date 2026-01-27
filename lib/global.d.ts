@@ -1,16 +1,16 @@
 /// <reference path="packages.d.ts"/>
 
-import { EnLang } from 'lang/en';
-import { CountryCode } from 'libphonenumber-js';
-import { MaterialIcon } from 'material-icons';
-import { OrionAvatarProps } from 'packages/Avatar/src/OrionAvatarSetup';
-import { Component } from 'vue';
-import { RouteLocationRaw, Router } from 'vue-router';
+import { type EnLang } from 'lang/en';
+import { type CountryCode } from 'libphonenumber-js';
+import { type MaterialIcon } from 'material-icons';
+import { type OrionAvatarProps } from 'packages/Avatar/src/OrionAvatarSetup';
+import { type Component } from 'vue';
+import { type RouteLocationRaw, type Router } from 'vue-router';
 import type { OrionAsideSetup, OrionListProps, OrionModalSetup, OrionNotifSetup } from '../packages';
-import OrionChatEntity from '../packages/Chat/src/OrionChatEntity';
-import OrionChatMessageEntity from '../packages/ChatMessage/src/OrionChatMessageEntity';
-import { useValidation } from '../services/ValidationService';
-import { Validator as ValidatorClass } from '../utils/Validator';
+import { type OrionChatEntity } from '../packages/Chat/src/OrionChatEntity';
+import type { OrionChatMessageEntity } from '../packages/ChatMessage/src/OrionChatMessageEntity';
+import { type useValidation } from '../services/ValidationService';
+import { type Validator as ValidatorClass } from '../utils/Validator';
 
 declare global {
 	type Nullable<T> = T | null;
@@ -21,6 +21,7 @@ declare global {
 
 	type RefDom<T = HTMLElement> = undefined | (HTMLElement & T);
 
+	// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 	type SetupProps<T> = Readonly<import('vue').ExtractPropTypes<T>>;
 
 	type AsideAnimationHookType
@@ -243,6 +244,8 @@ declare global {
 			triggers?: ('click' | 'hover' | 'focus' | 'touch')[]
 			arrowPadding?: number
 		};
+
+		type DataListItem = Record<string, any>;
 
 		namespace DateTable {
 			type Type = 'date' | 'range' | 'multiple' | 'month';

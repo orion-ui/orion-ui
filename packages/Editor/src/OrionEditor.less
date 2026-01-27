@@ -1,13 +1,14 @@
-@import '../../Shared/styles/variables.less';
-@import '../../Shared/styles/mixins.less';
+/* stylelint-disable selector-class-pattern */
+@import "../../Shared/styles/variables.less";
+@import "../../Shared/styles/mixins.less";
 
 .orion-editor {
-	transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
 	margin: 0.5rem 0;
-	background: var(--o-background-neutral-default);
-	border-radius: 0.25rem;
-	border: 0.0625rem solid var(--o-background-neutral-subtle);
 	padding: var(--o-space-16);
+	border: 0.0625rem solid var(--o-background-neutral-subtle);
+	border-radius: 0.25rem;
+	background: var(--o-background-neutral-default);
+	transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
 
 	&__toolbar {
 		display: flex;
@@ -20,8 +21,8 @@
 
 		.orion-button {
 			padding: var(--o-space-8) var(--o-space-32);
-			box-shadow: none;
 			border-radius: 0.5rem;
+			box-shadow: none;
 
 			&.active {
 				color: var(--o-text-info-default);
@@ -74,4 +75,3 @@
 		border-color: var(--o-border-info-default);
 	}
 }
-

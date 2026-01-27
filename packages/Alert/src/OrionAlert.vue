@@ -41,14 +41,10 @@
 <script setup lang="ts">
 import { OrionIcon } from 'packages/Icon';
 import './OrionAlert.less';
-import type { OrionAlertEmits, OrionAlertProps } from './OrionAlertSetup';
-import OrionAlertSetup from './OrionAlertSetup';
+import { OrionAlertSetup, type OrionAlertEmits, type OrionAlertProps } from './OrionAlertSetup';
 const emits = defineEmits<OrionAlertEmits>() as OrionAlertEmits;
-
 const props = withDefaults(defineProps<OrionAlertProps>(), OrionAlertSetup.defaultProps);
-
 const setup = new OrionAlertSetup(props, emits);
-
 defineExpose(setup.publicInstance);
 
 /** Doc

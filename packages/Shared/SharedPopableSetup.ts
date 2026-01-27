@@ -1,6 +1,7 @@
+/* eslint-disable orion-rules/async-suffix */
 import anime from 'animejs';
 import mitt from 'mitt';
-import { nextTick, reactive, ref, render, Slots, watch } from 'vue';
+import { nextTick, reactive, ref, render, type Slots, watch } from 'vue';
 
 import { devtool } from 'devtool';
 import { useOverlay } from 'services/OverlayService';
@@ -8,37 +9,36 @@ import { usePopableQueue } from 'services/PopableQueueService';
 import { orionAppService } from 'utils/Orion';
 import { Reactive } from 'utils/decorators';
 import { toggleGlobalListener } from 'utils/tools';
-import SharedSetup from './SharedSetup';
-
+import { SharedSetup } from './SharedSetup';
 
 type Popable = OrionAside | OrionNotif | OrionModal;
 
 export type SharedPopableSetupEmits = {
 	// @doc event/enter-start/desc the aside begins its enter transition
 	// @doc/fr event/enter-start/desc l'aside commence son animation d'arrivée
-	(e: 'enter-start'): void;
+	(e: 'enter-start'): void
 	// @doc event/enter-end/desc the aside ends its enter transition
 	// @doc/fr event/enter-end/desc l'aside a fini son animation d'arrivée
-	(e: 'enter-end'): void;
+	(e: 'enter-end'): void
 	// @doc event/leave-start/desc the aside begins its leave transition
 	// @doc/fr event/leave-start/desc l'aside commence sa transition de départ
-	(e: 'leave-start'): void;
+	(e: 'leave-start'): void
 	// @doc event/leave-end/desc the aside ends its leave transition
 	// @doc/fr event/leave-end/desc l'aside a fini sa transition de départ
-	(e: 'leave-end'): void;
-}
+	(e: 'leave-end'): void
+};
 
 export type SharedPopableSetupProps = {
 	// @doc props/display if set, displays the component
 	// @doc/fr props/display si défini, affiche le composant
-	display?: boolean,
+	display?: boolean
 	// @doc props/options options of the component
 	// @doc/fr props/options options du composant
 	options?: Partial<Orion.Popable.Options>
-}
+};
 
+export abstract class SharedPopableSetup extends SharedSetup {
 
-export default abstract class SharedPopableSetup extends SharedSetup {
 	static readonly defaultProps = { options: () => ({}) as Partial<Orion.Popable.Options> };
 
 	protected readonly abstract name: Orion.Popable.Name;
@@ -72,61 +72,49 @@ export default abstract class SharedPopableSetup extends SharedSetup {
 
 	options = reactive<Orion.Popable.Options>({ ...this.baseOptions });
 
-	protected get pendingQueue () { return usePopableQueue().queue[this.name] as (typeof this.publicInstance)[]; }
-
-	get uid () { return this.options.uid; }
-	get visible () { return this.state.visible; }
-	get isMounted () { return this.state.isMounted; }
-	get isLastOpenedPopable () { return usePopableQueue().queueIds.slice(-1)[0] === this.uid; }
-
-	get zIndexBumper (): number {
-		return usePopableQueue().queueIds.findIndex(x => x === this.uid);
-	}
-
-	get domStyle (): Record<string, any> {
-		return { zIndex: 100 + 1 + this.zIndexBumper + this.options.zIndex };
-	}
-
-	get displayHeader () {
-		return !!this.slots?.header || !!this.options.title || !!this.options.description;
-	}
-
+	protected get pendingQueue () { return usePopableQueue().queue[this.name] as (typeof this.publicInstance)[] }
+	get uid () { return this.options.uid }
+	get visible () { return this.state.visible }
+	get isMounted () { return this.state.isMounted }
+	get isLastOpenedPopable () { return usePopableQueue().queueIds.slice(-1)[0] === this.uid }
+	get zIndexBumper (): number { return usePopableQueue().queueIds.findIndex(x => x === this.uid) }
+	get domStyle (): Record<string, any> { return { zIndex: 100 + 1 + this.zIndexBumper + this.options.zIndex } }
+	get displayHeader () { return !!this.slots?.header || !!this.options.title || !!this.options.description }
 	get publicInstance () {
 		return {
 			...super.publicInstance,
-			_loader: () => this._loader.value,
 			uid: this.uid,
 			bus: this.bus,
 			state: this.state,
 			options: this.options,
-			open: this.open.bind(this),
-			close: this.close.bind(this),
+			open: this.openAsync.bind(this),
+			close: this.closeAsync.bind(this),
 			trigger: this.trigger.bind(this),
-			animateAsync: this.animateAsync.bind(this),
 			removeProgrammatic: this.removeProgrammatic.bind(this),
+			'animateAsync': this.animateAsync.bind(this),
+			_loader: () => this._loader.value,
 			isLastOpenedPopable: () => this.isLastOpenedPopable,
 		};
 	}
 
-
 	constructor (
 		protected props: SharedPopableSetupProps
-			& Omit<typeof SharedPopableSetup.defaultProps, 'options'>
-			& {options: Partial<Orion.Popable.Options>},
+		  & Omit<typeof SharedPopableSetup.defaultProps, 'options'>
+		  & { options: Partial<Orion.Popable.Options> },
 		protected emits: SharedPopableSetupEmits,
 		protected slots?: Slots,
 	) {
 		super();
-
 
 		Object.assign(this.options, props.options);
 		usePopableQueue().register(this.options.uid, this.publicInstance as Orion.Popable.PublicIntance);
 
 		watch(() => this.props.display, (val) => {
 			if (val) {
-				this.open();
-			} else {
-				this.close();
+				this.openAsync();
+			}
+			else {
+				this.closeAsync();
 			}
 		});
 	}
@@ -143,7 +131,7 @@ export default abstract class SharedPopableSetup extends SharedSetup {
 
 		if (this.options.openauto || this.props.display) {
 			setTimeout(() => {
-				nextTick(() => this.open());
+				nextTick(() => this.openAsync());
 			}, 50);
 		}
 
@@ -157,9 +145,9 @@ export default abstract class SharedPopableSetup extends SharedSetup {
 
 		this.state.isMounted = true;
 
-		this.Bus.on(`flush.${name}`, () => {
+		this.Bus.on(`flush:${name}`, () => {
 			if (this.options.programmatic && this.state.visible) {
-				this.close({ flush: true });
+				this.closeAsync({ flush: true });
 			}
 		});
 
@@ -169,7 +157,7 @@ export default abstract class SharedPopableSetup extends SharedSetup {
 	}
 
 	protected onUnmounted () {
-		this.close();
+		this.closeAsync();
 		toggleGlobalListener(this.uid);
 
 		if (this.options.programmatic) {
@@ -182,18 +170,17 @@ export default abstract class SharedPopableSetup extends SharedSetup {
 		}
 	}
 
-
-	abstract animateAsync(enter: boolean): Promise<void>
+	protected abstract animateAsync (enter: boolean): Promise<void>;
 
 	private setGlobalEventListener () {
 		toggleGlobalListener('keydown', (e: Event) => {
 			if ((e as KeyboardEvent).key === 'Escape' && this.visible && this.isLastOpenedPopable) {
-				this.close();
+				this.closeAsync();
 			};
 		}, { uid: this.uid });
 	}
 
-	async open (keepInQueue = true) {
+	async openAsync (keepInQueue = true) {
 		if (this.state.isOpening) return;
 
 		this.state.isOpening = true;
@@ -208,11 +195,11 @@ export default abstract class SharedPopableSetup extends SharedSetup {
 		this.queue();
 
 		// Handle queue
-		await this.handleQueue();
+		await this.handleQueueAsync();
 		this.state.isOpening = false;
 	}
 
-	async close (options?: Orion.Popable.CloseOptions) {
+	async closeAsync (options?: Orion.Popable.CloseOptions) {
 		if (this.state.isClosing || !this.state.visible) return;
 		options = {
 			keepInQueue: false,
@@ -236,17 +223,32 @@ export default abstract class SharedPopableSetup extends SharedSetup {
 		if (typeof flush === 'number' && isFinite(flush)) {
 			const toRemove = this.pendingQueue.splice(0, flush);
 			toRemove.forEach(x => x.removeProgrammatic());
-		} else if (flush) {
+		}
+		else if (flush) {
 			const toRemove = this.pendingQueue.splice(0, this.pendingQueue.length);
 			toRemove.forEach(x => x.removeProgrammatic());
 		}
 		// On traite la queue
-		if (options.handleQueue) await this.handleQueue();
+		if (options.handleQueue) await this.handleQueueAsync();
 		this.state.isClosing = false;
 
 		nextTick(() => {
 			this.bus.emit('queueHandled');
 		});
+	}
+
+	/**
+	 * @deprecated Use `openAsync` instead
+	 */
+	async open (keepInQueue = true) {
+		return this.openAsync(keepInQueue);
+	}
+
+	/**
+	 * @deprecated Use `closeAsync` instead
+	 */
+	async close (options?: Orion.Popable.CloseOptions) {
+		return this.closeAsync(options);
 	}
 
 	private queue () {
@@ -275,7 +277,7 @@ export default abstract class SharedPopableSetup extends SharedSetup {
 		}
 	}
 
-	private async handleQueue () {
+	private async handleQueueAsync () {
 		if (this.pendingQueue.length) {
 			this.options.overlay
 				? useOverlay().show()
@@ -338,4 +340,5 @@ export default abstract class SharedPopableSetup extends SharedSetup {
 	trigger (eventName: string, params?: any) {
 		this.bus.emit(eventName, params);
 	}
+
 }

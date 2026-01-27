@@ -1,19 +1,21 @@
 import { cloneDeep } from 'lodash-es';
 import { useLang } from 'services';
 import { useMonkey } from 'services/MonkeyService';
-import { ModelRef, nextTick, reactive, ref, watch } from 'vue';
-import SharedSetup from '../../Shared/SharedSetup';
+import { type ModelRef, nextTick, reactive, ref, watch } from 'vue';
+import { SharedSetup } from '../../Shared/SharedSetup';
 
-export type OrionDailyCalendarEmits = {}
+export type OrionDailyCalendarEmits = {};
 export type OrionDailyCalendarProps = {
 	// @doc props/dayTasks tasks array
 	// @doc/fr props/dayTasks le tableau de qui contient les tâches du jour
-	dayTasks?: Orion.DailyCalendarTask[],
+	dayTasks?: Orion.DailyCalendarTask[]
 	// @doc props/range hour range displayed.
 	// @doc/fr props/range la plage horaire affichée.
-	range?: number[],
+	range?: number[]
 };
-export default class OrionDailyCalendarSetup extends SharedSetup {
+
+export class OrionDailyCalendarSetup extends SharedSetup {
+
 	static readonly defaultProps = {
 		range: () => ([
 			8,
@@ -31,23 +33,8 @@ export default class OrionDailyCalendarSetup extends SharedSetup {
 		elementsAreHidden: false as Nullable<boolean>,
 	});
 
-	get hourNow () { return this.state.hourNow; }
-	set hourNow (val) { this.state.hourNow = val; }
-
-	get calendarRange () { return this.state.calendarRange; }
-	set calendarRange (val) { this.state.calendarRange = val; }
-
-	get elementsAreHidden () { return this.state.elementsAreHidden; }
-	set elementsAreHidden (val) { this.state.elementsAreHidden = val; }
-
-	get today () {
-		return useMonkey(new Date(this.date.value)).toMidnight().valueOf() === useMonkey(new Date()).toMidnight().valueOf();
-	}
-
-	get readableDate () {
-		return useMonkey(this.date.value).toReadable();
-	}
-
+	get today () { return useMonkey(new Date(this.date.value)).toMidnight().valueOf() === useMonkey(new Date()).toMidnight().valueOf() }
+	get readableDate () { return useMonkey(this.date.value).toReadable() }
 	get taskOfTheDay () {
 		const taskOfTheDay = this.props.dayTasks?.filter(
 			task => useMonkey(task.start).toReadable() === useMonkey(new Date(this.date.value)).toReadable());
@@ -57,7 +44,7 @@ export default class OrionDailyCalendarSetup extends SharedSetup {
 
 		function tasksAreIntersecting (taskA: Orion.DailyCalendarTask, taskB: Orion.DailyCalendarTask) {
 			return (taskB.start.valueOf() >= taskA.start.valueOf() && taskB.start.valueOf() < taskA.end.valueOf())
-					|| (taskB.end.valueOf() > taskA.start.valueOf() && taskB.start.valueOf() < taskA.end.valueOf());
+			  || (taskB.end.valueOf() > taskA.start.valueOf() && taskB.start.valueOf() < taskA.end.valueOf());
 		}
 
 		function taskIntersectWithTaskInArr (task: Orion.DailyCalendarTask, arr: Orion.DailyCalendarTask[]) {
@@ -68,7 +55,8 @@ export default class OrionDailyCalendarSetup extends SharedSetup {
 		for (const task of taskOfTheDay) {
 			if (!tasksBufferArray.length) {
 				tasksBufferArray.push([task]);
-			} else {
+			}
+			else {
 				for (let index = 0; index < tasksBufferArray.length; index++) {
 					const taskArr = tasksBufferArray[index];
 					if (taskIntersectWithTaskInArr(task, taskArr)) {
@@ -77,7 +65,8 @@ export default class OrionDailyCalendarSetup extends SharedSetup {
 						}
 						tasksBufferArray.push([task]);
 						break;
-					} else {
+					}
+					else {
 						taskArr.push(task);
 						break;
 					}
@@ -95,9 +84,20 @@ export default class OrionDailyCalendarSetup extends SharedSetup {
 		return tasksToReturn;
 	}
 
-	constructor (protected props: OrionDailyCalendarProps & Omit<typeof OrionDailyCalendarSetup.defaultProps, 'range'> & {range: number[]},
+	get hourNow () { return this.state.hourNow }
+	set hourNow (val) { this.state.hourNow = val }
+
+	get calendarRange () { return this.state.calendarRange }
+	set calendarRange (val) { this.state.calendarRange = val }
+
+	get elementsAreHidden () { return this.state.elementsAreHidden }
+	set elementsAreHidden (val) { this.state.elementsAreHidden = val }
+
+	constructor (
+		protected props: OrionDailyCalendarProps & Omit<typeof OrionDailyCalendarSetup.defaultProps, 'range'> & { range: number[] },
 		protected emits: OrionDailyCalendarEmits,
-		protected date: ModelRef<Date>) {
+		protected date: ModelRef<Date>,
+	) {
 		super();
 
 		watch(() => this.taskOfTheDay, () => {
@@ -113,7 +113,7 @@ export default class OrionDailyCalendarSetup extends SharedSetup {
 			this.scrollToRange();
 		});
 
-	};
+	}
 
 	protected onMounted () {
 		this.setCalendarRange();
@@ -125,10 +125,9 @@ export default class OrionDailyCalendarSetup extends SharedSetup {
 			this.hourNow = `${hour}:${minutes}`;
 		}, 1000);
 		this.scrollToRange();
-	};
+	}
 
-
-	taskTooltip (task : Orion.DailyCalendarTask): object {
+	taskTooltip (task: Orion.DailyCalendarTask): object {
 		const taskStartHour = useMonkey(task.start).toReadable('$hh:$mm $a');
 		const taskEndHour = useMonkey(task.end).toReadable('$hh:$mm $a');
 		const taskHourLabel = useLang().HOUR_FROM_TO
@@ -140,15 +139,15 @@ export default class OrionDailyCalendarSetup extends SharedSetup {
 			content: `<b style="display: block; margin-bottom: 0.5rem;">${taskHourLabel}</b> 
 			<div style="max-width: calc(200rem / 16);">${task?.title}</div>`,
 		};
-	};
-
-	scrollToRange () {
-		const calendar = this.document?.getElementById('calendar-' + this.uid);
-		if (calendar)
-			calendar.scrollTop =(this.props.range[0] - this.calendarRange[0]) * 50;
 	}
 
-	setCalendarRange () {
+	private scrollToRange () {
+		const calendar = this.document?.getElementById('calendar-' + this.uid);
+		if (calendar)
+			calendar.scrollTop = (this.props.range[0] - this.calendarRange[0]) * 50;
+	}
+
+	private setCalendarRange () {
 		this.calendarRange = cloneDeep(this.props.range);
 		this.props.dayTasks?.forEach((task) => {
 			const start = new Date(task.start).getHours();
@@ -162,14 +161,14 @@ export default class OrionDailyCalendarSetup extends SharedSetup {
 				this.calendarRange[1] = end;
 			}
 		});
-	};
+	}
 
 	scrollDown () {
 		const calendar = this.document?.getElementById('calendar-' + this.uid) as HTMLElement;
 		calendar.style.scrollBehavior = 'smooth';
 		calendar.scrollTop = calendar.scrollHeight;
 		this.observeHiddenTasks();
-	};
+	}
 
 	observeHiddenTasks () {
 		if (!this.document) return;
@@ -187,22 +186,22 @@ export default class OrionDailyCalendarSetup extends SharedSetup {
 		}
 
 		this.elementsAreHidden = testHidden;
-	};
+	}
 
 	handleTaskClick (task: Orion.DailyCalendarTask) {
 		if (!task.callback) return;
 		task.callback(task);
-	};
+	}
 
 	getNextDay () {
 		const date = new Date(this.date.value);
 		this.date.value = new Date(date.setDate(date.getDate() + 1));
-	};
+	}
 
 	getPreviousDay () {
 		const date = new Date(this.date.value);
 		this.date.value = new Date(date.setDate(date.getDate() - 1));
-	};
+	}
 
 	isNearFromNow (hour: number) {
 		if (!this.today) return undefined;
@@ -210,17 +209,17 @@ export default class OrionDailyCalendarSetup extends SharedSetup {
 		const difference = this.hourToDecimal(hourToDisplay) - this.hourToDecimal(this.hourNow);
 		if (difference < 0.2 && difference > -0.2) return 'opacity: 0;';
 		else return 'opacity: 1;';
-	};
+	}
 
 	toHourDisplay (hour: number) {
 		const hourToString = hour.toString();
 		return (hourToString.length > 1) ? `${hourToString}:00` : `0${hourToString}:00`;
-	};
+	}
 
 	taskStyle (task: Orion.DailyCalendarTask) {
 		const startHour = new Date(task.start).getHours().toString().padStart(2, '0') + ':' + new Date(task.start).getMinutes().toString().padStart(2, '0');
 		const taskGroupNumber = task.column ?? 0;
-		const taskHoursNumber = (task.end.valueOf() - task.start.valueOf()) / (60*60*1000);
+		const taskHoursNumber = (task.end.valueOf() - task.start.valueOf()) / (60 * 60 * 1000);
 		let last = undefined;
 		if (this.taskOfTheDay)
 			last = useMonkey(this.taskOfTheDay).last();
@@ -236,10 +235,10 @@ export default class OrionDailyCalendarSetup extends SharedSetup {
 			overflow: 'hidden',
 		};
 		return style;
-	};
+	}
 
 	taskParagraphStyle (task: Orion.DailyCalendarTask) {
-		const numberOfLines = ((((task.end.valueOf() - task.start.valueOf()) / (60*60*1000)) * 50) - 10) / 14;
+		const numberOfLines = ((((task.end.valueOf() - task.start.valueOf()) / (60 * 60 * 1000)) * 50) - 10) / 14;
 		return {
 			textOverflow: 'ellipsis',
 			display: '-webkit-box',
@@ -247,7 +246,7 @@ export default class OrionDailyCalendarSetup extends SharedSetup {
 			webkitLineClamp: Math.round(numberOfLines),
 			overflow: 'hidden',
 		};
-	};
+	}
 
 	hourToDecimal (hour: Nullable<string>) {
 		if (!hour) return 0;
@@ -255,7 +254,7 @@ export default class OrionDailyCalendarSetup extends SharedSetup {
 			heure: hour.split(':')[0],
 			min: hour.split(':')[1],
 		};
-		const minToDecimal = (Math.floor((Number(hourSplited.min ?? 0) / 60)*100));
+		const minToDecimal = (Math.floor((Number(hourSplited.min ?? 0) / 60) * 100));
 		const hourToDecimal = `${parseInt(hourSplited.heure)}.${minToDecimal.toString().padStart(2, '0')}`;
 		return parseFloat(hourToDecimal);
 	};

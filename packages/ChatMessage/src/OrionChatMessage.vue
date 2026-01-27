@@ -51,8 +51,7 @@
 <script setup lang="ts">
 import { OrionAvatar } from 'packages/Avatar';
 import './OrionChatMessage.less';
-import type { OrionChatMessageEmits, OrionChatMessageProps } from './OrionChatMessageSetup';
-import OrionChatMessageSetup from './OrionChatMessageSetup';
+import { OrionChatMessageSetup, type OrionChatMessageEmits, type OrionChatMessageProps } from './OrionChatMessageSetup';
 const emits = defineEmits<OrionChatMessageEmits>() as OrionChatMessageEmits;
 const props = withDefaults(defineProps<OrionChatMessageProps>(), OrionChatMessageSetup.defaultProps);
 const setup = new OrionChatMessageSetup(props, emits);

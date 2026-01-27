@@ -1,34 +1,34 @@
 import { getUid } from 'utils/tools';
-import { ModelRef, reactive, useSlots } from 'vue';
-import SharedSetup from '../../Shared/SharedSetup';
+import { type ModelRef, reactive, type Slots } from 'vue';
+import { SharedSetup } from '../../Shared/SharedSetup';
 
-export type OrionCarouselEmits = {}
+export type OrionCarouselEmits = {};
 export type OrionCarouselProps = {
 	// @doc props/centeredNavigation alignment of the navigation (between dots and buttons)
 	// @doc/fr props/centeredNavigation alignement de la navigation (entre les points et les boutons)
-	centeredNavigation?: boolean,
+	centeredNavigation?: boolean
 	// @doc props/color color of the dots at the carousel's bottom
 	// @doc/fr props/color couleur des points au bas du carrousel
-	color?: Orion.Color | Orion.ColorAlt,
+	color?: Orion.Color | Orion.ColorAlt
 	// @doc props/hideNavigationButtons hide the navigation buttons around the dots
 	// @doc/fr props/hideNavigationButtons masque les boutons de navigation autour des points
-	hideNavigationButtons?: boolean,
+	hideNavigationButtons?: boolean
 	// @doc props/hideNavigationDots hide the navigation dots
 	// @doc/fr props/hideNavigationDots masque les points de navigation
-	hideNavigationDots?: boolean,
+	hideNavigationDots?: boolean
 	// @doc props/loop enable the "loop" mode
 	// @doc/fr props/loop active le mode "en boucle"
-	loop?: boolean,
+	loop?: boolean
 	// @doc props/pauseOnHover pause timer when hovering the carousel
 	// @doc/fr props/pauseOnHover met au pause le minuteur lors du survol du carrousel
-	pauseOnHover?: boolean,
+	pauseOnHover?: boolean
 	// @doc props/stepTimer apply a timer to automatically switch to the next item
 	// @doc/fr props/stepTimer applique un minuteur pour passer automatiquement à l'élément suivant
-	stepTimer?: number,
+	stepTimer?: number
 };
-type Slots = ReturnType<typeof useSlots>;
 
-export default class OrionCarouselSetup extends SharedSetup {
+export class OrionCarouselSetup extends SharedSetup {
+
 	static readonly defaultProps = {
 		centeredNavigation: true,
 		color: 'primary' as Orion.ColorExtended,
@@ -45,24 +45,11 @@ export default class OrionCarouselSetup extends SharedSetup {
 
 	uid = this.getUid();
 
-	get step () { return this.vModel.value; }
-	set step (val) {
-		this.vModel.value = val;
-		if (this.props.stepTimer) {
-			this.state.timerRemaining = this.props.stepTimer;
-			this.state.timerStart = new Date().valueOf();
-			if (!(this.props.pauseOnHover && this.state.mouseIsOver)) {
-				this.startTimer();
-			}
-		}
-	}
-
-	get rgbColor () { return `var(--o-background-${this.props.color}-default)`; }
-	get stepTimerForCss () { return this.props.stepTimer + 'ms'; }
-	get shouldLoop () { return !!this.props.stepTimer || this.props.loop; }
-	get stepIndex () { return this.steps.findIndex(x => x.name === this.vModel.value); }
-	get stepsLength () { return this.steps.length; }
-
+	get rgbColor () { return `var(--o-background-${this.props.color}-default)` }
+	get stepTimerForCss () { return this.props.stepTimer + 'ms' }
+	get shouldLoop () { return !!this.props.stepTimer || this.props.loop }
+	get stepIndex () { return this.steps.findIndex(x => x.name === this.vModel.value) }
+	get stepsLength () { return this.steps.length }
 	get steps (): { name: string | number, uid: number }[] {
 		const slotContent = this.slots.default?.();
 		if (!slotContent || !slotContent.length) return [];
@@ -96,6 +83,18 @@ export default class OrionCarouselSetup extends SharedSetup {
 		};
 	}
 
+	get step () { return this.vModel.value }
+	set step (val) {
+		this.vModel.value = val;
+		if (this.props.stepTimer) {
+			this.state.timerRemaining = this.props.stepTimer;
+			this.state.timerStart = new Date().valueOf();
+			if (!(this.props.pauseOnHover && this.state.mouseIsOver)) {
+				this.startTimer();
+			}
+		}
+	}
+
 	constructor (
 		protected props: OrionCarouselProps & typeof OrionCarouselSetup.defaultProps,
 		protected emits: OrionCarouselEmits,
@@ -109,7 +108,6 @@ export default class OrionCarouselSetup extends SharedSetup {
 	protected onMounted () {
 		if (this.props.stepTimer) this.startTimer();
 	}
-
 
 	private startTimer () {
 		if (!this.props.stepTimer) return;
@@ -142,7 +140,7 @@ export default class OrionCarouselSetup extends SharedSetup {
 			this.stopTimer();
 
 			Array
-				.from((this.document?.querySelectorAll(`#orion-carousel-${this.uid} .orion-carousel__dot-loader`) ?? [])as HTMLElement[])
+				.from((this.document?.querySelectorAll(`#orion-carousel-${this.uid} .orion-carousel__dot-loader`) ?? []) as HTMLElement[])
 				.forEach(el => el.style.animationPlayState = 'paused');
 		}
 	}
@@ -154,7 +152,7 @@ export default class OrionCarouselSetup extends SharedSetup {
 
 		if (!!this.props.stepTimer && this.props.pauseOnHover) {
 			Array
-				.from((this.document?.querySelectorAll(`#orion-carousel-${this.uid} .orion-carousel__dot-loader`) ?? [])as HTMLElement[])
+				.from((this.document?.querySelectorAll(`#orion-carousel-${this.uid} .orion-carousel__dot-loader`) ?? []) as HTMLElement[])
 				.forEach(el => el.style.animationPlayState = 'running');
 
 			this.restartTimer();
@@ -173,7 +171,8 @@ export default class OrionCarouselSetup extends SharedSetup {
 		const prevStep = this.steps[this.stepIndex - 1];
 		if (prevStep) {
 			this.step = prevStep.name;
-		} else if (this.shouldLoop) {
+		}
+		else if (this.shouldLoop) {
 			this.step = this.steps[this.stepsLength - 1]?.name;
 		}
 	}
@@ -182,8 +181,10 @@ export default class OrionCarouselSetup extends SharedSetup {
 		const nextStep = this.steps[this.stepIndex + 1];
 		if (nextStep) {
 			this.step = nextStep.name;
-		} else if (this.shouldLoop) {
+		}
+		else if (this.shouldLoop) {
 			this.step = this.steps[0]?.name;
 		}
 	}
+
 }

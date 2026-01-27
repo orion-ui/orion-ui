@@ -1,33 +1,31 @@
-import { RouteLocationRaw } from 'vue-router';
-import SharedSetup from './SharedSetup';
+import { type RouteLocationRaw } from 'vue-router';
+import { SharedSetup } from './SharedSetup';
 
 type ItemTemplateData = {
-	to?: RouteLocationRaw;
-	class: string[];
-}
+	to?: RouteLocationRaw
+	class: string[]
+};
 
-export default abstract class SharedNavSetup extends SharedSetup {
+export abstract class SharedNavSetup extends SharedSetup {
+
 	abstract baseClass: string;
 	abstract get items (): Orion.NavItem[];
 
-
-	get itemsToDisplay () {
-		return this.items?.filter(x => typeof x.if === 'function' ? x.if() : x.if !== false);
-	}
-
+	get itemsToDisplay () { return this.items?.filter(x => typeof x.if === 'function' ? x.if() : x.if !== false) }
 
 	constructor () {
 		super();
 	}
 
-
 	itemIs (item: Orion.NavItem) {
 		if (item.line) {
 			return 'hr';
-		} else {
+		}
+		else {
 			if (item.to) {
 				return 'router-link';
-			} else {
+			}
+			else {
 				return item.tag ? item.tag : 'span';
 			}
 		}
@@ -36,7 +34,8 @@ export default abstract class SharedNavSetup extends SharedSetup {
 	itemData (item: Orion.NavItem) {
 		if (item.line) {
 			return { class: [] };
-		} else {
+		}
+		else {
 			const itemData: ItemTemplateData = { class: [this.baseClass] };
 
 			if (!item.line) {
@@ -84,11 +83,12 @@ export default abstract class SharedNavSetup extends SharedSetup {
 		const target = e.target as HTMLElement;
 
 		if (target.classList?.contains('nav-reload')
-      && target.classList?.contains('router-link-exact-active')
-      && !e.ctrlKey
-      && !e.metaKey
+		  && target.classList?.contains('router-link-exact-active')
+		  && !e.ctrlKey
+		  && !e.metaKey
 		) {
 			this.window?.location.reload();
 		}
 	}
+
 }

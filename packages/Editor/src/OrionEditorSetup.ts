@@ -6,56 +6,53 @@ import TextStyle from '@tiptap/extension-text-style';
 import Underline from '@tiptap/extension-underline';
 import Youtube from '@tiptap/extension-youtube';
 import StarterKit from '@tiptap/starter-kit';
-import { Editor, JSONContent, useEditor } from '@tiptap/vue-3';
-import { ModelRef, reactive, ShallowRef } from 'vue';
-
-import TextBackground from './editor/extensions/text-background';
-
+import { type Editor, type JSONContent, useEditor } from '@tiptap/vue-3';
 import { useNotif } from 'services/NotifService';
 import { usePrompt } from 'services/PromptService';
-import SharedFieldSetup, { SharedFieldSetupEmits, SharedFieldSetupProps } from '../../Shared/SharedFieldSetup';
+import { type ModelRef, reactive, type ShallowRef } from 'vue';
+import { SharedFieldSetup, type SharedFieldSetupEmits, type SharedFieldSetupProps } from '../../Shared/SharedFieldSetup';
+import { TextBackground } from './editor/extensions/text-background';
 
-export type OrionEditorEmits = SharedFieldSetupEmits<Nil<string>> & {}
+export type OrionEditorEmits = SharedFieldSetupEmits<Nil<string>> & {};
 export type OrionEditorProps = SharedFieldSetupProps & {
 	// @doc props/disableFeatures disable some editor's features
 	// @doc/fr props/disableFeatures désactive des fonctions de l'éditeur
-	disableFeatures?: EditorFeature[],
+	disableFeatures?: EditorFeature[]
 	// @doc props/imgFileTypes authorized image file formats
 	// @doc/fr props/imgFileTypes type de fichier autorisé pour les images
-	imgFileTypes?: string[],
+	imgFileTypes?: string[]
 	// @doc props/imgMaxSize maximum size of the imported image
 	// @doc/fr props/imgMaxSize taille maximum d'une image importée
-	imgMaxSize?: number,
+	imgMaxSize?: number
 	// @doc props/placeholder place holder
 	// @doc/fr props/placeholder placeholder
-	placeholder?: string,
+	placeholder?: string
 };
 
-type EditorFeature =
-	| 'Undo'
-	| 'Redo'
-	| 'FontSize'
-	| 'TextColor'
-	| 'BackgroundColor'
-	| 'Bold'
-	| 'Italic'
-	| 'Underline'
-	| 'TextAlign'
-	| 'BulletList'
-	| 'Link'
-	| 'ImageUrl'
-	| 'ImageBase64'
-	| 'YouTube'
+type EditorFeature
+	= | 'Undo'
+	  | 'Redo'
+	  | 'FontSize'
+	  | 'TextColor'
+	  | 'BackgroundColor'
+	  | 'Bold'
+	  | 'Italic'
+	  | 'Underline'
+	  | 'TextAlign'
+	  | 'BulletList'
+	  | 'Link'
+	  | 'ImageUrl'
+	  | 'ImageBase64'
+	  | 'YouTube';
 
-export default class OrionEditorSetup extends SharedFieldSetup<OrionEditorProps, string | null | undefined> {
+export class OrionEditorSetup extends SharedFieldSetup<OrionEditorProps, string | null | undefined> {
+
 	static readonly defaultProps = {
 		...SharedFieldSetup.defaultProps,
 		disableFeatures: () => [],
 		imgFileTypes: () => ['image/jpeg', 'image/png', 'image/gif'],
 		imgMaxSize: 1500,
 	};
-
-
 
 	protected state = reactive({
 		...this.sharedState,
@@ -64,14 +61,12 @@ export default class OrionEditorSetup extends SharedFieldSetup<OrionEditorProps,
 
 	editor?: ShallowRef<Editor | undefined>;
 
-	get hasValue () {
-		return this.sanitizeHtml(this.vModel?.value).length > 0;
-	}
+	protected get hasValue () { return this.sanitizeHtml(this.vModel?.value).length > 0 }
 
 	constructor (
 		protected props: OrionEditorProps
-			& Omit<typeof OrionEditorSetup.defaultProps, 'disableFeatures' | 'imgFileTypes'>
-			& { disableFeatures: EditorFeature[], imgFileTypes:string[] },
+		  & Omit<typeof OrionEditorSetup.defaultProps, 'disableFeatures' | 'imgFileTypes'>
+		  & { disableFeatures: EditorFeature[], imgFileTypes: string[] },
 		protected emits: OrionEditorEmits,
 		protected vModel: ModelRef<Nil<string>>,
 		protected json?: ModelRef<JSONContent | undefined>) {
@@ -140,16 +135,17 @@ export default class OrionEditorSetup extends SharedFieldSetup<OrionEditorProps,
 
 		if (confirm && value?.length) {
 			try {
-				const src = await this.imageToBase64(value[0]);
+				const src = await this.imageToBase64Async(value[0]);
 				if (!!src) this.editor?.value?.chain().focus().setImage({ src }).run();
 				this.state.image.length = 0;
-			} catch (e: any) {
+			}
+			catch (e: any) {
 				useNotif.danger(e);
 			}
 		}
 	}
 
-	private imageToBase64 (file: File): Promise<Nullable<string>> {
+	private imageToBase64Async (file: File): Promise<Nullable<string>> {
 		return new Promise((resolve, reject) => {
 			if (this.props.imgMaxSize && file.size / 1000 > this.props.imgMaxSize) {
 				reject(this.lang.ORION_EDITOR__PICTURE_TOO_HEAVY
@@ -189,4 +185,5 @@ export default class OrionEditorSetup extends SharedFieldSetup<OrionEditorProps,
 			this.editor?.value?.chain().focus().setYoutubeVideo({ src: value }).run();
 		}
 	}
+
 }

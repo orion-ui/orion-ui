@@ -1,17 +1,18 @@
 import { watch } from 'vue';
-import SharedSetup from '../../Shared/SharedSetup';
+import { SharedSetup } from '../../Shared/SharedSetup';
 
-export type OrionFooterFixedEmits = {}
+export type OrionFooterFixedEmits = {};
 export type OrionFooterFixedProps = {
 	// @doc props/title title of the footer
 	// @doc/fr props/title Missing @doc
-	title?: string,
+	title?: string
 	// @doc props/visible if set, displays the footer
 	// @doc/fr props/visible si défini, affiche le composant
-	visible?: boolean,
+	visible?: boolean
 };
 
-export default class OrionFooterFixedSetup extends SharedSetup {
+export class OrionFooterFixedSetup extends SharedSetup {
+
 	static readonly defaultProps = {};
 
 	constructor (
@@ -22,7 +23,8 @@ export default class OrionFooterFixedSetup extends SharedSetup {
 		watch(() => this.props.visible, (val) => {
 			if (val) {
 				document.body.classList.add('orion-body--footer-fixed-visible');
-			} else {
+			}
+			else {
 				document.body.classList.remove('orion-body--footer-fixed-visible');
 			}
 		});
@@ -44,4 +46,5 @@ export default class OrionFooterFixedSetup extends SharedSetup {
 		else
 			return false;
 	}
+
 }

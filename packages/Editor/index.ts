@@ -1,8 +1,7 @@
 import { upperFirst } from 'lodash-es';
-import { App, Plugin } from 'vue';
+import { type App, type Plugin } from 'vue';
 import OrionEditor from './src/OrionEditor.vue';
-import type { OrionEditorEmits, OrionEditorProps } from './src/OrionEditorSetup';
-import OrionEditorSetup from './src/OrionEditorSetup';
+import { OrionEditorSetup, type OrionEditorEmits, type OrionEditorProps } from './src/OrionEditorSetup';
 
 export const OrionEditorPlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,5 +9,4 @@ export const OrionEditorPlugin: Plugin = {
 	},
 };
 
-export { OrionEditor, OrionEditorEmits, OrionEditorProps, OrionEditorSetup };
-
+export { OrionEditor, OrionEditorSetup, type OrionEditorEmits, type OrionEditorProps };

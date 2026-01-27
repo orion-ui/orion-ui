@@ -83,8 +83,7 @@
 <script setup lang="ts">
 import { OrionIcon } from 'packages/Icon';
 import './OrionHorizontalScroll.less';
-import type { OrionHorizontalScrollEmits, OrionHorizontalScrollProps } from './OrionHorizontalScrollSetup';
-import OrionHorizontalScrollSetup from './OrionHorizontalScrollSetup';
+import { OrionHorizontalScrollSetup, type OrionHorizontalScrollEmits, type OrionHorizontalScrollProps } from './OrionHorizontalScrollSetup';
 const emits = defineEmits<OrionHorizontalScrollEmits>() as OrionHorizontalScrollEmits;
 const props = withDefaults(defineProps<OrionHorizontalScrollProps>(), OrionHorizontalScrollSetup.defaultProps);
 const setup = new OrionHorizontalScrollSetup(props, emits);
@@ -95,4 +94,3 @@ defineExpose(setup.publicInstance);
  * @doc/fr slot/default Contenu du composant
  */
 </script>
-

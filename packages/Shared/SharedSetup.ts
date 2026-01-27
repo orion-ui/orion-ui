@@ -10,7 +10,7 @@ import { Bus } from 'utils/Bus';
 import { orionAppService } from 'utils/Orion';
 import { getUid } from 'utils/tools';
 
-export default abstract class SharedSetup {
+export abstract class SharedSetup {
 
 	private defaultRouter = useRouter();
 	readonly responsive = useResponsive();
@@ -23,18 +23,14 @@ export default abstract class SharedSetup {
 
 	readonly _el = ref<HTMLElement>();
 
-	get router () { return orionAppService.appRouter ?? this.defaultRouter; }
-	get lang () { return useLang(); }
-
-	get publicInstance (): Record<string, any> & { _el?: () => HTMLElement | undefined } {
-		return { _el: () => this._el.value };
-	}
-
+	get router () { return orionAppService.appRouter ?? this.defaultRouter }
+	get lang () { return useLang() }
+	get publicInstance (): Record<string, any> & { _el?: () => HTMLElement | undefined } { return { _el: () => this._el.value } }
 
 	constructor () {
 
 		onBeforeMount(() => {
-			this.onBeforeMount();
+			this.onBeforeMountAsync();
 		});
 
 		onMounted(() => {
@@ -54,10 +50,10 @@ export default abstract class SharedSetup {
 		});
 	}
 
-
-	protected async onBeforeMount () {}
+	protected async onBeforeMountAsync () {}
 	protected onMounted () {}
 	protected onBeforeUpdate () {}
 	protected onUpdated () {}
 	protected onUnmounted () {}
+
 }
