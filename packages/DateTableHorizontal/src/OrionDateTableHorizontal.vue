@@ -33,19 +33,21 @@
 					:key="days[0].month">
 					<div class="orion-date-table__month-container">
 						<div class="orion-date-table__header-current-display">
-							<span
+							<orion-button
 								v-show="!setup.viewMonth && !setup.viewYears && !month"
+								outline
 								class="orion-date-table__header-current-month"
 								:class="{ 'disabled': disableMonthAndYear }"
-								@click="setup.showMonths">
+								@click="setup.showMonths()">
 								{{ useMonkey(days[0].date).toReadable('$MMMM') }}
-							</span>
-							<span
+							</orion-button>
+							<orion-button
 								class="orion-date-table__header-current-year"
+								outline
 								:class="{ 'disabled': disableMonthAndYear }"
-								@click="setup.showYears">
+								@click="setup.showYears()">
 								{{ useMonkey(days[0].date).toReadable('$YYYY') }}
-							</span>
+							</orion-button>
 						</div>
 						<div
 							class="orion-date-table-row">
@@ -98,11 +100,15 @@
 					v-for="i in 2"
 					:key="i"
 					class="flex jc-c">
-					<span
+					<orion-toggle-button
 						v-for="(month, index) in setup.lang.MONTH_NAME.slice((i - 1) * 6, i * 6)"
 						:key="`month-${month}`"
-						:class="setup.getCssClassForMonth(index + ((i - 1) * 6))"
-						@click="setup.selectMonth(index + ((i - 1) * 6))">{{ month }}</span>
+						nude
+						:model-value="setup.isMonthActive(index + ((i - 1) * 4))"
+						class="orion-date-table-row__cell--month"
+						@click="setup.selectMonth(index + ((i - 1) * 6))">
+						{{ month }}
+					</orion-toggle-button>
 				</div>
 			</div>
 			<div
@@ -112,11 +118,15 @@
 					<strong>{{ setup.rangeYears[0] }} - {{ setup.rangeYears[setup.rangeYears.length - 1] }}</strong>
 				</div>
 				<div class="flex">
-					<span
+					<orion-toggle-button
 						v-for="year in setup.rangeYears"
 						:key="`year-${year}`"
-						class="orion-date-table-row__cell orion-date-table-row__cell--year"
-						@click="setup.selectYear(year)">{{ year }}</span>
+						nude
+						:model-value="setup.isYearActive(year)"
+						class="orion-date-table-row__cell"
+						@click="setup.selectYear(year)">
+						{{ year }}
+					</orion-toggle-button>
 				</div>
 			</div>
 		</orion-horizontal-scroll>
@@ -144,12 +154,14 @@
 </template>
 
 <script setup lang="ts">
-import './OrionDateTableHorizontal.less';
-import { OrionIcon } from 'packages/Icon';
 import { OrionHorizontalScroll } from 'packages/HorizontalScroll';
-import OrionDateTableHorizontalSetupService from './OrionDateTableHorizontalSetupService';
-import type { OrionDateTableHorizontalProps, OrionDateTableHorizontalEmits } from './OrionDateTableHorizontalSetupService';
+import { OrionToggleButton } from 'packages/ToggleButton';
+import { OrionIcon } from 'packages/Icon';
+import { OrionButton } from 'packages/Button';
 import { useMonkey } from 'services';
+import './OrionDateTableHorizontal.less';
+import type { OrionDateTableHorizontalEmits, OrionDateTableHorizontalProps } from './OrionDateTableHorizontalSetupService';
+import OrionDateTableHorizontalSetupService from './OrionDateTableHorizontalSetupService';
 const vModel = defineModel< Nil<Date>>();
 const range = defineModel<Nil<Orion.DateRange>>('range');
 const multiple = defineModel<Nil<Date[]>>('multiple');

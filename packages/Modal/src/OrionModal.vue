@@ -95,7 +95,7 @@
 				:to="setup.displayHeader
 					? `#OrionModal-${setup.uid}__header-container`
 					: `#OrionModal-${setup.uid}__body`">
-				<o-button
+				<orion-button
 					v-if="!setup.options.hideClose"
 					class="orion-modal__close"
 					color="primary"

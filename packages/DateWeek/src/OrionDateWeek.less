@@ -22,23 +22,13 @@
 			}
 		}
 
-		&-current-year {
-			cursor: pointer;
-			border: 0.0625rem solid var(--o-background-neutral-subtle);
-			border-radius: 0.25rem;
-
-			&:hover {
-				color: var(--o-text-info-default);
-			}
-		}
-
 		&-carret {
 			font-size: 1.25rem;
 			color: var(--o-text-neutral-default);
 			cursor: pointer;
 
 			&:hover {
-				color: var(--o-text-info-default);
+				color: var(--o-text-primary-default);
 			}
 
 			&.disable {
@@ -53,7 +43,6 @@
 			max-height: calc(240rem / 16);
 			overflow: auto;
 			margin-top: 1rem;
-			padding-right: var(--o-space-32);
 			color: var(--o-text-neutral-default);
 			font-size: 0.85rem;
 		}
@@ -74,7 +63,7 @@
 			}
 
 			&--active > div {
-				color: var(--o-text-info-default);
+				color: var(--o-text-primary-default);
 			}
 
 			@media @phone {
@@ -98,23 +87,7 @@
 		display: flex;
 		justify-content: center;
 		text-align: center;
-
-		&__cell {
-			.flex-align();
-			width: calc(100% / 7);
-			height: calc(40rem / 16);
-			cursor: pointer;
-
-			&--year {
-				.square(calc(50rem / 16));
-				margin: 0.25rem 0.5rem;
-
-				&:hover {
-					color: var(--o-text-info-default);
-					background: white !important;
-				}
-			}
-		}
+		gap: var(--o-space-4);
 	}
 }
 
