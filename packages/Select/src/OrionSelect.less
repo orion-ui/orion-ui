@@ -50,16 +50,15 @@
 		}
 	}
 
-	&__autocomplete {
+	&__autocomplete-input {
 		display: inline-block;
+		position: absolute;
+		top: 0;
+		left: var(--o-space-12);
+		width: calc(100% - var(--o-space-48));
 
-		&--single,
-		&--multiple:only-child {
-			position: absolute;
-			top: 0;
-			bottom: 0;
-			left: 0;
-			right: 0;
+		+ span {
+			display: none;
 		}
 	}
 
@@ -235,13 +234,13 @@
 	&--multiple.orion-input {
 		// enhance selector strengh
 
-		.orion-input__input:not(.orion-select__autocomplete) {
+		.orion-input__input:not(.orion-select__autocomplete-input) {
 			display: flex;
 			align-items: center;
 			flex-wrap: wrap;
 		}
 
-		.orion-select__autocomplete:not(:only-child) {
+		.orion-select__autocomplete-input:not(:only-child) {
 			margin: 0.125rem 0.25rem;
 			padding: 0 !important;
 			min-width: 2rem;

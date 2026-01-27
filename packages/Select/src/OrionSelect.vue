@@ -31,6 +31,14 @@
 				@keydown.down.prevent="setup.handleKeydown('down')"
 				@keydown.up.prevent="setup.handleKeydown('up')"
 				@keydown.enter="setup.selectItemFromEnter()">
+				<input
+					v-if="autocomplete && (!setup.hasValue || (setup.hasValue && setup.isFocus)) && !multiple"
+					:ref="setup._autocomplete"
+					v-model="setup.valueToSearch"
+					type="text"
+					class="orion-input__input orion-select__autocomplete-input"
+					@focus="setup.handleFocus($event)"
+					@blur="setup.handleBlur($event)">
 				<div
 					v-if="multiple && !$slots['multiple-value']"
 					class="orion-select__multiple-content">
@@ -86,18 +94,6 @@
 					v-else-if="$slots['multiple-value'] && vModel && setup.isArray(vModel)"
 					name="multiple-value"
 					:value="vModel"/>
-				<input
-					v-if="autocomplete && (!setup.hasValue || (setup.hasValue && setup.isFocus)) && !multiple"
-					:ref="setup._autocomplete"
-					v-model="setup.valueToSearch"
-					type="text"
-					class="orion-input__input orion-select__autocomplete"
-					:class="{
-						'orion-select__autocomplete--single': !multiple,
-						'orion-select__autocomplete--multiple': multiple,
-					}"
-					@focus="setup.handleFocus($event)"
-					@blur="setup.handleBlur($event)">
 			</div>
 
 			<template #icon-suffix>
@@ -266,11 +262,11 @@
 	lang="ts"
 	generic="T, O, VKey extends keyof O = never, DKey extends keyof O = VKey">
 import { OrionButton } from 'packages/Button';
+import { OrionChips } from 'packages/Chips';
 import { OrionField } from 'packages/Field';
 import { OrionIcon } from 'packages/Icon';
 import { OrionInput } from 'packages/Input';
 import { OrionLoader } from 'packages/Loader';
-import { OrionChips } from 'packages/Chips';
 import './OrionSelect.less';
 import type { OrionSelectEmits, OrionSelectProps, VModelType } from './OrionSelectSetupService';
 import OrionSelectSetupService from './OrionSelectSetupService';
