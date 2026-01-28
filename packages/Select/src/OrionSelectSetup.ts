@@ -1,108 +1,107 @@
 import anime from 'animejs';
-import { Dropdown, recomputeAllPoppers } from 'floating-vue';
-import { cloneDeep, debounce, DebouncedFunc, get, isArray, isEmpty, isNil, isObject, upperFirst } from 'lodash-es';
+import { type Dropdown, recomputeAllPoppers } from 'floating-vue';
+import { cloneDeep, debounce, type DebouncedFunc, get, isArray, isEmpty, isNil, isObject, upperFirst } from 'lodash-es';
 import mitt from 'mitt';
-import { ComponentPublicInstance, nextTick, ref, watch } from 'vue';
+import { type ComponentPublicInstance, nextTick, ref, watch } from 'vue';
 
 import { useMonkey } from 'services/MonkeyService';
 import { useNotif } from 'services/NotifService';
 import { Reactive } from 'utils/decorators';
 import { Log } from 'utils/Log';
 import { addPopoverBackdropCloseAbility } from 'utils/tools';
-import { ModelRef } from 'vue';
-import SharedFieldSetup, { SharedFieldSetupEmits, SharedFieldSetupProps } from '../../Shared/SharedFieldSetup';
+import { type ModelRef } from 'vue';
+import { SharedFieldSetup, type SharedFieldSetupEmits, type SharedFieldSetupProps } from '../../Shared/SharedFieldSetup';
 
-export type OrionSelectEmits<T, O> = SharedFieldSetupEmits<VModelType<T>> & {
+export type OrionSelectEmits<T, O> = SharedFieldSetupEmits<Orion.VModel.Select<T>> & {
 	// @doc event/input-keydown-tab/desc emitted when pressing Tab key from the search field
 	// @doc/fr event/input-keydown-tab/desc émis lors de l'appui sur la touche Tab depuis le champ de recherche
-  (e: 'input-keydown-tab'): void;
+	(e: 'input-keydown-tab'): void
 	// @doc event/add/desc emitted when a value is added from a multiple select
 	// @doc/fr event/add/desc émis lorsqu'une valeur est ajoutée à partir d'un select multiple
-	(e: 'add', payload: O): void;
+	(e: 'add', payload: O): void
 	// @doc event/remove/desc emitted when a value is removed from a multiple select
 	// @doc/fr event/remove/desc émis lorsqu'une valeur est retirée à partir d'un select multiple
-	(e: 'remove', payload: O): void;
+	(e: 'remove', payload: O): void
 	// @doc event/select/desc emitted when a value is selected from a simple select
 	// @doc/fr event/select/desc émis lorsqu'une valeur est sélectionnée à partir d'un select simple
-	(e: 'select', payload: O): void;
+	(e: 'select', payload: O): void
 	// @doc event/fetch-start/desc emitted when the fetch research starts
 	// @doc/fr event/fetch-start/desc émis lorsque la récupération des options commence
-	(e: 'fetch-start', payload?: string): void;
+	(e: 'fetch-start', payload?: string): void
 	// @doc event/fetch-end/desc emitted when the fetch research ends
 	// @doc/fr event/fetch-end/desc émis quand la récupération des options est finie
-	(e: 'fetch-end', payload: O[]): void;
+	(e: 'fetch-end', payload: O[]): void
 	// @doc event/fetch-search-clear/desc emitted when the research field is cleared
 	// @doc/fr event/fetch-search-clear/desc émis quand on efface le champ de recherche
-	(e: 'fetch-search-clear'): void;
-}
+	(e: 'fetch-search-clear'): void
+};
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export type OrionSelectProps<T, O, VKey extends keyof O, DKey extends keyof O = VKey> = SharedFieldSetupProps & {
 	// @doc props/autocomplete adds the possibility to write in the select field to filter options (for single select only)
 	// @doc/fr props/autocomplete permet à l'utilisateur d'écrire dans le champ dans le cas d'un select simple
-	autocomplete?: boolean,
+	autocomplete?: boolean
 	// @doc props/customFetch allows you to custom the fetch function
 	// @doc/fr props/customFetch permet de personnaliser la fonction de récupération des options
-	customFetch?: (searchTerm?: string) => Promise<O[]>,
+	customFetch?: (searchTerm?: string) => Promise<O[]>
 	// @doc props/customSearch allows you to custom the search function
 	// @doc/fr props/customSearch permet de personnaliser la fonction de recherche
-	customSearch?: Function,
+	customSearch?: Function
 	// @doc props/disabledKey disables the selection of the value
 	// @doc/fr props/disabledKey empêche la sélection d'un élément s'il possède cette clé
-	disabledKey?: string,
+	disabledKey?: string
 	// @doc props/displayKey key used to display the value in the field
 	// @doc/fr props/displayKey clé qui sera affiché au niveau du champ
-	displayKey?: DKey | keyof O,
+	displayKey?: DKey | keyof O
 	// @doc props/donetyping the duration to trigger the fetch
 	// @doc/fr props/donetyping indique après combien de temps après la dernière frappe, la fonction de récupération des options est appelée
-	donetyping?: number,
-	/* eslint-disable max-len */
-		// @doc props/dropdownOptions options to configure the dropdown [(go to Floating Vue doc for more details)](https://floating-vue.starpad.dev/api/#component-props)
-		// @doc/fr props/dropdownOptions options pour configurer la dropdown [(Voir la documentation de Floating Vue pour plus de détails)](https://floating-vue.starpad.dev/api/#component-props)
+	donetyping?: number
+
+	// @doc props/dropdownOptions options to configure the dropdown [(go to Floating Vue doc for more details)](https://floating-vue.starpad.dev/api/#component-props)
+	// @doc/fr props/dropdownOptions options pour configurer la dropdown [(Voir la documentation de Floating Vue pour plus de détails)](https://floating-vue.starpad.dev/api/#component-props)
 	dropdownOptions?: Partial<Orion.VDropdown>
 	// @doc props/favoriteIcon key used to choice the favorite icon
 	// @doc/fr props/favoriteIcon clé qui permet de choisir l'icône des favoris
-	favoriteIcon?: Orion.Icon,
+	favoriteIcon?: Orion.Icon
 	// @doc props/fetchInitialOptions initial options before first fetch (when using fetch mecanism)
 	// @doc/fr props/fetchInitialOptions options intiales avant le premier fetch (lors de l'utilisation du mécanisme de fetch des options)
-	favoritesOptions?: O[],
-	fetchInitialOptions?: O[],
+	favoritesOptions?: O[]
+	fetchInitialOptions?: O[]
 	// @doc props/fetchKey key used to pass the research field value as a parameter to fetch the options
 	// @doc/fr props/fetchKey clé utilisée pour passer la valeur du champ de recherche comme paramètre pour récupérer les options
-	fetchKey?: string,
+	fetchKey?: string
 	// @doc props/fetchMethod Method used to fetch the options
 	// @doc/fr props/fetchMethod Méthode utilisée pour récupérer les options
-	fetchMethod?: 'GET' | 'POST',
+	fetchMethod?: 'GET' | 'POST'
 	// @doc props/fetchMinSearch minimum number of caracters to trigger the fetch
 	// @doc/fr props/fetchMinSearch nombre de caractères nécessaire pour déclencher l'appel pour récupérer les options
-	fetchMinSearch?: number,
+	fetchMinSearch?: number
 	// @doc props/fetchUrl URL to fetch the options
 	// @doc/fr props/fetchUrl URL pour récupérer les options
-	fetchUrl?: string,
+	fetchUrl?: string
 	// @doc props/multiple defines if multiple values can be select in the select
 	// @doc/fr props/multiple définit si plusieurs valeurs peuvent être sélectionnées
-	multiple?: boolean,
+	multiple?: boolean
 	// @doc props/options options of the select
 	// @doc/fr props/options options du select
-	options?: O[],
+	options?: O[]
 	// @doc props/prefillSearch prefill the search field
 	// @doc/fr props/prefillSearch pré-rempli le champ de recherche
-	prefillSearch?: string,
+	prefillSearch?: string
 	// @doc props/searchable adds a search tooltip
 	// @doc/fr props/searchable ajoute un champ de recherche
-	searchable?: boolean,
+	searchable?: boolean
 	// @doc props/trackKey unique key item
 	// @doc/fr props/trackKey clé unique qui va différencier les options
-	trackKey?: keyof O,
+	trackKey?: keyof O
 	// @doc props/valueKey key used as field value
 	// @doc/fr props/valueKey clé qui réprésente la valeur d'un élément
-	valueKey?: VKey,
+	valueKey?: VKey
 };
 
-export type VModelType<T> = T | T[] | undefined | null;
+export class OrionSelectSetup<
+	T, O, VKey extends keyof O, DKey extends keyof O = VKey,
+> extends SharedFieldSetup<OrionSelectProps<T, O, VKey, DKey>, Orion.VModel.Select<T>> {
 
-export default class OrionSelectSetup<
-	T, O, VKey extends keyof O, DKey extends keyof O = VKey
-> extends SharedFieldSetup<OrionSelectProps<T, O, VKey, DKey>, VModelType<T>> {
 	static readonly defaultProps = {
 		...SharedFieldSetup.defaultProps,
 		donetyping: 600,
@@ -117,18 +116,19 @@ export default class OrionSelectSetup<
 	};
 
 	private bus = mitt<{
-		input: T;
-		select: O;
-		add: O;
-		remove: T | O;
+		input: T
+		select: O
+		add: O
+		remove: T | O
 	}>();
 
 	private fetchSearchDebounce: DebouncedFunc<(term?: string) => void>;
 
+	// eslint-disable-next-line orion-rules/state-are-private-readonly
 	@Reactive protected readonly state = {
 		...this.sharedState,
 		valueToSearch: undefined as string | undefined,
-		lastValue: undefined as Nil<VModelType<T>>,
+		lastValue: undefined as Nil<Orion.VModel.Select<T>>,
 		indexNav: -1,
 		isFetching: false,
 		fetchResult: [] as O[],
@@ -141,7 +141,7 @@ export default class OrionSelectSetup<
 	readonly _popoverinner = ref<RefDom>();
 	readonly _optionscontainer = ref<RefDom>();
 	readonly _defaultSlot = ref<RefDom>();
-	readonly _favoritesoptionscontainer = ref<RefDom>();
+	private readonly _favoritesoptionscontainer = ref<RefDom>();
 	readonly _autocomplete = ref<RefDom<HTMLInputElement>>();
 	readonly _optionssearchinput = ref<OrionInput>();
 	readonly _items = ref<(Element | ComponentPublicInstance)[]>([]);
@@ -152,62 +152,45 @@ export default class OrionSelectSetup<
 		this.windowResizeHandler();
 	};
 
-	windowResizeHandler = debounce(async () => {
+	private windowResizeHandler = debounce(async () => {
 		this.calculateVisibleMultipleItems();
 	}, 17);
 
-
-	get favoritesOptions () { return this.state.favoritesOptions; }
-	get valueToSearch () { return this.state.valueToSearch; }
-	set valueToSearch (value) {
-		this.state.valueToSearch = value;
-		if (!value?.length) {
-			this.emits('fetch-search-clear');
-		}
-
-		if (this.props.fetchUrl || this.props.customFetch) {
-			this.fetchSearchDebounce(value);
-		} else {
-			nextTick(this.animate.bind(this));
-		}
-	}
-
-	get indexNav () { return this.state.indexNav; }
-	set indexNav (value) { this.state.indexNav = value; }
-
-	get isFetching () {
-		return this.state.isFetching;
-	}
-
+	get favoritesOptions () { return this.state.favoritesOptions }
+	get isFetching () { return this.state.isFetching }
 	get optionsDisplay (): O[] {
 		this._items.value.length = 0;
 		if (this.props.fetchUrl || this.props.customFetch) {
 			return this.fetchOptions;
-		} else {
+		}
+		else {
 			let options = [];
 			if (this.favoritesOptions && this.favoritesOptions.length > 0) {
 				options = [...this.favoritesOptions, ...this.props.options]
 					.filter((obj, index, self) => index === self.findIndex(o => JSON.stringify(o) === JSON.stringify(obj)));
-			} else {
+			}
+			else {
 				options = this.props.options;
 			}
 			if ((this.props.searchable || this.props.autocomplete) && !isEmpty(this.state.valueToSearch)) {
 				if (this.props.customSearch) {
 					return options.filter(x => this.props.customSearch?.(x, this.state.valueToSearch));
-				} else {
+				}
+				else {
 					return options.filter((x: any) => {
 						if (!this.state.valueToSearch) return true;
 						const target = this.itemIsObject(x) && this.props.displayKey ? x[this.props.displayKey] : x;
 						return this.normalizeString(target).indexOf(this.normalizeString(this.state.valueToSearch)) !== -1;
 					});
 				}
-			} else {
+			}
+			else {
 				return options;
 			}
 		}
 	}
 
-	get fetchOptions (): O[] {
+	private get fetchOptions (): O[] {
 		return !!this.state.fetchResult.length
 			? this.state.fetchResult as O[]
 			: this.props.fetchInitialOptions as O[];
@@ -215,46 +198,42 @@ export default class OrionSelectSetup<
 
 	get hasValue () {
 		return !!(this.vModel.value !== ''
-			&& (
-				(!this.props.multiple && !isNil(this.vModel.value))
-				|| (this.props.multiple && isArray(this.vModel.value) && !!this.vModel.value.length)
-			));
+		  && ((!this.props.multiple && !isNil(this.vModel.value))
+		    || (this.props.multiple && isArray(this.vModel.value) && !!this.vModel.value.length)
+		  ));
 	}
 
 	get labelIsFloating () {
 		return (this.hasValue
-			|| this.props.forceLabelFloating
-			|| (this.props.autocomplete && this.state.isFocus)
-			|| !!this.valueToSearch?.length && !this._optionssearchinput.value);
+		  || this.props.forceLabelFloating
+		  || (this.props.autocomplete && this.state.isFocus)
+		  || (!!this.valueToSearch?.length && !this._optionssearchinput.value)
+		);
 	}
 
-	get isObjectType () {
+	private get isObjectType () {
 		return (!isArray(this.vModel.value) && isObject(this.vModel.value))
-			|| (isArray(this.vModel.value) && isObject(this.vModel.value[0]))
-			|| (isArray(this.props.options) && isObject(this.props.options[0]))
-			|| (isArray(this.fetchOptions) && isObject(this.fetchOptions[0]));
+		  || (isArray(this.vModel.value) && isObject(this.vModel.value[0]))
+		  || (isArray(this.props.options) && isObject(this.props.options[0]))
+		  || (isArray(this.fetchOptions) && isObject(this.fetchOptions[0]));
 	}
 
 	get showPopover () {
 		return (!this.props.autocomplete && this.state.isFocus)
-			|| (this.props.autocomplete && this.state.isFocus)
-			|| (this.props.autocomplete && this.responsive.onPhone && this.state.isFocus);
+		  || (this.props.autocomplete && this.state.isFocus)
+		  || (this.props.autocomplete && this.responsive.onPhone && this.state.isFocus);
 	}
 
 	get showPopoverSearch () {
 		if (this.props.autocomplete && !this.responsive.onPhone) return false;
 
 		return (this.props.autocomplete && this.responsive.onPhone)
-		|| this.props.fetchUrl
-		|| this.props.customFetch
-		|| (this.props.searchable && this.props.options.length > 1);
+		  || this.props.fetchUrl
+		  || this.props.customFetch
+		  || (this.props.searchable && this.props.options.length > 1);
 	}
 
-	get maxVisibleMultipleItems () { return this.state.maxVisibleMultipleItems; }
-
-	get displayMultipleDropdown () { return this.state.displayMultipleDropdown; }
-	set displayMultipleDropdown (val) { this.state.displayMultipleDropdown = val; }
-
+	get maxVisibleMultipleItems () { return this.state.maxVisibleMultipleItems }
 	get publicInstance () {
 		return {
 			...super.publicInstance,
@@ -268,15 +247,36 @@ export default class OrionSelectSetup<
 		};
 	}
 
+	get valueToSearch () { return this.state.valueToSearch }
+	set valueToSearch (value) {
+		this.state.valueToSearch = value;
+		if (!value?.length) {
+			this.emits('fetch-search-clear');
+		}
+
+		if (this.props.fetchUrl || this.props.customFetch) {
+			this.fetchSearchDebounce(value);
+		}
+		else {
+			nextTick(this.animate.bind(this));
+		}
+	}
+
+	get indexNav () { return this.state.indexNav }
+	set indexNav (value) { this.state.indexNav = value }
+
+	get displayMultipleDropdown () { return this.state.displayMultipleDropdown }
+	set displayMultipleDropdown (val) { this.state.displayMultipleDropdown = val }
+
 	constructor (
-		protected props: OrionSelectProps<T, O, VKey, DKey>
-		& Omit<typeof OrionSelectSetup.defaultProps, 'options' | 'fetchInitialOptions' | 'favoritesOptions'> & {
-			options: O[],
+		protected props: OrionSelectProps<T, O, VKey, DKey> & Omit<typeof OrionSelectSetup.defaultProps, 'options' | 'fetchInitialOptions' | 'favoritesOptions'> & {
+			options: O[]
 			fetchInitialOptions: O[]
 			favoritesOptions: O[]
 		},
 		protected emits: OrionSelectEmits<T, O>,
-		protected vModel: ModelRef<VModelType<T>>) {
+		protected vModel: ModelRef<Orion.VModel.Select<T>>,
+	) {
 		super(props, emits, vModel);
 		this.state.favoritesOptions = [...this.props.favoritesOptions];
 		this.bus.on('*', (type, e) => this.emits(type as any, e as any));
@@ -293,7 +293,7 @@ export default class OrionSelectSetup<
 		}
 	}
 
-	protected async onBeforeMount () {
+	protected async onBeforeMountAsync () {
 		this.handleFieldEvents();
 		this.checkProps();
 	}
@@ -307,17 +307,16 @@ export default class OrionSelectSetup<
 
 	protected onUnmounted () {
 		this.window?.removeEventListener('resize', this.debouncedWindowResizeHandler);
-	};
-
+	}
 
 	private checkProps () {
 		if (this.props.multiple && !isNil(this.vModel.value) && !isArray(this.vModel.value)) {
-			// eslint-disable-next-line max-len
+
 			Log.error(`orion-select - prop "multiple" on orion-select requires a v-model of type Array, type ${upperFirst(typeof this.vModel.value)} detected`);
 		}
 
 		if (this.isObjectType && !this.props.trackKey) {
-			// eslint-disable-next-line max-len
+
 			Log.error(`orion-select - items of prop "options" are of type Object but the prop "track-key" is missing`);
 		}
 	}
@@ -328,21 +327,23 @@ export default class OrionSelectSetup<
 				return !isNil(item)
 					? item === option[this.props.valueKey]
 					: false;
-			} else {
+			}
+			else {
 				return !isNil(item) && this.itemIsObject(item)
 					? item[this.props.trackKey] === option[this.props.trackKey]
 					: false;
 			}
-		} else {
+		}
+		else {
 			return item as any === option;
 		}
 	}
 
 	private async fetchSearchAsync (term?: string) {
 		if (!isNil(term)
-			&& this.props.fetchMinSearch
-			&& term.length
-			&& term.length < this.props.fetchMinSearch
+		  && this.props.fetchMinSearch
+		  && term.length
+		  && term.length < this.props.fetchMinSearch
 		) return;
 
 		this.state.isFetching = true;
@@ -369,7 +370,8 @@ export default class OrionSelectSetup<
 			});
 
 			this.state.fetchResult = await resp.json();
-		} else if (this.props.customFetch) {
+		}
+		else if (this.props.customFetch) {
 			this.state.fetchResult = await this.props.customFetch(term);
 		}
 
@@ -419,19 +421,22 @@ export default class OrionSelectSetup<
 
 			if (!valueToEmit?.length) {
 				valueToEmit = [];
-			} else {
+			}
+			else {
 				if (this.isObjectType && !this.props.valueKey) {
-					index = valueToEmit.findIndex((x: VModelType<T>) =>
-						this.itemIsObject(x) &&
-						this.itemIsObject(val) &&
-						x[this.props.trackKey] === val[this.props.trackKey]);
-				} else {
-					index = valueToEmit.findIndex((x: VModelType<T>) => x === val);
+					index = valueToEmit.findIndex((x: Orion.VModel.Select<T>) =>
+						this.itemIsObject(x)
+						&& this.itemIsObject(val)
+						&& x[this.props.trackKey] === val[this.props.trackKey]);
+				}
+				else {
+					index = valueToEmit.findIndex((x: Orion.VModel.Select<T>) => x === val);
 				}
 
 				if (index > -1) {
 					valueToEmit.splice(index, 1);
-				} else {
+				}
+				else {
 					useNotif.danger(this.lang.ORION_SELECT__REMOVE_VALUE_ERROR);
 				}
 			}
@@ -440,7 +445,7 @@ export default class OrionSelectSetup<
 		});
 	}
 
-	private emitValue (valueToEmit: Nil<VModelType<T>>) {
+	private emitValue (valueToEmit: Nil<Orion.VModel.Select<T>>) {
 		this.state.lastValue = valueToEmit;
 		this.vModel.value = valueToEmit;
 		setTimeout(() => this.calculateVisibleMultipleItems(), 10);
@@ -449,7 +454,8 @@ export default class OrionSelectSetup<
 	private animate () {
 		if (this.props.options.length > 30) {
 			this._items.value.forEach(el => (el as HTMLElement).style.opacity = '1');
-		} else {
+		}
+		else {
 			anime({
 				targets: this._items.value.filter(x => !!x),
 				opacity: [0, 1],
@@ -473,7 +479,7 @@ export default class OrionSelectSetup<
 		}
 	}
 
-	itemIsObject (item: O | VModelType<T>): item is Extract<O, Record<string, any>> {
+	itemIsObject (item: O | Orion.VModel.Select<T>): item is Extract<O, Record<string, any>> {
 		return typeof item === 'object' && item !== null;
 	}
 
@@ -482,8 +488,8 @@ export default class OrionSelectSetup<
 
 		const currentValue = optionsToSearchIn.find((x) => {
 			return this.itemIsObject(x)
-				&& this.props.valueKey
-				&& x[this.props.valueKey] === item;
+			  && this.props.valueKey
+			  && x[this.props.valueKey] === item;
 		});
 
 		if (!currentValue && this.fetchOptions.length) return {
@@ -496,27 +502,32 @@ export default class OrionSelectSetup<
 				? {
 					display: currentValue[this.props.displayKey],
 					item: currentValue as Nil<O>,
-				} : {
+				}
+				: {
 					display: item,
 					item,
 				};
-		} else if (this.props.displayKey) {
+		}
+		else if (this.props.displayKey) {
 			return item && this.itemIsObject(item) && item[this.props.displayKey]
 				? {
 					display: item[this.props.displayKey],
 					item: item as Nil<T>,
-				} : {
+				}
+				: {
 					display: item,
 					item: currentValue as Nil<O>,
 				};
-		} else {
+		}
+		else {
 			return item && this.props.valueKey
 				? {
 					display: this.itemIsObject(currentValue) && currentValue[this.props.valueKey]
 						? currentValue[this.props.valueKey]
 						: undefined as Nil<T>,
 					item: currentValue as Nil<O>,
-				} : {
+				}
+				: {
 					display: item,
 					item,
 				};
@@ -531,7 +542,8 @@ export default class OrionSelectSetup<
 				const index = this.vModel.value.findIndex(item => this.itemMatchOption(option, item));
 				isSelect = index > -1;
 			}
-		} else {
+		}
+		else {
 			isSelect = this.itemMatchOption(option, this.vModel.value as T);
 		}
 
@@ -552,7 +564,8 @@ export default class OrionSelectSetup<
 			if (this._defaultSlot.value) {
 				this._defaultSlot.value?.focus();
 				this._optionssearchinput.value?.focus();
-			} else {
+			}
+			else {
 				this._autocomplete.value?.focus();
 				this._optionssearchinput.value?.focus();
 			}
@@ -581,7 +594,7 @@ export default class OrionSelectSetup<
 		if (e?.relatedTarget) {
 			const el = e.relatedTarget as HTMLElement;
 			if (el.classList.contains('orion-select__popover-search-input')
-					|| (el === this._autocomplete.value)) {
+			  || (el === this._autocomplete.value)) {
 				return false;
 			}
 		}
@@ -619,7 +632,8 @@ export default class OrionSelectSetup<
 
 		if (direction === 'down' && this.state.indexNav < this.optionsDisplay.length - 1) {
 			this.state.indexNav++;
-		} else if (direction === 'up' && this.state.indexNav > 0) {
+		}
+		else if (direction === 'up' && this.state.indexNav > 0) {
 			this.state.indexNav--;
 		}
 
@@ -629,7 +643,8 @@ export default class OrionSelectSetup<
 
 		if (direction === 'down' && itemBottom > bottomOptions) {
 			popoverInner.scrollTop = popoverInner.scrollTop + (itemBottom - bottomOptions);
-		} else if (direction === 'up' && itemTop < topOptions) {
+		}
+		else if (direction === 'up' && itemTop < topOptions) {
 			popoverInner.scrollTop = popoverInner.scrollTop - (topOptions - itemTop);
 		}
 	}
@@ -661,11 +676,13 @@ export default class OrionSelectSetup<
 		if (this.props.multiple) {
 			if (this.optionIsSelected(value)) {
 				this.bus.emit('remove', value);
-			} else {
+			}
+			else {
 				this.bus.emit('add', value);
 			}
 			recomputeAllPoppers();
-		} else {
+		}
+		else {
 			this.bus.emit('select', value);
 			this.valueToSearch = undefined;
 			this.handleBlur(undefined, true);
@@ -702,7 +719,7 @@ export default class OrionSelectSetup<
 		return useMonkey(content).mark(this.state.valueToSearch) as string;
 	}
 
-	normalizeString (str: string) {
+	private normalizeString (str: string) {
 		return str.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '');
 	}
 
@@ -715,7 +732,7 @@ export default class OrionSelectSetup<
 		this.state.displayMultipleDropdown = !this.state.displayMultipleDropdown;
 	}
 
-	calculateVisibleMultipleItems () {
+	private calculateVisibleMultipleItems () {
 		if (!this.props.multiple) return;
 
 		const container = this._input.value?.querySelector('.orion-select__multiple-content') as HTMLElement;
@@ -744,7 +761,8 @@ export default class OrionSelectSetup<
 				if (requiredWidth <= containerWidth) {
 					totalWidth += childWidth + (i > 0 ? gap : 0);
 					visibleCount = i + 1;
-				} else {
+				}
+				else {
 					break;
 				}
 			}
@@ -752,4 +770,5 @@ export default class OrionSelectSetup<
 			this.state.maxVisibleMultipleItems = Math.max(1, visibleCount);
 		});
 	}
+
 }

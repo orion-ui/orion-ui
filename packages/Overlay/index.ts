@@ -1,8 +1,7 @@
 import { upperFirst } from 'lodash-es';
-import { App, Plugin } from 'vue';
+import { type App, type Plugin } from 'vue';
 import OrionOverlay from './src/OrionOverlay.vue';
-import type { OrionOverlayEmits, OrionOverlayProps } from './src/OrionOverlaySetup';
-import OrionOverlaySetup from './src/OrionOverlaySetup';
+import { OrionOverlaySetup, type OrionOverlayEmits, type OrionOverlayProps } from './src/OrionOverlaySetup';
 
 export const OrionOverlayPlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,5 +9,4 @@ export const OrionOverlayPlugin: Plugin = {
 	},
 };
 
-export { OrionOverlay, OrionOverlayEmits, OrionOverlayProps, OrionOverlaySetup };
-
+export { OrionOverlay, OrionOverlaySetup, type OrionOverlayEmits, type OrionOverlayProps };

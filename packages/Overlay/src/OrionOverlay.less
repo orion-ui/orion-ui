@@ -1,23 +1,20 @@
-@import '../../Shared/styles/variables.less';
-@import '../../Shared/styles/mixins.less';
+@import "../../Shared/styles/variables.less";
+@import "../../Shared/styles/mixins.less";
 
 .orion-overlay {
-	transition: opacity 0.3s ease-out;
+	pointer-events: none;
+	scrollbar-width: none; /* Firefox */
 	position: absolute;
 	z-index: 1;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	opacity: 0;
-	pointer-events: none;
-	background: color-mix(in srgb, black 70%, transparent);
-	overscroll-behavior: contain;
+	inset: 0;
 	overflow: auto;
+	overscroll-behavior: contain;
+	opacity: 0;
+	background: color-mix(in srgb, black 70%, transparent);
+	transition: opacity 0.3s ease-out;
 
 	/* hide scrollbar */
 	-ms-overflow-style: none; /* IE and Edge */
-	scrollbar-width: none; /* Firefox */
 	&::-webkit-scrollbar {
 		display: none; /* Chrome, Safari and Opera */
 	}
@@ -35,7 +32,7 @@
 	}
 
 	&--visible {
-		opacity: 1;
 		pointer-events: all;
+		opacity: 1;
 	}
 }

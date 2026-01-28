@@ -2,19 +2,20 @@ import anime from 'animejs';
 import { isNil } from 'lodash-es';
 import { Reactive } from 'utils/decorators';
 import { ref } from 'vue';
-import SharedPopableSetup, { SharedPopableSetupEmits, SharedPopableSetupProps } from '../../Shared/SharedPopableSetup';
+import { SharedPopableSetup, type SharedPopableSetupEmits, type SharedPopableSetupProps } from '../../Shared/SharedPopableSetup';
 
-export type OrionNotifEmits = SharedPopableSetupEmits & {}
+export type OrionNotifEmits = SharedPopableSetupEmits & {};
 export type OrionNotifProps = SharedPopableSetupProps & {
 	// @doc props/display if set, displays the component
 	// @doc/fr props/display si défini, affiche le composant
-	display?: boolean,
+	display?: boolean
 	// @doc props/options options of the notification
 	// @doc/fr props/options options de la notification
-	options?: Partial<Orion.Notif.Options>,
+	options?: Partial<Orion.Notif.Options>
 };
 
-export default class OrionNotifSetup extends SharedPopableSetup {
+export class OrionNotifSetup extends SharedPopableSetup {
+
 	static readonly defaultProps = { ...SharedPopableSetup.defaultProps };
 
 	protected readonly name = 'OrionNotif' as const;
@@ -30,10 +31,7 @@ export default class OrionNotifSetup extends SharedPopableSetup {
 	private timerValue = ref<Nil<number>>();
 	private timerInterval?: NodeJS.Timeout;
 
-	get timer () {
-		return this.timerValue.value;
-	}
-
+	get timer () { return this.timerValue.value }
 	get publicInstance () {
 		return {
 			...super.publicInstance,
@@ -41,9 +39,8 @@ export default class OrionNotifSetup extends SharedPopableSetup {
 		};
 	}
 
-
 	constructor (
-		protected props: OrionNotifProps & Omit<typeof OrionNotifSetup.defaultProps, 'options'> & {options: Partial<Orion.Popable.Options>},
+		protected props: OrionNotifProps & Omit<typeof OrionNotifSetup.defaultProps, 'options'> & { options: Partial<Orion.Popable.Options> },
 		protected emits: OrionNotifEmits) {
 		super(props, emits);
 
@@ -55,8 +52,7 @@ export default class OrionNotifSetup extends SharedPopableSetup {
 		this.handleTimer();
 	}
 
-
-	async animateAsync (enter: boolean) {
+	protected async animateAsync (enter: boolean) {
 		return new Promise<void>(async (resolve) => {
 			if (enter === this.state.visible) {
 				resolve();
@@ -72,7 +68,7 @@ export default class OrionNotifSetup extends SharedPopableSetup {
 					translateY: [200, 0],
 					duration: 600,
 					easing: 'easeOutCubic',
-					begin: async () => {
+					'begin': async () => {
 						this.emits('enter-start');
 						this.trigger('enter-start');
 
@@ -88,25 +84,25 @@ export default class OrionNotifSetup extends SharedPopableSetup {
 							}, 1000);
 						}
 					},
-					complete: async () => {
+					'complete': async () => {
 						resolve();
 						this.emits('enter-end');
 						this.trigger('enter-end');
 					},
 				});
-			} else {
-
+			}
+			else {
 				anime({
 					targets: this._el.value,
 					opacity: 0,
 					translateY: 200,
 					duration: 500,
 					easing: 'easeOutCubic',
-					begin: async () => {
+					'begin': async () => {
 						this.emits('leave-start');
 						this.trigger('leave-start');
 					},
-					complete: async () => {
+					'complete': async () => {
 						this.state.visible = false;
 						resolve();
 						this.emits('leave-end');
@@ -127,7 +123,7 @@ export default class OrionNotifSetup extends SharedPopableSetup {
 		return !isNil(this.timer);
 	}
 
-	resetTimer () {
+	private resetTimer () {
 		if (this._timerProgress.value) {
 			this._timerProgress.value.style.animationName = 'none';
 		}
@@ -140,4 +136,5 @@ export default class OrionNotifSetup extends SharedPopableSetup {
 			}
 		}, 0);
 	}
+
 }

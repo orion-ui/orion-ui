@@ -51,9 +51,9 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, watch } from 'vue';
-import { getUid } from 'lib';
 import { faker } from '@faker-js/faker';
+import { getUid } from 'lib';
+import { reactive, watch } from 'vue';
 
 function seedOptions (qty = 5) {
 	const items = [];

@@ -20,12 +20,11 @@
 
 <script setup lang="ts">
 import './OrionToggleButtonGroup.less';
-import type { OrionToggleButtonGroupEmits, OrionToggleButtonGroupProps } from './OrionToggleButtonGroupSetup';
-import OrionToggleButtonGroupSetup from './OrionToggleButtonGroupSetup';
+import { OrionToggleButtonGroupSetup, type OrionToggleButtonGroupEmits, type OrionToggleButtonGroupProps } from './OrionToggleButtonGroupSetup';
 const emits = defineEmits<OrionToggleButtonGroupEmits>() as OrionToggleButtonGroupEmits;
 const slots = defineSlots();
 const props = withDefaults(defineProps<OrionToggleButtonGroupProps>(), OrionToggleButtonGroupSetup.defaultProps);
-const vModel = defineModel<string | number |(string | number)[]>({ default: [] });
+const vModel = defineModel<string | number | (string | number)[]>({ default: [] });
 const setup = new OrionToggleButtonGroupSetup(props, emits, slots, vModel);
 defineExpose(setup.publicInstance);
 </script>

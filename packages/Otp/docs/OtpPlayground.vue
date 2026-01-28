@@ -36,9 +36,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
-import { reactive } from 'vue';
-import { OrionOtpProps } from '../src/OrionOtpSetupService';
+import { reactive, ref, watch } from 'vue';
+import { type OrionOtpProps } from '../src/OrionOtpSetup';
 
 const otp = ref<OrionOtp>();
 
@@ -59,6 +58,5 @@ watch(() => state.dataType, () => {
 });
 
 </script>
-
 
 ### Playground

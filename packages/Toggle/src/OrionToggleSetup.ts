@@ -1,26 +1,26 @@
-import { ModelRef, reactive } from 'vue';
+import { type ModelRef, reactive } from 'vue';
 import type { SharedFieldSetupEmits, SharedFieldSetupProps } from '../../Shared/SharedFieldSetup';
-import SharedFieldSetup from '../../Shared/SharedFieldSetup';
-import SharedProps, { SharedPropsColor } from '../../Shared/SharedProps';
+import { SharedFieldSetup } from '../../Shared/SharedFieldSetup';
+import { SharedProps, type SharedPropsColor } from '../../Shared/SharedProps';
 
 export type OrionToggleEmits = SharedFieldSetupEmits<boolean> & {};
-export type OrionToggleProps = SharedFieldSetupProps &
-	SharedPropsColor & {
-		// @doc props/inline set the property `display` on `inline-flex` instead of `flex`
-		// @doc/fr props/inline défini la propriété `display` à `inline-flex` à la place `flex`
-		inline?: boolean;
-		// @doc props/reverse displays the label first
-		// @doc/fr props/reverse affiche d'abord le label
-		reverse?: boolean;
-		// @doc props/type type of the input
-		// @doc/fr props/type type du champ
-		type?: string;
-		// @doc props/value value of the toggle
-		// @doc/fr props/value valeur du toggle
-		value?: boolean;
-	};
+export type OrionToggleProps = SharedFieldSetupProps & SharedPropsColor & {
+	// @doc props/inline set the property `display` on `inline-flex` instead of `flex`
+	// @doc/fr props/inline défini la propriété `display` à `inline-flex` à la place `flex`
+	inline?: boolean
+	// @doc props/reverse displays the label first
+	// @doc/fr props/reverse affiche d'abord le label
+	reverse?: boolean
+	// @doc props/type type of the input
+	// @doc/fr props/type type du champ
+	type?: string
+	// @doc props/value value of the toggle
+	// @doc/fr props/value valeur du toggle
+	value?: boolean
+};
 
-export default class OrionToggleSetup extends SharedFieldSetup<OrionToggleProps, boolean> {
+export class OrionToggleSetup extends SharedFieldSetup<OrionToggleProps, boolean> {
+
 	static readonly defaultProps = {
 		...SharedFieldSetup.defaultProps,
 		...SharedProps.color,
@@ -36,33 +36,24 @@ export default class OrionToggleSetup extends SharedFieldSetup<OrionToggleProps,
 
 	protected get width () {
 		switch (this.props.size) {
-		case 'xs':
-			return 30;
-		case 'sm':
-			return 32;
-		case 'md':
-			return 40;
-		case 'lg':
-			return 52;
-		case 'xl':
-			return 60;
-		default:
-			return 45;
+			case 'xs':
+				return 30;
+			case 'sm':
+				return 32;
+			case 'md':
+				return 40;
+			case 'lg':
+				return 52;
+			case 'xl':
+				return 60;
+			default:
+				return 45;
 		}
 	}
 
-	protected get height () {
-		return Math.round(this.width / 1.75);
-	}
-
-	protected get buttonRadius () {
-		return this.height - this.state.margin * 2;
-	}
-
-	protected get distance () {
-		return this.px(this.width - this.height + this.state.margin);
-	}
-
+	protected get height () { return Math.round(this.width / 1.75) }
+	protected get buttonRadius () { return this.height - this.state.margin * 2 }
+	protected get distance () { return this.px(this.width - this.height + this.state.margin) }
 	protected get isValidCustom () {
 		if (this.props.required) return !!this.vModel.value;
 	}
@@ -90,8 +81,8 @@ export default class OrionToggleSetup extends SharedFieldSetup<OrionToggleProps,
 	}
 
 	constructor (
-		protected props: OrionToggleProps &
-			typeof OrionToggleSetup.defaultProps,
+		protected props: OrionToggleProps
+		  & typeof OrionToggleSetup.defaultProps,
 		protected emits: OrionToggleEmits,
 		protected vModel: ModelRef<boolean>,
 	) {
@@ -112,4 +103,5 @@ export default class OrionToggleSetup extends SharedFieldSetup<OrionToggleProps,
 			this.vModel.value = !this.vModel.value;
 		}
 	}
+
 }

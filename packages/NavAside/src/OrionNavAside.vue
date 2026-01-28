@@ -10,8 +10,7 @@
 import { OrionNavMain } from 'packages/NavMain';
 import { inject } from 'vue';
 import './OrionNavAside.less';
-import type { OrionNavAsideEmits, OrionNavAsideProps } from './OrionNavAsideSetup';
-import OrionNavAsideSetup from './OrionNavAsideSetup';
+import { OrionNavAsideSetup, type OrionNavAsideEmits, type OrionNavAsideProps } from './OrionNavAsideSetup';
 const _aside = inject<OrionAside>('_aside');
 const emits = defineEmits<OrionNavAsideEmits>() as OrionNavAsideEmits;
 const props = withDefaults(defineProps<OrionNavAsideProps>(), OrionNavAsideSetup.defaultProps);

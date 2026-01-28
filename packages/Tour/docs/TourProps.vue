@@ -7,16 +7,14 @@
 				auctor sed lectus.
 			</o-section>
 		</o-tour-step>
-		<o-tour-step
-			target="tour3">
+		<o-tour-step target="tour3">
 			<o-section size="xs">
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras gravida orci a nulla auctor,
 				in tempus erat elementum. Nullam ac tincidunt dolor. Sed sapien massa, commodo sed feugiat ac,
 				auctor sed lectus.
 			</o-section>
 		</o-tour-step>
-		<o-tour-step
-			:target="getTarget">
+		<o-tour-step :target="getTarget">
 			<o-section size="xs">
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras gravida orci a nulla auctor,
 				in tempus erat elementum. Nullam ac tincidunt dolor. Sed sapien massa, commodo sed feugiat ac,
@@ -82,8 +80,7 @@
 
 <script setup lang="ts">
 import { useNotif, useTour } from 'services';
-import { onMounted } from 'vue';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
 const _tourProps = ref<OrionTour>();
 

@@ -1,11 +1,12 @@
-@import '../../Shared/styles/variables.less';
-@import '../../Shared/styles/mixins.less';
+@import "../../Shared/styles/variables.less";
+@import "../../Shared/styles/mixins.less";
 
 #layout {
-	min-height: 100vh; // svh support fallback
-	min-height: 100svh;
 	display: flex;
 	flex-direction: column;
+	min-height: 100vh; // svh support fallback
+	/* stylelint-disable-next-line unit-allowed-list */
+	min-height: 100svh;
 
 	@media @phone, @tabletPortraitOnly {
 		> .orion-nav-main {
@@ -36,22 +37,22 @@
 }
 
 #footer {
-	flex: 0 1 auto;
 	display: flex;
+	flex: 0 1 auto;
 	align-items: center;
 	justify-content: space-between;
 	width: 100%;
-	padding: var(--o-space-32);
 	margin: 0 auto 4rem;
+	padding: var(--o-space-32);
 	color: var(--o-text-neutral-moderate);
 
 	span {
-		color: var(--o-text-info-default);
-		font-size: 0.75rem;
-		text-transform: uppercase;
-		text-decoration: none;
-		margin: 0 0.5rem;
 		cursor: pointer;
+		margin: 0 0.5rem;
+		font-size: 0.75rem;
+		color: var(--o-text-info-default);
+		text-decoration: none;
+		text-transform: uppercase;
 
 		&:hover {
 			text-decoration: underline;
@@ -64,8 +65,8 @@
 
 	@media @tabletLandscape {
 		max-width: calc(@BP-tabletLandscape - 4rem);
-		padding-left: calc(16rem + 10px + 0.3rem);
 		margin-bottom: 1rem;
+		padding-left: calc(16rem + 0.625rem + 0.3rem);
 	}
 
 	@media @desktop {
@@ -78,13 +79,5 @@
 
 	@media @phone {
 		flex-direction: column;
-
-		#footer__links {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			margin: 0.5rem auto;
-		}
 	}
 }
-

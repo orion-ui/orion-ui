@@ -1,29 +1,31 @@
 import { reactive, ref } from 'vue';
-import SharedSetup from '../../Shared/SharedSetup';
+import { SharedSetup } from '../../Shared/SharedSetup';
 
 export type OrionOtpEmits = {
 	// @doc event/filled/desc emitted when the code is completed
 	// @doc/fr event/filled/desc émis lorsque le code est complété
 	(e: 'filled', val: string): void
-}
+};
 
 export type OrionOtpProps = {
 	// @doc props/dataType defines the type of the code
 	// @doc/fr props/dataType definit le type du code
-	dataType?: 'number' | 'text',
+	dataType?: 'number' | 'text'
 	// @doc props/readonly if set, the code will be on read-only mode
 	// @doc/fr props/readonly si défini, le code sera en mode read-only
-	readonly?: boolean,
+	readonly?: boolean
 	// @doc props/size defines the size of the code
 	// @doc/fr props/size définit la taille du code
-	size?: number,
+	size?: number
 	// @doc props/value the string value of the code, if it is prefilled
 	// @doc/fr props/value valeur du code sous forme de chaîne de caractères, s'il est pré-rempli
-	value?: string,
+	value?: string
 };
 
-type Code = {[key: number]: string }
-export default class OrionOtpSetup extends SharedSetup {
+type Code = { [key: number]: string };
+
+export class OrionOtpSetup extends SharedSetup {
+
 	static readonly defaultProps = {
 		dataType: 'text' as OrionOtpProps['dataType'],
 		size: 4,
@@ -36,10 +38,7 @@ export default class OrionOtpSetup extends SharedSetup {
 		validated: false,
 	});
 
-	get code () { return this.state.code;}
-	set code (val) { this.state.code = val;}
-
-	get readableCode () {
+	private get readableCode () {
 		let result = '';
 		Object.values(this.code).forEach(val => result += val);
 		return result;
@@ -55,6 +54,8 @@ export default class OrionOtpSetup extends SharedSetup {
 		};
 	}
 
+	get code () { return this.state.code }
+	set code (val) { this.state.code = val }
 
 	constructor (
 		protected props: OrionOtpProps & typeof OrionOtpSetup.defaultProps,
@@ -62,26 +63,27 @@ export default class OrionOtpSetup extends SharedSetup {
 		super();
 	}
 
-	onMounted () {
+	protected onMounted () {
 		if (this.props.value) {
 			this.splitCodeFromString(this.props.value, 1);
 		}
 	}
 
-	splitCodeFromString (value: string, index: number) {
+	private splitCodeFromString (value: string, index: number) {
 
 		const array = value.split('');
-		for (let i=0; i<this.props.size; i++) {
-			this.state.code[i+1] = array[i];
+		for (let i = 0; i < this.props.size; i++) {
+			this.state.code[i + 1] = array[i];
 		}
 
 		if (!this._inputs.value) return;
 
 		if (value.length >= this.props.size) {
-			this._inputs.value[index-1].blur();
+			this._inputs.value[index - 1].blur();
 			this.validate();
-		} else {
-			this._inputs.value[this.props.size-1].focus();
+		}
+		else {
+			this._inputs.value[this.props.size - 1].focus();
 		}
 	}
 
@@ -93,12 +95,13 @@ export default class OrionOtpSetup extends SharedSetup {
 		else if (payload) {
 			if (index < this.props.size) {
 				this._inputs.value[index].focus();
-			} else if (index === this.props.size) {
+			}
+			else if (index === this.props.size) {
 				if (!this.state.validated) {
 					this.validate();
 					this.state.validated = !this.state.validated;
 				}
-				this._inputs.value[index-1].blur();
+				this._inputs.value[index - 1].blur();
 			}
 		}
 	}
@@ -108,22 +111,23 @@ export default class OrionOtpSetup extends SharedSetup {
 
 		this.state.validated = false;
 		if (!this.code[index] && index > 1) {
-			this._inputs.value[index-2].focus();
+			this._inputs.value[index - 2].focus();
 		}
 	}
 
-	validate () {
+	private validate () {
 		this.emits('filled', this.readableCode);
 	}
 
-	reset () {
+	private reset () {
 		Object.keys(this.code).forEach(key => this.state.code[Number(key)] = '');
 		this.state.validated = false;
 		this.focus();
 	}
 
-	focus () {
+	private focus () {
 		if (!this._inputs.value) return;
 		this._inputs.value[0].focus();
 	}
+
 }

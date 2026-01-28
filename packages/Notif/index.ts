@@ -1,8 +1,7 @@
 import { upperFirst } from 'lodash-es';
-import { App, Plugin } from 'vue';
+import { type App, type Plugin } from 'vue';
 import OrionNotif from './src/OrionNotif.vue';
-import type { OrionNotifEmits, OrionNotifProps } from './src/OrionNotifSetup';
-import OrionNotifSetup from './src/OrionNotifSetup';
+import { OrionNotifSetup, type OrionNotifEmits, type OrionNotifProps } from './src/OrionNotifSetup';
 
 export const OrionNotifPlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,5 +9,4 @@ export const OrionNotifPlugin: Plugin = {
 	},
 };
 
-export { OrionNotif, OrionNotifEmits, OrionNotifProps, OrionNotifSetup };
-
+export { OrionNotif, OrionNotifSetup, type OrionNotifEmits, type OrionNotifProps };

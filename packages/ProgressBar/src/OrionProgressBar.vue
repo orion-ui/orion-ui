@@ -25,12 +25,12 @@
 
 <script setup lang="ts">
 import './OrionProgressBar.less';
-import type { OrionProgressBarEmits, OrionProgressBarProps } from './OrionProgressBarSetup';
-import OrionProgressBarSetup from './OrionProgressBarSetup';
+import { OrionProgressBarSetup, type OrionProgressBarEmits, type OrionProgressBarProps } from './OrionProgressBarSetup';
 const emits = defineEmits<OrionProgressBarEmits>() as OrionProgressBarEmits;
 const props = withDefaults(defineProps<OrionProgressBarProps>(), OrionProgressBarSetup.defaultProps);
 const setup = new OrionProgressBarSetup(props, emits);
 defineExpose(setup.publicInstance);
+
 /** Doc
  * @doc slot/default the label of the progress bar
  * @doc/fr slot/default le label de la barre de progression

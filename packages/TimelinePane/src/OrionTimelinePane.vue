@@ -10,14 +10,14 @@
 
 <script lang="ts">
 // Needed to manage slots in OrionTimelineSetup / calcPaneInstances
+// eslint-disable-next-line no-restricted-exports
 export default { name: 'OrionTimelinePane' };
 </script>
 
 <script setup lang="ts">
 import { inject } from 'vue';
 import './OrionTimelinePane.less';
-import type { OrionTimelinePaneEmits, OrionTimelinePaneProps } from './OrionTimelinePaneSetup';
-import OrionTimelinePaneSetup from './OrionTimelinePaneSetup';
+import { OrionTimelinePaneSetup, type OrionTimelinePaneEmits, type OrionTimelinePaneProps } from './OrionTimelinePaneSetup';
 const _timeline = inject<OrionTimeline>('_timeline');
 const emits = defineEmits<OrionTimelinePaneEmits>() as OrionTimelinePaneEmits;
 const props = withDefaults(defineProps<OrionTimelinePaneProps>(), OrionTimelinePaneSetup.defaultProps);

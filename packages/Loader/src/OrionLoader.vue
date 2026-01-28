@@ -24,8 +24,7 @@
 <script setup lang="ts">
 import { OrionIcon } from 'packages/Icon';
 import './OrionLoader.less';
-import type { OrionLoaderEmits, OrionLoaderProps } from './OrionLoaderSetup';
-import OrionLoaderSetup from './OrionLoaderSetup';
+import { OrionLoaderSetup, type OrionLoaderEmits, type OrionLoaderProps } from './OrionLoaderSetup';
 const emits = defineEmits<OrionLoaderEmits>() as OrionLoaderEmits;
 const props = withDefaults(defineProps<OrionLoaderProps>(), OrionLoaderSetup.defaultProps);
 const setup = new OrionLoaderSetup(props, emits);

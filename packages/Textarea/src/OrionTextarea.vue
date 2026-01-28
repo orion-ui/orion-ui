@@ -51,10 +51,7 @@
 import { OrionField } from 'packages/Field';
 import { inject } from 'vue';
 import './OrionTextarea.less';
-import type { OrionTextareaEmits, OrionTextareaProps } from './OrionTextareaSetup';
-import OrionTextareaSetup from './OrionTextareaSetup';
-
-
+import { OrionTextareaSetup, type OrionTextareaEmits, type OrionTextareaProps } from './OrionTextareaSetup';
 const _aside = inject<OrionAside>('_aside');
 const _modal = inject<OrionModal>('_modal');
 const emits = defineEmits<OrionTextareaEmits>() as OrionTextareaEmits;

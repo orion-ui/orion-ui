@@ -1,20 +1,21 @@
-import { Private } from 'lib/private';
+import { type Private } from 'lib/private';
 import { isArray } from 'lodash-es';
 import type { OrionTourStepSetup } from 'packages/TourStep';
-import { Component, reactive, Slots, VNode, watch } from 'vue';
-import SharedSetup from '../../Shared/SharedSetup';
+import { type Component, reactive, type Slots, type VNode, watch } from 'vue';
+import { SharedSetup } from '../../Shared/SharedSetup';
 
-export type OrionTourEmits = {}
+export type OrionTourEmits = {};
 export type OrionTourProps = {
 	// @doc props/callback function executed when the tour is stopped
 	// @doc/fr props/callback fonction exécutée quand le tour est arrêté
-	callback?: Function,
+	callback?: Function
 	// @doc props/value current step index of the tour
 	// @doc/fr props/value index courant du tour
-	value?: number,
+	value?: number
 };
 
-export default class OrionTourSetup extends SharedSetup {
+export class OrionTourSetup extends SharedSetup {
+
 	static readonly defaultProps = {};
 
 	private slots: Slots;
@@ -25,18 +26,9 @@ export default class OrionTourSetup extends SharedSetup {
 		currentStepPublicInstance: undefined as Undef<OrionTourStepSetup['publicInstance']>,
 	});
 
-	private get content () {
-		return this.slots.default?.();
-	}
-
-	get steps () {
-		return this.state.steps;
-	}
-
-	get currentIndex () {
-		return this.state.currentIndex;
-	}
-
+	private get content () { return this.slots.default?.() }
+	private get steps () { return this.state.steps }
+	get currentIndex () { return this.state.currentIndex }
 	get publicInstance () {
 		return {
 			...super.publicInstance,
@@ -64,11 +56,11 @@ export default class OrionTourSetup extends SharedSetup {
 		this.calcStepInstances();
 	}
 
-	setCurrent (val: number) {
+	private setCurrent (val: number) {
 		this.state.currentIndex = val;
 	}
 
-	setCurrentStepPublicInstance (instance: Undef<OrionTourStepSetup['publicInstance']>) {
+	private setCurrentStepPublicInstance (instance: Undef<OrionTourStepSetup['publicInstance']>) {
 		this.state.currentStepPublicInstance = instance;
 	}
 
@@ -101,12 +93,12 @@ export default class OrionTourSetup extends SharedSetup {
 		}
 	}
 
-	start (index = 0) {
+	private start (index = 0) {
 		this.setCurrent(index);
 		this.document?.documentElement.classList.add('ovf-h');
 	}
 
-	stop () {
+	private stop () {
 		if (this.props.callback) {
 			this.props.callback();
 		}
@@ -115,4 +107,5 @@ export default class OrionTourSetup extends SharedSetup {
 		this.document?.documentElement.classList.remove('ovf-h');
 		this.setCurrent(-1);
 	}
+
 }

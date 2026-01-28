@@ -26,7 +26,7 @@
 					v-if="subtitle"
 					class="orion-section__subtitle">
 					{{ subtitle }}
-			</span>
+				</span>
 			</div>
 
 			<div
@@ -51,8 +51,7 @@
 <script setup lang="ts">
 import OrionIcon from 'packages/Icon/src/OrionIcon.vue';
 import './OrionSection.less';
-import type { OrionSectionEmits, OrionSectionProps } from './OrionSectionSetup';
-import OrionSectionSetup from './OrionSectionSetup';
+import { OrionSectionSetup, type OrionSectionEmits, type OrionSectionProps } from './OrionSectionSetup';
 const emits = defineEmits<OrionSectionEmits>() as OrionSectionEmits;
 const props = withDefaults(defineProps<OrionSectionProps>(), OrionSectionSetup.defaultProps);
 const collapsed = defineModel<boolean>('collapsed', { default: false });

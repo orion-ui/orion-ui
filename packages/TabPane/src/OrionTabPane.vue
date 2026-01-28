@@ -10,14 +10,14 @@
 
 <script lang="ts">
 // Needed to manage slots in OrionTabsSetup / calcPaneInstances
+// eslint-disable-next-line no-restricted-exports
 export default { name: 'OrionTabPane' };
 </script>
 
 <script setup lang="ts">
 import { inject } from 'vue';
 import './OrionTabPane.less';
-import type { OrionTabPaneEmits, OrionTabPaneProps } from './OrionTabPaneSetup';
-import OrionTabPaneSetup from './OrionTabPaneSetup';
+import { OrionTabPaneSetup, type OrionTabPaneEmits, type OrionTabPaneProps } from './OrionTabPaneSetup';
 const _tabs = inject<OrionTabs>('_tabs');
 const emits = defineEmits<OrionTabPaneEmits>() as OrionTabPaneEmits;
 const props = withDefaults(defineProps<OrionTabPaneProps>(), OrionTabPaneSetup.defaultProps);

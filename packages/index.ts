@@ -5,7 +5,7 @@
  * Manual changes will be overwritten
  */
 
-import { App, Plugin } from 'vue';
+import { type App, type Plugin } from 'vue';
 
 import { OrionAlertPlugin } from './Alert';
 import { OrionAsidePlugin } from './Aside';
@@ -77,7 +77,6 @@ import { OrionToggleButtonGroupPlugin } from './ToggleButtonGroup';
 import { OrionTourPlugin } from './Tour';
 import { OrionTourStepPlugin } from './TourStep';
 import { OrionUploadPlugin } from './Upload';
-
 
 const OrionComponentsPlugin: Plugin = {
 	install (app: App, prefix: string) {
@@ -153,9 +152,6 @@ const OrionComponentsPlugin: Plugin = {
 		OrionUploadPlugin.install?.(app, prefix);
 	},
 };
-
-
-export default OrionComponentsPlugin;
 
 export { OrionComponentsPlugin };
 

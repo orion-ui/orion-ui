@@ -1,8 +1,7 @@
 import { upperFirst } from 'lodash-es';
-import { App, Plugin } from 'vue';
+import { type App, type Plugin } from 'vue';
 import OrionPassword from './src/OrionPassword.vue';
-import type { OrionPasswordEmits, OrionPasswordProps } from './src/OrionPasswordSetup';
-import OrionPasswordSetup from './src/OrionPasswordSetup';
+import { OrionPasswordSetup, type OrionPasswordEmits, type OrionPasswordProps } from './src/OrionPasswordSetup';
 
 export const OrionPasswordPlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,5 +9,4 @@ export const OrionPasswordPlugin: Plugin = {
 	},
 };
 
-export { OrionPassword, OrionPasswordEmits, OrionPasswordProps, OrionPasswordSetup };
-
+export { OrionPassword, OrionPasswordSetup, type OrionPasswordEmits, type OrionPasswordProps };

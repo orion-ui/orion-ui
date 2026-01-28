@@ -1,17 +1,17 @@
 import { concat } from 'lodash-es';
 import { reactive, ref } from 'vue';
-import { _RouteLocationBase } from 'vue-router';
+import { type _RouteLocationBase } from 'vue-router';
+import { SharedNavSetup } from '../../Shared/SharedNavSetup';
+import { SharedProps, type SharedPropsNav } from '../../Shared/SharedProps';
 
-import SharedNavSetup from '../../Shared/SharedNavSetup';
-import SharedProps, { SharedPropsNav } from '../../Shared/SharedProps';
-
-export type OrionNavMainEmits = {}
+export type OrionNavMainEmits = {};
 
 export type OrionNavMainProps = SharedPropsNav & {
-		navTop?: OrionNavTop.Props
+	navTop?: OrionNavTop.Props
 };
 
-export default class OrionNavMainSetup extends SharedNavSetup {
+export class OrionNavMainSetup extends SharedNavSetup {
+
 	static readonly defaultProps = { ...SharedProps.navDefault };
 
 	readonly _el = ref<RefDom>();
@@ -22,8 +22,7 @@ export default class OrionNavMainSetup extends SharedNavSetup {
 
 	private state = reactive({ menuHistory: [] as Orion.NavItem[][] });
 
-	get items () { return this.props.items; }
-
+	get items () { return this.props.items }
 	get itemsToDisplay () {
 		let itemsToDisplay = this.state.menuHistory.slice(-1)[0]?.filter((x) => {
 			return typeof x.if === 'function'
@@ -37,7 +36,8 @@ export default class OrionNavMainSetup extends SharedNavSetup {
 
 			if (backLink) {
 				backLink.label = backLink.backLabel;
-			} else {
+			}
+			else {
 				backLink = { label: this.lang.BACK };
 			}
 
@@ -66,29 +66,25 @@ export default class OrionNavMainSetup extends SharedNavSetup {
 		});
 	}
 
-
 	constructor (
 		protected props: OrionNavMainProps & typeof OrionNavMainSetup.defaultProps,
 		protected emits: OrionNavMainEmits) {
 		super();
 	}
 
-
-	protected async onBeforeMount () {
+	protected async onBeforeMountAsync () {
 		this.state.menuHistory.push(this.props.items);
 	}
 
 	protected onMounted () {
-		//this.findActiveItem();
-		this.Bus.on('navMain.refresh', this.findActiveItem.bind(this));
+		this.Bus.on('navmain:refresh', this.findActiveItemAsync.bind(this));
 	}
 
 	protected onUnmounted () {
-		this.Bus.off('navMain.refresh', this.findActiveItem.bind(this));
+		this.Bus.off('navmain:refresh', this.findActiveItemAsync.bind(this));
 	}
 
-
-	goBack () {
+	private goBack () {
 		if (this.state.menuHistory.length > 1) {
 			this.state.menuHistory.splice(this.state.menuHistory.length - 1, 1);
 		}
@@ -104,13 +100,13 @@ export default class OrionNavMainSetup extends SharedNavSetup {
 		super.handleClick(item, ev);
 	}
 
-	itemIsActive (item: Orion.NavItem) {
+	private itemIsActive (item: Orion.NavItem) {
 		const target = item.to as _RouteLocationBase | string;
 		const route = this.router.currentRoute.value;
 		return target === this.window?.location.pathname || (typeof target === 'object' && target?.name === route?.name);
 	}
 
-	async findActiveItem () {
+	private async findActiveItemAsync () {
 		// Recherche de l'item actif dans l'arborescence
 		const loopInItems = (items: Orion.NavItem[]): Undef<Orion.NavItem> => {
 			let item: Undef<Orion.NavItem> = undefined;
@@ -122,7 +118,8 @@ export default class OrionNavMainSetup extends SharedNavSetup {
 
 					if (this.itemIsActive(x) && !item) {
 						item = x;
-					} else if (x.children) {
+					}
+					else if (x.children) {
 						recursiveLoop(x.children, x);
 					}
 				}
@@ -138,11 +135,13 @@ export default class OrionNavMainSetup extends SharedNavSetup {
 		if (activeItem?.parent?.replace) {
 			const menuToPushInHistory = activeItem.parent.children as Orion.NavItem[];
 			this.state.menuHistory.push(menuToPushInHistory);
-		} else if (activeItem?.parent) {
+		}
+		else if (activeItem?.parent) {
 			activeItem.parent.expand = true;
 		}
 
 		// Trigger re-render
 		this.ui.update();
 	}
+
 }

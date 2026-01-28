@@ -1,8 +1,8 @@
-import { Private } from 'lib/private';
+import { type Private } from 'lib/private';
 import { isArray } from 'lodash-es';
 import { isDefineOrTrue } from 'utils/tools';
-import { Component, ModelRef, reactive, ref, Slots, VNode, watch } from 'vue';
-import SharedSetup from '../../Shared/SharedSetup';
+import { type Component, type ModelRef, reactive, ref, type Slots, type VNode, watch } from 'vue';
+import { SharedSetup } from '../../Shared/SharedSetup';
 
 export type OrionTimelineEmits = {
 	// @doc event/input/desc emitted when the value of the timeline changes
@@ -11,26 +11,28 @@ export type OrionTimelineEmits = {
 	// @doc event/pill-click/desc emitted when a pill is clicked
 	// @doc/fr event/pill-click/desc émis au moment du click sur une vignette
 	(e: 'pill-click', ...payload: [OrionTimelinePane | OrionTimelinePill, MouseEvent]): void
-}
+};
 
 export type OrionTimelineProps = {
 	// @doc props/centeredPill centers the pill and the #after slot
 	// @doc/fr props/centeredPill centre la vignette et le slot #after
-	centeredPill?: boolean,
+	centeredPill?: boolean
 	// @doc props/horizontal the orientation of the component
 	// @doc/fr props/horizontal l'orientation du composant
-	horizontal?: boolean,
+	horizontal?: boolean
 	// @doc props/loader displays a loader on the timeline
 	// @doc/fr props/loader affiche un loader sur la timeline
-	loader?: string | boolean,
+	loader?: string | boolean
 	// @doc props/scrollable displays an horizontal scroll on the timeline pills if it does not fit in its container
 	// @doc/fr props/scrollable affiche un scroll horizontal au niveau de la timeline si elle dépasse de son conteneur.
-	scrollable?: boolean,
+	scrollable?: boolean
 };
-export default class OrionTimelineSetup extends SharedSetup {
+
+export class OrionTimelineSetup extends SharedSetup {
+
 	static readonly defaultProps = {};
 
-	_loader = ref<OrionLoader>();
+	readonly _loader = ref<OrionLoader>();
 	private slots: Slots;
 
 	private state = reactive({
@@ -39,22 +41,10 @@ export default class OrionTimelineSetup extends SharedSetup {
 		pillsOnly: false,
 	});
 
-	private get content () {
-		return this.slots.default?.();
-	}
-
-	get panes () {
-		return this.state.panes;
-	}
-
-	get current () {
-		return this.state.current;
-	}
-
-	get pillsOnly () {
-		return this.state.pillsOnly;
-	}
-
+	private get content () { return this.slots.default?.() }
+	get panes () { return this.state.panes }
+	get current () { return this.state.current }
+	get pillsOnly () { return this.state.pillsOnly }
 	get publicInstance () {
 		return {
 			...super.publicInstance,
@@ -71,7 +61,6 @@ export default class OrionTimelineSetup extends SharedSetup {
 		this.state.current = vModel?.value;
 		this.slots = slots;
 
-
 		watch(() => this.vModel?.value, (val) => {
 			if (!!val) this.setOrigin(val);
 		});
@@ -86,7 +75,6 @@ export default class OrionTimelineSetup extends SharedSetup {
 	protected onUpdated () {
 		this.calcPaneInstances();
 	}
-
 
 	private calcPaneInstances () {
 		this.state.panes.length = 0;
@@ -126,7 +114,7 @@ export default class OrionTimelineSetup extends SharedSetup {
 		this.emits('pill-click', pane, event);
 	}
 
-	setCurrent (name?: string | number) {
+	private setCurrent (name?: string | number) {
 		this.state.current = name;
 	}
 
@@ -135,4 +123,5 @@ export default class OrionTimelineSetup extends SharedSetup {
 			this.vModel.value = val;
 		this.setCurrent(val);
 	}
+
 }

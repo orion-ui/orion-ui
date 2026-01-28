@@ -9,9 +9,7 @@ import { OrionHorizontalScroll } from 'packages/HorizontalScroll';
 import { OrionIcon } from 'packages/Icon';
 import { isDefineOrTrue } from 'utils/tools';
 import './OrionTimelinePill.less';
-import type { OrionTimelinePillEmits, OrionTimelinePillProps } from './OrionTimelinePillSetup';
-import OrionTimelinePillSetup from './OrionTimelinePillSetup';
-
+import { OrionTimelinePillSetup, type OrionTimelinePillEmits, type OrionTimelinePillProps } from './OrionTimelinePillSetup';
 const emits = defineEmits<OrionTimelinePillEmits>() as OrionTimelinePillEmits;
 const props = withDefaults(defineProps<OrionTimelinePillProps>(), OrionTimelinePillSetup.defaultProps);
 const setup = new OrionTimelinePillSetup(props, emits);

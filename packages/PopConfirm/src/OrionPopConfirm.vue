@@ -49,8 +49,7 @@
 import { OrionButton } from 'packages/Button';
 import { OrionIcon } from 'packages/Icon';
 import './OrionPopConfirm.less';
-import type { OrionPopConfirmEmits, OrionPopConfirmProps } from './OrionPopConfirmSetup';
-import OrionPopConfirmSetup from './OrionPopConfirmSetup';
+import { OrionPopConfirmSetup, type OrionPopConfirmEmits, type OrionPopConfirmProps } from './OrionPopConfirmSetup';
 const emits = defineEmits<OrionPopConfirmEmits>() as OrionPopConfirmEmits;
 const props = withDefaults(defineProps<OrionPopConfirmProps>(), OrionPopConfirmSetup.defaultProps);
 const setup = new OrionPopConfirmSetup(props, emits);

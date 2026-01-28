@@ -65,8 +65,8 @@
 </template>
 
 <script setup lang="ts">
-import { useNotif, materialIcons } from 'lib';
-import { reactive, computed } from 'vue';
+import { materialIcons, useNotif } from 'lib';
+import { computed, reactive } from 'vue';
 
 const state = reactive({
 	title: 'Lorem ipsum',

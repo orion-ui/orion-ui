@@ -457,5 +457,10 @@ declare global {
 				meta?: any
 			};
 		}
+
+		namespace VModel {
+			type Radio = any[] | boolean | number | Record<string, any> | string | undefined | null;
+			type Select<T> = T | T[] | undefined | null;
+		}
 	}
 }

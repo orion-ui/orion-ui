@@ -50,8 +50,7 @@
 
 <script setup lang="ts">
 import './OrionInputRange.less';
-import type { OrionInputRangeEmits, OrionInputRangeProps } from './OrionInputRangeSetup';
-import OrionInputRangeSetup from './OrionInputRangeSetup';
+import { OrionInputRangeSetup, type OrionInputRangeEmits, type OrionInputRangeProps } from './OrionInputRangeSetup';
 const emits = defineEmits<OrionInputRangeEmits>() as OrionInputRangeEmits;
 const vModel = defineModel<number | number[]>({ required: true });
 const props = withDefaults(defineProps<OrionInputRangeProps>(), OrionInputRangeSetup.defaultProps);

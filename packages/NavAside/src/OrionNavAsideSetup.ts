@@ -1,19 +1,18 @@
 import { watch } from 'vue';
 import { useRoute } from 'vue-router';
-import SharedSetup from '../../Shared/SharedSetup';
+import { SharedSetup } from '../../Shared/SharedSetup';
 
-export type OrionNavAsideEmits = {}
+export type OrionNavAsideEmits = {};
 export type OrionNavAsideProps = {
 	navMain?: OrionNavMain.Props
 	navTop?: OrionNavTop.Props
-}
+};
 
-export default class OrionNavAsideSetup extends SharedSetup {
+export class OrionNavAsideSetup extends SharedSetup {
+
 	static readonly defaultProps = {};
 
-	get publicInstance () {
-		return {};
-	}
+	get publicInstance () { return {} }
 
 	constructor (protected props: OrionNavAsideProps, protected emits: OrionNavAsideEmits, _aside?: OrionAside) {
 		super();
@@ -21,4 +20,5 @@ export default class OrionNavAsideSetup extends SharedSetup {
 		const route = useRoute();
 		watch(route, () => _aside?.close());
 	}
+
 }

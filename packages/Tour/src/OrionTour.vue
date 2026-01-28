@@ -5,9 +5,7 @@
 <script setup lang="tsx">
 import { provide } from 'vue';
 import './OrionTour.less';
-import type { OrionTourEmits, OrionTourProps } from './OrionTourSetup';
-import OrionTourSetup from './OrionTourSetup';
-
+import { OrionTourSetup, type OrionTourEmits, type OrionTourProps } from './OrionTourSetup';
 const slots = defineSlots();
 const emits = defineEmits<OrionTourEmits>() as OrionTourEmits;
 const props = withDefaults(defineProps<OrionTourProps>(), OrionTourSetup.defaultProps);

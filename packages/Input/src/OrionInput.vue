@@ -50,8 +50,7 @@
 <script setup lang="ts">
 import { OrionField } from 'packages/Field';
 import './OrionInput.less';
-import type { OrionInputEmits, OrionInputProps } from './OrionInputSetup';
-import OrionInputSetup from './OrionInputSetup';
+import { OrionInputSetup, type OrionInputEmits, type OrionInputProps } from './OrionInputSetup';
 const emits = defineEmits<OrionInputEmits>() as OrionInputEmits;
 const vModel = defineModel<Nil<string | number>>();
 const props = withDefaults(defineProps<OrionInputProps>(), OrionInputSetup.defaultProps);

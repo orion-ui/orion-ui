@@ -26,12 +26,12 @@
 <script setup lang="ts">
 import { OrionIcon } from 'packages/Icon';
 import './OrionIconSection.less';
-import type { OrionIconSectionEmits, OrionIconSectionProps } from './OrionIconSectionSetup';
-import OrionIconSectionSetup from './OrionIconSectionSetup';
+import { OrionIconSectionSetup, type OrionIconSectionEmits, type OrionIconSectionProps } from './OrionIconSectionSetup';
 const emits = defineEmits<OrionIconSectionEmits>() as OrionIconSectionEmits;
 const props = withDefaults(defineProps<OrionIconSectionProps>(), OrionIconSectionSetup.defaultProps);
 const setup = new OrionIconSectionSetup(props, emits);
 defineExpose(setup.publicInstance);
+
 /**
  * @doc slot/default the content of the description
  * @doc/fr slot/default contenu de la description

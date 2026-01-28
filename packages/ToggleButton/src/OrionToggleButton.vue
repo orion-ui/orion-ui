@@ -41,8 +41,7 @@
 <script setup lang="ts">
 import { OrionIcon } from 'packages/Icon';
 import './OrionToggleButton.less';
-import type { OrionToggleButtonEmits, OrionToggleButtonProps } from './OrionToggleButtonSetup';
-import OrionToggleButtonSetup from './OrionToggleButtonSetup';
+import { OrionToggleButtonSetup, type OrionToggleButtonEmits, type OrionToggleButtonProps } from './OrionToggleButtonSetup';
 const emits = defineEmits<OrionToggleButtonEmits>() as OrionToggleButtonEmits;
 const props = withDefaults(defineProps<OrionToggleButtonProps>(), OrionToggleButtonSetup.defaultProps);
 const vModel = defineModel<boolean>({ default: false });

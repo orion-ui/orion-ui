@@ -50,8 +50,7 @@
 <script setup lang="ts">
 import { OrionIcon } from 'packages/Icon';
 import './OrionNavTop.less';
-import type { OrionNavTopEmits, OrionNavTopProps } from './OrionNavTopSetup';
-import OrionNavTopSetup from './OrionNavTopSetup';
+import { OrionNavTopSetup, type OrionNavTopEmits, type OrionNavTopProps } from './OrionNavTopSetup';
 const emits = defineEmits<OrionNavTopEmits>() as OrionNavTopEmits;
 const props = withDefaults(defineProps<OrionNavTopProps>(), OrionNavTopSetup.defaultProps);
 const setup = new OrionNavTopSetup(props, emits);

@@ -5,67 +5,69 @@ import { useConfirm } from 'services/ConfirmService';
 import { useLoader } from 'services/LoaderService';
 import { toggleGlobalListener } from 'utils/tools';
 import { nextTick, onMounted, onUnmounted, reactive, ref, watch } from 'vue';
-import SharedSetup from '../../Shared/SharedSetup';
+import { SharedSetup } from '../../Shared/SharedSetup';
 
-export type OrionTourStepEmits = {}
+export type OrionTourStepEmits = {};
 export type OrionTourStepProps = {
 	// @doc props/clickable if there is a target, it allows the user to click on the target (if the target is a button for example). It also ends the tour.
 	// @doc/fr props/clickable s'il y a une cible, permet de clicker sur la cible  (si c'est un bouton par exemple). Cela met aussi fin au tour.
-	clickable?: boolean | Function,
+	clickable?: boolean | Function
 	// @doc props/closable defines if the step can be closable
 	// @doc/fr props/closable définit si l'étape peut être fermée à l'aide de la croix
-	closable?: boolean,
+	closable?: boolean
 	// @doc props/end object which contains a label, and a callback and clean functions for the final step
 	// @doc/fr props/end objet contenant un label, et des fonction `callback` et `clean` pour l'étape finale
-	end?: Orion.Tour.TourObject,
+	end?: Orion.Tour.TourObject
 	// @doc props/hideFinish hides the Finish button
 	// @doc/fr props/hideFinish masque le bouton pour terminer le tour
-	hideFinish?: boolean,
+	hideFinish?: boolean
 	// @doc props/next object which contains a label, and a callback and clean functions for the next step
 	// @doc/fr props/next objet contenant un label, et des fonction `callback` et `clean` pour l'étape suivante
-	next?: Orion.Tour.TourObject,
+	next?: Orion.Tour.TourObject
 	// @doc props/previous object which contains a label, and a callback and clean functions for the previous step
 	// @doc/fr props/previous objet contenant un label, et des fonction `callback` et `clean` pour l'étape précédente
-	previous?: Orion.Tour.TourObject,
+	previous?: Orion.Tour.TourObject
 	// @doc props/size the size of the step
 	// @doc/fr props/size taille de l'étape
-	size?: string,
+	size?: string
 	// @doc props/target possibility to target a DOM element. If it is a `string`, it must represent an `id` in the DOM. If `false`, no target will be selected
 	// @doc/fr props/target Permet de cibler un élément dans le DOM. S'il s'agit d'une string, elle doit correspondre à l'id de cet élément. Si elle est définie à `false` l'étape se placera au centre de la page, sans cible.
-	target?: string | Function | boolean,
+	target?: string | Function | boolean
 	// @doc props/timeout when a target can not be find in DOM, a modal appears after a certain time defined with this attribut
 	// @doc/fr props/timeout quand la cible n'est pas trouvée dans le DOM, une modal appararaît après le temps spécifié
-	timeout?: number,
+	timeout?: number
 	// @doc props/title title of the step
 	// @doc/fr props/title titre de l'étape
-	title?: string,
+	title?: string
 };
 
 type OverlayPaneCoord = {
-	left: string;
-	top: string;
-	width?: string;
-	height?: string;
-	bottom?: string;
-	right?: string;
-}
+	left: string
+	top: string
+	width?: string
+	height?: string
+	bottom?: string
+	right?: string
+};
 
 type OverlayPaneTarget = 'top' | 'bottom' | 'left' | 'right' | 'global';
 
 type OverlayPaneRegistry = Record<OverlayPaneTarget, Nullable<HTMLElement>>;
 
 type OverlayCoordArray = {
-	target: OverlayPaneTarget,
-	coord: OverlayPaneCoord,
+	target: OverlayPaneTarget
+	coord: OverlayPaneCoord
 }[];
 
-export default class OrionTourStepSetup extends SharedSetup {
+export class OrionTourStepSetup extends SharedSetup {
+
 	static readonly defaultProps = {
 		closable: true,
 		size: 'md',
 		timeout: 3000,
 	};
 
+	readonly uid = this.getUid();
 	private _tour?: OrionTour;
 	private cleanup?: () => void;
 
@@ -75,8 +77,8 @@ export default class OrionTourStepSetup extends SharedSetup {
 	});
 
 	readonly _el = ref<RefDom>();
-	readonly _stepHighlighter = ref<RefDom | null>();
-	readonly _stepTarget = ref<RefDom | null>();
+	private readonly _stepHighlighter = ref<RefDom | null>();
+	private readonly _stepTarget = ref<RefDom | null>();
 
 	private readonly clickableTargetHandler = async () => {
 		if (this.props.clickable) {
@@ -93,23 +95,25 @@ export default class OrionTourStepSetup extends SharedSetup {
 		}
 	};
 
-	get steps () {
-		return this._tour?.steps;
-	}
-
+	get steps () { return this._tour?.steps }
 	get publicInstance () {
 		return {
 			...super.publicInstance,
-			previous: () => this.goPreviousStep(),
-			next: () => this.goNextStep(),
-			stop: (fromTour = false) => this.stop(fromTour),
+			previous: () => this.goPreviousStepAsync(),
+			next: () => this.goNextStepAsync(),
+			stop: (fromTour = false) => this.stopAsync(fromTour),
 		};
 	}
 
-	windowResizeHandler = debounce(async () => {
-		await this.getTarget();
+	get currentIndex () { return this._tour?.getCurrentIndex() }
+	get nextButtonLabel () { return this.props.next?.label ? this.props.next?.label : this.lang.NEXT }
+	get previousButtonLabel () { return this.props.previous?.label ? this.props.previous?.label : this.lang.PREVIOUS }
+	get endButtonLabel () { return this.props.end?.label ? this.props.end?.label : this.lang.FINISH }
+
+	private windowResizeHandler = debounce(async () => {
+		await this.getTargetAsync();
 		this.calculateHighlighterPosition();
-		this.calculateTooltipPosition();
+		this.calculateTooltipPositionAsync();
 		this.calculateOverlayPosition();
 	}, 17);
 
@@ -121,48 +125,32 @@ export default class OrionTourStepSetup extends SharedSetup {
 		global: null,
 	});
 
-	get currentIndex () {
-		return this._tour?.getCurrentIndex();
-	};
-
-	get nextButtonLabel () {
-		return this.props.next?.label ? this.props.next?.label : this.lang.NEXT;
-	};
-
-	get previousButtonLabel () {
-		return this.props.previous?.label ? this.props.previous?.label : this.lang.PREVIOUS;
-	};
-
-	get endButtonLabel () {
-		return this.props.end?.label ? this.props.end?.label : this.lang.FINISH;
-	};
-
 	constructor (protected props: OrionTourStepProps, protected emits: OrionTourStepEmits, _tour?: OrionTour) {
 		super();
 		this._tour = _tour;
 
 		watch(() => this.currentIndex, async () => {
-			if (this.currentIndex === -1) await this.stop();
+			if (this.currentIndex === -1) await this.stopAsync();
 		});
 
 		watch(() => props.target, () => {
-			this.showTooltip();
+			this.showTooltipAsync();
 		});
 
 		onMounted(() => {
 			this._tour?.setCurrentStepPublicInstance(this.publicInstance);
-			this.showTooltip();
+			this.showTooltipAsync();
 			this.window?.addEventListener('resize', this.debouncedWindowResizeHandler);
 
 			this.state.globalEscEvent = toggleGlobalListener('keydown', (event: any) => {
-				if ((event as KeyboardEvent).key === 'Escape') this.stop();
+				if ((event as KeyboardEvent).key === 'Escape') this.stopAsync();
 			}) as number;
 
 			if (this._stepTarget.value && this._el.value) {
 				this.cleanup = autoUpdate(
 					this._stepTarget.value,
 					this._el.value,
-					this.calculateTooltipPosition.bind(this),
+					this.calculateTooltipPositionAsync.bind(this),
 				);
 			}
 		});
@@ -177,11 +165,12 @@ export default class OrionTourStepSetup extends SharedSetup {
 		});
 	}
 
-	async getTarget (): Promise<void> {
+	private async getTargetAsync (): Promise<void> {
 		let tempTarget;
 		if (typeof this.props.target === 'string') {
-			tempTarget = await this.waitFor(this.props.target);
-		} else if (typeof this.props.target === 'function') {
+			tempTarget = await this.waitForAsync(this.props.target);
+		}
+		else if (typeof this.props.target === 'function') {
 			tempTarget = await this.props.target();
 		}
 		this._stepTarget.value = tempTarget;
@@ -189,32 +178,35 @@ export default class OrionTourStepSetup extends SharedSetup {
 			this._stepTarget.value.style.pointerEvents = 'none';
 	}
 
-	async showTooltip () {
+	private async showTooltipAsync () {
 		try {
 			this.cleanPreviousStep();
 
 			if (this.props.target) {
-				await this.getTarget();
+				await this.getTargetAsync();
 				if (this._stepTarget.value) {
 					this._stepTarget.value?.addEventListener('click', this.clickableTargetHandler);
-					await this.calculateTooltipPosition();
+					await this.calculateTooltipPositionAsync();
 					this.addOverlay();
 					this.addHighlighter();
-				} else {
-					this.showTimeoutModal();
+				}
+				else {
+					this.showTimeoutModalAsync();
 				}
 
-			} else {
-				this.calculateTooltipPosition();
 			}
-		} catch (e: any) {
-			this.showTimeoutModal();
+			else {
+				this.calculateTooltipPositionAsync();
+			}
+		}
+		catch (e: any) {
+			this.showTimeoutModalAsync();
 		}
 	}
 
-	async calculateTooltipPosition () {
+	private async calculateTooltipPositionAsync () {
 		if (this.props.target) {
-			await this.getTarget();
+			await this.getTargetAsync();
 			if (this._stepTarget.value && this._el.value && this.window) {
 				const value = this._stepTarget.value.getBoundingClientRect();
 
@@ -222,7 +214,7 @@ export default class OrionTourStepSetup extends SharedSetup {
 					await this.scrollToTarget(this._stepTarget.value as HTMLElement);
 				}
 
-				const arrowElement = document.querySelector('#orion-tour-tooltip__arrow') as HTMLElement;
+				const arrowElement = document.querySelector(`#orion-tour-tooltip-arrow-${this.uid}`) as HTMLElement;
 
 				if (!this._stepTarget.value || !this._el.value) return;
 
@@ -265,17 +257,17 @@ export default class OrionTourStepSetup extends SharedSetup {
 					}
 				}
 
-
 			}
-		} else {
+		}
+		else {
 			nextTick(() => {
 				if (!this.window) return;
-				const arrowElement = document.querySelector('#orion-tour-tooltip__arrow') as HTMLElement;
+				const arrowElement = document.querySelector(`#orion-tour-tooltip-arrow-${this.uid}`) as HTMLElement;
 				const boundingClient = this._el.value?.getBoundingClientRect();
 				if (boundingClient && this._el.value) {
 					Object.assign(this._el.value.style, {
-						left: `${this.window.innerWidth/2 - boundingClient?.width / 2 }px`,
-						top: `${this.window.innerHeight/2 - boundingClient.height /2}px`,
+						left: `${this.window.innerWidth / 2 - boundingClient?.width / 2}px`,
+						top: `${this.window.innerHeight / 2 - boundingClient.height / 2}px`,
 						opacity: '1',
 					});
 					Object.assign(arrowElement.style, {
@@ -289,7 +281,7 @@ export default class OrionTourStepSetup extends SharedSetup {
 
 	}
 
-	addHighlighter () {
+	private addHighlighter () {
 		if (!this.document) return;
 
 		this._stepHighlighter.value = this.document.createElement('div');
@@ -298,7 +290,7 @@ export default class OrionTourStepSetup extends SharedSetup {
 		this.document.body.appendChild(this._stepHighlighter.value);
 	}
 
-	removeHighlighter () {
+	private removeHighlighter () {
 		if (!this.document) return;
 
 		if (this._stepHighlighter.value) {
@@ -311,7 +303,7 @@ export default class OrionTourStepSetup extends SharedSetup {
 		this._stepHighlighter.value = null;
 	}
 
-	calculateHighlighterPosition () {
+	private calculateHighlighterPosition () {
 		const target = this._stepTarget.value?.getBoundingClientRect();
 		if (this.window && target && this._stepHighlighter.value) {
 			this._stepHighlighter.value.style.left = `${target.left - 4}px`;
@@ -321,7 +313,7 @@ export default class OrionTourStepSetup extends SharedSetup {
 		}
 	}
 
-	scrollToTarget (target: HTMLElement): Promise<DOMRect | boolean> | undefined {
+	private scrollToTarget (target: HTMLElement): Promise<DOMRect | boolean> | undefined {
 		if (!target) return;
 
 		return new Promise((resolve) => {
@@ -352,13 +344,14 @@ export default class OrionTourStepSetup extends SharedSetup {
 		});
 	}
 
-	getScrollableParent (target: HTMLElement) : Nullable<HTMLElement> {
+	private getScrollableParent (target: HTMLElement): Nullable<HTMLElement> {
 		if (target == null) {
 			return null;
 		}
 		if (target.scrollHeight > target.clientHeight) {
 			return target;
-		} else {
+		}
+		else {
 			if (target.parentNode)
 				return this.getScrollableParent(target.parentNode as HTMLElement);
 			else
@@ -366,7 +359,7 @@ export default class OrionTourStepSetup extends SharedSetup {
 		}
 	}
 
-	async goPreviousStep () {
+	async goPreviousStepAsync () {
 		this.cleanPreviousStep();
 		if (typeof this.props.previous?.callback !== 'undefined') {
 			await this.props.previous?.callback();
@@ -380,13 +373,13 @@ export default class OrionTourStepSetup extends SharedSetup {
 		}
 	}
 
-	async goNextStep () {
+	async goNextStepAsync () {
 		this.cleanPreviousStep();
 		if (typeof this.props.next?.callback !== 'undefined') {
 			await this.props.next?.callback();
 		}
 		if (this.currentIndex !== -1 && this.currentIndex !== undefined && this.steps
-		&& (this.currentIndex < this.steps?.length - 1)) {
+		  && (this.currentIndex < this.steps?.length - 1)) {
 			this._tour?.setCurrent(this.currentIndex + 1);
 			this._tour?.setCurrentStepPublicInstance(this.publicInstance);
 		}
@@ -395,24 +388,25 @@ export default class OrionTourStepSetup extends SharedSetup {
 		}
 	}
 
-	cleanPreviousStep () {
+	private cleanPreviousStep () {
 		this.addOverlay(true);
 		if (!!this._stepTarget.value) {
 			if (!this.props.clickable) {
-				this._stepTarget.value.style.pointerEvents='auto';
+				this._stepTarget.value.style.pointerEvents = 'auto';
 			}
 			this._stepTarget.value = null;
 		}
 		this.removeHighlighter();
 	}
 
-	waitFor (element : string): Promise<HTMLElement | null> | null {
+	private waitForAsync (element: string): Promise<HTMLElement | null> | null {
 		return new Promise((resolve, reject) => {
 			let returnElement = this.document?.getElementById(element) ?? null;
 
 			if (returnElement) {
 				resolve(returnElement);
-			} else {
+			}
+			else {
 				const timeout = setTimeout(() => {
 					useLoader().hide();
 					reject('Element not found');
@@ -434,24 +428,25 @@ export default class OrionTourStepSetup extends SharedSetup {
 		});
 	}
 
-	async showTimeoutModal () {
+	private async showTimeoutModalAsync () {
 		const confirm = await useConfirm(this.lang.ORION_TOUR__ELEMENT_NOT_FOUND_MESSAGE, {
 			overlay: false,
 			zIndex: 99999,
 			title: 'Oops...',
 			events: {
-				queueHandled: async () => {
+				'queueHandled': async () => {
 					if (confirm) {
-						this.showTooltip();
-					} else {
-						await this.stop();
+						this.showTooltipAsync();
+					}
+					else {
+						await this.stopAsync();
 					}
 				},
 			},
 		});
 	}
 
-	async stop (fromTour = false) {
+	async stopAsync (fromTour = false) {
 		this.cleanPreviousStep();
 		this.removeOverlay();
 
@@ -464,7 +459,7 @@ export default class OrionTourStepSetup extends SharedSetup {
 		}
 	}
 
-	addOverlay (global = false) {
+	private addOverlay (global = false) {
 		if (global) {
 			this.removeOverlay();
 			this.removeHighlighter();
@@ -472,30 +467,32 @@ export default class OrionTourStepSetup extends SharedSetup {
 			if (this.overlayPanes.global) {
 				(this.overlayPanes.global.style as CSSStyleDeclaration & { inset: string }).inset = '0';
 			}
-		} else if (this._stepTarget.value) {
+		}
+		else if (this._stepTarget.value) {
 			this.removeOverlay('global');
 			(['top', 'bottom', 'right', 'left'] as OverlayPaneTarget[]).forEach(x => this.addOverlayPane(x));
 			this.calculateOverlayPosition();
 		}
 	}
 
-	removeOverlay (target: Nullable<OverlayPaneTarget> = null) {
+	private removeOverlay (target: Nullable<OverlayPaneTarget> = null) {
 		if (!this.document) return;
 
 		if (target) {
 			this.overlayPanes[target]?.remove();
 			this.overlayPanes[target] = null;
-		} else {
+		}
+		else {
 			Array
 				.from(this.document.getElementsByClassName('orion-tour-overlay'))
 				.forEach((el) => {
 					el.remove();
-					this.overlayPanes[(el.id as OverlayPaneTarget)] = null;
+					this.overlayPanes[el.id as OverlayPaneTarget] = null;
 				});
 		}
 	}
 
-	addOverlayPane (position: OverlayPaneTarget) {
+	private addOverlayPane (position: OverlayPaneTarget) {
 		if (!this.document) return;
 
 		const pane = this.document.createElement('div');
@@ -505,7 +502,7 @@ export default class OrionTourStepSetup extends SharedSetup {
 		this.overlayPanes[position] = pane;
 	}
 
-	calculateOverlayPosition () {
+	private calculateOverlayPosition () {
 		const target = this._stepTarget?.value?.getBoundingClientRect();
 		if (target) {
 			const coordArray: OverlayCoordArray = [
@@ -522,7 +519,7 @@ export default class OrionTourStepSetup extends SharedSetup {
 					target: 'bottom',
 					coord: {
 						left: Math.floor(target.left - 2) + 'px',
-						top: Math.floor(target.bottom + 2) +'px',
+						top: Math.floor(target.bottom + 2) + 'px',
 						bottom: '0',
 						width: Math.ceil(target.width + 4) + 'px',
 					},
@@ -530,7 +527,7 @@ export default class OrionTourStepSetup extends SharedSetup {
 				{
 					target: 'right',
 					coord: {
-						left: Math.ceil(target.width + Math.floor(target.left) + 2)+'px',
+						left: Math.ceil(target.width + Math.floor(target.left) + 2) + 'px',
 						top: '0',
 						bottom: '0',
 						right: '0',
@@ -554,4 +551,5 @@ export default class OrionTourStepSetup extends SharedSetup {
 
 		}
 	};
+
 }

@@ -26,7 +26,7 @@
 				<orion-icon
 					class="orion-input__reveal"
 					:icon="setup.reveal ? 'visibility_off' : 'visibility'"
-					ripple="default"
+					ripple="primary"
 					@click="setup.toggleReveal()"/>
 			</template>
 
@@ -89,8 +89,7 @@
 import { OrionField } from 'packages/Field';
 import { OrionIcon } from 'packages/Icon';
 import './OrionPassword.less';
-import type { OrionPasswordEmits, OrionPasswordProps } from './OrionPasswordSetup';
-import OrionPasswordSetup from './OrionPasswordSetup';
+import { OrionPasswordSetup, type OrionPasswordEmits, type OrionPasswordProps } from './OrionPasswordSetup';
 const vModel = defineModel<Nil<string>>();
 const emits = defineEmits<OrionPasswordEmits>() as OrionPasswordEmits;
 const props = withDefaults(defineProps<OrionPasswordProps>(), OrionPasswordSetup.defaultProps);

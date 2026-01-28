@@ -1,15 +1,16 @@
-import { reactive, ref, Slots } from 'vue';
-import SharedSetup from '../../Shared/SharedSetup';
+import { reactive, ref, type Slots } from 'vue';
+import { SharedSetup } from '../../Shared/SharedSetup';
 
-export type OrionSwipeEmits = {}
+export type OrionSwipeEmits = {};
 export type OrionSwipeProps = {
 	// @doc props/direction direction of the swipe animation
 	// @doc/fr props/direction direction de l'animation du swipe
-	direction: SwipeDirection,
+	direction: SwipeDirection
 };
 type SwipeDirection = 'left' | 'right';
 
-export default class OrionSwipeSetup extends SharedSetup {
+export class OrionSwipeSetup extends SharedSetup {
+
 	static readonly defaultProps = { direction: 'left' as OrionSwipeProps['direction'] };
 
 	_actions = ref<RefDom>();
@@ -36,14 +37,8 @@ export default class OrionSwipeSetup extends SharedSetup {
 		return offsetVar + 'px';
 	}
 
-	get actionsPosition () {
-		return this.props.direction === 'left' ? 'right' : 'left';
-	}
-
-	get isTouch () {
-		return this.state.isTouch;
-	}
-
+	get actionsPosition () { return this.props.direction === 'left' ? 'right' : 'left' }
+	get isTouch () { return this.state.isTouch }
 
 	constructor (protected props: OrionSwipeProps, protected emits: OrionSwipeEmits, slots: Slots) {
 		super();
@@ -60,7 +55,6 @@ export default class OrionSwipeSetup extends SharedSetup {
 	protected onUpdated () {
 		this.setActionsCount();
 	}
-
 
 	private setActionsCount () {
 		if (this.slots.actions) {
@@ -81,7 +75,8 @@ export default class OrionSwipeSetup extends SharedSetup {
 	handleHover (reset = false) {
 		if (reset) {
 			this.state.offset = 0;
-		} else {
+		}
+		else {
 			this.state.offset = this._actions.value?.getBoundingClientRect().width ?? 0;
 		}
 	}
@@ -120,10 +115,11 @@ export default class OrionSwipeSetup extends SharedSetup {
 
 		this.state.isTouch = false;
 		this.state.offset = (Math.abs(this.state.offset) > this.state.offsetTriggerValue && this.state.isSwiping)
-			|| (this.state.offset === 0 && !this.state.isSwiping)
+		  || (this.state.offset === 0 && !this.state.isSwiping)
 			? this._actions.value.getBoundingClientRect().width
 			: 0;
 
 		this.state.isSwiping = false;
 	}
+
 }

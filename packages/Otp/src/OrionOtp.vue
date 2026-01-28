@@ -22,8 +22,7 @@
 <script setup lang="ts">
 import OrionInput from 'packages/Input/src/OrionInput.vue';
 import './OrionOtp.less';
-import type { OrionOtpEmits, OrionOtpProps } from './OrionOtpSetup';
-import OrionOtpSetup from './OrionOtpSetup';
+import { OrionOtpSetup, type OrionOtpEmits, type OrionOtpProps } from './OrionOtpSetup';
 const emits = defineEmits<OrionOtpEmits>() as OrionOtpEmits;
 const props = withDefaults(defineProps<OrionOtpProps>(), OrionOtpSetup.defaultProps);
 const setup = new OrionOtpSetup(props, emits);

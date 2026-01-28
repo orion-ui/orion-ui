@@ -1,15 +1,17 @@
-import SharedNavSetup from '../../Shared/SharedNavSetup';
+import { SharedNavSetup } from '../../Shared/SharedNavSetup';
 
 export type OrionNavMainItemEmits = {
-	(e: 'click-label', val: [Orion.NavItem, MouseEvent]): void
-}
+	(e: 'clickLabel', val: [Orion.NavItem, MouseEvent]): void
+};
 export type OrionNavMainItemProps = {
 	item: Orion.NavItem
-}
+};
 
-export default class OrionNavMainItemSetup extends SharedNavSetup {
+export class OrionNavMainItemSetup extends SharedNavSetup {
+
 	static readonly defaultProps = {};
 
+	// eslint-disable-next-line orion-rules/private-property-if-only-in-template
 	readonly baseClass = 'orion-nav-main';
 
 	get items () {
@@ -18,12 +20,10 @@ export default class OrionNavMainItemSetup extends SharedNavSetup {
 			: [];
 	}
 
-	get expand () {
-		return this.props.item.expand;
-	}
-
+	protected get expand () { return this.props.item.expand }
 
 	constructor (protected props: OrionNavMainItemProps, protected emits: OrionNavMainItemEmits) {
 		super();
 	}
+
 }

@@ -2,7 +2,7 @@ import { setupDevtoolsPlugin } from '@vue/devtools-api';
 // import type { DevtoolsPluginApi, ExtractSettingsTypes, PluginSettingsItem } from '@vue/devtools-api';
 
 import { Log } from 'utils/Log';
-import { OrionAppService } from 'utils/Orion';
+import { type OrionAppService } from 'utils/Orion';
 import { getThemeMode, isIpad, isMac, isTouch, isWindows } from 'utils/tools';
 import { useLang } from '../services/LangService';
 import { useResponsive } from '../services/ResponsiveService';

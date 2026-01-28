@@ -1,45 +1,38 @@
-import { PopperMethods } from 'floating-vue';
-import { reactive, ref } from 'vue';
-import SharedSetup from '../../Shared/SharedSetup';
+import { type PopperMethods } from 'floating-vue';
+import { Reactive } from 'utils/decorators';
+import { ref } from 'vue';
+import { SharedSetup } from '../../Shared/SharedSetup';
 
 export type OrionPopConfirmEmits = {
 	// @doc event/confirm/desc emitted when the confirm button is clicked
 	// @doc/fr event/confirm/desc émis quand le bouton `confirm` est clické
-	(e: 'confirm'): void;
+	(e: 'confirm'): void
 	// @doc event/cancel/desc emitted when the cancel button is clicked
 	// @doc/fr event/cancel/desc émis quand le bouton `cancel` est clické
-	(e: 'cancel'): void;
-}
+	(e: 'cancel'): void
+};
 
 export type OrionPopConfirmProps = {
 	// @doc props/title title of the confirm popup
 	// @doc/fr props/title titre de la popup de confirmation
-	title?: string,
+	title?: string
 };
 
-export default class OrionPopConfirmSetup extends SharedSetup {
+export class OrionPopConfirmSetup extends SharedSetup {
+
 	static readonly defaultProps = {};
 
 	_popper = ref<typeof PopperMethods['methods']>();
 	_actions = ref<RefDom>();
 
+	@Reactive private readonly state = { isVisible: false };
 
-	private state = reactive({ isVisible: false });
-
-
-	get title () {
-		return this.props.title ?? this.lang.ORION_POP_CONFIRM__TITLE;
-	}
-
-	get publicInstance () {
-		return {};
-	}
-
+	get title () { return this.props.title ?? this.lang.ORION_POP_CONFIRM__TITLE }
+	get publicInstance () { return {} }
 
 	constructor (protected props: OrionPopConfirmProps, protected emits: OrionPopConfirmEmits) {
 		super();
 	}
-
 
 	confirm () {
 		if (this.state.isVisible) {
@@ -72,4 +65,5 @@ export default class OrionPopConfirmSetup extends SharedSetup {
 			}
 		}, 100);
 	}
+
 }

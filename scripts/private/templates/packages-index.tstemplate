@@ -5,19 +5,15 @@
  * Manual changes will be overwritten
  */
 
-import { App, Plugin } from 'vue';
+import { type App, type Plugin } from 'vue';
 
 {imports}
-
 
 const OrionComponentsPlugin: Plugin = {
 	install (app: App, prefix: string) {
 		{plugins}
 	},
 };
-
-
-export default OrionComponentsPlugin;
 
 export { OrionComponentsPlugin };
 

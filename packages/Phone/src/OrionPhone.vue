@@ -63,13 +63,11 @@
 import { OrionInput } from 'packages/Input';
 import { OrionSelect } from 'packages/Select';
 import './OrionPhone.less';
-import type { OrionPhoneEmits, OrionPhoneProps, VModelType } from './OrionPhoneSetup';
-import OrionPhoneSetup from './OrionPhoneSetup';
+import { OrionPhoneSetup, type OrionPhoneEmits, type OrionPhoneProps } from './OrionPhoneSetup';
 // TODO: avoid code duplicate
 // https://github.com/vuejs/core/issues/8301
-// import OrionPhoneSetup, { type OrionPhoneEmit } from './OrionPhoneSetup';
 const emits = defineEmits<OrionPhoneEmits>() as OrionPhoneEmits;
-const vModel = defineModel<VModelType>();
+const vModel = defineModel<Nil<Orion.Phone>>();
 const phoneCountryCode = defineModel<string | undefined>('phoneCountryCode');
 const phoneNumber = defineModel<string | undefined>('phoneNumber');
 const props = withDefaults(defineProps<OrionPhoneProps>(), OrionPhoneSetup.defaultProps);

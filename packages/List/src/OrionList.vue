@@ -64,18 +64,15 @@
 import { OrionFooterFixed } from 'packages/FooterFixed';
 import { OrionPaginate } from 'packages/Paginate';
 import './OrionList.less';
-import type { OrionListEmits, OrionListProps } from './OrionListSetup';
-import OrionListSetup from './OrionListSetup';
-
-const emits = defineEmits<OrionListEmits>() as OrionListEmits;
+import { OrionListSetup, type OrionListEmits, type OrionListProps } from './OrionListSetup';
 const page = defineModel<Orion.ListPage>('page', {
 	default: {
 		size: 20,
 		index: 1,
 	},
 });
-
 const selected = defineModel<T[]>('selected', { default: (): T[] => [] });
+const emits = defineEmits<OrionListEmits>() as OrionListEmits;
 const props = withDefaults(defineProps<OrionListProps<T>>(), OrionListSetup.defaultProps);
 const setup = new OrionListSetup(props, emits, page, selected);
 defineExpose(setup.publicInstance);

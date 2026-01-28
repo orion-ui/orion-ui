@@ -39,8 +39,7 @@
 
 <script setup lang="ts">
 import './OrionProgressCircle.less';
-import type { OrionProgressCircleEmits, OrionProgressCircleProps } from './OrionProgressCircleSetup';
-import OrionProgressCircleSetup from './OrionProgressCircleSetup';
+import { OrionProgressCircleSetup, type OrionProgressCircleEmits, type OrionProgressCircleProps } from './OrionProgressCircleSetup';
 const emits = defineEmits<OrionProgressCircleEmits>() as OrionProgressCircleEmits;
 const props = withDefaults(defineProps<OrionProgressCircleProps>(), OrionProgressCircleSetup.defaultProps);
 const setup = new OrionProgressCircleSetup(props, emits);

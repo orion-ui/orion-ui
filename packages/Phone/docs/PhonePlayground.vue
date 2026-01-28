@@ -39,13 +39,17 @@ import { reactive, ref } from 'vue';
 
 const _phone = ref<OrionPhone>();
 
-const favoriteCountry = [{
-	code: 'FR',
-	name: 'France',
-	areaCode: '33',
-}];
+const favoriteCountry = [
+	{
+		code: 'FR',
+		name: 'France',
+		areaCode: '33',
+	},
+];
 
-setTimeout(() => {_phone.value?._country()?.setFavoritesOptions(favoriteCountry);}, 1000);
+setTimeout(() => {
+	_phone.value?._country()?.setFavoritesOptions(favoriteCountry);
+}, 1000);
 
 const number = ref<Orion.Phone>({ phoneCountryCode: 'FR' });
 const mobile = ref(false);

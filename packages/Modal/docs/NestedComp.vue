@@ -42,8 +42,8 @@
 </template>
 
 <script setup lang="ts">
+import { getUid, useModal } from 'lib';
 import { inject } from 'vue';
-import { useModal, getUid } from 'lib';
 import NestedComp from './NestedComp.vue';
 
 defineProps<{ title: string, uid?: number }>();

@@ -1,36 +1,28 @@
 import { forEach } from 'lodash-es';
 import { useOverlay } from 'services/OverlayService';
 import { usePopableQueue } from 'services/PopableQueueService';
-import { reactive } from 'vue';
-import SharedSetup from '../../Shared/SharedSetup';
+import { Reactive } from 'utils';
+import { SharedSetup } from '../../Shared/SharedSetup';
 
-export type OrionOverlayEmits = {}
+export type OrionOverlayEmits = {};
 export type OrionOverlayProps = {
 	// @doc props/global defines if the overlay is fullpage
 	// @doc/fr props/global Missing @doc
-	global?: boolean,
+	global?: boolean
 };
 
-export default class OrionOverlaySetup extends SharedSetup {
+export class OrionOverlaySetup extends SharedSetup {
+
 	static readonly defaultProps = {};
 
-	private state = reactive({
+	@Reactive private readonly state = {
 		visible: false,
 		parentOverflowStyle: undefined as Undef<string>,
-	});
+	};
 
-	private get activeModalUsingOverlay () {
-		return usePopableQueue().modalQueue.filter(x => x.state.visible && x.options.overlay);
-	}
-
-	private get activeAsideUsingOverlay () {
-		return usePopableQueue().asideQueue.filter(x => x.state.visible && x.options.overlay);
-	}
-
-	get visible () {
-		return this.state.visible;
-	}
-
+	private get activeModalUsingOverlay () { return usePopableQueue().modalQueue.filter(x => x.state.visible && x.options.overlay) }
+	private get activeAsideUsingOverlay () { return usePopableQueue().asideQueue.filter(x => x.state.visible && x.options.overlay) }
+	get visible () { return this.state.visible }
 	get zIndex () {
 		const queueLength = usePopableQueue().queueIds.length;
 		return this.props.global && queueLength
@@ -46,7 +38,6 @@ export default class OrionOverlaySetup extends SharedSetup {
 		};
 	}
 
-
 	constructor (protected props: OrionOverlayProps, protected emits: OrionOverlayEmits) {
 		super();
 
@@ -55,11 +46,11 @@ export default class OrionOverlaySetup extends SharedSetup {
 		}
 	}
 
-	show () {
+	private show () {
 		this.state.visible = true;
 	}
 
-	hide () {
+	private hide () {
 		if (this.activeModalUsingOverlay.length || this.activeAsideUsingOverlay.length) return;
 		this.state.visible = false;
 	}
@@ -77,4 +68,5 @@ export default class OrionOverlaySetup extends SharedSetup {
 			});
 		}
 	}
+
 }

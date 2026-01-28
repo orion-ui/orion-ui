@@ -9,10 +9,9 @@
 <script setup lang="ts"/>
 
 <style scoped lang="less">
-
 .img-autofill {
-  max-height: 30rem;
-  margin: auto
+	max-height: 30rem;
+	margin: auto;
 }
 </style>
 
@@ -33,7 +32,4 @@ En utilisant ce composant sur un appareil IOS, il est possible de remplir automa
 Votre SMS devra contenir les mots **code** ou **passcode**.
 :::
 
-
-
 @lang
-

@@ -47,8 +47,7 @@
 <script setup lang="ts">
 import { OrionNavMainItem } from 'packages/NavMainItem';
 import './OrionNavMain.less';
-import type { OrionNavMainEmits, OrionNavMainProps } from './OrionNavMainSetup';
-import OrionNavMainSetup from './OrionNavMainSetup';
+import { OrionNavMainSetup, type OrionNavMainEmits, type OrionNavMainProps } from './OrionNavMainSetup';
 const emits = defineEmits<OrionNavMainEmits>() as OrionNavMainEmits;
 const props = withDefaults(defineProps<OrionNavMainProps>(), OrionNavMainSetup.defaultProps);
 const setup = new OrionNavMainSetup(props, emits);

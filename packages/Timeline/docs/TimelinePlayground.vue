@@ -154,8 +154,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed } from 'vue';
 import { materialIcons } from 'lib';
+import { computed, reactive, ref } from 'vue';
 
 const activePane = ref('pane3');
 const targetSlot = computed(() => state.horizontal ? 'default' : 'after');

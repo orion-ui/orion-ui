@@ -1,29 +1,28 @@
-import { ModelRef } from 'vue';
-import SharedFieldSetup, { SharedFieldSetupEmits, SharedFieldSetupProps } from '../../Shared/SharedFieldSetup';
-import { SharedPropsColor } from '../../Shared/SharedProps';
+import { type ModelRef } from 'vue';
+import { SharedFieldSetup, type SharedFieldSetupEmits, type SharedFieldSetupProps } from '../../Shared/SharedFieldSetup';
+import { type SharedPropsColor } from '../../Shared/SharedProps';
 
-export type OrionRadioEmits = SharedFieldSetupEmits<VModelType> & {}
-export type OrionRadioProps = SharedFieldSetupProps &
-	SharedPropsColor & {
+export type OrionRadioEmits = SharedFieldSetupEmits<Orion.VModel.Radio> & {};
+export type OrionRadioProps = SharedFieldSetupProps & SharedPropsColor & {
 	// @doc props/iconCheck the icon when the radio button is checked
 	// @doc/fr props/iconCheck l'icône lorsque le bouton est coché
-	iconCheck?: Orion.Icon,
+	iconCheck?: Orion.Icon
 	// @doc props/inline set the property `display` on `inline-flex` instead of `flex`
 	// @doc/fr props/inline défini la propriété `display` à `inline-flex` à la place `flex`
-	inline?: boolean,
+	inline?: boolean
 	// @doc props/inputValue value of the radio button
 	// @doc/fr props/inputValue valeur du bouton radio
-	inputValue?: string | boolean | number | string[],
+	inputValue?: string | boolean | number | string[]
 	// @doc props/reverse displays the label first
 	// @doc/fr props/reverse affiche en premier le label
-	reverse?: boolean,
+	reverse?: boolean
 	// @doc props/type type of the input
 	// @doc/fr props/type type du champ
-	type?: string,
+	type?: string
 };
-export type VModelType = any[] | boolean | number | Record<string, any> | string | undefined | null;
 
-export default class OrionRadioSetup extends SharedFieldSetup<OrionRadioProps, VModelType> {
+export class OrionRadioSetup extends SharedFieldSetup<OrionRadioProps, Orion.VModel.Radio> {
+
 	static readonly defaultProps = {
 		...SharedFieldSetup.defaultProps,
 		color: 'primary' as Orion.Color,
@@ -39,17 +38,14 @@ export default class OrionRadioSetup extends SharedFieldSetup<OrionRadioProps, V
 		return true;
 	}
 
-	get isChecked () {
-		return this.vModel.value === this.props.inputValue;
-	}
+	get isChecked () { return this.vModel.value === this.props.inputValue }
 
 	constructor (
 		protected props: OrionRadioProps & typeof OrionRadioSetup.defaultProps,
 		protected emits: OrionRadioEmits,
-		protected vModel: ModelRef<VModelType>) {
+		protected vModel: ModelRef<Orion.VModel.Radio>) {
 		super(props, emits, vModel);
 	}
-
 
 	handleClick () {
 		if (!this.props.disabled && !this.props.readonly) {
@@ -58,4 +54,5 @@ export default class OrionRadioSetup extends SharedFieldSetup<OrionRadioProps, V
 			this.emits('input', this.props.inputValue);
 		}
 	}
+
 }

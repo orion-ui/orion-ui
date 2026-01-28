@@ -1,8 +1,7 @@
 import { upperFirst } from 'lodash-es';
-import { App, Plugin } from 'vue';
+import { type App, type Plugin } from 'vue';
 import OrionLayout from './src/OrionLayout.vue';
-import type { OrionLayoutEmits, OrionLayoutProps } from './src/OrionLayoutSetup';
-import OrionLayoutSetup from './src/OrionLayoutSetup';
+import { OrionLayoutSetup, type OrionLayoutEmits, type OrionLayoutProps } from './src/OrionLayoutSetup';
 
 export const OrionLayoutPlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,5 +9,4 @@ export const OrionLayoutPlugin: Plugin = {
 	},
 };
 
-export { OrionLayout, OrionLayoutEmits, OrionLayoutProps, OrionLayoutSetup };
-
+export { OrionLayout, OrionLayoutSetup, type OrionLayoutEmits, type OrionLayoutProps };

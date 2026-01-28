@@ -52,8 +52,7 @@
 
 <script setup lang="ts">
 import './OrionSticker.less';
-import type { OrionStickerEmits, OrionStickerProps } from './OrionStickerSetup';
-import OrionStickerSetup from './OrionStickerSetup';
+import { OrionStickerSetup, type OrionStickerEmits, type OrionStickerProps } from './OrionStickerSetup';
 const emits = defineEmits<OrionStickerEmits>() as OrionStickerEmits;
 const props = withDefaults(defineProps<OrionStickerProps>(), OrionStickerSetup.defaultProps);
 const setup = new OrionStickerSetup(props, emits);

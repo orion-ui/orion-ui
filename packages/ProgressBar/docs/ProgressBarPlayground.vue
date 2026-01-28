@@ -1,6 +1,5 @@
 <template>
-	<o-progress-bar
-		v-bind="state"/>
+	<o-progress-bar v-bind="state"/>
 
 	<hr>
 	<div class="row row--gutter row--middle">

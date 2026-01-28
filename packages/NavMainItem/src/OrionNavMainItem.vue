@@ -6,7 +6,7 @@
 			:is="setup.itemIs(item)"
 			v-if="item"
 			v-bind="setup.itemData(item)"
-			@click.stop="emits('click-label', [item, $event])">
+			@click.stop="emits('clickLabel', [item, $event])">
 			<orion-icon
 				v-if="item.icon || item.fontIcon"
 				class="orion-nav-main__item-main-icon"
@@ -64,8 +64,7 @@
 <script setup lang="ts">
 import { OrionIcon } from 'packages/Icon';
 import './OrionNavMainItem.less';
-import type { OrionNavMainItemEmits, OrionNavMainItemProps } from './OrionNavMainItemSetup';
-import OrionNavMainItemSetup from './OrionNavMainItemSetup';
+import { OrionNavMainItemSetup, type OrionNavMainItemEmits, type OrionNavMainItemProps } from './OrionNavMainItemSetup';
 const emits = defineEmits<OrionNavMainItemEmits>() as OrionNavMainItemEmits;
 const props = withDefaults(defineProps<OrionNavMainItemProps>(), OrionNavMainItemSetup.defaultProps);
 const setup = new OrionNavMainItemSetup(props, emits);

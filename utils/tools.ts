@@ -1,10 +1,9 @@
-import { Dropdown } from 'floating-vue';
-import { Ref, nextTick } from 'vue';
-// import { devtool, devtoolId } from 'devtool';
-import { CountryCode, parsePhoneNumber } from 'libphonenumber-js';
+import { type Dropdown } from 'floating-vue';
+import { type CountryCode, parsePhoneNumberWithError } from 'libphonenumber-js';
 import { useDocument } from 'services/DocumentService';
 import { useLocalStorage } from 'services/LocalStorageService';
 import { useWindow } from 'services/WindowService';
+import { type Ref, nextTick } from 'vue';
 import { Log } from './Log';
 
 const uidGenerator = (function* () {
@@ -269,7 +268,7 @@ export function addPopoverBackdropCloseAbility (popoverRef: Ref<Undef<InstanceTy
 
 export function displayPhone (phoneNumber: string, code: CountryCode) {
 	try {
-		const parsedPhoneNumber = parsePhoneNumber(phoneNumber, code);
+		const parsedPhoneNumber = parsePhoneNumberWithError(phoneNumber, code);
 		if (parsedPhoneNumber.isValid()) {
 			return parsedPhoneNumber.formatInternational();
 		}

@@ -1,25 +1,26 @@
 import anime from 'animejs';
 import { useNotif } from 'services/NotifService';
-import { ModelRef, reactive, ref, useTemplateRef } from 'vue';
-import SharedFieldSetup, { SharedFieldSetupEmits, SharedFieldSetupProps } from '../../Shared/SharedFieldSetup';
+import { type ModelRef, reactive, ref, useTemplateRef } from 'vue';
+import { SharedFieldSetup, type SharedFieldSetupEmits, type SharedFieldSetupProps } from '../../Shared/SharedFieldSetup';
 
-export type OrionUploadEmits = SharedFieldSetupEmits<Nil<File[]>> & {}
+export type OrionUploadEmits = SharedFieldSetupEmits<Nil<File[]>> & {};
 export type OrionUploadProps = SharedFieldSetupProps & {
 	// @doc props/fileMaxSize the maximal size of the uploaded file (Mo)
 	// @doc/fr props/fileMaxSize taille maximale d'un fichier (Mo)
-	fileMaxSize?: number,
+	fileMaxSize?: number
 	// @doc props/fileTypes Missing @doc
 	// @doc/fr props/fileTypes Missing @doc
-	fileTypes?: string[],
+	fileTypes?: string[]
 	// @doc props/multiple allows multiple files upload.
 	// @doc/fr props/multiple permet le chargement de plusieurs fichiers.
-	multiple?: boolean,
+	multiple?: boolean
 	// @doc props/showPreview shows a preview of the selected file
 	// @doc/fr props/showPreview montre un apperçu du fichier chargé
-	showPreview?: boolean,
+	showPreview?: boolean
 };
 
-export default class OrionUploadSetup extends SharedFieldSetup<OrionUploadProps, File[]> {
+export class OrionUploadSetup extends SharedFieldSetup<OrionUploadProps, File[]> {
+
 	static readonly defaultProps = {
 		...SharedFieldSetup.defaultProps,
 		fileMaxSize: 4,
@@ -27,12 +28,12 @@ export default class OrionUploadSetup extends SharedFieldSetup<OrionUploadProps,
 		showPreview: true,
 	};
 
-	_input = ref<HTMLInputElement>();
+	readonly _input = ref<HTMLInputElement>();
 	_bubble = ref<RefDom>();
 	_illustration = ref<RefDom>();
-	_filePreview = useTemplateRef<HTMLElement[]>('previews');
+	private _filePreview = useTemplateRef<HTMLElement[]>('previews');
 
-	uid = this.getUid();
+	private uid = this.getUid();
 
 	private imgFileType = ['image/jpeg', 'image/png'];
 
@@ -46,10 +47,7 @@ export default class OrionUploadSetup extends SharedFieldSetup<OrionUploadProps,
 		e.preventDefault();
 	};
 
-	get isDraggingOver () {
-		return this.state.isDraggingOver;
-	}
-
+	private get isDraggingOver () { return this.state.isDraggingOver }
 	get label () {
 		return (this.props.label ?? this.lang.ORION_UPLOAD__LABEL)
 			.replace('$fileMaxSize', this.props.fileMaxSize.toString())
@@ -78,12 +76,10 @@ export default class OrionUploadSetup extends SharedFieldSetup<OrionUploadProps,
 		return cls;
 	}
 
-	protected get hasValue (): boolean {
-		return this.vModel.value !== null && this.vModel.value !== undefined && !!this.vModel.length;
-	}
+	protected get hasValue (): boolean { return this.vModel.value !== null && this.vModel.value !== undefined && !!this.vModel.length }
 
 	constructor (
-		protected props: OrionUploadProps & Omit<typeof OrionUploadSetup.defaultProps, 'fileTypes'> & { fileTypes: string[]},
+		protected props: OrionUploadProps & Omit<typeof OrionUploadSetup.defaultProps, 'fileTypes'> & { fileTypes: string[] },
 		protected emits: OrionUploadEmits,
 		protected vModel: ModelRef<File[] | undefined>,
 	) {
@@ -107,14 +103,15 @@ export default class OrionUploadSetup extends SharedFieldSetup<OrionUploadProps,
 		this.window?.removeEventListener('drop', this.preventDrop);
 	}
 
-
 	private fileIsValid (file: File) {
 		if (file.size / 1000000 > this.props.fileMaxSize) {
 			useNotif.danger(this.lang.ERROR, this.lang.ORION_UPLOAD__FILE_TOO_HEAVY.replace('$fileMaxSize', this.props.fileMaxSize.toString()));
 			return false;
-		} else if (file.type && this.props.fileTypes.includes(file.type)) {
+		}
+		else if (file.type && this.props.fileTypes.includes(file.type)) {
 			return true;
-		} else {
+		}
+		else {
 			useNotif.danger(this.lang.ERROR, this.lang.ORION_UPLOAD__INVALID_FILE_TYPE);
 			return false;
 		}
@@ -147,6 +144,7 @@ export default class OrionUploadSetup extends SharedFieldSetup<OrionUploadProps,
 
 	}
 
+	// eslint-disable-next-line orion-rules/private-property-if-only-in-template
 	clear () {
 		if (this.vModel.value)
 			this.vModel.value.length = 0;
@@ -199,7 +197,6 @@ export default class OrionUploadSetup extends SharedFieldSetup<OrionUploadProps,
 	deleteFile (index: number) {
 		if (!this.vModel.value) return;
 
-
 		if (this._input.value) this._input.value.value = '';
 		this.vModel.value.splice(index, 1);
 		this.emitInput();
@@ -218,7 +215,8 @@ export default class OrionUploadSetup extends SharedFieldSetup<OrionUploadProps,
 					if (file && this.fileIsValid(file)) this.vModel.value.push(file);
 				}
 			}
-		} else if (ev.dataTransfer?.files?.length) {
+		}
+		else if (ev.dataTransfer?.files?.length) {
 			for (let p = 0; p < (this.props.multiple ? ev.dataTransfer.files.length : 1); p++) {
 				if (this.fileIsValid(ev.dataTransfer.files[p])) this.vModel.value.push(ev.dataTransfer.files[p]);
 			}
@@ -241,4 +239,5 @@ export default class OrionUploadSetup extends SharedFieldSetup<OrionUploadProps,
 			delay: anime.stagger(40),
 		});
 	}
+
 }

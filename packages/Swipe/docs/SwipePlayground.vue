@@ -56,4 +56,3 @@ function removeButton () {
 @hl {2,44-47}
 
 ### Playground
-

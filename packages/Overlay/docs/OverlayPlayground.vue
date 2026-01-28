@@ -25,8 +25,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
 import { useOverlay } from 'lib';
+import { ref } from 'vue';
 
 const _overlay = ref<OrionOverlay>();
 

@@ -1,33 +1,34 @@
 import { reactive, watch } from 'vue';
-import { SharedPropsIcon } from '../../Shared/SharedProps';
-import SharedSetup from '../../Shared/SharedSetup';
+import { type SharedPropsIcon } from '../../Shared/SharedProps';
+import { SharedSetup } from '../../Shared/SharedSetup';
 
-export type OrionTabPaneEmits = {}
+export type OrionTabPaneEmits = {};
 export type OrionTabPaneProps = SharedPropsIcon & {
 	// @doc props/disabled disabled the pane
 	// @doc/fr props/disabled désactive le panneau
-	disabled?: boolean,
+	disabled?: boolean
 	// @doc props/label the label of the tab
 	// @doc/fr props/label le label de l'onglet
-	label?: string,
+	label?: string
 	// @doc props/lazy the content of the tab is mounted each time the tab becomes active
 	// @doc/fr props/lazy le contenu de l'onglet est monté à chaque fois qu'il devient actif
-	lazy?: boolean,
+	lazy?: boolean
 	// @doc props/lazyOnce the content of the tab is only mounted once, the first time the tab is active
 	// @doc/fr props/lazyOnce le contenu de l'onglet est uniquement monté une fois, la première fois qu'il est actif
-	lazyOnce?: boolean,
+	lazyOnce?: boolean
 	// @doc props/marker adds a visual marker, can be used as a notification marker
 	// @doc/fr props/marker ajoute un marqueur visuel, qui peut être utilisé comme marqueur de notification
-	marker?: boolean | number,
+	marker?: boolean | number
 	// @doc props/markerColor the color of the marker
 	// @doc/fr props/markerColor la couleur du marqueur
-	markerColor?: Orion.Color,
+	markerColor?: Orion.Color
 	// @doc props/name the name of the tab
 	// @doc/fr props/name le nom de l'onglet
-	name?: string,
+	name?: string
 };
 
-export default class OrionTabPaneSetup extends SharedSetup {
+export class OrionTabPaneSetup extends SharedSetup {
+
 	static readonly defaultProps = { markerColor: 'danger' as Orion.Color };
 
 	private _tabs?: OrionTabs;
@@ -36,15 +37,13 @@ export default class OrionTabPaneSetup extends SharedSetup {
 	get shouldBeInDom () {
 		if (this.props.lazy || this.props.lazyOnce) {
 			return this.state.hasBeenActive;
-		} else {
+		}
+		else {
 			return true;
 		}
 	}
 
-	get active () {
-		return this._tabs?.getValue() === this.props.name;
-	}
-
+	get active () { return this._tabs?.getValue() === this.props.name }
 	get publicInstance () {
 		return {
 			...super.publicInstance,
@@ -53,14 +52,14 @@ export default class OrionTabPaneSetup extends SharedSetup {
 		};
 	}
 
-
 	constructor (protected props: OrionTabPaneProps, protected emits: OrionTabPaneEmits, _tabs?: OrionTabs) {
 		super();
 		this._tabs = _tabs;
 		watch(() => this.active, (val) => {
 			if (val) {
 				this.state.hasBeenActive = val;
-			} else {
+			}
+			else {
 				if (this.props.lazy) {
 					this.state.hasBeenActive = val;
 				}
@@ -71,4 +70,5 @@ export default class OrionTabPaneSetup extends SharedSetup {
 	protected onMounted () {
 		this.state.hasBeenActive = this._tabs?.getValue() === this.props.name;
 	}
+
 }

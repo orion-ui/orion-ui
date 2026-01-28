@@ -1,22 +1,23 @@
 import anime from 'animejs';
 import { Reactive } from 'utils';
-import { ref, Slots } from 'vue';
-import SharedPopableSetup, { SharedPopableSetupEmits, SharedPopableSetupProps } from '../../Shared/SharedPopableSetup';
+import { ref, type Slots } from 'vue';
+import { SharedPopableSetup, type SharedPopableSetupEmits, type SharedPopableSetupProps } from '../../Shared/SharedPopableSetup';
 
 export type OrionModalEmits = SharedPopableSetupEmits & {
-	(e: 'cancel'): void;
-	(e: 'confirm'): void;
-}
+	(e: 'cancel'): void
+	(e: 'confirm'): void
+};
 export type OrionModalProps = SharedPopableSetupProps & {
 	// @doc props/display if set, displays the component
 	// @doc/fr props/display si défini, affiche le composant
-	display?: boolean,
+	display?: boolean
 	// @doc props/options options of the modal
 	// @doc/fr props/options options de la modal
-	options?: Partial<Orion.Modal.Options>,
+	options?: Partial<Orion.Modal.Options>
 };
 
-export default class OrionModalSetup extends SharedPopableSetup {
+export class OrionModalSetup extends SharedPopableSetup {
+
 	static readonly defaultProps = { ...SharedPopableSetup.defaultProps };
 
 	protected readonly name = 'OrionModal' as const;
@@ -31,10 +32,8 @@ export default class OrionModalSetup extends SharedPopableSetup {
 		}
 	}
 
-	get prompt () { return this.options.prompt as Orion.Modal.Prompt;}
-
-	get slotFooter () { return `#OrionModal-${this.uid}__footer`;}
-
+	get prompt () { return this.options.prompt as Orion.Modal.Prompt }
+	private get slotFooter () { return `#OrionModal-${this.uid}__footer` }
 	get publicInstance () {
 		return {
 			...super.publicInstance,
@@ -42,9 +41,8 @@ export default class OrionModalSetup extends SharedPopableSetup {
 		};
 	}
 
-
 	constructor (
-		protected props: OrionModalProps & Omit<typeof OrionModalSetup.defaultProps, 'options'> & {options: Partial<Orion.Popable.Options>},
+		protected props: OrionModalProps & Omit<typeof OrionModalSetup.defaultProps, 'options'> & { options: Partial<Orion.Popable.Options> },
 		protected emits: OrionModalEmits,
 		protected slots: Slots,
 	) {
@@ -53,8 +51,7 @@ export default class OrionModalSetup extends SharedPopableSetup {
 		Object.assign(this.options, props.options);
 	}
 
-
-	async animateAsync (enter: boolean) {
+	protected async animateAsync (enter: boolean) {
 		return new Promise<void>(async (resolve) => {
 			if (enter) {
 				this.state.visible = true;
@@ -65,30 +62,31 @@ export default class OrionModalSetup extends SharedPopableSetup {
 					translateY: ['-200vh', '-50%'],
 					duration: 600,
 					easing: 'easeOutCubic',
-					begin: async () => {
+					'begin': async () => {
 						this.emits('enter-start');
 						this.trigger('enter-start');
 					},
-					complete: async () => {
+					'complete': async () => {
 						resolve();
 						this.promptAutoFocus();
 						this.emits('enter-end');
 						this.trigger('enter-end');
 					},
 				});
-			} else {
+			}
+			else {
 				anime({
 					targets: this._el.value,
 					opacity: 0,
-					//translateY: '-100vh',
+					// translateY: '-100vh',
 					translateY: ['-50%', '-100vh'],
 					duration: 600,
 					easing: 'easeOutCubic',
-					begin: async () => {
+					'begin': async () => {
 						this.emits('leave-start');
 						this.trigger('leave-start');
 					},
-					complete: async () => {
+					'complete': async () => {
 						this.state.visible = false;
 						resolve();
 						this.emits('leave-end');
@@ -111,15 +109,17 @@ export default class OrionModalSetup extends SharedPopableSetup {
 		if (typeof action.callback === 'function') {
 			if (this.prompt) {
 				action.callback(this.publicInstance, this.prompt);
-			} else {
+			}
+			else {
 				action.callback(this.publicInstance);
 			}
 		}
 	}
 
-	promptAutoFocus () {
+	private promptAutoFocus () {
 		if (this._prompt.value && this.prompt?.type) {
 			this._prompt.value?.focus();
 		}
 	}
+
 }

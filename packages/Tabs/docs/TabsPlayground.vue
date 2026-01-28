@@ -3,8 +3,7 @@
 		<o-tabs
 			v-model="activePane"
 			v-bind="state">
-			<o-tab-pane
-				v-bind="state">
+			<o-tab-pane v-bind="state">
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras gravida orci a nulla auctor,
 				in tempus erat elementum. Nullam ac tincidunt dolor. Sed sapien massa, commodo sed feugiat ac,
 				auctor sed lectus.
@@ -113,8 +112,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed } from 'vue';
 import { materialIcons } from 'lib';
+import { computed, reactive, ref } from 'vue';
 
 const activePane = ref('pane1');
 

@@ -1,27 +1,28 @@
 import { isArray } from 'lodash-es';
-import SharedProps, { SharedPropsColor } from 'packages/Shared/SharedProps';
-import { OrionToggleButtonProps } from 'packages/ToggleButton/src/OrionToggleButtonSetup';
+import { SharedProps, type SharedPropsColor } from 'packages/Shared/SharedProps';
+import { type OrionToggleButtonProps } from 'packages/ToggleButton/src/OrionToggleButtonSetup';
 import { useMonkey } from 'services';
 import { isDefineOrTrue } from 'utils';
-import { ModelRef, Slots, VNode } from 'vue';
-import SharedSetup from '../../Shared/SharedSetup';
+import { type ModelRef, type Slots, type VNode } from 'vue';
+import { SharedSetup } from '../../Shared/SharedSetup';
 
 export type OrionToggleButtonGroupEmits = {
 	// @doc event/click/desc emitted on button click
 	// @doc/fr event/click/desc émis lors du click sur le bouton
 	(e: 'button-click', button: OrionToggleButton, event: MouseEvent): void
-}
+};
 
 export type OrionToggleButtonGroupProps = SharedPropsColor & {
 	// @doc props/childProps properties to pass to each toggle button
 	// @doc/fr props/childProps propriétés à passer à chaque toggle button
-	childProps?: Partial<OrionToggleButtonProps>,
+	childProps?: Partial<OrionToggleButtonProps>
 	// @doc props/multiple allows multiple toggle buttons to be active
 	// @doc/fr props/multiple permet la sélection de plusieurs toggle buttons
-	multiple?: boolean,
+	multiple?: boolean
 };
 
-export default class OrionToggleButtonGroupSetup extends SharedSetup {
+export class OrionToggleButtonGroupSetup extends SharedSetup {
+
 	static readonly defaultProps = {
 		...SharedProps.color,
 		multiple: false,
@@ -43,8 +44,8 @@ export default class OrionToggleButtonGroupSetup extends SharedSetup {
 
 	constructor (
 		protected props: OrionToggleButtonGroupProps
-		& Omit<typeof OrionToggleButtonGroupSetup.defaultProps, 'childProps'>
-		& { childProps?: Partial<OrionToggleButtonProps> },
+		  & Omit<typeof OrionToggleButtonGroupSetup.defaultProps, 'childProps'>
+		  & { childProps?: Partial<OrionToggleButtonProps> },
 		protected emits: OrionToggleButtonGroupEmits,
 		protected slots: Slots,
 		protected vModel: ModelRef<string | number | (string | number)[] | undefined>,
@@ -64,7 +65,8 @@ export default class OrionToggleButtonGroupSetup extends SharedSetup {
 
 		if (this.props.multiple && Array.isArray(this.vModel.value)) {
 			this.vModel.value = useMonkey(this.vModel.value).toggle(button.props.name);
-		} else {
+		}
+		else {
 			if (this.vModel.value === button.props.name)
 				this.vModel.value = undefined;
 			else
@@ -74,6 +76,5 @@ export default class OrionToggleButtonGroupSetup extends SharedSetup {
 
 		this.emits('button-click', button, event);
 	}
-
 
 }

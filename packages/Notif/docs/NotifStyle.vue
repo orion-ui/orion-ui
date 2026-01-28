@@ -14,7 +14,7 @@
 				Show success notif
 			</o-button>
 			<o-button
-				color="error"
+				color="danger"
 				nude
 				@click="useNotif.danger({ title: 'Error !', duration: undefined })">
 				Show notif without timer
@@ -32,7 +32,7 @@ import { useNotif } from 'lib';
 @lang:en
 ### Style
 
-5 colors from `Orion.Color` type are available : `info`, `success`, `warning`, `error`, `primary`.
+5 colors from `Orion.Color` type are available : `info`, `success`, `warning`, `danger`, `primary`.
 
 You can also customize the `icon` with an `Orion.Icon` or use one of your own font library with `fontIcon` prop.
 
@@ -46,7 +46,7 @@ All colors are defined with CSS variables, so you can easily override them.
 @lang:fr
 ### Style
 
-5 couleurs du type `Orion.Color` sont disponibles : `info`, `success`, `warning`, `error` et `primary`.
+5 couleurs du type `Orion.Color` sont disponibles : `info`, `success`, `warning`, `danger` et `primary`.
 
 Vous pouvez également personnaliser l'icône en associant une `Orion.Icon` à la prop `icon`
 ou en utilisant votre propre police d'icônes avec la prop `fontIcon`.

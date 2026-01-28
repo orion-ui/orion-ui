@@ -48,8 +48,7 @@
 <script setup lang="ts">
 import { OrionIcon } from 'packages/Icon';
 import './OrionRate.less';
-import type { OrionRateEmits, OrionRateProps } from './OrionRateSetup';
-import OrionRateSetup from './OrionRateSetup';
+import { OrionRateSetup, type OrionRateEmits, type OrionRateProps } from './OrionRateSetup';
 const emits = defineEmits<OrionRateEmits>() as OrionRateEmits;
 const props = withDefaults(defineProps<OrionRateProps>(), OrionRateSetup.defaultProps);
 const vModel = defineModel<number>({ required: true });

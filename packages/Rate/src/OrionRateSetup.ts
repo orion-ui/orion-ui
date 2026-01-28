@@ -1,26 +1,27 @@
-import { ModelRef, ref } from 'vue';
-import SharedSetup from '../../Shared/SharedSetup';
+import { type ModelRef, ref } from 'vue';
+import { SharedSetup } from '../../Shared/SharedSetup';
 
-export type OrionRateEmits = {}
+export type OrionRateEmits = {};
 export type OrionRateProps = {
 	// @doc props/color The color of filled icons
 	// @doc/fr props/color couleur des icônes
-	color?: Orion.Color,
+	color?: Orion.Color
 	// @doc props/disabled If set, make the component read-only.
 	// @doc/fr props/disabled si défini, le composant sera en lecture seule
-	disabled?: boolean,
+	disabled?: boolean
 	// @doc props/fontIcon Icon of the component, from the imported font
 	// @doc/fr props/fontIcon icône du composant, s'il s'agit d'une librairie de police importée
-	fontIcon?: string,
+	fontIcon?: string
 	// @doc props/icon Icon of the component
 	// @doc/fr props/icon icône du composant
-	icon?: Orion.Icon,
+	icon?: Orion.Icon
 	// @doc props/numberOfRates The total number of rates
 	// @doc/fr props/numberOfRates nombre total de votes
-	numberOfRates?: number,
+	numberOfRates?: number
 };
 
-export default class OrionRateSetup extends SharedSetup {
+export class OrionRateSetup extends SharedSetup {
+
 	static readonly defaultProps = {
 		color: 'warning' as Orion.Color,
 		icon: 'check_circle' as Orion.Icon,
@@ -30,30 +31,17 @@ export default class OrionRateSetup extends SharedSetup {
 
 	_uid: number;
 
-	get icon () {
-		return this.props.icon;
-	}
-
-	get color () {
-		return this.props.color;
-	}
-
-	get fontIcon () {
-		return this.props.fontIcon;
-	}
-
-	get numberOfRates () {
-		return this.props.numberOfRates;
-	}
+	get icon () { return this.props.icon }
+	get color () { return this.props.color }
+	get fontIcon () { return this.props.fontIcon }
+	get numberOfRates () { return this.props.numberOfRates }
 
 	get rateRounded () {
 		if (this.rate.value !== undefined)
 			return Math.round((this.rate.value));
 	}
 
-	set rateRounded (val) {
-		this.rate.value = val;
-	}
+	set rateRounded (val) { this.rate.value = val }
 
 	constructor (
 		protected props: OrionRateProps & typeof OrionRateSetup.defaultProps,
@@ -65,7 +53,7 @@ export default class OrionRateSetup extends SharedSetup {
 	}
 
 	starColor (value: number) {
-		const classList= [];
+		const classList = [];
 		if (this.vModel.value !== undefined) {
 			if (value <= this.vModel.value || (value - this.vModel.value) < 0.25) {
 				classList.push(`text--${this.props.color}`);
@@ -76,4 +64,5 @@ export default class OrionRateSetup extends SharedSetup {
 		}
 		return classList;
 	};
+
 }

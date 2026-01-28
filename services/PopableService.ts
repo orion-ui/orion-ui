@@ -1,7 +1,7 @@
 import { devtool } from 'devtool';
 import { orionAppService } from 'utils/Orion';
 import { getUid } from 'utils/tools';
-import { VNode } from 'vue';
+import { type VNode } from 'vue';
 
 export abstract class PopableService<T> {
 

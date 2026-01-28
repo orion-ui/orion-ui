@@ -1,8 +1,7 @@
 import { upperFirst } from 'lodash-es';
-import { App, Plugin } from 'vue';
+import { type App, type Plugin } from 'vue';
 import OrionLoader from './src/OrionLoader.vue';
-import type { OrionLoaderEmits, OrionLoaderProps } from './src/OrionLoaderSetup';
-import OrionLoaderSetup from './src/OrionLoaderSetup';
+import { OrionLoaderSetup, type OrionLoaderEmits, type OrionLoaderProps } from './src/OrionLoaderSetup';
 
 export const OrionLoaderPlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,5 +9,4 @@ export const OrionLoaderPlugin: Plugin = {
 	},
 };
 
-export { OrionLoader, OrionLoaderEmits, OrionLoaderProps, OrionLoaderSetup };
-
+export { OrionLoader, OrionLoaderSetup, type OrionLoaderEmits, type OrionLoaderProps };

@@ -1,5 +1,5 @@
 import FloatingVue from 'floating-vue';
-import { App, createVNode, render } from 'vue';
+import { type App, createVNode, render } from 'vue';
 
 import { OrionComponentsPlugin } from '../packages';
 import { OrionLoader } from '../packages/Loader';

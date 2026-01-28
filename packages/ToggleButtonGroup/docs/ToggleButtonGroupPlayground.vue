@@ -52,10 +52,10 @@
 </template>
 
 <script setup lang="ts">
-import { OrionToggleButtonProps } from 'packages/ToggleButton/src/OrionToggleButtonSetupService';
+import { OrionToggleButtonProps } from 'packages/ToggleButton/src/OrionToggleButtonSetup';
 import { reactive, ref } from 'vue';
 
-const vModel= ref();
+const vModel = ref();
 
 const state = reactive({
 	multiple: false,
@@ -71,11 +71,11 @@ const state = reactive({
 function updateVModel () {
 	if (!state.multiple) {
 		vModel.value = undefined;
-	} else if (state.multiple) {
+	}
+	else if (state.multiple) {
 		vModel.value = vModel.value ? [vModel.value] : [];
 	}
 }
-
 
 </script>
 

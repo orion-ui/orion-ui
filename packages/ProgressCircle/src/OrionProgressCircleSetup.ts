@@ -1,26 +1,27 @@
-import { SharedPropsColor } from '../../Shared/SharedProps';
-import SharedSetup from '../../Shared/SharedSetup';
+import { type SharedPropsColor } from '../../Shared/SharedProps';
+import { SharedSetup } from '../../Shared/SharedSetup';
 
-export type OrionProgressCircleEmits = {}
+export type OrionProgressCircleEmits = {};
 export type OrionProgressCircleProps = SharedPropsColor & {
 	// @doc props/label the label
 	// @doc/fr props/label label du cercle
-	label?: string,
+	label?: string
 	// @doc props/pathWidth width of the path line
 	// @doc/fr props/pathWidth épaisseur du cercle
-	pathWidth?: number,
+	pathWidth?: number
 	// @doc props/size size of the progress circle
 	// @doc/fr props/size taille du cercle
-	size?: number,
+	size?: number
 	// @doc props/value value of the progress circle
 	// @doc/fr props/value valeur du cercle
-	value?: number,
+	value?: number
 	// @doc props/valueWidth width of the value line
 	// @doc/fr props/valueWidth épaisseur de la ligne qui représente la progression
-	valueWidth?: number,
+	valueWidth?: number
 };
 
-export default class OrionProgressCircleSetup extends SharedSetup {
+export class OrionProgressCircleSetup extends SharedSetup {
+
 	static readonly defaultProps = {
 		color: 'primary' as Orion.Color,
 		pathWidth: 2,
@@ -29,26 +30,15 @@ export default class OrionProgressCircleSetup extends SharedSetup {
 		valueWidth: 4,
 	};
 
-	get coord () {
-		return this.props.size / 2;
-	}
-
-	get radius () {
-		return this.props.size / 2 - this.props.valueWidth;
-	}
-
-	get perimeter () {
-		return this.radius * 2 * Math.PI;
-	}
-
-	get progress () {
-		return this.perimeter - (this.perimeter * this.props.value / 100);
-	}
-
+	get coord () { return this.props.size / 2 }
+	get radius () { return this.props.size / 2 - this.props.valueWidth }
+	get perimeter () { return this.radius * 2 * Math.PI }
+	get progress () { return this.perimeter - (this.perimeter * this.props.value / 100) }
 
 	constructor (
 		protected props: OrionProgressCircleProps & typeof OrionProgressCircleSetup.defaultProps,
 		protected emits: OrionProgressCircleEmits) {
 		super();
 	}
+
 }

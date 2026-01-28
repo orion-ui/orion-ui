@@ -1,22 +1,22 @@
-@import '../../Shared/styles/variables.less';
-@import '../../Shared/styles/mixins.less';
+@import "../../Shared/styles/variables.less";
+@import "../../Shared/styles/mixins.less";
 
 .orion-otp {
-  display: flex;
-  gap:0.5rem;
-  
-  &__input {
-    width: 2.5rem;
-    text-align: center;
-  }
+	display: flex;
+	gap: 0.5rem;
 
-  input::-webkit-outer-spin-button,
-  input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  } 
+	&__input {
+		width: 2.5rem;
+		text-align: center;
+	}
 
-  input[type=number]{
-    -moz-appearance: textfield;
-  }
+	input::-webkit-outer-spin-button,
+	input::-webkit-inner-spin-button {
+		margin: 0;
+		appearance: none;
+	}
+
+	input[type="number"] {
+		appearance: textfield;
+	}
 }

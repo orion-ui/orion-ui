@@ -16,8 +16,8 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue';
 import { useNotif } from 'lib';
+import { reactive } from 'vue';
 
 const state = reactive({ title: 'Do you confirm this action ?' });
 </script>

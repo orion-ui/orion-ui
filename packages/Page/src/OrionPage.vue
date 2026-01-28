@@ -44,8 +44,7 @@
 
 <script setup lang="ts">
 import './OrionPage.less';
-import type { OrionPageEmits, OrionPageProps } from './OrionPageSetup';
-import OrionPageSetup from './OrionPageSetup';
+import { OrionPageSetup, type OrionPageEmits, type OrionPageProps } from './OrionPageSetup';
 const emits = defineEmits<OrionPageEmits>() as OrionPageEmits;
 const props = withDefaults(defineProps<OrionPageProps>(), OrionPageSetup.defaultProps);
 const setup = new OrionPageSetup(props, emits);

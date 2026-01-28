@@ -40,7 +40,6 @@
 				multiple
 				searchable/>
 
-
 			<pre
 				v-if="state.multiple"
 				class="pa-xs">Value:<br>{{ state.multiple }}</pre>
@@ -54,8 +53,8 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue';
 import { faker } from '@faker-js/faker';
+import { reactive } from 'vue';
 
 function seedOptions (qty = 10) {
 	const items = [];

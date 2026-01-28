@@ -64,7 +64,7 @@ class PackagesIndexFactory {
 	}
 
 	async createPackageDtsFileAsync () {
-		const importTemplate = `import { Orion{ComponentName}Setup, Orion{ComponentName}Props, Orion{ComponentName}Emits } from '../packages/index';`;
+		const importTemplate = `import { type Orion{ComponentName}Setup, type Orion{ComponentName}Props, type Orion{ComponentName}Emits } from '../packages/index';`;
 		const declarationTemplate = `type Orion{ComponentName} = InstanceType<typeof Orion{ComponentName}Setup>['publicInstance'];
 	namespace Orion{ComponentName} {
 		type Props = Orion{ComponentName}Props;

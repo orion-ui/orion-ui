@@ -1,23 +1,23 @@
 import { useLoader } from 'services/LoaderService';
 import { reactive, watchEffect } from 'vue';
-import SharedProps, { SharedPropsColor, SharedPropsSize } from '../../Shared/SharedProps';
-import SharedSetup from '../../Shared/SharedSetup';
+import { SharedProps, type SharedPropsColor, type SharedPropsSize } from '../../Shared/SharedProps';
+import { SharedSetup } from '../../Shared/SharedSetup';
 
-export type OrionLoaderEmits = {}
-export type OrionLoaderProps = SharedPropsColor &
-	SharedPropsSize & {
+export type OrionLoaderEmits = {};
+export type OrionLoaderProps = SharedPropsColor & SharedPropsSize & {
 	// @doc props/global displays a fullpage loader
 	// @doc/fr props/global affiche un loader sur toute la page
-	global?: boolean,
+	global?: boolean
 	// @doc props/message message under the loader
 	// @doc/fr props/message message qui apparaît sous l'icône de chargement
-	message?: string,
+	message?: string
 	// @doc props/visible if set, shows the loader
 	// @doc/fr props/visible si défini, affiche le loader
-	visible?: boolean,
-}
+	visible?: boolean
+};
 
-export default class OrionLoaderSetup extends SharedSetup {
+export class OrionLoaderSetup extends SharedSetup {
+
 	static readonly defaultProps = {
 		...SharedProps.color,
 		...SharedProps.size,
@@ -28,14 +28,8 @@ export default class OrionLoaderSetup extends SharedSetup {
 		forceVisible: false,
 	});
 
-	get text () {
-		return this.state.text;
-	}
-
-	get forceVisible () {
-		return this.state.forceVisible;
-	}
-
+	get text () { return this.state.text }
+	get forceVisible () { return this.state.forceVisible }
 	get publicInstance () {
 		return {
 			...super.publicInstance,
@@ -44,26 +38,27 @@ export default class OrionLoaderSetup extends SharedSetup {
 		};
 	}
 
-
 	constructor (
 		protected props: OrionLoaderProps & typeof OrionLoaderSetup.defaultProps,
 		protected emits: OrionLoaderEmits) {
 		super();
 
-		watchEffect(() => { this.state.text = this.props.message; });
+		watchEffect(() => {
+			this.state.text = this.props.message;
+		});
 
 		if (this.props.global) {
 			useLoader().setGlobalLoader(this.publicInstance);
 		}
 	}
 
-
-	show (newText?: string): void {
+	private show (newText?: string): void {
 		this.state.forceVisible = true;
 		this.state.text = newText ?? this.props.message ?? undefined;
 	}
 
-	hide (): void {
+	private hide (): void {
 		this.state.forceVisible = false;
 	}
+
 }

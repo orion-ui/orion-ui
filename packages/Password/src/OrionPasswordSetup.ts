@@ -1,27 +1,28 @@
 import { useValidation } from 'services/ValidationService';
-import { ModelRef, reactive } from 'vue';
-import SharedFieldSetup, { SharedFieldSetupEmits, SharedFieldSetupProps } from '../../Shared/SharedFieldSetup';
+import { type ModelRef, reactive } from 'vue';
+import { SharedFieldSetup, type SharedFieldSetupEmits, type SharedFieldSetupProps } from '../../Shared/SharedFieldSetup';
 
-export type OrionPasswordEmits = SharedFieldSetupEmits<string> & {}
+export type OrionPasswordEmits = SharedFieldSetupEmits<string> & {};
 export type OrionPasswordProps = SharedFieldSetupProps & {
 	// @doc props/passwordToConfirm if specified, checks the match with the password value
 	// @doc/fr props/passwordToConfirm si spécifié, vérifie la correspondance avec le champ de mot de passe dans le cas d'une confirmation
-	passwordToConfirm?: string | boolean,
+	passwordToConfirm?: string | boolean
 	// @doc props/passwordTooltip shows the tooltip with the password's rules
 	// @doc/fr props/passwordTooltip affiche la une tooltip avec les règles à respecter
-	passwordTooltip?: boolean,
+	passwordTooltip?: boolean
 	// @doc props/rules rules to validate the password
 	// @doc/fr props/rules règles de validation du mot de passe
-	rules?: Orion.PasswordRuleSpec[];
+	rules?: Orion.PasswordRuleSpec[]
 	// @doc props/strengthIndicator displays a password strength indicator
 	// @doc/fr props/strengthIndicator affiche un indicateur de robustesse du mot de passe
-	strengthIndicator?: boolean,
+	strengthIndicator?: boolean
 	// @doc props/type type of the input
 	// @doc/fr props/type type du champ
-	type?: string,
+	type?: string
 };
 
-export default class OrionPasswordSetup extends SharedFieldSetup<OrionPasswordProps, string | null | undefined> {
+export class OrionPasswordSetup extends SharedFieldSetup<OrionPasswordProps, string | null | undefined> {
+
 	static readonly defaultProps = {
 		...SharedFieldSetup.defaultProps,
 		type: 'password',
@@ -43,24 +44,25 @@ export default class OrionPasswordSetup extends SharedFieldSetup<OrionPasswordPr
 		if (this.props.rules?.length) {
 			if (this.tooltipValidationMessages.find(x => !x.valid)) {
 				return false;
-			} else
+			}
+			else
 				return true;
 		}
 		return true;
 	}
 
-	get showState () {
-		return super.showState || (this.props.passwordTooltip && this.state.hasBeenFocus);
-	}
-
+	get showState () { return super.showState || (this.props.passwordTooltip && this.state.hasBeenFocus) }
 	get tooltipValidationMessages () {
 		if (this.props.passwordToConfirm !== undefined) {
-			return [{
-				message: this.lang.ORION_PASSWORD__VALIDATION_PASWWORD_CONFIRMATION,
-				valid: this.isValid.value,
-			}];
-		} else {
-			const rules = [] as {message: string; valid: boolean}[];
+			return [
+				{
+					message: this.lang.ORION_PASSWORD__VALIDATION_PASWWORD_CONFIRMATION,
+					valid: this.isValid.value,
+				},
+			];
+		}
+		else {
+			const rules = [] as { message: string, valid: boolean }[];
 			this.props.rules?.forEach((rule) => {
 				if (typeof rule === 'string') {
 					const [ruleName, param] = rule.split(':');
@@ -74,36 +76,8 @@ export default class OrionPasswordSetup extends SharedFieldSetup<OrionPasswordPr
 		}
 	}
 
-	getPasswordRuleMessage (rule: Orion.PasswordRuleKey, param?: string) {
-		switch (rule) {
-		case 'hasLowercase':
-			return this.lang.ORION_PASSWORD__VALIDATION_HAS_LOWERCASE;
-		case 'hasUppercase':
-			return this.lang.ORION_PASSWORD__VALIDATION_HAS_UPPERCASE;
-		case 'hasNumber':
-			return this.lang.ORION_PASSWORD__VALIDATION_HAS_NUMBER;
-		case 'hasSpecialChar':
-			return this.lang.ORION_PASSWORD__VALIDATION_HAS_SPECIAL_CHAR;
-		case 'hasMinLength':
-			return this.lang.ORION_PASSWORD__VALIDATION_HAS_MIN_LENGTH.replace('$charLength', param?.toString() || '');
-		case 'hasMaxLength':
-			return this.lang.ORION_PASSWORD__VALIDATION_HAS_MAX_LENGTH.replace('$charLength', param?.toString() || '');
-		case 'length':
-			const [min, max] = param?.split(',') || [];
-			return this.lang.ORION_PASSWORD__VALIDATION_LENGTH.replace('$min', min || '').replace('$max', max || '');
-		default:
-			return '';
-		}
-	}
-
-	get placementToolTip () {
-		return this.state.placementToolTip;
-	}
-
-	get reveal () {
-		return this.state.reveal;
-	}
-
+	get placementToolTip () { return this.state.placementToolTip }
+	get reveal () { return this.state.reveal }
 	get passwordScore () {
 		let i = 0;
 		if (!this.vModel.value || !this.vModel.value.length) return i;
@@ -133,51 +107,75 @@ export default class OrionPasswordSetup extends SharedFieldSetup<OrionPasswordPr
 
 	get passwordStrength () {
 		switch (this.passwordScore) {
-		case 0:
-		case 1:
-			return this.lang.PASSWORD_STRENGTH_WEAK;
-		case 2:
-			return this.lang.PASSWORD_STRENGTH_MEDIUM;
-		case 3:
-			return this.lang.PASSWORD_STRENGTH_GOOD;
-		case 4:
-		case 5:
-			return this.lang.PASSWORD_STRENGTH_STRONG;
-		default:
-			return this.lang.PASSWORD_STRENGTH_WEAK;
-		}
-	}
-
-	getIndicatorStepClass (step: number) {
-		if (step <= this.passwordScore || (this.passwordScore === 0 && step === 1)) {
-			switch (this.passwordScore) {
 			case 0:
 			case 1:
-				return 'orion-password-popover__indicator-step--danger';
+				return this.lang.PASSWORD_STRENGTH_WEAK;
 			case 2:
-				return 'orion-password-popover__indicator-step--warning';
+				return this.lang.PASSWORD_STRENGTH_MEDIUM;
 			case 3:
-				return 'orion-password-popover__indicator-step--info';
+				return this.lang.PASSWORD_STRENGTH_GOOD;
 			case 4:
-				return 'orion-password-popover__indicator-step--success';
+			case 5:
+				return this.lang.PASSWORD_STRENGTH_STRONG;
 			default:
-				return undefined;
-			}
+				return this.lang.PASSWORD_STRENGTH_WEAK;
 		}
 	}
 
 	get tooltipSubtitle () {
 		if (!this.vModel.value || !this.vModel.value.length) {
 			return this.lang.PASSWORD_CRITERIAS_SUBTITLE_PENDING;
-		} else if (this.isValid.value) {
+		}
+		else if (this.isValid.value) {
 			return this.lang.PASSWORD_CRITERIAS_SUBTITLE_OK;
-		} else {
+		}
+		else {
 			return this.lang.PASSWORD_CRITERIAS_SUBTITLE_ERROR;
 		}
 	}
 
+	private getPasswordRuleMessage (rule: Orion.PasswordRuleKey, param?: string) {
+		switch (rule) {
+			case 'hasLowercase':
+				return this.lang.ORION_PASSWORD__VALIDATION_HAS_LOWERCASE;
+			case 'hasUppercase':
+				return this.lang.ORION_PASSWORD__VALIDATION_HAS_UPPERCASE;
+			case 'hasNumber':
+				return this.lang.ORION_PASSWORD__VALIDATION_HAS_NUMBER;
+			case 'hasSpecialChar':
+				return this.lang.ORION_PASSWORD__VALIDATION_HAS_SPECIAL_CHAR;
+			case 'hasMinLength':
+				return this.lang.ORION_PASSWORD__VALIDATION_HAS_MIN_LENGTH.replace('$charLength', param?.toString() || '');
+			case 'hasMaxLength':
+				return this.lang.ORION_PASSWORD__VALIDATION_HAS_MAX_LENGTH.replace('$charLength', param?.toString() || '');
+			case 'length':
+				const [min, max] = param?.split(',') || [];
+				return this.lang.ORION_PASSWORD__VALIDATION_LENGTH.replace('$min', min || '').replace('$max', max || '');
+			default:
+				return '';
+		}
+	}
+
+	getIndicatorStepClass (step: number) {
+		if (step <= this.passwordScore || (this.passwordScore === 0 && step === 1)) {
+			switch (this.passwordScore) {
+				case 0:
+				case 1:
+					return 'orion-password-popover__indicator-step--danger';
+				case 2:
+					return 'orion-password-popover__indicator-step--warning';
+				case 3:
+					return 'orion-password-popover__indicator-step--info';
+				case 4:
+					return 'orion-password-popover__indicator-step--success';
+				default:
+					return undefined;
+			}
+		}
+	}
+
 	constructor (
-		protected props: OrionPasswordProps & Omit<typeof OrionPasswordSetup.defaultProps, 'rules'> &{
+		protected props: OrionPasswordProps & Omit<typeof OrionPasswordSetup.defaultProps, 'rules'> & {
 			rules: Orion.PasswordRuleSpec[]
 		},
 		protected emits: OrionPasswordEmits,
@@ -209,4 +207,5 @@ export default class OrionPasswordSetup extends SharedFieldSetup<OrionPasswordPr
 		}
 		return validation ? 'text--success' : 'text--danger';
 	}
+
 }

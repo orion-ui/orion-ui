@@ -1,8 +1,7 @@
 import { upperFirst } from 'lodash-es';
-import { App, Plugin } from 'vue';
+import { type App, type Plugin } from 'vue';
 import OrionPaginate from './src/OrionPaginate.vue';
-import type { OrionPaginateEmits, OrionPaginateProps } from './src/OrionPaginateSetup';
-import OrionPaginateSetup from './src/OrionPaginateSetup';
+import { OrionPaginateSetup, type OrionPaginateEmits, type OrionPaginateProps } from './src/OrionPaginateSetup';
 
 export const OrionPaginatePlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,5 +9,4 @@ export const OrionPaginatePlugin: Plugin = {
 	},
 };
 
-export { OrionPaginate, OrionPaginateEmits, OrionPaginateProps, OrionPaginateSetup };
-
+export { OrionPaginate, OrionPaginateSetup, type OrionPaginateEmits, type OrionPaginateProps };
