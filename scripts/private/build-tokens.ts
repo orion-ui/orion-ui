@@ -188,7 +188,7 @@ function collectLeaves (
 // Build the CSS variable declarations for a root block.
 function buildCssVarsBlock (
 	leaves: { path: string[], value: unknown, type?: string }[],
-	indent: string = '  ',
+	indent: string = '	',
 ) {
 	const sorted = [...leaves].sort((a, b) => a.path.join('/').localeCompare(b.path.join('/')));
 	const lines = [];
@@ -214,9 +214,11 @@ function buildRootFile (
 ) {
 	return [
 		'/* AUTO-GENERATED - DO NOT EDIT */',
-		`/* Source: ${source} */`,
 		'',
-		wrapBlock(selector, buildCssVarsBlock(leaves, '  ')),
+		`/* Source: ${source} */`,
+		`/* stylelint-disable color-hex-length */`,
+		'',
+		wrapBlock(selector, buildCssVarsBlock(leaves, '	')),
 	].join('\n');
 }
 
@@ -259,7 +261,7 @@ function main () {
 		},
 		{
 			output: OUTPUT.semanticDark,
-			selector: ':root[data-theme=\'dark\']',
+			selector: ':root[data-theme="dark"]',
 			source: 'tokens/semantic/dark.json (colors)',
 			leaves: semanticDarkLeaves.filter(isColorLeaf),
 		},
