@@ -40,8 +40,9 @@
 	}
 
 	&__title {
+		.typography(body2-bold);
+
 		margin: 0;
-		line-height: 1.4295;
 		color: var(--o-text-neutral-default);
 	}
 
@@ -86,6 +87,10 @@
 			border-left-color: transparent !important;
 			animation: rotate 1s infinite linear;
 
+			.orion-notif--primary & {
+				border-color: var(--o-border-primary-default);
+			}
+
 			.orion-notif--info & {
 				border-color: var(--o-border-info-default);
 			}
@@ -98,7 +103,7 @@
 				border-color: var(--o-border-warning-default);
 			}
 
-			.orion-notif--error & {
+			.orion-notif--danger & {
 				border-color: var(--o-border-danger-default);
 			}
 		}

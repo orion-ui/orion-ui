@@ -18,7 +18,7 @@ defineExpose(setup.publicInstance);
 const jsxTabNav = () => {
 	const tabs = (props.panes).map((pane) => {
 		const icon = pane.props.icon || pane.props['font-icon']
-			? (<OrionIcon class="orion-tab-nav__icon" icon={ pane.props.icon } fontIcon={pane.props['font-icon']}/>)
+			? (<OrionIcon class="orion-tab-nav__icon" icon={pane.props.icon} fontIcon={pane.props['font-icon']} />)
 			: null;
 
 		const labelContent = pane.children?.label ? pane.children?.label() : pane.props.label;
@@ -33,12 +33,16 @@ const jsxTabNav = () => {
 		}
 
 		const marker = isDefineOrTrue(pane.props.marker)
-			? (<OrionBadge
-				class={ markerClass }
-				type={ !!pane.props.marker && typeof pane.props.marker !== 'number' ? 'dot' : 'rounded'}
-				color={ markerColor ?? 'danger' }>
-				{ typeof pane.props.marker === 'number' ? pane.props.marker : undefined }
-			</OrionBadge>) : null;
+			? (
+				<OrionBadge
+					class={markerClass}
+					type={!!pane.props.marker && typeof pane.props.marker !== 'number' ? 'dot' : 'rounded'}
+					color={markerColor ?? 'danger'}
+				>
+					{ typeof pane.props.marker === 'number' ? pane.props.marker : undefined }
+				</OrionBadge>
+			)
+			: null;
 
 		return (
 			<div
@@ -48,9 +52,10 @@ const jsxTabNav = () => {
 					'orion-tab-nav--active': setup.paneIsActive(pane, _tabs?.useRouter),
 				}}
 				key={`orion-tab-${pane.props.name}`}
-				onClick={ (ev: MouseEvent) => props.onTabClick(pane.props as unknown as OrionTabPane, ev) }>
+				onClick={(ev: MouseEvent) => props.onTabClick(pane.props as unknown as OrionTabPane, ev)}
+			>
 				<div class="orion-tab-nav__content">
-					{[ icon, label, marker ]}
+					{[icon, label, marker]}
 				</div>
 			</div>
 		);

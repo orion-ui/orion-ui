@@ -42,18 +42,18 @@ const jsxTimeline = () => {
 	const content = (
 		<div class="orion-timeline__content">
 			{ slots.default ? slots.default() : null }
-			<OrionLoader { ...loaderData }/>
+			<OrionLoader {...loaderData} />
 		</div>
 	);
-
 
 	return (
 		<div class={{
 			'orion-timeline': true,
 			'orion-timeline--horizontal': props.horizontal,
 			'orion-timeline--vertical': !props.horizontal,
-		}}>
-			{[ pills, content ]}
+		}}
+		>
+			{[pills, content]}
 		</div>
 	);
 };

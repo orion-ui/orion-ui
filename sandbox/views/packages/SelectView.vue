@@ -24,7 +24,7 @@
 						display-key="email"
 						disabled
 						value-key="id"
-						:custom-fetch="customFetch"
+						:custom-fetch="customFetchAsync"
 						:fetch-min-search="2"
 						:fetch-initial-options="data.ajaxSingleInitialOptions"
 						@fetch-search-clear="cb">
@@ -65,7 +65,7 @@
 						display-key="email"
 						value-key="id"
 						placeholder="Placeholder"
-						:custom-fetch="customFetch"
+						:custom-fetch="customFetchAsync"
 						v-bind="commonBind">
 						<template #value="{ item, display }">
 							<div class="flex g-8 ai-c">{{ item?.name }} <o-chips>{{ display }}</o-chips></div>
@@ -457,8 +457,7 @@
 							placement: 'right',
 						}"
 						:options="data.fieldSelect.options">
-						<div
-							class="tytyty">
+						<div class="tytyty">
 							{{ data.ajaxSingle ? data.ajaxSingle : 'Div slot' }}
 						</div>
 					</o-select>
@@ -607,7 +606,7 @@ const testt = ref<OrionSelect>();
 const _chip = ref<HTMLElement>();
 const _tututu = ref<OrionChips>();
 const _selectWithTrigger = ref<OrionSelect>();
-const search =ref('');
+const search = ref('');
 
 function tutu () {
 	_test.value?.setSearchTerm('b');
@@ -621,29 +620,31 @@ function setting (val: Nil<string | number>) {
 // #region Data
 const data = reactive({
 	ajaxSingle: null,
-	ajaxSingleInitialOptions: [{
-		'id': 2,
-		'name': 'Ervin Howell',
-		'username': 'Antonette',
-		'email': 'Shanna@melissa.tv',
-		'address': {
-			'street': 'Victor Plains',
-			'suite': 'Suite 879',
-			'city': 'Wisokyburgh',
-			'zipcode': '90566-7771',
-			'geo': {
-				'lat': '-43.9509',
-				'lng': '-34.4618',
+	ajaxSingleInitialOptions: [
+		{
+			'id': 2,
+			'name': 'Ervin Howell',
+			'username': 'Antonette',
+			'email': 'Shanna@melissa.tv',
+			'address': {
+				'street': 'Victor Plains',
+				'suite': 'Suite 879',
+				'city': 'Wisokyburgh',
+				'zipcode': '90566-7771',
+				'geo': {
+					'lat': '-43.9509',
+					'lng': '-34.4618',
+				},
+			},
+			'phone': '010-692-6593 x09125',
+			'website': 'anastasia.net',
+			'company': {
+				'name': 'Deckow-Crist',
+				'catchPhrase': 'Proactive didactic contingency',
+				'bs': 'synergize scalable supply-chains',
 			},
 		},
-		'phone': '010-692-6593 x09125',
-		'website': 'anastasia.net',
-		'company': {
-			'name': 'Deckow-Crist',
-			'catchPhrase': 'Proactive didactic contingency',
-			'bs': 'synergize scalable supply-chains',
-		},
-	}],
+	],
 	ajaxMultiple: null,
 	fieldSelect: {
 		value: 'toto',
@@ -738,9 +739,8 @@ const data = reactive({
 const commonBind = inject<Record<string, any>>('commonBind');
 // #endregion
 
-
 // #region Methods
-async function customFetch (term?: string): Promise<any[]> {
+async function customFetchAsync (term?: string): Promise<any[]> {
 	// eslint-disable-next-line no-console
 	console.log(`customFetch term:`, term);
 	const resp = await fetch(`https://jsonplaceholder.typicode.com/users`);
@@ -755,11 +755,10 @@ function cb () {
 </script>
 
 <style lang="less">
-
 .tytyty {
-	margin: 1rem;
 	//width: 10rem;
-	position:relative;
+	position: relative;
+	margin: 1rem;
 	background: var(--o-background-danger-default);
 }
 
@@ -768,6 +767,7 @@ function cb () {
 
 	position: relative;
 }
+
 .hide-select {
 	//visibility: hidden;
 }

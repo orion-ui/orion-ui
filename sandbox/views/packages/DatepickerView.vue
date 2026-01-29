@@ -7,7 +7,7 @@
 			<pre>typeof: {{ typeof date }}</pre>
 			<pre> = null: {{ date === null }}</pre>
 		</o-alert>
-		<o-card style="width:320px">
+		<o-card style="width: 20rem;">
 			<o-datepicker
 				v-model="date"
 				label="simple date"
@@ -16,7 +16,7 @@
 				clear-to-null
 				disable-popover>
 				<template #popper="{ closePopperSlot }">
-					<div style="width:720px; background-color:aquamarine; color:black; padding:1rem;">
+					<div style="width: 45rem; padding: 1rem; color: black; background-color: aquamarine;">
 						Aenean eu leo quam.
 						Pellentesque ornare sem lacinia quam venenatis vestibulum.
 						Maecenas sed diam eget risus varius blandit sit amet non magna.
@@ -40,7 +40,7 @@
 				v-model="showWeekNumber"
 				label="show week number"/>
 		</div>
-		<o-card style="width:320px">
+		<o-card style="width: 20rem;">
 			<o-datepicker
 				v-model="date2"
 				label="simple date"
@@ -57,7 +57,7 @@
 			<pre>typeof: {{ typeof daterange }}</pre>
 			<pre> = null: {{ daterange === null }}</pre>
 		</o-alert>
-		<o-card style="width:320px">
+		<o-card style="width: 20rem;">
 			<o-datepicker
 				v-model:range="daterange"
 				type="range"
@@ -74,7 +74,7 @@
 			<pre>typeof: {{ typeof dateweek }}</pre>
 			<pre> = null: {{ dateweek === null }}</pre>
 		</o-alert>
-		<o-card style="width:320px">
+		<o-card style="width: 20rem;">
 			<o-datepicker
 				v-model:range="dateweek"
 				type="week"
@@ -91,7 +91,7 @@
 			<pre>typeof: {{ typeof datemonth }}</pre>
 			<pre> = null: {{ datemonth === null }}</pre>
 		</o-alert>
-		<o-card style="width:320px">
+		<o-card style="width: 20rem;">
 			<o-datepicker
 				v-model:range="datemonth"
 				type="month"
@@ -107,7 +107,7 @@
 			<pre>typeof: {{ typeof datemultiple }}</pre>
 			<pre> = null: {{ datemultiple === null }}</pre>
 		</o-alert>
-		<o-card style="width:320px">
+		<o-card style="width: 20rem;">
 			<o-datepicker
 				v-model:multiple="datemultiple"
 				type="multiple"

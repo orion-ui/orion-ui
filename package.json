@@ -50,8 +50,8 @@
 		"find:vars:docs": "ts-node scripts/find-unknown-vars.ts docs --styles=packages/Shared/styles",
 		"test:ds": "npm run find:vars && npm run find:vars:docs && npm run lint:styles",
 		"build:tokens": "ts-node scripts/private/build-tokens.ts",
-		"lint": "eslint devtool lang lib packages scripts services utils && stylelint devtool lang lib packages scripts services utils",
-		"lint:fix": "eslint devtool lang lib packages scripts services utils --fix && stylelint devtool lang lib packages scripts services utils --fix"
+		"lint": "eslint devtool lang lib packages scripts services utils && stylelint \"(packages|sandbox)/**/*.(less|vue)\"",
+		"lint:fix": "eslint devtool lang lib packages scripts services utils --fix && stylelint \"(packages|sandbox)/**/*.(less|vue)\" --fix"
 	},
 	"dependencies": {
 		"@clack/prompts": "^0.8.2",
@@ -81,7 +81,7 @@
 		"@babel/plugin-proposal-decorators": "^7.25.9",
 		"@babel/preset-typescript": "^7.26.0",
 		"@faker-js/faker": "^8.4.0",
-		"@orion.ui/orion-linter": "^1.0.5",
+		"@orion.ui/orion-linter": "^1.0.6",
 		"@stackblitz/sdk": "^1.11.0",
 		"@types/cli-progress": "^3.11.6",
 		"@types/fs-extra": "^11.0.4",

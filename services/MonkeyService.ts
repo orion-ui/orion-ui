@@ -137,7 +137,7 @@ class ArrayMonkeyPatching<T> extends Array<T> {
 	 * @param {K} [keyPath='id']
 	 * @return T[K][]
 	 */
-	mapKey <T extends object, K extends keyof T> (this: T[], keyPath: K = 'id' as K): T[K][] {
+	mapKey <T extends Record<K, any>, K extends keyof T> (this: T[], keyPath: K = 'id' as K): T[K][] {
 		// TODO: get nested properties in typing
 		return this.map(x => get<T, K>(x, keyPath));
 	}
@@ -148,7 +148,7 @@ class ArrayMonkeyPatching<T> extends Array<T> {
 	 * @param {K} [key='id'] key on which the research will be based
 	 * @return T | undefined
 	 */
-	findByKey <T extends object, K extends keyof T> (this: T[], keyValue: T[K], key: K = 'id' as K) {
+	findByKey <T extends Record<K, any>, K extends keyof T> (this: T[], keyValue: T[K], key: K = 'id' as K) {
 		return this.find(x => get<T, K>(x, key) === keyValue);
 	}
 

@@ -2,8 +2,8 @@ import { groupBy } from 'lodash-es';
 import mitt from 'mitt';
 import { Reactive } from 'utils/decorators';
 import { getUid } from 'utils/tools';
-import OrionChatEntity from '../packages/Chat/src/OrionChatEntity';
-import OrionChatMessageEntity from '../packages/ChatMessage/src/OrionChatMessageEntity';
+import { OrionChatEntity } from '../packages/Chat/src/OrionChatEntity';
+import { OrionChatMessageEntity } from '../packages/ChatMessage/src/OrionChatMessageEntity';
 import { useMonkey } from './MonkeyService';
 
 const defaultConfig: Omit<Orion.Chat.Config, 'user'> & { user: Undef<Orion.Chat.User> } = {

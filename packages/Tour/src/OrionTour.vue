@@ -26,14 +26,14 @@ const jsxTimeline = () => {
 
 		return (
 			<div class="orion-tour">
-				<orion-overlay ref="overlay" class="orion-tour-overlay"/>
+				<orion-overlay ref="overlay" class="orion-tour-overlay" />
 				{tourSteps}
 			</div>
 		);
-	} else {
-		return <div class="orion-tour"/>;
 	}
-	// #endregion
+	else {
+		return <div class="orion-tour" />;
+	}
 };
 
 </script>

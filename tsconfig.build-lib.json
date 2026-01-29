@@ -17,6 +17,7 @@
 		"devtool",
 		"lib/monkey-patching.d.ts",
 		"packages/*/docs",
-		"services/docs"
+		"services/docs",
+		"scripts/private"
 	]
 }

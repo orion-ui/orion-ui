@@ -17,8 +17,6 @@ const setup = new OrionTabsSetup(props, emits, slots, vModel);
 provide('_tabs', setup.publicInstance);
 defineExpose(setup.publicInstance);
 
-
-
 const jsxTabs = () => {
 	const navData = {
 		value: vModel.value,
@@ -49,10 +47,10 @@ const jsxTabs = () => {
 		<div class="orion-tabs__content">
 			{
 				props.useRouter
-					? <router-view name={props.routerViewName}/>
+					? <router-view name={props.routerViewName} />
 					: slots.default ? slots.default() : null
 			}
-			<OrionLoader { ...loaderData }/>
+			<OrionLoader {...loaderData} />
 		</div>
 	);
 
@@ -63,7 +61,7 @@ const jsxTabs = () => {
 
 	return (
 		<div class={tabsClass}>
-			{[ header, content ]}
+			{[header, content]}
 		</div>
 	);
 };

@@ -48,7 +48,6 @@
 
 		<sections-generator :qty="3"/>
 
-
 		<o-aside
 			ref="_aside"
 			:display="displayPopable"
@@ -63,10 +62,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
 import { useAside } from 'lib';
 import NestedCompVue from 'sandbox/NestedComp.vue';
 import SectionsGenerator from 'sandbox/SectionsGenerator.vue';
+import { ref } from 'vue';
 const displayPopable = ref(false);
 const asideSize = ref('lg');
 const _aside = ref<OrionAside>();
