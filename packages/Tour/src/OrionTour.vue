@@ -3,15 +3,13 @@
 </template>
 
 <script setup lang="tsx">
-import './OrionTour.less';
 import { provide } from 'vue';
-import OrionTourSetupService from './OrionTourSetupService';
-
+import './OrionTour.less';
+import { OrionTourSetup, type OrionTourEmits, type OrionTourProps } from './OrionTourSetup';
 const slots = defineSlots();
 const emits = defineEmits<OrionTourEmits>() as OrionTourEmits;
-import type { OrionTourProps, OrionTourEmits } from './OrionTourSetupService';
-const props = withDefaults(defineProps<OrionTourProps>(), OrionTourSetupService.defaultProps);
-const setup = new OrionTourSetupService(props, emits, slots);
+const props = withDefaults(defineProps<OrionTourProps>(), OrionTourSetup.defaultProps);
+const setup = new OrionTourSetup(props, emits, slots);
 provide('_tour', setup.publicInstance);
 defineExpose(setup.publicInstance);
 
@@ -28,14 +26,14 @@ const jsxTimeline = () => {
 
 		return (
 			<div class="orion-tour">
-				<orion-overlay ref="overlay" class="orion-tour-overlay"/>
+				<orion-overlay ref="overlay" class="orion-tour-overlay" />
 				{tourSteps}
 			</div>
 		);
-	} else {
-		return <div class="orion-tour"/>;
 	}
-	// #endregion
+	else {
+		return <div class="orion-tour" />;
+	}
 };
 
 </script>

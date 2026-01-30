@@ -1,8 +1,7 @@
-import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
+import { type App, type Plugin } from 'vue';
 import OrionTourStep from './src/OrionTourStep.vue';
-import type { OrionTourStepEmits, OrionTourStepProps } from './src/OrionTourStepSetupService';
-import OrionTourStepSetupService from './src/OrionTourStepSetupService';
+import { OrionTourStepSetup, type OrionTourStepEmits, type OrionTourStepProps } from './src/OrionTourStepSetup';
 
 export const OrionTourStepPlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,4 +9,4 @@ export const OrionTourStepPlugin: Plugin = {
 	},
 };
 
-export { OrionTourStep, OrionTourStepSetupService, OrionTourStepEmits, OrionTourStepProps };
+export { OrionTourStep, OrionTourStepSetup, type OrionTourStepEmits, type OrionTourStepProps };

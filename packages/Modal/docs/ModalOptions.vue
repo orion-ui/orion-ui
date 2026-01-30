@@ -108,8 +108,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
 import { useNotif } from 'lib';
+import { ref } from 'vue';
 
 const _modalA = ref<OrionModal>();
 const _modalB = ref<OrionModal>();

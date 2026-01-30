@@ -10,8 +10,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
 import { useNotif } from 'lib';
+import { ref } from 'vue';
 
 const avatarUrl = ref('https://picsum.photos/id/1011/200');
 const avatarUpdateIncrement = ref(0);
@@ -39,7 +39,6 @@ To fix this we provide the `nb-avatar-updates` prop.
 It must be a number that you should increment after each update so the image will be refreshed.
 :::
 @lang
-
 
 @lang:fr
 ### Fonction update

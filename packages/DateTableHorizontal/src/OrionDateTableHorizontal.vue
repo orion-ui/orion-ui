@@ -49,8 +49,7 @@
 								{{ useMonkey(days[0].date).toReadable('$YYYY') }}
 							</orion-button>
 						</div>
-						<div
-							class="orion-date-table-row">
+						<div class="orion-date-table-row">
 							<template
 								v-for="day in days"
 								:key="day.date.getTime()">
@@ -79,8 +78,7 @@
 											:class="[
 												`orion-date-table__marker--${markers.find(m => m.date.getTime() === day.date.getTime())?.color}`,
 											]"/>
-										<span
-											class="orion-date-table-row__cell-display-number">
+										<span class="orion-date-table-row__cell-display-number">
 											{{ day.date.getDate() }}
 										</span>
 									</span>
@@ -154,21 +152,20 @@
 </template>
 
 <script setup lang="ts">
-import { OrionHorizontalScroll } from 'packages/HorizontalScroll';
-import { OrionToggleButton } from 'packages/ToggleButton';
-import { OrionIcon } from 'packages/Icon';
 import { OrionButton } from 'packages/Button';
+import { OrionHorizontalScroll } from 'packages/HorizontalScroll';
+import { OrionIcon } from 'packages/Icon';
+import { OrionToggleButton } from 'packages/ToggleButton';
 import { useMonkey } from 'services';
 import './OrionDateTableHorizontal.less';
-import type { OrionDateTableHorizontalEmits, OrionDateTableHorizontalProps } from './OrionDateTableHorizontalSetupService';
-import OrionDateTableHorizontalSetupService from './OrionDateTableHorizontalSetupService';
-const vModel = defineModel< Nil<Date>>();
+import { OrionDateTableHorizontalSetup, type OrionDateTableHorizontalEmits, type OrionDateTableHorizontalProps } from './OrionDateTableHorizontalSetup';
+const vModel = defineModel<Nil<Date>>();
 const range = defineModel<Nil<Orion.DateRange>>('range');
 const multiple = defineModel<Nil<Date[]>>('multiple');
 const dayHover = defineModel<Nil<Date>>('dayHover');
 const emits = defineEmits<OrionDateTableHorizontalEmits>() as OrionDateTableHorizontalEmits;
-const props = withDefaults(defineProps<OrionDateTableHorizontalProps>(), OrionDateTableHorizontalSetupService.defaultProps);
-const setup = new OrionDateTableHorizontalSetupService(props, emits, vModel, range, multiple, dayHover);
+const props = withDefaults(defineProps<OrionDateTableHorizontalProps>(), OrionDateTableHorizontalSetup.defaultProps);
+const setup = new OrionDateTableHorizontalSetup(props, emits, vModel, range, multiple, dayHover);
 defineExpose(setup.publicInstance);
 
 /** Doc

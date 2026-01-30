@@ -13,13 +13,13 @@ const { NoRoutePackagesFolder } = require('../scripts-utils.cjs');
 module.exports = async (/** @type {Options} */ options) => {
 	const factory = new RouteFactory(options);
 
-	await factory.writeRouterFile();
-	await factory.writeViewFiles();
-	await factory.writeNavigationFile();
+	await factory.writeRouterFileAsync();
+	await factory.writeViewFilesAsync();
+	await factory.writeNavigationFileAsync();
 };
 
-
 class RouteFactory {
+
 	constructor (/** @type {Options} */ options) {
 		this.options = options;
 
@@ -31,7 +31,7 @@ class RouteFactory {
 		return `${name}View`;
 	}
 
-	async writeRouterFile () {
+	async writeRouterFileAsync () {
 		const routerFolderPath = path.resolve(__dirname, '../../sandbox/router/packages.router.ts');
 		const routerFolderRelativePath = routerFolderPath.replace(process.cwd(), '');
 
@@ -48,13 +48,14 @@ class RouteFactory {
 		if (this.options.dryRun) {
 			note(`🥨 --> Orion would write following content in ${routerFolderRelativePath}`);
 			log.message(content);
-		} else {
+		}
+		else {
 			await writeFile(routerFolderPath, content, { encoding: 'utf-8' });
 			log.success(`🥨 --> Orion created ${routerFolderRelativePath}`);
 		}
 	}
 
-	async writeNavigationFile () {
+	async writeNavigationFileAsync () {
 		const utilsFolderPath = path.resolve(__dirname, '../../sandbox/utils/packages-navigation.ts');
 		const utilsFolderRelativePath = utilsFolderPath.replace(process.cwd(), '');
 
@@ -71,13 +72,14 @@ class RouteFactory {
 		if (this.options.dryRun) {
 			note(`🥨 --> Orion would write following content in ${utilsFolderRelativePath}`);
 			log.message(content);
-		} else {
+		}
+		else {
 			await writeFile(utilsFolderPath, content, { encoding: 'utf-8' });
 			log.success(`🥨 --> Orion created ${utilsFolderRelativePath}`);
 		}
 	}
 
-	async writeViewFiles () {
+	async writeViewFilesAsync () {
 		const viewsFolderPath = path.resolve(__dirname, '../../sandbox/views/packages');
 		const viewsFolderRelativePath = viewsFolderPath.replace(process.cwd(), '');
 		const viewTemplateContent = await readFile(path.resolve(__dirname, 'templates/{PackageName}.vuetemplate'), { encoding: 'utf-8' });
@@ -91,13 +93,13 @@ class RouteFactory {
 				if (this.options.dryRun) {
 					note(`🥨 --> Orion would write following content in ${viewsFolderRelativePath}/${viewFileName}`);
 					log.message(content);
-				} else {
+				}
+				else {
 					await writeFile(path.resolve(viewsFolderPath, viewFileName), content, { encoding: 'utf-8' });
 					log.success(`🥨 --> Orion created ${viewsFolderRelativePath}/${viewFileName}`);
 				}
 			}
 		});
 	}
+
 }
-
-

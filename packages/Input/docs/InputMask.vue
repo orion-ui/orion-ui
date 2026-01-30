@@ -42,7 +42,6 @@ const state = reactive({
 });
 </script>
 
-
 @lang:en
 ### Mask
 With the prop `mask`, you can dynamically format the user input, improving the user experience and input validation.

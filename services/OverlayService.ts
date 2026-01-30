@@ -1,8 +1,8 @@
 import { Log } from 'utils/Log';
 
 export class OverlayService {
-	private globalOverlay?: OrionOverlay;
 
+	private globalOverlay?: OrionOverlay;
 
 	constructor () {
 		Log.orion(`OverlayService activated`);
@@ -38,10 +38,11 @@ export class OverlayService {
 		this.guard();
 		this.globalOverlay?.hide();
 	}
+
 }
 
 const serviceInstance = new OverlayService();
 
-export default function useOverlay () {
+export function useOverlay () {
 	return serviceInstance;
 };

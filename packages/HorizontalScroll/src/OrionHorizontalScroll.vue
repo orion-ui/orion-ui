@@ -81,13 +81,12 @@
 </template>
 
 <script setup lang="ts">
-import './OrionHorizontalScroll.less';
 import { OrionIcon } from 'packages/Icon';
-import OrionHorizontalScrollSetupService from './OrionHorizontalScrollSetupService';
+import './OrionHorizontalScroll.less';
+import { OrionHorizontalScrollSetup, type OrionHorizontalScrollEmits, type OrionHorizontalScrollProps } from './OrionHorizontalScrollSetup';
 const emits = defineEmits<OrionHorizontalScrollEmits>() as OrionHorizontalScrollEmits;
-import type { OrionHorizontalScrollProps, OrionHorizontalScrollEmits } from './OrionHorizontalScrollSetupService';
-const props = withDefaults(defineProps<OrionHorizontalScrollProps>(), OrionHorizontalScrollSetupService.defaultProps);
-const setup = new OrionHorizontalScrollSetupService(props, emits);
+const props = withDefaults(defineProps<OrionHorizontalScrollProps>(), OrionHorizontalScrollSetup.defaultProps);
+const setup = new OrionHorizontalScrollSetup(props, emits);
 defineExpose(setup.publicInstance);
 
 /** Doc
@@ -95,4 +94,3 @@ defineExpose(setup.publicInstance);
  * @doc/fr slot/default Contenu du composant
  */
 </script>
-

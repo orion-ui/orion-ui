@@ -49,12 +49,10 @@
 
 <script setup lang="ts">
 import './OrionChips.less';
-import type { OrionChipsEmits, OrionChipsProps } from './OrionChipsSetupService';
-import OrionChipsSetupService from './OrionChipsSetupService';
+import { OrionChipsSetup, type OrionChipsEmits, type OrionChipsProps } from './OrionChipsSetup';
 const emits = defineEmits<OrionChipsEmits>() as OrionChipsEmits;
-const props = withDefaults(defineProps<OrionChipsProps>(), OrionChipsSetupService.defaultProps);
-const setup = new OrionChipsSetupService(props, emits);
-
+const props = withDefaults(defineProps<OrionChipsProps>(), OrionChipsSetup.defaultProps);
+const setup = new OrionChipsSetup(props, emits);
 defineExpose(setup.publicInstance);
 
 /** Doc

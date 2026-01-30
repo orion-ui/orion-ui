@@ -1,8 +1,7 @@
-import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
+import { type App, type Plugin } from 'vue';
 import OrionPopConfirm from './src/OrionPopConfirm.vue';
-import type { OrionPopConfirmEmits, OrionPopConfirmProps } from './src/OrionPopConfirmSetupService';
-import OrionPopConfirmSetupService from './src/OrionPopConfirmSetupService';
+import { OrionPopConfirmSetup, type OrionPopConfirmEmits, type OrionPopConfirmProps } from './src/OrionPopConfirmSetup';
 
 export const OrionPopConfirmPlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,4 +9,4 @@ export const OrionPopConfirmPlugin: Plugin = {
 	},
 };
 
-export { OrionPopConfirm, OrionPopConfirmSetupService, OrionPopConfirmEmits, OrionPopConfirmProps };
+export { OrionPopConfirm, OrionPopConfirmSetup, type OrionPopConfirmEmits, type OrionPopConfirmProps };

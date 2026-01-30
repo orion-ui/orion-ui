@@ -102,12 +102,11 @@
 import { getIconStyle } from 'utils/tools';
 import { useAttrs } from 'vue';
 import './OrionIcon.less';
-import type { OrionIconEmits, OrionIconProps } from './OrionIconSetupService';
-import OrionIconSetupService from './OrionIconSetupService';
+import { OrionIconSetup, type OrionIconEmits, type OrionIconProps } from './OrionIconSetup';
 const attrs = useAttrs();
 const emits = defineEmits<OrionIconEmits>() as OrionIconEmits;
-const props = withDefaults(defineProps<OrionIconProps>(), OrionIconSetupService.defaultProps);
-const setup = new OrionIconSetupService(props, emits, attrs);
+const props = withDefaults(defineProps<OrionIconProps>(), OrionIconSetup.defaultProps);
+const setup = new OrionIconSetup(props, emits, attrs);
 
 defineExpose(setup.publicInstance);
 

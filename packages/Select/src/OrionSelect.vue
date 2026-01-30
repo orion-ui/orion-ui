@@ -268,40 +268,44 @@ import { OrionIcon } from 'packages/Icon';
 import { OrionInput } from 'packages/Input';
 import { OrionLoader } from 'packages/Loader';
 import './OrionSelect.less';
-import type { OrionSelectEmits, OrionSelectProps, VModelType } from './OrionSelectSetupService';
-import OrionSelectSetupService from './OrionSelectSetupService';
+import { OrionSelectSetup, type OrionSelectEmits, type OrionSelectProps } from './OrionSelectSetup';
 const emits = defineEmits<OrionSelectEmits<T, O>>();
-const vModel = defineModel<VModelType<T>>();
-const props = withDefaults(defineProps<OrionSelectProps<T, O, VKey, DKey>>(), OrionSelectSetupService.defaultProps);
-const setup = new OrionSelectSetupService(props, emits, vModel);
+const vModel = defineModel<Orion.VModel.Select<T>>();
+const props = withDefaults(defineProps<OrionSelectProps<T, O, VKey, DKey>>(), OrionSelectSetup.defaultProps);
+const setup = new OrionSelectSetup(props, emits, vModel);
 
 defineSlots<{
 	'default'(): void
+	// eslint-disable-next-line no-unused-vars
 	'multiple-value'(props: { value: T[] }): void
+	// eslint-disable-next-line no-unused-vars
 	'before-options'(props: { options: O[] }): void
+	// eslint-disable-next-line no-unused-vars
 	'after-options'(props: { options: O[] }): void
-  'option'(props: {
-			item: O,
-			index: number,
-			markedSearch:(content: string) => string | undefined
-		}): void
+	// eslint-disable-next-line no-unused-vars
+	'option'(props: {
+		item: O
+		index: number
+		// eslint-disable-next-line no-unused-vars
+		markedSearch: (content: string) => string | undefined
+	}): void
+	// eslint-disable-next-line no-unused-vars
 	'value'(props: {
-			item: ReturnType<OrionSelectSetupService<T, O, VKey, DKey>['valueDisplay']>['item'],
-			display: ObjectKeyValidator<O, DKey, VKey> extends never
-				? O
-				: DKey extends keyof O
-					? O[DKey]
-					: O | undefined;
-		}): void
+		item: ReturnType<OrionSelectSetup<T, O, VKey, DKey>['valueDisplay']>['item']
+		display: ObjectKeyValidator<O, DKey, VKey> extends never
+			? O
+			: DKey extends keyof O
+				? O[DKey]
+				: O | undefined
+	}): void
 }>();
 
 defineExpose(setup.publicInstance);
 
-
 type ObjectKeyValidator<
 	O,
 	D extends keyof O,
-	V extends keyof O
+	V extends keyof O,
 > = D extends never
 	? (V extends never ? O : O[V])
 	: O[D];

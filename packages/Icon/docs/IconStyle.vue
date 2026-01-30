@@ -22,8 +22,8 @@ const loading = ref(false);
 </script>
 
 <style lang="less" scoped>
-.orion-icon{
-  font-size: 1.5rem;
+.orion-icon {
+	font-size: 1.5rem;
 }
 </style>
 
@@ -41,4 +41,3 @@ A `loading` prop can also be used.
 Il est possible d'ajouter une animation au survol et au click avec la prop `ripple`, ou d'ajouter une couleur de fond avec la prop `button`.\
 La prop `loading` peut être utilisé pour indiquer un état de chargement.
 @lang
-

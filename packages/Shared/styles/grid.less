@@ -1,3 +1,4 @@
+/* stylelint-disable selector-class-pattern */
 .makeCol(@bp) {
 	each(range(12), .(@i) {
 		@width: 100% / 12  * @i;
@@ -9,11 +10,11 @@
 			max-width: calc(@width);
 			flex-basis: calc(@width);
 		}
-		
+
 		> .col-@{bp}-offset-@{i} {
 			margin-left: calc(@width);
 		}
-			
+
 		&--gutter, &--grid {
 			> .col-@{bp}-@{i} {
 				width: calc(@width - (@gutter * (@numberOfCol - 1) / @numberOfCol));
@@ -59,28 +60,27 @@
 					margin-left: calc(@width - (@gutter * (@numberOfCol - 1) / @numberOfCol) + @gutter);
 				}
 			}
-		} 
+		}
 	});
 }
 
 .row {
-	box-sizing: border-box;
 	display: flex;
 	flex: 1 0 0%;
-	flex-wrap: wrap;
-	flex-direction: row;
+	flex-flow: row wrap;
 	align-items: stretch;
+	box-sizing: border-box;
 
-	> [class*='col-'],
+	> [class*="col-"],
 	> .col {
-		box-sizing: border-box;
 		flex: 1 0 0%;
+		box-sizing: border-box;
 		width: 100%;
 		max-width: 100%;
 		padding: 0;
 	}
 
-	> [class*='col-'] {
+	> [class*="col-"] {
 		flex: 0 0 auto;
 	}
 
@@ -152,8 +152,65 @@
 		justify-content: space-around;
 	}
 
-	// #region Responsive
-	.makeCol(xs);
+	._XL & {
+		.makeCol(xs);
+		.makeCol(sm);
+		.makeCol(md);
+		.makeCol(lg);
+		.makeCol(xl);
+
+		> :not(.col, .col-xs, .col-sm, .col-md, .col-lg, .col-xl, [class*="col-xs-"], [class*="col-sm-"], [class*="col-md-"], [class*="col-lg-"], [class*="col-xl-"]) {
+			flex-basis: 100%;
+			width: 100%;
+			max-width: 100%;
+		}
+	}
+
+	._LG & {
+		.makeCol(xs);
+		.makeCol(sm);
+		.makeCol(md);
+		.makeCol(lg);
+
+		> :not(.col, .col-xs, .col-sm, .col-md, .col-lg, [class*="col-xs-"], [class*="col-sm-"], [class*="col-md-"], [class*="col-lg-"]) {
+			flex-basis: 100%;
+			width: 100%;
+			max-width: 100%;
+		}
+	}
+
+	._MD & {
+		.makeCol(xs);
+		.makeCol(sm);
+		.makeCol(md);
+
+		> :not(.col, .col-xs, .col-sm, .col-md, [class*="col-xs-"], [class*="col-sm-"], [class*="col-md-"]) {
+			flex-basis: 100%;
+			width: 100%;
+			max-width: 100%;
+		}
+	}
+
+	._SM & {
+		.makeCol(xs);
+		.makeCol(sm);
+
+		> :not(.col, .col-xs, .col-sm, [class*="col-xs-"], [class*="col-sm-"]) {
+			flex-basis: 100%;
+			width: 100%;
+			max-width: 100%;
+		}
+	}
+
+	._XS & {
+		.makeCol(xs);
+
+		> :not(.col, .col-xs, [class*="col-xs-"]) {
+			flex-basis: 100%;
+			width: 100%;
+			max-width: 100%;
+		}
+	}
 
 	@media @tabletPortrait {
 		.makeCol(xs);
@@ -181,77 +238,7 @@
 		.makeCol(xl);
 	}
 
-	._XL & {
-		.makeCol(xs);
-		.makeCol(sm);
-		.makeCol(md);
-		.makeCol(lg);
-		.makeCol(xl);
-
-		> :not(.col):not(.col-xs):not(.col-sm):not(.col-md):not(.col-lg):not(
-				.col-xl
-			):not([class*='col-xs-']):not([class*='col-sm-']):not(
-				[class*='col-md-']
-			):not([class*='col-lg-']):not([class*='col-xl-']) {
-			width: 100%;
-			max-width: 100%;
-			flex-basis: 100%;
-		}
-	}
-
-	._LG & {
-		.makeCol(xs);
-		.makeCol(sm);
-		.makeCol(md);
-		.makeCol(lg);
-
-		> :not(.col):not(.col-xs):not(.col-sm):not(.col-md):not(.col-lg):not(
-				[class*='col-xs-']
-			):not([class*='col-sm-']):not([class*='col-md-']):not(
-				[class*='col-lg-']
-			) {
-			width: 100%;
-			max-width: 100%;
-			flex-basis: 100%;
-		}
-	}
-
-	._MD & {
-		.makeCol(xs);
-		.makeCol(sm);
-		.makeCol(md);
-
-		> :not(.col):not(.col-xs):not(.col-sm):not(.col-md):not(
-				[class*='col-xs-']
-			):not([class*='col-sm-']):not([class*='col-md-']) {
-			width: 100%;
-			max-width: 100%;
-			flex-basis: 100%;
-		}
-	}
-
-	._SM & {
-		.makeCol(xs);
-		.makeCol(sm);
-
-		> :not(.col):not(.col-xs):not(.col-sm):not([class*='col-xs-']):not(
-				[class*='col-sm-']
-			) {
-			width: 100%;
-			max-width: 100%;
-			flex-basis: 100%;
-		}
-	}
-
-	._XS & {
-		.makeCol(xs);
-
-		> :not(.col):not(.col-xs):not([class*='col-xs-']) {
-			width: 100%;
-			max-width: 100%;
-			flex-basis: 100%;
-		}
-	}
+	// #region Responsive
+	.makeCol(xs);
 	// #endregion
 }
-

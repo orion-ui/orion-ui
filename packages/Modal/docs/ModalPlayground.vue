@@ -61,11 +61,13 @@ const state = reactive({
 			maxLength: 1000,
 		},
 	} as Partial<Orion.Modal.Prompt>,
-	actions: [{
-		label: 'Accept',
-		color: 'success',
-		callback: () => useNotif.success('Accept from modal'),
-	}] as Partial<Orion.Modal.ActionsParams>[],
+	actions: [
+		{
+			label: 'Accept',
+			color: 'success',
+			callback: () => useNotif.success('Accept from modal'),
+		},
+	] as Partial<Orion.Modal.ActionsParams>[],
 });
 
 const options = ['lg', 'md', 'sm', 'xs'];

@@ -1,8 +1,7 @@
-import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
+import { type App, type Plugin } from 'vue';
 import OrionDateTableHorizontal from './src/OrionDateTableHorizontal.vue';
-import type { OrionDateTableHorizontalEmits, OrionDateTableHorizontalProps } from './src/OrionDateTableHorizontalSetupService';
-import OrionDateTableHorizontalSetupService from './src/OrionDateTableHorizontalSetupService';
+import { OrionDateTableHorizontalSetup, type OrionDateTableHorizontalEmits, type OrionDateTableHorizontalProps } from './src/OrionDateTableHorizontalSetup';
 
 export const OrionDateTableHorizontalPlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,4 +9,4 @@ export const OrionDateTableHorizontalPlugin: Plugin = {
 	},
 };
 
-export { OrionDateTableHorizontal, OrionDateTableHorizontalSetupService, OrionDateTableHorizontalEmits, OrionDateTableHorizontalProps };
+export { OrionDateTableHorizontal, OrionDateTableHorizontalSetup, type OrionDateTableHorizontalEmits, type OrionDateTableHorizontalProps };

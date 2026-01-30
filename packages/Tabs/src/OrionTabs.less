@@ -1,5 +1,5 @@
-@import '../../Shared/styles/variables.less';
-@import '../../Shared/styles/mixins.less';
+@import "../../Shared/styles/variables.less";
+@import "../../Shared/styles/mixins.less";
 
 .orion-tabs {
 	&__content {
@@ -7,14 +7,13 @@
 	}
 
 	&__header {
-
 		width: fit-content;
 
 		&--floating {
-			background: var(--o-background-neutral-subtle);
-			border-radius: var(--o-radius-12);
+			padding: var(--o-space-2);
 			border: 1px solid var(--o-border-neutral-default);
-			padding: var(--o-space-2)
+			border-radius: var(--o-radius-12);
+			background: var(--o-background-neutral-subtle);
 		}
 	}
 }

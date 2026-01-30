@@ -1,8 +1,7 @@
-import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
+import { type App, type Plugin } from 'vue';
 import OrionAlert from './src/OrionAlert.vue';
-import OrionAlertSetupService from './src/OrionAlertSetupService';
-import type { OrionAlertEmits, OrionAlertProps } from './src/OrionAlertSetupService';
+import { OrionAlertSetup, type OrionAlertEmits, type OrionAlertProps } from './src/OrionAlertSetup';
 
 export const OrionAlertPlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,4 +9,4 @@ export const OrionAlertPlugin: Plugin = {
 	},
 };
 
-export { OrionAlert, OrionAlertSetupService, OrionAlertEmits, OrionAlertProps };
+export { OrionAlert, OrionAlertSetup, type OrionAlertEmits, type OrionAlertProps };

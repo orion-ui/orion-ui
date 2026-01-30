@@ -1,8 +1,7 @@
-import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
+import { type App, type Plugin } from 'vue';
 import OrionColorPicker from './src/OrionColorPicker.vue';
-import type { OrionColorPickerEmits, OrionColorPickerProps } from './src/OrionColorPickerSetupService';
-import OrionColorPickerSetupService from './src/OrionColorPickerSetupService';
+import { OrionColorPickerSetup, type OrionColorPickerEmits, type OrionColorPickerProps } from './src/OrionColorPickerSetup';
 
 export const OrionColorPickerPlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,4 +9,4 @@ export const OrionColorPickerPlugin: Plugin = {
 	},
 };
 
-export { OrionColorPicker, OrionColorPickerSetupService, OrionColorPickerEmits, OrionColorPickerProps };
+export { OrionColorPicker, OrionColorPickerSetup, type OrionColorPickerEmits, type OrionColorPickerProps };

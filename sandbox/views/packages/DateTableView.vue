@@ -6,7 +6,7 @@
 				v-model="showWeekNumber"
 				label="show week number"/>
 		</div>
-		<o-card style="width:20rem">
+		<o-card style="width: 20rem;">
 			<o-date-table
 				v-model="date"
 				type="range"

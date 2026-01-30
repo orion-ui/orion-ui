@@ -77,17 +77,16 @@
 </template>
 
 <script setup lang="ts">
-import './OrionDailyCalendar.less';
+import { OrionButton } from 'packages/Button';
+import { OrionCard } from 'packages/Card';
 import { OrionIcon } from 'packages/Icon';
 import { OrionLoader } from 'packages/Loader';
-import { OrionCard } from 'packages/Card';
-import { OrionButton } from 'packages/Button';
-import OrionDailyCalendarSetupService from './OrionDailyCalendarSetupService';
-import type { OrionDailyCalendarProps, OrionDailyCalendarEmits } from './OrionDailyCalendarSetupService';
+import './OrionDailyCalendar.less';
+import { OrionDailyCalendarSetup, type OrionDailyCalendarEmits, type OrionDailyCalendarProps } from './OrionDailyCalendarSetup';
 const date = defineModel<Date>('date', { required: true });
 const emits = defineEmits<OrionDailyCalendarEmits>() as OrionDailyCalendarEmits;
-const props = withDefaults(defineProps<OrionDailyCalendarProps>(), OrionDailyCalendarSetupService.defaultProps);
-const setup = new OrionDailyCalendarSetupService(props, emits, date);
+const props = withDefaults(defineProps<OrionDailyCalendarProps>(), OrionDailyCalendarSetup.defaultProps);
+const setup = new OrionDailyCalendarSetup(props, emits, date);
 defineExpose(setup.publicInstance);
 
 /** Doc
@@ -95,4 +94,3 @@ defineExpose(setup.publicInstance);
  * @doc/fr vModel/date la date sélectionnée.
  */
 </script>
-

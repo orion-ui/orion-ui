@@ -1,5 +1,5 @@
-@import '../../Shared/styles/variables.less';
-@import '../../Shared/styles/mixins.less';
+@import "../../Shared/styles/variables.less";
+@import "../../Shared/styles/mixins.less";
 
 @positionTop: 4rem;
 @positionBottom: 4rem;
@@ -18,20 +18,20 @@
 .orion-modal {
 	position: fixed;
 	top: 50%;
+	overflow: hidden;
+	overscroll-behavior: none;
 	display: none;
 	flex-direction: column;
 	max-height: calc(100vh - @positionTop - @positionBottom); // dvh support fallback
 	max-height: calc(100dvh - @positionTop - @positionBottom);
-	background: var(--o-background-neutral-default);
-	padding: 0;
 	margin: 0;
+	padding: 0;
 	border: 1px solid var(--o-border-neutral-default);
 	border-radius: var(--o-radius-md);
-	box-shadow: 0 2.5rem 7.5rem fade(black, 50);
-	overscroll-behavior: none;
-	backface-visibility: hidden;
 	color: inherit;
-	overflow: hidden;
+	backface-visibility: hidden;
+	background: var(--o-background-neutral-default);
+	box-shadow: 0 2.5rem 7.5rem fade(black, 50);
 
 	>.orion-loader {
 		border-radius: var(--o-radius-xl);
@@ -46,40 +46,41 @@
 	}
 
 	&__title {
+		margin-bottom: unset;
 		color: var(--o-text-neutral-default);
 		.typography(subtitle-bold);
-		margin-bottom: unset;
 	}
 
 	&__description {
 		.typography(body2-default);
+
 		color: var(--o-text-neutral-subtle);
 	}
 
 	&__poster {
-		border-radius: var(--o-radius-xl) var(--o-radius-xl) 0 0;
 		overflow: hidden;
+		border-radius: var(--o-radius-xl) var(--o-radius-xl) 0 0;
 	}
 
 	&__header {
-		order: 1;
-		padding: var(--o-space-8) var(--o-space-24);
 		position: relative;
 		display: flex;
 		flex-direction: column;
 		gap: var(--o-space-8);
-		background-color: var(--o-background-neutral-default);
+		order: 1;
+		padding: var(--o-space-8) var(--o-space-24);
 		border-bottom: 1px solid var(--o-border-neutral-default);
+		background-color: var(--o-background-neutral-default);
 
-		[data-orion-theme='dark'] & {
+		[data-orion-theme="dark"] & {
 			background-color: var(--o-background-neutral-minimal);
 		}
 	}
 
 	&__header-container {
 		display: flex;
-		align-items: center;
 		gap: var(--o-space-8);
+		align-items: center;
 		min-height: var(--o-height-control-xs);
 		margin-top: var(--o-space-4);
 		margin-bottom: var(--o-space-4);
@@ -92,26 +93,22 @@
 	}
 
 	&__body {
-		order: 2;
-		flex: 1 1 auto;
-		display: flex;
-		flex-direction: column;
 		position: relative;
-		border-radius: var(--o-radius-xl);
+		display: flex;
+		flex: 1 1 auto;
+		flex-direction: column;
+		order: 2;
 		padding: var(--o-space-24);
+		border-radius: var(--o-radius-xl);
 
 		>.orion-modal__close {
-			order: -1;
 			align-self: flex-end;
+			order: -1;
 			margin-bottom: var(--o-space-8);
 		}
 
 		>.orion-section {
 			flex: 1 1 auto;
-		}
-
-		@media @tablet {
-			padding: var(--o-space-24);
 		}
 
 		.orion-modal--sm & {
@@ -121,23 +118,23 @@
 		.orion-modal--xs & {
 			padding: var(--o-space-24);
 		}
+
+		@media @tablet {
+			padding: var(--o-space-24);
+		}
 	}
 
 	&__footer {
-		order: 4;
 		display: flex;
+		flex: 0 0 auto;
 		flex-direction: column;
 		gap: var(--o-space-8);
-		flex: 0 0 auto;
+		order: 4;
 		padding: var(--o-space-16) var(--o-space-24);
 		border-top: 1px solid var(--o-border-neutral-default);
 		border-radius: 0 0 var(--o-radius-xl) var(--o-radius-xl);
-		background: var(--o-background-neutral-minimal);
 		color: var(--o-text-neutral-subtle);
-
-		@media @tablet {
-			padding: var(--o-space-16) var(--o-space-24);
-		}
+		background: var(--o-background-neutral-minimal);
 
 		.orion-modal--sm & {
 			padding: var(--o-space-16) var(--o-space-24);
@@ -150,13 +147,17 @@
 		&:empty {
 			display: none;
 		}
+
+		@media @tablet {
+			padding: var(--o-space-16) var(--o-space-24);
+		}
 	}
 
 	&__actions {
-		order: 3;
 		display: flex;
-		justify-content: flex-end;
 		gap: var(--o-space-8);
+		justify-content: flex-end;
+		order: 3;
 		padding: var(--o-space-16) var(--o-space-24);
 		border-top: 1px solid var(--o-border-neutral-default);
 		border-radius: 0 0 var(--o-radius-xl) var(--o-radius-xl);
@@ -172,13 +173,13 @@
 
 	&--fullscreen {
 		top: 0;
-		transform: none;
 		left: 0;
+		transform: none;
 		width: 100vw;
 		max-width: 100vw;
 		height: 100vh; // dvh support fallback
-		max-height: 100vh; // dvh support fallback
 		height: 100dvh;
+		max-height: 100vh; // dvh support fallback
 		max-height: 100dvh;
 		border-radius: 0;
 
@@ -189,28 +190,28 @@
 	}
 
 	&--xl {
-		width:~'min(@{widthXL}, @{maxWidth})';
-		left:~'max(calc(50% - @{widthXL} / 2), calc(50% - @{maxWidth} / 2))';
+		left: ~"max(calc(50% - @{widthXL} / 2), calc(50% - @{maxWidth} / 2))";
+		width: ~"min(@{widthXL}, @{maxWidth})";
 	}
 
 	&--lg {
-		width:~'min(@{widthLG}, @{maxWidth})';
-		left:~'max(calc(50% - @{widthLG} / 2), calc(50% - @{maxWidth} / 2))';
+		left: ~"max(calc(50% - @{widthLG} / 2), calc(50% - @{maxWidth} / 2))";
+		width: ~"min(@{widthLG}, @{maxWidth})";
 	}
 
 	&--md {
-		width:~'min(@{widthMD}, @{maxWidth})';
-		left:~'max(calc(50% - @{widthMD} / 2), calc(50% - @{maxWidth} / 2))';
+		left: ~"max(calc(50% - @{widthMD} / 2), calc(50% - @{maxWidth} / 2))";
+		width: ~"min(@{widthMD}, @{maxWidth})";
 	}
 
 	&--sm {
-		width:~'min(@{widthSM}, @{maxWidth})';
-		left:~'max(calc(50% - @{widthSM} / 2), calc(50% - @{maxWidth} / 2))';
+		left: ~"max(calc(50% - @{widthSM} / 2), calc(50% - @{maxWidth} / 2))";
+		width: ~"min(@{widthSM}, @{maxWidth})";
 	}
 
 	&--xs {
-		width:~'min(@{widthXS}, @{maxWidth})';
-		left:~'max(calc(50% - @{widthXS} / 2), calc(50% - @{maxWidth} / 2))';
+		left: ~"max(calc(50% - @{widthXS} / 2), calc(50% - @{maxWidth} / 2))";
+		width: ~"min(@{widthXS}, @{maxWidth})";
 	}
 
 	&--prompt {

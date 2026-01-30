@@ -3,12 +3,12 @@
 		<o-upload
 			v-model="files"
 			horizontal
-			style="width: 500px"/>
+			style="width: 30rem;"/>
 		<o-cropper
 			v-if="files[0]"
 			ref="_cropper"
 			circle
-			style="width: 500px"
+			style="width: 30rem;"
 			:file="files[0]"/>
 
 		<o-section>
@@ -22,8 +22,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
 import { useNotif } from 'lib';
+import { ref } from 'vue';
 
 const _cropper = ref<OrionCropper>();
 const files = ref<File[]>([]);

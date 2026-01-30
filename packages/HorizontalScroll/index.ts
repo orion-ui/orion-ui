@@ -1,8 +1,7 @@
-import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
+import { type App, type Plugin } from 'vue';
 import OrionHorizontalScroll from './src/OrionHorizontalScroll.vue';
-import type { OrionHorizontalScrollEmits, OrionHorizontalScrollProps } from './src/OrionHorizontalScrollSetupService';
-import OrionHorizontalScrollSetupService from './src/OrionHorizontalScrollSetupService';
+import { OrionHorizontalScrollSetup, type OrionHorizontalScrollEmits, type OrionHorizontalScrollProps } from './src/OrionHorizontalScrollSetup';
 
 export const OrionHorizontalScrollPlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,4 +9,4 @@ export const OrionHorizontalScrollPlugin: Plugin = {
 	},
 };
 
-export { OrionHorizontalScroll, OrionHorizontalScrollSetupService, OrionHorizontalScrollEmits, OrionHorizontalScrollProps };
+export { OrionHorizontalScroll, OrionHorizontalScrollSetup, type OrionHorizontalScrollEmits, type OrionHorizontalScrollProps };

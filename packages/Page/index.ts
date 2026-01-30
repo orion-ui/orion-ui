@@ -1,8 +1,7 @@
-import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
+import { type App, type Plugin } from 'vue';
 import OrionPage from './src/OrionPage.vue';
-import type { OrionPageEmits, OrionPageProps } from './src/OrionPageSetupService';
-import OrionPageSetupService from './src/OrionPageSetupService';
+import { OrionPageSetup, type OrionPageEmits, type OrionPageProps } from './src/OrionPageSetup';
 
 export const OrionPagePlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,4 +9,4 @@ export const OrionPagePlugin: Plugin = {
 	},
 };
 
-export { OrionPage, OrionPageSetupService, OrionPageEmits, OrionPageProps };
+export { OrionPage, OrionPageSetup, type OrionPageEmits, type OrionPageProps };

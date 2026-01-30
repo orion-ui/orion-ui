@@ -1,5 +1,5 @@
-@import '../../Shared/styles/variables.less';
-@import '../../Shared/styles/mixins.less';
+@import "../../Shared/styles/variables.less";
+@import "../../Shared/styles/mixins.less";
 
 .orion-paginate {
 	position: relative;
@@ -30,8 +30,8 @@
 	}
 
 	.orion-button {
-		border: none;
 		min-width: 2.5rem;
+		border: none;
 
 		&--icon-only .icon {
 			font-size: 0.875rem;
@@ -39,37 +39,35 @@
 	}
 
 	&__input {
-
 		width: 2rem;
 		height: 2rem;
 		margin-top: 0;
 		margin-bottom: 0;
 
 		&.orion-input {
+			margin-right: 0.5rem;
+			margin-left: 0.5rem;
 
-		margin-left: 0.5rem;
-		margin-right: 0.5rem;
 			&__input {
 				padding: var(--o-space-8) var(--o-space-8);
 				text-align: center;
 			}
-			
+
 			.orion-input__label {
-				max-width: unset !important;
 				left: 0.75rem;
+				max-width: unset !important;
 			}
 		}
 
 		input::-webkit-outer-spin-button,
 		input::-webkit-inner-spin-button {
-			-webkit-appearance: none;
 			margin: 0;
+			appearance: none;
 		}
 
 		/* Firefox */
-		input[type=number] {
-			-moz-appearance: textfield;
+		input[type="number"] {
+			appearance: textfield;
 		}
 	}
 }
-

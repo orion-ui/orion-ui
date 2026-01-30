@@ -1,20 +1,18 @@
+import { Reactive } from 'utils/decorators';
 import { Log } from 'utils/Log';
-import { reactive } from 'vue';
 import { useWindow } from './WindowService';
 
 export class MouseService {
-	private state = reactive({
+
+	@Reactive private readonly state = {
 		eventListenerAdded: false,
 		lastClickPosition: {
 			x: 0,
 			y: 0,
 		},
-	});
+	};
 
-	get lastClickPosition () {
-		return this.state.lastClickPosition;
-	}
-
+	get lastClickPosition () { return this.state.lastClickPosition }
 
 	constructor () {
 		Log.orion(`MouseService activated`);
@@ -24,11 +22,11 @@ export class MouseService {
 		});
 	}
 
-
 	setLastClickPosition (x: number, y: number) {
 		this.state.lastClickPosition.x = x;
 		this.state.lastClickPosition.y = y;
 	}
+
 }
 
 // @tree-shaking lazy initialization

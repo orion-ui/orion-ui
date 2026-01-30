@@ -1,16 +1,18 @@
-@import '../../Shared/styles/variables.less';
-@import '../../Shared/styles/mixins.less';
+/* stylelint-disable no-descending-specificity */
+@import "../../Shared/styles/variables.less";
+@import "../../Shared/styles/mixins.less";
 
 .orion-chips {
 	.ellipsis();
+
 	position: relative;
 	display: inline-flex;
 	align-items: center;
-	max-width: 100%;
 	min-width: fit-content;
+	max-width: 100%;
+	border: 1px solid transparent;
 	border-radius: var(--o-radius-round);
 	white-space: nowrap;
-	border: 1px solid transparent;
 
 	&--squared {
 		border-radius: var(--o-radius-md);
@@ -19,23 +21,23 @@
 	&__close {
 		position: absolute;
 		right: calc(3rem / 16);
-		padding: 0;
 		min-width: 0;
 		min-height: 0;
+		padding: 0;
 		border-radius: var(--o-radius-round);
 		line-height: 1;
 
 		&.orion-button {
-			background: transparent;
 			border-color: transparent;
 			color: var(--o-text-neutral-inverted);
+			background: transparent;
 		}
 
 		&:hover,
 		&:focus,
 		&:active {
-			background: transparent;
 			color: var(--o-text-neutral-default);
+			background: transparent;
 		}
 
 		&.orion-button.orion-button--nude:hover,
@@ -47,9 +49,9 @@
 	&__main,
 	&__dual {
 		display: flex;
+		gap: var(--o-space-8);
 		align-items: center;
 		height: 100%;
-		gap: var(--o-space-8);
 	}
 
 	&__dual {
@@ -162,228 +164,229 @@
 		}
 	});
 
-&--neutral {
-	color: var(--o-text-inverted-default);
-	background: var(--o-background-neutral-subtle);
-	border: 1px solid var(--o-border-neutral-subtle);
-
-	.orion-chips__close.orion-button {
+	&--neutral {
+		border: 1px solid var(--o-border-neutral-subtle);
 		color: var(--o-text-inverted-default);
-	}
-}
+		background: var(--o-background-neutral-subtle);
 
-&--grey-light,
-&--grey-lighter {
-	color: var(--o-text-neutral-inverted);
-}
-
-&[class*='--grey'] {
-	&.orion-chips--outline {
-		color: var(--o-text-neutral-default);
-		background: var(--o-background-neutral-minimal);
-		border-color: var(--o-border-neutral-default);
-	}
-}
-
-&--xs {
-	@paddingClose: 1.25rem;
-	.typography(caption-default);
-
-
-	.orion-chips {
-
-		&__main,
-		&__dual {
-			padding: 0 var(--o-space-6);
-		}
-
-		&__icon {
-			font-size: var(--o-typography-caption-default-font-size);
-		}
-
-		&__close {
-			.square(var(--o-space-8));
-		}
-
-		&__close .orion-button__icon {
-			.square(var(--o-space-8));
-			font-size: var(--o-typography-caption-default-font-size);
+		.orion-chips__close.orion-button {
+			color: var(--o-text-inverted-default);
 		}
 	}
 
-	&.orion-chips--closable {
-		&:not(.orion-chips--dual) {
-			.orion-chips__main {
-				padding-right: @paddingClose;
+	&--grey-light,
+	&--grey-lighter {
+		color: var(--o-text-neutral-inverted);
+	}
+
+	&[class*="--grey"] {
+		&.orion-chips--outline {
+			border-color: var(--o-border-neutral-default);
+			color: var(--o-text-neutral-default);
+			background: var(--o-background-neutral-minimal);
+		}
+	}
+
+	&--xs {
+		@paddingClose: 1.25rem;
+		.typography(caption-default);
+
+		.orion-chips {
+			&__main,
+			&__dual {
+				padding: 0 var(--o-space-6);
+			}
+
+			&__icon {
+				font-size: var(--o-typography-caption-default-font-size);
+			}
+
+			&__close {
+				.square(var(--o-space-8));
+			}
+
+			&__close .orion-button__icon {
+				.square(var(--o-space-8));
+
+				font-size: var(--o-typography-caption-default-font-size);
 			}
 		}
 
-		&.orion-chips--dual {
-			.orion-chips__dual {
-				padding-right: @paddingClose;
+		&.orion-chips--closable {
+			&:not(.orion-chips--dual) {
+				.orion-chips__main {
+					padding-right: @paddingClose;
+				}
+			}
+
+			&.orion-chips--dual {
+				.orion-chips__dual {
+					padding-right: @paddingClose;
+				}
 			}
 		}
 	}
-}
 
-&--sm {
-	@paddingClose: calc(22rem / 16);
-	.typography(caption-default);
+	&--sm {
+		@paddingClose: calc(22rem / 16);
+		.typography(caption-default);
 
-	.orion-chips {
+		.orion-chips {
+			&__main,
+			&__dual {
+				padding: var(--o-space-2) var(--o-space-8);
+			}
 
-		&__main,
-		&__dual {
-			padding: var(--o-space-2) var(--o-space-8);
-		}
+			&__icon {
+				font-size: var(--o-typography-caption-default-font-size);
+			}
 
-		&__icon {
-			font-size: var(--o-typography-caption-default-font-size);
-		}
+			&__close {
+				.square(var(--o-space-12));
+			}
 
-		&__close {
-			.square(var(--o-space-12));
-		}
+			&__close .orion-button__icon {
+				.square(var(--o-space-12));
 
-		&__close .orion-button__icon {
-			.square(var(--o-space-12));
-			font-size: var(--o-typography-caption-default-font-size);
-		}
-	}
-
-	&.orion-chips--closable {
-		&:not(.orion-chips--dual) {
-			.orion-chips__main {
-				padding-right: @paddingClose;
+				font-size: var(--o-typography-caption-default-font-size);
 			}
 		}
 
-		&.orion-chips--dual {
-			.orion-chips__dual {
-				padding-right: @paddingClose;
+		&.orion-chips--closable {
+			&:not(.orion-chips--dual) {
+				.orion-chips__main {
+					padding-right: @paddingClose;
+				}
+			}
+
+			&.orion-chips--dual {
+				.orion-chips__dual {
+					padding-right: @paddingClose;
+				}
 			}
 		}
 	}
-}
 
-&--md {
-	@paddingClose: calc(24rem / 16);
-	.typography(label-default);
+	&--md {
+		@paddingClose: calc(24rem / 16);
+		.typography(label-default);
 
-	.orion-chips {
-		&__main {
-			padding: var(--o-space-2) var(--o-space-8);
-		}
+		.orion-chips {
+			&__main {
+				padding: var(--o-space-2) var(--o-space-8);
+			}
 
-		&__dual {
-			padding: var(--o-space-2) var(--o-space-8);
-		}
+			&__dual {
+				padding: var(--o-space-2) var(--o-space-8);
+			}
 
-		&__close {
-			.square(var(--o-space-16));
-		}
+			&__close {
+				.square(var(--o-space-16));
+			}
 
-		&__close .orion-button__icon {
-			.square(var(--o-space-16));
-			font-size: var(--o-typography-label-default-font-size);
-		}
-	}
+			&__close .orion-button__icon {
+				.square(var(--o-space-16));
 
-	&.orion-chips--closable {
-		&:not(.orion-chips--dual) {
-			.orion-chips__main {
-				padding-right: @paddingClose;
+				font-size: var(--o-typography-label-default-font-size);
 			}
 		}
 
-		&.orion-chips--dual {
-			.orion-chips__dual {
-				padding-right: @paddingClose;
+		&.orion-chips--closable {
+			&:not(.orion-chips--dual) {
+				.orion-chips__main {
+					padding-right: @paddingClose;
+				}
+			}
+
+			&.orion-chips--dual {
+				.orion-chips__dual {
+					padding-right: @paddingClose;
+				}
 			}
 		}
 	}
-}
 
-&--lg {
-	@paddingClose: calc(25rem / 16);
-	.typography(label-default);
+	&--lg {
+		@paddingClose: calc(25rem / 16);
+		.typography(label-default);
 
-	.orion-chips {
+		.orion-chips {
+			&__main,
+			&__dual {
+				gap: var(--o-space-12);
+				padding: var(--o-space-2) var(--o-space-12);
+			}
 
-		&__main,
-		&__dual {
-			padding: var(--o-space-2) var(--o-space-12);
-			gap: var(--o-space-12);
-		}
+			&__icon {
+				font-size: var(--o-typography-label-default-font-size);
+			}
 
-		&__icon {
-			font-size: var(--o-typography-label-default-font-size);
-		}
+			&__close {
+				.square(var(--o-space-16));
+			}
 
-		&__close {
-			.square(var(--o-space-16));
-		}
+			&__close .orion-button__icon {
+				.square(var(--o-space-16));
 
-		&__close .orion-button__icon {
-			.square(var(--o-space-16));
-			font-size: var(--o-typography-label-default-font-size);
-		}
-	}
-
-	&.orion-chips--closable {
-		&:not(.orion-chips--dual) {
-			.orion-chips__main {
-				padding-right: @paddingClose;
+				font-size: var(--o-typography-label-default-font-size);
 			}
 		}
 
-		&.orion-chips--dual {
-			.orion-chips__dual {
-				padding-right: @paddingClose;
+		&.orion-chips--closable {
+			&:not(.orion-chips--dual) {
+				.orion-chips__main {
+					padding-right: @paddingClose;
+				}
+			}
+
+			&.orion-chips--dual {
+				.orion-chips__dual {
+					padding-right: @paddingClose;
+				}
 			}
 		}
 	}
-}
 
-&--xl {
-	@paddingClose: calc(26rem / 16);
-	height: 2rem;
-	.typography(body2-default);
+	&--xl {
+		@paddingClose: calc(26rem / 16);
 
-	.orion-chips {
+		height: 2rem;
+		.typography(body2-default);
 
-		&__main,
-		&__dual {
-			padding: var(--o-space-2) var(--o-space-16);
-			gap: var(--o-space-16);
-		}
+		.orion-chips {
+			&__main,
+			&__dual {
+				gap: var(--o-space-16);
+				padding: var(--o-space-2) var(--o-space-16);
+			}
 
-		&__icon {
-			font-size: var(--o-typography-body2-default-font-size);
-		}
+			&__icon {
+				font-size: var(--o-typography-body2-default-font-size);
+			}
 
-		&__close {
-			.square(var(--o-space-16));
-		}
+			&__close {
+				.square(var(--o-space-16));
+			}
 
-		&__close .orion-button__icon {
-			.square(var(--o-space-16));
-			font-size: var(--o-typography-body2-default-font-size);
-		}
-	}
+			&__close .orion-button__icon {
+				.square(var(--o-space-16));
 
-	&.orion-chips--closable {
-		&:not(.orion-chips--dual) {
-			.orion-chips__main {
-				padding-right: @paddingClose;
+				font-size: var(--o-typography-body2-default-font-size);
 			}
 		}
 
-		&.orion-chips--dual {
-			.orion-chips__dual {
-				padding-right: @paddingClose;
+		&.orion-chips--closable {
+			&:not(.orion-chips--dual) {
+				.orion-chips__main {
+					padding-right: @paddingClose;
+				}
+			}
+
+			&.orion-chips--dual {
+				.orion-chips__dual {
+					padding-right: @paddingClose;
+				}
 			}
 		}
 	}
-}
 }

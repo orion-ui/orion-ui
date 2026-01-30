@@ -17,10 +17,9 @@
 	</div>
 </template>
 
-
 <script setup lang="ts">
+import { colors, materialIcons } from 'lib';
 import { computed, ref } from 'vue';
-import { materialIcons, colors } from 'lib';
 
 const checkValue = ref(true);
 

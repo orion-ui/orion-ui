@@ -1,8 +1,7 @@
-import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
+import { type App, type Plugin } from 'vue';
 import OrionTimeline from './src/OrionTimeline.vue';
-import type { OrionTimelineEmits, OrionTimelineProps } from './src/OrionTimelineSetupService';
-import OrionTimelineSetupService from './src/OrionTimelineSetupService';
+import { OrionTimelineSetup, type OrionTimelineEmits, type OrionTimelineProps } from './src/OrionTimelineSetup';
 
 export const OrionTimelinePlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,4 +9,4 @@ export const OrionTimelinePlugin: Plugin = {
 	},
 };
 
-export { OrionTimeline, OrionTimelineSetupService, OrionTimelineEmits, OrionTimelineProps };
+export { OrionTimeline, OrionTimelineSetup, type OrionTimelineEmits, type OrionTimelineProps };

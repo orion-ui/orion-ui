@@ -20,18 +20,18 @@
 				multiple
 				track-key="id"
 				display-key="value"
-				:custom-fetch="customFetch"/>
+				:custom-fetch="customFetchAsync"/>
 			<pre>{{ state.multiple }}</pre>
 		</div>
 	</div>
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue';
-import { getUid } from 'lib';
 import { faker } from '@faker-js/faker';
+import { getUid } from 'lib';
+import { reactive } from 'vue';
 
-async function customFetch (searchTerm: string) {
+async function customFetchAsync (searchTerm: string) {
 	return new Promise((resolve) => {
 		setTimeout(() => {
 			resolve(seedOptions().filter(x => x.value.toLowerCase().includes(searchTerm.toLowerCase())));

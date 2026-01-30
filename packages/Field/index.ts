@@ -1,8 +1,7 @@
-import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
+import { type App, type Plugin } from 'vue';
 import OrionField from './src/OrionField.vue';
-import type { OrionFieldEmits, OrionFieldProps } from './src/OrionFieldSetupService';
-import OrionFieldSetupService from './src/OrionFieldSetupService';
+import { OrionFieldSetup, type OrionFieldEmits, type OrionFieldProps } from './src/OrionFieldSetup';
 
 export const OrionFieldPlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,4 +9,4 @@ export const OrionFieldPlugin: Plugin = {
 	},
 };
 
-export { OrionField, OrionFieldSetupService, OrionFieldEmits, OrionFieldProps };
+export { OrionField, OrionFieldSetup, type OrionFieldEmits, type OrionFieldProps };

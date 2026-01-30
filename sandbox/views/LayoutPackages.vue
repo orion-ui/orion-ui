@@ -1,5 +1,5 @@
 <template>
-	<pre style="margin:0 0.5rem;">LayoutPackages</pre>
+	<pre style="margin: 0 0.5rem;">LayoutPackages</pre>
 
 	<router-view/>
 </template>
@@ -9,7 +9,7 @@
 
 <style scoped lang="less">
 .test-grid {
-	max-width: 720px;
+	max-width: 45rem;
 
 	> div {
 		aspect-ratio: 1;

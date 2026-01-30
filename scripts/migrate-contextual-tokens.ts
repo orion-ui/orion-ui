@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 // scripts/migrate-contextual-tokens.ts
 import fs from 'node:fs';
 import path from 'node:path';
@@ -81,12 +82,14 @@ function walk (dir: string) {
 		let st: fs.Stats;
 		try {
 			st = fs.statSync(p);
-		} catch {
+		}
+		catch {
 			continue;
 		}
 		if (st.isDirectory()) {
 			if (!IGNORE_DIRS.has(name)) walk(p);
-		} else if (FILE_EXT.test(p)) transform(p);
+		}
+		else if (FILE_EXT.test(p)) transform(p);
 	}
 }
 
@@ -104,8 +107,7 @@ function transform (file: string) {
 
 	// match lignes CSS/LESS simples:  property: ... var(--xxx) ...
 	// capture prop name + le --token legacy (brand|pink|grey|info|success|warning|danger avec suffixe éventuel)
-	const re =
-		/(^|\s)([a-zA-Z-]+)\s*:\s*([^;]*?)var\(--([a-z0-9-]+)\)([^;]*?);/gim;
+	const re = /(^|\s)([a-zA-Z-]+)\s*:\s*([^;]*?)var\(--([a-z0-9-]+)\)([^;]*?);/gim;
 
 	src = src.replace(re, (_full, pre, prop, before, legacy, after) => {
 		const channel = detectChannel(prop);

@@ -10,9 +10,9 @@
 		<span
 			v-if="closable"
 			class="orion-tour-tooltip__close"
-			@click="setup.stop()"/>
+			@click="setup.stopAsync()"/>
 		<div
-			id="orion-tour-tooltip__arrow"
+			:id="`orion-tour-tooltip-arrow-${setup.uid}`"
 			class="orion-tour-tooltip__arrow"/>
 		<div class="orion-tour-tooltip__title">
 			{{ title }}
@@ -38,14 +38,14 @@
 			<div class="orion-tour-tooltip__actions">
 				<slot
 					name="actions"
-					:next="setup.goNextStep.bind(setup)"
-					:previous="setup.goPreviousStep.bind(setup)">
+					:next="setup.goNextStepAsync.bind(setup)"
+					:previous="setup.goPreviousStepAsync.bind(setup)">
 					<orion-button
 						v-if="setup.currentIndex !== undefined && setup.currentIndex > 0"
 						id="previousButton"
 						outline
 						size="xs"
-						@click="setup.goPreviousStep()">
+						@click="setup.goPreviousStepAsync()">
 						{{ setup.previousButtonLabel }}
 					</orion-button>
 					<orion-button
@@ -53,7 +53,7 @@
 						id="nextButton"
 						color="primary"
 						size="xs"
-						@click="setup.goNextStep()">
+						@click="setup.goNextStepAsync()">
 						{{ setup.nextButtonLabel }}
 					</orion-button>
 				</slot>
@@ -62,7 +62,7 @@
 					id="endButton"
 					color="info"
 					size="xs"
-					@click="setup.stop()">
+					@click="setup.stopAsync()">
 					{{ setup.endButtonLabel }}
 				</orion-button>
 			</div>
@@ -71,20 +71,20 @@
 </template>
 
 <script lang="ts">
-// Needed to manage slots in OrionTourSetupService / calcStepInstances
+// Needed to manage slots in OrionTourSetup / calcStepInstances
+// eslint-disable-next-line no-restricted-exports
 export default { name: 'OrionTourStep' };
 </script>
 
 <script setup lang="ts">
-import { inject } from 'vue';
 import { OrionButton } from 'packages/Button';
+import { inject } from 'vue';
 import '../../Tour/src/OrionTour.less';
-import OrionTourStepSetupService from './OrionTourStepSetupService';
-import type { OrionTourStepProps, OrionTourStepEmits } from './OrionTourStepSetupService';
+import { OrionTourStepSetup, type OrionTourStepEmits, type OrionTourStepProps } from './OrionTourStepSetup';
 const _tour = inject<OrionTour>('_tour');
 const emits = defineEmits<OrionTourStepEmits>() as OrionTourStepEmits;
-const props = withDefaults(defineProps<OrionTourStepProps>(), OrionTourStepSetupService.defaultProps);
-const setup = new OrionTourStepSetupService(props, emits, _tour);
+const props = withDefaults(defineProps<OrionTourStepProps>(), OrionTourStepSetup.defaultProps);
+const setup = new OrionTourStepSetup(props, emits, _tour);
 defineExpose(setup.publicInstance);
 /** Doc
  * @doc slot/default content of the step

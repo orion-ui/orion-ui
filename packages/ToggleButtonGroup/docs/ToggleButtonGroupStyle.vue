@@ -2,8 +2,7 @@
 	<div class="flex fd-c g-12">
 		<div class="flex fd-c g-8">
 			<strong>Classic style</strong>
-			<o-toggle-button-group
-				v-model="vModel">
+			<o-toggle-button-group v-model="vModel">
 				<o-toggle-button
 					v-for="color of colors"
 					:key="color"
@@ -17,8 +16,7 @@
 
 		<div class="flex fd-c g-8">
 			<strong>Nude style</strong>
-			<o-toggle-button-group
-				v-model="vModel">
+			<o-toggle-button-group v-model="vModel">
 				<o-toggle-button
 					v-for="color of colors"
 					:key="color"
@@ -39,7 +37,6 @@ import { ref } from 'vue';
 
 const vModel = ref(1);
 
-
 </script>
 
 @hl {23}
@@ -54,7 +51,6 @@ This allows you to set attributes such as `nude`, `prefixIcon` or any other prop
 It is possible to override the `childProps` for individual toggle buttons by passing props directly to the `o-toggle-button` components.
 :::
 
-
 @lang
 
 @lang:fr
@@ -62,7 +58,6 @@ It is possible to override the `childProps` for individual toggle buttons by pas
 
 Vous pouvez personnaliser l'apparence des boutons bascule en passant des propriétés à la prop `childProps` du composant `o-toggle-button-group`.
 Cela vous permet de définir des attributs tels que `nude`, `prefixIcon` ou toute autre prop de `OrionToggleButtonProps` pour tous les boutons du groupe.
-
 
 :::tip Good to know
 Il est possible de surcharger les `childProps` pour des boutons bascule individuels en passant des props directement aux composants `o-toggle-button`.

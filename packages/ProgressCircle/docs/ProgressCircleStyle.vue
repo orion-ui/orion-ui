@@ -50,11 +50,11 @@
 
 <style scoped lang="less">
 .progress-circle {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  gap: var(--o-space-16);
-  margin-bottom: var(--o-space-32);
+	display: flex;
+	gap: var(--o-space-16);
+	align-items: center;
+	justify-content: space-around;
+	margin-bottom: var(--o-space-32);
 }
 </style>
 
@@ -75,4 +75,3 @@ Avec les props `pathWidth` et `valueWidth` il est possible de changer l'épaisse
 
 La taille du cerle est aussi modifiable avec la prop `size`.
 @lang
-

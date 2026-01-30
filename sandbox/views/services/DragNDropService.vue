@@ -37,12 +37,12 @@
 							<o-icon
 								v-tooltip="`Voir le profil`"
 								ripple="info"
-							icon="calendar_today"
+								icon="calendar_today"
 								@mousedown.stop/>
 							<o-icon
 								v-tooltip="`Discussion`"
 								ripple="info"
-							icon="calendar_today"
+								icon="calendar_today"
 								@mousedown.stop/>
 						</div>
 					</o-draggable>
@@ -131,14 +131,34 @@ const middle = ref([
 </script>
 
 <style scoped lang="less">
-.order-pipeline-candidate-sticker{
-&:hover {
+.order-pipeline-candidate-sticker {
+	&__actions {
+		pointer-events: none;
+		will-change: max-height, margin, opacity;
+		display: flex;
+		gap: 1.3rem;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		max-height: 0;
+		margin: 0;
+		opacity: 0;
+		transition: max-height 0.3s, margin 0.3s, opacity 0.3s;
+
+		.orion-icon {
+			font-size: 0.9rem;
+			opacity: 0;
+			transition: opacity 0.3s;
+		}
+	}
+
+	&:hover {
 		max-height: 6.25rem;
 
 		.order-pipeline-candidate-sticker__actions {
+			pointer-events: all;
 			max-height: 1rem;
 			margin: 1rem 0 0;
-			pointer-events: all;
 			opacity: 1;
 
 			.orion-icon {
@@ -148,28 +168,8 @@ const middle = ref([
 					&:nth-child(@{value}) {
 						transition-delay: calc(@value * 0.07s);
 					}
-				})
+				});
 			}
-		}
-	}
-
-	&__actions{
-		transition: max-height 0.3s, margin 0.3s, opacity 0.3s;
-		will-change: max-height, margin, opacity;
-		display: flex;
-		width: 100%;
-		justify-content: center;
-		align-items: center;
-		gap: 1.3rem;
-		pointer-events: none;
-		opacity: 0;
-		margin: 0;
-		max-height: 0;
-
-		.orion-icon {
-			transition: opacity 0.3s;
-			font-size: 0.9rem;
-			opacity: 0;
 		}
 	}
 }
@@ -177,23 +177,23 @@ const middle = ref([
 .horizontal-scroll {
 	&__container {
 		position: relative;
+		overflow: hidden;
+		display: flex;
+		flex-shrink: unset;
+		gap: 0.75rem;
 		width: 100%;
 		max-width: 100%;
 		background: yellow;
-		overflow: hidden;
-		display: flex;
-		gap: 10px;
-		flex-shrink: unset;
 	}
 }
 
 .orion-section {
-	width: 300px;
+	width: 20rem;
 }
 
 .orion-droppable {
 	position: relative;
-	padding: 10px;
+	padding: 0.75rem;
 	border-radius: 10px;
 	background: var(--o-background-neutral-subtle);
 
@@ -209,7 +209,7 @@ const middle = ref([
 		background: var(--o-background-info-subtle);
 	}
 
-	&--disabled{
+	&--disabled {
 		border: 1px solid var(--o-background-danger-default);
 		opacity: 0.2;
 	}

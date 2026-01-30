@@ -1,12 +1,10 @@
-import { reactive } from 'vue';
-import { Validator } from 'utils/Validator';
 import { Log } from 'utils/Log';
-
+import { Validator } from 'utils/Validator';
+import { reactive } from 'vue';
 
 type FieldHasBeenFocusSetter = {
-	setHasBeenFocus: (value: boolean) => void;
-}
-
+	setHasBeenFocus: (value: boolean) => void
+};
 
 class ValidationService<T, V extends Orion.Validation.Rules<T>> {
 
@@ -18,12 +16,10 @@ class ValidationService<T, V extends Orion.Validation.Rules<T>> {
 	objectToValidate?: T;
 	validatorRules?: Orion.Validation.Rules<T>;
 
-
 	constructor (objectToValidate?: T, validatorRules?: V) {
 		this.objectToValidate = objectToValidate;
 		this.validatorRules = validatorRules;
 	}
-
 
 	private checkObjectPropRule (propName: keyof T) {
 		if (typeof this.objectToValidate !== 'object') {
@@ -48,11 +44,14 @@ class ValidationService<T, V extends Orion.Validation.Rules<T>> {
 	check <T = any> (value: T, ruleParams: Orion.Validation.RuleResult<T>): boolean {
 		if (typeof ruleParams === 'function') {
 			return new Validator([ruleParams]).validate(value)[0].result;
-		} else if (typeof ruleParams === 'string') {
+		}
+		else if (typeof ruleParams === 'string') {
 			return new Validator(ruleParams).validate(value).filter(x => x.result === false).length === 0;
-		} else if (ruleParams instanceof Validator) {
+		}
+		else if (ruleParams instanceof Validator) {
 			return ruleParams.validate(value).filter(x => x.result === false).length === 0;
-		} else {
+		}
+		else {
 			return true;
 		}
 	}
@@ -108,11 +107,14 @@ class ValidationService<T, V extends Orion.Validation.Rules<T>> {
 	getResult <T = any> (value: T, ruleParams: Orion.Validation.RuleResult<T>): Orion.Validator.RuleResult[] {
 		if (typeof ruleParams === 'function') {
 			return new Validator([ruleParams]).validate(value);
-		} else if (typeof ruleParams === 'string') {
+		}
+		else if (typeof ruleParams === 'string') {
 			return new Validator(ruleParams).validate(value);
-		} else if (ruleParams instanceof Validator) {
+		}
+		else if (ruleParams instanceof Validator) {
 			return ruleParams.validate(value);
-		} else {
+		}
+		else {
 			return [Validator.convertToValidatorResult(true)];
 		}
 	}
@@ -176,8 +178,9 @@ class ValidationService<T, V extends Orion.Validation.Rules<T>> {
 	registerComponentFocusStateSetter (setter: FieldHasBeenFocusSetter) {
 		this.state.componentFocusState.push(setter);
 	}
+
 }
 
-export default function useValidation<T, V extends Orion.Validation.Rules<T>> (objectToValidate?: T, validatorRules?: V) {
+export function useValidation<T, V extends Orion.Validation.Rules<T>> (objectToValidate?: T, validatorRules?: V) {
 	return new ValidationService(objectToValidate, validatorRules);
 }

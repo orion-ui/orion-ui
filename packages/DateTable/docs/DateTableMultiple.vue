@@ -29,4 +29,3 @@ Display multiple selected dates by setting the **type** props with the value `mu
 ### Dates multiples
 Affichez plusieurs dates sélectionnées en définissant la props **type** avec la valeur `multiple` et un utilisant `v-model:multiple`.
 @lang
-

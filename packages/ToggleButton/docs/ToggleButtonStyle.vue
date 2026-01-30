@@ -12,8 +12,6 @@
 	</div>
 </template>
 
-
-
 <script setup lang="ts">
 import { colors } from 'lib';
 import { ref } from 'vue';

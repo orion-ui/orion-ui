@@ -59,8 +59,8 @@ const fileTypes = ['image/jpeg', 'image/png', 'application/pdf'];
 
 <style scoped lang="less">
 .orion-upload {
-  width:28rem;
-	max-width:100%;
+	width: 28rem;
+	max-width: 100%;
 }
 </style>
 

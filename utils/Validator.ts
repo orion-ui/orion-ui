@@ -5,15 +5,16 @@ import { reactive } from 'vue';
 type ValidatorPhoneValidation = Record<
 	Orion.Country['code'],
 	{
-		default: RegExp,
-		landline: RegExp,
+		default: RegExp
+		landline: RegExp
 		mobile: RegExp
 	}
 >;
 
-type Rule<T> = ((value: T) => boolean | Orion.Validator.RuleResult)
+type Rule<T> = ((value: T) => boolean | Orion.Validator.RuleResult);
 
 export class Validator<T = any> {
+
 	static readonly regex = {
 		password: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,60}$/,
 		hasLowercase: /[a-z]/,
@@ -41,7 +42,8 @@ export class Validator<T = any> {
 					message: msg,
 					level: 'error',
 				};
-			} else {
+			}
+			else {
 				return {
 					result: !!value?.toString().trim().length,
 					message: msg,
@@ -126,7 +128,8 @@ export class Validator<T = any> {
 					message: msg,
 					level: 'error',
 				};
-			} else {
+			}
+			else {
 				return {
 					result: true,
 					message: msg,
@@ -174,14 +177,11 @@ export class Validator<T = any> {
 			};
 	}
 
-
 	private readonly state = reactive({ rules: [] as Rule<T>[] });
-
 
 	constructor (rules?: Rule<T>[] | string) {
 		this.handleConstructorRules(rules);
 	}
-
 
 	handleConstructorRules (rules?: Rule<T>[] | string) {
 		if (typeof rules === 'string') {
@@ -192,15 +192,18 @@ export class Validator<T = any> {
 				const ruleArgs = rule.split(':')[1]?.split(',') ?? [];
 
 				if (['passwordConfirm'].includes(ruleName)) {
-					throw [`\n`,
+					throw [
+						`\n`,
 						`"${ruleName}" should only be used via Validator.rules.${ruleName}().`,
 						`Check https://orion-ui.org/services/Validation.html for more infos.`,
 					].join('\n');
-				} else if (Validator.rules[ruleName]) {
+				}
+				else if (Validator.rules[ruleName]) {
 					this.state.rules.push((Validator.rules[ruleName] as any)(...ruleArgs));
 				}
 			}
-		} else if (rules) {
+		}
+		else if (rules) {
 			this.state.rules.push(...rules);
 		}
 	}
@@ -208,4 +211,5 @@ export class Validator<T = any> {
 	validate (value: T): Orion.Validator.RuleResult[] {
 		return this.state.rules.map(rule => Validator.convertToValidatorResult(rule(value)));
 	}
+
 }

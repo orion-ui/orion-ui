@@ -84,12 +84,11 @@ import { OrionButton } from 'packages/Button';
 import { OrionIcon } from 'packages/Icon';
 import { OrionToggleButton } from 'packages/ToggleButton';
 import './OrionDateWeek.less';
-import type { OrionDateWeekEmits, OrionDateWeekProps } from './OrionDateWeekSetupService';
-import OrionDateWeekSetupService from './OrionDateWeekSetupService';
+import { OrionDateWeekSetup, type OrionDateWeekEmits, type OrionDateWeekProps } from './OrionDateWeekSetup';
 const emits = defineEmits<OrionDateWeekEmits>() as OrionDateWeekEmits;
 const vModel = defineModel<Undef<Orion.DateRange>>();
-const props = withDefaults(defineProps<OrionDateWeekProps>(), OrionDateWeekSetupService.defaultProps);
-const setup = new OrionDateWeekSetupService(props, emits, vModel);
+const props = withDefaults(defineProps<OrionDateWeekProps>(), OrionDateWeekSetup.defaultProps);
+const setup = new OrionDateWeekSetup(props, emits, vModel);
 defineExpose(setup.publicInstance);
 
 /** Doc

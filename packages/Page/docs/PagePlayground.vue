@@ -83,8 +83,8 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue';
 import { useNotif } from 'lib';
+import { reactive } from 'vue';
 
 const state = reactive({
 	stickySubactions: false,
@@ -105,14 +105,13 @@ function triggerSearch () {
 <style lang="less" scoped>
 :deep(.orion-page__subactions) {
 	&--sticky {
-		background-color: rgba(var(--o-background-neutral-subtle), 0.7);
-		backdrop-filter: blur(2px);
+		top: 4.5rem;
 		margin: 0 -0.5rem;
 		padding: 0.5rem;
-		top: 4.5rem;
+		background-color: rgba(var(--o-background-neutral-subtle), 0.7);
+		backdrop-filter: blur(2px);
 	}
 }
 </style>
 
 ### Playground
-

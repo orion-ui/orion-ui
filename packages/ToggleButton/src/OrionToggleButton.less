@@ -1,97 +1,100 @@
-@import '../../Shared/styles/variables.less';
-@import '../../Shared/styles/mixins.less';
+@import "../../Shared/styles/variables.less";
+@import "../../Shared/styles/mixins.less";
 
 .icon-size(@size) {
 	.square(@size);
 	.flex-align();
+
 	font-size: @size;
 }
 
 .orion-toggle-button {
-  position: relative;
+	cursor: pointer;
+	position: relative;
 	display: inline-flex;
+	gap: var(--o-space-4);
 	align-items: center;
 	justify-content: center;
+	border: 1px solid var(--o-border-neutral-default);
+	border-radius: var(--o-radius-md);
 	vertical-align: middle;
-  gap: var(--o-space-4);
-  border-radius: var(--o-radius-md);
-  border: 1px solid var(--o-border-neutral-default);
-  background: var(--o-background-neutral-default);
-  cursor: pointer;
+	background: var(--o-background-neutral-default);
 
-  &:hover {
-    background: var(--o-background-neutral-minimal);
-  }
+	&:hover {
+		background: var(--o-background-neutral-minimal);
+	}
 
-  &__icon {
+	&__icon {
 		.icon-size(1rem);
+
 		pointer-events: none;
 	}
 
-  &--nude {
-    border-color: transparent;
-    background: transparent;
-  }
+	&--nude {
+		border-color: transparent;
+		background: transparent;
+	}
 
-  &--active {
-    each(@colors, {
-      &.orion-toggle-button--@{value}:not(.orion-toggle-button--disabled) {
-        color: var(~"--o-text-@{value}-active");
-        background: var(~"--o-background-@{value}-minimal");
-        border: 1px solid var(~"--o-border-@{value}-default");
-      }
-    })
-  }
+	&--active {
+		each(@colors, {
+			&.orion-toggle-button--@{value}:not(.orion-toggle-button--disabled) {
+				color: var(~"--o-text-@{value}-active");
+				background: var(~"--o-background-@{value}-minimal");
+				border: 1px solid var(~"--o-border-@{value}-default");
+			}
+		});
+	}
 
-  &--disabled {
+	&--disabled {
 		cursor: not-allowed;
-    background: var(--o-background-neutral-disabled);
-    color: var(--o-text-neutral-disabled);
-    border-color: var(--o-border-neutral-disabled);
+		border-color: var(--o-border-neutral-disabled);
+		color: var(--o-text-neutral-disabled);
+		background: var(--o-background-neutral-disabled);
 
-    &:hover, &:focus {
-      background: var(--o-background-neutral-disabled);
-      border-color: var(--o-border-neutral-disabled);
-    }
+		&:hover,
+		&:focus {
+			border-color: var(--o-border-neutral-disabled);
+			background: var(--o-background-neutral-disabled);
+		}
 
-    &.orion-button--nude {
-      background: transparent;
-    }
-  }
+		&.orion-button--nude {
+			background: transparent;
+		}
+	}
 
-  &--md {
-    padding: var(--o-space-4) var(--o-space-12);
-    .typography(body2-bold);
-    height: var(--o-height-control-md);
+	&--md {
+		height: var(--o-height-control-md);
+		padding: var(--o-space-4) var(--o-space-12);
+		.typography(body2-bold);
 
-    .orion-icon {
-      font-size: var(--o-typography-body1-default-font-size);
-    }
+		.orion-icon {
+			font-size: var(--o-typography-body1-default-font-size);
+		}
 
-    &.orion-toggle-button--icon-only {
+		&.orion-toggle-button--icon-only {
 			padding: var(--o-space-8);
 		}
-  }
+	}
 
-  &--sm {
-    padding: var(--o-space-4) var(--o-space-12);
-    .typography(label-bold);
-    height: var(--o-height-control-sm);
+	&--sm {
+		height: var(--o-height-control-sm);
+		padding: var(--o-space-4) var(--o-space-12);
+		.typography(label-bold);
 
-    .orion-icon {
-      font-size: var(--o-typography-body1-default-font-size);
-    }
+		.orion-icon {
+			font-size: var(--o-typography-body1-default-font-size);
+		}
 
-    &.orion-toggle-button--icon-only {
+		&.orion-toggle-button--icon-only {
 			padding: var(--o-space-6);
 		}
-  }
+	}
 
-  &--loading {
-    cursor: progress;
+	&--loading {
+		cursor: progress;
 
-    .orion-icon__loading {
-      stroke: var(--o-text-neutral-moderate);
-    }
+		.orion-icon__loading {
+			stroke: var(--o-text-neutral-moderate);
+		}
 	}
 }

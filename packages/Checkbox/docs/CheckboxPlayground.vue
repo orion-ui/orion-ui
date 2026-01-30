@@ -102,7 +102,7 @@
 
 <script setup lang="ts">
 import { materialIcons } from 'assets/fonts/materialIcons';
-import { reactive, computed } from 'vue';
+import { computed, reactive } from 'vue';
 
 const state = reactive({
 	color: 'primary' as Orion.Color,

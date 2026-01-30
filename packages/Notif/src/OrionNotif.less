@@ -1,48 +1,49 @@
-@import '../../Shared/styles/variables.less';
-@import '../../Shared/styles/mixins.less';
+@import "../../Shared/styles/variables.less";
+@import "../../Shared/styles/mixins.less";
 
 @timerSize: 2rem;
 
 .orion-notif {
 	position: fixed;
 	z-index: @zIndexOrionNotif;
-	bottom: 2rem;
 	right: 2rem;
+	bottom: 2rem;
+	display: flex;
+	gap: var(--o-space-16);
 	width: 23.75rem;
 	min-height: 3.5rem;
 	max-height: 8.875rem;
-	display: flex;
-	background: var(--o-background-neutral-default);
-	border-radius: var(--o-radius-md);
 	padding: var(--o-space-16);
-	.typography(body2-default);
-	color: var(--o-text-neutral-default);
 	border: 1px solid var(--o-border-neutral-default);
-	box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.03);
+	border-radius: var(--o-radius-md);
+	color: var(--o-text-neutral-default);
 	backface-visibility: hidden;
-	gap: var(--o-space-16);
+	background: var(--o-background-neutral-default);
+	box-shadow: 0 4px 6px 0 rgb(0 0 0 / 8%), 0 2px 4px 0 rgb(0 0 0 / 3%);
+	.typography(body2-default);
 
 	&__header {
 		position: relative;
-		width: 100%;
 		display: flex;
+		gap: var(--o-space-4);
 		align-items: center;
 		justify-content: space-between;
-		gap: var(--o-space-4);
+		width: 100%;
 	}
 
 	&__content {
 		display: flex;
-		width: 100%;
 		flex-direction: column;
 		gap: var(--o-space-4);
 		justify-content: center;
+		width: 100%;
 	}
 
 	&__title {
+		.typography(body2-bold);
+
 		margin: 0;
 		color: var(--o-text-neutral-default);
-		line-height: 1.4295;
 	}
 
 	&__message {
@@ -52,6 +53,7 @@
 	&__icon {
 		.square(1.25rem);
 		.flex-align();
+
 		position: relative;
 		margin-top: 0.0625rem;
 		color: var(--o-text-neutral-subtle);
@@ -64,24 +66,30 @@
 	&__timer {
 		.circle(@timerSize);
 		.flex-align();
+
+		cursor: pointer;
 		position: absolute;
 		top: -0.5rem;
-		right: 0rem;
+		right: 0;
 		font-size: var(--o-typography-body2-default-font-size);
 		font-weight: var(--o-typography-body2-default-font-weight);
 		color: var(--o-text-neutral-default);
-		cursor: pointer;
 
 		&-circle {
 			.circle(@timerSize);
-			animation: rotate 1s infinite linear;
+
 			position: absolute;
 			top: 0;
 			left: 0;
 			border: 1px solid var(--o-border-neutral-default);
 			border-right-color: transparent !important;
-			border-left-color: transparent !important;
 			border-bottom-color: transparent !important;
+			border-left-color: transparent !important;
+			animation: rotate 1s infinite linear;
+
+			.orion-notif--primary & {
+				border-color: var(--o-border-primary-default);
+			}
 
 			.orion-notif--info & {
 				border-color: var(--o-border-info-default);
@@ -95,24 +103,24 @@
 				border-color: var(--o-border-warning-default);
 			}
 
-			.orion-notif--error & {
+			.orion-notif--danger & {
 				border-color: var(--o-border-danger-default);
 			}
 		}
 
 		&-progress {
+			pointer-events: none;
 			position: absolute;
 			top: 0;
-			left: 0;
 			bottom: 0;
+			left: 0;
 			width: 100%;
-			pointer-events: none;
 
 			&--animated {
-				animation-name: scaleXtoZero;
+				transform-origin: left;
+				animation-name: scale-x-to-zero;
 				animation-timing-function: linear;
 				animation-fill-mode: forwards;
-				transform-origin: left;
 			}
 
 			.orion-notif--info & {
@@ -135,10 +143,10 @@
 
 	&__close {
 		.close(1.25rem);
+
 		position: relative;
+		place-self: flex-start flex-end;
 		color: var(--o-text-neutral-subtle);
-		justify-self: flex-end;
-		align-self: flex-start;
 	}
 
 	each(@colors, {

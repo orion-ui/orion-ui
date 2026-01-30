@@ -1,8 +1,7 @@
-import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
+import { type App, type Plugin } from 'vue';
 import OrionDatepicker from './src/OrionDatepicker.vue';
-import type { OrionDatepickerEmits, OrionDatepickerProps } from './src/OrionDatepickerSetupService';
-import OrionDatepickerSetupService from './src/OrionDatepickerSetupService';
+import { OrionDatepickerSetup, type OrionDatepickerEmits, type OrionDatepickerProps } from './src/OrionDatepickerSetup';
 
 export const OrionDatepickerPlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,4 +9,4 @@ export const OrionDatepickerPlugin: Plugin = {
 	},
 };
 
-export { OrionDatepicker, OrionDatepickerSetupService, OrionDatepickerEmits, OrionDatepickerProps };
+export { OrionDatepicker, OrionDatepickerSetup, type OrionDatepickerEmits, type OrionDatepickerProps };

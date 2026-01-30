@@ -1,34 +1,34 @@
-@import '../../Shared/styles/variables.less';
-@import '../../Shared/styles/mixins.less';
+@import "../../Shared/styles/variables.less";
+@import "../../Shared/styles/mixins.less";
 
 .icon-size(@size) {
 	.square(@size);
 	.flex-align();
+
 	font-size: @size;
 }
 
 .orion-button {
+	cursor: pointer;
+	position: relative;
+	overflow: hidden;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border: none;
+	border-color: transparent;
+	border-style: solid;
+	border-width: 0.0625rem;
+	border-radius: var(--o-radius-md);
+	vertical-align: middle;
+	appearance: none;
+	outline: none;
 	transition:
 		background 0.3s,
 		opacity 0.3s,
 		transform 0.3s,
 		border-color 0.2s;
-	position: relative;
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	vertical-align: middle;
-	border-radius: var(--o-radius-md);
-	border: none;
-	appearance: none;
-	outline: none;
 	.typography(body2-bold);
-	cursor: pointer;
-	overflow: hidden;
-	border-width: 0.0625rem;
-	border-style: solid;
-	border-color: transparent;
-	border-radius: var(--o-radius-md);
 
 	&:focus {
 		outline: 1px solid var(--o-border-neutral-focus);
@@ -36,29 +36,29 @@
 	}
 
 	&__ripple {
-		position: absolute;
-		background: fade(white, 20);
-		height: 1.25rem;
-		width: 1.25rem;
-		border-radius: var(--o-radius-round);
-		z-index: 5;
 		pointer-events: none;
-		opacity: 1;
+		position: absolute;
+		z-index: 5;
 		transform: scale(1);
+		width: 1.25rem;
+		height: 1.25rem;
+		border-radius: var(--o-radius-round);
+		opacity: 1;
+		background: fade(white, 20);
 		animation: click 0.7s ease-in-out 0s 1 normal none running;
 
 		.orion-button--neutral & {
 			background: fade(black, 5);
 
-			[data-orion-theme='dark'] & {
+			[data-orion-theme="dark"] & {
 				background: fade(white, 10);
 			}
 		}
 	}
 
 	&__text {
-		text-align: center;
 		line-height: 1.2;
+		text-align: center;
 
 		.orion-button--prefix-icon & {
 			&:not(:first-child) {
@@ -69,13 +69,14 @@
 
 	&__icon {
 		.icon-size(1rem);
+
 		pointer-events: none;
 	}
 
 	&--sm {
 		gap: var(--o-space-4);
-		padding: var(--o-space-4) var(--o-space-8);
 		height: var(--o-height-control-sm);
+		padding: var(--o-space-4) var(--o-space-8);
 
 		.orion-icon {
 			font-size: var(--o-typography-label-default-font-size);
@@ -89,8 +90,8 @@
 
 	&--md {
 		gap: var(--o-space-4);
-		padding: var(--o-space-4) var(--o-space-12);
 		height: var(--o-height-control-md);
+		padding: var(--o-space-4) var(--o-space-12);
 
 		&.orion-button--icon-only {
 			width: var(--o-height-control-md);
@@ -104,8 +105,8 @@
 
 	&--lg {
 		gap: var(--o-space-8);
-		padding: var(--o-space-4) var(--o-space-16);
 		height: var(--o-height-control-lg);
+		padding: var(--o-space-4) var(--o-space-16);
 
 		&.orion-button--icon-only {
 			width: var(--o-height-control-lg);
@@ -170,13 +171,13 @@
 
 	&--primary {
 		&.orion-button--outline {
-			color: var(--o-text-neutral-default);
 			border: 1px solid var(--o-border-neutral-default);
+			color: var(--o-text-neutral-default);
 
 			&:hover&:not(.orion-button--disabled),
 			&:focus&:not(.orion-button--disabled) {
-				background: var(--o-background-neutral-minimal);
 				border-color: var(--o-border-neutral-default);
+				background: var(--o-background-neutral-minimal);
 			}
 		}
 
@@ -198,7 +199,7 @@
 		border-color: transparent !important;
 		stroke: none;
 
-		&:not(:hover):not(:focus) {
+		&:not(:hover, :focus) {
 			background: none;
 		}
 	}
@@ -220,14 +221,14 @@
 	}
 }
 
-	@keyframes click {
-		from {
-			transform: scale(1);
-			opacity: 1;
-		}
+@keyframes click {
+	from {
+		transform: scale(1);
+		opacity: 1;
+	}
 
-		to {
-			transform: scale(30);
-			opacity: 0;
-		}
+	to {
+		transform: scale(30);
+		opacity: 0;
+	}
 }

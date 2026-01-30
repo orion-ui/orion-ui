@@ -36,19 +36,19 @@
 
 		<hr>
 
-		<div style="display:flex; gap:30px; height:450px">
+		<div style="display: flex; gap: 2rem; height: 30rem;">
 			<o-chat-discussion-list
-				style="flex:1"
+				style="flex: 1;"
 				:chat="chat"
 				@select-discussion="discussionId = $event;">
 				<template #append-discussion-item="{ discussion }">
-					<div style="display: flex">
+					<div style="display: flex;">
 						<o-chips squared>{{ discussion.id }}</o-chips>
 					</div>
 				</template>
 			</o-chat-discussion-list>
 
-			<div style="flex:2; max-width:300px;">
+			<div style="flex: 2; max-width: 20rem;">
 				<o-chat
 					v-if="discussionId"
 					focus-on-open
@@ -68,11 +68,10 @@
 
 <script setup lang="ts">
 import { faker } from '@faker-js/faker';
-import { getUid, sleep, useChat, useMonkey } from 'lib';
+import { getUid, sleepAsync, useChat, useMonkey } from 'lib';
 import { shuffle } from 'lodash-es';
 import { OrionIcon } from 'packages/Icon';
 import { computed, reactive, ref, watch } from 'vue';
-
 
 const userId = getUid();
 let discussionId = ref<number>();
@@ -95,14 +94,12 @@ const sortedDiscussions = computed(() => {
 initChat();
 
 watch(() => chat.activeDiscussionId, (val) => {
-	console.log(`🚀 ~ watch ~ val:`, val);
 	targetDiscussionId.value = val;
 });
 
-
 function initChat () {
 	chat.config.messageFetcherAsync = async ({ discussionId, oldestMessageId }) => {
-		await sleep(400);
+		await sleepAsync(400);
 		const oldestMessageIndex = oldestMessageId
 			? discussionsMessages[discussionId].findIndex(x => x.id < oldestMessageId)
 			: 0;
@@ -134,7 +131,7 @@ function initChat () {
 	};
 
 	chat.config.onNewMessageAsync = async (message, registerMessage) => {
-		await sleep(600);
+		await sleepAsync(600);
 		registerMessage();
 		// useNotif.success(`Ajax for new message ${message.id}`);
 	};
@@ -142,9 +139,7 @@ function initChat () {
 	chat.config.discussionUnreadMessagesCounter = ({ discussionId, messages }) => {
 		const messageEntitiesIds = useMonkey(messages).mapKey('id');
 		return discussionsMessages[discussionId]
-			?.filter((m: Orion.Chat.Message) => m.author.id !== user.id
-				&& !messageEntitiesIds.includes(m.id)
-				&& !m.isRead,
+			?.filter((m: Orion.Chat.Message) => m.author.id !== user.id && !messageEntitiesIds.includes(m.id) && !m.isRead,
 			).length + messages.filter(m => !m.isReadByUser).length;
 	};
 
@@ -187,10 +182,12 @@ function seedDiscussions (dicussionLength = 15, messageLength = 39) {
 
 		baseDate.setDate(baseDate.getDate() + 1);
 		const updatedDate = new Date(baseDate);
-		const createdDate = dicussionLength === 1 ? new Date() : faker.date.past({
-			years: 1,
-			refDate: updatedDate,
-		});
+		const createdDate = dicussionLength === 1
+			? new Date()
+			: faker.date.past({
+				years: 1,
+				refDate: updatedDate,
+			});
 		const id = getUid();
 		const participants: Orion.Chat.User[] = [
 			agencyCompany,
@@ -254,7 +251,6 @@ function seedDiscussions (dicussionLength = 15, messageLength = 39) {
 	return discussions;
 }
 
-// eslint-disable-next-line max-len
 function seedMessages (messagesLength: number, discussionId: number, discussionCreatedDate: Date, discussionUpdatedDate: Date, participants: Orion.Chat.User[]) {
 	const messages: Orion.Chat.Message[] = [];
 	const baseDate = faker.date.between({
@@ -327,4 +323,3 @@ function deleteDiscussion () {
 	chat.deleteDiscussion(targetDiscussionId.value);
 }
 </script>
-

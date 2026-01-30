@@ -2,10 +2,11 @@ import { OrionNotif } from 'packages/Notif';
 import { orionAppService } from 'utils/Orion';
 import { h, render, unref } from 'vue';
 import { useDocument } from './DocumentService';
-import usePopableQueueService from './PopableQueueService';
+import { usePopableQueue } from './PopableQueueService';
 import { PopableService } from './PopableService';
 
 class NotifService extends PopableService<OrionNotif> {
+
 	nameForDevtool = `OrionNotif`;
 
 	constructor (options: Partial<Orion.Notif.Options>) {
@@ -26,7 +27,8 @@ class NotifService extends PopableService<OrionNotif> {
 			const popableWrapper = useDocument()?.getElementById('orion-popable-wrapper');
 			if (popableWrapper) {
 				popableWrapper.appendChild(container);
-			} else {
+			}
+			else {
 				useDocument()?.body.appendChild(container);
 			}
 
@@ -35,7 +37,7 @@ class NotifService extends PopableService<OrionNotif> {
 			this.registerComponentInstanceInDevtool(vnode);
 		}
 
-		const instance = usePopableQueueService().getInstance(this.options.uid);
+		const instance = usePopableQueue().getInstance(this.options.uid);
 		return instance as OrionNotif;
 	}
 
@@ -45,16 +47,18 @@ class NotifService extends PopableService<OrionNotif> {
 				title: payload,
 				message,
 			};
-		} else {
+		}
+		else {
 			return {
 				...payload,
 				message: message ?? unref(payload.message),
 			};
 		}
 	}
+
 }
 
-const useNotif = {
+export const useNotif = {
 	primary: (options: Partial<Orion.Notif.Options> | string, message?: string) => new NotifService({
 		icon: 'info',
 		...NotifService.sanitizeOptions(options, message),
@@ -81,5 +85,3 @@ const useNotif = {
 		color: 'danger',
 	}).createVNode(),
 };
-
-export default useNotif;
