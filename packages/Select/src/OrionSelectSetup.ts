@@ -602,8 +602,13 @@ export class OrionSelectSetup<
 		this.state.hasBeenFocus = true;
 		this.state.indexNav = -1;
 
-		if (this.props.autocomplete)
+		if (this.props.autocomplete) {
 			this._autocomplete.value?.blur();
+			
+			if(!this.vModel.value && !selection) {
+				this.state.valueToSearch = undefined;
+			}
+		}
 
 		if (!this.responsive.onPhone || selection) {
 			this.state.isFocus = false;
