@@ -1,26 +1,27 @@
 .ellipsis() {
 	overflow: hidden;
-	white-space: nowrap;
 	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .line-clamp(@lines: 3) {
-	display: -webkit-box;
-	-webkit-line-clamp: @lines;
-	-webkit-box-orient: vertical;
 	overflow: hidden;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: @lines;
 }
 
 .square(@size) {
-	width: @size;
-	height: @size;
+	flex: none;
 	flex-basis: @size;
 	flex-shrink: 0;
-	flex: none;
+	width: @size;
+	height: @size;
 }
 
 .circle(@size) {
 	.square(@size);
+
 	border-radius: 100%;
 }
 
@@ -33,40 +34,43 @@
 .close(@size) {
 	.square(@size);
 	.flex-align();
-	-webkit-tap-highlight-color: transparent;
-	transition: all 0.3s;
-	font-size: @size;
+
 	cursor: pointer;
+	font-size: @size;
+	transition: all 0.3s;
+	-webkit-tap-highlight-color: transparent;
 
 	&::before {
-		content: '\00D7';
+		content: "\00D7";
 		font-weight: 600;
 	}
 
 	&:hover {
-		opacity: 1;
 		transform: rotate(90deg);
+		opacity: 1;
 	}
 }
 
 .marker(@size: 0.5rem) {
 	.circle(@size);
+
 	position: absolute;
 
 	each(@colors, {
-    &--@{value} {
-      background: var(~"--o-background-@{value}-default");
-    }
-  });
+		&--@{value} {
+			background: var(~"--o-background-@{value}-default");
+		}
+	});
 }
 
 .markerNumber(@size: 1rem) {
 	.circle(@size);
 	.flex-align();
+
 	font-family: var(--font-family);
 	font-size: calc(@size * 0.75);
 	font-weight: bold;
-	color: var(--o-text-default-inverted);
+	color: var(--o-text-neutral-inverted);
 }
 
 .color-contrast() {
@@ -74,10 +78,10 @@
 }
 
 .typography(@name) {
-  font-family: var(~"--o-typography-@{name}-font-family");
-  font-size: var(~"--o-typography-@{name}-font-size");
-  font-style: normal;
-  font-weight: var(~"--o-typography-@{name}-font-weight");
-  line-height: var(~"--o-typography-@{name}-line-height");
-  letter-spacing: var(~"--o-typography-@{name}-letter-spacing");
+	font-family: var(~"--o-typography-@{name}-font-family");
+	font-size: var(~"--o-typography-@{name}-font-size");
+	font-weight: var(~"--o-typography-@{name}-font-weight");
+	font-style: normal;
+	line-height: var(~"--o-typography-@{name}-line-height");
+	letter-spacing: var(~"--o-typography-@{name}-letter-spacing");
 }

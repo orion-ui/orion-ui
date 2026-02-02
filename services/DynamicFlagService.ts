@@ -1,11 +1,10 @@
-import { CountryCode } from 'libphonenumber-js';
+import { type CountryCode } from 'libphonenumber-js';
 import { filename } from 'pathe/utils';
 
 export class DynamicFlagService {
 
 	readonly glob = import.meta.glob('assets/flag/*.svg', { eager: true });
 	readonly flags = Object.fromEntries(Object.entries(this.glob).map(([key, value]) => [filename(key), (value as any).default]));
-
 
 	getImageFromSlug (slug: CountryCode) {
 		return this.flags[slug];
@@ -15,6 +14,6 @@ export class DynamicFlagService {
 
 const dynamicFlagServiceSingleton = new DynamicFlagService();
 
-export default function useDynamicFlagService (areaCode: CountryCode) {
+export function useDynamicFlag (areaCode: CountryCode) {
 	return dynamicFlagServiceSingleton.getImageFromSlug(areaCode);
 }

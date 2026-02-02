@@ -5,7 +5,7 @@
  * Manual changes will be overwritten
  */
 
-import { App, Plugin } from 'vue';
+import { type App, type Plugin } from 'vue';
 
 import { OrionAlertPlugin } from './Alert';
 import { OrionAsidePlugin } from './Aside';
@@ -72,10 +72,11 @@ import { OrionTimelinePlugin } from './Timeline';
 import { OrionTimelinePanePlugin } from './TimelinePane';
 import { OrionTimelinePillPlugin } from './TimelinePill';
 import { OrionTogglePlugin } from './Toggle';
+import { OrionToggleButtonPlugin } from './ToggleButton';
+import { OrionToggleButtonGroupPlugin } from './ToggleButtonGroup';
 import { OrionTourPlugin } from './Tour';
 import { OrionTourStepPlugin } from './TourStep';
 import { OrionUploadPlugin } from './Upload';
-
 
 const OrionComponentsPlugin: Plugin = {
 	install (app: App, prefix: string) {
@@ -144,14 +145,13 @@ const OrionComponentsPlugin: Plugin = {
 		OrionTimelinePanePlugin.install?.(app, prefix);
 		OrionTimelinePillPlugin.install?.(app, prefix);
 		OrionTogglePlugin.install?.(app, prefix);
+		OrionToggleButtonPlugin.install?.(app, prefix);
+		OrionToggleButtonGroupPlugin.install?.(app, prefix);
 		OrionTourPlugin.install?.(app, prefix);
 		OrionTourStepPlugin.install?.(app, prefix);
 		OrionUploadPlugin.install?.(app, prefix);
 	},
 };
-
-
-export default OrionComponentsPlugin;
 
 export { OrionComponentsPlugin };
 
@@ -220,6 +220,8 @@ export * from './Timeline';
 export * from './TimelinePane';
 export * from './TimelinePill';
 export * from './Toggle';
+export * from './ToggleButton';
+export * from './ToggleButtonGroup';
 export * from './Tour';
 export * from './TourStep';
 export * from './Upload';

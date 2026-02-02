@@ -22,8 +22,8 @@ import { useNotif } from 'lib';
 </script>
 
 <style lang="less" scoped>
-.orion-icon{
-  font-size: 1.5rem;
+.orion-icon {
+	font-size: 1.5rem;
 }
 </style>
 
@@ -41,4 +41,3 @@ Il est possible d'afficher une pastille de notification sur une icône, ainsi qu
 La prop `marker` peut être un booléen ou un nombre pour indiquer une quantité.\
 Plusieurs couleurs sont disponibles et définies par `Orion.Color`.
 @lang
-

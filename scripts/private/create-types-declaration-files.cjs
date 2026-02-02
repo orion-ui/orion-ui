@@ -1,7 +1,8 @@
 const fs = require('fs-extra');
 const path = require('path');
 const glob = require('fast-glob');
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
+// eslint-disable-next-line no-unused-vars
 const { Project, SourceFile } = require('ts-morph');
 const { parse, compileScript } = require('@vue/compiler-sfc');
 const { sleep } = require('radash');
@@ -10,7 +11,7 @@ const { log, note, spinner } = require('@clack/prompts');
 // https://github.com/vuejs/core/issues/8301
 require('@vue/compiler-sfc').registerTS(() => require('typescript')); // TODO:
 
-// const setupServiceImportRegex = /^import (\w+SetupService) from .+\n/gm;
+// const setupServiceImportRegex = /^import (\w+Setup) from .+\n/gm;
 const lessImportRegex = /^import .+.less.+\n/gm;
 
 /**
@@ -27,6 +28,7 @@ module.exports = async (/** @type {Options} */ options) => {
 };
 
 class TypesDeclarationFilesFactory {
+
 	/** @type {string[]} */
 	packagesNames = [];
 	/** @type {Project | undefined} */
@@ -49,7 +51,7 @@ class TypesDeclarationFilesFactory {
 		input: [
 			'packages/**/*.ts',
 			'packages/**/src/*.vue',
-			// 'packages/!(Shared)/!(*SetupService).ts',
+			// 'packages/!(Shared)/!(*Setup).ts',
 			'packages/index.ts',
 			'lang/**/*.ts',
 		],
@@ -72,20 +74,15 @@ class TypesDeclarationFilesFactory {
 		this.typesPath = path.resolve(this.rootPath, 'dist/types');
 	}
 
-	get tsConfigFilePath () {
-		return path.resolve(this.rootPath, 'tsconfig.json');
-	}
-
-	get sortedPackageNames () {
-		return this.packagesNames.sort();
-	}
+	get tsConfigFilePath () { return path.resolve(this.rootPath, 'tsconfig.json') }
+	get sortedPackageNames () { return this.packagesNames.sort() }
 
 	async buildTypesAsync () {
 		log.step(`🥨 --> Generate types declaration files`);
 
 		if (!this.options.dryRun) {
 			await fs.remove(this.typesPath);
-			await this.copyRequiredFiles();
+			await this.copyRequiredFilesAsync();
 		}
 
 		const { input, inputDist, dtsFilesNeededForBuild } = this.config;
@@ -105,7 +102,7 @@ class TypesDeclarationFilesFactory {
 				useDefineForClassFields: true,
 				exactOptionalPropertyTypes: true,
 				resolveJsonModule: true,
-				esModuleInterop: true
+				esModuleInterop: true,
 			},
 			tsConfigFilePath,
 			skipAddingFilesFromTsConfig: true,
@@ -117,11 +114,11 @@ class TypesDeclarationFilesFactory {
 			log.info(`Working on following bundle:`);
 			note(bundle.join('\n'));
 			const files = await glob(bundle);
-			await this.computeFiles(files);
+			await this.computeFilesAsync(files);
 		}
 	}
 
-	async scanFiles (/** @type {string[]} */ files) {
+	async scanFilesAsync (/** @type {string[]} */ files) {
 		this.sourceFiles.length = 0;
 
 		const scanSpinner = spinner();
@@ -131,7 +128,7 @@ class TypesDeclarationFilesFactory {
 		for await (const file of files) {
 			if (/\.vue$/.test(file)) {
 				const content = fs.readFileSync(file, 'utf8');
-				const sfc = parse(content, { filename: file});
+				const sfc = parse(content, { filename: file });
 				const { script, scriptSetup } = sfc.descriptor;
 				const tsLang = ['ts', 'tsx'];
 
@@ -141,21 +138,22 @@ class TypesDeclarationFilesFactory {
 					let isTSX = false;
 
 					if (scriptSetup) {
-						//https://github.com/parcel-bundler/parcel/issues/9565 handle [@vue/compiler-sfc] No fs option provided to `compileScript` in non-Node environment.
+						// https://github.com/parcel-bundler/parcel/issues/9565 handle [@vue/compiler-sfc] No fs option provided to `compileScript` in non-Node environment.
 
 						/* if (sfc.descriptor.scriptSetup) {
 							sfc.descriptor.scriptSetup.content = scriptSetup.content
 								.replace(
-									/(import type .* from ')(\..*)(?<orion>\/Orion)(?<packageName>\w*)(?<setup>SetupService';)/gm, // good luck
+									/(import type .* from ')(\..*)(?<orion>\/Orion)(?<packageName>\w*)(?<setup>Setup';)/gm, // good luck
 									'$1packages/$<packageName>/src$<orion>$<packageName>$<setup>'
 								);
 						}  */
-						
+
 						const compiled = compileScript(sfc.descriptor, { id: 'xxx' });
 						content += compiled.content;
 						if (scriptSetup.lang && tsLang.includes(scriptSetup.lang)) isTS = true;
 						if (scriptSetup.lang === 'tsx') isTSX = true;
-					} else if (script && script.content) {
+					}
+					else if (script && script.content) {
 						content += script.content;
 						if (script.lang && tsLang.includes(script.lang)) isTS = true;
 						if (script.lang === 'tsx') isTSX = true;
@@ -175,7 +173,8 @@ class TypesDeclarationFilesFactory {
 
 					if (sourceFile) this.sourceFiles.push(sourceFile);
 				}
-			} else {
+			}
+			else {
 				if (this.project) this.sourceFiles.push(this.project.addSourceFileAtPath(file));
 			}
 		}
@@ -183,10 +182,10 @@ class TypesDeclarationFilesFactory {
 		scanSpinner.stop(`${files.length} files scanned`);
 	}
 
-	async computeFiles (/** @type {string[]} */ files) {
+	async computeFilesAsync (/** @type {string[]} */ files) {
 		if (!this.project) return;
 
-		await this.scanFiles(files);
+		await this.scanFilesAsync(files);
 		/* const diagnostics = this.project.getPreEmitDiagnostics();
 		log.message(this.project.formatDiagnosticsWithColorAndContext(diagnostics)); */
 
@@ -236,7 +235,8 @@ class TypesDeclarationFilesFactory {
 				if (this.options.dryRun && this.options.verbose) {
 					note(`🥨 --> Orion would write following content in ${fileRelativePath}`);
 					log.message(fileContent);
-				} else {
+				}
+				else {
 					await fs.mkdir(path.resolve(this.typesPath, path.dirname(filePath)), { recursive: true });
 					await fs.writeFile(filePath, fileContent, 'utf8');
 				}
@@ -246,7 +246,6 @@ class TypesDeclarationFilesFactory {
 		}
 
 		computeSpinner.stop(`Types built for ${this.sourceFiles.length} files`);
-
 
 		if (errorFiles.length) {
 			log.error('🤮 Error for files');
@@ -259,7 +258,7 @@ class TypesDeclarationFilesFactory {
 		};
 	}
 
-	async copyRequiredFiles () {
+	async copyRequiredFilesAsync () {
 		fs.mkdirSync(path.resolve(this.typesPath, 'lib'), { recursive: true });
 		return Promise.all(this.config.requiredFiles.map((f) => {
 			return fs.copyFile(
@@ -268,4 +267,5 @@ class TypesDeclarationFilesFactory {
 			);
 		}));
 	}
+
 }

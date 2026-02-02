@@ -1,8 +1,7 @@
-import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
+import { type App, type Plugin } from 'vue';
 import OrionIconSection from './src/OrionIconSection.vue';
-import type { OrionIconSectionEmits, OrionIconSectionProps } from './src/OrionIconSectionSetupService';
-import OrionIconSectionSetupService from './src/OrionIconSectionSetupService';
+import { OrionIconSectionSetup, type OrionIconSectionEmits, type OrionIconSectionProps } from './src/OrionIconSectionSetup';
 
 export const OrionIconSectionPlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,4 +9,4 @@ export const OrionIconSectionPlugin: Plugin = {
 	},
 };
 
-export { OrionIconSection, OrionIconSectionSetupService, OrionIconSectionEmits, OrionIconSectionProps };
+export { OrionIconSection, OrionIconSectionSetup, type OrionIconSectionEmits, type OrionIconSectionProps };

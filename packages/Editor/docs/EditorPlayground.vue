@@ -35,17 +35,17 @@ const state = reactive({
 
 <style lang="less" scoped>
 .value-display {
-	margin-top: 1rem;
-	max-height: 50vh;
 	overflow: auto;
+	max-height: 50vh;
+	margin-top: 1rem;
 
 	&__type {
+		overflow: auto;
 		padding: 1rem;
 		border: 0.0625rem solid var(--o-background-neutral-subtle);
-		overflow: auto;
 
 		pre {
-			word-wrap: break-word;
+			overflow-wrap: break-word;
 			white-space: break-spaces;
 		}
 	}
@@ -53,5 +53,3 @@ const state = reactive({
 </style>
 
 ### Playground
-
-

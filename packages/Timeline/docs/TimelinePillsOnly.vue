@@ -37,7 +37,6 @@ Instead of using panes, you can also use only `o-timeline-pill` components to us
 
 The `popper` slot is available to add content to a dropdown popper for each pill.
 
-
 @lang
 
 @lang:fr

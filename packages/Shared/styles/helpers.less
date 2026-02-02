@@ -1,14 +1,14 @@
-@import './variables.less';
-@import './mixins.less';
+@import "./variables.less";
+@import "./mixins.less";
 
 .ovf-h {
 	overflow: hidden;
 }
 
 .hidden-scroll {
+	scrollbar-width: none;
 	// https://www.w3schools.com/howto/howto_css_hide_scrollbars.asp
 	-ms-overflow-style: none;
-	scrollbar-width: none;
 
 	&::-webkit-scrollbar {
 		display: none;
@@ -16,29 +16,29 @@
 }
 
 .pre-line {
-	white-space: pre-line;
 	word-break: break-word;
+	white-space: pre-line;
 }
 
 .text {
 	each(@colorsAndGreys, {
 		@color:     ~"--o-text-@{value}-default";
-    @colorAlt:  ~"--o-text-@{value}-alt";
-    @colorDark: ~"--o-text-@{value}-moderate";
-    @colorLight:~"--o-text-@{value}-minimal";
-    &--@{value} {
-      color: var(@color) !important;
-    }
+		@colorAlt:  ~"--o-text-@{value}-alt";
+		@colorDark: ~"--o-text-@{value}-moderate";
+		@colorLight:~"--o-text-@{value}-minimal";
+		&--@{value} {
+			color: var(@color) !important;
+		}
 		&--@{value}-alt {
 			color: var(@colorAlt) !important;
 		}
-    &--@{value}-dark {
+		&--@{value}-dark {
 			color: var(@colorDark) !important;
-    }
+		}
 		&--@{value}-light {
 			color: var(@colorLight) !important;
 		}
-  });
+	});
 
 	&--left {
 		text-align: left !important;
@@ -68,22 +68,22 @@
 .background {
 	each(@colorsAndGreys, {
 		@color:     ~"--o-background-@{value}-default";
-    @colorAlt:  ~"--o-background-@{value}-alt";
-    @colorDark: ~"--o-background-@{value}-moderate";
-    @colorLight:~"--o-background-@{value}-minimal";
-    &--@{value} {
-      background-color: var(@color) !important;
-    }
+		@colorAlt:  ~"--o-background-@{value}-alt";
+		@colorDark: ~"--o-background-@{value}-moderate";
+		@colorLight:~"--o-background-@{value}-minimal";
+		&--@{value} {
+			background-color: var(@color) !important;
+		}
 		&--@{value}-alt {
 			background-color: var(@colorAlt) !important;
 		}
-    &--@{value}-dark {
+		&--@{value}-dark {
 			background-color: var(@colorDark) !important;
-    }
+		}
 		&--@{value}-light {
 			background-color: var(@colorLight) !important;
 		}
-  });
+	});
 
 	&--inverted {
 		background: var(--o-background-neutral-highlight) !important;
@@ -171,19 +171,22 @@
 .ml-a {
 	margin-left: auto;
 }
+
 .mr-a {
 	margin-right: auto;
 }
+
 .mt-a {
 	margin-top: auto;
 }
+
 .mb-a {
 	margin-bottom: auto;
 }
 
 each(@sizes, {
 	@size: ~"--o-space-@{value}";
-	
+
 	.mt-@{value} {
 		margin-top: var(@size);
 	}
@@ -196,14 +199,6 @@ each(@sizes, {
 	.ml-@{value} {
 		margin-left: var(@size);
 	}
-	.mv-@{value} { // TODO: deprecated, replaced by my-
-		margin-top: var(@size);
-		margin-bottom: var(@size);
-	}
-	.mh-@{value} { // TODO: deprecated, replaced by mx-
-		margin-left: var(@size);
-		margin-right: var(@size);
-	}
 	.my-@{value} {
 		margin-top: var(@size);
 		margin-bottom: var(@size);
@@ -215,7 +210,7 @@ each(@sizes, {
 	.ma-@{value} {
 		margin: var(@size);
 	}
-	
+
 	.pt-@{value} {
 		padding-top: var(@size);
 	}
@@ -227,14 +222,6 @@ each(@sizes, {
 	}
 	.pl-@{value} {
 		padding-left: var(@size);
-	}
-	.pv-@{value} { // TODO: deprecated, replaced by py-
-		padding-top: var(@size);
-		padding-bottom: var(@size);
-	}
-	.ph-@{value} { // TODO: deprecated, replaced by px-
-		padding-left: var(@size);
-		padding-right: var(@size);
 	}
 	.py-@{value} {
 		padding-top: var(@size);
@@ -254,9 +241,8 @@ each(range(5), {
 	.line-clamp-@{value} {
 		.line-clamp(@value);
 	}
-	
+
 	.flex-@{value} {
 		flex: @value;
 	}
 });
-

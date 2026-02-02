@@ -102,7 +102,8 @@ const LayoutConfig = computed<Orion.LayoutConfig>(() => ({
 				callback: (item, ev) => console.log(item, ev),
 				if: () => false,
 			},
-			...packagesNavigation.slice(0, 3) ],
+			...packagesNavigation.slice(0, 3),
+		],
 	},
 	navTabs: {
 		navAside: { navMain },
@@ -128,16 +129,16 @@ const lang = computed({
 <style lang="less">
 .orion-nav-top__slot-left {
 	display: flex;
+	gap: 0.75rem;
 	align-items: center;
-	gap: 10px;
 }
 </style>
 
 <style lang="less" scoped>
 .navigation {
 	display: flex;
-	gap: 10px;
-	padding: 20px 30px;
+	gap: 0.75rem;
+	padding: 1.25rem 2rem;
 
 	> a {
 		font-weight: 600;
@@ -151,15 +152,16 @@ const lang = computed({
 
 .language {
 	display: flex;
+	gap: 0.5rem;
 	align-items: center;
+	margin-left: 0.5rem;
 	font-size: 0.85rem;
 	font-weight: normal;
-	gap: 0.5rem;
-	margin-left: 0.5rem;
 }
 
 .test-append-icon {
 	color: var(--o-text-danger-default);
+
 	&:hover {
 		color: var(--o-text-primary-default);
 	}

@@ -1,20 +1,20 @@
-@import '../../Shared/styles/variables.less';
-@import '../../Shared/styles/mixins.less';
+@import "../../Shared/styles/variables.less";
+@import "../../Shared/styles/mixins.less";
 
 .orion-horizontal-scroll {
 	position: relative;
+	overflow-x: hidden;
 	display: flex;
 	align-items: flex-start;
-	overflow-x: hidden;
 
 	&::before,
 	&::after {
-		content: '';
+		content: "";
 		position: absolute;
-		width: calc(80rem / 16);
-		visibility: hidden;
-		height: 100%;
 		z-index: 2;
+		width: calc(80rem / 16);
+		height: 100%;
+		visibility: hidden;
 		transition: opacity 0.1s;
 	}
 
@@ -31,14 +31,14 @@
 	}
 
 	&__slider {
+		scrollbar-width: none;
 		position: relative;
+		overflow-x: scroll;
+		overscroll-behavior: contain;
 		display: flex;
 		gap: 0.5rem;
-		overflow-x: scroll;
-		-ms-overflow-style: none;
-		scrollbar-width: none;
-		overscroll-behavior: contain;
 		width: 100%;
+		-ms-overflow-style: none;
 
 		&::-webkit-scrollbar {
 			display: none;
@@ -70,34 +70,34 @@
 		&-container {
 			display: flex;
 			gap: 0.5rem;
-			border-radius: 1rem;
 			width: 100%;
+			border-radius: 1rem;
 		}
 
 		&-path {
-			background: var(--o-background-neutral-moderate);
-			border-radius: 1rem;
-			height: 0.25rem;
-			position: relative;
 			cursor: pointer;
+			position: relative;
+			height: 0.25rem;
+			border-radius: 1rem;
+			background: var(--o-background-neutral-moderate);
 		}
 
 		&-visible {
-			display: flex;
-			align-items: center;
-			flex-direction: column;
 			overflow: hidden;
-			margin: 0 2rem;
+			display: flex;
+			flex-direction: column;
 			gap: 0.5rem;
+			align-items: center;
 			width: 40%;
+			margin: 0 2rem;
 		}
 	}
 
 	&__button {
-		position: absolute;
-		top: calc(50% - 0.625rem);
 		cursor: pointer;
+		position: absolute;
 		z-index: 3;
+		top: calc(50% - 0.625rem);
 
 		&--left {
 			left: 1.25rem;
@@ -137,6 +137,7 @@
 			left: 0;
 			background: linear-gradient(to right, white 60%, fade(white, 0));
 		}
+
 		&::after {
 			right: 0;
 			background: linear-gradient(to left, white 60%, fade(white, 0));
@@ -146,11 +147,11 @@
 	&--drop-shadow {
 		&::after,
 		&::before {
-			background: #717a8e !important;
-			filter: blur(20px);
+			top: calc(30rem / 16);
 			width: 0.5rem;
 			height: calc(100% - 3.75rem);
-			top: calc(30rem / 16);
+			background: #717a8e !important;
+			filter: blur(20px);
 		}
 
 		&::after {
@@ -158,4 +159,3 @@
 		}
 	}
 }
-

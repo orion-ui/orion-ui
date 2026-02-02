@@ -1,5 +1,5 @@
-@import '../../Shared/styles/variables.less';
-@import '../../Shared/styles/mixins.less';
+@import "../../Shared/styles/variables.less";
+@import "../../Shared/styles/mixins.less";
 
 .orion-paginate {
 	position: relative;
@@ -38,107 +38,104 @@
 		width: 100%;
 	}
 
-	&__detail--center-actions {
-		justify-content: center;
-	}
+	.orion-button {
+		min-width: 2.5rem;
+		border: none;
 
-	&__detail-size {
-		display: flex;
-		align-items: center;
-		gap: var(--o-space-12);
+		&__detail-size {
+			display: flex;
+			align-items: center;
+			gap: var(--o-space-12);
 
-		.orion-select {
+			.orion-select {
+				width: 70px;
+			}
+		}
+
+		&__detail-selection {
+			display: flex;
+			align-items: center;
+		}
+
+		&__detail-selection--hidden {
+			visibility: hidden;
+		}
+
+		&__detail-selection--collapsed {
+			display: none;
+		}
+
+		&__detail-label,
+		&__detail-text {
+			.typography(body2-default);
+			color: var(--o-text-default);
+			white-space: nowrap;
+		}
+
+		&__detail-actions {
+			display: flex;
+			align-items: center;
+			gap: var(--o-space-8);
+		}
+
+		&__size-select {
+			flex: 0 0 70px;
 			width: 70px;
-		}
-	}
-
-	&__detail-selection {
-		display: flex;
-		align-items: center;
-	}
-
-	&__detail-selection--hidden {
-		visibility: hidden;
-	}
-
-	&__detail-selection--collapsed {
-		display: none;
-	}
-
-	&__detail-label,
-	&__detail-text {
-		.typography(body2-default);
-		color: var(--o-text-default);
-		white-space: nowrap;
-	}
-
-	&__detail-actions {
-		display: flex;
-		align-items: center;
-		gap: var(--o-space-8);
-	}
-
-	&__size-select {
-		flex: 0 0 70px;
-		width: 70px;
-		min-width: 70px;
-		max-width: 70px;
-	}
-
-	&__size-select.orion-select {
-		width: 70px;
-
-		.orion-input__input {
-			width: 22px;
-			min-width: 22px;
-			max-width: 22px;
-			flex: 0 0 22px;
-			padding-right: 0 !important;
+			min-width: 70px;
+			max-width: 70px;
 		}
 
-		.orion-input__pictos {
-			padding: 0;
+		&__size-select.orion-select {
+			width: 70px;
+
+			.orion-input__input {
+				width: 22px;
+				min-width: 22px;
+				max-width: 22px;
+				flex: 0 0 22px;
+				padding-right: 0 !important;
+			}
+
+			.orion-input__pictos {
+				padding: 0;
+			}
 		}
-	}
 
-	&--detailed {
-		justify-content: space-between;
-	}
+		&--detailed {
+			justify-content: space-between;
+		}
 
-	&__input {
-		width: 2rem;
-		min-width: 2rem;
-		max-width: 2rem;
-		flex: 0 0 2rem;
-
-		.orion-input {
+		&__input {
 			width: 2rem;
 			min-width: 2rem;
 			max-width: 2rem;
-			height: 2rem;
-			margin: 0;
-			padding: 0;
-		}
+			flex: 0 0 2rem;
 
-		.orion-input__input {
-			padding: var(--o-space-8) var(--o-space-8);
-			text-align: center;
-		}
+			&.orion-input {
+				margin-right: 0.5rem;
+				margin-left: 0.5rem;
 
-		.orion-input__label {
-			max-width: unset !important;
-			left: 0.75rem;
-		}
+				&__input {
+					padding: var(--o-space-8) var(--o-space-8);
+					text-align: center;
+				}
 
-		input::-webkit-outer-spin-button,
-		input::-webkit-inner-spin-button {
-			-webkit-appearance: none;
-			margin: 0;
-		}
+				.orion-input__label {
+					left: 0.75rem;
+					max-width: unset !important;
+				}
+			}
 
-		/* Firefox */
-		input[type=number] {
-			-moz-appearance: textfield;
+			input::-webkit-outer-spin-button,
+			input::-webkit-inner-spin-button {
+				margin: 0;
+				appearance: none;
+			}
+
+			/* Firefox */
+			input[type="number"] {
+				appearance: textfield;
+			}
 		}
 	}
 }

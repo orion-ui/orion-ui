@@ -4,7 +4,7 @@
 		"--grey-light": "--o-background-neutral-subtle",
 		"--grey-lighter": "--o-background-neutral-minimal",
 		"--grey-dark": "--o-background-neutral-highlight",
-		"--grey-darker": "--o-text-default-default",
+		"--grey-darker": "--o-text-neutral-default",
 
 		"--info": "--o-background-info-default",
 		"--info-light": "--o-background-info-minimal",
@@ -23,7 +23,7 @@
 		"--rgb-grey-light": "--o-background-neutral-minimal",
 		"--rgb-grey-dark": "--o-background-neutral-moderate",
 		"--rgb-grey-lighter": "--o-background-neutral-subtle",
-		"--rgb-grey-darker": "--o-text-default-default",
+		"--rgb-grey-darker": "--o-text-neutral-default",
 
 		"--rgb-info": "--o-background-info-default",
 		"--rgb-info-light": "--o-background-info-minimal",
@@ -94,7 +94,7 @@
 		"--o-size-default": "--o-typography-body2-default-font-size",
 
 		"--base": "--o-background-primary-default",
-		"--color": "--o-text-default-default",
+		"--color": "--o-text-neutral-default",
 		"--c-bg": "--o-background-neutral-minimal"
 	},
 

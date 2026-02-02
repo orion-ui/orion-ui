@@ -68,9 +68,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from 'vue';
 import { useValidation, Validator } from 'lib';
 import { CountryCode } from 'libphonenumber-js';
+import { reactive, ref } from 'vue';
 
 let result = ref(false);
 const resultColor = ref<Orion.Color>('neutral');
@@ -81,7 +81,7 @@ let user = reactive({
 	radio: undefined as undefined | string,
 	password: undefined as undefined | string,
 	phone: {
-		phoneCountryCode: 'FR' as CountryCode, 
+		phoneCountryCode: 'FR' as CountryCode,
 		phoneNumber: undefined as Nil<string>,
 	},
 });
@@ -94,15 +94,16 @@ const validator = useValidation(user, {
 	phone: 'phone:mobile',
 	choice: 'required',
 	password: Validator.rules.password(),
-	radio: () => { return user.radio === 'True'; },
+	radio: () => { return user.radio === 'True' },
 });
 
-function checkForm () : void {
+function checkForm (): void {
 	result.value = validator.validate();
 	if (result.value) {
 		resultColor.value = 'success';
 		validator.showValidationState();
-	} else {
+	}
+	else {
 		resultColor.value = 'danger';
 		validator.showValidationState();
 	}

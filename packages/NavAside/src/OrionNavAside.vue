@@ -7,14 +7,13 @@
 </template>
 
 <script setup lang="ts">
-import './OrionNavAside.less';
-import { inject } from 'vue';
 import { OrionNavMain } from 'packages/NavMain';
-import OrionNavAsideSetupService from './OrionNavAsideSetupService';
-import type { OrionNavAsideEmits, OrionNavAsideProps } from './OrionNavAsideSetupService';
+import { inject } from 'vue';
+import './OrionNavAside.less';
+import { OrionNavAsideSetup, type OrionNavAsideEmits, type OrionNavAsideProps } from './OrionNavAsideSetup';
 const _aside = inject<OrionAside>('_aside');
 const emits = defineEmits<OrionNavAsideEmits>() as OrionNavAsideEmits;
-const props = withDefaults(defineProps<OrionNavAsideProps>(), OrionNavAsideSetupService.defaultProps);
-const setup = new OrionNavAsideSetupService(props, emits, _aside);
+const props = withDefaults(defineProps<OrionNavAsideProps>(), OrionNavAsideSetup.defaultProps);
+const setup = new OrionNavAsideSetup(props, emits, _aside);
 defineExpose(setup.publicInstance);
 </script>

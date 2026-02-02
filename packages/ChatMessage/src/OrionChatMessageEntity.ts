@@ -1,44 +1,23 @@
 import { useMonkey } from 'services/MonkeyService';
-import type OrionChatEntity from '../../Chat/src/OrionChatEntity';
-import SharedEntity from '../../Shared/SharedEntity';
+import { type OrionChatEntity } from '../../Chat/src/OrionChatEntity';
+import { SharedEntity } from '../../Shared/SharedEntity';
 
+export class OrionChatMessageEntity extends SharedEntity<Orion.Chat.Message> {
 
-export default class OrionChatMessageEntity extends SharedEntity<Orion.Chat.Message> {
 	readonly discussion: OrionChatEntity;
 
-	get isRead () { return this.entity.isRead; }
-	set isRead (val) { this.entity.isRead = val; }
-
-	get id () {
-		return this.entity.id;
-	}
-
-	get isFromUser () {
-		return this.entity.author.id === this.discussion.chat.userId;
-	}
-
+	get id () { return this.entity.id }
+	get isFromUser () { return this.entity.author.id === this.discussion.chat.userId }
 	get isReadByUser () {
 		return this.isFromUser
 			? true
 			: this.isRead;
 	}
 
-	get author () {
-		return this.entity.author;
-	}
-
-	get createdDate () {
-		return this.entity.createdDate;
-	}
-
-	get createdReadableDate () {
-		return useMonkey(this.entity.createdDate).toReadable('$hh:$mm');
-	}
-
-	get content () {
-		return this.entity.content;
-	}
-
+	get author () { return this.entity.author }
+	get createdDate () { return this.entity.createdDate }
+	get createdReadableDate () { return useMonkey(this.entity.createdDate).toReadable('$hh:$mm') }
+	get content () { return this.entity.content }
 	get isLastRead () {
 		if (this.discussion.messages)
 			return useMonkey(this.discussion?.messages
@@ -47,6 +26,8 @@ export default class OrionChatMessageEntity extends SharedEntity<Orion.Chat.Mess
 			).last()?.id === this.id;
 	}
 
+	get isRead () { return this.entity.isRead }
+	set isRead (val) { this.entity.isRead = val }
 
 	constructor (
 		data: Orion.Chat.Message,
@@ -67,4 +48,5 @@ export default class OrionChatMessageEntity extends SharedEntity<Orion.Chat.Mess
 	read () {
 		this.entity.isRead = true;
 	}
+
 }

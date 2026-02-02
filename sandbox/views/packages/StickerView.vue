@@ -13,7 +13,7 @@
 
 			<o-icon
 				icon="link"
-				style="font-size: 2rem"
+				style="font-size: 2rem;"
 				marker/>
 		</o-sticker>
 	</o-page>

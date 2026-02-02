@@ -1,8 +1,7 @@
-import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
+import { type App, type Plugin } from 'vue';
 import OrionSection from './src/OrionSection.vue';
-import type { OrionSectionEmits, OrionSectionProps } from './src/OrionSectionSetupService';
-import OrionSectionSetupService from './src/OrionSectionSetupService';
+import { OrionSectionSetup, type OrionSectionEmits, type OrionSectionProps } from './src/OrionSectionSetup';
 
 export const OrionSectionPlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,4 +9,4 @@ export const OrionSectionPlugin: Plugin = {
 	},
 };
 
-export { OrionSection, OrionSectionSetupService, OrionSectionEmits, OrionSectionProps };
+export { OrionSection, OrionSectionSetup, type OrionSectionEmits, type OrionSectionProps };

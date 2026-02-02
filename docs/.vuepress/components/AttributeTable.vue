@@ -225,7 +225,7 @@ onUnmounted(() => {
 			}
 
 			&__value {
-				color: var(--o-text-default-default);
+				color: var(--o-text-neutral-default);
 			}
 
 			/* &__bind {
@@ -234,7 +234,7 @@ onUnmounted(() => {
 
 			&__description {
 				line-height: 1.25rem;
-				color: var(--o-text-default-default);
+				color: var(--o-text-neutral-default);
 
 				p {
 					line-height: 1.5rem;
@@ -254,7 +254,7 @@ onUnmounted(() => {
 				}
 
 				strong {
-					color: var(--o-text-default-default);
+					color: var(--o-text-neutral-default);
 				}
 			}
 

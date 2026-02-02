@@ -40,14 +40,11 @@
 				multiple
 				searchable/>
 
-			<o-select
-				v-model="state.multiple"
-				label="Multiple autocomplete"
-				v-bind="selectBind"
-				class="mt-sm"
-				multiple
-				autocomplete/>
-
+			<pre
+				v-if="state.multiple"
+				class="pa-xs">Value:<br>{{ state.multiple }}</pre>
+		</div>
+		<div class="col-sm-12">
 			<pre
 				v-if="state.multiple"
 				class="pa-xs">Value:<br>{{ state.multiple }}</pre>
@@ -56,8 +53,8 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue';
 import { faker } from '@faker-js/faker';
+import { reactive } from 'vue';
 
 function seedOptions (qty = 10) {
 	const items = [];

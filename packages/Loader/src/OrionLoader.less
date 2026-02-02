@@ -1,5 +1,5 @@
-@import '../../Shared/styles/variables.less';
-@import '../../Shared/styles/mixins.less';
+@import "../../Shared/styles/variables.less";
+@import "../../Shared/styles/mixins.less";
 
 @sizeXS: 1rem;
 @sizeSM: 1.5rem;
@@ -13,45 +13,50 @@
 
 .orion-loader {
 	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
+	z-index: @zIndexOrionLoader;
+	inset: 0;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	background: color-mix(in srgb, var(--o-background-neutral-default) 85%, transparent);
-	z-index: @zIndexOrionLoader;
-
 
 	&__spinner {
 		.orion-loader--xs & {
 			.spinner(@sizeXS);
+
 			> .orion-icon {
 				font-size: 1rem;
 			}
 		}
+
 		.orion-loader--sm & {
 			.spinner(@sizeSM);
+
 			> .orion-icon {
 				font-size: 1.5rem;
 			}
 		}
+
 		.orion-loader--md & {
 			.spinner(@sizeMD);
+
 			> .orion-icon {
 				font-size: 2.5rem;
 			}
 		}
+
 		.orion-loader--lg & {
 			.spinner(@sizeLG);
+
 			> .orion-icon {
 				font-size: 4rem;
 			}
 		}
+
 		.orion-loader--xl & {
 			.spinner(@sizeXL);
+
 			> .orion-icon {
 				font-size: 5rem;
 			}
@@ -60,8 +65,8 @@
 
 	&__text {
 		padding: var(--o-space-32) var(--o-space-16) 0;
-		color: var(--o-text-default-inverted);
 		font-size: 1rem;
+		color: var(--o-text-neutral-inverted);
 		text-align: center;
 
 		.orion-loader--xs & {
@@ -98,11 +103,11 @@
 
 	&--default {
 		.orion-icon__loading {
-			stroke: var(--o-text-default-default);
+			stroke: var(--o-text-neutral-default);
 		}
 
 		.orion-loader__text {
-			color: var(--o-text-default-default);
+			color: var(--o-text-neutral-default);
 		}
 	}
 
@@ -114,9 +119,7 @@
 		}
 
 		.orion-loader__text {
-			color: var(--o-text-default-minimal);
+			color: var(--o-text-neutral-minimal);
 		}
 	}
 }
-
-

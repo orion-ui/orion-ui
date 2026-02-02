@@ -1,29 +1,23 @@
-@import '../../Shared/styles/variables.less';
-@import '../../Shared/styles/mixins.less';
+@import "../../Shared/styles/variables.less";
+@import "../../Shared/styles/mixins.less";
 
 .orion-page {
 	flex: 1 0 0%;
-	margin: 0 auto;
 	width: calc(100% - 2rem);
 	max-width: calc(510rem / 16);
-
-	@media @tablet {
-		max-width: calc(@BP-tablet - 6rem);
-	}
-
-	@media @desktop {
-		max-width: calc(@BP-desktop - 6rem);
-	}
-
-	@media @desktopXL {
-		max-width: calc(@BP-desktopXL - 6rem);
-	}
+	margin: 0 auto;
 
 	&__header {
 		display: flex;
+		flex-wrap: wrap;
 		align-items: flex-start;
 		justify-content: space-between;
-		flex-wrap: wrap;
+
+		&--unwrap {
+			@media @tablet {
+				flex-wrap: nowrap;
+			}
+		}
 
 		@media @tablet {
 			gap: 1.25rem;
@@ -31,12 +25,6 @@
 
 		@media @desktop {
 			gap: var(--o-space-16);
-		}
-
-		&--unwrap {
-			@media @tablet {
-				flex-wrap: nowrap;
-			}
 		}
 	}
 
@@ -47,10 +35,10 @@
 	&__title {
 		position: relative;
 		display: inline-block;
-		margin: 0;
-		color: var(--o-text-default-default);
-		max-width: 100%;
 		flex: 1 1 0%;
+		max-width: 100%;
+		margin: 0;
+		color: var(--o-text-neutral-default);
 
 		&--ellipsis {
 			.ellipsis();
@@ -59,12 +47,12 @@
 
 	&__subtitle {
 		margin: 0 0.25rem 0.25rem;
-		color: var(--o-text-default-moderate);
+		color: var(--o-text-neutral-moderate);
 
 		&--sticky {
 			position: sticky;
-			top: 3rem;
 			z-index: 9;
+			top: 3rem;
 			background: rgba(var(--o-background-neutral-subtle), 0.9);
 			backdrop-filter: blur(2px);
 		}
@@ -76,10 +64,32 @@
 
 	&__actions {
 		display: flex;
+		flex: 1;
+		gap: var(--o-space-8);
 		align-items: center;
 		justify-content: flex-end;
-		gap: var(--o-space-8);
-		flex: 1;
+
+		.vue-portal-target {
+			display: flex;
+			align-items: center;
+		}
+
+		.icon:not(.orion-input__icon, .orion-button__icon) {
+			font-size: 1.5rem;
+			transition: color 0.3s;
+
+			&:not(.orion-icon--button) {
+				color: var(--o-text-neutral-moderate);
+
+				&:hover {
+					color: var(--o-text-neutral-default);
+				}
+			}
+
+			@media @tablet {
+				font-size: 2rem;
+			}
+		}
 
 		@media @tablet {
 			gap: 0.75rem;
@@ -87,28 +97,6 @@
 
 		@media @desktop {
 			gap: var(--o-space-8);
-		}
-
-		.vue-portal-target {
-			display: flex;
-			align-items: center;
-		}
-
-		.icon:not(.orion-input__icon):not(.orion-button__icon) {
-			transition: color 0.3s;
-			font-size: 1.5rem;
-
-			&:not(.orion-icon--button) {
-				color: var(--o-text-default-moderate);
-
-				&:hover {
-					color: var(--o-text-default-default);
-				}
-			}
-
-			@media @tablet {
-				font-size: 2rem;
-			}
 		}
 	}
 
@@ -120,10 +108,22 @@
 
 		&--sticky {
 			position: sticky;
-			top: 3rem;
 			z-index: 9;
+			top: 3rem;
 			background: rgba(var(--o-background-neutral-subtle), 0.9);
 			backdrop-filter: blur(2px);
 		}
+	}
+
+	@media @tablet {
+		max-width: calc(@BP-tablet - 6rem);
+	}
+
+	@media @desktop {
+		max-width: calc(@BP-desktop - 6rem);
+	}
+
+	@media @desktopXL {
+		max-width: calc(@BP-desktopXL - 6rem);
 	}
 }

@@ -65,8 +65,8 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, computed } from 'vue';
 import { materialIcons } from 'lib';
+import { computed, reactive } from 'vue';
 
 const state = reactive({
 	value: null,
@@ -77,10 +77,10 @@ const state = reactive({
 	clearable: false,
 	disabled: false,
 	readonly: false,
-	trackKey: 'id',
-	displayKey: 'label',
-	valueKey: 'label',
-	disabledKey: 'htrf',
+	trackKey: 'id' as const,
+	displayKey: 'label' as const,
+	valueKey: 'label' as const,
+	disabledKey: 'htrf' as const,
 	donetyping: 600,
 	prefixIcon: undefined,
 	suffixIcon: undefined,
@@ -89,7 +89,6 @@ const state = reactive({
 const icons = computed(() => {
 	return materialIcons.slice(0, 50);
 });
-
 
 const selectData = reactive({
 	options: [
@@ -104,7 +103,8 @@ const selectData = reactive({
 		{
 			id: 2,
 			label: 'maybe',
-		}],
+		},
+	],
 });
 </script>
 

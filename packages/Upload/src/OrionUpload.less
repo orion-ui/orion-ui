@@ -1,65 +1,67 @@
-@import '../../Shared/styles/variables.less';
-@import '../../Shared/styles/mixins.less';
+@import "../../Shared/styles/variables.less";
+@import "../../Shared/styles/mixins.less";
 
 .orion-upload {
-	transition:
-		border 0.5s,
-		background 0.5s;
 	position: relative;
-	padding: var(--o-space-8);
 	margin: 0.5rem 0;
-	background: var(--o-background-neutral-default);
+	padding: var(--o-space-8);
 	border: 0.0625rem solid var(--o-background-neutral-subtle);
 	border-radius: var(--o-radius-md);
 	text-align: center;
-
-	@media @phone {
-		padding: var(--o-space-16);
-	}
+	background: var(--o-background-neutral-default);
+	transition:
+		border 0.5s,
+		background 0.5s;
 
 	&__input {
 		display: none;
 	}
 
 	&__wrapper {
+		color: var(--o-text-neutral-default);
 		text-align: center;
-		color: var(--o-text-default-default);
 	}
 
 	&__or {
-		transition: all 0.6s cubic-bezier(0, 0, 0.3, 1) 0.1s;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		margin: 1rem 0;
-		text-transform: uppercase;
-		font-weight: 400;
 		font-size: 0.75rem;
+		font-weight: 400;
+		text-transform: uppercase;
+		transition: all 0.6s cubic-bezier(0, 0, 0.3, 1) 0.1s;
 
 		&::before,
 		&::after {
-			content: ' ';
+			content: " ";
 			display: block;
 			width: 50%;
 			height: 0.125rem;
-			background: var(--o-background-neutral-subtle);
 			margin: 0 1.25rem;
+			background: var(--o-background-neutral-subtle);
 		}
+	}
+
+	&__delete-file {
+		margin: 0.25rem 1.25rem 0.25rem 0.25rem;
+		font-size: 1.25rem;
 	}
 
 	&__files-list {
 		&-item {
-			transition: background 0.3s;
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
 			text-align: left;
+			transition: background 0.3s;
 
 			&-preview {
 				.square(5rem);
+
 				margin: 0.25rem 0.5rem;
-				background-position: center;
 				background-repeat: no-repeat;
+				background-position: center;
 				background-size: contain;
 
 				@media @phone {
@@ -70,8 +72,8 @@
 			&-infos {
 				overflow: hidden;
 				flex: 1 1 auto;
-				text-align: left;
 				padding: var(--o-space-8);
+				text-align: left;
 
 				> span {
 					display: inline-block;
@@ -80,6 +82,7 @@
 
 			&-name {
 				.ellipsis();
+
 				max-width: 100%;
 				font-weight: bold;
 			}
@@ -87,7 +90,7 @@
 			&-type,
 			&-size {
 				font-size: 0.75rem;
-				color: var(--o-text-default-default);
+				color: var(--o-text-neutral-default);
 			}
 
 			&:hover {
@@ -98,11 +101,6 @@
 				}
 			}
 		}
-	}
-
-	&__delete-file {
-		margin: 0.25rem 1.25rem 0.25rem 0.25rem;
-		font-size: 1.25rem;
 	}
 
 	&__illustration {
@@ -116,10 +114,10 @@
 		}
 
 		#plus {
+			opacity: 0;
 			transition:
 				transform 0.6s,
 				opacity 0.6s;
-			opacity: 0;
 		}
 	}
 
@@ -130,18 +128,20 @@
 
 	&__bubble {
 		.circle(3rem);
+
 		pointer-events: none;
-		transition: opacity 0.3s;
 		position: absolute;
 		top: -1.5rem;
 		left: -1.5rem;
 		opacity: 0;
 		background: rgba(var(--o-background-info-default), 0.3);
+		transition: opacity 0.3s;
 
 		&::before,
 		&::after {
 			.circle(4rem);
-			content: ' ';
+
+			content: " ";
 			position: absolute;
 			top: calc(50% - 2rem);
 			left: calc(50% - 2rem);
@@ -155,16 +155,18 @@
 
 		@keyframes bloop {
 			0% {
-				opacity: 0;
 				transform: scale(0);
-			}
-			50% {
-				opacity: 1;
-				transform: scale(1);
-			}
-			100% {
 				opacity: 0;
+			}
+
+			50% {
+				transform: scale(1);
+				opacity: 1;
+			}
+
+			100% {
 				transform: scale(1.5);
+				opacity: 0;
 			}
 		}
 	}
@@ -176,28 +178,29 @@
 
 	&__drag-over-indicator {
 		.circle(4rem);
-		transition: transform 0.6s;
+
 		position: absolute;
 		bottom: 2rem;
 		left: calc(50% - 2rem);
-		padding: var(--o-space-16);
-		background: var(--o-background-info-default);
-		color: var(--o-text-default-inverted);
-		font-size: 2rem;
 		transform: scale(0);
+		padding: var(--o-space-16);
+		font-size: 2rem;
+		color: var(--o-text-neutral-inverted);
+		background: var(--o-background-info-default);
+		transition: transform 0.6s;
 
 		.icon {
-			display: block;
-			transition-property: transform, opacity;
-			transition-duration: 0.5s;
-			transition-delay: 0.1s;
 			transform: translate3d(0, 6rem, 0) scale(0);
+			display: block;
+			transition-delay: 0.1s;
+			transition-duration: 0.5s;
+			transition-property: transform, opacity;
 		}
 	}
 
 	&--drag-over {
-		background: rgba(var(--o-background-info-default), 0.1);
 		border: 0.0625rem solid var(--o-background-info-default);
+		background: rgba(var(--o-background-info-default), 0.1);
 
 		* {
 			pointer-events: none;
@@ -268,9 +271,12 @@
 		border-color: var(--o-border-info-default);
 
 		#file {
-			transition: transform 1s ease-out;
 			transform: translate(8rem, 5rem);
+			transition: transform 1s ease-out;
 		}
 	}
-}
 
+	@media @phone {
+		padding: var(--o-space-16);
+	}
+}

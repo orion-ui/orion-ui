@@ -8,8 +8,11 @@
 			{ 'orion-radio--reverse': reverse },
 			{ 'orion-radio--inline': inline },
 		]"
+		:tabindex="disabled ? undefined : setup._uid"
 		input-type="radio"
-		@click="setup.handleClick()">
+		@click="setup.handleClick()"
+		@keydown.space.prevent="setup.handleClick()"
+		@keydown.enter.prevent="setup.handleClick()">
 		<slot v-if="label === undefined"/>
 
 		<input
@@ -37,12 +40,11 @@
 import { OrionField } from 'packages/Field';
 import { OrionIcon } from 'packages/Icon';
 import './OrionRadio.less';
-import type { OrionRadioEmits, OrionRadioProps, VModelType } from './OrionRadioSetupService';
-import OrionRadioSetupService from './OrionRadioSetupService';
+import { OrionRadioSetup, type OrionRadioEmits, type OrionRadioProps } from './OrionRadioSetup';
 const emits = defineEmits<OrionRadioEmits>() as OrionRadioEmits;
-const vModel = defineModel<VModelType>();
-const props = withDefaults(defineProps<OrionRadioProps>(), OrionRadioSetupService.defaultProps);
-const setup = new OrionRadioSetupService(props, emits, vModel);
+const vModel = defineModel<Orion.VModel.Radio>();
+const props = withDefaults(defineProps<OrionRadioProps>(), OrionRadioSetup.defaultProps);
+const setup = new OrionRadioSetup(props, emits, vModel);
 defineExpose(setup.publicInstance);
 
 /** Doc

@@ -1,121 +1,14 @@
-@import '../../Shared/styles/variables.less';
-@import '../../Shared/styles/mixins.less';
+@import "../../Shared/styles/variables.less";
+@import "../../Shared/styles/mixins.less";
 
 .icon-size(@size) {
 	.square(@size);
 	.flex-align();
+
 	font-size: @size;
 }
 
-.orion-button {
-	transition:
-		background 0.3s,
-		opacity 0.3s,
-		transform 0.3s,
-		border-color 0.2s;
-	position: relative;
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	vertical-align: middle;
-	border-radius: var(--o-radius-md);
-	border: none;
-	appearance: none;
-	outline: none;
-	.typography(body2-bold);
-	cursor: pointer;
-	overflow: hidden;
-	border-width: 0.0625rem;
-	border-style: solid;
-	border-color: transparent;
-	border-radius: var(--o-radius-md);
-
-	&:focus {
-		outline: 1px solid var(--o-border-neutral-focus);
-		outline-offset: 2px;
-	}
-
-	&__ripple {
-		position: absolute;
-		background: fade(white, 20);
-		height: 1.25rem;
-		width: 1.25rem;
-		border-radius: var(--o-radius-round);
-		z-index: 5;
-		pointer-events: none;
-		opacity: 1;
-		transform: scale(1);
-		animation: click 0.7s ease-in-out 0s 1 normal none running;
-
-		.orion-button--default & {
-			background: fade(black, 5);
-
-			[data-orion-theme='dark'] & {
-				background: fade(white, 10);
-			}
-		}
-	}
-
-	&__text {
-		text-align: center;
-		line-height: 1.2;
-
-		.orion-button--prefix-icon & {
-			&:not(:first-child) {
-				text-align: left;
-			}
-		}
-	}
-
-	&__icon {
-		.icon-size(1rem);
-		pointer-events: none;
-	}
-
-	&--sm {
-		gap: var(--o-space-4);
-		padding: var(--o-space-4) var(--o-space-8);
-		height: var(--o-space-28);
-
-		.orion-icon {
-			font-size: var(--o-typography-label-default-font-size);
-		}
-
-		&.orion-button--icon-only {
-			width: var(--o-space-28);
-			padding: var(--o-space-4) var(--o-space-6);
-		}
-	}
-
-	&--md {
-		gap: var(--o-space-4);
-		padding: var(--o-space-4) var(--o-space-12);
-		height: var(--o-space-32);
-
-		&.orion-button--icon-only {
-			width: var(--o-space-32);
-			padding: var(--o-space-4) var(--o-space-6);
-		}
-
-		.orion-icon {
-			font-size: var(--o-typography-body2-default-font-size);
-		}
-	}
-
-	&--lg {
-		gap: var(--o-space-8);
-		padding: var(--o-space-4) var(--o-space-16);
-		height: var(--o-space-40);
-
-		&.orion-button--icon-only {
-			width: var(--o-space-40);
-		}
-
-		.orion-icon {
-			font-size: var(--o-typography-body1-default-font-size);
-		}
-	}
-
+.orion-button-color-variants() {
 	each(@colors, {
 		&--@{value} {
 			color: white;
@@ -153,7 +46,7 @@
 
 			&.orion-button--disabled {
 				background: var(--o-background-neutral-disabled);
-				color: var(--o-text-default-disabled);
+				color: var(--o-text-neutral-disabled);
 				border-color: var(--o-border-neutral-disabled);
 
 				&:hover, &:focus {
@@ -167,61 +60,174 @@
 			}
 		}
 	});
+}
 
-&--primary {
-	&.orion-button--outline {
-		color: var(--o-text-default-default);
-		border: 1px solid var(--o-border-neutral-default);
+.orion-button {
+	cursor: pointer;
+	position: relative;
+	overflow: hidden;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border: none;
+	border-color: transparent;
+	border-style: solid;
+	border-width: 0.0625rem;
+	border-radius: var(--o-radius-md);
+	vertical-align: middle;
+	appearance: none;
+	outline: none;
+	transition:
+		background 0.3s,
+		opacity 0.3s,
+		transform 0.3s,
+		border-color 0.2s;
+	.typography(body2-bold);
 
-		&:hover&:not(.orion-button--disabled),
-		&:focus&:not(.orion-button--disabled) {
-			background: var(--o-background-neutral-minimal);
-			border-color: var(--o-border-neutral-default);
-		}
+	&:focus {
+		outline: 1px solid var(--o-border-neutral-focus);
+		outline-offset: 2px;
+	}
 
-		&.orion-button--disabled {
-			color: var(--o-text-default-disabled);
+	&__ripple {
+		pointer-events: none;
+		position: absolute;
+		z-index: 5;
+		transform: scale(1);
+		width: 1.25rem;
+		height: 1.25rem;
+		border-radius: var(--o-radius-round);
+		opacity: 1;
+		background: fade(white, 20);
+		animation: click 0.7s ease-in-out 0s 1 normal none running;
+
+		.orion-button--neutral & {
+			background: fade(black, 5);
+
+			[data-orion-theme="dark"] & {
+				background: fade(white, 10);
+			}
 		}
 	}
 
-	&.orion-button--nude {
-		color: var(--o-text-default-default);
+	&__text {
+		line-height: 1.2;
+		text-align: center;
 
-		&:hover&:not(.orion-button--disabled),
-		&:focus&:not(.orion-button--disabled) {
-			background: var(--o-background-neutral-subtle);
-		}
-
-		&.orion-button--disabled {
-			color: var(--o-text-default-disabled);
+		.orion-button--prefix-icon & {
+			&:not(:first-child) {
+				text-align: left;
+			}
 		}
 	}
-}
 
-&--nude {
-	border-color: transparent !important;
-	stroke: none;
+	&__icon {
+		.icon-size(1rem);
 
-	&:not(:hover):not(:focus) {
-		background: none;
+		pointer-events: none;
 	}
-}
 
-&--block {
-	width: 100%;
-}
+	&--sm {
+		gap: var(--o-space-4);
+		height: var(--o-height-control-sm);
+		padding: var(--o-space-4) var(--o-space-8);
 
-&--disabled {
-	cursor: not-allowed;
-}
+		.orion-icon {
+			font-size: var(--o-typography-label-default-font-size);
+		}
 
-&--loading {
-	cursor: progress;
-
-	.orion-icon__loading {
-		stroke: var(--o-text-default-moderate);
+		&.orion-button--icon-only {
+			width: var(--o-height-control-sm);
+			padding: var(--o-space-4) var(--o-space-6);
+		}
 	}
-}
+
+	&--md {
+		gap: var(--o-space-4);
+		height: var(--o-height-control-md);
+		padding: var(--o-space-4) var(--o-space-12);
+
+		&.orion-button--icon-only {
+			width: var(--o-height-control-md);
+			padding: var(--o-space-4) var(--o-space-6);
+		}
+
+		.orion-icon {
+			font-size: var(--o-typography-body2-default-font-size);
+		}
+	}
+
+	&--lg {
+		gap: var(--o-space-8);
+		height: var(--o-height-control-lg);
+		padding: var(--o-space-4) var(--o-space-16);
+
+		&.orion-button--icon-only {
+			width: var(--o-height-control-lg);
+		}
+
+		.orion-icon {
+			font-size: var(--o-typography-body1-default-font-size);
+		}
+	}
+
+	.orion-button-color-variants();
+
+	&--primary {
+		&.orion-button--outline {
+			border: 1px solid var(--o-border-neutral-default);
+			color: var(--o-text-neutral-default);
+
+			&:hover&:not(.orion-button--disabled),
+			&:focus&:not(.orion-button--disabled) {
+				border-color: var(--o-border-neutral-default);
+				background: var(--o-background-neutral-minimal);
+			}
+		}
+
+		&.orion-button--nude {
+			color: var(--o-text-neutral-default);
+
+			&:hover&:not(.orion-button--disabled),
+			&:focus&:not(.orion-button--disabled) {
+				background: var(--o-background-neutral-subtle);
+			}
+		}
+	}
+
+	&--neutral {
+		color: var(--o-text-neutral-default);
+	}
+
+	&--nude {
+		border-color: transparent !important;
+		stroke: none;
+
+		&:not(:hover, :focus) {
+			background: none;
+		}
+	}
+
+	&--nude {
+		border-color: transparent !important;
+		stroke: none;
+
+		&:not(:hover):not(:focus) {
+			background: none;
+		}
+	}
+
+	&--disabled {
+		cursor: not-allowed;
+	}
+
+	&--loading {
+		cursor: progress;
+
+		.orion-icon__loading {
+			stroke: var(--o-text-neutral-moderate);
+		}
+	}
 }
 
 @keyframes click {

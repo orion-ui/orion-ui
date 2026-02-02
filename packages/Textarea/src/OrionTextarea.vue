@@ -5,6 +5,7 @@
 		:class="{ 'orion-textarea-max-length': maxLength }"
 		@clear="setup.clear()">
 		<textarea
+			:id="`orion-input_${setup._uid}`"
 			:ref="setup._input"
 			v-model="vModel"
 			style="resize: none;"
@@ -30,30 +31,33 @@
 			class="orion-input__textarea-counter">
 			{{ vModel?.length ?? 0 }}
 		</span>
-
-		<div
-			v-if="setup.showState
-				&& (setup.showError || setup.showWarning)
-				&& setup.validationHtmlMessages?.length"
-			class="orion-input__error-message"
-			v-html="setup.validationHtmlMessages"/>
 	</orion-field>
+	<div
+		v-if="setup.showState
+			&& (setup.showError || setup.showWarning)
+			&& setup.validationHtmlMessages?.length"
+		class="orion-input__error-message"
+		v-html="setup.validationHtmlMessages"/>
+	<div
+		v-if="hintText && !(setup.showState
+			&& (setup.showError || setup.showWarning)
+			&& setup.validationHtmlMessages?.length)"
+		class="orion-input__hint-text">
+		{{ hintText }}
+	</div>
 </template>
 
 <script setup lang="ts">
-import './OrionTextarea.less';
-import { inject } from 'vue';
 import { OrionField } from 'packages/Field';
-import OrionTextareaSetupService from './OrionTextareaSetupService';
-
-
+import { inject } from 'vue';
+import './OrionTextarea.less';
+import { OrionTextareaSetup, type OrionTextareaEmits, type OrionTextareaProps } from './OrionTextareaSetup';
 const _aside = inject<OrionAside>('_aside');
 const _modal = inject<OrionModal>('_modal');
 const emits = defineEmits<OrionTextareaEmits>() as OrionTextareaEmits;
-import type { OrionTextareaProps, OrionTextareaEmits } from './OrionTextareaSetupService';
 const vModel = defineModel<Nil<string>>();
-const props = withDefaults(defineProps<OrionTextareaProps>(), OrionTextareaSetupService.defaultProps);
-const setup = new OrionTextareaSetupService(props, emits, vModel, _modal, _aside);
+const props = withDefaults(defineProps<OrionTextareaProps>(), OrionTextareaSetup.defaultProps);
+const setup = new OrionTextareaSetup(props, emits, vModel, _modal, _aside);
 defineExpose(setup.publicInstance);
 
 /** Doc

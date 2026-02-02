@@ -1,7 +1,7 @@
 <template>
 	<o-section
 		title="Lorem Ipsum"
-		style="position:relative"
+		style="position: relative;"
 		class="pa-sm">
 		<div class="flex fd-c g-16">
 			<div>

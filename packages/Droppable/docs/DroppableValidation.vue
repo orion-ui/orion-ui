@@ -1,15 +1,16 @@
 <template>
 	<div class="datetable-validation flex g-32 jc-s ai-s">
 		<div>
-			<o-droppable v-model:datalist="left" :tag="`o-section`">
+			<o-droppable
+				v-model:datalist="left"
+				:tag="`o-section`">
 				<o-draggable
 					v-for="item in left"
 					:key="item.__uid"
 					:data="item"
-					tag="o-sticker"
-				>
+					tag="o-sticker">
 					<div class="draggable-content">
-						<o-icon icon="article" />
+						<o-icon icon="article"/>
 						<strong>{{ item.title }}</strong>
 					</div>
 				</o-draggable>
@@ -20,16 +21,14 @@
 			<o-droppable
 				v-model:datalist="right"
 				:tag="`o-section`"
-				:validation="validation"
-			>
+				:validation="validation">
 				<o-draggable
 					v-for="item in right"
 					:key="item.__uid"
 					:data="item"
-					tag="o-sticker"
-				>
+					tag="o-sticker">
 					<div class="draggable-content">
-						<o-icon icon="drafts" />
+						<o-icon icon="drafts"/>
 						<strong>{{ item.title }}</strong>
 					</div>
 				</o-draggable>
@@ -39,7 +38,7 @@
 </template>
 
 <script setup lang="ts">
-import { useNotif, getUid } from 'lib';
+import { getUid, useNotif } from 'lib';
 import { ref } from 'vue';
 
 const validation = {
@@ -107,8 +106,8 @@ const right = ref([
 
 .draggable-content {
 	display: flex;
-	align-items: center;
 	gap: 0.5rem;
+	align-items: center;
 
 	.orion-icon {
 		font-size: 1.25rem;
@@ -125,4 +124,3 @@ du drop d'un élément dans une zone. Il suffit pour cela de passer une prop
 `validation` correspondant à un objet du type `Orion.DndValidation`. Si la
 propriété `method` renvoi `false`, l'opération de drag'n drop sera annulée.
 @lang
-

@@ -1,5 +1,5 @@
-@import '../../Shared/styles/variables.less';
-@import '../../Shared/styles/mixins.less';
+@import "../../Shared/styles/variables.less";
+@import "../../Shared/styles/mixins.less";
 
 @markerSize: 0.5rem;
 @markerNumberSize: 1rem;
@@ -9,8 +9,8 @@
 		&--top,
 		&--bottom {
 			&.orion-icon__marker--right {
-				left: unset;
 				right: calc(0px - @size / 2);
+				left: unset;
 			}
 
 			&.orion-icon__marker--left {
@@ -28,14 +28,14 @@
 			left: calc(50% - @size / 2);
 		}
 
-		&--right:not(.orion-icon__marker--top):not(.orion-icon__marker--bottom) {
-			right: calc(0px - @size / 2);
+		&--right:not(.orion-icon__marker--top, .orion-icon__marker--bottom) {
 			top: calc(50% - @size / 2);
+			right: calc(0px - @size / 2);
 		}
 
-		&--left:not(.orion-icon__marker--top):not(.orion-icon__marker--bottom) {
-			left: calc(0px - @size / 2);
+		&--left:not(.orion-icon__marker--top, .orion-icon__marker--bottom) {
 			top: calc(50% - @size / 2);
+			left: calc(0px - @size / 2);
 		}
 	}
 }
@@ -43,33 +43,37 @@
 .orion-icon {
 	position: relative;
 	aspect-ratio: 1;
-	font-size: var(--o-typography-body2-default-font-size);
+	/* stylelint-disable-next-line declaration-property-unit-allowed-list */
 	width: 1em;
+	/* stylelint-disable-next-line declaration-property-unit-allowed-list */
 	height: 1em;
+	font-size: var(--o-typography-body2-default-font-size);
+
+	&::before {
+		position: relative;
+		z-index: 1;
+	}
 
 	.material-symbols-outlined {
-		font-family: 'Material Symbols Outlined';
+		/* stylelint-disable-next-line font-family-no-missing-generic-family-keyword */
+		font-family: "Material Symbols Outlined";
 	}
 
 	.material-symbols-round {
-		font-family: 'Material Symbols Round';
+		/* stylelint-disable-next-line font-family-no-missing-generic-family-keyword */
+		font-family: "Material Symbols Round";
 	}
 
 	.material-symbols-sharp {
-		font-family: 'Material Symbols Sharp';
+		/* stylelint-disable-next-line font-family-no-missing-generic-family-keyword */
+		font-family: "Material Symbols Sharp";
 	}
 
 	.material-symbols-outlined,
 	.material-symbols-round,
 	.material-symbols-sharp {
 		z-index: 2;
-		position: absolute;
 		font-size: inherit;
-	}
-
-	&::before {
-		position: relative;
-		z-index: 1;
 	}
 
 	&__loading {
@@ -78,14 +82,15 @@
 		animation: rotate 1.7s linear 0s infinite;
 
 		&-inner {
-			animation: rotate 1s linear 0s infinite reverse;
 			transform-origin: center;
+			animation: rotate 1s linear 0s infinite reverse;
 		}
 	}
 
 	&__marker {
 		.marker();
 		.markerPosition(@markerSize);
+
 		z-index: 2;
 
 		&--number {
@@ -94,8 +99,8 @@
 		}
 
 		&--clickable {
-			transition: transform 0.3s;
 			cursor: pointer;
+			transition: transform 0.3s;
 
 			&:hover {
 				transform: scale(1.2);
@@ -106,29 +111,26 @@
 	&--ripple {
 		.orion-icon__ripple,
 		.orion-icon__ripple > .ripple__wave {
-			display: block;
 			position: absolute;
 			z-index: 0;
-			top: 0;
-			bottom: 0;
-			left: 0;
-			right: 0;
+			inset: 0;
+			display: block;
 			border-radius: 100%;
 		}
 
 		.orion-icon__ripple {
-			transition: background 0.3s;
 			transform: scale(1.8);
+			transition: background 0.3s;
 		}
 
 		.orion-icon__ripple > .ripple__wave {
-			opacity: 0;
 			pointer-events: none;
+			opacity: 0;
 		}
 
 		&-default {
 			&:hover {
-				color: var(--o-text-default-default);
+				color: var(--o-text-neutral-default);
 			}
 
 			&:hover .orion-icon__ripple,
@@ -157,17 +159,26 @@
 			position: absolute;
 		}
 
+		.material-symbols-outlined,
+		.material-symbols-round,
+		.material-symbols-sharp {
+			position: absolute;
+			z-index: 2;
+			font-size: inherit;
+		}
+
 		.orion-icon__button {
 			.circle(1.8em);
+
+			z-index: 0;
+			display: block;
 			transition:
 				box-shadow 0.3s,
 				background 0.3s;
-			z-index: 0;
-			display: block;
 		}
 
 		&-default {
-			color: var(--o-text-default-default);
+			color: var(--o-text-neutral-default);
 
 			> .orion-icon__button {
 				background: var(--o-background-neutral-default);
@@ -176,21 +187,21 @@
 		}
 
 		each(@colors, {
-		@bg: ~"--o-background-@{value}-default";
-		@shadow: ~"--o-background-@{value}-moderate";
+			@bg: ~"--o-background-@{value}-default";
+			@shadow: ~"--o-background-@{value}-moderate";
 
-		&-@{value} {
-			color: #ffffff;
+			&-@{value} {
+				color: #ffffff;
 
-			> .orion-icon__button {
-				background: var(@bg);
-				box-shadow: 0 0.125rem 0.3rem -0.125rem color-mix(in srgb, var(@shadow) 40%, transparent);
+				> .orion-icon__button {
+					background: var(@bg);
+					box-shadow: 0 0.125rem 0.3rem -0.125rem color-mix(in srgb, var(@shadow) 40%, transparent);
+				}
 			}
-		}
-	});
+		});
 
 		&-neutral {
-			color: var(--o-text-default-default);
+			color: var(--o-text-neutral-default);
 		}
 
 		&:hover > .orion-icon__button {
@@ -203,7 +214,7 @@
 	}
 }
 
-@keyframes OrionIconCircle {
+@keyframes orion-icon-circle {
 	0% {
 		transform: scale(1.8);
 	}
@@ -217,17 +228,14 @@
 	}
 }
 
-@keyframes OrionIconCircleAfter {
+@keyframes orion-icon-circle-after {
 	0% {
-		opacity: 1;
 		transform: scale(0.2);
+		opacity: 1;
 	}
 
 	100% {
-		opacity: 0;
 		transform: scale(1);
+		opacity: 0;
 	}
 }
-
-
-

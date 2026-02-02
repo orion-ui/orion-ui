@@ -1,15 +1,15 @@
-@import '../../Shared/styles/variables.less';
-@import '../../Shared/styles/mixins.less';
+@import "../../Shared/styles/variables.less";
+@import "../../Shared/styles/mixins.less";
 
 .orion-rate {
 	display: flex;
-	align-items: center;
 	gap: 0.125rem;
+	align-items: center;
 
 	&__wrapper {
 		display: flex;
-		align-items: center;
 		flex-direction: row-reverse;
+		align-items: center;
 		justify-content: flex-end;
 		line-height: 1;
 
@@ -21,9 +21,10 @@
 
 	&__star {
 		.square(1.125rem);
-		font-size: 1rem;
-		color: var(--o-text-default-subtle);
+
 		cursor: pointer;
+		font-size: 1rem;
+		color: var(--o-text-neutral-subtle);
 
 		.orion-rate--disabled & {
 			cursor: not-allowed;
@@ -40,7 +41,7 @@
 						-webkit-text-fill-color: transparent;
 					}
 				}
-				
+
 				&--default {
 					&::before{
 						color: transparent;
@@ -55,8 +56,8 @@
 	}
 
 	&__number {
-		color: var(--o-text-default-default);
 		transform: translateY(-0.0625rem);
+		color: var(--o-text-neutral-default);
 	}
 
 	input {
@@ -72,7 +73,7 @@
 			.orion-rate__wrapper:hover {
 				input ~ label {
 					background: unset;
-					color: var(--o-text-default-subtle);
+					color: var(--o-text-neutral-subtle);
 				}
 				input ~ label:hover,
 				input ~ label:hover ~ label {
@@ -84,37 +85,35 @@
 
 		&--default {
 			input:checked ~ label {
-				color: var(--o-text-default-default);
+				color: var(--o-text-neutral-default);
 			}
 			.orion-rate__wrapper:hover {
 				input ~ label {
 					background: unset;
-					color: var(--o-text-default-subtle);
+					color: var(--o-text-neutral-subtle);
 				}
 				input ~ label:hover,
 				input ~ label:hover ~ label {
 					background: unset;
-					color: var(--o-text-default-default) !important;
+					color: var(--o-text-neutral-default) !important;
 				}
 			}
 		}
 		&--inverted {
 			input:checked ~ label {
-				color: var(--o-text-default-inverted);
+				color: var(--o-text-neutral-inverted);
 			}
 			.orion-rate__wrapper:hover {
 				input ~ label {
 					background: unset;
-					color: var(--o-text-default-subtle);
+					color: var(--o-text-neutral-subtle);
 				}
 				input ~ label:hover,
 				input ~ label:hover ~ label {
 					background: unset;
-					color: var(--o-text-default-inverted) !important;
+					color: var(--o-text-neutral-inverted) !important;
 				}
 			}
 		}
 	});
 }
-
-

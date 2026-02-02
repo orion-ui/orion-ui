@@ -9,19 +9,19 @@
 </template>
 
 <script lang="ts">
-// Needed to manage slots in OrionTabsSetupService / calcPaneInstances
+// Needed to manage slots in OrionTabsSetup / calcPaneInstances
+// eslint-disable-next-line no-restricted-exports
 export default { name: 'OrionTabPane' };
 </script>
 
 <script setup lang="ts">
-import './OrionTabPane.less';
 import { inject } from 'vue';
-import OrionTabPaneSetupService from './OrionTabPaneSetupService';
-import type { OrionTabPaneProps, OrionTabPaneEmits } from './OrionTabPaneSetupService';
+import './OrionTabPane.less';
+import { OrionTabPaneSetup, type OrionTabPaneEmits, type OrionTabPaneProps } from './OrionTabPaneSetup';
 const _tabs = inject<OrionTabs>('_tabs');
 const emits = defineEmits<OrionTabPaneEmits>() as OrionTabPaneEmits;
-const props = withDefaults(defineProps<OrionTabPaneProps>(), OrionTabPaneSetupService.defaultProps);
-const setup = new OrionTabPaneSetupService(props, emits, _tabs);
+const props = withDefaults(defineProps<OrionTabPaneProps>(), OrionTabPaneSetup.defaultProps);
+const setup = new OrionTabPaneSetup(props, emits, _tabs);
 defineExpose(setup.publicInstance);
 
 /** Doc

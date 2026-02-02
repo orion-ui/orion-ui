@@ -1,17 +1,16 @@
-@import '../../Shared/styles/variables.less';
-@import '../../Shared/styles/mixins.less';
+@import "../../Shared/styles/variables.less";
+@import "../../Shared/styles/mixins.less";
 
 .orion-badge {
-	.typography(label-bold);
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
 	box-sizing: border-box;
 	min-width: 18px;
 	padding: 0 var(--o-space-4);
+	color: var(--o-text-neutral-default);
 	white-space: nowrap;
-	color: var(--o-text-default-default);
-
+	.typography(label-bold);
 
 	&--square {
 		border-radius: var(--o-radius-xs);
@@ -23,25 +22,21 @@
 
 	&--dot {
 		width: var(--o-sizing-8);
-		height: var(--o-sizing-8);
 		min-width: 0;
+		height: var(--o-sizing-8);
 		padding: 0;
 		border-radius: var(--o-radius-round);
 	}
 
 	each(@colors, {
 		&--@{value} {
-			color: var(--o-text-default-inverted);
+			color: var(--o-text-neutral-inverted);
 			background: var(~"--o-background-@{value}-default");
 		}
 	});
 
-	&--default {
-		background: var(--o-background-neutral-subtle);
-	}
-
 	&--neutral {
-		color: var(--o-text-default-default);
+		color: var(--o-text-neutral-default);
 		background: var(--o-background-neutral-subtle);
 	}
 }

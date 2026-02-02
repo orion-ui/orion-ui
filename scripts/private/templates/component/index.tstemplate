@@ -1,7 +1,7 @@
 import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
 import {ComponentName} from './src/{ComponentName}.vue';
-import {ComponentName}SetupService from './src/{ComponentName}SetupService';
+import {ComponentName}Setup from './src/{ComponentName}Setup';
 
 export const {ComponentName}Plugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -9,4 +9,4 @@ export const {ComponentName}Plugin: Plugin = {
 	},
 };
 
-export { {ComponentName}, {ComponentName}SetupService };
+export { {ComponentName}, {ComponentName}Setup };

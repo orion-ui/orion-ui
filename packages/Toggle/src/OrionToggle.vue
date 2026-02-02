@@ -10,7 +10,10 @@
 			{ 'orion-toggle--inline': inline },
 		]"
 		input-type="toggle"
-		@click="setup.handleClick()">
+		:tabindex="disabled ? undefined : setup._uid"
+		@click="setup.handleClick()"
+		@keydown.space.prevent="setup.handleClick()"
+		@keydown.enter.prevent="setup.handleClick()">
 		<slot v-if="label === undefined"/>
 
 		<input
@@ -35,12 +38,11 @@
 <script setup lang="ts">
 import { OrionField } from 'packages/Field';
 import './OrionToggle.less';
-import type { OrionToggleEmits, OrionToggleProps } from './OrionToggleSetupService';
-import OrionToggleSetupService from './OrionToggleSetupService';
+import { OrionToggleSetup, type OrionToggleEmits, type OrionToggleProps } from './OrionToggleSetup';
 const emits = defineEmits<OrionToggleEmits>() as OrionToggleEmits;
 const vModel = defineModel<boolean>({ required: true });
-const props = withDefaults(defineProps<OrionToggleProps>(), OrionToggleSetupService.defaultProps);
-const setup = new OrionToggleSetupService(props, emits, vModel);
+const props = withDefaults(defineProps<OrionToggleProps>(), OrionToggleSetup.defaultProps);
+const setup = new OrionToggleSetup(props, emits, vModel);
 defineExpose(setup.publicInstance);
 
 /** Doc

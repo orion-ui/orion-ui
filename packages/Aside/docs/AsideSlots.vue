@@ -31,12 +31,10 @@
 			<teleport
 				v-if="_asideA"
 				:to="_asideA?.slotActions">
-				<o-button
-					outline>
+				<o-button outline>
 					Cancel
 				</o-button>
-				<o-button
-					color="info">
+				<o-button color="info">
 					Save
 				</o-button>
 			</teleport>

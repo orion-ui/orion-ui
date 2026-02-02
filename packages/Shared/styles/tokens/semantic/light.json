@@ -230,7 +230,7 @@
     }
   },
   "text": {
-    "default": {
+    "neutral": {
       "default": {
         "$type": "color",
         "$value": "{colors.neutral.950}"
@@ -466,11 +466,11 @@
     }
   },
   "gradient": {
-    "primary_from": {
+    "primary-from": {
       "$type": "color",
       "$value": "{colors.primary.800}"
     },
-    "primary_to": {
+    "primary-to": {
       "$type": "color",
       "$value": "{colors.neutral.950}"
     },

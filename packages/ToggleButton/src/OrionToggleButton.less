@@ -1,0 +1,100 @@
+@import "../../Shared/styles/variables.less";
+@import "../../Shared/styles/mixins.less";
+
+.icon-size(@size) {
+	.square(@size);
+	.flex-align();
+
+	font-size: @size;
+}
+
+.orion-toggle-button {
+	cursor: pointer;
+	position: relative;
+	display: inline-flex;
+	gap: var(--o-space-4);
+	align-items: center;
+	justify-content: center;
+	border: 1px solid var(--o-border-neutral-default);
+	border-radius: var(--o-radius-md);
+	vertical-align: middle;
+	background: var(--o-background-neutral-default);
+
+	&:hover {
+		background: var(--o-background-neutral-minimal);
+	}
+
+	&__icon {
+		.icon-size(1rem);
+
+		pointer-events: none;
+	}
+
+	&--nude {
+		border-color: transparent;
+		background: transparent;
+	}
+
+	&--active {
+		each(@colors, {
+			&.orion-toggle-button--@{value}:not(.orion-toggle-button--disabled) {
+				color: var(~"--o-text-@{value}-active");
+				background: var(~"--o-background-@{value}-minimal");
+				border: 1px solid var(~"--o-border-@{value}-default");
+			}
+		});
+	}
+
+	&--disabled {
+		cursor: not-allowed;
+		border-color: var(--o-border-neutral-disabled);
+		color: var(--o-text-neutral-disabled);
+		background: var(--o-background-neutral-disabled);
+
+		&:hover,
+		&:focus {
+			border-color: var(--o-border-neutral-disabled);
+			background: var(--o-background-neutral-disabled);
+		}
+
+		&.orion-button--nude {
+			background: transparent;
+		}
+	}
+
+	&--md {
+		height: var(--o-height-control-md);
+		padding: var(--o-space-4) var(--o-space-12);
+		.typography(body2-bold);
+
+		.orion-icon {
+			font-size: var(--o-typography-body1-default-font-size);
+		}
+
+		&.orion-toggle-button--icon-only {
+			padding: var(--o-space-8);
+		}
+	}
+
+	&--sm {
+		height: var(--o-height-control-sm);
+		padding: var(--o-space-4) var(--o-space-12);
+		.typography(label-bold);
+
+		.orion-icon {
+			font-size: var(--o-typography-body1-default-font-size);
+		}
+
+		&.orion-toggle-button--icon-only {
+			padding: var(--o-space-6);
+		}
+	}
+
+	&--loading {
+		cursor: progress;
+
+		.orion-icon__loading {
+			stroke: var(--o-text-neutral-moderate);
+		}
+	}
+}

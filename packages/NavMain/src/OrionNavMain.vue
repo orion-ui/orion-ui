@@ -45,12 +45,11 @@
 </template>
 
 <script setup lang="ts">
-import './OrionNavMain.less';
 import { OrionNavMainItem } from 'packages/NavMainItem';
-import OrionNavMainSetupService from './OrionNavMainSetupService';
-import type { OrionNavMainProps, OrionNavMainEmits } from './OrionNavMainSetupService';
+import './OrionNavMain.less';
+import { OrionNavMainSetup, type OrionNavMainEmits, type OrionNavMainProps } from './OrionNavMainSetup';
 const emits = defineEmits<OrionNavMainEmits>() as OrionNavMainEmits;
-const props = withDefaults(defineProps<OrionNavMainProps>(), OrionNavMainSetupService.defaultProps);
-const setup = new OrionNavMainSetupService(props, emits);
+const props = withDefaults(defineProps<OrionNavMainProps>(), OrionNavMainSetup.defaultProps);
+const setup = new OrionNavMainSetup(props, emits);
 defineExpose(setup.publicInstance);
 </script>

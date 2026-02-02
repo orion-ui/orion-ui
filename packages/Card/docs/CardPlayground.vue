@@ -8,7 +8,7 @@
 			v-if="state.poster"
 			#poster>
 			<img
-				style="height:10rem"
+				style="height: 10rem;"
 				src="https://picsum.photos/id/1006/200">
 		</template>
 
@@ -22,6 +22,13 @@
 				icon="play_arrow"
 				ripple="success"
 				@click="triggerNotif()"/>
+
+			<o-button
+				size="sm"
+				color="primary"
+				@click.stop="triggerNotif()">
+				Click me !
+			</o-button>
 		</template>
 	</o-card>
 
@@ -89,8 +96,8 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue';
 import { useNotif } from 'lib';
+import { reactive } from 'vue';
 
 function triggerNotif () {
 	useNotif.info('Nice job !');
@@ -113,8 +120,8 @@ const state = reactive({
 
 <style lang="less" scoped>
 .orion-card {
-	margin: auto;
 	width: 20rem;
+	margin: auto;
 }
 </style>
 

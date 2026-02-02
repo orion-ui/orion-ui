@@ -1,9 +1,8 @@
-import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
+import { type App, type Plugin } from 'vue';
 import OrionChat from './src/OrionChat.vue';
-import OrionChatSetupService from './src/OrionChatSetupService';
-import type { OrionChatEmits, OrionChatProps } from './src/OrionChatSetupService';
-import OrionChatEntity from './src/OrionChatEntity';
+import { OrionChatEntity } from './src/OrionChatEntity';
+import { OrionChatSetup, type OrionChatEmits, type OrionChatProps } from './src/OrionChatSetup';
 
 export const OrionChatPlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -11,4 +10,4 @@ export const OrionChatPlugin: Plugin = {
 	},
 };
 
-export { OrionChat, OrionChatSetupService, OrionChatEntity, OrionChatEmits, OrionChatProps };
+export { OrionChat, OrionChatEntity, OrionChatSetup, type OrionChatEmits, type OrionChatProps };

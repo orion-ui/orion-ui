@@ -28,7 +28,7 @@
 		<template
 			v-if="selectValue"
 			#value="{ item }">
-			<div>
+			<div v-if="item">
 				<b>Selected :</b>
 				{{ item.name }} based in <em class="text--info">{{ item.city }}</em>
 			</div>
@@ -37,16 +37,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { getUid } from 'lib';
 import { faker } from '@faker-js/faker';
+import { getUid } from 'lib';
+import { ref } from 'vue';
 
 type FakeCompany = {
 	id: number
 	name: string
 	catchPhrase: string
 	city: string
-}
+};
 
 function seedOptions (qty = 10) {
 	const items: FakeCompany[] = [];
@@ -69,15 +69,15 @@ const selectValue = ref<FakeCompany>();
 <style lang="less" scoped>
 .demo {
 	&__before-option {
-		background-color: var(--o-background-info-minimal);
+		margin-bottom: 0.5rem;
 		padding: 0.5rem;
+		border-radius: 0.25rem;
+		font-size: 0.85rem;
+		font-weight: 700;
+		color: var(--o-text-neutral-default);
 		text-align: center;
 		text-transform: uppercase;
-		font-weight: 700;
-		font-size: 0.85rem;
-		color: var(--o-text-default-default);
-		border-radius: 0.25rem;
-		margin-bottom: 0.5rem;
+		background-color: var(--o-background-info-minimal);
 	}
 
 	&__item-option {
@@ -86,37 +86,40 @@ const selectValue = ref<FakeCompany>();
 		gap: 0.125rem;
 
 		> strong {
-			color: var(--o-text-default-default);
+			color: var(--o-text-neutral-default);
+
 			.selected > & {
-				color: var(--o-text-default-inverted);
+				color: var(--o-text-neutral-inverted);
 			}
 		}
 
 		> div {
 			color: var(--o-text-info-default);
+
 			.selected > & {
 				color: var(--o-text-info-subtle);
 			}
 		}
 
 		> em {
-			color: var(--o-text-default-subtle);
+			color: var(--o-text-neutral-subtle);
+
 			.selected > & {
-				color: var(--o-text-default-moderate);
+				color: var(--o-text-neutral-moderate);
 			}
 		}
 	}
 
 	&__after-option {
-		background-color: var(--o-background-primary-minimal);
-		padding: 0.5rem;
-		text-align: center;
-		font-style: italic;
-		font-weight: 700;
-		font-size: 0.85rem;
-		color: var(--o-text-primary-default);
-		border-radius: 0.25rem;
 		margin-top: 0.5rem;
+		padding: 0.5rem;
+		border-radius: 0.25rem;
+		font-size: 0.85rem;
+		font-weight: 700;
+		font-style: italic;
+		color: var(--o-text-primary-default);
+		text-align: center;
+		background-color: var(--o-background-primary-minimal);
 	}
 }
 </style>
@@ -142,4 +145,3 @@ Utilisez le slot `option` pour personnaliser la façon d'afficher les **options*
 
 Utilisez le slot `value` ou `multiple-value` pour personnaliser la façon d'afficher la **valeur**.
 @lang
-

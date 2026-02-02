@@ -95,9 +95,9 @@
 import { reactive } from 'vue';
 
 type Specific = {
-		color: Orion.Color;
-		date: Date;
-		exclude: boolean;
+	color: Orion.Color
+	date: Date
+	exclude: boolean
 };
 
 const today = new Date();
@@ -124,7 +124,7 @@ const state = reactive({
 			isStart: false,
 			isEnd: false,
 			start: new Date(today.setDate(today.getDate())),
-			end: new Date(today.setDate(today.getDate()+7)),
+			end: new Date(today.setDate(today.getDate() + 7)),
 			label: 'period 1',
 			color: 'info',
 		},

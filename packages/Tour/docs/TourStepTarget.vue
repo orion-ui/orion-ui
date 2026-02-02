@@ -4,7 +4,7 @@
 			id="tour2"
 			outline
 			color="info"
-			@click="startTour">
+			@click="startTour()">
 			Step with no target
 		</o-button>
 		<o-button
@@ -23,7 +23,6 @@
 		</o-button>
 	</div>
 </template>
-
 
 <script setup lang="ts">
 import { useTour } from 'lib';

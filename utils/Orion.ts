@@ -1,5 +1,5 @@
 import FloatingVue from 'floating-vue';
-import { App, createVNode, render } from 'vue';
+import { type App, createVNode, render } from 'vue';
 
 import { OrionComponentsPlugin } from '../packages';
 import { OrionLoader } from '../packages/Loader';
@@ -9,18 +9,18 @@ import { setAppLang } from '../services/LangService';
 import { Log } from './Log';
 import { handleTouchDevice, initThemeMode, setIconStyle } from './tools';
 
-
 export class OrionAppService {
+
 	private _app!: App;
 	private config!: Orion.AppServiceConfig;
 
-	get app () { return this._app; }
-	get appContext () { return this._app._context; }
-	get appInstance () { return this._app._instance; }
-	get appConfig () { return this.config; }
-	get appUse () { return this.config.use; }
-	get appPrefix () { return this.config.prefix; }
-	get appRouter () { return this.config.router; }
+	get app () { return this._app }
+	get appContext () { return this._app._context }
+	get appInstance () { return this._app._instance }
+	get appConfig () { return this.config }
+	get appUse () { return this.config.use }
+	get appPrefix () { return this.config.prefix }
+	get appRouter () { return this.config.router }
 
 	init (app: App, config: Orion.AppServiceConfig) {
 		Log.orion('•• START •• Orion initializer');
@@ -41,9 +41,13 @@ export class OrionAppService {
 				themes: {
 					'orion': {
 						$extend: 'dropdown',
-						arrowPadding: 15,
+						distance: -4,
 					},
-					'orion-select': { $extend: 'orion' },
+					'orion-select': {
+						$extend: 'orion',
+						autoSize: 'min',
+						distance: -2,
+					},
 					'orion-select-searchable': { $extend: 'orion' },
 					'orion-pop-confirm': { $extend: 'orion' },
 					'orion-editor-toolbar': {
@@ -54,7 +58,6 @@ export class OrionAppService {
 					},
 				},
 			});
-			// this.app.use(directives);
 
 			this.createPopableWrapper();
 			this.createMainOverlay();
@@ -114,6 +117,7 @@ export class OrionAppService {
 			useDocument()?.body.appendChild(vnode.el as Node);
 		}
 	}
+
 }
 
 export const orionAppService = new OrionAppService();

@@ -30,9 +30,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed, watch } from 'vue';
-import { getUid, useNotif } from 'lib';
 import { faker } from '@faker-js/faker';
+import { getUid, useNotif } from 'lib';
+import { computed, reactive, ref, watch } from 'vue';
 
 const fullList = ref(seedList());
 const list = computed(() => fullList.value.slice(state.size * (state.index - 1), state.size * state.index));

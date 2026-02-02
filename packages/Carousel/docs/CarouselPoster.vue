@@ -32,9 +32,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
 import { faker } from '@faker-js/faker';
 import { getUid } from 'lib';
+import { computed, ref } from 'vue';
 
 type Step = { id: number, index: number, desc: string, label: string };
 
@@ -58,31 +58,35 @@ carouselStep.value = steps.value[0].id;
 
 <style scoped lang="less">
 .animated-poster {
-	transition: gap 0.5s ease-out;
 	display: flex;
+	gap: 0;
 	align-items: center;
 	justify-content: center;
-	gap: 0;
 	margin-bottom: 1rem;
+	transition: gap 0.5s ease-out;
 
 	> div {
-		transition: transform 0.5s ease-in-out;
 		width: 2rem;
 		height: 2rem;
 		border-radius: 1rem;
+		transition: transform 0.5s ease-in-out;
 
 		&:nth-child(1) {
 			background-color: navy;
 		}
+
 		&:nth-child(2) {
 			background-color: dodgerblue;
 		}
+
 		&:nth-child(3) {
 			background-color: deepskyblue;
 		}
+
 		&:nth-child(4) {
 			background-color: aqua;
 		}
+
 		&:nth-child(5) {
 			background-color: aquamarine;
 		}
@@ -97,15 +101,15 @@ carouselStep.value = steps.value[0].id;
 			}
 		}
 
-	})
+	});
 }
 
 .step-content {
 	padding: 1rem 0;
-	text-align: center;
 	font-size: 0.85rem;
 	font-weight: 600;
-	color: var(--o-text-default-default);
+	color: var(--o-text-neutral-default);
+	text-align: center;
 
 	> .orion-input {
 		width: 50%;
@@ -122,10 +126,8 @@ carouselStep.value = steps.value[0].id;
 Use the `poster` slot if you want to display a fixed content or a CSS animation based on the active step's index.
 @lang
 
-
 @lang:fr
 ### Utilisation du slot poster
 
 Utilisez le slot `poster` pour afficher un élément statique ou une animation CSS basée sur l'index de l'élément actif.
 @lang
-

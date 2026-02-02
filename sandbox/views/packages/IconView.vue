@@ -5,19 +5,19 @@
 				v-model="state.loading"
 				label="Loading"/>
 			<o-icon
-				style="font-size: 24px;"
+				style="font-size: 1.5rem;"
 				icon="camera"
 				:loading="state.loading"/>
 		</o-section>
 
 		<div
 			class="my-xl flex ai-c"
-			style="background-color:antiquewhite;">
+			style="background-color: antiquewhite;">
 			<o-icon
-				style="font-size:1.5rem"
+				style="font-size: 1.5rem;"
 				icon="camera"/>
 			<o-icon
-				style="font-size:1.5rem"
+				style="font-size: 1.5rem;"
 				icon="camera"
 				button="primary"/>
 		</div>
@@ -37,32 +37,32 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue';
-import { getUid } from 'lib';
 import { materialIcons } from 'assets/fonts/materialIcons';
+import { getUid } from 'lib';
+import { reactive } from 'vue';
 const state = reactive({ loading: false });
 </script>
 
 <style lang="less" scoped>
 .demo-icon-wrapper {
 	display: flex;
-	align-items: flex-start;
 	flex-wrap: wrap;
-	gap: 30px;
+	gap: 1.875rem;
+	align-items: flex-start;
 }
 
 .demo-icon {
-	flex: 180px 0 0;
 	display: flex;
+	flex: 11.25rem 0 0;
 	flex-direction: column;
+	gap: 1rem;
 	align-items: center;
-	gap: 15px;
+	padding: 1.25rem;
 	background: var(--o-background-neutral-default);
-	padding: 20px;
 
 	.orion-icon {
 		display: block;
-		font-size: 24px;
+		font-size: 1.5rem;
 	}
 }
 </style>

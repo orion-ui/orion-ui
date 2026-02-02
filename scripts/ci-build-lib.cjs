@@ -3,4 +3,3 @@
 (async () => {
 	await require('./private/create-lib.cjs')({ dist: true });
 })();
-

@@ -19,7 +19,6 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
 
-
 const state = reactive({
 	value: undefined,
 	passwordToConfirm: undefined,

@@ -1,20 +1,21 @@
-@import '../../Shared/styles/variables.less';
-@import '../../Shared/styles/mixins.less';
+@import "../../Shared/styles/variables.less";
+@import "../../Shared/styles/mixins.less";
 
 .orion-avatar {
 	display: flex;
-	align-items: center;
 	gap: var(--o-space-8);
+	align-items: center;
 
 	&__pill {
-		transition: all 0.3s;
 		position: relative;
 		display: flex;
+		flex: none;
 		align-items: center;
 		justify-content: center;
-		flex: none;
-		border-radius: 100%;
 		aspect-ratio: 1;
+		border: 1px solid var(--o-border-neutral-subtle);
+		border-radius: 100%;
+		transition: all 0.3s;
 
 		.orion-avatar--xl & {
 			.circle(3.5rem);
@@ -103,23 +104,23 @@
 
 	&__image {
 		display: block;
+		aspect-ratio: 1;
 		width: 100%;
 		height: 100%;
-		object-fit: cover;
 		border-radius: inherit;
-		aspect-ratio: 1;
+		object-fit: cover;
 	}
 
 	&__initial {
-		transition: font-size 0.3s;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		width: 100%;
 		height: 100%;
-		color: var(--o-text-default-inverted);
-		line-height: 1;
 		border-radius: inherit;
+		line-height: 1;
+		color: var(--o-text-neutral-inverted);
+		transition: font-size 0.3s;
 
 		.orion-avatar--xl & {
 			.typography(heading-h4);
@@ -144,30 +145,39 @@
 		each(@colors, {
 			.orion-avatar--@{value} & {
 				background: var(~"--o-background-@{value}-default");
-				border: 1px solid var(~"--o-border-@{value}-subtle");
 			}
 		});
 
-		.orion-avatar--default>& {
+		.orion-avatar--neutral & {
+			color: var(--o-text-neutral-default);
 			background: var(--o-background-neutral-subtle);
-			color: var(--o-text-default-default);
 		}
 
-		.orion-avatar--inverted>& {
+		.orion-avatar--inverted & {
 			background: var(--o-background-neutral-highlight);
 		}
 	}
 
 	&__picto {
 		.flex-align();
-		transition: transform 0.3s, opacity 0.3s;
-		position: absolute;
-		bottom: 0;
-		right: 0;
-		z-index: 2;
-		color: var(--o-text-default-default);
-		background: var(--o-background-neutral-default);
+
 		cursor: pointer;
+		position: absolute;
+		z-index: 2;
+		right: 0;
+		bottom: 0;
+		color: var(--o-text-neutral-default);
+		background: var(--o-background-neutral-default);
+		transition: transform 0.3s, opacity 0.3s;
+
+		.orion-avatar--square & {
+			transform:
+				translate3d(
+					calc(var(--o-space-8) * 0.5),
+					calc(var(--o-space-8) * 0.5),
+					0
+				);
+		}
 
 		.orion-avatar--xl &,
 		.orion-avatar--lg & {
@@ -185,9 +195,7 @@
 
 		.orion-avatar--xs & {
 			opacity: 0;
-		}
 
-		.orion-avatar--xs & {
 			.orion-icon {
 				font-size: 0.75rem;
 			}
@@ -195,12 +203,6 @@
 			&:hover {
 				opacity: 1;
 			}
-		}
-
-		.orion-avatar--square & {
-			transform: translate3d(calc(var(--o-space-8) * -1),
-					calc(var(--o-space-8) * -1),
-					0);
 		}
 	}
 
@@ -227,12 +229,6 @@
 	&--square {
 		.orion-avatar__pill {
 			border-radius: 0;
-		}
-
-		.orion-avatar__picto {
-			transform: translate3d(calc(var(--o-space-8) * 0.5),
-					calc(var(--o-space-8) * 0.5),
-					0);
 		}
 	}
 

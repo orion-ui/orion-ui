@@ -15,8 +15,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
-import { materialIcons, getUid } from 'lib';
+import { getUid, materialIcons } from 'lib';
+import { computed, ref } from 'vue';
 
 const filter = ref<string>();
 const icons = computed(() => {
@@ -29,28 +29,28 @@ const icons = computed(() => {
 
 <style scoped lang="less">
 .orion-input {
-	margin: 0 auto 2rem;
 	max-width: calc(11rem * 3 + 4rem);
+	margin: 0 auto 2rem;
 }
 
 .demo-icon-wrapper {
+	overflow: auto;
 	display: flex;
-	align-items: flex-start;
-	justify-content: center;
 	flex-wrap: wrap;
 	gap: 2rem;
+	align-items: flex-start;
+	justify-content: center;
 	max-height: 60vh;
-	overflow: auto;
 }
 
 .demo-icon {
-	flex: 11rem 0 0;
 	display: flex;
+	flex: 11rem 0 0;
 	flex-direction: column;
-	align-items: center;
 	gap: 1rem;
-	background: var(--o-background-neutral-default);
+	align-items: center;
 	padding: 1.25rem;
+	background: var(--o-background-neutral-default);
 
 	.orion-icon {
 		display: block;
@@ -71,4 +71,3 @@ See the full icon list and filter them by name or browse on the library's offici
 Retrouvez ici la liste complèteque vous pouvez filtrer par nom, ou visitez le site officiel de la
 bibliothèque : [Material Icons](https://fonts.google.com/icons)
 @lang
-

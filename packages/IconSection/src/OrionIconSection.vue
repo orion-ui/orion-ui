@@ -24,14 +24,14 @@
 </template>
 
 <script setup lang="ts">
-import './OrionIconSection.less';
 import { OrionIcon } from 'packages/Icon';
-import OrionIconSectionSetupService from './OrionIconSectionSetupService';
-import type { OrionIconSectionProps, OrionIconSectionEmits } from './OrionIconSectionSetupService';
+import './OrionIconSection.less';
+import { OrionIconSectionSetup, type OrionIconSectionEmits, type OrionIconSectionProps } from './OrionIconSectionSetup';
 const emits = defineEmits<OrionIconSectionEmits>() as OrionIconSectionEmits;
-const props = withDefaults(defineProps<OrionIconSectionProps>(), OrionIconSectionSetupService.defaultProps);
-const setup = new OrionIconSectionSetupService(props, emits);
+const props = withDefaults(defineProps<OrionIconSectionProps>(), OrionIconSectionSetup.defaultProps);
+const setup = new OrionIconSectionSetup(props, emits);
 defineExpose(setup.publicInstance);
+
 /**
  * @doc slot/default the content of the description
  * @doc/fr slot/default contenu de la description

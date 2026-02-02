@@ -32,9 +32,7 @@
 					v-model="state.readonly"
 					label="Readonly"/>
 			</div>
-		
 		</div>
-		
 
 		<div class="row row--grid-xs">
 			<div class="col-sm-4">

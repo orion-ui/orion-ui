@@ -1,6 +1,7 @@
 import { reactive } from 'vue';
 
-export default class SharedEntity<T extends {}> {
+export class SharedEntity<T extends {}> {
+
 	protected entity = reactive({}) as T;
 
 	constructor (data?: Partial<T>) {
@@ -14,4 +15,5 @@ export default class SharedEntity<T extends {}> {
 	resetData () {
 		this.entity = reactive({}) as T;
 	}
+
 }

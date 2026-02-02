@@ -49,12 +49,11 @@
 </template>
 
 <script setup lang="ts">
-import './OrionChatMessage.less';
 import { OrionAvatar } from 'packages/Avatar';
-import OrionChatMessageSetupService from './OrionChatMessageSetupService';
-import type { OrionChatMessageProps, OrionChatMessageEmits } from './OrionChatMessageSetupService';
+import './OrionChatMessage.less';
+import { OrionChatMessageSetup, type OrionChatMessageEmits, type OrionChatMessageProps } from './OrionChatMessageSetup';
 const emits = defineEmits<OrionChatMessageEmits>() as OrionChatMessageEmits;
-const props = withDefaults(defineProps<OrionChatMessageProps>(), OrionChatMessageSetupService.defaultProps);
-const setup = new OrionChatMessageSetupService(props, emits);
+const props = withDefaults(defineProps<OrionChatMessageProps>(), OrionChatMessageSetup.defaultProps);
+const setup = new OrionChatMessageSetup(props, emits);
 defineExpose(setup.publicInstance);
 </script>

@@ -1,6 +1,5 @@
 <template>
-	<o-sticker
-		title="Title">
+	<o-sticker title="Title">
 		Lorem ipsum dolor sit amet consectetur adipisicing elit.
 		Tempora blanditiis cumque modi ullam non fugiat nulla suscipit.
 	</o-sticker>
@@ -19,21 +18,18 @@
 		Tempora blanditiis cumque modi ullam non fugiat nulla suscipit.
 	</o-sticker>
 
-	<o-sticker
-		title="With actions">
+	<o-sticker title="With actions">
 		Lorem ipsum dolor sit amet consectetur adipisicing elit.
 		Tempora blanditiis cumque modi ullam non fugiat nulla suscipit.
 		<template #actions>
 			<o-icon
 				ripple="info"
 				icon="check"/>
-			<o-icon
-				icon="undo"/>
+			<o-icon icon="undo"/>
 		</template>
 	</o-sticker>
 
-	<o-sticker
-		title="Thumbnail">
+	<o-sticker title="Thumbnail">
 		Lorem ipsum dolor sit amet consectetur adipisicing elit.
 		Tempora blanditiis cumque modi ullam non fugiat nulla suscipit.
 		<template #thumbnail>
@@ -45,9 +41,7 @@
 	</o-sticker>
 </template>
 
-
 @hl {3,10,17,26-31,39-44}
-
 
 @lang:en
 ### Style

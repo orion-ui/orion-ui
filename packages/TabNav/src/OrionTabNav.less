@@ -1,75 +1,109 @@
-@import '../../Shared/styles/variables.less';
-@import '../../Shared/styles/mixins.less';
+@import "../../Shared/styles/variables.less";
+@import "../../Shared/styles/mixins.less";
 
 .orion-tab-nav {
-	transition: color 0.3s, border-color 0.3s;
+	cursor: pointer;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	flex: 1 0 0%;
-	padding: var(--o-space-48) var(--o-space-16);
 	border-bottom: 0.125rem solid var(--o-background-neutral-subtle);
 	font-size: 0.8125rem;
 	font-weight: bold;
 	line-height: 1.2;
+	color: var(--o-text-neutral-default);
 	text-align: center;
-	text-transform: uppercase;
-	color: var(--o-text-default-default);
-	cursor: pointer;
+	transition: color 0.3s, border-color 0.3s;
 
 	&-wrap {
 		display: flex;
-		align-items: stretch;
 		flex-wrap: wrap;
+		align-items: stretch;
 	}
 
 	&__icon {
-		font-size: 1rem;
 		pointer-events: none;
-
-		+ .orion-tab-nav__label {
-			margin-left: 0.5rem;
-		}
+		font-size: var(--o-typography-body1-bold-font-size);
+		font-weight: var(--o-typography-body1-bold-font-weight);
 	}
 
 	&__content {
 		position: relative;
 		display: inline-flex;
+		gap: var(--o-space-8);
 		align-items: center;
 		justify-content: center;
 	}
 
+	&__label {
+		.typography(body2-default);
+	}
+
 	&__marker {
-		.marker();
+		position: absolute;
 		top: 0;
 		right: 0;
 		transform: translate(100%, -75%);
 
-		&--number {
-			.markerNumber();
+		.orion-tab-nav--disabled & {
+			background: var(--o-background-neutral-disabled);
 		}
 	}
 
-	&:hover:not(.orion-tab-nav--active) {
-		color: var(--o-text-default-default);
-		border-color: var(--o-border-neutral-default);
+	&--active {
+		border-color: var(--o-border-primary-default);
+		color: var(--o-text-primary-default);
+
+		&:not(.orion-tabs--floating) & {
+			border-right: none !important;
+			border-left: none !important;
+		}
 	}
 
-	&--active {
-		border-right: none !important;
-		border-left: none !important;
-		border-color: var(--o-border-info-default);
-		color: var(--o-text-info-default);
+	.orion-tabs__header--md & {
+		padding: var(--o-space-16);
+	}
+
+	.orion-tabs__header--sm & {
+		padding: var(--o-space-8);
 	}
 
 	&--disabled {
 		cursor: not-allowed;
+		border-bottom-color: transparent;
+		color: var(--o-text-neutral-subtle);
+	}
 
-		.orion-tab-nav__label,
-		.orion-tab-nav__marker,
-		.orion-tab-nav__icon {
-			opacity: 0.5;
+	.orion-tabs--floating .orion-tabs__header--md & {
+		padding: var(--o-space-8) var(--o-space-12);
+	}
+
+	.orion-tabs--floating .orion-tabs__header--sm & {
+		padding: var(--o-space-4) var(--o-space-12);
+	}
+	/* stylelint-disable-next-line no-descending-specificity */
+	.orion-tabs--floating & {
+		border: 1px solid transparent;
+		border-radius: var(--o-radius-8);
+
+		/* stylelint-disable-next-line no-descending-specificity */
+		&--active {
+			border: 1px solid var(--o-border-neutral-default);
+			background-color: var(--o-background-neutral-default);
 		}
+
+		&:hover:not(.orion-tab-nav--active, .orion-tab-nav--disabled) {
+			border-color: var(--o-border-neutral-default);
+		}
+
+		.orion-tab-nav__label {
+			.typography(body2-bold);
+		}
+	}
+
+	/* stylelint-disable-next-line no-descending-specificity */
+	&:hover:not(.orion-tab-nav--active, .orion-tab-nav--disabled) {
+		border-color: var(--o-border-primary-default);
+		color: var(--o-text-neutral-default);
 	}
 
 	@media @phone {
@@ -88,8 +122,8 @@
 
 		&-icon {
 			+ .orion-tab-nav__label {
-				margin-left: 0;
 				margin-top: 0.25rem;
+				margin-left: 0;
 				font-size: 0.5rem;
 				line-height: 0.5rem;
 			}
@@ -101,13 +135,12 @@
 	}
 
 	@media @tabletOnly {
+		padding: var(--o-space-32) var(--o-space-16);
 		font-size: 0.75rem;
 		line-height: 1.25;
-		padding: var(--o-space-32) var(--o-space-16);
 	}
 
 	@media @desktopOnly {
 		padding: var(--o-space-32);
 	}
 }
-

@@ -1,17 +1,17 @@
 import { devtool } from 'devtool';
-import { getUid } from 'utils/tools';
 import { orionAppService } from 'utils/Orion';
-import { VNode } from 'vue';
+import { getUid } from 'utils/tools';
+import { type VNode } from 'vue';
 
 export abstract class PopableService<T> {
+
 	abstract nameForDevtool: string;
 
 	protected options: Partial<Orion.Popable.Options> & {
-    openauto: boolean;
-    programmatic: boolean;
-    uid: number;
-  };
-
+		openauto: boolean
+		programmatic: boolean
+		uid: number
+	};
 
 	constructor (options: Partial<Orion.Aside.Options>) {
 		this.options = {
@@ -22,7 +22,6 @@ export abstract class PopableService<T> {
 		};
 	}
 
-
 	registerComponentInstanceInDevtool (vnode: VNode) {
 		if (vnode.component?.uid && orionAppService.appInstance) {
 			vnode.component.parent = orionAppService.appInstance;
@@ -30,7 +29,7 @@ export abstract class PopableService<T> {
 
 			devtool?.on.visitComponentTree((payload: any) => {
 				// Add custom type to the treeNode
-				type CustomComponentTreeNode = typeof payload.treeNode & { orionUid: number }
+				type CustomComponentTreeNode = typeof payload.treeNode & { orionUid: number };
 
 				if (payload.treeNode.uid === orionAppService.appInstance?.uid && vnode.component?.uid) {
 					(payload.treeNode.children as CustomComponentTreeNode[]).push({
@@ -48,19 +47,19 @@ export abstract class PopableService<T> {
 					});
 
 					setTimeout(() => {
-						this.notifyPopableUpdate(vnode.component?.uid ?? 0);
+						this.notifyPopableUpdateAsync(vnode.component?.uid ?? 0);
 					}, 100);
 				}
 			});
 		}
 	}
 
-	async notifyPopableUpdate (targetUid: number) {
+	async notifyPopableUpdateAsync (targetUid: number) {
 		const allInstances = await devtool?.getComponentInstances(orionAppService.app);
 		const instance = allInstances?.find((x: any) => x.uid === targetUid);
 		devtool?.notifyComponentUpdate(instance);
 	}
 
+	abstract createVNode (): T;
 
-  abstract createVNode (): T
 }

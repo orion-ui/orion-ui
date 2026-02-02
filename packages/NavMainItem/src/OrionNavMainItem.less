@@ -1,40 +1,38 @@
-@import '../../Shared/styles/variables.less';
-@import '../../Shared/styles/mixins.less';
+@import "../../Shared/styles/variables.less";
+@import "../../Shared/styles/mixins.less";
 
 .orion-nav-main__item {
-	transition: color 0.3s;
+	cursor: pointer;
 	position: relative;
 	display: flex;
-	align-items: center;
 	gap: 0.75rem;
+	align-items: center;
 	min-height: 2rem;
 	padding-left: var(--o-space-48);
-	font-weight: bold;
-	text-transform: uppercase;
-	text-decoration: none;
-	color: var(--o-text-default-default);
 	font-size: 0.75rem;
+	font-weight: bold;
 	line-height: 1.25;
-	cursor: pointer;
+	color: var(--o-text-neutral-default);
+	text-decoration: none;
+	text-transform: uppercase;
+	transition: color 0.3s;
 
 	&::before {
-		transition: transform 0.3s;
-		content: '';
-		display: block;
+		content: "";
 		position: absolute;
-		left: 0;
 		top: calc(50% - 0.0625rem);
-		height: 0.125rem;
-		width: 2rem;
-		background: var(--o-background-info-default);
-		transform: scale3d(0, 1, 1);
+		left: 0;
 		transform-origin: left;
+		transform: scale3d(0, 1, 1);
+		display: block;
+		width: 2rem;
+		height: 0.125rem;
+		background: var(--o-background-info-default);
+		transition: transform 0.3s;
 	}
 
 	&.router-link-exact-active,
-	&.router-link-active:not(.orion-nav-main__item--root):not(
-			.active-when-exact
-		) {
+	&.router-link-active:not(.orion-nav-main__item--root, .active-when-exact) {
 		color: var(--o-text-info-default);
 
 		&::before {
@@ -50,10 +48,10 @@
 		}
 
 		&--children-indicator {
-			transition: opacity 0.3s, transform 0.3s;
+			transform: translate3d(-3rem, 0, 0);
 			font-size: 0.8125rem;
 			opacity: 0;
-			transform: translate3d(-3rem, 0, 0);
+			transition: opacity 0.3s, transform 0.3s;
 		}
 
 		&--collapse {
@@ -62,24 +60,13 @@
 		}
 	}
 
-	body:not(.istouch) & {
-		&:hover:not(.router-link-active) {
-			color: var(--o-text-default-default);
-		}
-
-		&:hover .icon--children-indicator {
-			opacity: 1;
-			transform: translate3d(0, 0, 0);
-		}
-	}
-
 	&--section-title {
-		color: var(--o-text-default-moderate);
-		cursor: default;
 		pointer-events: none;
+		cursor: default;
 		font-size: 1.5rem;
-		line-height: 1.66;
 		font-weight: 200;
+		line-height: 1.66;
+		color: var(--o-text-neutral-moderate);
 		text-transform: none;
 
 		.icon {
@@ -91,16 +78,27 @@
 		}
 	}
 
+	.orion-nav-main-item__children & {
+		font-size: 0.7rem;
+	}
+
+	body:not(.istouch) & {
+		&:hover:not(.router-link-active) {
+			color: var(--o-text-neutral-default);
+		}
+
+		&:hover .icon--children-indicator {
+			transform: translate3d(0, 0, 0);
+			opacity: 1;
+		}
+	}
+
 	@media @desktop {
 		font-size: 0.8125rem;
 
 		&--section-title {
 			font-size: 2rem;
 		}
-	}
-
-	.orion-nav-main-item__children & {
-		font-size: 0.7rem;
 	}
 }
 
@@ -112,4 +110,3 @@
 		padding: 1rem;
 	}
 }
-

@@ -1,10 +1,12 @@
 export class Pluralizer {
+
 	static pluralize (words: string, quantity: number, quantityIncluded = true) {
 		const prefix = quantityIncluded ? `${quantity} ` : '';
 
 		if (quantity >= 2 || quantity <= -2) {
 			return prefix + Pluralizer.pluralizeWords(words);
-		} else {
+		}
+		else {
 			return prefix + words;
 		}
 	}
@@ -30,6 +32,7 @@ export class Pluralizer {
 		}
 		return `${word}s`;
 	}
+
 }
 
 // #region Methods for pronoun's formatting
@@ -126,5 +129,3 @@ exceptions.set('ciel', cielFormatting);
 exceptions.set('oeil', oeilFormatting);
 exceptions.set('œil', oeilFormatting);
 // #endregion
-
-export default Pluralizer;

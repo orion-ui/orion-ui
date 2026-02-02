@@ -70,9 +70,7 @@
 
 <script setup lang="ts">
 import { useNotif, useTour } from 'services';
-import { onMounted } from 'vue';
-import { ref } from 'vue';
-
+import { onMounted, ref } from 'vue';
 
 const _tour = ref<OrionTour>();
 

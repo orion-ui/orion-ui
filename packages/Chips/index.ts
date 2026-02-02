@@ -1,8 +1,7 @@
-import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
+import { type App, type Plugin } from 'vue';
 import OrionChips from './src/OrionChips.vue';
-import type { OrionChipsEmits, OrionChipsProps } from './src/OrionChipsSetupService';
-import OrionChipsSetupService from './src/OrionChipsSetupService';
+import { OrionChipsSetup, type OrionChipsEmits, type OrionChipsProps } from './src/OrionChipsSetup';
 
 export const OrionChipsPlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,4 +9,4 @@ export const OrionChipsPlugin: Plugin = {
 	},
 };
 
-export { OrionChips, OrionChipsSetupService, OrionChipsEmits, OrionChipsProps };
+export { OrionChips, OrionChipsSetup, type OrionChipsEmits, type OrionChipsProps };

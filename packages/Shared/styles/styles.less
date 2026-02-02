@@ -1,13 +1,13 @@
 // @import (css) url('https://fonts.bunny.net/css?family=source-sans-pro:200,200i,300,300i,400,400i,600,600i,700,700i');
-@import (css) url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;1,200;1,300;1,400;1,600;1,700&display=swap');
+@import "https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;1,200;1,300;1,400;1,600;1,700&display=swap";
 
-@import './animations';
-@import './dependencies';
-@import './grid';
-@import './helpers';
-@import './reset';
-@import './tooltip';
-@import './transitions';
+@import "./animations";
+@import "./dependencies";
+@import "./grid";
+@import "./helpers";
+@import "./reset";
+@import "./tooltip";
+@import "./transitions";
 @import "./tokens/semantic/tokens-orion.less";
 
 :root {
@@ -15,14 +15,14 @@
 }
 
 * {
-	box-sizing: border-box;
-	scrollbar-width: thin;
 	scrollbar-color: var(--o-background-neutral-moderate) transparent;
+	scrollbar-width: thin;
+	box-sizing: border-box;
 }
 
 *::-webkit-scrollbar {
-	width: 7px;
-	height: 7px;
+	width: 0.4375rem;
+	height: 0.4375rem;
 }
 
 *::-webkit-scrollbar-corner,
@@ -31,8 +31,8 @@
 }
 
 *::-webkit-scrollbar-thumb {
-	background-color: var(--o-background-neutral-moderate);
 	border-radius: 20px;
+	background-color: var(--o-background-neutral-moderate);
 }
 
 html,
@@ -46,7 +46,8 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	.typography(body2-default);
-	color: var(--o-text-default-default);
+
+	color: var(--o-text-neutral-default);
 
 	&:has(.orion-modal--visible),
 	&:has(.orion-aside--visible) {
@@ -60,8 +61,8 @@ h3,
 h4,
 h5,
 h6 {
-	color: var(--o-text-default-default);
 	margin: 0;
+	color: var(--o-text-neutral-default);
 }
 
 h1 {
@@ -143,10 +144,7 @@ p {
 hr {
 	margin: 1rem auto;
 	border: 0;
-	border-bottom: 0.0625rem solid;
-	border-image: linear-gradient(to right,
-			var(--o-background-neutral-subtle),
-			var(--o-background-neutral-moderate)) 1;
+	border-bottom: 0.0625rem solid var(--o-border-neutral-default);
 
 	@media @desktop {
 		margin: 2rem auto;
@@ -154,22 +152,15 @@ hr {
 }
 
 .orion-highlighter {
-	transition: opacity 0.45s, transform 0.45s;
 	position: absolute;
+	transform: scale(0.85);
 	border: 2px solid rgba(var(--o-background-info-default), 0.8);
 	border-radius: 0.5rem;
 	opacity: 0;
-	transform: scale(0.85);
+	transition: opacity 0.45s, transform 0.45s;
 
 	&--visible {
-		opacity: 1;
 		transform: scale(1);
-	}
-}
-
-.v-popper {
-	&__inner {
-		background: var(--o-background-neutral-default);
-		border-color: var(--o-border-neutral-default);
+		opacity: 1;
 	}
 }

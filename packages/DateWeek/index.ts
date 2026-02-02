@@ -1,8 +1,7 @@
-import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
+import { type App, type Plugin } from 'vue';
 import OrionDateWeek from './src/OrionDateWeek.vue';
-import type { OrionDateWeekEmits, OrionDateWeekProps } from './src/OrionDateWeekSetupService';
-import OrionDateWeekSetupService from './src/OrionDateWeekSetupService';
+import { OrionDateWeekSetup, type OrionDateWeekEmits, type OrionDateWeekProps } from './src/OrionDateWeekSetup';
 
 export const OrionDateWeekPlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,4 +9,4 @@ export const OrionDateWeekPlugin: Plugin = {
 	},
 };
 
-export { OrionDateWeek, OrionDateWeekSetupService, OrionDateWeekEmits, OrionDateWeekProps };
+export { OrionDateWeek, OrionDateWeekSetup, type OrionDateWeekEmits, type OrionDateWeekProps };

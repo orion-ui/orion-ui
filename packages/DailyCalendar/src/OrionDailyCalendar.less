@@ -1,12 +1,12 @@
-@import '../../Shared/styles/variables.less';
-@import '../../Shared/styles/mixins.less';
+@import "../../Shared/styles/variables.less";
+@import "../../Shared/styles/mixins.less";
 
 .orion-daily-calendar {
 	position: relative;
 
 	&__header {
 		position: sticky;
-		background: var(--o-background-neutral-default);
+		z-index: 4;
 		top: 0;
 		right: 0;
 		left: 0;
@@ -14,7 +14,7 @@
 		margin: calc(-20rem / 16);
 		margin-bottom: 0;
 		padding: var(--o-space-48);
-		z-index: 4;
+		background: var(--o-background-neutral-default);
 	}
 
 	&__title {
@@ -26,10 +26,10 @@
 	}
 
 	&__hour {
-		padding: 1rem 0;
 		display: flex;
 		align-items: center;
 		width: 100%;
+		padding: 1rem 0;
 
 		&--now {
 			position: absolute;
@@ -37,9 +37,9 @@
 		}
 
 		&-number {
-			color: var(--o-text-default-moderate);
-			.typography(body2-default);
 			margin-right: 1.25rem;
+			color: var(--o-text-neutral-moderate);
+			.typography(body2-default);
 
 			&--now {
 				color: var(--o-text-danger-default);
@@ -47,44 +47,44 @@
 		}
 
 		&-line {
+			width: 100%;
 			height: calc(1rem / 16);
 			background: var(--o-background-neutral-subtle);
-			width: 100%;
 
 			&--now {
 				position: relative;
-				background: var(--o-background-danger-default);
-				height: calc(1rem / 16);
 				z-index: 2;
+				height: calc(1rem / 16);
+				background: var(--o-background-danger-default);
 
 				&::before {
-					content: '';
+					content: "";
 					position: absolute;
+					z-index: 2;
+					top: calc(-5rem / 16);
+					left: calc(-3rem / 16);
 					width: 0;
 					height: 0;
 					border-top: calc(6rem / 16) solid transparent;
 					border-bottom: calc(6rem / 16) solid transparent;
 					border-left: 0.5rem solid var(--o-background-danger-default);
-					top: calc(-5rem / 16);
-					left: calc(-3rem / 16);
-					z-index: 2;
 				}
 			}
 		}
 	}
 
 	&__task {
-		position: absolute;
-		width: calc(100% - 52px);
-		right: 0;
-		padding: var(--o-space-8) 10px;
-		background: rgba(var(--o-background-info-default), 0.25);
-		border-radius: 0.25rem;
-		color: var(--o-text-info-default);
-		font-weight: 600;
-		transition: all 0.2s ease;
 		cursor: pointer;
+		position: absolute;
+		right: 0;
 		overflow: hidden;
+		width: calc(100% - 3.25rem);
+		padding: var(--o-space-8) 0.625rem;
+		border-radius: 0.25rem;
+		font-weight: 600;
+		color: var(--o-text-info-default);
+		background: rgba(var(--o-background-info-default), 0.25);
+		transition: all 0.2s ease;
 
 		each(@colors, {
 			&--@{value} {
@@ -104,37 +104,34 @@
 		});
 
 		p {
+			margin: unset;
 			font-size: 0.75rem;
 			line-height: 0.875rem;
-			margin: unset;
 		}
 
 		&-wrapper {
 			position: absolute;
-			top: 0;
-			bottom: 0;
-			left: calc(52rem / 16);
-			right: 0;
+			inset: 0 0 0 calc(52rem / 16);
 		}
 	}
 
 	&__other-days {
 		position: absolute;
+		z-index: 5;
 		top: calc(25rem / 16);
 		right: 1.25rem;
-		font-size: 1rem;
-		color: var(--o-text-default-default);
 		display: flex;
 		gap: 0.5rem;
-		z-index: 5;
+		font-size: 1rem;
+		color: var(--o-text-neutral-default);
 	}
 
 	&__hidden-task-indicator {
 		position: sticky;
+		z-index: 3;
 		bottom: 1.25rem;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		z-index: 3;
 	}
 }

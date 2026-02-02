@@ -4,8 +4,8 @@
 
 <script setup lang="ts">
 import './{ComponentName}.less';
-import {ComponentName}SetupService from './{ComponentName}SetupService';
-const props = defineProps({ComponentName}SetupService.props);
-const setup = new {ComponentName}SetupService(props);
+import {ComponentName}Setup from './{ComponentName}Setup';
+const props = defineProps({ComponentName}Setup.props);
+const setup = new {ComponentName}Setup(props);
 defineExpose(setup.publicInstance);
 </script>

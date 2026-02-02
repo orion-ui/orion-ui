@@ -1,10 +1,13 @@
-@import '../../Shared/styles/variables.less';
-@import '../../Shared/styles/mixins.less';
+@import "../../Shared/styles/variables.less";
+@import "../../Shared/styles/mixins.less";
 
 .orion-datepicker {
 	.orion-input__input {
+		overflow: hidden;
+		display: flex;
+		align-items: center;
+		height: inherit;
 		min-height: 2.5rem;
-		height: auto;
 	}
 
 	&__timepicker-wrapper {
@@ -13,78 +16,88 @@
 
 	&-multiple {
 		display: flex;
-		align-items: center;
 		gap: var(--o-space-8);
+		align-items: center;
 
 		.orion-input__pictos {
-			top: calc(50% - 1.20rem);
+			top: calc(50% - 1.2rem);
 		}
 
 		.orion-input__input {
-			padding: var(--o-space-8);
-			align-items: center;
-
 			display: flex;
+			align-items: center;
+			padding: var(--o-space-8);
 		}
 
 		.orion-label {
-			height: 1.25rem;
 			display: flex;
 			align-items: center;
+			height: 1.25rem;
 		}
 
 		&__content {
-			height: 100%;
+			z-index: 2;
+			overflow: hidden;
 			display: flex;
-			flex-wrap: wrap;
-			gap: var(--o-space-8);
+			gap: var(--o-space-4);
 			align-items: center;
+			width: inherit;
+			height: 100%;
 		}
 
 		&__clearable {
 			.flex-align();
-			-webkit-tap-highlight-color: transparent;
-			transition: all 0.3s;
-			font-size: 1rem;
-			opacity: 0.7;
+
+			pointer-events: all;
 			cursor: pointer;
 			margin: 0.125rem;
-			pointer-events: all;
-		
+			font-size: 1rem;
+			opacity: 0.7;
+			transition: all 0.3s;
+			-webkit-tap-highlight-color: transparent;
+
 			&::before {
-				content: '\00D7';
-				font-weight: 600;
+				content: "\00D7";
 				transform: translateY(-0.0625rem);
+				font-weight: 600;
 			}
-		
+
 			&:hover {
-				opacity: 1;
-				color: var(--o-text-default-default);
-				border-color: var(--o-border-neutral-default);
 				transform: rotate(90deg);
+				border-color: var(--o-border-neutral-default);
+				color: var(--o-text-neutral-default);
+				opacity: 1;
 			}
+		}
+
+		&__dropdown {
+			display: flex;
+			flex-direction: column;
+			gap: var(--o-space-4);
+			align-items: center;
+			justify-content: center;
 		}
 	}
 }
 
-
 .orion-datepicker-timepicker {
 	--picker-height: 8rem;
+
 	display: flex;
+	gap: 0.125rem;
 	align-items: center;
 	justify-content: center;
-	gap: 0.125rem;
 	width: 9rem;
 
 	&__hours,
 	&__minutes {
+		scroll-snap-type: y mandatory;
+		overflow: auto;
 		display: flex;
 		flex-direction: column;
 		width: 2.5rem;
 		height: var(--picker-height);
 		border-radius: 0.25rem;
-		overflow: auto;
-		scroll-snap-type: y mandatory;
 
 		&::-webkit-scrollbar {
 			display: none;
@@ -93,23 +106,24 @@
 
 	&__scroll-item {
 		--factor: 1;
-		transition: font-size 16ms, opacity 16ms;
+
+		scroll-snap-align: center;
 		position: relative;
 		display: flex;
+		flex: 0 0 calc(var(--picker-height) / 5);
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		scroll-snap-align: center;
-		flex: 0 0 calc(var(--picker-height) / 5);
 		min-width: 1px;
 		font-size: calc(1.75rem * var(--factor));
-		opacity: calc(1 * var(--factor));
 		line-height: 1;
+		opacity: calc(1 * var(--factor));
+		transition: font-size 0.016s, opacity 0.016s;
 	}
 
 	&__separator {
-		font-weight: bold;
 		font-size: 1rem;
+		font-weight: bold;
 	}
 
 	&__scroll-filler {
@@ -128,15 +142,14 @@
 
 .orion-datepicker-timepicker-actions {
 	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	gap: var(--o-space-8);
 	flex: 1;
+	flex-direction: column;
+	gap: var(--o-space-8);
+	justify-content: center;
 	padding: 1rem;
 
 	.orion-input__input {
-		text-align: center;
 		font-weight: 600;
+		text-align: center;
 	}
 }
-

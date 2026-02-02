@@ -39,6 +39,7 @@
 			<b>Multiple dates</b>
 			<o-datepicker
 				v-model:multiple="dates"
+				suffix-icon="event"
 				label="Multiple dates"
 				type="multiple"
 				clearable/>
@@ -47,7 +48,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from 'vue';
+import { reactive, ref } from 'vue';
 
 const date = ref(new Date());
 const dates = ref([]);

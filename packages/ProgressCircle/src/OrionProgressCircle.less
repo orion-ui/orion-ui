@@ -1,5 +1,5 @@
-@import '../../Shared/styles/variables.less';
-@import '../../Shared/styles/mixins.less';
+@import "../../Shared/styles/variables.less";
+@import "../../Shared/styles/mixins.less";
 
 .orion-progress-circle {
 	position: relative;
@@ -29,17 +29,17 @@
 			transition: stroke-dashoffset 0.5s ease;
 
 			each(@colors, {
-        .orion-progress-circle--@{value} & {
-          stroke: var(~"--o-border-@{value}-default");
-        }
-      });
+				.orion-progress-circle--@{value} & {
+					stroke: var(~"--o-border-@{value}-default");
+				}
+			});
 		}
 	}
 
 	&__label {
 		font-size: 0.3em;
-		line-height: 1;
 		font-weight: 600;
+		line-height: 1;
 	}
 
 	&--default {
@@ -50,9 +50,7 @@
 
 	&--inverted {
 		.orion-progress-circle__value > circle {
-			stroke: var(--o-text-default-default);
+			stroke: var(--o-text-neutral-default);
 		}
 	}
 }
-
-

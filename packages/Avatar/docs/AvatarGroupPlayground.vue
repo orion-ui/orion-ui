@@ -1,23 +1,20 @@
 <template>
 	<div class="row row--center">
-		<o-avatar-group
-			v-bind="state">
+		<o-avatar-group v-bind="state">
 			<o-avatar
 				name="John Doe"
 				color="primary"/>
 			<o-avatar
 				name="Mike Don"
 				avatar="https://picsum.photos/id/1011/200"/>
-			<o-avatar
-				name="Lola Green"/>
+			<o-avatar name="Lola Green"/>
 			<o-avatar
 				name="John Doe"
 				color="primary"/>
 			<o-avatar
 				name="Mike Don"
 				avatar="https://picsum.photos/id/1011/200"/>
-			<o-avatar
-				name="Lola Green"/>
+			<o-avatar name="Lola Green"/>
 		</o-avatar-group>
 	</div>
 

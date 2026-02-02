@@ -1,6 +1,5 @@
 <template>
-	<div
-		class="orion-avatar-group">
+	<div class="orion-avatar-group">
 		<template
 			v-for="(vnode, i) in setup.visibleAvatars"
 			:key="i">
@@ -9,7 +8,7 @@
 				:style="i !== 0 ? { 'margin-left': `-${spacing}px` } : {}"/>
 		</template>
 
-		<o-avatar
+		<orion-avatar
 			v-if="setup.overflowCount > 0"
 			:size="setup.avatars[0]?.props?.size ?? 'md'"
 			:color
@@ -20,13 +19,13 @@
 </template>
 
 <script setup lang="ts">
+import { OrionAvatar } from 'packages/Avatar';
 import './OrionAvatarGroup.less';
-import OrionAvatarGroupSetupService from './OrionAvatarGroupSetupService';
-import type { OrionAvatarGroupProps, OrionAvatarGroupEmits } from './OrionAvatarGroupSetupService';
+import { OrionAvatarGroupSetup, type OrionAvatarGroupEmits, type OrionAvatarGroupProps } from './OrionAvatarGroupSetup';
 const emits = defineEmits<OrionAvatarGroupEmits>() as OrionAvatarGroupEmits;
 const slots = defineSlots();
-const props = withDefaults(defineProps<OrionAvatarGroupProps>(), OrionAvatarGroupSetupService.defaultProps);
-const setup = new OrionAvatarGroupSetupService(props, emits, slots);
+const props = withDefaults(defineProps<OrionAvatarGroupProps>(), OrionAvatarGroupSetup.defaultProps);
+const setup = new OrionAvatarGroupSetup(props, emits, slots);
 
 defineExpose(setup.publicInstance);
 </script>

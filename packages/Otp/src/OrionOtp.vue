@@ -20,13 +20,12 @@
 </template>
 
 <script setup lang="ts">
-import './OrionOtp.less';
 import OrionInput from 'packages/Input/src/OrionInput.vue';
-import OrionOtpSetupService from './OrionOtpSetupService';
+import './OrionOtp.less';
+import { OrionOtpSetup, type OrionOtpEmits, type OrionOtpProps } from './OrionOtpSetup';
 const emits = defineEmits<OrionOtpEmits>() as OrionOtpEmits;
-import type { OrionOtpProps, OrionOtpEmits } from './OrionOtpSetupService';
-const props = withDefaults(defineProps<OrionOtpProps>(), OrionOtpSetupService.defaultProps);
-const setup = new OrionOtpSetupService(props, emits);
+const props = withDefaults(defineProps<OrionOtpProps>(), OrionOtpSetup.defaultProps);
+const setup = new OrionOtpSetup(props, emits);
 defineExpose(setup.publicInstance);
 
 </script>

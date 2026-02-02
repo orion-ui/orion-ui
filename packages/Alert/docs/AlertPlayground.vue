@@ -38,8 +38,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, reactive } from 'vue';
 import { materialIcons, useNotif } from 'lib';
+import { computed, reactive } from 'vue';
 
 const state = reactive({
 	title: 'Duis mollis est',

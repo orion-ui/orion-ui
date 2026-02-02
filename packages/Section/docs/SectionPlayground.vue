@@ -61,7 +61,7 @@ import { reactive } from 'vue';
 const state = reactive({
 	title: 'Section',
 	subtitle: 'Subtitle',
-	align: 'right' as 'left' | 'center' |'right' | 'stretch',
+	align: 'right' as 'left' | 'center' | 'right' | 'stretch',
 	collapsible: true,
 	collapsed: false,
 });

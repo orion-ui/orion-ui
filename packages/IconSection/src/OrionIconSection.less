@@ -1,5 +1,5 @@
-@import '../../Shared/styles/variables.less';
-@import '../../Shared/styles/mixins.less';
+@import "../../Shared/styles/variables.less";
+@import "../../Shared/styles/mixins.less";
 
 .orion-icon-section {
 	display: flex;
@@ -12,20 +12,20 @@
 	}
 
 	b {
-		color: var(--o-text-default-default);
+		color: var(--o-text-neutral-default);
 	}
 
 	&__icon {
-		margin: 0 1.25rem 0;
+		margin: 0 1.25rem;
 		font-size: 2rem;
-		color: var(--o-text-default-subtle);
+		color: var(--o-text-neutral-subtle);
 	}
 
 	&__content {
 		display: flex;
 		flex-direction: column;
-		align-items: stretch;
 		gap: 0.25rem;
+		align-items: stretch;
 		min-width: 0; // ellipsis in flex
 	}
 
@@ -36,12 +36,14 @@
 
 	&__title {
 		.typography(body2-bold);
-		color: var(--o-text-default-default);
+
+		color: var(--o-text-neutral-default);
 	}
-	
+
 	&__description {
 		.typography(body2-default);
-		color: var(--o-text-default-default);
+
+		color: var(--o-text-neutral-default);
 	}
 
 	&--center {

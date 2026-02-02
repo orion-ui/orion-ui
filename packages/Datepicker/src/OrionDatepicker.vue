@@ -4,12 +4,15 @@
 		placement="bottom-start"
 		:positioning-disabled="setup.responsive.onPhone"
 		:triggers="[]"
+		:distance="multiple ? 4 : undefined"
 		:shown="setup.isFocus"
+		theme="orion"
 		:auto-hide="false"
 		@apply-show="setup.handlePopperShow()"
 		@apply-hide="setup.handlePopperHide()">
 		<orion-field
 			v-bind="setup.orionFieldBinding"
+			:id="`orion-input_${setup._uid}`"
 			class="orion-datepicker"
 			:has-value="setup.hasValue"
 			:label-is-floating="setup.hasValue || (type === 'date' && setup.isFocus)"
@@ -42,10 +45,10 @@
 					v-if="!$slots.multipleDisplay"
 					class="orion-datepicker-multiple__content">
 					<orion-chips
-						v-for="date in multiple"
+						v-for="(date) in multiple?.slice(0, setup.maxVisibleMultipleDates)"
 						:key="date.toString()"
 						:color="multipleLabelColor"
-						size="sm"
+						size="xs"
 						squared>
 						<div class="flex ai-c g-8">
 							{{ setup.inputValueFormat(date) }}
@@ -54,9 +57,36 @@
 								@click="setup.removeDate(date)"/>
 						</div>
 					</orion-chips>
+					<v-dropdown
+						v-if="multiple && multiple?.length > setup.maxVisibleMultipleDates"
+						:triggers="[]"
+						:shown="setup.displayMultipleDropdown"
+						@apply-hide="setup.displayMultipleDropdown = false">
+						<orion-chips
+							@mousedown.prevent.stop
+							@click="setup.toggleMultiplePopper()">
+							+ {{ multiple.length - setup.maxVisibleMultipleDates }}
+						</orion-chips>
+						<template #popper>
+							<div class="orion-datepicker-multiple__dropdown">
+								<orion-chips
+									v-for="date in multiple?.slice(setup.maxVisibleMultipleDates)"
+									:key="date.toString()"
+									:color="multipleLabelColor"
+									size="xs"
+									squared>
+									<div class="flex ai-c g-8">
+										{{ setup.inputValueFormat(date) }}
+										<span
+											:class="`orion-datepicker-multiple__clearable`"
+											@click="setup.removeDate(date)"/>
+									</div>
+								</orion-chips>
+							</div>
+						</template>
+					</v-dropdown>
 				</div>
-				<div
-					class="orion-datepicker__multiple">
+				<div class="orion-datepicker__multiple">
 					<slot
 						name="multipleDisplay"
 						:datas="multiple"
@@ -230,15 +260,14 @@ import { OrionDateTable } from 'packages/DateTable';
 import { OrionDateWeek } from 'packages/DateWeek';
 import { OrionField } from 'packages/Field';
 import './OrionDatepicker.less';
-import type { OrionDatepickerEmits, OrionDatepickerProps } from './OrionDatepickerSetupService';
-import OrionDatepickerSetupService from './OrionDatepickerSetupService';
+import { OrionDatepickerSetup, type OrionDatepickerEmits, type OrionDatepickerProps } from './OrionDatepickerSetup';
 const slots = defineSlots();
 const vModel = defineModel<Nil<Date>>();
 const range = defineModel<Nil<Orion.DateRange>>('range');
 const multiple = defineModel<Nil<Date[]>>('multiple');
 const emits = defineEmits<OrionDatepickerEmits>() as OrionDatepickerEmits;
-const props = withDefaults(defineProps<OrionDatepickerProps>(), OrionDatepickerSetupService.defaultProps);
-const setup = new OrionDatepickerSetupService(props, emits, slots, vModel, range, multiple);
+const props = withDefaults(defineProps<OrionDatepickerProps>(), OrionDatepickerSetup.defaultProps);
+const setup = new OrionDatepickerSetup(props, emits, slots, vModel, range, multiple);
 defineExpose(setup.publicInstance);
 
 /** Doc
