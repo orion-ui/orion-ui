@@ -34,6 +34,22 @@
 					background: var(~"--o-background-@{value}-minimal");
 					border-color: var(~"--o-border-@{value}-default");
 				}
+
+				&.orion-button--disabled {
+					background: var(--o-background-neutral-disabled);
+					color: var(--o-text-neutral-disabled);
+					border-color: var(--o-border-neutral-disabled);
+
+					&:hover,
+					&:focus {
+						background: var(--o-background-neutral-disabled);
+						border-color: var(--o-border-neutral-disabled);
+					}
+
+					&.orion-button--nude {
+						background: transparent;
+					}
+				}
 			}
 
 			&.orion-button--nude {
@@ -41,6 +57,10 @@
 				&:hover&:not(.orion-button--disabled),
 				&:focus&:not(.orion-button--disabled) {
 					background: var(~"--o-background-@{value}-minimal");
+				}
+
+				&.orion-button--disabled {
+					color: var(--o-text-neutral-disabled);
 				}
 			}
 
@@ -197,6 +217,11 @@
 
 	&--neutral {
 		color: var(--o-text-neutral-default);
+
+		&.orion-button--outline {
+			border: 1px solid var(--o-border-neutral-default);
+			color: var(--o-text-neutral-default);
+		}
 	}
 
 	&--nude {

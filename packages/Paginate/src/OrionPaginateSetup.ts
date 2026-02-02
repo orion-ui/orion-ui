@@ -16,12 +16,6 @@ export type OrionPaginateProps = {
 	// @doc props/bindRouter the key used in the url query to get the current active page (ex: ...url/my-list?**page**=2 • *bindRouter = **page***)
 	// @doc/fr props/bindRouter représente la clé utilisée dans l'url pour déterminer la page active actuelle (ex: ...url/my-list?**page**=2 • *bindRouter = **page***)
 	bindRouter?: string,
-	// @doc props/selectedCount number of selected rows displayed in detailed mode
-	// @doc/fr props/selectedCount nombre de lignes selectionnees affichees en mode detailed
-	selectedCount?: number,
-	// @doc props/selectionLabel label displayed after the selected count in detailed mode
-	// @doc/fr props/selectionLabel libelle affiche apres le compteur de selection en mode detailed
-	selectionLabel?: string,
 	// @doc props/showPerPage toggles the per-page selector in detailed mode
 	// @doc/fr props/showPerPage affiche ou masque le selecteur de lignes par page en mode detailed
 	showPerPage?: boolean,
@@ -59,7 +53,6 @@ export class OrionPaginateSetup extends SharedSetup {
 		perPageLabel: 'Lignes par page',
 		pageLabel: 'Page',
 		ofLabel: 'sur',
-		selectionLabel: 'ligne(s) sélectionnées',
 		showPerPage: true,
 		showPageInfo: true,
 	};
@@ -112,6 +105,22 @@ export class OrionPaginateSetup extends SharedSetup {
 		return a;
 	}
 
+	get pages() {
+		return this.pagesArray.map((page, index) => {
+			const isEllipsis = page === '...';
+			const isInput = isEllipsis && index !== 1;
+			const value = typeof page === 'number' ? page : 0;
+			return {
+				key: `${page}-${index}`,
+				label: page,
+				value,
+				isEllipsis,
+				isInput,
+				isActive: typeof page === 'number' ? this.isActive(page) : false,
+			};
+		});
+	}
+
 	get pageInput() { return this.state.pageInput }
 	set pageInput(val) {
 		this.state.pageInput = val;
@@ -153,6 +162,21 @@ export class OrionPaginateSetup extends SharedSetup {
 		return options.includes(this.props.size)
 			? options
 			: [...options, this.props.size].sort((a, b) => a - b);
+	}
+
+	get sizeModel() {
+		return this.props.size;
+	}
+
+	set sizeModel(val: Orion.VModel.Select<number>) {
+		this.handleSizeUpdate(val);
+	}
+
+	handleSizeUpdate(val: Orion.VModel.Select<number>) {
+		const sizeValue = Array.isArray(val) ? val[0] : val;
+		const parsedValue = Number(sizeValue);
+		if (!parsedValue || isNaN(parsedValue)) return;
+		this.emits('update:size', parsedValue);
 	}
 
 

@@ -1,7 +1,22 @@
 <template>
 	<div class="flex fd-c g-16">
-		<o-paginate v-model="state.index" :total="state.total" :size="state.size" :show-per-page="false"
-			:show-page-info="false" @paginate="notifPageUpdate($event)" @update:size="state.size = $event" />
+		<div class="flex fd-c g-8">
+			<h4>Default</h4>
+			<o-paginate v-model="state.index" :total="state.total" :size="state.size" @paginate="notifPageUpdate" />
+		</div>
+
+		<div class="flex fd-c g-8">
+			<h4>Detailed</h4>
+			<div class="flex ai-c g-16">
+				<div class="orion-paginate__detail-text mr-a">
+					{{ selectedItems.length }} / {{ state.total }} lignes sélectionnées
+				</div>
+				<o-paginate v-model="state.index" :total="state.total" :size="state.size" variant="detailed"
+					:show-per-page="state.showPerPage" :show-page-info="state.showPageInfo" :size-options="sizeOptions"
+					@paginate="notifPageUpdate" @update:size="handleSizeUpdate" />
+			</div>
+
+		</div>
 
 		<o-list v-model:page="state" v-model:selected="selectedItems" v-bind="listState" :total="state.total" :list="list">
 			<template #default="{ item, selected }">
@@ -17,14 +32,20 @@
 	<hr>
 
 	<div class="row row--grid">
-		<div class="col-sm-4">
+		<div class="col-sm-3">
 			<o-input v-model="state.total" label="Total" type="number" />
 		</div>
-		<div class="col-sm-4">
+		<div class="col-sm-3">
 			<o-input v-model="state.size" label="Size" type="number" />
 		</div>
-		<div class="col-sm-4">
+		<div class="col-sm-3">
 			<o-input v-model="state.index" label="Index" type="number" />
+		</div>
+		<div class="col-sm-6">
+			<o-toggle v-model="state.showPerPage" label="Show per page" />
+		</div>
+		<div class="col-sm-6">
+			<o-toggle v-model="state.showPageInfo" label="Show page info" />
 		</div>
 	</div>
 </template>
@@ -42,7 +63,11 @@ const state = reactive({
 	total: fullList.value.length,
 	size: 4,
 	index: 1,
+	showPerPage: true,
+	showPageInfo: true,
 });
+
+const sizeOptions = [1, 2, 4, 8];
 
 const listState = reactive({
 	trackKey: 'id',
@@ -65,6 +90,10 @@ function seedList(qty = 20) {
 
 function notifPageUpdate(index: number) {
 	useNotif.info(`Active page index is now ${index}`);
+}
+
+function handleSizeUpdate(size: number) {
+	state.size = size;
 }
 
 function toggleItemSelection(item: any) {

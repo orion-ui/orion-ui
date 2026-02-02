@@ -53,6 +53,12 @@ export type OrionListProps<T extends Record<string, any>> = {
 	// @doc props/usePaginationTop displays pagination at the top of the list
 	// @doc/fr props/usePaginationTop affiche une pagination en haut de la liste
 	usePaginationTop?: boolean
+	// @doc props/paginateVariant pagination style for the embedded OrionPaginate
+	// @doc/fr props/paginateVariant style de pagination pour l'OrionPaginate embarquÃ©
+	paginateVariant?: 'default' | 'detailed'
+	// @doc props/paginateSizeOptions page size options passed to OrionPaginate
+	// @doc/fr props/paginateSizeOptions options de taille de page passÃ©es Ã  OrionPaginate
+	paginateSizeOptions?: number[]
 };
 
 export class OrionListSetup<T extends Record<string, any>> extends SharedSetup {
@@ -67,7 +73,8 @@ export class OrionListSetup<T extends Record<string, any>> extends SharedSetup {
 		useFooterSelected: true,
 		usePaginationBottom: true,
 		usePaginationTop: true,
-		paginateVariant: 'default' as const,
+		paginateVariant: 'default' as OrionListProps<any>['paginateVariant'],
+		paginateSizeOptions: () => [] as number[],
 	};
 
 	get computedLayout() { return this.responsive.onPhone ? 'grid' : this.props.layout }
