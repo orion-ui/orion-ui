@@ -32,8 +32,7 @@
 				<template v-for="page in setup.pages" :key="page.key">
 					<v-dropdown v-if="page.isEllipsis" theme="orion-paginate" placement="bottom" :triggers="['click']"
 						:auto-hide="true">
-						<orion-button v-tooltip="'Sélectionner une page'" :class="[{ 'orion-paginate__ellipsis': page.isEllipsis }]"
-							outline prefix-icon="more_horiz" aria-label="Ellipsis" class="orion-paginate__index" />
+						<orion-button outline prefix-icon="more_horiz" aria-label="Ellipsis" class="orion-paginate__index" />
 						<template #popper>
 							<div class="orion-paginate__ellipsis-dropdown">
 								<button v-for="hiddenPage in page.hiddenPages" :key="hiddenPage" type="button"

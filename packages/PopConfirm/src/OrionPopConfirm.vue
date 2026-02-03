@@ -5,8 +5,8 @@
 
 		<template #popper>
 			<p class="orion-pop-confirm__title" :class="{ 'orion-pop-confirm__title--destructive': setup.isDestructive }">
-				<orion-icon :icon="setup.icon" />
 				<slot name="content">
+					<orion-icon :icon="setup.icon" />
 					{{ setup.title }}
 				</slot>
 			</p>
