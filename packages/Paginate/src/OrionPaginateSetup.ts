@@ -1,6 +1,4 @@
-import { debounce } from 'lodash-es';
-import { Reactive } from 'utils/decorators';
-import { type ModelRef } from 'vue';
+import { type ModelRef, watch } from 'vue';
 import { SharedSetup } from '../../Shared/SharedSetup';
 
 export type OrionPaginateEmits = {
@@ -57,84 +55,87 @@ export class OrionPaginateSetup extends SharedSetup {
 		showPageInfo: true,
 	};
 
-	@Reactive private readonly state = { pageInput: undefined as Undef<number> };
-
-	private debouncedUpdate = debounce((val) => {
-		this.index = +val;
-	}, 500);
-
 	get pagesLength() { return Math.ceil(this.props.total / this.props.size) }
-	get pagesArray() {
-		const a = [];
-		if (this.vModel.value < 5 || this.pagesLength === 5) {
-			for (let index = 1; index <= (this.pagesLength < 6 ? this.pagesLength : 4); index++) {
-				a.push(index);
-			}
-			if (this.pagesLength > 5) {
-				a.push('...');
-				a.push(this.pagesLength);
-			}
+	private get currentIndex() {
+		if (this.props.bindRouter && this.router.currentRoute.value.query[this.props.bindRouter]) {
+			return Number(this.router.currentRoute.value.query[this.props.bindRouter]);
 		}
-		else if (this.vModel.value > this.pagesLength - 1 && this.vModel.value !== this.pagesLength) {
-			a.push(1);
-			a.push('...');
-			const indexFor = this.pagesLength - 3;
-			for (let index = indexFor; index < this.pagesLength - 2; index++) {
-				a.push(index);
-			}
+		return this.vModel.value;
+	}
+	private get safeIndex() {
+		const pagesLength = this.pagesLength;
+		if (!pagesLength || pagesLength < 1) return 1;
+		const currentIndex = this.currentIndex;
+		if (isNaN(currentIndex) || currentIndex < 1) return 1;
+		return currentIndex > pagesLength ? pagesLength : currentIndex;
+	}
+	get pagesArray() {
+		const pagesLength = this.pagesLength;
+		if (!pagesLength || pagesLength < 1) return [];
+		if (pagesLength <= 5) {
+			return Array.from({ length: pagesLength }, (_, index) => index + 1);
+		}
+
+		const safeIndex = this.safeIndex;
+		let corePages: number[] = [];
+		if (safeIndex <= 1) {
+			corePages = [1, 2, 3];
+		}
+		else if (safeIndex >= pagesLength) {
+			corePages = [pagesLength - 2, pagesLength - 1, pagesLength];
 		}
 		else {
-			a.push(1);
-			a.push('...');
-			if (this.vModel.value !== this.pagesLength) {
-				const indexFor = this.vModel.value - 2;
-				for (let index = indexFor; index <= (this.vModel.value + 2 > this.pagesLength - 1 ? this.pagesLength - 1 : this.vModel.value + 2); index++) {
-					a.push(index);
-				}
-			}
-			else {
-				const indexFor = this.vModel.value - 3;
-				for (let index = indexFor; index < this.vModel.value; index++) {
-					a.push(index);
-				}
-			}
-
-			a.push('...');
-			a.push(this.pagesLength);
+			corePages = [safeIndex - 1, safeIndex, safeIndex + 1];
 		}
-		return a;
+
+		const pagesSet = new Set<number>([1, pagesLength, ...corePages.filter((page) => page >= 1 && page <= pagesLength)]);
+		const pages = Array.from(pagesSet).sort((a, b) => a - b);
+		const result: Array<number | string> = [];
+		pages.forEach((page, index) => {
+			if (index === 0) {
+				result.push(page);
+				return;
+			}
+			const previous = pages[index - 1];
+			if (page - previous > 1) {
+				result.push('...');
+			}
+			result.push(page);
+		});
+
+		return result;
 	}
 
 	get pages() {
-		return this.pagesArray.map((page, index) => {
+		const pagesArray = this.pagesArray;
+		return pagesArray.map((page, index) => {
 			const isEllipsis = page === '...';
-			const isInput = isEllipsis && index !== 1;
 			const value = typeof page === 'number' ? page : 0;
+			const hiddenPages = isEllipsis ? this.getHiddenPages(pagesArray, index) : [];
 			return {
 				key: `${page}-${index}`,
 				label: page,
 				value,
 				isEllipsis,
-				isInput,
 				isActive: typeof page === 'number' ? this.isActive(page) : false,
+				hiddenPages,
 			};
-		});
+		}).filter((page) => !page.isEllipsis || page.hiddenPages.length);
 	}
 
-	get pageInput() { return this.state.pageInput }
-	set pageInput(val) {
-		this.state.pageInput = val;
-		if (val) {
-			this.debouncedUpdate(val);
+	private getHiddenPages(pagesArray: Array<number | string>, index: number) {
+		const previousPage = [...pagesArray.slice(0, index)].reverse().find((page) => typeof page === 'number') as number | undefined;
+		const nextPage = pagesArray.slice(index + 1).find((page) => typeof page === 'number') as number | undefined;
+		if (previousPage === undefined || nextPage === undefined || nextPage - previousPage <= 1) return [];
+		const hiddenPages: number[] = [];
+		for (let page = previousPage + 1; page < nextPage; page++) {
+			hiddenPages.push(page);
 		}
-
+		return hiddenPages;
 	}
 
 	get index() {
-		if (this.props.bindRouter && this.router.currentRoute.value.query[this.props.bindRouter]) {
-			return Number(this.router.currentRoute.value.query[this.props.bindRouter]);
-		}
-		return this.vModel.value;
+		return this.currentIndex;
 	}
 
 	set index(val) {
@@ -151,8 +152,6 @@ export class OrionPaginateSetup extends SharedSetup {
 				},
 			});
 		}
-
-		this.state.pageInput = undefined;
 	}
 
 	get sizeOptions() {
@@ -182,6 +181,14 @@ export class OrionPaginateSetup extends SharedSetup {
 
 	constructor(protected props: OrionPaginateProps, protected emits: OrionPaginateEmits, protected vModel: ModelRef<number>) {
 		super();
+
+		watch([() => this.pagesLength, () => this.index], ([pagesLength]) => {
+			if (!pagesLength || pagesLength < 1) return;
+			const safeIndex = this.safeIndex;
+			if (safeIndex !== this.index) {
+				this.index = safeIndex;
+			}
+		});
 	}
 
 	isActive(page?: number) {

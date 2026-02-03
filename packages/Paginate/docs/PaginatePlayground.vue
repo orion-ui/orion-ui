@@ -9,7 +9,7 @@
 			<h4>Detailed</h4>
 			<div class="flex ai-c g-16">
 				<div class="orion-paginate__detail-text mr-a">
-					{{ selectedItems.length }} / {{ state.total }} lignes sélectionnées
+					{{ selectedItems.length }} / {{ state.total }} ligne(s) sélectionnée(s)
 				</div>
 				<o-paginate v-model="state.index" :total="state.total" :size="state.size" variant="detailed"
 					:show-per-page="state.showPerPage" :show-page-info="state.showPageInfo" :size-options="sizeOptions"
@@ -38,13 +38,10 @@
 		<div class="col-sm-3">
 			<o-input v-model="state.size" label="Size" type="number" />
 		</div>
-		<div class="col-sm-3">
-			<o-input v-model="state.index" label="Index" type="number" />
-		</div>
-		<div class="col-sm-6">
+		<div class="col-sm-3 flex ai-c">
 			<o-toggle v-model="state.showPerPage" label="Show per page" />
 		</div>
-		<div class="col-sm-6">
+		<div class="col-sm-3 flex ai-c">
 			<o-toggle v-model="state.showPageInfo" label="Show page info" />
 		</div>
 	</div>

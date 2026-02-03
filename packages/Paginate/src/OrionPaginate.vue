@@ -3,7 +3,8 @@
 		<template v-if="props.variant === 'detailed'">
 			<div v-if="props.showPerPage" class="orion-paginate__select-container">
 				<span class="orion-paginate__detail-label">{{ props.perPageLabel }}</span>
-				<orion-select v-model="setup.sizeModel" class="orion-paginate__size-select" :options="setup.sizeOptions" />
+				<orion-select size="xs" v-model="setup.sizeModel" class="orion-paginate__size-select"
+					:options="setup.sizeOptions" />
 			</div>
 
 			<div class="orion-paginate__paginate-container">
@@ -29,15 +30,27 @@
 
 			<div class="orion-paginate__wrapper">
 				<template v-for="page in setup.pages" :key="page.key">
-					<orion-button v-if="!page.isInput" :class="[
+					<v-dropdown v-if="page.isEllipsis" theme="orion-paginate" placement="bottom" :triggers="['click']"
+						:auto-hide="true">
+						<orion-button v-tooltip="'Sélectionner une page'" :class="[{ 'orion-paginate__ellipsis': page.isEllipsis }]"
+							outline prefix-icon="more_horiz" aria-label="Ellipsis" class="orion-paginate__index" />
+						<template #popper>
+							<div class="orion-paginate__ellipsis-dropdown">
+								<button v-for="hiddenPage in page.hiddenPages" :key="hiddenPage" type="button"
+									class="orion-paginate__ellipsis-item"
+									:class="{ 'orion-paginate__ellipsis-item--active': setup.isActive(hiddenPage) }" v-close-popper
+									@click="setup.index = hiddenPage">
+									{{ props.pageLabel }} {{ hiddenPage }}
+								</button>
+							</div>
+						</template>
+					</v-dropdown>
+					<orion-button v-else :class="[
 						{ 'orion-paginate__index-active': page.isActive },
-						{ 'orion-paginate__ellipsis': page.isEllipsis },
-					]" :color="page.isActive ? 'primary' : 'neutral'" focus :disabled="page.isEllipsis" outline
-						class="orion-paginate__index" @click="setup.index = page.value">
+					]" :color="page.isActive ? 'primary' : 'neutral'" focus outline class="orion-paginate__index"
+						@click="setup.index = page.value">
 						{{ page.label }}
 					</orion-button>
-					<orion-input v-else v-model="setup.pageInput" placeholder="..." type="number" :max-value="setup.pagesLength"
-						:min-value="1" size="sm" class="orion-paginate__input" />
 				</template>
 			</div>
 
@@ -49,7 +62,6 @@
 
 <script setup lang="ts">
 import { OrionButton } from 'packages/Button';
-import { OrionInput } from 'packages/Input';
 import { OrionSelect } from 'packages/Select';
 import './OrionPaginate.less';
 import { OrionPaginateSetup, type OrionPaginateEmits, type OrionPaginateProps } from './OrionPaginateSetup';

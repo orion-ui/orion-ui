@@ -9,20 +9,25 @@
 
 	&__title {
 		display: flex;
-		align-items: center;
-		margin-bottom: 1.25rem;
+		.typography(body2-bold);
+		gap: var(--o-space-8);
 
 		.orion-icon {
-			margin-right: 0.5rem;
-			font-size: 1.5rem;
-			color: var(--o-text-warning-default);
+			font-size: 1.25rem;
+			color: var(--o-text-primary-default);
+		}
+	}
+
+	&__title--destructive {
+		.orion-icon {
+			color: var(--o-text-danger-default);
 		}
 	}
 
 	&__actions {
 		display: flex;
-		gap: 0.5rem;
+		gap: var(--o-space-8);
+		padding: 0 var(--o-space-24);
 		align-items: center;
-		justify-content: flex-end;
 	}
 }

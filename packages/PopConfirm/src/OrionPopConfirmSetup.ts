@@ -12,15 +12,22 @@ export type OrionPopConfirmEmits = {
 	(e: 'cancel'): void
 };
 
+export type OrionPopConfirmType = 'default' | 'destructive';
+
 export type OrionPopConfirmProps = {
 	// @doc props/title title of the confirm popup
 	// @doc/fr props/title titre de la popup de confirmation
 	title?: string
+	// @doc props/type defines the confirm type
+	// @doc/fr props/type definit le type de confirmation
+	type?: OrionPopConfirmType
 };
 
 export class OrionPopConfirmSetup extends SharedSetup {
 
-	static readonly defaultProps = {};
+	static readonly defaultProps = {
+		type: 'default' as OrionPopConfirmType,
+	};
 
 	_popper = ref<typeof PopperMethods['methods']>();
 	_actions = ref<RefDom>();
@@ -28,9 +35,13 @@ export class OrionPopConfirmSetup extends SharedSetup {
 	@Reactive private readonly state = { isVisible: false };
 
 	get title () { return this.props.title ?? this.lang.ORION_POP_CONFIRM__TITLE }
+	get type () { return this.props.type ?? OrionPopConfirmSetup.defaultProps.type }
+	get isDestructive () { return this.type === 'destructive' }
+	get confirmButtonColor () { return this.isDestructive ? 'danger' : 'primary' }
+	get icon () { return this.isDestructive ? 'error' : 'info' }
 	get publicInstance () { return {} }
 
-	constructor (protected props: OrionPopConfirmProps, protected emits: OrionPopConfirmEmits) {
+	constructor (protected props: OrionPopConfirmProps & typeof OrionPopConfirmSetup.defaultProps, protected emits: OrionPopConfirmEmits) {
 		super();
 	}
 
