@@ -9,8 +9,8 @@ title: Paginate
 
 ## Variants
 
-- `default` : pagination classique avec numeros + precedent/suivant.
-- `detailed` : ajoute un selecteur de lignes par page et les infos de page avec actions premiere/precedente/suivante/derniere.
+- `default` : pagination classique avec numéros + précédent/suivant.
+- `detailed` : ajoute un sélecteur de lignes par page et les informations de page avec actions première/précédente/suivante/dernière.
 
 Les blocs additionnels en mode `detailed` sont activables avec `showPerPage` et `showPageInfo`.
 
@@ -36,17 +36,17 @@ PaginatePlayground
 />
 ```
 
-## Binding router
+## Liaison au routeur
 
-Utilisez `bindRouter` pour synchroniser la page courante avec une cle de query.
+Utilisez `bindRouter` pour synchroniser la page courante avec une clé de query.
 
-## Selection
+## Sélection
 
-Si vous avez besoin d'un libelle "x / y selectionnees", affichez-le en dehors de `<o-paginate>` (par exemple a cote du composant ou dans l'entete de liste).
+Si vous avez besoin d'un libellé "x / y sélectionnées", affichez-le en dehors de `<o-paginate>` (par exemple à côté du composant ou dans l'en-tête de liste).
 
 ## Avec OrionList
 
-`<o-list>` peut passer des options de pagination au `<o-paginate>` embarque :
+`<o-list>` peut passer des options de pagination au `<o-paginate>` embarqué :
 
 ```vue
 <o-list

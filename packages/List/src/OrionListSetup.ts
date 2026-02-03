@@ -15,7 +15,7 @@ export type OrionListEmits = {
 
 export type OrionListProps<T extends Record<string, any>> = {
 	// @doc props/bindRouter the key used in the url query to bind the current page to the pagination component (ex: ...url/my-list?**page**=2 • *bindRouter = **page***)
-	// @doc/fr props/bindRouter représente la clé utilisée dans l'url pour binder la page courante au composant de pagination (ex: ...url/my-list?**page**=2 • *bindRouter = **page***)
+	// @doc/fr props/bindRouter représente la clé utilisée dans l'URL pour lier la page courante au composant de pagination (ex: ...url/my-list?**page**=2 • *bindRouter = **page***)
 	bindRouter?: string
 	// @doc props/cellClass class applied to the list's cells when the layout is `grid`
 	// @doc/fr props/cellClass classe appliquée aux cellules de la liste quand la disposition est sous forme de `grid`
@@ -24,16 +24,16 @@ export type OrionListProps<T extends Record<string, any>> = {
 	// @doc/fr props/gridClass classe appliquée à la liste quand la disposition est sous forme de `grid`
 	gridClass?: string
 	// @doc props/itemAdjective the adjective used for the item selection (to customize the selection footer)
-	// @doc/fr props/itemAdjective l'adjectif utilisé pour les élements sélectionnés (pour personnaliser le footer de sélection)
+	// @doc/fr props/itemAdjective l'adjectif utilisé pour les éléments sélectionnés (pour personnaliser le pied de page de sélection)
 	itemAdjective?: string
 	// @doc props/itemType item type of the list (to customize the selection footer)
-	// @doc/fr props/itemType type d'élément de la liste (pour personnaliser le footer de sélection)
+	// @doc/fr props/itemType type d'élément de la liste (pour personnaliser le pied de page de sélection)
 	itemType?: string
 	// @doc props/layout layout of the list
 	// @doc/fr props/layout disposition de la liste
 	layout?: Orion.ListLayout
 	// @doc props/list items of the list
-	// @doc/fr props/list élements de la liste
+	// @doc/fr props/list éléments de la liste
 	list: T[]
 	// @doc props/total total number of items in the list
 	// @doc/fr props/total nombre total d'éléments dans la liste
@@ -42,7 +42,7 @@ export type OrionListProps<T extends Record<string, any>> = {
 	// @doc/fr props/trackKey détermine la `key` utilisée pour le v-for dans la boucle de la liste
 	trackKey?: string
 	// @doc props/useAutoPagination use OrionList's pagination system. Useful if you pass the full list in props
-	// @doc/fr props/useAutoPagination utilise le système de pagination d'OrionList. Utile si vous pasez la liste compl!te en props
+	// @doc/fr props/useAutoPagination utilise le système de pagination d'OrionList. Utile si vous passez la liste complète en props
 	useAutoPagination?: boolean
 	// @doc props/useFooterSelected displays a footer when any items of the list are selected (useful for batch action on selected items)
 	// @doc/fr props/useFooterSelected affiche un pied de page quand des éléments de la liste sont sélectionnés (utile en cas d'action groupée sur les éléments sélectionnés)
@@ -54,10 +54,10 @@ export type OrionListProps<T extends Record<string, any>> = {
 	// @doc/fr props/usePaginationTop affiche une pagination en haut de la liste
 	usePaginationTop?: boolean
 	// @doc props/paginateVariant pagination style for the embedded OrionPaginate
-	// @doc/fr props/paginateVariant style de pagination pour l'OrionPaginate embarquÃ©
+	// @doc/fr props/paginateVariant style de pagination pour l'OrionPaginate embarqué
 	paginateVariant?: 'default' | 'detailed'
 	// @doc props/paginateSizeOptions page size options passed to OrionPaginate
-	// @doc/fr props/paginateSizeOptions options de taille de page passÃ©es Ã  OrionPaginate
+	// @doc/fr props/paginateSizeOptions options de taille de page passées à OrionPaginate
 	paginateSizeOptions?: number[]
 };
 
@@ -141,4 +141,3 @@ export class OrionListSetup<T extends Record<string, any>> extends SharedSetup {
 	}
 
 }
-
