@@ -1,11 +1,16 @@
 <template>
 	<div class="orion-phone">
-		<div class="orion-input-group orion-input-group--phone">
+		<div
+			class="orion-input orion-input-group"
+			:class="{
+				'orion-input--focused': setup.isFocus,
+				'orion-input--disabled': disabled,
+			}">
 			<orion-select
 				:ref="setup._country"
 				v-model="setup.country"
-				class="orion-telephone--indicatif"
-				:class="{ 'orion-telephone--with-flag': flag }"
+				class="orion-phone--indicatif"
+				:class="{ 'orion-phone--with-flag': flag }"
 				track-key="code"
 				display-key="areaCode"
 				searchable
@@ -16,34 +21,46 @@
 				@input-keydown-tab="setup._input.value?.focus()"
 				@update:model-value="setup.changeAreaCode()">
 				<template #value="{ item }: any">
-					<div class="flex ai-c">
+					<div class="flex ai-c g-4">
 						<img
 							v-if="flag && setup.country"
-							:src="setup.src"
-							width="15.75"
-							height="12">
+							class="orion-phone--flag"
+							:src="setup.getSrc(item?.code)">
 						&nbsp;{{ item !== null && item !== undefined ? item.code : '' }}
 					</div>
 				</template>
 
 				<template #option="{ item }: any">
-					{{ `${item.name} (+${item.areaCode})` }}
+					<div class="orion-phone__options">
+						<img
+							v-if="flag"
+							class="orion-phone--flag"
+							:src="setup.getSrc(item?.code)">
+						<span> {{ `${item.name} (+${item.areaCode})` }} </span>
+					</div>
 				</template>
 			</orion-select>
+
+			<span class="orion-phone__indicatif">
+				+{{ setup.country?.areaCode }}
+			</span>
+
 			<orion-input
 				:ref="setup._orionInput"
 				v-model="setup.phoneNumberProxy"
 				type="tel"
-				:class="{ 'orion-input--warning': setup.showWarning }"
+				class="orion-phone__input orion-input"
+				:class="{
+					'orion-input--warning': setup.showWarning,
+					'orion-input--focused': setup.isFocus,
+				}"
 				:validation="setup.isValid.value"
 				:inherit-validation-state="setup.showState"
 				v-bind="{
 					...$attrs,
-					label: label,
 					disabled: disabled,
 					clearable: clearable,
 					readonly,
-					required: setup.isRequired,
 				}"
 				@keydown.self="setup.keydownGuard($event)"
 				@mousedown-right="setup.handleMouseEvent($event)"
@@ -67,7 +84,6 @@ import OrionPhoneSetupService from './OrionPhoneSetupService';
 import type { OrionPhoneProps, OrionPhoneEmits, VModelType } from './OrionPhoneSetupService';
 // TODO: avoid code duplicate
 // https://github.com/vuejs/core/issues/8301
-// import OrionPhoneSetupService, { type OrionPhoneEmit } from './OrionPhoneSetupService';
 const emits = defineEmits<OrionPhoneEmits>() as OrionPhoneEmits;
 const vModel = defineModel<VModelType>();
 const phoneCountryCode = defineModel<string | undefined>('phoneCountryCode');

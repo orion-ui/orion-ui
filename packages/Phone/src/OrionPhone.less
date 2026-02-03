@@ -1,47 +1,116 @@
 @import '../../Shared/styles/variables.less';
 @import '../../Shared/styles/mixins.less';
 
-.orion-input-group {
-	display: flex;
-	margin: 0.5rem 0;
 
-	.orion-input {
-		flex: 1 0 0%;
-		margin: 0;
-	}
+.orion-phone {
 
-	> :not(:first-child):not(:last-child) .orion-input__input {
-		border-right: none;
-		border-radius: 0;
-	}
+	&__input {
+		width: 100%;
+		height: 100%;
+		border: none;
 
-	> :first-child .orion-input__input {
-		border-right: none;
-		border-top-right-radius: 0;
-		border-bottom-right-radius: 0;
-		min-width: 0;
-	}
-
-	> :last-child .orion-input__input {
-		border-top-left-radius: 0;
-		border-bottom-left-radius: 0;
-	}
-
-	&--phone {
-		> .v-popper {
-			width: calc(75rem / 16);
-			flex: 0 1 calc(75rem / 16);
+		&:focus, &:hover{
+			outline: none;
 		}
 	}
-	
-	.orion-telephone--with-flag {
-		width: calc(88rem/16);
-		flex: 0 1 calc(88rem / 16);
+
+	&:hover:not(:has(.orion-input--focused)):not(:has(.orion-input--disabled)) {
+		.orion-phone__input {
+			cursor: text;
+			background-color: var(--o-background-neutral-hover);
+		}
+
+		.orion-select {
+			background-color: var(--o-background-neutral-hover)
+		}
+	}
+
+
+	.orion-input-group {
+		display: flex;
+		padding: var(--o-space-6) var(--o-space-8);
+
+		.orion-select {
+			border: unset;
+			height: 1.5rem;
+			width: fit-content;
+			padding: var(--o-space-4);
+			border-radius: var(--o-radius-xs);
+			display: flex;
+			gap: var(--o-space-4);
+			align-items: center;
+			width: fit-content;
+
+			&:hover {
+				background-color: var(--o-background-primary-minimal);
+			}
+
+			.orion-input__pictos {
+				background-color: transparent;
+			}
+
+			.orion-input {
+				height: inherit;
+
+				&__input {
+					color: var(--o-text-neutral-subtle);
+					width: max-content;
+				}
+			}
+
+			&--disabled {
+				background-color: var(--o-background-neutral-disabled);
+				cursor: not-allowed;
+
+				.orion-input__input {
+					color: var(--o-text-neutral-disabled);
+					cursor: not-allowed;
+				}
+			}
+		}
+
+		&--phone {
+			> .v-popper {
+				width: calc(75rem / 16);
+				flex: 0 1 calc(75rem / 16);
+			}
+		}
+		
+		.orion-phone--flag {
+				width: 1.5rem;
+				height: 1rem;
+				border-radius: var(--o-radius-xs);
+				border: 1px solid var(--o-border-neutral-default);
+				object-fit: fill;	
+		}
+
+		.orion-input {
+			padding: 0;
+		}
+	}
+
+	&__options {
+		display: flex;
+		align-items: center;
+		gap: var(--o-space-8);
 
 		img {
-			border: 1px var(--o-background-neutral-moderate) solid;
-			object-fit: cover;
+				width: 1.5rem;
+				height: 1rem;
+				border-radius: var(--o-radius-xs);
+				border: 1px solid var(--o-border-neutral-default);
+				object-fit: fill;	
 		}
 	}
-}
 
+	&__input {
+			&.orion-input {
+				height: 100%;
+				width: inherit;
+				border: none;
+				outline: none;
+				padding: 0;
+				margin: 0;
+			}
+		}
+}

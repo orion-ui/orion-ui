@@ -86,6 +86,10 @@
 		margin-bottom: 0;
 	}
 
+	&:has(.orion-input__static-label) {
+		margin-top: 1.75rem;
+	}
+
 	&__label {
 		.ellipsis();
 		transition: all 0.3s;
@@ -216,6 +220,10 @@
 		pointer-events: none;
 		font-size: 1rem;
 
+		&:empty {
+			display: none;
+		}
+
 		.orion-input--disabled & {
 			background: var(--o-background-neutral-minimal);
 		}
@@ -297,10 +305,13 @@
 	}
 
 	&__static-label {
-		.typography(label-default);
+		.typography(body2-bold);
 		color: var(--o-text-neutral-default);
 		margin-bottom: var(--o-space-4);
 		display: block;
+		position: absolute;
+		top: -1.5rem;
+		left: 0;
 
 		&+.orion-input {
 			margin: 0;

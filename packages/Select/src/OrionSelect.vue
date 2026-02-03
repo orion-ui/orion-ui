@@ -105,7 +105,8 @@
 					class="orion-input__icon orion-select__carret orion-select__icon--internal"
 					icon="expand_more"
 					:class="{ 'open' : setup.isFocus }"
-					:loading="setup.isFetching"/>
+					:loading="setup.isFetching"
+					@click.prevent="setup.handleFocus($event)"/>
 			</template>
 
 			<div

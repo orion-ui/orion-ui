@@ -4,6 +4,7 @@ import SharedFieldSetupService, { SharedFieldSetupServiceEmits, SharedFieldSetup
 import useCountry from 'services/CountryService';
 import parsePhoneNumberFromString, { AsYouType, isValidPhoneNumber, validatePhoneNumberLength } from 'libphonenumber-js/max';
 import useDynamicFlagService from 'services/DynamicFlagService';
+import countries from 'lang/en/countries';
 
 export type OrionPhoneEmits = SharedFieldSetupServiceEmits<VModelType> & {
 	(e: 'focus', payload: FocusEvent): void;
@@ -63,7 +64,6 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Orio
 
 	get country () { return this.state.country; }
 	set country (val) {
-		this.state.phoneNumber = `+${val?.areaCode}${this.phoneNumberWithoutIndicatif}`;
 		this.state.country = val;
 
 		if (this.phoneCountryCode?.value) {
@@ -75,14 +75,12 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Orio
 
 	get phoneNumberProxy () {
 		if (!this.state.phoneNumber.length || this.state.phoneNumber === this.indicatif) return '';
-		return new AsYouType(this.country?.code).input(this.state.phoneNumber);
+		return new AsYouType().input(this.indicatif + this.state.phoneNumber).split(this.indicatif)[1] ?? '';
 	}
 
 	set phoneNumberProxy (val) {
 		const sanitized = this.sanitizePhoneNumber(val);
-		this.state.phoneNumber = sanitized.startsWith('+')
-			? sanitized
-			: this.indicatif + sanitized;
+		this.state.phoneNumber = sanitized;
 		this.setVModel();
 	}
 
@@ -119,7 +117,10 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Orio
 		}
 	}
 
-	get src () { return useDynamicFlagService((this.country?.code ?? 'FR'));};
+	getSrc (countryCode?: Orion.Country['code']) {
+		const countryCodeToUse = countryCode ?? this.country?.code;
+		return useDynamicFlagService(countryCodeToUse ?? 'FR');
+	}
 
 	get indicatif () { return `+${this.country?.areaCode}`.replace('-', ' ');};
 
@@ -130,6 +131,10 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Orio
 			_country: () => this._country.value,
 			_orionInput: () => this._orionInput.value,
 		};
+	}
+
+	get isFocus () {
+		return this._country.value?.isFocus() || this._orionInput?.value?.isFocus() || false;
 	}
 
 	constructor (
@@ -165,11 +170,9 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Orio
 	protected async onBeforeMount () {
 		if (isNil(this.vModel.value)) {
 			this.state.country = useCountry().getCountryByCode(this.lang.ORION_PHONE__DEFAULT_COUNTRY_CODE);
-			this.state.phoneNumber += `+${this.state.country?.areaCode}`;
 		} else {
 			if (this.vModel.value && (isEmpty(this.vModel.value?.phoneCountryCode) || isNil(this.vModel.value.phoneCountryCode))) {
 				this.vModel.value.phoneCountryCode = this.lang.ORION_PHONE__DEFAULT_COUNTRY_CODE;
-				this.state.phoneNumber += `+${this.state.country?.areaCode}`;
 			}
 
 			if (this.vModel.value?.phoneCountryCode) {
@@ -179,6 +182,20 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Orio
 				this.state.country = useCountry().getCountryByCode(this.vModel.value?.phoneCountryCode);
 			}
 		}
+	}
+
+	getIndicatifFromPhoneNumber (value: string | undefined) {
+		let res: Orion.Country | undefined;
+		if (value?.startsWith('+')) {
+			countries.sort((a, b) => +a.areaCode.replace('-', '') - +b.areaCode.replace('-', '')).forEach((country) => {
+				const indicatif = `+${country.areaCode}`;
+				if (value.includes(indicatif)) {
+					res = country;
+					return;
+				}
+			});
+		}
+		return res;
 	}
 
 	keydownGuard (e: KeyboardEvent) {
@@ -223,11 +240,6 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Orio
 				return;
 			}
 
-			if (selectionStart < this.indicatif.length ||
-				(selectionStart === this.indicatif.length && selectionStart === selectionEnd && e.key === 'Backspace')) {
-				e.preventDefault();
-				return;
-			}
 		}
 
 		//The cursor is at the end
@@ -316,6 +328,11 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Orio
 	sanitizePhoneNumber (phoneNumberToSanitize?: Nil<string>): string {
 		phoneNumberToSanitize = phoneNumberToSanitize?.replaceAll('.', '');
 
+		const numberWithAreaCode = this.getIndicatifFromPhoneNumber(phoneNumberToSanitize);
+		if (numberWithAreaCode) {
+			phoneNumberToSanitize = phoneNumberToSanitize?.replace(`+${numberWithAreaCode.areaCode}`, '');
+			this.country = numberWithAreaCode;
+		}
 		if (!phoneNumberToSanitize) {
 			return '';
 		}
@@ -332,9 +349,6 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Orio
 
 		if (phoneNumberToSanitize && validatePhoneNumberLength(phoneNumberToSanitize.trim(), this.country?.code) === 'NOT_A_NUMBER') {
 			if (validatePhoneNumberLength(this.phoneNumberProxy, this.country?.code) !== 'NOT_A_NUMBER') {
-				const inputValue = this._orionInput.value?._input();
-				if (inputValue)
-					inputValue.value = this.phoneNumberProxy;
 				return this.phoneNumberProxy.replace(/\s*/g, '');
 			}
 		}
@@ -353,7 +367,6 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Orio
 			const replaceRegex = `${this.indicatif}$2`;
 			return phoneNumber.replace(regex, replaceRegex).replace(/\s*/g, '');
 		}
-
 		return phoneNumber ?? '';
 	}
 
@@ -374,7 +387,7 @@ export default class OrionPhoneSetupService extends SharedFieldSetupService<Orio
 
 	changeAreaCode () {
 		if (this.phoneNumber?.value) {
-			this.phoneNumber.value = this.indicatif;
+			this.phoneNumber.value = undefined;
 		}
 		this._orionInput.value?.focus();
 	}

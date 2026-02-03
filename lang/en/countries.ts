@@ -35,19 +35,9 @@ const countries: Orion.Country[] = [
 		areaCode: '374',
 	},
 	{
-		code: 'AN',
-		name: 'Netherlands Antilles',
-		areaCode: '599',
-	},
-	{
 		code: 'AO',
 		name: 'Angola',
 		areaCode: '244',
-	},
-	{
-		code: 'AQ',
-		name: 'Antarctica',
-		areaCode: '672',
 	},
 	{
 		code: 'AR',
@@ -883,11 +873,6 @@ const countries: Orion.Country[] = [
 		code: 'PM',
 		name: 'Saint Pierre and Miquelon',
 		areaCode: '508',
-	},
-	{
-		code: 'PN',
-		name: 'Pitcairn',
-		areaCode: '64',
 	},
 	{
 		code: 'PR',

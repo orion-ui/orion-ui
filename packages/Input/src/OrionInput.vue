@@ -1,14 +1,13 @@
 <template>
-	<label
-		v-if="!floatingLabel"
-		:for="`orion-input_${setup._uid}`"
-		class="orion-input__static-label">
-		{{ label }}
-	</label>
-
 	<orion-field
-		v-bind="setup.orionFieldBinding"
+		v-bind="{ ...setup.orionFieldBinding, ...$attrs }"
 		@clear="setup.clear()">
+		<label
+			v-if="!floatingLabel"
+			:for="`orion-input_${setup._uid}`"
+			class="orion-input__static-label">
+			{{ label }}
+		</label>
 		<input
 			:id="`orion-input_${setup._uid}`"
 			:ref="setup._input"
