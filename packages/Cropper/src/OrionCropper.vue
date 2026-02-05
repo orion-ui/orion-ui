@@ -31,14 +31,13 @@
 </template>
 
 <script setup lang="ts">
-import './OrionCropper.less';
 import { OrionButton } from 'packages/Button';
 import { OrionInputRange } from 'packages/InputRange';
-import { Cropper, CircleStencil, RectangleStencil } from 'vue-advanced-cropper';
-import OrionCropperSetupService from './OrionCropperSetupService';
-import type { OrionCropperProps, OrionCropperEmits } from './OrionCropperSetupService';
+import { CircleStencil, Cropper, RectangleStencil } from 'vue-advanced-cropper';
+import './OrionCropper.less';
+import { OrionCropperSetup, type OrionCropperEmits, type OrionCropperProps } from './OrionCropperSetup';
 const emits = defineEmits<OrionCropperEmits>() as OrionCropperEmits;
-const props = withDefaults(defineProps<OrionCropperProps>(), OrionCropperSetupService.defaultProps);
-const setup = new OrionCropperSetupService(props, emits);
+const props = withDefaults(defineProps<OrionCropperProps>(), OrionCropperSetup.defaultProps);
+const setup = new OrionCropperSetup(props, emits);
 defineExpose(setup.publicInstance);
 </script>

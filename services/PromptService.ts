@@ -1,9 +1,10 @@
 import { getUid, toggleGlobalListener } from 'utils/tools';
 import { reactive } from 'vue';
 import { useLang } from './LangService';
-import useModal from './ModalService';
+import { useModal } from './ModalService';
 
 class PromptService<T> {
+
 	resolve!: (val: Orion.Modal.PromptResolveType<T>) => void;
 	modal!: OrionModal;
 	options?: Partial<Orion.Modal.Options>;
@@ -16,7 +17,6 @@ class PromptService<T> {
 		confirm: () => this.successCallback(),
 		cancel: () => this.cancelCallback(),
 	}) as Orion.Modal.Prompt<T>;
-
 
 	constructor (options?: Partial<Orion.Modal.Options>) {
 		this.options = options;
@@ -93,8 +93,9 @@ class PromptService<T> {
 			});
 		});
 	}
+
 }
 
-export default function usePrompt <T> (options?: Partial<Orion.Modal.Options>) {
+export function usePrompt<T> (options?: Partial<Orion.Modal.Options>) {
 	return new PromptService<T>(options).openPromptModalAsync();
 }

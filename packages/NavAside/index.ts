@@ -1,8 +1,7 @@
-import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
+import { type App, type Plugin } from 'vue';
 import OrionNavAside from './src/OrionNavAside.vue';
-import type { OrionNavAsideEmits, OrionNavAsideProps } from './src/OrionNavAsideSetupService';
-import OrionNavAsideSetupService from './src/OrionNavAsideSetupService';
+import { OrionNavAsideSetup, type OrionNavAsideEmits, type OrionNavAsideProps } from './src/OrionNavAsideSetup';
 
 export const OrionNavAsidePlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,4 +9,4 @@ export const OrionNavAsidePlugin: Plugin = {
 	},
 };
 
-export { OrionNavAside, OrionNavAsideSetupService, OrionNavAsideEmits, OrionNavAsideProps };
+export { OrionNavAside, OrionNavAsideSetup, type OrionNavAsideEmits, type OrionNavAsideProps };

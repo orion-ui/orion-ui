@@ -8,8 +8,7 @@
 			prefix-icon="chevron_left"
 			@click="setup.index -= 1"/>
 
-		<div
-			class="orion-paginate__wrapper">
+		<div class="orion-paginate__wrapper">
 			<template
 				v-for="(page, i) in setup.pagesArray"
 				:key="i">
@@ -26,7 +25,7 @@
 					@click="setup.index = Number(page)">
 					{{ page }}
 				</orion-button>
-				<o-input
+				<orion-input
 					v-else
 					v-model="setup.pageInput"
 					placeholder="..."
@@ -47,14 +46,14 @@
 </template>
 
 <script setup lang="ts">
-import './OrionPaginate.less';
 import { OrionButton } from 'packages/Button';
-import OrionPaginateSetupService from './OrionPaginateSetupService';
-import type { OrionPaginateProps, OrionPaginateEmits } from './OrionPaginateSetupService';
+import { OrionInput } from 'packages/Input';
+import './OrionPaginate.less';
+import { OrionPaginateSetup, type OrionPaginateEmits, type OrionPaginateProps } from './OrionPaginateSetup';
 const emits = defineEmits<OrionPaginateEmits>() as OrionPaginateEmits;
-const props = withDefaults(defineProps<OrionPaginateProps>(), OrionPaginateSetupService.defaultProps);
+const props = withDefaults(defineProps<OrionPaginateProps>(), OrionPaginateSetup.defaultProps);
 const vModel = defineModel<number>({ required: true });
-const setup = new OrionPaginateSetupService(props, emits, vModel);
+const setup = new OrionPaginateSetup(props, emits, vModel);
 defineExpose(setup.publicInstance);
 
 /** Doc

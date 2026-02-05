@@ -69,7 +69,7 @@ const state = reactive({
 	text: 'Lorem ipsum',
 	prefix: false,
 	suffix: false,
-	size: 'md'as Orion.Size,
+	size: 'md' as Orion.Size,
 	style: 'classic',
 	disabled: false,
 });

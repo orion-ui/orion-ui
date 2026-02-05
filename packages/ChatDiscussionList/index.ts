@@ -1,8 +1,7 @@
-import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
+import { type App, type Plugin } from 'vue';
 import OrionChatDiscussionList from './src/OrionChatDiscussionList.vue';
-import type { OrionChatDiscussionListEmits, OrionChatDiscussionListProps } from './src/OrionChatDiscussionListSetupService';
-import OrionChatDiscussionListSetupService from './src/OrionChatDiscussionListSetupService';
+import { OrionChatDiscussionListSetup, type OrionChatDiscussionListEmits, type OrionChatDiscussionListProps } from './src/OrionChatDiscussionListSetup';
 
 export const OrionChatDiscussionListPlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,4 +9,4 @@ export const OrionChatDiscussionListPlugin: Plugin = {
 	},
 };
 
-export { OrionChatDiscussionList, OrionChatDiscussionListSetupService, OrionChatDiscussionListEmits, OrionChatDiscussionListProps};
+export { OrionChatDiscussionList, OrionChatDiscussionListSetup, type OrionChatDiscussionListEmits, type OrionChatDiscussionListProps };

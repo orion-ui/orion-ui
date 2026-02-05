@@ -4,7 +4,7 @@
 			v-if="showChip"
 			color="info"
 			close
-			@close="closeCb()">
+			@close="closeCbAsync()">
 			Close me
 		</o-chips>
 		<o-chips
@@ -19,12 +19,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
 import { useNotif } from 'lib';
+import { ref } from 'vue';
 
 const showChip = ref(true);
 
-async function closeCb () {
+async function closeCbAsync () {
 	showChip.value = false;
 	useNotif.success('Chip will come back in 2s');
 	setTimeout(() => {

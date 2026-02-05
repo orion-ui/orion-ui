@@ -21,9 +21,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
 import { faker } from '@faker-js/faker';
 import { getUid } from 'lib';
+import { computed, ref } from 'vue';
 
 type Step = { id: number, img: string, caption: string };
 
@@ -48,19 +48,18 @@ carouselStep.value = steps.value[0].id;
 figure {
 	display: flex;
 	flex-direction: column;
-	align-items: center;
 	gap: 1rem;
+	align-items: center;
 	margin: 2rem 0;
 
 	img {
 		max-width: 90%;
 		border-radius: 0.5rem;
 		box-shadow:
-			0px 2.8px 2.2px rgba(0, 0, 0, 0.02),
-			0px 6.7px 5.3px rgba(0, 0, 0, 0.028),
-			0px 12.5px 10px rgba(0, 0, 0, 0.035),
-			0px 22.3px 17.9px rgba(0, 0, 0, 0.042)
-		;
+			0 2.8px 2.2px rgb(0 0 0 / 2%),
+			0 6.7px 5.3px rgb(0 0 0 / 2.8%),
+			0 12.5px 10px rgb(0 0 0 / 3.5%),
+			0 22.3px 17.9px rgb(0 0 0 / 4.2%);
 	}
 }
 </style>
@@ -73,7 +72,6 @@ figure {
 Here is an example of an auto sliding carousel.\
 Just hover it to pause the carousel, it will resume when leaving it.
 @lang
-
 
 @lang:fr
 ### Carrousel à défilement automatique

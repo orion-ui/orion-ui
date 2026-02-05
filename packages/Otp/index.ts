@@ -1,8 +1,7 @@
-import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
+import { type App, type Plugin } from 'vue';
 import OrionOtp from './src/OrionOtp.vue';
-import type { OrionOtpEmits, OrionOtpProps } from './src/OrionOtpSetupService';
-import OrionOtpSetupService from './src/OrionOtpSetupService';
+import { OrionOtpSetup, type OrionOtpEmits, type OrionOtpProps } from './src/OrionOtpSetup';
 
 export const OrionOtpPlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,4 +9,4 @@ export const OrionOtpPlugin: Plugin = {
 	},
 };
 
-export { OrionOtp, OrionOtpSetupService, OrionOtpEmits, OrionOtpProps };
+export { OrionOtp, OrionOtpSetup, type OrionOtpEmits, type OrionOtpProps };

@@ -21,8 +21,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
 import { colors, sizes } from 'lib';
+import { ref } from 'vue';
 
 const checkValue = ref(true);
 </script>

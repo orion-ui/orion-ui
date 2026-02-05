@@ -1,8 +1,8 @@
 import { Log } from 'utils/Log';
 
 export class LoaderService {
-	private globalLoader?: OrionLoader;
 
+	private globalLoader?: OrionLoader;
 
 	constructor () {
 		Log.orion(`LoaderService activated`);
@@ -38,10 +38,11 @@ export class LoaderService {
 		this.guard();
 		this.globalLoader?.hide();
 	}
+
 }
 
 const serviceInstance = new LoaderService();
 
-export default function useLoader () {
+export function useLoader () {
 	return serviceInstance;
 };

@@ -61,23 +61,20 @@
 </template>
 
 <script setup lang="ts" generic="T extends Record<string, any>">
-import './OrionList.less';
 import { OrionFooterFixed } from 'packages/FooterFixed';
 import { OrionPaginate } from 'packages/Paginate';
-import OrionListSetupService from './OrionListSetupService';
-import type { OrionListProps, OrionListEmits } from './OrionListSetupService';
-
-const emits = defineEmits<OrionListEmits>() as OrionListEmits;
+import './OrionList.less';
+import { OrionListSetup, type OrionListEmits, type OrionListProps } from './OrionListSetup';
 const page = defineModel<Orion.ListPage>('page', {
 	default: {
 		size: 20,
 		index: 1,
 	},
 });
-
 const selected = defineModel<T[]>('selected', { default: (): T[] => [] });
-const props = withDefaults(defineProps<OrionListProps<T>>(), OrionListSetupService.defaultProps);
-const setup = new OrionListSetupService(props, emits, page, selected);
+const emits = defineEmits<OrionListEmits>() as OrionListEmits;
+const props = withDefaults(defineProps<OrionListProps<T>>(), OrionListSetup.defaultProps);
+const setup = new OrionListSetup(props, emits, page, selected);
 defineExpose(setup.publicInstance);
 
 /** Doc

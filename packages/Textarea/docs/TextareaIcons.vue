@@ -29,8 +29,8 @@ const value = ref(null);
 
 <style lang="less" scoped>
 .textarea-icon {
-  display: flex;
-  justify-content: space-between;
+	display: flex;
+	justify-content: space-between;
 }
 </style>
 

@@ -10,10 +10,8 @@
 	</div>
 </template>
 
-
 <script setup lang="ts">
 import { useTour } from 'lib';
-
 
 function startTour (index = 0) {
 	useTour('_tourProps').start(index);
@@ -54,4 +52,3 @@ Les props `previous`, `next` and `end` sont des objets de ce format :
 La fonction `callback` sera appelée au moment du click sur le bouton correspond, et la fonction `clean` sera appelée juste après l'incrémentation
 de l'index du tour.
 @lang
-

@@ -1,5 +1,5 @@
-@import '../../Shared/styles/variables.less';
-@import '../../Shared/styles/mixins.less';
+@import "../../Shared/styles/variables.less";
+@import "../../Shared/styles/mixins.less";
 
 .orion-chat-discussion-list {
 	position: relative;
@@ -7,36 +7,36 @@
 	display: flex;
 	flex-direction: column;
 	align-items: stretch;
-	background: var(--o-background-neutral-default);
 	height: 100%;
-
+	background: var(--o-background-neutral-default);
 
 	&__header {
 		position: sticky;
-		padding: var(--o-space-16);
 		z-index: 1;
+		padding: var(--o-space-16);
 		background: var(--o-background-neutral-default);
 	}
 
 	&__subheader {
 		display: flex;
-		align-items: center;
 		gap: 0.5rem;
+		align-items: center;
 	}
 
 	&__search {
-		margin: 0;
 		flex: 1;
+		margin: 0;
 	}
 
 	&__new-discussion {
 		.circle(2.5rem);
+
 		flex: none;
 	}
 
 	&__content {
-		flex: 1;
 		overflow: auto;
+		flex: 1;
 		padding-bottom: var(--o-space-16);
 	}
 
@@ -47,13 +47,13 @@
 	}
 
 	&__item {
-		transition: all 0.3s;
-		width: calc(100% - 1.25rem);
-		padding: var(--o-space-32) var(--o-space-16);
-		color: var(--o-text-neutral-default);
 		cursor: pointer;
-		border-radius: 0.3rem;
+		width: calc(100% - 1.25rem);
 		margin: 0 0.5rem;
+		padding: var(--o-space-32) var(--o-space-16);
+		border-radius: 0.3rem;
+		color: var(--o-text-neutral-default);
+		transition: all 0.3s;
 
 		&-content {
 			display: flex;
@@ -66,6 +66,7 @@
 
 		&-avatars {
 			.square(calc(50rem / 16));
+
 			display: flex;
 			align-self: flex-start;
 			margin-right: 0.5rem;
@@ -82,32 +83,35 @@
 				}
 			}
 
-			&[data-count='2'] {
+			&[data-count="2"] {
 				> .orion-avatar {
 					.circle(2.5rem);
 
 					&:nth-child(2) {
 						.circle(2rem);
-						margin-left: -1.5rem;
+
 						margin-top: 1rem;
+						margin-left: -1.5rem;
 					}
 				}
 			}
 
-			&[data-count='3'] {
+			&[data-count="3"] {
 				> .orion-avatar {
 					.circle(2rem);
 
 					&:nth-child(2) {
 						.circle(calc(28rem / 16));
-						margin-left: -1.5rem;
+
 						margin-top: 1.25rem;
+						margin-left: -1.5rem;
 					}
 
 					&:nth-child(3) {
 						.circle(1.5rem);
-						margin-left: -1rem;
+
 						margin-top: 0.3rem;
+						margin-left: -1rem;
 					}
 				}
 			}
@@ -115,8 +119,8 @@
 
 		&-header {
 			display: flex;
-			justify-content: space-between;
 			align-items: baseline;
+			justify-content: space-between;
 			margin: 0;
 			font-size: 1rem;
 			font-weight: inherit;
@@ -124,6 +128,7 @@
 
 		&-interlocutor {
 			.ellipsis();
+
 			display: inline-block;
 			padding-right: var(--o-space-16);
 			font-weight: 600;
@@ -131,8 +136,8 @@
 		}
 
 		&-last-message-datetime {
-			font-size: 0.8125rem;
 			min-width: fit-content;
+			font-size: 0.8125rem;
 
 			.orion-chat-discussion-list__item--unread & {
 				color: var(--o-text-info-default);
@@ -146,18 +151,20 @@
 
 		&-preview {
 			.ellipsis();
-			font-size: 0.8125rem;
+
 			flex: 1;
+			font-size: 0.8125rem;
 		}
 
 		&-unread-count {
 			.circle(1.125rem);
+
 			display: none;
-			background: var(--o-background-info-default);
-			color: var(--o-text-neutral-inverted);
 			margin-left: 0.3rem;
 			font-size: 0.75rem;
 			font-weight: 800;
+			color: var(--o-text-neutral-inverted);
+			background: var(--o-background-info-default);
 
 			.orion-chat-discussion-list__item--unread & {
 				.flex-align();
@@ -169,8 +176,8 @@
 		}
 
 		&--unread {
-			color: var(--o-text-neutral-default);
 			font-weight: 600;
+			color: var(--o-text-neutral-default);
 		}
 
 		&--active {
@@ -181,9 +188,9 @@
 	&__no-discussion {
 		display: flex;
 		flex-direction: column;
+		gap: 2rem;
 		align-items: center;
 		justify-content: center;
-		gap: 2rem;
 		height: 100%;
 		padding: var(--o-space-48) 0 var(--o-space-32);
 
@@ -194,10 +201,9 @@
 		}
 
 		&-label {
-			color: var(--o-text-neutral-moderate);
-			font-style: italic;
 			font-size: 1rem;
+			font-style: italic;
+			color: var(--o-text-neutral-moderate);
 		}
 	}
 }
-

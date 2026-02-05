@@ -11,12 +11,11 @@
 <script setup lang="ts">
 import { inject } from 'vue';
 import './OrionCarouselItem.less';
-import OrionCarouselItemSetupService from './OrionCarouselItemSetupService';
-import type { OrionCarouselItemProps, OrionCarouselItemEmits } from './OrionCarouselItemSetupService';
+import { OrionCarouselItemSetup, type OrionCarouselItemEmits, type OrionCarouselItemProps } from './OrionCarouselItemSetup';
 const _carousel = inject<OrionCarousel>('_carousel');
 const emits = defineEmits<OrionCarouselItemEmits>() as OrionCarouselItemEmits;
-const props = withDefaults(defineProps<OrionCarouselItemProps>(), OrionCarouselItemSetupService.defaultProps);
-const setup = new OrionCarouselItemSetupService(props, emits, _carousel);
+const props = withDefaults(defineProps<OrionCarouselItemProps>(), OrionCarouselItemSetup.defaultProps);
+const setup = new OrionCarouselItemSetup(props, emits, _carousel);
 defineExpose(setup.publicInstance);
 
 /** Doc

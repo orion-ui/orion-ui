@@ -234,16 +234,15 @@
 </template>
 
 <script setup lang="ts">
-import './OrionChatDiscussionList.less';
+import { OrionAvatar } from 'packages/Avatar';
 import { OrionButton } from 'packages/Button';
 import { OrionInput } from 'packages/Input';
 import { OrionLoader } from 'packages/Loader';
-import { OrionAvatar } from 'packages/Avatar';
-import OrionChatDiscussionListSetupService from './OrionChatDiscussionListSetupService';
-import type { OrionChatDiscussionListProps, OrionChatDiscussionListEmits } from './OrionChatDiscussionListSetupService';
+import './OrionChatDiscussionList.less';
+import { OrionChatDiscussionListSetup, type OrionChatDiscussionListEmits, type OrionChatDiscussionListProps } from './OrionChatDiscussionListSetup';
 const emits = defineEmits<OrionChatDiscussionListEmits>() as OrionChatDiscussionListEmits;
-const props = withDefaults(defineProps<OrionChatDiscussionListProps>(), OrionChatDiscussionListSetupService.defaultProps);
-const setup = new OrionChatDiscussionListSetupService(props, emits);
+const props = withDefaults(defineProps<OrionChatDiscussionListProps>(), OrionChatDiscussionListSetup.defaultProps);
+const setup = new OrionChatDiscussionListSetup(props, emits);
 defineExpose(setup.publicInstance);
 
 /** Doc

@@ -1,4 +1,4 @@
-const countries: Orion.Country[] = [
+export const countries: Orion.Country[] = [
 	{
 		code: 'AD',
 		name: 'Andorre',
@@ -1215,5 +1215,3 @@ const countries: Orion.Country[] = [
 		areaCode: '263',
 	},
 ];
-
-export default countries;

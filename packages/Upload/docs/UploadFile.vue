@@ -24,13 +24,12 @@ const state = reactive({
 
 <style scoped lang="less">
 .orion-upload {
-  width:28rem;
-	max-width:100%;
+	width: 28rem;
+	max-width: 100%;
 }
 </style>
 
 @hl {5-7,11-12}
-
 
 @lang:en
 ### Configuration

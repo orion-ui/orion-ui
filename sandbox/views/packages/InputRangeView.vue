@@ -4,7 +4,7 @@
 			<pre>fieldValue: {{ fieldValue }}</pre>
 			<pre>fieldValueMultiple: {{ fieldValueMultiple }}</pre>
 		</o-alert>
-		<o-card style="width: 400px;">
+		<o-card style="width: 25rem;">
 			<o-input-range v-model="fieldValue"/>
 			<hr>
 			<o-input-range v-model="fieldValueMultiple"/>

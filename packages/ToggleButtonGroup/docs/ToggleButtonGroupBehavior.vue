@@ -2,8 +2,7 @@
 	<div class="flex fd-c g-12">
 		<div class="flex fd-c g-8">
 			<strong>Simple selection</strong>
-			<o-toggle-button-group
-				v-model="vModel">
+			<o-toggle-button-group v-model="vModel">
 				<o-toggle-button :name="1">
 					Option 1
 				</o-toggle-button>
@@ -44,9 +43,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-const vModel= ref();
-const vModelMultiple= ref([1, 3]);
-
+const vModel = ref();
+const vModelMultiple = ref([1, 3]);
 
 </script>
 
@@ -61,8 +59,6 @@ Two behaviors are available:
 
 By default, only one button can be active at a time.
 To enable multiple selection, set the `multiple` prop to true on the `o-toggle-button-group` component.
-
-
 
 @lang
 

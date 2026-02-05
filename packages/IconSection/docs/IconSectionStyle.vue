@@ -47,15 +47,15 @@
 </script>
 
 <style lang="less" scoped>
-  .orion-icon-section {
-    background-color: var(--o-background-neutral-default);
+	.orion-icon-section {
 		padding: 0.75rem 0;
 		border-radius: 0.5rem;
+		background-color: var(--o-background-neutral-default);
 
 		[data-orion-theme="dark"] & {
 			background-color: black;
 		}
-  }
+	}
 </style>
 
 @hl {30,38}
@@ -71,4 +71,3 @@ The `center` prop can be used to center the content.
 
 La prop `center` permet de centrer le composant.
 @lang
-

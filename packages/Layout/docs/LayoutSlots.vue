@@ -24,123 +24,128 @@
 
 <style scoped lang="less">
 .nav-top {
-  background-color: var(--o-background-neutral-moderate);
-  height: 3rem;
-  display: flex;
+	display: flex;
+	height: 3rem;
+	background-color: var(--o-background-neutral-moderate);
 
-  &__left {
-    justify-content: center;
-    align-items: center;
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--o-background-neutral-default);
-  }
-  &__additional {
-    justify-content: center;
-    align-items: center;
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--o-background-neutral-moderate);
-  }
-  &__right {
-    justify-content: center;
-    align-items: center;
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--o-background-neutral-subtle);
-  }
+	&__left {
+		display: flex;
+		flex: 1;
+		align-items: center;
+		align-items: center;
+		justify-content: center;
+		justify-content: center;
+		background-color: var(--o-background-neutral-default);
+	}
+
+	&__additional {
+		display: flex;
+		flex: 1;
+		align-items: center;
+		align-items: center;
+		justify-content: center;
+		justify-content: center;
+		background-color: var(--o-background-neutral-moderate);
+	}
+
+	&__right {
+		display: flex;
+		flex: 1;
+		align-items: center;
+		align-items: center;
+		justify-content: center;
+		justify-content: center;
+		background-color: var(--o-background-neutral-subtle);
+	}
 }
 
 .nav-main {
-  background-color: var(--o-background-neutral-default);
+	display: flex;
 	flex: 6rem 0 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	align-items: center;
+	justify-content: center;
+	background-color: var(--o-background-neutral-default);
 }
 
 .nav-fullpage {
-  background-color: var(--o-background-neutral-subtle);
-  display: flex;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	background-color: var(--o-background-neutral-subtle);
 
-  &__before {
-    height: 3rem;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    background-color: var(--o-background-neutral-minimal);
-  }
+	&__before {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		height: 3rem;
+		background-color: var(--o-background-neutral-minimal);
+	}
 
 	&__after {
-    height: 3rem;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--o-background-neutral-moderate);
-  }
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		height: 3rem;
+		background-color: var(--o-background-neutral-moderate);
+	}
 }
 
 .nav-container {
-  background-color: var(--o-background-neutral-subtle);
-  width: 100%;
-  display: flex;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+	background-color: var(--o-background-neutral-subtle);
 }
+
 .nav {
-  display: flex;
-  height: 100%;
-  height: 15rem;
-  justify-content: center;
-  align-items: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	height: 15rem;
 }
 
 .main {
-  background-color: var(--o-background-neutral-minimal);
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  height: 12.5rem
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 12.5rem;
+	background-color: var(--o-background-neutral-minimal);
 }
+
 .footer {
-  background-color: var(--o-background-neutral-subtle);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 2rem
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 2rem;
+	background-color: var(--o-background-neutral-subtle);
 }
+
 .nav-tabs {
-  background-color: var(--o-background-neutral-default);
-  height: 3rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 3rem;
+	background-color: var(--o-background-neutral-default);
 }
 
 .container {
-  display: flex;
-  height: 12.5rem;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
+	height: 12.5rem;
 }
 
 .example {
-  margin-bottom: 2rem;
-  margin-top: 2rem;
-  border: calc(3rem / 16) solid white;
+	margin-top: 2rem;
+	margin-bottom: 2rem;
+	border: calc(3rem / 16) solid white;
 }
 </style>
 
@@ -154,4 +159,3 @@ In addition to the props, you can use `slots` to place items more precisely.
 ### Slots
 En complément des props, il est possible d'utiliser les `slots` pour placer le contenu plus précisément.
 @lang
-

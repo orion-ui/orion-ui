@@ -1,6 +1,6 @@
-@import '../../Shared/styles/variables.less';
-@import '../../Shared/styles/mixins.less';
-@import '../../Input/src/OrionInput';
+@import "../../Shared/styles/variables.less";
+@import "../../Shared/styles/mixins.less";
+@import "../../Input/src/OrionInput";
 
 .orion-textarea {
 	height: auto;
@@ -19,7 +19,7 @@
 	.orion-input__pictos {
 		display: flex;
 	}
-	
+
 	&-max-length {
 		.orion-input__input {
 			padding-bottom: var(--o-space-24);
@@ -28,10 +28,9 @@
 
 	.orion-input__textarea-counter {
 		position: absolute;
-		bottom: var(--o-space-6);
 		right: var(--o-space-12);
-		color: var(--o-text-neutral-moderate);
+		bottom: var(--o-space-6);
 		font-size: 0.75rem;
+		color: var(--o-text-neutral-moderate);
 	}
 }
-

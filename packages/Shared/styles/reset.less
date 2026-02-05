@@ -33,14 +33,16 @@ dd {
 
 /* Set core body defaults */
 body {
-	min-height: 100vh; // svh support fallback
-	min-height: 100svh;
 	scroll-behavior: smooth;
-	text-rendering: optimizeSpeed;
+	min-height: 100vh; // svh support fallback
+	/* stylelint-disable-next-line unit-allowed-list */
+	min-height: 100svh;
 	line-height: 1.5;
+	text-rendering: optimizespeed;
 }
 
 /* Remove list styles on ul, ol elements with a class attribute */
+/* stylelint-disable-next-line no-duplicate-selectors */
 ul[class],
 ol[class] {
 	list-style: none;
@@ -53,12 +55,13 @@ a:not([class]) {
 
 /* Make images easier to work with */
 img {
-	max-width: 100%;
 	display: block;
+	max-width: 100%;
 }
 
 /* Natural flow and rhythm in articles by default */
 article > * + * {
+	/* stylelint-disable-next-line declaration-property-unit-allowed-list */
 	margin-top: 1em;
 }
 
@@ -73,9 +76,9 @@ select {
 /* Remove all animations and transitions for people that prefer not to see them */
 @media (prefers-reduced-motion: reduce) {
 	* {
-		animation-duration: 0.01ms !important;
-		animation-iteration-count: 1 !important;
-		transition-duration: 0.01ms !important;
 		scroll-behavior: auto !important;
+		transition-duration: 0.0001s !important;
+		animation-duration: 0.0001s !important;
+		animation-iteration-count: 1 !important;
 	}
 }

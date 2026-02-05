@@ -33,8 +33,8 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, computed } from 'vue';
 import { materialIcons } from 'lib';
+import { computed, reactive } from 'vue';
 
 const state = reactive({
 	icon: 'image' as Orion.Icon,

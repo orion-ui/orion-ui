@@ -2,17 +2,17 @@ import { Extension } from '@tiptap/core';
 import '@tiptap/extension-text-style';
 
 type TextBackgroundOptions = {
-  types: string[],
-}
+	types: string[]
+};
 
 declare module '@tiptap/core' {
-  interface Commands<ReturnType> {
-    background: {
-      setTextBackground: (background: string) => ReturnType,
-      getTextBackground: () => () => string,
-      unsetTextBackground: () => ReturnType,
-    }
-  }
+	interface Commands<ReturnType> {
+		background: {
+			setTextBackground: (background: string) => ReturnType
+			getTextBackground: () => () => string
+			unsetTextBackground: () => ReturnType
+		}
+	}
 }
 
 export const TextBackground = Extension.create<TextBackgroundOptions>({
@@ -54,5 +54,3 @@ export const TextBackground = Extension.create<TextBackgroundOptions>({
 		};
 	},
 });
-
-export default TextBackground;

@@ -146,27 +146,30 @@ const middle = ref([
 	background: var(--o-background-neutral-subtle);
 
 	&--allowed {
-		background: color-mix(
-			in srgb,
-			var(--o-background-success-default) 15%,
-			transparent 85%
-		);
+		background:
+			color-mix(
+				in srgb,
+				var(--o-background-success-default) 15%,
+				transparent 85%
+			);
 	}
 
 	&--forbidden {
-		background: color-mix(
-			in srgb,
-			var(--background-error-default) 15%,
-			transparent 85%
-		);
+		background:
+			color-mix(
+				in srgb,
+				var(--background-error-default) 15%,
+				transparent 85%
+			);
 	}
 
 	&--over {
-		background: color-mix(
-			in srgb,
-			var(--o-background-info-default) 15%,
-			transparent 85%
-		);
+		background:
+			color-mix(
+				in srgb,
+				var(--o-background-info-default) 15%,
+				transparent 85%
+			);
 	}
 
 	&--disabled {
@@ -177,8 +180,8 @@ const middle = ref([
 
 .draggable-content {
 	display: flex;
-	align-items: center;
 	gap: 0.5rem;
+	align-items: center;
 
 	.orion-icon {
 		font-size: 1.25rem;
@@ -187,4 +190,3 @@ const middle = ref([
 </style>
 
 ### Playground
-

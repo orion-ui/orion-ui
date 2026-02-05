@@ -1,9 +1,9 @@
 import { useLang } from './LangService';
 
 class PluralizeService {
-	static get pluralize () {
-		return useLang().pluralize;
-	}
+
+	static get pluralize () { return useLang().pluralize }
+
 }
 
 export function usePluralize (words: string, quantity: number, quantityIncluded?: boolean) {

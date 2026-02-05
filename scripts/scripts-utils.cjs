@@ -34,10 +34,7 @@ const PrivateServices = [
 	'PopableService.ts',
 ];
 
-const PackagesFolderToNotIndex = [
-	'Shared',
-];
-
+const PackagesFolderToNotIndex = ['Shared'];
 
 function sanitizePackageName (/** @type {string} */ name) {
 	const sanitized = name
@@ -58,7 +55,6 @@ function sanitizePackageName (/** @type {string} */ name) {
 		cleanPascalCase,
 	};
 }
-
 
 module.exports = {
 	PrivatePackagesFolder,

@@ -8,7 +8,7 @@
 			v-if="state.poster"
 			#poster>
 			<img
-				style="height:10rem"
+				style="height: 10rem;"
 				src="https://picsum.photos/id/1006/200">
 		</template>
 
@@ -120,8 +120,8 @@ const state = reactive({
 
 <style lang="less" scoped>
 .orion-card {
-	margin: auto;
 	width: 20rem;
+	margin: auto;
 }
 </style>
 

@@ -28,3 +28,4 @@ pnpm-debug.log*
 .cache
 
 !.vscode/snippets.code-snippets
+!.vscode/extensions.json

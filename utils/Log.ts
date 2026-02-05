@@ -2,6 +2,7 @@ import { isReactive, isRef, toRaw, unref } from 'vue';
 
 /* eslint-disable no-console */
 export class Log {
+
 	static info (payload: any, title?: string): void {
 		console.log(`%c${title ?? 'INFO'} ➤`, 'color:#198CFF; font-weight:600', this.convertData(payload));
 	}
@@ -27,10 +28,12 @@ export class Log {
 	private static convertData (payload: any) {
 		if (isRef(payload)) {
 			return unref(payload);
-		} else if (isReactive(payload) && typeof payload === 'object') {
+		}
+		else if (isReactive(payload) && typeof payload === 'object') {
 			return toRaw(payload);
 		}
 
 		return payload;
 	}
+
 }

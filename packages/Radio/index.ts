@@ -1,8 +1,7 @@
-import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
+import { type App, type Plugin } from 'vue';
 import OrionRadio from './src/OrionRadio.vue';
-import type { OrionRadioEmits, OrionRadioProps } from './src/OrionRadioSetupService';
-import OrionRadioSetupService from './src/OrionRadioSetupService';
+import { OrionRadioSetup, type OrionRadioEmits, type OrionRadioProps } from './src/OrionRadioSetup';
 
 export const OrionRadioPlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,4 +9,4 @@ export const OrionRadioPlugin: Plugin = {
 	},
 };
 
-export { OrionRadio, OrionRadioSetupService, OrionRadioEmits, OrionRadioProps };
+export { OrionRadio, OrionRadioSetup, type OrionRadioEmits, type OrionRadioProps };

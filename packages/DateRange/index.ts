@@ -1,8 +1,7 @@
-import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
+import { type App, type Plugin } from 'vue';
 import OrionDateRange from './src/OrionDateRange.vue';
-import type { OrionDateRangeEmits, OrionDateRangeProps } from './src/OrionDateRangeSetupService';
-import OrionDateRangeSetupService from './src/OrionDateRangeSetupService';
+import { OrionDateRangeSetup, type OrionDateRangeEmits, type OrionDateRangeProps } from './src/OrionDateRangeSetup';
 
 export const OrionDateRangePlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,4 +9,4 @@ export const OrionDateRangePlugin: Plugin = {
 	},
 };
 
-export { OrionDateRange, OrionDateRangeSetupService, OrionDateRangeEmits, OrionDateRangeProps };
+export { OrionDateRange, OrionDateRangeSetup, type OrionDateRangeEmits, type OrionDateRangeProps };

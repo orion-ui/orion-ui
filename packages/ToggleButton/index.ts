@@ -1,8 +1,7 @@
 import { upperFirst } from 'lodash-es';
-import { App, Plugin } from 'vue';
+import { type App, type Plugin } from 'vue';
 import OrionToggleButton from './src/OrionToggleButton.vue';
-import type { OrionToggleButtonEmits, OrionToggleButtonProps } from './src/OrionToggleButtonSetupService';
-import OrionToggleButtonSetupService from './src/OrionToggleButtonSetupService';
+import { OrionToggleButtonSetup, type OrionToggleButtonEmits, type OrionToggleButtonProps } from './src/OrionToggleButtonSetup';
 
 export const OrionToggleButtonPlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,5 +9,4 @@ export const OrionToggleButtonPlugin: Plugin = {
 	},
 };
 
-export { OrionToggleButton, OrionToggleButtonEmits, OrionToggleButtonProps, OrionToggleButtonSetupService };
-
+export { OrionToggleButton, OrionToggleButtonSetup, type OrionToggleButtonEmits, type OrionToggleButtonProps };

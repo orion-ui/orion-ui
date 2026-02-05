@@ -53,8 +53,8 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, computed } from 'vue';
 import { materialIcons } from 'lib';
+import { computed, reactive } from 'vue';
 
 const icons = computed(() => materialIcons.slice(0, 50));
 const state = reactive({

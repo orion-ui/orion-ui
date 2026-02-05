@@ -28,7 +28,7 @@
 		"node_modules",
 		"dist",
 		"docs",
-		"lib/monkey-patching.d.ts"
+		// "lib/monkey-patching.d.ts"
 	],
 	"include": [
 		"lang",
@@ -39,6 +39,6 @@
 		"sandbox",
 		"packages",
 		"utils",
-		"scripts/public"
+		"scripts"
 	],
 }

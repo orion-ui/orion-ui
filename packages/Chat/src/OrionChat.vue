@@ -246,19 +246,17 @@
 </template>
 
 <script setup lang="ts">
-import './OrionChat.less';
 import { OrionAvatar } from 'packages/Avatar';
+import { OrionChatMessage } from 'packages/ChatMessage';
 import { OrionIcon } from 'packages/Icon';
 import { OrionInput } from 'packages/Input';
 import { OrionLoader } from 'packages/Loader';
 import { OrionTextarea } from 'packages/Textarea';
-import { OrionChatMessage } from 'packages/ChatMessage';
-import OrionChatSetupService from './OrionChatSetupService';
-import type { OrionChatProps, OrionChatEmits } from './OrionChatSetupService';
+import './OrionChat.less';
+import { OrionChatSetup, type OrionChatEmits, type OrionChatProps } from './OrionChatSetup';
 const emits = defineEmits<OrionChatEmits>() as OrionChatEmits;
-const props = withDefaults(defineProps<OrionChatProps>(), OrionChatSetupService.defaultProps);
-
-const setup = new OrionChatSetupService(props, emits);
+const props = withDefaults(defineProps<OrionChatProps>(), OrionChatSetup.defaultProps);
+const setup = new OrionChatSetup(props, emits);
 defineExpose(setup.publicInstance);
 
 /** Doc

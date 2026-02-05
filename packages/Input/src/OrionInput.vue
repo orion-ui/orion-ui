@@ -47,14 +47,13 @@
 </template>
 
 <script setup lang="ts">
-import './OrionInput.less';
 import { OrionField } from 'packages/Field';
-import OrionInputSetupService from './OrionInputSetupService';
-import type { OrionInputProps, OrionInputEmits } from './OrionInputSetupService';
+import './OrionInput.less';
+import { OrionInputSetup, type OrionInputEmits, type OrionInputProps } from './OrionInputSetup';
 const emits = defineEmits<OrionInputEmits>() as OrionInputEmits;
 const vModel = defineModel<Nil<string | number>>();
-const props = withDefaults(defineProps<OrionInputProps>(), OrionInputSetupService.defaultProps);
-const setup = new OrionInputSetupService(props, emits, vModel);
+const props = withDefaults(defineProps<OrionInputProps>(), OrionInputSetup.defaultProps);
+const setup = new OrionInputSetup(props, emits, vModel);
 defineExpose(setup.publicInstance);
 
 /** Doc

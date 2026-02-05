@@ -26,7 +26,6 @@
 	</div>
 </template>
 
-
 <script setup lang="ts">
 import { useTour } from 'lib';
 

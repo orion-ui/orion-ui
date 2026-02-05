@@ -1,8 +1,7 @@
-import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
+import { type App, type Plugin } from 'vue';
 import OrionAvatar from './src/OrionAvatar.vue';
-import type { OrionAvatarEmits, OrionAvatarProps } from './src/OrionAvatarSetupService';
-import OrionAvatarSetupService from './src/OrionAvatarSetupService';
+import { OrionAvatarSetup, type OrionAvatarEmits, type OrionAvatarProps } from './src/OrionAvatarSetup';
 
 export const OrionAvatarPlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,4 +9,4 @@ export const OrionAvatarPlugin: Plugin = {
 	},
 };
 
-export { OrionAvatar, OrionAvatarSetupService, OrionAvatarEmits, OrionAvatarProps };
+export { OrionAvatar, OrionAvatarSetup, type OrionAvatarEmits, type OrionAvatarProps };

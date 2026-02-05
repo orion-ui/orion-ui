@@ -44,15 +44,14 @@
 </template>
 
 <script setup lang="ts">
-import './OrionNavTabs.less';
-import { OrionIcon } from 'packages/Icon';
-import { OrionButton } from 'packages/Button';
-import { OrionNavAside } from 'packages/NavAside';
 import { OrionAside } from 'packages/Aside';
-import OrionNavTabsSetupService from './OrionNavTabsSetupService';
-import type { OrionNavTabsProps, OrionNavTabsEmits } from './OrionNavTabsSetupService';
+import { OrionButton } from 'packages/Button';
+import { OrionIcon } from 'packages/Icon';
+import { OrionNavAside } from 'packages/NavAside';
+import './OrionNavTabs.less';
+import { OrionNavTabsSetup, type OrionNavTabsEmits, type OrionNavTabsProps } from './OrionNavTabsSetup';
 const emits = defineEmits<OrionNavTabsEmits>() as OrionNavTabsEmits;
-const props = withDefaults(defineProps<OrionNavTabsProps>(), OrionNavTabsSetupService.defaultProps);
-const setup = new OrionNavTabsSetupService(props, emits);
+const props = withDefaults(defineProps<OrionNavTabsProps>(), OrionNavTabsSetup.defaultProps);
+const setup = new OrionNavTabsSetup(props, emits);
 defineExpose(setup.publicInstance);
 </script>

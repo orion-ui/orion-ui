@@ -1,21 +1,21 @@
 <template>
 	<div class="flex g-16">
-		<o-button @click="showPromptModal()">
+		<o-button @click="showPromptModalAsync()">
 			Show prompt modal
 		</o-button>
-		<o-button @click="showCustomPromptModal()">
+		<o-button @click="showCustomPromptModalAsync()">
 			Show custom prompt modal
 		</o-button>
-		<o-button @click="showConfirmModal()">
+		<o-button @click="showConfirmModalAsync()">
 			Show confirm modal
 		</o-button>
 	</div>
 </template>
 
 <script setup lang="ts">
-import { usePrompt, useConfirm, useNotif, useMonkey } from 'lib';
+import { useConfirm, useMonkey, useNotif, usePrompt } from 'lib';
 
-async function showPromptModal () {
+async function showPromptModalAsync () {
 	const { confirm, value } = await usePrompt<string>({
 		title: `What's your favorite color ?`,
 		message: `<div class="mb-sm">Press <kbd>Enter</kbd> to <b>submit</b> or <kbd>Esc</kbd> to <b>cancel</b>.</div>`,
@@ -25,7 +25,7 @@ async function showPromptModal () {
 		: useNotif.warning(`No favorite color ???`);
 }
 
-async function showCustomPromptModal () {
+async function showCustomPromptModalAsync () {
 	const { confirm, value } = await usePrompt<Date>({
 		title: `What's your day this month ?`,
 		message: `I know this is a useless question`,
@@ -43,7 +43,7 @@ async function showCustomPromptModal () {
 		: useNotif.warning(`I said this was useless ;)`);
 }
 
-async function showConfirmModal () {
+async function showConfirmModalAsync () {
 	const confirm = await useConfirm(`
 		<div class="flex fd-c g-8">
 			<div>Confirm this action ?</div>

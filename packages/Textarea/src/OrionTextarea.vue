@@ -48,19 +48,16 @@
 </template>
 
 <script setup lang="ts">
-import './OrionTextarea.less';
-import { inject } from 'vue';
 import { OrionField } from 'packages/Field';
-import OrionTextareaSetupService from './OrionTextareaSetupService';
-
-
+import { inject } from 'vue';
+import './OrionTextarea.less';
+import { OrionTextareaSetup, type OrionTextareaEmits, type OrionTextareaProps } from './OrionTextareaSetup';
 const _aside = inject<OrionAside>('_aside');
 const _modal = inject<OrionModal>('_modal');
 const emits = defineEmits<OrionTextareaEmits>() as OrionTextareaEmits;
-import type { OrionTextareaProps, OrionTextareaEmits } from './OrionTextareaSetupService';
 const vModel = defineModel<Nil<string>>();
-const props = withDefaults(defineProps<OrionTextareaProps>(), OrionTextareaSetupService.defaultProps);
-const setup = new OrionTextareaSetupService(props, emits, vModel, _modal, _aside);
+const props = withDefaults(defineProps<OrionTextareaProps>(), OrionTextareaSetup.defaultProps);
+const setup = new OrionTextareaSetup(props, emits, vModel, _modal, _aside);
 defineExpose(setup.publicInstance);
 
 /** Doc

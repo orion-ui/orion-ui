@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -34,20 +35,23 @@ function walk (dir: string) {
 		let stat: fs.Stats;
 		try {
 			stat = fs.statSync(p);
-		} catch {
+		}
+		catch {
 			continue;
 		}
 		if (stat.isDirectory()) {
 			if (IGNORE_DIRS.has(name)) continue;
 			walk(p);
-		} else {
+		}
+		else {
 			const ext = path.extname(p);
 			if (!styleExts.has(ext) && !tplExts.has(ext)) continue;
 
 			let txt = '';
 			try {
 				txt = fs.readFileSync(p, 'utf8');
-			} catch {}
+			}
+			catch {}
 
 			if (styleExts.has(ext)) {
 				for (const m of txt.matchAll(/\.(?!\d)([a-zA-Z0-9_-]+)\s*[{,.:#\s]/g)) {
@@ -98,6 +102,7 @@ if (outPath) {
 	console.log(
 		`✓ ${payload.used.length} classes utilisées, ${payload.defined.length} définies → ${outPath}`,
 	);
-} else {
+}
+else {
 	console.log(json);
 }

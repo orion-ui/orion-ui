@@ -157,16 +157,15 @@
 </template>
 
 <script setup lang="ts">
-import './OrionUpload.less';
 import { OrionButton } from 'packages/Button';
 import { OrionIcon } from 'packages/Icon';
 import { OrionLoader } from 'packages/Loader';
-import OrionUploadSetupService from './OrionUploadSetupService';
-import type { OrionUploadProps, OrionUploadEmits } from './OrionUploadSetupService';
+import './OrionUpload.less';
+import { OrionUploadSetup, type OrionUploadEmits, type OrionUploadProps } from './OrionUploadSetup';
 const vModel = defineModel<File[] | undefined>();
 const emits = defineEmits<OrionUploadEmits>() as OrionUploadEmits;
-const props = withDefaults(defineProps<OrionUploadProps>(), OrionUploadSetupService.defaultProps);
-const setup = new OrionUploadSetupService(props, emits, vModel);
+const props = withDefaults(defineProps<OrionUploadProps>(), OrionUploadSetup.defaultProps);
+const setup = new OrionUploadSetup(props, emits, vModel);
 defineExpose(setup.publicInstance);
 
 /** Doc

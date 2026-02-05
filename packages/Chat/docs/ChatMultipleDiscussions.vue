@@ -15,10 +15,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { random, shuffle } from 'radash';
 import { faker } from '@faker-js/faker';
-import { useChat, getUid, sleep } from 'lib';
+import { getUid, sleepAsync, useChat } from 'lib';
+import { random, shuffle } from 'radash';
+import { ref } from 'vue';
 
 const selectedDiscussion = ref<number>();
 
@@ -31,7 +31,7 @@ const user: Orion.Chat.User = {
 const chat = useChat({
 	user,
 	discussionFetcherAsync: async () => generateDiscussions(5),
-	onNewMessageAsync: (message, registerMessage) => {
+	onNewMessageAsync: async (message, registerMessage) => {
 		// Here will be your ajax call to save the message on your BackEnd
 		registerMessage();
 		addFakeMessageAsync(message.discussion.id);
@@ -44,7 +44,7 @@ async function addFakeMessageAsync (discussionId: number, delay = 1000) {
 	const discussion = chat.getDiscussion(discussionId);
 	if (!discussion) return;
 
-	await sleep(delay);
+	await sleepAsync(delay);
 	chat.addMessagesToDiscussions([
 		{
 			discussionId,
@@ -100,7 +100,7 @@ function generateDiscussions (qty: number) {
 			messages,
 			participants,
 			createdDate: new Date(),
-			lastMessage: messages[messages.length-1],
+			lastMessage: messages[messages.length - 1],
 		};
 		discussions.push(discussion);
 	}
@@ -116,10 +116,10 @@ function createDiscussion () {
 
 <style scoped lang="less">
 .demo-chat {
-	height: 25rem;
-	border-radius: 0.5rem;
 	overflow: hidden;
 	flex: 1;
+	height: 25rem;
+	border-radius: 0.5rem;
 }
 </style>
 

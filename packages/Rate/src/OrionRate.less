@@ -1,15 +1,15 @@
-@import '../../Shared/styles/variables.less';
-@import '../../Shared/styles/mixins.less';
+@import "../../Shared/styles/variables.less";
+@import "../../Shared/styles/mixins.less";
 
 .orion-rate {
 	display: flex;
-	align-items: center;
 	gap: 0.125rem;
+	align-items: center;
 
 	&__wrapper {
 		display: flex;
-		align-items: center;
 		flex-direction: row-reverse;
+		align-items: center;
 		justify-content: flex-end;
 		line-height: 1;
 
@@ -21,9 +21,10 @@
 
 	&__star {
 		.square(1.125rem);
+
+		cursor: pointer;
 		font-size: 1rem;
 		color: var(--o-text-neutral-subtle);
-		cursor: pointer;
 
 		.orion-rate--disabled & {
 			cursor: not-allowed;
@@ -40,7 +41,7 @@
 						-webkit-text-fill-color: transparent;
 					}
 				}
-				
+
 				&--default {
 					&::before{
 						color: transparent;
@@ -55,8 +56,8 @@
 	}
 
 	&__number {
-		color: var(--o-text-neutral-default);
 		transform: translateY(-0.0625rem);
+		color: var(--o-text-neutral-default);
 	}
 
 	input {
@@ -116,5 +117,3 @@
 		}
 	});
 }
-
-

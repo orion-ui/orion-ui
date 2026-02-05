@@ -1,6 +1,6 @@
 <template>
 	<o-page title="IconSection">
-		<o-card style="width:320px">
+		<o-card style="width: 20rem;">
 			<o-icon-section
 				title="Vulputate Etiam"
 				icon="data_usage">

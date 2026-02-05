@@ -1,32 +1,47 @@
-@import '../../Shared/styles/variables.less';
-@import '../../Shared/styles/mixins.less';
+@import "../../Shared/styles/variables.less";
+@import "../../Shared/styles/mixins.less";
 
 .orion-chat {
 	position: relative;
 	display: flex;
 	flex-direction: column;
-	background: var(--o-background-neutral-default);
 	height: 100%;
+	background: var(--o-background-neutral-default);
 
 	&__header {
 		position: sticky;
-		top: 0;
 		z-index: 2;
+		top: 0;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
 		height: 4rem;
 		padding: var(--o-space-16);
-		background: var(--o-background-neutral-default);
 		border-bottom: 0.0625rem solid var(--o-background-neutral-subtle);
+		background: var(--o-background-neutral-default);
+	}
+
+	&__actions {
+		display: flex;
+		flex: 1;
+		gap: 1rem;
+		align-items: center;
+
+		.orion-icon {
+			font-size: 1.25rem;
+		}
+
+		.orion-input {
+			margin: 0;
+		}
 	}
 
 	&__title {
+		overflow: hidden;
 		display: flex;
 		align-items: center;
 		font-size: 1rem;
 		font-weight: 600;
-		overflow: hidden;
 
 		+ .orion-chat__actions {
 			flex: 0;
@@ -39,6 +54,7 @@
 
 		> .orion-avatar {
 			.circle(2.8125rem);
+
 			border: 0.125rem solid var(--o-border-neutral-default);
 
 			+ .orion-avatar {
@@ -51,30 +67,15 @@
 		.ellipsis();
 	}
 
-	&__actions {
-		display: flex;
-		align-items: center;
-		gap: 1rem;
-		flex: 1;
-
-		.orion-icon {
-			font-size: 1.25rem;
-		}
-
-		.orion-input {
-			margin: 0;
-		}
-	}
-
 	&__search {
 		flex: 1;
 	}
 
 	&__content {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
 		overflow: auto;
+		display: flex;
+		flex: 1;
+		flex-direction: column;
 		padding: 0 0.3rem;
 
 		&-empty {
@@ -94,17 +95,17 @@
 		position: sticky;
 		z-index: 3;
 		left: 0;
-		width: 100%;
 		display: flex;
+		gap: 0.3rem;
 		align-items: center;
 		justify-content: center;
-		gap: 0.3rem;
-		text-align: center;
-		background: var(--o-background-neutral-default);
-		color: var(--o-text-info-default);
-		text-transform: uppercase;
-		font-weight: 600;
+		width: 100%;
 		font-size: 0.75rem;
+		font-weight: 600;
+		color: var(--o-text-info-default);
+		text-align: center;
+		text-transform: uppercase;
+		background: var(--o-background-neutral-default);
 	}
 
 	&__unread-top {
@@ -112,9 +113,10 @@
 
 		.arrow {
 			.flex-align();
+
+			transform: rotate(-90deg);
 			width: 1rem;
 			height: 1rem;
-			transform: rotate(-90deg);
 		}
 	}
 
@@ -123,9 +125,10 @@
 
 		.arrow {
 			.flex-align();
+
+			transform: rotate(90deg);
 			width: 1rem;
 			height: 1rem;
-			transform: rotate(90deg);
 		}
 	}
 
@@ -149,11 +152,28 @@
 
 	&__section-title {
 		position: relative;
-		text-align: center;
+		margin: 0 0 2.5rem;
 		font-size: 0.8125rem;
 		font-weight: normal;
 		color: var(--o-text-neutral-default);
-		margin: 0 0 2.5rem;
+		text-align: center;
+
+		&::before {
+			content: "";
+			position: absolute;
+			top: 50%;
+			display: block;
+			width: 100%;
+			height: 0.0625rem;
+			background:
+				linear-gradient(
+					to right,
+					rgba(var(--o-background-neutral-minimal), 0),
+					var(--o-background-neutral-subtle) 30%,
+					var(--o-background-neutral-subtle) 70%,
+					rgba(var(--o-background-neutral-minimal), 0)
+				);
+		}
 
 		> span {
 			position: relative;
@@ -161,36 +181,20 @@
 			padding: 0 var(--o-space-48);
 			background: var(--o-background-neutral-default);
 		}
-
-		&::before {
-			content: '';
-			display: block;
-			position: absolute;
-			top: 50%;
-			width: 100%;
-			height: 0.0625rem;
-			background: linear-gradient(
-				to right,
-				rgba(var(--o-background-neutral-minimal), 0),
-				var(--o-background-neutral-subtle) 30%,
-				var(--o-background-neutral-subtle) 70%,
-				rgba(var(--o-background-neutral-minimal), 0)
-			);
-		}
 	}
 
 	&__footer {
-		background: var(--o-background-neutral-default);
 		position: sticky;
 		bottom: 0;
 		padding: var(--o-space-16);
+		background: var(--o-background-neutral-default);
 
 		> .orion-chat__send {
 			position: absolute;
 			top: calc(21rem / 16);
 			right: calc(21rem / 16);
-			color: var(--o-text-info-default);
 			font-size: 1.25rem;
+			color: var(--o-text-info-default);
 		}
 	}
 
@@ -206,4 +210,3 @@
 		}
 	}
 }
-

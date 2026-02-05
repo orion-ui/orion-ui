@@ -1,43 +1,43 @@
-@import '../../Shared/styles/variables.less';
-@import '../../Shared/styles/mixins.less';
+@import "../../Shared/styles/variables.less";
+@import "../../Shared/styles/mixins.less";
 
 .orion-nav-main {
 	position: fixed;
+	z-index: 11;
+	top: 8rem;
 	bottom: 0;
 	left: 0;
 	width: 16rem;
-	top: 8rem;
-	z-index: 11;
 
 	hr {
-		border-image: linear-gradient(
+		margin: 0;
+		padding-left: var(--o-space-48);
+		border-image:
+			linear-gradient(
 				to right,
 				rgba(var(--o-background-neutral-default), 0.4),
 				rgba(var(--o-background-neutral-default), 0)
 			)
 			1;
-		margin: 0;
-		padding-left: var(--o-space-48);
 		font-size: 1.125rem;
-		line-height: 1.5;
 		font-weight: 300;
+		line-height: 1.5;
 		color: rgba(var(--o-background-neutral-moderate), 0.7);
 
 		@media @phone {
+			margin: 1.25rem auto;
 			font-size: 1rem;
 			line-height: 1.25;
-			margin: 1.25rem auto;
 		}
 	}
 
 	&__wrapper,
 	&__children {
 		position: absolute;
-		width: 100%;
 		top: 0;
 		bottom: 0;
-		overflow-y: auto;
-		overflow-x: hidden;
+		overflow: hidden auto;
+		width: 100%;
 	}
 
 	&__children {
@@ -60,8 +60,8 @@
 	&--aside {
 		position: relative;
 		top: unset;
-		bottom: unset;
 		right: unset;
+		bottom: unset;
 		left: unset;
 		width: auto;
 		margin-top: var(--o-space-32);
@@ -71,10 +71,9 @@
 		.orion-nav-main__children {
 			position: relative;
 			top: unset;
-			bottom: unset;
 			right: unset;
+			bottom: unset;
 			left: unset;
 		}
 	}
 }
-

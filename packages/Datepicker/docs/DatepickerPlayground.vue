@@ -44,6 +44,12 @@
 	<div class="row row--grid row--toggles">
 		<div class="col-sm-4">
 			<o-toggle
+				v-model="state.displayWeekNumber"
+				clearable
+				label="Display Week Number"/>
+		</div>
+		<div class="col-sm-4">
+			<o-toggle
 				v-model="state.time"
 				clearable
 				label="Display Time"/>
@@ -98,6 +104,7 @@ const state = reactive({
 	disabled: false,
 	readonly: false,
 	clearable: false,
+	displayWeekNumber: false,
 });
 </script>
 

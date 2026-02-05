@@ -70,9 +70,9 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, computed } from 'vue';
-import { getUid } from 'lib';
 import { faker } from '@faker-js/faker';
+import { getUid } from 'lib';
+import { computed, reactive } from 'vue';
 
 const fullList = seedList();
 const list = computed(() => fullList.slice(page.size * (page.index - 1), page.size * page.index));

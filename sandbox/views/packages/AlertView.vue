@@ -23,8 +23,7 @@
 import { faker } from '@faker-js/faker';
 import { colors } from 'lib';
 import { highlightDomElement } from 'utils/tools';
-import { onMounted } from 'vue';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
 const visible = ref(false);
 
@@ -40,6 +39,6 @@ onMounted(() => {
 
 <style scoped lang="less">
 .orion-alert {
-	margin-top: 20px;
+	margin-top: 1.25rem;
 }
 </style>

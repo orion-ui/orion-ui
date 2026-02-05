@@ -1,8 +1,7 @@
-import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
+import { type App, type Plugin } from 'vue';
 import OrionUpload from './src/OrionUpload.vue';
-import type { OrionUploadEmits, OrionUploadProps } from './src/OrionUploadSetupService';
-import OrionUploadSetupService from './src/OrionUploadSetupService';
+import { OrionUploadSetup, type OrionUploadEmits, type OrionUploadProps } from './src/OrionUploadSetup';
 
 export const OrionUploadPlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,4 +9,4 @@ export const OrionUploadPlugin: Plugin = {
 	},
 };
 
-export { OrionUpload, OrionUploadSetupService, OrionUploadEmits, OrionUploadProps };
+export { OrionUpload, OrionUploadSetup, type OrionUploadEmits, type OrionUploadProps };

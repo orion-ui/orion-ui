@@ -95,7 +95,7 @@
 				:to="setup.displayHeader
 					? `#OrionModal-${setup.uid}__header-container`
 					: `#OrionModal-${setup.uid}__body`">
-				<o-button
+				<orion-button
 					v-if="!setup.options.hideClose"
 					class="orion-modal__close"
 					color="primary"
@@ -111,6 +111,7 @@
 </template>
 
 <script lang="ts">
+// eslint-disable-next-line no-restricted-exports
 export default {
 	components: {
 		OrionInput: defineAsyncComponent(() => import('../../Input/src/OrionInput.vue')),
@@ -130,15 +131,13 @@ import { OrionLoader } from 'packages/Loader';
 import { OrionSection } from 'packages/Section';
 import { defineAsyncComponent, provide } from 'vue';
 import './OrionModal.less';
-import type { OrionModalEmits, OrionModalProps } from './OrionModalSetupService';
-import OrionModalSetupService from './OrionModalSetupService';
+import { OrionModalSetup, type OrionModalEmits, type OrionModalProps } from './OrionModalSetup';
 const emits = defineEmits<OrionModalEmits>() as OrionModalEmits;
-const props = withDefaults(defineProps<OrionModalProps>(), OrionModalSetupService.defaultProps);
+const props = withDefaults(defineProps<OrionModalProps>(), OrionModalSetup.defaultProps);
 const slots = defineSlots();
-const setup = new OrionModalSetupService(props, emits, slots);
+const setup = new OrionModalSetup(props, emits, slots);
 provide('_modal', setup.publicInstance);
 defineExpose(setup.publicInstance);
-
 
 /** Doc
  * @doc slot/header the header of the modal

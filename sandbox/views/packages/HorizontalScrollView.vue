@@ -5,7 +5,7 @@
 			:tolerance="10">
 			<div
 				id="turltutu"
-				style="display: flex; gap: 10px;">
+				style="display: flex; gap: 0.75rem;">
 				<o-button
 					v-for="o in numberOfButton"
 					:key="o"
@@ -25,7 +25,7 @@
 			:targets="horizontalScrollStepper">
 			<div
 				id="preview"
-				style="display: flex; gap: 10px;">
+				style="display: flex; gap: 0.75rem;">
 				<o-button
 					v-for="o in numberOfButton"
 					:key="o"

@@ -3,22 +3,19 @@
 </template>
 
 <script setup lang="tsx">
-import './OrionTabs.less';
-import { provide } from 'vue';
-import { isDefineOrTrue } from 'utils/tools';
-import { OrionTabNav } from 'packages/TabNav';
 import { OrionLoader } from 'packages/Loader';
-import OrionTabsSetupService from './OrionTabsSetupService';
-import type { OrionTabsProps, OrionTabsEmits } from './OrionTabsSetupService';
+import { OrionTabNav } from 'packages/TabNav';
+import { isDefineOrTrue } from 'utils/tools';
+import { provide } from 'vue';
+import './OrionTabs.less';
+import { OrionTabsSetup, type OrionTabsEmits, type OrionTabsProps } from './OrionTabsSetup';
 const slots = defineSlots();
 const emits = defineEmits<OrionTabsEmits>() as OrionTabsEmits;
-const props = withDefaults(defineProps<OrionTabsProps>(), OrionTabsSetupService.defaultProps);
+const props = withDefaults(defineProps<OrionTabsProps>(), OrionTabsSetup.defaultProps);
 const vModel = defineModel<string | undefined>();
-const setup = new OrionTabsSetupService(props, emits, slots, vModel);
+const setup = new OrionTabsSetup(props, emits, slots, vModel);
 provide('_tabs', setup.publicInstance);
 defineExpose(setup.publicInstance);
-
-
 
 const jsxTabs = () => {
 	const navData = {
@@ -50,10 +47,10 @@ const jsxTabs = () => {
 		<div class="orion-tabs__content">
 			{
 				props.useRouter
-					? <router-view name={props.routerViewName}/>
+					? <router-view name={props.routerViewName} />
 					: slots.default ? slots.default() : null
 			}
-			<OrionLoader { ...loaderData }/>
+			<OrionLoader {...loaderData} />
 		</div>
 	);
 
@@ -64,7 +61,7 @@ const jsxTabs = () => {
 
 	return (
 		<div class={tabsClass}>
-			{[ header, content ]}
+			{[header, content]}
 		</div>
 	);
 };

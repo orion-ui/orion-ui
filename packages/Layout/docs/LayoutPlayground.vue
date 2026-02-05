@@ -30,45 +30,48 @@
 
 <style scoped lang="less">
 .nav-top {
-  background-color: var(--o-background-neutral-moderate);
-  height: 3rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 3rem;
+	background-color: var(--o-background-neutral-moderate);
 }
+
 .nav-main {
-  background-color: var(--o-background-neutral-subtle);
-  flex: 6rem 0 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	display: flex;
+	flex: 6rem 0 0;
+	align-items: center;
+	justify-content: center;
+	background-color: var(--o-background-neutral-subtle);
 }
+
 .main {
-  background-color: var(--o-background-neutral-minimal);
-  display: flex;
+	display: flex;
 	flex: 1;
-  justify-content: center;
-  align-items: center;
-  height: calc(200rem / 16);
+	align-items: center;
+	justify-content: center;
+	height: calc(200rem / 16);
 	padding-top: 1rem;
+	background-color: var(--o-background-neutral-minimal);
 }
+
 .nav-tabs {
-  background-color: var(--o-background-neutral-default);
-  height: 3rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 3rem;
+	background-color: var(--o-background-neutral-default);
 }
 
 .container {
-  display: flex;
-  height: calc(200rem / 16);
+	display: flex;
+	height: calc(200rem / 16);
 }
 
 .example {
-  margin-bottom: 2rem;
-  margin-top: 2rem;
-  border: calc(3rem / 16) solid white;
+	margin-top: 2rem;
+	margin-bottom: 2rem;
+	border: calc(3rem / 16) solid white;
 }
 </style>
 
@@ -79,4 +82,3 @@
 @lang:fr
 ### Exemple de disposition
 @lang
-

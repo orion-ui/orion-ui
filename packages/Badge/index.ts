@@ -1,8 +1,7 @@
-import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
+import { type App, type Plugin } from 'vue';
 import OrionBadge from './src/OrionBadge.vue';
-import type { OrionBadgeEmits, OrionBadgeProps } from './src/OrionBadgeSetupService';
-import OrionBadgeSetupService from './src/OrionBadgeSetupService';
+import { OrionBadgeSetup, type OrionBadgeEmits, type OrionBadgeProps } from './src/OrionBadgeSetup';
 
 export const OrionBadgePlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,4 +9,4 @@ export const OrionBadgePlugin: Plugin = {
 	},
 };
 
-export { OrionBadge, OrionBadgeSetupService, OrionBadgeEmits, OrionBadgeProps };
+export { OrionBadge, OrionBadgeSetup, type OrionBadgeEmits, type OrionBadgeProps };

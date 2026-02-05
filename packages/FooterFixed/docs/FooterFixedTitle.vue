@@ -21,8 +21,8 @@ const state = reactive({
 
 <style scoped lang="less">
 .playground {
-  display: flex;
-  align-items: center;
+	display: flex;
+	align-items: center;
 }
 </style>
 

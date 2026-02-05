@@ -4,10 +4,11 @@ import { useMonkey } from 'services/MonkeyService';
 import { Reactive } from 'utils/decorators';
 
 import type { ChatService } from '../../../services/ChatService';
-import OrionChatMessageEntity from '../../ChatMessage/src/OrionChatMessageEntity';
-import SharedEntity from '../../Shared/SharedEntity';
+import { OrionChatMessageEntity } from '../../ChatMessage/src/OrionChatMessageEntity';
+import { SharedEntity } from '../../Shared/SharedEntity';
 
-export default class OrionChatEntity extends SharedEntity<Orion.Chat.Discussion> {
+export class OrionChatEntity extends SharedEntity<Orion.Chat.Discussion> {
+
 	@Reactive private readonly state = {
 		hidden: false,
 		initialLoad: false,
@@ -18,23 +19,8 @@ export default class OrionChatEntity extends SharedEntity<Orion.Chat.Discussion>
 
 	chat: ChatService;
 
-	get initialLoad () { return this.state.initialLoad; }
-	set initialLoad (val) { this.state.initialLoad = val; }
-
-	get fullyLoaded () { return this.state.fullyLoaded; }
-	set fullyLoaded (val) { this.state.fullyLoaded = val; }
-
-	get hidden () { return this.state.hidden; }
-	set hidden (val) { this.state.hidden = val; }
-
-	get id () {
-		return this.entity.id;
-	}
-
-	get messages () {
-		return [...this.state.messages.values()];
-	}
-
+	get id () { return this.entity.id }
+	get messages () { return [...this.state.messages.values()] }
 	get title () {
 		return this.chat.config.discussionTitleFormatter
 			? this.chat.config.discussionTitleFormatter(this)
@@ -47,14 +33,8 @@ export default class OrionChatEntity extends SharedEntity<Orion.Chat.Discussion>
 			: this.entity.participants.filter(u => u.id !== this.chat.userId).slice(0, 3);
 	}
 
-	get participants () {
-		return this.entity.participants;
-	}
-
-	get lastMessage () {
-		return this.state.lastMessage;
-	}
-
+	get participants () { return this.entity.participants }
+	get lastMessage () { return this.state.lastMessage }
 	get unreadMessagesCount () {
 		if (this.chat.config.discussionUnreadMessagesCounter) {
 			return this.chat.config.discussionUnreadMessagesCounter({
@@ -62,25 +42,31 @@ export default class OrionChatEntity extends SharedEntity<Orion.Chat.Discussion>
 				discussionId: this.id,
 				messages: this.messages,
 			});
-		} else if (this.messages.length) {
+		}
+		else if (this.messages.length) {
 			return this.messages.filter(m => !m.isReadByUser).length;
-		} else if (this.lastMessage) {
+		}
+		else if (this.lastMessage) {
 			return this.lastMessage.isReadByUser ? 0 : 1;
-		} else {
+		}
+		else {
 			return 0;
 		}
 	}
 
-	get createdDate () {
-		return this.entity.createdDate;
-	}
+	get createdDate () { return this.entity.createdDate }
+	get updatedDate () { return this.entity.updatedDate }
 
-	get updatedDate () {
-		return this.entity.updatedDate;
-	}
+	get initialLoad () { return this.state.initialLoad }
+	set initialLoad (val) { this.state.initialLoad = val }
 
+	get fullyLoaded () { return this.state.fullyLoaded }
+	set fullyLoaded (val) { this.state.fullyLoaded = val }
 
-	constructor (data: Partial<Orion.Chat.Discussion> & {id: number}, chat: ChatService) {
+	get hidden () { return this.state.hidden }
+	set hidden (val) { this.state.hidden = val }
+
+	constructor (data: Partial<Orion.Chat.Discussion> & { id: number }, chat: ChatService) {
 		super(data);
 		this.chat = chat;
 
@@ -97,7 +83,6 @@ export default class OrionChatEntity extends SharedEntity<Orion.Chat.Discussion>
 			);
 		}
 	}
-
 
 	async fetchMessagesAsync () {
 		await this.chat.fetchMessagesAsync(this.id);
@@ -139,4 +124,5 @@ export default class OrionChatEntity extends SharedEntity<Orion.Chat.Discussion>
 	async addNewMessageAsync (content: string) {
 		await this.chat.addNewMessageAsync(this.id, content);
 	}
+
 }

@@ -17,8 +17,8 @@ module.exports = async (/** @type {string} */ name, /** @type {Options} */ optio
 	factory.createFiles();
 };
 
-
 class ComponentFactory {
+
 	constructor (/** @type {string} */ name, /** @type {Options} */ options) {
 		this.options = options;
 
@@ -46,7 +46,7 @@ class ComponentFactory {
 			'index.ts',
 			'src/{ComponentName}.vue',
 			'src/{ComponentName}.less',
-			'src/{ComponentName}SetupService.ts',
+			'src/{ComponentName}Setup.ts',
 		];
 
 		filesToWrite.forEach((f) => {
@@ -56,7 +56,8 @@ class ComponentFactory {
 			if (this.options.dryRun) {
 				console.log(pico.cyan(`Would write file`));
 				console.log(path.resolve(this.packagePath, targetFileName));
-			} else {
+			}
+			else {
 				fs.writeFileSync(path.resolve(this.packagePath, targetFileName), this.readTemplate(f), { encoding: 'utf-8' });
 				console.log(pico.yellow(`🥨 --> Successfully created ${relativePath}`));
 			}
@@ -72,4 +73,5 @@ class ComponentFactory {
 
 		return content;
 	}
+
 }

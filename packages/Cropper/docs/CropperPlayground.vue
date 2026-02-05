@@ -3,7 +3,7 @@
 
 	<div
 		class="flex fd-c"
-		style="width:30rem; max-width:100%; margin:auto;">
+		style="width: 30rem; max-width: 100%; margin: auto;">
 		<o-upload
 			v-model="files"
 			horizontal
@@ -56,7 +56,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from 'vue';
+import { reactive, ref } from 'vue';
 
 const _cropper = ref<RefDom<OrionCropper>>();
 const files = ref<File[]>([]);

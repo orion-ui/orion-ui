@@ -168,7 +168,6 @@ const maskOptions = [
 	state.customMaskValue,
 ];
 
-
 watch(() => state.customMaskValue, (val) => {
 	maskOptions[3] = val;
 });

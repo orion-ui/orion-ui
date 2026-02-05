@@ -1,8 +1,7 @@
-import { App, Plugin } from 'vue';
 import { upperFirst } from 'lodash-es';
+import { type App, type Plugin } from 'vue';
 import OrionInput from './src/OrionInput.vue';
-import type { OrionInputEmits, OrionInputProps } from './src/OrionInputSetupService';
-import OrionInputSetupService from './src/OrionInputSetupService';
+import { OrionInputSetup, type OrionInputEmits, type OrionInputProps } from './src/OrionInputSetup';
 
 export const OrionInputPlugin: Plugin = {
 	install (app: App, prefix: string = 'o') {
@@ -10,4 +9,4 @@ export const OrionInputPlugin: Plugin = {
 	},
 };
 
-export { OrionInput, OrionInputSetupService, OrionInputEmits, OrionInputProps };
+export { OrionInput, OrionInputSetup, type OrionInputEmits, type OrionInputProps };

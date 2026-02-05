@@ -16,7 +16,7 @@ const periods: Orion.Period[] = [
 		isStart: false,
 		isEnd: false,
 		start: new Date(),
-		end: new Date(today.setDate(today.getDate()+7)),
+		end: new Date(today.setDate(today.getDate() + 7)),
 		label: 'period 1',
 		color: 'info',
 		specific: [],
@@ -24,19 +24,19 @@ const periods: Orion.Period[] = [
 	{
 		isStart: false,
 		isEnd: false,
-		start: new Date(today.setDate(today.getDate()+3)),
-		end: new Date(today.setDate(today.getDate()+6)),
+		start: new Date(today.setDate(today.getDate() + 3)),
+		end: new Date(today.setDate(today.getDate() + 6)),
 		label: 'period 2',
 		color: 'danger',
 		specific: [
 			{
 				color: 'warning',
-				date: new Date(today.setDate(today.getDate()-1)),
+				date: new Date(today.setDate(today.getDate() - 1)),
 				exclude: true,
 			},
 			{
 				color: 'warning',
-				date: new Date(today.setDate(today.getDate()-3)),
+				date: new Date(today.setDate(today.getDate() - 3)),
 				exclude: false,
 			},
 		],

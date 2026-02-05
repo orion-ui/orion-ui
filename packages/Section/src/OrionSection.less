@@ -1,12 +1,11 @@
-@import '../../Shared/styles/variables.less';
-@import '../../Shared/styles/mixins.less';
+@import "../../Shared/styles/variables.less";
+@import "../../Shared/styles/mixins.less";
 
 details.orion-section summary::-webkit-details-marker {
 	display: none;
 }
 
 .orion-section {
-
 	+.orion-section--xs {
 		margin-top: 1rem;
 	}
@@ -25,10 +24,10 @@ details.orion-section summary::-webkit-details-marker {
 
 	&__header {
 		display: flex;
-		align-items: flex-start;
-		justify-content: space-between;
 		flex-wrap: wrap;
 		gap: 0.5rem;
+		align-items: flex-start;
+		justify-content: space-between;
 		width: 100%;
 
 		>div:first-child {
@@ -41,21 +40,17 @@ details.orion-section summary::-webkit-details-marker {
 	}
 
 	&__actions {
-		min-width: fit-content;
 		display: flex;
-		align-items: center;
 		gap: 1rem;
+		align-items: center;
+		min-width: fit-content;
 		margin-left: auto;
-
-		@media @phone {
-			align-self: flex-end;
-		}
 
 		.orion-input {
 			margin: 0;
 		}
 
-		.orion-icon:not(.orion-button .orion-icon):not(.orion-input .orion-icon) {
+		.orion-icon:not(.orion-button .orion-icon, .orion-input .orion-icon) {
 			display: inline-block;
 			font-size: 1.5rem;
 
@@ -67,13 +62,17 @@ details.orion-section summary::-webkit-details-marker {
 				font-size: 1.25rem;
 			}
 		}
+
+		@media @phone {
+			align-self: flex-end;
+		}
 	}
 
 	&__title {
-		margin: 0;
 		display: flex;
-		align-items: center;
 		gap: 0.5rem;
+		align-items: center;
+		margin: 0;
 
 		.orion-section--actions & {
 			flex: 1 0 100%;
@@ -81,22 +80,23 @@ details.orion-section summary::-webkit-details-marker {
 		}
 
 		&-chevron {
-			align-self: flex-end;
 			transform: translateY(-0.0625rem);
+			align-self: flex-end;
 		}
 	}
 
 	&__subtitle {
 		.typography(body2-default);
-		color: var(--o-text-neutral-subtle);
+
 		margin: 0.3rem 0 0;
+		color: var(--o-text-neutral-subtle);
 	}
 
 	&__content {
 		opacity: 1;
 		transition: opacity 0.3s ease;
 
-		.orion-section__header+& {
+		.orion-section__header + & {
 			margin-top: 1.25rem;
 		}
 
@@ -106,9 +106,9 @@ details.orion-section summary::-webkit-details-marker {
 
 		&--align {
 			display: flex;
-			align-items: center;
 			flex-wrap: wrap;
 			gap: 0.5rem;
+			align-items: center;
 
 			&-left {
 				justify-content: flex-start;

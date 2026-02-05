@@ -13,7 +13,7 @@
 		</o-section>
 
 		<o-section>
-			<o-card style="height:120px; overflow:auto;">
+			<o-card style="overflow: auto; height: 8rem;">
 				<o-section
 					:title="faker.lorem.sentence()"
 					size="xs">
@@ -33,10 +33,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { faker } from '@faker-js/faker';
 import { useOverlay } from 'lib';
 import { OrionOverlay } from 'packages/Overlay';
-import { faker } from '@faker-js/faker';
+import { ref } from 'vue';
 import SectionsGenerator from '../../SectionsGenerator.vue';
 
 const _overlay = ref<InstanceType<typeof OrionOverlay>>();

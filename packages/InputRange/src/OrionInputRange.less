@@ -1,11 +1,11 @@
-@import '../../Shared/styles/variables.less';
-@import '../../Shared/styles/mixins.less';
+@import "../../Shared/styles/variables.less";
+@import "../../Shared/styles/mixins.less";
 
 .orion-input-range {
 	position: relative;
 	width: 100%;
-	margin: 0.5rem 0;
 	min-height: 0.5rem;
+	margin: 0.5rem 0;
 
 	.runnable-track {
 		position: absolute;
@@ -16,23 +16,18 @@
 	}
 
 	&__input {
-		-webkit-appearance: none;
-		appearance: none;
-		background: transparent;
-		width: 100%;
-		padding: 0;
-		font: inherit;
-		transition: opacity 0.2s;
 		cursor: pointer;
-		height: 0;
-		margin: unset;
 		position: absolute;
 		top: 0.25rem;
-
-		.orion-input-range--readonly &,
-		.orion-input-range--disabled & {
-			pointer-events: none;
-		}
+		width: 100%;
+		height: 0;
+		margin: unset;
+		padding: 0;
+		font: inherit;
+		appearance: none;
+		appearance: none;
+		background: transparent;
+		transition: opacity 0.2s;
 
 		//MOZILLA
 		&::-moz-range-track {
@@ -44,27 +39,13 @@
 		}
 
 		&::-moz-range-thumb {
-			display: block;
 			position: relative;
+			z-index: 100;
+			display: block;
 			width: 1.25rem;
 			height: 1.25rem;
-			background: var(--o-background-neutral-default);
 			border-radius: 100%;
-			z-index: 100;
-		}
-
-		each(@colors, {
-			&--@{value} {
-				&::-moz-range-thumb {
-					border: 0.125rem solid var(~"--o-border-@{value}-default");
-				}
-			}
-		});
-
-		&--default {
-			&::-webkit-slider-thumb {
-				border-color: var(--o-border-neutral-default);
-			}
+			background: var(--o-background-neutral-default);
 		}
 
 		&::-moz-range-progress {
@@ -81,50 +62,61 @@
 		}
 
 		&::-webkit-slider-thumb {
-			display: block;
 			position: relative;
-			-webkit-appearance: none;
-			width: 1.25rem;
-			height: 1.25rem;
-			background: var(--o-background-neutral-default);
-			border: 0.125rem solid var(--o-background-primary-default);
-			border-radius: 100%;
 			z-index: 3;
 			top: -0.625rem;
+			display: block;
+			width: 1.25rem;
+			height: 1.25rem;
+			border: 0.125rem solid var(--o-background-primary-default);
+			border-radius: 100%;
+			appearance: none;
+			background: var(--o-background-neutral-default);
 		}
 
-		each(@colors, {
-      &--@{value} {
-        &::-webkit-slider-thumb {
-          border-color: var(~"--o-border-@{value}-default");
-        }
-      }
-    });
+		.orion-input-range--readonly &,
+		.orion-input-range--disabled & {
+			pointer-events: none;
+		}
 
 		&--default {
 			&::-webkit-slider-thumb {
 				border-color: var(--o-border-neutral-default);
 			}
 		}
+
+		each(@colors, {
+			&--@{value} {
+				&::-moz-range-thumb {
+					border: 0.125rem solid var(~"--o-border-@{value}-default");
+				}
+			}
+		});
+
+		each(@colors, {
+			&--@{value} {
+				&::-webkit-slider-thumb {
+					border-color: var(~"--o-border-@{value}-default");
+				}
+			}
+		});
 	}
 
 	&__progress-bar {
-		position: absolute;
-		height: 0.5rem;
-		width: 100%;
-		border-radius: var(--o-radius-md);
 		pointer-events: none;
+		position: absolute;
+		width: 100%;
+		height: 0.5rem;
+		border-radius: var(--o-radius-md);
 
 		each(@colors, {
-      &--@{value} {
-        background: var(~"--o-background-@{value}-default");
-      }
-    });
+			&--@{value} {
+				background: var(~"--o-background-@{value}-default");
+			}
+		});
 
 		&--default {
 			background: var(--o-background-info-default);
 		}
 	}
 }
-
-

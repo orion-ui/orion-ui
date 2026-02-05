@@ -3,13 +3,11 @@ const { text, log, note } = require('@clack/prompts');
 const { readFileSync, readdirSync, writeFileSync } = require('fs');
 const { capitalize } = require('radash');
 
-
 /**
  * @typedef {object} Options
  * @property {boolean} [dryRun]
  * @property {boolean} [verbose]
  * @property {boolean} inOrion
- *
  * @property {string} [output]
  */
 
@@ -43,7 +41,8 @@ module.exports = async (/** @type {Options} */ options) => {
 	content = content.replace(/{types}/gm, packages.map((x) => {
 		if (options.inOrion) {
 			return `${prefix}${x}: typeof import('packages/index')['Orion${x}'];`;
-		} else {
+		}
+		else {
 			return `${prefix}${x}: typeof import('@orion.ui/orion/dist/types/packages')['Orion${x}'];`;
 		}
 	}).join('\n\t\t'));
@@ -51,7 +50,8 @@ module.exports = async (/** @type {Options} */ options) => {
 	if (options.dryRun) {
 		note(`🥨 --> Orion would write following content in ${relativePath}`);
 		log.message(content);
-	} else {
+	}
+	else {
 		writeFileSync(outputPath, content, { encoding: 'utf-8' });
 		log.success(`🥨 --> Orion created ${relativePath}`);
 	}

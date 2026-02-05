@@ -63,8 +63,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
 import { colors, colorsAlt, greys } from 'lib';
+import { computed, ref } from 'vue';
 const altColors = ref(false);
 const showGreys = ref(false);
 const chipsColors = computed(() => altColors.value ? colorsAlt : colors);

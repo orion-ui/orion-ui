@@ -1,5 +1,5 @@
-import countries from './countries';
-import Pluralizer from './Pluralizer';
+import { countries } from './countries';
+import { Pluralizer } from './Pluralizer';
 
 export const FrLang = {
 	pluralize: Pluralizer.pluralize,

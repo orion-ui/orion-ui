@@ -17,16 +17,16 @@ import { reactive } from 'vue';
 
 const dateRange = reactive({ week: null });
 
-function customValueDisplay (val: Orion.DateRange) {
+// TODO: type :value-display-format depending on v-model type
+function customValueDisplay (val?: Orion.DateRange) {
 	if (val?.start) return `Week 
 	<em>number</em> 
 	<strong class="text--warning">${val?.weekNumber}</strong>
-	starting the ${ useMonkey(val.start)?.toReadable()}
+	starting the ${useMonkey(val.start)?.toReadable()}
 	`;
 	else return '';
 }
 </script>
-
 
 @hl {8,19-25}
 

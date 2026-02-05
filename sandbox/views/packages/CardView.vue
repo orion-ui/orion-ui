@@ -33,7 +33,7 @@
 						:hover-elevation="index * 1"
 						v-bind="state"
 						@header-click="notify()">
-						<pre style="color:black">{{ color }}</pre>
+						<pre style="color: black;">{{ color }}</pre>
 						Etiam porta sem malesuada magna mollis euismod.
 					</o-card>
 				</div>
@@ -43,7 +43,7 @@
 		<o-section>
 			<o-card
 				ref="theOne"
-				style="width: 300px;"
+				style="width: 20rem;"
 				:selected="state.selected"
 				title="Euismod Aenean Egestas"
 				:hover-elevation="1"

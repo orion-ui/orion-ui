@@ -28,4 +28,3 @@ Les deux valeurs possible sont `text` et `number`.
 
 Le type `number` permet de n'autoriser que la saisie de chiffres, et sur mobile d'afficher le pavé numérique.
 @lang
-
