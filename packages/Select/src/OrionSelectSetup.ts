@@ -602,8 +602,13 @@ export class OrionSelectSetup<
 		this.state.hasBeenFocus = true;
 		this.state.indexNav = -1;
 
-		if (this.props.autocomplete)
+		if (this.props.autocomplete) {
 			this._autocomplete.value?.blur();
+
+			if (!this.vModel.value && !selection) {
+				this.state.valueToSearch = undefined;
+			}
+		}
 
 		if (!this.responsive.onPhone || selection) {
 			this.state.isFocus = false;
@@ -620,32 +625,38 @@ export class OrionSelectSetup<
 		const optionsHtml = this._optionscontainer.value;
 		if (!optionsHtml || !popoverInner) return;
 
-		if (this.state.indexNav === -1) {
-			this.state.indexNav = 0;
+		if (this.state.indexNav === 0 && direction === 'up') {
 			popoverInner.scrollTop = 0;
-			return false;
 		}
 
-		const boundingOptions = popoverInner.getBoundingClientRect();
-		const bottomOptions = boundingOptions.bottom;
-		const topOptions = boundingOptions.top;
-
-		if (direction === 'down' && this.state.indexNav < this.optionsDisplay.length - 1) {
+		if (this.state.indexNav === -1) {
+			this.state.indexNav = 0;
+		}
+		else if (direction === 'down' && this.state.indexNav < this.optionsDisplay.length - 1) {
 			this.state.indexNav++;
 		}
 		else if (direction === 'up' && this.state.indexNav > 0) {
 			this.state.indexNav--;
 		}
 
-		const boundingItem = (optionsHtml.children[this.state.indexNav] as HTMLElement).getBoundingClientRect();
-		const itemBottom = boundingItem.bottom;
-		const itemTop = boundingItem.top;
+		const focusedElement = optionsHtml.children[this.state.indexNav] as HTMLElement;
+		if (!focusedElement) return;
 
-		if (direction === 'down' && itemBottom > bottomOptions) {
-			popoverInner.scrollTop = popoverInner.scrollTop + (itemBottom - bottomOptions);
-		}
-		else if (direction === 'up' && itemTop < topOptions) {
-			popoverInner.scrollTop = popoverInner.scrollTop - (topOptions - itemTop);
+		focusedElement.scrollIntoView({
+			behavior: 'instant',
+			block: 'nearest',
+			inline: 'nearest',
+		});
+
+		if (this.responsive.onDesktop) {
+			const scrollableParent = popoverInner;
+			const itemRect = focusedElement.getBoundingClientRect();
+			const containerRect = scrollableParent.getBoundingClientRect();
+			const footerHeight = 36; // 2.25rem
+
+			if (itemRect.bottom > containerRect.bottom - footerHeight - 10) {
+				scrollableParent.scrollTop += footerHeight + 50;
+			}
 		}
 	}
 
