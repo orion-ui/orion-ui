@@ -8,7 +8,6 @@
 	position: relative;
 	display: inline-flex;
 	align-items: center;
-	min-width: fit-content;
 	max-width: 100%;
 	border: 1px solid transparent;
 	border-radius: var(--o-radius-round);
@@ -48,10 +47,12 @@
 
 	&__main,
 	&__dual {
-		display: flex;
+		display: block;
 		gap: var(--o-space-8);
 		align-items: center;
 		height: 100%;
+		white-space: nowrap;
+		.ellipsis();
 	}
 
 	&__dual {
