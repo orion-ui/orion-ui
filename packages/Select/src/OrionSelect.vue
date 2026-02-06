@@ -19,6 +19,12 @@
 			class="orion-select"
 			:class="[{ 'orion-select--multiple': multiple }, $attrs.class]"
 			@clear="setup.clear()">
+			<label
+				v-if="!floatingLabel"
+				:for="`orion-input_${setup._uid}`"
+				class="orion-input__static-label">
+				{{ label }}
+			</label>
 			<div
 				:id="`orion-input_${setup._uid}`"
 				:ref="setup._input"
