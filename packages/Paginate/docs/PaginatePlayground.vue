@@ -2,7 +2,11 @@
 	<div class="flex fd-c g-16">
 		<div class="flex fd-c g-8">
 			<h4>Default</h4>
-			<o-paginate v-model="state.index" :total="state.total" :size="state.size" @paginate="notifPageUpdate" />
+			<o-paginate
+				v-model="state.index"
+				:total="state.total"
+				:size="state.size"
+				@paginate="notifPageUpdate"/>
 		</div>
 
 		<div class="flex fd-c g-8">
@@ -11,17 +15,30 @@
 				<div class="orion-paginate__detail-text mr-a">
 					{{ selectedItems.length }} / {{ state.total }} ligne(s) sélectionnée(s)
 				</div>
-				<o-paginate v-model="state.index" :total="state.total" :size="state.size" variant="detailed"
-					:show-per-page="state.showPerPage" :show-page-info="state.showPageInfo" :size-options="sizeOptions"
-					@paginate="notifPageUpdate" @update:size="handleSizeUpdate" />
+				<o-paginate
+					v-model="state.index"
+					:total="state.total"
+					:size="state.size"
+					variant="detailed"
+					:show-per-page="state.showPerPage"
+					:show-page-info="state.showPageInfo"
+					:size-options="sizeOptions"
+					@paginate="notifPageUpdate"
+					@update:size="handleSizeUpdate"/>
 			</div>
-
 		</div>
 
-		<o-list v-model:page="state" v-model:selected="selectedItems" v-bind="listState" :total="state.total" :list="list">
+		<o-list
+			v-model:page="state"
+			v-model:selected="selectedItems"
+			v-bind="listState"
+			:total="state.total"
+			:list="list">
 			<template #default="{ item, selected }">
 				<div @click="toggleItemSelection(item)">
-					<o-card :selected="selected" :title="item.title">
+					<o-card
+						:selected="selected"
+						:title="item.title">
 						{{ item.description }}
 					</o-card>
 				</div>
@@ -33,16 +50,26 @@
 
 	<div class="row row--grid">
 		<div class="col-sm-3">
-			<o-input v-model="state.total" label="Total" type="number" />
+			<o-input
+				v-model="state.total"
+				label="Total"
+				type="number"/>
 		</div>
 		<div class="col-sm-3">
-			<o-input v-model="state.size" label="Size" type="number" />
+			<o-input
+				v-model="state.size"
+				label="Size"
+				type="number"/>
 		</div>
 		<div class="col-sm-3 flex ai-c">
-			<o-toggle v-model="state.showPerPage" label="Show per page" />
+			<o-toggle
+				v-model="state.showPerPage"
+				label="Show per page"/>
 		</div>
 		<div class="col-sm-3 flex ai-c">
-			<o-toggle v-model="state.showPageInfo" label="Show page info" />
+			<o-toggle
+				v-model="state.showPageInfo"
+				label="Show page info"/>
 		</div>
 	</div>
 </template>
@@ -69,10 +96,10 @@ const sizeOptions = [1, 2, 4, 8];
 const listState = reactive({
 	trackKey: 'id',
 	usePaginationBottom: false,
-	usePaginationTop: true,
+	usePaginationTop: false,
 });
 
-function seedList(qty = 20) {
+function seedList (qty = 20) {
 	const items = [];
 	for (let index = 0; index < qty; index++) {
 		items.push({
@@ -85,15 +112,15 @@ function seedList(qty = 20) {
 	return items;
 }
 
-function notifPageUpdate(index: number) {
+function notifPageUpdate (index: number) {
 	useNotif.info(`Active page index is now ${index}`);
 }
 
-function handleSizeUpdate(size: number) {
+function handleSizeUpdate (size: number) {
 	state.size = size;
 }
 
-function toggleItemSelection(item: any) {
+function toggleItemSelection (item: any) {
 	const index = selectedItems.findIndex(x => x.id === item.id);
 	index > -1
 		? selectedItems.splice(index, 1)
