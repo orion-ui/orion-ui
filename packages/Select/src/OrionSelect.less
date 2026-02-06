@@ -63,17 +63,10 @@
 	}
 
 	&__popover {
-		overscroll-behavior: contain;
+		overflow-y: scroll;
 		min-width: 14rem;
 		max-width: calc(100vw - 2rem);
 		max-height: 20rem;
-
-		&-options {
-
-			@media @desktop {
-				padding-bottom: 2.25rem;
-			}
-		}
 
 		.favorite-separator {
 			margin: 0.5rem 0;
@@ -219,6 +212,10 @@
 					.typography(caption-bold);
 				}
 			}
+		}
+
+		@media @desktop {
+			padding-bottom: 2.25rem;
 		}
 
 		@media @phone {

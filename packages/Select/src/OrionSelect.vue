@@ -27,7 +27,7 @@
 				@focus="setup.handleFocus($event)"
 				@blur="setup.handleBlur($event)"
 				@mousedown="setup.handleInputMousedown()"
-				@keydown.esc="setup.handleBlur()"
+				@keydown.esc.stop="setup.handleBlur()"
 				@keydown.down.prevent="setup.handleKeydown('down')"
 				@keydown.up.prevent="setup.handleKeydown('up')"
 				@keydown.enter="setup.selectItemFromEnter()">
