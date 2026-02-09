@@ -145,6 +145,10 @@ function stringifyCssValue (value: unknown) {
 			return convertReferenceToCssVar(v);
 		}
 
+		if (/^[a-z-]+\(.+\)$/i.test(v)) {
+			return v;
+		}
+
 		if (/[A-Za-z]/.test(v) && !/^["'].*["']$/.test(v) && v.includes(' ')) {
 			return `"${v}"`;
 		}
@@ -158,6 +162,129 @@ function stringifyCssValue (value: unknown) {
 	if (typeof value === 'boolean') return value ? 'true' : 'false';
 
 	return JSON.stringify(value);
+}
+
+function isBoxShadowType (type?: string) {
+	return (type || '').toLowerCase() === 'boxshadow';
+}
+
+function isGradientType (type?: string) {
+	return (type || '').toLowerCase() === 'gradient';
+}
+
+function formatShadowNumber (value: number) {
+	return `${formatNumber(value, 4)}px`;
+}
+
+function formatShadowLength (value: unknown) {
+	if (typeof value === 'number') return formatShadowNumber(value);
+	if (typeof value === 'string') {
+		const v = value.trim();
+		if (/^\{.+\}$/.test(v)) return convertReferenceToCssVar(v);
+		if (/^-?(?:\d+|\d*\.\d+)$/.test(v)) return `${formatNumber(Number(v), 4)}px`;
+		return stringifyCssValue(v);
+	}
+	return stringifyCssValue(value);
+}
+
+function formatShadowColor (value: unknown) {
+	if (typeof value === 'string') {
+		const v = value.trim();
+		if (/^\{.+\}$/.test(v)) return convertReferenceToCssVar(v);
+		return v;
+	}
+	return stringifyCssValue(value);
+}
+
+function stringifyBoxShadowLayer (layer: unknown) {
+	if (!isRecord(layer)) return stringifyCssValue(layer);
+
+	const type = typeof layer.type === 'string' ? layer.type.toLowerCase() : '';
+	const inset = type === 'innershadow' ? 'inset ' : '';
+
+	const x = formatShadowLength(layer.x ?? 0);
+	const y = formatShadowLength(layer.y ?? 0);
+	const blur = formatShadowLength(layer.blur ?? 0);
+	const spread = formatShadowLength(layer.spread ?? 0);
+	const color = layer.color !== undefined ? formatShadowColor(layer.color) : '';
+
+	return `${inset}${x} ${y} ${blur} ${spread}${color ? ` ${color}` : ''}`.trim();
+}
+
+function stringifyBoxShadowValue (value: unknown) {
+	if (typeof value === 'string') return stringifyCssValue(value);
+	if (Array.isArray(value)) {
+		return value.map(item => stringifyBoxShadowLayer(item)).join(', ');
+	}
+	if (isRecord(value)) {
+		return stringifyBoxShadowLayer(value);
+	}
+	return stringifyCssValue(value);
+}
+
+function formatGradientAngle (value: unknown) {
+	if (typeof value === 'number') return `${formatNumber(value, 4)}deg`;
+	if (typeof value === 'string') {
+		const v = value.trim();
+		if (/^\{.+\}$/.test(v)) return convertReferenceToCssVar(v);
+		return v;
+	}
+	return '0deg';
+}
+
+function formatGradientPosition (value: unknown) {
+	if (typeof value === 'number') {
+		const normalized = value >= 0 && value <= 1 ? value * 100 : value;
+		return `${formatNumber(normalized, 4)}%`;
+	}
+	if (typeof value === 'string') {
+		const v = value.trim();
+		if (/^\{.+\}$/.test(v)) return convertReferenceToCssVar(v);
+		return v;
+	}
+	return '';
+}
+
+function formatGradientColor (value: unknown) {
+	if (typeof value === 'string') {
+		const v = value.trim();
+		if (/^\{.+\}$/.test(v)) return convertReferenceToCssVar(v);
+		return v;
+	}
+	return stringifyCssValue(value);
+}
+
+function stringifyGradientStop (stop: unknown) {
+	if (!isRecord(stop)) return stringifyCssValue(stop);
+
+	const color = stop.color !== undefined ? formatGradientColor(stop.color) : '';
+	const position = stop.position !== undefined ? formatGradientPosition(stop.position) : '';
+
+	if (color && position) return `${color} ${position}`.trim();
+	return color || position || '';
+}
+
+function stringifyGradientValue (value: unknown) {
+	if (!isRecord(value)) return stringifyCssValue(value);
+
+	const type = typeof value.type === 'string' ? value.type.toLowerCase() : 'linear';
+	const stops = Array.isArray(value.stops)
+		? value.stops.map(stop => stringifyGradientStop(stop)).filter(Boolean).join(', ')
+		: '';
+
+	if (type === 'linear') {
+		const angle = formatGradientAngle(value.rotation ?? 0);
+		return `linear-gradient(${[angle, stops].filter(Boolean).join(', ')})`;
+	}
+
+	if (type === 'radial') {
+		const shape = typeof value.shape === 'string' ? value.shape.trim() : '';
+		const position = typeof value.position === 'string' ? value.position.trim() : '';
+		const header = [shape, position].filter(Boolean).join(' ');
+		return `radial-gradient(${[header, stops].filter(Boolean).join(', ')})`;
+	}
+
+	return stringifyCssValue(value);
 }
 
 // Walk the token tree and collect all leaf tokens with their paths.
@@ -195,8 +322,14 @@ function buildCssVarsBlock (
 	for (const item of sorted) {
 		const cssVar = pathPartsToCssVar(item.path);
 		const rawValue = item.value;
-		const cssValue = stringifyCssValue(rawValue);
-		const withUnits = applyUnits(cssVar, rawValue, cssValue, item.path);
+		const cssValue = isBoxShadowType(item.type)
+			? stringifyBoxShadowValue(rawValue)
+			: isGradientType(item.type)
+				? stringifyGradientValue(rawValue)
+				: stringifyCssValue(rawValue);
+		const withUnits = isBoxShadowType(item.type) || isGradientType(item.type)
+			? cssValue
+			: applyUnits(cssVar, rawValue, cssValue, item.path);
 		lines.push(`${indent}${cssVar}: ${withUnits};`);
 	}
 	return lines.join('\n');
