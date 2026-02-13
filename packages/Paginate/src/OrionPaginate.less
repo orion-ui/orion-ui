@@ -4,53 +4,47 @@
 .orion-paginate {
 	position: relative;
 	display: flex;
-	justify-content: center;
-	align-items: center;
 	gap: var(--o-space-16);
-	min-width: 15.5rem;
+	align-items: center;
+	justify-content: center;
 
 	&--detailed {
-		justify-content: flex-end;
 		flex-wrap: wrap;
 		gap: var(--o-space-24);
+		justify-content: flex-end;
 		width: 100%;
 	}
 
 	&__wrapper {
 		display: flex;
 		flex: 1 1 auto;
+		gap: var(--o-space-4);
 		align-items: center;
 		justify-content: center;
-		gap: var(--o-space-4);
 	}
 
 	&__index {
-
 		&-active {
-			background: var(--o-background-primary-minimal) !important;
-			color: var(--o-text-primary-default) !important;
 			border-color: var(--o-border-primary-default) !important;
+			color: var(--o-text-primary-default) !important;
+			background: var(--o-background-primary-minimal) !important;
 		}
 	}
 
 	&__ellipsis-dropdown {
+		overflow-y: auto;
 		display: flex;
 		flex-direction: column;
-		gap: var(--o-space-4);
 		max-height: 15rem;
-		overflow-y: auto;
 	}
 
 	&__ellipsis-item {
 		cursor: pointer;
 		width: 100%;
 		padding: var(--o-space-8) var(--o-space-12);
-		border: none;
-		border-radius: var(--o-radius-md);
+		border-radius: var(--o-radius-4);
 		color: var(--o-text-neutral-default);
-		background: transparent;
-		font: inherit;
-		text-align: left;
+		transition: background 0.3s;
 		.typography(body2-default);
 
 		body:not(.istouch) & {
@@ -65,11 +59,15 @@
 		}
 	}
 
+	&__ellipsis-input {
+		margin: 0;
+	}
+
 	&__select-container,
 	&__paginate-container {
 		display: flex;
-		align-items: center;
 		gap: var(--o-space-12);
+		align-items: center;
 	}
 
 	&__paginate-container {
@@ -78,38 +76,18 @@
 
 	&__detail-label,
 	&__detail-text {
-		.typography(body2-default);
 		color: var(--o-text-default);
 		white-space: nowrap;
+		.typography(body2-default);
 	}
 
 	&__detail-actions {
 		display: flex;
+		gap: var(--o-space-4);
 		align-items: center;
-		gap: var(--o-space-8);
 	}
 
 	&__size-select {
-		flex: 0 0 4.375rem;
-		width: 4.375rem;
-		min-width: 4.375rem;
-		max-width: 4.375rem;
 		margin: var(--o-space-0);
-	}
-
-	&__size-select.orion-select {
-		width: 4.375rem;
-
-		.orion-input__input {
-			width: var(--o-space-24);
-			min-width: var(--o-space-24);
-			max-width: var(--o-space-24);
-			flex: 0 0 var(--o-space-24);
-			padding-right: 0 !important;
-		}
-
-		.orion-input__pictos {
-			padding: 0;
-		}
 	}
 }

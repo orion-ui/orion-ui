@@ -7,10 +7,16 @@
 	flex-direction: column;
 	align-items: center;
 
+	&__content {
+		display: flex;
+		flex-direction: column;
+		gap: var(--o-space-12);
+	}
+
 	&__title {
 		display: flex;
-		.typography(body2-bold);
 		gap: var(--o-space-8);
+		.typography(body2-bold);
 
 		.orion-icon {
 			font-size: 1.25rem;
@@ -18,7 +24,7 @@
 		}
 	}
 
-	&__title--destructive {
+	&__title--danger {
 		.orion-icon {
 			color: var(--o-text-danger-default);
 		}
@@ -27,7 +33,7 @@
 	&__actions {
 		display: flex;
 		gap: var(--o-space-8);
-		padding: 0 var(--o-space-24);
 		align-items: center;
+		padding: 0 var(--o-space-24);
 	}
 }

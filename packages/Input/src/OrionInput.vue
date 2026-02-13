@@ -8,6 +8,7 @@
 
 	<orion-field
 		v-bind="setup.orionFieldBinding"
+		:class="$attrs.class"
 		@clear="setup.clear()">
 		<input
 			:id="`orion-input_${setup._uid}`"

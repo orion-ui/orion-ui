@@ -18,7 +18,8 @@
 			:label-is-floating="setup.labelIsFloating"
 			class="orion-select"
 			:class="[{ 'orion-select--multiple': multiple }, $attrs.class]"
-			@clear="setup.clear()">
+			@clear="setup.clear()"
+			@click.self="setup._input.value?.focus()">
 			<div
 				:id="`orion-input_${setup._uid}`"
 				:ref="setup._input"
@@ -232,17 +233,17 @@
 					v-if="setup.responsive.onDesktop"
 					class="orion-select__popover-footer">
 					<div class="orion-select__popover-footer-item">
-						<span class="keyboard-shortcut">ESC</span>
+						<kbd class="keyboard-shortcut">ESC</kbd>
 						<span>{{ setup.lang.CLOSE_ACTION }}</span>
 					</div>
 
 					<div class="orion-select__popover-footer-item">
-						<span class="keyboard-shortcut">
+						<kbd class="keyboard-shortcut">
 							<o-icon icon="keyboard_arrow_down"/>
-						</span>
-						<span class="keyboard-shortcut">
+						</kbd>
+						<kbd class="keyboard-shortcut">
 							<o-icon icon="keyboard_arrow_up"/>
-						</span>
+						</kbd>
 						<span>{{ setup.lang.NAVIGATE }}</span>
 					</div>
 				</div>

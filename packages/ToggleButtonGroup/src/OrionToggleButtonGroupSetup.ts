@@ -1,8 +1,8 @@
 import { isArray } from 'lodash-es';
 import { SharedProps, type SharedPropsColor } from 'packages/Shared/SharedProps';
 import { type OrionToggleButtonProps } from 'packages/ToggleButton/src/OrionToggleButtonSetup';
-import { useMonkey } from 'services';
-import { isDefineOrTrue } from 'utils';
+import { useMonkey } from 'services/MonkeyService';
+import { isDefineOrTrue } from 'utils/tools';
 import { type ModelRef, type Slots, type VNode } from 'vue';
 import { SharedSetup } from '../../Shared/SharedSetup';
 

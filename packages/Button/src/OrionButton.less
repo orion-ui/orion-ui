@@ -26,11 +26,11 @@
 				background: var(--o-background-neutral-default);
 				border: 1px solid var(~"--o-border-@{value}-subtle");
 
-				&:hover&:not(.orion-button--disabled) {
+				&:hover:not(.orion-button--disabled) {
 					background: var(~"--o-background-@{value}-minimal");
 				}
 
-				&:focus&:not(.orion-button--disabled) {
+				&:focus:not(.orion-button--disabled) {
 					background: var(~"--o-background-@{value}-minimal");
 					border-color: var(~"--o-border-@{value}-default");
 				}
@@ -53,9 +53,8 @@
 			}
 
 			&.orion-button--nude {
-
-				&:hover&:not(.orion-button--disabled),
-				&:focus&:not(.orion-button--disabled) {
+				&:hover:not(.orion-button--disabled),
+				&:focus:not(.orion-button--disabled) {
 					background: var(~"--o-background-@{value}-minimal");
 				}
 
@@ -149,7 +148,7 @@
 
 	&--sm {
 		gap: var(--o-space-4);
-		height: var(--o-height-control-sm);
+		min-height: var(--o-height-control-sm);
 		padding: var(--o-space-4) var(--o-space-8);
 
 		.orion-icon {
@@ -164,7 +163,7 @@
 
 	&--md {
 		gap: var(--o-space-4);
-		height: var(--o-height-control-md);
+		min-height: var(--o-height-control-md);
 		padding: var(--o-space-4) var(--o-space-12);
 
 		&.orion-button--icon-only {
@@ -179,7 +178,7 @@
 
 	&--lg {
 		gap: var(--o-space-8);
-		height: var(--o-height-control-lg);
+		min-height: var(--o-height-control-lg);
 		padding: var(--o-space-4) var(--o-space-16);
 
 		&.orion-button--icon-only {
@@ -229,15 +228,6 @@
 		stroke: none;
 
 		&:not(:hover, :focus) {
-			background: none;
-		}
-	}
-
-	&--nude {
-		border-color: transparent !important;
-		stroke: none;
-
-		&:not(:hover):not(:focus) {
 			background: none;
 		}
 	}

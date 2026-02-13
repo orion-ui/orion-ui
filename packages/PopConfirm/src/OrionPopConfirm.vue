@@ -1,25 +1,46 @@
 <template>
-	<v-dropdown :ref="setup._popper" placement="top" :triggers="['click']" theme="orion-pop-confirm"
+	<v-dropdown
+		:ref="setup._popper"
+		placement="top"
+		:triggers="['click']"
+		theme="orion-pop-confirm"
 		@show="setup.handlePopoverShow()">
-		<slot />
+		<slot/>
 
 		<template #popper>
-			<p class="orion-pop-confirm__title" :class="{ 'orion-pop-confirm__title--destructive': setup.isDestructive }">
-				<slot name="content">
-					<orion-icon :icon="setup.icon" />
+			<div class="orion-pop-confirm__content">
+				<h5
+					v-if="!hideTitle"
+					class="orion-pop-confirm__title"
+					:class="{ 'orion-pop-confirm__title--danger': setup.isDanger }">
+					<orion-icon :icon="setup.icon"/>
 					{{ setup.title }}
-				</slot>
-			</p>
-			<div :ref="setup._actions" class="orion-pop-confirm__actions" @keyup.esc="setup.cancel()">
-				<slot name="actions" v-bind="{
-					close: setup.close.bind(setup),
-					confirm: setup.confirm.bind(setup),
-					cancel: setup.cancel.bind(setup),
-				}">
-					<orion-button outline size="md" @click="setup.cancel()">
+				</h5>
+				<slot name="content"/>
+			</div>
+
+			<div
+				:ref="setup._actions"
+				class="orion-pop-confirm__actions"
+				@keyup.esc="setup.cancel()">
+				<slot
+					name="actions"
+					v-bind="{
+						close: setup.close.bind(setup),
+						confirm: setup.confirm.bind(setup),
+						cancel: setup.cancel.bind(setup),
+					}">
+					<orion-button
+						outline
+						size="md"
+						@click="setup.cancel()">
 						{{ setup.lang.CANCEL }}
 					</orion-button>
-					<orion-button :color="setup.confirmButtonColor" autofocus size="md" @click="setup.confirm()">
+					<orion-button
+						:color="setup.confirmButtonColor"
+						autofocus
+						size="md"
+						@click="setup.confirm()">
 						{{ setup.lang.CONFIRM }}
 					</orion-button>
 				</slot>

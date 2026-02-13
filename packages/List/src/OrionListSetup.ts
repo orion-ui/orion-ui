@@ -14,9 +14,12 @@ export type OrionListEmits = {
 };
 
 export type OrionListProps<T extends Record<string, any>> = {
-	// @doc props/bindRouter the key used in the url query to bind the current page to the pagination component (ex: ...url/my-list?**page**=2 • *bindRouter = **page***)
-	// @doc/fr props/bindRouter représente la clé utilisée dans l'URL pour lier la page courante au composant de pagination (ex: ...url/my-list?**page**=2 • *bindRouter = **page***)
-	bindRouter?: string
+	// @doc props/bindRouterPage the key used in the url query to bind the current page to the pagination component (ex: ...url/my-list?**page**=2 • *bindRouterPage = **page***)
+	// @doc/fr props/bindRouterPage représente la clé utilisée dans l'URL pour lier la page courante au composant de pagination (ex: ...url/my-list?**page**=2 • *bindRouterPage = **page***)
+	bindRouterPage?: string
+	// @doc props/bindRouterSize the key used in the url query to bind the current page size to the pagination component (ex: ...url/my-list?**size**=20 • *bindRouterSize = **size***)
+	// @doc/fr props/bindRouterSize représente la clé utilisée dans l'URL pour lier la taille de page courante au composant de pagination (ex: ...url/my-list?**size**=20 • *bindRouterSize = **size***)
+	bindRouterSize?: string
 	// @doc props/cellClass class applied to the list's cells when the layout is `grid`
 	// @doc/fr props/cellClass classe appliquée aux cellules de la liste quand la disposition est sous forme de `grid`
 	cellClass?: string
@@ -53,12 +56,12 @@ export type OrionListProps<T extends Record<string, any>> = {
 	// @doc props/usePaginationTop displays pagination at the top of the list
 	// @doc/fr props/usePaginationTop affiche une pagination en haut de la liste
 	usePaginationTop?: boolean
-	// @doc props/paginateVariant pagination style for the embedded OrionPaginate
-	// @doc/fr props/paginateVariant style de pagination pour l'OrionPaginate embarqué
-	paginateVariant?: 'default' | 'detailed'
-	// @doc props/paginateSizeOptions page size options passed to OrionPaginate
-	// @doc/fr props/paginateSizeOptions options de taille de page passées à OrionPaginate
-	paginateSizeOptions?: number[]
+	// @doc props/paginationVariant pagination style for the embedded OrionPaginate
+	// @doc/fr props/paginationVariant style de pagination pour l'OrionPaginate embarqué
+	paginationVariant?: 'default' | 'detailed'
+	// @doc props/paginationSizeOptions page size options passed to OrionPaginate
+	// @doc/fr props/paginationSizeOptions options de taille de page passées à OrionPaginate
+	paginationSizeOptions?: number[]
 };
 
 export class OrionListSetup<T extends Record<string, any>> extends SharedSetup {
@@ -70,74 +73,96 @@ export class OrionListSetup<T extends Record<string, any>> extends SharedSetup {
 		list: () => [],
 		total: 0,
 		trackKey: 'id',
-		useFooterSelected: true,
 		usePaginationBottom: true,
 		usePaginationTop: true,
-		paginateVariant: 'default' as OrionListProps<any>['paginateVariant'],
-		paginateSizeOptions: () => [] as number[],
+		bindRouterSize: 'size',
+		paginationVariant: 'default' as OrionListProps<any>['paginationVariant'],
 	};
 
-	get computedLayout() { return this.responsive.onPhone ? 'grid' : this.props.layout }
-	private get itemType() { return this.props.itemType ?? this.lang.ORION_LIST__ITEM_TYPE }
-	private get itemAdjective() { return this.props.itemAdjective ?? this.lang.ORION_LIST__ITEM_ADJECTIVE }
-	get computedItemType() { return usePluralize(this.itemType, this.selected.value.length, false) }
-	get computedItemAdjective() {
+	private get useRouterBinding () { return !!this.props.bindRouterPage && !!this.props.bindRouterSize }
+	private get itemType () { return this.props.itemType ?? this.lang.ORION_LIST__ITEM_TYPE }
+	private get itemAdjective () { return this.props.itemAdjective ?? this.lang.ORION_LIST__ITEM_ADJECTIVE }
+	get computedLayout () { return this.responsive.onPhone ? 'grid' : this.props.layout }
+	get computedItemType () { return usePluralize(this.itemType, this.vModelSelected.value.length, false) }
+	get computedItemAdjective () {
 		return getAppLang() === 'fr'
-			? usePluralize(this.itemAdjective, this.selected.value.length, false)
+			? usePluralize(this.itemAdjective, this.vModelSelected.value.length, false)
 			: this.itemAdjective;
 	}
 
-	get listToDisplay(): T[] {
+	get page () {
+		return {
+			size: this.getParamsFromRouter('size') ?? this.vModelPage.value.size,
+			index: this.getParamsFromRouter('page') ?? this.vModelPage.value.index,
+		};
+	}
+
+	get listToDisplay (): T[] {
+		const size = this.getParamsFromRouter('size') ?? this.vModelPage.value.size;
+		const index = this.getParamsFromRouter('page') ?? this.vModelPage.value.index;
+
 		return this.props.useAutoPagination
-			? this.props.list.slice(
-				this.page.value.size * (this.page.value.index - 1),
-				this.page.value.size * this.page.value.index,
-			)
+			? this.props.list.slice(size * (index - 1), size * index)
 			: this.props.list;
 	}
 
-	constructor(
+	constructor (
 		protected props: OrionListProps<T> & Omit<typeof OrionListSetup.defaultProps, 'list'> & { list: T[] },
 		protected emits: OrionListEmits,
-		protected page: ModelRef<Orion.ListPage>,
-		protected selected: ModelRef<T[]>) {
+		protected vModelPage: ModelRef<Orion.ListPage>,
+		protected vModelSelected: ModelRef<T[]>,
+	) {
 		super();
-
 	}
 
-	protected async onBeforeMountAsync() {
-		if (isNil(this.page.value)) {
-			this.page.value = {
+	protected async onBeforeMountAsync () {
+		if (isNil(this.vModelPage.value)) {
+			this.vModelPage.value = {
 				size: 20,
 				index: 1,
 			};
 		}
 	}
 
-	clearSelection() {
-		this.selected.value.length = 0;
+	clearSelection () {
+		this.vModelSelected.value.length = 0;
 		this.emits('clear-selection');
 	}
 
-	handleOnPaginate() {
-		this.emits('paginate', this.page.value.index);
+	handleOnPaginate () {
+		this.emits('paginate', this.vModelPage.value.index);
 	}
 
-	handleOnPageSizeUpdate(size: number) {
+	handleOnPageSizeUpdate (size?: number) {
 		const sizeValue = Number(size);
 		if (!sizeValue || isNaN(sizeValue)) return;
-		this.page.value.size = sizeValue;
+		this.vModelPage.value.size = sizeValue;
 		const pagesLength = Math.ceil(this.props.total / sizeValue);
-		if (pagesLength > 0 && this.page.value.index > pagesLength) {
-			this.page.value.index = pagesLength;
+		if (pagesLength > 0 && this.vModelPage.value.index > pagesLength) {
+			this.vModelPage.value.index = pagesLength;
 		}
-		this.emits('paginate', this.page.value.index);
+		this.emits('paginate', this.vModelPage.value.index);
 	}
 
-	listItemIsSelected(item: T): boolean {
-		return this.selected.value
+	listItemIsSelected (item: T): boolean {
+		return this.vModelSelected.value
 			.map(x => x[this.props.trackKey!])
 			.includes(item[this.props.trackKey!]);
+	}
+
+	private getParamsFromRouter (param: 'page' | 'size') {
+		if (!this.useRouterBinding) return;
+
+		const bindRouterKey = param === 'page' ? this.props.bindRouterPage : this.props.bindRouterSize;
+		if (!bindRouterKey) return;
+
+		const paramFromRouter = this.router.currentRoute.value.query[bindRouterKey];
+		if (paramFromRouter) {
+			const paramNumber = Number(paramFromRouter);
+			if (!isNaN(paramNumber)) {
+				return paramNumber;
+			}
+		}
 	}
 
 }

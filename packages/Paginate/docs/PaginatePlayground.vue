@@ -3,28 +3,31 @@
 		<div class="flex fd-c g-8">
 			<h4>Default</h4>
 			<o-paginate
-				v-model="state.index"
+				v-model:page="state.index"
 				:total="state.total"
 				:size="state.size"
+				:max-pagination-buttons="state.maxPaginationButtons"
+				:show-page-size-select="state.showPageSizeSelect"
 				@paginate="notifPageUpdate"/>
 		</div>
 
 		<div class="flex fd-c g-8">
 			<h4>Detailed</h4>
-			<div class="flex ai-c g-16">
+			<div class="flex ai-c">
 				<div class="orion-paginate__detail-text mr-a">
-					{{ selectedItems.length }} / {{ state.total }} ligne(s) sélectionnée(s)
+					{{ selectedItems.length }} / {{ state.total }}
+					selected {{ `${'line'.pluralize(selectedItems.length, false)}` }}
 				</div>
 				<o-paginate
-					v-model="state.index"
+					v-model:page="state.index"
+					v-model:size="state.size"
 					:total="state.total"
-					:size="state.size"
 					variant="detailed"
-					:show-per-page="state.showPerPage"
+					:show-page-size-select="state.showPageSizeSelect"
 					:show-page-info="state.showPageInfo"
 					:size-options="sizeOptions"
-					@paginate="notifPageUpdate"
-					@update:size="handleSizeUpdate"/>
+					:max-pagination-buttons="state.maxPaginationButtons"
+					@paginate="notifPageUpdate"/>
 			</div>
 		</div>
 
@@ -48,25 +51,39 @@
 
 	<hr>
 
-	<div class="row row--grid">
-		<div class="col-sm-3">
+	<div class="row row--grid row--middle">
+		<div class="col-sm-4">
 			<o-input
-				v-model="state.total"
+				v-model.number="state.index"
+				label="Index"
+				type="number"/>
+		</div>
+		<div class="col-sm-4">
+			<o-input
+				v-model.number="state.total"
 				label="Total"
 				type="number"/>
 		</div>
-		<div class="col-sm-3">
+		<div class="col-sm-4">
 			<o-input
-				v-model="state.size"
+				v-model.number="state.size"
 				label="Size"
 				type="number"/>
 		</div>
-		<div class="col-sm-3 flex ai-c">
-			<o-toggle
-				v-model="state.showPerPage"
-				label="Show per page"/>
+		<div class="col-sm-4">
+			<o-input
+				v-model.number="state.maxPaginationButtons"
+				label="Max Pagination Buttons"
+				:min-value="3"
+				mask="integer"
+				type="number"/>
 		</div>
-		<div class="col-sm-3 flex ai-c">
+		<div class="col-sm-4">
+			<o-toggle
+				v-model="state.showPageSizeSelect"
+				label="Show page size select"/>
+		</div>
+		<div class="col-sm-4">
 			<o-toggle
 				v-model="state.showPageInfo"
 				label="Show page info"/>
@@ -85,21 +102,21 @@ const selectedItems = reactive<any[]>([]);
 
 const state = reactive({
 	total: fullList.value.length,
-	size: 4,
+	size: 3,
 	index: 1,
-	showPerPage: true,
+	showPageSizeSelect: true,
 	showPageInfo: true,
+	maxPaginationButtons: 5,
 });
 
-const sizeOptions = [1, 2, 4, 8];
+const sizeOptions = [1, 2, 4, 8, 1000];
 
 const listState = reactive({
-	trackKey: 'id',
 	usePaginationBottom: false,
 	usePaginationTop: false,
 });
 
-function seedList (qty = 20) {
+function seedList (qty = 36) {
 	const items = [];
 	for (let index = 0; index < qty; index++) {
 		items.push({
@@ -114,10 +131,6 @@ function seedList (qty = 20) {
 
 function notifPageUpdate (index: number) {
 	useNotif.info(`Active page index is now ${index}`);
-}
-
-function handleSizeUpdate (size: number) {
-	state.size = size;
 }
 
 function toggleItemSelection (item: any) {

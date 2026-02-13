@@ -9,10 +9,14 @@ title: Paginate
 
 ## Variants
 
-- `default` : pagination classique avec numéros + précédent/suivant.
-- `detailed` : ajoute un sélecteur de lignes par page et les informations de page avec actions première/précédente/suivante/dernière.
+- `default` pagination classique avec numéros + précédent/suivant.
+- `detailed` ajoute un sélecteur de lignes par page et les informations de page avec actions première/précédente/suivante/dernière.
 
-Les blocs additionnels en mode `detailed` sont activables avec `showPerPage` et `showPageInfo`.
+Les blocs additionnels en mode `detailed` sont activables avec `showPageSizeSelect` et `showPageInfo`.
+
+::: demo:Paginate
+PaginateRouterBinding
+:::
 
 ## Usage
 
@@ -32,13 +36,8 @@ PaginatePlayground
 	:show-page-info="true"
 	:size-options="[10, 20, 50]"
 	@paginate="handlePaginate"
-	@update:size="page.size = $event"
-/>
+	@update:size="page.size = $event"/>
 ```
-
-## Liaison au routeur
-
-Utilisez `bindRouter` pour synchroniser la page courante avec une clé de query.
 
 ## Sélection
 
@@ -53,9 +52,8 @@ Si vous avez besoin d'un libellé "x / y sélectionnées", affichez-le en dehors
 	v-model:page="page"
 	:list="items"
 	:total="total"
-	paginate-variant="detailed"
-	:paginate-size-options="[10, 20, 50]"
-/>
+	:pagination-size-options="[10, 20, 50]"
+	pagination-variant="detailed"/>
 ```
 
 <attribute-table/>

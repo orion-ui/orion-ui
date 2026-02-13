@@ -14,11 +14,11 @@
 			}"/>
 		<div class="orion-notif__content">
 			<div class="orion-notif__header">
-				<span
+				<h5
 					v-if="setup.options.title"
 					class="orion-notif__title">
 					{{ setup.options.title }}
-				</span>
+				</h5>
 
 				<template v-if="setup.showTimer()">
 					<span

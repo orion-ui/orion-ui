@@ -9,10 +9,14 @@ title: Paginate
 
 ## Variants
 
-- `default`: classic page numbers with previous/next buttons.
-- `detailed`: adds a per-page selector and page info with first/previous/next/last actions.
+- `default` classic page numbers with previous/next buttons.
+- `detailed` adds a per-page selector and page info with first/previous/next/last actions.
 
-The extra blocks in `detailed` mode can be toggled with `showPerPage` and `showPageInfo`.
+The extra blocks in `detailed` mode can be toggled with `showPageSizeSelect` and `showPageInfo`.
+
+::: demo:Paginate
+PaginateRouterBinding
+:::
 
 ## Usage
 
@@ -32,13 +36,8 @@ PaginatePlayground
 	:show-page-info="true"
 	:size-options="[10, 20, 50]"
 	@paginate="handlePaginate"
-	@update:size="page.size = $event"
-/>
+	@update:size="page.size = $event"/>
 ```
-
-## Router binding
-
-Use `bindRouter` to sync the current page with a query param key.
 
 ## Selection count
 
@@ -53,9 +52,8 @@ If you need a "x / y selected" label, display it outside of `<o-paginate>` (for 
 	v-model:page="page"
 	:list="items"
 	:total="total"
-	paginate-variant="detailed"
-	:paginate-size-options="[10, 20, 50]"
-/>
+	:pagination-size-options="[10, 20, 50]"
+	pagination-variant="detailed"/>
 ```
 
 <attribute-table/>

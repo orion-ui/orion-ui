@@ -1,5 +1,5 @@
 import { isString } from 'lodash-es';
-import { useMonkey } from 'services';
+import { useMonkey } from 'services/MonkeyService';
 import { useValidation } from 'services/ValidationService';
 import { hoursToNumber } from 'utils/tools';
 import { type ModelRef, nextTick, reactive, watch } from 'vue';

@@ -42,9 +42,11 @@
 				display: block;
 				height: auto; // for parent overscroll-behavior
 				background:
-					color-mix(in srgb,
+					color-mix(
+						in srgb,
 						var(--o-background-neutral-highlight) 70%,
-						transparent);
+						transparent
+					);
 			}
 
 			.v-popper__wrapper {
@@ -73,14 +75,10 @@
 		.v-popper__inner {
 			padding: var(--o-space-16);
 
-			p {
-				margin: var(--o-space-0);
-			}
-
-			&>div {
+			& > div {
 				display: flex;
 				flex-direction: column;
-				gap: var(--o-space-8)
+				gap: var(--o-space-12);
 			}
 		}
 

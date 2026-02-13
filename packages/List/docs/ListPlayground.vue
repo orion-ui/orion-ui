@@ -1,7 +1,7 @@
 <template>
 	<o-list
-		v-model:page="page"
 		v-model:selected="selectedItems"
+		bind-router-page="page"
 		v-bind="state"
 		:list="list"
 		:total="fullList.length">
@@ -66,6 +66,18 @@
 				input-value="row"
 				label="Row layout"/>
 		</div>
+		<div class="col-sm-4">
+			<o-radio
+				v-model="state.paginationVariant"
+				input-value="default"
+				label="Default pagination"/>
+		</div>
+		<div class="col-sm-4">
+			<o-radio
+				v-model="state.paginationVariant"
+				input-value="detailed"
+				label="Detailed pagination"/>
+		</div>
 	</div>
 </template>
 
@@ -88,6 +100,7 @@ const state = reactive({
 	usePaginationBottom: true,
 	usePaginationTop: true,
 	useFooterSelected: true,
+	paginationVariant: 'default' as 'default' | 'detailed',
 });
 
 function seedList (qty = 50) {
