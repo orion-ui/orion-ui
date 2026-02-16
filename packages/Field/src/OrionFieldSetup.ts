@@ -89,7 +89,24 @@ export class OrionFieldSetup extends SharedSetup {
 		if (this.props.showWarning) return 'warning';
 	}
 
-	constructor (protected props: OrionFieldProps, protected emits: OrionFieldEmits) {
+	get showSuffixPicto () {
+		return !['checkbox', 'radio', 'toggle'].includes(this.props.inputType ?? '') && (
+			this.props.showError
+			|| this.props.showSuccess
+			|| this.props.showWarning
+			|| this.props.suffixIcon
+			|| this.props.suffixFontIcon
+			|| this._slots['icon-suffix']
+			|| (this.props.clearable && this.props.hasValue && !this.props.readonly && !this.props.disabled)
+		);
+	}
+
+	constructor (
+		protected props: OrionFieldProps,
+		protected emits: OrionFieldEmits,
+		private _slots: Record<'default' | 'icon-suffix', () => any>,
+
+	) {
 		super();
 	}
 

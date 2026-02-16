@@ -47,7 +47,7 @@ function seedList (qty = 36) {
 @hl {3,11}
 
 @lang:en
-## Bind with Router
+## Bind with Vue Router
 
 By setting the `bind-router-page` prop, you enable binding between Vue Router and the pagination.
 
@@ -57,7 +57,7 @@ You can also specify the `bind-router-size` prop for further customization (the 
 @lang
 
 @lang:fr
-## Bind with Router
+## Bind with Vue Router
 
 En définissant la prop `bind-router-page`, vous activez la liaison entre Vue Router et la pagination.
 
