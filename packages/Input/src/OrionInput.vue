@@ -22,6 +22,8 @@
 				disabled: disabled,
 				readonly: readonly,
 				autocomplete: autocomplete,
+				min: type === 'number' ? minValue : undefined,
+				max: type === 'number' ? maxValue : undefined,
 			}"
 			@keydown="setup.handleKeydownGuard($event)"
 			@change="setup.handleChange()"

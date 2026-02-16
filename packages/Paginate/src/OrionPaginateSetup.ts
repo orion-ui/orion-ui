@@ -26,7 +26,7 @@ export type OrionPaginateProps = {
 	showPageInfo?: boolean
 	// @doc props/variant pagination style (default or detailed)
 	// @doc/fr props/variant style de pagination (default ou detailed)
-	variant?: 'default' | 'detailed'
+	variant?: Orion.PaginateVariant
 	// @doc props/sizeOptions page size options displayed in detailed mode
 	// @doc/fr props/sizeOptions options de taille de page affichees en mode detailed
 	sizeOptions?: number[]
@@ -48,7 +48,7 @@ export class OrionPaginateSetup extends SharedSetup {
 
 	static readonly defaultProps = {
 		sizeOptions: () => [10, 20, 50, 100],
-		variant: 'default' as const,
+		variant: 'default' as Orion.PaginateVariant,
 		showPageSizeSelect: true,
 		showPageInfo: true,
 		maxPaginationButtons: 5,

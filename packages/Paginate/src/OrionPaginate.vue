@@ -63,9 +63,11 @@
 								v-else
 								v-model.number="setup.index"
 								:max-value="setup.pagesLength"
+								:min-value="1"
 								:donetyping="500"
 								type="number"
 								autofocus
+								size="xs"
 								select-on-focus
 								label="Page"
 								class="orion-paginate__ellipsis-input"

@@ -237,6 +237,8 @@ declare global {
 			if?: boolean | (() => boolean)
 		};
 
+		type PaginateVariant = 'default' | 'detailed';
+
 		type VDropdown = {
 			placement?: VDropdownPlacement
 			distance?: number

@@ -21,7 +21,7 @@
 		<slot/>
 
 		<span
-			v-if="!['checkbox', 'radio', 'toggle'].includes(inputType)"
+			v-if="!['checkbox', 'radio', 'toggle'].includes(inputType) && setup._suffixPictos.value?.children.length"
 			:ref="setup._suffixPictos"
 			:class="`${setup.baseClass}__pictos`">
 			<orion-icon
