@@ -13,9 +13,10 @@
 		<orion-field
 			v-bind="setup.orionFieldBinding"
 			:id="`orion-input_${setup._uid}`"
+			:placeholder="setup.isFocus ? undefined : placeholder"
 			class="orion-datepicker"
 			:has-value="setup.hasValue"
-			:label-is-floating="setup.hasValue || (type === 'date' && setup.isFocus)"
+			:label-is-floating="setup.hasValue || (type === 'date' && setup.isFocus && !!label)"
 			:class="[
 				{ 'orion-datepicker--range' : type === 'range' },
 				{ 'orion-datepicker-multiple' : type === 'multiple' },

@@ -55,16 +55,17 @@ export type OrionSelectProps<T, O, VKey extends keyof O, DKey extends keyof O = 
 	// @doc props/donetyping the duration to trigger the fetch
 	// @doc/fr props/donetyping indique après combien de temps après la dernière frappe, la fonction de récupération des options est appelée
 	donetyping?: number
-
 	// @doc props/dropdownOptions options to configure the dropdown [(go to Floating Vue doc for more details)](https://floating-vue.starpad.dev/api/#component-props)
 	// @doc/fr props/dropdownOptions options pour configurer la dropdown [(Voir la documentation de Floating Vue pour plus de détails)](https://floating-vue.starpad.dev/api/#component-props)
 	dropdownOptions?: Partial<Orion.VDropdown>
 	// @doc props/favoriteIcon key used to choice the favorite icon
 	// @doc/fr props/favoriteIcon clé qui permet de choisir l'icône des favoris
 	favoriteIcon?: Orion.Icon
+	// @doc props/favoritesOptions options added on top of the dropdown options and separated by a line
+	// @doc/fr props/favoritesOptions options ajoutées en haut de la liste des options et séparées par une ligne
+	favoritesOptions?: O[]
 	// @doc props/fetchInitialOptions initial options before first fetch (when using fetch mecanism)
 	// @doc/fr props/fetchInitialOptions options intiales avant le premier fetch (lors de l'utilisation du mécanisme de fetch des options)
-	favoritesOptions?: O[]
 	fetchInitialOptions?: O[]
 	// @doc props/fetchKey key used to pass the research field value as a parameter to fetch the options
 	// @doc/fr props/fetchKey clé utilisée pour passer la valeur du champ de recherche comme paramètre pour récupérer les options

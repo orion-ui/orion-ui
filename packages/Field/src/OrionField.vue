@@ -3,7 +3,7 @@
 		:ref="setup._el"
 		:class="[setup.baseClass, setup.additionalClass]">
 		<label
-			v-if="(label || placeholder) && floatingLabel"
+			v-if="((label || placeholder) && floatingLabel) || (placeholder && !floatingLabel && !hasValue)"
 			:for="`orion-${inputType}_${_uid}`"
 			:class="setup.labelClass"
 			@click.prevent

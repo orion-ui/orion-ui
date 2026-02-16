@@ -76,9 +76,14 @@
 									:close="!readonly && !disabled"
 									squared
 									@close="setup.removeIndex(index + setup.maxVisibleMultipleItems)">
-									<div class="flex ai-c g-8">
-										{{ setup.valueDisplay(item)!.display }}
-									</div>
+									<slot
+										v-if="$slots['multiple-value-chips'] && vModel && setup.isArray(vModel)"
+										name="multiple-value-chips"
+										:value="item">
+										<div class="flex ai-c g-8">
+											{{ setup.valueDisplay(item)!.display }}
+										</div>
+									</slot>
 								</orion-chips>
 							</div>
 						</template>
@@ -279,6 +284,8 @@ defineSlots<{
 	// eslint-disable-next-line no-unused-vars
 	'multiple-value'(props: { value: T[] }): void
 	// eslint-disable-next-line no-unused-vars
+	'multiple-value-chips'(props: { value: T }): void
+	// eslint-disable-next-line no-unused-vars
 	'before-options'(props: { options: O[] }): void
 	// eslint-disable-next-line no-unused-vars
 	'after-options'(props: { options: O[] }): void
@@ -325,6 +332,12 @@ type ObjectKeyValidator<
  * @doc slot/multiple-value/value/desc value of the vModel
  * @doc/fr slot/multiple-value/value/desc valeur du vModel
  * @doc slot/multiple-value/value/type BaseVModelType[]
+ *
+ * @doc slot/multiple-value-chips The content of each chip in the select if the props multiple is set
+ * @doc/fr slot/multiple-value-chips Contenu de chaque chip dans le select si la props multiple est définie
+ * @doc slot/multiple-value-chips/value/desc value of the vModel
+ * @doc/fr slot/multiple-value-chips/value/desc valeur du vModel
+ * @doc slot/multiple-value-chips/value/type BaseVModelType
  *
  * @doc slot/before-options Content before the select options in the popover
  * @doc/fr slot/before-options Contenu de la tooltip avant la liste des options
