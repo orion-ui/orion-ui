@@ -3,7 +3,7 @@
 		<div class="flex fd-c g-8">
 			<h4>Default</h4>
 			<o-paginate
-				v-model:page="state.index"
+				v-model:page="state.page"
 				:total="state.total"
 				:size="state.size"
 				:max-pagination-buttons="state.maxPaginationButtons"
@@ -19,7 +19,7 @@
 					selected {{ `${'line'.pluralize(selectedItems.length, false)}` }}
 				</div>
 				<o-paginate
-					v-model:page="state.index"
+					v-model:page="state.page"
 					v-model:size="state.size"
 					:total="state.total"
 					variant="detailed"
@@ -32,7 +32,8 @@
 		</div>
 
 		<o-list
-			v-model:page="state"
+			v-model:page="state.page"
+			v-model:size="state.size"
 			v-model:selected="selectedItems"
 			v-bind="listState"
 			:total="state.total"
@@ -54,7 +55,7 @@
 	<div class="row row--grid row--middle">
 		<div class="col-sm-4">
 			<o-input
-				v-model.number="state.index"
+				v-model.number="state.page"
 				label="Index"
 				type="number"/>
 		</div>
@@ -97,13 +98,13 @@ import { getUid, useNotif } from 'lib';
 import { computed, reactive, ref, watch } from 'vue';
 
 const fullList = ref(seedList());
-const list = computed(() => fullList.value.slice(state.size * (state.index - 1), state.size * state.index));
+const list = computed(() => fullList.value.slice(state.size * (state.page - 1), state.size * state.page));
 const selectedItems = reactive<any[]>([]);
 
 const state = reactive({
 	total: fullList.value.length,
 	size: 3,
-	index: 1,
+	page: 1,
 	showPageSizeSelect: true,
 	showPageInfo: true,
 	maxPaginationButtons: 5,
@@ -129,8 +130,8 @@ function seedList (qty = 36) {
 	return items;
 }
 
-function notifPageUpdate (index: number) {
-	useNotif.info(`Active page index is now ${index}`);
+function notifPageUpdate ({ page, size }: { page: number, size: number }) {
+	useNotif.info(`Active page is now ${page}`);
 }
 
 function toggleItemSelection (item: any) {

@@ -166,19 +166,21 @@
 import { OrionButton } from 'packages/Button';
 import { OrionInput } from 'packages/Input';
 import { OrionSelect } from 'packages/Select';
+import { inject } from 'vue';
 import './OrionPaginate.less';
 import { OrionPaginateSetup, type OrionPaginateEmits, type OrionPaginateProps } from './OrionPaginateSetup';
+const _list = inject<OrionList>('_list');
 const emits = defineEmits<OrionPaginateEmits>() as OrionPaginateEmits;
 const props = withDefaults(defineProps<OrionPaginateProps>(), OrionPaginateSetup.defaultProps);
 const vModelPage = defineModel<number>('page');
 const vModelSize = defineModel<number>('size');
-const setup = new OrionPaginateSetup(props, emits, vModelPage, vModelSize);
+const setup = new OrionPaginateSetup(props, emits, vModelPage, vModelSize, _list);
 defineExpose(setup.publicInstance);
 
 /** Doc
  * @doc vModel/page Pagination active page
- * @doc vModel/size Number of items per page
  * @doc/fr vModel/page Page active de la pagination
+ * @doc vModel/size Number of items per page
  * @doc/fr vModel/size Nombre d'éléments par page
  */
 </script>

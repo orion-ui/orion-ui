@@ -1,4 +1,3 @@
-import { isNil } from 'lodash-es';
 import { getAppLang } from 'services/LangService';
 import { usePluralize } from 'services/PluralizeService';
 import { type ModelRef } from 'vue';
@@ -10,7 +9,7 @@ export type OrionListEmits = {
 	(e: 'clear-selection'): void
 	// @doc event/paginate/desc emitted to update the page index of the list
 	// @doc/fr event/paginate/desc émis pour mettre à jour l'index de la liste
-	(e: 'paginate', payload: number): void
+	(e: 'paginate', payload: Orion.Paginate.PaginationEvent): void
 };
 
 export type OrionListProps<T extends Record<string, any>> = {
@@ -58,7 +57,7 @@ export type OrionListProps<T extends Record<string, any>> = {
 	usePaginationTop?: boolean
 	// @doc props/paginationVariant pagination style for the embedded OrionPaginate
 	// @doc/fr props/paginationVariant style de pagination pour l'OrionPaginate embarqué
-	paginationVariant?: 'default' | 'detailed'
+	paginationVariant?: Orion.Paginate.Variant
 	// @doc props/paginationSizeOptions page size options passed to OrionPaginate
 	// @doc/fr props/paginationSizeOptions options de taille de page passées à OrionPaginate
 	paginationSizeOptions?: number[]
@@ -76,7 +75,7 @@ export class OrionListSetup<T extends Record<string, any>> extends SharedSetup {
 		usePaginationBottom: true,
 		usePaginationTop: true,
 		bindRouterSize: 'size',
-		paginationVariant: 'default' as OrionListProps<any>['paginationVariant'],
+		paginationVariant: 'default' as Orion.Paginate.Variant,
 	};
 
 	private get useRouterBinding () { return !!this.props.bindRouterPage && !!this.props.bindRouterSize }
@@ -84,44 +83,28 @@ export class OrionListSetup<T extends Record<string, any>> extends SharedSetup {
 	private get itemAdjective () { return this.props.itemAdjective ?? this.lang.ORION_LIST__ITEM_ADJECTIVE }
 	get computedLayout () { return this.responsive.onPhone ? 'grid' : this.props.layout }
 	get computedItemType () { return usePluralize(this.itemType, this.vModelSelected.value.length, false) }
+	get page () { return this.getParamsFromRouter('page') ?? this.vModelPage.value }
+	get size () { return this.getParamsFromRouter('size') ?? this.vModelSize.value }
 	get computedItemAdjective () {
 		return getAppLang() === 'fr'
 			? usePluralize(this.itemAdjective, this.vModelSelected.value.length, false)
 			: this.itemAdjective;
 	}
 
-	get page () {
-		return {
-			size: this.getParamsFromRouter('size') ?? this.vModelPage.value.size,
-			index: this.getParamsFromRouter('page') ?? this.vModelPage.value.index,
-		};
-	}
-
 	get listToDisplay (): T[] {
-		const size = this.getParamsFromRouter('size') ?? this.vModelPage.value.size;
-		const index = this.getParamsFromRouter('page') ?? this.vModelPage.value.index;
-
 		return this.props.useAutoPagination
-			? this.props.list.slice(size * (index - 1), size * index)
+			? this.props.list.slice(this.size * (this.page - 1), this.size * this.page)
 			: this.props.list;
 	}
 
 	constructor (
 		protected props: OrionListProps<T> & Omit<typeof OrionListSetup.defaultProps, 'list'> & { list: T[] },
 		protected emits: OrionListEmits,
-		protected vModelPage: ModelRef<Orion.ListPage>,
+		protected vModelPage: ModelRef<number>,
+		protected vModelSize: ModelRef<number>,
 		protected vModelSelected: ModelRef<T[]>,
 	) {
 		super();
-	}
-
-	protected async onBeforeMountAsync () {
-		if (isNil(this.vModelPage.value)) {
-			this.vModelPage.value = {
-				size: 20,
-				index: 1,
-			};
-		}
 	}
 
 	clearSelection () {
@@ -129,19 +112,10 @@ export class OrionListSetup<T extends Record<string, any>> extends SharedSetup {
 		this.emits('clear-selection');
 	}
 
-	handleOnPaginate () {
-		this.emits('paginate', this.vModelPage.value.index);
-	}
-
-	handleOnPageSizeUpdate (size?: number) {
-		const sizeValue = Number(size);
-		if (!sizeValue || isNaN(sizeValue)) return;
-		this.vModelPage.value.size = sizeValue;
-		const pagesLength = Math.ceil(this.props.total / sizeValue);
-		if (pagesLength > 0 && this.vModelPage.value.index > pagesLength) {
-			this.vModelPage.value.index = pagesLength;
-		}
-		this.emits('paginate', this.vModelPage.value.index);
+	handleOnPaginate (payload: { page: number, size: number }) {
+		this.emits('paginate', payload);
+		this.vModelPage.value = payload.page;
+		this.vModelSize.value = payload.size;
 	}
 
 	listItemIsSelected (item: T): boolean {

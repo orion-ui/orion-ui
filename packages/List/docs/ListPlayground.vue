@@ -1,10 +1,13 @@
 <template>
 	<o-list
-		v-model:selected="selectedItems"
-		bind-router-page="page"
 		v-bind="state"
+		v-model:page="state.page"
+		v-model:size="state.size"
+		v-model:selected="selectedItems"
 		:list="list"
-		:total="fullList.length">
+		:total="fullList.length"
+		:bind-router-page="routerPageBinding"
+		:bind-router-size="routerSizeBinding">
 		<template #default="{ item, selected }">
 			<o-card
 				:selected="selected"
@@ -50,7 +53,7 @@
 	<div class="mt-xs row row--middle row--gutter">
 		<div class="col-sm-4">
 			<o-input
-				v-model="page.size"
+				v-model.number="state.size"
 				type="number"
 				label="List size"/>
 		</div>
@@ -86,16 +89,18 @@ import { faker } from '@faker-js/faker';
 import { getUid } from 'lib';
 import { computed, reactive } from 'vue';
 
-const fullList = seedList();
-const list = computed(() => fullList.slice(page.size * (page.index - 1), page.size * page.index));
+const routerPageBinding: Undef<string> = 'myPage';
+const routerSizeBinding: Undef<string> = 'mySize';
+
 const selectedItems = reactive<any[]>([]);
-const page = reactive<Orion.ListPage>({
-	size: 4,
-	index: 1,
+const fullList = seedList();
+const list = computed(() => {
+	return fullList.slice(state.size * (state.page - 1), state.size * state.page);
 });
 
 const state = reactive({
-	trackKey: 'id',
+	page: 4,
+	size: 6,
 	layout: 'grid' as 'grid' | 'row',
 	usePaginationBottom: true,
 	usePaginationTop: true,

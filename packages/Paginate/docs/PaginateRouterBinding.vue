@@ -2,14 +2,12 @@
 	<o-paginate
 		bind-router-page="page"
 		:total="state.list.length"
-		:size="10"
 		variant="detailed"/>
 
 	<hr>
 
 	<o-list
 		bind-router-page="page"
-		:page="{ index: 1, size: 10 }"
 		:total="state.list.length"
 		:list="state.list"
 		use-auto-pagination

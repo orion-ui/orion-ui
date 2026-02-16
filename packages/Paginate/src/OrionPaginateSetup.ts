@@ -8,7 +8,7 @@ import { SharedSetup } from '../../Shared/SharedSetup';
 export type OrionPaginateEmits = {
 	// @doc event/paginate/desc emitted on page change or page size change
 	// @doc/fr event/paginate/desc émis au changement de page ou de taille de page
-	(e: 'paginate', payload: number): void
+	(e: 'paginate', payload: Orion.Paginate.PaginationEvent): void
 };
 
 export type OrionPaginateProps = {
@@ -26,7 +26,7 @@ export type OrionPaginateProps = {
 	showPageInfo?: boolean
 	// @doc props/variant pagination style (default or detailed)
 	// @doc/fr props/variant style de pagination (default ou detailed)
-	variant?: Orion.PaginateVariant
+	variant?: Orion.Paginate.Variant
 	// @doc props/sizeOptions page size options displayed in detailed mode
 	// @doc/fr props/sizeOptions options de taille de page affichees en mode detailed
 	sizeOptions?: number[]
@@ -48,7 +48,7 @@ export class OrionPaginateSetup extends SharedSetup {
 
 	static readonly defaultProps = {
 		sizeOptions: () => [10, 20, 50, 100],
-		variant: 'default' as Orion.PaginateVariant,
+		variant: 'default' as Orion.Paginate.Variant,
 		showPageSizeSelect: true,
 		showPageInfo: true,
 		maxPaginationButtons: 5,
@@ -117,6 +117,7 @@ export class OrionPaginateSetup extends SharedSetup {
 	}
 
 	set index (val) {
+		this.emits('paginate', { page: val, size: this.size });
 		this.vModelPage.value = val;
 		if (this.useRouterBinding) {
 			this.router.push({
@@ -132,6 +133,7 @@ export class OrionPaginateSetup extends SharedSetup {
 
 	get size () { return this.vModelSize.value ?? 20 }
 	set size (val) {
+		this.emits('paginate', { page: this.index, size: val });
 		this.vModelSize.value = val;
 		if (this.useRouterBinding) {
 			this.router.push({
@@ -150,11 +152,12 @@ export class OrionPaginateSetup extends SharedSetup {
 		protected emits: OrionPaginateEmits,
 		private vModelPage: ModelRef<number | undefined>,
 		private vModelSize: ModelRef<number | undefined>,
+		private _list?: OrionList,
 	) {
 		super();
 
 		if (this.useRouterBinding) {
-			if (vModelPage.value !== undefined || vModelSize.value !== undefined) {
+			if ((vModelPage.value !== undefined || vModelSize.value !== undefined) && !this._list) {
 				Log.warn(`[OrionPaginate] "page" and/or "size" props are defined alongside "bind-router-page". Avoid using one of both to prevent unexpected behavior.`);
 			}
 
