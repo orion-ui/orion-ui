@@ -131,7 +131,9 @@
 								v-model.number="setup.index"
 								:max-value="setup.pagesLength"
 								:donetyping="500"
+								:min-value="1"
 								type="number"
+								size="xs"
 								autofocus
 								select-on-focus
 								label="Page"
