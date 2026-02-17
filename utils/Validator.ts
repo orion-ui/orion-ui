@@ -1,5 +1,5 @@
 import { useLang } from 'services/LangService';
-import { useMonkey } from 'services/MonkeyService';
+import { usePluralize } from 'services/PluralizeService';
 import { reactive } from 'vue';
 
 type ValidatorPhoneValidation = Record<
@@ -88,7 +88,7 @@ export class Validator<T = any> {
 			const msg = message ?? useLang().VALIDATOR_ERROR_HAS_MIN_LENGTH;
 			return {
 				result: (value?.length ?? 0) >= min,
-				message: msg.replace('$charLength', useMonkey(useLang().CHARACTER).pluralize(min)),
+				message: msg.replace('$charLength', usePluralize(useLang().CHARACTER, min)),
 				level: 'error',
 			};
 		},
@@ -97,7 +97,7 @@ export class Validator<T = any> {
 			const msg = message ?? useLang().VALIDATOR_ERROR_HAS_MAX_LENGTH;
 			return {
 				result: (value?.length ?? 0) <= max,
-				message: msg.replace('$charLength', useMonkey(useLang().CHARACTER).pluralize(max)),
+				message: msg.replace('$charLength', usePluralize(useLang().CHARACTER, max)),
 				level: 'error',
 			};
 		},
@@ -110,7 +110,7 @@ export class Validator<T = any> {
 				result: (value?.length ?? 0) >= min && (value?.length ?? 0) <= max,
 				message: max !== Infinity
 					? msg.replace('$min', min.toString()).replace('$max', max.toString())
-					: useLang().VALIDATOR_ERROR_HAS_MIN_LENGTH.replace('$charLength', useMonkey(useLang().CHARACTER).pluralize(min)),
+					: useLang().VALIDATOR_ERROR_HAS_MIN_LENGTH.replace('$charLength', usePluralize(useLang().CHARACTER, min)),
 				level: 'error',
 			};
 		},

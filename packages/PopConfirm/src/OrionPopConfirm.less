@@ -7,22 +7,33 @@
 	flex-direction: column;
 	align-items: center;
 
+	&__content {
+		display: flex;
+		flex-direction: column;
+		gap: var(--o-space-12);
+	}
+
 	&__title {
 		display: flex;
-		align-items: center;
-		margin-bottom: 1.25rem;
+		gap: var(--o-space-8);
+		.typography(body2-bold);
 
 		.orion-icon {
-			margin-right: 0.5rem;
-			font-size: 1.5rem;
-			color: var(--o-text-warning-default);
+			font-size: 1.25rem;
+			color: var(--o-text-primary-default);
+		}
+	}
+
+	&__title--danger {
+		.orion-icon {
+			color: var(--o-text-danger-default);
 		}
 	}
 
 	&__actions {
 		display: flex;
-		gap: 0.5rem;
+		gap: var(--o-space-8);
 		align-items: center;
-		justify-content: flex-end;
+		padding: 0 var(--o-space-24);
 	}
 }

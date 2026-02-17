@@ -6,7 +6,7 @@ import { type MaterialIcon } from 'material-icons';
 import { type OrionAvatarProps } from 'packages/Avatar/src/OrionAvatarSetup';
 import { type Component } from 'vue';
 import { type RouteLocationRaw, type Router } from 'vue-router';
-import type { OrionAsideSetup, OrionListProps, OrionModalSetup, OrionNotifSetup } from '../packages';
+import type { OrionAsideSetup, OrionModalSetup, OrionNotifSetup } from '../packages';
 import { type OrionChatEntity } from '../packages/Chat/src/OrionChatEntity';
 import type { OrionChatMessageEntity } from '../packages/ChatMessage/src/OrionChatMessageEntity';
 import { type useValidation } from '../services/ValidationService';
@@ -20,33 +20,6 @@ declare global {
 	type Nil<T> = T | undefined | null;
 
 	type RefDom<T = HTMLElement> = undefined | (HTMLElement & T);
-
-	// eslint-disable-next-line @typescript-eslint/consistent-type-imports
-	type SetupProps<T> = Readonly<import('vue').ExtractPropTypes<T>>;
-
-	type AsideAnimationHookType
-		= | 'asideEnterBefore'
-		  | 'asideEnterStart'
-		  | 'asideEnterEnd'
-		  | 'asideLeaveBefore'
-		  | 'asideLeaveStart'
-		  | 'asideLeaveEnd';
-
-	type ModalAnimationHookType
-		= | 'modalEnterBefore'
-		  | 'modalEnterStart'
-		  | 'modalEnterEnd'
-		  | 'modalLeaveBefore'
-		  | 'modalLeaveStart'
-		  | 'modalLeaveEnd';
-
-	type NotifAnimationHookType
-		= | 'notifEnterBefore'
-		  | 'notifEnterStart'
-		  | 'notifEnterEnd'
-		  | 'notifLeaveBefore'
-		  | 'notifLeaveStart'
-		  | 'notifLeaveEnd';
 
 	namespace Orion {
 		type AppServiceConfig = {
@@ -91,8 +64,6 @@ declare global {
 			  | 'grey-lighter';
 
 		type DatepickerType = 'date' | 'range' | 'week' | 'multiple' | 'month';
-
-		type DateTableType = 'date' | 'range' | 'multiple' | 'month';
 
 		type ListLayout = 'grid' | 'row';
 
@@ -193,19 +164,6 @@ declare global {
 			navTabs?: OrionNavTabs.Props
 		};
 
-		type List<T extends Record<string, any>> = Omit<
-			OrionListProps<T>,
-			'list' | 'selected'
-		> & {
-			list: T[]
-			selected?: T[]
-		};
-
-		type ListPage = {
-			size: number
-			index: number
-		};
-
 		type NavItem = Partial<{
 			always: boolean
 			backLabel: string
@@ -231,12 +189,6 @@ declare global {
 			activeWhenExact: boolean
 		}>;
 
-		type NavSection = {
-			slug: string
-			items: NavItem[]
-			if?: boolean | (() => boolean)
-		};
-
 		type VDropdown = {
 			placement?: VDropdownPlacement
 			distance?: number
@@ -246,6 +198,14 @@ declare global {
 		};
 
 		type DataListItem = Record<string, any>;
+
+		namespace Paginate {
+			type Variant = 'default' | 'detailed';
+			type PaginationEvent = {
+				page: number
+				size: number
+			};
+		}
 
 		namespace DateTable {
 			type Type = 'date' | 'range' | 'multiple' | 'month';

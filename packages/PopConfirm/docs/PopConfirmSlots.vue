@@ -9,21 +9,44 @@
 			</o-button>
 			<template #actions="{ cancel, confirm }">
 				<o-button
-					color="danger"
 					outline
 					@click="cancel()">
 					Nope
 				</o-button>
 				<o-button
-					color="info"
+					color="primary"
 					autofocus
 					@click="confirm()">
-					Of course !
+					Of course
 				</o-button>
 			</template>
 		</o-pop-confirm>
 
 		<o-pop-confirm
+			title="Do you confirm this dangerous action ?"
+			type="danger"
+			@confirm="useNotif.info('Action has been confirmed')"
+			@cancel="useNotif.warning('Action has been cancel')">
+			<o-button>
+				Dangerous with the actions slot
+			</o-button>
+			<template #actions="{ cancel, confirm }">
+				<o-button
+					outline
+					@click="cancel()">
+					Nope
+				</o-button>
+				<o-button
+					color="danger"
+					autofocus
+					@click="confirm()">
+					Oh yeah
+				</o-button>
+			</template>
+		</o-pop-confirm>
+
+		<o-pop-confirm
+			hide-title
 			@confirm="useNotif.info('Action has been confirmed')"
 			@cancel="useNotif.warning('Action has been cancel')">
 			<o-button>
@@ -44,20 +67,21 @@
 import { useNotif } from 'lib';
 </script>
 
-<style scoped lang="less">
+<style scoped lang="less"></style>
 
-</style>
-
-@hl {10-23,32-38}
+@hl {12-28,37-43}
 
 @lang:en
 ### Slots
 
 Use the `actions` slot to change the default actions, and the `content` slot to change the popup content.
+Use `type="danger"` for dangerous actions.
 @lang
 
 @lang:fr
 ### Slot
 
-Utilisez le slot `actions` pour changer les actions par défaut, et le slot `content` pour changer le contenu de la popup.
+Utilisez le slot `actions` pour changer les actions par défaut, et le slot `content` pour changer le contenu de la
+popup.
+Utilisez `type="danger"` pour une action dangereuse.
 @lang

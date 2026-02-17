@@ -122,7 +122,7 @@
 
 <script setup lang="ts">
 import OrionButton from 'packages/Button/src/OrionButton.vue';
-import { useLang } from 'services';
+import { useLang } from 'services/LangService';
 import { provide } from 'vue';
 import './OrionCarousel.less';
 import { OrionCarouselSetup, type OrionCarouselEmits, type OrionCarouselProps } from './OrionCarouselSetup';

@@ -5,10 +5,10 @@
 		}
 
 		.v-popper__inner {
-			padding: var(--o-space-16);
-			border: 1px solid var(--border-neutral-default, #eceef2);
+			padding: var(--o-space-12);
+			border: 1px solid var(--border-neutral-default);
 			border-color: var(--o-border-neutral-default);
-			border-radius: var(--o-radius-lg);
+			border-radius: var(--o-radius-md);
 			color: var(--o-text-neutral-default);
 			background: var(--o-background-neutral-default);
 			box-shadow: 0 4px 6px 0 rgb(0 0 0 / 8%), 0 2px 4px 0 rgb(0 0 0 / 3%);
@@ -72,6 +72,16 @@
 	&-orion-pop-confirm {
 		width: max-content;
 
+		.v-popper__inner {
+			padding: var(--o-space-16);
+
+			& > div {
+				display: flex;
+				flex-direction: column;
+				gap: var(--o-space-12);
+			}
+		}
+
 		>.icon {
 			cursor: pointer;
 			display: inherit;
@@ -114,6 +124,12 @@
 		&.v-popper__popper--no-positioning .orion-select__popover {
 			height: calc(90vh - var(--o-space-48));
 			max-height: none;
+		}
+	}
+
+	&-orion-paginate {
+		.v-popper__inner {
+			padding: var(--o-space-8);
 		}
 	}
 }
