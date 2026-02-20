@@ -22,6 +22,7 @@
 			class="orion-card__header"
 			@click="emits('header-click')">
 			<div
+				v-if="title || subtitle"
 				class="orion-card__header-content"
 				:class="{ 'orion-card__header-content--lined': headerLine }">
 				<h4
@@ -35,9 +36,8 @@
 					class="orion-card__subtitle">
 					{{ subtitle }}
 				</h5>
-
-				<slot name="header"/>
 			</div>
+			<slot name="header"/>
 		</div>
 
 		<div
