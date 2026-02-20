@@ -55,9 +55,6 @@
 	&__autocomplete-input {
 		position: absolute;
 		top: 0;
-		left: var(--o-space-12);
-		display: inline-block;
-		width: calc(100% - var(--o-space-48));
 
 		+ span {
 			display: none;
@@ -65,17 +62,11 @@
 	}
 
 	&__popover {
-		overscroll-behavior: contain;
+		display: flex;
+		flex-direction: column;
 		min-width: 14rem;
 		max-width: calc(100vw - 2rem);
 		max-height: 20rem;
-
-		&-options {
-
-			@media @desktop {
-				padding-bottom: 2.25rem;
-			}
-		}
 
 		.favorite-separator {
 			margin: 0.5rem 0;
@@ -104,8 +95,7 @@
 			}
 
 			body:not(.istouch) & {
-				&.hover,
-				&:hover {
+				&.hover {
 					color: var(--o-text-neutral-default);
 					background: var(--o-background-neutral-minimal);
 				}
@@ -133,8 +123,7 @@
 					}
 
 					body:not(.istouch) & {
-						&.hover,
-						&:hover {
+						&.hover {
 							color: var(--o-text-danger-default);
 							background: var(--o-background-danger-minimal);
 
@@ -160,8 +149,7 @@
 				}
 
 				body:not(.istouch) & {
-					&.hover .icon--add,
-					&:hover .icon--add {
+					&.hover .icon--add {
 						visibility: visible;
 						opacity: 1;
 					}
@@ -179,6 +167,10 @@
 			}
 		}
 
+		&-options-wrapper {
+			overflow-y: scroll;
+		}
+
 		&-actions {
 			display: flex;
 			gap: 0.5rem;
@@ -191,14 +183,11 @@
 		}
 
 		&-footer {
-			position: fixed;
-			bottom: 0;
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
-			width: calc(100% - 0.125rem);
 			height: 2.25rem;
-			margin: 0 -0.25rem;
+			margin: 0.25rem -0.25rem -0.25rem;
 			padding: var(--o-space-8) var(--o-space-16);
 			border-top: 1px solid var(--o-border-neutral-default);
 			border-bottom-right-radius: var(--o-radius-lg);

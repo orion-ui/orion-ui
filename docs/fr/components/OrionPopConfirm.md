@@ -11,6 +11,8 @@ Son utilisation est conseillée lorsque celle de `useConfirm()` est trop lourde 
 
 C'est un moyen plus approprié d'implémenter ce mécanisme pour des actions avec un impact moins important.
 
+Utilisez le prop `type` pour définir l'intention : `default` (par défaut) ou `destructive` pour une action destructive.
+
 Comme avec `useConfirm()`, vous pouvez utiliser la touche <kbd>Entrée</kbd> pour **confirmer** et <kbd>Echap</kbd> to **annuler**.
 
 ## Usage
@@ -21,3 +23,4 @@ PopConfirmPlayground
 :::
 
 <attribute-table/>
+

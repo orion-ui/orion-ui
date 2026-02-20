@@ -156,7 +156,7 @@ import { OrionButton } from 'packages/Button';
 import { OrionHorizontalScroll } from 'packages/HorizontalScroll';
 import { OrionIcon } from 'packages/Icon';
 import { OrionToggleButton } from 'packages/ToggleButton';
-import { useMonkey } from 'services';
+import { useMonkey } from 'services/MonkeyService';
 import './OrionDateTableHorizontal.less';
 import { OrionDateTableHorizontalSetup, type OrionDateTableHorizontalEmits, type OrionDateTableHorizontalProps } from './OrionDateTableHorizontalSetup';
 const vModel = defineModel<Nil<Date>>();

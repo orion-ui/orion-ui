@@ -3,12 +3,15 @@
 		:ref="setup._el"
 		class="orion-list">
 		<orion-paginate
-			v-if="usePaginationTop && !!page && !!total"
-			v-model="page.index"
-			:size="page.size"
-			:total="total"
-			:bind-router="bindRouter"
-			@paginate="setup.handleOnPaginate()"/>
+			v-if="usePaginationTop && !!setup.page && !!setup.size && !!total"
+			:page="setup.page"
+			:size="setup.size"
+			:total
+			:bind-router-page
+			:bind-router-size
+			:variant="paginationVariant"
+			:size-options="paginationSizeOptions"
+			@paginate="setup.handleOnPaginate($event)"/>
 
 		<div
 			v-if="setup.computedLayout === 'grid'"
@@ -33,18 +36,21 @@
 		</template>
 
 		<orion-paginate
-			v-if="usePaginationBottom && !!page && !!total"
-			v-model="page.index"
-			:size="page.size"
-			:total="total"
-			:bind-router="bindRouter"
-			@paginate="setup.handleOnPaginate()"/>
+			v-if="usePaginationBottom && !!setup.page && !!setup.size && !!total"
+			:page="setup.page"
+			:size="setup.size"
+			:total
+			:bind-router-page
+			:bind-router-size
+			:variant="paginationVariant"
+			:size-options="paginationSizeOptions"
+			@paginate="setup.handleOnPaginate($event)"/>
 
 		<orion-footer-fixed
 			class="orion-footer-selected"
-			:visible="useFooterSelected && !!selected.length">
+			:visible="useFooterSelected && !!vModelSelected.length">
 			<div class="orion-footer-selected__qty">
-				<span class="orion-footer-selected__qty-number">{{ selected.length }}</span>
+				<span class="orion-footer-selected__qty-number">{{ vModelSelected.length }}</span>
 				<div class="orion-footer-selected__qty-text">
 					<span>{{ setup.computedItemType }}</span>
 					<span>{{ setup.computedItemAdjective }}</span>
@@ -63,23 +69,23 @@
 <script setup lang="ts" generic="T extends Record<string, any>">
 import { OrionFooterFixed } from 'packages/FooterFixed';
 import { OrionPaginate } from 'packages/Paginate';
+import { provide } from 'vue';
 import './OrionList.less';
 import { OrionListSetup, type OrionListEmits, type OrionListProps } from './OrionListSetup';
-const page = defineModel<Orion.ListPage>('page', {
-	default: {
-		size: 20,
-		index: 1,
-	},
-});
-const selected = defineModel<T[]>('selected', { default: (): T[] => [] });
+const vModelPage = defineModel<number>('page', { default: 1 });
+const vModelSize = defineModel<number>('size', { default: 20 });
+const vModelSelected = defineModel<T[]>('selected', { default: (): T[] => [] });
 const emits = defineEmits<OrionListEmits>() as OrionListEmits;
 const props = withDefaults(defineProps<OrionListProps<T>>(), OrionListSetup.defaultProps);
-const setup = new OrionListSetup(props, emits, page, selected);
+const setup = new OrionListSetup(props, emits, vModelPage, vModelSize, vModelSelected);
 defineExpose(setup.publicInstance);
+provide('_list', setup.publicInstance);
 
 /** Doc
- * @doc vModel/page configuration of the list's pagination (size: number of items per page, index: current page)
- * @doc/fr vModel/page configuration de la pagination de la liste (size: nombre d'éléments par page, index: page actuelle)
+ * @doc vModel/page Pagination active page
+ * @doc/fr vModel/page Page active de la pagination
+ * @doc vModel/size Number of items per page
+ * @doc/fr vModel/size Nombre d'éléments par page
  * @doc vModel/selected array of the selected items
  * @doc/fr vModel/selected tableau contenant les élements sélectionnés
  *

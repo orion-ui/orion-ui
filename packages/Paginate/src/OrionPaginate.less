@@ -4,70 +4,92 @@
 .orion-paginate {
 	position: relative;
 	display: flex;
+	gap: var(--o-space-16);
+	align-items: center;
 	justify-content: center;
+
+	&--detailed {
+		flex-wrap: wrap;
+		gap: var(--o-space-24);
+		justify-content: flex-end;
+		width: 100%;
+	}
 
 	&__wrapper {
 		display: flex;
+		flex: 1 1 auto;
+		gap: var(--o-space-4);
 		align-items: center;
-		max-width: calc(100% - (2.125rem * 2));
+		justify-content: center;
 	}
 
 	&__index {
-		padding: var(--o-space-16) var(--o-space-32);
-
 		&-active {
-			background: var(--o-background-info-minimal) !important;
+			border-color: var(--o-border-primary-default) !important;
+			color: var(--o-text-primary-default) !important;
+			background: var(--o-background-primary-minimal) !important;
 		}
 	}
 
-	&__ellipsis {
-		padding: var(--o-space-16) var(--o-space-8);
+	&__ellipsis-dropdown {
+		overflow-y: auto;
+		overscroll-behavior: contain;
+		display: flex;
+		flex-direction: column;
+		max-height: 15rem;
 	}
 
-	&__prev,
-	&__next {
-		width: 2.5rem;
-	}
+	&__ellipsis-item {
+		cursor: pointer;
+		width: 100%;
+		padding: var(--o-space-8) var(--o-space-12);
+		border-radius: var(--o-radius-4);
+		color: var(--o-text-neutral-default);
+		transition: background 0.3s;
+		.typography(body2-default);
 
-	.orion-button {
-		min-width: 2.5rem;
-		border: none;
-
-		&--icon-only .icon {
-			font-size: 0.875rem;
-		}
-	}
-
-	&__input {
-		width: 2rem;
-		height: 2rem;
-		margin-top: 0;
-		margin-bottom: 0;
-
-		&.orion-input {
-			margin-right: 0.5rem;
-			margin-left: 0.5rem;
-
-			&__input {
-				padding: var(--o-space-8) var(--o-space-8);
-				text-align: center;
-			}
-
-			.orion-input__label {
-				left: 0.75rem;
-				max-width: unset !important;
+		body:not(.istouch) & {
+			&:hover {
+				background: var(--o-background-neutral-minimal);
 			}
 		}
 
-		input::-webkit-outer-spin-button,
-		input::-webkit-inner-spin-button {
-			margin: 0;
-			appearance: none;
+		&--active {
+			color: var(--o-text-primary-active);
+			background: var(--o-background-primary-minimal);
 		}
+	}
 
-		/* Firefox */
-		input[type="number"] {
-			appearance: textfield;
-		}
+	&__ellipsis-input {
+		min-width: 4rem;
+		margin: 0;
+	}
+
+	&__select-container,
+	&__paginate-container {
+		display: flex;
+		gap: var(--o-space-12);
+		align-items: center;
+	}
+
+	&__paginate-container {
+		gap: var(--o-space-16);
+	}
+
+	&__detail-label,
+	&__detail-text {
+		color: var(--o-text-default);
+		white-space: nowrap;
+		.typography(body2-default);
+	}
+
+	&__detail-actions {
+		display: flex;
+		gap: var(--o-space-4);
+		align-items: center;
+	}
+
+	&__size-select {
+		margin: var(--o-space-0);
 	}
 }

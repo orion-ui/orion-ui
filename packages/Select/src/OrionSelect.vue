@@ -18,13 +18,15 @@
 			:label-is-floating="setup.labelIsFloating"
 			class="orion-select"
 			:class="[{ 'orion-select--multiple': multiple }, $attrs.class]"
-			@clear="setup.clear()">
+			@clear="setup.clear()"
+			@click.self="setup._input.value?.focus()">
 			<label
 				v-if="!floatingLabel"
 				:for="`orion-input_${setup._uid}`"
 				class="orion-input__static-label">
 				{{ label }}
 			</label>
+
 			<div
 				:id="`orion-input_${setup._uid}`"
 				:ref="setup._input"
@@ -33,7 +35,7 @@
 				@focus="setup.handleFocus($event)"
 				@blur="setup.handleBlur($event)"
 				@mousedown="setup.handleInputMousedown()"
-				@keydown.esc="setup.handleBlur()"
+				@keydown.esc.stop="setup.handleBlur()"
 				@keydown.down.prevent="setup.handleKeydown('down')"
 				@keydown.up.prevent="setup.handleKeydown('up')"
 				@keydown.enter="setup.selectItemFromEnter()">
@@ -157,73 +159,73 @@
 					@blur="setup.handleBlur()"
 					@input="setup.resetIndex()"/>
 
-				<slot
-					name="before-options"
-					:options="setup.optionsDisplay"/>
+				<div class="orion-select__popover-options-wrapper">
+					<slot
+						name="before-options"
+						:options="setup.optionsDisplay"/>
 
-				<div
-					v-if="setup.optionsDisplay.length === 0"
-					class="orion-select__popover-item orion-select__popover-item--noresult">
-					{{ fetchUrl ? setup.lang.ENTER_YOUR_SEARCH_TERM : setup.lang.NO_RESULT }}
-				</div>
-
-				<div
-					v-else
-					:ref="setup._optionscontainer"
-					class="orion-select__popover-options"
-					@mousemove="setup.indexNav = -1"
-					@touchmove="setup.indexNav = -1">
-					<template
-						v-for="(option, i) in setup.optionsDisplay"
-						:key="i">
-						<div
-							:ref="el => { if (!!el) setup._items.value.push(el) }"
-							class="orion-select__popover-item"
-							:class="{
-								'selected' : setup.optionIsSelected(option),
-								'hover' : setup.indexNav === i,
-								'disabled' : !!disabledKey && !!setup.get(option, disabledKey, false),
-								'favorite' : i < (setup.favoritesOptions ? setup.favoritesOptions.length : 0),
-								'favorite--last': setup.favoritesOptions && i + 1 === setup.favoritesOptions.length,
-							}"
-							@mousedown.prevent.stop="setup.selectItem(option)">
-							<slot
-								name="option"
-								:item="option"
-								:index="i"
-								:marked-search="setup.markedSearch.bind(setup)">
-								<span
-									v-html="setup.itemIsObject(option) && displayKey
-										? setup.markedSearch(option[displayKey])
-										: setup.markedSearch(String(option))"/>
-							</slot>
-							<div class="flex g-4 ai-c">
-								<o-icon
-									class="icon--add orion-select__icon--internal"
-									icon="add"/>
-								<template v-if="multiple">
+					<div
+						v-if="setup.optionsDisplay.length === 0"
+						class="orion-select__popover-item orion-select__popover-item--noresult">
+						{{ fetchUrl ? setup.lang.ENTER_YOUR_SEARCH_TERM : setup.lang.NO_RESULT }}
+					</div>
+					<div
+						v-else
+						:ref="setup._optionscontainer"
+						class="orion-select__popover-options">
+						<template
+							v-for="(option, i) in setup.optionsDisplay"
+							:key="i">
+							<div
+								:ref="el => { if (!!el) setup._items.value.push(el) }"
+								class="orion-select__popover-item"
+								:class="{
+									'selected' : setup.optionIsSelected(option),
+									'hover' : setup.indexNav === i,
+									'disabled' : !!disabledKey && !!setup.get(option, disabledKey, false),
+									'favorite' : i < (setup.favoritesOptions ? setup.favoritesOptions.length : 0),
+									'favorite--last': setup.favoritesOptions && i + 1 === setup.favoritesOptions.length,
+								}"
+								@mousemove.prevent.stop="setup.indexNav = i"
+								@mousedown.prevent.stop="setup.selectItem(option)">
+								<slot
+									name="option"
+									:item="option"
+									:index="i"
+									:marked-search="setup.markedSearch.bind(setup)">
+									<span
+										v-html="setup.itemIsObject(option) && displayKey
+											? setup.markedSearch(option[displayKey])
+											: setup.markedSearch(String(option))"/>
+								</slot>
+								<div class="flex g-4 ai-c">
+									<o-icon
+										class="icon--add orion-select__icon--internal"
+										icon="add"/>
+									<template v-if="multiple">
+										<orion-icon
+											icon="check"
+											class="icon--selected orion-select__icon--internal"/>
+										<orion-icon
+											icon="remove"
+											class="icon--delete orion-select__icon--internal"/>
+									</template>
 									<orion-icon
-										icon="check"
-										class="icon--selected orion-select__icon--internal"/>
-									<orion-icon
-										icon="remove"
-										class="icon--delete orion-select__icon--internal"/>
-								</template>
-								<orion-icon
-									v-if="favoriteIcon"
-									:icon="favoriteIcon"
-									class="favorite-icon"/>
+										v-if="favoriteIcon"
+										:icon="favoriteIcon"
+										class="favorite-icon"/>
+								</div>
 							</div>
-						</div>
-						<hr
-							v-if="setup.favoritesOptions && i === (setup.favoritesOptions.length - 1)"
-							class="favorite-separator">
-					</template>
-				</div>
+							<hr
+								v-if="setup.favoritesOptions && i === (setup.favoritesOptions.length - 1)"
+								class="favorite-separator">
+						</template>
+					</div>
 
-				<slot
-					name="after-options"
-					:options="setup.optionsDisplay"/>
+					<slot
+						name="after-options"
+						:options="setup.optionsDisplay"/>
+				</div>
 
 				<div
 					v-if="setup.responsive.onPhone && multiple"
@@ -239,17 +241,17 @@
 					v-if="setup.responsive.onDesktop"
 					class="orion-select__popover-footer">
 					<div class="orion-select__popover-footer-item">
-						<span class="keyboard-shortcut">ESC</span>
+						<kbd class="keyboard-shortcut">ESC</kbd>
 						<span>{{ setup.lang.CLOSE_ACTION }}</span>
 					</div>
 
 					<div class="orion-select__popover-footer-item">
-						<span class="keyboard-shortcut">
+						<kbd class="keyboard-shortcut">
 							<o-icon icon="keyboard_arrow_down"/>
-						</span>
-						<span class="keyboard-shortcut">
+						</kbd>
+						<kbd class="keyboard-shortcut">
 							<o-icon icon="keyboard_arrow_up"/>
-						</span>
+						</kbd>
 						<span>{{ setup.lang.NAVIGATE }}</span>
 					</div>
 				</div>

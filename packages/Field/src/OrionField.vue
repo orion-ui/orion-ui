@@ -21,7 +21,7 @@
 		<slot/>
 
 		<span
-			v-if="!['checkbox', 'radio', 'toggle'].includes(inputType)"
+			v-if="setup.showSuffixPicto"
 			:ref="setup._suffixPictos"
 			:class="`${setup.baseClass}__pictos`">
 			<orion-icon
@@ -55,8 +55,12 @@
 import { OrionIcon } from 'packages/Icon';
 import './OrionField.less';
 import { OrionFieldSetup, type OrionFieldEmits, type OrionFieldProps } from './OrionFieldSetup';
+const slots = defineSlots<{
+	default: () => any
+	'icon-suffix': () => any
+}>();
 const emits = defineEmits<OrionFieldEmits>() as OrionFieldEmits;
 const props = withDefaults(defineProps<OrionFieldProps>(), OrionFieldSetup.defaultProps);
-const setup = new OrionFieldSetup(props, emits);
+const setup = new OrionFieldSetup(props, emits, slots);
 defineExpose(setup.publicInstance);
 </script>

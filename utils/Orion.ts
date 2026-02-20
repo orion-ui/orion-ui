@@ -12,27 +12,31 @@ import { handleTouchDevice, initThemeMode, setIconStyle } from './tools';
 export class OrionAppService {
 
 	private _app!: App;
-	private config!: Orion.AppServiceConfig;
+	private _config!: Orion.AppServiceConfig;
 
 	get app () { return this._app }
 	get appContext () { return this._app._context }
 	get appInstance () { return this._app._instance }
-	get appConfig () { return this.config }
-	get appUse () { return this.config.use }
-	get appPrefix () { return this.config.prefix }
-	get appRouter () { return this.config.router }
+	get appConfig () { return this._config }
+	get appUse () { return this._config.use }
+	get appPrefix () { return this._config.prefix }
+	get appRouter () { return this._config.router }
 
 	init (app: App, config: Orion.AppServiceConfig) {
 		Log.orion('•• START •• Orion initializer');
 		Log.orion(`prefix | ${config.prefix}`);
-		Log.orion(`use    | ${config.use}`);
+		Log.orion(`use    | ${config.use.join(', ')}`);
 
 		if (!app) throw `Parameter "app" is missing in Orion initializer`;
 
 		this._app = app;
-		this.config = config;
+		this._config = config;
+
+		initThemeMode();
+		handleTouchDevice();
 
 		setAppLang(config.lang);
+		setIconStyle(config.iconStyle);
 
 		this.preventVuePrefixWarning();
 
@@ -64,10 +68,6 @@ export class OrionAppService {
 			this.createMainLoader();
 			this.registerGlobalComponents();
 		}
-
-		initThemeMode();
-		setIconStyle(this.appConfig.iconStyle);
-		handleTouchDevice();
 
 		Log.orion('••  END  •• Orion initializer');
 	}

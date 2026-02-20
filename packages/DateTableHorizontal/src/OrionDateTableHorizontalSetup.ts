@@ -1,5 +1,5 @@
 import { groupBy } from 'lodash-es';
-import { useMonkey } from 'services';
+import { useMonkey } from 'services/MonkeyService';
 import { type ModelRef } from 'vue';
 import { OrionDateTableSetup, type OrionDateTableEmits, type OrionDateTableProps } from '../../DateTable/src/OrionDateTableSetup';
 
