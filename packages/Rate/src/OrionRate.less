@@ -2,36 +2,36 @@
 @import "../../Shared/styles/mixins.less";
 
 .orion-rate {
-	display: flex;
-	gap: 0.125rem;
-	align-items: center;
+  display: flex;
+  gap: 0.125rem;
+  align-items: center;
 
-	&__wrapper {
-		display: flex;
-		flex-direction: row-reverse;
-		align-items: center;
-		justify-content: flex-end;
-		line-height: 1;
+  &__wrapper {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: flex-end;
+    line-height: 1;
 
-		.orion-rate--disabled & {
-			flex-direction: row;
-			justify-content: flex-start;
-		}
-	}
+    .orion-rate--disabled & {
+      flex-direction: row;
+      justify-content: flex-start;
+    }
+  }
 
-	&__star {
-		.square(1.125rem);
+  &__star {
+    .square(1.125rem);
 
-		cursor: pointer;
-		font-size: 1rem;
-		color: var(--o-text-neutral-subtle);
+    cursor: pointer;
+    font-size: 1rem;
+    color: var(--o-text-neutral-subtle);
 
-		.orion-rate--disabled & {
-			cursor: not-allowed;
-		}
+    .orion-rate--disabled & {
+      cursor: not-allowed;
+    }
 
-		&.half {
-			each(@colors, {
+    &.half {
+      each(@colors, {
 				&--@{value} {
 					&::before{
 						color: transparent;
@@ -45,26 +45,26 @@
 				&--default {
 					&::before{
 						color: transparent;
-						background: linear-gradient(to right, var(--o-border-neutral-default), var(--o-border-neutral-default) 50%, var(--o-background-neutral-subtle) 50%, var(--o-background-neutral-subtle) );
+						background: linear-gradient(to right, var(--o-background-neutral-minimal), var(--o-background-neutral-minimal) 50%, var(--o-background-neutral-subtle) 50%, var(--o-background-neutral-subtle) );
 						background-clip: text;
 						-webkit-background-clip: text;
 						-webkit-text-fill-color: transparent;
 					}
 				}
 			});
-		}
-	}
+    }
+  }
 
-	&__number {
-		transform: translateY(-0.0625rem);
-		color: var(--o-text-neutral-default);
-	}
+  &__number {
+    transform: translateY(-0.0625rem);
+    color: var(--o-text-neutral-default);
+  }
 
-	input {
-		display: none;
-	}
+  input {
+    display: none;
+  }
 
-	each(@colors, {
+  each(@colors, {
 		&--@{value} {
 
 			input:checked ~ label {
