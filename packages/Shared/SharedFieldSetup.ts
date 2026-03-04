@@ -3,7 +3,7 @@ import { useValidation } from 'services/ValidationService';
 import { useWindow } from 'services/WindowService';
 import { Validator } from 'utils/Validator';
 import { computed, type ModelRef, reactive, ref } from 'vue';
-import { SharedProps, type SharedPropsPrefixIcon, type SharedPropsSize, type SharedPropsSuffixIcon } from './SharedProps';
+import { SharedProps, type SharedPropsFieldSize, type SharedPropsPrefixIcon, type SharedPropsSuffixIcon } from './SharedProps';
 import { SharedSetup } from './SharedSetup';
 
 export type SharedFieldSetupEmits<T = any | null | undefined> = {
@@ -24,7 +24,10 @@ export type SharedFieldSetupEmits<T = any | null | undefined> = {
 	(e: 'clear'): void
 };
 
-export type SharedFieldSetupProps = SharedPropsPrefixIcon & SharedPropsPrefixIcon & SharedPropsSuffixIcon & SharedPropsSuffixIcon & SharedPropsSize & {
+export type SharedFieldSetupProps = SharedPropsPrefixIcon & SharedPropsSuffixIcon & SharedPropsFieldSize & {
+	// @doc props/class additional css class to apply to the field wrapper
+	// @doc/fr props/class class css supplémentaire à appliquer au wrapper du champ
+	class?: string | Record<string, boolean> | (string | Record<string, boolean>)[]
 	// @doc props/autofocus autofocus the field when mounted.
 	// @doc/fr props/autofocus focus automatiquement le champ lorsqu'il est monté.
 	autofocus?: boolean
@@ -49,9 +52,9 @@ export type SharedFieldSetupProps = SharedPropsPrefixIcon & SharedPropsPrefixIco
 	// @doc props/forceLabelFloating force floating label even without focus or value
 	// @doc/fr props/forceLabelFloating force le label à se placer au dessus du champ même sans focus ni valeur
 	forceLabelFloating?: boolean
-	// @doc props/hintText hint text displayed below the field
-	// @doc/fr props/hintText texte d'aide affiché sous le champ
-	hintText?: string
+	// @doc props/hint hint text displayed below the field
+	// @doc/fr props/hint texte d'aide affiché sous le champ
+	hint?: string
 	// @doc props/clearToNull sets the value to null when the field is cleared
 	// @doc/fr props/clearToNull lorsque que le champ est vidé, sa valeur vaut `null`
 	clearToNull?: boolean
@@ -73,34 +76,30 @@ export type SharedFieldSetupProps = SharedPropsPrefixIcon & SharedPropsPrefixIco
 	// @doc props/validationErrorMessage the error message displayed after input's validation.
 	// @doc/fr props/validationErrorMessage le message d'erreur affiché en cas d'erreur lors de la validation
 	validationErrorMessage?: string
-	// @doc props/inheritValidationState defines if the validation comes from its parent
-	// @doc/fr props/inheritValidationState définit si la validation provient du parent
-	inheritValidationState?: boolean
 };
 
 export abstract class SharedFieldSetup<P, T, E extends SharedFieldSetupEmits = SharedFieldSetupEmits> extends SharedSetup {
 
 	static readonly defaultProps = {
-		...SharedProps.size,
+		...SharedProps.fieldSize,
 		type: 'text',
 		donetyping: 0,
 		floatingLabel: true,
-		inheritValidationState: undefined as SharedFieldSetupProps['inheritValidationState'],
-		validation: undefined as SharedFieldSetupProps['validation'],
+		validation: undefined,
 	} as {}; // bypass "is not assignable to type 'InferDefault<LooseRequired<__component__Props>>" in Orion__field__.vue
 
-	readonly _input = ref<HTMLInputElement>();
+	readonly _orionInput = ref<HTMLInputElement>();
 	_uid?: number;
 
-	protected inputType = 'input';
+	abstract readonly inputType: string;
 
 	protected handleInputDebounce: DebouncedFunc<(callback: any) => void>;
 
-	sharedState = reactive({
+	readonly sharedState = {
 		hasBeenFocus: false,
 		isFocus: false,
 		isAutoFilled: false,
-	});
+	};
 
 	protected state = reactive({ ...this.sharedState });
 
@@ -154,7 +153,7 @@ export abstract class SharedFieldSetup<P, T, E extends SharedFieldSetupEmits = S
 	}
 
 	protected get labelIsFloating () {
-		return (this.state.isFocus && !(this.props.placeholder && !this.hasValue))
+		return this.state.isFocus
 		  || this.hasValue
 		  || this.props.forceLabelFloating
 		  || this.state.isAutoFilled
@@ -168,18 +167,19 @@ export abstract class SharedFieldSetup<P, T, E extends SharedFieldSetupEmits = S
 				.filter(x => !!x.message)
 				.map((x) => {
 					return x.level === 'error'
-						? `<div class="text--danger">${x.message}</div>`
-						: `<div class="text--warning">${x.message}</div>`;
+						? `<div class="orion-field__validation-message--danger">${x.message}</div>`
+						: `<div class="orion-field__validation-message--warning">${x.message}</div>`;
 				})
 			: [];
 
 		if (!!this.props.validationErrorMessage) {
-			res.push(`<div class="text--danger">${this.props.validationErrorMessage}</div>`);
+			res.push(`<div class="orion-field__validation-message--danger">${this.props.validationErrorMessage}</div>`);
 		}
 
 		return res.join('\n');
 	}
 
+	get showSuccess () { return this.isValid.value && this.showState }
 	get showError () {
 		if (!this.showState) return false;
 
@@ -203,11 +203,7 @@ export abstract class SharedFieldSetup<P, T, E extends SharedFieldSetupEmits = S
 		}
 	}
 
-	get showSuccess () { return this.isValid.value && this.showState }
 	get showState () {
-		if (this.props.inheritValidationState !== undefined) {
-			return this.props.inheritValidationState;
-		}
 		if (this.state.hasBeenFocus) {
 			return !isNil(this.props.validation) || (this.isRequired && (!this.hasValue || this.isValidCustom));
 		}
@@ -225,25 +221,28 @@ export abstract class SharedFieldSetup<P, T, E extends SharedFieldSetupEmits = S
 	get orionFieldBinding (): OrionField.Props {
 		return {
 			_uid: this._uid,
-			clearable: this.props.clearable,
+			class: this.props.class,
+			label: this.props.label,
+			size: this.props.size,
+			required: this.isRequired,
+			readonly: this.props.readonly,
 			disabled: this.props.disabled,
-			hasValue: this.hasValue,
-			inputType: this.inputType,
-			isFocus: this.state.isFocus,
+			clearable: this.props.clearable,
 			floatingLabel: this.props.floatingLabel,
 			labelIsFloating: this.labelIsFloating,
-			prefixIcon: this.props.prefixIcon,
-			readonly: this.props.readonly,
-			required: this.isRequired,
+			inputType: this.inputType,
+			hasValue: this.hasValue,
+			isFocus: this.state.isFocus,
 			showError: this.showError,
 			showWarning: this.showWarning,
 			showSuccess: this.showSuccess,
-			size: this.props.size,
-			suffixIcon: this.props.suffixIcon,
-			label: this.props.label,
 			placeholder: this.props.placeholder,
+			prefixIcon: this.props.prefixIcon,
 			prefixFontIcon: this.props.prefixFontIcon,
+			suffixIcon: this.props.suffixIcon,
 			suffixFontIcon: this.props.suffixFontIcon,
+			hint: this.props.hint,
+			validationHtmlMessages: this.validationHtmlMessages,
 		};
 	}
 
@@ -256,8 +255,7 @@ export abstract class SharedFieldSetup<P, T, E extends SharedFieldSetupEmits = S
 			clear: this.clear.bind(this),
 			setHasBeenFocus: this.setHasBeenFocus.bind(this),
 			isValid: () => this.isValid.value,
-			_input: () => this._input.value,
-			sharedState: () => this.sharedState,
+			_input: () => this._orionInput.value,
 		};
 	}
 
@@ -286,7 +284,7 @@ export abstract class SharedFieldSetup<P, T, E extends SharedFieldSetupEmits = S
 		// Detect Chrome autofill
 		if (!!(useWindow() as Undef<any>)?.chrome) {
 			setTimeout(() => {
-				if (this._input.value?.parentElement?.querySelector('input:-webkit-autofill') === this._input.value) {
+				if (this._orionInput.value?.parentElement?.querySelector('input:-webkit-autofill') === this._orionInput.value) {
 					this.state.isAutoFilled = true;
 				}
 			}, 400);
@@ -295,21 +293,21 @@ export abstract class SharedFieldSetup<P, T, E extends SharedFieldSetupEmits = S
 
 	protected blur = debounce(() => {
 		this.emits('blur', new FocusEvent('blur'));
-		this._input.value?.blur();
+		this._orionInput.value?.blur();
 	}, 50, {
 		leading: true,
 		trailing: false,
 	});
 
 	protected handleAutoFocus () {
-		const delay = this._input.value?.closest?.('.orion-aside, .orion-modal') ? 600 : 100;
+		const delay = this._orionInput.value?.closest?.('.orion-aside, .orion-modal') ? 600 : 100;
 		setTimeout(() => {
 			this.focus();
 		}, delay);
 	}
 
 	protected focus () {
-		this._input.value?.focus();
+		this._orionInput.value?.focus();
 		this.emits('focus', new FocusEvent('focus'));
 	}
 
@@ -317,8 +315,8 @@ export abstract class SharedFieldSetup<P, T, E extends SharedFieldSetupEmits = S
 		if (this.props.disabled || this.props.readonly) return;
 		this.state.isFocus = true;
 
-		if (this.props.selectOnFocus && this._input.value) {
-			const input = this._input.value;
+		if (this.props.selectOnFocus && this._orionInput.value) {
+			const input = this._orionInput.value;
 			input.select();
 		}
 
@@ -337,7 +335,7 @@ export abstract class SharedFieldSetup<P, T, E extends SharedFieldSetupEmits = S
 	handleBlur (e?: FocusEvent) {
 		this.state.hasBeenFocus = true;
 		this.state.isFocus = false;
-		this._input?.value?.blur();
+		this._orionInput?.value?.blur();
 		this.emits('blur', e);
 
 		if (this.props.donetyping) {

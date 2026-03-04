@@ -38,6 +38,8 @@ declare global {
 
 		type Theme = 'dark' | 'light' | 'auto';
 
+		type FieldSize = 'md' | 'sm';
+
 		type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 		type BadgeType = 'dot' | 'square' | 'rounded';

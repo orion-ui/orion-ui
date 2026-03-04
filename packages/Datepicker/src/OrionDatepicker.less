@@ -2,12 +2,18 @@
 @import "../../Shared/styles/mixins.less";
 
 .orion-datepicker {
-	.orion-input__input {
+	&__ghost-input {
+		cursor: pointer;
 		overflow: hidden;
 		display: flex;
+		flex: 1;
 		align-items: center;
-		height: inherit;
-		min-height: 2.5rem;
+		height: auto;
+		min-height: var(--o-field-height);
+		margin-right: var(--o-field-suffix-picto-space);
+		padding-right: var(--o-field-suffix-icon-space);
+		padding-left: var(--o-field-prefix-icon-space);
+		outline: none;
 	}
 
 	&__timepicker-wrapper {
@@ -15,59 +21,28 @@
 	}
 
 	&-multiple {
-		display: flex;
-		gap: var(--o-space-8);
-		align-items: center;
-
-		.orion-input__pictos {
-			top: calc(50% - 1.2rem);
-		}
-
-		.orion-input__input {
-			display: flex;
-			align-items: center;
-			padding: var(--o-space-8);
-		}
-
-		.orion-label {
-			display: flex;
-			align-items: center;
-			height: 1.25rem;
-		}
-
 		&__content {
-			z-index: 2;
 			overflow: hidden;
 			display: flex;
+			flex: 1;
 			gap: var(--o-space-4);
 			align-items: center;
-			width: inherit;
-			height: 100%;
+
+			.v-popper {
+				display: flex;
+				align-items: center;
+			}
+		}
+
+		&__item {
+			display: flex;
+			gap: var(--o-space-2);
+			align-items: center;
 		}
 
 		&__clearable {
-			.flex-align();
-
-			pointer-events: all;
-			cursor: pointer;
-			margin: 0.125rem;
-			font-size: 1rem;
-			opacity: 0.7;
-			transition: all 0.3s;
-			-webkit-tap-highlight-color: transparent;
-
-			&::before {
-				content: "\00D7";
-				transform: translateY(-0.0625rem);
-				font-weight: 600;
-			}
-
-			&:hover {
-				transform: rotate(90deg);
-				border-color: var(--o-border-neutral-default);
-				color: var(--o-text-neutral-default);
-				opacity: 1;
-			}
+			margin-right: -0.25rem;
+			.close(1rem);
 		}
 
 		&__dropdown {

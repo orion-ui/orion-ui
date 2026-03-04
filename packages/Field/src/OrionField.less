@@ -19,176 +19,418 @@ select:-webkit-autofill:focus {
 	}
 }
 
-.orion-checkbox,
-.orion-radio,
-.orion-toggle {
-	cursor: pointer;
+.orion-field {
+	--o-field-height: 2.5rem;
+	--o-field-outline-color: var(--o-border-neutral-focus);
+	--o-field-input-border-radius: var(--o-radius-md);
+	--o-field-input-border-color: var(--o-background-neutral-subtle);
+	--o-field-input-background-color: var(--o-background-neutral-default);
+	--o-field-input-padding-h: var(--o-space-12);
+	--o-field-floating-label-color: var(--o-text-neutral-moderate);
+	--o-field-prefix-icon-space: 0rem;
+	--o-field-suffix-icon-space: 0rem;
+	--o-field-label-min-height: 1.25rem;
+	--o-field-icon-size: 1.25rem;
+
 	position: relative;
-	display: flex;
-	flex-direction: row-reverse;
-	gap: var(--o-space-8);
-	align-items: center;
-	justify-content: flex-end;
 	margin: 0.5rem 0;
 
-	&__label {
-		cursor: pointer;
-		user-select: none;
-		user-select: none;
+	&--sm {
+		--o-field-height: 2rem;
+	}
 
-		[class*="--sm"] > & {
-			font-size: var(--o-typography-label-default-font-size);
+	&:not(.orion-checkbox, .orion-radio, .orion-toggle) {
+		> .orion-field {
+			&__input {
+				display: flex;
+				align-items: center;
+				height: var(--o-field-height);
+				padding: 0 var(--o-field-input-padding-h);
+				border: 0.0625rem solid var(--o-field-input-border-color);
+				border-radius: var(--o-field-input-border-radius);
+				background-color: var(--o-field-input-background-color);
+				transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+				.typography(body2-default);
+
+				> input,
+				> textarea {
+					display: block;
+					width: 100%;
+					height: calc(var(--o-field-height) - 0.125rem);
+					padding: 0;
+					padding-right: var(--o-field-suffix-icon-space);
+					padding-left: var(--o-field-prefix-icon-space);
+					border: none;
+					font-family: inherit;
+					font-size: inherit;
+					appearance: none;
+					background-color: unset;
+					background-image: none;
+					outline: none;
+
+					&::placeholder {
+						color: var(--o-text-neutral-moderate);
+					}
+				}
+			}
+
+			&__label {
+				&--static {
+					display: block;
+					margin-bottom: var(--o-space-4);
+					.typography(body2-bold);
+				}
+
+				&--floating {
+					pointer-events: none;
+					position: absolute;
+					z-index: 1;
+					inset: 0.0625rem 0.0625rem 0.0625rem calc(0.0625rem + var(--o-field-prefix-icon-space));
+					display: inline-flex;
+					align-items: center;
+					height: calc(var(--o-field-height) - 0.125rem);
+					padding: 0 var(--o-space-12);
+					border-radius: 0.125rem;
+					color: var(--o-field-floating-label-color);
+					transition: font-size 0.3s, transform 0.3s;
+					.ellipsis();
+
+					&::before {
+						content: "";
+						position: absolute;
+						z-index: -1;
+						right: 0;
+						bottom: 0;
+						left: 0;
+						border-radius: var(--o-radius-md);
+					}
+
+					&-active {
+						right: unset;
+						bottom: unset;
+						left: calc(var(--o-space-12) - var(--o-space-4) + 0.0625rem);
+						transform: translate3d(0, -0.75rem, 0);
+						height: 1.25rem;
+						padding: 0 var(--o-space-4);
+						font-size: 0.75rem;
+
+						&::before {
+							bottom: 0.25rem;
+							height: 0.5rem;
+							background: var(--o-background-neutral-default);
+
+							.orion-field--disabled > & {
+								background: var(--o-background-neutral-minimal);
+							}
+						}
+					}
+				}
+			}
 		}
 
-		.orion-checkbox--required &,
-		.orion-radio--required & {
-			padding-right: calc(6rem / 16);
+		&.orion-field--required {
+			.orion-field__label {
+				padding-right: calc(6rem / 16);
 
-			&::after {
-				content: "*";
-				position: absolute;
-				z-index: 1;
-				color: var(--o-text-danger-default);
+				&::after {
+					content: "*";
+					color: var(--o-text-danger-default);
+				}
 			}
 		}
 	}
 
-	&__input {
-		display: none;
+	&__icon {
+		pointer-events: none;
+		position: absolute;
+		top: calc((var(--o-field-height) - var(--o-field-icon-size)) / 2);
+		font-size: var(--o-typography-body2-default-font-size);
+		color: var(--o-text-neutral-subtle);
+		.square(var(--o-field-icon-size));
+		.flex-align();
+
+		&--prefix {
+			left: var(--o-space-12);
+		}
+
+		&--suffix {
+			right: var(--o-space-12);
+		}
+	}
+
+	&__pictos {
+		position: absolute;
+		top: calc((var(--o-field-height) - var(--o-field-icon-size)) / 2);
+		right: calc(var(--o-space-12) + var(--o-field-suffix-icon-space));
+		display: flex;
+		gap: var(--o-space-4);
+		align-items: center;
+		height: var(--o-field-icon-size);
+
+		.orion-icon {
+			.circle(var(--o-field-icon-size));
+			.flex-align();
+		}
+	}
+
+	&__clearable {
+		pointer-events: all;
+		width: 1rem;
+		color: var(--o-text-neutral-moderate);
+		.close(1.25rem);
+	}
+
+	&__validation-pictos {
+		color: var(--o-field-floating-label-color);
+	}
+
+	&__validation-messages {
+		margin-top: 0.25rem;
+		.typography(label-default);
+	}
+
+	&__validation-message {
+		&--danger {
+			color: var(--o-text-danger-default);
+		}
+
+		&--warning {
+			color: var(--o-text-warning-default);
+		}
+	}
+
+	&__hint {
+		margin-top: 0.25rem;
+		color: var(--o-text-neutral-moderate);
+		.typography(label-default);
+	}
+
+	&--danger {
+		--o-field-floating-label-color: var(--o-text-danger-default);
+		--o-field-input-border-color: var(--o-border-danger-subtle);
+		--o-field-outline-color: var(--o-border-danger-default);
+	}
+
+	&--warning {
+		--o-field-floating-label-color: var(--o-text-warning-default);
+		--o-field-input-border-color: var(--o-border-warning-subtle);
+		--o-field-outline-color: var(--o-border-warning-default);
+	}
+
+	&--success {
+		--o-field-floating-label-color: var(--o-text-success-default);
+		--o-field-input-border-color: var(--o-border-success-subtle);
+		--o-field-outline-color: var(--o-border-success-default);
+	}
+
+	&--focused,
+	&:focus,
+	&:focus-visible {
+		--o-field-input-border-color: transparent;
+
+		&:not(.orion-field--danger, .orion-field--warning, .orion-field--success) {
+			--o-field-floating-label-color: var(--o-text-primary-default);
+		}
+
+		> .orion-field__input {
+			outline: 1px solid var(--o-field-outline-color);
+			outline-offset: 2px;
+			transition: none;
+		}
+	}
+
+	&--disabled {
+		--o-field-input-border-color: var(--o-border-neutral-disabled);
+		--o-field-input-background-color: var(--o-background-neutral-disabled);
+		--o-field-floating-label-color: var(--o-text-neutral-disabled);
+
+		cursor: not-allowed !important;
+
+		> .orion-field__input {
+			pointer-events: none;
+		}
+
+		.orion-icon {
+			color: var(--o-text-neutral-moderate);
+		}
+	}
+
+	&--prefix-icon {
+		--o-field-prefix-icon-space: var(--o-space-24);
+	}
+
+	&--suffix-icon {
+		--o-field-suffix-icon-space: var(--o-space-24);
+	}
+}
+
+.orion-checkbox,
+.orion-radio,
+.orion-toggle {
+	--o-field-input-background-color: var(--o-background-neutral-default);
+	--o-field-check-container-size: calc(var(--o-field-height) / 2);
+
+	cursor: pointer;
+	position: relative;
+	display: grid;
+	grid-template-areas: "input label";
+	grid-template-columns: auto 1fr;
+	column-gap: var(--o-space-8);
+	min-height: var(--o-field-height);
+	padding-top: calc(var(--o-field-height) / 2 - 0.625rem);
+	padding-bottom: calc(var(--o-field-height) / 2 - 0.625rem);
+
+	&:focus-visible {
+		outline: none !important;
+	}
+
+	> .orion-field {
+		&__label {
+			cursor: pointer;
+			user-select: none;
+			grid-area: label;
+			align-self: flex-start;
+			.typography(body2-default);
+		}
+
+		&__input {
+			grid-area: input;
+			align-self: flex-start;
+			margin-top: calc((var(--o-field-label-min-height) - (var(--o-field-height) / 2)) / 2);
+			border-radius: var(--o-radius-xs);
+
+			> input {
+				display: none;
+			}
+		}
+
+		&__hint {
+			grid-area: hint;
+			margin-top: 0;
+		}
+
+		&__validation-messages {
+			grid-area: validation;
+			margin-top: 0;
+		}
 	}
 
 	&__check-container {
-		.square(1.25rem);
-
 		display: flex;
 		align-items: center;
 		align-self: flex-start;
 		justify-content: center;
-		margin-top: calc(1rem / 16);
-		border: 0.0625rem solid var(--o-border-neutral-default);
+		border: 0.0625rem solid var(--o-field-input-border-color);
 		border-radius: var(--o-radius-xs);
-		background: var(--o-background-neutral-default);
-		transition: all 0.2s ease;
+		background: var(--o-field-input-background-color);
+		transition: background 0.15s ease;
+		.square(var(--o-field-check-container-size));
 
-		[class*="--sm"] > & {
-			.square(1rem);
-
-			margin-top: 0;
-		}
-
-		.orion-checkbox--with-slot & {
-			align-self: flex-start;
-		}
-
-		.orion-checkbox--error & {
-			border-color: var(--o-border-neutral-default);
-		}
-
-		.orion-radio & {
-			border-radius: 100%;
-		}
-
-		.orion-checkbox:focus & {
-			outline: 1px solid var(--o-border-neutral-focus);
-			outline-offset: 1px;
-		}
-
-		.orion-radio:focus & {
-			outline: 1px solid var(--o-border-neutral-focus);
-			outline-offset: 1px;
-		}
-
-		svg {
-			width: 0.75rem;
-			height: 0.5rem;
-			fill: none;
-			stroke: var(--o-background-neutral-default);
-			stroke-dasharray: 1rem;
-			stroke-dashoffset: 1rem;
-			stroke-linecap: round;
-			stroke-linejoin: round;
-			stroke-width: 2;
-			transition: all 0.3s ease;
-			transition-delay: 0.1s;
-
-			[class*="--disabled"] > & {
-				stroke: var(--o-text-neutral-disabled);
-			}
-		}
-
-		.icon {
-			.flex-align();
-
+		.orion-icon {
 			font-size: 0.75rem;
 			color: var(--o-text-neutral-inverted);
-
-			[class*="--disabled"] > & {
-				color: var(--o-text-neutral-disabled);
-			}
-		}
-
-		[class*="--checked"] > & {
-			animation: wave 0.4s ease;
-
-			svg {
-				stroke-dashoffset: 0;
-			}
+			.flex-align();
 		}
 	}
 
-	&__check-marker {
-		.circle(0.5rem);
-
-		transform: scale(0);
-		background: #fff;
-		transition: transform 0.3s cubic-bezier(0, 3, 1, 1);
-
-		[class*="--checked"] & {
-			transform: scale(1);
-		}
+	&--inline {
+		display: inline-grid;
 	}
 
 	each(@colors, {
-		&--@{value} {
-			&[class*="--checked"] > [class*="__check-container"] {
-				background: var(~"--o-background-@{value}-default");
-				border-color: var(~"--o-border-@{value}-default");
+		&--@{value}[class*="--checked"] {
+			--o-field-input-background-color: var(~"--o-background-@{value}-default");
+
+			&:hover {
+				--o-field-input-background-color: var(~"--o-background-@{value}-hover");
+			}
+
+			&.orion-field--success {
+				--o-field-input-background-color: var(--o-background-success-default);
+				&:hover {
+					--o-field-input-background-color: var(--o-background-success-hover);
+				}
+			}
+			&.orion-field--danger {
+				--o-field-input-background-color: var(--o-background-danger-default);
+				&:hover {
+					--o-field-input-background-color: var(--o-background-danger-hover);
+				}
+			}
+			&.orion-field--warning {
+				--o-field-input-background-color: var(--o-background-warning-default);
+				&:hover {
+					--o-field-input-background-color: var(--o-background-warning-hover);
+				}
 			}
 		}
 	});
 
-	&--danger {
-		&[class*="--checked"] > [class*="__check-container"] {
-			border-color: var(--o-border-danger-default);
-			background: var(--o-background-danger-default);
+	&.orion-field {
+		&--has-hint {
+			grid-template-areas:
+				"input label"
+				"input hint";
 		}
-	}
 
-	&--reverse {
-		flex-direction: row;
-	}
+		&--has-validation-messages {
+			grid-template-areas:
+				"input label"
+				"input validation";
+		}
 
-	&--inline {
-		display: inline-flex;
-	}
+		&--has-validation-messages.orion-field--has-hint {
+			grid-template-areas:
+				"input label"
+				"input hint"
+				"input validation";
+		}
 
-	&--disabled {
-		cursor: not-allowed;
-		color: var(--o-text-neutral-disabled);
+		&--required {
+			> .orion-field__label {
+				&::after {
+					content: "*";
+					color: var(--o-text-danger-default);
+				}
+			}
+		}
 
-		> [class$="__label"] {
+		&--disabled {
 			cursor: not-allowed;
-		}
+			color: var(--o-text-neutral-disabled);
 
-		.orion-checkbox__check-container {
-			border-color: var(--o-border-neutral-disabled) !important;
-			background: var(--o-background-neutral-disabled) !important;
+			&.orion-checkbox--checked {
+				--o-field-input-background-color: var(--o-background-neutral-disabled);
+			}
+
+			> .orion-field__label {
+				cursor: not-allowed;
+			}
 		}
 	}
-}
 
-@keyframes wave {
-	50% {
-		transform: scale(0.9);
+	&--reverse.orion-field {
+		grid-template-areas: "label input";
+		grid-template-columns: 1fr auto;
+		text-align: right;
+
+		&--has-hint {
+			grid-template-areas:
+				"label input"
+				"hint input";
+		}
+
+		&--has-validation-messages {
+			grid-template-areas:
+				"label input"
+				"validation input";
+		}
+
+		&--has-validation-messages.orion-field--has-hint {
+			grid-template-areas:
+				"label input"
+				"hint input"
+				"validation input";
+		}
 	}
 }

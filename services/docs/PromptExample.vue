@@ -40,7 +40,7 @@ async function openTextareaPromptAsync () {
 			fieldProps: {
 				required: true,
 				label: `Your message`,
-				maxLength: 100,
+				maxlength: 100,
 			},
 		},
 	});
@@ -60,7 +60,7 @@ async function openPromptActionsAsync () {
 			fieldProps: {
 				required: true,
 				label: `Your message`,
-				maxLength: 50,
+				maxlength: 50,
 			},
 		},
 		actions: [

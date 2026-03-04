@@ -2,103 +2,67 @@
 @import "../../Shared/styles/mixins.less";
 
 .orion-phone {
-	&__input {
-		width: 100%;
-		height: 100%;
-		border: none;
+	--o-phone-country-code-top: 0.25rem;
+	--o-phone-height: var(--o-field-height);
 
-		&:focus,
-		&:hover {
-			outline: none;
-		}
-	}
+	position: relative;
+	display: flex;
+	align-items: center;
+	margin: 0.5rem 0;
 
-	/* stylelint-disable-next-line selector-not-notation */
-	&:hover:not(:has(.orion-input--focused)):not(:has(.orion-input--disabled)) {
-		.orion-phone__input {
-			cursor: text;
-			background-color: var(--o-background-neutral-hover);
-		}
-
-		.orion-select {
-			background-color: var(--o-background-neutral-hover);
-		}
-	}
-
-	.orion-input-group {
+	&__country-code {
+		position: absolute;
+		z-index: 1;
+		top: var(--o-phone-country-code-top);
 		display: flex;
-		padding: var(--o-space-6) var(--o-space-8);
-
-		.orion-select {
-			display: flex;
-			gap: var(--o-space-4);
-			align-items: center;
-			width: fit-content;
-			width: fit-content;
-			height: 1.5rem;
-			padding: var(--o-space-4);
-			border: unset;
-			border-radius: var(--o-radius-xs);
-
-			&:hover {
-				background-color: var(--o-background-primary-minimal);
-			}
-
-			.orion-input__pictos {
-				background-color: transparent;
-			}
-
-			.orion-input {
-				height: inherit;
-
-				&__input {
-					width: max-content;
-					color: var(--o-text-neutral-subtle);
-				}
-			}
-
-			&--disabled {
-				cursor: not-allowed;
-				background-color: var(--o-background-neutral-disabled);
-
-				.orion-input__input {
-					cursor: not-allowed;
-					color: var(--o-text-neutral-disabled);
-				}
-			}
-		}
-
-		&--phone {
-			> .v-popper {
-				flex: 0 1 calc(75rem / 16);
-				width: calc(75rem / 16);
-			}
-		}
-
-		.orion-phone--flag {
-			width: 1.5rem;
-			height: 1rem;
-			border: 1px solid var(--o-border-neutral-default);
-			border-radius: var(--o-radius-xs);
-			object-fit: fill;
-		}
-
-		.orion-input {
-			padding: 0;
-		}
-	}
-
-	&__options {
-		display: flex;
-		gap: var(--o-space-8);
+		gap: var(--o-space-4);
 		align-items: center;
 
-		img {
-			width: 1.5rem;
-			height: 1rem;
-			border: 1px solid var(--o-border-neutral-default);
-			border-radius: var(--o-radius-xs);
-			object-fit: fill;
+		&-select {
+			--o-field-height: calc(var(--o-phone-height) - 0.5rem);
+			--o-field-input-border-radius: var(--o-radius-xs);
+			--o-field-input-border-color: transparent;
+			--o-field-input-padding-h: var(--o-space-4);
+			--o-field-input-background-color: var(--o-background-primary-minimal);
+
+			margin: 0;
+			padding-left: 0.25rem;
+
+			.orion-field--sm & {
+				--o-field-height: calc(var(--o-phone-height) - 0.5rem);
+			}
+
+			.orion-select__ghost-input {
+				margin-right: calc(var(--o-field-suffix-picto-space) - 0.25rem);
+			}
+
+			.orion-field__pictos {
+				right: calc(var(--o-space-4) + var(--o-field-suffix-icon-space));
+			}
 		}
+
+		&-display {
+			color: var(--o-text-neutral-subtle);
+			.typography(body2-default);
+		}
+	}
+
+	&__input {
+		flex: 1;
+		margin: 0;
+	}
+
+	&__country-code-flag {
+		width: 1.5rem;
+		height: 1rem;
+		border: 1px solid var(--o-border-neutral-default);
+		border-radius: var(--o-radius-xs);
+		object-fit: fill;
+	}
+
+	&__country-code-select-option {
+		display: flex;
+		gap: var(--o-space-4);
+		align-items: center;
 	}
 }

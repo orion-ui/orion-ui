@@ -122,7 +122,7 @@
 		<div class="row row--grid-xs">
 			<div class="col-sm-3">
 				<o-input
-					v-model="state.hintText"
+					v-model="state.hint"
 					label="Hint text"/>
 			</div>
 		</div>
@@ -154,7 +154,7 @@ const state = reactive({
 	maxValue: undefined,
 	minValue: undefined,
 	label: 'Input playground',
-	hintText: undefined as Undef<string>,
+	hint: undefined as Undef<string>,
 });
 
 const icons = computed(() => {

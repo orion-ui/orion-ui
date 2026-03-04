@@ -51,6 +51,12 @@ export type SharedPropsSize = {
 	size?: Orion.Size
 };
 
+export type SharedPropsFieldSize = {
+	// @doc props/size define the size
+	// @doc/fr props/size définit la taille
+	size?: Orion.FieldSize
+};
+
 export type SharedPropsNav = {
 	items?: Orion.NavItem[]
 };
@@ -64,6 +70,7 @@ export class SharedProps {
 	static readonly colorExtendedAndGreys = { color: 'neutral' as Orion.ColorExtendedAndGreys };
 
 	static readonly size = { size: 'md' as Orion.Size };
+	static readonly fieldSize = { size: 'md' as Orion.FieldSize };
 
 	static readonly navDefault = { items: () => [] as Orion.NavItem[] };
 

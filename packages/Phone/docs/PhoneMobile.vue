@@ -2,12 +2,15 @@
 	<div class="row row--grid">
 		<div class="col-sm-6">
 			<o-phone
-				v-model="phone"
-				label="Classic"/>
+				v-model="phone.phoneNumber"
+				v-model:country-code="phone.phoneCountryCode"
+				label="Classic"
+				required/>
 		</div>
 		<div class="col-sm-6">
 			<o-phone
-				v-model="phoneMobile"
+				v-model="phoneMobile.phoneNumber"
+				v-model:country-code="phoneMobile.phoneCountryCode"
 				label="Mobile"
 				mobile/>
 		</div>

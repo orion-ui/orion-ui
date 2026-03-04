@@ -1,5 +1,28 @@
 @import "../../Shared/styles/variables.less";
 @import "../../Shared/styles/mixins.less";
 
-/* stylelint-disable-next-line block-no-empty */
-.orion-checkbox {}
+.orion-checkbox {
+	&__check-container {
+		svg {
+			width: 0.75rem;
+			height: 0.5rem;
+			fill: none;
+			stroke: var(--o-background-neutral-default);
+			stroke-dasharray: 1rem;
+			stroke-dashoffset: 1rem;
+			stroke-linecap: round;
+			stroke-linejoin: round;
+			stroke-width: 2;
+			transition: all 0.3s ease;
+			transition-delay: 0.15s;
+		}
+	}
+
+	&--checked {
+		.orion-checkbox__check-container {
+			svg {
+				stroke-dashoffset: 0;
+			}
+		}
+	}
+}

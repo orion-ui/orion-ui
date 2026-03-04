@@ -1,78 +1,76 @@
 <template>
-	<div class="orion-phone">
+	<div
+		:class="[
+			`orion-field`,
+			`orion-field--${size}`,
+			`orion-phone`,
+		]">
 		<div
-			class="orion-input orion-input-group"
-			:class="{
-				'orion-input--focused': setup.isFocus,
-				'orion-input--disabled': disabled,
-			}">
+			:ref="setup._countryCode"
+			class="orion-phone__country-code">
 			<orion-select
-				:ref="setup._country"
+				:ref="setup._countrySelect"
 				v-model="setup.country"
-				class="orion-phone--indicatif"
-				:class="{ 'orion-phone--with-flag': flag }"
+				class="orion-phone__country-code-select"
+				:class="{ 'orion-phone__country-code-select--with-flag': flag }"
 				track-key="code"
 				display-key="areaCode"
 				searchable
 				:disabled
 				:readonly
+				:size
 				:options="setup.countryList"
+				:favorites-options="countryFavoritesOptions"
 				:custom-search="setup.customSearch.bind(setup)"
-				@input-keydown-tab="setup._input.value?.focus()"
-				@update:model-value="setup.changeAreaCode()">
-				<template #value="{ item }: any">
-					<div class="flex ai-c g-4">
+				@input-keydown-tab="setup.switchFocusFromCountryToInput()">
+				<template #value="{ item }">
+					<div class="orion-phone__country-code-select-option">
 						<img
 							v-if="flag && setup.country"
-							class="orion-phone--flag"
+							class="orion-phone__country-code-flag"
 							:src="setup.getSrc(item?.code)">
-						&nbsp;{{ item !== null && item !== undefined ? item.code : '' }}
+						{{ item !== null && item !== undefined ? item.code : '' }}
 					</div>
 				</template>
-
-				<template #option="{ item }: any">
-					<div class="orion-phone__options">
+				<template #option="{ item }">
+					<div class="orion-phone__country-code-select-option">
 						<img
 							v-if="flag"
-							class="orion-phone--flag"
+							class="orion-phone__country-code-flag"
 							:src="setup.getSrc(item?.code)">
-						<span> {{ `${item.name} (+${item.areaCode})` }} </span>
+						<span>{{ `${item.name} (+${item.areaCode})` }}</span>
 					</div>
 				</template>
 			</orion-select>
 
-			<span class="orion-phone__indicatif">
+			<span class="orion-phone__country-code-display">
 				+{{ setup.country?.areaCode }}
 			</span>
-
-			<orion-input
-				:ref="setup._orionInput"
-				v-model="setup.phoneNumberProxy"
-				type="tel"
-				class="orion-phone__input orion-input"
-				:class="{
-					'orion-input--warning': setup.showWarning,
-					'orion-input--focused': setup.isFocus,
-				}"
-				:validation="setup.isValid.value"
-				:inherit-validation-state="setup.showState"
-				v-bind="{
-					...$attrs,
-					disabled: disabled,
-					clearable: clearable,
-					readonly,
-				}"
-				@keydown.self="setup.keydownGuard($event)"
-				@mousedown-right="setup.handleMouseEvent($event)"
-				@focus="setup.handleFocus($event)"
-				@blur="setup.handleBlur($event)"/>
 		</div>
-		<div
-			v-if="setup.showState
-				&& (setup.showError || setup.showWarning)
-				&& setup.validationHtmlMessages?.length"
-			class="orion-input__error-message"
-			v-html="setup.validationHtmlMessages"/>
+
+		<orion-input
+			:id="`orion-${setup.inputType}_${setup._uid}`"
+			:ref="setup._orionInput"
+			v-model="setup.phoneNumberProxy"
+			type="tel"
+			class="orion-phone__input"
+			:validation="validation ?? setup.isValid.value"
+			:validation-error-message
+			v-bind="{
+				...$attrs,
+				disabled,
+				clearable,
+				readonly,
+				size,
+			}"
+			@keydown.self="setup.keydownGuard($event)"
+			@focus="setup.handleFocus($event)"
+			@blur="setup.handleBlur($event)"
+			@paste.prevent="setup.setDataFromPaste($event)">
+			<template #hint>
+				<slot name="hint"/>
+			</template>
+		</orion-input>
 	</div>
 </template>
 
@@ -84,11 +82,11 @@ import { OrionPhoneSetup, type OrionPhoneEmits, type OrionPhoneProps } from './O
 // TODO: avoid code duplicate
 // https://github.com/vuejs/core/issues/8301
 const emits = defineEmits<OrionPhoneEmits>() as OrionPhoneEmits;
-const vModel = defineModel<Nil<Orion.Phone>>();
-const phoneCountryCode = defineModel<string | undefined>('phoneCountryCode');
-const phoneNumber = defineModel<string | undefined>('phoneNumber');
+const vModel = defineModel<Nil<string>>();
+const vModelCountryCode = defineModel<Nil<Orion.Country['code']>>('countryCode');
+const vModelNationalNumber = defineModel<Nil<string>>('nationalNumber');
 const props = withDefaults(defineProps<OrionPhoneProps>(), OrionPhoneSetup.defaultProps);
-const setup = new OrionPhoneSetup(props, emits, vModel, phoneCountryCode, phoneNumber);
+const setup = new OrionPhoneSetup(props, emits, vModel, vModelCountryCode, vModelNationalNumber);
 defineExpose(setup.publicInstance);
 
 /** Doc
@@ -100,3 +98,16 @@ defineExpose(setup.publicInstance);
  * @doc/fr vModel/phoneNumber le numéro de téléphone, isolé de son objet parent
  */
 </script>
+
+<style lang="less" scoped>
+.orion-phone {
+	--o-phone-country-code-space: v-bind("setup.countryCodeWidth");
+
+	&__input > {
+		:deep(input) {
+			margin-left: calc(var(--o-phone-country-code-space) - var(--o-field-input-padding-h) - 0.125rem);
+			// background-color: crimson !important;
+		}
+	}
+}
+</style>
