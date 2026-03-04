@@ -73,6 +73,9 @@
 			<div
 				:id="`OrionModal-${setup.uid}__actions`"
 				class="orion-modal__actions">
+				<slot
+					name="actions"
+					:close="setup.close.bind(setup)"/>
 				<orion-button
 					v-for="(action, index) in options.actions"
 					:key="index"

@@ -34,10 +34,12 @@ export class OrionModalSetup extends SharedPopableSetup {
 
 	get prompt () { return this.options.prompt as Orion.Modal.Prompt }
 	private get slotFooter () { return `#OrionModal-${this.uid}__footer` }
+	private get slotActions () { return `#OrionModal-${this.uid}__actions` }
 	get publicInstance () {
 		return {
 			...super.publicInstance,
 			slotFooter: this.slotFooter,
+			slotActions: this.slotActions,
 		};
 	}
 

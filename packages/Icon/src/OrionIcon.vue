@@ -13,6 +13,7 @@
 		<span
 			v-if="icon && !loading"
 			:class="`material-symbols-${getIconStyle()}`">{{ icon }}</span>
+
 		<svg
 			v-if="loading"
 			:ref="setup._elSpinner"
@@ -74,15 +75,18 @@
 					stroke-linejoin="round"/>
 			</g>
 		</svg>
+
 		<span
 			v-if="ripple"
 			:ref="setup._elRipple"
 			class="orion-icon__ripple">
 			<span class="ripple__wave"/>
 		</span>
+
 		<span
 			v-if="button"
 			class="orion-icon__button"/>
+
 		<span
 			v-if="marker"
 			class="orion-icon__marker"
@@ -109,5 +113,10 @@ const props = withDefaults(defineProps<OrionIconProps>(), OrionIconSetup.default
 const setup = new OrionIconSetup(props, emits, attrs);
 
 defineExpose(setup.publicInstance);
-
 </script>
+
+<style lang="less" scoped>
+.orion-icon {
+	--o-icon-size: v-bind("setup.size");
+}
+</style>

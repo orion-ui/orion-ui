@@ -13,7 +13,7 @@
 		<orion-field
 			v-bind="setup.orionFieldBinding"
 			:has-value="setup.hasValue"
-			:label-is-floating="setup.hasValue || (type === 'date' && setup.isFocus)"
+			:label-is-floating="setup.hasValue || (type === 'date' && setup.isFocus && !!label)"
 			:class="[
 				{ 'orion-datepicker--range' : type === 'range' },
 				{ 'orion-datepicker-multiple' : type === 'multiple' },

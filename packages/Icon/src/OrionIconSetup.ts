@@ -30,6 +30,9 @@ export type OrionIconProps = SharedPropsIcon & {
 	// @doc props/ripple emits a wave on the click and adds an hover color
 	// @doc/fr props/ripple émet une onde au moment du click et ajoute un style au moment du survol
 	ripple?: Orion.Color
+	// @doc props/size the size of the icon, can be a string (like '2em' or '24px') or a number (which will be converted to rem)
+	// @doc/fr props/size la taille de l'icône, peut être une string (comme '2em' ou '24px') ou un nombre (qui sera converti en rem)
+	size?: 'inherit' | string | number
 };
 
 export class OrionIconSetup extends SharedSetup {
@@ -38,6 +41,7 @@ export class OrionIconSetup extends SharedSetup {
 		marker: false as OrionIconProps['marker'],
 		markerColor: 'danger' as Orion.Color,
 		markerPosition: 'top right',
+		size: 'inherit' as OrionIconProps['size'],
 	};
 
 	_el = ref<RefDom>();
@@ -53,6 +57,18 @@ export class OrionIconSetup extends SharedSetup {
 		const positionArray = this.props.markerPosition.split(' ');
 		const positionClass = positionArray.map(x => `orion-icon__marker--${x}`);
 		return positionClass;
+	}
+
+	get size () {
+		if (this.props.size === 'inherit') {
+			return '1em';
+		}
+		else if (typeof this.props.size === 'number') {
+			return `${this.props.size}rem`;
+		}
+		else {
+			return this.props.size;
+		}
 	}
 
 	constructor (

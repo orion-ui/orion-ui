@@ -41,13 +41,12 @@
 }
 
 .orion-icon {
+	--o-icon-size: var(--o-typography-body2-default-font-size);
+
 	position: relative;
 	aspect-ratio: 1;
-	/* stylelint-disable-next-line declaration-property-unit-allowed-list */
-	width: 1em;
-	/* stylelint-disable-next-line declaration-property-unit-allowed-list */
-	height: 1em;
-	font-size: var(--o-typography-body2-default-font-size);
+	font-size: var(--o-icon-size);
+	.circle(1em);
 
 	&::before {
 		position: relative;

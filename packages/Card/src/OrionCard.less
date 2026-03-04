@@ -2,9 +2,10 @@
 @import "../../Shared/styles/mixins.less";
 
 .orion-card {
-	--hover-elevation: 1;
-	--elevation: calc(1rem * var(--hover-elevation));
-	--shadow-color: rgba(0, 0, 0, calc(0.03 * (1 + var(--hover-elevation) / 5)));
+	--o-card-padding: var(--o-space-24);
+	--o-card-hover-elevation: 1;
+	--o-card-elevation: calc(1rem * var(--o-card-hover-elevation));
+	--o-card-shadow-color: rgba(0, 0, 0, calc(0.03 * (1 + var(--o-card-hover-elevation) / 5)));
 
 	position: relative;
 	display: flex;
@@ -17,15 +18,27 @@
 		box-shadow 0.3s,
 		transform 0.3s;
 
-	img {
-		max-width: 100%;
+	&--xs {
+		--o-card-padding: var(--o-space-12);
+	}
+
+	&--sm {
+		--o-card-padding: var(--o-space-16);
+	}
+
+	&--lg {
+		--o-card-padding: var(--o-space-32);
+	}
+
+	&--xl {
+		--o-card-padding: var(--o-space-48);
 	}
 
 	&__poster {
 		overflow: hidden;
 		border-radius: var(--o-radius-md) var(--o-radius-md) 0 0;
 
-		>img {
+		> img {
 			display: block;
 			width: 100%;
 			object-fit: cover;
@@ -33,25 +46,7 @@
 	}
 
 	&__header {
-		.orion-card--xs > & {
-			padding: var(--o-space-12) var(--o-space-12) 0;
-		}
-
-		.orion-card--sm > & {
-			padding: var(--o-space-16) var(--o-space-16) 0;
-		}
-
-		.orion-card--md > & {
-			padding: var(--o-space-24) var(--o-space-24) 0;
-		}
-
-		.orion-card--lg > & {
-			padding: var(--o-space-32) var(--o-space-32) 0;
-		}
-
-		.orion-card--xl > & {
-			padding: var(--o-space-48) var(--o-space-48) 0;
-		}
+		padding: var(--o-card-padding) var(--o-card-padding) 0;
 	}
 
 	&__header-content {
@@ -60,54 +55,48 @@
 		gap: var(--o-space-8);
 
 		&--lined {
+			padding-bottom: var(--o-card-padding);
 			border-bottom: 0.0625rem solid var(--o-border-neutral-default);
+		}
+	}
+
+	&__header-content-wrapper {
+		display: flex;
+		gap: var(--o-space-8);
+		align-items: flex-start;
+		justify-content: space-between;
+
+		> .orion-icon { // default direct children icon size
+			margin-top: 0.1875rem;
+			margin-left: 0.25rem;
+			font-size: 1.125rem;
 
 			.orion-card--xs & {
-				padding-bottom: var(--o-space-12);
-			}
-
-			.orion-card--sm & {
-				padding-bottom: var(--o-space-16);
-			}
-
-			.orion-card--md & {
-				padding-bottom: var(--o-space-24);
+				margin-top: 0.125rem;
+				font-size: 1rem;
 			}
 
 			.orion-card--lg & {
-				padding-bottom: var(--o-space-32);
+				margin-top: 0.375rem;
 			}
 
 			.orion-card--xl & {
-				padding-bottom: var(--o-space-48);
+				margin-top: 0.5rem;
+				font-size: 1.25rem;
 			}
 		}
 	}
 
+	&__header-content-title {
+		display: flex;
+		flex-direction: column;
+		gap: var(--o-space-8);
+	}
+
 	&__body {
-		.typography(body2-default);
-
 		flex: 1 0 0%;
-
-		.orion-card--xs > & {
-			padding: var(--o-space-12);
-		}
-
-		.orion-card--sm > & {
-			padding: var(--o-space-16);
-		}
-
-		.orion-card--md > & {
-			padding: var(--o-space-24);
-		}
-
-		.orion-card--lg > & {
-			padding: var(--o-space-32);
-		}
-
-		.orion-card--xl > & {
-			padding: var(--o-space-48);
-		}
+		padding: var(--o-card-padding);
+		.typography(body2-default);
 
 		&:empty {
 			padding-top: 0;
@@ -120,6 +109,9 @@
 	}
 
 	&__actions {
+		padding: 0 var(--o-card-padding) var(--o-card-padding) var(--o-card-padding);
+
+		/* stylelint-disable-next-line no-descending-specificity */
 		.orion-icon {
 			font-size: 1.25rem;
 
@@ -130,26 +122,6 @@
 			@media @phone {
 				font-size: 1.5rem;
 			}
-		}
-
-		.orion-card--xs & {
-			padding: 0 var(--o-space-12) var(--o-space-12) var(--o-space-12);
-		}
-
-		.orion-card--sm & {
-			padding: 0 var(--o-space-16) var(--o-space-16) var(--o-space-16);
-		}
-
-		.orion-card--md & {
-			padding: 0 var(--o-space-24) var(--o-space-24) var(--o-space-24);
-		}
-
-		.orion-card--lg & {
-			padding: 0 var(--o-space-32) var(--o-space-32) var(--o-space-32);
-		}
-
-		.orion-card--xl & {
-			padding: 0 var(--o-space-48) var(--o-space-48) var(--o-space-48);
 		}
 	}
 
@@ -162,35 +134,15 @@
 		color: var(--o-text-neutral-default);
 
 		&--lined {
+			padding-top: var(--o-card-padding);
 			border-top: 0.0625rem solid var(--o-border-neutral-default);
-
-			.orion-card--xs & {
-				padding-top: var(--o-space-12);
-			}
-
-			.orion-card--sm & {
-				padding-top: var(--o-space-16);
-			}
-
-			.orion-card--md & {
-				padding-top: var(--o-space-24);
-			}
-
-			.orion-card--lg & {
-				padding-top: var(--o-space-32);
-			}
-
-			.orion-card--xl & {
-				padding-top: var(--o-space-48);
-			}
 		}
 	}
 
 	&__title {
-		.typography(heading-h5);
-
 		margin: var(--o-space-0);
 		color: var(--o-text-neutral-default);
+		.typography(heading-h5);
 
 		.orion-card--xs & {
 			.typography(body2-bold);
@@ -210,10 +162,9 @@
 	}
 
 	&__subtitle {
-		.typography(body2-default);
-
 		margin: var(--o-space-0);
 		color: var(--o-text-neutral-subtle);
+		.typography(body2-default);
 
 		.orion-card--xs & {
 			.typography(body2-default);
@@ -382,45 +333,6 @@
 		cursor: pointer;
 	}
 
-	&[class*="--gradient-"] {
-		color: var(--o-text-neutral-inverted);
-
-		.orion-card__title,
-		.orion-card__subtitle {
-			color: var(--o-text-neutral-inverted);
-		}
-	}
-
-	&--gradient-default.orion-card {
-		color: var(--o-text-neutral-default);
-		background:
-			linear-gradient(
-				to bottom right,
-				color-mix(in srgb, var(--o-background-neutral-default) 100%, transparent),
-				color-mix(in srgb, var(--o-background-neutral-moderate) 100%, transparent)
-			);
-
-		.orion-card__title,
-		.orion-card__subtitle {
-			color: var(--o-text-neutral-default);
-		}
-	}
-
-	&--gradient-inverted.orion-card {
-		color: var(--o-text-neutral-default);
-		background:
-			linear-gradient(
-				to bottom right,
-				color-mix(in srgb, var(--o-background-neutral-moderate) 100%, transparent),
-				color-mix(in srgb, var(--o-background-neutral-highlight) 100%, transparent)
-			);
-
-		.orion-card__title,
-		.orion-card__subtitle {
-			color: var(--o-text-neutral-default);
-		}
-	}
-
 	&--no-elevation {
 		border: 1px solid var(--o-border-neutral-default);
 		box-shadow: none;
@@ -435,19 +347,11 @@
 			z-index: 1;
 			transform: translate3d(0, -0.125rem, 0);
 			box-shadow:
-				0 calc(var(--elevation) / 8) calc(var(--elevation) / 8) var(--shadow-color),
-				0 calc(var(--elevation) / 4) calc(var(--elevation) / 4) var(--shadow-color),
-				0 calc(var(--elevation) / 2) calc(var(--elevation) / 2) var(--shadow-color),
-				0 var(--elevation) var(--elevation) var(--shadow-color),
-				0 calc(var(--elevation) * 2) calc(var(--elevation) * 2) var(--shadow-color);
+				0 calc(var(--o-card-elevation) / 8) calc(var(--o-card-elevation) / 8) var(--o-card-shadow-color),
+				0 calc(var(--o-card-elevation) / 4) calc(var(--o-card-elevation) / 4) var(--o-card-shadow-color),
+				0 calc(var(--o-card-elevation) / 2) calc(var(--o-card-elevation) / 2) var(--o-card-shadow-color),
+				0 var(--o-card-elevation) var(--o-card-elevation) var(--o-card-shadow-color),
+				0 calc(var(--o-card-elevation) * 2) calc(var(--o-card-elevation) * 2) var(--o-card-shadow-color);
 		}
 	}
-
-	each(@colors, {
-		&--gradient-@{value} {
-			background: linear-gradient(to bottom right,
-			var(~"--o-background-@{value}-default"),
-			var(~"--o-background-@{value}-subtle"));
-		}
-	});
 }
