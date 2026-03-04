@@ -19,7 +19,9 @@
 				:icon="prefixIcon"
 				:font-icon="prefixFontIcon"/>
 
-			<slot/>
+			<span class="orion-chips__main-content">
+				<slot/>
+			</span>
 
 			<o-icon
 				v-if="suffixIcon || suffixFontIcon"
