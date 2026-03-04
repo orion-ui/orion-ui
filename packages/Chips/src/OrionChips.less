@@ -47,11 +47,15 @@
 
 	&__main,
 	&__dual {
-		display: block;
+		display: flex;
 		gap: var(--o-space-8);
 		align-items: center;
+		min-width: 0;
 		height: 100%;
-		white-space: nowrap;
+	}
+
+	&__main-content,
+	&__dual-content {
 		.ellipsis();
 	}
 
