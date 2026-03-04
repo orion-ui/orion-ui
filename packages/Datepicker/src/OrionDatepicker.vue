@@ -19,6 +19,9 @@
 				{ 'orion-datepicker-multiple' : type === 'multiple' },
 			]"
 			@clear="setup.handleClear()">
+			<template #label>
+				<slot name="label"/>
+			</template>
 			<template #hint>
 				<slot name="hint"/>
 			</template>

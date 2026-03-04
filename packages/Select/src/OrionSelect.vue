@@ -17,6 +17,9 @@
 			:class="{ 'orion-select--multiple': multiple }"
 			@clear="setup.clear()"
 			@click="setup._orionInput.value?.focus()">
+			<template #label>
+				<slot name="label"/>
+			</template>
 			<template #hint>
 				<slot name="hint"/>
 			</template>
@@ -271,6 +274,7 @@ const setup = new OrionSelectSetup(props, emits, vModel);
 defineSlots<{
 	'default'(): void
 	'hint'(): void
+	'label'(): void
 	// eslint-disable-next-line no-unused-vars
 	'multiple-value'(props: { value: T[] }): void
 	// eslint-disable-next-line no-unused-vars

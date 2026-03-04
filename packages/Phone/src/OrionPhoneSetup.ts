@@ -47,6 +47,7 @@ export class OrionPhoneSetup extends SharedFieldSetup<OrionPhoneProps, Nil<strin
 		countryCodeWidth: 0,
 	});
 
+	get displayStaticLabel () { return (!!this.props.label && !this.props.floatingLabel) || (this._slots.label?.()[0]?.children?.length ?? 0) > 0 }
 	private get internationalDialCode () { return `+${this.country?.areaCode}` }
 	protected override get hasValue () { return !isNil(this.vModel.value) && !isNil(this.state.phoneNumber) }
 	protected get isValidCustom () { return this.isValidMobile && isValidPhoneNumber(this.phoneNumberProxy, this.country?.code) }
@@ -110,6 +111,7 @@ export class OrionPhoneSetup extends SharedFieldSetup<OrionPhoneProps, Nil<strin
 	constructor (
 		protected props: OrionPhoneProps,
 		protected emits: OrionPhoneEmits,
+		private _slots: Record<'label' | 'hint', () => any>,
 		protected vModel: ModelRef<Nil<string>>,
 		protected vModelCountryCode: ModelRef<Nil<Orion.Country['code']>>,
 		protected vModelNationalNumber: ModelRef<Nil<string>>,

@@ -50,6 +50,7 @@ export class OrionFieldSetup extends SharedSetup {
 
 	get suffixPictosWidth () { return this.state.suffixPictosWidth + 'rem' }
 	get displayHint () { return !!this.props.hint || (this._slots.hint?.()[0]?.children?.length ?? 0) > 0 }
+	get displayLabel () { return !!this.props.label || (this._slots.label?.()[0]?.children?.length ?? 0) > 0 }
 	get displayValidation () { return (this.props.showError || this.props.showWarning) && this.props.validationHtmlMessages?.length }
 	get fieldClass () {
 		const cls = [

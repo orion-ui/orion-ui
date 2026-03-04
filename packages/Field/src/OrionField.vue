@@ -3,7 +3,7 @@
 		:ref="setup._el"
 		:class="[props.class, setup.fieldClass]">
 		<label
-			v-if="label || $slots.label"
+			v-if="setup.displayLabel"
 			:for="`orion-${inputType}_${_uid}`"
 			:class="setup.labelClass"
 			@click.prevent>

@@ -5,10 +5,13 @@
 	--o-phone-country-code-top: 0.25rem;
 	--o-phone-height: var(--o-field-height);
 
-	position: relative;
-	display: flex;
-	align-items: center;
 	margin: 0.5rem 0;
+
+	&__wrapper {
+		position: relative;
+		display: flex;
+		align-items: center;
+	}
 
 	&__country-code {
 		position: absolute;
@@ -47,11 +50,6 @@
 		}
 	}
 
-	&__input {
-		flex: 1;
-		margin: 0;
-	}
-
 	&__country-code-flag {
 		width: 1.5rem;
 		height: 1rem;
@@ -64,5 +62,15 @@
 		display: flex;
 		gap: var(--o-space-4);
 		align-items: center;
+	}
+
+	&__input {
+		flex: 1;
+		margin: 0;
+
+		.orion-field__input > input,
+		.orion-field__label:not(.orion-field__label--static) {
+			margin-left: calc(var(--o-phone-country-code-space) - var(--o-field-input-padding-h) - 0.125rem);
+		}
 	}
 }

@@ -8,6 +8,9 @@
 		<orion-field
 			v-bind="setup.orionFieldBinding"
 			@clear="setup.clear()">
+			<template #label>
+				<slot name="label"/>
+			</template>
 			<template #hint>
 				<slot name="hint"/>
 			</template>

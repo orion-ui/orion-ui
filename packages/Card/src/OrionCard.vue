@@ -17,15 +17,18 @@
 		</div>
 
 		<div
-			v-if="$slots.header || title"
+			v-if="$slots.header || $slots['header-actions'] || title || subtitle"
 			class="orion-card__header"
 			@click="emits('header-click')">
 			<div
-				v-if="title || subtitle"
 				class="orion-card__header-content"
 				:class="{ 'orion-card__header-content--lined': headerLine }">
-				<div class="orion-card__header-content-wrapper">
-					<div class="orion-card__header-content-title">
+				<div
+					v-if="$slots['header-actions'] || title || subtitle"
+					class="orion-card__header-content-wrapper">
+					<div
+						v-if="title || subtitle"
+						class="orion-card__header-content-title">
 						<h4
 							v-if="title"
 							class="orion-card__title">

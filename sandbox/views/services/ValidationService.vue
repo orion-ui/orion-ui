@@ -79,14 +79,37 @@
 					<o-input
 						v-model="user.name2"
 						class="grid-input"
-						label="Test validation (string) required and length"
 						validation="required:|length:3,5"/>
-					<o-phone
+					<o-input
+						v-model="user.name2"
+						class="grid-input"
+						validation="required:|length:3,5">
+						<template #label>
+							turltutu <em>totoo</em>
+						</template>
+					</o-input>
+					<!-- <o-phone
 						ref="refPhone"
 						v-model="user.phone.phoneNumber"
 						label="téléphone"
+						placeholder="your number"
 						:validation="validator.rule('phone')"
-						mobile/>
+						mobile/> -->
+					<o-phone
+						ref="refPhone"
+						v-model="user.phone.phoneNumber"
+						:floating-label="false"
+						:validation="validator.rule('phone')"
+						required
+						mobile>
+						<template #label>
+							turltutu <em>totoo</em><br>
+							tru
+						</template>
+						<template #hint>
+							hint for phone
+						</template>
+					</o-phone>
 					<pre>{{ user.phone }}</pre>
 					<!-- <o-input
 						v-model="user.emailRequired"
@@ -157,6 +180,7 @@
 						label="Date picker"
 						:validation-error-message="testLongErrorMessage"
 						:validation="validator.rule('datePicker')"
+						:floating-label="false"
 						clearable/>
 					<o-datepicker
 						v-model:range="user.daterange"
@@ -179,6 +203,7 @@
 						required
 						clearable
 						label="Text area"
+						:floating-label="false"
 						:validation-error-message="testLongErrorMessage"
 						:validation="validator.rule('area')"/>
 					<o-alert :color="resultColor">
