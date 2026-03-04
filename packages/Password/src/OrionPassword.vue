@@ -8,11 +8,14 @@
 		<orion-field
 			v-bind="setup.orionFieldBinding"
 			@clear="setup.clear()">
+			<template #hint>
+				<slot name="hint"/>
+			</template>
+
 			<input
-				:id="`orion-input_${setup._uid}`"
-				:ref="setup._input"
+				:id="`orion-${setup.inputType}_${setup._uid}`"
+				:ref="setup._orionInput"
 				v-model="vModel"
-				class="orion-input__input"
 				:type="setup.reveal ? 'text' : 'password'"
 				:disabled="disabled"
 				:readonly="readonly"
@@ -24,18 +27,11 @@
 
 			<template #icon-suffix>
 				<orion-icon
-					class="orion-input__reveal"
+					class="orion-password__reveal"
 					:icon="setup.reveal ? 'visibility_off' : 'visibility'"
 					ripple="primary"
 					@click="setup.toggleReveal()"/>
 			</template>
-
-			<div
-				v-if="setup.showState
-					&& (setup.showError || setup.showWarning)
-					&& setup.validationHtmlMessages?.length"
-				class="orion-input__error-message"
-				v-html="setup.validationHtmlMessages"/>
 		</orion-field>
 
 		<template #popper>
@@ -43,15 +39,15 @@
 				<div
 					v-if="!passwordToConfirm"
 					class="orion-password-popover__header">
-					<span class="orion-password-popover--title">
+					<span class="orion-password-popover__title">
 						{{ setup.lang.PASSWORD_CRITERIAS }}
 					</span>
-					<span class="orion-password-popover--subtitle">
+					<span class="orion-password-popover__subtitle">
 						{{ setup.tooltipSubtitle }}
 					</span>
 				</div>
 
-				<div class="orion-password-popover--password-check">
+				<div class="orion-password-popover__password-check">
 					<div
 						v-for="(validationMessage, index) in setup.tooltipValidationMessages"
 						:key="index"

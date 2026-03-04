@@ -3,34 +3,34 @@
 		v-bind="setup.orionFieldBinding"
 		:label-is-floating="false"
 		:class="[
-			`orion-toggle--${color}`,
-			`orion-toggle--${size}`,
-			{ 'orion-toggle--checked': vModel },
-			{ 'orion-toggle--reverse': reverse },
-			{ 'orion-toggle--inline': inline },
+			`orion-${setup.inputType}--${color}`,
+			`orion-${setup.inputType}--${size}`,
+			{ [`orion-${setup.inputType}--checked`]: vModel },
+			{ [`orion-${setup.inputType}--reverse`]: reverse },
+			{ [`orion-${setup.inputType}--inline`]: inline },
 		]"
-		input-type="toggle"
 		:tabindex="disabled ? undefined : setup._uid"
 		@click="setup.handleClick()"
 		@keydown.space.prevent="setup.handleClick()"
 		@keydown.enter.prevent="setup.handleClick()">
-		<slot v-if="label === undefined"/>
+		<template #label>
+			<slot/>
+		</template>
+
+		<template #hint>
+			<slot name="hint"/>
+		</template>
 
 		<input
-			:id="`orion-toggle_${setup._uid}`"
-			:ref="setup._input"
+			:id="`orion-${setup.inputType}_${setup._uid}`"
+			:ref="setup._orionInput"
 			v-model="vModel"
-			class="orion-toggle__input"
 			type="checkbox"
 			:checked="vModel"
-			v-bind="{ ...$attrs, disabled: disabled }">
+			v-bind="{ ...$attrs, disabled, readonly }">
 
-		<div
-			class="orion-toggle__core"
-			:style="setup.coreStyle">
-			<div
-				class="orion-toggle__core-button"
-				:style="setup.buttonStyle"/>
+		<div :class="`orion-${setup.inputType}__core`">
+			<div :class="`orion-${setup.inputType}__core-button`"/>
 		</div>
 	</orion-field>
 </template>

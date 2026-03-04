@@ -8,7 +8,6 @@
 			{ 'orion-card--clickable': !!$attrs.onClick },
 			{ 'orion-card--selected': selected },
 			{ 'orion-card--no-elevation': hoverElevation <= 0 },
-			( gradient ? `orion-card--gradient-${gradient}` : '' ),
 		]"
 		:style="`--hoverElevation: ${hoverElevation}`">
 		<div
@@ -22,20 +21,24 @@
 			class="orion-card__header"
 			@click="emits('header-click')">
 			<div
+				v-if="title || subtitle"
 				class="orion-card__header-content"
 				:class="{ 'orion-card__header-content--lined': headerLine }">
-				<h4
-					v-if="title"
-					class="orion-card__title">
-					{{ title }}
-				</h4>
-
-				<h5
-					v-if="subtitle"
-					class="orion-card__subtitle">
-					{{ subtitle }}
-				</h5>
-
+				<div class="orion-card__header-content-wrapper">
+					<div class="orion-card__header-content-title">
+						<h4
+							v-if="title"
+							class="orion-card__title">
+							{{ title }}
+						</h4>
+						<h5
+							v-if="subtitle"
+							class="orion-card__subtitle">
+							{{ subtitle }}
+						</h5>
+					</div>
+					<slot name="header-actions"/>
+				</div>
 				<slot name="header"/>
 			</div>
 		</div>

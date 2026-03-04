@@ -1,6 +1,6 @@
 import { type ModelRef } from 'vue';
 import { SharedFieldSetup, type SharedFieldSetupEmits, type SharedFieldSetupProps } from '../../Shared/SharedFieldSetup';
-import { type SharedPropsColor } from '../../Shared/SharedProps';
+import { SharedProps, type SharedPropsColor } from '../../Shared/SharedProps';
 
 export type OrionRadioEmits = SharedFieldSetupEmits<Orion.VModel.Radio> & {};
 export type OrionRadioProps = SharedFieldSetupProps & SharedPropsColor & {
@@ -16,20 +16,16 @@ export type OrionRadioProps = SharedFieldSetupProps & SharedPropsColor & {
 	// @doc props/reverse displays the label first
 	// @doc/fr props/reverse affiche en premier le label
 	reverse?: boolean
-	// @doc props/type type of the input
-	// @doc/fr props/type type du champ
-	type?: string
 };
 
 export class OrionRadioSetup extends SharedFieldSetup<OrionRadioProps, Orion.VModel.Radio> {
 
 	static readonly defaultProps = {
 		...SharedFieldSetup.defaultProps,
-		color: 'primary' as Orion.Color,
-		type: 'radio',
+		...SharedProps.color,
 	};
 
-	protected inputType = 'radio';
+	readonly inputType = 'radio';
 
 	protected get isValidCustom () {
 		if (this.props.required) {

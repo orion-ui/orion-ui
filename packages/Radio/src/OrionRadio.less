@@ -1,5 +1,23 @@
 @import "../../Shared/styles/variables.less";
 @import "../../Shared/styles/mixins.less";
 
-/* stylelint-disable-next-line block-no-empty */
-.orion-radio {}
+.orion-radio {
+	.orion-field__input {
+		border-radius: 100%;
+	}
+
+	&__check-container {
+		border-radius: 100%;
+	}
+
+	&__check-marker {
+		transform: scale(0);
+		background: #fff;
+		transition: transform 0.3s cubic-bezier(0, 3, 1, 1);
+		.circle(0.5rem);
+
+		[class*="--checked"] & {
+			transform: scale(1);
+		}
+	}
+}

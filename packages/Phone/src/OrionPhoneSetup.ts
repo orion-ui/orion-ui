@@ -1,8 +1,8 @@
-import parsePhoneNumberFromString, { AsYouType, isValidPhoneNumber, validatePhoneNumberLength } from 'libphonenumber-js/max';
-import { isEmpty, isNil } from 'lodash-es';
+import parsePhoneNumberFromString, { AsYouType, isValidPhoneNumber } from 'libphonenumber-js/max';
+import { isNil } from 'lodash-es';
 import { useCountry } from 'services/CountryService';
 import { useDynamicFlag } from 'services/DynamicFlagService';
-import { type ModelRef, reactive, ref, watch } from 'vue';
+import { type ModelRef, nextTick, reactive, ref } from 'vue';
 import { SharedFieldSetup, type SharedFieldSetupEmits, type SharedFieldSetupProps } from '../../Shared/SharedFieldSetup';
 
 export type OrionPhoneEmits = SharedFieldSetupEmits<Nil<Orion.Phone>> & {
@@ -22,58 +22,46 @@ export type OrionPhoneProps = SharedFieldSetupProps & {
 	// @doc props/type the type of the input
 	// @doc/fr props/type type du champ
 	type?: string
+	// @doc props/country-favorites-options list of countries to display at the top of the country select
+	// @doc/fr props/country-favorites-options liste des pays à afficher en haut du sélecteur de pays
+	countryFavoritesOptions?: Orion.Country[]
 };
 
-export class OrionPhoneSetup extends SharedFieldSetup<OrionPhoneProps, Nil<Orion.Phone>> {
+export class OrionPhoneSetup extends SharedFieldSetup<OrionPhoneProps, Nil<string>> {
 
 	static readonly defaultProps = {
 		...SharedFieldSetup.defaultProps,
-		type: 'tel',
+		countryFavoritesOptions: () => [] as Orion.Country[],
 	};
 
-	readonly _country = ref<OrionSelect>();
+	readonly inputType = 'phone';
+	readonly _countrySelect = ref<OrionSelect>();
 	readonly _orionInput = ref<HTMLInputElement & OrionInput>();
+	readonly _countryCode = ref<HTMLElement>();
+	private _countryCodeObserver?: MutationObserver;
 
 	protected state = reactive({
 		...this.sharedState,
 		country: useCountry().getCountryByCode(this.lang.ORION_PHONE__DEFAULT_COUNTRY_CODE),
 		phoneNumber: '',
+		countryCodeWidth: 0,
 	});
 
-	protected get isFrPhone () {
-		return this.vModel.value?.phoneCountryCode === 'FR'
-		  || this.phoneCountryCode?.value === 'FR'
-		  || this.state.country?.code === 'FR';
-	}
-
-	protected override get hasValue () {
-		return (
-			!isNil(this.vModel.value)
-			&& !isEmpty(this.phoneNumberWithoutIndicatif)
-			&& !isNil(this.state.phoneNumber)
-		);
-	}
-
-	get countryList () { return useCountry().countries.toSorted((a, b) => a.name.localeCompare(b.name)) }
-	private get phoneNumberWithoutIndicatif () {
-		return this.state.phoneNumber
-			? this.state.phoneNumber.replace('+' + this.state.country?.areaCode, '')
-			: null;
-	}
-
-	get showWarning () { return this.isFrPhone && this.hasValue && !this.isValid.value && this.isFocus }
+	private get internationalDialCode () { return `+${this.country?.areaCode}` }
+	protected override get hasValue () { return !isNil(this.vModel.value) && !isNil(this.state.phoneNumber) }
 	protected get isValidCustom () { return this.isValidMobile && isValidPhoneNumber(this.phoneNumberProxy, this.country?.code) }
+	get countryList () { return useCountry().countries.toSorted((a, b) => a.name.localeCompare(b.name)) }
+	get countryCodeWidth () { return this.state.countryCodeWidth + 'rem' }
+	// eslint-disable-next-line orion-rules/private-property-if-only-in-template
+	get isFocus () { return this._countrySelect.value?.isFocus() || this._orionInput?.value?.isFocus() || false }
 	private get isValidMobile () {
 		const phoneNumber = parsePhoneNumberFromString(this.phoneNumberProxy, this.country?.code);
 		return this.props.mobile ? phoneNumber?.getType() === 'MOBILE' : true;
 	}
 
+	// eslint-disable-next-line orion-rules/private-property-if-only-in-template
 	get showState () {
 		const validator = this.props.validation as Undef<Orion.Validation.Rule>;
-
-		if (this.props.inheritValidationState !== undefined) {
-			return this.props.inheritValidationState;
-		}
 
 		if (this.state.hasBeenFocus) {
 			return !!validator || !!this.hasValue;
@@ -83,98 +71,115 @@ export class OrionPhoneSetup extends SharedFieldSetup<OrionPhoneProps, Nil<Orion
 		}
 	}
 
-	get src () { return useDynamicFlag((this.country?.code ?? 'FR')) }
-	private get indicatif () { return `+${this.country?.areaCode}`.replace('-', ' ') }
 	get publicInstance () {
 		return {
 			...super.publicInstance,
 			isValidMobile: () => this.isValidMobile,
-			_country: () => this._country.value,
+			_country: () => this._countrySelect.value,
 			_orionInput: () => this._orionInput.value,
 		};
 	}
 
-	get country () { return this.state.country }
-	set country (val) {
-		this.state.phoneNumber = `+${val?.areaCode}${this.phoneNumberWithoutIndicatif}`;
-		this.state.country = val;
-
-		if (this.phoneCountryCode?.value) {
-			this.phoneCountryCode.value = val?.code;
-		}
-
-		this.setVModel();
-	}
+	get country () { return useCountry().getCountryByCode(this.vModelCountryCode?.value ?? this.lang.ORION_PHONE__DEFAULT_COUNTRY_CODE) }
+	set country (val) { this.vModelCountryCode.value = val?.code }
 
 	get phoneNumberProxy () {
-		if (!this.state.phoneNumber.length || this.state.phoneNumber === this.indicatif) return '';
-		return new AsYouType(this.country?.code).input(this.state.phoneNumber);
+		if (!this.state.phoneNumber.length) return '';
+
+		const cleanNumber = this.state.phoneNumber.replace(this.internationalDialCode, '');
+		const formattedNumber = new AsYouType().input(this.internationalDialCode + cleanNumber).split(this.internationalDialCode)[1] ?? '';
+		return formattedNumber.trim();
 	}
 
 	set phoneNumberProxy (val) {
-		const sanitized = this.sanitizePhoneNumber(val);
-		this.state.phoneNumber = sanitized.startsWith('+')
-			? sanitized
-			: this.indicatif + sanitized;
-		this.setVModel();
+		if (!val) {
+			this.vModel.value = undefined;
+			this.vModelNationalNumber.value = undefined;
+			this.state.phoneNumber = '';
+			return;
+		}
+
+		this.state.phoneNumber = val ?? '';
+		if (!this.state.phoneNumber.length) return;
+
+		const parsedPhoneNumber = parsePhoneNumberFromString(this.state.phoneNumber, this.country?.code);
+		this.vModel.value = parsedPhoneNumber?.format('E.164');
+		this.vModelNationalNumber.value = parsedPhoneNumber?.formatNational();
 	}
 
 	constructor (
-		protected props: OrionPhoneProps & typeof OrionPhoneSetup.defaultProps,
+		protected props: OrionPhoneProps,
 		protected emits: OrionPhoneEmits,
-		protected vModel: ModelRef<Nil<Orion.Phone>>,
-		protected phoneCountryCode?: ModelRef<string | undefined>,
-		protected phoneNumber?: ModelRef<string | undefined>,
+		protected vModel: ModelRef<Nil<string>>,
+		protected vModelCountryCode: ModelRef<Nil<Orion.Country['code']>>,
+		protected vModelNationalNumber: ModelRef<Nil<string>>,
 	) {
 		super(props, emits, vModel);
 
-		watch(() => this.vModel.value?.phoneNumber, (val) => {
-			if (val) {
-				this.state.phoneNumber = val;
-			}
-		});
+		if (vModel.value) {
+			const parsedPhone = parsePhoneNumberFromString(vModel.value, this.country?.code);
+			this.state.phoneNumber = parsedPhone?.number.toString() ?? '';
+			this.vModelCountryCode.value = parsedPhone?.country ?? this.lang.ORION_PHONE__DEFAULT_COUNTRY_CODE;
+		}
+		else if (vModelNationalNumber?.value) {
+			const parsedPhone = parsePhoneNumberFromString(vModelNationalNumber.value, this.country?.code)?.number;
+			this.state.phoneNumber = parsedPhone?.toString() ?? '';
+		}
+	}
 
-		watch(() => this.vModel.value?.phoneCountryCode, (val) => {
-			if (val && val !== this.state.country?.code) {
-				this.state.country = useCountry().getCountryByCode(val);
-			}
-		});
-
-		watch(() => this.state.hasBeenFocus, (val) => {
-			// reflect validation state changes from OrionPhone to embed input
-			if (this._orionInput.value) {
-				this._orionInput.value.setHasBeenFocus(val);
-			}
+	protected onMounted () {
+		super.onMounted();
+		nextTick(() => {
+			this.watchCountryCodeMutations();
 		});
 	}
 
-	protected async onBeforeMountAsync () {
-		if (isNil(this.vModel.value)) {
-			this.state.country = useCountry().getCountryByCode(this.lang.ORION_PHONE__DEFAULT_COUNTRY_CODE);
-			this.state.phoneNumber += `+${this.state.country?.areaCode}`;
-		}
-		else {
-			if (this.vModel.value && (isEmpty(this.vModel.value?.phoneCountryCode) || isNil(this.vModel.value.phoneCountryCode))) {
-				this.vModel.value.phoneCountryCode = this.lang.ORION_PHONE__DEFAULT_COUNTRY_CODE;
-				this.state.phoneNumber += `+${this.state.country?.areaCode}`;
-			}
+	protected onUnmounted () {
+		super.onUnmounted();
+		this.resetCountryCodeObservation();
+	}
 
-			if (this.vModel.value?.phoneCountryCode) {
-				this.state.phoneNumber = this.vModel.value?.phoneNumber
-					? this.sanitizePhoneNumber(this.vModel.value?.phoneNumber)
-					: this.sanitizePhoneNumber();
-				this.state.country = useCountry().getCountryByCode(this.vModel.value?.phoneCountryCode);
-			}
+	private watchCountryCodeMutations () {
+		if (!this._countryCode.value) return;
+
+		const updateWidth = () => {
+			const width = Math.ceil((this._countryCode.value?.getBoundingClientRect().width ?? 0)) / 16 + 0.25;
+			this.state.countryCodeWidth = width;
+		};
+
+		updateWidth();
+		this._countryCodeObserver?.disconnect();
+		this._countryCodeObserver = new MutationObserver(updateWidth);
+		this._countryCodeObserver.observe(this._countryCode.value, {
+			childList: true,
+			subtree: true,
+			attributes: true,
+		});
+	}
+
+	private resetCountryCodeObservation () {
+		this._countryCodeObserver?.disconnect();
+		this._countryCodeObserver = undefined;
+		this.state.countryCodeWidth = 0;
+	}
+
+	setDataFromPaste (e: ClipboardEvent) {
+		const val = e.clipboardData?.getData('text');
+		if (val) {
+			const parsedPhone = parsePhoneNumberFromString(val);
+			this.state.phoneNumber = parsedPhone?.number.toString() ?? '';
+			this.vModel.value = parsedPhone?.format('E.164');
+			this.vModelNationalNumber.value = parsedPhone?.formatNational();
+			this.vModelCountryCode.value = parsedPhone?.country ?? this.lang.ORION_PHONE__DEFAULT_COUNTRY_CODE;
 		}
+	}
+
+	getSrc (countryCode?: Orion.Country['code']) {
+		const countryCodeToUse = countryCode ?? this.country?.code;
+		return useDynamicFlag(countryCodeToUse ?? 'FR');
 	}
 
 	keydownGuard (e: KeyboardEvent) {
-		if (this.isFrPhone) {
-			if (['', '+33'].includes(this.state.phoneNumber) && e.key === '0') {
-				e.preventDefault();
-			}
-		}
-
 		const numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 		const misc = ['Backspace', 'Delete'];
 		const move = ['ArrowLeft', 'ArrowRight', 'Tab'];
@@ -200,21 +205,6 @@ export class OrionPhoneSetup extends SharedFieldSetup<OrionPhoneProps, Nil<Orion
 
 		if (move.includes(e.key)) {
 			return;
-		}
-
-		// Check if we try to delete the area code
-		if (selectionStart <= this.indicatif.length && valueLength >= this.indicatif.length) {
-			if (selectionLength === valueLength) {
-				if (this.vModel.value)
-					this.vModel.value.phoneNumber = undefined;
-				return;
-			}
-
-			if (selectionStart < this.indicatif.length
-			  || (selectionStart === this.indicatif.length && selectionStart === selectionEnd && e.key === 'Backspace')) {
-				e.preventDefault();
-				return;
-			}
 		}
 
 		// The cursor is at the end
@@ -303,80 +293,9 @@ export class OrionPhoneSetup extends SharedFieldSetup<OrionPhoneProps, Nil<Orion
 		return display.toLowerCase().indexOf(valueRechercher.toLowerCase()) !== -1;
 	}
 
-	private sanitizePhoneNumber (phoneNumberToSanitize?: Nil<string>): string {
-		phoneNumberToSanitize = phoneNumberToSanitize?.replaceAll('.', '');
-
-		if (!phoneNumberToSanitize) {
-			return '';
-		}
-
-		if (phoneNumberToSanitize && validatePhoneNumberLength(phoneNumberToSanitize.trim(), this.country?.code) === 'TOO_LONG') {
-			while (validatePhoneNumberLength(phoneNumberToSanitize, this.country?.code) === 'TOO_LONG') {
-				phoneNumberToSanitize = phoneNumberToSanitize?.slice(0, -1);
-			}
-			const inputValue = this._orionInput.value?._input();
-			if (inputValue)
-				inputValue.value = phoneNumberToSanitize;
-			return phoneNumberToSanitize.replace(/\s*/g, '');
-		}
-
-		if (phoneNumberToSanitize && validatePhoneNumberLength(phoneNumberToSanitize.trim(), this.country?.code) === 'NOT_A_NUMBER') {
-			if (validatePhoneNumberLength(this.phoneNumberProxy, this.country?.code) !== 'NOT_A_NUMBER') {
-				const inputValue = this._orionInput.value?._input();
-				if (inputValue)
-					inputValue.value = this.phoneNumberProxy;
-				return this.phoneNumberProxy.replace(/\s*/g, '');
-			}
-		}
-
-		let phoneNumber;
-		if (!phoneNumberToSanitize?.startsWith(this.indicatif) && phoneNumberToSanitize?.startsWith('+')) {
-			phoneNumber = phoneNumberToSanitize?.replace('+', this.indicatif);
-		}
-		else phoneNumber = phoneNumberToSanitize ?? this.vModel.value?.phoneNumber;
-
-		if (phoneNumber) {
-			phoneNumber = phoneNumber.replace(/\s*/g, '');
-		}
-
-		if (phoneNumber) {
-			const regex = new RegExp(`^(0|\\${this.indicatif}0|\\${this.indicatif}\\${this.indicatif})(\\d+)`);
-			const replaceRegex = `${this.indicatif}$2`;
-			return phoneNumber.replace(regex, replaceRegex).replace(/\s*/g, '');
-		}
-
-		return phoneNumber ?? '';
-	}
-
-	private setVModel () {
-		let phoneNumber = this.sanitizePhoneNumber(this.state.phoneNumber) as Nil<string>;
-		let phoneCountryCode = this.state.country?.code as Nil<Orion.Country['code']>;
-
-		if (!phoneNumber?.length || phoneNumber === `+${this.state.country?.areaCode}`) {
-			phoneNumber = this.props.clearToNull ? null : undefined;
-			phoneCountryCode = this.props.clearToNull ? null : undefined;
-		}
-
-		this.vModel.value = {
-			phoneNumber,
-			phoneCountryCode,
-		};
-	}
-
-	changeAreaCode () {
-		if (this.phoneNumber?.value) {
-			this.phoneNumber.value = this.indicatif;
-		}
-		this._orionInput.value?.focus();
-	}
-
-	handleMouseEvent (event: MouseEvent) {
-		const input = event.target as HTMLInputElement;
-		event.preventDefault();
-		input.focus();
-		setTimeout(() => {
-			input.setSelectionRange(3, 3);
-		}, 10);
+	switchFocusFromCountryToInput () {
+		this._countrySelect.value?.togglePopover();
+		this._orionInput.value?._input()?.focus();
 	}
 
 }

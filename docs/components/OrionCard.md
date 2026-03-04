@@ -12,7 +12,6 @@ It is also useful as a list item when using the `grid` layout ([more information
 ## Usage
 
 ::: demo:Card
-CardGradient
 CardSelected
 CardActionsSlot
 CardPlayground

@@ -28,7 +28,7 @@ export class OrionUploadSetup extends SharedFieldSetup<OrionUploadProps, File[]>
 		showPreview: true,
 	};
 
-	readonly _input = ref<HTMLInputElement>();
+	readonly _orionInput = ref<HTMLInputElement>();
 	_bubble = ref<RefDom>();
 	_illustration = ref<RefDom>();
 	private _filePreview = useTemplateRef<HTMLElement[]>('previews');
@@ -181,8 +181,8 @@ export class OrionUploadSetup extends SharedFieldSetup<OrionUploadProps, File[]>
 	handleChange () {
 		if (!this.vModel.value) return;
 		this.vModel.value.length = 0;
-		if (this._input.value?.files?.length) {
-			for (const file of this._input.value.files) {
+		if (this._orionInput.value?.files?.length) {
+			for (const file of this._orionInput.value.files) {
 				if (this.fileIsValid(file)) this.vModel.value.push(file);
 			}
 			this.emitInput();
@@ -190,14 +190,14 @@ export class OrionUploadSetup extends SharedFieldSetup<OrionUploadProps, File[]>
 	}
 
 	clickInput () {
-		this._input.value?.click();
+		this._orionInput.value?.click();
 		setTimeout(() => this.setHasBeenFocus(true), 600);
 	}
 
 	deleteFile (index: number) {
 		if (!this.vModel.value) return;
 
-		if (this._input.value) this._input.value.value = '';
+		if (this._orionInput.value) this._orionInput.value.value = '';
 		this.vModel.value.splice(index, 1);
 		this.emitInput();
 	}

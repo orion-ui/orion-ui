@@ -2,34 +2,26 @@
 @import "../../Shared/styles/mixins.less";
 @import "../../Input/src/OrionInput";
 
-.orion-textarea {
+.orion-textarea.orion-field {
+	--o-textarea-vertical-padding: calc((var(--o-field-height) - var(--o-field-label-min-height)) / 2 - 0.0625rem);
+
 	height: auto;
 
-	&.orion-input {
-		align-items: flex-start;
-		padding: var(--o-space-6) var(--o-space-12);
-	}
-
-	.orion-input__input {
+	> .orion-field__input {
 		height: auto;
-		min-height: 4rem;
-		line-height: 1.25rem;
-	}
 
-	.orion-input__pictos {
-		display: flex;
-	}
-
-	&-max-length {
-		.orion-input__input {
-			padding-bottom: var(--o-space-24);
+		> textarea {
+			height: auto;
+			min-height: 4rem;
+			padding-top: var(--o-textarea-vertical-padding);
+			padding-bottom: var(--o-textarea-vertical-padding);
 		}
 	}
 
-	.orion-input__textarea-counter {
+	.orion-textarea__counter {
 		position: absolute;
-		right: var(--o-space-12);
-		bottom: var(--o-space-6);
+		right: var(--o-space-6);
+		bottom: var(--o-space-2);
 		font-size: 0.75rem;
 		color: var(--o-text-neutral-moderate);
 	}

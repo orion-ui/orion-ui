@@ -33,18 +33,18 @@
 				<div class="flex fd-c g-16">
 					<o-input
 						v-model="user.required"
-						class="grid-input"
 						label="required only"
 						required
+						disabled
 						type="email"/>
 					<o-input
 						v-model="user.customRuleInTemplate"
-						class="grid-input"
 						label="custom rule in template"
-						:validation="(val?: string) => (val?.length ?? 0) > 2"/>
+						hint="example of hint text"
+						:validation="(val?: string) => (val?.length ?? 0) > 2"
+						validation-error-message="nénéné"/>
 					<o-input
 						v-model="user.customValidatorRuleInTemplate"
-						class="grid-input"
 						label="custom ValidatorRule in template"
 						:validation="(val?: string) => ({
 							result: (val?.length ?? 0) > 2,
@@ -83,7 +83,7 @@
 						validation="required:|length:3,5"/>
 					<o-phone
 						ref="refPhone"
-						v-model="user.phone"
+						v-model="user.phone.phoneNumber"
 						label="téléphone"
 						:validation="validator.rule('phone')"
 						mobile/>
@@ -111,7 +111,7 @@
 						label="Confirm password"
 						password-to-confirm
 						:validation="validator.rule('passwordConfirm')"/>
-					<!-- <o-checkbox
+					<o-checkbox
 						v-model="user.choice"
 						label="On coche ?"
 						color="primary"/>
@@ -145,15 +145,13 @@
 					<o-toggle
 						v-model="user.toggle"
 						label="Toggle"
-						size="xs"
 						color="primary"/>
 					<o-toggle
 						v-model="user.toggleRequired"
 						label="Required"
 						required
 						:validation-error-message="testLongErrorMessage"
-						:validation="validator.rule('toggleRequired')"
-						size="xs"/>
+						:validation="validator.rule('toggleRequired')"/>
 					<o-datepicker
 						v-model="user.datePicker"
 						label="Date picker"
@@ -182,7 +180,7 @@
 						clearable
 						label="Text area"
 						:validation-error-message="testLongErrorMessage"
-						:validation="validator.rule('area')"/> -->
+						:validation="validator.rule('area')"/>
 					<o-alert :color="resultColor">
 						Le résultat est .... {{ result }}
 					</o-alert>
@@ -206,18 +204,16 @@
 	</o-page>
 </template>
 
-
 <script setup lang="ts">
-import { ref, reactive } from 'vue';
 import { useValidation } from 'lib';
 import { Validator } from 'utils/Validator';
+import { reactive, ref } from 'vue';
 
-// eslint-disable-next-line max-len, @typescript-eslint/no-unused-vars
 const testLongErrorMessage = 'Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Donec sed odio dui. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.';
 const refPhone = ref<OrionPhone>();
 
 let user = reactive({
-	required: undefined as Undef<string>,
+	required: 'tutu' as Undef<string>,
 	customRuleInTemplate: undefined as Undef<string>,
 	customValidatorRuleInTemplate: undefined as Undef<string>,
 	name: undefined as Undef<string>,
@@ -295,7 +291,6 @@ const validator = useValidation(user, {
 					result: false,
 					level: 'error',
 					message: `date should be before december`,
-					uid: 'dateBeforeDecember',
 				};
 			}
 			if (val.getMonth() < 4) {
@@ -303,7 +298,6 @@ const validator = useValidation(user, {
 					result: false,
 					level: 'error',
 					message: `date should be after may`,
-					uid: 'dateAfterMay',
 				};
 			}
 			return true;
@@ -318,39 +312,40 @@ const validator = useValidation(user, {
 			level: 'error',
 		}),
 	]),
-	/* choice: Validator.rules.required(),
+	choice: Validator.rules.required(),
 	radio: Validator.rules.required(),
 	toggleRequired: Validator.rules.required(),
 	datePicker: Validator.rules.required(),
 	daterange: new Validator([
-		{
+		val => ({
 			level: 'warning',
-			rule: Validator.rules.required(),
+			result: Validator.rules.required()(val).result,
 			message: `value required`,
-		},
+		}),
 	]),
-	select: new Validator<string>([
-		{
-			level: 'error',
-			rule: val => val === 'oui',
-		},
+	select: new Validator([
+		val => ({
+			level: 'warning',
+			result: Validator.rules.required()(val).result,
+			message: `value required`,
+		}),
 	]),
-	area: Validator.rules.hasMaxLength(10), */
+	area: Validator.rules.hasMaxLength(10),
 });
 
-
-function checkForm () : void {
+function checkForm (): void {
 	result = validator.validateAndShowState();
 	if (result) {
 		resultColor.value = 'primary';
 		// validator.showValidationState();
-	} else {
+	}
+	else {
 		resultColor.value = 'danger';
 		// validator.showValidationState();
 	}
 }
 
-function logResults () : void {
+function logResults (): void {
 	// eslint-disable-next-line no-console
 	console.log(`🚀  validator.getResults():`, validator.getResults());
 }
