@@ -115,6 +115,8 @@ export class OrionPhoneSetup extends SharedFieldSetup<OrionPhoneProps, Nil<strin
 		protected vModel: ModelRef<Nil<string>>,
 		protected vModelCountryCode: ModelRef<Nil<Orion.Country['code']>>,
 		protected vModelNationalNumber: ModelRef<Nil<string>>,
+		private _modal?: OrionModal,
+		private _aside?: OrionAside,
 	) {
 		super(props, emits, vModel);
 
@@ -132,7 +134,19 @@ export class OrionPhoneSetup extends SharedFieldSetup<OrionPhoneProps, Nil<strin
 	protected onMounted () {
 		super.onMounted();
 		nextTick(() => {
-			this.watchCountryCodeMutations();
+			if (this._aside) {
+				this._aside.bus.on('enter-start', () => {
+					setTimeout(() => this.restartCountryCodeObservation(), 100);
+				});
+				this._aside.bus.on('enter-end', () => this.restartCountryCodeObservation());
+			}
+			else if (this._modal) {
+				this._modal.bus.on('enter-start', () => {
+					setTimeout(() => this.restartCountryCodeObservation(), 100);
+				});
+				this._modal.bus.on('enter-end', () => this.restartCountryCodeObservation());
+			}
+			else this.restartCountryCodeObservation();
 		});
 	}
 
@@ -163,6 +177,11 @@ export class OrionPhoneSetup extends SharedFieldSetup<OrionPhoneProps, Nil<strin
 		this._countryCodeObserver?.disconnect();
 		this._countryCodeObserver = undefined;
 		this.state.countryCodeWidth = 0;
+	}
+
+	private restartCountryCodeObservation () {
+		this.resetCountryCodeObservation();
+		this.watchCountryCodeMutations();
 	}
 
 	setDataFromPaste (e: ClipboardEvent) {

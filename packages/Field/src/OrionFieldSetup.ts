@@ -1,5 +1,5 @@
 import { Reactive } from 'utils';
-import { ref, watch } from 'vue';
+import { nextTick, ref, watch } from 'vue';
 import { type SharedPropsFieldSize, type SharedPropsPrefixIcon, type SharedPropsSuffixIcon } from '../../Shared/SharedProps';
 import { SharedSetup } from '../../Shared/SharedSetup';
 
@@ -107,7 +107,8 @@ export class OrionFieldSetup extends SharedSetup {
 		protected props: OrionFieldProps,
 		protected emits: OrionFieldEmits,
 		private _slots: Record<'default' | 'label' | 'hint' | 'icon-suffix', () => any>,
-
+		private _modal?: OrionModal,
+		private _aside?: OrionAside,
 	) {
 		super();
 
@@ -115,10 +116,19 @@ export class OrionFieldSetup extends SharedSetup {
 			() => this._suffixPictos.value,
 			(val) => {
 				!!val
-					? this.watchSuffixPictosMutations()
+					? this.restartSuffixPictosObservation()
 					: this.resetSuffixPictosObservation();
 			},
 		);
+	}
+
+	protected onMounted () {
+		super.onMounted();
+		nextTick(() => {
+			if (this._aside) this._aside.bus.on('enter-start', () => this.restartSuffixPictosObservation());
+			else if (this._modal) this._modal.bus.on('enter-start', () => this.restartSuffixPictosObservation());
+			else this.restartSuffixPictosObservation();
+		});
 	}
 
 	protected onUnmounted () {
@@ -148,6 +158,11 @@ export class OrionFieldSetup extends SharedSetup {
 		this._suffixPictosObserver?.disconnect();
 		this._suffixPictosObserver = undefined;
 		this.state.suffixPictosWidth = 0;
+	}
+
+	private restartSuffixPictosObservation () {
+		this.resetSuffixPictosObservation();
+		this.watchSuffixPictosMutations();
 	}
 
 }

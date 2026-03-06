@@ -82,7 +82,6 @@ export class OrionModalSetup extends SharedPopableSetup {
 				anime({
 					targets: this._el.value,
 					opacity: 0,
-					// translateY: '-100vh',
 					translateY: shouldTranslateY ? ['-50%', '-100vh'] : '0',
 					duration: 600,
 					easing: 'easeOutCubic',
