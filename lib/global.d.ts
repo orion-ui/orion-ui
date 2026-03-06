@@ -235,7 +235,7 @@ declare global {
 				customClass: string
 				programmatic: boolean
 				openauto: boolean
-				size: string
+				size: Size
 				hideClose: boolean
 				hideOnOverlayClick: boolean
 				hideOnEsc: boolean
@@ -255,14 +255,20 @@ declare global {
 		}
 
 		namespace Aside {
+			type AsideSize = Size | 'xxl' | 'fullscreen';
+
 			type Options = Popable.Options & {
+				size: AsideSize
 				events?: Record<string, (aside: OrionAside, params: any) => void>
 			};
 		}
 
 		namespace Modal {
+			type ModalSize = Size | 'xxl' | 'fullscreen';
+
 			type Options = Popable.Options & {
-				message: Nil<string>
+				size: ModalSize
+				message?: Nil<string>
 				events?: Record<string, (modal: OrionModal, params: any) => void>
 				actions?: Partial<ActionsParams>[]
 				prompt?: Partial<Prompt>

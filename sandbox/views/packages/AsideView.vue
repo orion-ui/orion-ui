@@ -42,6 +42,10 @@
 				label="xl"/>
 			<o-radio
 				v-model="asideSize"
+				input-value="xxl"
+				label="xxl"/>
+			<o-radio
+				v-model="asideSize"
 				input-value="fullscreen"
 				label="fullscreen"/>
 		</o-section>

@@ -44,7 +44,7 @@ export class OrionModalSetup extends SharedPopableSetup {
 	}
 
 	constructor (
-		protected props: OrionModalProps & Omit<typeof OrionModalSetup.defaultProps, 'options'> & { options: Partial<Orion.Popable.Options> },
+		protected props: OrionModalProps & Omit<typeof OrionModalSetup.defaultProps, 'options'> & { options: Partial<Orion.Modal.Options> },
 		protected emits: OrionModalEmits,
 		protected slots: Slots,
 	) {
@@ -54,6 +54,8 @@ export class OrionModalSetup extends SharedPopableSetup {
 	}
 
 	protected async animateAsync (enter: boolean) {
+		const shouldTranslateY = this.options.size as Orion.Modal.ModalSize !== 'fullscreen';
+
 		return new Promise<void>(async (resolve) => {
 			if (enter) {
 				this.state.visible = true;
@@ -61,7 +63,7 @@ export class OrionModalSetup extends SharedPopableSetup {
 				anime({
 					targets: this._el.value,
 					opacity: [0, 1],
-					translateY: ['-200vh', '-50%'],
+					translateY: shouldTranslateY ? ['-200vh', '-50%'] : '0',
 					duration: 600,
 					easing: 'easeOutCubic',
 					'begin': async () => {
@@ -80,8 +82,7 @@ export class OrionModalSetup extends SharedPopableSetup {
 				anime({
 					targets: this._el.value,
 					opacity: 0,
-					// translateY: '-100vh',
-					translateY: ['-50%', '-100vh'],
+					translateY: shouldTranslateY ? ['-50%', '-100vh'] : '0',
 					duration: 600,
 					easing: 'easeOutCubic',
 					'begin': async () => {

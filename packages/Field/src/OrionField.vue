@@ -68,6 +68,7 @@
 
 <script setup lang="ts">
 import OrionIcon from 'packages/Icon/src/OrionIcon.vue';
+import { inject } from 'vue';
 import './OrionField.less';
 import { OrionFieldSetup, type OrionFieldEmits, type OrionFieldProps } from './OrionFieldSetup';
 const slots = defineSlots<{
@@ -76,9 +77,11 @@ const slots = defineSlots<{
 	hint: () => any
 	'icon-suffix': () => any
 }>();
+const _aside = inject<OrionAside>('_aside');
+const _modal = inject<OrionModal>('_modal');
 const emits = defineEmits<OrionFieldEmits>() as OrionFieldEmits;
 const props = withDefaults(defineProps<OrionFieldProps>(), OrionFieldSetup.defaultProps);
-const setup = new OrionFieldSetup(props, emits, slots);
+const setup = new OrionFieldSetup(props, emits, slots, _modal, _aside);
 defineExpose(setup.publicInstance);
 </script>
 

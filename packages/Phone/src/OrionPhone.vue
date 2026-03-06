@@ -100,6 +100,7 @@
 <script setup lang="ts">
 import { OrionInput } from 'packages/Input';
 import { OrionSelect } from 'packages/Select';
+import { inject } from 'vue';
 import './OrionPhone.less';
 import { OrionPhoneSetup, type OrionPhoneEmits, type OrionPhoneProps } from './OrionPhoneSetup';
 const slots = defineSlots<{
@@ -112,8 +113,10 @@ const emits = defineEmits<OrionPhoneEmits>() as OrionPhoneEmits;
 const vModel = defineModel<Nil<string>>();
 const vModelCountryCode = defineModel<Nil<Orion.Country['code']>>('countryCode');
 const vModelNationalNumber = defineModel<Nil<string>>('nationalNumber');
+const _aside = inject<OrionAside>('_aside');
+const _modal = inject<OrionModal>('_modal');
 const props = withDefaults(defineProps<OrionPhoneProps>(), OrionPhoneSetup.defaultProps);
-const setup = new OrionPhoneSetup(props, emits, slots, vModel, vModelCountryCode, vModelNationalNumber);
+const setup = new OrionPhoneSetup(props, emits, slots, vModel, vModelCountryCode, vModelNationalNumber, _modal, _aside);
 defineExpose(setup.publicInstance);
 
 /** Doc
