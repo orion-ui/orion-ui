@@ -8,6 +8,7 @@
 			button ? `orion-icon--button orion-icon--button-${button}` : '',
 			{ 'orion-icon--clickable': setup.isClickable },
 		]"
+		:style="`--o-icon-size: ${setup.size}`"
 		@click="setup.handleClick($event)"
 		@touchend="setup.handleClick($event)">
 		<span
@@ -114,9 +115,3 @@ const setup = new OrionIconSetup(props, emits, attrs);
 
 defineExpose(setup.publicInstance);
 </script>
-
-<style lang="less" scoped>
-.orion-icon {
-	--o-icon-size: v-bind("setup.size");
-}
-</style>

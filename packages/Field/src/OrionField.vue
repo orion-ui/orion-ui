@@ -1,7 +1,8 @@
 <template>
 	<div
 		:ref="setup._el"
-		:class="[props.class, setup.fieldClass]">
+		:class="[props.class, setup.fieldClass]"
+		:style="`--o-field-suffix-picto-space: ${setup.suffixPictosWidth}`">
 		<label
 			v-if="setup.displayLabel"
 			:for="`orion-${inputType}_${_uid}`"
@@ -83,8 +84,6 @@ defineExpose(setup.publicInstance);
 
 <style lang="less" scoped>
 .orion-field {
-	--o-field-suffix-picto-space: v-bind("setup.suffixPictosWidth");
-
 	&__input > {
 		:deep(input),
 		:deep(textarea) {
