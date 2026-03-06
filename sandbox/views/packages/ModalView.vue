@@ -44,6 +44,10 @@
 				label="xl"/>
 			<o-radio
 				v-model="modalSize"
+				input-value="xxl"
+				label="xxl"/>
+			<o-radio
+				v-model="modalSize"
 				input-value="fullscreen"
 				label="fullscreen"/>
 		</o-section>
@@ -56,7 +60,7 @@
 		<o-modal
 			ref="_modal"
 			:display="displayPopable"
-			:options="{ overlay: true }"
+			:options="{ overlay: true, size: modalSize }"
 			@leave-start="displayPopable = false">
 			<sections-generator :qty="5"/>
 

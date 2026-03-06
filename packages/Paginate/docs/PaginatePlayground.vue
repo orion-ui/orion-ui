@@ -130,7 +130,7 @@ function seedList (qty = 36) {
 	return items;
 }
 
-function notifPageUpdate ({ page, size }: { page: number, size: number }) {
+function notifPageUpdate ({ page }: { page: number, size: number }) {
 	useNotif.info(`Active page is now ${page}`);
 }
 

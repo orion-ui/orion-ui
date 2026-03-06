@@ -1,6 +1,8 @@
 @import "../../Shared/styles/variables.less";
 @import "../../Shared/styles/mixins.less";
 
+@widthXXL: 75rem; // 1200px
+@widthXL: 62.5rem; // 1000px
 @widthLG: 47rem; // 936px
 @widthMD: 31.625rem; // 680px
 @widthSM: 30rem; // 480px
@@ -262,6 +264,14 @@
 
 	&--lg {
 		width: @widthLG;
+	}
+
+	&--xl {
+		width: @widthXL;
+	}
+
+	&--xxl {
+		width: @widthXXL;
 	}
 
 	@media @tablet {

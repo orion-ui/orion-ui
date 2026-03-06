@@ -4,6 +4,7 @@
 @positionTop: 4rem;
 @positionBottom: 4rem;
 @maxWidth: calc(100vw - 2.5rem);
+@widthXXL: 74rem;
 @widthXL: 61.5rem;
 @widthLG: 50rem;
 @widthMD: 36.5rem;
@@ -187,6 +188,11 @@
 			height: calc(100vh - 4rem - 5rem); // dvh support fallback
 			height: calc(100dvh - 4rem - 5rem);
 		}
+	}
+
+	&--xxl {
+		left: ~"max(calc(50% - @{widthXXL} / 2), calc(50% - @{maxWidth} / 2))";
+		width: ~"min(@{widthXXL}, @{maxWidth})";
 	}
 
 	&--xl {

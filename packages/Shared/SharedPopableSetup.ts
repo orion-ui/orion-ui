@@ -54,14 +54,13 @@ export abstract class SharedPopableSetup extends SharedSetup {
 		visible: false,
 	};
 
-	protected baseOptions = {
+	protected baseOptions: Orion.Popable.Options = {
 		uid: this.getUid(),
 		Nested: null,
 		NestedProps: {},
 		customClass: '',
 		programmatic: false,
 		openauto: false,
-		message: null,
 		size: 'md',
 		hideClose: false,
 		hideOnOverlayClick: true,
