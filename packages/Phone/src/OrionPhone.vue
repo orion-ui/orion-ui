@@ -9,7 +9,8 @@
 				'orion-field--readonly': readonly,
 				'orion-field--required': required,
 			},
-		]">
+		]"
+		:style="`--o-phone-country-code-space: ${setup.countryCodeWidth}`">
 		<label
 			v-if="setup.displayStaticLabel"
 			:for="`orion-${setup.inputType}_${setup._uid}`"
@@ -124,9 +125,3 @@ defineExpose(setup.publicInstance);
  * @doc/fr vModel/phoneNumber le numéro de téléphone, isolé de son objet parent
  */
 </script>
-
-<style lang="less" scoped>
-.orion-phone {
-	--o-phone-country-code-space: v-bind("setup.countryCodeWidth");
-}
-</style>
