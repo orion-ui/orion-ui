@@ -8,7 +8,7 @@
 		@dragover.prevent="setup.handleDragOver($event)"
 		@drop="setup.handleDrop($event)">
 		<input
-			:ref="setup._input"
+			:ref="setup._orionInput"
 			class="orion-upload__input"
 			type="file"
 			:multiple="multiple"

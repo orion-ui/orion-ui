@@ -31,6 +31,8 @@ export class OrionPasswordSetup extends SharedFieldSetup<OrionPasswordProps, str
 		rules: () => ['hasLowercase', 'hasUppercase', 'hasNumber', 'length:8,60'] as Orion.PasswordRuleSpec[],
 	};
 
+	readonly inputType = 'password';
+
 	protected state = reactive({
 		...this.sharedState,
 		reveal: false,
@@ -51,6 +53,7 @@ export class OrionPasswordSetup extends SharedFieldSetup<OrionPasswordProps, str
 		return true;
 	}
 
+	// eslint-disable-next-line orion-rules/private-property-if-only-in-template
 	get showState () { return super.showState || (this.props.passwordTooltip && this.state.hasBeenFocus) }
 	get tooltipValidationMessages () {
 		if (this.props.passwordToConfirm !== undefined) {
@@ -179,7 +182,8 @@ export class OrionPasswordSetup extends SharedFieldSetup<OrionPasswordProps, str
 			rules: Orion.PasswordRuleSpec[]
 		},
 		protected emits: OrionPasswordEmits,
-		protected vModel: ModelRef<Nil<string>>) {
+		protected vModel: ModelRef<Nil<string>>,
+	) {
 		super(props, emits, vModel);
 	}
 

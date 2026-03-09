@@ -2,54 +2,132 @@
   "colors": {
     "neutral": {
       "0": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "TEXT_FILL"
+          ]
+        },
         "$type": "color",
         "$value": "#ffffff"
       },
       "50": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "TEXT_FILL"
+          ]
+        },
         "$type": "color",
         "$value": "#f7f8fa"
       },
       "100": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "TEXT_FILL"
+          ]
+        },
         "$type": "color",
         "$value": "#eff1f5"
       },
       "200": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "TEXT_FILL"
+          ]
+        },
         "$type": "color",
         "$value": "#e1e4ea"
       },
       "300": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "TEXT_FILL"
+          ]
+        },
         "$type": "color",
         "$value": "#d3d7de"
       },
       "400": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "TEXT_FILL"
+          ]
+        },
         "$type": "color",
         "$value": "#c5cad3"
       },
       "500": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "TEXT_FILL"
+          ]
+        },
         "$type": "color",
         "$value": "#b7bcc6"
       },
       "600": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "TEXT_FILL"
+          ]
+        },
         "$type": "color",
         "$value": "#949baa"
       },
       "700": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "TEXT_FILL"
+          ]
+        },
         "$type": "color",
         "$value": "#717a8e"
       },
       "800": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "TEXT_FILL"
+          ]
+        },
         "$type": "color",
         "$value": "#545c6a"
       },
       "900": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "TEXT_FILL"
+          ]
+        },
         "$type": "color",
         "$value": "#383d47"
       },
       "950": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "TEXT_FILL"
+          ]
+        },
         "$type": "color",
         "$value": "#1d2028"
       },
       "1000": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "TEXT_FILL"
+          ]
+        },
         "$type": "color",
         "$value": "#000000"
       }
@@ -386,74 +464,159 @@
     },
     "lineHeight": {
       "16": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "LINE_HEIGHT"
+          ]
+        },
         "$type": "number",
         "$value": 16
       },
       "18": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "LINE_HEIGHT"
+          ]
+        },
         "$type": "number",
         "$value": 18
       },
       "20": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "LINE_HEIGHT"
+          ]
+        },
         "$type": "number",
         "$value": 20
       },
       "24": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "LINE_HEIGHT"
+          ]
+        },
         "$type": "number",
         "$value": 24
       },
       "28": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "LINE_HEIGHT"
+          ]
+        },
         "$type": "number",
         "$value": 28
       },
       "32": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "LINE_HEIGHT"
+          ]
+        },
         "$type": "number",
         "$value": 32
       },
       "40": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "LINE_HEIGHT"
+          ]
+        },
         "$type": "number",
         "$value": 40
       },
       "56": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "LINE_HEIGHT"
+          ]
+        },
         "$type": "number",
         "$value": 56
       }
     },
     "weight": {
       "extrabold": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        },
         "$type": "number",
         "$value": 800
       },
       "bold": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        },
         "$type": "number",
         "$value": 700
       },
       "semibold": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        },
         "$type": "number",
         "$value": 600
       },
       "medium": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        },
         "$type": "number",
         "$value": 500
       },
       "regular": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        },
         "$type": "number",
         "$value": 400
       }
     },
     "letterSpacing": {
       "tighter": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        },
         "$type": "number",
         "$value": -0.4
       },
       "default": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        },
         "$type": "number",
         "$value": 0
       },
       "relaxed": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        },
         "$type": "number",
         "$value": 0.4
       },
       "tight": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        },
         "$type": "number",
         "$value": -0.2
       }

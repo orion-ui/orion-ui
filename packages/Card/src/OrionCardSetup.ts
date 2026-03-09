@@ -14,9 +14,6 @@ export type OrionCardProps = SharedPropsSize & {
 	// @doc props/actionsLine displays a line between the body and the actions of the card
 	// @doc/fr props/actionsLine affiche une line de sépération entre les slots `default` et `actions` de la carte
 	actionsLine?: boolean
-	// @doc props/gradient adds a gradient in the backgroung of the card
-	// @doc/fr props/gradient ajoute un dégradé sur l'arrière plan de la carte
-	gradient?: string
 	// @doc props/headerLine displays a line between the header and the body of the card
 	// @doc/fr props/headerLine affiche une line de sépération entre les slots `header` et `default` de la carte
 	headerLine?: boolean

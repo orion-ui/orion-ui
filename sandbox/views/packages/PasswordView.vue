@@ -22,6 +22,7 @@
 					v-model="form.password"
 					name="password"
 					label="Password"
+					suffix-icon="airplay"
 					password-tooltip/>
 			</div>
 		</div>

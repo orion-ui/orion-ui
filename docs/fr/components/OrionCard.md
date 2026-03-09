@@ -12,7 +12,6 @@ Ce composant peut aussi être utile comme élément d'une liste au format `grid`
 ## Usage
 
 ::: demo:Card
-CardGradient
 CardSelected
 CardActionsSlot
 CardPlayground

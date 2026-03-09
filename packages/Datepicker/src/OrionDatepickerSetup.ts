@@ -48,6 +48,8 @@ export class OrionDatepickerSetup extends SharedFieldSetup<OrionDatepickerProps,
 		type: 'date' as Orion.DatepickerType,
 	};
 
+	readonly inputType = 'datepicker';
+
 	private focusedWithMouse = false;
 
 	readonly _popover = ref<InstanceType<typeof Dropdown>>();
@@ -267,7 +269,7 @@ export class OrionDatepickerSetup extends SharedFieldSetup<OrionDatepickerProps,
 	}
 
 	private getEventData () {
-		const input = this._input.value as HTMLInputElement;
+		const input = this._orionInput.value as HTMLInputElement;
 		const isPM = /(PM$)/.test(input.value);
 		const isTwelveHours = /(AM|PM$)/.test(input.value);
 		const selection = input.selectionStart !== null && input.selectionEnd !== null
@@ -548,7 +550,7 @@ export class OrionDatepickerSetup extends SharedFieldSetup<OrionDatepickerProps,
 
 	handleMouseup () {
 		if (this.responsive.onPhone) {
-			this._input.value?.blur();
+			this._orionInput.value?.blur();
 			return;
 		};
 
@@ -1034,7 +1036,7 @@ export class OrionDatepickerSetup extends SharedFieldSetup<OrionDatepickerProps,
 	}
 
 	private calculateVisibleMultipleDates () {
-		const container = this._input.value?.querySelector('.orion-datepicker-multiple__content') as HTMLElement;
+		const container = this._orionInput.value?.querySelector('.orion-datepicker-multiple__content') as HTMLElement;
 		if (!container || !this.multiple.value?.length) return;
 
 		const containerWidth = container.offsetWidth - 40; // padding and size of the `+ X` button
@@ -1043,7 +1045,7 @@ export class OrionDatepickerSetup extends SharedFieldSetup<OrionDatepickerProps,
 
 		let totalWidth = 0;
 		let visibleCount = 0;
-		const gap = 5;
+		const gap = 4;
 
 		for (let i = 0; i < children.length; i++) {
 			const childWidth = (children[i] as HTMLElement).offsetWidth;

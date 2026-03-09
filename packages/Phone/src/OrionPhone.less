@@ -1,46 +1,76 @@
 @import "../../Shared/styles/variables.less";
 @import "../../Shared/styles/mixins.less";
 
-.orion-input-group {
-	display: flex;
+.orion-phone {
+	--o-phone-country-code-top: 0.25rem;
+	--o-phone-height: var(--o-field-height);
+
 	margin: 0.5rem 0;
 
-	.orion-input {
-		flex: 1 0 0%;
-		margin: 0;
+	&__wrapper {
+		position: relative;
+		display: flex;
+		align-items: center;
 	}
 
-	> :not(:first-child, :last-child) .orion-input__input {
-		border-right: none;
-		border-radius: 0;
-	}
+	&__country-code {
+		position: absolute;
+		z-index: 1;
+		top: var(--o-phone-country-code-top);
+		display: flex;
+		gap: var(--o-space-4);
+		align-items: center;
 
-	> :first-child .orion-input__input {
-		min-width: 0;
-		border-right: none;
-		border-top-right-radius: 0;
-		border-bottom-right-radius: 0;
-	}
+		&-select {
+			--o-field-height: calc(var(--o-phone-height) - 0.5rem);
+			--o-field-input-border-radius: var(--o-radius-xs);
+			--o-field-input-border-color: transparent;
+			--o-field-input-padding-h: var(--o-space-4);
+			--o-field-input-background-color: var(--o-background-primary-minimal);
 
-	> :last-child .orion-input__input {
-		border-top-left-radius: 0;
-		border-bottom-left-radius: 0;
-	}
+			margin: 0;
+			padding-left: 0.25rem;
 
-	&--phone {
-		> .v-popper {
-			flex: 0 1 calc(75rem / 16);
-			width: calc(75rem / 16);
+			.orion-field--sm & {
+				--o-field-height: calc(var(--o-phone-height) - 0.5rem);
+			}
+
+			.orion-select__ghost-input {
+				margin-right: calc(var(--o-field-suffix-picto-space) - 0.25rem);
+			}
+
+			.orion-field__pictos {
+				right: calc(var(--o-space-4) + var(--o-field-suffix-icon-space));
+			}
+		}
+
+		&-display {
+			color: var(--o-text-neutral-subtle);
+			.typography(body2-default);
 		}
 	}
 
-	.orion-telephone--with-flag {
-		flex: 0 1 calc(88rem / 16);
-		width: calc(88rem/16);
+	&__country-code-flag {
+		width: 1.5rem;
+		height: 1rem;
+		border: 1px solid var(--o-border-neutral-default);
+		border-radius: var(--o-radius-xs);
+		object-fit: fill;
+	}
 
-		img {
-			border: 1px var(--o-border-neutral-subtle) solid;
-			object-fit: cover;
+	&__country-code-select-option {
+		display: flex;
+		gap: var(--o-space-4);
+		align-items: center;
+	}
+
+	&__input {
+		flex: 1;
+		margin: 0;
+
+		.orion-field__input > input,
+		.orion-field__label:not(.orion-field__label--static) {
+			margin-left: calc(var(--o-phone-country-code-space) - var(--o-field-input-padding-h) - 0.125rem);
 		}
 	}
 }

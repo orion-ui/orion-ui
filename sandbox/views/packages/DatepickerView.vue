@@ -13,9 +13,8 @@
 				label="simple date"
 				clearable
 				time
-				clear-to-null
-				disable-popover>
-				<template #popper="{ closePopperSlot }">
+				clear-to-null>
+				<!-- <template #popper="{ closePopperSlot }">
 					<div style="width: 45rem; padding: 1rem; color: black; background-color: aquamarine;">
 						Aenean eu leo quam.
 						Pellentesque ornare sem lacinia quam venenatis vestibulum.
@@ -24,7 +23,7 @@
 						Nulla vitae elit libero, a pharetra augue.
 						<o-button @click="closePopperSlot()">close</o-button>
 					</div>
-				</template>
+				</template> -->
 			</o-datepicker>
 		</o-card>
 
@@ -47,7 +46,8 @@
 				:display-week-number="showWeekNumber"
 				clearable
 				select-on-focus
-				clear-to-null/>
+				clear-to-null
+				required/>
 		</o-card>
 
 		<hr>
@@ -81,7 +81,13 @@
 				label="simple dateweek"
 				clearable
 				clear-to-null
-				hide-disabled/>
+				hide-disabled
+				prefix-icon="add_home_work"
+				suffix-icon="cloud_off">
+				<template #hint>
+					pick a week
+				</template>
+			</o-datepicker>
 		</o-card>
 
 		<hr>
@@ -114,6 +120,7 @@
 				label="simple datemultiple"
 				:display-week-number="showWeekNumber"
 				clearable
+				prefix-icon="event_note"
 				clear-to-null/>
 		</o-card>
 	</o-page>

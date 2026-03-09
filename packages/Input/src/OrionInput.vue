@@ -1,27 +1,26 @@
 <template>
-	<label
-		v-if="!floatingLabel"
-		:for="`orion-input_${setup._uid}`"
-		class="orion-input__static-label">
-		{{ label }}
-	</label>
-
 	<orion-field
 		v-bind="setup.orionFieldBinding"
-		:class="$attrs.class"
 		@clear="setup.clear()">
+		<template #label>
+			<slot name="label"/>
+		</template>
+		<template #hint>
+			<slot name="hint"/>
+		</template>
+
 		<input
-			:id="`orion-input_${setup._uid}`"
-			:ref="setup._input"
+			:id="`orion-${setup.inputType}_${setup._uid}`"
+			:ref="setup._orionInput"
 			v-model="setup.vModelProxy"
-			class="orion-input__input"
-			:maxlength="maxLength"
+			:placeholder="(!floatingLabel || setup.labelIsFloating) ? placeholder : undefined"
 			v-bind="{
 				...$attrs,
-				type: type,
-				disabled: disabled,
-				readonly: readonly,
-				autocomplete: autocomplete,
+				type,
+				disabled,
+				readonly,
+				autocomplete,
+				maxlength,
 				min: type === 'number' ? minValue : undefined,
 				max: type === 'number' ? maxValue : undefined,
 			}"
@@ -35,19 +34,6 @@
 			@keyup.right="setup.setCursorPosition($event)"
 			@blur="setup.handleBlurCustom($event)">
 	</orion-field>
-	<div
-		v-if="setup.showState
-			&& (setup.showError || setup.showWarning)
-			&& setup.validationHtmlMessages?.length"
-		class="orion-input__error-message"
-		v-html="setup.validationHtmlMessages"/>
-	<div
-		v-if="hintText && !(setup.showState
-			&& (setup.showError || setup.showWarning)
-			&& setup.validationHtmlMessages?.length)"
-		class="orion-input__hint-text">
-		{{ hintText }}
-	</div>
 </template>
 
 <script setup lang="ts">

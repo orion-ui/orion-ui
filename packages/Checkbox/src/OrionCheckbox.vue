@@ -1,38 +1,40 @@
 <template>
 	<orion-field
 		v-bind="setup.orionFieldBinding"
-		:label-is-floating="false"
 		:class="[
-			`orion-checkbox--${color}`,
-			`orion-checkbox--${size}`,
-			{ 'orion-checkbox--checked': setup.isChecked },
-			{ 'orion-checkbox--reverse': reverse },
-			{ 'orion-checkbox--inline': inline },
-			{ 'orion-checkbox--with-slot': !!$slots.default },
+			`orion-${setup.inputType}--${color}`,
+			`orion-${setup.inputType}--${size}`,
+			{ [`orion-${setup.inputType}--checked`]: setup.isChecked },
+			{ [`orion-${setup.inputType}--reverse`]: reverse },
+			{ [`orion-${setup.inputType}--inline`]: inline },
 		]"
 		:tabindex="disabled ? undefined : setup._uid"
-		input-type="checkbox"
 		@click="setup.handleClick()"
 		@keydown.space.prevent="setup.handleClick()"
 		@keydown.enter.prevent="setup.handleClick()">
-		<slot v-if="label === undefined"/>
+		<template #label>
+			<slot/>
+		</template>
+
+		<template #hint>
+			<slot name="hint"/>
+		</template>
 
 		<input
-			:id="`orion-checkbox_${setup._uid}`"
-			:ref="setup._input"
-			class="orion-checkbox__input"
+			:id="`orion-${setup.inputType}_${setup._uid}`"
+			:ref="setup._orionInput"
 			type="checkbox"
 			:value="inputValue"
 			:checked="setup.isChecked"
-			v-bind="{ ...$attrs, disabled: disabled }">
+			v-bind="{ ...$attrs, disabled, readonly }">
 
-		<span class="orion-checkbox__check-container">
+		<span :class="`orion-${setup.inputType}__check-container`">
 			<orion-icon
 				v-if="iconCheck && setup.isChecked"
 				:icon="iconCheck"
 				@click="setup.handleClick()"/>
 			<svg
-				v-else-if="setup.isChecked"
+				v-else-if="!iconCheck"
 				viewBox="0 0 12 10">
 				<polyline points="1.5 6 4.5 9 10.5 1"/>
 			</svg>

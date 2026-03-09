@@ -40,6 +40,7 @@
 		<div class="col-sm-4">
 			<o-card
 				title="Card with header slot"
+				subtitle="And header-actions slot"
 				header-line>
 				Duis elit dolore elit eiusmod ipsum ex.
 				Veniam est ex ullamco deserunt elit id anim tempor.
@@ -48,6 +49,12 @@
 
 				<template #header>
 					Lorem Ipsum
+				</template>
+
+				<template #header-actions>
+					<o-icon
+						icon="article"
+						ripple="info"/>
 				</template>
 			</o-card>
 		</div>

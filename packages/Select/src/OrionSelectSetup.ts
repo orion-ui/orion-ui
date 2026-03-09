@@ -37,9 +37,6 @@ export type OrionSelectEmits<T, O> = SharedFieldSetupEmits<Orion.VModel.Select<T
 };
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export type OrionSelectProps<T, O, VKey extends keyof O, DKey extends keyof O = VKey> = SharedFieldSetupProps & {
-	// @doc props/autocomplete adds the possibility to write in the select field to filter options (for single select only)
-	// @doc/fr props/autocomplete permet à l'utilisateur d'écrire dans le champ dans le cas d'un select simple
-	autocomplete?: boolean
 	// @doc props/customFetch allows you to custom the fetch function
 	// @doc/fr props/customFetch permet de personnaliser la fonction de récupération des options
 	customFetch?: (searchTerm?: string) => Promise<O[]>
@@ -55,16 +52,17 @@ export type OrionSelectProps<T, O, VKey extends keyof O, DKey extends keyof O = 
 	// @doc props/donetyping the duration to trigger the fetch
 	// @doc/fr props/donetyping indique après combien de temps après la dernière frappe, la fonction de récupération des options est appelée
 	donetyping?: number
-
 	// @doc props/dropdownOptions options to configure the dropdown [(go to Floating Vue doc for more details)](https://floating-vue.starpad.dev/api/#component-props)
 	// @doc/fr props/dropdownOptions options pour configurer la dropdown [(Voir la documentation de Floating Vue pour plus de détails)](https://floating-vue.starpad.dev/api/#component-props)
 	dropdownOptions?: Partial<Orion.VDropdown>
 	// @doc props/favoriteIcon key used to choice the favorite icon
 	// @doc/fr props/favoriteIcon clé qui permet de choisir l'icône des favoris
 	favoriteIcon?: Orion.Icon
+	// @doc props/favoritesOptions options that will be displayed in a separated section in the dropdown, on top of the other options
+	// @doc/fr props/favoritesOptions options qui seront affichées dans une section séparée dans la dropdown, au dessus des autres options
+	favoritesOptions?: O[]
 	// @doc props/fetchInitialOptions initial options before first fetch (when using fetch mecanism)
 	// @doc/fr props/fetchInitialOptions options intiales avant le premier fetch (lors de l'utilisation du mécanisme de fetch des options)
-	favoritesOptions?: O[]
 	fetchInitialOptions?: O[]
 	// @doc props/fetchKey key used to pass the research field value as a parameter to fetch the options
 	// @doc/fr props/fetchKey clé utilisée pour passer la valeur du champ de recherche comme paramètre pour récupérer les options
@@ -115,6 +113,8 @@ export class OrionSelectSetup<
 		favoriteIcon: 'star_border' as Orion.Icon,
 	};
 
+	readonly inputType = 'select';
+
 	private bus = mitt<{
 		input: T
 		select: O
@@ -142,7 +142,6 @@ export class OrionSelectSetup<
 	readonly _optionscontainer = ref<RefDom>();
 	readonly _defaultSlot = ref<RefDom>();
 	private readonly _favoritesoptionscontainer = ref<RefDom>();
-	readonly _autocomplete = ref<RefDom<HTMLInputElement>>();
 	readonly _optionssearchinput = ref<OrionInput>();
 	readonly _items = ref<(Element | ComponentPublicInstance)[]>([]);
 	readonly isArray = isArray;
@@ -172,7 +171,7 @@ export class OrionSelectSetup<
 			else {
 				options = this.props.options;
 			}
-			if ((this.props.searchable || this.props.autocomplete) && !isEmpty(this.state.valueToSearch)) {
+			if (this.props.searchable && !isEmpty(this.state.valueToSearch)) {
 				if (this.props.customSearch) {
 					return options.filter(x => this.props.customSearch?.(x, this.state.valueToSearch));
 				}
@@ -203,14 +202,6 @@ export class OrionSelectSetup<
 		  ));
 	}
 
-	get labelIsFloating () {
-		return (this.hasValue
-		  || this.props.forceLabelFloating
-		  || (this.props.autocomplete && this.state.isFocus)
-		  || (!!this.valueToSearch?.length && !this._optionssearchinput.value)
-		);
-	}
-
 	private get isObjectType () {
 		return (!isArray(this.vModel.value) && isObject(this.vModel.value))
 		  || (isArray(this.vModel.value) && isObject(this.vModel.value[0]))
@@ -218,17 +209,9 @@ export class OrionSelectSetup<
 		  || (isArray(this.fetchOptions) && isObject(this.fetchOptions[0]));
 	}
 
-	get showPopover () {
-		return (!this.props.autocomplete && this.state.isFocus)
-		  || (this.props.autocomplete && this.state.isFocus)
-		  || (this.props.autocomplete && this.responsive.onPhone && this.state.isFocus);
-	}
-
+	get showPopover () { return this.state.isFocus }
 	get showPopoverSearch () {
-		if (this.props.autocomplete && !this.responsive.onPhone) return false;
-
-		return (this.props.autocomplete && this.responsive.onPhone)
-		  || this.props.fetchUrl
+		return this.props.fetchUrl
 		  || this.props.customFetch
 		  || (this.props.searchable && this.props.options.length > 1);
 	}
@@ -386,12 +369,6 @@ export class OrionSelectSetup<
 			!!val && this.itemIsObject(val) && this.props.valueKey
 				? this.emitValue(val[this.props.valueKey])
 				: this.emitValue(val as any);
-
-			if (this.props.autocomplete) {
-				nextTick(() => {
-					this._autocomplete.value?.blur();
-				});
-			}
 		});
 
 		this.bus.on('add', (val) => {
@@ -403,10 +380,6 @@ export class OrionSelectSetup<
 					? val[this.props.valueKey]
 					: val,
 			);
-
-			if (this.props.autocomplete) {
-				this.state.valueToSearch = undefined;
-			}
 
 			this.emitValue(valueToEmit);
 		});
@@ -566,17 +539,13 @@ export class OrionSelectSetup<
 				this._optionssearchinput.value?.focus();
 			}
 			else {
-				this._autocomplete.value?.focus();
 				this._optionssearchinput.value?.focus();
 			}
-		}, 400);
+		}, 100);
 	}
 
 	handleFocus (e: FocusEvent) {
 		super.handleFocus(e);
-		nextTick(() => {
-			this._autocomplete.value?.focus();
-		});
 	}
 
 	handleMousedownOnPopper (e: MouseEvent) {
@@ -591,24 +560,8 @@ export class OrionSelectSetup<
 	}
 
 	handleBlur = debounce((e?: FocusEvent, selection?: boolean) => {
-		if (e?.relatedTarget) {
-			const el = e.relatedTarget as HTMLElement;
-			if (el.classList.contains('orion-select__popover-search-input')
-			  || (el === this._autocomplete.value)) {
-				return false;
-			}
-		}
-
 		this.state.hasBeenFocus = true;
 		this.state.indexNav = -1;
-
-		if (this.props.autocomplete) {
-			this._autocomplete.value?.blur();
-
-			if (!this.vModel.value && !selection) {
-				this.state.valueToSearch = undefined;
-			}
-		}
 
 		if (!this.responsive.onPhone || selection) {
 			this.state.isFocus = false;
@@ -667,15 +620,16 @@ export class OrionSelectSetup<
 	}
 
 	handleTabEvent () {
+		if (this.props.searchable || this.props.fetchUrl) {
+			this._orionInput.value?.focus();
+		}
 		this.emits('input-keydown-tab');
-		if (this.props.searchable || this.props.fetchUrl)
-			this._input.value?.focus();
 	}
 
 	handleInputMousedown () {
 		if (this.showPopover) {
 			setTimeout(() => {
-				this._input.value?.blur();
+				this._orionInput.value?.blur();
 			}, 50);
 		}
 	}
@@ -746,7 +700,7 @@ export class OrionSelectSetup<
 	private calculateVisibleMultipleItems () {
 		if (!this.props.multiple) return;
 
-		const container = this._input.value?.querySelector('.orion-select__multiple-content') as HTMLElement;
+		const container = this._orionInput.value?.querySelector('.orion-select__multiple-content') as HTMLElement;
 		if (!container || (isArray(this.vModel.value) && !this.vModel.value.length)) return;
 
 		const previousMax = this.state.maxVisibleMultipleItems;

@@ -1,37 +1,41 @@
 <template>
 	<orion-field
 		v-bind="setup.orionFieldBinding"
-		:label-is-floating="false"
 		:class="[
-			`orion-radio--${color}`,
-			{ 'orion-radio--checked': setup.isChecked },
-			{ 'orion-radio--reverse': reverse },
-			{ 'orion-radio--inline': inline },
+			`orion-${setup.inputType}--${color}`,
+			`orion-${setup.inputType}--${size}`,
+			{ [`orion-${setup.inputType}--checked`]: setup.isChecked },
+			{ [`orion-${setup.inputType}--reverse`]: reverse },
+			{ [`orion-${setup.inputType}--inline`]: inline },
 		]"
 		:tabindex="disabled ? undefined : setup._uid"
-		input-type="radio"
 		@click="setup.handleClick()"
 		@keydown.space.prevent="setup.handleClick()"
 		@keydown.enter.prevent="setup.handleClick()">
-		<slot v-if="label === undefined"/>
+		<template #label>
+			<slot/>
+		</template>
+
+		<template #hint>
+			<slot name="hint"/>
+		</template>
 
 		<input
-			:id="`orion-radio_${setup._uid}`"
-			:ref="setup._input"
-			class="orion-radio__input"
+			:id="`orion-${setup.inputType}_${setup._uid}`"
+			:ref="setup._orionInput"
 			type="radio"
 			:value="inputValue"
 			:checked="setup.isChecked"
-			v-bind="{ ...$attrs, disabled: disabled }">
+			v-bind="{ ...$attrs, disabled, readonly }">
 
-		<span class="orion-radio__check-container">
+		<span :class="`orion-${setup.inputType}__check-container`">
 			<orion-icon
-				v-if="iconCheck"
+				v-if="iconCheck && setup.isChecked"
 				:icon="iconCheck"
 				@click="setup.handleClick()"/>
 			<span
 				v-else
-				class="orion-radio__check-marker"/>
+				:class="`orion-${setup.inputType}__check-marker`"/>
 		</span>
 	</orion-field>
 </template>
