@@ -1,41 +1,45 @@
 <template>
 	<div
 		:ref="setup._el"
-		:class="[setup.baseClass, setup.additionalClass]">
+		:class="[props.class, setup.fieldClass]"
+		:style="`--o-field-suffix-picto-space: ${setup.suffixPictosWidth}`">
 		<label
-			v-if="(label || placeholder) && floatingLabel"
+			v-if="setup.displayLabel"
 			:for="`orion-${inputType}_${_uid}`"
 			:class="setup.labelClass"
-			@click.prevent
-			v-html="setup.labelValue"/>
+			@click.prevent>
+			<slot name="label">
+				<span v-html="label"/>
+			</slot>
+		</label>
 
-		<orion-icon
-			v-if="prefixIcon || prefixFontIcon"
-			:icon="prefixIcon"
-			:font-icon="prefixFontIcon"
-			:class="[
-				`${setup.baseClass}__icon`,
-				`${setup.baseClass}__icon--prefix`,
-			]"/>
-
-		<slot/>
-
-		<span
-			v-if="!['checkbox', 'radio', 'toggle'].includes(inputType)"
-			:ref="setup._suffixPictos"
-			:class="`${setup.baseClass}__pictos`">
+		<div class="orion-field__input">
+			<slot/>
 			<orion-icon
-				v-if="(showError
-					|| showWarning
-					|| showSuccess
-				) && !['checkbox', 'radio', 'toggle'].includes(inputType)"
-				:icon="setup.validationIcon"
-				:class="setup.validationClass"/>
+				v-if="prefixIcon || prefixFontIcon"
+				:icon="prefixIcon"
+				:font-icon="prefixFontIcon"
+				:class="[
+					`${setup.baseClass}__icon`,
+					`${setup.baseClass}__icon--prefix`,
+				]"/>
 
 			<span
-				v-if="clearable && hasValue && !readonly && !disabled"
-				:class="`${setup.baseClass}__clearable`"
-				@click="emits('clear')"/>
+				v-if="setup.showSuffixPicto"
+				:ref="setup._suffixPictos"
+				:class="`${setup.baseClass}__pictos`">
+				<orion-icon
+					v-if="showError || showWarning || showSuccess"
+					:icon="setup.validationIcon"
+					:class="`${setup.baseClass}__validation-pictos`"/>
+
+				<span
+					v-if="clearable && hasValue && !readonly && !disabled"
+					:class="`${setup.baseClass}__clearable`"
+					@click="emits('clear')"/>
+
+				<slot name="icon-suffix"/>
+			</span>
 
 			<orion-icon
 				v-if="suffixIcon || suffixFontIcon"
@@ -45,18 +49,49 @@
 					`${setup.baseClass}__icon`,
 					`${setup.baseClass}__icon--suffix`,
 				]"/>
+		</div>
 
-			<slot name="icon-suffix"/>
-		</span>
+		<div
+			v-if="setup.displayHint"
+			class="orion-field__hint">
+			<slot name="hint">
+				<span v-html="hint"/>
+			</slot>
+		</div>
+
+		<div
+			v-if="setup.displayValidation"
+			class="orion-field__validation-messages"
+			v-html="validationHtmlMessages"/>
 	</div>
 </template>
 
 <script setup lang="ts">
-import { OrionIcon } from 'packages/Icon';
+import OrionIcon from 'packages/Icon/src/OrionIcon.vue';
+import { inject } from 'vue';
 import './OrionField.less';
 import { OrionFieldSetup, type OrionFieldEmits, type OrionFieldProps } from './OrionFieldSetup';
+const slots = defineSlots<{
+	default: () => any
+	label: () => any
+	hint: () => any
+	'icon-suffix': () => any
+}>();
+const _aside = inject<OrionAside>('_aside');
+const _modal = inject<OrionModal>('_modal');
 const emits = defineEmits<OrionFieldEmits>() as OrionFieldEmits;
 const props = withDefaults(defineProps<OrionFieldProps>(), OrionFieldSetup.defaultProps);
-const setup = new OrionFieldSetup(props, emits);
+const setup = new OrionFieldSetup(props, emits, slots, _modal, _aside);
 defineExpose(setup.publicInstance);
 </script>
+
+<style lang="less" scoped>
+.orion-field {
+	&__input > {
+		:deep(input),
+		:deep(textarea) {
+			margin-right: var(--o-field-suffix-picto-space);
+		}
+	}
+}
+</style>

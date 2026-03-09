@@ -58,7 +58,7 @@ const state = reactive({
 		fieldProps: {
 			required: true,
 			label: `Your custom message:`,
-			maxLength: 1000,
+			maxlength: 1000,
 		},
 	} as Partial<Orion.Modal.Prompt>,
 	actions: [

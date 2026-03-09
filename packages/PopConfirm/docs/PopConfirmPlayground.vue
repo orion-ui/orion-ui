@@ -4,24 +4,43 @@
 		@confirm="useNotif.info('Action has been confirmed')"
 		@cancel="useNotif.warning('Action has been cancel')">
 		<o-button>
-			Show pop confirm
+			Show {{ state.type }} pop confirm
 		</o-button>
 	</o-pop-confirm>
 
 	<hr>
 
-	<o-input
-		v-model="state.title"
-		label="Title"/>
+	<div class="row row--gutter">
+		<div class="col-sm-6">
+			<o-input
+				v-model="state.title"
+				label="Title"/>
+		</div>
+		<div class="col-sm-6">
+			<o-select
+				v-model="state.type"
+				label="Type"
+				:options="typeOptions"
+				inline/>
+		</div>
+	</div>
 </template>
 
 <script setup lang="ts">
 import { useNotif } from 'lib';
 import { reactive } from 'vue';
 
-const state = reactive({ title: 'Do you confirm this action ?' });
+const state = reactive({
+	title: 'Do you confirm this action ?',
+	type: 'default' as const,
+});
+
+const typeOptions = [
+	'default',
+	'danger',
+];
 </script>
 
-@hl {3-5,22}
+@hl {2-6,15-26}
 
 ### Playground

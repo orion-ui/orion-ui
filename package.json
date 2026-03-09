@@ -69,7 +69,7 @@
 		"@vue/tsconfig": "^0.7.0",
 		"animejs": "^3.2.2",
 		"floating-vue": "^5.2.2",
-		"libphonenumber-js": "^1.12.35",
+		"libphonenumber-js": "^1.12.38",
 		"lodash-es": "^4.17.21",
 		"mitt": "^3.0.1",
 		"pluralize": "^8.0.0",

@@ -1,4 +1,4 @@
-import { type ModelRef, nextTick, ref } from 'vue';
+import { type ModelRef, nextTick, ref, watch } from 'vue';
 import { SharedFieldSetup, type SharedFieldSetupEmits, type SharedFieldSetupProps } from '../../Shared/SharedFieldSetup';
 
 export type OrionTextareaEmits = SharedFieldSetupEmits<Nil<string>> & {
@@ -8,9 +8,9 @@ export type OrionTextareaEmits = SharedFieldSetupEmits<Nil<string>> & {
 };
 
 export type OrionTextareaProps = SharedFieldSetupProps & {
-	// @doc props/maxLength maximal length of the input
-	// @doc/fr props/maxLength taille maximale de l'entrée
-	maxLength?: number
+	// @doc props/maxlength maximal length of the input
+	// @doc/fr props/maxlength taille maximale de l'entrée
+	maxlength?: number
 	// @doc props/showLength show input's value length
 	// @doc/fr props/showLength affiche le nombre de caractères
 	showLength?: boolean
@@ -20,19 +20,25 @@ export class OrionTextareaSetup extends SharedFieldSetup<OrionTextareaProps, str
 
 	static readonly defaultProps = { ...SharedFieldSetup.defaultProps };
 
-	_input = ref<HTMLInputElement & HTMLTextAreaElement>();
-	private _modal?: OrionModal;
-	private _aside?: OrionAside;
+	readonly inputType = 'textarea';
+
+	readonly _orionInput = ref<HTMLInputElement & HTMLTextAreaElement>();
 
 	constructor (
 		protected props: OrionTextareaProps & typeof OrionTextareaSetup.defaultProps,
 		protected emits: OrionTextareaEmits,
 		protected vModel: ModelRef<Nil<string>>,
-		_modal?: OrionModal,
-		_aside?: OrionAside) {
+		private _modal?: OrionModal,
+		private _aside?: OrionAside,
+	) {
 		super(props, emits, vModel);
-		this._modal = _modal;
-		this._aside = _aside;
+
+		watch(this.vModel, (val) => {
+			if (this.props.maxlength && val && val.length > this.props.maxlength) {
+				this.vModel.value = val.slice(0, this.props.maxlength) as Nil<string>;
+			}
+			this.emits('input', val);
+		});
 	}
 
 	protected onMounted () {
@@ -53,7 +59,7 @@ export class OrionTextareaSetup extends SharedFieldSetup<OrionTextareaProps, str
 
 	private setTextareaHeight () {
 		nextTick(() => {
-			const input = this._input.value;
+			const input = this._orionInput.value;
 			if (input) {
 				const minRows = 1;
 				input.rows = minRows;

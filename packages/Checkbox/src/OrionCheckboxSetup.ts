@@ -1,7 +1,7 @@
 import { isArray } from 'lodash-es';
 import { type ModelRef } from 'vue';
 import { SharedFieldSetup, type SharedFieldSetupEmits, type SharedFieldSetupProps } from '../../Shared/SharedFieldSetup';
-import { type SharedPropsColor } from '../../Shared/SharedProps';
+import { SharedProps, type SharedPropsColor } from '../../Shared/SharedProps';
 
 export type OrionCheckboxEmits<T> = SharedFieldSetupEmits<T> & {};
 export type OrionCheckboxProps = SharedFieldSetupProps & SharedPropsColor & {
@@ -20,12 +20,6 @@ export type OrionCheckboxProps = SharedFieldSetupProps & SharedPropsColor & {
 	// @doc props/reverse displays the label first
 	// @doc/fr props/reverse affiche d'abord le label puis la case à cocher
 	reverse?: boolean
-	// @doc props/type the type of the input
-	// @doc/fr props/type type du champ
-	type?: string
-	// @doc props/size the size of the checkbox
-	// @doc/fr props/size taille de la case à cocher
-	size?: Extract<Orion.Size, 'sm' | 'md'>
 };
 type VModelType = any[] | boolean | null | undefined;
 
@@ -33,12 +27,10 @@ export class OrionCheckboxSetup extends SharedFieldSetup<OrionCheckboxProps, VMo
 
 	static readonly defaultProps = {
 		...SharedFieldSetup.defaultProps,
-		color: 'primary' as Orion.Color,
-		type: 'checkbox',
-		size: 'md' as OrionCheckboxProps['size'],
+		...SharedProps.color,
 	};
 
-	protected inputType = 'checkbox';
+	readonly inputType = 'checkbox';
 
 	protected get isValidCustom () {
 		if (this.props.required) {
@@ -64,7 +56,8 @@ export class OrionCheckboxSetup extends SharedFieldSetup<OrionCheckboxProps, VMo
 	constructor (
 		protected props: OrionCheckboxProps & typeof OrionCheckboxSetup.defaultProps,
 		protected emits: OrionCheckboxEmits<VModelType>,
-		protected vModel: ModelRef<VModelType>) {
+		protected vModel: ModelRef<VModelType>,
+	) {
 		super(props, emits, vModel);
 	}
 

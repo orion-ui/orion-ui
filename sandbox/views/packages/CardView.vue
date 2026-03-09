@@ -45,10 +45,13 @@
 				ref="theOne"
 				style="width: 20rem;"
 				:selected="state.selected"
-				title="Euismod Aenean Egestas"
 				:hover-elevation="1"
 				@click="notify()">
 				Etiam porta sem malesuada magna mollis euismod.
+
+				<template #header-actions>
+					<div class="ml-a">tutu</div>
+				</template>
 
 				<template #actions>
 					<o-icon

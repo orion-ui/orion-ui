@@ -2,140 +2,53 @@
 @import "../../Shared/styles/mixins.less";
 
 .orion-toggle {
-	cursor: pointer;
-	position: relative;
-	display: flex;
-	flex-direction: row-reverse;
-	gap: var(--o-space-4);
-	align-items: center;
-	justify-content: flex-end;
-	margin: 0;
+	--o-toggle-core-width: var(--o-field-height);
+	--o-toggle-core-height: calc(var(--o-field-height) / 2 + 0.25rem);
+	--o-toggle-core-padding: 0.125rem;
+	--o-toggle-core-button-size: calc(var(--o-toggle-core-height) - (var(--o-toggle-core-padding) * 2));
+	--o-toggle-core-button-translate-x: 0;
+	--o-toggle-vertical-padding: calc((var(--o-field-height) - var(--o-toggle-core-height)) / 2);
+	--o-field-input-background-color: var(--o-background-neutral-moderate);
 
-	&__label {
-		cursor: pointer;
-		user-select: none;
-		.typography(body2-default);
-
-		.orion-toggle--required & {
-			padding-right: 0.375rem;
-
-			&::after {
-				content: "*";
-				position: absolute;
-				z-index: 1;
-				top: 0;
-				color: var(--o-text-danger-default);
-			}
-		}
-
-		.orion-toggle--reverse & {
-			padding-right: var(--o-space-16);
-			padding-left: 0;
-		}
-
-		.orion-toggle--disabled & {
-			cursor: not-allowed;
-			color: var(--o-text-neutral-moderate);
-		}
-	}
-
-	&__input {
-		display: none;
-	}
+	padding-top: var(--o-toggle-vertical-padding);
+	padding-bottom: var(--o-toggle-vertical-padding);
 
 	&__core {
 		user-select: none;
 		position: relative;
-		display: flex;
 		box-sizing: border-box;
-		margin: var(--o-space-4);
-		background-color: var(--o-background-neutral-moderate);
-		outline: 0;
+		width: var(--o-toggle-core-width);
+		height: var(--o-toggle-core-height);
+		padding: var(--o-toggle-core-padding);
+		border-radius: var(--o-toggle-core-height);
+		background-color: var(--o-field-input-background-color);
 		transition:
 			border-color 0.3s,
 			background-color 0.3s;
 
 		&-button {
-			position: absolute;
-			z-index: 2;
-			top: 0;
-			left: 0;
-			overflow: hidden;
-			display: block;
-			border-radius: 100%;
-			background: #fff;
+			transform: translateX(var(--o-toggle-core-button-translate-x));
+			background: var(--o-background-neutral-default);
 			filter:
 				drop-shadow(0 2px 4px rgb(0 0 0 / 3%))
 				drop-shadow(0 4px 6px rgb(0 0 0 / 8%));
-			transition: transform 0.5s;
+			transition: transform 0.3s;
+			.circle(var(--o-toggle-core-button-size));
 		}
-
-		.orion-toggle--disabled & {
-			opacity: 0.5;
-		}
-
-		.orion-toggle:focus & {
-			outline: 1px solid var(--o-border-neutral-focus);
-			outline-offset: 1px;
-		}
-	}
-
-	&__pictos {
-		display: none;
-	}
-
-	&:hover {
-		> .orion-toggle__core {
-			background-color: var(--o-background-neutral-hover);
-		}
-	}
-
-	&--reverse {
-		flex-direction: row;
-	}
-
-	&--inline {
-		display: inline-flex;
 	}
 
 	&--checked {
-		each(@colors, {
-			&.orion-toggle--@{value} {
-				> .orion-toggle__core,
-				> .orion-toggle__core > .orion-toggle__core-button::before,
-				> .orion-toggle__core > .orion-toggle__core-button::after {
-					background: var(~"--o-background-@{value}-default");
-				}
-			}
-		});
-
-		&.orion-toggle--neutral {
-			> .orion-toggle__core,
-			> .orion-toggle__core > .orion-toggle__core-button::before,
-			> .orion-toggle__core > .orion-toggle__core-button::after {
-				background: var(--o-background-neutral-default);
-			}
-		}
-
-		&.orion-toggle--inverted {
-			> .orion-toggle__core,
-			> .orion-toggle__core > .orion-toggle__core-button::before,
-			> .orion-toggle__core > .orion-toggle__core-button::after {
-				background: var(--o-background-neutral-highlight);
-			}
-		}
+		--o-toggle-core-button-translate-x: calc(var(--o-toggle-core-width) - var(--o-toggle-core-height));
 	}
 
-	&--disabled {
-		cursor: not-allowed;
+	.orion-field {
+		&__label {
+			margin-top: calc((var(--o-toggle-core-height) - var(--o-field-label-min-height)) / 2);
+		}
 
-		/* stylelint-disable-next-line no-descending-specificity */
-		> .orion-toggle__core {
-			background: var(--o-background-neutral-disabled);
-
-			> .orion-toggle__core-button {
-				background: var(--o-background-neutral-subtle);
-			}
+		&__input {
+			margin-top: 0;
+			border-radius: var(--o-toggle-core-height);
 		}
 	}
 }

@@ -1,20 +1,24 @@
 <template>
 	<orion-field
 		v-bind="setup.orionFieldBinding"
-		class="orion-textarea"
-		:class="{ 'orion-textarea-max-length': maxLength }"
 		@clear="setup.clear()">
+		<template #label>
+			<slot name="label"/>
+		</template>
+		<template #hint>
+			<slot name="hint"/>
+		</template>
+
 		<textarea
-			:id="`orion-input_${setup._uid}`"
-			:ref="setup._input"
+			:id="`orion-${setup.inputType}_${setup._uid}`"
+			:ref="setup._orionInput"
 			v-model="vModel"
 			style="resize: none;"
-			class="orion-input__input"
-			:maxlength="maxLength"
 			v-bind="{
 				...$attrs,
-				disabled: disabled,
-				readonly: readonly,
+				disabled,
+				readonly,
+				maxlength,
 			}"
 			@keydown.enter.meta="emits('submit', vModel)"
 			@keydown.enter.ctrl="emits('submit', vModel)"
@@ -22,29 +26,16 @@
 			@blur="setup.handleBlur($event)"/>
 
 		<span
-			v-if="maxLength"
-			class="orion-input__textarea-counter">
-			{{ vModel?.length ?? 0 }}/{{ maxLength }}
+			v-if="maxlength"
+			class="orion-textarea__counter">
+			{{ vModel?.length ?? 0 }}/{{ maxlength }}
 		</span>
 		<span
 			v-else-if="showLength"
-			class="orion-input__textarea-counter">
+			class="orion-textarea__counter">
 			{{ vModel?.length ?? 0 }}
 		</span>
 	</orion-field>
-	<div
-		v-if="setup.showState
-			&& (setup.showError || setup.showWarning)
-			&& setup.validationHtmlMessages?.length"
-		class="orion-input__error-message"
-		v-html="setup.validationHtmlMessages"/>
-	<div
-		v-if="hintText && !(setup.showState
-			&& (setup.showError || setup.showWarning)
-			&& setup.validationHtmlMessages?.length)"
-		class="orion-input__hint-text">
-		{{ hintText }}
-	</div>
 </template>
 
 <script setup lang="ts">

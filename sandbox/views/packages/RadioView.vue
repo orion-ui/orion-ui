@@ -3,19 +3,36 @@
 		<o-alert>
 			<pre>fieldValue: {{ fieldValue }}</pre>
 		</o-alert>
-		<o-radio
-			v-model="fieldValue"
-			label="toto1"
-			icon-check="airplay"
-			input-value="toto1"/>
-		<o-radio
-			v-model="fieldValue"
-			label="toto2"
-			input-value="toto2"/>
+		<div class="flex g-16 ai-fs">
+			<o-radio
+				v-model="fieldValue"
+				label="toto1"
+				icon-check="airplay"
+				input-value="toto1"
+				:validation="val => val === 'toto1'"
+				validation-error-message="value should be toto1"/>
+			<o-radio
+				v-model="fieldValue"
+				label="toto2"
+				reverse
+				input-value="toto2"
+				:validation="val => val === 'toto2'"
+				validation-error-message="value should be toto2">
+				<template #hint>
+					Hint for toto2
+					<span>dsfklmjh</span>
+				</template>
+				ok <strong>dude</strong>
+			</o-radio>
+			<o-input
+				model-value="dfkjh"
+				label="tutu"/>
+		</div>
 		<o-radio
 			v-model="fieldValue"
 			label="toto3"
 			input-value="toto3"
+			hint="qsdfkjh"
 			disabled/>
 		<o-radio
 			v-model="fieldValue"

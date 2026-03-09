@@ -8,12 +8,17 @@
 		<slot/>
 
 		<template #popper>
-			<p class="orion-pop-confirm__title">
-				<slot name="content">
-					<orion-icon icon="warning_amber"/>
+			<div class="orion-pop-confirm__content">
+				<h5
+					v-if="!hideTitle"
+					class="orion-pop-confirm__title"
+					:class="{ 'orion-pop-confirm__title--danger': setup.isDanger }">
+					<orion-icon :icon="setup.icon"/>
 					{{ setup.title }}
-				</slot>
-			</p>
+				</h5>
+				<slot name="content"/>
+			</div>
+
 			<div
 				:ref="setup._actions"
 				class="orion-pop-confirm__actions"
@@ -26,16 +31,15 @@
 						cancel: setup.cancel.bind(setup),
 					}">
 					<orion-button
-						color="danger"
 						outline
-						size="xs"
+						size="md"
 						@click="setup.cancel()">
 						{{ setup.lang.CANCEL }}
 					</orion-button>
 					<orion-button
-						color="success"
+						:color="setup.confirmButtonColor"
 						autofocus
-						size="xs"
+						size="md"
 						@click="setup.confirm()">
 						{{ setup.lang.CONFIRM }}
 					</orion-button>

@@ -1,5 +1,5 @@
 import { cloneDeep } from 'lodash-es';
-import { useLang } from 'services';
+import { useLang } from 'services/LangService';
 import { useMonkey } from 'services/MonkeyService';
 import { type ModelRef, nextTick, reactive, ref, watch } from 'vue';
 import { SharedSetup } from '../../Shared/SharedSetup';

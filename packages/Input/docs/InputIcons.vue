@@ -3,7 +3,7 @@
 		<div class="col-sm-4">
 			<o-input
 				v-model="value"
-				label="Prefix icon"
+				placeholder="Prefix icon"
 				prefix-icon="check"/>
 		</div>
 		<div class="col-sm-4">

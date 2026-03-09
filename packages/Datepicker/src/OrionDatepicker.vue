@@ -12,22 +12,27 @@
 		@apply-hide="setup.handlePopperHide()">
 		<orion-field
 			v-bind="setup.orionFieldBinding"
-			:id="`orion-input_${setup._uid}`"
-			class="orion-datepicker"
 			:has-value="setup.hasValue"
-			:label-is-floating="setup.hasValue || (type === 'date' && setup.isFocus)"
+			:label-is-floating="setup.hasValue || (type === 'date' && setup.isFocus && !!label)"
 			:class="[
 				{ 'orion-datepicker--range' : type === 'range' },
 				{ 'orion-datepicker-multiple' : type === 'multiple' },
 			]"
 			@clear="setup.handleClear()">
+			<template #label>
+				<slot name="label"/>
+			</template>
+			<template #hint>
+				<slot name="hint"/>
+			</template>
+
 			<input
 				v-if="type === 'date'"
-				:ref="setup._input"
-				class="orion-input__input"
+				:id="`orion-${setup.inputType}_${setup._uid}`"
+				:ref="setup._orionInput"
 				:value="setup.displayDateSelected"
 				:maxlength="setup.maxInput"
-				v-bind="$attrs"
+				v-bind="{ ...$attrs, disabled, readonly }"
 				@keydown="setup.handleKeydownGuard($event)"
 				@focus="setup.handleFocus($event)"
 				@mouseup="setup.handleMouseup()"
@@ -36,9 +41,9 @@
 
 			<div
 				v-else-if="type === 'multiple'"
-				:ref="setup._input"
-				class="orion-input__input"
+				:ref="setup._orionInput"
 				tabindex="0"
+				class="orion-datepicker__ghost-input"
 				@focus="setup.handleFocus($event)"
 				@blur="setup.handleBlur($event)">
 				<div
@@ -48,14 +53,14 @@
 						v-for="(date) in multiple?.slice(0, setup.maxVisibleMultipleDates)"
 						:key="date.toString()"
 						:color="multipleLabelColor"
-						size="xs"
+						size="sm"
 						squared>
-						<div class="flex ai-c g-8">
+						<span class="orion-datepicker-multiple__item">
 							{{ setup.inputValueFormat(date) }}
 							<span
 								:class="`orion-datepicker-multiple__clearable`"
 								@click="setup.removeDate(date)"/>
-						</div>
+						</span>
 					</orion-chips>
 					<v-dropdown
 						v-if="multiple && multiple?.length > setup.maxVisibleMultipleDates"
@@ -63,6 +68,7 @@
 						:shown="setup.displayMultipleDropdown"
 						@apply-hide="setup.displayMultipleDropdown = false">
 						<orion-chips
+							size="sm"
 							@mousedown.prevent.stop
 							@click="setup.toggleMultiplePopper()">
 							+ {{ multiple.length - setup.maxVisibleMultipleDates }}
@@ -73,14 +79,14 @@
 									v-for="date in multiple?.slice(setup.maxVisibleMultipleDates)"
 									:key="date.toString()"
 									:color="multipleLabelColor"
-									size="xs"
+									size="sm"
 									squared>
-									<div class="flex ai-c g-8">
+									<span class="orion-datepicker-multiple__item">
 										{{ setup.inputValueFormat(date) }}
 										<span
 											:class="`orion-datepicker-multiple__clearable`"
 											@click="setup.removeDate(date)"/>
-									</div>
+									</span>
 								</orion-chips>
 							</div>
 						</template>
@@ -96,9 +102,9 @@
 
 			<div
 				v-else
-				:ref="setup._input"
-				class="orion-input__input"
+				:ref="setup._orionInput"
 				tabindex="0"
+				class="orion-datepicker__ghost-input"
 				@focus="setup.handleFocus($event)"
 				@blur="setup.handleBlur($event)">
 				<span v-if="type === 'week' && range?.weekNumber">
@@ -118,13 +124,6 @@
 					</template>
 				</span>
 			</div>
-
-			<div
-				v-if="setup.showState
-					&& (setup.showError || setup.showWarning)
-					&& setup.validationHtmlMessages?.length"
-				class="orion-input__error-message"
-				v-html="setup.validationHtmlMessages"/>
 		</orion-field>
 
 		<template #popper>

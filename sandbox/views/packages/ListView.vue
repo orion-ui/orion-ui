@@ -4,7 +4,8 @@
 			v-model:selected="selectedItems"
 			use-auto-pagination
 			:list="fullList"
-			:page="page"
+			:page="pagination.page"
+			:size="pagination.size"
 			:total="fullList.length">
 			<template #default="{ item, selected }">
 				<o-card
@@ -21,24 +22,24 @@
 
 <script setup lang="ts">
 import { faker } from '@faker-js/faker';
-import { computed, reactive } from 'vue';
 import { getUid } from 'lib';
+import { computed, reactive } from 'vue';
 
 type item = {
-	id: number,
-	name: string,
+	id: number
+	name: string
 	lastname: string
-}
+};
 
 const fullList = seedList();
-const page = reactive<Orion.ListPage>({
+const pagination = reactive({
 	size: 10,
-	index: 1,
+	page: 1,
 });
 
 const selectedItems = reactive<item[]>([]);
 
-const list = computed(() => fullList.slice(page.size * (page.index - 1), page.size * page.index));
+const list = computed(() => fullList.slice(pagination.size * (pagination.page - 1), pagination.size * pagination.page));
 
 function seedList (qty = 100) {
 	const items: item[] = [];
@@ -57,7 +58,8 @@ function toggleItemSelection (item: any) {
 	const index = selectedItems.findIndex(x => x.id === item.id);
 	if (index > -1) {
 		selectedItems.splice(index, 1);
-	} else {
+	}
+	else {
 		selectedItems.push(item);
 	}
 }

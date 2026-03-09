@@ -17,7 +17,7 @@
 				<div class="col-sm-4">
 					<o-select
 						v-model="data.ajaxSingle"
-						size="xs"
+						size="sm"
 						placeholder="placeholder"
 						track-key="id"
 						label="Label"
@@ -59,7 +59,7 @@
 					<o-select
 						v-model="data.ajaxSingle"
 						required
-						autocomplete
+						label="sdfdsdf"
 						prefill-search="oiu"
 						track-key="id"
 						display-key="email"
@@ -68,7 +68,9 @@
 						:custom-fetch="customFetchAsync"
 						v-bind="commonBind">
 						<template #value="{ item, display }">
-							<div class="flex g-8 ai-c">{{ item?.name }} <o-chips>{{ display }}</o-chips></div>
+							<div class="flex g-8 ai-c">
+								{{ item?.name }} <o-chips>{{ display }}</o-chips>
+							</div>
 						</template>
 						<template #option="{ item, markedSearch }">
 							<div>
@@ -82,7 +84,6 @@
 				<div class="col-sm-4">
 					<o-select
 						v-model="data.ajaxMultiple"
-						autocomplete
 						track-key="id"
 						display-key="email"
 						fetch-url="https://jsonplaceholder.typicode.com/users"
@@ -115,7 +116,9 @@
 								v-model="data.fieldSelect.value"
 								:label="`Simple Prefix Icon`"
 								:options="data.fieldSelect.options"
-								prefix-icon="camera"/>
+								prefix-icon="camera"
+								clearable
+								placeholder="Placeholeder"/>
 						</div>
 						<div class="col-sm-6">
 							<o-select
@@ -473,7 +476,6 @@
 						v-model="data.ajaxSingle"
 						label="test"
 						class="hide-select"
-						display-key="email"
 						:dropdown-options="{
 							placement: 'bottom-start',
 						}"
@@ -494,7 +496,6 @@
 						label="test"
 						multiple
 						class="hide-select"
-						display-key="email"
 						:dropdown-options="{
 							placement: 'bottom-start',
 						}"
@@ -519,6 +520,7 @@
 				</div>
 			</div>
 		</o-section>
+
 		<o-section title="orion-select | favorites options">
 			<div class="row row--gutter">
 				<div class="col-sm-6">

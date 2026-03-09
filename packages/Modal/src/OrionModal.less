@@ -4,6 +4,7 @@
 @positionTop: 4rem;
 @positionBottom: 4rem;
 @maxWidth: calc(100vw - 2.5rem);
+@widthXXL: 74rem;
 @widthXL: 61.5rem;
 @widthLG: 50rem;
 @widthMD: 36.5rem;
@@ -172,21 +173,19 @@
 	}
 
 	&--fullscreen {
-		top: 0;
-		left: 0;
+		inset: var(--o-space-12);
 		transform: none;
-		width: 100vw;
-		max-width: 100vw;
-		height: 100vh; // dvh support fallback
-		height: 100dvh;
-		max-height: 100vh; // dvh support fallback
-		max-height: 100dvh;
-		border-radius: 0;
+		width: calc(100vw - 2 * var(--o-space-12));
+		max-width: calc(100vw - 2 * var(--o-space-12));
+		height: calc(100vh - 2 * var(--o-space-12)); // dvh support fallback
+		height: calc(100dvh - 2 * var(--o-space-12));
+		max-height: calc(100vh - 2 * var(--o-space-12)); // dvh support fallback
+		max-height: calc(100dvh - 2 * var(--o-space-12));
+	}
 
-		.orion-modal__body {
-			height: calc(100vh - 4rem - 5rem); // dvh support fallback
-			height: calc(100dvh - 4rem - 5rem);
-		}
+	&--xxl {
+		left: ~"max(calc(50% - @{widthXXL} / 2), calc(50% - @{maxWidth} / 2))";
+		width: ~"min(@{widthXXL}, @{maxWidth})";
 	}
 
 	&--xl {

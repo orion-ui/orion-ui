@@ -1,8 +1,9 @@
 import { isString } from 'lodash-es';
-import { useMonkey } from 'services';
+import { useMonkey } from 'services/MonkeyService';
 import { useValidation } from 'services/ValidationService';
+import { Reactive } from 'utils';
 import { hoursToNumber } from 'utils/tools';
-import { type ModelRef, nextTick, reactive, watch } from 'vue';
+import { type ModelRef, nextTick, watch } from 'vue';
 import { SharedFieldSetup, type SharedFieldSetupEmits, type SharedFieldSetupProps } from '../../Shared/SharedFieldSetup';
 
 export type OrionInputEmits = SharedFieldSetupEmits<Nil<string | number>> & {
@@ -29,9 +30,9 @@ export type OrionInputProps = SharedFieldSetupProps & {
 	// @doc props/maskHourSeparator hour separator
 	// @doc/fr props/maskHourSeparator sépérateur d'heures
 	maskHourSeparator?: string
-	// @doc props/maxLength maximum length of the input
-	// @doc/fr props/maxLength longueur maximum du champ
-	maxLength?: number
+	// @doc props/maxlength maximum length of the input
+	// @doc/fr props/maxlength longueur maximum du champ
+	maxlength?: number
 	// @doc props/maxValue maximum value of the input
 	// @doc/fr props/maxValue valeur maximale du champ
 	maxValue?: number
@@ -64,15 +65,17 @@ export class OrionInputSetup extends SharedFieldSetup<OrionInputProps, VModelTyp
 		staticMask: true,
 	};
 
-	protected state = reactive({
+	readonly inputType = 'input';
+
+	// eslint-disable-next-line orion-rules/state-are-private-readonly
+	@Reactive protected readonly state = {
 		...this.sharedState,
 		vmodelArray: [] as VmodelArray[],
 		selection: {
 			start: 0 as number | undefined | null,
 			end: 0 as number | undefined | null,
 		},
-
-	});
+	};
 
 	protected get isValidCustom () {
 		if (this.props.type === 'email') {
@@ -84,10 +87,10 @@ export class OrionInputSetup extends SharedFieldSetup<OrionInputProps, VModelTyp
 		}
 	}
 
-	protected get labelIsFloating () { return (this.state.vmodelArray.length && this.props.staticMask) ? true : super.labelIsFloating }
+	get labelIsFloating () { return (this.state.vmodelArray.length && this.props.staticMask) ? true : super.labelIsFloating }
 	private get vmodelArray () { return this.state.vmodelArray }
 	private get selection () {
-		const inputElt = this._input.value;
+		const inputElt = this._orionInput.value;
 		if (!inputElt) return;
 
 		const start = this.state.selection.start ?? inputElt.selectionStart;
@@ -121,9 +124,9 @@ export class OrionInputSetup extends SharedFieldSetup<OrionInputProps, VModelTyp
 
 			if (this.props.mask === 'hour' && Number.isFinite(value)) {
 				const valueToReturn = useMonkey(Number(value)).toHoursMinutes(this.props.maskHourSeparator);
-				const cursorPosition = this._input.value?.selectionStart ?? 0;
-				const charAtZero = this._input.value?.value.charAt(0);
-				const charAtCursor = this._input.value?.value.charAt(cursorPosition);
+				const cursorPosition = this._orionInput.value?.selectionStart ?? 0;
+				const charAtZero = this._orionInput.value?.value.charAt(0);
+				const charAtCursor = this._orionInput.value?.value.charAt(cursorPosition);
 				const separatorIndex = valueToReturn.indexOf(this.props.maskHourSeparator);
 				const maskHourSetted = this.props.maskHourFormat === '24h'
 				  && Number(valueToReturn.split(this.props.maskHourSeparator)[0]) > 2
@@ -132,19 +135,19 @@ export class OrionInputSetup extends SharedFieldSetup<OrionInputProps, VModelTyp
 				if (cursorPosition) {
 					nextTick(() => {
 						if (maskHourSetted) {
-							this._input.value?.setSelectionRange(3, 3);
+							this._orionInput.value?.setSelectionRange(3, 3);
 						}
 						else if (charAtCursor === '' && cursorPosition === 1) {
-							this._input.value?.setSelectionRange(2, 2);
+							this._orionInput.value?.setSelectionRange(2, 2);
 						}
 						else if (
 							(charAtZero === '0' && charAtCursor === this.props.maskHourSeparator)
 							|| (cursorPosition === 2 && charAtZero === '0' && charAtCursor === '0')
 						) {
-							this._input.value?.setSelectionRange(cursorPosition - 1, cursorPosition - 1);
+							this._orionInput.value?.setSelectionRange(cursorPosition - 1, cursorPosition - 1);
 						}
 						else {
-							this._input.value?.setSelectionRange(cursorPosition, cursorPosition);
+							this._orionInput.value?.setSelectionRange(cursorPosition, cursorPosition);
 						}
 					});
 				}
@@ -156,8 +159,8 @@ export class OrionInputSetup extends SharedFieldSetup<OrionInputProps, VModelTyp
 			}
 		}
 
-		if (isString(value) && this.props.maxLength) {
-			return value.slice(0, this.props.maxLength);
+		if (isString(value) && this.props.maxlength) {
+			return value.slice(0, this.props.maxlength);
 		}
 
 		return value as VModelType;
@@ -187,8 +190,8 @@ export class OrionInputSetup extends SharedFieldSetup<OrionInputProps, VModelTyp
 					}
 				}
 				else if (typeof this.props.mask === 'object' && this.props.mask) {
-					if (this._input.value) {
-						this._input.value.value = String(this.props.mask.display(value));
+					if (this._orionInput.value) {
+						this._orionInput.value.value = String(this.props.mask.display(value));
 					}
 
 					value = typeof this.props.mask.value === 'function'
@@ -198,8 +201,8 @@ export class OrionInputSetup extends SharedFieldSetup<OrionInputProps, VModelTyp
 
 				if (value && this.props.maxValue && Number(value) > this.props.maxValue) {
 					value = this.props.maxValue;
-					if (this._input.value) {
-						this._input.value.value = String(value);
+					if (this._orionInput.value) {
+						this._orionInput.value.value = String(value);
 					}
 				}
 			}
@@ -253,26 +256,26 @@ export class OrionInputSetup extends SharedFieldSetup<OrionInputProps, VModelTyp
 
 	setCursorPosition (event?: MouseEvent | KeyboardEvent) {
 		if (!this.vmodelArray.length) return;
-		const start = (event?.target as HTMLInputElement)?.selectionStart ?? this._input.value?.selectionStart;
-		const end = (event?.target as HTMLInputElement)?.selectionEnd ?? this._input.value?.selectionEnd;
+		const start = (event?.target as HTMLInputElement)?.selectionStart ?? this._orionInput.value?.selectionStart;
+		const end = (event?.target as HTMLInputElement)?.selectionEnd ?? this._orionInput.value?.selectionEnd;
 
 		nextTick(() => {
 			this.state.selection.start = start;
 			this.state.selection.end = end;
-			this._input.value?.setSelectionRange(start ?? 0, end ?? 0);
+			this._orionInput.value?.setSelectionRange(start ?? 0, end ?? 0);
 		});
 	}
 
 	handleFocus (e: FocusEvent): void {
 		this.state.selection = {
-			start: this._input.value?.selectionStart ?? 0,
-			end: this._input.value?.selectionStart ?? 0,
+			start: this._orionInput.value?.selectionStart ?? 0,
+			end: this._orionInput.value?.selectionStart ?? 0,
 		};
 		super.handleFocus(e);
 	}
 
 	handleBlurCustom (event: FocusEvent) {
-		if (this._input.value?.value && this.props.minValue && (hoursToNumber(this._input.value.value, this.props.maskHourSeparator)) < this.props.minValue) {
+		if (this._orionInput.value?.value && this.props.minValue && (hoursToNumber(this._orionInput.value.value, this.props.maskHourSeparator)) < this.props.minValue) {
 			this.vModel.value = this.props.minValue;
 			this.emits('input', this.props.minValue);
 		}
@@ -287,7 +290,7 @@ export class OrionInputSetup extends SharedFieldSetup<OrionInputProps, VModelTyp
 			const misc = ['Backspace', 'Delete', 'Tab'];
 			const numeric = [...numbers, ...arrows, ...misc];
 
-			const inputElt = this._input.value!;
+			const inputElt = this._orionInput.value!;
 			const inputValue = inputElt.value;
 			const selectionStart = inputElt.selectionStart ?? 0;
 			const selectionEnd = inputElt.selectionEnd ?? 0;
@@ -300,24 +303,24 @@ export class OrionInputSetup extends SharedFieldSetup<OrionInputProps, VModelTyp
 			if (e.metaKey || e.ctrlKey) return;
 
 			if (e.key === '-'
-			  && this._input.value
+			  && this._orionInput.value
 			  && this.props.allowNegative
 			  && typeof this.props.mask === 'string'
 			  && ['integer', 'decimal'].includes(this.props.mask)) {
-				const inputValueLength = this._input.value.value.length;
-				const inputValueSelectionLength = (this._input.value.selectionEnd ?? 0) - (this._input.value.selectionStart ?? 0);
+				const inputValueLength = this._orionInput.value.value.length;
+				const inputValueSelectionLength = (this._orionInput.value.selectionEnd ?? 0) - (this._orionInput.value.selectionStart ?? 0);
 				if (inputValueLength && inputValueSelectionLength === inputValueLength) return;
 
 				e.preventDefault();
 
-				this._input.value.value.includes('-')
-					? this._input.value.value = this._input.value.value.replace(/-/g, '')
-					: this._input.value.value = '-' + this._input.value.value;
+				this._orionInput.value.value.includes('-')
+					? this._orionInput.value.value = this._orionInput.value.value.replace(/-/g, '')
+					: this._orionInput.value.value = '-' + this._orionInput.value.value;
 
-				if (typeof this.vModelProxy === 'number' && this._input.value.value !== '-') {
+				if (typeof this.vModelProxy === 'number' && this._orionInput.value.value !== '-') {
 					this.vModelProxy = -this.vModelProxy;
 				}
-				else if (typeof this.vModelProxy === 'string' && this._input.value.value !== '-') {
+				else if (typeof this.vModelProxy === 'string' && this._orionInput.value.value !== '-') {
 					this.vModelProxy = '-' + this.vModelProxy;
 				}
 			}
@@ -329,25 +332,25 @@ export class OrionInputSetup extends SharedFieldSetup<OrionInputProps, VModelTyp
 			if (this.props.mask === 'decimal') {
 				if (![...numeric, '.'].includes(e.key)) e.preventDefault();
 
-				if (e.key === '.' && this._input.value?.value.includes('.')) e.preventDefault();
+				if (e.key === '.' && this._orionInput.value?.value.includes('.')) e.preventDefault();
 
-				if ([',', '.'].includes(e.key) && this._input.value && !this._input.value.value.includes('.')) {
+				if ([',', '.'].includes(e.key) && this._orionInput.value && !this._orionInput.value.value.includes('.')) {
 					e.preventDefault();
 
-					this._input.value.value = this._input.value.value.length
+					this._orionInput.value.value = this._orionInput.value.value.length
 						? inputValueBeforeCursor + '.' + inputValueAfterCursor
 						: '0.';
 
-					if (this._input.value.value !== '0.') {
-						this.vModelProxy = Number(this._input.value.value);
+					if (this._orionInput.value.value !== '0.') {
+						this.vModelProxy = Number(this._orionInput.value.value);
 					}
 
 					setTimeout(() => {
-						if (this._input.value?.value === '0.') {
-							this._input.value?.setSelectionRange(this._input.value.value.length, this._input.value.value.length);
+						if (this._orionInput.value?.value === '0.') {
+							this._orionInput.value?.setSelectionRange(this._orionInput.value.value.length, this._orionInput.value.value.length);
 						}
 						else {
-							this._input.value?.setSelectionRange(inputValueBeforeCursor.length + 1, inputValueBeforeCursor.length + 1);
+							this._orionInput.value?.setSelectionRange(inputValueBeforeCursor.length + 1, inputValueBeforeCursor.length + 1);
 						}
 					});
 				}
@@ -356,16 +359,16 @@ export class OrionInputSetup extends SharedFieldSetup<OrionInputProps, VModelTyp
 					setTimeout(() => {
 						if (!selectionLength) {
 							if (e.key === 'Backspace') {
-								this._input.value!.value = inputValueBeforeCursor.slice(0, -1) + inputValueAfterCursor;
-								this._input.value?.setSelectionRange(selectionStart - 1, selectionStart - 1);
+								this._orionInput.value!.value = inputValueBeforeCursor.slice(0, -1) + inputValueAfterCursor;
+								this._orionInput.value?.setSelectionRange(selectionStart - 1, selectionStart - 1);
 							}
 							else {
-								this._input.value!.value = inputValueBeforeCursor + inputValueAfterCursor.slice(1);
-								this._input.value?.setSelectionRange(selectionStart, selectionStart);
+								this._orionInput.value!.value = inputValueBeforeCursor + inputValueAfterCursor.slice(1);
+								this._orionInput.value?.setSelectionRange(selectionStart, selectionStart);
 							}
 						}
 						else {
-							this._input.value!.value = inputValueBeforeSelection + inputValueAfterSelection;
+							this._orionInput.value!.value = inputValueBeforeSelection + inputValueAfterSelection;
 						}
 					}, 1);
 				}
@@ -457,7 +460,7 @@ export class OrionInputSetup extends SharedFieldSetup<OrionInputProps, VModelTyp
 				this.vmodelArray[this.state.selection.end].isValid = false;
 				this.state.selection.start = this.state.selection.end;
 				nextTick(() => {
-					this._input.value?.setSelectionRange(this.state.selection.end ?? 0, this.state.selection.end ?? 0);
+					this._orionInput.value?.setSelectionRange(this.state.selection.end ?? 0, this.state.selection.end ?? 0);
 				});
 			}
 			else {
@@ -469,7 +472,7 @@ export class OrionInputSetup extends SharedFieldSetup<OrionInputProps, VModelTyp
 					this.state.selection.end -= 1;
 				}
 				nextTick(() => {
-					this._input.value?.setSelectionRange(this.state.selection.start ?? 0, this.state.selection.end ?? 0);
+					this._orionInput.value?.setSelectionRange(this.state.selection.start ?? 0, this.state.selection.end ?? 0);
 				});
 			}
 		// Handle delete key
@@ -510,7 +513,7 @@ export class OrionInputSetup extends SharedFieldSetup<OrionInputProps, VModelTyp
 				}
 
 				nextTick(() => {
-					this._input.value?.setSelectionRange(this.state.selection.start ?? 0, this.state.selection.end ?? 0);
+					this._orionInput.value?.setSelectionRange(this.state.selection.start ?? 0, this.state.selection.end ?? 0);
 				});
 			}
 			else {
@@ -522,7 +525,7 @@ export class OrionInputSetup extends SharedFieldSetup<OrionInputProps, VModelTyp
 					this.state.selection.end -= 1;
 				}
 				nextTick(() => {
-					this._input.value?.setSelectionRange(this.state.selection.start ?? 0, this.state.selection.end ?? 0);
+					this._orionInput.value?.setSelectionRange(this.state.selection.start ?? 0, this.state.selection.end ?? 0);
 				});
 			}
 
@@ -531,7 +534,7 @@ export class OrionInputSetup extends SharedFieldSetup<OrionInputProps, VModelTyp
 	}
 
 	private vModelWithMask (val?: string) {
-		const inputValue = val ?? this._input.value?.value;
+		const inputValue = val ?? this._orionInput.value?.value;
 		if (!inputValue || !this.vmodelArray.length || !this.vModel.value) return;
 		let stringToReturn = '';
 		for (let i = 0; i < this.vmodelArray.length; i++) {
@@ -564,8 +567,8 @@ export class OrionInputSetup extends SharedFieldSetup<OrionInputProps, VModelTyp
 	}
 
 	private testKeyPattern (key: string, start: number, end?: number) {
-		if (!this._input.value
-		  || (!this._input.value?.value?.length && !key)
+		if (!this._orionInput.value
+		  || (!this._orionInput.value?.value?.length && !key)
 		  || !this.selection
 		) return false;
 
@@ -705,7 +708,7 @@ export class OrionInputSetup extends SharedFieldSetup<OrionInputProps, VModelTyp
 
 				this.setNextValidCursorPosition();
 				nextTick(() => {
-					this._input.value?.setSelectionRange(this.state.selection.end ?? 0, this.state.selection.end ?? 0);
+					this._orionInput.value?.setSelectionRange(this.state.selection.end ?? 0, this.state.selection.end ?? 0);
 				});
 
 			}
@@ -731,7 +734,7 @@ export class OrionInputSetup extends SharedFieldSetup<OrionInputProps, VModelTyp
 					end: this.state.selection.end,
 				};
 				if (this.state.selection.end)
-					this._input.value?.setSelectionRange(this.state.selection.end, this.state.selection.end);
+					this._orionInput.value?.setSelectionRange(this.state.selection.end, this.state.selection.end);
 			});
 		}
 	}

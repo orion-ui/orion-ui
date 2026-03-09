@@ -14,15 +14,20 @@
 		<orion-field
 			v-if="!$slots.default"
 			v-bind="setup.orionFieldBinding"
-			:placeholder="(setup.valueToSearch?.length && !setup._optionssearchinput || setup.labelIsFloating) ? undefined : placeholder"
-			:label-is-floating="setup.labelIsFloating"
-			class="orion-select"
-			:class="[{ 'orion-select--multiple': multiple }, $attrs.class]"
-			@clear="setup.clear()">
+			:class="{ 'orion-select--multiple': multiple }"
+			@clear="setup.clear()"
+			@click="setup._orionInput.value?.focus()">
+			<template #label>
+				<slot name="label"/>
+			</template>
+			<template #hint>
+				<slot name="hint"/>
+			</template>
+
 			<div
-				:id="`orion-input_${setup._uid}`"
-				:ref="setup._input"
-				class="orion-input__input"
+				:id="`orion-${setup.inputType}_${setup._uid}`"
+				:ref="setup._orionInput"
+				class="orion-select__ghost-input"
 				:tabindex="disabled ? undefined : 0"
 				@focus="setup.handleFocus($event)"
 				@blur="setup.handleBlur($event)"
@@ -31,14 +36,6 @@
 				@keydown.down.prevent="setup.handleKeydown('down')"
 				@keydown.up.prevent="setup.handleKeydown('up')"
 				@keydown.enter="setup.selectItemFromEnter()">
-				<input
-					v-if="autocomplete && (!setup.hasValue || (setup.hasValue && setup.isFocus)) && !multiple"
-					:ref="setup._autocomplete"
-					v-model="setup.valueToSearch"
-					type="text"
-					class="orion-input__input orion-select__autocomplete-input"
-					@focus="setup.handleFocus($event)"
-					@blur="setup.handleBlur($event)">
 				<div
 					v-if="multiple && !$slots['multiple-value']"
 					class="orion-select__multiple-content">
@@ -48,6 +45,7 @@
 						squared
 						:close="!readonly && !disabled"
 						class="orion-select__selected-item"
+						@click.prevent.stop
 						@close="setup.removeIndex(i)">
 						<slot
 							v-if="setup.valueDisplay(item)"
@@ -76,16 +74,21 @@
 									:close="!readonly && !disabled"
 									squared
 									@close="setup.removeIndex(index + setup.maxVisibleMultipleItems)">
-									<div class="flex ai-c g-8">
-										{{ setup.valueDisplay(item)!.display }}
-									</div>
+									<slot
+										v-if="$slots['multiple-value-chips'] && vModel && setup.isArray(vModel)"
+										name="multiple-value-chips"
+										:value="item">
+										<div class="flex ai-c g-8">
+											{{ setup.valueDisplay(item)!.display }}
+										</div>
+									</slot>
 								</orion-chips>
 							</div>
 						</template>
 					</v-dropdown>
 				</div>
 				<slot
-					v-else-if="!multiple && !setup.isArray(vModel) && setup.valueDisplay()"
+					v-else-if="!multiple && !setup.isArray(vModel) && setup.valueDisplay() && setup.hasValue"
 					name="value"
 					v-bind="setup.valueDisplay(vModel)">
 					<span>{{ setup.valueDisplay(vModel).display }}</span>
@@ -98,18 +101,11 @@
 
 			<template #icon-suffix>
 				<orion-icon
-					class="orion-input__icon orion-select__carret orion-select__icon--internal"
+					class="orion-select__carret"
 					icon="expand_more"
-					:class="{ 'open' : setup.isFocus }"
+					:class="{ 'orion-select__carret--open' : setup.isFocus }"
 					:loading="setup.isFetching"/>
 			</template>
-
-			<div
-				v-if="setup.showState
-					&& (setup.showError || setup.showWarning)
-					&& setup.validationHtmlMessages?.length"
-				class="orion-input__error-message"
-				v-html="setup.validationHtmlMessages"/>
 		</orion-field>
 
 		<div
@@ -139,7 +135,7 @@
 					v-model="setup.valueToSearch"
 					:placeholder="setup.lang.SEARCH"
 					class="orion-select__popover-search-input"
-					size="xs"
+					size="sm"
 					suffix-icon="search"
 					enterkeyhint="search"
 					@keydown.down.prevent.stop="setup.handleKeydown('down')"
@@ -148,7 +144,8 @@
 					@keydown.tab.prevent.stop="setup.handleTabEvent()"
 					@keydown.esc.stop="setup.handleBlur()"
 					@blur="setup.handleBlur()"
-					@input="setup.resetIndex()"/>
+					@input="setup.resetIndex()"
+					@focus="setup.handleFocus($event)"/>
 
 				<div class="orion-select__popover-options-wrapper">
 					<slot
@@ -232,17 +229,17 @@
 					v-if="setup.responsive.onDesktop"
 					class="orion-select__popover-footer">
 					<div class="orion-select__popover-footer-item">
-						<span class="keyboard-shortcut">ESC</span>
+						<kbd class="keyboard-shortcut">ESC</kbd>
 						<span>{{ setup.lang.CLOSE_ACTION }}</span>
 					</div>
 
 					<div class="orion-select__popover-footer-item">
-						<span class="keyboard-shortcut">
+						<kbd class="keyboard-shortcut">
 							<o-icon icon="keyboard_arrow_down"/>
-						</span>
-						<span class="keyboard-shortcut">
+						</kbd>
+						<kbd class="keyboard-shortcut">
 							<o-icon icon="keyboard_arrow_up"/>
-						</span>
+						</kbd>
 						<span>{{ setup.lang.NAVIGATE }}</span>
 					</div>
 				</div>
@@ -276,8 +273,12 @@ const setup = new OrionSelectSetup(props, emits, vModel);
 
 defineSlots<{
 	'default'(): void
+	'hint'(): void
+	'label'(): void
 	// eslint-disable-next-line no-unused-vars
 	'multiple-value'(props: { value: T[] }): void
+	// eslint-disable-next-line no-unused-vars
+	'multiple-value-chips'(props: { value: T }): void
 	// eslint-disable-next-line no-unused-vars
 	'before-options'(props: { options: O[] }): void
 	// eslint-disable-next-line no-unused-vars
@@ -325,6 +326,12 @@ type ObjectKeyValidator<
  * @doc slot/multiple-value/value/desc value of the vModel
  * @doc/fr slot/multiple-value/value/desc valeur du vModel
  * @doc slot/multiple-value/value/type BaseVModelType[]
+ *
+ * @doc slot/multiple-value-chips The content of each chip in the select if the props multiple is set
+ * @doc/fr slot/multiple-value-chips Contenu de chaque chip dans le select si la props multiple est définie
+ * @doc slot/multiple-value-chips/value/desc value of the vModel
+ * @doc/fr slot/multiple-value-chips/value/desc valeur du vModel
+ * @doc slot/multiple-value-chips/value/type BaseVModelType
  *
  * @doc slot/before-options Content before the select options in the popover
  * @doc/fr slot/before-options Contenu de la tooltip avant la liste des options

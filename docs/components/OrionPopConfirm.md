@@ -11,6 +11,8 @@ It takes place when `useConfirm()` is too heavy and breaks the UX.
 
 It's a more convenient way to implement this mecanism for actions with a smaller impact.
 
+Use the `type` prop to set the intent: `default` (default) or `destructive` for risky actions.
+
 Like with `useConfirm()`, you can press <kbd>Enter</kbd> to **confirm** and <kbd>Esc</kbd> to **cancel**.
 
 ## Usage
