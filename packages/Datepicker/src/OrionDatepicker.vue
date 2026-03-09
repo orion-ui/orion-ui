@@ -1,8 +1,4 @@
 <template>
-	<pre>type {{ type }}</pre>
-	<pre>placeholder {{ placeholder }}</pre>
-	<pre>labelIsFloating {{ setup.labelIsFloating }}</pre>
-
 	<v-dropdown
 		:ref="setup._popover"
 		placement="bottom-start"
