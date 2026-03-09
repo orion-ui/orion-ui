@@ -21,7 +21,13 @@
 					v-model="test3.phone.phoneNumber"
 					v-model:country-code="test3.phone.phoneCountryCode"
 					:label="`Mobile ${phone.label}`"
-					mobile/>
+					placeholder="test placeholder"
+					:floating-label="false"
+					mobile>
+					<!-- <template #label>
+						<span style="color: cyan;">Custom label</span>
+					</template> -->
+				</o-phone>
 				<pre>{{ test3.phone }}</pre>
 			</div>
 			<div class="col-sm-6">

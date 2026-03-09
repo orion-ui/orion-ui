@@ -80,6 +80,7 @@
 					readonly,
 					size,
 					placeholder,
+					floatingLabel,
 					label: setup.displayStaticLabel ? undefined : label,
 				}"
 				@keydown.self="setup.keydownGuard($event)"
