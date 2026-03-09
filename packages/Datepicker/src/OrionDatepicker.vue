@@ -1,4 +1,8 @@
 <template>
+	<pre>type {{ type }}</pre>
+	<pre>placeholder {{ placeholder }}</pre>
+	<pre>labelIsFloating {{ setup.labelIsFloating }}</pre>
+
 	<v-dropdown
 		:ref="setup._popover"
 		placement="bottom-start"
@@ -12,8 +16,6 @@
 		@apply-hide="setup.handlePopperHide()">
 		<orion-field
 			v-bind="setup.orionFieldBinding"
-			:has-value="setup.hasValue"
-			:label-is-floating="setup.hasValue || (type === 'date' && setup.isFocus && !!label)"
 			:class="[
 				{ 'orion-datepicker--range' : type === 'range' },
 				{ 'orion-datepicker-multiple' : type === 'multiple' },
@@ -32,6 +34,7 @@
 				:ref="setup._orionInput"
 				:value="setup.displayDateSelected"
 				:maxlength="setup.maxInput"
+				:placeholder="(!setup.hasValue && (!floatingLabel || setup.labelIsFloating)) ? placeholder : undefined"
 				v-bind="{ ...$attrs, disabled, readonly }"
 				@keydown="setup.handleKeydownGuard($event)"
 				@focus="setup.handleFocus($event)"
@@ -46,6 +49,11 @@
 				class="orion-datepicker__ghost-input"
 				@focus="setup.handleFocus($event)"
 				@blur="setup.handleBlur($event)">
+				<div
+					v-if="!setup.hasValue && (!floatingLabel || setup.labelIsFloating)"
+					class="orion-field__placeholder">
+					{{ placeholder }}
+				</div>
 				<div
 					v-if="!$slots.multipleDisplay"
 					class="orion-datepicker-multiple__content">
@@ -107,6 +115,11 @@
 				class="orion-datepicker__ghost-input"
 				@focus="setup.handleFocus($event)"
 				@blur="setup.handleBlur($event)">
+				<div
+					v-if="!setup.hasValue && (!floatingLabel || setup.labelIsFloating)"
+					class="orion-field__placeholder">
+					{{ placeholder }}
+				</div>
 				<span v-if="type === 'week' && range?.weekNumber">
 					<div
 						v-if="valueDisplayFormat"

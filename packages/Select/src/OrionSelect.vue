@@ -37,6 +37,11 @@
 				@keydown.up.prevent="setup.handleKeydown('up')"
 				@keydown.enter="setup.selectItemFromEnter()">
 				<div
+					v-if="!setup.hasValue && (!floatingLabel || setup.labelIsFloating)"
+					class="orion-field__placeholder">
+					{{ placeholder }}
+				</div>
+				<div
 					v-if="multiple && !$slots['multiple-value']"
 					class="orion-select__multiple-content">
 					<orion-chips

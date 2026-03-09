@@ -9,11 +9,20 @@
 		</o-alert>
 		<o-card style="width: 20rem;">
 			<o-datepicker
-				v-model="date"
 				label="simple date"
 				clearable
 				time
-				clear-to-null>
+				clear-to-null
+				placeholder="placeh"/>
+			<o-datepicker
+				v-model:multiple="datemultiple"
+				label="simple date"
+				clearable
+				time
+				clear-to-null
+				type="multiple"
+				:floating-label="false"
+				placeholder="placeh">
 				<!-- <template #popper="{ closePopperSlot }">
 					<div style="width: 45rem; padding: 1rem; color: black; background-color: aquamarine;">
 						Aenean eu leo quam.

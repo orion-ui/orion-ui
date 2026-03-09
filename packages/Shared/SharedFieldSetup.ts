@@ -152,7 +152,7 @@ export abstract class SharedFieldSetup<P, T, E extends SharedFieldSetupEmits = S
 		return;
 	}
 
-	protected get labelIsFloating () {
+	get labelIsFloating () {
 		return this.state.isFocus
 		  || this.hasValue
 		  || this.props.forceLabelFloating

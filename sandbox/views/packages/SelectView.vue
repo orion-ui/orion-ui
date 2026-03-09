@@ -59,14 +59,18 @@
 					<o-select
 						v-model="data.ajaxSingle"
 						required
-						label="sdfdsdf"
 						prefill-search="oiu"
 						track-key="id"
 						display-key="email"
 						value-key="id"
 						placeholder="Placeholder"
+
+						clearable
 						:custom-fetch="customFetchAsync"
 						v-bind="commonBind">
+						<template #label>
+							<em>tututu</em>
+						</template>
 						<template #value="{ item, display }">
 							<div class="flex g-8 ai-c">
 								{{ item?.name }} <o-chips>{{ display }}</o-chips>
