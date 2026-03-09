@@ -105,12 +105,12 @@
 			}
 
 			&.orion-chips--outline {
-				color: var(~"--o-text-@{value}-default");
+				color: var(~"--o-text-@{value}-subtle");
 				background: var(~"--o-background-@{value}-minimal");
 				border: 1px solid var(~"--o-border-@{value}-subtle");
 
 				.orion-chips__dual {
-					color: var(~"--o-text-@{value}-default");
+					color: var(~"--o-text-@{value}-subtle");
 					border-left: 1px solid var(~"--o-border-@{value}-subtle");
 				}
 			}
@@ -118,7 +118,7 @@
 			&.orion-chips--nude {
 				border: 1px solid var(~"--o-border-@{value}-subtle");
 				background: var(--o-background-neutral-transparent);
-				color: var(~"--o-text-@{value}-default");
+				color: var(~"--o-text-@{value}-subtle");
 			}
 
 			&-alt {
@@ -176,6 +176,18 @@
 		background: var(--o-background-neutral-subtle);
 
 		.orion-chips__close.orion-button {
+			color: var(--o-text-inverted-default);
+		}
+	}
+
+	&--inverted.orion-chips--outline {
+		color: var(--o-text-inverted-default);
+
+		.orion-chips__close.orion-button {
+			color: var(--o-text-inverted-default);
+		}
+
+		.orion-chips__dual {
 			color: var(--o-text-inverted-default);
 		}
 	}
