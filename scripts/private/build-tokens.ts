@@ -104,9 +104,10 @@ const NO_PX_UNIT_SUFFIXES = ['-weight', '-opacity', '-z-index'];
 const REM_BASE = 16;
 
 function isRemToken (pathParts: string[]) {
-	if (pathParts.length < 2) return false;
+	if (pathParts.length < 1) return false;
 	const [group, scale] = pathParts;
-	return group === 'typography' && (scale === 'size' || scale === 'lineHeight');
+	if (group === 'radius' || group === 'sizing' || group === 'spacing') return true;
+	return pathParts.length >= 2 && group === 'typography' && (scale === 'size' || scale === 'lineHeight');
 }
 
 function isEmToken (pathParts: string[]) {
