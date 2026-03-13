@@ -2268,7 +2268,7 @@
           ]
         },
         "$type": "number",
-        "$value": "{sizing.24}"
+        "$value": "{sizing.28}"
       },
       "sm": {
         "$extensions": {
@@ -2277,7 +2277,7 @@
           ]
         },
         "$type": "number",
-        "$value": "{sizing.28}"
+        "$value": "{sizing.32}"
       },
       "md": {
         "$extensions": {
@@ -2286,7 +2286,7 @@
           ]
         },
         "$type": "number",
-        "$value": "{sizing.32}"
+        "$value": "{sizing.40}"
       },
       "lg": {
         "$extensions": {
@@ -2295,7 +2295,7 @@
           ]
         },
         "$type": "number",
-        "$value": "{sizing.40}"
+        "$value": "{sizing.48}"
       },
       "xl": {
         "$extensions": {
@@ -2304,7 +2304,7 @@
           ]
         },
         "$type": "number",
-        "$value": "{sizing.48}"
+        "$value": "{sizing.72}"
       }
     }
   },
