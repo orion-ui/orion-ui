@@ -4,18 +4,38 @@
 /* stylelint-disable color-hex-length */
 
 :root {
+	--o-border-size-default: var(--o-sizing-1);
+	--o-border-size-moderate: var(--o-sizing-2);
+	--o-gap-card-group: var(--o-spacing-24);
+	--o-gap-card-stack: var(--o-spacing-16);
+	--o-gap-form-row-inline: var(--o-spacing-12);
+	--o-gap-form-row-stack: var(--o-spacing-16);
+	--o-gap-form-section: var(--o-spacing-24);
+	--o-gap-inline-lg: var(--o-spacing-16);
+	--o-gap-inline-md: var(--o-spacing-12);
+	--o-gap-inline-sm: var(--o-spacing-8);
+	--o-gap-section-lg: var(--o-spacing-32);
+	--o-gap-section-md: var(--o-spacing-24);
+	--o-gap-section-sm: var(--o-spacing-16);
+	--o-gap-stack-lg: var(--o-spacing-24);
+	--o-gap-stack-md: var(--o-spacing-16);
+	--o-gap-stack-sm: var(--o-spacing-8);
 	--o-gradient-primary: linear-gradient(0deg, var(--o-gradient-primary-from) 0%, var(--o-gradient-primary-to) 100%);
-	--o-height-control-lg: var(--o-sizing-40);
-	--o-height-control-md: var(--o-sizing-32);
-	--o-height-control-sm: var(--o-sizing-28);
-	--o-height-control-xl: var(--o-sizing-48);
-	--o-height-control-xs: var(--o-sizing-24);
+	--o-height-control-lg: var(--o-sizing-48);
+	--o-height-control-md: var(--o-sizing-40);
+	--o-height-control-sm: var(--o-sizing-32);
+	--o-height-control-xl: var(--o-sizing-72);
+	--o-height-control-xs: var(--o-sizing-28);
+	--o-motion-expansion: var(--o-motion-duration-300);
+	--o-motion-interaction: var(--o-motion-duration-100);
+	--o-motion-transition: var(--o-motion-duration-500);
 	--o-opacity-minimal: 20;
 	--o-opacity-moderate: 80;
 	--o-opacity-subtle: 40;
 	--o-radius-lg: var(--o-radius-12);
 	--o-radius-md: var(--o-radius-8);
 	--o-radius-none: var(--o-radius-0);
+	--o-radius-round: var(--o-radius-999);
 	--o-radius-sm: var(--o-radius-6);
 	--o-radius-xl: var(--o-radius-16);
 	--o-radius-xs: var(--o-radius-4);
@@ -29,10 +49,10 @@
 	--o-shadow-down-24-40: inset -1.6667px -1.6667px 1.6667px 0px #ffffffb3, inset 2.5px 2.5px 1.6667px 0px #aeaec033;
 	--o-shadow-down-40-64: inset -2.6667px -2.6667px 2.6667px 0px #ffffffb3, inset 4px 4px 2.6667px 0px #aeaec033;
 	--o-shadow-down-64-more: inset -4.0833px -4.0833px 4.0833px 0px #ffffffb3, inset 6.125px 6.125px 4.0833px 0px #aeaec033;
-	--o-shadow-input-active: 0px 0px 4px 0px var(--o-colors-primary-200);
-	--o-shadow-input-danger: 0px 0px 4px 0px var(--o-colors-danger-200);
-	--o-shadow-input-success: 0px 0px 4px 0px var(--o-colors-success-200);
-	--o-shadow-input-warning: 0px 0px 4px 0px var(--o-colors-warning-200);
+	--o-shadow-input-active: 0px 0px 4px 0px var(--o-color-primary-200);
+	--o-shadow-input-danger: 0px 0px 4px 0px var(--o-color-danger-200);
+	--o-shadow-input-success: 0px 0px 4px 0px var(--o-color-success-200);
+	--o-shadow-input-warning: 0px 0px 4px 0px var(--o-color-warning-200);
 	--o-shadow-up-0-24: inset 0px 0px 0px 0.2px #ffffff33, -1px -1px 3px 0px #ffffff, 1.5px 1.5px 3px 0px #aeaec066;
 	--o-shadow-up-24-40: inset 0px 0px 0px 0.3333px #ffffff33, -1.6667px -1.6667px 5px 0px #ffffff, 2.5px 2.5px 5px 0px #aeaec066;
 	--o-shadow-up-40-64: inset 0px 0px 0px 0.5333px #ffffff33, -2.6667px -2.6667px 8px 0px #ffffff, 4px 4px 8px 0px #aeaec066;
